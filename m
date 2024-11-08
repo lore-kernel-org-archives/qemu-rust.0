@@ -1,69 +1,76 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1t9TTy-0003aZ-9o
-	for mharc-qemu-rust@gnu.org; Fri, 08 Nov 2024 13:13:18 -0500
+	id 1t9X6L-0007U7-Ud
+	for mharc-qemu-rust@gnu.org; Fri, 08 Nov 2024 17:05:09 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1t9TTw-0003Zv-49
- for qemu-rust@nongnu.org; Fri, 08 Nov 2024 13:13:16 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1t9TTt-0003Z1-1T
- for qemu-rust@nongnu.org; Fri, 08 Nov 2024 13:13:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1731089591;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:in-reply-to:in-reply-to:  references:references;
- bh=+zJrvTg0DM+h0x5eQKrDGa6QcN0PUbRmU4Tf2yYDGT8=;
- b=OyZV1wFO6uqW1DYtdwMfDlhDmmCEUDyoBhpnlD9/8KBfeSfNqDWCwbGh/2HsF3woH9jVDy
- QCPwlp8YNrEqTtsJH4azQWz3iJxNAVOFejvw4i/2MvG+8lD2D9BwVPlIek3ejF4KepX6JR
- 7B2HFLwFAbvk3rRDJw5QV8wE0HIqrt8=
-Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-635-_8HaSwJ-MvWftK0WPFRS7g-1; Fri,
- 08 Nov 2024 13:13:08 -0500
-X-MC-Unique: _8HaSwJ-MvWftK0WPFRS7g-1
-X-Mimecast-MFC-AGG-ID: _8HaSwJ-MvWftK0WPFRS7g
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 855341955D55; Fri,  8 Nov 2024 18:13:06 +0000 (UTC)
-Received: from redhat.com (unknown [10.42.28.70])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id B68DB300019E; Fri,  8 Nov 2024 18:13:03 +0000 (UTC)
-Date: Fri, 8 Nov 2024 18:12:58 +0000
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, manos.pitsidianakis@linaro.org, kwolf@redhat.com,
- junjie.mao@hotmail.com, zhao1.liu@intel.com, qemu-rust@nongnu.org
-Subject: Re: [RFC PATCH 11/11] rust: ci: add job that runs Rust tools
-Message-ID: <Zy5UjQDWjYa9WtR6@redhat.com>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-References: <20241108180139.117112-1-pbonzini@redhat.com>
- <20241108180139.117112-12-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1t9UNc-0000hk-Et
+ for qemu-rust@nongnu.org; Fri, 08 Nov 2024 14:10:49 -0500
+Received: from mail-ej1-x62f.google.com ([2a00:1450:4864:20::62f])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1t9UNa-0002Sg-0G
+ for qemu-rust@nongnu.org; Fri, 08 Nov 2024 14:10:48 -0500
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a9a0ef5179dso404272266b.1
+ for <qemu-rust@nongnu.org>; Fri, 08 Nov 2024 11:10:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1731093044; x=1731697844; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6Y28Gf/YpD42AlEjMGjgP8OA0CoYWr1vvY5+m1N00XM=;
+ b=PLlWOuXj+THUXpqEp8XbB9WGdHTxcmPBINnKuYpsgY6OVpN5KygDTSHjH79BgvKDnz
+ cfmM3sX51A9T/FdOFyxq3zhVr0DrVQz963gA73LP7ZUYW+UC7hQyXnEfrzK3onggCX26
+ 5aQYR2td8JqFt+RlRKDDdfiVpvtjlezh0yKQ7m5E8Xzl4yblRnACeACL/2F1AWS8b0x7
+ /7TTu+yOqdyItCyaSYvQlg56WgxjIPcJ1YQF8eprlRDw9vEGUnnYMLMXazfAH41O90Te
+ AqwQ1R34o5go9iZ7rVmOcbVWQs94MAT53X41edSLEFTHLUKEBkroDYt8bOpAvUb8a8RV
+ 5tAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1731093044; x=1731697844;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=6Y28Gf/YpD42AlEjMGjgP8OA0CoYWr1vvY5+m1N00XM=;
+ b=iDLTDtYWVY8vtP9Tww58d2tJ/Zhu45EUkyQEz8ur/Tp2oQRu28lAaOBUpWF1ULOK4I
+ 70kA65xqb2EY/7ASYe9FEOMRzQCHrda2rmNVgzkrx2hb04Mz/eetBYgumGoRHxKhyIPg
+ lx5zUQJdqh/aC4fp6LasRAqo+1Xkp9bX/M4KQIejQTxt+pG3N/5rzG/40+6k7Hyi5cjB
+ mBQhBdTFIB5DYlDaFX38oh+K5QIM+duEDa89v4QokjdceNOhQozUEy63l8grbra1izg1
+ CESju01nR+H45D7hrButE9WA+4ar7tiAlSvFnqf5f2BTCNf2ZcajTXcsyy5LP47ZjkpG
+ VsdA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWzrYNIseQpUaiZv49UJNkV/EI8zAzl1mHGf/h8pW/Yt0dvgTy9BhFS8enRvoWw9fAIkG4Uyuq2UDo=@nongnu.org
+X-Gm-Message-State: AOJu0YzxqPTalCPv4BTM1vLtDZhSP2AIRRozPcmiKYVzjW0peji39wbm
+ kajr3p3pwRQboYKsbXz+jj+20tAp5yS1jNGH1X5vgWkLoJw9eTPUjSJEoY3mgELXvE2Eys17v4n
+ yy7OrmbB76ayyDMt+RtVAS8hqoBHP6R+P+l1tvg==
+X-Google-Smtp-Source: AGHT+IEsKFouMC8tB0nZ3lsuep3lpfm1JksZpkpo0FqpgQO4z5KRLMBpYStMHFcg06P1RCbVMid0Ijf+C0LDBmVgWAk=
+X-Received: by 2002:a17:907:94c4:b0:a9e:8522:1bd8 with SMTP id
+ a640c23a62f3a-a9eefebd13bmr411170366b.6.1731093043646; Fri, 08 Nov 2024
+ 11:10:43 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20241108180139.117112-12-pbonzini@redhat.com>
-User-Agent: Mutt/2.2.12 (2023-09-09)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -23
-X-Spam_score: -2.4
+References: <CAFEAcA-ZQuyGTtG-vhRTEwpz0L4cpimNxkKix45Yw6gVHXozRQ@mail.gmail.com>
+ <Zy4zXtZK_9OnXSJU@redhat.com>
+In-Reply-To: <Zy4zXtZK_9OnXSJU@redhat.com>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Fri, 8 Nov 2024 19:10:17 +0000
+Message-ID: <CAAjaMXZ_VXE+2Wk-5EhdLARx2qS2qMuF7k6xRs21LdJ0vxPxXQ@mail.gmail.com>
+Subject: Re: qemu-rust@nongnu.org mailing list created
+To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
+Cc: Peter Maydell <peter.maydell@linaro.org>,
+ QEMU Developers <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::62f;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ej1-x62f.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.34,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Fri, 08 Nov 2024 17:05:08 -0500
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,54 +82,34 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Nov 2024 18:13:17 -0000
+X-List-Received-Date: Fri, 08 Nov 2024 19:10:50 -0000
 
-On Fri, Nov 08, 2024 at 07:01:39PM +0100, Paolo Bonzini wrote:
-> Code checks, as well as documentation generation, are not yet tied
-> to "make check" because they need new version of the Rust toolchain
-> (even nightly in the case of "rustfmt").  Run them in CI using the
-> existing nightly-Rust container.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  .gitlab-ci.d/buildtest-template.yml                | 14 ++++++++++++++
->  .gitlab-ci.d/buildtest.yml                         | 14 ++++++++++++++
->  .../docker/dockerfiles/fedora-rust-nightly.docker  |  4 ++++
->  tests/lcitool/refresh                              |  4 ++++
->  4 files changed, 36 insertions(+)
-> 
-> diff --git a/.gitlab-ci.d/buildtest-template.yml b/.gitlab-ci.d/buildtest-template.yml
-> index 39da7698b09..612e968ff19 100644
-> --- a/.gitlab-ci.d/buildtest-template.yml
-> +++ b/.gitlab-ci.d/buildtest-template.yml
-> @@ -79,6 +79,20 @@
->      - $MAKE NINJA=":" $MAKE_CHECK_ARGS
->      - section_end test
->  
-> +.rust_test_job_template:
-> +  extends: .base_job_template
-> +  stage: test
-> +  image: $CI_REGISTRY_IMAGE/qemu/$IMAGE:$QEMU_CI_CONTAINER_TAG
-> +  script:
-> +    - source scripts/ci/gitlab-ci-section
-> +    - section_start test "Running Rust code checks"
-> +    - cd build
-> +    - pyvenv/bin/meson devenv -w ../rust ${CARGO-cargo} fmt --check
-> +    - make clippy
-> +    - pyvenv/bin/meson devenv -w ../rust ${CARGO-cargo} doc --no-deps
-> +    - pyvenv/bin/meson devenv -w ../rust ${CARGO-cargo} test --doc
-> +    - section_end test
-> +
+On Fri, Nov 8, 2024 at 4:51=E2=80=AFPM Daniel P. Berrang=C3=A9 <berrange@re=
+dhat.com> wrote:
+>
+> On Fri, Nov 08, 2024 at 03:13:58PM +0000, Peter Maydell wrote:
+> > One of the things suggested at the KVM Forum Rust BoF was creating
+> > a qemu-rust mailing list. This is going to be one of our usual
+> > qemu-foo lists along the lines of what we have already for
+> > qemu-block, qemu-arm, etc, and the standard policy applies: emails
+> > to qemu-rust should also cc qemu-devel so people subscribed to
+> > qemu-devel only can see traffic. The separate list will hopefully
+> > assist people who want to follow Rust-related discussion and patches
+> > in identifying those emails.
+> >
+> > You can subscribe here if you like:
+> >  https://lists.nongnu.org/mailman/listinfo/qemu-rust
+> >
+> > The list should be set up with basically the same config as qemu-devel;
+> > in particular it accepts posts from non-members (though there might be
+> > a slight delay on first posting from a non-member).
+> >
+> > Please cc qemu-rust on future Rust related discussions and any
+> > patches that touch or add Rust code.
+>
+> Can we get qemu-rust@nongnu.org added to the MAINTAINERS file
+> for every entry which touches the rust/ subtree.
 
-I'd suggest that the static checks "fmt" and "doc" should be separated
-from the dynamic (unit test) check in  "tests", and that the former
-should be in a job defined in the static-checks.yml file.
 
-With regards,
-Daniel
--- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
-
+I will send a patch.
 
