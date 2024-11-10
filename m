@@ -1,78 +1,77 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tABL3-0008Et-Lo
-	for mharc-qemu-rust@gnu.org; Sun, 10 Nov 2024 12:03:01 -0500
+	id 1tAW3C-0004R0-OE
+	for mharc-qemu-rust@gnu.org; Mon, 11 Nov 2024 10:09:58 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1tABL0-0008A7-JX
- for qemu-rust@nongnu.org; Sun, 10 Nov 2024 12:02:59 -0500
-Received: from mail-ej1-x62a.google.com ([2a00:1450:4864:20::62a])
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tA8Tk-0001FU-0X
+ for qemu-rust@nongnu.org; Sun, 10 Nov 2024 08:59:48 -0500
+Received: from mail-wm1-x332.google.com ([2a00:1450:4864:20::332])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1tABKy-0005vF-MX
- for qemu-rust@nongnu.org; Sun, 10 Nov 2024 12:02:58 -0500
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a93c1cc74fdso633049266b.3
- for <qemu-rust@nongnu.org>; Sun, 10 Nov 2024 09:02:55 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tA8Ti-0000qX-5r
+ for qemu-rust@nongnu.org; Sun, 10 Nov 2024 08:59:47 -0500
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-4315abed18aso31152335e9.2
+ for <qemu-rust@nongnu.org>; Sun, 10 Nov 2024 05:59:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731258174; x=1731862974; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MrlmipU7gDyelYiqq1Vx8MZ5Sox84+3e6R+53VbFjlI=;
- b=rbtmBKuHD4SZFpWudzhne50XSvfvsB8UxhhNQ9rLbiE9RoFpJCttxtA/UX9KGyu4vy
- yKYxS7YLubq6OPFCJYk9tZv5L0A3TDP+jiSPMhSeuLdz6BOJRGueTg7Wj7+kyIx7DQwt
- TH+wO2pCRfGshxoM/uTqTRSVTKVle21uBg8kN5PyiaPuroYpvDPtZjvSnViEG4DwtqJg
- pWAXI5qzwwSReU0b+ffXSL7wtD3eMBr7nH/0wI5FkUWam3Ru+uysVlkp662kr4XbUcbl
- 0cq9BeHRrjAN99+u9oJJSjqlnM8Wa4ZNMsUnsymUSDFBPtE/dWiyAUuAGvCMXNvbIlau
- Rb6Q==
+ d=linaro.org; s=google; t=1731247184; x=1731851984; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=SBGdfqtnrHgLYzhkKDBqT3rjfZkSqsl63eHNj3sgu28=;
+ b=bv0jkI0xYR1mX6YccGndeUCrNyF2Ip+DzI6IZbMIlyVqthJgAr+vl96fc+gAx0bFQM
+ jLVnYjdWc4ZN65vxFs+STueW05MgBWmdFrTuo5JLi4J48Ss9lDNXemhs8UKZQDmUftLm
+ fi3SqBp4jBHpmpR5Trg5MZ95vX4yFZySYaFMD3OGipxYXodoz+aBrFrcDwyxQ3F2OWQf
+ QB4uMXWQOolhCwEnn8E75/YH3ftu6epp2upEoHOwzrFjfLR0nT++CdfIeianTa5gIZ4d
+ 4heCOk9UEWiRCQdNLWUdemJ02qsUk1AMlrsOD26uRgICfcQ4WdbQpF7xxGsbxVFO/arF
+ eydA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731258174; x=1731862974;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MrlmipU7gDyelYiqq1Vx8MZ5Sox84+3e6R+53VbFjlI=;
- b=vMqKN5PcROFaOn00mz4tCyiDSQIiz5ihIVsdIP5WuB54nDbEFzjSPJfEM6iyt+l8YS
- sNczR33Gbm6bCuQQ/m4bU+VMkkwsXT5yCUkGbl1IyHDgOxlDcUyrEtpvsT2Pqsz4iMmk
- pVbRQlubHtlr9dbmXxKqiG/4CEz2DABdI9wGZySatU99akT9NB2+xJuePV3AG0D8JhQJ
- a7I3/3bVgvGzmg2RBOADtq6fNkH/T/Kyt4/WZ9Ivz62BPQcN1MoIYJ9+5A+bfQLryZhv
- DesBhlr4916FC4xmNUT+GNsooEIVFFT9Vk6MCcZBlDFJ6zR9kGrmcLIdZqJN/5MILt2O
- bLBw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWWFd0UbXoGU7Ynuz8UnNw5kYt6bpC4e/tTmc0oMFwYQJKlYH2lqACw0boQqTF3hix4388mjOVJ1C0=@nongnu.org
-X-Gm-Message-State: AOJu0YzSRIUWSAbtAugnFYt7ljkH/wReHFJStrgTCUeXERgS+lAiw93L
- thUHYSFlmHY69F1a57gANjnNwhh8EferxhBBN9N/Tvl1DfaHLjq5r90VHaelUij+2pUZxiK6/la
- dTNRd8QQMH6G6e0D0LVyG66crBFkTHxTOrRXvLw==
-X-Google-Smtp-Source: AGHT+IGp05PADq+YsBKNcizpiAzuA1UCJY96cNjyFFJSNhXrDqW6S0+ovssVbVnGQkrVYo76zJwjAgppBQAdumXc/UI=
-X-Received: by 2002:a17:906:f598:b0:a9a:4a1f:c97d with SMTP id
- a640c23a62f3a-a9eefeaf039mr963214166b.7.1731258173857; Sun, 10 Nov 2024
- 09:02:53 -0800 (PST)
+ d=1e100.net; s=20230601; t=1731247184; x=1731851984;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=SBGdfqtnrHgLYzhkKDBqT3rjfZkSqsl63eHNj3sgu28=;
+ b=kB+YiwlMSd2xQa7yMKi8DzS7yYGYcPQ+2WCCXWgRtD5RgFhKQ2De6/iuxMmHmnnlfY
+ ivNVw/lz4yhQbaYoKoeNPONdPypc5Bg5Y4qfiANQ2k4wZxMlAW+IMnVvrmNRPGWpl5EV
+ g1dfLqZNqwWhiP4ZhuASayXQKMXlXUjidxF8ZsqU/UHW4j3yh5m8ETXPMtL5xYw2pZwy
+ O1VLMpiTXHBMvXi2NH+ILnKb13Q7aqHhdqk4ZVEDVmpZnwOK46CU3w8KdlXrZ+XNIfHw
+ aE1QYkDehEsb5zGZK49b3THAQ67ZpwjsPrXfrQSUBjOr5Lb6Kx8MkhrT3pVKigBXXyz9
+ 01Fw==
+X-Gm-Message-State: AOJu0YzeRtd1Q66j+uEuDJuV5nA0WwL6RrIsSLENXuAfY2i3sF6jsL6q
+ qRcBCrpeDu0V5cpNZFh4PUNp8+NFjZq0hR0fSCJIjVbDQAmqrImNEtrQN5SREWs=
+X-Google-Smtp-Source: AGHT+IEWTmVMbxzBnQnsPT1q2+ZcNupA05Gq5meX0dzmzj/Y+LrFKTJnOjIYcPGQ/2mk3JtUFLVMCg==
+X-Received: by 2002:a05:600c:4508:b0:431:50cb:2398 with SMTP id
+ 5b1f17b1804b1-432b74fecacmr75924135e9.2.1731247184488; 
+ Sun, 10 Nov 2024 05:59:44 -0800 (PST)
+Received: from [192.168.69.126] (cnf78-h01-176-184-27-70.dsl.sta.abo.bbox.fr.
+ [176.184.27.70]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-381ed9f8dfbsm10591953f8f.73.2024.11.10.05.59.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 10 Nov 2024 05:59:43 -0800 (PST)
+Message-ID: <aa360d5f-b4f2-4a61-a5b8-decc87a97a7b@linaro.org>
+Date: Sun, 10 Nov 2024 14:59:42 +0100
 MIME-Version: 1.0
-References: <20241109-update-maintainers-file-rust-v1-1-f4daba6f782f@linaro.org>
- <aa360d5f-b4f2-4a61-a5b8-decc87a97a7b@linaro.org>
- <CAAjaMXayR_Ugkz76OuYe97tEKvHuuJA79f71GJA=zt8L=ESb2Q@mail.gmail.com>
- <3e3075c0-7555-4732-9f2b-4c0ad9b064fc@linaro.org>
-In-Reply-To: <3e3075c0-7555-4732-9f2b-4c0ad9b064fc@linaro.org>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Sun, 10 Nov 2024 19:02:28 +0200
-Message-ID: <CAAjaMXbShaEDXXpXiSOxwSxahyTudJ-hYT4QwctyOLD7DqvDxQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] MAINTAINERS: CC rust/ patches to qemu-rust list
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, 
- Peter Maydell <peter.maydell@linaro.org>,
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
  =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::62a;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ej1-x62a.google.com
+References: <20241109-update-maintainers-file-rust-v1-1-f4daba6f782f@linaro.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20241109-update-maintainers-file-rust-v1-1-f4daba6f782f@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=2a00:1450:4864:20::332;
+ envelope-from=philmd@linaro.org; helo=mail-wm1-x332.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Mon, 11 Nov 2024 10:09:52 -0500
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,38 +83,63 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Sun, 10 Nov 2024 17:02:59 -0000
+X-List-Received-Date: Sun, 10 Nov 2024 13:59:48 -0000
 
-On Sun, Nov 10, 2024 at 5:36=E2=80=AFPM Philippe Mathieu-Daud=C3=A9
-<philmd@linaro.org> wrote:
->
-> On 10/11/24 15:19, Manos Pitsidianakis wrote:
-> > On Sun, Nov 10, 2024 at 3:59=E2=80=AFPM Philippe Mathieu-Daud=C3=A9
-> > <philmd@linaro.org> wrote:
-> >>
-> >> On 9/11/24 19:29, Manos Pitsidianakis wrote:
-> >>> As of CAFEAcA-ZQuyGTtG-vhRTEwpz0L4cpimNxkKix45Yw6gVHXozRQ@mail.gmail.=
-com
-> >>
-> >> "As of [*] ..." but I'm not sure about the usefulness of "like
-> >> qemu-block, qemu-arm, qemu-ppc etc but", maybe scratch it?
-> >
-> > I definitely find it useful, for what it's worth. It's an all
-> > all-encompassing topic, like block or arm, and some people are
-> > interested in keeping an eye on those topics if they are not CCed on
-> > the main list.
->
-> What I meant is to reword as:
->
->    "As of Nov 2024 [*], we have a new topical mailing list for Rust
->     related patches. Add a new MAINTAINERS entry [...]"
->
+On 9/11/24 19:29, Manos Pitsidianakis wrote:
+> As of CAFEAcA-ZQuyGTtG-vhRTEwpz0L4cpimNxkKix45Yw6gVHXozRQ@mail.gmail.com
 
-Ah I see! I only wrote it to show there's precedent for that. I'm fine
-either way, if the maintainer wants to alter the wording they can keep
-my S-o-b.
+"As of [*] ..." but I'm not sure about the usefulness of "like
+qemu-block, qemu-arm, qemu-ppc etc but", maybe scratch it?
 
---=20
-Manos Pitsidianakis
-Emulation and Virtualization Engineer at Linaro Ltd
+
+> we have a new topical mailing list like qemu-block, qemu-arm, qemu-ppc
+> etc but for Rust related patches. Add a new MAINTAINERS entry to touch
+> all files under rust/ subdirectory and additionally add it to previous
+> rust related entries.
+> 
+> See also:
+> https://lore.kernel.org/qemu-devel/CAFEAcA-ZQuyGTtG-vhRTEwpz0L4cpimNxkKix45Yw6gVHXozRQ@mail.gmail.com/
+
+[*] 
+https://lore.kernel.org/qemu-devel/CAFEAcA-ZQuyGTtG-vhRTEwpz0L4cpimNxkKix45Yw6gVHXozRQ@mail.gmail.com/
+
+> 
+> Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+> ---
+>   MAINTAINERS | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 095420f8b0..373176e445 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3338,6 +3338,10 @@ F: rust/qemu-api
+>   F: rust/qemu-api-macros
+>   F: rust/rustfmt.toml
+>   
+> +Rust-related patches CC here
+> +L: qemu-rust@nongnu.org
+> +F: rust/
+> +
+>   SLIRP
+>   M: Samuel Thibault <samuel.thibault@ens-lyon.org>
+>   S: Maintained
+> @@ -4241,6 +4245,7 @@ F: docs/devel/docs.rst
+>   
+>   Rust build system integration
+>   M: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+> +L: qemu-rust@nongnu.org
+>   S: Maintained
+>   F: scripts/rust/
+>   F: rust/.gitignore
+> 
+> ---
+> base-commit: 134b443512825bed401b6e141447b8cdc22d2efe
+> change-id: 20241109-update-maintainers-file-rust-5cbd97b7b11a
+> 
+> --
+> γαῖα πυρί μιχθήτω
+> 
+> 
+
 
