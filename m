@@ -1,82 +1,123 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tAW3D-0004RG-4P
-	for mharc-qemu-rust@gnu.org; Mon, 11 Nov 2024 10:09:59 -0500
+	id 1tAhJS-0007u1-C3
+	for mharc-qemu-rust@gnu.org; Mon, 11 Nov 2024 22:11:30 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tA9zF-0002u3-3j
- for qemu-rust@nongnu.org; Sun, 10 Nov 2024 10:36:25 -0500
-Received: from mail-ej1-x636.google.com ([2a00:1450:4864:20::636])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tA9zD-0004rA-L6
- for qemu-rust@nongnu.org; Sun, 10 Nov 2024 10:36:24 -0500
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a9a0ef5179dso643217566b.1
- for <qemu-rust@nongnu.org>; Sun, 10 Nov 2024 07:36:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731252982; x=1731857782; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=YmW6ZkvgSMNNTtw/YzDhJX5tLRLxjI6tTQQNSzGmjPg=;
- b=UkzmVjtQwjRuU/mnKk7xa8KWCPwDFsoiY6DguJPni/iwaKOUuCm/Uqs3+0WiCkd3RV
- CZD/Q9vvG4zcRMSsKROGBRHARX4FdMcsOpQvov7lMqMFzwrmWqnO5sQIAXqCTI4SdU+2
- hm0s4MFXrMfLliM4FwV5i1ugzJuHyatGh3ucDEsEdPGgsNNkTXWxiVA6xA6scB/zV4jM
- ncDaS4X/k2rckp6K1yesZGbAwIlPfo1hEp43QpjlV3iwo5BQTsssdyKmHewIazP7pWiR
- IuvIOpAX/N8+md5XrOnaZ7JmAJhCQC1ipAnOlxUjl3JVfMqs+CNGp18hJWbL1+JzYwYZ
- oQGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731252982; x=1731857782;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=YmW6ZkvgSMNNTtw/YzDhJX5tLRLxjI6tTQQNSzGmjPg=;
- b=lLN65+1gE+dys6cAYhWbK8iAfmVnRb7hGXegaokGqHKyoG0BmpJ4uiD7BY0L3dNLla
- hbRABwzQ8GBGEeFGHImJwVed64NJhxSSMwyUlkuz1degmpJi5JrGZD7VkKbyX2iDFKJq
- EDuJb3GzVF1hMXALdXP0h/jxvkX/okYCpWmEt3o9IHeXhjhIpuMzcwJobW580QjIFGBf
- lNi3refX1dNW4wgItce7lzLIe2UDLghLWgCNKhJG99xKj8uVWFaP6eKH8e90pKq/kh0B
- 9RmCYHCl1sUxgpyYKOI9eb3GuZnEewpKSWJRrw0OV+SMGqcEfT1PmZOgGW0DlrhjM/7X
- pmxw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWk2af2izEhqsz0llvHb6/jq8cXpLiI1SDPc8xkLFYjVOGfAZ5w4VmFTv6/XzfFTkv09F6leyoxLIw=@nongnu.org
-X-Gm-Message-State: AOJu0YxRpAyfbnl3PcoCWg2ODEFkKoxxQy0bwRaJG+2hY0z1Dgmz2iah
- FSYu0T/1Qj4fNdx1jnVdU6ZeElM9gxpm2wEPg1np/pTm5LGJbjG2SdTWd3FuqTc=
-X-Google-Smtp-Source: AGHT+IGVIf/JZpDXqbUOdvMAjgEXDM0KcRugchMQaX5rx43DqzUQT1egkt7ivPlFKT4DD802tYc4vg==
-X-Received: by 2002:a17:907:8693:b0:a9a:26a1:1963 with SMTP id
- a640c23a62f3a-a9eefebd0dcmr978432166b.7.1731252981582; 
- Sun, 10 Nov 2024 07:36:21 -0800 (PST)
-Received: from [192.168.69.126] (cnf78-h01-176-184-27-70.dsl.sta.abo.bbox.fr.
- [176.184.27.70]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9ee0a4c0e7sm487794366b.75.2024.11.10.07.36.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 10 Nov 2024 07:36:20 -0800 (PST)
-Message-ID: <3e3075c0-7555-4732-9f2b-4c0ad9b064fc@linaro.org>
-Date: Sun, 10 Nov 2024 16:36:19 +0100
+ (Exim 4.90_1) (envelope-from <junjie.mao@hotmail.com>)
+ id 1tAhJQ-0007ti-Ky; Mon, 11 Nov 2024 22:11:28 -0500
+Received: from mail-sy4aus01olkn20809.outbound.protection.outlook.com
+ ([2a01:111:f403:2819::809]
+ helo=AUS01-SY4-obe.outbound.protection.outlook.com)
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <junjie.mao@hotmail.com>)
+ id 1tAhJP-0000O6-1m; Mon, 11 Nov 2024 22:11:28 -0500
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EQmWheEB+kvbm129/Afaj/T/oinZZom+Q2cwaGRJlI8SksI+nrqQVxtp/FV0WN/fXN/33CKyP4dfdr/WUliAfgs3ZpvLTeL97t51qFsKTDgRU0gCIV3a0Q7ByGbJsNQ8QqxoWE1s2TGHu0NCRyVy4ui9BpntiT0RQF6mp9fooo4ReXzdA2+fl3+P1gJbXZQamMb9DoGgdOZy4Jkx+3BMMukeixV/tgVjHoBl+jqnEygb+UDtf3S44z4mXGRXybi/0C8wq1ExGB2djY9qtB27xDyfeTNAW3hz71nKgU4GBoKoLk5mn2QSV7i6vObLJAZyYOW4GQkujoeMzGjo2ClinQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gGBiBGgvM+gG5441ZynYlMxM/NVm8FCYKY6zv4QMaow=;
+ b=XJKfYZEnZFNrloPCgz5p6olBFte4P0vjuwF4ZkJMXRIYGJzDSvgLPCu4tziZs7rQ1iRZgy/Dvw4zaLKKeL410VhygeVhb6UumFvsdojxVfXm01/hJzsDSKysmUvCvu1Iy/kjEEn/E6ML5J3cnouiSKK22Q9qu0a66ajqsDV1r1Z5ymMUcgG22GQ9D6VkUiFM+9tfyTQ3hL56/IB4hYpy/omx+pe8wm7424N10GmmEpsB9GF8DylOqGabhcgcnZr2HXZHUef0VrnWS1yHHcdKWratQXAAja83iw5to9F/2MqE9cfNYuLdY3e2gq4ecs3cPoRoXVNqKyBPL6UDKeSKyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gGBiBGgvM+gG5441ZynYlMxM/NVm8FCYKY6zv4QMaow=;
+ b=Ge9ihtVqdT5E7v2vXFFbGOQBokR9jRNdrltE4kv9V4C0TDuEFWknux+KUcN9x5UBcEjqHYBTtvQKbQkz7aAA77PO1V/G+wIhYlR6hJCqgN4YCUPNrxDeCV5UPtzHnonifm4391+aNpKMVCPLG0o+e0CVgiqTnlDp4Y3vReimNAbX/Tpv++hyinYcFNv3rhcNK72ZviCvca3Wl/HYu87WT32dlwTYdfl6XyICSvgcQkQL8ukn0M57SuKm2O7XKdBU8l15Y1pFsohO/2MuaLb4eBB89U57Q+5U6b7Mo4dwNNs+0RqzoMql81knzbPF0R17tDT/qQw5V6SgX/W4j3/sNw==
+Received: from SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM (2603:10c6:10:282::22)
+ by SY8P300MB0757.AUSP300.PROD.OUTLOOK.COM (2603:10c6:10:293::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.28; Tue, 12 Nov
+ 2024 03:11:18 +0000
+Received: from SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::aea3:2365:f9e8:5bd]) by SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::aea3:2365:f9e8:5bd%2]) with mapi id 15.20.8137.027; Tue, 12 Nov 2024
+ 03:11:18 +0000
+References: <20241108180139.117112-1-pbonzini@redhat.com>
+ <20241108180139.117112-3-pbonzini@redhat.com>
+User-agent: mu4e 1.6.10; emacs 27.1
+From: Junjie Mao <junjie.mao@hotmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, manos.pitsidianakis@linaro.org, kwolf@redhat.com,
+ zhao1.liu@intel.com, qemu-rust@nongnu.org
+Subject: Re: [RFC PATCH 02/11] rust: build: move rustc_args.py invocation to
+ individual crates
+Date: Tue, 12 Nov 2024 11:02:22 +0800
+In-reply-to: <20241108180139.117112-3-pbonzini@redhat.com>
+Message-ID: <SY0P300MB102652560AD744516054AE1495592@SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM>
+Content-Type: text/plain
+X-ClientProxiedBy: KU1PR03CA0011.apcprd03.prod.outlook.com
+ (2603:1096:802:18::23) To SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM
+ (2603:10c6:10:282::22)
+X-Microsoft-Original-Message-ID: <87ed3hi1tg.fsf@hotmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: CC rust/ patches to qemu-rust list
-To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
- Peter Maydell <peter.maydell@linaro.org>,
- =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
-References: <20241109-update-maintainers-file-rust-v1-1-f4daba6f782f@linaro.org>
- <aa360d5f-b4f2-4a61-a5b8-decc87a97a7b@linaro.org>
- <CAAjaMXayR_Ugkz76OuYe97tEKvHuuJA79f71GJA=zt8L=ESb2Q@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <CAAjaMXayR_Ugkz76OuYe97tEKvHuuJA79f71GJA=zt8L=ESb2Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::636;
- envelope-from=philmd@linaro.org; helo=mail-ej1-x636.google.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SY0P300MB1026:EE_|SY8P300MB0757:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50593883-7917-482e-9578-08dd02c7ac9b
+X-Microsoft-Antispam: BCL:0;
+ ARA:14566002|5072599009|8060799006|461199028|7092599003|19110799003|15080799006|440099028|3412199025;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?NgyrijU71T0G3l0m6jCpNYENQPgFReCu2r5FiRzWCjNt0LXy8/QOZ6Hn+XCg?=
+ =?us-ascii?Q?B+aBVayXXp+PZhYdUi+ILefNIg7D4B/g1Od4r46ybM3vOAqtyDJ33j2Et/lX?=
+ =?us-ascii?Q?iZC/flXr8ipRPBx0CShdp0MNXi61cem9CZERY46kUt0BVEr+MmPVg/WTi6yW?=
+ =?us-ascii?Q?VRQSJm1gJ/SEeKkWTGRAvXe2g9FxQAKjq5ynFebkrbsGNKtzrLYNfo37tpZw?=
+ =?us-ascii?Q?xQxE/cBRKS4bB2IeedoBBSJmimlH+prCg9WapDu15RjWp8Rp3SDXMuNuSMN9?=
+ =?us-ascii?Q?o7mbwZ8XGwXmzBioOIhEBsZZucmfMY0hrurKv9RnbIKpebFjNOL5tQPnU7Jv?=
+ =?us-ascii?Q?DbcWWMtjlYTZoIvSomu9kRFsDLUoK2iBe1KbqkBRgNu+TkaMSUlUdZNDQd9m?=
+ =?us-ascii?Q?VZ/xkUhcijJpouMZKQfQ2hcwpw8cs40t88G9DcuFYQiraXzVmi8P8IgcqEFi?=
+ =?us-ascii?Q?+efI/St2WgxL3Z4/oDGZg0Y8/4gR8dUMR4ePk61IVMLuxk3CnyS2rwRjRPhs?=
+ =?us-ascii?Q?IcOTg2DocSLrzZOdWt7Q6aVU4Pbvf9O0vLPtOLyyRzcJIBIn+wi9rI9CkFK1?=
+ =?us-ascii?Q?eP6Jw3k42Im08QBDHXNEFx0UBHi6REIM/iD6Is9YuBq7XMyFGpRnpRpmotsA?=
+ =?us-ascii?Q?mkTaxUelgJOQk7qW0IHq70NcVJUiUyFZy6gjmd0taP5cM33WC0q+Rwg+a4Od?=
+ =?us-ascii?Q?IDVwOJyjHcM4yOj964UqKauDcZfC3SHDJOrZY2NJlJoUtlD9u8+Jn5OWAAy5?=
+ =?us-ascii?Q?igKfuhevLHNKZ2rdCBEeDVWVrqLzyxhHWOWOQhG7YrXwMTNjv3wJ+mdUEFKR?=
+ =?us-ascii?Q?+7HPWSb/cJfJv4EHvWcGXIKyJ4APjse56E2prabMdq3YJmO/vrDz16xyktdc?=
+ =?us-ascii?Q?8mBjYpfENzdiOmADjvfvEJGPMcudU5cBySQqDf72mOAmvnXOjik6/opwVxR2?=
+ =?us-ascii?Q?PwBoNe0D3QVUW6ho+RcSDL8Thti2Yucwnovklf64TLZpHn+YW8vtkitMaBCT?=
+ =?us-ascii?Q?3yPnTHh6jci3CGq3Cosy5l5/JO+r1u/PrNCLQduSe/s5E/Y=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ITCaEQH935qlRvvT/aEBqKZRYqHZq1rhlKF4NW14XRJF4TJbQdQD0fhUEM7o?=
+ =?us-ascii?Q?8lZMrkdJmNaHzSj1YPlZsQvxxc9IG2v4XUlA5pEl8PQ5cYH21QKz4mE+SoF9?=
+ =?us-ascii?Q?3XFjJjWYDFMsMkmz3RT2AEJVf6rPCwZZDPF94YWBZ/9z6A+FOLXSSK7TDu2K?=
+ =?us-ascii?Q?Lwqmjvaig7L49+dqnkqQ108YUflsbt/xNdeoapDOqJWQhnq89HyZBXq68uhi?=
+ =?us-ascii?Q?ER0L8xV/DFAQezNL53lN9gHILaJJYg/Ktb/Pr3mVVC+/jDlBApl9ADguWdMi?=
+ =?us-ascii?Q?7urkmzi3HNcBu+PB7fDYkXtRF4NkJQ2+G+KMZqSunY4tYUUYrdvWqnVO3kJx?=
+ =?us-ascii?Q?uPdUOE3NjM+LaGNMjhk+3hcO5kCjXZ4TBudOnPLqzOvt+1Y9FaZo13FLy3w+?=
+ =?us-ascii?Q?KlqaM35aUdXYMIzoPJCH0BBT5fV83MM8auhxfmCU0ne6pg4p6QD4n4nNEMxB?=
+ =?us-ascii?Q?tBX1RfzAjLowDQaplQTIQ+/j8EP+UGAk/CGYSAd/rQYDKstk9BbwFlSx/ukg?=
+ =?us-ascii?Q?xk8wdXM5eRGSFfpKybMceSFYTFz/an9re7lYUxL1VPSZ87MtFY47aPKDg989?=
+ =?us-ascii?Q?Hyr1T/tvqE/6xmzEwkBUIfmoNstJE3E3tFSX6gEOb+VMdPD0tbuFBFlJntbk?=
+ =?us-ascii?Q?LbS87wtbm9Ede1yK3SOlOxBWEJ48qzzfVrxaLvFxqr6pK46ep7+e64SoTI3B?=
+ =?us-ascii?Q?Nq9Mi9M1NfuiwqB0HXvb3bd2p6BsegGNFf836EdhYwp804PfT42xYolWo7pN?=
+ =?us-ascii?Q?TaAB4z+8P0k4gF4dppjNG1nwAUTcNaIkeRbIG+oTzcFkHnFtQ7Sp40+hYt7D?=
+ =?us-ascii?Q?kvdw9V81ozrf+oNzpWeR2g4VOQD7TZB+untg8P4oKLj/X8ODhu6XkfB7MMwb?=
+ =?us-ascii?Q?3E1yWoQdqteD7xdS6SwGnhl2+hk7/6BQQ3T04CfwL84vHz4ZZqUKICImk2Sm?=
+ =?us-ascii?Q?jK/8LvmTxvfiEt3y2/cIO3V2ybZIcdOIro+uI+7daR/zmpnQBuiGEXkRQUqP?=
+ =?us-ascii?Q?jNMxhR+8csFk6C+lZD0lVicstZToA1865QCehIPfalA5zfbyyxmqTCdN8fuv?=
+ =?us-ascii?Q?c92ORuiFaCdIfF2Wtuj/vGcgs3OdYzrGRzA2L/Oxldkn/4tFMs+1h4v+A/wa?=
+ =?us-ascii?Q?pnnekYadQ4/UEFwQe8J8xtwqEVMinichAU7EyyUwra79GZEgnNgOoM0jdCDj?=
+ =?us-ascii?Q?TTbte7G8l6UzQMcNkkWhnLt9ZILX27wEFVHI4IeR63/Xin29DXmmszOvWaU?=
+ =?us-ascii?Q?=3D?=
+X-OriginatorOrg: sct-15-20-7719-20-msonline-outlook-448bf.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50593883-7917-482e-9578-08dd02c7ac9b
+X-MS-Exchange-CrossTenant-AuthSource: SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2024 03:11:17.7492 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY8P300MB0757
+Received-SPF: pass client-ip=2a01:111:f403:2819::809;
+ envelope-from=junjie.mao@hotmail.com;
+ helo=AUS01-SY4-obe.outbound.protection.outlook.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Mon, 11 Nov 2024 10:09:53 -0500
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,26 +129,31 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Sun, 10 Nov 2024 15:36:25 -0000
+X-List-Received-Date: Tue, 12 Nov 2024 03:11:28 -0000
 
-On 10/11/24 15:19, Manos Pitsidianakis wrote:
-> On Sun, Nov 10, 2024 at 3:59 PM Philippe Mathieu-Daudé
-> <philmd@linaro.org> wrote:
->>
->> On 9/11/24 19:29, Manos Pitsidianakis wrote:
->>> As of CAFEAcA-ZQuyGTtG-vhRTEwpz0L4cpimNxkKix45Yw6gVHXozRQ@mail.gmail.com
->>
->> "As of [*] ..." but I'm not sure about the usefulness of "like
->> qemu-block, qemu-arm, qemu-ppc etc but", maybe scratch it?
-> 
-> I definitely find it useful, for what it's worth. It's an all
-> all-encompassing topic, like block or arm, and some people are
-> interested in keeping an eye on those topics if they are not CCed on
-> the main list.
 
-What I meant is to reword as:
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-   "As of Nov 2024 [*], we have a new topical mailing list for Rust
-    related patches. Add a new MAINTAINERS entry [...]"
+> Only qemu-api needs access to the symbols in config-host.h.
 
+This may no longer be the case when more complex, build-time
+configurable devices are added in the future.
+
+Moving rustc_args.py calls to each crate is still helpful because of the
+changes in patches 3-6 in this series. So I think every crate under
+rust/ needs a run_command(rustc_args, ...) for crate-specific arguments.
+
+--
+Best Regards
+Junjie Mao
+
+> Remove
+> the temptation to use them by limiting the --cfg arguments to the
+> qemu-api crate.
+>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  meson.build               | 54 +++++++++++++++++----------------------
+>  rust/qemu-api/meson.build |  4 +++
+>  2 files changed, 28 insertions(+), 30 deletions(-)
 
