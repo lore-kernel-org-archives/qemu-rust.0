@@ -1,76 +1,76 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tBzOH-0007Ig-Jb
-	for mharc-qemu-rust@gnu.org; Fri, 15 Nov 2024 11:41:49 -0500
+	id 1tBzOI-0007M2-9w
+	for mharc-qemu-rust@gnu.org; Fri, 15 Nov 2024 11:41:50 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tBzNj-0006Zz-K5
- for qemu-rust@nongnu.org; Fri, 15 Nov 2024 11:41:16 -0500
+ id 1tBzNJ-0006Go-HY
+ for qemu-rust@nongnu.org; Fri, 15 Nov 2024 11:40:52 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tBzNg-0002NI-FR
- for qemu-rust@nongnu.org; Fri, 15 Nov 2024 11:41:15 -0500
+ id 1tBzNH-0002KF-7A
+ for qemu-rust@nongnu.org; Fri, 15 Nov 2024 11:40:49 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1731688871;
+ s=mimecast20190719; t=1731688846;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=21GUR4wAO6jBo8H2QNojVW9mDn5/11rbisElFvTu3Ac=;
- b=KBIL8BG5A9Bg6VnZbMoi1gyLtiIOo5eG3YTCq54tGPIjGI2daP4K4U0NrZ8CPFQSyA8U6A
- vjHtZBronRym+ZQZ83JuU5hBmaAJbzDvBMdt0vS+e5x6NVb+qT9gzv3yuNfZ2vIyFTA+1J
- nslDFw8pMjq1sXspBAbfPwg0EMZLd3I=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=ttI9dVImUyRrjtz3o3qxzgGlyU5nv6rQoiRqrRQPUqI=;
+ b=UfbfKOHlOdM/LXqsFjo1CD5UJS8t8D/z4PX8OJwClWAkvCs37bDapF/1rsnSN4Hvzyt3OP
+ J9Ojg6OZVEQ3H3Ra2LH1FEE7Xm18WKfjwUjhBHJk79D2q1SDGLN2Fbo+Zo6uTXpirXsaT0
+ zg/n6gaR6gYlLVQHte5p7w+dOs1ZInU=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-386-BRGm31M-NNC39-jpfh-c7w-1; Fri, 15 Nov 2024 11:41:10 -0500
-X-MC-Unique: BRGm31M-NNC39-jpfh-c7w-1
-X-Mimecast-MFC-AGG-ID: BRGm31M-NNC39-jpfh-c7w
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-432d9bb0f19so12053425e9.1
- for <qemu-rust@nongnu.org>; Fri, 15 Nov 2024 08:41:10 -0800 (PST)
+ us-mta-404-P94VDy5nN_itfiYOz_tyRQ-1; Fri, 15 Nov 2024 11:40:43 -0500
+X-MC-Unique: P94VDy5nN_itfiYOz_tyRQ-1
+X-Mimecast-MFC-AGG-ID: P94VDy5nN_itfiYOz_tyRQ
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-37d56061a4cso1105889f8f.2
+ for <qemu-rust@nongnu.org>; Fri, 15 Nov 2024 08:40:43 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731688868; x=1732293668;
+ d=1e100.net; s=20230601; t=1731688842; x=1732293642;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=21GUR4wAO6jBo8H2QNojVW9mDn5/11rbisElFvTu3Ac=;
- b=tchfdzs3mB0KnxhdYDFhkdYsXAGSc31+LNhYf9qSoYApo9tvp1o0QF3ccB0OAORJ2w
- 8rAlN/uh8HJqEfLYBzJrzvkCmf+NR9jvkyh5sgI8zWGJPzmx5L42528aOFo5VGKX0KeA
- iTzo2P3nT3F89QSVIH5ASXfPw2lQ7H6FfR9lgW7y0zzrPT7pZfnUx5GBPZPOwiCPoEgP
- wZGBRmyQBmbsCI5zHKKXzKM7O3W8OP/4VPZSBHF1tm2nVQcDV1HmHHxtpgYZhLzDHrmF
- fi9dwbNjXQTvzGnGxk34EQD6QHGogTnKXmJABmEHzjKTcxZoKr4HoAbiKhbEJMNKgk9O
- xKPg==
-X-Gm-Message-State: AOJu0YyODZorRMpS/q1DkY4+TGaseiwbY/9tjAImhGrRtALErTB50FBq
- l3PSy4Oy7ObLW1eKY9feKHXyIJ7iMB7wNdHZBvkK8MQrFjiwG1T3ihbyciBDE7FfZ958bA7dkUq
- LwLj/LSd4gdZdWBVa34DobVdabyC4sp5NFwvW2ng1CB+qtY7j5MYId2G5vy0qcg==
-X-Received: by 2002:a05:600c:1c2a:b0:432:7c30:abf3 with SMTP id
- 5b1f17b1804b1-432d974a829mr75294095e9.7.1731688868548; 
- Fri, 15 Nov 2024 08:41:08 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFzhsQ+zoIdjAo89HZudwP7NIBS+t5yLbVTYFq13I7ZnhEC0s+mPpebu63A/9+ErVsY9h45gA==
-X-Received: by 2002:a05:600c:1c2a:b0:432:7c30:abf3 with SMTP id
- 5b1f17b1804b1-432d974a829mr75293945e9.7.1731688868197; 
- Fri, 15 Nov 2024 08:41:08 -0800 (PST)
+ bh=ttI9dVImUyRrjtz3o3qxzgGlyU5nv6rQoiRqrRQPUqI=;
+ b=lYUau/RNb+2w6izcrOEpwA8HrBTXlW+inQinxA9+h1/dDtDR5z9ryqYyuw1Z5X36Lw
+ opIqzESzwZALaDKdbAisEa855LtzlaWCiA+gf7vOJ25ak+dLHfFAy+JoANVnI8elIsCp
+ isuHOn8xBG0PZQ3yJrVSth3vSFzEEbINgOklGtJKjEh7sXhm0FuE+8LMswlJtDkt2z6L
+ 9W8ck91dVCkIv/VDhCSshzWDqqiXH6m0c0tHg3/SHDrPeFlKr2l9hFnuMLjRIdB7ShYJ
+ BDkcIFSyUlfbnPbGwbiuFjJOdnuStg0bGsEcTcZ04bsTdmCSfACwZcvk7PTLS4P+jJ7r
+ rRqQ==
+X-Gm-Message-State: AOJu0Yyn78NHvgXLtLiNulqkRrDHU6aSE0nNPtgtvGryCBpuwxkAyLSn
+ vy7P+se/CPw2p5jicOw3+0HPaQ+Wrc+r6rpcn/W1dCVLXVcx2PgDRYI5iO5KDzmZhuTjYETDOaW
+ /MNWQLQETjxBVqZUmVOJ29KCMAQqR+0WHSCY3UiIE0tPsk/EogJI=
+X-Received: by 2002:a5d:6c69:0:b0:382:6f3:a20f with SMTP id
+ ffacd0b85a97d-382258f4d91mr3050986f8f.11.1731688842353; 
+ Fri, 15 Nov 2024 08:40:42 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHbjPKT/LMKZ/4JwGWK8XBEKmjP6sXHXYpuanOi9qYVQTOTzGhPffo+TjZ9fjygxVLjVnZeog==
+X-Received: by 2002:a5d:6c69:0:b0:382:6f3:a20f with SMTP id
+ ffacd0b85a97d-382258f4d91mr3050970f8f.11.1731688841992; 
+ Fri, 15 Nov 2024 08:40:41 -0800 (PST)
 Received: from [192.168.10.3] ([151.49.84.243])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432da28bc11sm61758915e9.31.2024.11.15.08.41.04
+ ffacd0b85a97d-3821ae161b5sm4892018f8f.74.2024.11.15.08.40.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Nov 2024 08:41:04 -0800 (PST)
+ Fri, 15 Nov 2024 08:40:39 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org, berrange@redhat.com, junjie.mao@hotmail.com,
  manos.pitsidianakis@linaro.org, kwolf@redhat.com
-Subject: [PATCH 10/12] rust: build: add "make clippy", "make rustfmt",
- "make rustdoc"
-Date: Fri, 15 Nov 2024 17:40:23 +0100
-Message-ID: <20241115164025.1917618-10-pbonzini@redhat.com>
+Subject: [PATCH 04/12] rust: build: restrict --cfg generation to only required
+ symbols
+Date: Fri, 15 Nov 2024 17:40:17 +0100
+Message-ID: <20241115164025.1917618-4-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20241115163944.1917393-1-pbonzini@redhat.com>
 References: <20241115163944.1917393-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: be9mTlby1CFwvrYQBdBPE2pdS-jFLNQ3cZjwx2E2u68_1731688870
+X-Mimecast-MFC-PROC-ID: NANpLFvzMCVNoDMeMpiIpqG4QN2iuHQtPDSmxgcWGgM_1731688842
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
@@ -96,95 +96,131 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Nov 2024 16:41:19 -0000
+X-List-Received-Date: Fri, 15 Nov 2024 16:40:56 -0000
+X-List-Received-Date: Fri, 15 Nov 2024 16:40:56 -0000
 
-Abstract common invocations of "cargo", that do not require copying
-the generated bindgen file or setting up MESON_BUILD_ROOT.
+Parse the Cargo.toml file, looking for the unexpected_cfgs
+configuration.  When generating --cfg options from the
+config-host.h file, only use those that are included in the
+configuration.
 
-In the future these could also do completely without cargo and invoke
-the underlying programs directly.
-
-Reviewed-by: Junjie Mao <junjie.mao@hotmail.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/meson.build        | 22 ++++++++++++++++++++++
- rust/qemu-api/README.md | 10 ++++++----
- rust/qemu-api/build.rs  |  9 +++++++--
- 3 files changed, 35 insertions(+), 6 deletions(-)
+ rust/qemu-api/meson.build  |  2 +-
+ scripts/rust/rustc_args.py | 61 ++++++++++++++++++++++++++++----------
+ 2 files changed, 46 insertions(+), 17 deletions(-)
 
-diff --git a/rust/meson.build b/rust/meson.build
-index def77389cdd..91e52b8fb8e 100644
---- a/rust/meson.build
-+++ b/rust/meson.build
-@@ -2,3 +2,25 @@ subdir('qemu-api-macros')
- subdir('qemu-api')
+diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
+index 5df6b35bf88..2ff6d2ce3d0 100644
+--- a/rust/qemu-api/meson.build
++++ b/rust/qemu-api/meson.build
+@@ -1,5 +1,5 @@
+ _qemu_api_cfg = run_command(rustc_args,
+-  '--config-headers', config_host_h,
++  '--config-headers', config_host_h, files('Cargo.toml'),
+   capture: true, check: true).stdout().strip().split()
  
- subdir('hw')
+ # _qemu_api_cfg += ['--cfg', 'feature="allocator"']
+diff --git a/scripts/rust/rustc_args.py b/scripts/rust/rustc_args.py
+index e4cc9720e16..942dd2b2bab 100644
+--- a/scripts/rust/rustc_args.py
++++ b/scripts/rust/rustc_args.py
+@@ -26,30 +26,51 @@
+ 
+ import argparse
+ import logging
++from pathlib import Path
++from typing import Any, Iterable, Mapping, Optional, Set
+ 
+-from typing import List
++try:
++    import tomllib
++except ImportError:
++    import tomli as tomllib
+ 
+ 
+-def generate_cfg_flags(header: str) -> List[str]:
++class CargoTOML:
++    tomldata: Mapping[Any, Any]
++    check_cfg: Set[str]
 +
-+cargo = find_program('cargo', required: false)
++    def __init__(self, path: str):
++        with open(path, 'rb') as f:
++            self.tomldata = tomllib.load(f)
 +
-+if cargo.found()
-+  run_target('clippy',
-+    command: [config_host['MESON'], 'devenv',
-+              '--workdir', '@CURRENT_SOURCE_DIR@',
-+              cargo, 'clippy', '--tests'],
-+    depends: bindings_rs)
++        self.check_cfg = set(self.find_check_cfg())
 +
-+  run_target('rustfmt',
-+    command: [config_host['MESON'], 'devenv',
-+              '--workdir', '@CURRENT_SOURCE_DIR@',
-+              cargo, 'fmt'],
-+    depends: bindings_rs)
++    def find_check_cfg(self) -> Iterable[str]:
++        toml_lints = self.lints
++        rust_lints = toml_lints.get("rust", {})
++        cfg_lint = rust_lints.get("unexpected_cfgs", {})
++        return cfg_lint.get("check-cfg", [])
 +
-+  run_target('rustdoc',
-+    command: [config_host['MESON'], 'devenv',
-+              '--workdir', '@CURRENT_SOURCE_DIR@',
-+              cargo, 'doc', '--no-deps', '--document-private-items'],
-+    depends: bindings_rs)
-+endif
-diff --git a/rust/qemu-api/README.md b/rust/qemu-api/README.md
-index 53810f48882..ed1b7ab263d 100644
---- a/rust/qemu-api/README.md
-+++ b/rust/qemu-api/README.md
-@@ -5,13 +5,15 @@ This library exports helper Rust types, Rust macros and C FFI bindings for inter
- The C bindings can be generated with `bindgen`, using this build target:
++    @property
++    def lints(self) -> Mapping[Any, Any]:
++        return self.get_table("lints")
++
++    def get_table(self, key: str) -> Mapping[Any, Any]:
++        table = self.tomldata.get(key, {})
++
++        return table
++
++
++def generate_cfg_flags(header: str, cargo_toml: CargoTOML) -> Iterable[str]:
+     """Converts defines from config[..].h headers to rustc --cfg flags."""
  
- ```console
--$ ninja bindings.inc.rs
-+$ make bindings.inc.rs
- ```
+-    def cfg_name(name: str) -> str:
+-        """Filter function for C #defines"""
+-        if (
+-            name.startswith("CONFIG_")
+-            or name.startswith("TARGET_")
+-            or name.startswith("HAVE_")
+-        ):
+-            return name
+-        return ""
+-
+     with open(header, encoding="utf-8") as cfg:
+         config = [l.split()[1:] for l in cfg if l.startswith("#define")]
  
- ## Generate Rust documentation
+     cfg_list = []
+     for cfg in config:
+-        name = cfg_name(cfg[0])
+-        if not name:
++        name = cfg[0]
++        if f'cfg({name})' not in cargo_toml.check_cfg:
+             continue
+         if len(cfg) >= 2 and cfg[1] != "1":
+             continue
+@@ -59,7 +80,6 @@ def cfg_name(name: str) -> str:
  
--To generate docs for this crate, including private items:
-+Common Cargo tasks can be performed from the QEMU build directory
  
--```sh
--pyvenv/bin/meson devenv -w ../rust cargo doc --no-deps --document-private-items
-+```console
-+$ make clippy
-+$ make rustfmt
-+$ make rustdoc
- ```
-diff --git a/rust/qemu-api/build.rs b/rust/qemu-api/build.rs
-index 06e79082b5f..33e7968ee76 100644
---- a/rust/qemu-api/build.rs
-+++ b/rust/qemu-api/build.rs
-@@ -20,8 +20,13 @@ fn main() -> Result<()> {
-     let file = Path::new(&file);
-     if !Path::new(&file).exists() {
-         panic!(concat!(
--            "No generated C bindings found! If you want to run `cargo`, start a subshell\n",
--            "with `meson devenv`, or point MESON_BUILD_ROOT to the top of the build tree."
-+            "\n",
-+            "    No generated C bindings found! Maybe you wanted one of\n",
-+            "    `make clippy`, `make rustfmt`, `make rustdoc`?\n",
-+            "\n",
-+            "    For other uses of `cargo`, start a subshell with\n",
-+            "    `pyvenv/bin/meson devenv`, or point MESON_BUILD_ROOT to\n",
-+            "    the top of the build tree."
-         ));
-     }
+ def main() -> None:
+-    # pylint: disable=missing-function-docstring
+     parser = argparse.ArgumentParser()
+     parser.add_argument("-v", "--verbose", action="store_true")
+     parser.add_argument(
+@@ -71,12 +91,21 @@ def main() -> None:
+         required=False,
+         default=[],
+     )
++    parser.add_argument(
++        metavar="TOML_FILE",
++        action="store",
++        dest="cargo_toml",
++        help="path to Cargo.toml file",
++    )
+     args = parser.parse_args()
+     if args.verbose:
+         logging.basicConfig(level=logging.DEBUG)
+     logging.debug("args: %s", args)
++
++    cargo_toml = CargoTOML(args.cargo_toml)
++
+     for header in args.config_headers:
+-        for tok in generate_cfg_flags(header):
++        for tok in generate_cfg_flags(header, cargo_toml):
+             print(tok)
+ 
  
 -- 
 2.47.0
