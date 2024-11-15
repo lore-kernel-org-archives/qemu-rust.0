@@ -1,94 +1,88 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tBAoU-0005kH-Em
-	for mharc-qemu-rust@gnu.org; Wed, 13 Nov 2024 05:41:30 -0500
+	id 1tBzND-0006DY-26
+	for mharc-qemu-rust@gnu.org; Fri, 15 Nov 2024 11:40:43 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tBAoT-0005jc-2K
- for qemu-rust@nongnu.org; Wed, 13 Nov 2024 05:41:29 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1tBzN9-0006Af-2N
+ for qemu-rust@nongnu.org; Fri, 15 Nov 2024 11:40:39 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tBAoR-00043V-Mk
- for qemu-rust@nongnu.org; Wed, 13 Nov 2024 05:41:28 -0500
+ id 1tBzN7-0002IP-7E
+ for qemu-rust@nongnu.org; Fri, 15 Nov 2024 11:40:38 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1731494487;
+ s=mimecast20190719; t=1731688835;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Hc59rYI/xSj7t6kbwTR4B7hyVJRMDpac3lzSfGH1LsQ=;
- b=QR5FpSuNv0mYds58FKJWw6UTu4yjJsnk7KGLxJIIXY0O0g2ABk9ZV9p6ekCKtY2DMHAtEj
- +bnok9A3yTZK3AqhAlALPyIRCEJGkPWxfQVI4nkjgJQQrigMAX/b7Nd29KQf93BJ9xUtJZ
- LGnG5DMwY53u5WR8EZ38BY4JQA1ZxS0=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=q0jH9GG4Y9DVdkqF6zGXUYSm5Vmv2IR3Nw21G/qghzM=;
+ b=MF4d1D3vABcP9dKG5lHXm0Il3zkC5ASoKGOdwy2AY9QRTmbYPDUUoAJ3TidfkdwQ/PMi/N
+ NMT+uLqJA7HdlKhVZxdzKcxL8ON6PKrh+rOqRrRerYEDSNIX3XJQ8WGsxf9SDLGq+/JBCh
+ LfK2HwslJjLhXYMvqLmA7iKoHFzRSTI=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-639-GMYnqG4OMTiJBlhdfo5WGw-1; Wed, 13 Nov 2024 05:41:24 -0500
-X-MC-Unique: GMYnqG4OMTiJBlhdfo5WGw-1
-X-Mimecast-MFC-AGG-ID: GMYnqG4OMTiJBlhdfo5WGw
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-4315e8e9b1cso3616365e9.1
- for <qemu-rust@nongnu.org>; Wed, 13 Nov 2024 02:41:24 -0800 (PST)
+ us-mta-340-7IoxMzOOPOuSncLnFxHiig-1; Fri, 15 Nov 2024 11:40:33 -0500
+X-MC-Unique: 7IoxMzOOPOuSncLnFxHiig-1
+X-Mimecast-MFC-AGG-ID: 7IoxMzOOPOuSncLnFxHiig
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-43157e3521dso13717055e9.1
+ for <qemu-rust@nongnu.org>; Fri, 15 Nov 2024 08:40:33 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731494483; x=1732099283;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1731688827; x=1732293627;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Hc59rYI/xSj7t6kbwTR4B7hyVJRMDpac3lzSfGH1LsQ=;
- b=RQC5+T6lbOfpFrKdmHlxrO1OjylBk+Cqgd+IlkkFxcWorWtuaQCk0/GPBkhC7Wuijp
- APDhrYpoO2oiFcH+U2K9YNDg5tgwzb4eIomksW4RGlpABrzJyHSP6K358IT0lqr4mE3u
- r3bvovpsmAxvNf5DdvEqtgOLmGB+FlHXRsh9jC8vTXl8c6hPJf3o8bKlFBV/7qdhUxwn
- af2nZOXwvV+GTsabF7dR+IRoA4hihud/C4X6fN3TB8pzyX2RMS3m+tLe00y8onqM/LQ5
- 7PrcQrYVN+f1waWp2ZBAUwolLFjJy3mtsRy1gsu/1z4pBNFuGK/187HchnpuFmNakQeJ
- hoNg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUz4TrNVVOnK6U8mpClX1T/seutkSfNEM566+1FUjkiArdjgr5bRxrSbqbM0fEfsirPk2d8dDU9Vcc=@nongnu.org
-X-Gm-Message-State: AOJu0YxRwkSpwI1voeDL8iQZU09qfGz2BcVMYaLIqUTTTBe29j1IY8M7
- gRazZNrQ+9QJ79NEczplDJHc0Ill89O4K0scdLI2pSZED/bgfG5dsgaVpivJ0lUbKx7QgpEJ37E
- UZhPIzEOq0xdosfHw2XJgMLcj3doVoi+wEefo8hDr9SrGfwbwQSWJr50EH/nub7KVcLzz0dKPeh
- UVDKZHyPyvkGhfA69SVx9cZ7CBHA==
-X-Received: by 2002:a05:600c:1c10:b0:42c:b166:913 with SMTP id
- 5b1f17b1804b1-432b74c112amr173840655e9.11.1731494483710; 
- Wed, 13 Nov 2024 02:41:23 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFgzh/brct2L75BkWs2sABrBEz8jz93+16RxsagehyHvTUUSzWaZ0WVSWnBludkk+oR6qvnb+1IFmKq9DjLMO8=
-X-Received: by 2002:a05:600c:1c10:b0:42c:b166:913 with SMTP id
- 5b1f17b1804b1-432b74c112amr173840455e9.11.1731494483411; Wed, 13 Nov 2024
- 02:41:23 -0800 (PST)
-MIME-Version: 1.0
-References: <20241108180139.117112-1-pbonzini@redhat.com>
- <20241108180139.117112-2-pbonzini@redhat.com>
- <SY0P300MB102699E99096F482F06296EF95592@SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM>
- <CABgObfb9ujpoRrNUUqyiAefSfTOWSV-SGmo2YrSoMdfxBeAD9A@mail.gmail.com>
- <SY0P300MB10263A5B33FAAEDCB04CDCD295592@SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM>
- <6e1fce37-4a22-4f36-9798-a424e4ba43d4@redhat.com>
- <ME0P300MB10400DF22DE6A86AA4E121BE955A2@ME0P300MB1040.AUSP300.PROD.OUTLOOK.COM>
-In-Reply-To: <ME0P300MB10400DF22DE6A86AA4E121BE955A2@ME0P300MB1040.AUSP300.PROD.OUTLOOK.COM>
+ bh=q0jH9GG4Y9DVdkqF6zGXUYSm5Vmv2IR3Nw21G/qghzM=;
+ b=QLaZhFvLi21JeVtoZBNMKt4ZFoe0u20r09Ht0De4kT+QwEyK5rSKrgXUf8FAsKZm7b
+ lcIjTJWKXJ/Z1PzfglKnP3K703/9jhuJVdm9WoWQGvoUZPvdWLTuEDNXis5qapT1ZtYK
+ FBv0KPBbhnNxRaju2P0syu/8hubICLYj5UiPKO56mJbBjYXamT3JT0bBQvD0sBhpGHDE
+ Euo7RgYcPnsZv095bKF+TyN/50fYOPJzvTBDxOpM76aEXBtZKtd9qEq54hMRv2iY8agd
+ 7TDDSXAhqI9ppNOKZM9s93aDBjOX7cIebDBh9JLi+dNaEJ8uYTfDr/IiIqoafe/aS8Ms
+ WNQw==
+X-Gm-Message-State: AOJu0YylrBO5Si/mgXcYVu/YtA7KF8ltiea/2lMqr2DQzappVJayHzDv
+ OPWr2GBEmbly3ayLc/DqT1v8ZRe0hm3pALYE4l5xFcSF6IF9JjnqDBXXZMqecxZxO1VJOh9AHRx
+ BHJ4hmJPDF1YFQ1Hn1/Hb004yayGP4uHQ+ZjqDfIyvCx8kzMsR7E=
+X-Received: by 2002:a05:600c:c08:b0:432:7c08:d121 with SMTP id
+ 5b1f17b1804b1-432df741a8bmr31015945e9.12.1731688827272; 
+ Fri, 15 Nov 2024 08:40:27 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFBKskmKUgKodxYS6R/cBZhBf0NpqATQwq/de+/8v91CxLYcSq5FmIQyXdc0P7L+2GmjRASdA==
+X-Received: by 2002:a05:600c:c08:b0:432:7c08:d121 with SMTP id
+ 5b1f17b1804b1-432df741a8bmr31015755e9.12.1731688826890; 
+ Fri, 15 Nov 2024 08:40:26 -0800 (PST)
+Received: from [192.168.10.3] ([151.49.84.243])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3821ae31083sm4767995f8f.103.2024.11.15.08.40.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Nov 2024 08:40:26 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Wed, 13 Nov 2024 11:41:12 +0100
-Message-ID: <CABgObfa_Azg87Ye_tYp2-G9Nah4U6S52HKSVTw65X_hzbo08xw@mail.gmail.com>
-Subject: Re: [RFC PATCH 01/11] rust: qemu_api: do not disable lints outside
- bindgen-generated code
-To: Junjie Mao <junjie.mao@hotmail.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, 
- Emmanouil Pitsidianakis <manos.pitsidianakis@linaro.org>, "Wolf,
- Kevin" <kwolf@redhat.com>, 
- Zhao Liu <zhao1.liu@intel.com>, qemu-rust@nongnu.org
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org, berrange@redhat.com, junjie.mao@hotmail.com,
+ manos.pitsidianakis@linaro.org, kwolf@redhat.com
+Subject: [PATCH 01/12] rust: apply --cfg MESON to all crates
+Date: Fri, 15 Nov 2024 17:40:14 +0100
+Message-ID: <20241115164025.1917618-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20241115163944.1917393-1-pbonzini@redhat.com>
+References: <20241115163944.1917393-1-pbonzini@redhat.com>
+MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: octqXzmvJjxvWLmJc4aRmPS3csmYQabMmlbr5Lzkzzc_1731494484
+X-Mimecast-MFC-PROC-ID: trHe2o1ZOANdti1ELBdW78wH6gjebXuO-oT1Q6eZoNA_1731688832
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -28
-X-Spam_score: -2.9
+X-Spam_score_int: -21
+X-Spam_score: -2.2
 X-Spam_bar: --
-X-Spam_report: (-2.9 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.122,
+X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.12,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.671,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -101,17 +95,49 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Nov 2024 10:41:29 -0000
+X-List-Received-Date: Fri, 15 Nov 2024 16:40:39 -0000
 
-On Wed, Nov 13, 2024 at 7:52=E2=80=AFAM Junjie Mao <junjie.mao@hotmail.com>=
- wrote:
-> > A symbolic link seems to work too.  Thanks for the tip!
->
-> Linux-based hosts should be fine. Should we test if symlinks also work
-> on W32/W64 systems?
+We might have more uses for --cfg MESON, even though right now it's only
+qemu-api that has generated files.  Since we're going to add more flags
+to the add_project_arguments calls for Rust, it makes sense to also add
+--cfg MESON everywhere.
 
-We already use symlinks for scripts/symlink-install-tree.py, fortunately.
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ meson.build               | 7 ++++---
+ rust/qemu-api/meson.build | 2 +-
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
-Paolo
+diff --git a/meson.build b/meson.build
+index e0b880e4e13..a6172524287 100644
+--- a/meson.build
++++ b/meson.build
+@@ -3422,10 +3422,11 @@ if have_rust
+   # is safe; https://github.com/rust-lang/rust/pull/54675 says that
+   # passing -nodefaultlibs to the linker "was more ideological to
+   # start with than anything".
+-  add_project_arguments(rustc_args + ['-C', 'default-linker-libraries'],
++  add_project_arguments(rustc_args +
++      ['--cfg', 'MESON', '-C', 'default-linker-libraries'],
+       native: false, language: 'rust')
+-
+-  add_project_arguments(rustc_args, native: true, language: 'rust')
++  add_project_arguments(rustc_args + ['--cfg', 'MESON'],
++      native: true, language: 'rust')
+ endif
+ 
+ hxtool = find_program('scripts/hxtool')
+diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
+index 6f637af7b1b..cad9ac4844e 100644
+--- a/rust/qemu-api/meson.build
++++ b/rust/qemu-api/meson.build
+@@ -1,4 +1,4 @@
+-_qemu_api_cfg = ['--cfg', 'MESON']
++_qemu_api_cfg = []
+ # _qemu_api_cfg += ['--cfg', 'feature="allocator"']
+ if rustc.version().version_compare('>=1.77.0')
+   _qemu_api_cfg += ['--cfg', 'has_offset_of']
+-- 
+2.47.0
 
 
