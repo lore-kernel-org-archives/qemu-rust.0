@@ -1,75 +1,76 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tBzOE-00073u-Pt
-	for mharc-qemu-rust@gnu.org; Fri, 15 Nov 2024 11:41:47 -0500
+	id 1tBzOG-0007GB-Rh
+	for mharc-qemu-rust@gnu.org; Fri, 15 Nov 2024 11:41:49 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tBzNX-0006Ni-T3
- for qemu-rust@nongnu.org; Fri, 15 Nov 2024 11:41:08 -0500
+ id 1tBzNd-0006TN-Kf
+ for qemu-rust@nongnu.org; Fri, 15 Nov 2024 11:41:10 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tBzNV-0002Lt-Jn
- for qemu-rust@nongnu.org; Fri, 15 Nov 2024 11:41:03 -0500
+ id 1tBzNb-0002MZ-0u
+ for qemu-rust@nongnu.org; Fri, 15 Nov 2024 11:41:09 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1731688860;
+ s=mimecast20190719; t=1731688866;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=B477qYom1cMNghuMK5V25JfYZq7LHn73PEI0iXzCXHc=;
- b=CyHHUJcO6b+iwwzL2qDI1UNWlqaQPjTOrcdDQMRDpzydq5WJIr3jAh/LssuKpS9CgZH2iQ
- 8doAk6xTreKRqEQaDC07vRp0P+1JeveO0akMlUC0dRlEPHVZ2WujC1dko1y7kAQ0RqEJ6X
- 08w5r5yRpI5hnCmLgGIAjoQ8wVSTffw=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=WKxjJcV0JChOUSaR9ARk6UGjcpUxEbTMXigv0cQguQU=;
+ b=htINxCRexA0e31uV5LBX1yzjlJhw7sj9GkDE0VHEuzn63MVl9UO+yp3MdFpEOEb3Q6m995
+ 4Qahg4KYqa+H658G6Mo0lJWd0GERKOQhnO1gX2dTdBzoz3qPeYZlZ+nWOaHhHu0GU4Ogpl
+ oYlCmUv0zKgmen0WgBSmTCgaNMUphVs=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-19-_ADghe4wNBGECKk6aixdXw-1; Fri, 15 Nov 2024 11:40:59 -0500
-X-MC-Unique: _ADghe4wNBGECKk6aixdXw-1
-X-Mimecast-MFC-AGG-ID: _ADghe4wNBGECKk6aixdXw
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-43159c07193so18302705e9.0
- for <qemu-rust@nongnu.org>; Fri, 15 Nov 2024 08:40:58 -0800 (PST)
+ us-mta-103-eXb8zsl_MWCfl889WQKsrQ-1; Fri, 15 Nov 2024 11:41:05 -0500
+X-MC-Unique: eXb8zsl_MWCfl889WQKsrQ-1
+X-Mimecast-MFC-AGG-ID: eXb8zsl_MWCfl889WQKsrQ
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-37d3e8dccc9so489376f8f.1
+ for <qemu-rust@nongnu.org>; Fri, 15 Nov 2024 08:41:04 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731688856; x=1732293656;
+ d=1e100.net; s=20230601; t=1731688864; x=1732293664;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=B477qYom1cMNghuMK5V25JfYZq7LHn73PEI0iXzCXHc=;
- b=kSTwvP9iGvbkBxEiyhOz+o2iuWk7lDKV7ZmPHIaojFvzbWsjno6LPurct971KkcJEq
- wy6LMxve88so0LokJUE3A+OyGPlwLTMzSYdigGYgjyb9J51+Ws+1eRegWG1z4bdYW6jg
- OkVS2FUCphqOkPF6Mr1Xx3E+QZpjy5W9MmPUGO2hcdUIQc33vEZzMWTTuT4VqJoeT6so
- xjBZsSjrTanS+UaLBuc3hf4i4mkob8hQLVV8MIEpkiIfF7lGy6KErNHuFDNPG3Q0ivW9
- ieuz8x7kNBvg6fSf6HBVDaCQFO+akO/8Kl2YKzXHJdkrJTWFARHTOmyOxXDWwhrXH3cF
- ofRA==
-X-Gm-Message-State: AOJu0YzPoRwyTe0bie4Q/F4yblVan+fQAYzC25IH2zmKwqLqVKwA6q7e
- pjrb6Bh+ynmom8cp/LGB88SaVK2NqdKkd+Xfc9pahv+1y+Wi/NWdiyJ5alHQ6TLUw4vZP17hfOv
- XhqCPF/Wv9QxWQG1zJ7lGjLq5URJvGHMHpx2mEXHaH6dQ11PxVT6UmhiVgbFaQA==
-X-Received: by 2002:a05:6000:460b:b0:37c:c51b:8d9c with SMTP id
- ffacd0b85a97d-38225ab7a2fmr3242819f8f.38.1731688855977; 
- Fri, 15 Nov 2024 08:40:55 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEzvBtQ5DyN+msSdT2CcFq/LvPuSGI/CnwTo6bEw3j60bIFWXzvJI0yuSRlQfaAQWN/8m8ycA==
-X-Received: by 2002:a05:6000:460b:b0:37c:c51b:8d9c with SMTP id
- ffacd0b85a97d-38225ab7a2fmr3242799f8f.38.1731688855530; 
- Fri, 15 Nov 2024 08:40:55 -0800 (PST)
+ bh=WKxjJcV0JChOUSaR9ARk6UGjcpUxEbTMXigv0cQguQU=;
+ b=lcoenfWiSPiJDnPKD/Rr345kPWLDYm9psN0SVM4If7AaBfEL/jyf+V4xrsrVdnen5e
+ XK187YegZZR0FLfkXNV9c0ZxmmvxbQWmH2aCod+nBpJSd63lzaa9O64UifY42mwOJ/OP
+ ysQr56tkszIwS/Uw1nO7Il8lUID+6W77mQzzfqDX1i7SU6QwF3/wNSQHBJxQXp2ptJuZ
+ wry/jJ++CVRlS6puPCWyRkXFcuE/IEhFUrup5NnFaiM92lk81UslWg47oxmhfaJC6+Il
+ rRuUZDL+VCIYJjv9W60XZxj5B3rjP+5PhE97vVBIL9ZRqfUNi/ERpuAVTdCW36L90Nac
+ 6UJw==
+X-Gm-Message-State: AOJu0Yz0o5G1/oO/t5x+Gqb8OjO9wksoXEwWbuvfsZXWFLD4cAbJqgyd
+ u+SLF34v+RNIYghIAl5OMgKg0Mwl0hGKeeyCkBS93g1TA70gQrPzfA43CdySxnVrrxe6fM/AU9w
+ V3wyurO/8u4zw/h5Dj+x6KE6inCh365opR9iaOhZDfaAJ2+DxEW0=
+X-Received: by 2002:a05:6000:782:b0:37c:f3e0:b436 with SMTP id
+ ffacd0b85a97d-38225a3999dmr2298714f8f.30.1731688863807; 
+ Fri, 15 Nov 2024 08:41:03 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFT2sxcga4Kr7D6NafnKd1hr4plVsuaoNEaJe4ZsnJtodjW2mk49DUZE6GhxKC1S4X4YgCufg==
+X-Received: by 2002:a05:6000:782:b0:37c:f3e0:b436 with SMTP id
+ ffacd0b85a97d-38225a3999dmr2298694f8f.30.1731688863459; 
+ Fri, 15 Nov 2024 08:41:03 -0800 (PST)
 Received: from [192.168.10.3] ([151.49.84.243])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3821adadf8fsm4767251f8f.39.2024.11.15.08.40.52
+ ffacd0b85a97d-3821ada3e65sm4768683f8f.13.2024.11.15.08.41.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Nov 2024 08:40:53 -0800 (PST)
+ Fri, 15 Nov 2024 08:41:00 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org, berrange@redhat.com, junjie.mao@hotmail.com,
  manos.pitsidianakis@linaro.org, kwolf@redhat.com
-Subject: [PATCH 07/12] rust: build: move strict lints handling to rustc_args.py
-Date: Fri, 15 Nov 2024 17:40:20 +0100
-Message-ID: <20241115164025.1917618-7-pbonzini@redhat.com>
+Subject: [PATCH 09/12] rust: build: establish a baseline of lints across all
+ crates
+Date: Fri, 15 Nov 2024 17:40:22 +0100
+Message-ID: <20241115164025.1917618-9-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20241115163944.1917393-1-pbonzini@redhat.com>
 References: <20241115163944.1917393-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: khvnXDp-XaM5ojFmkYJtiYTgUKa8UTYOhvdLrnFHFFM_1731688858
+X-Mimecast-MFC-PROC-ID: lVPjIPImbUeFMRSMM7aXTV4veN7UhOXaPMOj_q5QvAU_1731688864
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
@@ -82,7 +83,7 @@ X-Spam_report: (-2.9 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.12,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.658,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -95,123 +96,154 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Nov 2024 16:41:09 -0000
+X-List-Received-Date: Fri, 15 Nov 2024 16:41:12 -0000
 
-Make Cargo use unknown_lints = "allow" as well.  This is more future
-proof as we might add new lints to rust/Cargo.toml that are not supported
-by older versions of rustc or clippy.
+Many lints that default to allow can be helpful in detecting bugs or
+keeping the code style homogeneous.  Add them liberally, though perhaps
+not as liberally as in hw/char/pl011/src/lib.rs.  In particular, enabling
+entire groups can be problematic because of bitrot when new links are
+added in the future.
 
+For Clippy, this is actually a feature that is only present in Cargo
+1.74.0 but, since we are not using Cargo to *build* QEMU, only developers
+will need a new-enough cargo and only to run tools such as clippy.
+The requirement does not apply to distros that are building QEMU.
+
+Reviewed-by: Junjie Mao <junjie.mao@hotmail.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- meson.build                | 12 ++++--------
- rust/Cargo.toml            |  6 ++++++
- scripts/rust/rustc_args.py | 19 ++++++++++++++++---
- 3 files changed, 26 insertions(+), 11 deletions(-)
+ rust/Cargo.toml               | 65 +++++++++++++++++++++++++++++++++++
+ rust/hw/char/pl011/src/lib.rs | 19 ++--------
+ rust/qemu-api/src/bindings.rs |  6 ++--
+ 3 files changed, 71 insertions(+), 19 deletions(-)
 
-diff --git a/meson.build b/meson.build
-index 21e2a332d6c..a807e2a6354 100644
---- a/meson.build
-+++ b/meson.build
-@@ -123,19 +123,15 @@ if have_rust
-   rustc_args = [find_program('scripts/rust/rustc_args.py'),
-     '--rustc-version', rustc.version(),
-     '--workspace', meson.project_source_root() / 'rust']
-+  if get_option('strict_rust_lints')
-+    rustc_args += ['--strict-lints']
-+  endif
-+
-   rustfmt = find_program('rustfmt', required: false)
- 
-   rustc_lint_args = run_command(rustc_args, '--lints',
-      capture: true, check: true).stdout().strip().splitlines()
- 
--  # Occasionally, we may need to silence warnings and clippy lints that
--  # were only introduced in newer Rust compiler versions.  Do not croak
--  # in that case; a CI job with rust_strict_lints == true ensures that
--  # we do not have misspelled allow() attributes.
--  if not get_option('strict_rust_lints')
--    rustc_lint_args += ['-A', 'unknown_lints']
--  endif
--
-   # Apart from procedural macros, our Rust executables will often link
-   # with C code, so include all the libraries that C code needs.  This
-   # is safe; https://github.com/rust-lang/rust/pull/54675 says that
 diff --git a/rust/Cargo.toml b/rust/Cargo.toml
-index 4bb52bf0bd5..358c517bc56 100644
+index 358c517bc56..c3f7142d264 100644
 --- a/rust/Cargo.toml
 +++ b/rust/Cargo.toml
-@@ -11,5 +11,11 @@ unexpected_cfgs = { level = "deny", check-cfg = [
-     'cfg(MESON)', 'cfg(HAVE_GLIB_WITH_ALIGNED_ALLOC)',
-     'cfg(has_offset_of)'] }
+@@ -19,3 +19,68 @@ unknown_lints = "allow"
  
-+# Occasionally, we may need to silence warnings and clippy lints that
-+# were only introduced in newer Rust compiler versions.  Do not croak
-+# in that case; a CI job with rust_strict_lints == true disables this
-+# and ensures that we do not have misspelled allow() attributes.
-+unknown_lints = "allow"
-+
  # Prohibit code that is forbidden in Rust 2024
  unsafe_op_in_unsafe_fn = "deny"
-diff --git a/scripts/rust/rustc_args.py b/scripts/rust/rustc_args.py
-index 9df131a02bd..5525b3886fa 100644
---- a/scripts/rust/rustc_args.py
-+++ b/scripts/rust/rustc_args.py
-@@ -35,6 +35,8 @@
- except ImportError:
-     import tomli as tomllib
- 
-+STRICT_LINTS = {"unknown_lints", "warnings"}
 +
- 
- class CargoTOML:
-     tomldata: Mapping[Any, Any]
-@@ -80,7 +82,7 @@ class LintFlag:
-     priority: int
- 
- 
--def generate_lint_flags(cargo_toml: CargoTOML) -> Iterable[str]:
-+def generate_lint_flags(cargo_toml: CargoTOML, strict_lints: bool) -> Iterable[str]:
-     """Converts Cargo.toml lints to rustc -A/-D/-F/-W flags."""
- 
-     toml_lints = cargo_toml.lints
-@@ -105,9 +107,13 @@ def generate_lint_flags(cargo_toml: CargoTOML) -> Iterable[str]:
-             # This may change if QEMU ever invokes clippy-driver or rustdoc by
-             # hand.  For now, check the syntax but do not add non-rustc lints to
-             # the command line.
--            if k == "rust":
-+            if k == "rust" and not (strict_lints and lint in STRICT_LINTS):
-                 lint_list.append(LintFlag(flags=[flag, prefix + lint], priority=priority))
- 
-+    if strict_lints:
-+        for lint in STRICT_LINTS:
-+            lint_list.append(LintFlag(flags=["-D", lint], priority=1000000))
++[workspace.lints.rustdoc]
++broken_intra_doc_links = "deny"
++invalid_html_tags = "deny"
++invalid_rust_codeblocks = "deny"
++bare_urls = "deny"
++unescaped_backticks = "deny"
++redundant_explicit_links = "deny"
 +
-     lint_list.sort(key=lambda x: x.priority)
-     for lint in lint_list:
-         yield from lint.flags
-@@ -184,6 +190,13 @@ def main() -> None:
-         required=False,
-         default="1.0.0",
-     )
-+    parser.add_argument(
-+        "--strict-lints",
-+        action="store_true",
-+        dest="strict_lints",
-+        help="apply stricter checks (for nightly Rust)",
-+        default=False,
-+    )
-     args = parser.parse_args()
-     if args.verbose:
-         logging.basicConfig(level=logging.DEBUG)
-@@ -197,7 +210,7 @@ def main() -> None:
-         cargo_toml = CargoTOML(args.cargo_toml, None)
++[workspace.lints.clippy]
++# default-warn lints
++result_unit_err = "allow"
++should_implement_trait = "deny"
++
++# default-allow lints
++as_underscore = "deny"
++assertions_on_result_states = "deny"
++bool_to_int_with_if = "deny"
++borrow_as_ptr = "deny"
++cast_lossless = "deny"
++dbg_macro = "deny"
++debug_assert_with_mut_call = "deny"
++derive_partial_eq_without_eq = "deny"
++doc_markdown = "deny"
++empty_structs_with_brackets = "deny"
++ignored_unit_patterns = "deny"
++implicit_clone = "deny"
++macro_use_imports = "deny"
++missing_const_for_fn = "deny"
++missing_safety_doc = "deny"
++multiple_crate_versions = "deny"
++mut_mut = "deny"
++needless_bitwise_bool = "deny"
++needless_pass_by_ref_mut = "deny"
++no_effect_underscore_binding = "deny"
++option_option = "deny"
++or_fun_call = "deny"
++ptr_as_ptr = "deny"
++pub_underscore_fields = "deny"
++redundant_clone = "deny"
++redundant_closure_for_method_calls = "deny"
++redundant_else = "deny"
++redundant_pub_crate = "deny"
++ref_binding_to_reference = "deny"
++ref_option_ref = "deny"
++return_self_not_must_use = "deny"
++same_name_method = "deny"
++semicolon_inside_block = "deny"
++shadow_unrelated = "deny"
++significant_drop_in_scrutinee = "deny"
++significant_drop_tightening = "deny"
++suspicious_operation_groupings = "deny"
++transmute_ptr_to_ptr = "deny"
++transmute_undefined_repr = "deny"
++type_repetition_in_bounds = "deny"
++unused_self = "deny"
++used_underscore_binding = "deny"
++
++# nice to have, but cannot be enabled yet
++#wildcard_imports = "deny"   # still have many bindings::* imports
++#ptr_cast_constness = "deny" # needs 1.65.0 for cast_mut()/cast_const()
++
++# these may have false positives
++#option_if_let_else = "deny"
++cognitive_complexity = "deny"
+diff --git a/rust/hw/char/pl011/src/lib.rs b/rust/hw/char/pl011/src/lib.rs
+index cd0a49acb91..4dc0e8f345f 100644
+--- a/rust/hw/char/pl011/src/lib.rs
++++ b/rust/hw/char/pl011/src/lib.rs
+@@ -14,28 +14,15 @@
+ //! the [`registers`] module for register types.
  
-     if args.lints:
--        for tok in generate_lint_flags(cargo_toml):
-+        for tok in generate_lint_flags(cargo_toml, args.strict_lints):
-             print(tok)
+ #![deny(
+-    rustdoc::broken_intra_doc_links,
+-    rustdoc::redundant_explicit_links,
+     clippy::correctness,
+     clippy::suspicious,
+     clippy::complexity,
+     clippy::perf,
+     clippy::cargo,
+     clippy::nursery,
+-    clippy::style,
+-    // restriction group
+-    clippy::dbg_macro,
+-    clippy::as_underscore,
+-    clippy::assertions_on_result_states,
+-    // pedantic group
+-    clippy::doc_markdown,
+-    clippy::borrow_as_ptr,
+-    clippy::cast_lossless,
+-    clippy::option_if_let_else,
+-    clippy::missing_const_for_fn,
+-    clippy::cognitive_complexity,
+-    clippy::missing_safety_doc,
+-    )]
++    clippy::style
++)]
++#![allow(clippy::upper_case_acronyms)]
+ #![allow(clippy::result_unit_err)]
  
-     if rustc_version >= (1, 80):
+ extern crate bilge;
+diff --git a/rust/qemu-api/src/bindings.rs b/rust/qemu-api/src/bindings.rs
+index 0b76ec58bee..8a9b821bb91 100644
+--- a/rust/qemu-api/src/bindings.rs
++++ b/rust/qemu-api/src/bindings.rs
+@@ -7,10 +7,10 @@
+     non_snake_case,
+     non_upper_case_globals,
+     unsafe_op_in_unsafe_fn,
++    clippy::pedantic,
++    clippy::restriction,
++    clippy::style,
+     clippy::missing_const_for_fn,
+-    clippy::too_many_arguments,
+-    clippy::approx_constant,
+-    clippy::use_self,
+     clippy::useless_transmute,
+     clippy::missing_safety_doc
+ )]
 -- 
 2.47.0
 
