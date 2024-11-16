@@ -1,88 +1,80 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tBzOK-0007X5-Ok
-	for mharc-qemu-rust@gnu.org; Fri, 15 Nov 2024 11:41:53 -0500
+	id 1tCNL4-00032S-51
+	for mharc-qemu-rust@gnu.org; Sat, 16 Nov 2024 13:16:07 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tBzNu-0006gw-RL
- for qemu-rust@nongnu.org; Fri, 15 Nov 2024 11:41:28 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tBzNt-0002Oa-Gi
- for qemu-rust@nongnu.org; Fri, 15 Nov 2024 11:41:26 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1731688884;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lNF/kcmKbI8KDX0YtdYyqZMFkG7Dt2MJ7WbIuixbzu0=;
- b=Z2Vqts8UWMK5z1ETVMKEoMhYMGrF8Z67X3ojRskBJwNnhrU4HPTehnXHQGL2chJNjPn2fo
- bDzQ8h53WbViUDvciGGz90ojPtlCxVTr+5XKNervXOEQE38FZd81qaDMF3l6hoGlz7gP3E
- e7yF/jQ0Llto3ZLC42TwgjYa+bPe7mQ=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-659-EkRjW9TcNlusEN5SKLqscQ-1; Fri, 15 Nov 2024 11:41:23 -0500
-X-MC-Unique: EkRjW9TcNlusEN5SKLqscQ-1
-X-Mimecast-MFC-AGG-ID: EkRjW9TcNlusEN5SKLqscQ
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-4315f48bd70so6122605e9.2
- for <qemu-rust@nongnu.org>; Fri, 15 Nov 2024 08:41:23 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1tCNKy-00031a-MK
+ for qemu-rust@nongnu.org; Sat, 16 Nov 2024 13:16:02 -0500
+Received: from mail-ed1-x532.google.com ([2a00:1450:4864:20::532])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1tCNKu-0000KZ-3B
+ for qemu-rust@nongnu.org; Sat, 16 Nov 2024 13:15:59 -0500
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5cf7567f369so2382687a12.3
+ for <qemu-rust@nongnu.org>; Sat, 16 Nov 2024 10:15:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1731780952; x=1732385752; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=q6tr4L5Awk6MF5nkShlTZsV/p9lj5pTzBeIQEchqGPY=;
+ b=tVcAdw8ytc5UDb2ADQb4oUFb0rth+tKGXUuN2fjxMgaR71+R0Wwa3aN1P1g8MiMdak
+ NOGUjOw1u12eCkIqltGV7HFMxM9NdGd/uNDl+zhICdD6ZKH1FYx47Cx2Gu8EZc4J2goT
+ AhCUCqbhRyAx6g0Gy4ZGMEfOfZP7WCKs2hz3gWTRKJcOyJSB0LvN08mg+dI5QNBHE84j
+ 15t6fioxlHi/eq4GwNqbzB4tV7M5F32xg3D3CKII+1Ux5NQ5LIf+N66+ls3JHhJpDGb8
+ xfgn0Zfmis4OisAYvs1ED6oaqORYh5WvRo60iPRW72BYZ5PCvmkJM/L2R1p/G38Xoihp
+ INCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731688878; x=1732293678;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lNF/kcmKbI8KDX0YtdYyqZMFkG7Dt2MJ7WbIuixbzu0=;
- b=D25EHB6HNE0lCXZLihDmsDeMPaGCuTt0AefhBz43ws2haaUcjPQliN7pMl2MP8+jvz
- Wd7IDStC3Ay+qwD/6MuqEWSqSJo+iS91HrWE1LCPc0zlbUwaWDU1uls01R5ehKpIhMic
- pt70JcA/kxBtuJPsKhAjAbCkgFt4scSyoWeFfhko6pNbWbUGmlcnex6OMTPZqFTn5cOi
- elAScphxMvCCkpUDXn3Zgo1XFgPcRicZw66l/1R4bdRY0bfsRiEqoObJys30wiCBXO6w
- mUaT3I8YoMZUDqdECP851OF0eZP0mgltRTceh0Vwqh55YYhfQPPVHq9jto8kUVsTr/O3
- m+tw==
-X-Gm-Message-State: AOJu0Yyb456Ytu+1QSh7oATgbc8UDy0220I8SA43p0u6Km0+aYCOAoNJ
- H1CxgOz4IhDk/1jw4qyEFdkTBqU2IgMLfY1tsF6m4YFYvgz6FkcoZ+5kWLTAUxzbrRsfNSiq4+q
- 1rV1lV0Gr0J1HP2UP/yXWxYGeFHvewAjqM+ecPYsQabPpqPbfLAlSKJmJSyMEXQ==
-X-Received: by 2002:a05:600c:35d2:b0:42c:c401:6d67 with SMTP id
- 5b1f17b1804b1-432df71e8d0mr27732175e9.6.1731688878517; 
- Fri, 15 Nov 2024 08:41:18 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEYIOmwqMaZc9Jpmv3POLb6H0rLNE34fZGiIM3liWc2MH5JMcADQ/llNm6desKG+DqCpuOlxQ==
-X-Received: by 2002:a05:600c:35d2:b0:42c:c401:6d67 with SMTP id
- 5b1f17b1804b1-432df71e8d0mr27732005e9.6.1731688878150; 
- Fri, 15 Nov 2024 08:41:18 -0800 (PST)
-Received: from [192.168.10.3] ([151.49.84.243])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3821b461a84sm4659639f8f.34.2024.11.15.08.41.13
+ d=1e100.net; s=20230601; t=1731780952; x=1732385752;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=q6tr4L5Awk6MF5nkShlTZsV/p9lj5pTzBeIQEchqGPY=;
+ b=VPXY3htrTJeJm3wL3Y6GG01nAQuF41BQzfDhsR2JLoRk14nr+ug64MeUtD9w7a/ifL
+ +EIhdU6/1gYCwRjKIoZ27bXkc+NnyiAnmBJHDVxwbpA1QXPdISsH9eyz7EiOCIv1Keva
+ y5EwnS69JPCka8Dy1/qA8kq+Tq221yrZn5Z4zz2nRfD/vYvt6MpkcqDJT5UGrE6JJPEP
+ CDl2EOTvPi61WlOphnD15HnN1qUotWapStlm7c73NPox+okZpn8k4kUCbjAt7u6I5/db
+ pseRFNRYiy/0jy+ofRD1QAKTEBH2JvrGrAH0/Lg573saxrGRPs0j+TR5sKGRF7itzVfU
+ c4wQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWzi4VQsBb8SBU6R1braPtQH2PWUa4D6RSl1KjjXd1SPrFKKHUPkUg1FeoGAjkfoigZfZu8HxU6dbA=@nongnu.org
+X-Gm-Message-State: AOJu0YyUlgynQ2KA9hFKqzcEo7IsxP+S9oj5jbR8vUq4pUtiVhdU3Du6
+ XE0xz1Dtk53uVbDhGNXRnnvJ9T2VpPbxsfNVc+urCFl3+V04oQD0Ici13gWGOhc=
+X-Google-Smtp-Source: AGHT+IFQHfHmFdH8kcxV7YarABAGbtbo1ZDIj3wmKqiWDqSgoUYUTwslymTqBxEUcp7Vj8TlZ3eouw==
+X-Received: by 2002:a17:907:a4b:b0:aa1:e04f:e37f with SMTP id
+ a640c23a62f3a-aa4833e9adamr558597966b.6.1731780952164; 
+ Sat, 16 Nov 2024 10:15:52 -0800 (PST)
+Received: from localhost.localdomain (adsl-27.37.6.161.tellas.gr.
+ [37.6.161.27]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa20df508f8sm337078666b.63.2024.11.16.10.15.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Nov 2024 08:41:13 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
+ Sat, 16 Nov 2024 10:15:51 -0800 (PST)
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org, berrange@redhat.com, junjie.mao@hotmail.com,
- manos.pitsidianakis@linaro.org, kwolf@redhat.com
-Subject: [PATCH 12/12] rust: fix doc test syntax
-Date: Fri, 15 Nov 2024 17:40:25 +0100
-Message-ID: <20241115164025.1917618-12-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20241115163944.1917393-1-pbonzini@redhat.com>
-References: <20241115163944.1917393-1-pbonzini@redhat.com>
+Cc: qemu-arm@nongnu.org, qemu-rust@nongnu.org,
+ =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Gustavo Romero <gustavo.romero@linaro.org>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Pierrick Bouvier <pierrick.bouvier@linaro.org>,
+ Richard Henderson <richard.henderson@linaro.org>
+Subject: [PATCH v1] rust/pl011: Fix DeviceID reads
+Date: Sat, 16 Nov 2024 20:15:47 +0200
+Message-ID: <20241116181549.3430225-1-manos.pitsidianakis@linaro.org>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: wOWCAFKbtnF6tYZxV4I55SlltiO_zGbE4d20knpuEVk_1731688882
-X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -28
-X-Spam_score: -2.9
+Received-SPF: pass client-ip=2a00:1450:4864:20::532;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x532.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.9 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.12,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.658,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -95,34 +87,182 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Nov 2024 16:41:30 -0000
+X-List-Received-Date: Sat, 16 Nov 2024 18:16:02 -0000
 
-Allow "cargo test --doc" to pass.
+DeviceId, which maps the peripheral and PCell registers of a PL011
+device, was not treating each register value as a 32 bit value.
 
-Reviewed-by: Junjie Mao <junjie.mao@hotmail.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Change DeviceId enum to return register values via constified getter
+functions instead of leveraging the std::ops::Index<_> trait.
+
+Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 ---
- rust/qemu-api/src/zeroable.rs | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ rust/hw/char/pl011/src/device.rs | 79 +++++++++++++++++++++++++-------
+ rust/hw/char/pl011/src/lib.rs    | 22 ++++++++-
+ 2 files changed, 83 insertions(+), 18 deletions(-)
 
-diff --git a/rust/qemu-api/src/zeroable.rs b/rust/qemu-api/src/zeroable.rs
-index 13cdb2ccba5..6125aeed8b4 100644
---- a/rust/qemu-api/src/zeroable.rs
-+++ b/rust/qemu-api/src/zeroable.rs
-@@ -7,9 +7,9 @@
- /// behavior.  This trait in principle could be implemented as just:
- ///
- /// ```
--///     const ZERO: Self = unsafe {
--///         ::core::mem::MaybeUninit::<$crate::bindings::Property>::zeroed().assume_init()
--///     },
-+/// pub unsafe trait Zeroable: Default {
-+///     const ZERO: Self = unsafe { ::core::mem::MaybeUninit::<Self>::zeroed().assume_init() };
-+/// }
- /// ```
- ///
- /// The need for a manual implementation is only because `zeroed()` cannot
+diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
+index 2a85960b81..98dd97dbfd 100644
+--- a/rust/hw/char/pl011/src/device.rs
++++ b/rust/hw/char/pl011/src/device.rs
+@@ -5,7 +5,7 @@
+ use core::ptr::{addr_of, addr_of_mut, NonNull};
+ use std::{
+     ffi::CStr,
+-    os::raw::{c_int, c_uchar, c_uint, c_void},
++    os::raw::{c_int, c_uint, c_void},
+ };
+ 
+ use qemu_api::{
+@@ -32,6 +32,7 @@
+ /// QEMU sourced constant.
+ pub const PL011_FIFO_DEPTH: usize = 16_usize;
+ 
++/// State enum that represents the values of the peripheral and PCell registers of a PL011 device.
+ #[derive(Clone, Copy, Debug)]
+ enum DeviceId {
+     #[allow(dead_code)]
+@@ -39,20 +40,55 @@ enum DeviceId {
+     Luminary,
+ }
+ 
+-impl std::ops::Index<hwaddr> for DeviceId {
+-    type Output = c_uchar;
+-
+-    fn index(&self, idx: hwaddr) -> &Self::Output {
+-        match self {
+-            Self::Arm => &Self::PL011_ID_ARM[idx as usize],
+-            Self::Luminary => &Self::PL011_ID_LUMINARY[idx as usize],
+-        }
+-    }
+-}
+-
+ impl DeviceId {
+-    const PL011_ID_ARM: [c_uchar; 8] = [0x11, 0x10, 0x14, 0x00, 0x0d, 0xf0, 0x05, 0xb1];
+-    const PL011_ID_LUMINARY: [c_uchar; 8] = [0x11, 0x00, 0x18, 0x01, 0x0d, 0xf0, 0x05, 0xb1];
++    /// Value of `UARTPeriphID0` register, which contains the `PartNumber0` value.
++    const fn uart_periph_id0(self) -> u64 {
++        0x11
++    }
++
++    /// Value of `UARTPeriphID1` register, which contains the `Designer0` and `PartNumber1` values.
++    const fn uart_periph_id1(self) -> u64 {
++        (match self {
++            Self::Arm => 0x10,
++            Self::Luminary => 0x00,
++        }) as u64
++    }
++
++    /// Value of `UARTPeriphID2` register, which contains the `Revision` and `Designer1` values.
++    const fn uart_periph_id2(self) -> u64 {
++        (match self {
++            Self::Arm => 0x14,
++            Self::Luminary => 0x18,
++        }) as u64
++    }
++
++    /// Value of `UARTPeriphID3` register, which contains the `Configuration` value.
++    const fn uart_periph_id3(self) -> u64 {
++        (match self {
++            Self::Arm => 0x0,
++            Self::Luminary => 0x1,
++        }) as u64
++    }
++
++    /// Value of `UARTPCellID0` register.
++    const fn uart_pcell_id0(self) -> u64 {
++        0x0d
++    }
++
++    /// Value of `UARTPCellID1` register.
++    const fn uart_pcell_id1(self) -> u64 {
++        0xf0
++    }
++
++    /// Value of `UARTPCellID2` register.
++    const fn uart_pcell_id2(self) -> u64 {
++        0x05
++    }
++
++    /// Value of `UARTPCellID3` register.
++    const fn uart_pcell_id3(self) -> u64 {
++        0xb1
++    }
+ }
+ 
+ #[repr(C)]
+@@ -182,9 +218,14 @@ pub fn read(&mut self, offset: hwaddr, _size: c_uint) -> std::ops::ControlFlow<u
+         use RegisterOffset::*;
+ 
+         std::ops::ControlFlow::Break(match RegisterOffset::try_from(offset) {
+-            Err(v) if (0x3f8..0x400).contains(&v) => {
+-                u64::from(self.device_id[(offset - 0xfe0) >> 2])
+-            }
++            Ok(PeriphID0) => self.device_id.uart_periph_id0(),
++            Ok(PeriphID1) => self.device_id.uart_periph_id1(),
++            Ok(PeriphID2) => self.device_id.uart_periph_id2(),
++            Ok(PeriphID3) => self.device_id.uart_periph_id3(),
++            Ok(PCellID0) => self.device_id.uart_pcell_id0(),
++            Ok(PCellID1) => self.device_id.uart_pcell_id1(),
++            Ok(PCellID2) => self.device_id.uart_pcell_id2(),
++            Ok(PCellID3) => self.device_id.uart_pcell_id3(),
+             Err(_) => {
+                 // qemu_log_mask(LOG_GUEST_ERROR, "pl011_read: Bad offset 0x%x\n", (int)offset);
+                 0
+@@ -236,6 +277,10 @@ pub fn write(&mut self, offset: hwaddr, value: u64) {
+         use RegisterOffset::*;
+         let value: u32 = value as u32;
+         match RegisterOffset::try_from(offset) {
++            Ok(PeriphID0) | Ok(PeriphID1) | Ok(PeriphID2) | Ok(PeriphID3) | Ok(PCellID0)
++            | Ok(PCellID1) | Ok(PCellID2) | Ok(PCellID3) => {
++                // Ignore writes to read-only registers.
++            }
+             Err(_bad_offset) => {
+                 eprintln!("write bad offset {offset} value {value}");
+             }
+diff --git a/rust/hw/char/pl011/src/lib.rs b/rust/hw/char/pl011/src/lib.rs
+index cd0a49acb9..1f305aa13f 100644
+--- a/rust/hw/char/pl011/src/lib.rs
++++ b/rust/hw/char/pl011/src/lib.rs
+@@ -111,6 +111,22 @@ pub enum RegisterOffset {
+     /// DMA control Register
+     #[doc(alias = "UARTDMACR")]
+     DMACR = 0x048,
++    #[doc(alias = "UARTPeriphID0")]
++    PeriphID0 = 0xFE0,
++    #[doc(alias = "UARTPeriphID1")]
++    PeriphID1 = 0xFE4,
++    #[doc(alias = "UARTPeriphID2")]
++    PeriphID2 = 0xFE8,
++    #[doc(alias = "UARTPeriphID3")]
++    PeriphID3 = 0xFEC,
++    #[doc(alias = "UARTPCellID0")]
++    PCellID0 = 0xFF0,
++    #[doc(alias = "UARTPCellID1")]
++    PCellID1 = 0xFF4,
++    #[doc(alias = "UARTPCellID2")]
++    PCellID2 = 0xFF8,
++    #[doc(alias = "UARTPCellID3")]
++    PCellID3 = 0xFFC,
+     ///// Reserved, offsets `0x04C` to `0x07C`.
+     //Reserved = 0x04C,
+ }
+@@ -137,7 +153,11 @@ const fn _assert_exhaustive(val: RegisterOffset) {
+                 }
+             }
+         }
+-        case! { DR, RSR, FR, FBRD, ILPR, IBRD, LCR_H, CR, FLS, IMSC, RIS, MIS, ICR, DMACR }
++        case! {
++            DR, RSR, FR, FBRD, ILPR, IBRD, LCR_H, CR, FLS, IMSC, RIS, MIS, ICR, DMACR,
++            PeriphID0, PeriphID1, PeriphID2, PeriphID3,
++            PCellID0, PCellID1, PCellID2, PCellID3,
++        }
+     }
+ }
+ 
+
+base-commit: 43f2def68476697deb0d119cbae51b20019c6c86
 -- 
-2.47.0
+γαῖα πυρί μιχθήτω
 
 
