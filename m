@@ -1,77 +1,79 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tCQEc-0007Dl-7N
-	for mharc-qemu-rust@gnu.org; Sat, 16 Nov 2024 16:21:38 -0500
+	id 1tCQfe-00029a-Fh
+	for mharc-qemu-rust@gnu.org; Sat, 16 Nov 2024 16:49:34 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tCQEb-0007Dc-1P
- for qemu-rust@nongnu.org; Sat, 16 Nov 2024 16:21:37 -0500
-Received: from mail-ed1-x52f.google.com ([2a00:1450:4864:20::52f])
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1tCQfc-000291-Lb
+ for qemu-rust@nongnu.org; Sat, 16 Nov 2024 16:49:32 -0500
+Received: from mail-ej1-x632.google.com ([2a00:1450:4864:20::632])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tCQEV-0002PA-UL
- for qemu-rust@nongnu.org; Sat, 16 Nov 2024 16:21:34 -0500
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5cb15b84544so859476a12.2
- for <qemu-rust@nongnu.org>; Sat, 16 Nov 2024 13:21:31 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1tCQfb-0001Vs-1x
+ for qemu-rust@nongnu.org; Sat, 16 Nov 2024 16:49:32 -0500
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a99eb8b607aso385750866b.2
+ for <qemu-rust@nongnu.org>; Sat, 16 Nov 2024 13:49:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731792090; x=1732396890; darn=nongnu.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=R0svVznsXJi+KwTmDjSl06FehgpkSPdLwSrxOHWybLM=;
- b=ddhl/sgWGkLFhXUUZWao7aOh0UrUa4QDp6khKH5cBGYJmbFOimTvbWBcG4p3lwvQGz
- PjRrR2v+r+6vsr+8gbXmUfx6BVaMePeUlTdMrIThou9qYT1s88/7YvGvmAAuHyDxAKLw
- NwAg9cI7VKmRtLACG1P3/viiWWXZ7djzvvF8HPyitDHMKi6wriuikGidbn+mxNeqaSbo
- QOVzHoEleUK+gicDTAqVeanQsxSI7Zn70ksZkx5OPgmVmscAV+YPiOZO58y4kEllip42
- trmL3ha50310lJiZLlVVCz7O8Nqg5ntqr7WWXlTwSQQSp3Kv5Lamn7+qfvPVFBfdINoG
- KP7Q==
+ d=linaro.org; s=google; t=1731793769; x=1732398569; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1F9zdRoKsUu5zPMH8J+dMjv84QztGXv+9RWvY9Lye2s=;
+ b=YQBAqkvXtGI5VvmYP7MBCoxiBd3z+H4yY7v54SWVNKmNofOO9rgi/FhOwdV2+Ar5xi
+ h2lMdQ+uGOM7Tf84GZwv5m6lquONU88F9Z/oNiS33n27Rvubve35wB0T0Dql2qUkgBiE
+ cmwfMG1BZn9oekqmWE368Kg4rQwDRnbcmm5SNR2OCZrY/04KA++Xvi+cN2cqcD9UdysV
+ 8A49XSNCYVyMPAo+VQjHcrXALLUZBD2o37FGqdFETYSix3Zs/qv4RSPpNPmVIboyOiuT
+ maiIcoDayGxFFFOx7HDia1YO9A7z2+p8P7AVmf0Wx6oIk06r/p13yHVmYOauoUBAexhu
+ 78Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731792090; x=1732396890;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=R0svVznsXJi+KwTmDjSl06FehgpkSPdLwSrxOHWybLM=;
- b=QhuO10rXYPLiPetyZGE9TB97QeT9KxSTa8a+2LaC1mMWx971dAS0Odq38qR6UQN/3h
- HUzl8qPxcS5qq2IvtvOfIbEj1zbirotKxho5NeOmXP3u2iGVyPvzzZgYKBloIppWqFtY
- +vAqraL8uKGTk+0wU3LITXBTsl+V5d2UVFakNfzQ4emiztBrzRmopm08psCOVV+just7
- JAVme5TKKXAhcUj/KTup6RGMiyKq7vufs+UbYIYVVD8je+Kxn/itcwMYTcR7DBi44z9o
- JhIMQtSxvNc17HLqTOP9iokvu7zgUOlP8IJAT6dtkUuL+xitz0L2q/8wrH16dfagx/Hj
- igkQ==
+ d=1e100.net; s=20230601; t=1731793769; x=1732398569;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=1F9zdRoKsUu5zPMH8J+dMjv84QztGXv+9RWvY9Lye2s=;
+ b=rAIvbeno+JAPzFf/cMllltGWvEasiijWG6bBszgUgb6+a9f1QkL1SML+f4UVUALQqz
+ rJMbDTXnVBvzjQ9kvEDnbx3dF8E46m4i0QqV9BVVm5lzX1qL7VfpbmRQA3OoC/QY+zKW
+ IwhH7cSU6H3UuANRWytg4kFAgpcq5nA8qtjLWEMvZffLumzFapKewud5hmYmCEZrEPTH
+ t/+lySu7goNw1Er3+c86FzPf9VdBIlRx/dyCbdj4LHI8qSI8ikWXAxs/Hmdlo3sdIUEh
+ C57+mIGHN/jIZb1NAfMlJXLq/DTKWFODew6pWPVpleKdzOUlGSjEOCfMJfqnXTIuQfR+
+ hJLg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXnWUknLHNiF/1WtzhgHC1bdwF5NIsOX1JdV11n1v4dXcFEfQ9cINJkYElvubZV1JJiFCvTIkpjTtg=@nongnu.org
-X-Gm-Message-State: AOJu0YyG23RWU+aqD2yx7IuohfKB5GDrgfHft18eMNPsCqFwvO8e8IDS
- 5vlaA1S14l3sQM7gfWEPmP5VlaqEBiS0RxDJoV+IXu1pohkvqWXde0A3lRMF0VsHwkf9WsqkfJY
- YOjpYkOth8tTgaSO78s81lAS5RDjO/M1FiTsqpg==
-X-Google-Smtp-Source: AGHT+IHJpXXN+h/fZR58qw/EGaCnjiUJ5snTWk23QeGNj3pNEAMKzeSTL1Th/bkzBI2S+21D1SNAjst+hriuI+OF5yM=
-X-Received: by 2002:a05:6402:2793:b0:5cf:95d4:7b89 with SMTP id
- 4fb4d7f45d1cf-5cf95d47d98mr4580665a12.8.1731792090102; Sat, 16 Nov 2024
- 13:21:30 -0800 (PST)
+ AJvYcCU5cl3PdwBqdfdcymJbYSPWdBfICkNeP5s3uf8Y3puW6L4EKLNgp1pPERq3U3dVfWmIq43yELVYaMo=@nongnu.org
+X-Gm-Message-State: AOJu0YyXJE+hQrwdAJJKpA8F/HNQ35NSHvoHWVOEsVHTqgh/UK9ynsFl
+ KnDL4E7qUbiUa2vTP+92IVX/+JwnmrAvOqmdAiUt5SttG+fVZ5LTH/NkTRbG7MepwHRuhc/veZ0
+ /2ruyWSX9dk4D2J9ZMQ8Ulrc/L9Pg8y6UrA7Ojg==
+X-Google-Smtp-Source: AGHT+IGWpcdmm6OgXJahFIA8EpOPwogqZ0PduvIjW+BkVl7pq6Ur3ZXhnj2JOkaOiJYLxwQNW1DuYMZKYxYOzuy11Zk=
+X-Received: by 2002:a17:906:1c0e:b0:aa4:9ab1:19d5 with SMTP id
+ a640c23a62f3a-aa49ab11b5dmr212192866b.42.1731793768916; Sat, 16 Nov 2024
+ 13:49:28 -0800 (PST)
 MIME-Version: 1.0
 References: <20241116181549.3430225-1-manos.pitsidianakis@linaro.org>
  <7d835e14-c3d4-4aba-b4a9-eeb06f56fdde@redhat.com>
 In-Reply-To: <7d835e14-c3d4-4aba-b4a9-eeb06f56fdde@redhat.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Sat, 16 Nov 2024 21:21:19 +0000
-Message-ID: <CAFEAcA9n0+NE=hf4F7PDp9K7bwn96msdPYXpBPaY0h5-9=7+8g@mail.gmail.com>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Sat, 16 Nov 2024 23:49:03 +0200
+Message-ID: <CAAjaMXZxcT-+iJDpbSbFWuTF_Ci1iAgOUHLSbngR8rB9w2W5qQ@mail.gmail.com>
 Subject: Re: [PATCH v1] rust/pl011: Fix DeviceID reads
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-devel@nongnu.org,
- qemu-arm@nongnu.org, qemu-rust@nongnu.org, 
+Cc: qemu-devel@nongnu.org, qemu-arm@nongnu.org, qemu-rust@nongnu.org, 
  =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
  Gustavo Romero <gustavo.romero@linaro.org>,
+ Peter Maydell <peter.maydell@linaro.org>, 
  =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
  Pierrick Bouvier <pierrick.bouvier@linaro.org>, 
  Richard Henderson <richard.henderson@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Received-SPF: pass client-ip=2a00:1450:4864:20::52f;
- envelope-from=peter.maydell@linaro.org; helo=mail-ed1-x52f.google.com
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::632;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ej1-x632.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -84,25 +86,102 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Sat, 16 Nov 2024 21:21:37 -0000
+X-List-Received-Date: Sat, 16 Nov 2024 21:49:32 -0000
 
-On Sat, 16 Nov 2024 at 20:24, Paolo Bonzini <pbonzini@redhat.com> wrote:
+On Sat, Nov 16, 2024 at 10:24=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com=
+> wrote:
 >
 > On 11/16/24 19:15, Manos Pitsidianakis wrote:
+> >   impl DeviceId {
+> > -    const PL011_ID_ARM: [c_uchar; 8] =3D [0x11, 0x10, 0x14, 0x00, 0x0d=
+, 0xf0, 0x05, 0xb1];
+> > -    const PL011_ID_LUMINARY: [c_uchar; 8] =3D [0x11, 0x00, 0x18, 0x01,=
+ 0x0d, 0xf0, 0x05, 0xb1];
+> > +    /// Value of `UARTPeriphID0` register, which contains the `PartNum=
+ber0` value.
+> > +    const fn uart_periph_id0(self) -> u64 {
+> > +        0x11
+> > +    }
+> > +
+> > +    /// Value of `UARTPeriphID1` register, which contains the `Designe=
+r0` and `PartNumber1` values.
+> > +    const fn uart_periph_id1(self) -> u64 {
+> > +        (match self {
+> > +            Self::Arm =3D> 0x10,
+> > +            Self::Luminary =3D> 0x00,
+> > +        }) as u64
+> > +    }
+> >
+> > +
+> > +    /// Value of `UARTPeriphID2` register, which contains the `Revisio=
+n` and `Designer1` values.
+> > +    const fn uart_periph_id2(self) -> u64 {
+> > +        (match self {
+> > +            Self::Arm =3D> 0x14,
+> > +            Self::Luminary =3D> 0x18,
+> > +        }) as u64
+> > +    }
+> > +
+> > +    /// Value of `UARTPeriphID3` register, which contains the `Configu=
+ration` value.
+> > +    const fn uart_periph_id3(self) -> u64 {
+> > +        (match self {
+> > +            Self::Arm =3D> 0x0,
+> > +            Self::Luminary =3D> 0x1,
+> > +        }) as u64
+> > +    }
+>
+> If I understand correctly, these are two reasons why you did not go with
+> the simple adjustment to the Err(v) pattern:
+>
+> * the separate registers match the datasheet more
+>
+> * given the bug that you are fixing in the write function, you want to
+> avoid duplicating "Err(v) if (0xfe0..=3D0xffc).contains(&v)" between read
+> and write; instead, you rely on exhaustive enums for error checking.
+>
+> I wonder if we can keep these improvements while making the
+> implementation a bit more concise...  The eight const getter functions
+> are quite verbose, and having the device type match inside each function
+> is repetitive and hard to verify.  Maybe something like
+>
+>      const UART_PCELL_ID: [u8; 4] =3D [0x0d, 0xf0, 0x05, 0xb1];
+>      const ARM_UART_PERIPH_ID: [u8; 4] =3D [0x11, 0x10, 0x14, 0x00];
+>      const LUMINARY_UART_PERIPH_ID: [u8; 4] =3D [0x11, 0x00, 0x18, 0x01];
+>
+>      /// Value of `UARTPeriphID0` through `UARTPeriphID3` registers
+>      const fn uart_periph_id(&self, idx: usize) -> u8 {
+>          match self {
+>              Self::Arm =3D> ARM_UART_PERIPH_ID,
+>              Self::Luminary =3D> LUMINARY_UART_PERIPH_ID,
+>          }[idx]
+>      }
+>
+>      /// Value of `UARTPCellID0` through `UARTPCellID3` registers
+>      const fn uart_pcell_id(idx: usize) -> u8 {
+>          Self::UART_PCELL_ID[idx]
+>      }
+>
+> could be the best of both worlds?
+
+Eh, there's no real reason to do that though. I prefer verbosity and
+static checking with symbols rather than indexing; we're not writing C
+here.
+
+>
 > >           match RegisterOffset::try_from(offset) {
-> > +            Ok(PeriphID0) | Ok(PeriphID1) | Ok(PeriphID2) | Ok(PeriphID3) | Ok(PCellID0)
-> > +            | Ok(PCellID1) | Ok(PCellID2) | Ok(PCellID3) => {
+> > +            Ok(PeriphID0) | Ok(PeriphID1) | Ok(PeriphID2) | Ok(PeriphI=
+D3) | Ok(PCellID0)
+> > +            | Ok(PCellID1) | Ok(PCellID2) | Ok(PCellID3) =3D> {
 > > +                // Ignore writes to read-only registers.
 > > +            }
 >
 > This is indeed an improvement over the patches that Junjie and I had
 > sent, because the writes would have gone down the eprintln! path.
 
-In our C implementations of devices we usually let writes
-to read-only registers end up in the same default case
-as writes to invalid offsets, because they're all
-guest errors that we'd like to log. That's what the C pl011
-model does.
+I will send a v2 to print them anyway as guest errors like Peter requested.
 
--- PMM
+--=20
+Manos Pitsidianakis
+Emulation and Virtualization Engineer at Linaro Ltd
 
