@@ -1,132 +1,77 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tCPLc-0000Ft-6d
-	for mharc-qemu-rust@gnu.org; Sat, 16 Nov 2024 15:24:48 -0500
+	id 1tCQEc-0007Dl-7N
+	for mharc-qemu-rust@gnu.org; Sat, 16 Nov 2024 16:21:38 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tCPLb-0000Fb-3s
- for qemu-rust@nongnu.org; Sat, 16 Nov 2024 15:24:47 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tCPLZ-0006vM-01
- for qemu-rust@nongnu.org; Sat, 16 Nov 2024 15:24:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1731788681;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vobj0J68tgiXeoIbnC4J5t+3FC7RRd0R9SA6PR/izsA=;
- b=ifLfvrb2fvJd9LMUSF6u1W8PtRXc7Zk9k2+tt7pTs1Z28rToJvyPQ9ozdOvPnr0WyMuHqZ
- aaa5fFGJLBhN5szKcRkZjVd1PcsGDF1vY0uBURmxdBaBTcMOgvAGMY1RQ0Hve3Piywq+Mf
- lKPerjA5mh1n4ekdp7sb4WFIllchkgg=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-384-upT7iYx3OfGAfAT3cZauqw-1; Sat, 16 Nov 2024 15:24:39 -0500
-X-MC-Unique: upT7iYx3OfGAfAT3cZauqw-1
-X-Mimecast-MFC-AGG-ID: upT7iYx3OfGAfAT3cZauqw
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-431604a3b47so20992635e9.3
- for <qemu-rust@nongnu.org>; Sat, 16 Nov 2024 12:24:39 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tCQEb-0007Dc-1P
+ for qemu-rust@nongnu.org; Sat, 16 Nov 2024 16:21:37 -0500
+Received: from mail-ed1-x52f.google.com ([2a00:1450:4864:20::52f])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tCQEV-0002PA-UL
+ for qemu-rust@nongnu.org; Sat, 16 Nov 2024 16:21:34 -0500
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5cb15b84544so859476a12.2
+ for <qemu-rust@nongnu.org>; Sat, 16 Nov 2024 13:21:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1731792090; x=1732396890; darn=nongnu.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=R0svVznsXJi+KwTmDjSl06FehgpkSPdLwSrxOHWybLM=;
+ b=ddhl/sgWGkLFhXUUZWao7aOh0UrUa4QDp6khKH5cBGYJmbFOimTvbWBcG4p3lwvQGz
+ PjRrR2v+r+6vsr+8gbXmUfx6BVaMePeUlTdMrIThou9qYT1s88/7YvGvmAAuHyDxAKLw
+ NwAg9cI7VKmRtLACG1P3/viiWWXZ7djzvvF8HPyitDHMKi6wriuikGidbn+mxNeqaSbo
+ QOVzHoEleUK+gicDTAqVeanQsxSI7Zn70ksZkx5OPgmVmscAV+YPiOZO58y4kEllip42
+ trmL3ha50310lJiZLlVVCz7O8Nqg5ntqr7WWXlTwSQQSp3Kv5Lamn7+qfvPVFBfdINoG
+ KP7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731788678; x=1732393478;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1731792090; x=1732396890;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=vobj0J68tgiXeoIbnC4J5t+3FC7RRd0R9SA6PR/izsA=;
- b=YeBZjjPWRuSc833D8DfJl6upqv8lpCfvkJkPghhpHMnOrXwQIMArnC86UFIOxfnu2u
- C5jlkedoA/J+X+gUQ/fd6RhLl2m1nfZe/Fvwoyprit08lXaKn+cDl5ANx7AZpAHwDPwW
- fswwOIysYd4XiMBw/u5FpsoZfrr0nF8ImEtkPDnuZ+ezfobZXUGmaEi2fdKT748Yl7HJ
- tlIPd1SsZlHnMrIyucx1Xf4TLoxFg5EZ3ZBVIMncaleTrwxk7qfQf1XNADUif+37K9E2
- 9lzx49mwYEDtlnfldRyUltlYf7tFUVbMvJw1PSY8tAMqdiRWzW5xw1bVEManl8RlnaXC
- iLBA==
+ bh=R0svVznsXJi+KwTmDjSl06FehgpkSPdLwSrxOHWybLM=;
+ b=QhuO10rXYPLiPetyZGE9TB97QeT9KxSTa8a+2LaC1mMWx971dAS0Odq38qR6UQN/3h
+ HUzl8qPxcS5qq2IvtvOfIbEj1zbirotKxho5NeOmXP3u2iGVyPvzzZgYKBloIppWqFtY
+ +vAqraL8uKGTk+0wU3LITXBTsl+V5d2UVFakNfzQ4emiztBrzRmopm08psCOVV+just7
+ JAVme5TKKXAhcUj/KTup6RGMiyKq7vufs+UbYIYVVD8je+Kxn/itcwMYTcR7DBi44z9o
+ JhIMQtSxvNc17HLqTOP9iokvu7zgUOlP8IJAT6dtkUuL+xitz0L2q/8wrH16dfagx/Hj
+ igkQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVlTbaMcXHzKnu7kUeQbfGa1xcklCExDKeMnrYwtG5cniZaoK84SUoE4OViCmSRSSAevHIrZxPw8SE=@nongnu.org
-X-Gm-Message-State: AOJu0Ywb76bLyY83NaPB9QIWbK4iCjw4k2Lo/h+eFBagNIzlMz0oUWmK
- eWIzwjT03cTX70O5hMc+hpdODVKxPknupIZQG82i9u6UtxA9aij/kQMDg6PeM0FaOrn7qUzFlMM
- 2lqN0aMGSJ8l5Z4e9OQSoFS2kyi7hu3hRTQ7/7sRT6BXsjq6wtR8=
-X-Received: by 2002:a05:600c:4e8b:b0:431:4f29:4a98 with SMTP id
- 5b1f17b1804b1-432df77c605mr57609685e9.20.1731788678333; 
- Sat, 16 Nov 2024 12:24:38 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFMXGoncVt1+QW8R3jNYenhauSQXLpJVfuCixj/M0T9NCsDHs4NUmV8J7Nip5tCX9eDcnPs8w==
-X-Received: by 2002:a05:600c:4e8b:b0:431:4f29:4a98 with SMTP id
- 5b1f17b1804b1-432df77c605mr57609605e9.20.1731788677992; 
- Sat, 16 Nov 2024 12:24:37 -0800 (PST)
-Received: from [192.168.10.47] ([151.49.84.243])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-432da265ca8sm101716385e9.14.2024.11.16.12.24.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 16 Nov 2024 12:24:37 -0800 (PST)
-Message-ID: <7d835e14-c3d4-4aba-b4a9-eeb06f56fdde@redhat.com>
-Date: Sat, 16 Nov 2024 21:24:35 +0100
+ AJvYcCXnWUknLHNiF/1WtzhgHC1bdwF5NIsOX1JdV11n1v4dXcFEfQ9cINJkYElvubZV1JJiFCvTIkpjTtg=@nongnu.org
+X-Gm-Message-State: AOJu0YyG23RWU+aqD2yx7IuohfKB5GDrgfHft18eMNPsCqFwvO8e8IDS
+ 5vlaA1S14l3sQM7gfWEPmP5VlaqEBiS0RxDJoV+IXu1pohkvqWXde0A3lRMF0VsHwkf9WsqkfJY
+ YOjpYkOth8tTgaSO78s81lAS5RDjO/M1FiTsqpg==
+X-Google-Smtp-Source: AGHT+IHJpXXN+h/fZR58qw/EGaCnjiUJ5snTWk23QeGNj3pNEAMKzeSTL1Th/bkzBI2S+21D1SNAjst+hriuI+OF5yM=
+X-Received: by 2002:a05:6402:2793:b0:5cf:95d4:7b89 with SMTP id
+ 4fb4d7f45d1cf-5cf95d47d98mr4580665a12.8.1731792090102; Sat, 16 Nov 2024
+ 13:21:30 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] rust/pl011: Fix DeviceID reads
-To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-devel@nongnu.org
-Cc: qemu-arm@nongnu.org, qemu-rust@nongnu.org,
- =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Gustavo Romero <gustavo.romero@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Pierrick Bouvier <pierrick.bouvier@linaro.org>,
- Richard Henderson <richard.henderson@linaro.org>
 References: <20241116181549.3430225-1-manos.pitsidianakis@linaro.org>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <20241116181549.3430225-1-manos.pitsidianakis@linaro.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: lYrxkdm0l1nrLQ8mNVX5n7N23V_VdAlIi8jIMile3Vc_1731788678
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -21
-X-Spam_score: -2.2
+ <7d835e14-c3d4-4aba-b4a9-eeb06f56fdde@redhat.com>
+In-Reply-To: <7d835e14-c3d4-4aba-b4a9-eeb06f56fdde@redhat.com>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Sat, 16 Nov 2024 21:21:19 +0000
+Message-ID: <CAFEAcA9n0+NE=hf4F7PDp9K7bwn96msdPYXpBPaY0h5-9=7+8g@mail.gmail.com>
+Subject: Re: [PATCH v1] rust/pl011: Fix DeviceID reads
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-devel@nongnu.org,
+ qemu-arm@nongnu.org, qemu-rust@nongnu.org, 
+ =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+ Gustavo Romero <gustavo.romero@linaro.org>,
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+ Pierrick Bouvier <pierrick.bouvier@linaro.org>, 
+ Richard Henderson <richard.henderson@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Received-SPF: pass client-ip=2a00:1450:4864:20::52f;
+ envelope-from=peter.maydell@linaro.org; helo=mail-ed1-x52f.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.121,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -139,132 +84,25 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Sat, 16 Nov 2024 20:24:47 -0000
+X-List-Received-Date: Sat, 16 Nov 2024 21:21:37 -0000
 
-On 11/16/24 19:15, Manos Pitsidianakis wrote:
->   impl DeviceId {
-> -    const PL011_ID_ARM: [c_uchar; 8] = [0x11, 0x10, 0x14, 0x00, 0x0d, 0xf0, 0x05, 0xb1];
-> -    const PL011_ID_LUMINARY: [c_uchar; 8] = [0x11, 0x00, 0x18, 0x01, 0x0d, 0xf0, 0x05, 0xb1];
-> +    /// Value of `UARTPeriphID0` register, which contains the `PartNumber0` value.
-> +    const fn uart_periph_id0(self) -> u64 {
-> +        0x11
-> +    }
-> +
-> +    /// Value of `UARTPeriphID1` register, which contains the `Designer0` and `PartNumber1` values.
-> +    const fn uart_periph_id1(self) -> u64 {
-> +        (match self {
-> +            Self::Arm => 0x10,
-> +            Self::Luminary => 0x00,
-> +        }) as u64
-> +    }
-> 
-> +
-> +    /// Value of `UARTPeriphID2` register, which contains the `Revision` and `Designer1` values.
-> +    const fn uart_periph_id2(self) -> u64 {
-> +        (match self {
-> +            Self::Arm => 0x14,
-> +            Self::Luminary => 0x18,
-> +        }) as u64
-> +    }
-> +
-> +    /// Value of `UARTPeriphID3` register, which contains the `Configuration` value.
-> +    const fn uart_periph_id3(self) -> u64 {
-> +        (match self {
-> +            Self::Arm => 0x0,
-> +            Self::Luminary => 0x1,
-> +        }) as u64
-> +    }
+On Sat, 16 Nov 2024 at 20:24, Paolo Bonzini <pbonzini@redhat.com> wrote:
+>
+> On 11/16/24 19:15, Manos Pitsidianakis wrote:
+> >           match RegisterOffset::try_from(offset) {
+> > +            Ok(PeriphID0) | Ok(PeriphID1) | Ok(PeriphID2) | Ok(PeriphID3) | Ok(PCellID0)
+> > +            | Ok(PCellID1) | Ok(PCellID2) | Ok(PCellID3) => {
+> > +                // Ignore writes to read-only registers.
+> > +            }
+>
+> This is indeed an improvement over the patches that Junjie and I had
+> sent, because the writes would have gone down the eprintln! path.
 
-If I understand correctly, these are two reasons why you did not go with 
-the simple adjustment to the Err(v) pattern:
+In our C implementations of devices we usually let writes
+to read-only registers end up in the same default case
+as writes to invalid offsets, because they're all
+guest errors that we'd like to log. That's what the C pl011
+model does.
 
-* the separate registers match the datasheet more
-
-* given the bug that you are fixing in the write function, you want to 
-avoid duplicating "Err(v) if (0xfe0..=0xffc).contains(&v)" between read 
-and write; instead, you rely on exhaustive enums for error checking.
-
-I wonder if we can keep these improvements while making the 
-implementation a bit more concise...  The eight const getter functions 
-are quite verbose, and having the device type match inside each function 
-is repetitive and hard to verify.  Maybe something like
-
-     const UART_PCELL_ID: [u8; 4] = [0x0d, 0xf0, 0x05, 0xb1];
-     const ARM_UART_PERIPH_ID: [u8; 4] = [0x11, 0x10, 0x14, 0x00];
-     const LUMINARY_UART_PERIPH_ID: [u8; 4] = [0x11, 0x00, 0x18, 0x01];
-
-     /// Value of `UARTPeriphID0` through `UARTPeriphID3` registers
-     const fn uart_periph_id(&self, idx: usize) -> u8 {
-         match self {
-             Self::Arm => ARM_UART_PERIPH_ID,
-             Self::Luminary => LUMINARY_UART_PERIPH_ID,
-         }[idx]
-     }
-
-     /// Value of `UARTPCellID0` through `UARTPCellID3` registers
-     const fn uart_pcell_id(idx: usize) -> u8 {
-         Self::UART_PCELL_ID[idx]
-     }
-
-could be the best of both worlds?
-
->           match RegisterOffset::try_from(offset) {
-> +            Ok(PeriphID0) | Ok(PeriphID1) | Ok(PeriphID2) | Ok(PeriphID3) | Ok(PCellID0)
-> +            | Ok(PCellID1) | Ok(PCellID2) | Ok(PCellID3) => {
-> +                // Ignore writes to read-only registers.
-> +            }
-
-This is indeed an improvement over the patches that Junjie and I had 
-sent, because the writes would have gone down the eprintln! path.
-
-Thanks,
-
-Paolo
-
->               Err(_bad_offset) => {
->                   eprintln!("write bad offset {offset} value {value}");
->               }
-> diff --git a/rust/hw/char/pl011/src/lib.rs b/rust/hw/char/pl011/src/lib.rs
-> index cd0a49acb9..1f305aa13f 100644
-> --- a/rust/hw/char/pl011/src/lib.rs
-> +++ b/rust/hw/char/pl011/src/lib.rs
-> @@ -111,6 +111,22 @@ pub enum RegisterOffset {
->       /// DMA control Register
->       #[doc(alias = "UARTDMACR")]
->       DMACR = 0x048,
-> +    #[doc(alias = "UARTPeriphID0")]
-> +    PeriphID0 = 0xFE0,
-> +    #[doc(alias = "UARTPeriphID1")]
-> +    PeriphID1 = 0xFE4,
-> +    #[doc(alias = "UARTPeriphID2")]
-> +    PeriphID2 = 0xFE8,
-> +    #[doc(alias = "UARTPeriphID3")]
-> +    PeriphID3 = 0xFEC,
-> +    #[doc(alias = "UARTPCellID0")]
-> +    PCellID0 = 0xFF0,
-> +    #[doc(alias = "UARTPCellID1")]
-> +    PCellID1 = 0xFF4,
-> +    #[doc(alias = "UARTPCellID2")]
-> +    PCellID2 = 0xFF8,
-> +    #[doc(alias = "UARTPCellID3")]
-> +    PCellID3 = 0xFFC,
->       ///// Reserved, offsets `0x04C` to `0x07C`.
->       //Reserved = 0x04C,
->   }
-> @@ -137,7 +153,11 @@ const fn _assert_exhaustive(val: RegisterOffset) {
->                   }
->               }
->           }
-> -        case! { DR, RSR, FR, FBRD, ILPR, IBRD, LCR_H, CR, FLS, IMSC, RIS, MIS, ICR, DMACR }
-> +        case! {
-> +            DR, RSR, FR, FBRD, ILPR, IBRD, LCR_H, CR, FLS, IMSC, RIS, MIS, ICR, DMACR,
-> +            PeriphID0, PeriphID1, PeriphID2, PeriphID3,
-> +            PCellID0, PCellID1, PCellID2, PCellID3,
-> +        }
->       }
->   }
->   
-> 
-> base-commit: 43f2def68476697deb0d119cbae51b20019c6c86
-
+-- PMM
 
