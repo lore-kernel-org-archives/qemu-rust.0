@@ -1,80 +1,90 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tCR7H-0005zX-8d
-	for mharc-qemu-rust@gnu.org; Sat, 16 Nov 2024 17:18:07 -0500
+	id 1tCZtd-0003oc-FD
+	for mharc-qemu-rust@gnu.org; Sun, 17 Nov 2024 02:40:37 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1tCR7F-0005y4-3z
- for qemu-rust@nongnu.org; Sat, 16 Nov 2024 17:18:05 -0500
-Received: from mail-wm1-x32c.google.com ([2a00:1450:4864:20::32c])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1tCR7C-0000oF-MQ
- for qemu-rust@nongnu.org; Sat, 16 Nov 2024 17:18:04 -0500
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4315eac969aso16727275e9.1
- for <qemu-rust@nongnu.org>; Sat, 16 Nov 2024 14:18:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731795481; x=1732400281; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=90Z+uTvpepQAFzVHsVOwH1Xe3Nr8l4nE4g3HPoVibmQ=;
- b=LNQhZ9jKcWpZ3v+o2Kn0Kz4hIEQcfCl/liixdXrNiW9FJRZncJXe8e6DIuh3rPkTev
- 6UiG3pMZKfuFH+32BrCIjmxfQSYfquiZBFFYSNLJJugNDm4z96Ywk2oYdHscChFywQ7s
- rs7QNUHM6f4cHm/WwVg0NNb5bAlBt6MIL53lA5aijOP1pg2l1Cbm2dmp18DwQHXthdBo
- 7mO1XzJJNfYbrJvMe7MLlBuby7MFyo9UBRsoB7Xs5lNzTS1MWctMuyxeFN1TNbMwdpKv
- dBDJeJzdG7okg1fYLipTLjizC6LW5Q6N+tWbeWy4eWJcVKCUAEQ4Hb2EU7slMrvG5PH8
- ZzdA==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tCZtb-0003oJ-Hi
+ for qemu-rust@nongnu.org; Sun, 17 Nov 2024 02:40:35 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tCZtY-0003Ed-S5
+ for qemu-rust@nongnu.org; Sun, 17 Nov 2024 02:40:35 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1731829231;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=A47I1OwfzW9N5sRdtj6GdpVl3AjZq2JzQ8BrETv9PSc=;
+ b=DI25VNEKgbYGhGOzzNi+DjzoET/a6YADsr+bzJ5wUWchdlOI79tx5UngIJVRQJGFJ3GFvu
+ /r6DiitAVk9s0AdZbm5v5PKrdVUp625/uHAY9xc5eP3kAsvfrubef3Ut+KMMNP9CJK7WGM
+ QhlMtsVUzL2GFLfQEa/nFmukPW+OVIw=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-690-BJlUrEmZME2q0_jb5HRNLA-1; Sun, 17 Nov 2024 02:40:27 -0500
+X-MC-Unique: BJlUrEmZME2q0_jb5HRNLA-1
+X-Mimecast-MFC-AGG-ID: BJlUrEmZME2q0_jb5HRNLA
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-38240c98b68so227687f8f.2
+ for <qemu-rust@nongnu.org>; Sat, 16 Nov 2024 23:40:27 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731795481; x=1732400281;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1731829226; x=1732434026;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=90Z+uTvpepQAFzVHsVOwH1Xe3Nr8l4nE4g3HPoVibmQ=;
- b=d2W5d0BcR7TdWmD/6aAmIzX9DYrdvDo6cqu4oTUBhMCktI6aKNuSrmntMpPQdZ56sf
- pDdlB4g1XhmYJnBY+UloEo2UsRFK5aKAV5ebfyzidUyVYPHwgct9d5XK9XevnmFTOL0j
- I7RNfW0EH9O4Rjsakr3SWHTfGS6AhY9drlVaNLY3FA/vIVYCaxZ7+95AbQbgS1GIuNlU
- S5ER6143vPj7oh+6kYug7BpTavMM+omZEcJr0PRkxCKkG1O0MKtuzqvSC1DtssX7iZyw
- ++ZOVvddW8AHVSa02njMtdv/oyUl871UeLa6dy/ow+6cJovrB7dDryaOi6ThZ1tBQ3GY
- OvOA==
+ bh=A47I1OwfzW9N5sRdtj6GdpVl3AjZq2JzQ8BrETv9PSc=;
+ b=gubM7OmHGdX/fiRwkSo/+tEDXvkJiCzYQG5hiq1X13XQFS3bSSBOrnuYLYI8UYm3ME
+ E8uKa9XFHm2HuGrXEQOnF3hbbwqBUqdRq72DMJ5hDF+va1+xyVk5ZQPBRDtWdIHXqJh6
+ oEZ3EEXifXrQO6LUQ9nBeGY8VUyPbEjtH2n+9wF6/xCkkenejWp3Q2wrYTrz7OGc3x8a
+ AdIksQUxV6eBx+mw2Sf8i+8ZxTZBjjbW6hnZc7Z3UTTCYt4GSgVYhAao3gQEyu8VFMPE
+ mHqW/Tog6ciLEF4gSqvoOo0Fiw5lJwBXenjSVCcsOytsGlHmKdtC9IdyioJrEJXpz3QW
+ H5WQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW24u21+0epV7rWf1n8YSdznzXUFxb9797v7HHHHo6dNk7rR+biY4q6K9f2DZBNyWFv0thLgZLI/1s=@nongnu.org
-X-Gm-Message-State: AOJu0Yzv+/GjL9sBuvDdXuHYdS18frErQ+8ApFIfzBS1O1IGr0iDn8wK
- 7LsLeUiMavG8fdC8YnVItQuZGwHUxwFiAZqZXaKfU1CKx8lLPROg9nA4qzeVMHI=
-X-Google-Smtp-Source: AGHT+IE5Je1M/0sWbe3jl0H2L89jhWdgktlP6oktsPYUPJQBrF5vkAjkUnrY+zUFiUy0aJXZUd3HaA==
-X-Received: by 2002:a05:600c:3c9e:b0:431:52da:9d89 with SMTP id
- 5b1f17b1804b1-432defc8b2bmr66927325e9.1.1731795480613; 
- Sat, 16 Nov 2024 14:18:00 -0800 (PST)
-Received: from localhost.localdomain (adsl-99.109.242.224.tellas.gr.
- [109.242.224.99]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432da28b76fsm105752685e9.28.2024.11.16.14.17.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 16 Nov 2024 14:18:00 -0800 (PST)
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-To: qemu-devel@nongnu.org
-Cc: qemu-arm@nongnu.org, qemu-rust@nongnu.org,
- =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Gustavo Romero <gustavo.romero@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Pierrick Bouvier <pierrick.bouvier@linaro.org>,
- Richard Henderson <richard.henderson@linaro.org>
-Subject: [PATCH v2] rust/pl011: Fix DeviceID reads
-Date: Sun, 17 Nov 2024 00:17:56 +0200
-Message-ID: <20241116221757.3501603-1-manos.pitsidianakis@linaro.org>
-X-Mailer: git-send-email 2.45.2
+ AJvYcCXOVflT+nZ68bLEU75VFrkpNiZIGOpEidGoMxj0GMSxDavqqup2gUdUcz4mx2uzcExFzJgmoWbLDx4=@nongnu.org
+X-Gm-Message-State: AOJu0YwSZsJXq4MfYrEBpxctPBPEn/vmA4sUFaE7gKZJCeHkahjuvwBW
+ Zcwz6pBM3SaKAyOM9nuNvGKgGy9lGKhcCOj1tNOdYK3IlkZr1B3IqKcPJTaoX339U3tF2S5p+qV
+ aD9g9kvEt8/PqgYveyDAUsScYxawEoGCDTb4p68aCWsrL5KsT0fnKw+LfvH0nD8xNrMQwvNli7J
+ AfM6YiiaZDt8akaAgOJDOBDnPQLg==
+X-Received: by 2002:a5d:6d82:0:b0:37d:51b9:7f3b with SMTP id
+ ffacd0b85a97d-3822590b6e9mr6977898f8f.11.1731829226625; 
+ Sat, 16 Nov 2024 23:40:26 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFEIkyhbJXi19WtGz1mwlL4asrDOMCbr/Gx+9Eo+qga0fcbFfW3LL7gGceFOUbO4osC8gpBqo980/NblQW/PJg=
+X-Received: by 2002:a5d:6d82:0:b0:37d:51b9:7f3b with SMTP id
+ ffacd0b85a97d-3822590b6e9mr6977875f8f.11.1731829226254; Sat, 16 Nov 2024
+ 23:40:26 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF8
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::32c;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-wm1-x32c.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
+References: <20241116221757.3501603-1-manos.pitsidianakis@linaro.org>
+In-Reply-To: <20241116221757.3501603-1-manos.pitsidianakis@linaro.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Sun, 17 Nov 2024 08:40:00 +0100
+Message-ID: <CABgObfa8Qx7RzZK=VLFmsiEM=ExDb4T1WS4WzYc6D3ACuwc3fw@mail.gmail.com>
+Subject: Re: [PATCH v2] rust/pl011: Fix DeviceID reads
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-arm <qemu-arm@nongnu.org>,
+ qemu-rust@nongnu.org, 
+ =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+ Gustavo Romero <gustavo.romero@linaro.org>,
+ Peter Maydell <peter.maydell@linaro.org>, 
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+ Pierrick Bouvier <pierrick.bouvier@linaro.org>, 
+ Richard Henderson <richard.henderson@linaro.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 0bIZCuYBus6_09p-2JnET-f1GLbkBATBsF13I3QpKIQ_1731829227
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/alternative; boundary="000000000000d7cfd2062716e90b"
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -21
+X-Spam_score: -2.2
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.121,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -87,276 +97,374 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Sat, 16 Nov 2024 22:18:05 -0000
+X-List-Received-Date: Sun, 17 Nov 2024 07:40:36 -0000
 
-DeviceId, which maps the peripheral and PCell registers of a PL011
-device, was not treating each register value as a 32 bit value.
+--000000000000d7cfd2062716e90b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Change DeviceId enum to return register values via constified getter
-functions instead of leveraging the std::ops::Index<_> trait.
+Il sab 16 nov 2024, 23:18 Manos Pitsidianakis <
+manos.pitsidianakis@linaro.org> ha scritto:
 
-While at it, print errors when guest attempts to write to other RO
-registers as well.
+> -    const PL011_ID_ARM: [c_uchar; 8] =3D [0x11, 0x10, 0x14, 0x00, 0x0d,
+> 0xf0, 0x05, 0xb1];
+> -    const PL011_ID_LUMINARY: [c_uchar; 8] =3D [0x11, 0x00, 0x18, 0x01,
+> 0x0d, 0xf0, 0x05, 0xb1];
+> +    /// Value of `UARTPeriphID0` register, which contains the
+> `PartNumber0` value.
+> +    const fn uart_periph_id0(self) -> u64 {
+> +        0x11
+> +    }
+> +
+> +    /// Value of `UARTPeriphID1` register, which contains the `Designer0=
+`
+> and `PartNumber1` values.
+> +    const fn uart_periph_id1(self) -> u64 {
+> +        (match self {
+> +            Self::Arm =3D> 0x10,
+> +            Self::Luminary =3D> 0x00,
+> +        }) as u64
+> +    }
+> +
+> +    /// Value of `UARTPeriphID2` register, which contains the `Revision`
+> and `Designer1` values.
+> +    const fn uart_periph_id2(self) -> u64 {
+> +        (match self {
+> +            Self::Arm =3D> 0x14,
+> +            Self::Luminary =3D> 0x18,
+> +        }) as u64
+> +    }
+> +
+> +    /// Value of `UARTPeriphID3` register, which contains the
+> `Configuration` value.
+> +    const fn uart_periph_id3(self) -> u64 {
+> +        (match self {
+> +            Self::Arm =3D> 0x0,
+> +            Self::Luminary =3D> 0x1,
+> +        }) as u64
+> +    }
+> +
+> +    /// Value of `UARTPCellID0` register.
+> +    const fn uart_pcell_id0(self) -> u64 {
+> +        0x0d
+> +    }
+> +
+> +    /// Value of `UARTPCellID1` register.
+> +    const fn uart_pcell_id1(self) -> u64 {
+> +        0xf0
+> +    }
+> +
+> +    /// Value of `UARTPCellID2` register.
+> +    const fn uart_pcell_id2(self) -> u64 {
+> +        0x05
+> +    }
+> +
+> +    /// Value of `UARTPCellID3` register.
+> +    const fn uart_pcell_id3(self) -> u64 {
+> +        0xb1
+> +    }
+>  }
+>
 
-Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
----
+In your reply to V1 you wrote:
 
-Notes:
-    Changes from v1:
-    
-    - Print error when guest attempts to write to RO registers (Peter
-      Maydell)
-    
-    Version 1:
-     <20241116181549.3430225-1-manos.pitsidianakis@linaro.org/raw>
+> Eh, there's no real reason to do that though. I prefer verbosity and
+> static checking with symbols rather than indexing; we're not writing C
+> here.
 
-Interdiff against v1:
-  diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-  index 98dd97dbfd..fc6f3f394d 100644
-  --- a/rust/hw/char/pl011/src/device.rs
-  +++ b/rust/hw/char/pl011/src/device.rs
-  @@ -277,13 +277,15 @@ pub fn write(&mut self, offset: hwaddr, value: u64) {
-           use RegisterOffset::*;
-           let value: u32 = value as u32;
-           match RegisterOffset::try_from(offset) {
-  -            Ok(PeriphID0) | Ok(PeriphID1) | Ok(PeriphID2) | Ok(PeriphID3) | Ok(PCellID0)
-  -            | Ok(PCellID1) | Ok(PCellID2) | Ok(PCellID3) => {
-  -                // Ignore writes to read-only registers.
-  -            }
-  -            Err(_bad_offset) => {
-  +            Err(_) => {
-                   eprintln!("write bad offset {offset} value {value}");
-               }
-  +            Ok(
-  +                dev_id @ (PeriphID0 | PeriphID1 | PeriphID2 | PeriphID3 | PCellID0 | PCellID1
-  +                | PCellID2 | PCellID3),
-  +            ) => {
-  +                eprintln!("write bad offset {offset} at RO register {dev_id:?} value {value}");
-  +            }
-               Ok(DR) => {
-                   // ??? Check if transmitter is enabled.
-                   let ch: u8 = value as u8;
-  @@ -303,7 +305,7 @@ pub fn write(&mut self, offset: hwaddr, value: u64) {
-                   self.receive_status_error_clear = 0.into();
-               }
-               Ok(FR) => {
-  -                // flag writes are ignored
-  +                eprintln!("write bad offset {offset} at RO register UARTFR value {value}");
-               }
-               Ok(ILPR) => {
-                   self.ilpr = value;
-  @@ -353,8 +355,12 @@ pub fn write(&mut self, offset: hwaddr, value: u64) {
-                   self.int_enabled = value;
-                   self.update();
-               }
-  -            Ok(RIS) => {}
-  -            Ok(MIS) => {}
-  +            Ok(RIS) => {
-  +                eprintln!("write bad offset {offset} at RO register UARTRIS value {value}");
-  +            }
-  +            Ok(MIS) => {
-  +                eprintln!("write bad offset {offset} at RO register UARTMIS value {value}");
-  +            }
-               Ok(ICR) => {
-                   self.int_level &= !value;
-                   self.update();
+I don't see what C has to do with it. Of the three extant options for
+DeviceId, you can write them in both C and Rust and they would look pretty
+much the same.
 
- rust/hw/char/pl011/src/device.rs | 93 ++++++++++++++++++++++++--------
- rust/hw/char/pl011/src/lib.rs    | 22 +++++++-
- 2 files changed, 93 insertions(+), 22 deletions(-)
+I explained the real reason: it's much harder to verify/review the
+correctness of independent functions instead of two arrays of four
+elements, because consecutive elements are four-five lines apart. There is
+also a lot more repetition in writing four match expressions instead of one=
+.
 
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index 2a85960b81..fc6f3f394d 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -5,7 +5,7 @@
- use core::ptr::{addr_of, addr_of_mut, NonNull};
- use std::{
-     ffi::CStr,
--    os::raw::{c_int, c_uchar, c_uint, c_void},
-+    os::raw::{c_int, c_uint, c_void},
- };
- 
- use qemu_api::{
-@@ -32,6 +32,7 @@
- /// QEMU sourced constant.
- pub const PL011_FIFO_DEPTH: usize = 16_usize;
- 
-+/// State enum that represents the values of the peripheral and PCell registers of a PL011 device.
- #[derive(Clone, Copy, Debug)]
- enum DeviceId {
-     #[allow(dead_code)]
-@@ -39,20 +40,55 @@ enum DeviceId {
-     Luminary,
- }
- 
--impl std::ops::Index<hwaddr> for DeviceId {
--    type Output = c_uchar;
--
--    fn index(&self, idx: hwaddr) -> &Self::Output {
--        match self {
--            Self::Arm => &Self::PL011_ID_ARM[idx as usize],
--            Self::Luminary => &Self::PL011_ID_LUMINARY[idx as usize],
--        }
--    }
--}
--
- impl DeviceId {
--    const PL011_ID_ARM: [c_uchar; 8] = [0x11, 0x10, 0x14, 0x00, 0x0d, 0xf0, 0x05, 0xb1];
--    const PL011_ID_LUMINARY: [c_uchar; 8] = [0x11, 0x00, 0x18, 0x01, 0x0d, 0xf0, 0x05, 0xb1];
-+    /// Value of `UARTPeriphID0` register, which contains the `PartNumber0` value.
-+    const fn uart_periph_id0(self) -> u64 {
-+        0x11
-+    }
-+
-+    /// Value of `UARTPeriphID1` register, which contains the `Designer0` and `PartNumber1` values.
-+    const fn uart_periph_id1(self) -> u64 {
-+        (match self {
-+            Self::Arm => 0x10,
-+            Self::Luminary => 0x00,
-+        }) as u64
-+    }
-+
-+    /// Value of `UARTPeriphID2` register, which contains the `Revision` and `Designer1` values.
-+    const fn uart_periph_id2(self) -> u64 {
-+        (match self {
-+            Self::Arm => 0x14,
-+            Self::Luminary => 0x18,
-+        }) as u64
-+    }
-+
-+    /// Value of `UARTPeriphID3` register, which contains the `Configuration` value.
-+    const fn uart_periph_id3(self) -> u64 {
-+        (match self {
-+            Self::Arm => 0x0,
-+            Self::Luminary => 0x1,
-+        }) as u64
-+    }
-+
-+    /// Value of `UARTPCellID0` register.
-+    const fn uart_pcell_id0(self) -> u64 {
-+        0x0d
-+    }
-+
-+    /// Value of `UARTPCellID1` register.
-+    const fn uart_pcell_id1(self) -> u64 {
-+        0xf0
-+    }
-+
-+    /// Value of `UARTPCellID2` register.
-+    const fn uart_pcell_id2(self) -> u64 {
-+        0x05
-+    }
-+
-+    /// Value of `UARTPCellID3` register.
-+    const fn uart_pcell_id3(self) -> u64 {
-+        0xb1
-+    }
- }
- 
- #[repr(C)]
-@@ -182,9 +218,14 @@ pub fn read(&mut self, offset: hwaddr, _size: c_uint) -> std::ops::ControlFlow<u
-         use RegisterOffset::*;
- 
-         std::ops::ControlFlow::Break(match RegisterOffset::try_from(offset) {
--            Err(v) if (0x3f8..0x400).contains(&v) => {
--                u64::from(self.device_id[(offset - 0xfe0) >> 2])
--            }
-+            Ok(PeriphID0) => self.device_id.uart_periph_id0(),
-+            Ok(PeriphID1) => self.device_id.uart_periph_id1(),
-+            Ok(PeriphID2) => self.device_id.uart_periph_id2(),
-+            Ok(PeriphID3) => self.device_id.uart_periph_id3(),
-+            Ok(PCellID0) => self.device_id.uart_pcell_id0(),
-+            Ok(PCellID1) => self.device_id.uart_pcell_id1(),
-+            Ok(PCellID2) => self.device_id.uart_pcell_id2(),
-+            Ok(PCellID3) => self.device_id.uart_pcell_id3(),
-             Err(_) => {
-                 // qemu_log_mask(LOG_GUEST_ERROR, "pl011_read: Bad offset 0x%x\n", (int)offset);
-                 0
-@@ -236,9 +277,15 @@ pub fn write(&mut self, offset: hwaddr, value: u64) {
-         use RegisterOffset::*;
-         let value: u32 = value as u32;
+Given Peter's remark on rejecting writes, personally I see no reason to
+switch away from Index; but I understand that you felt it was an important
+change, so I am trying very hard to find a middle ground that is more
+readable than both the old code and your proposal here, and combines the
+advantages of both. Please try to listen.
+
          match RegisterOffset::try_from(offset) {
--            Err(_bad_offset) => {
-+            Err(_) => {
-                 eprintln!("write bad offset {offset} value {value}");
-             }
-+            Ok(
-+                dev_id @ (PeriphID0 | PeriphID1 | PeriphID2 | PeriphID3 | PCellID0 | PCellID1
-+                | PCellID2 | PCellID3),
-+            ) => {
-+                eprintln!("write bad offset {offset} at RO register {dev_id:?} value {value}");
-+            }
-             Ok(DR) => {
-                 // ??? Check if transmitter is enabled.
-                 let ch: u8 = value as u8;
-@@ -258,7 +305,7 @@ pub fn write(&mut self, offset: hwaddr, value: u64) {
-                 self.receive_status_error_clear = 0.into();
-             }
-             Ok(FR) => {
--                // flag writes are ignored
-+                eprintln!("write bad offset {offset} at RO register UARTFR value {value}");
-             }
-             Ok(ILPR) => {
-                 self.ilpr = value;
-@@ -308,8 +355,12 @@ pub fn write(&mut self, offset: hwaddr, value: u64) {
-                 self.int_enabled = value;
-                 self.update();
-             }
--            Ok(RIS) => {}
--            Ok(MIS) => {}
-+            Ok(RIS) => {
-+                eprintln!("write bad offset {offset} at RO register UARTRIS value {value}");
-+            }
-+            Ok(MIS) => {
-+                eprintln!("write bad offset {offset} at RO register UARTMIS value {value}");
-+            }
-             Ok(ICR) => {
-                 self.int_level &= !value;
-                 self.update();
-diff --git a/rust/hw/char/pl011/src/lib.rs b/rust/hw/char/pl011/src/lib.rs
-index cd0a49acb9..1f305aa13f 100644
---- a/rust/hw/char/pl011/src/lib.rs
-+++ b/rust/hw/char/pl011/src/lib.rs
-@@ -111,6 +111,22 @@ pub enum RegisterOffset {
-     /// DMA control Register
-     #[doc(alias = "UARTDMACR")]
-     DMACR = 0x048,
-+    #[doc(alias = "UARTPeriphID0")]
-+    PeriphID0 = 0xFE0,
-+    #[doc(alias = "UARTPeriphID1")]
-+    PeriphID1 = 0xFE4,
-+    #[doc(alias = "UARTPeriphID2")]
-+    PeriphID2 = 0xFE8,
-+    #[doc(alias = "UARTPeriphID3")]
-+    PeriphID3 = 0xFEC,
-+    #[doc(alias = "UARTPCellID0")]
-+    PCellID0 = 0xFF0,
-+    #[doc(alias = "UARTPCellID1")]
-+    PCellID1 = 0xFF4,
-+    #[doc(alias = "UARTPCellID2")]
-+    PCellID2 = 0xFF8,
-+    #[doc(alias = "UARTPCellID3")]
-+    PCellID3 = 0xFFC,
-     ///// Reserved, offsets `0x04C` to `0x07C`.
-     //Reserved = 0x04C,
- }
-@@ -137,7 +153,11 @@ const fn _assert_exhaustive(val: RegisterOffset) {
-                 }
-             }
-         }
--        case! { DR, RSR, FR, FBRD, ILPR, IBRD, LCR_H, CR, FLS, IMSC, RIS, MIS, ICR, DMACR }
-+        case! {
-+            DR, RSR, FR, FBRD, ILPR, IBRD, LCR_H, CR, FLS, IMSC, RIS, MIS, ICR, DMACR,
-+            PeriphID0, PeriphID1, PeriphID2, PeriphID3,
-+            PCellID0, PCellID1, PCellID2, PCellID3,
-+        }
-     }
- }
- 
+> -            Err(_bad_offset) =3D> {
+> +            Err(_) =3D> {
+>                  eprintln!("write bad offset {offset} value {value}");
+>              }
+> +            Ok(
+> +                dev_id @ (PeriphID0 | PeriphID1 | PeriphID2 | PeriphID3 =
+|
+> PCellID0 | PCellID1
+> +                | PCellID2 | PCellID3),
+> +            ) =3D> {
+> +                eprintln!("write bad offset {offset} at RO register
+> {dev_id:?} value {value}");
+> +            }
+>              Ok(FR) =3D> {
+> -                // flag writes are ignored
+> +                eprintln!("write bad offset {offset} at RO register
+> UARTFR value {value}");
+>              }
+> -            Ok(RIS) =3D> {}
+> -            Ok(MIS) =3D> {}
+> +            Ok(RIS) =3D> {
+> +                eprintln!("write bad offset {offset} at RO register
+> UARTRIS value {value}");
+> +            }
+> +            Ok(MIS) =3D> {
+> +                eprintln!("write bad offset {offset} at RO register
+> UARTMIS value {value}");
+> +            }
+>
 
-base-commit: 43f2def68476697deb0d119cbae51b20019c6c86
--- 
-γαῖα πυρί μιχθήτω
+Please use a single "dev_id @ (...)" pattern instead of duplicating code.
+
+Paolo
+
+             Ok(ICR) =3D> {
+>                  self.int_level &=3D !value;
+>                  self.update();
+> diff --git a/rust/hw/char/pl011/src/lib.rs b/rust/hw/char/pl011/src/lib.r=
+s
+> index cd0a49acb9..1f305aa13f 100644
+> --- a/rust/hw/char/pl011/src/lib.rs
+> +++ b/rust/hw/char/pl011/src/lib.rs
+> @@ -111,6 +111,22 @@ pub enum RegisterOffset {
+>      /// DMA control Register
+>      #[doc(alias =3D "UARTDMACR")]
+>      DMACR =3D 0x048,
+> +    #[doc(alias =3D "UARTPeriphID0")]
+> +    PeriphID0 =3D 0xFE0,
+> +    #[doc(alias =3D "UARTPeriphID1")]
+> +    PeriphID1 =3D 0xFE4,
+> +    #[doc(alias =3D "UARTPeriphID2")]
+> +    PeriphID2 =3D 0xFE8,
+> +    #[doc(alias =3D "UARTPeriphID3")]
+> +    PeriphID3 =3D 0xFEC,
+> +    #[doc(alias =3D "UARTPCellID0")]
+> +    PCellID0 =3D 0xFF0,
+> +    #[doc(alias =3D "UARTPCellID1")]
+> +    PCellID1 =3D 0xFF4,
+> +    #[doc(alias =3D "UARTPCellID2")]
+> +    PCellID2 =3D 0xFF8,
+> +    #[doc(alias =3D "UARTPCellID3")]
+> +    PCellID3 =3D 0xFFC,
+>      ///// Reserved, offsets `0x04C` to `0x07C`.
+>      //Reserved =3D 0x04C,
+>  }
+> @@ -137,7 +153,11 @@ const fn _assert_exhaustive(val: RegisterOffset) {
+>                  }
+>              }
+>          }
+> -        case! { DR, RSR, FR, FBRD, ILPR, IBRD, LCR_H, CR, FLS, IMSC, RIS=
+,
+> MIS, ICR, DMACR }
+> +        case! {
+> +            DR, RSR, FR, FBRD, ILPR, IBRD, LCR_H, CR, FLS, IMSC, RIS,
+> MIS, ICR, DMACR,
+> +            PeriphID0, PeriphID1, PeriphID2, PeriphID3,
+> +            PCellID0, PCellID1, PCellID2, PCellID3,
+> +        }
+>      }
+>  }
+>
+>
+> base-commit: 43f2def68476697deb0d119cbae51b20019c6c86
+> --
+> =CE=B3=CE=B1=E1=BF=96=CE=B1 =CF=80=CF=85=CF=81=CE=AF =CE=BC=CE=B9=CF=87=
+=CE=B8=CE=AE=CF=84=CF=89
+>
+>
+>
+
+--000000000000d7cfd2062716e90b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">Il sab 16 nov 2024, 23:18 Manos Pitsidianakis &lt;<a h=
+ref=3D"mailto:manos.pitsidianakis@linaro.org">manos.pitsidianakis@linaro.or=
+g</a>&gt; ha scritto:</div><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
+">-=C2=A0 =C2=A0 const PL011_ID_ARM: [c_uchar; 8] =3D [0x11, 0x10, 0x14, 0x=
+00, 0x0d, 0xf0, 0x05, 0xb1];<br>
+-=C2=A0 =C2=A0 const PL011_ID_LUMINARY: [c_uchar; 8] =3D [0x11, 0x00, 0x18,=
+ 0x01, 0x0d, 0xf0, 0x05, 0xb1];<br>
++=C2=A0 =C2=A0 /// Value of `UARTPeriphID0` register, which contains the `P=
+artNumber0` value.<br>
++=C2=A0 =C2=A0 const fn uart_periph_id0(self) -&gt; u64 {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 0x11<br>
++=C2=A0 =C2=A0 }<br>
++<br>
++=C2=A0 =C2=A0 /// Value of `UARTPeriphID1` register, which contains the `D=
+esigner0` and `PartNumber1` values.<br>
++=C2=A0 =C2=A0 const fn uart_periph_id1(self) -&gt; u64 {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 (match self {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Self::Arm =3D&gt; 0x10,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Self::Luminary =3D&gt; 0x00,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 }) as u64<br>
++=C2=A0 =C2=A0 }<br>
++<br>
++=C2=A0 =C2=A0 /// Value of `UARTPeriphID2` register, which contains the `R=
+evision` and `Designer1` values.<br>
++=C2=A0 =C2=A0 const fn uart_periph_id2(self) -&gt; u64 {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 (match self {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Self::Arm =3D&gt; 0x14,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Self::Luminary =3D&gt; 0x18,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 }) as u64<br>
++=C2=A0 =C2=A0 }<br>
++<br>
++=C2=A0 =C2=A0 /// Value of `UARTPeriphID3` register, which contains the `C=
+onfiguration` value.<br>
++=C2=A0 =C2=A0 const fn uart_periph_id3(self) -&gt; u64 {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 (match self {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Self::Arm =3D&gt; 0x0,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Self::Luminary =3D&gt; 0x1,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 }) as u64<br>
++=C2=A0 =C2=A0 }<br>
++<br>
++=C2=A0 =C2=A0 /// Value of `UARTPCellID0` register.<br>
++=C2=A0 =C2=A0 const fn uart_pcell_id0(self) -&gt; u64 {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 0x0d<br>
++=C2=A0 =C2=A0 }<br>
++<br>
++=C2=A0 =C2=A0 /// Value of `UARTPCellID1` register.<br>
++=C2=A0 =C2=A0 const fn uart_pcell_id1(self) -&gt; u64 {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 0xf0<br>
++=C2=A0 =C2=A0 }<br>
++<br>
++=C2=A0 =C2=A0 /// Value of `UARTPCellID2` register.<br>
++=C2=A0 =C2=A0 const fn uart_pcell_id2(self) -&gt; u64 {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 0x05<br>
++=C2=A0 =C2=A0 }<br>
++<br>
++=C2=A0 =C2=A0 /// Value of `UARTPCellID3` register.<br>
++=C2=A0 =C2=A0 const fn uart_pcell_id3(self) -&gt; u64 {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 0xb1<br>
++=C2=A0 =C2=A0 }<br>
+=C2=A0}<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D=
+"auto">In your reply to V1 you wrote:</div><div dir=3D"auto"><br></div><div=
+ dir=3D"auto">&gt; Eh, there&#39;s no real reason to do that though. I pref=
+er verbosity and</div><div dir=3D"auto">&gt; static checking with symbols r=
+ather than indexing; we&#39;re not writing C</div><div dir=3D"auto">&gt; he=
+re.</div><div dir=3D"auto"><br></div><div dir=3D"auto">I don&#39;t see what=
+ C has to do with it. Of the three extant options for DeviceId, you can wri=
+te them in both C and Rust and they would look pretty much the same.</div><=
+div dir=3D"auto"><br></div><div dir=3D"auto">I explained the real reason: i=
+t&#39;s much harder to verify/review the correctness of independent functio=
+ns instead of two arrays of four elements, because consecutive elements are=
+ four-five lines apart. There is also a lot more repetition in writing four=
+ match expressions instead of one.</div><div dir=3D"auto"><br></div><div di=
+r=3D"auto">Given Peter&#39;s remark on rejecting writes, personally I see n=
+o reason to switch away from Index; but I understand that you felt it was a=
+n important change, so I am trying very hard to find a middle ground that i=
+s more readable than both the old code and your proposal here, and combines=
+ the advantages of both. Please try to listen.</div><div dir=3D"auto"><br><=
+/div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0match RegisterOf=
+fset::try_from(offset) {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Err(_bad_offset) =3D&gt; {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Err(_) =3D&gt; {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0eprintln!(&qu=
+ot;write bad offset {offset} value {value}&quot;);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Ok(<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dev_id @ (PeriphID=
+0 | PeriphID1 | PeriphID2 | PeriphID3 | PCellID0 | PCellID1<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | PCellID2 | PCell=
+ID3),<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ) =3D&gt; {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 eprintln!(&quot;wr=
+ite bad offset {offset} at RO register {dev_id:?} value {value}&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }=C2=A0<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Ok(FR) =3D&gt; {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 // flag writes are=
+ ignored<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 eprintln!(&quot;wr=
+ite bad offset {offset} at RO register UARTFR value {value}&quot;);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}=C2=A0<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Ok(RIS) =3D&gt; {}<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Ok(MIS) =3D&gt; {}<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Ok(RIS) =3D&gt; {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 eprintln!(&quot;wr=
+ite bad offset {offset} at RO register UARTRIS value {value}&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Ok(MIS) =3D&gt; {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 eprintln!(&quot;wr=
+ite bad offset {offset} at RO register UARTMIS value {value}&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br></blockquote></div></div><d=
+iv dir=3D"auto"><br></div><div dir=3D"auto">Please use a single &quot;dev_i=
+d @ (...)&quot; pattern instead of duplicating code.</div><div dir=3D"auto"=
+><br></div><div dir=3D"auto">Paolo</div><div dir=3D"auto"><br></div><div di=
+r=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" sty=
+le=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddi=
+ng-left:1ex">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Ok(ICR) =3D&gt; {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0self.int_leve=
+l &amp;=3D !value;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0self.update()=
+;<br>
+diff --git a/rust/hw/char/pl011/src/<a href=3D"http://lib.rs" rel=3D"norefe=
+rrer noreferrer" target=3D"_blank">lib.rs</a> b/rust/hw/char/pl011/src/<a h=
+ref=3D"http://lib.rs" rel=3D"noreferrer noreferrer" target=3D"_blank">lib.r=
+s</a><br>
+index cd0a49acb9..1f305aa13f 100644<br>
+--- a/rust/hw/char/pl011/src/<a href=3D"http://lib.rs" rel=3D"noreferrer no=
+referrer" target=3D"_blank">lib.rs</a><br>
++++ b/rust/hw/char/pl011/src/<a href=3D"http://lib.rs" rel=3D"noreferrer no=
+referrer" target=3D"_blank">lib.rs</a><br>
+@@ -111,6 +111,22 @@ pub enum RegisterOffset {<br>
+=C2=A0 =C2=A0 =C2=A0/// DMA control Register<br>
+=C2=A0 =C2=A0 =C2=A0#[doc(alias =3D &quot;UARTDMACR&quot;)]<br>
+=C2=A0 =C2=A0 =C2=A0DMACR =3D 0x048,<br>
++=C2=A0 =C2=A0 #[doc(alias =3D &quot;UARTPeriphID0&quot;)]<br>
++=C2=A0 =C2=A0 PeriphID0 =3D 0xFE0,<br>
++=C2=A0 =C2=A0 #[doc(alias =3D &quot;UARTPeriphID1&quot;)]<br>
++=C2=A0 =C2=A0 PeriphID1 =3D 0xFE4,<br>
++=C2=A0 =C2=A0 #[doc(alias =3D &quot;UARTPeriphID2&quot;)]<br>
++=C2=A0 =C2=A0 PeriphID2 =3D 0xFE8,<br>
++=C2=A0 =C2=A0 #[doc(alias =3D &quot;UARTPeriphID3&quot;)]<br>
++=C2=A0 =C2=A0 PeriphID3 =3D 0xFEC,<br>
++=C2=A0 =C2=A0 #[doc(alias =3D &quot;UARTPCellID0&quot;)]<br>
++=C2=A0 =C2=A0 PCellID0 =3D 0xFF0,<br>
++=C2=A0 =C2=A0 #[doc(alias =3D &quot;UARTPCellID1&quot;)]<br>
++=C2=A0 =C2=A0 PCellID1 =3D 0xFF4,<br>
++=C2=A0 =C2=A0 #[doc(alias =3D &quot;UARTPCellID2&quot;)]<br>
++=C2=A0 =C2=A0 PCellID2 =3D 0xFF8,<br>
++=C2=A0 =C2=A0 #[doc(alias =3D &quot;UARTPCellID3&quot;)]<br>
++=C2=A0 =C2=A0 PCellID3 =3D 0xFFC,<br>
+=C2=A0 =C2=A0 =C2=A0///// Reserved, offsets `0x04C` to `0x07C`.<br>
+=C2=A0 =C2=A0 =C2=A0//Reserved =3D 0x04C,<br>
+=C2=A0}<br>
+@@ -137,7 +153,11 @@ const fn _assert_exhaustive(val: RegisterOffset) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 case! { DR, RSR, FR, FBRD, ILPR, IBRD, LCR_H, =
+CR, FLS, IMSC, RIS, MIS, ICR, DMACR }<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 case! {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 DR, RSR, FR, FBRD, ILPR, IBRD, L=
+CR_H, CR, FLS, IMSC, RIS, MIS, ICR, DMACR,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PeriphID0, PeriphID1, PeriphID2,=
+ PeriphID3,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PCellID0, PCellID1, PCellID2, PC=
+ellID3,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 =C2=A0 =C2=A0}<br>
+=C2=A0}<br>
+<br>
+<br>
+base-commit: 43f2def68476697deb0d119cbae51b20019c6c86<br>
+-- <br>
+=CE=B3=CE=B1=E1=BF=96=CE=B1 =CF=80=CF=85=CF=81=CE=AF =CE=BC=CE=B9=CF=87=CE=
+=B8=CE=AE=CF=84=CF=89<br>
+<br>
+<br>
+</blockquote></div></div></div>
+
+--000000000000d7cfd2062716e90b--
 
 
