@@ -1,62 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEAfM-000376-V3
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 12:08:29 -0500
+	id 1tEAfe-0003gb-J8
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 12:08:48 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAdv-0000ld-1m
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:07:00 -0500
-Received: from mail-wm1-x32e.google.com ([2a00:1450:4864:20::32e])
+ id 1tEAdy-0000u5-Il
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:07:02 -0500
+Received: from mail-wm1-x332.google.com ([2a00:1450:4864:20::332])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAdV-0001fV-IZ
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:06:58 -0500
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-4315c1c7392so9860245e9.1
- for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 09:06:32 -0800 (PST)
+ id 1tEAdX-0001gs-Ra
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:07:02 -0500
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43169902057so9678395e9.0
+ for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 09:06:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732208792; x=1732813592; darn=nongnu.org;
+ d=linaro.org; s=google; t=1732208793; x=1732813593; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7laBJrl+W4Rvzk4IQJPfXs6McNiuuH0uqEtfbvfMrF8=;
- b=whG99bOxWqwt61iJnpudZ57fwkcpuGlmhj53pQYwbFmLFHqJxl165NaJlcR4V77/7d
- 6egNIW4mxbG2bYE8SaDvcs5I/W8wr9qBf7QOZOKnj6zlnIaxSH0JnFsSjVUqvRxfH0jL
- F5I6FevsML79tvSupn9HnVUR1u6RnLz0yT3Pkh/5H7a1WsCL5gpp40Ys8XajnaNGRxTq
- 34RQjol6pzIa+uBadq0xWcAuMmsYOiEQKbi9BxEWyVp+HULQ4KzOSHxuAGk8McfPzm1M
- xJB3C8heWRFLXg2wGGf+XM5cxLryJd3UBDC2yYXHVmpOBuCEK5u2AMyh/P7hiGPn5s0x
- dNEw==
+ bh=hUv3cBNBzhQbXwOzZFuKXMqW5Ms3TH+C7tVVsyL8z3E=;
+ b=GNwPzxiNkSGl39NCmnRT42wk/ETCQGsfAXfDoKtroHGGdjR48oXaiY54uD/QCQBL/Q
+ Uxz2XV3CT7t7aQho7UGPo3hlleE+Cd7RIsMjQhuQVAb6w4LLELRML4L8Rs09XbPy6Zu7
+ ppd8a7gP9J52OAezO2LAfGax2adsbM23wN6S+MMZcYtGrlJsOeBGEQ92/ULVL952bek5
+ raGQFq7TUcI0BlMz5jXnVrvSm6GdCDP/LGlpn2vyrUjg5PYIksOc1k9DykciHycDcd09
+ sFRRarwn0d6KIX+XvRegXcRIrLeo1vHdaKkRm34DRbna+On18zJrvasDLb/MkmLTBToK
+ YLQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732208792; x=1732813592;
+ d=1e100.net; s=20230601; t=1732208793; x=1732813593;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7laBJrl+W4Rvzk4IQJPfXs6McNiuuH0uqEtfbvfMrF8=;
- b=iypi2LQ53prygyHH9Zx4OKwnC/om5gnNzbMi2vJ1krk6fhLXtzcHl4awsN00BYh+fc
- HQ1bdJE5PQgt0SHer2cASW463DPNauqyKAo37S8Y3eK8jXghHJZ8vA+cGUbe7xxrA1Yt
- 3UWGfZuq2tKAs0noKpuTyeaMyCnLleu+V4UPWfTLf3tdDZ4xlJALzBeyJd+h/OrbUI86
- Rvc30g+hexwVgwRjuS3vtmBuAdNPyNiWJQTPMN7HKAevRhNbQ4NHKO/ucGd3xBn4Me7N
- cOl17YqBJH4GyVktmR6xZRV0TlhUgaRLT+qysCpq7GkRV4N4/nyJlgiuiK49GTDJa85J
- n9BA==
+ bh=hUv3cBNBzhQbXwOzZFuKXMqW5Ms3TH+C7tVVsyL8z3E=;
+ b=N5LfyRlsz8V0kqhbcp2iMSOHai2fFLcbuOHRYFj7HocMAfmx5KPTiX5eUVFgrs53Qq
+ FujYBiTlEFuJgeTSS+VyCfivtSBXqJ/BZAjxPCwhMDcrLyy7qNOcL7t09RkX1d2dFjwD
+ YPrRWQHCf/0AD63NnIfoh6FqcmnHm6DgY52CWUTF8gIeDmNTF3gCeXNQCPnOcGiRAOg7
+ fYgwQ9eRMoDAq3lVROrFbZd2+jmMnPH0jvvabPx8omV2pL0j3aYHUUKRbayFFGfIzPL1
+ 6bSfMSv3NzTGTpd04CHXbc0P6VdqNjuC6r3tPtMFONF3ZvAspDYYa1IqptHDXbPGNJGY
+ KM1Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW7GHwhaSkcC6FB5UPAubnxKp/5PhLIZDJMS65VLzl3W55GQIfVlztwA3hTA1PYvLDt/YCuOAndMdE=@nongnu.org
-X-Gm-Message-State: AOJu0YzGrncFaZbiLPQnmpItxXSsmbImZbdj/bJIlGCpJ6ASdHFdL7Ph
- y65+KXVmcMuW8BrexZK2eBEQBIeGq7aSp++E/sh2UCh48AdcvwCgqUdpZfuhV7I=
-X-Gm-Gg: ASbGncuAE9IAlPdKPZjzvaz3WxshIcXtqrd/Zq1wmFeGY0cUhFmeTSqZW9soHCyyzGA
- dVg0eYbr7TcnvkErF0eJTLIVOyuwnTURVc6sMktJ6swevDV1RAoQJSYUjsxVML84Xoiy3/Yhzvl
- v64IU8QeQzpEOypsO+kqH2dhv7xxyvkQzASuhx0JxfiZyyKXTH9nK/oMHNg/uXbIYDMtVEm4C+t
- sr+MbqkcfAwEfozzFsUhwxRCsk/loTIGKXyXwROWUlKPKPj
-X-Google-Smtp-Source: AGHT+IEQy+BuKZaCrNU69MYqx+XrV6o4zO2GbFzRyEevncGawYr0VelvSVji1yZp7srfd4MlbrohSQ==
-X-Received: by 2002:a05:600c:4f08:b0:431:5ba1:a529 with SMTP id
- 5b1f17b1804b1-433489af8cfmr70393605e9.14.1732208790899; 
- Thu, 21 Nov 2024 09:06:30 -0800 (PST)
+ AJvYcCUPkSqHs6pQvVZGvxCq5Yll5/RC6ofRbUQ6Ooe+ZpLq6IAf3k2YOX7cBIRM3LRxCgq+/aqjcF2bwOg=@nongnu.org
+X-Gm-Message-State: AOJu0YznZUxYBIns6NHNYKUo9yMJMB5J6R2BPlcuFebFTXQ/bnHaI1NI
+ cFa2bJMTmMyxfNgKPDDUQFwawJ1B/EsZ2NdMAIEH+z41QugfmBKfW/zwEVE9jaU=
+X-Gm-Gg: ASbGncsE1BRhnbJLiQBJLOyhww9M16BaLMkGy0sC87S9h/QDiu/EqdgVLNwJ5VhPESL
+ L7JHNw0DtSt+/Rkk7cSoqDjn73ocOGggYhmxjzTah0tx7dioMslsoRpr2kPSHYO27IB/vXGEmSQ
+ YvneTyjJxfyBobPbT1fkHMyFvK+rLJbgHS4JLMePRw0BRl7qBTkkALjJKlOD9Xwxl4ySVG1NTec
+ 3sWOhjKvXXlJ6k6FXndgmiwlxCE99PrlpgEYAQIVoW+PGeR
+X-Google-Smtp-Source: AGHT+IHHK9w5ibEGzKJSTEMd78FCN2jsgy4PL6OrIOq6OeKJPCDeMmOkU9vJ2eOrihfPErrA9ANNXw==
+X-Received: by 2002:a05:600c:4e94:b0:431:60ac:9aef with SMTP id
+ 5b1f17b1804b1-4334f02123bmr62233425e9.29.1732208792014; 
+ Thu, 21 Nov 2024 09:06:32 -0800 (PST)
 Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-433b463ab37sm61332365e9.28.2024.11.21.09.06.25
+ ffacd0b85a97d-3825fbee043sm33245f8f.104.2024.11.21.09.06.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 21 Nov 2024 09:06:28 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 6BFF560439;
- Thu, 21 Nov 2024 16:58:08 +0000 (GMT)
+ by draig.lan (Postfix) with ESMTP id CB893603DB;
+ Thu, 21 Nov 2024 16:58:07 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
@@ -86,18 +86,19 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
  Alistair Francis <alistair.francis@wdc.com>,
- Anders Roxell <anders.roxell@linaro.org>
-Subject: [PATCH 22/39] tests/functional: update the i386 tuxrun tests
-Date: Thu, 21 Nov 2024 16:57:49 +0000
-Message-Id: <20241121165806.476008-23-alex.bennee@linaro.org>
+ =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@redhat.com>
+Subject: [PATCH 15/39] tests/functional: rewrite console handling to be
+ bytewise
+Date: Thu, 21 Nov 2024 16:57:42 +0000
+Message-Id: <20241121165806.476008-16-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20241121165806.476008-1-alex.bennee@linaro.org>
 References: <20241121165806.476008-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::32e;
- envelope-from=alex.bennee@linaro.org; helo=mail-wm1-x32e.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::332;
+ envelope-from=alex.bennee@linaro.org; helo=mail-wm1-x332.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -117,36 +118,145 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Nov 2024 17:07:01 -0000
+X-List-Received-Date: Thu, 21 Nov 2024 17:07:03 -0000
 
-Now there are new upto date images available we should update to them.
+From: Daniel P. Berrangé <berrange@redhat.com>
 
+The console interaction that waits for predicted strings uses
+readline(), and thus is only capable of waiting for strings
+that are followed by a newline.
+
+This is inconvenient when needing to match on some things,
+particularly login prompts, or shell prompts, causing tests
+to use time.sleep(...) instead, which is unreliable.
+
+Switch to reading the console 1 byte at a time, comparing
+against the success/failure messages until we see a match,
+regardless of whether a newline is encountered.
+
+The success/failure comparisons are done with the python bytes
+type, rather than strings, to avoid the problem of needing to
+decode partially received multibyte utf8 characters.
+
+Heavily inspired by a patch proposed by Cédric, but written
+again to work in bytes, rather than strings.
+
+Co-developed-by: Cédric Le Goater <clg@redhat.com>
+Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+Message-Id: <20241121154218.1423005-16-berrange@redhat.com>
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-Cc: Anders Roxell <anders.roxell@linaro.org>
 ---
- tests/functional/test_i386_tuxrun.py | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ tests/functional/qemu_test/cmd.py | 79 +++++++++++++++++++++++++------
+ 1 file changed, 64 insertions(+), 15 deletions(-)
 
-diff --git a/tests/functional/test_i386_tuxrun.py b/tests/functional/test_i386_tuxrun.py
-index c593ffbe8c..f3ccf11ae8 100755
---- a/tests/functional/test_i386_tuxrun.py
-+++ b/tests/functional/test_i386_tuxrun.py
-@@ -17,11 +17,11 @@
- class TuxRunI386Test(TuxRunBaselineTest):
+diff --git a/tests/functional/qemu_test/cmd.py b/tests/functional/qemu_test/cmd.py
+index f6c4e4dda1..11c8334a7c 100644
+--- a/tests/functional/qemu_test/cmd.py
++++ b/tests/functional/qemu_test/cmd.py
+@@ -78,6 +78,54 @@ def run_cmd(args):
+ def is_readable_executable_file(path):
+     return os.path.isfile(path) and os.access(path, os.R_OK | os.X_OK)
  
-     ASSET_I386_KERNEL = Asset(
--        'https://storage.tuxboot.com/20230331/i386/bzImage',
--        'a3e5b32a354729e65910f5a1ffcda7c14a6c12a55e8213fb86e277f1b76ed956')
-+        'https://storage.tuxboot.com/buildroot/20241119/i386/bzImage',
-+        '47fb44e38e34101eb0f71a2a01742b959d40ed5fd67cefb5608a39be11d3b74e')
-     ASSET_I386_ROOTFS = Asset(
--        'https://storage.tuxboot.com/20230331/i386/rootfs.ext4.zst',
--        'f15e66b2bf673a210ec2a4b2e744a80530b36289e04f5388aab812b97f69754a')
-+        'https://storage.tuxboot.com/buildroot/20241119/i386/rootfs.ext4.zst',
-+        'a1a3b3b4c9dccd6475b58db95c107b468b736b700f6620985a8ed050a73d51c8')
++# @test: functional test to fail if @failure is seen
++# @vm: the VM whose console to process
++# @success: a non-None string to look for
++# @failure: a string to look for that triggers test failure, or None
++#
++# Read up to 1 line of text from @vm, looking for @success
++# and optionally @failure.
++#
++# If @success or @failure are seen, immediately return True,
++# even if end of line is not yet seen. ie remainder of the
++# line is left unread.
++#
++# If end of line is seen, with neither @success or @failure
++# return False
++#
++# If @failure is seen, then mark @test as failed
++def _console_read_line_until_match(test, vm, success, failure):
++    msg = bytes([])
++    done = False
++    while True:
++        c = vm.console_socket.recv(1)
++        if c is None:
++            done = True
++            test.fail(
++                f"EOF in console, expected '{success}'")
++            break
++        msg += c
++
++        if success in msg:
++            done = True
++            break
++        if failure and failure in msg:
++            done = True
++            vm.console_socket.close()
++            test.fail(
++                f"'{failure}' found in console, expected '{success}'")
++
++        if c == b'\n':
++            break
++
++    console_logger = logging.getLogger('console')
++    try:
++        console_logger.debug(msg.decode().strip())
++    except:
++        console_logger.debug(msg)
++
++    return done
++
+ def _console_interaction(test, success_message, failure_message,
+                          send_string, keep_sending=False, vm=None):
+     assert not keep_sending or send_string
+@@ -85,11 +133,22 @@ def _console_interaction(test, success_message, failure_message,
  
-     def test_i386(self):
-         self.set_machine('q35')
+     if vm is None:
+         vm = test.vm
+-    console = vm.console_file
+-    console_logger = logging.getLogger('console')
++
+     test.log.debug(
+         f"Console interaction: success_msg='{success_message}' " +
+         f"failure_msg='{failure_message}' send_string='{send_string}'")
++
++    # We'll process console in bytes, to avoid having to
++    # deal with unicode decode errors from receiving
++    # partial utf8 byte sequences
++    success_message_b = None
++    if success_message is not None:
++        success_message_b = success_message.encode()
++
++    failure_message_b = None
++    if failure_message is not None:
++        failure_message_b = failure_message.encode()
++
+     while True:
+         if send_string:
+             vm.console_socket.sendall(send_string.encode())
+@@ -102,20 +161,10 @@ def _console_interaction(test, success_message, failure_message,
+                 break
+             continue
+ 
+-        try:
+-            msg = console.readline().decode().strip()
+-        except UnicodeDecodeError:
+-            msg = None
+-        if not msg:
+-            continue
+-        console_logger.debug(msg)
+-        if success_message in msg:
++        if _console_read_line_until_match(test, vm,
++                                          success_message_b,
++                                          failure_message_b):
+             break
+-        if failure_message and failure_message in msg:
+-            console.close()
+-            fail = 'Failure message found in console: "%s". Expected: "%s"' % \
+-                    (failure_message, success_message)
+-            test.fail(fail)
+ 
+ def interrupt_interactive_console_until_pattern(test, success_message,
+                                                 failure_message=None,
 -- 
 2.39.5
 
