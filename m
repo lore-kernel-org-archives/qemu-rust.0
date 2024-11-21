@@ -1,62 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEAeV-0001Yx-9W
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 12:07:35 -0500
+	id 1tEAea-0001k0-PB
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 12:07:40 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAdo-0000d8-Th
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:06:54 -0500
-Received: from mail-wr1-x42e.google.com ([2a00:1450:4864:20::42e])
+ id 1tEAdk-0000Rd-46
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:06:48 -0500
+Received: from mail-wm1-x32c.google.com ([2a00:1450:4864:20::32c])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAdU-0001eA-DR
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:06:52 -0500
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-38231f84dccso801797f8f.1
- for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 09:06:31 -0800 (PST)
+ id 1tEAdS-0001cd-MR
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:06:47 -0500
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43163667f0eso9856725e9.0
+ for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 09:06:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732208790; x=1732813590; darn=nongnu.org;
+ d=linaro.org; s=google; t=1732208789; x=1732813589; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=eUF072RWHjw5X8nluQQuYebe1FYEMSwq9TSQiXId4cw=;
- b=RZEaBal/HgCez1sqSRKuaNDrAdBd5bYP0bDSdbj3qPg6Bm1A0NdeylB4W5LJhjmRuC
- GXKlmL3JaJzoP79RJyNRTo2ovvrfOXt7/TGJm3Id0XGs6tPWlXNPpNhYw3wZI4EwfYb7
- Kbu2KoXzL4MfF8lYI2FzcBgzwpG8PAnwXF4oUGJRTttIx1e18T+UIIxhj802k1X5FJG1
- hn309b7zSDeb+8VC4oGMaCRdyEIMlkQnlndFCBZcYVqy0cjbdPpW+GuqWtvXDnHF1Tij
- +plHVX+HQ8A2iTu8Nbdlep3fzbB6bHgkeXku5xVv8CHigeRlfgiCpdszouE/5y3pV5yl
- COOA==
+ bh=VAGsBPtTmpGlZjFjwkSGWhc1on1nGzftLOgY8SHHshk=;
+ b=diIj3p6bBvvxD4wu5dFjlXyphXZ7EY4EAx5vg8FwOifWkmfwPh7vVIfIvNy7CdmbdG
+ BJOApOhrWdMvOsVMX7VKHrGToMCkfDG10LIhCzHC51ofUxnh61zK81SgAvJ7DbVg7qlD
+ kusIzlScLOVnYpN9bpH+wAwnT9OsHLKigaGzns2m1wnIqE6QQEI3xx1uco5Fc6RCsf0K
+ 3d8HvnNiBYztI3Qv+Y4DeMYArlGDHidcdwrjTjw9MCkVRMxNhDpB7AuD4MvW3mgSs2Kc
+ NRM/b/0FNftMBIPVI/XCvYfoKVjz4sQr/tjv9oRLevgT6XdP4j6OkJ5xJ8Ux8vohNkbN
+ 8Hag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732208790; x=1732813590;
+ d=1e100.net; s=20230601; t=1732208789; x=1732813589;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=eUF072RWHjw5X8nluQQuYebe1FYEMSwq9TSQiXId4cw=;
- b=iS9yhbO6Pay2Ey6kCQBdwv77LF6EDGQzVyUIYje3KgFsjZs9j6Ozrwp5dTlir8YteM
- hldflRz1acio3FksLyVO2pC4UbmdkM2m1ekIUvouP+Aqe3VNeZ//EMoLWS8SU1+eHcWz
- LQLSonInh81nSx+wBW5Iq4IZnE5nEkPRRHJ2rlsLIhd2fF4HRgkbJTErS5ZVRHpFK1F0
- EvHH6fdzGE8kZLhee+hKLH+G4q9O6t9JQUVCTeimdVm/ynIRNlhEryRSdB+55c28T3Rh
- ge+FVbZs4fsBKtUsJaVPW2CAJuGH60ARseHxiKJIaGMyr+gDVJxWRf9aDx6CgnGlF8Cy
- GspQ==
+ bh=VAGsBPtTmpGlZjFjwkSGWhc1on1nGzftLOgY8SHHshk=;
+ b=vHNCKhAk6ksQHfqDSx1ViV1v5j1MkCZZhIHdNvieevYrC3W7bDh+vveNh6RH3vwIwc
+ UHj4mGPblpUTuVm7jQiIU15knsdPugCC+138boCLQpRZtMBZh9Ph+/02TCnfjgugmNPq
+ KtnSpgTuksU9X2yybwDKBwhLEvPht/l0P1CDYajTm9od5M6dw5d4a93wpv0nBXIVXpIh
+ DDKGG7i9j4BbUVNKHHIBTjqn+iFRJPxm6O0d9XuRp5Ydx7x4Vo/sL9nVaWRwmvzWpaTN
+ yRFrmmZyg1NKTtFZIQXYbjIenVhmnCu5srIjB6vGtUdGOG9WWY3Dyln99VR5yzdovM7+
+ 2bwA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWvEJL6IZ/Jvf0TivHEN2K0X1y2xXSQFgkQVtkf/0lykw0Tpy9b/r6sPkhjRPy8GxL6UwWRoE46nY8=@nongnu.org
-X-Gm-Message-State: AOJu0YwHs5iNM59sgY+N7xev2qUY+tQ61zlpnP+QeRYwvWUDkMy7EyZS
- 34XL5L8iwKAN1UY9r84TGGu4c77FQtwIa1wsIVAIjfuaIVZytxwDh0DB01Z2W88=
-X-Gm-Gg: ASbGncsSl6NFbnJ0Pe5mIP3fI0gZqJ+wQwfe/BNCHF5YJK2y2sHIPwfDO9rMlXRZrgG
- hvPCh8x1rdNmZA5KYiUpOEEvat13jDvyIef6U04hhwf7AqwdreR/6k//fAzuRpEjkBLB4JW3jiZ
- 3zivruioHAZ74rs8aFu31r+gj86h+XOGFMPyy0Cuw/VJ7Rg+UQSyiKNGU1nXh98jUerGsQWAXHO
- SlELEwUdzD+gn9zjzaLWvMAKA0fZvmL3zfmErNvLD7E1Ro0
-X-Google-Smtp-Source: AGHT+IG9eDYI9v61rhFpKx5O93ckIOEQUAKMZZuXqqXI3hJSJZJmm/WgMV4q8iJbOd1I/kEwyWxryw==
-X-Received: by 2002:a05:6000:1448:b0:382:4d54:2cd9 with SMTP id
- ffacd0b85a97d-38254ae84ccmr5912405f8f.20.1732208787183; 
+ AJvYcCWVoWi/+ekKqvY7nrEADb+bk+AEkkAxbXIhV9ddPQnbn0wlfdUI4tDy2yETu6HBz7xl7XwWfIs+80I=@nongnu.org
+X-Gm-Message-State: AOJu0YzFlh4xPUriwacbFI2vAlTnkoCJDwJbfBDQR+asFwEtMm3T4Uu+
+ 4BH3nmuskNA5mAFARGghvZEeK5qPz6/w/RGOwhf8xPnyQH4ASvEGEtM3d/QRYCI=
+X-Gm-Gg: ASbGnctRoCwUAhrzizeDItOQz7lY9oT3Ls1zax8PyUzNzCg2Dudvrc8jSTjh5FHKPxf
+ L/p0ZHBzWqJd4CVQDt7sjhnt7vQldE7wGoR3qQPIYioEw9u6lfvkFi1FdhZBzoUE/ovqc8ZEVsl
+ j06BU198JRYfcgGD7DmPv/vnokQBCZaCk3VBqXnGmVjdeSV23zpOrq34YU5UNmXR8SFVsaSqZOX
+ zwLCoH71SzBsagYthdoJKefyqc0sQYL5kSVi0cct8MHzWRL
+X-Google-Smtp-Source: AGHT+IEVnLw2xUtf0J9uvurODmXKtzkjOY30qGhQ5prc0K46NKf1TqRr8l+lGSKt4CWPqimkHrCH9Q==
+X-Received: by 2002:a05:600c:314b:b0:431:51c0:c90f with SMTP id
+ 5b1f17b1804b1-4334f0202damr60948965e9.21.1732208787559; 
  Thu, 21 Nov 2024 09:06:27 -0800 (PST)
 Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3825fd0fbdcsm27306f8f.109.2024.11.21.09.06.25
+ 5b1f17b1804b1-433b4616636sm61146695e9.19.2024.11.21.09.06.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 21 Nov 2024 09:06:25 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 8231260443;
- Thu, 21 Nov 2024 16:58:08 +0000 (GMT)
+ by draig.lan (Postfix) with ESMTP id F412A603F4;
+ Thu, 21 Nov 2024 16:58:07 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
@@ -85,20 +85,19 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
  Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Laurent Vivier <laurent@vivier.eu>,
- Anders Roxell <anders.roxell@linaro.org>
-Subject: [PATCH 23/39] tests/functional: add a m68k tuxrun tests
-Date: Thu, 21 Nov 2024 16:57:50 +0000
-Message-Id: <20241121165806.476008-24-alex.bennee@linaro.org>
+ Alistair Francis <alistair.francis@wdc.com>
+Subject: [PATCH 17/39] tests/functional: add a QMP backdoor for debugging
+ stalled tests
+Date: Thu, 21 Nov 2024 16:57:44 +0000
+Message-Id: <20241121165806.476008-18-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20241121165806.476008-1-alex.bennee@linaro.org>
 References: <20241121165806.476008-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::42e;
- envelope-from=alex.bennee@linaro.org; helo=mail-wr1-x42e.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::32c;
+ envelope-from=alex.bennee@linaro.org; helo=mail-wm1-x32c.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -118,73 +117,70 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Nov 2024 17:06:57 -0000
+X-List-Received-Date: Thu, 21 Nov 2024 17:06:50 -0000
 
-We didn't have this before and as it exercises the m68k virt platform
-it seems worth adding. We don't wait for the shutdown because QEMU
-will auto-exit on the shutdown.
+From: Daniel P. Berrangé <berrange@redhat.com>
 
+Support the QEMU_TEST_QMP_BACKDOOR=backdoor.sock env variable as a
+way to get a QMP backdoor for debugging a stalled QEMU test. Most
+typically this would be used if running the tests directly:
+
+ $ QEMU_TEST_QMP_BACKDOOR=backdoor.sock \
+   QEMU_TEST_QEMU_BINARY=./build/qemu-system-arm \
+   PYTHONPATH=./python \
+   ./tests/functional/test_arm_tuxrun.py
+
+And then, when the test stalls, in a second shell run:
+
+ $ ./scripts/qmp/qmp-shell backdoor.sock
+
+Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+Message-Id: <20241121154218.1423005-18-berrange@redhat.com>
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-Cc: Laurent Vivier <laurent@vivier.eu>
-Cc: Anders Roxell <anders.roxell@linaro.org>
 ---
- tests/functional/meson.build         |  1 +
- tests/functional/test_m68k_tuxrun.py | 34 ++++++++++++++++++++++++++++
- 2 files changed, 35 insertions(+)
- create mode 100644 tests/functional/test_m68k_tuxrun.py
+ docs/devel/testing/functional.rst      | 10 ++++++++++
+ tests/functional/qemu_test/testcase.py |  7 +++++++
+ 2 files changed, 17 insertions(+)
 
-diff --git a/tests/functional/meson.build b/tests/functional/meson.build
-index 923f9e7078..3ce969066c 100644
---- a/tests/functional/meson.build
-+++ b/tests/functional/meson.build
-@@ -95,6 +95,7 @@ tests_m68k_system_thorough = [
-   'm68k_mcf5208evb',
-   'm68k_nextcube',
-   'm68k_q800',
-+  'm68k_tuxrun',
- ]
+diff --git a/docs/devel/testing/functional.rst b/docs/devel/testing/functional.rst
+index 6b5d0c5b98..b8ad7b0bf7 100644
+--- a/docs/devel/testing/functional.rst
++++ b/docs/devel/testing/functional.rst
+@@ -176,6 +176,16 @@ primarily depend on the value of the ``qemu_bin`` class attribute.
+ If it is not explicitly set by the test code, its default value will
+ be the result the QEMU_TEST_QEMU_BINARY environment variable.
  
- tests_microblaze_system_thorough = [
-diff --git a/tests/functional/test_m68k_tuxrun.py b/tests/functional/test_m68k_tuxrun.py
-new file mode 100644
-index 0000000000..7eacba135f
---- /dev/null
-+++ b/tests/functional/test_m68k_tuxrun.py
-@@ -0,0 +1,34 @@
-+#!/usr/bin/env python3
-+#
-+# Functional test that boots known good tuxboot images the same way
-+# that tuxrun (www.tuxrun.org) does. This tool is used by things like
-+# the LKFT project to run regression tests on kernels.
-+#
-+# Copyright (c) 2024 Linaro Ltd.
-+#
-+# Author:
-+#  Alex Bennée <alex.bennee@linaro.org>
-+#
-+# SPDX-License-Identifier: GPL-2.0-or-later
++Debugging hung QEMU
++^^^^^^^^^^^^^^^^^^^
 +
-+from qemu_test import Asset
-+from qemu_test.tuxruntest import TuxRunBaselineTest
++When test cases go wrong it may be helpful to debug a stalled QEMU
++process. While the QEMUMachine class owns the primary QMP monitor
++socket, it is possible to request a second QMP monitor be created
++by setting the ``QEMU_TEST_QMP_BACKDOOR`` env variable to refer
++to a UNIX socket name. The ``qmp-shell`` command can then be
++attached to the stalled QEMU to examine its live state.
 +
-+class TuxRunM68KTest(TuxRunBaselineTest):
+ Attribute reference
+ -------------------
+ 
+diff --git a/tests/functional/qemu_test/testcase.py b/tests/functional/qemu_test/testcase.py
+index e2a329c3e5..fceafb32b0 100644
+--- a/tests/functional/qemu_test/testcase.py
++++ b/tests/functional/qemu_test/testcase.py
+@@ -175,6 +175,13 @@ def _new_vm(self, name, *args):
+                          log_dir=self.logdir)
+         self.log.debug('QEMUMachine "%s" created', name)
+         self.log.debug('QEMUMachine "%s" temp_dir: %s', name, vm.temp_dir)
 +
-+    ASSET_M68K_KERNEL = Asset(
-+        'https://storage.tuxboot.com/buildroot/20241119/m68k/vmlinux',
-+        '7754e1d5cec753ccf1dc6894729a7f54c1a4965631ebf56df8e4ce1163ad19d8')
-+    ASSET_M68K_ROOTFS = Asset(
-+        'https://storage.tuxboot.com/buildroot/20241119/m68k/rootfs.ext4.zst',
-+        '557962ffff265607912e82232cf21adbe0e4e5a88e1e1d411ce848c37f0213e9')
++        sockpath = os.environ.get("QEMU_TEST_QMP_BACKDOOR", None)
++        if sockpath is not None:
++            vm.add_args("-chardev",
++                        f"socket,id=backdoor,path={sockpath},server=on,wait=off",
++                        "-mon", "chardev=backdoor,mode=control")
 +
-+    def test_m68k(self):
-+        self.set_machine('virt')
-+        self.cpu="m68040"
-+        self.common_tuxrun(kernel_asset=self.ASSET_M68K_KERNEL,
-+                           rootfs_asset=self.ASSET_M68K_ROOTFS,
-+                           drive="virtio-blk-device")
-+
-+if __name__ == '__main__':
-+    TuxRunBaselineTest.main()
+         if args:
+             vm.add_args(*args)
+         return vm
 -- 
 2.39.5
 
