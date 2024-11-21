@@ -1,103 +1,92 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEAfn-0004Ak-OQ
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 12:08:56 -0500
+	id 1tEAqT-0002vQ-2j
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 12:19:57 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAe6-0001B8-0z
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:07:10 -0500
-Received: from mail-wm1-x32a.google.com ([2a00:1450:4864:20::32a])
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tEAqR-0002uX-9j
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:19:55 -0500
+Received: from mail-ed1-x52d.google.com ([2a00:1450:4864:20::52d])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAdb-0001kM-2n
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:07:06 -0500
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4314b316495so9521265e9.2
- for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 09:06:38 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tEAqO-0004WX-94
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:19:54 -0500
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5cfcb7183deso4001998a12.0
+ for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 09:19:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732208797; x=1732813597; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=linaro.org; s=google; t=1732209590; x=1732814390; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=15r2zOo3h/tLFRcXUbTt3Vo+3asDF32OSYsCrEmK4kE=;
- b=hQwG/zYWbKN9L5g3/UIbI9fYCxo6OX8xUX0qZb8EvnDglpqFOdR4djI0mD0j8Kxu9f
- dxMh0qqQTgiDL8adKUzgV5hNRr8Ud1m0budgSoSD9vR4tCjBdpb4bMmd+hAxvauTDdkh
- 3EUYdA8OKoiKIWbjtxI1gHLbROvH0UKJI3yaFJxGchgFA5TykyCij2jJc4aTpJ3ITTBB
- Biqa66k0tYq3ptzYT26NTh6ZqeQFMmJQrxHS1WatCw1RwrMvtE5y2YENffPEyfxiqpmW
- RCY1FzPynjDdLwx2FbPNU+Lh/v/PTC/2p/1XNvTfYDY14JQnUyPxN5lOfOzGbEUIxUEB
- YQMQ==
+ bh=ZSYfZQtUN2o4b8G/ReClTSg634nDeYmIFhfu9vsCoVk=;
+ b=eFUPHiAraO1MqFtyzZStwpIy3Izd4WhW8SHlasZlfFZtUdbLrWaYyEowgSX0o8GLEm
+ ZouYNQTXliOphb97+MPOsqWLI5TosaX+iVdqQwEmR5uv4v0RmMlnc9w437UOpKXHyfwz
+ kNilo7TILjvrOr7wuDHeHEv1Eya3bDJFATDGyUCrGJxWP2QTIaTbe4Gsrwidd8BD/TmS
+ 94INWgm/KEzO+joVtMdZ0HKTNJbL+Ow2d6EdRJ2k3D8hPdQmvWeopKTiRUIh4EDevjg8
+ 5SgKMWiZQhH72R1NLoWSiPTcX93/nkIL7VyaR1mQgiz3KdG2OR/8i4y1VhnPOGUIb2+I
+ sqpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732208797; x=1732813597;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1732209590; x=1732814390;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=15r2zOo3h/tLFRcXUbTt3Vo+3asDF32OSYsCrEmK4kE=;
- b=tOksDFivpv5bnYlp966Lh0yirCUTZK/QrhhOy6dBGHUDvf//bBXGTOmqW9nOoZ/TWZ
- JkVPOS8HfIWkDqIYCy2jWFZ2xHUs736QbcJ6SZ5o7SJkw1gb0npqyQ5Zm64tIiIm4790
- pPRm4rLOOa3ISCbJZaOScud1mLV3C2ljUvcOmRSyZ1HNXqxezN6A0TD893XN4LX/WIMD
- eGH1zc7ZKBUqrHFSrItHGEMygtmrBW4I74kQrxzTOZWxJXSRCbOakTTXN+YOstzvbKxs
- VDzTzfTloWuVh7bTudmmzYxjJZPSNCs3VqbtxAP2v3oCZPDVV0MDsSjSeyWN9BaZ7Fgi
- dT4g==
+ bh=ZSYfZQtUN2o4b8G/ReClTSg634nDeYmIFhfu9vsCoVk=;
+ b=wS8QXt3iW26fpJPti4fpRQpOHk2iAiTrsIF2hi6ujBs5PseA0Pk3XUEo7svHm7wM93
+ YMfJQMG1u4c1nc34bXCy3/isPqUOP9Ika+lAYX5vTP/sxXtamNC0LRQ626n8e3C6T81K
+ BU0stszX2nsOjBR/STtz2anS1Dn/Cf218SM9RYQyC3wN2wPAgLq1PP+MCOSp61151UiY
+ 6HVIy7o7mx73H58/6wcRaDEP/bb6PGJEtVBSRBVneZfqG6ecdnBHE7m7PSXvLNc2SYDD
+ p42Ki1x0STBj67ejRSLBkW8xdAoaDGDrq3kHeatpPNA1UEi/KYCYgF9pfPAJqX4mdZfO
+ BzpA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX4ssmFMumCGnn7ILBpO0bZDPRIEdJtJoiKL3tmJ9brOp2ejZ95VMlHuu9Q50yqDRWRZpywdkwc68g=@nongnu.org
-X-Gm-Message-State: AOJu0YxSRfXC/yYErcSmt20655mbpbrIlaj0v6bpQ6ESXHOnbdKSAiFY
- wo/D7/gQ0LVEAC/21x89F6xyCJnBcKrxf0zGzJGaAckDotDWCQAij+uwwc96qtc=
-X-Gm-Gg: ASbGncvuzlmBBCdNMsQ7yMvlCLKhAzx2wgRvRz3SQl0SKX/hyEU2ctlQDlYN51xplLZ
- yd9QGvdXC4E0+tJ/12dvV7YSPrnuwQKLFnQbR3Zq3glJi6g8N7D2HDhj5hw70/BtSowaqQALX2s
- 0p6p6EgMMimxAEfX73xUrreGHp6fEcDTOnDXa6Klx7ZOzN8W51x18BDG4xSFlfK+is7x5xhujUV
- GRHQZwRxdxVMYEpQW2V8wTFSmJVF+ouqrvoAsUYaA+CmfCv
-X-Google-Smtp-Source: AGHT+IFaGeGPn+pHoTGPKbHBecPHbcYySHEDjo+MmD2pitOufTZGav1pXWeddCZm9hXoafQDOB6suQ==
-X-Received: by 2002:a05:600c:3493:b0:431:6060:8b16 with SMTP id
- 5b1f17b1804b1-4334f02c6f9mr74451045e9.30.1732208794422; 
- Thu, 21 Nov 2024 09:06:34 -0800 (PST)
-Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-433b45d170esm61614305e9.3.2024.11.21.09.06.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Nov 2024 09:06:32 -0800 (PST)
-Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id E350860481;
- Thu, 21 Nov 2024 16:58:08 +0000 (GMT)
-From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: qemu-devel@nongnu.org
-Cc: Peter Maydell <peter.maydell@linaro.org>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ AJvYcCWthzu8r4uGtI1BVGF1riS0gFAuCQkCPrrNC1flRA63XJIKM3xUCwyQKXYoMjYLrxKNbb1Nd8Og4d4=@nongnu.org
+X-Gm-Message-State: AOJu0YxZfYH4FEUPjDjl0JFpaJIibVdjaVohd+aNkIUqrMgcYmJuj1VA
+ Va1B4o6412B6tt6gHMaoG9QX1aiMqLW0kdTjDphSMCA2GcmKbErw0DJJGIfXXzpKPRZSLBiuMZt
+ rZVp0K6bBTq1WLPUfY6c/aDHIOa3M+PnJO/bioQ==
+X-Gm-Gg: ASbGncuCEoQ3KQwKz0YZYB93CuLYCdRgF1mVsMUh2iC/OB/thY2badn+ddzNrCb/w5u
+ AiNi9+4HFVstEVtchcihGXa8UxXZrrMr8
+X-Google-Smtp-Source: AGHT+IFIQYgVWucdZUZm/MGwW8o/x69WrsFwDAecdywlBycUkKs34jmlCDdAqxm02HpSotRtW2wplRUR0jbCuDj5t9o=
+X-Received: by 2002:a05:6402:42c3:b0:5cf:d1b2:b44e with SMTP id
+ 4fb4d7f45d1cf-5d007be495bmr4388140a12.1.1732209589766; Thu, 21 Nov 2024
+ 09:19:49 -0800 (PST)
+MIME-Version: 1.0
+References: <20241121165806.476008-1-alex.bennee@linaro.org>
+In-Reply-To: <20241121165806.476008-1-alex.bennee@linaro.org>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Thu, 21 Nov 2024 17:19:38 +0000
+Message-ID: <CAFEAcA8KD4qxY18pJakSeziTioNYDQkd3VYcxYfq9y2KAON4Wg@mail.gmail.com>
+Subject: Re: [PATCH 00/39] maintainer updates for -rc2 pre-PR
+To: =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
+Cc: qemu-devel@nongnu.org,
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
  "Michael S. Tsirkin" <mst@redhat.com>,
- Daniel Henrique Barboza <danielhb413@gmail.com>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>, 
  Pierrick Bouvier <pierrick.bouvier@linaro.org>,
- Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>, 
  Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
  Jiaxun Yang <jiaxun.yang@flygoat.com>, Halil Pasic <pasic@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, qemu-ppc@nongnu.org,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, qemu-ppc@nongnu.org, 
  Daniel Henrique Barboza <dbarboza@ventanamicro.com>,
- Alexandre Iooss <erdnaxe@crans.org>, qemu-riscv@nongnu.org,
+ Alexandre Iooss <erdnaxe@crans.org>, qemu-riscv@nongnu.org, 
  Thomas Huth <huth@tuxfamily.org>, Bernhard Beschow <shentey@gmail.com>,
- Thomas Huth <thuth@redhat.com>, Eric Farman <farman@linux.ibm.com>,
- Bin Meng <bmeng.cn@gmail.com>, qemu-s390x@nongnu.org,
- Niek Linnenbank <nieklinnenbank@gmail.com>, qemu-arm@nongnu.org,
- =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- John Snow <jsnow@redhat.com>,
- Wainer dos Santos Moschetta <wainersm@redhat.com>,
- Cleber Rosa <crosa@redhat.com>, qemu-rust@nongnu.org,
- Nicholas Piggin <npiggin@gmail.com>,
- =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+ Thomas Huth <thuth@redhat.com>, 
+ Eric Farman <farman@linux.ibm.com>, Bin Meng <bmeng.cn@gmail.com>,
+ qemu-s390x@nongnu.org, 
+ Niek Linnenbank <nieklinnenbank@gmail.com>, qemu-arm@nongnu.org, 
+ John Snow <jsnow@redhat.com>, Wainer dos Santos Moschetta <wainersm@redhat.com>,
+ Cleber Rosa <crosa@redhat.com>, 
+ qemu-rust@nongnu.org, Nicholas Piggin <npiggin@gmail.com>, 
+ =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
  Palmer Dabbelt <palmer@dabbelt.com>, Markus Armbruster <armbru@redhat.com>,
  Weiwei Li <liwei1518@gmail.com>, Mahmoud Mandour <ma.mandourr@gmail.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, 
  Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
- Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Anders Roxell <anders.roxell@linaro.org>
-Subject: [PATCH 27/39] tests/functional: update the mips64el tuxrun tests
-Date: Thu, 21 Nov 2024 16:57:54 +0000
-Message-Id: <20241121165806.476008-28-alex.bennee@linaro.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241121165806.476008-1-alex.bennee@linaro.org>
-References: <20241121165806.476008-1-alex.bennee@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::32a;
- envelope-from=alex.bennee@linaro.org; helo=mail-wm1-x32a.google.com
+ Aurelien Jarno <aurelien@aurel32.net>, 
+ Ani Sinha <anisinha@redhat.com>, Alistair Francis <alistair.francis@wdc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::52d;
+ envelope-from=peter.maydell@linaro.org; helo=mail-ed1-x52d.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -117,37 +106,28 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Nov 2024 17:07:13 -0000
+X-List-Received-Date: Thu, 21 Nov 2024 17:19:55 -0000
 
-Now there are new upto date images available we should update to them.
+On Thu, 21 Nov 2024 at 16:58, Alex Benn=C3=A9e <alex.bennee@linaro.org> wro=
+te:
+>
+> This is a mostly testing focused set of patches but a few bug fixes as
+> well. I plan to send the PR in on Monday. I can drop any patches that
+> are objected to but I think its pretty safe.
+>
+> Contains:
+>
+>   - Daniel's clean-up of functional tests
+>   - Another avocado->function conversion from Thomas
+>   - Update the tuxrun baseline images
+>   - Minor fix to the rust pl011 device
+>   - Documentation clarification on identity
 
-Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-Cc: Anders Roxell <anders.roxell@linaro.org>
----
- tests/functional/test_mips64el_tuxrun.py | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Should we really be updating the tuxrun baseline images
+in the middle of a release freeze period? Unless the old images
+are going to go away and break the tests, I think it would
+be better to stick with what we're currently testing.
 
-diff --git a/tests/functional/test_mips64el_tuxrun.py b/tests/functional/test_mips64el_tuxrun.py
-index 819549a27b..0a24757c51 100755
---- a/tests/functional/test_mips64el_tuxrun.py
-+++ b/tests/functional/test_mips64el_tuxrun.py
-@@ -17,11 +17,11 @@
- class TuxRunMips64ELTest(TuxRunBaselineTest):
- 
-     ASSET_MIPS64EL_KERNEL = Asset(
--        'https://storage.tuxboot.com/20230331/mips64el/vmlinux',
--        'd4e08965e2155c4cccce7c5f34d18fe34c636cda2f2c9844387d614950155266')
-+        'https://storage.tuxboot.com/buildroot/20241119/mips64el/vmlinux',
-+        '0d2829a96f005229839c4cd586d4d8a136ea4b488d29821611c8e97f2266bfa9')
-     ASSET_MIPS64EL_ROOTFS = Asset(
--        'https://storage.tuxboot.com/20230331/mips64el/rootfs.ext4.zst',
--        'fba585368f5915b1498ed081863474b2d7ec4e97cdd46d21bdcb2f9698f83de4')
-+        'https://storage.tuxboot.com/buildroot/20241119/mips64el/rootfs.ext4.zst',
-+        '69c8b69a4f1582ce4c6f01a994968f5d73bffb2fc99cbeeeb26c8b5a28eaeb84')
- 
-     def test_mips64el(self):
-         self.set_machine('malta')
--- 
-2.39.5
-
+thanks
+-- PMM
 
