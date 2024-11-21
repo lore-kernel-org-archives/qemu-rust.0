@@ -1,62 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEAWN-0005S6-8D
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 11:59:11 -0500
+	id 1tEAWO-0005V8-4V
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 11:59:12 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAVq-0004ne-Jp
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:38 -0500
-Received: from mail-wm1-x329.google.com ([2a00:1450:4864:20::329])
+ id 1tEAVz-0004ws-JZ
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:51 -0500
+Received: from mail-wr1-x432.google.com ([2a00:1450:4864:20::432])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAVW-00084z-OH
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:38 -0500
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4315df7b43fso10079405e9.0
- for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 08:58:18 -0800 (PST)
+ id 1tEAVa-00088C-9G
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:46 -0500
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3823cae4be1so702688f8f.3
+ for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 08:58:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732208297; x=1732813097; darn=nongnu.org;
+ d=linaro.org; s=google; t=1732208300; x=1732813100; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KjYXio7sBTQrYDC2ySSBbQ9mNKNL4IwihX3wcslKJhg=;
- b=cutSNmQxpdR0O3gRXmcF7OuN0CB961t2alKds9f1HPP+qFT1EJVYdAz5CiETZvYNCL
- Lf1IdtcHw8/Y9BGmWd7e3bO6lsNvHdWjIa8oSAi/+ccJ7EpaGtLglDySdpUswazpCeYK
- 7HNNuRrqQ7RD18Q1L7P5XU48L3bBcWr/TXmdGz2k7jmgu24I1Mz9ZfyqJrp0Zjy5LUq/
- fpNObBzEgbf0yyARJ0DGxGV8i/5+KYTORvhJjBkqmFkdddslokgftS92cKPsX2VsfAEM
- hoFLF4dn6ssz5B37uEKuV7Lka2GTv5QbKMZmDJmJB8RgH4iqiLOztiOCSmDpnNIZXxFQ
- 9p8w==
+ bh=V6SxJES80JTPviCE8J9qJp14w+aImfeVkk90weg6pzA=;
+ b=sB98wbr8XoWHb3Q9WP/XmucF5xQH4iF0fmp0hi/g9eLg0tcGe+xmR40HvD4NG5jMOx
+ Im/mzhfNeP7bfoeSuj5j5uupw7YB+WrdyWctDZdrBZ4VVCrToEkESKD5P8LKo7LSRkCF
+ NwARN/3FEGszL5zdcCVSjslve7ScObJsuEW3BLBOQqMRFIz6DfdlSCJYGQ9w2s7PXRZt
+ XytiYyo3QEgmCkRmCQwMN/LI5zhfmDQt6irbDB24EWf9rhkbU4y1noJnw5u5o2ngzfI/
+ IxKTkFL1VQDAA7XfT3nEmyoJHHkx6X+WCWNJ2dDY7/9FuB+Mh6cBLjAgGbBao58u+0Wo
+ UP+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732208297; x=1732813097;
+ d=1e100.net; s=20230601; t=1732208300; x=1732813100;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KjYXio7sBTQrYDC2ySSBbQ9mNKNL4IwihX3wcslKJhg=;
- b=QOvUu3LFUAlqaAD0PW0bT3lupD7IROC9ImFPHg8MOkAw2GS7cSkPOyRxUo3gCO+gJ6
- mW2apYg6x8xShPJC2tbS2R+GimDOXurrYAdnockXTun5tRbXy+XU03zkhN1q7LXSw5Mp
- XkZ9f+gJTw4lSIOqcxPtz7Mjj0t4zz4K+jkI1VThMzaFSqMgFndOZmjneuiBNzLWRCdy
- 4Hmsv1ng2U8bGneE1ATNuzHLFZlYEWwkv6PF6gJ6PzRL2abgepeWnnk1piwva9i6+rNd
- KS2J+nNbypwMggoMtM6BR/FRaolW1ckWUDK/IBUXHPsBPetwVi05Bn6MPcsgPzxVQGq6
- 9wdg==
+ bh=V6SxJES80JTPviCE8J9qJp14w+aImfeVkk90weg6pzA=;
+ b=XW1SqiU95iuTIqxj3nwsFuqgGJLqlWyvZOwYoFPKT76ABweaO3SLyKKCERZu2+ETG4
+ oGGYTcJkY6qCWSaHfcl0wzzQG/WHBzUtFWgQLJuzOSh4CVn75yRrVps9B/6ZqhYhq6Fj
+ d5ecGJoWpUOBousPeYF3AScQryLfBxJo+THD5wBZvMRjG9NczqycVj22Zc/VWOzvxKer
+ f4G0QXdDkRMPAvMX/LmtVQsZXbf4C3KS6Wp0KubrFVSu5SHKtFqi4efN8Osh8C2dYlxu
+ PVYze9kXSdXT0jJGXNVYG4qYmcvWqkm/hJB8PNmQnb/iu11klMv17W544+0VnigGJXkz
+ WEmw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVeKxjS20UC+y2hSaaI3Vo5jQCp9quOs24oTsOCEC3j0cHUFQ86j1K0sWpUADm4KvPvO+u+7L1RjCE=@nongnu.org
-X-Gm-Message-State: AOJu0YxCW0YeNfi0Ph5PgAkBIhDEGJImA8vWlxRb4Rrz57uxYK6BAYBG
- PQm2TyjgYj8tHBqHEoJbINyAtunyFOogdLq2OkPY5kc96QV/t1HP2p6HxZZ6Rhs=
-X-Gm-Gg: ASbGncs08CZwBx8n9MPyeemDXV+W3syYaaEz73MV5lLiMqL7ULceikVhw8mczoXScZK
- j30KBfecL1h7l+ZWyJdzDyKhFW+LARO29WISaMA8XAIRJgxSEIAt038lHKzNcmIGKX3tnS+FeMc
- Uas6UbeosbYeP9dXlKMLVYJzxzWzjZKDrxTajyf4zc9Nj3V+r5DXD6sTEyFPK5qj74TpCCIv9AM
- 4HjTwKsOUW+UFnNPV9SZMhCpHGomslZq+7G1l4ok5CFBp3s
-X-Google-Smtp-Source: AGHT+IECwAUrVUtXDvyKMSJj1VIjspS24Jq7y5t339a/LZ0kw8tOiIKEKmOAyTEv8JiMDllbD2JF/A==
-X-Received: by 2002:a05:600c:1e23:b0:431:157a:986e with SMTP id
- 5b1f17b1804b1-4334f016fccmr59644595e9.20.1732208296970; 
- Thu, 21 Nov 2024 08:58:16 -0800 (PST)
+ AJvYcCUZzVarW65YWmfZs7ElEokMef9Qi5X83Huuut5ftRkGDL0L2kx17zyS8ej3a3U/eUMkLA3qlKyM7eQ=@nongnu.org
+X-Gm-Message-State: AOJu0YyiMWEO1Kwb6tM+TMCD/XM8kf8m8XzIBJfGkGD9PpAj6mk95RH4
+ 2gIYVB93CB0diiQGGEcdryD+mVY1y+wrCXt0neH46+r7w1SfzTKrooPG7IMgBqc=
+X-Gm-Gg: ASbGnctccoXP/FwQu+Ya14HMciyVMBCr4GFBaYU7vsWhYZdjPjH8Xb6mVD+G8S33WVd
+ qGnPdJTPiRjxMett86M5SxHHq2+lUkukNB4pF3YXb5IJAfZ4jfA2lZQTWtXvvDqRpILmO/zzB2D
+ fsugQsh9BWrVjtZ21mguRhQMMPGZPMJVuSZFs8slArU7VVGBs1kKFibyYRVxmFWvB8GbEtVBtzj
+ 9QEm8uuEGdSAJ2vAE/edayl7y3oI2GcGAYtjanbpecLG07x
+X-Google-Smtp-Source: AGHT+IE+LeE2Pzi++hrXGW8sI6wK67lsohMMsge1oZ0f7HhqUtkPtaw5ZKcZvhj1bU4G7Tq7YFHk6g==
+X-Received: by 2002:a5d:64c5:0:b0:382:4f6e:a57a with SMTP id
+ ffacd0b85a97d-38254b18c73mr5959922f8f.54.1732208300201; 
+ Thu, 21 Nov 2024 08:58:20 -0800 (PST)
 Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3825fb2679dsm31790f8f.45.2024.11.21.08.58.12
+ ffacd0b85a97d-3825fb27386sm32297f8f.51.2024.11.21.08.58.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Nov 2024 08:58:14 -0800 (PST)
+ Thu, 21 Nov 2024 08:58:18 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id DF4D1603EA;
- Thu, 21 Nov 2024 16:58:07 +0000 (GMT)
+ by draig.lan (Postfix) with ESMTP id 4DAFA604A9;
+ Thu, 21 Nov 2024 16:58:09 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
@@ -85,19 +85,19 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
  Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
- Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH 16/39] tests/functional: remove time.sleep usage from tuxrun
- tests
-Date: Thu, 21 Nov 2024 16:57:43 +0000
-Message-Id: <20241121165806.476008-17-alex.bennee@linaro.org>
+ Alistair Francis <alistair.francis@wdc.com>,
+ Anders Roxell <anders.roxell@linaro.org>
+Subject: [PATCH 31/39] tests/functional: update the riscv64 tuxrun tests
+Date: Thu, 21 Nov 2024 16:57:58 +0000
+Message-Id: <20241121165806.476008-32-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20241121165806.476008-1-alex.bennee@linaro.org>
 References: <20241121165806.476008-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::329;
- envelope-from=alex.bennee@linaro.org; helo=mail-wm1-x329.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::432;
+ envelope-from=alex.bennee@linaro.org; helo=mail-wr1-x432.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -117,63 +117,48 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Nov 2024 16:58:39 -0000
+X-List-Received-Date: Thu, 21 Nov 2024 16:58:55 -0000
 
-From: Daniel P. Berrangé <berrange@redhat.com>
+Now there are new upto date images available we should update to them.
+Note we re-use the riscv32 kernel and rootfs for test_riscv64_rv32.
 
-The tuxrun tests send a series of strings to the guest to login
-and then run commands. Since we have been unable to match on
-console output that isn't followed by a newline, the test used
-many time.sleep() statements to pretend to synchronize with
-the guest.
-
-This has proved to be unreliable for the aarch64be instance of
-the tuxrun tests, with the test often hanging. The hang is a
-very subtle timing problem, and it is suspected that some
-(otherwise apparently harmless) I/O error messages could be
-resulting in full FIFO buffers, stalling interaction with
-the guest.
-
-With the newly rewritten console interaction able to match
-strings that don't have a following newline, the tux run
-tests can now match directly on the login prompt, and/or
-shell PS1 prompt.
-
-Resolves: https://gitlab.com/qemu-project/qemu/-/issues/2689
-Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-Message-Id: <20241121154218.1423005-17-berrange@redhat.com>
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+Cc: Anders Roxell <anders.roxell@linaro.org>
 ---
- tests/functional/qemu_test/tuxruntest.py | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+ tests/functional/test_riscv64_tuxrun.py | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/tests/functional/qemu_test/tuxruntest.py b/tests/functional/qemu_test/tuxruntest.py
-index ed2b238c92..ab3b27da43 100644
---- a/tests/functional/qemu_test/tuxruntest.py
-+++ b/tests/functional/qemu_test/tuxruntest.py
-@@ -124,16 +124,12 @@ def run_tuxtest_tests(self, haltmsg):
-         then do a few things on the console. Trigger a shutdown and
-         wait to exit cleanly.
-         """
--        self.wait_for_console_pattern("Welcome to TuxTest")
--        time.sleep(0.2)
--        exec_command(self, 'root')
--        time.sleep(0.2)
--        exec_command(self, 'cat /proc/interrupts')
--        time.sleep(0.1)
--        exec_command(self, 'cat /proc/self/maps')
--        time.sleep(0.1)
--        exec_command(self, 'uname -a')
--        time.sleep(0.1)
-+        ps1='root@tuxtest:~#'
-+        self.wait_for_console_pattern('tuxtest login:')
-+        exec_command_and_wait_for_pattern(self, 'root', ps1)
-+        exec_command_and_wait_for_pattern(self, 'cat /proc/interrupts', ps1)
-+        exec_command_and_wait_for_pattern(self, 'cat /proc/self/maps', ps1)
-+        exec_command_and_wait_for_pattern(self, 'uname -a', ps1)
-         exec_command_and_wait_for_pattern(self, 'halt', haltmsg)
+diff --git a/tests/functional/test_riscv64_tuxrun.py b/tests/functional/test_riscv64_tuxrun.py
+index 4e2449539c..0d8de36204 100755
+--- a/tests/functional/test_riscv64_tuxrun.py
++++ b/tests/functional/test_riscv64_tuxrun.py
+@@ -17,18 +17,18 @@
+ class TuxRunRiscV64Test(TuxRunBaselineTest):
  
-         # Wait for VM to shut down gracefully if it can
+     ASSET_RISCV64_KERNEL = Asset(
+-        'https://storage.tuxboot.com/20230331/riscv64/Image',
+-        'cd634badc65e52fb63465ec99e309c0de0369f0841b7d9486f9729e119bac25e')
++        'https://storage.tuxboot.com/buildroot/20241119/riscv64/Image',
++        '2bd8132a3bf21570290042324fff48c987f42f2a00c08de979f43f0662ebadba')
+     ASSET_RISCV64_ROOTFS = Asset(
+-        'https://storage.tuxboot.com/20230331/riscv64/rootfs.ext4.zst',
+-        'b18e3a3bdf27be03da0b285e84cb71bf09eca071c3a087b42884b6982ed679eb')
++        'https://storage.tuxboot.com/buildroot/20241119/riscv64/rootfs.ext4.zst',
++        'aa4736a9872651dfc0d95e709465eedf1134fd19d42b8cb305bfd776f9801004')
+ 
+     ASSET_RISCV32_KERNEL = Asset(
+-        'https://storage.tuxboot.com/20230331/riscv32/Image',
+-        '89599407d7334de629a40e7ad6503c73670359eb5f5ae9d686353a3d6deccbd5')
++        'https://storage.tuxboot.com/buildroot/20241119/riscv32/Image',
++        '872bc8f8e0d4661825d5f47f7bec64988e9d0a8bd5db8917d57e16f66d83b329')
+     ASSET_RISCV32_ROOTFS = Asset(
+-        'https://storage.tuxboot.com/20230331/riscv32/rootfs.ext4.zst',
+-        '7168d296d0283238ea73cd5a775b3dd608e55e04c7b92b76ecce31bb13108cba')
++        'https://storage.tuxboot.com/buildroot/20241119/riscv32/rootfs.ext4.zst',
++        '511ad34e63222db08d6c1da16fad224970de36517a784110956ba6a24a0ee5f6')
+ 
+     def test_riscv64(self):
+         self.set_machine('virt')
 -- 
 2.39.5
 
