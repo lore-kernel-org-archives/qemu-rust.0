@@ -1,62 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEAVj-0004jV-HE
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 11:58:31 -0500
+	id 1tEAVl-0004lE-4p
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 11:58:35 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAVc-0004aQ-Ca
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:25 -0500
-Received: from mail-wm1-x32a.google.com ([2a00:1450:4864:20::32a])
+ id 1tEAVe-0004dR-K1
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:26 -0500
+Received: from mail-wm1-x336.google.com ([2a00:1450:4864:20::336])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAVR-000803-6f
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:23 -0500
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4316f3d3c21so9434445e9.3
- for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 08:58:12 -0800 (PST)
+ id 1tEAVR-00080U-VG
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:24 -0500
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-43159c9f617so8987555e9.2
+ for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 08:58:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1732208292; x=1732813092; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wxsyHUj0CjMAJckEMjfPh5iL1r4gSQpQMh/4JVL/FpM=;
- b=TVw1RAAdkmIVxDk2qaRteHdksauV2Hx8LTy494uHuv6I2tlpSC61l3ewGt898NKUp9
- +HmZ7biyynRKCiPxI66c7dnokhiS3dp6nD4h4RY9lfzgtpVOj3+ET0RW+sB5skSPkhVJ
- lXyZ42gfE8oq8oZ8keqm9Bpr8nGUbmxtD7uixWqdkZwpcIKRqPsOBMCrzb6WgXjz4tTS
- tqBZ+Ht7oy/+coL95Y2AnKlZ6MIsVpb2/PTwQvp8s4MKYN+srxWwIa9L8I5Bz8dmI+K+
- i2Bj7wLY1nz4B00U1zWNqXHu124zbxxk8qpcz493RbiP5BJkJfyfQhQuGLu+jT467Dsh
- vxiA==
+ bh=Dp3O7OQ3MnV8QkUA7aQUHJMfCFG23foe3+ZfbczUD2I=;
+ b=qjPbzcrJqARFYgAJ6NjiJ/gasr8RR2l6p+Q+qWsKaMdFb3NRwi7BFEc5ybPYULBqTM
+ suoE8rVlrj9BbPg90XZmrn0X/z8A7xML/A8ywmLxxLYdF85IuSayhbWRR0NLRNl6pbJy
+ 99eRQnsfqJtmBUPCm68OOvcbGY1vqSnN3GpPaNJ0I7EEFTR38RgN6zg04GAWlMNuPaqv
+ mR7jMMzPRYAxxPcP3iXlGXLVFPTTHphtaaMk6fGVvjt4T74EOWd2TLU2EISvobhYlc7M
+ kYQ32h56KywLhO0TIvEJC81ybpDi08SwWwF2TO+ZOLHmKLg9pioh9V8Xau+SLv+6T3xL
+ /asg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1732208292; x=1732813092;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=wxsyHUj0CjMAJckEMjfPh5iL1r4gSQpQMh/4JVL/FpM=;
- b=DTrc4vDlZbttEBBv4zZWz0sVzeyDxGafw7Pger3etiY3wYzK2QcBhP9SGO4KVEekok
- mvFzNZqkgjivEdyAYOFtnx02HswmebcX6SbQ9NXmcwwbWfYSH5NP/MZ+MLppR4fQsqOL
- zpDHx5iOJSVXcdC5wsGzS5yZY8pu36cvh+UzO/pRi4AK9j1g1ysyAzpnYgzLqrEqZcVO
- aRkkXxRcBaKXCWI5B4VpRuCblmZ0NGGlNYD5fOtlx1IpSmUjhTO4KZWunZLAIOawYdHn
- 4RkWiVAMb8oqVzmOkfcYfAbdE3+bt8P8OPSp+OLYp8LITq0UhwKGiNzdHjX3DJT4wtV7
- sCzg==
+ bh=Dp3O7OQ3MnV8QkUA7aQUHJMfCFG23foe3+ZfbczUD2I=;
+ b=TOSQoRd5h+JR7AVendg9vEeXngAJ7JeG74pJ03y0M6C8kPaLcSfCh/GNUvTOGniDNf
+ 8hd90SmUBz23dpt+Iu5zHPyqZPOaVpf2o2tWBz3BWIjldWy+t4dEJOsOxKLe0CNeNzLS
+ hmb8Z0tKpj4H8kNtGJXM/N8mgr3Eyw7+/QurOpzkfHvmPjNdXxPGUmXkZAZsu6hnDPDM
+ Hx+jceaMEoB2vZNMtUNLL4ljJ2P/irM0c4J9Oh1KRSu2CSlPyscXmotMfMRaGMYSMe4c
+ 9O4W51CkY49Zv7KN31YYZBDCh6K6tK6xWxXhh1C7IQ3f3BuueVBOqxTWVyVqLDx8BXVK
+ peVg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWqbIi04HBTcFvUc6kS0F0M29rwugneCCMeHXhyfrOheBgzK0Rh360ZhXzj6J1ymQLUNuqPsvalP1k=@nongnu.org
-X-Gm-Message-State: AOJu0Yw/GWBou34MbgCNzD/CIhMBAYsaIGp8eDc0CX9IK5y3hAQNxB+U
- TIvcxGoAvtiWIRi+Yd8tX5Q5LbB6LeV8IB4z6Vm92DqFO1Tj+rHigPOzmVtzbQA=
-X-Gm-Gg: ASbGnct2i4JsVmaQsrQ1AdaBS95kOqQ0trHQj3IW3Bas3mZqPrM3H8+Fggdls6uQjp+
- 2xJvk54+hJOL5c/gIeX7kjCi38psu5ou25Y5h5MgZCjQSChQ3XZxlEBCmZGpDRjPLmBt6ZpTc7b
- 5mZDC48OZtAxv/tpJbTk6jqJhPQ0NgzUGAZUM4uyM3d0eHGrB7pMnQyOUz3A+ujHO0IQ8no/Xe3
- UzFlM6NYKswxOZ/5mD6Ymsbam2K8wQLOYJd1rjud2Zw18ap
-X-Google-Smtp-Source: AGHT+IFYs3QtoxgIt/+5OM9BelmjkZEGfNgGDmSqDdf0VdJBwG7FyC49LZevuXDWvLDf7cnqliB+8g==
-X-Received: by 2002:a05:600c:3b25:b0:431:680e:95ff with SMTP id
- 5b1f17b1804b1-433489b1b15mr67531905e9.9.1732208291580; 
- Thu, 21 Nov 2024 08:58:11 -0800 (PST)
+ AJvYcCUCmvSC7mnfmULQl4iS9+7GDiArCsUnylfUGyRuNZjC66oPBB1zLfWqyY/PnxqCGT7MapbPH3AebII=@nongnu.org
+X-Gm-Message-State: AOJu0YwJrsMWISuuAPUaaui+B7VJ3Uo3Ga66tJggm0Hz8rJZh/qPgItq
+ R/OeJEZ7AfxW6Emd2/QwMMhlak6Qk7DOH0xxPSJ7Aect3NOZdS8pBGS7LMKSF8I=
+X-Gm-Gg: ASbGncteE+Gsp4yNy6TIPlFhy8VntgsgAZ1zk9qC+ay1M1kSFk1Mv2KbjscMZP3YNY/
+ VIDrB9HUY8I70qVvorenpnlXnlwKk3bmfbJrPL6RMukVUKckPnEvmRl/v4dgwq/Rub3kUWKkmoU
+ 0cOMxiEl2bAddNiV//th+Lt9ky1AUxlWDmu7nzdLSzyuUIxSRt4iARbr6XPlE/XZG9ZteL2fj3S
+ f50UqcbrevVNHVIXYz+oqKdMwtJSByMyvgQSni7l28hdBrr
+X-Google-Smtp-Source: AGHT+IGuvjZ8B9pJ41YHj38dXxQihGEDFw8gT3+C8/s8S7wFGUizL5bTtIJgpGfbzxxGthdi6YweUA==
+X-Received: by 2002:a05:600c:3507:b0:42c:de2f:da27 with SMTP id
+ 5b1f17b1804b1-433489869ccmr71250345e9.2.1732208292149; 
+ Thu, 21 Nov 2024 08:58:12 -0800 (PST)
 Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-433b463aba6sm61641465e9.34.2024.11.21.08.58.09
+ 5b1f17b1804b1-433b4616fc2sm61385585e9.22.2024.11.21.08.58.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 21 Nov 2024 08:58:10 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id E10F05FBC0;
- Thu, 21 Nov 2024 16:58:06 +0000 (GMT)
+ by draig.lan (Postfix) with ESMTP id 1C1525FC6C;
+ Thu, 21 Nov 2024 16:58:07 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
@@ -86,17 +86,17 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
  Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH 05/39] tests/functional: remove leftover :avocado: tags
-Date: Thu, 21 Nov 2024 16:57:32 +0000
-Message-Id: <20241121165806.476008-6-alex.bennee@linaro.org>
+Subject: [PATCH 07/39] tests/functional: remove comments talking about avocado
+Date: Thu, 21 Nov 2024 16:57:34 +0000
+Message-Id: <20241121165806.476008-8-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20241121165806.476008-1-alex.bennee@linaro.org>
 References: <20241121165806.476008-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::32a;
- envelope-from=alex.bennee@linaro.org; helo=mail-wm1-x32a.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::336;
+ envelope-from=alex.bennee@linaro.org; helo=mail-wm1-x336.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -116,139 +116,52 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Nov 2024 16:58:25 -0000
+X-List-Received-Date: Thu, 21 Nov 2024 16:58:26 -0000
 
 From: Daniel P. Berrangé <berrange@redhat.com>
 
-These tags are not honoured under the new functional test harness.
+The first comment is still relevant but should talk about our own test
+harness instead. The second comment adds no value over reading the code
+and can be removed.
 
-Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-Message-Id: <20241121154218.1423005-6-berrange@redhat.com>
+Message-Id: <20241121154218.1423005-8-berrange@redhat.com>
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
 ---
- tests/functional/test_arm_bpim2u.py   | 20 --------------------
- tests/functional/test_arm_orangepi.py | 27 ---------------------------
- 2 files changed, 47 deletions(-)
+ tests/functional/test_acpi_bits.py | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/tests/functional/test_arm_bpim2u.py b/tests/functional/test_arm_bpim2u.py
-index 2f9fa145e3..35ea58d46c 100755
---- a/tests/functional/test_arm_bpim2u.py
-+++ b/tests/functional/test_arm_bpim2u.py
-@@ -37,11 +37,6 @@ class BananaPiMachine(LinuxKernelTest):
-         '5b41b4e11423e562c6011640f9a7cd3bdd0a3d42b83430f7caa70a432e6cd82c')
+diff --git a/tests/functional/test_acpi_bits.py b/tests/functional/test_acpi_bits.py
+index ee40647d5b..4c192d95cc 100755
+--- a/tests/functional/test_acpi_bits.py
++++ b/tests/functional/test_acpi_bits.py
+@@ -196,11 +196,12 @@ def copy_test_scripts(self):
+         for filename in os.listdir(bits_test_dir):
+             if os.path.isfile(os.path.join(bits_test_dir, filename)) and \
+                filename.endswith('.py2'):
+-                # all test scripts are named with extension .py2 so that
+-                # avocado does not try to load them. These scripts are
+-                # written for python 2.7 not python 3 and hence if avocado
+-                # loaded them, it would complain about python 3 specific
+-                # syntaxes.
++                # All test scripts are named with extension .py2 so that
++                # they are not run by accident.
++                #
++                # These scripts are intended to run inside the test VM
++                # and are written for python 2.7 not python 3, hence
++                # would cause syntax errors if loaded ouside the VM.
+                 newfilename = os.path.splitext(filename)[0] + '.py'
+                 shutil.copy2(os.path.join(bits_test_dir, filename),
+                              os.path.join(target_test_dir, newfilename))
+@@ -399,8 +400,6 @@ def test_acpi_smbios_bits(self):
  
-     def test_arm_bpim2u(self):
--        """
--        :avocado: tags=arch:arm
--        :avocado: tags=machine:bpim2u
--        :avocado: tags=accel:tcg
--        """
-         self.set_machine('bpim2u')
-         deb_path = self.ASSET_DEB.fetch()
-         kernel_path = self.extract_from_deb(deb_path,
-@@ -64,11 +59,6 @@ def test_arm_bpim2u(self):
-         os.remove(dtb_path)
- 
-     def test_arm_bpim2u_initrd(self):
--        """
--        :avocado: tags=arch:arm
--        :avocado: tags=accel:tcg
--        :avocado: tags=machine:bpim2u
--        """
-         self.set_machine('bpim2u')
-         deb_path = self.ASSET_DEB.fetch()
-         kernel_path = self.extract_from_deb(deb_path,
-@@ -105,11 +95,6 @@ def test_arm_bpim2u_initrd(self):
-         os.remove(initrd_path)
- 
-     def test_arm_bpim2u_gmac(self):
--        """
--        :avocado: tags=arch:arm
--        :avocado: tags=machine:bpim2u
--        :avocado: tags=device:sd
--        """
-         self.set_machine('bpim2u')
-         self.require_netdev('user')
- 
-@@ -160,11 +145,6 @@ def test_arm_bpim2u_gmac(self):
- 
-     @skipUnless(os.getenv('QEMU_TEST_ALLOW_LARGE_STORAGE'), 'storage limited')
-     def test_arm_bpim2u_openwrt_22_03_3(self):
--        """
--        :avocado: tags=arch:arm
--        :avocado: tags=machine:bpim2u
--        :avocado: tags=device:sd
--        """
-         self.set_machine('bpim2u')
-         # This test download a 8.9 MiB compressed image and expand it
-         # to 127 MiB.
-diff --git a/tests/functional/test_arm_orangepi.py b/tests/functional/test_arm_orangepi.py
-index d2ed5fcc82..6d57223a03 100755
---- a/tests/functional/test_arm_orangepi.py
-+++ b/tests/functional/test_arm_orangepi.py
-@@ -49,11 +49,6 @@ class BananaPiMachine(LinuxKernelTest):
-         '20d3e07dc057e15c12452620e90ecab2047f0f7940d9cba8182ebc795927177f')
- 
-     def test_arm_orangepi(self):
--        """
--        :avocado: tags=arch:arm
--        :avocado: tags=machine:orangepi-pc
--        :avocado: tags=accel:tcg
--        """
-         self.set_machine('orangepi-pc')
-         deb_path = self.ASSET_DEB.fetch()
-         kernel_path = self.extract_from_deb(deb_path,
-@@ -75,11 +70,6 @@ def test_arm_orangepi(self):
-         os.remove(dtb_path)
- 
-     def test_arm_orangepi_initrd(self):
--        """
--        :avocado: tags=arch:arm
--        :avocado: tags=accel:tcg
--        :avocado: tags=machine:orangepi-pc
--        """
-         self.set_machine('orangepi-pc')
-         deb_path = self.ASSET_DEB.fetch()
-         kernel_path = self.extract_from_deb(deb_path,
-@@ -115,12 +105,6 @@ def test_arm_orangepi_initrd(self):
-         os.remove(initrd_path)
- 
-     def test_arm_orangepi_sd(self):
--        """
--        :avocado: tags=arch:arm
--        :avocado: tags=accel:tcg
--        :avocado: tags=machine:orangepi-pc
--        :avocado: tags=device:sd
--        """
-         self.set_machine('orangepi-pc')
-         self.require_netdev('user')
-         deb_path = self.ASSET_DEB.fetch()
-@@ -167,11 +151,6 @@ def test_arm_orangepi_sd(self):
- 
-     @skipUnless(os.getenv('QEMU_TEST_ALLOW_LARGE_STORAGE'), 'storage limited')
-     def test_arm_orangepi_armbian(self):
--        """
--        :avocado: tags=arch:arm
--        :avocado: tags=machine:orangepi-pc
--        :avocado: tags=device:sd
--        """
-         self.set_machine('orangepi-pc')
-         # This test download a 275 MiB compressed image and expand it
-         # to 1036 MiB, but the underlying filesystem is 1552 MiB...
-@@ -208,12 +187,6 @@ def test_arm_orangepi_armbian(self):
- 
-     @skipUnless(os.getenv('QEMU_TEST_ALLOW_LARGE_STORAGE'), 'storage limited')
-     def test_arm_orangepi_uboot_netbsd9(self):
--        """
--        :avocado: tags=arch:arm
--        :avocado: tags=machine:orangepi-pc
--        :avocado: tags=device:sd
--        :avocado: tags=os:netbsd
--        """
-         self.set_machine('orangepi-pc')
-         # This test download a 304MB compressed image and expand it to 2GB
-         deb_path = self.ASSET_UBOOT.fetch()
+         # biosbits has been configured to run all the specified test suites
+         # in batch mode and then automatically initiate a vm shutdown.
+-        # Set timeout to BITS_TIMEOUT for SHUTDOWN event from bits VM at par
+-        # with the avocado test timeout.
+         self._vm.event_wait('SHUTDOWN', timeout=BITS_TIMEOUT)
+         self._vm.wait(timeout=None)
+         self.logger.debug("Checking console output ...")
 -- 
 2.39.5
 
