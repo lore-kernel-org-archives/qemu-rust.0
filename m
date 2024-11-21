@@ -1,101 +1,103 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEB1T-0006Q6-IN
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 12:31:19 -0500
+	id 1tECSb-0005dR-EW
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 14:03:26 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEB1R-0006Or-Kr
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:31:17 -0500
-Received: from mail-ed1-x532.google.com ([2a00:1450:4864:20::532])
+ (Exim 4.90_1) (envelope-from <pierrick.bouvier@linaro.org>)
+ id 1tECSZ-0005Y9-HQ
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:03:23 -0500
+Received: from mail-pl1-x635.google.com ([2607:f8b0:4864:20::635])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEB1P-0007Wh-TN
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:31:17 -0500
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5cfadf851e2so1595120a12.2
- for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 09:31:15 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <pierrick.bouvier@linaro.org>)
+ id 1tECSW-00073p-GK
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:03:23 -0500
+Received: by mail-pl1-x635.google.com with SMTP id
+ d9443c01a7336-212008b0d6eso11185705ad.3
+ for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 11:03:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732210274; x=1732815074; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:message-id:date:user-agent
- :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Praqqp8I6dsHQwEKDhTNHWs+pCPsa5IputlrmSf0uL8=;
- b=FGjN7jhERIexKg9sEK+ArOmfPpBYLkL3RvT96a4O9huYoYLGXBjleGWhh+Tp+nfIbI
- ijXf0qmXN1zyG8vVFVq+53unTuhPv0eFn40xAu0pwYNdMAK0BCO/BEQ6doifBQTSHOUo
- cCtAlX6gWEX+hlkV6GfZPxTG3P27YcqxXrIixStd/6bBGtIfpgNjWY2Q63eWvVGUB1ZQ
- fEYn7YzJc3+chuz+4MWOy33fq5daxuL3J1odVhIGNbNy2ytxuLZzpFf6JIDTUKofjjBT
- BqUcELhQAC+H89UjvMaFw4SnQsao44sr4BajmGy/Fc59ta0dPm19bLHvuI9quWC6tyRU
- GbBw==
+ d=linaro.org; s=google; t=1732215799; x=1732820599; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=UqPpd+IbtJeT0VhlDpvCQ1AMf22aum6w29og4Ma29m8=;
+ b=fo1WBHe1kYvTs7oALEELRudVC8Y1R1IcOnaIP6txQd9XAHWBceLKBYDtmCWIKVPCWZ
+ I/+ByVpCHt6yGOnSdAai9uCN3BdUnmIrESXDxrbnZ4P3i41owhUpjO3cZwsHp6tVgWDo
+ piRgU2QmeoIf81McQTG/2WIYvz5RjBI0kgBdkoG/xN2bX4HSrBt3+DZNOoboMM15cOXB
+ DDZjRwNoOxHsiTWG+wrOXOawmiFctnZb6adPRcLFi3VyoW1CjwBnAnKz8LBi8t1VJ6Gc
+ tBbMeYV9bZuD2lfZ5SSF6H/2pCUPvtS2w7RXEXiCpeWA4rv2rrQS0/d1m6V5cvNKv744
+ fTYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732210274; x=1732815074;
- h=content-transfer-encoding:mime-version:message-id:date:user-agent
- :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Praqqp8I6dsHQwEKDhTNHWs+pCPsa5IputlrmSf0uL8=;
- b=RuMhPQ24dpsrlPBBiCxGvnQ0bC64y0YJazRDzriVhdVunHL1n/Y9rVFLt1bzfSoHGX
- SsAUfWJKWOh6WaXigEvwntGTOnxu4yuAL3G4Wl8aUI18j+q/dsx0bTTyR1xCL6POSlqr
- 7yVB9XuFKwUtClROufe1jB4QAgheIbGmorrseQ1xRs3cnifL9n9rYvIPb7yZ/EfX0WVT
- 925YEPHOQJH2PSdlwLkhEsNKjBYqQGYFRKpbHp+agkTSfPDeGBomQIPU9643sFnR44fd
- N+tf3o2p0KHBjg4jBd/gPa3wZ1O2YSZz6Ix78jS+7D0z7jdFlpFPIWAqKMqkw04+0qR1
- eLug==
+ d=1e100.net; s=20230601; t=1732215799; x=1732820599;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=UqPpd+IbtJeT0VhlDpvCQ1AMf22aum6w29og4Ma29m8=;
+ b=uFxZL0+d67sY/zs004naemNEYn6GIG9+y1jLhGm3bUi616ILorp//8QH2SeWaDIE9U
+ v7Ng1jUf5v0h1xLUo4wdZzPc0mS0dRKKpZFUU/qInxoTUBJ+oIOT0TRaLzTVMYGqEooz
+ rhUy0LzHBFsUXLEh5wTzZvgt9hQ4mauwwg04kSkJMpY7J3SqP3rAXe17Fs43Kk73bh8m
+ 9j8HSLjCT1Dyrdalo+ylMy3qU8Ea+UYL4MQXxfg9QjNrZzE62ox86P34PMstPZ+oBp1u
+ 1yff0QCo9oVXV3w+Qbi3sTjTT3aafONr8Kd5dBKF37Er/JYgmdu7AUnZPuzFSKvyXu+o
+ vzfQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWYe0a2QZw+D+7VVGkEr6SrTG4RTd2ifYtd3CxJfJmige+WAJXflKXOAVGaMT4eDifB5a8rDsZ4HT0=@nongnu.org
-X-Gm-Message-State: AOJu0Yzc9Bucq/pMHmXxjJAEMDjwL3DF4P8lwVV3+B1nlQopng5lTmEG
- 6S7loffYH5xyED5nRD6Jjgd3OB5p+StNn/GT583vVYCDW/OyZ7pRz8Pfccpvy5E=
-X-Gm-Gg: ASbGncsmUr30oS3XbDyKYH3Jpb3txaIvqYLvkblNQhQjkq853He6AC1QxmOA5QgP955
- NvsWgaw8rLbx0fAuG/Bcn/gI0eRnKCfT1LK28Ppebh9Iurfg30rBOivj/YiWQmDwGnnddZOnCe3
- 2heEHt7zsx6UiX7XBxz3+kFqieVxnnzWIdIM1mddHAINMaR4vWCgk1z7+xuCCW9K/pmCzwozfX1
- zc77RttEUBXM3cyvbCcVtXvOU3vyUjb/f7KGuGAOJpkRh9R
-X-Google-Smtp-Source: AGHT+IGRuAuZcXQvPIEASF/8dOyz5NS9R81xG3bES5h2L9RK0NeIU0mTvBbgfiYUjXbBg2SteTtuOA==
-X-Received: by 2002:a17:907:3f95:b0:a9f:508:5f5a with SMTP id
- a640c23a62f3a-aa4dd72bdaamr774723566b.40.1732210274212; 
- Thu, 21 Nov 2024 09:31:14 -0800 (PST)
-Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa4f41530d9sm104785466b.29.2024.11.21.09.31.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Nov 2024 09:31:13 -0800 (PST)
-Received: from draig (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id A781D5F7B1;
- Thu, 21 Nov 2024 17:31:12 +0000 (GMT)
-From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Peter Maydell <peter.maydell@linaro.org>
-Cc: qemu-devel@nongnu.org,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
- <philmd@linaro.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,  Daniel Henrique Barboza
- <danielhb413@gmail.com>,  Pierrick Bouvier <pierrick.bouvier@linaro.org>,
- Harsh Prateek Bora <harshpb@linux.ibm.com>,  Marcel Apfelbaum
- <marcel.apfelbaum@gmail.com>,  Jiaxun Yang <jiaxun.yang@flygoat.com>,
- Halil Pasic <pasic@linux.ibm.com>,  Christian Borntraeger
- <borntraeger@linux.ibm.com>,  qemu-ppc@nongnu.org,  Daniel Henrique
- Barboza <dbarboza@ventanamicro.com>,  Alexandre Iooss <erdnaxe@crans.org>,
- qemu-riscv@nongnu.org,  Thomas Huth <huth@tuxfamily.org>,  Bernhard
- Beschow <shentey@gmail.com>,  Thomas Huth <thuth@redhat.com>,  Eric Farman
- <farman@linux.ibm.com>,  Bin Meng <bmeng.cn@gmail.com>,
- qemu-s390x@nongnu.org,  Niek Linnenbank <nieklinnenbank@gmail.com>,
- qemu-arm@nongnu.org,  John Snow <jsnow@redhat.com>,  Wainer dos Santos
- Moschetta <wainersm@redhat.com>,  Cleber Rosa <crosa@redhat.com>,
- qemu-rust@nongnu.org,  Nicholas Piggin <npiggin@gmail.com>,  Daniel P.
- =?utf-8?Q?Berrang=C3=A9?= <berrange@redhat.com>,  Palmer Dabbelt
- <palmer@dabbelt.com>,
- Markus Armbruster <armbru@redhat.com>,  Weiwei Li <liwei1518@gmail.com>,
- Mahmoud Mandour <ma.mandourr@gmail.com>,  Mark Cave-Ayland
- <mark.cave-ayland@ilande.co.uk>,  Liu Zhiwei
- <zhiwei_liu@linux.alibaba.com>,  Aurelien Jarno <aurelien@aurel32.net>,
- Ani Sinha <anisinha@redhat.com>,  Alistair Francis
- <alistair.francis@wdc.com>
-Subject: Re: [PATCH 00/39] maintainer updates for -rc2 pre-PR
-In-Reply-To: <CAFEAcA8KD4qxY18pJakSeziTioNYDQkd3VYcxYfq9y2KAON4Wg@mail.gmail.com>
- (Peter Maydell's message of "Thu, 21 Nov 2024 17:19:38 +0000")
-References: <20241121165806.476008-1-alex.bennee@linaro.org>
- <CAFEAcA8KD4qxY18pJakSeziTioNYDQkd3VYcxYfq9y2KAON4Wg@mail.gmail.com>
-User-Agent: mu4e 1.12.7; emacs 29.4
-Date: Thu, 21 Nov 2024 17:31:12 +0000
-Message-ID: <875xoglcin.fsf@draig.linaro.org>
+ AJvYcCUEXycsMyu7rx/EWT1LH7dmzGXPxr0KbsLDHNdpWUzImiPrrD7e8MC8P7L3ku5pZ9rT/XEUuxlNoBc=@nongnu.org
+X-Gm-Message-State: AOJu0Ywh6YHaVV5ax8ABfepVZOl9/yxQ7CCgj7S/YYW7pOdrdImee+Me
+ UCqyghh7wmgkxj9PdCfHEXCYCBbbsFYEMmVA16XqEL7KH8AR9ZrcWU8kTAXykcQ=
+X-Gm-Gg: ASbGncukLje7GzHfnYxD9x8i3g64I2iD10/VoNP7rWnl0fE2gG1D+1xZGyJ2alHY6qx
+ nP+oAz9K8nBgl9tckUO3c5/a9r/M8WCO6Mir2rof6OSmOGMQj85gfZsAK1TX3Fe7qY09uO57g4e
+ RhEAkMPX4cMigaF7s0fKH3ZI9taBOzWoLttze1hs8lzADjKib1T5E+hQF/g1Qa+1rR08UmzCcCA
+ QUFn6PEhJ5Va1o/4Oa5GBV/LE288qQOleSgOo5ylHVRbwQ5U/YmxAA7AGTXyOlNxCQ//dyPWjeo
+ fcuGzuaIswWYKqcJ+oKS6g==
+X-Google-Smtp-Source: AGHT+IG5LrBxRjfabe2uc5HXPKig457aqJLeFY/PLXRzw00SCDy1j/V6h80nAREjT8tPT+CfDbrc4g==
+X-Received: by 2002:a17:902:d547:b0:212:26e:7117 with SMTP id
+ d9443c01a7336-2129f24bb1cmr3326375ad.33.1732215798723; 
+ Thu, 21 Nov 2024 11:03:18 -0800 (PST)
+Received: from [192.168.1.67] (216-180-64-156.dyn.novuscom.net.
+ [216.180.64.156]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2129dbf9853sm1656155ad.165.2024.11.21.11.03.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Nov 2024 11:03:18 -0800 (PST)
+Message-ID: <c4f6be27-c0d1-49ee-82ed-36144c38bad2@linaro.org>
+Date: Thu, 21 Nov 2024 11:03:16 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::532;
- envelope-from=alex.bennee@linaro.org; helo=mail-ed1-x532.google.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/39] tests/functional: remove comments talking about
+ avocado
+Content-Language: en-US
+To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ qemu-devel@nongnu.org
+Cc: Peter Maydell <peter.maydell@linaro.org>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, qemu-ppc@nongnu.org,
+ Daniel Henrique Barboza <dbarboza@ventanamicro.com>,
+ Alexandre Iooss <erdnaxe@crans.org>, qemu-riscv@nongnu.org,
+ Thomas Huth <huth@tuxfamily.org>, Bernhard Beschow <shentey@gmail.com>,
+ Thomas Huth <thuth@redhat.com>, Eric Farman <farman@linux.ibm.com>,
+ Bin Meng <bmeng.cn@gmail.com>, qemu-s390x@nongnu.org,
+ Niek Linnenbank <nieklinnenbank@gmail.com>, qemu-arm@nongnu.org,
+ John Snow <jsnow@redhat.com>,
+ Wainer dos Santos Moschetta <wainersm@redhat.com>,
+ Cleber Rosa <crosa@redhat.com>, qemu-rust@nongnu.org,
+ Nicholas Piggin <npiggin@gmail.com>, =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?=
+ <berrange@redhat.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Markus Armbruster <armbru@redhat.com>, Weiwei Li <liwei1518@gmail.com>,
+ Mahmoud Mandour <ma.mandourr@gmail.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+ Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
+ Alistair Francis <alistair.francis@wdc.com>
+References: <20241121165806.476008-1-alex.bennee@linaro.org>
+ <20241121165806.476008-8-alex.bennee@linaro.org>
+From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
+In-Reply-To: <20241121165806.476008-8-alex.bennee@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+Received-SPF: pass client-ip=2607:f8b0:4864:20::635;
+ envelope-from=pierrick.bouvier@linaro.org; helo=mail-pl1-x635.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -115,39 +117,54 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Nov 2024 17:31:17 -0000
+X-List-Received-Date: Thu, 21 Nov 2024 19:03:23 -0000
 
-Peter Maydell <peter.maydell@linaro.org> writes:
-
-> On Thu, 21 Nov 2024 at 16:58, Alex Benn=C3=A9e <alex.bennee@linaro.org> w=
-rote:
->>
->> This is a mostly testing focused set of patches but a few bug fixes as
->> well. I plan to send the PR in on Monday. I can drop any patches that
->> are objected to but I think its pretty safe.
->>
->> Contains:
->>
->>   - Daniel's clean-up of functional tests
->>   - Another avocado->function conversion from Thomas
->>   - Update the tuxrun baseline images
->>   - Minor fix to the rust pl011 device
->>   - Documentation clarification on identity
->
-> Should we really be updating the tuxrun baseline images
-> in the middle of a release freeze period? Unless the old images
-> are going to go away and break the tests, I think it would
-> be better to stick with what we're currently testing.
-
-Well the arm64be fixed a real problem and while I was at it I figured
-might as well keep the rest in sync. I have tested them so they all pass
-(although I'm waiting on the CI run now).
-
->
-> thanks
-> -- PMM
-
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+T24gMTEvMjEvMjQgMDg6NTcsIEFsZXggQmVubsOpZSB3cm90ZToNCj4gRnJvbTogRGFuaWVs
+IFAuIEJlcnJhbmfDqSA8YmVycmFuZ2VAcmVkaGF0LmNvbT4NCj4gDQo+IFRoZSBmaXJzdCBj
+b21tZW50IGlzIHN0aWxsIHJlbGV2YW50IGJ1dCBzaG91bGQgdGFsayBhYm91dCBvdXIgb3du
+IHRlc3QNCj4gaGFybmVzcyBpbnN0ZWFkLiBUaGUgc2Vjb25kIGNvbW1lbnQgYWRkcyBubyB2
+YWx1ZSBvdmVyIHJlYWRpbmcgdGhlIGNvZGUNCj4gYW5kIGNhbiBiZSByZW1vdmVkLg0KPiAN
+Cj4gU2lnbmVkLW9mZi1ieTogRGFuaWVsIFAuIEJlcnJhbmfDqSA8YmVycmFuZ2VAcmVkaGF0
+LmNvbT4NCj4gTWVzc2FnZS1JZDogPDIwMjQxMTIxMTU0MjE4LjE0MjMwMDUtOC1iZXJyYW5n
+ZUByZWRoYXQuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IEJlbm7DqWUgPGFsZXguYmVu
+bmVlQGxpbmFyby5vcmc+DQo+IC0tLQ0KPiAgIHRlc3RzL2Z1bmN0aW9uYWwvdGVzdF9hY3Bp
+X2JpdHMucHkgfCAxMyArKysrKystLS0tLS0tDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDYgaW5z
+ZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS90ZXN0cy9m
+dW5jdGlvbmFsL3Rlc3RfYWNwaV9iaXRzLnB5IGIvdGVzdHMvZnVuY3Rpb25hbC90ZXN0X2Fj
+cGlfYml0cy5weQ0KPiBpbmRleCBlZTQwNjQ3ZDViLi40YzE5MmQ5NWNjIDEwMDc1NQ0KPiAt
+LS0gYS90ZXN0cy9mdW5jdGlvbmFsL3Rlc3RfYWNwaV9iaXRzLnB5DQo+ICsrKyBiL3Rlc3Rz
+L2Z1bmN0aW9uYWwvdGVzdF9hY3BpX2JpdHMucHkNCj4gQEAgLTE5NiwxMSArMTk2LDEyIEBA
+IGRlZiBjb3B5X3Rlc3Rfc2NyaXB0cyhzZWxmKToNCj4gICAgICAgICAgIGZvciBmaWxlbmFt
+ZSBpbiBvcy5saXN0ZGlyKGJpdHNfdGVzdF9kaXIpOg0KPiAgICAgICAgICAgICAgIGlmIG9z
+LnBhdGguaXNmaWxlKG9zLnBhdGguam9pbihiaXRzX3Rlc3RfZGlyLCBmaWxlbmFtZSkpIGFu
+ZCBcDQo+ICAgICAgICAgICAgICAgICAgZmlsZW5hbWUuZW5kc3dpdGgoJy5weTInKToNCj4g
+LSAgICAgICAgICAgICAgICAjIGFsbCB0ZXN0IHNjcmlwdHMgYXJlIG5hbWVkIHdpdGggZXh0
+ZW5zaW9uIC5weTIgc28gdGhhdA0KPiAtICAgICAgICAgICAgICAgICMgYXZvY2FkbyBkb2Vz
+IG5vdCB0cnkgdG8gbG9hZCB0aGVtLiBUaGVzZSBzY3JpcHRzIGFyZQ0KPiAtICAgICAgICAg
+ICAgICAgICMgd3JpdHRlbiBmb3IgcHl0aG9uIDIuNyBub3QgcHl0aG9uIDMgYW5kIGhlbmNl
+IGlmIGF2b2NhZG8NCj4gLSAgICAgICAgICAgICAgICAjIGxvYWRlZCB0aGVtLCBpdCB3b3Vs
+ZCBjb21wbGFpbiBhYm91dCBweXRob24gMyBzcGVjaWZpYw0KPiAtICAgICAgICAgICAgICAg
+ICMgc3ludGF4ZXMuDQo+ICsgICAgICAgICAgICAgICAgIyBBbGwgdGVzdCBzY3JpcHRzIGFy
+ZSBuYW1lZCB3aXRoIGV4dGVuc2lvbiAucHkyIHNvIHRoYXQNCj4gKyAgICAgICAgICAgICAg
+ICAjIHRoZXkgYXJlIG5vdCBydW4gYnkgYWNjaWRlbnQuDQo+ICsgICAgICAgICAgICAgICAg
+Iw0KPiArICAgICAgICAgICAgICAgICMgVGhlc2Ugc2NyaXB0cyBhcmUgaW50ZW5kZWQgdG8g
+cnVuIGluc2lkZSB0aGUgdGVzdCBWTQ0KPiArICAgICAgICAgICAgICAgICMgYW5kIGFyZSB3
+cml0dGVuIGZvciBweXRob24gMi43IG5vdCBweXRob24gMywgaGVuY2UNCj4gKyAgICAgICAg
+ICAgICAgICAjIHdvdWxkIGNhdXNlIHN5bnRheCBlcnJvcnMgaWYgbG9hZGVkIG91c2lkZSB0
+aGUgVk0uDQo+ICAgICAgICAgICAgICAgICAgIG5ld2ZpbGVuYW1lID0gb3MucGF0aC5zcGxp
+dGV4dChmaWxlbmFtZSlbMF0gKyAnLnB5Jw0KPiAgICAgICAgICAgICAgICAgICBzaHV0aWwu
+Y29weTIob3MucGF0aC5qb2luKGJpdHNfdGVzdF9kaXIsIGZpbGVuYW1lKSwNCj4gICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIG9zLnBhdGguam9pbih0YXJnZXRfdGVzdF9kaXIs
+IG5ld2ZpbGVuYW1lKSkNCj4gQEAgLTM5OSw4ICs0MDAsNiBAQCBkZWYgdGVzdF9hY3BpX3Nt
+Ymlvc19iaXRzKHNlbGYpOg0KPiAgIA0KPiAgICAgICAgICAgIyBiaW9zYml0cyBoYXMgYmVl
+biBjb25maWd1cmVkIHRvIHJ1biBhbGwgdGhlIHNwZWNpZmllZCB0ZXN0IHN1aXRlcw0KPiAg
+ICAgICAgICAgIyBpbiBiYXRjaCBtb2RlIGFuZCB0aGVuIGF1dG9tYXRpY2FsbHkgaW5pdGlh
+dGUgYSB2bSBzaHV0ZG93bi4NCj4gLSAgICAgICAgIyBTZXQgdGltZW91dCB0byBCSVRTX1RJ
+TUVPVVQgZm9yIFNIVVRET1dOIGV2ZW50IGZyb20gYml0cyBWTSBhdCBwYXINCj4gLSAgICAg
+ICAgIyB3aXRoIHRoZSBhdm9jYWRvIHRlc3QgdGltZW91dC4NCj4gICAgICAgICAgIHNlbGYu
+X3ZtLmV2ZW50X3dhaXQoJ1NIVVRET1dOJywgdGltZW91dD1CSVRTX1RJTUVPVVQpDQo+ICAg
+ICAgICAgICBzZWxmLl92bS53YWl0KHRpbWVvdXQ9Tm9uZSkNCj4gICAgICAgICAgIHNlbGYu
+bG9nZ2VyLmRlYnVnKCJDaGVja2luZyBjb25zb2xlIG91dHB1dCAuLi4iKQ0KDQpSZXZpZXdl
+ZC1ieTogUGllcnJpY2sgQm91dmllciA8cGllcnJpY2suYm91dmllckBsaW5hcm8ub3JnPg0K
+DQo=
 
