@@ -1,73 +1,74 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEEIb-0006SG-TT
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 16:01:13 -0500
+	id 1tEEIe-0006YA-MI
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 16:01:16 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECXN-00025q-Dn
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:08:21 -0500
+ (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECTS-0007CY-Ms
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:04:18 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECXL-0000p5-VJ
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:08:21 -0500
+ (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECTR-0007N4-7N
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:04:18 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1732216099;
+ s=mimecast20190719; t=1732215855;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=TX53w6ZUuuS8FjfCf+6wknGkSPdV0PrLlHIEUwLF4Bg=;
- b=V6uev7HcuODYNtJsat5R9kbzScHOSgOl2eBhOJkagcXdmpczjk6+SsziljIPCypgZDglU5
- MjDy+xz/hzn1U93KkyLAfL+Ho6jW9TBuiIZ5jAR3WVo4id8ruE+sR8pZ1RW/lsKWtzLwsk
- jRdY7bG4+k1UAffbTc+P/l8bAOWKXb4=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=bWYOm1YuZRGlW9g1Erx0N0dY58W3vi0hbMW4ZfJBLHM=;
+ b=gVn5hlLkbWj0u5uvKhLo1N0xGUHt9OSU3ACpUvfcFZpW91nXxhRT+12rr9Ur6QKTfJMH6D
+ Nyt+eDYb5aQGjdOV+IGhf0P1EnLh2BSGJWjoo4uZ62uPPuenbitPtTewogZGxEvma4jVTj
+ ybm/HyjKJAh8V8j9cx15VjNNmQLQ84o=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-365-9hfpNPERP9SOYFdLdvT9Uw-1; Thu, 21 Nov 2024 14:08:16 -0500
-X-MC-Unique: 9hfpNPERP9SOYFdLdvT9Uw-1
-X-Mimecast-MFC-AGG-ID: 9hfpNPERP9SOYFdLdvT9Uw
-Received: by mail-ej1-f71.google.com with SMTP id
- a640c23a62f3a-a9ad6d781acso89562766b.2
- for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 11:08:15 -0800 (PST)
+ us-mta-199-2zExe8HgNYa20WxhV7pWjw-1; Thu, 21 Nov 2024 14:04:13 -0500
+X-MC-Unique: 2zExe8HgNYa20WxhV7pWjw-1
+X-Mimecast-MFC-AGG-ID: 2zExe8HgNYa20WxhV7pWjw
+Received: by mail-ej1-f70.google.com with SMTP id
+ a640c23a62f3a-a9a2ccb77ceso74227066b.2
+ for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 11:04:12 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732216095; x=1732820895;
+ d=1e100.net; s=20230601; t=1732215850; x=1732820650;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=TX53w6ZUuuS8FjfCf+6wknGkSPdV0PrLlHIEUwLF4Bg=;
- b=H0eyBYfLSaaxJmyuPMrUyYreh6rhraiJmkK4D2OrUU9eUEEDZSWKiRvaaD6KgPPiRC
- 6kaxGxseXUQuEGxZuzxz2GnGkOdzmpASTTEC5tcK01KGQtdNnZ8OgX6vQ8nBpcT1f/Eo
- J1sMcWxIYUqpS02yUHJMZrRsnlGeq3EN1GpW4ipz9FyGT+Rxe6qFzU6MTmIoAPAysJYZ
- lmVRnJZbeot4GmihCoJlZaDJ3PPu+75Gz39n/PRvQYt6PfULDml3mBbv8hK+80z5JtcV
- ZyMkYpu7w+DhC67AwD88MxWW7RpZrNt9UIjY2WI+3/D2rH5C8yqZCUtC/sKzPlWwBje1
- SrYQ==
+ bh=bWYOm1YuZRGlW9g1Erx0N0dY58W3vi0hbMW4ZfJBLHM=;
+ b=Y+iE0doJWOY6c4qsF7orzyLpvNwdVLZV3r2lYCwes6Jju654cC998Bm9P1Or+r+sAA
+ QBSCfgU5p1S4Fs5OOA1ku86CL1NDHNIjYY0e9qq26cv4Y50N+pQcAZuJmh0r4UdoP+dD
+ wJHZwBAY1Snvoo4YOGhvRh2+VeKfSTAtS+IFoyBV5iTyKVefPWKg8WfuLZ1Dv7izr2n5
+ aad243Tgpw0KHPkYx9Lbfe8W9hn0HwKxNg2ma0DFu4ndq6DBzhcbL007bJOSxd4iDRld
+ /eJeDAhgV25t1wylzGZ9PTXwyEBqH2/SdG0+iYhnbcLnbS9aidC6AAsHKnu3rJFmjeEl
+ QuYg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVXeMu2M1R6h4vyYEE9jdlVye/ngnZ/WDC4W21qk6vacb+ThVl7564Jb9cyx/ABZe2gdKvtMXOu6PQ=@nongnu.org
-X-Gm-Message-State: AOJu0YxNQSSBJEnvPEenW3GppHUBQgsJZ3LuNPSGWHnJVFosRwr/duSt
- L+plFXXMamz3gIfWaU7fqDxKhdgiJvpHs+hEH7vLKDkM8ceulARa0qMXjFL8HQRV0ZkXbzSEFNL
- 3lHq3iMfihuVd1Zyd74vtKfgPbUx9rsAI3GfWB9Quu9imeYaQV30=
-X-Gm-Gg: ASbGncv8WE95yy8qJFE2mZBctqmHKYx4unvU02VJZ9JRe1FgcH/Vjj2cOcfLq9aPKFA
- E7PXcfzpMCE1jf+T6U0oZd3YQGpwa5YC4VpoXKCDANvGnuVuE1iqQvu2CVTM3ZyAlnK0tpWT0w9
- UfWcms1/VouSnm6MOdqfYGCFXOUk9mWqz7tHd+pYoJR6LVZNUpefIrMP6hW8F95Cdngj99r8ko+
- JosVE3KEWnUmaeV6ArROgTTHWEeTF21KCleP81GHwt1FPROGzpAhL6p5trGy1uC79aG7iJctKn1
- Lko=
-X-Received: by 2002:a17:907:75e7:b0:a99:f56e:ce40 with SMTP id
- a640c23a62f3a-aa509bc1416mr23034166b.47.1732216094805; 
- Thu, 21 Nov 2024 11:08:14 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEf9cp++HfirTapPVkeKFLfumMvusZ585wX5aQ8vVYXMqRB1r2UVAsjJKqvDKjcfDjUQqrcaQ==
-X-Received: by 2002:a17:907:75e7:b0:a99:f56e:ce40 with SMTP id
- a640c23a62f3a-aa509bc1416mr23030666b.47.1732216094369; 
- Thu, 21 Nov 2024 11:08:14 -0800 (PST)
+ AJvYcCW6Dqsm0JmoFzf4wu+iKjwZmdBbXJzh5LrvMvcevmXbpgDEyuZa/t6DhpWHMTFe/HnDoercX8klzeA=@nongnu.org
+X-Gm-Message-State: AOJu0YyFeiWurA/PzB+70SsQkLU3CN1+RHKR1mWEDu4aKh1+EuargAft
+ mQNshaPUqiio2YS3cdWnQV+6Mngr/hLwAqLOCX5fdjWh2qk62vOALhiDVysDVvWNBBF2qSSfrNa
+ 7XTbz6S38AdefXhLioqZBngHOEeTT3sWNsBmrnFLudubIUj0bpG4=
+X-Gm-Gg: ASbGncsp9k8B6yZ36JWYJkHNx5H8KXX6hzHxyi10vUTNS7qSJYRHBxg7HI4YUEqSFpK
+ 5OomljcFeE0wDRMCNiZjgn5Gd4U+hNIiC6jYTCB8osb7nzUcmaJe8WuZg/ElRtOgdFDambfIDre
+ umBJYRyP1fasZTUWlCpLCIyKokb3394C8S85gMXma5yeNODYFoMos0oGhTopoO4lSX65r5gbz2Y
+ 1CBjS5hLlUoChu4yBj6FiCVqUhkeCaRiMylEheKK3d9HNPqroOcscfe8U4AK2A/4Sw63YvDusau
+ o9c=
+X-Received: by 2002:a17:907:aa5:b0:a99:f167:47c7 with SMTP id
+ a640c23a62f3a-aa509bca75fmr22737266b.55.1732215850090; 
+ Thu, 21 Nov 2024 11:04:10 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHdj/K15Lh23FRHIGOuvLMGI2lnY1GGg/E2LLjfKE70Jx4YrhIjVOCGVw58q4bUd9dXih167w==
+X-Received: by 2002:a17:907:aa5:b0:a99:f167:47c7 with SMTP id
+ a640c23a62f3a-aa509bca75fmr22733966b.55.1732215849736; 
+ Thu, 21 Nov 2024 11:04:09 -0800 (PST)
 Received: from [192.168.0.7] (ip-109-42-51-70.web.vodafone.de. [109.42.51.70])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa50b5b8224sm4175966b.180.2024.11.21.11.08.12
+ a640c23a62f3a-aa50b57beb4sm3909966b.151.2024.11.21.11.04.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Nov 2024 11:08:13 -0800 (PST)
-Message-ID: <78c0ea0c-e73f-4614-8dd3-1b6088b042d9@redhat.com>
-Date: Thu, 21 Nov 2024 20:08:11 +0100
+ Thu, 21 Nov 2024 11:04:09 -0800 (PST)
+Message-ID: <155840b0-d461-4699-aaa6-4b85e542281e@redhat.com>
+Date: Thu, 21 Nov 2024 20:04:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 21/39] tests/functional: update the aarch64 tuxrun tests
+Subject: Re: [PATCH 13/39] tests/functional: don't try to wait for the empty
+ string
 To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
  qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
@@ -94,10 +95,9 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
  Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Anders Roxell <anders.roxell@linaro.org>
+ Alistair Francis <alistair.francis@wdc.com>
 References: <20241121165806.476008-1-alex.bennee@linaro.org>
- <20241121165806.476008-22-alex.bennee@linaro.org>
+ <20241121165806.476008-14-alex.bennee@linaro.org>
 From: Thomas Huth <thuth@redhat.com>
 Autocrypt: addr=thuth@redhat.com; keydata=
  xsFNBFH7eUwBEACzyOXKU+5Pcs6wNpKzrlJwzRl3VGZt95VCdb+FgoU9g11m7FWcOafrVRwU
@@ -141,9 +141,9 @@ Autocrypt: addr=thuth@redhat.com; keydata=
  oiT+z+/E59qj/EKfyce3sbC9XLjXv3mHMrq1tKX4G7IJGnS989E/fg6crv6NHae9Ckm7+lSs
  IQu4bBP2GxiRQ+NV3iV/KU3ebMRzqIC//DCOxzQNFNJAKldPe/bKZMCxEqtVoRkuJtNdp/5a
  yXFZ6TfE1hGKrDBYAm4vrnZ4CXFSBDllL59cFFOJCkn4Xboj/aVxxJxF30bn
-In-Reply-To: <20241121165806.476008-22-alex.bennee@linaro.org>
+In-Reply-To: <20241121165806.476008-14-alex.bennee@linaro.org>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Hct6hnYj0VcI4_aM-hQsgwAenfB0HJqeQBSt9IO9QUk_1732216095
+X-Mimecast-MFC-PROC-ID: gHQkm6op-R5ON9UZvBRzdRpZz0nL7LsbFmpg4zW2xCs_1732215850
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -171,17 +171,22 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Nov 2024 19:08:21 -0000
+X-List-Received-Date: Thu, 21 Nov 2024 19:04:19 -0000
 
 On 21/11/2024 17.57, Alex Bennée wrote:
-> Now there are new upto date images available we should update to them.
-> With the new rootfs the blk I/O errors also go away on arm64be.
+> From: Daniel P. Berrangé <berrange@redhat.com>
 > 
+> Telling exec_command_wand_wait_for_pattern to wait for the empty
+> string does not make any conceptual sense, as a check for empty
+> string will always succeed. It makes even less sense when followed
+> by a call to wait_for_console_pattern() with a real match.
+> 
+> Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+> Message-Id: <20241121154218.1423005-14-berrange@redhat.com>
 > Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-> Cc: Anders Roxell <anders.roxell@linaro.org>
 > ---
->   tests/functional/test_aarch64_tuxrun.py | 16 ++++++++--------
->   1 file changed, 8 insertions(+), 8 deletions(-)
+>   tests/functional/test_virtio_gpu.py | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
 
 Reviewed-by: Thomas Huth <thuth@redhat.com>
 
