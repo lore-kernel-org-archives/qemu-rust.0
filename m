@@ -1,61 +1,61 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEAWI-0005Je-Ok
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 11:59:06 -0500
+	id 1tEAWK-0005MF-12
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 11:59:08 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAVi-0004iB-Bl
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:30 -0500
-Received: from mail-wm1-x333.google.com ([2a00:1450:4864:20::333])
+ id 1tEAVi-0004j5-PJ
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:31 -0500
+Received: from mail-wr1-x42e.google.com ([2a00:1450:4864:20::42e])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAVT-000829-KS
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:29 -0500
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4316cce103dso13217565e9.3
+ id 1tEAVU-00082e-BJ
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:30 -0500
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3825a721ae5so605556f8f.1
  for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 08:58:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1732208294; x=1732813094; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HBO8uUfv3fFiWiD+w6s2aaOdqrCx/cKUKIQ69stTmio=;
- b=DwaFEwJl8uXmUrxBuuoIpwShiSd8kLbeCY1SVFRk7Bux1bcVUntwOMcEXK+7cwKj9D
- 9x5UN6q96+gBlx43RJFi8XftlTx577QVFC6FGPYGyRral+zlf6vz7wje/AEMBPLMa/Vb
- FMv4G1sGxz/ErofVDB5yC0IkW0rOUGyCj7mqo4tpOAkb3A/8x4Eem9v0GPpJ2Q+bGUjh
- zipKoytRdqIrc2gG5XGaz6huLq3+/HRq0FUpwE0zbcngsTM1Fxi+5dAeWseudRUZAYMt
- y/38NFrxoTX/AddzfcpZv2u9nRy8sQVWrRNMfEfboLqviG2zJL3Hlik33NvkBU5JDo+g
- BMnw==
+ bh=wHupEt0CMdn1N9WNkjjRD7wPBLmfP5+19fW5G6FBBAc=;
+ b=drebOzxZX3rONQbSLx90vr2hsHISTBOz7gP4szoS/Ru020Y+XhIpj/2g7o6Zle1szM
+ trXZeo+ZzSC+GFlgO2skbkjrRc19dz4eEMV4UPKdsbo3SaBL8uPNg2fSbb1lDgKYWaUH
+ Gb1irWkJepsVBn2pkVUq6ajpe1nAoeYew37rRMSiQcYnO87pYnR9fQYnjZn6GcKB4pnw
+ zKNf5NsJj/osubHvWgyodhlY6Dt7sEmaj6Q1hw2RC1ez+hnqsCk5IPIXQ8/WB0S8yqk+
+ 9i9VfuC5utpOk5+272oj/Lytqqiv2GCHeCAfWYz+kno+x1KMCfcGRb1QNqpupThNT+Fc
+ M+yQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1732208294; x=1732813094;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=HBO8uUfv3fFiWiD+w6s2aaOdqrCx/cKUKIQ69stTmio=;
- b=wPxpnA6aj5t1/QhBgOlwgkKDBQnLJCpAiNJ8AZkU+9LHLSosqWJKGkxU2UFjowHbjI
- IKOOrDjZxmVF5lNRfEVepi/K1czPS7sMpxW4GjC61q4b9rN/nTI5xKv5aXAT6IqExUW/
- hZZvOW0tHhECDc9YtesmYrsIIMsF8H2B3VdP/4qadR2HHCEJgWTRMg6WMaHedY7mGtq8
- H12KgiF3zXnUR3g++Y3Y53mGol8QvyRV0+X5V7sdIlknTtTzQOlnzJrLKOPh+fm4kAxC
- o4pPeubszbhBG+zQcGLGishXrlRI4lg1o7iWa6F7ZigyhLuLJTjukZhJY/oCOWWlPsXR
- vxpQ==
+ bh=wHupEt0CMdn1N9WNkjjRD7wPBLmfP5+19fW5G6FBBAc=;
+ b=qWwkc5fG9Gaepr6KUIn4Y4a/NiXM0Z6QgnEYOldIpJ0ycAcmM+Lg6WKIkc+19Rcxa1
+ ibcKRM54h9xtu/h3PpEE+W1zzm7kktrQrxI3bHVW+5NgWNEOgdmXV09Fh9avMxeqQpQg
+ 8WyfRvU94BwdjhHK1j7aUwWvyFeB1alC1hQDRaJVaNfHOEI2Y8EIo4swC3Khg1ComPJl
+ QO00a43XoZLtMGb3cObxH+7RS3FoPG48OGmbBTLclB1+XyxnO+my5qmrAUHrsjz+eT2l
+ CmYTRWHUnMU60katDWFV6Ut7ZQIxBpmERze0AxeU5rqDzRI+KndvKEwgKwoPSbBKzJDB
+ IEQw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUMrhwiJ/5/dmzbHeiEudExnp2QkX7cd03csWkdRMwA842DEU5ZlbJuKahnQtGLNHKgyjsaFGlMTG8=@nongnu.org
-X-Gm-Message-State: AOJu0YwOF4z/HLOoyUlfOwgahnQQhd0zdxStXjTTsiRmJFG/h7aH3ALB
- lAwH2i2stjqWqMRYEBIUOa2kPcOfhegAIvtjWw/Rm6kesZP/aHWEScgF8y09Pw0=
-X-Gm-Gg: ASbGncvqHoFH20NMGKco0nskEV3dB3WvMOYcrk+6ZaIUinqwamKVr/73FiABIpf3GFE
- yE5K2MbXBmbyqTshx280pYPMLxXbepep0jOfnLtSYRncF+8P38vq7FITMQDXeqwe4btH11zkRNu
- tpWYo6illHc1in/QZbpavJwAPj80sBAzrLCAOHA5AxB10y6O9YyiKsg8dN6pVknayT2ZV00YAyr
- xqa955cKgQJsqoQkx2WKlvNMCTyncNv6FF0rIKanP36JkNC
-X-Google-Smtp-Source: AGHT+IFluGvXNWin4wGsdyZrYLQC3KI6QlEadKc1ikm2HChlvy4kmoKlcIMmhgumhDHp74vpHncVWg==
-X-Received: by 2002:a05:600c:4690:b0:431:5ba1:a520 with SMTP id
- 5b1f17b1804b1-4334898172emr85435285e9.3.1732208293966; 
- Thu, 21 Nov 2024 08:58:13 -0800 (PST)
+ AJvYcCV/oaneZVlCQugehsw4b9iah2+QeFfx/z8M6ObVevQTXeWd5ugwp8YnlsgdTc3v6sUDdLfDs+4f+kY=@nongnu.org
+X-Gm-Message-State: AOJu0Yx6qDPG3v5uOpryafRf8GhHNAicaOFvh8gzwAAerJ1K8QRRbMe1
+ Xasu9B8X1/DffCFWRKkW/Hc1g2aByPiCulQIvFf+96FqfndtA6H5C+LAHGl+xks=
+X-Gm-Gg: ASbGnctM6BQ2HrJj8S6aYqB+QaJJ2xceqCzfL4VXd8ovAIEmtq7WCCIbr0oHc+OPLtW
+ 1kHq3lV9XQWG+gWaVXjQuRvP2zzyr2ql7n9pGwwgE3s14e8fpmRiqBFCL9nRfqHreI7VmkGw+SR
+ 1k/kZxuvkiUBT622q9c3OzvVrwDFn8J78f7UdH0XnMwOTfY98cwgJm2NYV/FQrv5ksDHIULdKTh
+ 6Y0/ox5s2kG9MiDg4atPSN3bWC5PZwXC6fcPdVvrQdjksR2
+X-Google-Smtp-Source: AGHT+IFqv0OwBEVksVVw6Yj8Rp4NvrjsWc0gWEq/D/KDK6XKYqeV7+nrs5NARmd2VuEU1As/xn87zQ==
+X-Received: by 2002:a5d:59a3:0:b0:37d:43a8:dee0 with SMTP id
+ ffacd0b85a97d-38259d1b10cmr3258327f8f.17.1732208294543; 
+ Thu, 21 Nov 2024 08:58:14 -0800 (PST)
 Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3825fbed99dsm7650f8f.94.2024.11.21.08.58.09
+ ffacd0b85a97d-3825fb30bfdsm30067f8f.56.2024.11.21.08.58.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 21 Nov 2024 08:58:10 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 04FE25FBE1;
+ by draig.lan (Postfix) with ESMTP id 4C84E5FC95;
  Thu, 21 Nov 2024 16:58:07 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
@@ -86,25 +86,25 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
  Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH 06/39] tests/functional: remove obsolete reference to avocado
- bug
-Date: Thu, 21 Nov 2024 16:57:33 +0000
-Message-Id: <20241121165806.476008-7-alex.bennee@linaro.org>
+Subject: [PATCH 09/39] tests/functional: put QEMUMachine logs in testcase log
+ directory
+Date: Thu, 21 Nov 2024 16:57:36 +0000
+Message-Id: <20241121165806.476008-10-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20241121165806.476008-1-alex.bennee@linaro.org>
 References: <20241121165806.476008-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::333;
- envelope-from=alex.bennee@linaro.org; helo=mail-wm1-x333.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::42e;
+ envelope-from=alex.bennee@linaro.org; helo=mail-wr1-x42e.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -117,33 +117,44 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Nov 2024 16:58:30 -0000
+X-List-Received-Date: Thu, 21 Nov 2024 16:58:31 -0000
 
 From: Daniel P. Berrangé <berrange@redhat.com>
 
-Historical bugs in avocado related to zstd support are not relevant to
-the code now that it uses QEMU's native test harness.
+We are not passing the 'log_dir' parameter to QEMUMachine, so the
+QEMU stdout/err logs are being placed in a temp directory and thus
+deleted after execution. This makes them inaccessible as gitlab
+CI artifacts.
+
+Pass the testcase log directory path into QEMUMachine to make the
+logs persistent.
 
 Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-Message-Id: <20241121154218.1423005-7-berrange@redhat.com>
+Message-Id: <20241121154218.1423005-10-berrange@redhat.com>
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
 ---
- tests/functional/qemu_test/tuxruntest.py | 1 -
- 1 file changed, 1 deletion(-)
+ tests/functional/qemu_test/testcase.py | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/tests/functional/qemu_test/tuxruntest.py b/tests/functional/qemu_test/tuxruntest.py
-index f05aa96ad7..ed2b238c92 100644
---- a/tests/functional/qemu_test/tuxruntest.py
-+++ b/tests/functional/qemu_test/tuxruntest.py
-@@ -39,7 +39,6 @@ def setUp(self):
-         super().setUp()
+diff --git a/tests/functional/qemu_test/testcase.py b/tests/functional/qemu_test/testcase.py
+index b9418e2ac0..ca13af244b 100644
+--- a/tests/functional/qemu_test/testcase.py
++++ b/tests/functional/qemu_test/testcase.py
+@@ -163,10 +163,11 @@ def require_device(self, devicename):
+             self.skipTest('no support for device ' + devicename)
  
-         # We need zstd for all the tuxrun tests
--        # See https://github.com/avocado-framework/avocado/issues/5609
-         (has_zstd, msg) = has_cmd('zstd')
-         if has_zstd is False:
-             self.skipTest(msg)
+     def _new_vm(self, name, *args):
+-        vm = QEMUMachine(self.qemu_bin, base_temp_dir=self.workdir)
++        vm = QEMUMachine(self.qemu_bin,
++                         base_temp_dir=self.workdir,
++                         log_dir=self.logdir)
+         self.log.debug('QEMUMachine "%s" created', name)
+         self.log.debug('QEMUMachine "%s" temp_dir: %s', name, vm.temp_dir)
+-        self.log.debug('QEMUMachine "%s" log_dir: %s', name, vm.log_dir)
+         if args:
+             vm.add_args(*args)
+         return vm
 -- 
 2.39.5
 
