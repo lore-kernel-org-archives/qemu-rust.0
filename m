@@ -1,62 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEAfL-000329-Ml
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 12:08:28 -0500
+	id 1tEAfM-000376-V3
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 12:08:29 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAdw-0000lq-0z
+ id 1tEAdv-0000ld-1m
  for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:07:00 -0500
-Received: from mail-lf1-x134.google.com ([2a00:1450:4864:20::134])
+Received: from mail-wm1-x32e.google.com ([2a00:1450:4864:20::32e])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAdW-0001gL-Oj
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:06:59 -0500
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-53a007743e7so1240426e87.1
- for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 09:06:34 -0800 (PST)
+ id 1tEAdV-0001fV-IZ
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:06:58 -0500
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4315c1c7392so9860245e9.1
+ for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 09:06:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732208793; x=1732813593; darn=nongnu.org;
+ d=linaro.org; s=google; t=1732208792; x=1732813592; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=DgZL1p3wxKFTGq7aZgLMn4pj7CkquD2VdyBofPgLEys=;
- b=OoU360Gxyfnnj/wnNujwHrc8YcyOmIW0QObGKzHupWDSo8vInb4GQCsTquzCDQwV1A
- 7w1y8qbGe3sfwzgNbVDU/ooJ6pD06Im5xXhWJb1KA5nWEyaxIfkiHTsR+bhXTrtWFXrX
- tSGCeOTZPXYj91syUutrs1peTMqXo49K3FtQr0IfJOyt4kvjUo0bWGzM4BMxrqk8NTKB
- xjIxRdzOTepygSimhh+S+EN/l9MZJRpcO0GLNNtmW+9j6ZNl0g84HNCXIUsCyuMg11FR
- 1heKbyUTwCkxNfJZqLeyEs223ALr2Tg/EwTrKiSDDApoMZjyL4vwPpTjmTgjhWn7iYNL
- BFCg==
+ bh=7laBJrl+W4Rvzk4IQJPfXs6McNiuuH0uqEtfbvfMrF8=;
+ b=whG99bOxWqwt61iJnpudZ57fwkcpuGlmhj53pQYwbFmLFHqJxl165NaJlcR4V77/7d
+ 6egNIW4mxbG2bYE8SaDvcs5I/W8wr9qBf7QOZOKnj6zlnIaxSH0JnFsSjVUqvRxfH0jL
+ F5I6FevsML79tvSupn9HnVUR1u6RnLz0yT3Pkh/5H7a1WsCL5gpp40Ys8XajnaNGRxTq
+ 34RQjol6pzIa+uBadq0xWcAuMmsYOiEQKbi9BxEWyVp+HULQ4KzOSHxuAGk8McfPzm1M
+ xJB3C8heWRFLXg2wGGf+XM5cxLryJd3UBDC2yYXHVmpOBuCEK5u2AMyh/P7hiGPn5s0x
+ dNEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732208793; x=1732813593;
+ d=1e100.net; s=20230601; t=1732208792; x=1732813592;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=DgZL1p3wxKFTGq7aZgLMn4pj7CkquD2VdyBofPgLEys=;
- b=ulhDkKJZRMIjOu91GGKD376OwlZGixFzwmLh45R5j+EP5++FBNU6Lwh5e3L7qekf9o
- nGRixNkYjChD+/A9j1O3cM+6YmASckhNSF6VmmJc+1jVP/T0FevlfegGAQc9ivtlZrLK
- 2szX1yVNeL7S8173YpylgTZUF9/TeuNKmHv1FtXWqBKFu8lcCu9jWcoeyi3MjQzZKqyc
- 8CSmbIe+8ILDWBURTvbKCVPdeTl0PVJSn0Mng3IQfVtJiCLsD2jaMRcKm5GNKWrssbEC
- 7KvOMwQj7Lbul5B9uw5FHz+n/BLOmcfgWV3QdH6eYbWzVjLct0v4fndko4m/rfv0uwEj
- 7GMA==
+ bh=7laBJrl+W4Rvzk4IQJPfXs6McNiuuH0uqEtfbvfMrF8=;
+ b=iypi2LQ53prygyHH9Zx4OKwnC/om5gnNzbMi2vJ1krk6fhLXtzcHl4awsN00BYh+fc
+ HQ1bdJE5PQgt0SHer2cASW463DPNauqyKAo37S8Y3eK8jXghHJZ8vA+cGUbe7xxrA1Yt
+ 3UWGfZuq2tKAs0noKpuTyeaMyCnLleu+V4UPWfTLf3tdDZ4xlJALzBeyJd+h/OrbUI86
+ Rvc30g+hexwVgwRjuS3vtmBuAdNPyNiWJQTPMN7HKAevRhNbQ4NHKO/ucGd3xBn4Me7N
+ cOl17YqBJH4GyVktmR6xZRV0TlhUgaRLT+qysCpq7GkRV4N4/nyJlgiuiK49GTDJa85J
+ n9BA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV0b2HgR/bYKngHDM6mwAy5L1N1c9SUhteimSlqkM+3M5Orf2QqRCQ8MCKla2hy2kY2uznC649QxFo=@nongnu.org
-X-Gm-Message-State: AOJu0YyzUiKm9g/jS3PbjNridjUZjeX87N8yQpIzwaBfe9lneWMgMi2T
- vlCin3PttzDCaWvfPEry5EKMUcP/J58LyC1Fa36fouvBnO6hEvuBdwGn+d3MVZI=
-X-Gm-Gg: ASbGnctl/3s1FPf5xrPxOXTzHGWhXzl4PM/o9xuqciTT+bzsHmv5alLykPWLsdstBZn
- GYe4brUszjTfS5sbXBuPPlbzPh5Kmecq2NVN9EQdAF5fHzA9AIXSd/IiIyr+eqLbLdeOtKaf/T6
- s5UK/L8uKA81xmCKHhnDo81FInDftnVWzw4ZcHvbmxhiiDK+WnryveSy5YEDTQuLAwmKZHjJDbr
- /HT3KK6qP1jcAfkdlmvLEyhHwZ5SHLp/AxgdSMtOoPK/9qf
-X-Google-Smtp-Source: AGHT+IETfgPdY6o96NTpOjJUFb1p4rkJqV5zzgwNRvWB+34h0tqC48BBhw8Nuk4I/K/N+VJlhA/4FA==
-X-Received: by 2002:a05:6512:2215:b0:536:53f0:2f8e with SMTP id
- 2adb3069b0e04-53dc136791cmr3971935e87.37.1732208792448; 
- Thu, 21 Nov 2024 09:06:32 -0800 (PST)
+ AJvYcCW7GHwhaSkcC6FB5UPAubnxKp/5PhLIZDJMS65VLzl3W55GQIfVlztwA3hTA1PYvLDt/YCuOAndMdE=@nongnu.org
+X-Gm-Message-State: AOJu0YzGrncFaZbiLPQnmpItxXSsmbImZbdj/bJIlGCpJ6ASdHFdL7Ph
+ y65+KXVmcMuW8BrexZK2eBEQBIeGq7aSp++E/sh2UCh48AdcvwCgqUdpZfuhV7I=
+X-Gm-Gg: ASbGncuAE9IAlPdKPZjzvaz3WxshIcXtqrd/Zq1wmFeGY0cUhFmeTSqZW9soHCyyzGA
+ dVg0eYbr7TcnvkErF0eJTLIVOyuwnTURVc6sMktJ6swevDV1RAoQJSYUjsxVML84Xoiy3/Yhzvl
+ v64IU8QeQzpEOypsO+kqH2dhv7xxyvkQzASuhx0JxfiZyyKXTH9nK/oMHNg/uXbIYDMtVEm4C+t
+ sr+MbqkcfAwEfozzFsUhwxRCsk/loTIGKXyXwROWUlKPKPj
+X-Google-Smtp-Source: AGHT+IEQy+BuKZaCrNU69MYqx+XrV6o4zO2GbFzRyEevncGawYr0VelvSVji1yZp7srfd4MlbrohSQ==
+X-Received: by 2002:a05:600c:4f08:b0:431:5ba1:a529 with SMTP id
+ 5b1f17b1804b1-433489af8cfmr70393605e9.14.1732208790899; 
+ Thu, 21 Nov 2024 09:06:30 -0800 (PST)
 Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-433b45d170esm61613865e9.3.2024.11.21.09.06.28
+ 5b1f17b1804b1-433b463ab37sm61332365e9.28.2024.11.21.09.06.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 21 Nov 2024 09:06:28 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id C9DEA5F77B;
- Thu, 21 Nov 2024 16:58:09 +0000 (GMT)
+ by draig.lan (Postfix) with ESMTP id 6BFF560439;
+ Thu, 21 Nov 2024 16:58:08 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
@@ -85,18 +85,19 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
  Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
- Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH 37/39] plugins: eradicate qemu-plugins.symbols static file
-Date: Thu, 21 Nov 2024 16:58:04 +0000
-Message-Id: <20241121165806.476008-38-alex.bennee@linaro.org>
+ Alistair Francis <alistair.francis@wdc.com>,
+ Anders Roxell <anders.roxell@linaro.org>
+Subject: [PATCH 22/39] tests/functional: update the i386 tuxrun tests
+Date: Thu, 21 Nov 2024 16:57:49 +0000
+Message-Id: <20241121165806.476008-23-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20241121165806.476008-1-alex.bennee@linaro.org>
 References: <20241121165806.476008-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::134;
- envelope-from=alex.bennee@linaro.org; helo=mail-lf1-x134.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::32e;
+ envelope-from=alex.bennee@linaro.org; helo=mail-wm1-x32e.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -118,81 +119,34 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
 X-List-Received-Date: Thu, 21 Nov 2024 17:07:01 -0000
 
-From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
+Now there are new upto date images available we should update to them.
 
-Signed-off-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Message-Id: <20241112212622.3590693-4-pierrick.bouvier@linaro.org>
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+Cc: Anders Roxell <anders.roxell@linaro.org>
 ---
- plugins/qemu-plugins.symbols | 59 ------------------------------------
- 1 file changed, 59 deletions(-)
- delete mode 100644 plugins/qemu-plugins.symbols
+ tests/functional/test_i386_tuxrun.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/plugins/qemu-plugins.symbols b/plugins/qemu-plugins.symbols
-deleted file mode 100644
-index 032661f9ea..0000000000
---- a/plugins/qemu-plugins.symbols
-+++ /dev/null
-@@ -1,59 +0,0 @@
--{
--  qemu_plugin_bool_parse;
--  qemu_plugin_end_code;
--  qemu_plugin_entry_code;
--  qemu_plugin_get_hwaddr;
--  qemu_plugin_get_registers;
--  qemu_plugin_hwaddr_device_name;
--  qemu_plugin_hwaddr_is_io;
--  qemu_plugin_hwaddr_phys_addr;
--  qemu_plugin_insn_data;
--  qemu_plugin_insn_disas;
--  qemu_plugin_insn_haddr;
--  qemu_plugin_insn_size;
--  qemu_plugin_insn_symbol;
--  qemu_plugin_insn_vaddr;
--  qemu_plugin_mem_get_value;
--  qemu_plugin_mem_is_big_endian;
--  qemu_plugin_mem_is_sign_extended;
--  qemu_plugin_mem_is_store;
--  qemu_plugin_mem_size_shift;
--  qemu_plugin_num_vcpus;
--  qemu_plugin_outs;
--  qemu_plugin_path_to_binary;
--  qemu_plugin_read_memory_vaddr;
--  qemu_plugin_read_register;
--  qemu_plugin_register_atexit_cb;
--  qemu_plugin_register_flush_cb;
--  qemu_plugin_register_vcpu_exit_cb;
--  qemu_plugin_register_vcpu_idle_cb;
--  qemu_plugin_register_vcpu_init_cb;
--  qemu_plugin_register_vcpu_insn_exec_cb;
--  qemu_plugin_register_vcpu_insn_exec_cond_cb;
--  qemu_plugin_register_vcpu_insn_exec_inline_per_vcpu;
--  qemu_plugin_register_vcpu_mem_cb;
--  qemu_plugin_register_vcpu_mem_inline_per_vcpu;
--  qemu_plugin_register_vcpu_resume_cb;
--  qemu_plugin_register_vcpu_syscall_cb;
--  qemu_plugin_register_vcpu_syscall_ret_cb;
--  qemu_plugin_register_vcpu_tb_exec_cb;
--  qemu_plugin_register_vcpu_tb_exec_cond_cb;
--  qemu_plugin_register_vcpu_tb_exec_inline_per_vcpu;
--  qemu_plugin_register_vcpu_tb_trans_cb;
--  qemu_plugin_request_time_control;
--  qemu_plugin_reset;
--  qemu_plugin_scoreboard_free;
--  qemu_plugin_scoreboard_find;
--  qemu_plugin_scoreboard_new;
--  qemu_plugin_start_code;
--  qemu_plugin_tb_get_insn;
--  qemu_plugin_tb_n_insns;
--  qemu_plugin_tb_vaddr;
--  qemu_plugin_u64_add;
--  qemu_plugin_u64_get;
--  qemu_plugin_u64_set;
--  qemu_plugin_u64_sum;
--  qemu_plugin_uninstall;
--  qemu_plugin_update_ns;
--  qemu_plugin_vcpu_for_each;
--};
+diff --git a/tests/functional/test_i386_tuxrun.py b/tests/functional/test_i386_tuxrun.py
+index c593ffbe8c..f3ccf11ae8 100755
+--- a/tests/functional/test_i386_tuxrun.py
++++ b/tests/functional/test_i386_tuxrun.py
+@@ -17,11 +17,11 @@
+ class TuxRunI386Test(TuxRunBaselineTest):
+ 
+     ASSET_I386_KERNEL = Asset(
+-        'https://storage.tuxboot.com/20230331/i386/bzImage',
+-        'a3e5b32a354729e65910f5a1ffcda7c14a6c12a55e8213fb86e277f1b76ed956')
++        'https://storage.tuxboot.com/buildroot/20241119/i386/bzImage',
++        '47fb44e38e34101eb0f71a2a01742b959d40ed5fd67cefb5608a39be11d3b74e')
+     ASSET_I386_ROOTFS = Asset(
+-        'https://storage.tuxboot.com/20230331/i386/rootfs.ext4.zst',
+-        'f15e66b2bf673a210ec2a4b2e744a80530b36289e04f5388aab812b97f69754a')
++        'https://storage.tuxboot.com/buildroot/20241119/i386/rootfs.ext4.zst',
++        'a1a3b3b4c9dccd6475b58db95c107b468b736b700f6620985a8ed050a73d51c8')
+ 
+     def test_i386(self):
+         self.set_machine('q35')
 -- 
 2.39.5
 
