@@ -1,75 +1,76 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEEIh-0006fg-5w
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 16:01:19 -0500
+	id 1tEEIc-0006SL-1B
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 16:01:14 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECa8-0003gS-SC
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:11:12 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECnQ-0003NP-FC
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:24:56 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECa3-0001C3-71
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:11:11 -0500
+ (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECnN-0003NE-5j
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:24:56 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1732216266;
+ s=mimecast20190719; t=1732217092;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=jyCeNK40uxV9ePAceiXTo3bwxTN5xQG8pM7HNZY5mG4=;
- b=Ae8D0Th0RICvKb/dMaokxeE0tpUTY1DRYZKgN/bSwqzNeKQTad1/9RwXzUyXADcZ689v8b
- xFerQKNbsBrV45A+WCh+8g8JBZnzoIH7KKfJuC+5OQOW2kRLhVJ5Rzmt0kLptnmiiwE9Jr
- aqeVm+SRNpsIPw4srTSJ9zfyxA3etqw=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=oHhzRY1DDx5AtEjcDs/FlVKKpG2XZi+o+W+4cGdMJKU=;
+ b=GUMEJ95293t+Gz2YVuKYBZaFLjAJF+EicnEblEjrL0bjwC+XdNeMN2U//YB4+25VDWsDGt
+ ucWXdnIVcSG1IiVyRluxUqdrxOskvCXzdT9czwr31Ge0BBw0rkMYgoviXbf1oBrIS4zQLu
+ 1wJgGW+tFg2F3kDLguU6EQmTM84WmfY=
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-279-sGY53Ts0OjiKB1CHIjiUhw-1; Thu, 21 Nov 2024 14:11:05 -0500
-X-MC-Unique: sGY53Ts0OjiKB1CHIjiUhw-1
-X-Mimecast-MFC-AGG-ID: sGY53Ts0OjiKB1CHIjiUhw
-Received: by mail-ed1-f72.google.com with SMTP id
- 4fb4d7f45d1cf-5d00e170f0dso632236a12.2
- for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 11:11:05 -0800 (PST)
+ us-mta-596-kps8mFeFPwCRzFF6MHAxrg-1; Thu, 21 Nov 2024 14:24:51 -0500
+X-MC-Unique: kps8mFeFPwCRzFF6MHAxrg-1
+X-Mimecast-MFC-AGG-ID: kps8mFeFPwCRzFF6MHAxrg
+Received: by mail-ed1-f71.google.com with SMTP id
+ 4fb4d7f45d1cf-5cfdcbd3a03so1033680a12.2
+ for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 11:24:51 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732216264; x=1732821064;
+ d=1e100.net; s=20230601; t=1732217090; x=1732821890;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=jyCeNK40uxV9ePAceiXTo3bwxTN5xQG8pM7HNZY5mG4=;
- b=oQMlnmMglt44++N34c9l7s2fU21ZZ0zWnZiATFRPugNLYl4bH7R+9RbFxgc+gIsQky
- lT/Kwygz7oS0+K5W90ZWBPRELxhPVwts5eONO+5qRptxA94G+AtBqWKxssUzEeJHUHWj
- KU6cZcCrREUwyUhioNlUmuy06kU5YZjB8Uu/X3QuRiloPIMnmpolutavrMnuN/aqFbQr
- Gr8W9GZ6DCp+nWlfk/oT4qUUOSxrzsBD/hk8ttNnRJ7ibqq7kIcNwBFRaUoDSbBZbxPR
- 0WVi3xRdwYrwiFJOefbTPaqv4v8Q1mYw9iiNtgndvDAZyhBfk/wJIX2zyqTGDUwoK2Yr
- 4lEw==
+ bh=oHhzRY1DDx5AtEjcDs/FlVKKpG2XZi+o+W+4cGdMJKU=;
+ b=u8noTZ1zH3WYOt2AQbhvY/uKEoyJUlvIMwU9zfbCcj8dIJCcTce+mgg4ebuzn3DUvC
+ RPuKw0LRF9CCZBaa3tMnE80VkGAEyaaMgSEjIfy4ik0mGKTG5IkoJak727WVCpc+V5l/
+ l+N6VBOHbTl7Pgqwr7G9+MXlwvtzi82Ps0bAzNUXZ0sxMB0XDI4raGBIGnDWG904z0v4
+ sN8UVLSuDgvsPq5tKbFs9fy8EZqskNClXttLhNavyVXaGx1QCvAKW+6++jjZffiZf3i7
+ GwvdF3dVE40JebxAQ8jELQnwBbr+fCYzvtFa6WlBkxLGoxZ1VxRC7TbUR0bRy+jpFcsK
+ FSoQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU4iPm5/2+RE+me2+MyQSTTH02mFKhi+QkK8AIhUdj8X8i+1b59a2aUkxwhtWqOzMLGfBOWUQ+tn7E=@nongnu.org
-X-Gm-Message-State: AOJu0Yxgw0drDuWXbfQgq6mUu1Lls3sMUywpxEL4TzyqgR623Rn5l8t2
- uEu8b4WrAQ+DdN1pjACLvoQbm681iWmBkGA5GfIgGSnqEN79hDZ0EfHkdaD+77vGVKHsamtGwdN
- MKBBuwh/RMe/4Brj9zVXHjdgL/Fbd9HqwkV8IZMjc/FL/oi0v6x0=
-X-Gm-Gg: ASbGncv3bynbuuggoMqw+joeLa9wH04N4AERRtWX4ZD4j2u0v/e1hG1bW4cpXncVKef
- uECEPUgPJrnJZQ4HUPO/BWjE58U+LOvR28H9NebMsR7kw/PFiy8Osi2o4R9xrdPG8S42EU6e036
- q891wKONqfB2ns7ob4/BH0OH5ix2DrcE92HAm8QuM+bpFHCAEbo+T6hK6NhN3ZN/1vp/KZ8njjk
- 5o88dZVXEyyK/HWxcpTFIcQwiCxy1booTQRfO0bAelNwx5EGg3XTbUFeui0boEcdJxNZcDoJVQB
- 94Q=
-X-Received: by 2002:a05:6402:1e89:b0:5cf:d333:eb75 with SMTP id
- 4fb4d7f45d1cf-5cff4cd134amr7112858a12.27.1732216264063; 
- Thu, 21 Nov 2024 11:11:04 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHIBGk3Q9GVD4m+J0e6aU1klKWURKTA0HwJsQZd2rT5baSP9NLnBvSp2/IEJy9a+XEjYAwTWw==
-X-Received: by 2002:a05:6402:1e89:b0:5cf:d333:eb75 with SMTP id
- 4fb4d7f45d1cf-5cff4cd134amr7112815a12.27.1732216263651; 
- Thu, 21 Nov 2024 11:11:03 -0800 (PST)
+ AJvYcCUGGEwOAQVUMFp2e54rqI90rYyiz8umqdNfc1Mi5xpwbHJuvObUvewyJTrCNnwZyXm9uXfp04WNtR0=@nongnu.org
+X-Gm-Message-State: AOJu0YxnJRwQ0C7A6nU9H4ckde7cxN+m3e4cuwfUKoX/9gyGU+JpUWB/
+ MRbOTPeCwAgd2WRaWHynwPHuunWgtyrVlyRzMbYIV7TlqjWFdLoLltnn6ylD144kJ6622RgfmlB
+ fYHM8nrTRY2HNTRCR85nzjgV2w8kcMvJZVIhTliHKIiwNE+O/JYI=
+X-Gm-Gg: ASbGncv7zVYUJclDdUT7nDMIqL1f0ckURbzzRZ1rAf7IL3ERFZXmNOHhktSsMfjj6zs
+ LmHTsjqo8wmq1it8/ytYcCWP/LJTFnUc96mfbA8I+fztuHykB+rP5jIp2WsEwNzHA5ZEYZez1qh
+ dWuE1ueIV+82s0ZCbZVgaC0HeKcaqotwPq9AttQFYDaUpVTuuF8EaPUakQBe029S2V8XgJn2jlN
+ cK7V0VmzTlVa80/2CW1sbOMEcvBWzw0d+mFQ0iMcPizY0QdMnqkQW7Uiwn3zc8vhBV72YFnsPEt
+ 9OA=
+X-Received: by 2002:a05:6402:5ca:b0:5ce:bb32:ccac with SMTP id
+ 4fb4d7f45d1cf-5cff4cb5887mr5496195a12.26.1732217090108; 
+ Thu, 21 Nov 2024 11:24:50 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IESte4FUUfXXG7nMs7+ESJc+k/ADg8VAPZqc4NMHb94P0GLerMCGtDZ14/y2TBClpJqDe6J0Q==
+X-Received: by 2002:a05:6402:5ca:b0:5ce:bb32:ccac with SMTP id
+ 4fb4d7f45d1cf-5cff4cb5887mr5496156a12.26.1732217089768; 
+ Thu, 21 Nov 2024 11:24:49 -0800 (PST)
 Received: from [192.168.0.7] (ip-109-42-51-70.web.vodafone.de. [109.42.51.70])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d01d41d5basm85347a12.89.2024.11.21.11.10.59
+ 4fb4d7f45d1cf-5d01d401f64sm96925a12.70.2024.11.21.11.24.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Nov 2024 11:11:02 -0800 (PST)
-Message-ID: <a3935ca8-5a44-4f2a-a414-aaa39f8e193c@redhat.com>
-Date: Thu, 21 Nov 2024 20:10:59 +0100
+ Thu, 21 Nov 2024 11:24:48 -0800 (PST)
+Message-ID: <bfb12b04-ca4b-4135-ba09-250daffb9ea9@redhat.com>
+Date: Thu, 21 Nov 2024 20:24:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/39] maintainer updates for -rc2 pre-PR
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>,
- =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, qemu-devel@nongnu.org
+Subject: Re: [PATCH 14/39] tests/functional: require non-NULL success_message
+ for console wait
+To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
  =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  "Michael S. Tsirkin" <mst@redhat.com>,
@@ -96,7 +97,7 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
  Alistair Francis <alistair.francis@wdc.com>
 References: <20241121165806.476008-1-alex.bennee@linaro.org>
- <2b8f6079-f2ca-471f-8580-43352437625d@redhat.com>
+ <20241121165806.476008-15-alex.bennee@linaro.org>
 From: Thomas Huth <thuth@redhat.com>
 Autocrypt: addr=thuth@redhat.com; keydata=
  xsFNBFH7eUwBEACzyOXKU+5Pcs6wNpKzrlJwzRl3VGZt95VCdb+FgoU9g11m7FWcOafrVRwU
@@ -140,21 +141,21 @@ Autocrypt: addr=thuth@redhat.com; keydata=
  oiT+z+/E59qj/EKfyce3sbC9XLjXv3mHMrq1tKX4G7IJGnS989E/fg6crv6NHae9Ckm7+lSs
  IQu4bBP2GxiRQ+NV3iV/KU3ebMRzqIC//DCOxzQNFNJAKldPe/bKZMCxEqtVoRkuJtNdp/5a
  yXFZ6TfE1hGKrDBYAm4vrnZ4CXFSBDllL59cFFOJCkn4Xboj/aVxxJxF30bn
-In-Reply-To: <2b8f6079-f2ca-471f-8580-43352437625d@redhat.com>
+In-Reply-To: <20241121165806.476008-15-alex.bennee@linaro.org>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: SU6plTuPoOu4ZDBtGK0-x8aHb3Flkpwu8VN9WFba9aw_1732216264
+X-Mimecast-MFC-PROC-ID: 665KSCHG0VsM6HChbRN15Bk94vjYMcXrLOh3UcKhVNI_1732217090
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=thuth@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=thuth@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -21
 X-Spam_score: -2.2
 X-Spam_bar: --
 X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.14,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
@@ -170,52 +171,83 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Nov 2024 19:11:14 -0000
+X-List-Received-Date: Thu, 21 Nov 2024 19:24:58 -0000
 
-On 21/11/2024 20.03, Cédric Le Goater wrote:
-> Hello Alex,
+On 21/11/2024 17.57, Alex Bennée wrote:
+> From: Daniel P. Berrangé <berrange@redhat.com>
 > 
-> On 11/21/24 17:57, Alex Bennée wrote:
->> This is a mostly testing focused set of patches but a few bug fixes as
->> well. I plan to send the PR in on Monday. I can drop any patches that
->> are objected to but I think its pretty safe.
->>
->> Contains:
->>
->>    - Daniel's clean-up of functional tests
->>    - Another avocado->function conversion from Thomas
->>    - Update the tuxrun baseline images
->>    - Minor fix to the rust pl011 device
->>    - Documentation clarification on identity
->>
->> The following could do with some review:
->>
->>    tests/functional: update the x86_64 tuxrun tests
->>    tests/functional: update the sparc64 tuxrun tests
->>    tests/functional: update the s390x tuxrun tests
->>    tests/functional: update the riscv64 tuxrun tests
->>    tests/functional: update the riscv32 tuxrun tests
->>    tests/functional: update the ppc64 tuxrun tests
->>    tests/functional: update the ppc32 tuxrun tests
->>    tests/functional: update the mips64el tuxrun tests
->>    tests/functional: update the mips64 tuxrun tests
->>    tests/functional: update the mips32el tuxrun tests
->>    tests/functional: update the mips32 tuxrun tests
->>    tests/functional: add a m68k tuxrun tests
->>    tests/functional: update the i386 tuxrun tests
->>    tests/functional: update the aarch64 tuxrun tests
->>    tests/functional: update the arm tuxrun tests
->>    tests/functional: Convert the Avocado aarch64 tuxrun tests 
+> When waiting for expected output, the 'success_message' is a mandatory
+> parameter, with 'failure_message' defaulting to None.
 > 
-> Do you think we could include patches 2-4 from this series ?
+> The code has logic which indicates it was trying to cope with
+> 'success_message' being None and 'failure_message' being non-None but
+> it does not appear able to actually do anything useful. The check for
+> 'success_message is None' will break out of the loop before any check
+> for 'failure_message' has been performed.
 > 
-> https://lore.kernel.org/all/20241112130246.970281-1-clg@redhat.com/
+> IOW, for practcal purposes 'success_message' must be non-None unless
+> 'send_string' is set. Assert this expectation and simplify the loop
+> logic.
 > 
-> Only patch 3 lacks a R-b.
+> Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+> Message-Id: <20241121154218.1423005-15-berrange@redhat.com>
+> Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+> ---
+>   tests/functional/qemu_test/cmd.py | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tests/functional/qemu_test/cmd.py b/tests/functional/qemu_test/cmd.py
+> index 98722a9cf6..f6c4e4dda1 100644
+> --- a/tests/functional/qemu_test/cmd.py
+> +++ b/tests/functional/qemu_test/cmd.py
+> @@ -81,6 +81,8 @@ def is_readable_executable_file(path):
+>   def _console_interaction(test, success_message, failure_message,
+>                            send_string, keep_sending=False, vm=None):
+>       assert not keep_sending or send_string
+> +    assert success_message or send_string
+> +
+>       if vm is None:
+>           vm = test.vm
+>       console = vm.console_file
+> @@ -95,7 +97,7 @@ def _console_interaction(test, success_message, failure_message,
+>                   send_string = None # send only once
+>   
+>           # Only consume console output if waiting for something
+> -        if success_message is None and failure_message is None:
+> +        if success_message is None:
+>               if send_string is None:
+>                   break
+>               continue
+> @@ -107,7 +109,7 @@ def _console_interaction(test, success_message, failure_message,
+>           if not msg:
+>               continue
+>           console_logger.debug(msg)
+> -        if success_message is None or success_message in msg:
+> +        if success_message in msg:
+>               break
+>           if failure_message and failure_message in msg:
+>               console.close()
+> @@ -138,6 +140,7 @@ def interrupt_interactive_console_until_pattern(test, success_message,
+>       :param interrupt_string: a string to send to the console before trying
+>                                to read a new line
+>       """
+> +    assert success_message
+>       _console_interaction(test, success_message, failure_message,
+>                            interrupt_string, True)
+>   
+> @@ -152,6 +155,7 @@ def wait_for_console_pattern(test, success_message, failure_message=None,
+>       :param success_message: if this message appears, test succeeds
+>       :param failure_message: if this message appears, test fails
+>       """
+> +    assert success_message
+>       _console_interaction(test, success_message, failure_message, None, vm=vm)
 
-I had a question on patch 3 and a suggestion on patch 4 ... could you maybe 
-address them first? Thanks!
+This assert is theoretically not needed since we call _console_interaction 
+with send_string=None, so if success_message is None, the new assert in 
+_console_interaction would trigger instead.
 
-  Thomas
+But it also does not hurt to have it here, so fine for me if we keep it.
+
+Reviewed-by: Thomas Huth <thuth@redhat.com>
 
 
