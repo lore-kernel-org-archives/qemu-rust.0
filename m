@@ -1,76 +1,75 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEEIg-0006eV-J6
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 16:01:18 -0500
+	id 1tEEIh-0006fg-5w
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 16:01:19 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECRc-000495-EW
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:02:26 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECa8-0003gS-SC
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:11:12 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECRa-0006f4-Jf
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:02:24 -0500
+ (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECa3-0001C3-71
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:11:11 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1732215742;
+ s=mimecast20190719; t=1732216266;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Mhl4JBBgEDPMNbSymbtoH0R+ERhP+4wdK9miXYr5aak=;
- b=aCfN1lJWw9UosqG8/pNvr1+h1j/TyICoFIRv3hS80uSZ0yi9Zaw0hUD+Rud8eFv788LLRf
- sQpswYGlCEbDaCy4dmR6hqfcq8uL5aJOipUz8J60HRiXUVFAK6cUDpmZFTkjXtlEwrtNB7
- /WIxR0eph2QD9ZrD7PKhyphlLBT0PaY=
-Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
- [209.85.208.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=jyCeNK40uxV9ePAceiXTo3bwxTN5xQG8pM7HNZY5mG4=;
+ b=Ae8D0Th0RICvKb/dMaokxeE0tpUTY1DRYZKgN/bSwqzNeKQTad1/9RwXzUyXADcZ689v8b
+ xFerQKNbsBrV45A+WCh+8g8JBZnzoIH7KKfJuC+5OQOW2kRLhVJ5Rzmt0kLptnmiiwE9Jr
+ aqeVm+SRNpsIPw4srTSJ9zfyxA3etqw=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-76-I0MDBZdoPAK-uYlhXKtYpg-1; Thu, 21 Nov 2024 14:02:18 -0500
-X-MC-Unique: I0MDBZdoPAK-uYlhXKtYpg-1
-X-Mimecast-MFC-AGG-ID: I0MDBZdoPAK-uYlhXKtYpg
-Received: by mail-lj1-f199.google.com with SMTP id
- 38308e7fff4ca-2ff13df3766so10223601fa.3
- for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 11:02:18 -0800 (PST)
+ us-mta-279-sGY53Ts0OjiKB1CHIjiUhw-1; Thu, 21 Nov 2024 14:11:05 -0500
+X-MC-Unique: sGY53Ts0OjiKB1CHIjiUhw-1
+X-Mimecast-MFC-AGG-ID: sGY53Ts0OjiKB1CHIjiUhw
+Received: by mail-ed1-f72.google.com with SMTP id
+ 4fb4d7f45d1cf-5d00e170f0dso632236a12.2
+ for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 11:11:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732215737; x=1732820537;
+ d=1e100.net; s=20230601; t=1732216264; x=1732821064;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Mhl4JBBgEDPMNbSymbtoH0R+ERhP+4wdK9miXYr5aak=;
- b=myJRz9K5r2RegS21Crwb65PVLd54OaOR2f3iOT2wldTEFZKTGzPYwN1u+xCcfS1Q91
- 5qA6mVpSIO5031S32yKrnQK6cZcQ8/1E3xpkltbSafe3Jlf/vg/LSh7hcS4Q4GLiGHuD
- 3dgF9Tm9KVhE0vqTHRCKuFFjTVabUp+A0y4uPk7RQhb4fxKLsaaBEc05gGkXwFFW39PL
- xqb+jid608ZJtSRs/2cDjO2aPh856d9jFK70BCGHeePe3vozKsTYtH4K6Te6IfxFUz/P
- +sDtmmhVJj+zXoDnUKX1Puj8x8JjU8kfs/HtcQjb6cFdlQ5tFqcIfRYL7WGF/+MhiXlR
- N0Zg==
+ bh=jyCeNK40uxV9ePAceiXTo3bwxTN5xQG8pM7HNZY5mG4=;
+ b=oQMlnmMglt44++N34c9l7s2fU21ZZ0zWnZiATFRPugNLYl4bH7R+9RbFxgc+gIsQky
+ lT/Kwygz7oS0+K5W90ZWBPRELxhPVwts5eONO+5qRptxA94G+AtBqWKxssUzEeJHUHWj
+ KU6cZcCrREUwyUhioNlUmuy06kU5YZjB8Uu/X3QuRiloPIMnmpolutavrMnuN/aqFbQr
+ Gr8W9GZ6DCp+nWlfk/oT4qUUOSxrzsBD/hk8ttNnRJ7ibqq7kIcNwBFRaUoDSbBZbxPR
+ 0WVi3xRdwYrwiFJOefbTPaqv4v8Q1mYw9iiNtgndvDAZyhBfk/wJIX2zyqTGDUwoK2Yr
+ 4lEw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWE1UPpJbuK+ILS1qAZWqACrfP/pwL+N8c32CTiZ2p0ConlblRNErpgOU6KFfZtBayXsJmhf7nZLXY=@nongnu.org
-X-Gm-Message-State: AOJu0YxYMkir0nR0bc03JSjsC9CZ+2bXzelnc3BB1/d/ERDv8+YK1jAd
- Jj1Qnb2tAd0Qqwrob5AWvTcr6DvYB0Nbtmgy5Nydef4Unr2E2OwAHrATLebBHwPoRv9o84Z4EM7
- I7zRP8aJixZebHtSjnObH516fni2TPa7K6LHdLgV2sHe8LEhrRLo=
-X-Gm-Gg: ASbGncvoIDhTG9R5a8BjHds4yrcID3SkqWmKl3ACt1SQw3PVI6Zuw2yC0qJ+ham1vmL
- 6ormjg+CjTc+u5VbbfmZjuwMigjNMrKcNZYEAzd51KE8ZKG4TMaHzMAhN0K7QZn2zAswdsHIcu6
- buSubByEyxgK8KuqIkUF4CykEM7wKz4G/oCm9OscBnKIh6+wB1CxI+SMNvUh4hrUQePQFNrMaXc
- EmVJCt9eGE44D8mirgv71jD2yj/xBWAyU1tQ50LagIYRoMi22MFzvs68ZMJ+epMAC46WuQUZUpe
- aPo=
-X-Received: by 2002:a05:651c:50b:b0:2ff:58e5:2adc with SMTP id
- 38308e7fff4ca-2ff8db6631dmr47034971fa.1.1732215737021; 
- Thu, 21 Nov 2024 11:02:17 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGOm5sTNXAN006KhSnQMMiY0ENdCi+QikZ3fmve/50LBt4HfD4kIS8dYv3ujMDg5LK2gqygzQ==
-X-Received: by 2002:a05:651c:50b:b0:2ff:58e5:2adc with SMTP id
- 38308e7fff4ca-2ff8db6631dmr47034371fa.1.1732215736488; 
- Thu, 21 Nov 2024 11:02:16 -0800 (PST)
+ AJvYcCU4iPm5/2+RE+me2+MyQSTTH02mFKhi+QkK8AIhUdj8X8i+1b59a2aUkxwhtWqOzMLGfBOWUQ+tn7E=@nongnu.org
+X-Gm-Message-State: AOJu0Yxgw0drDuWXbfQgq6mUu1Lls3sMUywpxEL4TzyqgR623Rn5l8t2
+ uEu8b4WrAQ+DdN1pjACLvoQbm681iWmBkGA5GfIgGSnqEN79hDZ0EfHkdaD+77vGVKHsamtGwdN
+ MKBBuwh/RMe/4Brj9zVXHjdgL/Fbd9HqwkV8IZMjc/FL/oi0v6x0=
+X-Gm-Gg: ASbGncv3bynbuuggoMqw+joeLa9wH04N4AERRtWX4ZD4j2u0v/e1hG1bW4cpXncVKef
+ uECEPUgPJrnJZQ4HUPO/BWjE58U+LOvR28H9NebMsR7kw/PFiy8Osi2o4R9xrdPG8S42EU6e036
+ q891wKONqfB2ns7ob4/BH0OH5ix2DrcE92HAm8QuM+bpFHCAEbo+T6hK6NhN3ZN/1vp/KZ8njjk
+ 5o88dZVXEyyK/HWxcpTFIcQwiCxy1booTQRfO0bAelNwx5EGg3XTbUFeui0boEcdJxNZcDoJVQB
+ 94Q=
+X-Received: by 2002:a05:6402:1e89:b0:5cf:d333:eb75 with SMTP id
+ 4fb4d7f45d1cf-5cff4cd134amr7112858a12.27.1732216264063; 
+ Thu, 21 Nov 2024 11:11:04 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHIBGk3Q9GVD4m+J0e6aU1klKWURKTA0HwJsQZd2rT5baSP9NLnBvSp2/IEJy9a+XEjYAwTWw==
+X-Received: by 2002:a05:6402:1e89:b0:5cf:d333:eb75 with SMTP id
+ 4fb4d7f45d1cf-5cff4cd134amr7112815a12.27.1732216263651; 
+ Thu, 21 Nov 2024 11:11:03 -0800 (PST)
 Received: from [192.168.0.7] (ip-109-42-51-70.web.vodafone.de. [109.42.51.70])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d01d3a3451sm85455a12.4.2024.11.21.11.02.13
+ 4fb4d7f45d1cf-5d01d41d5basm85347a12.89.2024.11.21.11.10.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Nov 2024 11:02:16 -0800 (PST)
-Message-ID: <8b027418-6555-40c5-a9e3-5fd0d66ef399@redhat.com>
-Date: Thu, 21 Nov 2024 20:02:11 +0100
+ Thu, 21 Nov 2024 11:11:02 -0800 (PST)
+Message-ID: <a3935ca8-5a44-4f2a-a414-aaa39f8e193c@redhat.com>
+Date: Thu, 21 Nov 2024 20:10:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/39] tests/functional: enable debug logging for
- QEMUMachine
-To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
- qemu-devel@nongnu.org
+Subject: Re: [PATCH 00/39] maintainer updates for -rc2 pre-PR
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
  =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  "Michael S. Tsirkin" <mst@redhat.com>,
@@ -97,7 +96,7 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
  Alistair Francis <alistair.francis@wdc.com>
 References: <20241121165806.476008-1-alex.bennee@linaro.org>
- <20241121165806.476008-12-alex.bennee@linaro.org>
+ <2b8f6079-f2ca-471f-8580-43352437625d@redhat.com>
 From: Thomas Huth <thuth@redhat.com>
 Autocrypt: addr=thuth@redhat.com; keydata=
  xsFNBFH7eUwBEACzyOXKU+5Pcs6wNpKzrlJwzRl3VGZt95VCdb+FgoU9g11m7FWcOafrVRwU
@@ -141,21 +140,21 @@ Autocrypt: addr=thuth@redhat.com; keydata=
  oiT+z+/E59qj/EKfyce3sbC9XLjXv3mHMrq1tKX4G7IJGnS989E/fg6crv6NHae9Ckm7+lSs
  IQu4bBP2GxiRQ+NV3iV/KU3ebMRzqIC//DCOxzQNFNJAKldPe/bKZMCxEqtVoRkuJtNdp/5a
  yXFZ6TfE1hGKrDBYAm4vrnZ4CXFSBDllL59cFFOJCkn4Xboj/aVxxJxF30bn
-In-Reply-To: <20241121165806.476008-12-alex.bennee@linaro.org>
+In-Reply-To: <2b8f6079-f2ca-471f-8580-43352437625d@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: zhPQZ9fr-k102ax9sQ15mZYbQatsVI7ohGppQPQFIVA_1732215737
+X-Mimecast-MFC-PROC-ID: SU6plTuPoOu4ZDBtGK0-x8aHb3Flkpwu8VN9WFba9aw_1732216264
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=thuth@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=thuth@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -21
 X-Spam_score: -2.2
 X-Spam_bar: --
 X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.14,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
@@ -171,46 +170,52 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Nov 2024 19:02:29 -0000
+X-List-Received-Date: Thu, 21 Nov 2024 19:11:14 -0000
 
-On 21/11/2024 17.57, Alex Bennée wrote:
-> From: Daniel P. Berrangé <berrange@redhat.com>
+On 21/11/2024 20.03, Cédric Le Goater wrote:
+> Hello Alex,
 > 
-> Set the 'qemu.machine' logger to 'DEBUG' level, to ensure we see log
-> messages related to the QEMUMachine class. Most importantly this
-> ensures we capture the full QEMU command line args for instances we
-> spawn.
+> On 11/21/24 17:57, Alex Bennée wrote:
+>> This is a mostly testing focused set of patches but a few bug fixes as
+>> well. I plan to send the PR in on Monday. I can drop any patches that
+>> are objected to but I think its pretty safe.
+>>
+>> Contains:
+>>
+>>    - Daniel's clean-up of functional tests
+>>    - Another avocado->function conversion from Thomas
+>>    - Update the tuxrun baseline images
+>>    - Minor fix to the rust pl011 device
+>>    - Documentation clarification on identity
+>>
+>> The following could do with some review:
+>>
+>>    tests/functional: update the x86_64 tuxrun tests
+>>    tests/functional: update the sparc64 tuxrun tests
+>>    tests/functional: update the s390x tuxrun tests
+>>    tests/functional: update the riscv64 tuxrun tests
+>>    tests/functional: update the riscv32 tuxrun tests
+>>    tests/functional: update the ppc64 tuxrun tests
+>>    tests/functional: update the ppc32 tuxrun tests
+>>    tests/functional: update the mips64el tuxrun tests
+>>    tests/functional: update the mips64 tuxrun tests
+>>    tests/functional: update the mips32el tuxrun tests
+>>    tests/functional: update the mips32 tuxrun tests
+>>    tests/functional: add a m68k tuxrun tests
+>>    tests/functional: update the i386 tuxrun tests
+>>    tests/functional: update the aarch64 tuxrun tests
+>>    tests/functional: update the arm tuxrun tests
+>>    tests/functional: Convert the Avocado aarch64 tuxrun tests 
 > 
-> Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-> Message-Id: <20241121154218.1423005-12-berrange@redhat.com>
-> Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-> ---
->   tests/functional/qemu_test/testcase.py | 6 ++++++
->   1 file changed, 6 insertions(+)
+> Do you think we could include patches 2-4 from this series ?
 > 
-> diff --git a/tests/functional/qemu_test/testcase.py b/tests/functional/qemu_test/testcase.py
-> index f9c9de1166..e2a329c3e5 100644
-> --- a/tests/functional/qemu_test/testcase.py
-> +++ b/tests/functional/qemu_test/testcase.py
-> @@ -57,9 +57,15 @@ def setUp(self, bin_prefix):
->           self._log_fh.setFormatter(fileFormatter)
->           self.log.addHandler(self._log_fh)
->   
-> +        # Capture QEMUMachine logging
-> +        self.machinelog = logging.getLogger('qemu.machine')
-> +        self.machinelog.setLevel(logging.DEBUG)
-> +        self.machinelog.addHandler(self._log_fh)
-> +
->       def tearDown(self):
->           if "QEMU_TEST_KEEP_SCRATCH" not in os.environ:
->               shutil.rmtree(self.workdir)
-> +        self.machinelog.removeHandler(self._log_fh)
->           self.log.removeHandler(self._log_fh)
->   
->       def main():
+> https://lore.kernel.org/all/20241112130246.970281-1-clg@redhat.com/
+> 
+> Only patch 3 lacks a R-b.
 
+I had a question on patch 3 and a suggestion on patch 4 ... could you maybe 
+address them first? Thanks!
 
-Tested-by: Thomas Huth <thuth@redhat.com>
-Reviewed-by: Thomas Huth <thuth@redhat.com>
+  Thomas
 
 
