@@ -1,76 +1,76 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEEIc-0006SL-1B
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 16:01:14 -0500
+	id 1tEF0S-0006bD-Fb
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 16:46:32 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECnQ-0003NP-FC
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:24:56 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <clg@redhat.com>) id 1tEF0I-0006ZU-Eq
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 16:46:22 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tECnN-0003NE-5j
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 14:24:56 -0500
+ (Exim 4.90_1) (envelope-from <clg@redhat.com>) id 1tEF0E-0000ZY-VF
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 16:46:21 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1732217092;
+ s=mimecast20190719; t=1732225578;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oHhzRY1DDx5AtEjcDs/FlVKKpG2XZi+o+W+4cGdMJKU=;
- b=GUMEJ95293t+Gz2YVuKYBZaFLjAJF+EicnEblEjrL0bjwC+XdNeMN2U//YB4+25VDWsDGt
- ucWXdnIVcSG1IiVyRluxUqdrxOskvCXzdT9czwr31Ge0BBw0rkMYgoviXbf1oBrIS4zQLu
- 1wJgGW+tFg2F3kDLguU6EQmTM84WmfY=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=aoP9X5/WXYDi3CAKaUX/uDhnqsjwwUUIkJkVbZ0bukE=;
+ b=HPbHKco/mg/mjt3+0zez+evEFV81z1BqakqARW+w9CTqxqxtXeD2Jtvtcm9LnFIKyRoA2s
+ vyq5CsabQLDqFbMX7OtuvpPGf6r7OfmnhBDBQLsj1Wg+ECbOSpKrkCG5rza+KW2j8ip7zP
+ 9AxxO+EAGhkcrAlVYdMbJHMAyOcwPZs=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-596-kps8mFeFPwCRzFF6MHAxrg-1; Thu, 21 Nov 2024 14:24:51 -0500
-X-MC-Unique: kps8mFeFPwCRzFF6MHAxrg-1
-X-Mimecast-MFC-AGG-ID: kps8mFeFPwCRzFF6MHAxrg
-Received: by mail-ed1-f71.google.com with SMTP id
- 4fb4d7f45d1cf-5cfdcbd3a03so1033680a12.2
- for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 11:24:51 -0800 (PST)
+ us-mta-371-K4fubcRFPU663DQ5iFyk4g-1; Thu, 21 Nov 2024 16:46:14 -0500
+X-MC-Unique: K4fubcRFPU663DQ5iFyk4g-1
+X-Mimecast-MFC-AGG-ID: K4fubcRFPU663DQ5iFyk4g
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-382440c1f83so1322371f8f.1
+ for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 13:46:14 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732217090; x=1732821890;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oHhzRY1DDx5AtEjcDs/FlVKKpG2XZi+o+W+4cGdMJKU=;
- b=u8noTZ1zH3WYOt2AQbhvY/uKEoyJUlvIMwU9zfbCcj8dIJCcTce+mgg4ebuzn3DUvC
- RPuKw0LRF9CCZBaa3tMnE80VkGAEyaaMgSEjIfy4ik0mGKTG5IkoJak727WVCpc+V5l/
- l+N6VBOHbTl7Pgqwr7G9+MXlwvtzi82Ps0bAzNUXZ0sxMB0XDI4raGBIGnDWG904z0v4
- sN8UVLSuDgvsPq5tKbFs9fy8EZqskNClXttLhNavyVXaGx1QCvAKW+6++jjZffiZf3i7
- GwvdF3dVE40JebxAQ8jELQnwBbr+fCYzvtFa6WlBkxLGoxZ1VxRC7TbUR0bRy+jpFcsK
- FSoQ==
+ d=1e100.net; s=20230601; t=1732225573; x=1732830373;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=aoP9X5/WXYDi3CAKaUX/uDhnqsjwwUUIkJkVbZ0bukE=;
+ b=KDIXvnm3m2VD/aWh4Jae5fAzhtYH5PYVydabWGeo7HOzM6P2GIJ2UwkVim8/I6Qnj9
+ aH3b3Z41/z7WR+z8nsJm5Vf8p1K19XRmqRxTVs55gqrfwl+y+JZqkFnzh3LhslE9evVI
+ zoWjGlr1UawNOc1Qqx+QnxCcHImR/KbvipICkYKdznIxFWMgDxxB1HIuFK9YdMdC8z2+
+ CYOjt3eQY7k9xLUXoIjSAWD/waD1+vXn9g2HNNwUQylVHT0LqH3RKbhkwKCYCfy4JMEl
+ YbZyyHRt7m8BApmX7T9uF1Z/a4XaT4LeJfwi7a/q4lVdb2wRotN7h+mehlBs9uQ/LIs5
+ uCSQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUGGEwOAQVUMFp2e54rqI90rYyiz8umqdNfc1Mi5xpwbHJuvObUvewyJTrCNnwZyXm9uXfp04WNtR0=@nongnu.org
-X-Gm-Message-State: AOJu0YxnJRwQ0C7A6nU9H4ckde7cxN+m3e4cuwfUKoX/9gyGU+JpUWB/
- MRbOTPeCwAgd2WRaWHynwPHuunWgtyrVlyRzMbYIV7TlqjWFdLoLltnn6ylD144kJ6622RgfmlB
- fYHM8nrTRY2HNTRCR85nzjgV2w8kcMvJZVIhTliHKIiwNE+O/JYI=
-X-Gm-Gg: ASbGncv7zVYUJclDdUT7nDMIqL1f0ckURbzzRZ1rAf7IL3ERFZXmNOHhktSsMfjj6zs
- LmHTsjqo8wmq1it8/ytYcCWP/LJTFnUc96mfbA8I+fztuHykB+rP5jIp2WsEwNzHA5ZEYZez1qh
- dWuE1ueIV+82s0ZCbZVgaC0HeKcaqotwPq9AttQFYDaUpVTuuF8EaPUakQBe029S2V8XgJn2jlN
- cK7V0VmzTlVa80/2CW1sbOMEcvBWzw0d+mFQ0iMcPizY0QdMnqkQW7Uiwn3zc8vhBV72YFnsPEt
- 9OA=
-X-Received: by 2002:a05:6402:5ca:b0:5ce:bb32:ccac with SMTP id
- 4fb4d7f45d1cf-5cff4cb5887mr5496195a12.26.1732217090108; 
- Thu, 21 Nov 2024 11:24:50 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IESte4FUUfXXG7nMs7+ESJc+k/ADg8VAPZqc4NMHb94P0GLerMCGtDZ14/y2TBClpJqDe6J0Q==
-X-Received: by 2002:a05:6402:5ca:b0:5ce:bb32:ccac with SMTP id
- 4fb4d7f45d1cf-5cff4cb5887mr5496156a12.26.1732217089768; 
- Thu, 21 Nov 2024 11:24:49 -0800 (PST)
-Received: from [192.168.0.7] (ip-109-42-51-70.web.vodafone.de. [109.42.51.70])
+ AJvYcCV3BugOR+Py8P323UngdjIcvyXScx+KWMF/M8wgsuhS11I7X/c+rxCgz3yAs8RBLZbWA/SPDjzy7Go=@nongnu.org
+X-Gm-Message-State: AOJu0YzocspAEc4hFsboFHwRdkHkFblYxjsjwHGwp2upAtJfRkJsAw09
+ hx37j/4nKY2tGjh//05Og+1t1smIZS1WUBvk03ylHZCLwuNmIbLP88SQo5GhznYyUsRMDX+L2t3
+ XKSXJmvldjsLSMOicOYERSNjnFDvVzWpusmMbe4jk+Gr2FN7rDds=
+X-Gm-Gg: ASbGnctTbgB6zBVJKaMZEiyy23H7APX9a0M54dFsxzzxsZgWiZo7M5Wbwa1vwekupEX
+ xNJlvlaimKoD2gcVpF2tARp3OugDTzV85JliyQ695XmyNpkMN1mFyBkC/dSR/nZUP8epL7ugmBh
+ PefxcZZB7RxjA87cK1za2m7NnjyMo4NBhey4juwKmALB4VOowSqsqh9atQBp8lBh3cEYcEbsW/c
+ IuJV5l5TDjrL5b/dBKM54IpGYCU569x3Vdp8FTQWNjbdau97vuiJyKwFuNYtFhihyg3rnQ02OUE
+ +c1DUzyLfmga
+X-Received: by 2002:a05:6000:1f8a:b0:381:f15a:e91 with SMTP id
+ ffacd0b85a97d-382604ec295mr474600f8f.11.1732225573586; 
+ Thu, 21 Nov 2024 13:46:13 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHiWV7XQ91mnuG7uyrAo0gRa4Vpd1XxBM7Eyz/Eaw8lq+61ea0pmejISp7XVhj3aAoY8fZygg==
+X-Received: by 2002:a05:6000:1f8a:b0:381:f15a:e91 with SMTP id
+ ffacd0b85a97d-382604ec295mr474558f8f.11.1732225573210; 
+ Thu, 21 Nov 2024 13:46:13 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:280:24f0:9db0:474c:ff43:9f5c?
+ ([2a01:e0a:280:24f0:9db0:474c:ff43:9f5c])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d01d401f64sm96925a12.70.2024.11.21.11.24.45
+ ffacd0b85a97d-3825fbedf35sm618945f8f.99.2024.11.21.13.46.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Nov 2024 11:24:48 -0800 (PST)
-Message-ID: <bfb12b04-ca4b-4135-ba09-250daffb9ea9@redhat.com>
-Date: Thu, 21 Nov 2024 20:24:44 +0100
+ Thu, 21 Nov 2024 13:46:12 -0800 (PST)
+Message-ID: <0cbbec0d-5be0-4ec2-8791-470c70d93e33@redhat.com>
+Date: Thu, 21 Nov 2024 22:46:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 14/39] tests/functional: require non-NULL success_message
- for console wait
-To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
- qemu-devel@nongnu.org
+Subject: Re: [PATCH 00/39] maintainer updates for -rc2 pre-PR
+To: Thomas Huth <thuth@redhat.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
  =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  "Michael S. Tsirkin" <mst@redhat.com>,
@@ -97,69 +97,70 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
  Alistair Francis <alistair.francis@wdc.com>
 References: <20241121165806.476008-1-alex.bennee@linaro.org>
- <20241121165806.476008-15-alex.bennee@linaro.org>
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- xsFNBFH7eUwBEACzyOXKU+5Pcs6wNpKzrlJwzRl3VGZt95VCdb+FgoU9g11m7FWcOafrVRwU
- yYkTm9+7zBUc0sW5AuPGR/dp3pSLX/yFWsA/UB4nJsHqgDvDU7BImSeiTrnpMOTXb7Arw2a2
- 4CflIyFqjCpfDM4MuTmzTjXq4Uov1giGE9X6viNo1pxyEpd7PanlKNnf4PqEQp06X4IgUacW
- tSGj6Gcns1bCuHV8OPWLkf4hkRnu8hdL6i60Yxz4E6TqlrpxsfYwLXgEeswPHOA6Mn4Cso9O
- 0lewVYfFfsmokfAVMKWzOl1Sr0KGI5T9CpmRfAiSHpthhHWnECcJFwl72NTi6kUcUzG4se81
- O6n9d/kTj7pzTmBdfwuOZ0YUSqcqs0W+l1NcASSYZQaDoD3/SLk+nqVeCBB4OnYOGhgmIHNW
- 0CwMRO/GK+20alxzk//V9GmIM2ACElbfF8+Uug3pqiHkVnKqM7W9/S1NH2qmxB6zMiJUHlTH
- gnVeZX0dgH27mzstcF786uPcdEqS0KJuxh2kk5IvUSL3Qn3ZgmgdxBMyCPciD/1cb7/Ahazr
- 3ThHQXSHXkH/aDXdfLsKVuwDzHLVSkdSnZdt5HHh75/NFHxwaTlydgfHmFFwodK8y/TjyiGZ
- zg2Kje38xnz8zKn9iesFBCcONXS7txENTzX0z80WKBhK+XSFJwARAQABzR5UaG9tYXMgSHV0
- aCA8dGh1dGhAcmVkaGF0LmNvbT7CwXgEEwECACIFAlVgX6oCGwMGCwkIBwMCBhUIAgkKCwQW
- AgMBAh4BAheAAAoJEC7Z13T+cC21EbIP/ii9cvT2HHGbFRl8HqGT6+7Wkb+XLMqJBMAIGiQK
- QIP3xk1HPTsLfVG0ao4hy/oYkGNOP8+ubLnZen6Yq3zAFiMhQ44lvgigDYJo3Ve59gfe99KX
- EbtB+X95ODARkq0McR6OAsPNJ7gpEUzfkQUUJTXRDQXfG/FX303Gvk+YU0spm2tsIKPl6AmV
- 1CegDljzjycyfJbk418MQmMu2T82kjrkEofUO2a24ed3VGC0/Uz//XCR2ZTo+vBoBUQl41BD
- eFFtoCSrzo3yPFS+w5fkH9NT8ChdpSlbNS32NhYQhJtr9zjWyFRf0Zk+T/1P7ECn6gTEkp5k
- ofFIA4MFBc/fXbaDRtBmPB0N9pqTFApIUI4vuFPPO0JDrII9dLwZ6lO9EKiwuVlvr1wwzsgq
- zJTPBU3qHaUO4d/8G+gD7AL/6T4zi8Jo/GmjBsnYaTzbm94lf0CjXjsOX3seMhaE6WAZOQQG
- tZHAO1kAPWpaxne+wtgMKthyPLNwelLf+xzGvrIKvLX6QuLoWMnWldu22z2ICVnLQChlR9d6
- WW8QFEpo/FK7omuS8KvvopFcOOdlbFMM8Y/8vBgVMSsK6fsYUhruny/PahprPbYGiNIhKqz7
- UvgyZVl4pBFjTaz/SbimTk210vIlkDyy1WuS8Zsn0htv4+jQPgo9rqFE4mipJjy/iboDzsFN
- BFH7eUwBEAC2nzfUeeI8dv0C4qrfCPze6NkryUflEut9WwHhfXCLjtvCjnoGqFelH/PE9NF4
- 4VPSCdvD1SSmFVzu6T9qWdcwMSaC+e7G/z0/AhBfqTeosAF5XvKQlAb9ZPkdDr7YN0a1XDfa
- +NgA+JZB4ROyBZFFAwNHT+HCnyzy0v9Sh3BgJJwfpXHH2l3LfncvV8rgFv0bvdr70U+On2XH
- 5bApOyW1WpIG5KPJlDdzcQTyptOJ1dnEHfwnABEfzI3dNf63rlxsGouX/NFRRRNqkdClQR3K
- gCwciaXfZ7ir7fF0u1N2UuLsWA8Ei1JrNypk+MRxhbvdQC4tyZCZ8mVDk+QOK6pyK2f4rMf/
- WmqxNTtAVmNuZIwnJdjRMMSs4W4w6N/bRvpqtykSqx7VXcgqtv6eqoDZrNuhGbekQA0sAnCJ
- VPArerAZGArm63o39me/bRUQeQVSxEBmg66yshF9HkcUPGVeC4B0TPwz+HFcVhheo6hoJjLq
- knFOPLRj+0h+ZL+D0GenyqD3CyuyeTT5dGcNU9qT74bdSr20k/CklvI7S9yoQje8BeQAHtdV
- cvO8XCLrpGuw9SgOS7OP5oI26a0548M4KldAY+kqX6XVphEw3/6U1KTf7WxW5zYLTtadjISB
- X9xsRWSU+Yqs3C7oN5TIPSoj9tXMoxZkCIHWvnqGwZ7JhwARAQABwsFfBBgBAgAJBQJR+3lM
- AhsMAAoJEC7Z13T+cC21hPAQAIsBL9MdGpdEpvXs9CYrBkd6tS9mbaSWj6XBDfA1AEdQkBOn
- ZH1Qt7HJesk+qNSnLv6+jP4VwqK5AFMrKJ6IjE7jqgzGxtcZnvSjeDGPF1h2CKZQPpTw890k
- fy18AvgFHkVk2Oylyexw3aOBsXg6ukN44vIFqPoc+YSU0+0QIdYJp/XFsgWxnFIMYwDpxSHS
- 5fdDxUjsk3UBHZx+IhFjs2siVZi5wnHIqM7eK9abr2cK2weInTBwXwqVWjsXZ4tq5+jQrwDK
- cvxIcwXdUTLGxc4/Z/VRH1PZSvfQxdxMGmNTGaXVNfdFZjm4fz0mz+OUi6AHC4CZpwnsliGV
- ODqwX8Y1zic9viSTbKS01ZNp175POyWViUk9qisPZB7ypfSIVSEULrL347qY/hm9ahhqmn17
- Ng255syASv3ehvX7iwWDfzXbA0/TVaqwa1YIkec+/8miicV0zMP9siRcYQkyTqSzaTFBBmqD
- oiT+z+/E59qj/EKfyce3sbC9XLjXv3mHMrq1tKX4G7IJGnS989E/fg6crv6NHae9Ckm7+lSs
- IQu4bBP2GxiRQ+NV3iV/KU3ebMRzqIC//DCOxzQNFNJAKldPe/bKZMCxEqtVoRkuJtNdp/5a
- yXFZ6TfE1hGKrDBYAm4vrnZ4CXFSBDllL59cFFOJCkn4Xboj/aVxxJxF30bn
-In-Reply-To: <20241121165806.476008-15-alex.bennee@linaro.org>
+ <2b8f6079-f2ca-471f-8580-43352437625d@redhat.com>
+ <a3935ca8-5a44-4f2a-a414-aaa39f8e193c@redhat.com>
+From: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>
+Autocrypt: addr=clg@redhat.com; keydata=
+ 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
+ uVKe8BVz4atMOoktmt0GWTOC8P4=
+In-Reply-To: <a3935ca8-5a44-4f2a-a414-aaa39f8e193c@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 665KSCHG0VsM6HChbRN15Bk94vjYMcXrLOh3UcKhVNI_1732217090
+X-Mimecast-MFC-PROC-ID: nMrgyr1A3AjlOAkEXPO_0EglBh2ZHC7NhGHHvlckyAM_1732225574
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Language: en-US, fr
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=thuth@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=clg@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -21
 X-Spam_score: -2.2
 X-Spam_bar: --
 X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.14,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Thu, 21 Nov 2024 16:01:12 -0500
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,83 +172,60 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Nov 2024 19:24:58 -0000
+X-List-Received-Date: Thu, 21 Nov 2024 21:46:26 -0000
 
-On 21/11/2024 17.57, Alex Bennée wrote:
-> From: Daniel P. Berrangé <berrange@redhat.com>
+On 11/21/24 20:10, Thomas Huth wrote:
+> On 21/11/2024 20.03, Cédric Le Goater wrote:
+>> Hello Alex,
+>>
+>> On 11/21/24 17:57, Alex Bennée wrote:
+>>> This is a mostly testing focused set of patches but a few bug fixes as
+>>> well. I plan to send the PR in on Monday. I can drop any patches that
+>>> are objected to but I think its pretty safe.
+>>>
+>>> Contains:
+>>>
+>>>    - Daniel's clean-up of functional tests
+>>>    - Another avocado->function conversion from Thomas
+>>>    - Update the tuxrun baseline images
+>>>    - Minor fix to the rust pl011 device
+>>>    - Documentation clarification on identity
+>>>
+>>> The following could do with some review:
+>>>
+>>>    tests/functional: update the x86_64 tuxrun tests
+>>>    tests/functional: update the sparc64 tuxrun tests
+>>>    tests/functional: update the s390x tuxrun tests
+>>>    tests/functional: update the riscv64 tuxrun tests
+>>>    tests/functional: update the riscv32 tuxrun tests
+>>>    tests/functional: update the ppc64 tuxrun tests
+>>>    tests/functional: update the ppc32 tuxrun tests
+>>>    tests/functional: update the mips64el tuxrun tests
+>>>    tests/functional: update the mips64 tuxrun tests
+>>>    tests/functional: update the mips32el tuxrun tests
+>>>    tests/functional: update the mips32 tuxrun tests
+>>>    tests/functional: add a m68k tuxrun tests
+>>>    tests/functional: update the i386 tuxrun tests
+>>>    tests/functional: update the aarch64 tuxrun tests
+>>>    tests/functional: update the arm tuxrun tests
+>>>    tests/functional: Convert the Avocado aarch64 tuxrun tests 
+>>
+>> Do you think we could include patches 2-4 from this series ?
+>>
+>> https://lore.kernel.org/all/20241112130246.970281-1-clg@redhat.com/
+>>
+>> Only patch 3 lacks a R-b.
 > 
-> When waiting for expected output, the 'success_message' is a mandatory
-> parameter, with 'failure_message' defaulting to None.
-> 
-> The code has logic which indicates it was trying to cope with
-> 'success_message' being None and 'failure_message' being non-None but
-> it does not appear able to actually do anything useful. The check for
-> 'success_message is None' will break out of the loop before any check
-> for 'failure_message' has been performed.
-> 
-> IOW, for practcal purposes 'success_message' must be non-None unless
-> 'send_string' is set. Assert this expectation and simplify the loop
-> logic.
-> 
-> Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-> Message-Id: <20241121154218.1423005-15-berrange@redhat.com>
-> Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-> ---
->   tests/functional/qemu_test/cmd.py | 9 +++++++--
->   1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tests/functional/qemu_test/cmd.py b/tests/functional/qemu_test/cmd.py
-> index 98722a9cf6..f6c4e4dda1 100644
-> --- a/tests/functional/qemu_test/cmd.py
-> +++ b/tests/functional/qemu_test/cmd.py
-> @@ -81,6 +81,8 @@ def is_readable_executable_file(path):
->   def _console_interaction(test, success_message, failure_message,
->                            send_string, keep_sending=False, vm=None):
->       assert not keep_sending or send_string
-> +    assert success_message or send_string
-> +
->       if vm is None:
->           vm = test.vm
->       console = vm.console_file
-> @@ -95,7 +97,7 @@ def _console_interaction(test, success_message, failure_message,
->                   send_string = None # send only once
->   
->           # Only consume console output if waiting for something
-> -        if success_message is None and failure_message is None:
-> +        if success_message is None:
->               if send_string is None:
->                   break
->               continue
-> @@ -107,7 +109,7 @@ def _console_interaction(test, success_message, failure_message,
->           if not msg:
->               continue
->           console_logger.debug(msg)
-> -        if success_message is None or success_message in msg:
-> +        if success_message in msg:
->               break
->           if failure_message and failure_message in msg:
->               console.close()
-> @@ -138,6 +140,7 @@ def interrupt_interactive_console_until_pattern(test, success_message,
->       :param interrupt_string: a string to send to the console before trying
->                                to read a new line
->       """
-> +    assert success_message
->       _console_interaction(test, success_message, failure_message,
->                            interrupt_string, True)
->   
-> @@ -152,6 +155,7 @@ def wait_for_console_pattern(test, success_message, failure_message=None,
->       :param success_message: if this message appears, test succeeds
->       :param failure_message: if this message appears, test fails
->       """
-> +    assert success_message
->       _console_interaction(test, success_message, failure_message, None, vm=vm)
+> I had a question on patch 3 and a suggestion on patch 4 ... could you maybe address them first? Thanks!
 
-This assert is theoretically not needed since we call _console_interaction 
-with send_string=None, so if success_message is None, the new assert in 
-_console_interaction would trigger instead.
+Oh Sorry I forgot.
 
-But it also does not hurt to have it here, so fine for me if we keep it.
+I did address patch 4 in my tree ... In Patch 3, EXTRA_BOOTARGS was
+added by Alex IIRC to work around the console issue. We ended up
+adding the sleep call. I can resend tomorrow.
 
-Reviewed-by: Thomas Huth <thuth@redhat.com>
+Thanks,
+
+C.
 
 
