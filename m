@@ -1,62 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEAfK-0002z2-IK
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 12:08:27 -0500
+	id 1tEAfL-000329-Ml
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 12:08:28 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAdu-0000lO-Ul
+ id 1tEAdw-0000lq-0z
  for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:07:00 -0500
-Received: from mail-wr1-x433.google.com ([2a00:1450:4864:20::433])
+Received: from mail-lf1-x134.google.com ([2a00:1450:4864:20::134])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAdU-0001eZ-UO
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:06:56 -0500
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-38245e072e8so1091383f8f.0
- for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 09:06:31 -0800 (PST)
+ id 1tEAdW-0001gL-Oj
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 12:06:59 -0500
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-53a007743e7so1240426e87.1
+ for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 09:06:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732208791; x=1732813591; darn=nongnu.org;
+ d=linaro.org; s=google; t=1732208793; x=1732813593; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KPkgZb+7aZINgr5AlSQc2tvBZSl4x/+JOpQj7wrbfcA=;
- b=PDWRn1WpVxwaNmwFUXo+zQ1gD7vFSyhgPAf9nrUWwsoelI3mzle0b71EfpUBZ5TCyN
- L+9WKZWvZdfgqzAb1feWNRTqwzaF6UPzhF23E23zDvVNSLA+b5PmwdzG23sTbas7nuwQ
- oUtl9NH1g5Weo2CvTaEAEJbEfUHptPRZYLVQIgZrug0Ix7bH3+GygvGoFZIt4Ll0aHlG
- Ng1IXJPf8sH4mVc74n9AjxwPvEafCAP+1JqXjtNwaBRIlYqThTfNF1DHek9TEC1IwFaQ
- IrUFGTqDYSowZ15zdqBUtuWzU1nB/SpMYjcUqAja8OO4k/3DCkDD4mzx8P29eS3fc1/A
- mK/Q==
+ bh=DgZL1p3wxKFTGq7aZgLMn4pj7CkquD2VdyBofPgLEys=;
+ b=OoU360Gxyfnnj/wnNujwHrc8YcyOmIW0QObGKzHupWDSo8vInb4GQCsTquzCDQwV1A
+ 7w1y8qbGe3sfwzgNbVDU/ooJ6pD06Im5xXhWJb1KA5nWEyaxIfkiHTsR+bhXTrtWFXrX
+ tSGCeOTZPXYj91syUutrs1peTMqXo49K3FtQr0IfJOyt4kvjUo0bWGzM4BMxrqk8NTKB
+ xjIxRdzOTepygSimhh+S+EN/l9MZJRpcO0GLNNtmW+9j6ZNl0g84HNCXIUsCyuMg11FR
+ 1heKbyUTwCkxNfJZqLeyEs223ALr2Tg/EwTrKiSDDApoMZjyL4vwPpTjmTgjhWn7iYNL
+ BFCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732208791; x=1732813591;
+ d=1e100.net; s=20230601; t=1732208793; x=1732813593;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KPkgZb+7aZINgr5AlSQc2tvBZSl4x/+JOpQj7wrbfcA=;
- b=HwPKSeywAQrKn0kRlXuAjVptFioyX8N03kbREam42E20NekpwTffALeOKp4SDZY49p
- dnNAJ5Y6Av0LsV/+gI3vcEm9joBbsVhcDdlTuyCiFITDLL+qZFBQfm/cOnqDD/uoabtK
- I4Ve8BwjaXi7tMJ4JF/nMKKBpp1xKW7Pg3xg1BRtapV7X9uRaHWdHL4Wmal/tZhtd0tT
- NPAH6qtULRpxDSSIza6lyFrHVRDy+zPj+9bbt7DzP/Ot+ySFfGV9wIgOCGQ3uX+VAuVA
- ukE1UYV4DYswcuiklBHm2OqO9CfmwnBM1gGLOpxAaKUOjJQe4Ryi+DfyTGT9b7oW57+t
- PwpA==
+ bh=DgZL1p3wxKFTGq7aZgLMn4pj7CkquD2VdyBofPgLEys=;
+ b=ulhDkKJZRMIjOu91GGKD376OwlZGixFzwmLh45R5j+EP5++FBNU6Lwh5e3L7qekf9o
+ nGRixNkYjChD+/A9j1O3cM+6YmASckhNSF6VmmJc+1jVP/T0FevlfegGAQc9ivtlZrLK
+ 2szX1yVNeL7S8173YpylgTZUF9/TeuNKmHv1FtXWqBKFu8lcCu9jWcoeyi3MjQzZKqyc
+ 8CSmbIe+8ILDWBURTvbKCVPdeTl0PVJSn0Mng3IQfVtJiCLsD2jaMRcKm5GNKWrssbEC
+ 7KvOMwQj7Lbul5B9uw5FHz+n/BLOmcfgWV3QdH6eYbWzVjLct0v4fndko4m/rfv0uwEj
+ 7GMA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUxth1J8/GTfOmECj74ST2wiqujjXmIXQ3m6ASKmb5tr7eMP6GKGdAgoeBhZSXnOIl0bdsPre6auek=@nongnu.org
-X-Gm-Message-State: AOJu0YzyMLcGZLwdKqXAqKuxB4+w5n2ncQZmbKtezNc8nU+RX2S7VtL9
- 8csAjJeHVH7HKxKfY/CC2loYMLYODn+367ZMEYVbUbFOe65jOlkOFdV+6H+MuJg=
-X-Gm-Gg: ASbGncvQLJrQUwTpmD/UrzKSAxSlCdvdyleIaGlfyVyxQPgzJe8WD3tmeV1k60+OEMz
- Vupem9VdpDY8D1sCwe10Z5EntoRN5u48SuwWHUTl80ESO+XfMGmPKjcfvc/TEGScAyOYbvkXnO8
- wBC8sCCYGRUcfrkuAVF3KGHMAYUkBuTen74sVtr16dgG+GFQkHTf9Hd4SqoqdiG24UFDLIJRX+1
- 1MknN8phW0SpK27pZHKkW4N9UjoXi1ej4HLOqmhsuyZOY21
-X-Google-Smtp-Source: AGHT+IEqDY3AjBIogS78NyhIx+DW3tofme1nMDKHwlWuOVklANSLC1tQGFD0PhjFw4UFPjuYuu65RA==
-X-Received: by 2002:a05:6000:184f:b0:382:3f77:8584 with SMTP id
- ffacd0b85a97d-38254afa9b6mr7159340f8f.32.1732208790548; 
- Thu, 21 Nov 2024 09:06:30 -0800 (PST)
+ AJvYcCV0b2HgR/bYKngHDM6mwAy5L1N1c9SUhteimSlqkM+3M5Orf2QqRCQ8MCKla2hy2kY2uznC649QxFo=@nongnu.org
+X-Gm-Message-State: AOJu0YyzUiKm9g/jS3PbjNridjUZjeX87N8yQpIzwaBfe9lneWMgMi2T
+ vlCin3PttzDCaWvfPEry5EKMUcP/J58LyC1Fa36fouvBnO6hEvuBdwGn+d3MVZI=
+X-Gm-Gg: ASbGnctl/3s1FPf5xrPxOXTzHGWhXzl4PM/o9xuqciTT+bzsHmv5alLykPWLsdstBZn
+ GYe4brUszjTfS5sbXBuPPlbzPh5Kmecq2NVN9EQdAF5fHzA9AIXSd/IiIyr+eqLbLdeOtKaf/T6
+ s5UK/L8uKA81xmCKHhnDo81FInDftnVWzw4ZcHvbmxhiiDK+WnryveSy5YEDTQuLAwmKZHjJDbr
+ /HT3KK6qP1jcAfkdlmvLEyhHwZ5SHLp/AxgdSMtOoPK/9qf
+X-Google-Smtp-Source: AGHT+IETfgPdY6o96NTpOjJUFb1p4rkJqV5zzgwNRvWB+34h0tqC48BBhw8Nuk4I/K/N+VJlhA/4FA==
+X-Received: by 2002:a05:6512:2215:b0:536:53f0:2f8e with SMTP id
+ 2adb3069b0e04-53dc136791cmr3971935e87.37.1732208792448; 
+ Thu, 21 Nov 2024 09:06:32 -0800 (PST)
 Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3825fad60e5sm58019f8f.3.2024.11.21.09.06.25
+ 5b1f17b1804b1-433b45d170esm61613865e9.3.2024.11.21.09.06.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 21 Nov 2024 09:06:28 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id B35956045B;
- Thu, 21 Nov 2024 16:58:08 +0000 (GMT)
+ by draig.lan (Postfix) with ESMTP id C9DEA5F77B;
+ Thu, 21 Nov 2024 16:58:09 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
@@ -85,19 +85,18 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
  Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Anders Roxell <anders.roxell@linaro.org>
-Subject: [PATCH 25/39] tests/functional: update the mips32el tuxrun tests
-Date: Thu, 21 Nov 2024 16:57:52 +0000
-Message-Id: <20241121165806.476008-26-alex.bennee@linaro.org>
+ Alistair Francis <alistair.francis@wdc.com>
+Subject: [PATCH 37/39] plugins: eradicate qemu-plugins.symbols static file
+Date: Thu, 21 Nov 2024 16:58:04 +0000
+Message-Id: <20241121165806.476008-38-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20241121165806.476008-1-alex.bennee@linaro.org>
 References: <20241121165806.476008-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::433;
- envelope-from=alex.bennee@linaro.org; helo=mail-wr1-x433.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::134;
+ envelope-from=alex.bennee@linaro.org; helo=mail-lf1-x134.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -119,34 +118,81 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
 X-List-Received-Date: Thu, 21 Nov 2024 17:07:01 -0000
 
-Now there are new upto date images available we should update to them.
+From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
 
+Signed-off-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
+Message-Id: <20241112212622.3590693-4-pierrick.bouvier@linaro.org>
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-Cc: Anders Roxell <anders.roxell@linaro.org>
 ---
- tests/functional/test_mipsel_tuxrun.py | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ plugins/qemu-plugins.symbols | 59 ------------------------------------
+ 1 file changed, 59 deletions(-)
+ delete mode 100644 plugins/qemu-plugins.symbols
 
-diff --git a/tests/functional/test_mipsel_tuxrun.py b/tests/functional/test_mipsel_tuxrun.py
-index 2965bbd913..d4b39baab5 100755
---- a/tests/functional/test_mipsel_tuxrun.py
-+++ b/tests/functional/test_mipsel_tuxrun.py
-@@ -17,11 +17,11 @@
- class TuxRunMipsELTest(TuxRunBaselineTest):
- 
-     ASSET_MIPSEL_KERNEL = Asset(
--        'https://storage.tuxboot.com/20230331/mips32el/vmlinux',
--        '8573867c68a8443db8de6d08bb33fb291c189ca2ca671471d3973a3e712096a3')
-+        'https://storage.tuxboot.com/buildroot/20241119/mips32el/vmlinux',
-+        '660dd8c7a6ca7a32d37b4e6348865532ab0edb66802e8cc07869338444cf4929')
-     ASSET_MIPSEL_ROOTFS = Asset(
--        'https://storage.tuxboot.com/20230331/mips32el/rootfs.ext4.zst',
--        'e799768e289fd69209c21f4dacffa11baea7543d5db101e8ce27e3bc2c41d90e')
-+        'https://storage.tuxboot.com/buildroot/20241119/mips32el/rootfs.ext4.zst',
-+        'c5d69542bcaed54a4f34671671eb4be5c608ee02671d4d0436544367816a73b1')
- 
-     def test_mips32el(self):
-         self.set_machine('malta')
+diff --git a/plugins/qemu-plugins.symbols b/plugins/qemu-plugins.symbols
+deleted file mode 100644
+index 032661f9ea..0000000000
+--- a/plugins/qemu-plugins.symbols
++++ /dev/null
+@@ -1,59 +0,0 @@
+-{
+-  qemu_plugin_bool_parse;
+-  qemu_plugin_end_code;
+-  qemu_plugin_entry_code;
+-  qemu_plugin_get_hwaddr;
+-  qemu_plugin_get_registers;
+-  qemu_plugin_hwaddr_device_name;
+-  qemu_plugin_hwaddr_is_io;
+-  qemu_plugin_hwaddr_phys_addr;
+-  qemu_plugin_insn_data;
+-  qemu_plugin_insn_disas;
+-  qemu_plugin_insn_haddr;
+-  qemu_plugin_insn_size;
+-  qemu_plugin_insn_symbol;
+-  qemu_plugin_insn_vaddr;
+-  qemu_plugin_mem_get_value;
+-  qemu_plugin_mem_is_big_endian;
+-  qemu_plugin_mem_is_sign_extended;
+-  qemu_plugin_mem_is_store;
+-  qemu_plugin_mem_size_shift;
+-  qemu_plugin_num_vcpus;
+-  qemu_plugin_outs;
+-  qemu_plugin_path_to_binary;
+-  qemu_plugin_read_memory_vaddr;
+-  qemu_plugin_read_register;
+-  qemu_plugin_register_atexit_cb;
+-  qemu_plugin_register_flush_cb;
+-  qemu_plugin_register_vcpu_exit_cb;
+-  qemu_plugin_register_vcpu_idle_cb;
+-  qemu_plugin_register_vcpu_init_cb;
+-  qemu_plugin_register_vcpu_insn_exec_cb;
+-  qemu_plugin_register_vcpu_insn_exec_cond_cb;
+-  qemu_plugin_register_vcpu_insn_exec_inline_per_vcpu;
+-  qemu_plugin_register_vcpu_mem_cb;
+-  qemu_plugin_register_vcpu_mem_inline_per_vcpu;
+-  qemu_plugin_register_vcpu_resume_cb;
+-  qemu_plugin_register_vcpu_syscall_cb;
+-  qemu_plugin_register_vcpu_syscall_ret_cb;
+-  qemu_plugin_register_vcpu_tb_exec_cb;
+-  qemu_plugin_register_vcpu_tb_exec_cond_cb;
+-  qemu_plugin_register_vcpu_tb_exec_inline_per_vcpu;
+-  qemu_plugin_register_vcpu_tb_trans_cb;
+-  qemu_plugin_request_time_control;
+-  qemu_plugin_reset;
+-  qemu_plugin_scoreboard_free;
+-  qemu_plugin_scoreboard_find;
+-  qemu_plugin_scoreboard_new;
+-  qemu_plugin_start_code;
+-  qemu_plugin_tb_get_insn;
+-  qemu_plugin_tb_n_insns;
+-  qemu_plugin_tb_vaddr;
+-  qemu_plugin_u64_add;
+-  qemu_plugin_u64_get;
+-  qemu_plugin_u64_set;
+-  qemu_plugin_u64_sum;
+-  qemu_plugin_uninstall;
+-  qemu_plugin_update_ns;
+-  qemu_plugin_vcpu_for_each;
+-};
 -- 
 2.39.5
 
