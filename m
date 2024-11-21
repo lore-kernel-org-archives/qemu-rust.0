@@ -1,62 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEAWO-0005Vl-AA
-	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 11:59:12 -0500
+	id 1tEAWP-0005YM-3J
+	for mharc-qemu-rust@gnu.org; Thu, 21 Nov 2024 11:59:13 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAW3-0004xz-BK
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:52 -0500
-Received: from mail-wm1-x332.google.com ([2a00:1450:4864:20::332])
+ id 1tEAVo-0004n7-8Z
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:37 -0500
+Received: from mail-wm1-x32f.google.com ([2a00:1450:4864:20::32f])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tEAVc-00089O-6J
- for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:49 -0500
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4316cce103dso13219255e9.3
- for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 08:58:22 -0800 (PST)
+ id 1tEAVW-00084L-22
+ for qemu-rust@nongnu.org; Thu, 21 Nov 2024 11:58:35 -0500
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-431616c23b5so6661055e9.0
+ for <qemu-rust@nongnu.org>; Thu, 21 Nov 2024 08:58:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732208301; x=1732813101; darn=nongnu.org;
+ d=linaro.org; s=google; t=1732208296; x=1732813096; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0J8O7B8rz7327JxRDKQglna3WLH/kEnovSnEWelS8Vo=;
- b=veXnaYiWzgjzje4yAgtma0DEN7ur/8pFV4kHUPFc1nhQMQaV7YZa4n58WjCeMurym8
- zkpJv+u9bItCkhTGYtpJaV0nJDHPxqHsAjJH9d7UZc7WZvtgs7VVszWfk0G6l7JpvLJh
- /CFZ/2Yi4IjNcvUw1NwGYpEfxTc6y6pgvVHx9Ud5Cc8siNJN6aMHuTN3sZ+Dip5FVs//
- kOz9ZooKtvdBUSf3m4hGdsUPWwlcLJ4k75KZCjZGakuDuF/VOvPaiswrJPhp9xvnkglf
- RzhhB4MDEm/15bxEFQzcjVCFAPgqNrKeeVrOln90K8xb+T5FShlK36zizj6dUKValPY1
- 8hyg==
+ bh=e2HZ23XNFOLk981JEHm7evbs/KcDQehVIWxXpboMiiM=;
+ b=ZrMbeQ3ZJE61lgT5ynpIQkaQfqe1xdVyuEnHHbFuJj9nPfIBt+0toE4IoWWE0nfiVV
+ M8IPHu9iKWjej8FWPzFtAEaBoz6+tvp5It3nrgd4sxTE9deqv/c5EJ6BkmBRvNsuKckp
+ OP1jN+UDk9YrCyaFaFIPiqMJMA5pzz1LSauiE42G4UI3p6U0QkrdSL0oZDCEhHkPwpx4
+ ML8NO+VBTqOGxkwItP8TuWkr8kGOrfCWAXIy5FRT4tP/eK9Cfq70FEPxQcP8hMsD6B6q
+ Pk/WVT9TDtRvtJbh0pB+7tuseOI4hSfpoF1H4Fay58Fp4gL6TGMGJbvvUkIRkXPNDRZJ
+ b3mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732208301; x=1732813101;
+ d=1e100.net; s=20230601; t=1732208296; x=1732813096;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0J8O7B8rz7327JxRDKQglna3WLH/kEnovSnEWelS8Vo=;
- b=WCelXACLpKn4VR2Hv19xiWzZqi0ncU3qLwu1OarGwcAuoDMljosb0LV9yB2LYzvxdc
- hgEKZvTppmyq2AVGEGwAhOeYUGvlklgsZ3HiLhAUCTHQsbYxxKuXJdiPGiVsNOE3juZR
- qHAljHrDQwsDC9r6ZK3R7hTSXVrXczRLlpNM00Kkk4xp+qlTVZ9SZRa2nSsU/jvluMpW
- AYPC4Oue0SEeIa1h1gdDnRU8LyIGeZgaxKiRxmktCj1ubU+t0Q0vQnW6DpgjrE0K8Ulx
- vvJUnC/fhhas7QdyP836LspgBllsg3uL3Pqiw8GS0dPAfS/3Sip8mUPFfju6Gqn7naCZ
- RDRA==
+ bh=e2HZ23XNFOLk981JEHm7evbs/KcDQehVIWxXpboMiiM=;
+ b=mcTF9kbEGREAcgJz4NPIgCxoBkmS3A6w7ijySjhBI9v62XURMs2Y9kLeXm+MGzwTOB
+ GMmBfpaN9OKkDsyzm+FGVsWM8Tlo0d8ZjNTmbqYf4AKDbPqn7cxNy8fQtTF0/b7AJBoy
+ vjEmPjtUn3BV4cLRbmL9NWn7zvXDIe/ua06WoCTOzXngJ96bcLsbVvkthLSrNg1fAij6
+ J52CJwj2BuNXRKbu09D0cfG7/gnIkSZok2NF8aBWZ4fqpPNmC8g/FFGv+7XGTDUtOHX3
+ 2yb5TG3OFeJuJeQw2LEV7xzYATjJ3bba9itK/9+Jp423Dz2s78XDysKnRjqiZ2Y6PM28
+ CRVg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXT/MdP/bXoNeg/WZtyN+nUkU8qAujvzLmA8e1NHdi2oO8vnaKARRefMdNoTxNZ3kM+sg3eQh5IdcI=@nongnu.org
-X-Gm-Message-State: AOJu0Yx8pugNZYlXP9cqKnj9yW/huVPHAsFxHfZvHzBnrOoVVqcU0/y7
- sjX/2V7ylmveCWDXFutCLpdtZbWfSmJURY7+RVZCoV9Yv1ZGdw4cY3scMoKsFvc=
-X-Gm-Gg: ASbGnctlJreCtnEpmjQUTu6NiRFo/RSmtnzq1ag43aAYMlERzMevSJ2OcZ0jlz1RD2o
- 925oZwA2YUhnk93u33a0ZqUZgkBThGmMZ3LE60yTAPyzP5Tm4XAySUruNT6wuS+0UTWxRqvE2Gf
- d2mzK8Whu/4mQ1QwGJLkHNzqGYVCB2fgfo9s097WAOE3Lf6HKp9udhw5mkHxSkyoRRfTpkPwW9J
- s5Twz/jKWaPXi/AC+zGQzYY4yl2heqj/3cPNRl50eqAlJ/B
-X-Google-Smtp-Source: AGHT+IHrHUSpDrsPdu3fCdaafhILv4IsH9mJhPQ37dBOQiFLK5Ur8PnW7t6NdUCqCPRkr22uuFzATg==
-X-Received: by 2002:a05:600c:3514:b0:431:9a26:3cf6 with SMTP id
- 5b1f17b1804b1-43348981878mr80507875e9.4.1732208301522; 
- Thu, 21 Nov 2024 08:58:21 -0800 (PST)
+ AJvYcCU0U1XVYISBVaunADgAxbQuqfKoyVIemozcF1zkjteFAPdOhvqPR5FWXsNYITNWZCPa0iu0/kq/olI=@nongnu.org
+X-Gm-Message-State: AOJu0Yy6pMv3MsA4qfFhjGRND00wSU9FOw8jjhYTeYtHjpd5Lfh8mf0X
+ ZBBneA8ajT9EALqjXjtTju/OmN6BE2McV++7IV9fCmZmz2Lr/kJKl7k4e7syY08=
+X-Gm-Gg: ASbGncuqX8H0WhbP+lWTBq+rc1i1Utt7ZMXaqp6byM+6rLjR1vZEnm3OpFO720CvMYg
+ BoWHD6gGQ3+2hALNOOJSsa/pmQVHmXHc9KKgREJoQM8HDDrtaIrtqOEXx/P0NO02XUq92DpYc/y
+ ljVln43QIWRdNhRVUqXB6fJjvNBuktr+METOixf7NOLLv9E4X4KU1gmRi6Qnw8NQ5XgkNU4sodu
+ 1ZZnWZM+wKAlynA5QHmUPmhuGSs2UJc+WgeiSXiul1V64+8
+X-Google-Smtp-Source: AGHT+IGDHBlSamv94hqq39SE1SaufjquwOaoSGOK1WLNw6iTeG+uZEgDu2CvhBFW9NHQ5b4/zJX4fw==
+X-Received: by 2002:a05:600c:a4b:b0:42c:b166:913 with SMTP id
+ 5b1f17b1804b1-433c5cb049dmr36104345e9.11.1732208296361; 
+ Thu, 21 Nov 2024 08:58:16 -0800 (PST)
 Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-433b45d4dd6sm65367955e9.24.2024.11.21.08.58.14
+ ffacd0b85a97d-3825fbc44f7sm18708f8f.82.2024.11.21.08.58.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Nov 2024 08:58:18 -0800 (PST)
+ Thu, 21 Nov 2024 08:58:14 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 36160604A8;
- Thu, 21 Nov 2024 16:58:09 +0000 (GMT)
+ by draig.lan (Postfix) with ESMTP id 7AA3D60357;
+ Thu, 21 Nov 2024 16:58:07 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
@@ -85,19 +85,18 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
  Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Ani Sinha <anisinha@redhat.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Anders Roxell <anders.roxell@linaro.org>
-Subject: [PATCH 30/39] tests/functional: update the riscv32 tuxrun tests
-Date: Thu, 21 Nov 2024 16:57:57 +0000
-Message-Id: <20241121165806.476008-31-alex.bennee@linaro.org>
+ Alistair Francis <alistair.francis@wdc.com>
+Subject: [PATCH 11/39] tests/functional: enable debug logging for QEMUMachine
+Date: Thu, 21 Nov 2024 16:57:38 +0000
+Message-Id: <20241121165806.476008-12-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20241121165806.476008-1-alex.bennee@linaro.org>
 References: <20241121165806.476008-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::332;
- envelope-from=alex.bennee@linaro.org; helo=mail-wm1-x332.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::32f;
+ envelope-from=alex.bennee@linaro.org; helo=mail-wm1-x32f.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -117,36 +116,42 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Nov 2024 16:58:59 -0000
+X-List-Received-Date: Thu, 21 Nov 2024 16:58:39 -0000
 
-Now there are new upto date images available we should update to them.
+From: Daniel P. Berrangé <berrange@redhat.com>
 
+Set the 'qemu.machine' logger to 'DEBUG' level, to ensure we see log
+messages related to the QEMUMachine class. Most importantly this
+ensures we capture the full QEMU command line args for instances we
+spawn.
+
+Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+Message-Id: <20241121154218.1423005-12-berrange@redhat.com>
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-Cc: Anders Roxell <anders.roxell@linaro.org>
 ---
- tests/functional/test_riscv32_tuxrun.py | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ tests/functional/qemu_test/testcase.py | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/tests/functional/test_riscv32_tuxrun.py b/tests/functional/test_riscv32_tuxrun.py
-index 49b57cd428..3c570208d0 100755
---- a/tests/functional/test_riscv32_tuxrun.py
-+++ b/tests/functional/test_riscv32_tuxrun.py
-@@ -17,11 +17,11 @@
- class TuxRunRiscV32Test(TuxRunBaselineTest):
+diff --git a/tests/functional/qemu_test/testcase.py b/tests/functional/qemu_test/testcase.py
+index f9c9de1166..e2a329c3e5 100644
+--- a/tests/functional/qemu_test/testcase.py
++++ b/tests/functional/qemu_test/testcase.py
+@@ -57,9 +57,15 @@ def setUp(self, bin_prefix):
+         self._log_fh.setFormatter(fileFormatter)
+         self.log.addHandler(self._log_fh)
  
-     ASSET_RISCV32_KERNEL = Asset(
--        'https://storage.tuxboot.com/20230331/riscv32/Image',
--        '89599407d7334de629a40e7ad6503c73670359eb5f5ae9d686353a3d6deccbd5')
-+        'https://storage.tuxboot.com/buildroot/20241119/riscv32/Image',
-+        '872bc8f8e0d4661825d5f47f7bec64988e9d0a8bd5db8917d57e16f66d83b329')
-     ASSET_RISCV32_ROOTFS = Asset(
--        'https://storage.tuxboot.com/20230331/riscv32/rootfs.ext4.zst',
--        '7168d296d0283238ea73cd5a775b3dd608e55e04c7b92b76ecce31bb13108cba')
-+        'https://storage.tuxboot.com/buildroot/20241119/riscv32/rootfs.ext4.zst',
-+        '511ad34e63222db08d6c1da16fad224970de36517a784110956ba6a24a0ee5f6')
++        # Capture QEMUMachine logging
++        self.machinelog = logging.getLogger('qemu.machine')
++        self.machinelog.setLevel(logging.DEBUG)
++        self.machinelog.addHandler(self._log_fh)
++
+     def tearDown(self):
+         if "QEMU_TEST_KEEP_SCRATCH" not in os.environ:
+             shutil.rmtree(self.workdir)
++        self.machinelog.removeHandler(self._log_fh)
+         self.log.removeHandler(self._log_fh)
  
-     def test_riscv32(self):
-         self.set_machine('virt')
+     def main():
 -- 
 2.39.5
 
