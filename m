@@ -1,74 +1,76 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tESqN-00054T-VP
-	for mharc-qemu-rust@gnu.org; Fri, 22 Nov 2024 07:33:04 -0500
+	id 1tETKt-0008V5-D9
+	for mharc-qemu-rust@gnu.org; Fri, 22 Nov 2024 08:04:35 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tESqL-00053n-7J
- for qemu-rust@nongnu.org; Fri, 22 Nov 2024 07:33:01 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <clg@redhat.com>) id 1tETKq-0008QO-D0
+ for qemu-rust@nongnu.org; Fri, 22 Nov 2024 08:04:32 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tESqH-0004He-Do
- for qemu-rust@nongnu.org; Fri, 22 Nov 2024 07:32:59 -0500
+ (Exim 4.90_1) (envelope-from <clg@redhat.com>) id 1tETKo-0004vv-7l
+ for qemu-rust@nongnu.org; Fri, 22 Nov 2024 08:04:32 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1732278773;
+ s=mimecast20190719; t=1732280668;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=7dcLeRfvRq84WfdwQfYsnrrCw4UsQMiHXXPRYpseIFw=;
- b=UHwqraq6iTlYp5MzIeGRwxX5lYHltW2RgaG4EDjG9f1dOJksCiergVSDIec/2UXsa/w9sv
- HkLg+Cqh0yChLQpWca6Tp6elBsJ9WMLRmOsYLt8W6tn4QlHufBPdpPdPte11vgG92dPaVw
- h2l8nVD9Rg/HTdtASBRKTk71AiUmNc8=
+ bh=dGzjvgzq8KWj8WAMo63XMBdeB5ZawNYYWPmG0JX7Dxg=;
+ b=hd45xRHFHTNzxIuqBrUUhDGUNXtps22LdJ+Ot7iiJhB5qo4m2V6Uh94+OBhcUkf9b2vaBw
+ 6fwf5hglh+lwGz8ewU2lrTDW6zRFzttbBbpm9pYRcH7YeEcdRQUxFjZFVg+xjhObTu3ApB
+ TBS0huMAEu4BjJdDCeggfkUDpTCY7ZQ=
 Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
  [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-221-fFK0zUrTPp63lbk5TAkJUQ-1; Fri, 22 Nov 2024 07:32:52 -0500
-X-MC-Unique: fFK0zUrTPp63lbk5TAkJUQ-1
-X-Mimecast-MFC-AGG-ID: fFK0zUrTPp63lbk5TAkJUQ
+ us-mta-402-1goqiQxfOPGbX9OjXP2XoQ-1; Fri, 22 Nov 2024 08:04:27 -0500
+X-MC-Unique: 1goqiQxfOPGbX9OjXP2XoQ-1
+X-Mimecast-MFC-AGG-ID: 1goqiQxfOPGbX9OjXP2XoQ
 Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4315af466d9so13734265e9.3
- for <qemu-rust@nongnu.org>; Fri, 22 Nov 2024 04:32:51 -0800 (PST)
+ 5b1f17b1804b1-4315dd8fe7fso18214475e9.3
+ for <qemu-rust@nongnu.org>; Fri, 22 Nov 2024 05:04:27 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732278771; x=1732883571;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=7dcLeRfvRq84WfdwQfYsnrrCw4UsQMiHXXPRYpseIFw=;
- b=P3cD5lxNkFl6dKDg8UkQpd8LtN2bdPC1kiMW7fsy+eTX/xu9Jkc6LQfT2EEN8gtRV/
- drVozQQMV8iGasexzUeGtl+lqSwsxEzHMCa7GYc5iYDXjcngur/s9uUMQEKY/WADwBBo
- v+HVkb24jlNREjZ57R8pigg9VXeuBJkEpNtf6ezra0CQ13QzKmP2SJrvNCe2ZgXPwAAw
- 8nb0kvCyQOgGa3JtJol40+yjKgBrqIlrN1SX7nP4VoP/0qa3643nJcn9rO9yIfuqiCDP
- EBz2oW4FeoenhTpfNUTln1qicUYLqSS7zovQSR0XXaHfUNYZ5JxElmXkpfWQJBd5usYB
- 1iow==
+ d=1e100.net; s=20230601; t=1732280666; x=1732885466;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dGzjvgzq8KWj8WAMo63XMBdeB5ZawNYYWPmG0JX7Dxg=;
+ b=hXtApVOEOKG6uZyeNM/BdhY18A38UL0VZbahmZKnwwvFUiYibxFqh1BEDgMUD+RNXF
+ bmUEZrMJoIst/Cvp7I5J2qhuEiDCqa9UPfAxiqOEal1z2jcec7ynJQPBvOJ6u6TAi5c1
+ DUjfq+VkgmpmCXsj98MtHQyOFVGfW+JJDYOnz3BjKKuvFqS1vT+bbuCVReBhwtfG+6cY
+ mTHN1ZnQOz0Fijm8qtxpFoM9HDlIr5/KI+bGIREdrVwc9TfSc+re2IDRcr4/NQWh8r7R
+ PE1hSJRaLIfghmd9hBETtFwBXQtTNpDlMeKedaSVs+M8LejDw1/qxz4cIvttOhhenr2X
+ f0uw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXWoVRnY+Z3c09dbDh8Nep6kWVyGb71LQEP1RYDBcTEFfPBzXNE79laJ4Z+mfGu9jg1Y3MoefRgVAs=@nongnu.org
-X-Gm-Message-State: AOJu0Yw548T11YXpCHa9KyYtPSVyYJgxk1TAzUUzZ1nHC2Ne/Z3l8m4f
- a3bDJniPdsecTOe/aIEBj97j1fpcXJ8M7PQy++12JLeNUQ7TztG4OVzveK6RDocUNI8bwPjQLo1
- ib+BA/3r/F6c8RMg05DBsmziq0Bpz+EGHvQj3AVr67ZBVCH3hMRY=
-X-Gm-Gg: ASbGnctY/H/yLOlRneR/78InhVM5OmGBoYECba/7xoUcPITidSBeYPPesBZbCe8ZQIf
- ZTF1Vz/KrDKWL0ZNsl1fSQz9lIn+gAet3EA5m6nI7P0u7vJWALz+kBn1hreeC8LM0fYEyP2qAAJ
- NZGD/WrQN3RJRwQJUN/hP1tiVvFNIUgmD0w/I2sHb6jy8CG9EXAv4wZ5g5JKqMNupoLRwNsp8eT
- 86d8Arpq9nGNXWdUaKJXU0nplP8HIwUYmrW8nA4fkq+pATc4IQNr4R6uqCfCjTXHkI52fcgKsA=
-X-Received: by 2002:a05:600c:1c24:b0:426:6f27:379a with SMTP id
- 5b1f17b1804b1-433ce42560amr24531595e9.13.1732278770883; 
- Fri, 22 Nov 2024 04:32:50 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEwwvjVOcJsaleiUXP6M3FkignGyluKj6GqgoP5j+zudQ5/jrDYuXeWsHt2MA8mjzV8y9Nziw==
-X-Received: by 2002:a05:600c:1c24:b0:426:6f27:379a with SMTP id
- 5b1f17b1804b1-433ce42560amr24531385e9.13.1732278770526; 
- Fri, 22 Nov 2024 04:32:50 -0800 (PST)
-Received: from [10.33.192.206] (nat-pool-str-t.redhat.com. [149.14.88.106])
+ AJvYcCVSK8hP119KeEy3RmhHABpivzgDG7iA1R5VmrvN4kxvWMnij2+bsfCqu17IbXSylGDRGcU8zhnqaws=@nongnu.org
+X-Gm-Message-State: AOJu0YxTMApHTAIjwgz6Z/Yymct9WpT3ObInAAyiqco3mOiPkMQGrOT6
+ RSCA5GhzyuJgLgZT2vPG0KUb59ymg9KSMF3nMkfzYtLIwfCrRJTYB9xB2IMaFYTo+7E838OSIIE
+ 058DaMKqnjKa7duTRLJOKR389RJ0HMP1++DYsj86VxyYOORdqbOo=
+X-Gm-Gg: ASbGncsra5hLL0+skeyRY+j3oE8reC2Y+znYIFxndtl8+XN07iRMJ2bTSaenBJZhe2n
+ j2ws7Tixz+d8QFF1OCDy8bqDKqH8QqZMqTalSJm8Yh6UogPbpwf6kZT/tx2f9l8HogodpGW29Dc
+ pMezWH+i2qdLB61ESWKI072ObARF0Y5A5GYbn8MnqG8W3lTtZAI/RHIDIO/keu89kzEoQeJF7UU
+ bsH2cowLs4nh78dzS2ukdLHvhniKXa7FZogZGBtm2KdzOuu+1K5tpG4K5pdGHhianUtJhZGMCLs
+ rSan/jrAaqWh
+X-Received: by 2002:a05:600c:5102:b0:431:5ba1:a520 with SMTP id
+ 5b1f17b1804b1-433ce410300mr28683245e9.3.1732280666298; 
+ Fri, 22 Nov 2024 05:04:26 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IH3YhBNAsAOh4XW4ZuVgl3QY8ljttzic4xeApJzaJpqryGmhZID/sO29jNLeWMCnBHOaSoAkA==
+X-Received: by 2002:a05:600c:5102:b0:431:5ba1:a520 with SMTP id
+ 5b1f17b1804b1-433ce410300mr28629435e9.3.1732280620995; 
+ Fri, 22 Nov 2024 05:03:40 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:280:24f0:9db0:474c:ff43:9f5c?
+ ([2a01:e0a:280:24f0:9db0:474c:ff43:9f5c])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3825fb2685csm2339929f8f.46.2024.11.22.04.32.49
+ 5b1f17b1804b1-433b45bdafbsm89742165e9.17.2024.11.22.05.03.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Nov 2024 04:32:50 -0800 (PST)
-Message-ID: <6133bd27-7907-4f7d-b3ef-94d7f17785c1@redhat.com>
-Date: Fri, 22 Nov 2024 13:32:48 +0100
+ Fri, 22 Nov 2024 05:03:34 -0800 (PST)
+Message-ID: <02049f8d-0be1-4c3d-ac71-68f36ee3a985@redhat.com>
+Date: Fri, 22 Nov 2024 14:03:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 00/39] maintainer updates for -rc2 pre-PR
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>,
- =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, qemu-devel@nongnu.org
+To: Thomas Huth <thuth@redhat.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
  =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  "Michael S. Tsirkin" <mst@redhat.com>,
@@ -100,64 +102,66 @@ References: <20241121165806.476008-1-alex.bennee@linaro.org>
  <0cbbec0d-5be0-4ec2-8791-470c70d93e33@redhat.com>
  <ae1ee2e9-4be2-49ae-a5dc-2bc6e72a8506@redhat.com>
  <f30aa80f-613e-4a01-94ce-b2779349ece7@redhat.com>
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- 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
-In-Reply-To: <f30aa80f-613e-4a01-94ce-b2779349ece7@redhat.com>
+ <6133bd27-7907-4f7d-b3ef-94d7f17785c1@redhat.com>
+From: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>
+Autocrypt: addr=clg@redhat.com; keydata=
+ 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
+ uVKe8BVz4atMOoktmt0GWTOC8P4=
+In-Reply-To: <6133bd27-7907-4f7d-b3ef-94d7f17785c1@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: GcL5YELOdDsFQYo62YAIxWf4QRkTyeB15gyRVq37FHs_1732278771
+X-Mimecast-MFC-PROC-ID: cYg4pQDbYxb_aDMK1Gt5OVkCuLX0gQhZa_uiNQUuUCk_1732280666
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Language: en-US, fr
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=thuth@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=clg@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -21
 X-Spam_score: -2.2
 X-Spam_bar: --
 X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.143,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -172,82 +176,93 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Nov 2024 12:33:02 -0000
+X-List-Received-Date: Fri, 22 Nov 2024 13:04:32 -0000
 
-On 22/11/2024 12.59, Cédric Le Goater wrote:
-> On 11/22/24 11:47, Thomas Huth wrote:
->> On 21/11/2024 22.46, Cédric Le Goater wrote:
->>> On 11/21/24 20:10, Thomas Huth wrote:
->>>> On 21/11/2024 20.03, Cédric Le Goater wrote:
->>>>> Hello Alex,
->>>>>
->>>>> On 11/21/24 17:57, Alex Bennée wrote:
->>>>>> This is a mostly testing focused set of patches but a few bug fixes as
->>>>>> well. I plan to send the PR in on Monday. I can drop any patches that
->>>>>> are objected to but I think its pretty safe.
+On 11/22/24 13:32, Thomas Huth wrote:
+> On 22/11/2024 12.59, Cédric Le Goater wrote:
+>> On 11/22/24 11:47, Thomas Huth wrote:
+>>> On 21/11/2024 22.46, Cédric Le Goater wrote:
+>>>> On 11/21/24 20:10, Thomas Huth wrote:
+>>>>> On 21/11/2024 20.03, Cédric Le Goater wrote:
+>>>>>> Hello Alex,
 >>>>>>
->>>>>> Contains:
+>>>>>> On 11/21/24 17:57, Alex Bennée wrote:
+>>>>>>> This is a mostly testing focused set of patches but a few bug fixes as
+>>>>>>> well. I plan to send the PR in on Monday. I can drop any patches that
+>>>>>>> are objected to but I think its pretty safe.
+>>>>>>>
+>>>>>>> Contains:
+>>>>>>>
+>>>>>>>    - Daniel's clean-up of functional tests
+>>>>>>>    - Another avocado->function conversion from Thomas
+>>>>>>>    - Update the tuxrun baseline images
+>>>>>>>    - Minor fix to the rust pl011 device
+>>>>>>>    - Documentation clarification on identity
+>>>>>>>
+>>>>>>> The following could do with some review:
+>>>>>>>
+>>>>>>>    tests/functional: update the x86_64 tuxrun tests
+>>>>>>>    tests/functional: update the sparc64 tuxrun tests
+>>>>>>>    tests/functional: update the s390x tuxrun tests
+>>>>>>>    tests/functional: update the riscv64 tuxrun tests
+>>>>>>>    tests/functional: update the riscv32 tuxrun tests
+>>>>>>>    tests/functional: update the ppc64 tuxrun tests
+>>>>>>>    tests/functional: update the ppc32 tuxrun tests
+>>>>>>>    tests/functional: update the mips64el tuxrun tests
+>>>>>>>    tests/functional: update the mips64 tuxrun tests
+>>>>>>>    tests/functional: update the mips32el tuxrun tests
+>>>>>>>    tests/functional: update the mips32 tuxrun tests
+>>>>>>>    tests/functional: add a m68k tuxrun tests
+>>>>>>>    tests/functional: update the i386 tuxrun tests
+>>>>>>>    tests/functional: update the aarch64 tuxrun tests
+>>>>>>>    tests/functional: update the arm tuxrun tests
+>>>>>>>    tests/functional: Convert the Avocado aarch64 tuxrun tests 
 >>>>>>
->>>>>>    - Daniel's clean-up of functional tests
->>>>>>    - Another avocado->function conversion from Thomas
->>>>>>    - Update the tuxrun baseline images
->>>>>>    - Minor fix to the rust pl011 device
->>>>>>    - Documentation clarification on identity
+>>>>>> Do you think we could include patches 2-4 from this series ?
 >>>>>>
->>>>>> The following could do with some review:
+>>>>>> https://lore.kernel.org/all/20241112130246.970281-1-clg@redhat.com/
 >>>>>>
->>>>>>    tests/functional: update the x86_64 tuxrun tests
->>>>>>    tests/functional: update the sparc64 tuxrun tests
->>>>>>    tests/functional: update the s390x tuxrun tests
->>>>>>    tests/functional: update the riscv64 tuxrun tests
->>>>>>    tests/functional: update the riscv32 tuxrun tests
->>>>>>    tests/functional: update the ppc64 tuxrun tests
->>>>>>    tests/functional: update the ppc32 tuxrun tests
->>>>>>    tests/functional: update the mips64el tuxrun tests
->>>>>>    tests/functional: update the mips64 tuxrun tests
->>>>>>    tests/functional: update the mips32el tuxrun tests
->>>>>>    tests/functional: update the mips32 tuxrun tests
->>>>>>    tests/functional: add a m68k tuxrun tests
->>>>>>    tests/functional: update the i386 tuxrun tests
->>>>>>    tests/functional: update the aarch64 tuxrun tests
->>>>>>    tests/functional: update the arm tuxrun tests
->>>>>>    tests/functional: Convert the Avocado aarch64 tuxrun tests 
+>>>>>> Only patch 3 lacks a R-b.
 >>>>>
->>>>> Do you think we could include patches 2-4 from this series ?
->>>>>
->>>>> https://lore.kernel.org/all/20241112130246.970281-1-clg@redhat.com/
->>>>>
->>>>> Only patch 3 lacks a R-b.
+>>>>> I had a question on patch 3 and a suggestion on patch 4 ... could you maybe address them first? Thanks!
 >>>>
->>>> I had a question on patch 3 and a suggestion on patch 4 ... could you 
->>>> maybe address them first? Thanks!
+>>>> Oh Sorry I forgot.
+>>>>
+>>>> I did address patch 4 in my tree ... In Patch 3, EXTRA_BOOTARGS was
+>>>> added by Alex IIRC to work around the console issue. We ended up
+>>>> adding the sleep call. I can resend tomorrow.
 >>>
->>> Oh Sorry I forgot.
+>>> IMHO v4 looks fine now ( https://lore.kernel.org/qemu- devel/20241122090322.1934697-1-clg@redhat.com/ ) in case you want to pick it up, Alex.
 >>>
->>> I did address patch 4 in my tree ... In Patch 3, EXTRA_BOOTARGS was
->>> added by Alex IIRC to work around the console issue. We ended up
->>> adding the sleep call. I can resend tomorrow.
+>>>   Thomas
+>>>
 >>
->> IMHO v4 looks fine now ( https://lore.kernel.org/qemu- 
->> devel/20241122090322.1934697-1-clg@redhat.com/ ) in case you want to pick 
->> it up, Alex.
+>> Here is a check-functional run with this series and the v4 I sent :
 >>
->>   Thomas
+>>    https://paste.debian.net/1336417/
 >>
+>> This system is fast so the timeouts are more certainly tests failures :
+>>
+>>    func-sh4-sh4_tuxrun        ?
+>>    func-rx-rx_gdbsim         https://gitlab.com/qemu-project/qemu/-/issues/2691
 > 
-> Here is a check-functional run with this series and the v4 I sent :
+> Both tests are marked with QEMU_TEST_FLAKY_TESTS, so yes, it's likely the flakiness of the tests.
 > 
->    https://paste.debian.net/1336417/
-> 
-> This system is fast so the timeouts are more certainly tests failures :
-> 
->    func-sh4-sh4_tuxrun        ?
->    func-rx-rx_gdbsim         https://gitlab.com/qemu-project/qemu/-/issues/2691
+>   Thomas
 
-Both tests are marked with QEMU_TEST_FLAKY_TESTS, so yes, it's likely the 
-flakiness of the tests.
-
-  Thomas
-
+func-sh4-sh4_tuxrun runs fine with :
+  
+@@ -46,10 +46,8 @@ class TuxRunSh4Test(TuxRunBaselineTest):
+                           console_index=1)
+          self.vm.launch()
+  
+-        self.wait_for_console_pattern("Welcome to TuxTest")
+-        time.sleep(0.1)
+-        exec_command(self, 'root')
+-        time.sleep(0.1)
++        self.wait_for_console_pattern("tuxtest login:")
++        exec_command_and_wait_for_pattern(self, 'root', 'root@tuxtest:~#')
+          exec_command_and_wait_for_pattern(self, 'halt',
+                                            "reboot: System halted")
 
 
