@@ -1,81 +1,87 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEP1a-0001bI-19
-	for mharc-qemu-rust@gnu.org; Fri, 22 Nov 2024 03:28:22 -0500
+	id 1tEP5y-0002sZ-HS
+	for mharc-qemu-rust@gnu.org; Fri, 22 Nov 2024 03:32:54 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tEP1Y-0001b2-8Q
- for qemu-rust@nongnu.org; Fri, 22 Nov 2024 03:28:20 -0500
-Received: from mail-wm1-x332.google.com ([2a00:1450:4864:20::332])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tEP1W-0000e2-2n
- for qemu-rust@nongnu.org; Fri, 22 Nov 2024 03:28:20 -0500
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4316f3d3c21so15581725e9.3
- for <qemu-rust@nongnu.org>; Fri, 22 Nov 2024 00:28:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732264096; x=1732868896; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=I44exm/KAdLBmQ8me8mXE3lF0QVR1MNMb5Ta44lrJzs=;
- b=CPQZNMxpN+RWwua+2tDjnVVASx0A8WRPDGVM1nqR/jUmdPHLC7D6rvWSAfod1mDR0G
- Vyudv6BiftTsdGnDCto1RIUYA6HUPJVUD23YlIRjvrq5Zn1LBZiLkq3edDOYK9P4JM9x
- wLJ7FU0qTvN5ooz0gueXj9cf2pm+vz8ZTsICif/F+G7M1pPswGWvbeVrrrC2s/EjKCCu
- I8X73KS6CTpGP2OJVgbtC45344LNCmyv3J8KCXUzAvmLpSqdvttB2BE3TLErujhyQOz5
- d2Ogy9COU1MM5kblQN2gURvzEZ2x4lRIo58u8QxSsBVk9I17Inewh+tPNCbN1xhTr0eM
- fW2Q==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tEP5x-0002s2-1a
+ for qemu-rust@nongnu.org; Fri, 22 Nov 2024 03:32:53 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tEP5v-00019w-BJ
+ for qemu-rust@nongnu.org; Fri, 22 Nov 2024 03:32:52 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1732264370;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vPgKYAovHm8G1oDfssARv2jTiR4Utk7GrWumL6zELeQ=;
+ b=UHZ8pxu0+7EfwBSiyydLkVJsHLbGef7ZyfZadl/y3lcng+F6INom+Gl4kaIe4XyOttiBMC
+ RDenUl+hpXcv0EvG01XdCRjLtPq7hXl/kGThRh1exFwagikr2OXnX9r/0iwFMKkWdXnnZe
+ oJDWiHdFCy6IOlm3qpXlx1XAqX6c9L0=
+Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
+ [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-25-2SmmoU8pM7uWgVkPtubMCw-1; Fri, 22 Nov 2024 03:32:45 -0500
+X-MC-Unique: 2SmmoU8pM7uWgVkPtubMCw-1
+X-Mimecast-MFC-AGG-ID: 2SmmoU8pM7uWgVkPtubMCw
+Received: by mail-lf1-f70.google.com with SMTP id
+ 2adb3069b0e04-539fb5677c9so1699691e87.0
+ for <qemu-rust@nongnu.org>; Fri, 22 Nov 2024 00:32:44 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732264096; x=1732868896;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=I44exm/KAdLBmQ8me8mXE3lF0QVR1MNMb5Ta44lrJzs=;
- b=ZVD2PD1RBTUIKvHx5jRSCRQ2NwhkwpVxmiZDFfn8P0k/srV2SkcNnmdaNxCRpeJbi9
- Tsp3tAntvg+/YoOTiRpDMXATvMeteMdRmboUUh/Bpj6Z272wAANjAhljjnQa39UnZG0E
- b/BzpoDjMO38WTCrpzg1devw5Ry4PPS4yoosx2zdhzTSKlPpC8dZ2egGLtDGLY32rxrt
- yJ8Tr98zq9Oe2TVNBck35550S+8YJlNMzzK328hb4gWy1LFVg+GZV8CnUssOZQdSCh5F
- L4kHfYo37RnY23ldfb+hS0opp+rM18VmZWqv7Xo0b4v9WezkDG6xzB3OXlkyLUCV4AXh
- 1rnA==
+ d=1e100.net; s=20230601; t=1732264363; x=1732869163;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=vPgKYAovHm8G1oDfssARv2jTiR4Utk7GrWumL6zELeQ=;
+ b=s1rEuks5dxOlYZcVe0Z0xwWHxzjar+mvApbSUhoPJdLTIl6J/iXb0vS1vq/+oWqJ6p
+ LyXOrlOawx/o8KmviJjcrokWh3U6FzgeFg/fcwt2attJU1nh1L/CRbs4Ead0CWF3JUfP
+ Feaa93JHtENS1umcFqWESlQKHfqpvyEx9RwbmQjrDvtfLbIlRYekoRzEee5isno0CYF5
+ CbGlW0XoWex3FeZf0dqPwlefhS2sQXJiKQhuvZcge4B9GLgIeVSLTbwtOnBmmqpqpkTD
+ Mes9NouYg8eVhpJu2/galFIjR/zIi9rG/L6gUOllx/mdx8pe2s3v4EEnW0O6H5mUNPtZ
+ RTWA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW14DeiaK9B0RvvdvTr2cuMC2Wi5p/NFr+2bkw6Wa4RaJK3fsYoG1d5n4dNRyKK0uyWuLRPpKeY9TY=@nongnu.org
-X-Gm-Message-State: AOJu0Yz7gmf7tpOCpWIhqEAcoURY+XKZLTocZCMViF1j710p3pjivPpr
- 1x4Sy1HWE+kvjqXcJJvwzjLNyXsKNv4O2qNoyqkzHz7Va+dDGwLhtL/EUF7pUf4=
-X-Gm-Gg: ASbGncuGJoa1JLaRwYfTRFjXpTgsUE4wCufN+rQt0D7JpOpNuqroK69FQTXlCc9B83/
- aKbdgBtzPa9BOxiPXOe+mNO5+hqMrpsBLfUMWzBBBVLPpTKuLq3U4/yuSsSkBF/gJ8BJwDrXMaA
- 7ssdFdFSAyY76m5dKLAjW1PivhvVTy3kvNe545bliF1i6+eDmcls1pio9tIoYth2gRFkJ2mbK5k
- FDDh/8dPrTWM19vQBaJ86DkToUnX6wAk+SLZ3ss1eS5s/uUo0R+Tdlfb5Vdw+zxUkBk
-X-Google-Smtp-Source: AGHT+IFk0+Nh40l9UOw67AEzyalytC9wmuJHMYjhKdi+5Ps7W+wOr+kGiGWl80b1ycR2xfnsoY0brw==
-X-Received: by 2002:a05:6000:2d06:b0:382:4b83:d4c0 with SMTP id
- ffacd0b85a97d-38260b486f8mr1225385f8f.3.1732264096005; 
- Fri, 22 Nov 2024 00:28:16 -0800 (PST)
-Received: from [192.168.1.121] ([176.187.204.90])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3825faf9f59sm1739701f8f.34.2024.11.22.00.28.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Nov 2024 00:28:15 -0800 (PST)
-Message-ID: <70f44731-6879-4adf-a71b-a781af48fe99@linaro.org>
-Date: Fri, 22 Nov 2024 09:28:13 +0100
+ AJvYcCUawhOdcPXLakVNFzvg4EBZ7Ji5aIlmUelDRIj1TaNT4bNx1QVsOwDec3cTfr6ptGqlelXUCsGybCw=@nongnu.org
+X-Gm-Message-State: AOJu0YwVFxxWsMBXrRx7+PH7i9Lc56J3gKtRaGYmJxlCHkua8nxwDgl6
+ 6Gfv9OR4/7K6Uu7TIsqNTcYhnIpcXzRN3Ip1FrSPp/32lG+/dKriwaycHcZgHaG5/gG5Q/hUIbF
+ Muvn0w6yqErMCCLi6FawxqK0fH4kuzr7zYzTINdru8a7XcC7ZHy4zTIcioohgLrtwHBsNSutb9f
+ Wo4ObN1dVTaBuIRDYyShGipMNOVQ==
+X-Gm-Gg: ASbGnctKuXvBSL8ZMDoATT8bCOTKEW9dd/Ipkk8GY3fdJ3YOjjP5vm12YMwIn8pyPbY
+ qCf68iyQrf+XLdkJbQbevfWaD2O+M71lD
+X-Received: by 2002:a05:6512:32c9:b0:53d:c63e:beae with SMTP id
+ 2adb3069b0e04-53dd3aabef3mr849395e87.53.1732264363315; 
+ Fri, 22 Nov 2024 00:32:43 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHqqVf7csmeTnGDHbZ0CZ97gCX7Xxkmbyxuw3LsaUI+9Sx8Nrk+8uz4yz1wG8qTHr/V5TZRyBbXFyza1JhEE5A=
+X-Received: by 2002:a05:6512:32c9:b0:53d:c63e:beae with SMTP id
+ 2adb3069b0e04-53dd3aabef3mr849383e87.53.1732264362976; Fri, 22 Nov 2024
+ 00:32:42 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] rust: add bindings for interrupt sources
-To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
-Cc: junjie.mao@hotmail.com, zhao1.liu@intel.com, qemu-rust@nongnu.org
 References: <20241122074756.282142-1-pbonzini@redhat.com>
  <20241122074756.282142-3-pbonzini@redhat.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20241122074756.282142-3-pbonzini@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::332;
- envelope-from=philmd@linaro.org; helo=mail-wm1-x332.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
+ <70f44731-6879-4adf-a71b-a781af48fe99@linaro.org>
+In-Reply-To: <70f44731-6879-4adf-a71b-a781af48fe99@linaro.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Fri, 22 Nov 2024 09:32:30 +0100
+Message-ID: <CABgObfbOj8FCvjXOM_AF8=jyFMi1bs-gfsRu+_GH3802hLhM1A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] rust: add bindings for interrupt sources
+To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>
+Cc: qemu-devel@nongnu.org, junjie.mao@hotmail.com, zhao1.liu@intel.com, 
+ qemu-rust@nongnu.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 7Hvstvh101K3nFKt7VVavaG3dd69fVWoXQpO0ylxQSs_1732264363
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -21
+X-Spam_score: -2.2
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.14,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -88,117 +94,30 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Nov 2024 08:28:20 -0000
+X-List-Received-Date: Fri, 22 Nov 2024 08:32:53 -0000
 
-Hi Paolo,
+> > +/// Interrupt sources are used by devices to pass changes to a boolean value to
+> > +/// other devices (typically interrupt or GPIO controllers).  QEMU interrupt
+> > +/// sources are always active-high.
+>
+> So 'always active-high' = true below? (Wondering about pulsation, if the
+> true -> false transition is always correct).
 
-On 22/11/24 08:47, Paolo Bonzini wrote:
-> The InterruptSource bindings let us call qemu_set_irq() and sysbus_init_irq()
-> as safe code.
-> 
-> Interrupt sources, qemu_irq in C code, are pointers to IRQState objects.
-> They are QOM link properties and can be written to outside the control
-> of the device (i.e. from a shared reference); therefore they must be
-> interior-mutable in Rust.  Since thread-safety is provided by the BQL,
-> what we want here is the newly-introduced BqlCell.  A pointer to the
-> contents of the BqlCell (an IRQState**, or equivalently qemu_irq*)
-> is then passed to the C sysbus_init_irq function.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->   rust/hw/char/pl011/src/device.rs | 22 ++++++-----
->   rust/qemu-api/meson.build        |  2 +
->   rust/qemu-api/src/irq.rs         | 66 ++++++++++++++++++++++++++++++++
->   rust/qemu-api/src/lib.rs         |  2 +
->   rust/qemu-api/src/sysbus.rs      | 26 +++++++++++++
->   5 files changed, 108 insertions(+), 10 deletions(-)
->   create mode 100644 rust/qemu-api/src/irq.rs
->   create mode 100644 rust/qemu-api/src/sysbus.rs
+Yeah, I mean that raise uses true (or 1 :)) and lower uses false.
+an example?
 
+> Is this deliberate to restrict the Rust binding to boolean? (Maybe you
+> envision a VectoredInterruptSource implementation for that).
 
-> diff --git a/rust/qemu-api/src/irq.rs b/rust/qemu-api/src/irq.rs
-> new file mode 100644
-> index 00000000000..7dbff007995
-> --- /dev/null
-> +++ b/rust/qemu-api/src/irq.rs
-> @@ -0,0 +1,66 @@
-> +// Copyright 2024 Red Hat, Inc.
-> +// Author(s): Paolo Bonzini <pbonzini@redhat.com>
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +//! Bindings for interrupt sources
-> +
-> +use core::ptr;
-> +
-> +use crate::{
-> +    bindings::{qemu_set_irq, IRQState},
-> +    cell::BqlCell,
-> +};
-> +
-> +/// Interrupt sources are used by devices to pass changes to a boolean value to
-> +/// other devices (typically interrupt or GPIO controllers).  QEMU interrupt
-> +/// sources are always active-high.
+No, I simply wasn't aware of that.  I'll adjust; do you have
+an example?
 
-So 'always active-high' = true below? (Wondering about pulsation, if the
-true -> false transition is always correct).
+> > +/// Interrupt sources can only be triggered under the Big QEMU Lock; they are
+> > +/// neither `Send` nor `Sync`.
 
-I understand polarity is not part of this interrupt description, so for
-GPIO it has to be modelled elsewhere.
+Oops, this is incorrect.  BqlCell *is* Send/Sync, but checks the
+BQL state at run-time.
 
-Note the C API allows using qemu_set_irq() for vectored interrupts,
-which is why the prototype takes an integer argument and not a boolean.
-Is this deliberate to restrict the Rust binding to boolean? (Maybe you
-envision a VectoredInterruptSource implementation for that).
-
-> +///
-> +/// Interrupts are implemented as a pointer to the interrupt "sink", which has
-> +/// type [`IRQState`].  A device exposes its source as a QOM link property using
-> +/// a function such as
-> +/// [`SysBusDevice::init_irq`](crate::sysbus::SysBusDevice::init_irq), and
-> +/// initially leaves the pointer to a NULL value, representing an unconnected
-> +/// interrupt. To connect it, whoever creates the device fills the pointer with
-> +/// the sink's `IRQState *`, for example using `sysbus_connect_irq`.  Because
-> +/// devices are generally shared objects, interrupt sources are an example of
-> +/// the interior mutability pattern.
-> +///
-> +/// Interrupt sources can only be triggered under the Big QEMU Lock; they are
-> +/// neither `Send` nor `Sync`.
-> +#[derive(Debug)]
-> +pub struct InterruptSource(BqlCell<*mut IRQState>);
-> +
-> +impl InterruptSource {
-> +    /// Send a low (`false`) value to the interrupt sink.
-> +    pub fn lower(&self) {
-> +        self.set(false);
-> +    }
-> +
-> +    /// Send a high-low pulse to the interrupt sink.
-> +    pub fn pulse(&self) {
-> +        self.set(true);
-> +        self.set(false);
-> +    }
-> +
-> +    /// Send a high (`true`) value to the interrupt sink.
-> +    pub fn raise(&self) {
-> +        self.set(true);
-> +    }
-> +
-> +    /// Send `level` to the interrupt sink.
-> +    pub fn set(&self, level: bool) {
-> +        unsafe {
-> +            qemu_set_irq(self.0.get(), level.into());
-> +        }
-> +    }
-> +
-> +    pub(crate) const fn as_ptr(&self) -> *mut *mut IRQState {
-> +        self.0.as_ptr()
-> +    }
-> +}
-> +
-> +impl Default for InterruptSource {
-> +    fn default() -> Self {
-> +        InterruptSource(BqlCell::new(ptr::null_mut()))
-> +    }
-> +}
+Paolo
 
 
