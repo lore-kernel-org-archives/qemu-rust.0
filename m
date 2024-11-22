@@ -1,72 +1,72 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tEQbK-0007pV-Md
-	for mharc-qemu-rust@gnu.org; Fri, 22 Nov 2024 05:09:22 -0500
+	id 1tEQbi-0008Mk-2g
+	for mharc-qemu-rust@gnu.org; Fri, 22 Nov 2024 05:09:46 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tEQbI-0007mi-Is
- for qemu-rust@nongnu.org; Fri, 22 Nov 2024 05:09:20 -0500
+ (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tEQbg-0008GH-0Q
+ for qemu-rust@nongnu.org; Fri, 22 Nov 2024 05:09:44 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tEQbH-0003od-01
- for qemu-rust@nongnu.org; Fri, 22 Nov 2024 05:09:20 -0500
+ (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1tEQbe-0003s7-9S
+ for qemu-rust@nongnu.org; Fri, 22 Nov 2024 05:09:43 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1732270158;
+ s=mimecast20190719; t=1732270181;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=6kHddsQx8oufaYkPJRlAqgHi525eMKsmijnHN8eVHcU=;
- b=TxCsVAQDaen8YqSFPE1CoDUixcQdyBffIjpWKalCBQtSg+2ogUQpBJg+w31QFTXQkK6tY9
- 1kIeS1Uv8gtlB2rn4UNqgEmLvuD5bUNmmyAdO8j1PpDEDP6eZ/2JcdzbQUHpNi/yeLo/9x
- X4dRpzVmwfkMnEMT40YOPYH75AJqgeg=
+ bh=i1IWiSzOx5VC3RyUgpOez5MtsfmeowV+nHptAa//GcI=;
+ b=YlaC5Lx6tYoEvE6FYSmkrIFn/dSufn41tgWn8mxSg4922nalaW1wRQE5N0/KSJiZlkLehC
+ jRFisKmX4tyJRHR4qvPIK5j0pASSJnmXXNov58WVTNAoUhRDIt1lKNkliMlX7MgcZDfc4f
+ ogVPJVa5RDQhrd6rcycIrfnZC6Q6RSA=
 Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
  [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-338-FjrZitMpPTmNU9SPZGesOA-1; Fri, 22 Nov 2024 05:09:17 -0500
-X-MC-Unique: FjrZitMpPTmNU9SPZGesOA-1
-X-Mimecast-MFC-AGG-ID: FjrZitMpPTmNU9SPZGesOA
+ us-mta-688-6KGcnW0yPUSqMJtRkSYQ0A-1; Fri, 22 Nov 2024 05:09:39 -0500
+X-MC-Unique: 6KGcnW0yPUSqMJtRkSYQ0A-1
+X-Mimecast-MFC-AGG-ID: 6KGcnW0yPUSqMJtRkSYQ0A
 Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4315cefda02so13384605e9.0
- for <qemu-rust@nongnu.org>; Fri, 22 Nov 2024 02:09:16 -0800 (PST)
+ 5b1f17b1804b1-431518e6d8fso14650205e9.0
+ for <qemu-rust@nongnu.org>; Fri, 22 Nov 2024 02:09:38 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732270156; x=1732874956;
+ d=1e100.net; s=20230601; t=1732270178; x=1732874978;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=6kHddsQx8oufaYkPJRlAqgHi525eMKsmijnHN8eVHcU=;
- b=C5oQ7WubQ/zQRaHflbx3dTA5GKyyqSfvm35k3kbJmPn59scLKPjKl2TFg3ArR5P+qH
- S/KkJ37rYj3ynqlcQ2m1UwDrvQ1W1QkynXJEcmVumaIt59iAuTp3rXDfmMcZtdmgp9fY
- 0gqy03xdidd8iIsJkZSmbMa0bDq39gqbChU1qVLjaHpIs8WStgYoiOYo7RL/bFw9FPUH
- x49cWkd7RX8w2ns9sdIP07g9zi+zdyKP6dioKWqVlELTT72SCQ2lHAB5/+LPXX6JIRfW
- Fu6RJBuEs4L3lCIPmACFZsD6HJo89ypJeP3hkGWcsKGHNMl8CNsCZQmzmlC25tUHeLyS
- JNCw==
+ bh=i1IWiSzOx5VC3RyUgpOez5MtsfmeowV+nHptAa//GcI=;
+ b=o0ZsvZs6OWIXo4ITRuL4c34cKmJmZPNyxzAmbCOoHMHfZR+bZlqjIvXC7wVv5zGhsO
+ h8cWuSg5XqDWES+A8ErzEEULLlrsBMjPLvp9B0yrjc+89YQ07kRdvq89ljJqWcTjbagW
+ AP7oBio14s3QP47DOWDCQy3IMbne+8kCctsHrMyrqxhbG234MLz+Du3jDzo5e02/dCcQ
+ jDEOHuu9J1kweTNoey6KqPEayAoHltS5gDH/q8SbvL9yGuLnOMYnx721JQrvxRjohXj3
+ qPZlrgMa+AXGhfAZncb886DV5yVIUZDHJg+408iqalCRl4vtyyfPu21tO6TWDAlv+vRh
+ yUmg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVPyDsWj/Fm2wmgzlZKagNro7y1zw3UtPKTJ3PIpO2jo1bwZmCvPTl2i1dVsRHIwffhV97gPK5rfkY=@nongnu.org
-X-Gm-Message-State: AOJu0YxQFJG3+ca5WszScHZr3K+o3kTS8ljE9EPI49Q+bcORRebZbu6w
- hyYddbfv5RjuapQ7iG3A29JgC3pn6XixJixubXa0wQ7JzJcZ1uBhfWdYAk323Ei0fY1jedwlCND
- mFNN7PteVvU72HHXWF6XbidgM0SesJCsbA6nCCWcHIglB70QNGtE=
-X-Gm-Gg: ASbGnctofbssnGbBAbePI3b7M1EYeM8O7yjmkJSilpZ6kViTRiWmpSnJFjjRvT6tEmS
- osSjdnL4m/rxUZ5tPBaoILA4v3lWHyqmM5WZIrXfeeDjT6ROK8aB0UZGHU/T3lTwga1hiZpn6X3
- htts3cLtmxDdw+4EEL9oj6eBN7/QfvAmPf2bWwuMnsf683jB6fG1Xh9joIHTZ3RPj9enULnvYdn
- 5ed9do+pF3KZA3N/c7SDE87GNTDrzRjKR05idRXqeNNGo4nKD+SBqyDTNkzNkZ6Rurtrd9TDws=
-X-Received: by 2002:a05:600c:a01:b0:42c:b9c7:f54b with SMTP id
- 5b1f17b1804b1-433ce427070mr20591165e9.16.1732270155897; 
- Fri, 22 Nov 2024 02:09:15 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFjSjQgxOvhxHpGjDLLrsGuwXQPqVnmaRplWZjTkXsGfuaMveOY5a2Ea4tlZg6dZwoAz1Qdsg==
-X-Received: by 2002:a05:600c:a01:b0:42c:b9c7:f54b with SMTP id
- 5b1f17b1804b1-433ce427070mr20590665e9.16.1732270155510; 
- Fri, 22 Nov 2024 02:09:15 -0800 (PST)
+ AJvYcCVHDtjYBFA54T+HOqjvGMnNL+nY46KsDP4mm5xOEPtyHFl1rwGG2HmUelVkuqLXqM8s1yc2VBJWlNw=@nongnu.org
+X-Gm-Message-State: AOJu0YzzUsKxX6gI00E4L8hz9btWLCjUwR49Bf9UIf/gL54oVRjVa20G
+ H6hogvM91rKxhQYtS9LMp4MOWhs7Pz991v3+oDiIpVQWaf7Wm+H5FB40rDmJQVNjlpumlOLeqI6
+ i0+LrEV9+25RItHSSvO4/gjlp0mEzAW29k0amKlmNB26Q+xsqkTY=
+X-Gm-Gg: ASbGncsBXzjxshOoKr3wI8/rMxCCs+jYPSP29R50gcisnC+HVjRrr/8vMs0F/eNgnVe
+ XGWs9sd5CR9O3mSmQu6VJDXy/FQtC8VKNc6adLIS47Jarg+vXy9jeFlPtkMyyTF7B7D9ksty8ey
+ VFHAaMJ5vV49Hw+yCjfGlIJIKDxN6YnsigRHdR4LJ6Q3r79UodeJYmbHCcwFnUEqE7qRUkUSR0N
+ QXi58jcbPWcK3IlwtEtp5qkLb+w5UkCA10BuGAXyglaCXA0AMjnxTmMI2kFepOjFTI8pxtlaqU=
+X-Received: by 2002:a05:600c:a02:b0:431:4a5a:f09a with SMTP id
+ 5b1f17b1804b1-433ce4b2f62mr17706065e9.24.1732270177972; 
+ Fri, 22 Nov 2024 02:09:37 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFC8jYaKrXtJjcUI7a2KCrdtuoU7WHnMIz/GCUctKtJjT5yGSFph8UOK/9oCGujf4GmtDNgVg==
+X-Received: by 2002:a05:600c:a02:b0:431:4a5a:f09a with SMTP id
+ 5b1f17b1804b1-433ce4b2f62mr17705665e9.24.1732270177634; 
+ Fri, 22 Nov 2024 02:09:37 -0800 (PST)
 Received: from [10.33.192.206] (nat-pool-str-t.redhat.com. [149.14.88.106])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-433b45bdb61sm85280225e9.16.2024.11.22.02.09.14
+ 5b1f17b1804b1-433cde98993sm22092855e9.37.2024.11.22.02.09.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Nov 2024 02:09:15 -0800 (PST)
-Message-ID: <193e0a8a-dfb8-42c9-886c-ea4153ed985a@redhat.com>
-Date: Fri, 22 Nov 2024 11:09:13 +0100
+ Fri, 22 Nov 2024 02:09:37 -0800 (PST)
+Message-ID: <bbf0c995-53be-4aaa-9999-2ce38a442f36@redhat.com>
+Date: Fri, 22 Nov 2024 11:09:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 25/39] tests/functional: update the mips32el tuxrun tests
+Subject: Re: [PATCH 26/39] tests/functional: update the mips64 tuxrun tests
 To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
  qemu-devel@nongnu.org
 Cc: Peter Maydell <peter.maydell@linaro.org>,
@@ -96,7 +96,7 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
  Alistair Francis <alistair.francis@wdc.com>,
  Anders Roxell <anders.roxell@linaro.org>
 References: <20241121165806.476008-1-alex.bennee@linaro.org>
- <20241121165806.476008-26-alex.bennee@linaro.org>
+ <20241121165806.476008-27-alex.bennee@linaro.org>
 From: Thomas Huth <thuth@redhat.com>
 Autocrypt: addr=thuth@redhat.com; keydata=
  xsFNBFH7eUwBEACzyOXKU+5Pcs6wNpKzrlJwzRl3VGZt95VCdb+FgoU9g11m7FWcOafrVRwU
@@ -140,9 +140,9 @@ Autocrypt: addr=thuth@redhat.com; keydata=
  oiT+z+/E59qj/EKfyce3sbC9XLjXv3mHMrq1tKX4G7IJGnS989E/fg6crv6NHae9Ckm7+lSs
  IQu4bBP2GxiRQ+NV3iV/KU3ebMRzqIC//DCOxzQNFNJAKldPe/bKZMCxEqtVoRkuJtNdp/5a
  yXFZ6TfE1hGKrDBYAm4vrnZ4CXFSBDllL59cFFOJCkn4Xboj/aVxxJxF30bn
-In-Reply-To: <20241121165806.476008-26-alex.bennee@linaro.org>
+In-Reply-To: <20241121165806.476008-27-alex.bennee@linaro.org>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: qACC7Sy7IkqblPusgejh51dCNTTGZDR3GAYs8MN43zI_1732270156
+X-Mimecast-MFC-PROC-ID: bBTxnMu7fgaELbHLf_1K5upftnNA0Ey6NR5hL-TE3ts_1732270178
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -169,7 +169,7 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Nov 2024 10:09:20 -0000
+X-List-Received-Date: Fri, 22 Nov 2024 10:09:44 -0000
 
 On 21/11/2024 17.57, Alex Bennée wrote:
 > Now there are new upto date images available we should update to them.
@@ -177,7 +177,7 @@ On 21/11/2024 17.57, Alex Bennée wrote:
 > Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
 > Cc: Anders Roxell <anders.roxell@linaro.org>
 > ---
->   tests/functional/test_mipsel_tuxrun.py | 8 ++++----
+>   tests/functional/test_mips64_tuxrun.py | 8 ++++----
 >   1 file changed, 4 insertions(+), 4 deletions(-)
 
 Reviewed-by: Thomas Huth <thuth@redhat.com>
