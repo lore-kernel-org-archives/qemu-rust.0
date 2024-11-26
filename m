@@ -1,121 +1,78 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tFyAn-0006Yr-8v
-	for mharc-qemu-rust@gnu.org; Tue, 26 Nov 2024 11:12:21 -0500
+	id 1tFzuC-0007rx-TZ
+	for mharc-qemu-rust@gnu.org; Tue, 26 Nov 2024 13:03:20 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tFyAk-0006Y8-NH
- for qemu-rust@nongnu.org; Tue, 26 Nov 2024 11:12:18 -0500
+ id 1tFztf-0007bu-SQ
+ for qemu-rust@nongnu.org; Tue, 26 Nov 2024 13:02:48 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tFyAi-0000ZO-Va
- for qemu-rust@nongnu.org; Tue, 26 Nov 2024 11:12:18 -0500
+ id 1tFztc-0005ag-PZ
+ for qemu-rust@nongnu.org; Tue, 26 Nov 2024 13:02:47 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1732637536;
+ s=mimecast20190719; t=1732644162;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=4093Wg8NQ3L+uAmVbCET8ogJ7LPm6PashZNP2AERg/c=;
- b=fZvDzp3AAUno8zq+S/eUDG4PaBbiVgOhoHCrOAGinhCXWvw81LzRjWXbO/LNq622RCzHbU
- NS5uNClPjsNORJpLuYRyJFonbkJjaDTSB6R1SHD7udNmyBWJyJ4i9+yqxBjuVN7OekeBH5
- FgZ0Z2UE+SwIEW4qDMFNo9mxIo7fIiY=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=S83XJnMzLI8LacLdWrtVYwsB++1icr8Ej3GR3pT0z94=;
+ b=LHnT6fEFYFmMkqW9QYZCidXOtKUJ+QxHiDNY+p/Kv4HTzsnBiJDeb7EL5kDyD5ixLJVnfL
+ K1EwvoIf0tOskADx/WTnOdgmN0EIfaGDN8vbhwznVIqZ/x4mdP80hfDmc4fhRmYtJvOiOz
+ QadU1SNqKXEwFKq+nqA/FKJA72GI5nc=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-42-mhRtf_7jMR270qneyyAkuQ-1; Tue, 26 Nov 2024 11:12:09 -0500
-X-MC-Unique: mhRtf_7jMR270qneyyAkuQ-1
-X-Mimecast-MFC-AGG-ID: mhRtf_7jMR270qneyyAkuQ
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-4349cda1899so20496695e9.0
- for <qemu-rust@nongnu.org>; Tue, 26 Nov 2024 08:12:09 -0800 (PST)
+ us-mta-122-bqRly84TOk-O-GX4XJqEkA-1; Tue, 26 Nov 2024 13:02:40 -0500
+X-MC-Unique: bqRly84TOk-O-GX4XJqEkA-1
+X-Mimecast-MFC-AGG-ID: bqRly84TOk-O-GX4XJqEkA
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-434a96889baso1663615e9.2
+ for <qemu-rust@nongnu.org>; Tue, 26 Nov 2024 10:02:39 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732637528; x=1733242328;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :references:cc:to:subject:from:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4093Wg8NQ3L+uAmVbCET8ogJ7LPm6PashZNP2AERg/c=;
- b=T2KdKlkDVbBTpImAZmpq/ilPqDaiSXOCiCrIR1R3rRDwelqvTfx7rQvFmB2V3NlIgf
- se9eZtyDMaBcWqcSk2jrVb96jwTthWFkvHhaq/tANCjqVP9ArzQoAOaezx9lcm8sgYgD
- 8jaaBEzRROvg/sD/BJh0pMOyUGR0PVKfA2b89T19IG5NeW68JcrlusPvSycllR2C3JT+
- ZKB9yRHQ3XLyKDSU9LIU3/3UGNAY4GCidsCjD0CDYRk1+hvkoJ69aVspy58Jyt+wCyT9
- RjEiaZMLe17DnSqoPTzafVMpB0OJwACMp3PCLGx/cCm52I4eLIGwbx/bf98fS2AFdOhc
- fzqA==
+ d=1e100.net; s=20230601; t=1732644159; x=1733248959;
+ h=content-transfer-encoding:mime-version:message-id:date:to:subject
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=S83XJnMzLI8LacLdWrtVYwsB++1icr8Ej3GR3pT0z94=;
+ b=m1pBRJHxxlA2+rrS/DTyYOAHNGkAUaXvUVaY8X8sQPCK+r8/pXK70Rp2Leczs3MmQ+
+ UFCSJqYSd2Szvo6eiwKkkyRsear4Zfz8Be37WLLJiIi11R89MKIWI/8q87RviA7luB7v
+ OEvMNX1/N0EHdgIpbdIb1ACIv2ybmCeDcLxsHWaY5syTEh7m7fjqYbe4Hq1SND0ydatG
+ zACqwImFHRp08u7zyC+P4HZF7szLl3OphR6hFesPYU6xdXCmyMbuU4UxRxqYpuQRmNA8
+ crXsyhC/4jv6D3ErrrkPhl0y4EHOfQ17BhRpZPtwPi6nk9RdtpZn6H6QbCKAqk5rWCvo
+ 1Pqw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUl2IMjci+pPskSLTPsXVFATASTGUmsVA9QID5H7rfOi3tWLNer4GHPLpg017NmLZwi6VZjoteNSL8=@nongnu.org
-X-Gm-Message-State: AOJu0Yw2qTm1YderXGaL+nVky/XNKO4+Aerdg2UPbkqpreVyEqKDWYuA
- b9gUb4qMTvBVbtIH+9uCcVUF0jkDDvhYIfRzPSHzWoQjzQYzNs2D6+Km8PRN7Gclt7om7lGclsG
- 0F7ffr4YbkC/j/Wz1FWDPP5H1kKo8i2rK5JZ8UzeP6riD9SQQsp0=
-X-Gm-Gg: ASbGnctCSgIJ88Gs11EEFKc4u+WKv9/8+o882DVLZCIg8bp5E4TnJ4qsvSq9UPv8BeX
- MyE+19Nd88zVFefl1bl9Lq3G5O/c4BQhF0rJBekePb3S2Pjar9E46w20QL8ImkeDgamlgio6paI
- aC271E4cnoNWryCyGHukH15f+Sky49ekyrz+deOex1zMgV+QnME17PRU/qxeKQzMJk6QEgalY1W
- FRm7DMMZqypa4M7C3WWpPQdMGHdeZ8VmuDyYlvDqqsZpFZCZYqgfg==
-X-Received: by 2002:a05:600c:1990:b0:434:a555:d0d with SMTP id
- 5b1f17b1804b1-434a5551bbamr30526695e9.29.1732637528252; 
- Tue, 26 Nov 2024 08:12:08 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGQ++Mc8u3l8NOs6ZQ+mbeYDLsr3IvhF7lClVmeIbN+poPmk50mXY1vNC68GL5sUz+gD/TeFQ==
-X-Received: by 2002:a05:600c:1990:b0:434:a555:d0d with SMTP id
- 5b1f17b1804b1-434a5551bbamr30507515e9.29.1732637497928; 
- Tue, 26 Nov 2024 08:11:37 -0800 (PST)
+ AJvYcCV6kJT291h1Hw0iiBI/v43Z4Z1ejBIZdH7lbg6vyXrkqpa+WezHI0DCcMSdgfHrdu1CJX4qMKh05Ds=@nongnu.org
+X-Gm-Message-State: AOJu0YxxY2PkXpbIq2SF63udrKJE1Vdq9rED8ajCe3mDSNHCIYycwhE6
+ CVWrMCPl95WK/pYymFgFBA0p8C5cutB0QVO1lBUEShXo/rA+1Fd2RYrW+xH4QjSoGxnIt9B3o12
+ TwA/MeMG9P66OZPzvt1/DUbQiteUKymG8IK2jS0PS+/BwfVTZaVU=
+X-Gm-Gg: ASbGncuFIeYw5WdNlFh1Fa2xgr9/2ojiaI36fSskYqLX2wkhsAF8MRDVOHo1VjQiGyx
+ +j6QFZeVbVWqNeT0ALuNNCp/OSTsptLWeOjeXsblqK0S3Q+tlz/sC/zj4K/e4hrM9nzNrp9Zeb3
+ /XJF0CI5hwHXM77ZjbUNm/nloEDlBZ00/Wh3qarm+GexIipL65HiLiasO1UCYZb89Vv2yxqJaox
+ fvP/Bt8r2gExfOww3poAFHOpj0bchJ+e4u4Fw+Uq3Zi2flP2/C2gg==
+X-Received: by 2002:a05:6000:2cd:b0:382:498a:9cf5 with SMTP id
+ ffacd0b85a97d-38260b5ae29mr17875597f8f.14.1732644156970; 
+ Tue, 26 Nov 2024 10:02:36 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGc+IpXjVRsDJexVrYAd43JWmOHWQ+E3QDWjASMZY2qGG3x9J3fh/SyMQqjTQGi8jpxMh8HbQ==
+X-Received: by 2002:a05:6000:2cd:b0:382:498a:9cf5 with SMTP id
+ ffacd0b85a97d-38260b5ae29mr17875377f8f.14.1732644154939; 
+ Tue, 26 Nov 2024 10:02:34 -0800 (PST)
 Received: from [192.168.10.3] ([151.49.236.146])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-433b463ab44sm238573555e9.30.2024.11.26.08.11.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Nov 2024 08:11:37 -0800 (PST)
-Message-ID: <1d0e1b5f-36ad-41d4-b526-260fa5cd0b34@redhat.com>
-Date: Tue, 26 Nov 2024 17:11:36 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3825fb2760asm13870895f8f.52.2024.11.26.10.02.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 26 Nov 2024 10:02:34 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH 1/2] rust: add BQL-enforcing Cell variant
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel@nongnu.org, junjie.mao@hotmail.com, qemu-rust@nongnu.org
-References: <20241122074756.282142-1-pbonzini@redhat.com>
- <20241122074756.282142-2-pbonzini@redhat.com> <Z0XhhB48W4Nqagku@intel.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <Z0XhhB48W4Nqagku@intel.com>
+Subject: Rust in QEMU roadmap
+To: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Date: Tue, 26 Nov 2024 18:46:45 +0100
+Message-ID: <cc40943e-dec1-4890-a1d9-579350ce296f@pbonzini.local>
+X-Mailer: git-send-email 2.47.0
+MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: YPv6bzNDnm31DCjFE_HMf4MKlrlnj_FQPhD9IwMZT-c_1732637528
+X-Mimecast-MFC-PROC-ID: ljX7kzeNxhQjR2w7GJtcyHZSxJfwii9hLn02jFVxFGg_1732644159
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
@@ -138,144 +95,391 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Nov 2024 16:12:18 -0000
+X-List-Received-Date: Tue, 26 Nov 2024 18:02:48 -0000
 
-On 11/26/24 15:56, Zhao Liu wrote:
->>> But this actually applies to _all_ of the device struct!  Once a
->>> pointer to the device has been handed out (for example via
->>> memory_region_init_io or qdev_init_clock_in), accesses to the device
->>> struct must not use &mut anymore.
-> 
-> is the final goal to wrap the entire DeviceState into the
-> BQLRefCell as well?
+[several people are in bcc.  You can follow the thread at
+ https://lore.kernel.org/r/cc40943e-dec1-4890-a1d9-579350ce296f@pbonzini.local]
 
-Not all of it, but certainly parts of it.  For example, the
-properties are not mutable so they don't need to be in the BqlRefCell. 
-The parents (SysBusDevice/DeviceState/Object) also manage their 
-mutability on their own.
+Based on the content presented in the community calls, here are some
+ideas for future Rust in QEMU subprojects.
 
-The registers and FIFO state would be in q BqlRefCell; as an 
-approximation I expect that if you migrate a field, it will likely be in 
-a BqlRefCell.
+This is by no means exhaustive, for example QAPI and async (block devices)
+are missing because I have not looked at them.
 
-For PL011, that would be something like
+Table of contents
+'''''''''''''''''
 
-struct PL011Registers {
-     pub flags: registers::Flags,
-     pub line_control: registers::LineControl,
-     pub receive_status_error_clear: registers::ReceiveStatusErrorClear,
-     pub control: registers::Control,
-     pub dmacr: u32,
-     pub int_enabled: u32,
-     pub int_level: u32,
-     pub read_fifo: [u32; PL011_FIFO_DEPTH],
-     pub ilpr: u32,
-     pub ibrd: u32,
-     pub fbrd: u32,
-     pub ifl: u32,
-     pub read_pos: usize,
-     pub read_count: usize,
-     pub read_trigger: usize,
-}
+* Status in QEMU 9.2
+* Build system
+* Feature parity for pl011 device
+* Avoiding undefined behavior
+* Safe QOM class definitions
+* QOM method calls
+* Callbacks
+* Tracing/logging
+* Data structure interoperability
+* Features expected from recent rust
 
-and a single "regs: BqlRefCell<PL011Registers>" in PL011State.
 
->> QEMU's Big Lock (BQL) effectively turns multi-threaded code into
->> single-threaded code while device code runs, as long as the BQL is not
->> released while the device is borrowed (because C code could sneak in and
->> mutate the device).  We can then introduce custom interior mutability primitives
->> that are semantically similar to the standard library's (single-threaded)
->> Cell and RefCell, but account for QEMU's threading model.  Accessing
->> the "BqlCell" or borrowing the "BqlRefCell" requires proving that the
->> BQL is held, and attempting to access without the BQL is a runtime panic,
->> similar to RefCell's already-borrowed panic.
-> 
-> This design is very clever and clear!
-> 
-> But I'm a little fuzzy on when to use it. And could you educate me on
-> whether there are any guidelines for determining which bindings should
-> be placed in the BQLCell, such as anything that might be shared?
+Status in QEMU 9.2
+''''''''''''''''''
 
-It's the same as normal Rust code.  If in Rust you'd use a Cell or a 
-RefCell, use a BqlCell or a BqlRefCell.
+QEMU when built with --enable-rust compiles on all supported
+build platforms.  It passes CI and "make check-unit" runs tests for
+rust/qemu-api.  "make check-qtests" covers the Rust pl011 device model
+including migration.  However, Rust is not enabled and its presence is
+not checked for by default.
 
-Right now it's hard to see it because there are a lot of "bad" casts 
-from *mut to &mut.  But once the right bindings are in place, it will be 
-a lot clearer.  For example the pl011 receive callback (currently an 
-unsafe fn) might look like this:
+Lots of unsafe code is needed to define classes, define callbakcs, and
+invoke any core functionality.  That said, the current pl011 code provides
+a good roadmap for what functionality Rust code needs more urgently.
 
-     pub fn receive(&mut self, buf: [u8]) {
-         if self.loopback_enabled() {
-             return;
-         }
-         if !buf.is_empty() {
-             debug_assert!(buf.len() == 1);
-             self.put_fifo(buf[0].into());
-         }
-     }
+Zhao Liu is working on a conversion to Rust of the HPET device.  It has the
+same limitations, but it covers a slightly different set of functionality
+(e.g. timers) and it provides a second device with which to validate
+the abstractions that are being built.  However, including any device
+beyond these two should (in my opinion) wait until FFI abstractions are
+ready and usage of unsafe code is limited (especially after initialization).
 
-except that it would not compile because the receiver must be &self. 
-Hence the need for the BqlRefCell<PL011Registers>, which lets you change 
-it to
+For now we're looking at simple devices.  These do not do any DMA or
+memory allocation; there is hardly any benefit from Rewriting In Rust.
+However, they are small and self-contained, and let us learn to walk
+before we try to run.
 
-     pub fn receive(&self, buf: [u8]) {
-         let regs = self.regs.borrow_mut();
-         if regs.loopback_enabled() {
-             return;
-         }
-         if !buf.is_empty() {
-             debug_assert!(buf.len() == 1);
-             regs.put_fifo(buf[0].into());
-         }
-     }
+For anybody who wants to work on FFI, it is highly recommended to consult
+the subsystem maintainers and to post *early and often*.  Also include
+links to the mailing list threads in https://wiki.qemu.org/RustInQemu.
 
-Likewise for the MemoryRegionOps.  Right now you have
 
-     pub fn write(&mut self, offset: hwaddr, value: u64) {
-         ...
-     }
+Build system
+''''''''''''
 
-but it will become
+Posted: https://lore.kernel.org/qemu-devel/20241108180139.117112-1-pbonzini@redhat.com/
 
-     pub fn write(&self, offset: hwaddr, value: u64) {
-         let regs = self.regs.borrow_mut();
-         ...
-     }
+This provides developers with easy access to clippy, rustfmt and rustdoc;
+and in general Cargo is the easiest way to integrate tools other than rustc.
+This series also makes it possible to configure warnings with the familiar
+syntax provided by Cargo.toml.
 
-Or who knows---perhaps the body of PL011State::write could become 
-PL011Registers::write, and PL011State will do just
+Next steps:
 
-     pub fn write(&self, offset: hwaddr, value: u64) {
-         self.regs.borrow_mut().write(offset, value);
-         self.update()
-     }
+* Access to clippy and rustfmt could be done by Meson, similar to its
+  existing "ninja clang-tidy" and "ninja clang-format" targets.  This
+  removes code from QEMU and more importantly avoids that every mixed
+  Rust/C project reinvents the wheel.
 
-You can already apply this technique to your HPET port using a "normal" 
-RefCell.  You'd lose the BQL assertion check and your object will not be 
-Sync/Send (this is technically incorrect, because the code *does* run in 
-multiple threads, but with the current state of Rust in QEMU it's not a 
-bad option), but apart from this it will work.
+* rustdoc tests should be integrated into "make check".  Running "cargo
+  test --doc" has the limitation that the tests are not able to link with
+  C code.  I have prototyped this, but mostly to teach myself how rustdoc
+  tests are run and implement them in Meson.
 
-However if you have already written a vmstate, you'll have to disable 
-the vmstate temporarily because the vmstate macros cannot (yet) accept 
-fields within a BqlRefCell.  Personally I believe that disabling vmstate 
-and experimenting with interior mutability is a good compromise.
+Long term a separate rust/ directory probably will not exist, and it'd
+be nice to avoid having a proliferation of src/ directories since QEMU
+has hundreds of devices.  It will be interesting to see whether at that
+point there will still be a need for Cargo, or whether all required
+functionality will be included in Meson before we get there.
 
-Plus, speaking in general, "it does something in a different way than 
-the pl011 device model" is a good reason to merge the HPET model earlier 
-too. :)
+Summary:
+* The series is mostly Python and Meson code so I am comfortable merging
+  it in 10.0
 
->> +    #[inline]
->> +    pub fn replace(&self, val: T) -> T {
->> +        debug_assert!(bql_locked());
-> 
-> Could debug_assert() work? IIUC, it requires to pass `-C debug-assertions` to
-> compiler, but currently we don't support this flag in meson...
+* Long term, cargo-like functionality should be provided by Meson.  In
+  the meanwhile it can be implemented by hand, but we should upgrade
+  to Meson 1.7.0 if it comes out with native support for clippy and
+  friends.
 
-Meson automatically adds -C debug-assertions unless you configure with 
--Db_ndebug=off, which we never do.  So debug_assert!() is always on in 
-QEMU; whether to use it or assert!() is more of a documentation choice.
 
-Paolo
+Feature parity for pl011 device
+'''''''''''''''''''''''''''''''
+
+Some recent pl011 commits are missing in the Rust version.  Philippe
+volunteered to port them to teach himself Rust.
+
+Philippe also has a series to implement flow control and better use
+of the PL011 FIFO (IIUC).  Porting this to Rust would be hard right
+now, so its Rust implementation blocked on having chardev bindings.
+
+Also missing is logging and tracing, but this part should not be a
+blocker for defaulting to --enable-rust.
+
+Summary:
+
+* Philippe's FIFO work might impact the plan of defaulting to
+  --enable-rust as soon as 10.0.
+
+
+Avoiding undefined behavior
+'''''''''''''''''''''''''''
+
+Part 1: https://lore.kernel.org/qemu-devel/20241122074756.282142-1-pbonzini@redhat.com/
+
+Currently, the Rust in QEMU code is not respecting the invariant that
+mutable references must be either unique or obtained from an UnsafeCell<>.
+It's also in some cases creating references (either shared or mutable)
+that point to invalid data, for example NULL references.  This was
+a necessary evil to be able to have *some* Rust code in tree and
+develop build system integration, but it obviously has to be fixed.
+
+The first part is solved by annotating the code to use the proper
+interior mutability types.  These include homegrown variants of Cell
+and RefCell that support the "big QEMU lock", and therefore are
+usable in a multi-threaded context.  In particular, QEMU's variant of
+RefCell will also check that bql_unlock() is never called with outstanding
+borrows.
+
+The second part is solved by using Linux's pinned-init crate, which is
+available for use in userspace on crates.io.  The pinned-init crate avoids
+exposing partially-initialized objects to safe Rust code.  Right now
+it only supports nightly Rust, but I've sent a pull request to fix this;
+supporting Debian's rustc 1.63.0 of this pull request is not an issue.
+
+Summary:
+
+* Introduce cell types as needed.  BqlCell was posted, BqlRefCell is
+  written but does not have a use yet.
+
+* Using pinned-init is planned but will come later.
+
+
+Safe QOM class definitions
+''''''''''''''''''''''''''
+
+Part 1: https://lore.kernel.org/qemu-devel/20241125080507.115450-1-pbonzini@redhat.com/
+
+QOM's object-oriented, inheritance heavy design is a challenge for Rust,
+but fortunately we can learn from the experience of glib-rs developers.
+There are two orthogonal parts to making QOM accessible from safe,
+idiomatic Rust code: namely, defining QOM classes and calling QOM methods.
+
+With respect to defining QOM classes, it is expected that Rust code
+will mostly define *leaf* classes, which simplifies the task a bit.
+Or at least, that any superclasses defined by Rust code will only be
+subclassed in Rust as well.
+
+A first attempt at this was posted by Manos, but in the review I
+commented that his procedural macro approach was limited to subclasses
+of DeviceState.  It would be much better to have something more easily
+adaptable to other classes.
+
+For now I've posted a series that removes code duplication but is still
+very much focused on four elements of DeviceClass (realize, legacy reset,
+properties, vmstate).  This part is simple.
+
+A second step is to encode the QOM hierarchy in the type system.  A new
+ClassInitImpl<ClassType> trait initializes the methods of a specific
+class, for example DeviceClass, and then "recurses" to the superclass::
+
+  trait ClassInitImpl<ClassType> {
+    fn class_init(class: &mut ClassType);
+  }
+
+  impl ClassInitImpl<DeviceClass> for T where T: DeviceImpl {
+    fn class_init(class: &mut DeviceClass) {
+      dc.realize = rust_realize_fn::<T>;
+      ...
+      <Self as ClassInitImpl::<ObjectClass>>::class_init(class.parent_class);
+    }
+  }
+
+  impl ClassInitImpl<ObjectClass> for T where T: ObjectImpl { ... }
+
+This generalizes the class_init implementation that is in the already-posted
+part.  The same pattern of recursion can be used to support QOM interfaces
+as well.
+
+Summary:
+
+* Reviews are welcome on the first part.  Hopefully when I post the second
+  (mid December?) the first will have been reviewed at least in part.
+
+* Procedural macros still remain a valuable tool.  Using them for qdev
+  properties should be easy to extract from Manos's submission.  In the
+  review I also proposed building a small "toolkit" that can be reused
+  by more procedural macros in the future.
+
+
+QOM method calls
+''''''''''''''''
+
+This is a separate branch of QOM work that I had started last July, by looking
+at glib-rs's implementation of GObject.  The idea is to be able to write code
+that looks like native Rust but calls QOM methods.  For example::
+
+   let dev = PL011State::new();
+   dev.prop_set_chr("chardev", chr)
+   dev.realize().unwrap_fatal();		// operate on Error**
+   dev.mmio_map(0, addr);
+   dev.connect_irq(0, irq);
+   Object::into_raw(dev)
+
+Note how methods can come from multiple classes (DeviceState, SysBusDevice,
+even Object in the case of "new").  This makes it harder to implement devices
+as something like SysBusDevice<PL011Properties, PL011Registers>; you'd still
+have to surface methods in superclasses of SysBusDevice, for example
+"prop_set_chr" or "realize" in the above example.
+
+glib-rs's implementation is based on an IsA trait that has to be written
+by hand (e.g. PL011State implements IsA<Object>, IsA<DeviceState>,
+IsA<SysBusDevice>).  Rust's automatic dereferencing behavior can then be
+extended to all superclasses; wrappers for methods are implemented in a
+trait::
+
+  trait DeviceMethods {
+    fn realize(&self) -> Result<(), qemu_api::Error> {
+      ...
+      device_realize((self as *const _).cast_mut().cast::<DeviceState>, ...);
+      ...
+    }
+  }
+
+and the trait is applied to everything that dereferences to a subclass of
+DeviceState::
+
+  impl<R: Deref> DeviceMethods for R where R::Target: IsA<DeviceState> {}
+
+Related to this, the IsA trait allows typesafe compile-time checked casts.
+Unlike in C code, casting to a superclass can be written in such a way
+that the compiler will complain if the destination type is *not* a
+superclass, and with zero runtime cost.
+
+Callbacks
+'''''''''
+
+This is the least mature of the "urgent" changes, and perhaps the more
+important to have a good design for.  PL011 has callbacks for character
+devices and memory regions, but other usecases include timers, bottom
+halves and interrupt sinks (aka GPIO inputs).
+
+So far all I have is a silly 100% Rust example that uses callbacks
+as you would have find tham in C (so with function pointers and void*
+opaques); it then implements "bindings" where you write a Rust trait
+and the function pointers are filled in automatically.  You can find it
+at https://gist.github.com/bonzini/2c63a905851f4f78573d022b1f196f4f.
+The reason for doing this exercise with Rust, despite the code
+looking nothing like idiomatic Rust, is to make sure that Miri (Rust's
+experimental "undefined behavior detector") likes it.
+
+HPET, which Zhao is working on, is particularly interesting because it
+also has *arrays* of timers.
+
+Summary:
+
+* This requires some adventurous person to look at it.  It's not impossible
+  but it's both harder and high priority.
+
+* Linux has some examples but they are really hard to follow.  If anything
+  easier is possible at the cost of leaving some easily-verifed "unsafe"
+  blocks (and still provide safe callbacks for timers, memory regions, etc.)
+  that may be a better short term plan.
+
+
+Tracing/logging
+'''''''''''''''
+
+Tracepoints and logging are not supported yet, and no one has started working
+on it.
+
+For tracing, it's not clear to me how much C code can be reused and how
+much Rust code can be automatically generated.  This would be a valid
+Outreachy or Summer of Code project, as it has a limited need for unsafe
+code and a well-defined scope.
+
+A pure-Rust implementation would be interesting, but note that the usage
+of printf-style %-based field formatting is pervasive in the tracing
+subsystem.
+
+Logging is a small component of QEMU and it's a good opportunity to define
+a coding style for C code translated to Rust, e.g. how to name enums and
+functions.  My only request is to allow using the same syntax as format!()
+for logging code!
+
+Summary:
+
+* Simple, low priority.
+
+* Anybody wants a small project to learn Rust FFI?
+
+
+Data structure interoperability
+'''''''''''''''''''''''''''''''
+
+The poster child here is "Error", i.e. providing an easy way to convert
+from QEMU's Error object to Rust's Error trait and back.
+
+Both Marc-André and I have worked on this with two different approaches.
+Marc-André based his on glib-rs, which focuses on the desired ownership
+semantics (i.e. whether the resulting data is owned by Rust or C) because
+glib-rs in turn was inspired by GIR (the GObject cross-language
+introspection interfaces).  Mine instead tries to extend the ideas
+behind the Rust traits From<>/Into<>/Clone to provide conversion and
+cloning of Rust objects into C objects and vice versa.
+
+The primitives are similar:
+
+    from_glib_full          from_foreign
+    from_glib_none          cloned_from_foreign
+    to_glib_full            clone_to_foreign_ptr
+    to_glib_none            clone_to_foreign
+
+though the design and code are very different
+
+Summary:
+
+* I am obviously biased, so this needs more brains to help with the design.
+  It's not urgent but it has to be figured out before we get to QAPI.  Maybe
+  even asking on users.rust-lang.org could be an idea.
+
+* I'm not planning any work on this for now, but I'd like whatever approach
+  we choose to be an external crate that is developed outside QEMU and just
+  used by it.
+
+
+Features expected from recent rust
+''''''''''''''''''''''''''''''''''
+
+QEMU supports rustc version 1.63.0 and newer.  Notably, the following features
+are missing:
+
+* ``core::ffi`` (1.64.0).  Using ``std::os::raw`` and ``std::ffi`` instead.
+
+* "let ... else" (1.65.0).  Using ``if let`` instead.  This is currently patched
+  in QEMU's vendored copy of the bilge crate.
+
+* ``CStr::from_bytes_with_nul()`` as a ``const`` function (1.72.0).
+
+* MaybeUninit::zeroed() as a ``const`` function (1.75.0).  QEMU uses a
+  ``Zeroable`` trait, and you can implement it to provide by hand a
+  ``Zeroable::ZERO`` associated constant.
+
+It is expected that QEMU will advance its minimum supported version of
+rustc to 1.75.0 as soon as it stops supporting Debian bookworm.  However,
+the following will still be missing:
+
+* c"" literals (stable in 1.77.0).  QEMU provides a ``c_str!()`` macro
+  to define ``CStr`` constants easily, so no big deal.
+
+* ``offset_of!`` (stable in 1.77.0).  QEMU uses ``offset_of!()`` heavily and
+  provides a ``const``-friendly replacement in the ``qemu_api`` crate.
+  Also note that *nested* ``offset_of!`` was only stabilized in Rust
+  1.82.0, which will probably be useful as soon as we start using BqlCell
+  and BqlRefCell more widely.  So we'll be stuck with our replacement
+  for a while.
+
+* ``&raw`` (stable in 1.82.0).  Using ``addr_of!`` and ``addr_of_mut!``
+  instead, though hopefully the need for raw pointers will go down over time.
+
+* ``new_uninit`` (stable in 1.82.0).  This is used internally by the
+  ``pinned_init`` crate, but it can be patched easily when/if QEMU vendors a
+  copy of the crate.
+
+* referencing statics in constants (stable in 1.83.0).  For now, using a
+  const function is the sole alternative.
+
+
+QEMU also supports version 0.60.x of bindgen, which is missing option
+``--generate-cstr``.  This requires version 0.66.x and will be adopted
+as soon as supporting these older versions is not necessary anymore.
+This only affects a handful of places, which are easily found as they'll
+not compile anymore once the option is addde back.
 
 
