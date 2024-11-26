@@ -1,132 +1,64 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tFvj5-00039e-UK
-	for mharc-qemu-rust@gnu.org; Tue, 26 Nov 2024 08:35:35 -0500
+	id 1tFvzn-0008Ra-46
+	for mharc-qemu-rust@gnu.org; Tue, 26 Nov 2024 08:52:52 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tFvj2-00038z-HB
- for qemu-rust@nongnu.org; Tue, 26 Nov 2024 08:35:33 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tFvb4-0001aQ-0x; Tue, 26 Nov 2024 08:27:20 -0500
+Received: from mgamail.intel.com ([198.175.65.13])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tFvj0-0008RL-Bp
- for qemu-rust@nongnu.org; Tue, 26 Nov 2024 08:35:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1732628127;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=J/WMazwLDcVs71OKEl1CHvYjffjtAQIjP5TA8DAH+sw=;
- b=C/8ud2vdlTmG3okTap8aeTmenLbEp6DwOK8CIlG7maallG/Ier5vtaDzgJdtXoMBHJMjr0
- oXEIgOR6U7CToRk7nrG6i35ZczLA4RZxnzNo1YVLLB76Y8L6Z0RcZCyzjYuGSwuqdFyy/y
- Dj8hLrbsoSC7tTpNzO86uAEH9ujNIoI=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-407-5WseO7PDP5ig7qJVZaOr0w-1; Tue, 26 Nov 2024 08:35:26 -0500
-X-MC-Unique: 5WseO7PDP5ig7qJVZaOr0w-1
-X-Mimecast-MFC-AGG-ID: 5WseO7PDP5ig7qJVZaOr0w
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-3823527eb9dso3093358f8f.1
- for <qemu-rust@nongnu.org>; Tue, 26 Nov 2024 05:35:26 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732628125; x=1733232925;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=J/WMazwLDcVs71OKEl1CHvYjffjtAQIjP5TA8DAH+sw=;
- b=RvdxkxVt4me2ebWOpHS/VQwHswrPLqUK2Sjo4i98J+R+bZzBdDl0Wk77qNSmZGwMKC
- CBPdK1SJ7BLcp5miOsFxMswJjIm6jpijTjzTiWK2kub558Hl2DbRcO+gcxW3KstJjS1m
- PfSED5eMn1h65lTFEbeiuw4Y++/ckufytj/Ava+7fdgEj6CHygwZ/4KCxEpnnvL94zji
- WUEMXKV7B9oJy5/L+EF7P9mTtD6bpfcTnAFm+YxSk4KGo2cTNrJ/lMMqyiGsIz8LCiPt
- NMmq7tPWB74JWDdNzuJy9913OpT3LhLodnpVvqgtZqsrH3YCUkvKvopVTiPelhioWW4x
- PbEQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVF6X92r8zmIV/luKxQSHVZ1ysa0aSblFQBzjkMmSZUWs9sxKswHe3J62+bPmw4JO5qGuHUV0RVGtM=@nongnu.org
-X-Gm-Message-State: AOJu0YxuS/ofL0GqizEOsuUwJ9k9EHoLX0ztFkV9pnm0PMuYQdOqP8ha
- vQ0HmFwuaU1MXNKHlnqr5izAFw9e1iQxbiMySGtzTLOblKqScR3v97/fFOvgGXlDCFldDxx7ZjX
- iEKdk1NHSThaKkDQfjntzJS98C6I2ZyFL6CliR5yj6pkNLhX+2CTRaUydIk4=
-X-Gm-Gg: ASbGncv3dNL4pYVrZ27YdGi5SVZjRAvYqcsqRNyJ3eqzo+2eMz7dLslmquHTke+tNYu
- nAbYperT3o0rXXfXabqdFZwHNd0YSL2eDjV7TA1DXdMYY5vvbaAoyDfmV8tyviNoOPi8e7lpA4j
- qP91SfnxGp+nmKtzmml+ih4hJ8VhV6Xf+ICvJhs+Lq+xCVy/JGhQ7cW08Ns8r6zoOo8wcUDFCbp
- Y8E9OUaEFvdGPtbvfUI+S0aL3ulyLDVVYdQklL/9ml28GSR6838s+A=
-X-Received: by 2002:a05:6000:42c6:b0:382:4460:49ad with SMTP id
- ffacd0b85a97d-38260b986a4mr8376125f8f.32.1732628124822; 
- Tue, 26 Nov 2024 05:35:24 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHAD9YksD4WOc8rI3h5sHOhd5QwF4bbCecVK9Y8sRkXSaHZ03mCoQOYKT8BqJubenH7hXkAbA==
-X-Received: by 2002:a05:6000:42c6:b0:382:4460:49ad with SMTP id
- ffacd0b85a97d-38260b986a4mr8376117f8f.32.1732628124515; 
- Tue, 26 Nov 2024 05:35:24 -0800 (PST)
-Received: from [192.168.10.28] ([151.49.236.146])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-434921ceea7sm114503795e9.25.2024.11.26.05.35.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Nov 2024 05:35:24 -0800 (PST)
-Message-ID: <7a59cb8a-3da2-45d8-9c8a-92132374cecb@redhat.com>
-Date: Tue, 26 Nov 2024 14:35:22 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] rust: add bindings for interrupt sources
-To: Zhao Liu <zhao1.liu@intel.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tFvb2-0006My-4t; Tue, 26 Nov 2024 08:27:17 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1732627636; x=1764163636;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=K6XXf+rtqfFri+dEe2QWzluaJwKyzJmpYXmIjSY/3Jg=;
+ b=Exj+wOjJvNU5B1HhTWpmKooU7QPL1lHCwaS+1R9xLO4EsPMAku5CYu8B
+ BDkFJVHBrfmR6FPSABUGqNZgu51R1zn5EqpLA73XHyMJkrtu/h0t+AAMd
+ hONZiMUG6kNy1O71bPdprDJizWrnfUBo2KoXnVae6BDDZzREDVQl6YHA1
+ 64V5CmzBQwiQIeCAWmgTWS862t7lzj4foKN8j6wE79mLhEKdTnmQ1i+BY
+ OrKq2I122WfgLuhaofQHob5tD0PJMtquIqU3SZO4paLJMZGHpfv0JS1nG
+ J+n3Xxkf095aWgyKlLUIGZOqYuRrhj03PiknAePjDGpgIv1LL0EZ7V34m A==;
+X-CSE-ConnectionGUID: UGzNXBK5RwuwwwPq0E8M7Q==
+X-CSE-MsgGUID: kJsveW0rT9eBrf3FsxDjSw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11268"; a="43854540"
+X-IronPort-AV: E=Sophos;i="6.12,186,1728975600"; d="scan'208";a="43854540"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2024 05:27:12 -0800
+X-CSE-ConnectionGUID: HOAxYzSuTXmuWgxaXBiGfw==
+X-CSE-MsgGUID: 6ZoE6FH2TC6vi8C6IXxMtQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,186,1728975600"; d="scan'208";a="91233537"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.36])
+ by fmviesa006.fm.intel.com with ESMTP; 26 Nov 2024 05:27:10 -0800
+Date: Tue, 26 Nov 2024 21:45:19 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, junjie.mao@hotmail.com, qemu-rust@nongnu.org
+Subject: Re: [PATCH 2/2] rust: add bindings for interrupt sources
+Message-ID: <Z0XQ79uYWNUrbmR2@intel.com>
 References: <20241122074756.282142-1-pbonzini@redhat.com>
- <20241122074756.282142-3-pbonzini@redhat.com> <Z0XQ79uYWNUrbmR2@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <Z0XQ79uYWNUrbmR2@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: hxH5tl2Eq3MJ3JUTx0eEUBw21d92NKdzpKI3iZjzoSU_1732628125
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -29
-X-Spam_score: -3.0
-X-Spam_bar: ---
-X-Spam_report: (-3.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ <20241122074756.282142-3-pbonzini@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241122074756.282142-3-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.13; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.931,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Tue, 26 Nov 2024 08:52:46 -0500
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,82 +70,83 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Nov 2024 13:35:34 -0000
+X-List-Received-Date: Tue, 26 Nov 2024 13:27:24 -0000
 
-On 11/26/24 14:45, Zhao Liu wrote:
-> On Fri, Nov 22, 2024 at 08:47:56AM +0100, Paolo Bonzini wrote:
->> Date: Fri, 22 Nov 2024 08:47:56 +0100
->> From: Paolo Bonzini <pbonzini@redhat.com>
->> Subject: [PATCH 2/2] rust: add bindings for interrupt sources
->> X-Mailer: git-send-email 2.47.0
->>
->> The InterruptSource bindings let us call qemu_set_irq() and sysbus_init_irq()
->> as safe code.
->>
->> Interrupt sources, qemu_irq in C code, are pointers to IRQState objects.
->> They are QOM link properties and can be written to outside the control
->> of the device (i.e. from a shared reference); therefore they must be
->> interior-mutable in Rust.
+On Fri, Nov 22, 2024 at 08:47:56AM +0100, Paolo Bonzini wrote:
+> Date: Fri, 22 Nov 2024 08:47:56 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH 2/2] rust: add bindings for interrupt sources
+> X-Mailer: git-send-email 2.47.0
 > 
-> Out of curiosity, are there any examples of this situation?
-
-Yes, qdev_connect_gpio_out_named() changes the pointer that is stored 
-into the InterruptSource.
-
->> +    /// Send `level` to the interrupt sink.
->> +    pub fn set(&self, level: bool) {
->> +        unsafe {
->> +            qemu_set_irq(self.0.get(), level.into());
->> +        }
->> +    }
+> The InterruptSource bindings let us call qemu_set_irq() and sysbus_init_irq()
+> as safe code.
 > 
-> Regarding the boolean discussion, the c_int/i32->boolean conversion
-> seems unavoidable if it is changed to a boolean, for example, the
-> level parameter in qemu_irq_handler is declared to be c_int, and
-> there is a pattern of setting the level in qemu_irq_handler with the
-> level irq:
-> * hpet_handle_legacy_irq
-> * split_irq_handler
-> * a9mp_priv_set_irq
-> ...
+> Interrupt sources, qemu_irq in C code, are pointers to IRQState objects.
+> They are QOM link properties and can be written to outside the control
+> of the device (i.e. from a shared reference); therefore they must be
+> interior-mutable in Rust. 
+
+Out of curiosity, are there any examples of this situation?
+
+> Since thread-safety is provided by the BQL,
+> what we want here is the newly-introduced BqlCell.  A pointer to the
+> contents of the BqlCell (an IRQState**, or equivalently qemu_irq*)
+> is then passed to the C sysbus_init_irq function.
 > 
-> So it feels like a more direct way to follow the use of c_int or i32?
-> Inconsistent types for level are always confusing. Maybe we can change
-> the type of rust after the C version can be standardized to boolean?
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  rust/hw/char/pl011/src/device.rs | 22 ++++++-----
+>  rust/qemu-api/meson.build        |  2 +
+>  rust/qemu-api/src/irq.rs         | 66 ++++++++++++++++++++++++++++++++
+>  rust/qemu-api/src/lib.rs         |  2 +
+>  rust/qemu-api/src/sysbus.rs      | 26 +++++++++++++
+>  5 files changed, 108 insertions(+), 10 deletions(-)
+>  create mode 100644 rust/qemu-api/src/irq.rs
+>  create mode 100644 rust/qemu-api/src/sysbus.rs
 
-The problem is that auditing the C version would be quite some work, 
-which is why I proposed adding the generic argument to Rust.
+...
 
-On the other hand, it's relatively common in C to write int when you 
-mean bool, because bool is a relatively recent ("only" 25 years :)) 
-addition to C.
+> +    /// Send `level` to the interrupt sink.
+> +    pub fn set(&self, level: bool) {
+> +        unsafe {
+> +            qemu_set_irq(self.0.get(), level.into());
+> +        }
+> +    }
 
->> +    pub(crate) const fn as_ptr(&self) -> *mut *mut IRQState {
->> +        self.0.as_ptr()
->> +    }
->> +}
->> +
->> +impl Default for InterruptSource {
->> +    fn default() -> Self {
->> +        InterruptSource(BqlCell::new(ptr::null_mut()))
->> +    }
->> +}
->> +
-> 
-> I like this idea and this binding is very useful!
-> 
-> HPET also needs qdev_init_gpio_in() and qdev_init_gpio_out().
-> Should these two safe binding wrappers be implemented as methods of
-> DeviceState, or just the public functions?
+Regarding the boolean discussion, the c_int/i32->boolean conversion
+seems unavoidable if it is changed to a boolean, for example, the
+level parameter in qemu_irq_handler is declared to be c_int, and
+there is a pattern of setting the level in qemu_irq_handler with the
+level irq:
+* hpet_handle_legacy_irq
+* split_irq_handler
+* a9mp_priv_set_irq
+...
 
-qdev_init_gpio_out() is basically the same as sysbus_init_irq() and it 
-can be added to DeviceState.
+So it feels like a more direct way to follow the use of c_int or i32?
+Inconsistent types for level are always confusing. Maybe we can change
+the type of rust after the C version can be standardized to boolean?
 
-qdev_init_gpio_in() is more complicated because it includes a function 
-pointer.  For now please keep it as a direct call to 
-bindings::qdev_init_gpio_in(), but we'll have to tackle callbacks soon 
-because they appear in all of chardev, GPIO inputs and timers.
+> +    pub(crate) const fn as_ptr(&self) -> *mut *mut IRQState {
+> +        self.0.as_ptr()
+> +    }
+> +}
+> +
+> +impl Default for InterruptSource {
+> +    fn default() -> Self {
+> +        InterruptSource(BqlCell::new(ptr::null_mut()))
+> +    }
+> +}
+> +
 
-Paolo
+I like this idea and this binding is very useful!
+
+HPET also needs qdev_init_gpio_in() and qdev_init_gpio_out(). 
+Should these two safe binding wrappers be implemented as methods of
+DeviceState, or just the public functions?
+
+Regards,
+Zhao
+
 
 
