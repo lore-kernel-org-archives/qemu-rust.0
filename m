@@ -1,90 +1,72 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tGDSe-0002Wk-Q9
-	for mharc-qemu-rust@gnu.org; Wed, 27 Nov 2024 03:31:48 -0500
+	id 1tGG0h-0007Ts-Bw
+	for mharc-qemu-rust@gnu.org; Wed, 27 Nov 2024 06:15:09 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tGDSd-0002WU-NG
- for qemu-rust@nongnu.org; Wed, 27 Nov 2024 03:31:47 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tGDSc-00035B-2j
- for qemu-rust@nongnu.org; Wed, 27 Nov 2024 03:31:47 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1732696304;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=i/kAF2bOR3Sw21jrF8mK8kWHFTspNBiObUReESKuk1Q=;
- b=SGDr3oNM7ynjet38OSRjHjD00XQo6eErwtDMLpFGdjVS6f6Hy4slI/kcPhQmO6PIzqUb3x
- pdOq2Ksi4ntwg0hTa8ROnuBvbarU5sXGSxKb2QGJ0T1fL28bsXDnP2/xmP5KQQFYG9iy6w
- p5M1U81N/6KnsfEQvurhAfKrqWfWEMQ=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-112-6OMQVlTHOL2ai7Hw4AYoeQ-1; Wed, 27 Nov 2024 03:31:41 -0500
-X-MC-Unique: 6OMQVlTHOL2ai7Hw4AYoeQ-1
-X-Mimecast-MFC-AGG-ID: 6OMQVlTHOL2ai7Hw4AYoeQ
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4349fd2965fso28361705e9.1
- for <qemu-rust@nongnu.org>; Wed, 27 Nov 2024 00:31:41 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <stefanha@gmail.com>)
+ id 1tGFa5-0002gZ-8b; Wed, 27 Nov 2024 05:47:37 -0500
+Received: from mail-ed1-x52a.google.com ([2a00:1450:4864:20::52a])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <stefanha@gmail.com>)
+ id 1tGFa2-0005tv-OS; Wed, 27 Nov 2024 05:47:37 -0500
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5cfcf4df87aso8346326a12.1; 
+ Wed, 27 Nov 2024 02:47:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1732704452; x=1733309252; darn=nongnu.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=eqWWSR38pm9XZuf9l9gVDfbprOIXXiabbYo3rYiYBaA=;
+ b=hTmeLWfad6RmkfIqjxIWYiJbEOVn4KEo8lfbe9PmXuWOTGLIex+V/qpDPPTxgvHAkL
+ dnGCYf6bslxwMUuqRPQBUNY3LuFE15YBNVaplqJzvLknAuwnygSsrcokRnXca8IR0nl1
+ gegDjrnbYpI1qyynV3mmY+YYkE888sQHA4pa/EXdwhuOcWjaGLPGAWJIJdZlAS0jNIwF
+ yXGbyGPdpjhDzXXA2ZPZfruzxeXjiBqQOX2Qs9k4HvkxaLBDyixOSIo1Z/wMcgufBNwS
+ cbro3CVv8j5qo3LazY4L9E9q2kReaiOnnAtFNz7/R0VX0a1v7vhzrhAm/MsPTkFk44zu
+ GjNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732696300; x=1733301100;
+ d=1e100.net; s=20230601; t=1732704452; x=1733309252;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=i/kAF2bOR3Sw21jrF8mK8kWHFTspNBiObUReESKuk1Q=;
- b=HUc3NdcL7mZc+nGtOpe72qWirfknGI+qzHJ+VIbOsUMxvKn3Cip8no2KEgp3mj1F/v
- ffvUNzyb/5oh1M8eMTG8zr+ELMdC/LzhLAQWcNwPV+DtZmo0/3p1fHQDVmh2+O54sOQY
- Y5o56R0N3rGGfTBFVcbrf0pOj+U/MzW1U9lH6PrRiq02CD0w4HTHAdAsBY1hBaKuCpHK
- KUEYbA7d/NmHxIibrhEyCV76hLLa8dbhWpjPCmJ1zVxEv6skjXza1BUaTd1lGzy9aMtH
- +CO0yqAOm9wFARsZ73RpqwkDnkFfxAQsnBHWMd6mkn2JJGObHsG0lDlgh4LgEdGw8BlO
- 8BOw==
+ bh=eqWWSR38pm9XZuf9l9gVDfbprOIXXiabbYo3rYiYBaA=;
+ b=bUfhctSZl37UvudhzxsZ73OLsjolJFwbkoyKMARM6sPnzoNI4U9lm7xQxfOfN6aV6b
+ l8OmKDIYxqWuvl+n01CRMtRrQQ6b7CwnJ1WafD21fUVFun5yGN+GTQG1vttIRw6y8C11
+ 2oUp2oJY9QY7WnnFf3xw/J/h9P17XivEU3+d2MIIxmXEG5RKDgLmi3bRCPG1X7ktJX4j
+ +Cdufq04B9c64ZhqeDgZEXB7ck3gT4xLxjw1K5kPbhQdj5SoyeiZxqxFL0brkOq8qgfX
+ 7KUzGqlE5QbuAgmEaDFYO/hEsuM8dJR4bJm2FWEWwTl451xdAHkNJKwOyc+jrjbTwCgQ
+ AXEQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWdvTYMoqururR46rMkUKDF9LFViI9oOXC2JfSRIv/48D4NtLu3hqc4EPGckpjNBar/bSEqsLfLfJ4=@nongnu.org
-X-Gm-Message-State: AOJu0Yx+lBa1ThbYYzcSftdIvig8F8mRX7TFI/KOJnuYX6UEkFPDjcrD
- dg/HkjUDEPH+uSmfBDUiXNXkwEM4ztfJvGacT/LtqpIXbD3I1bVCqEV+OprsjURmaa7WmVOZ+R+
- RrPEJ044FZyRW+S0TNit0+rJZ1gkchseA8ANOvRx8IhHaSFgIYyGbb+No26SMAjGFQT4Y67QY5H
- 8i30/4NksTQd/eLSWdn0gSsM3zbw==
-X-Gm-Gg: ASbGncsAX4FBLI1uQHjviX3dWzU1uS6qQkjiU9+H2kgNGhYmC9HZIRf45+Gy5+KUjWE
- En1FhUTbJ1jgiJH0MUIK6VhxLmTBtLBro
-X-Received: by 2002:a05:600c:1d20:b0:434:a5c2:53c1 with SMTP id
- 5b1f17b1804b1-434a9de8bd4mr17157265e9.23.1732696300564; 
- Wed, 27 Nov 2024 00:31:40 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGq6omVHiWBtSHZjX4Rp2nSfSgl/KPxs++Gih4btMPvj4/HWJcjSfWGP4rJgEaqXixC+mYDYpzWsqtfk06uw/g=
-X-Received: by 2002:a05:600c:1d20:b0:434:a5c2:53c1 with SMTP id
- 5b1f17b1804b1-434a9de8bd4mr17157105e9.23.1732696300197; Wed, 27 Nov 2024
- 00:31:40 -0800 (PST)
+ AJvYcCW4xQv01sldgTEV3LI4Dgbfv810w6SDOdiMgrB2PDvnuuDoFtDXEEVg3Yj8SbVPyHgjpSo1OYVf598=@nongnu.org
+X-Gm-Message-State: AOJu0Yzrg33D+X0tI4i4+bkiBVy6PJG15UQAdKzTFBuenV/X8hGKNODU
+ rzBdKCoMjLmDyOOiJ6ux+nlucNp8O15hSPwXUCgrQnTR2m+2VLgrw6eB0jcR4s8Op1s7k5uEOtM
+ sgQduIDb3i/I7MeQ5u/SuUcZgoFY=
+X-Gm-Gg: ASbGncvPHKwCz8hNlT8BECNp/9zTVfR2XJvvMIwxDmxZdUxO8Fe95t0b4VV7RXcim77
+ 8KQGFydcNuOcJf6crgwJh0fmU3WjWqA==
+X-Google-Smtp-Source: AGHT+IE6QX+JE6qXGAJ/nKVAqqs2Ak++yumdU9G5LKLwGmLpQCnxbiBFBqElTNma+Ra6jVT2DDicuB7wOl2VpwxBk10=
+X-Received: by 2002:a05:6402:3481:b0:5cf:bb9e:cca7 with SMTP id
+ 4fb4d7f45d1cf-5d080c5d07fmr2451701a12.28.1732704452037; Wed, 27 Nov 2024
+ 02:47:32 -0800 (PST)
 MIME-Version: 1.0
-References: <20241122074756.282142-1-pbonzini@redhat.com>
- <20241122074756.282142-2-pbonzini@redhat.com>
- <Z0XhhB48W4Nqagku@intel.com> <1d0e1b5f-36ad-41d4-b526-260fa5cd0b34@redhat.com>
- <Z0a9uPLxrGyVJJwB@intel.com>
-In-Reply-To: <Z0a9uPLxrGyVJJwB@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Wed, 27 Nov 2024 09:31:28 +0100
-Message-ID: <CABgObfZXWKZ8hhH4FmZjZg+9VkSh1+DXPzDs0sMzFyd+yaTuTA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] rust: add BQL-enforcing Cell variant
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, Junjie Mao <junjie.mao@hotmail.com>,
- qemu-rust@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Avzunqa0xkq8eTHByDOAprNgmqzFsZAV3eQ5K3Y3pjo_1732696301
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="0000000000007a2f700627e0cba1"
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
+References: <cc40943e-dec1-4890-a1d9-579350ce296f@pbonzini.local>
+In-Reply-To: <cc40943e-dec1-4890-a1d9-579350ce296f@pbonzini.local>
+From: Stefan Hajnoczi <stefanha@gmail.com>
+Date: Wed, 27 Nov 2024 05:47:19 -0500
+Message-ID: <CAJSP0QVGP9RQ57V-+2Lo2Se0x0O1KuENT24HzOn2X3A3vmn73A@mail.gmail.com>
+Subject: Re: Rust in QEMU roadmap
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
+Received-SPF: pass client-ip=2a00:1450:4864:20::52a;
+ envelope-from=stefanha@gmail.com; helo=mail-ed1-x52a.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001,
- RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Wed, 27 Nov 2024 06:15:00 -0500
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,157 +78,66 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Nov 2024 08:31:47 -0000
+X-List-Received-Date: Wed, 27 Nov 2024 10:47:37 -0000
 
---0000000000007a2f700627e0cba1
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Il mer 27 nov 2024, 07:17 Zhao Liu <zhao1.liu@intel.com> ha scritto:
-
-> > and a single "regs: BqlRefCell<PL011Registers>" in PL011State.
+On Tue, 26 Nov 2024 at 13:04, Paolo Bonzini <pbonzini@redhat.com> wrote:
+> Tracing/logging
+> '''''''''''''''
 >
-> Here I have a possibly common question about the choice of BqlCell and
-> future BqlRefCell. Pls refer my comment below...
+> Tracepoints and logging are not supported yet, and no one has started working
+> on it.
 >
-> I understand we need BqlRefCell instead of BqlCell for registers since
-> there may be more than one reference, e.g., callbacks from CharBackend
-> and MemoryRegion may hold multiple references at the same time, right?
+> For tracing, it's not clear to me how much C code can be reused and how
+> much Rust code can be automatically generated.  This would be a valid
+> Outreachy or Summer of Code project, as it has a limited need for unsafe
+> code and a well-defined scope.
 >
-> If right, like HPET, with only MemoryRegion callbacks, reads and writes
-> I guess which should not be able to happen at the same time, so BqlCell
-> is also feasible, as is Irq?
+> A pure-Rust implementation would be interesting, but note that the usage
+> of printf-style %-based field formatting is pervasive in the tracing
+> subsystem.
+
+The purpose of QEMU's tracing subsystem is to support cross-platform
+tracing. Instead of making QEMU code depend on a specific tracer (like
+DTrace or LTTng UST) that may not be available across platforms, the
+tracing subsystem generates tracer-specific C code for trace events at
+compile time. The most straightforward way to expose this to Rust is
+to add C functions that invoke each trace event and then call those C
+functions from Rust. Tracing is designed to be lightweight and this
+approach results in more overhead than in native C tracing though.
+
+A pure Rust solution would be nice, but I'm not sure how to reconcile
+that with the purpose of the tracing subsystem, which is to support
+the various tracers native to QEMU's host platforms. They are geared
+towards C and use low-level techniques to generate low overhead
+tracing code.
+
+About format strings, QEMU tracing is not about format strings.
+Otherwise logging would just be used instead. Trace event definitions
+contain a format string so that tracers that offer human-readable
+formatting can use that string. Actual tracing is not about string
+formatting though, it's about typed calls to <trace-event>(<arg1>,
+<arg2>, ...) where those typed arguments can be captured efficiently
+by the tracer (e.g. stored as binary records). Depending on the
+tracer, the format string might never be used, be used in a
+post-processing step during offline trace file analysis, or at runtime
+(like logging).
+
+That's what QEMU's tracing subsystem is today. But it's a low activity
+subsystem where things can be changed with less disruption to users
+than in most other subsystems. I think it would be nice to look at
+what native Rust tracing has to offer ad reconsider some of the
+requirements that shaped QEMU's C tracing subsystem. Maybe we can take
+a more modern approach.
+
 >
-
-Choose between BqlCell/BqlRefCell like you would choose between
-Cell/RefCell. They result in different code so pick what looks better.
-
-That said for HPET you have the array of timers structs, and these structs
-are not Copy, and therefore BqlRefCell is almost the only choice for that
-array. With BqlRefCell used for the timers you might as well put the other
-registers in the same BqlRefCell.
-
-(This piece of the thread model is a bit more complex, and I'm fully
-> aware that the right TYPE relies a lot on understanding the underlying
-> mechanism, which I'm not yet familiar enough with :-) ).
+> Logging is a small component of QEMU and it's a good opportunity to define
+> a coding style for C code translated to Rust, e.g. how to name enums and
+> functions.  My only request is to allow using the same syntax as format!()
+> for logging code!
 >
-
-It's not too complex=E2=80=94the point is to make it as similar as possible=
- to
-normal single threaded Rust.
-
-However, all in all, using BqlRefCell for register fields looks to be
-> always better than BqlCell.
+> Summary:
 >
-
-Yep :)
-
-Thank you! I'll change the current code to support this. Instead of
-> implementing a register space like PL011, I continue to handle registers
-> with u64 variables and bit macro definitions like the C version
-
-
-That's fine. Experimenting in different directions makes it easier for
-future developers to evaluate the tradeoffs.
-
-Also related to the above question, I'm a bit hesitant to use BqlCell
-> directly
-> or RefCell for such u64 fields...
+> * Simple, low priority.
 >
-
-Do whatever looks best to you!
-
-> Plus, speaking in general, "it does something in a different way than the
-> > pl011 device model" is a good reason to merge the HPET model earlier
-> too. :)
->
-> There must be a lot more opens :-(, such as the memattrs/timer binding,
-> which I hope to discuss with you at the later RFC!
->
-
-Yes, but stuff like "correctly uses interior mutability" is a very good
-reason to include the HPET early.
-
-I will send the next version and include BqlRefCell once I incorporate
-Junjie's feedback, in the meanwhile I will send you the BqlRefCell patch
-off list.
-
-Paolo
-
---0000000000007a2f700627e0cba1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
-"gmail_attr">Il mer 27 nov 2024, 07:17 Zhao Liu &lt;<a href=3D"mailto:zhao1=
-.liu@intel.com">zhao1.liu@intel.com</a>&gt; ha scritto:<br></div><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
-olid rgb(204,204,204);padding-left:1ex">&gt; and a single &quot;regs: BqlRe=
-fCell&lt;PL011Registers&gt;&quot; in PL011State.<br>
-<br>
-Here I have a possibly common question about the choice of BqlCell and<br>
-future BqlRefCell. Pls refer my comment below...<br>
-<br>I understand we need BqlRefCell instead of BqlCell for registers since<=
-br>
-there may be more than one reference, e.g., callbacks from CharBackend<br>
-and MemoryRegion may hold multiple references at the same time, right?<br>
-<br>
-If right, like HPET, with only MemoryRegion callbacks, reads and writes<br>
-I guess which should not be able to happen at the same time, so BqlCell<br>
-is also feasible, as is Irq?<br></blockquote></div></div><div dir=3D"auto">=
-<br></div><div dir=3D"auto">Choose between BqlCell/BqlRefCell like you woul=
-d choose between Cell/RefCell. They result in different code so pick what l=
-ooks better.</div><div dir=3D"auto"><br></div><div dir=3D"auto">That said f=
-or HPET you have the array of timers structs, and these structs are not Cop=
-y, and therefore BqlRefCell is almost the only choice for that array. With =
-BqlRefCell used for the timers you might as well put the other registers in=
- the same BqlRefCell.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><d=
-iv class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-(This piece of the thread model is a bit more complex, and I&#39;m fully<br=
->
-aware that the right TYPE relies a lot on understanding the underlying<br>
-mechanism, which I&#39;m not yet familiar enough with :-) ).<br></blockquot=
-e></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">It&#39;s not to=
-o complex=E2=80=94the point is to make it as similar as possible to normal =
-single threaded Rust.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><d=
-iv class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-However, all in all, using BqlRefCell for register fields looks to be<br>
-always better than BqlCell.<br></blockquote></div></div><div dir=3D"auto"><=
-br></div><div dir=3D"auto">Yep :)</div><div dir=3D"auto"><br></div><div dir=
-=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">Thank you! I&#39;ll change the current code to support this. In=
-stead of<br>
-implementing a register space like PL011, I continue to handle registers<br=
->
-with u64 variables and bit macro definitions like the C version</blockquote=
-></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">That&#39;s fine.=
- Experimenting in different directions makes it easier for future developer=
-s to evaluate the tradeoffs.</div><div dir=3D"auto"><br></div><div dir=3D"a=
-uto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"=
-margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-lef=
-t:1ex">Also related to the above question, I&#39;m a bit hesitant to use Bq=
-lCell directly<br>
-or RefCell for such u64 fields...<br></blockquote></div></div><div dir=3D"a=
-uto"><br></div><div dir=3D"auto">Do whatever looks best to you!</div><div d=
-ir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
- solid rgb(204,204,204);padding-left:1ex">&gt; Plus, speaking in general, &=
-quot;it does something in a different way than the<br>
-&gt; pl011 device model&quot; is a good reason to merge the HPET model earl=
-ier too. :)<br>
-<br>
-There must be a lot more opens :-(, such as the memattrs/timer binding,<br>
-which I hope to discuss with you at the later RFC!<br></blockquote></div></=
-div><div dir=3D"auto"><br></div><div dir=3D"auto">Yes, but stuff like &quot=
-;correctly uses interior mutability&quot; is a very good reason to include =
-the HPET early.</div><div dir=3D"auto"><br></div><div dir=3D"auto">I will s=
-end the next version and include BqlRefCell once I incorporate Junjie&#39;s=
- feedback, in the meanwhile I will send you the BqlRefCell patch off list.<=
-/div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo=C2=A0</div></div>
-
---0000000000007a2f700627e0cba1--
-
+> * Anybody wants a small project to learn Rust FFI?
 
