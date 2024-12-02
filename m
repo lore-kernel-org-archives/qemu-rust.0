@@ -1,87 +1,90 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tI4G2-00050F-RB
-	for mharc-qemu-rust@gnu.org; Mon, 02 Dec 2024 06:06:28 -0500
+	id 1tI4G7-00052E-Ar
+	for mharc-qemu-rust@gnu.org; Mon, 02 Dec 2024 06:06:34 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tI4Fw-0004yT-Fg
- for qemu-rust@nongnu.org; Mon, 02 Dec 2024 06:06:20 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1tI4G2-0004zu-MW
+ for qemu-rust@nongnu.org; Mon, 02 Dec 2024 06:06:26 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tI4Ft-0005B3-2T
- for qemu-rust@nongnu.org; Mon, 02 Dec 2024 06:06:20 -0500
+ id 1tI4G0-0005GM-KQ
+ for qemu-rust@nongnu.org; Mon, 02 Dec 2024 06:06:26 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733137575;
+ s=mimecast20190719; t=1733137583;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=epCOQ4jQIaJ5d4pHL683hSqsE8Ow7X/ht8e7hANUPUI=;
- b=LjFt6JuuBdS8Imwm6JJ+iV4Tr+rHsIW+ICtT/l7NK33Dx1SDcEBKgMcoZbBeWKfTFUZuWP
- jFUpDx1Nbqp21Ek4wF38iBwdIoO8PVK07OLCPyAvMhUeCQEwks2rw/1UjKJep92kBMN9gb
- vKecnrnYX8RS7aMP6P1gZIeAkumT5lQ=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=CPvWGaC61x5SIWSt7f1hm5iB12nylqAohLxeFtFVppQ=;
+ b=HddDt1f/Rbh0l8xwHXMO20tk/Ix7Y3x2hPlY4wOlvkheYt22BsFexFooxvYAEARI/EFvfr
+ Z1V4jVraKRe73+laqsWJaqdNP79pWf3fEz3go7zKeSv9QbQNTU1TCAQaLTVkCSlHxdZ7o8
+ HX8Ap0gqbElygnDeQe+N9FBdx+HLapk=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-483-BFqe92VwOTyTdEft1WvtzA-1; Mon, 02 Dec 2024 06:06:14 -0500
-X-MC-Unique: BFqe92VwOTyTdEft1WvtzA-1
-X-Mimecast-MFC-AGG-ID: BFqe92VwOTyTdEft1WvtzA
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-7b66f8fb697so450445285a.1
- for <qemu-rust@nongnu.org>; Mon, 02 Dec 2024 03:06:14 -0800 (PST)
+ us-mta-578-oGSRtgV6PTywxgk4bHMtsQ-1; Mon, 02 Dec 2024 06:06:19 -0500
+X-MC-Unique: oGSRtgV6PTywxgk4bHMtsQ-1
+X-Mimecast-MFC-AGG-ID: oGSRtgV6PTywxgk4bHMtsQ
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-6d88d56beb7so26875476d6.3
+ for <qemu-rust@nongnu.org>; Mon, 02 Dec 2024 03:06:19 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733137573; x=1733742373;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=epCOQ4jQIaJ5d4pHL683hSqsE8Ow7X/ht8e7hANUPUI=;
- b=IVYElSZrL6vQxHdG4zypKstM46t2r0BVO4cJutWi0AyVMesCn0Gf//gqtlTAn3JMjk
- GKgyfoLur/7z2/DzfxNNqw0iWD29zDghH2l7gchsfXMEj1vvoaLcJdULopBhV78vYXBI
- rpQZAlDQndz1hbD5KxV1FhqgGjxgz76I9cOg3wtm8ucQ2LanK+2pTGoqpRecKZntAP96
- yy1zGtFNabZDkdxyFNmi5vRGy+m9eHIpjKCDJb93dFHJCwSE/fmQH4mzejGnQjiurxqr
- hy/V7dfHceZXRVUR7pqj9UEaTU3MJiamFINFi5C5fHv+EkgRO1uObKaie9D9qc56cYDu
- +QOw==
-X-Gm-Message-State: AOJu0Yw3R6qAA2ObXPhfJkF+LYUPQpxGQRPpL068gXMEPhdMjsTbYSNj
- o/yX1/5krrCS9RUg4umfLKbng9689PrnIcpDiBNm7holIdaAAAQ75JzoDfMRwQ9PGif4t9euP2E
- mK+vgc/nMZY1suIc5EXs4+YjEeMwdmjAW7BJ8ovWg3ZGdv0io4bYqZMF3fn8=
-X-Gm-Gg: ASbGncsHpwlbgj5QCVeGuF+27t44K7tPInriwXyhc5PqMAgRw4QS0Y9lUgg7sDKAD1X
- KbhiTqnFV0KndHsYdMPawvjcUO2hQ7BAB0AsHbTKt4bjzGs46+ONMy3gZGDucuE/qwmF7YzKGo0
- hMQL32BwSgyU5ofSp88a/Khr44zv8dZwdnmOFmfWa2C3iDVn+yOI1aqIZ8HertBkIcblICVc5MO
- FBHL0JujCc8/ZsveQWoTuP9c9FSlWAStV7stCecjvmu57f8twtSp0P3VkGDF4K60aBHM5eXSeeZ
- HnU=
-X-Received: by 2002:a05:620a:372c:b0:7b6:6756:eeef with SMTP id
- af79cd13be357-7b67c250b04mr3906371385a.1.1733137573135; 
- Mon, 02 Dec 2024 03:06:13 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFDENL5CcPzE0h10w3feCErXg76ZgbzoTd5RIXbk+A506Mt9tSp+TL/MXzvzscR8vxILuuLdw==
-X-Received: by 2002:a05:620a:372c:b0:7b6:6756:eeef with SMTP id
- af79cd13be357-7b67c250b04mr3906365585a.1.1733137572598; 
- Mon, 02 Dec 2024 03:06:12 -0800 (PST)
+ d=1e100.net; s=20230601; t=1733137579; x=1733742379;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CPvWGaC61x5SIWSt7f1hm5iB12nylqAohLxeFtFVppQ=;
+ b=WISGzaptJhFPiPf1EnBjLX0DMhJ13a22W0XndrDmHe+iCxHrrk6S947NKIYdMbHmh7
+ UvSpguJndCCSOMlvAh5hMRCuwU9h1SCG7b0VQ0eNbTISGz7hn1DHziBTh1qraKquCBFd
+ MrXmKmM+BdreZoTi4Cn+VWRMJgz7K31ep9ypTt8G/LQ96cpqO4Zs1BqG1/4VpTd611oH
+ I9Qufb1qkf81gRG7B8nqjaJNEsAqJliJJZoOHNCLI912TWQkCjD/jUCMTtTxodPPSNk6
+ z2JbMxXukemJWtDv8/j246TUPN4wvE0gHM1NQIPZwtaA7VaPP8BniDwN2Bb4CwATMxvC
+ EtlQ==
+X-Gm-Message-State: AOJu0Yz3/T9/UXkH/L3BCxCqOeNtOAlYxoms/ZWAfoAmLBpGD14FRtXf
+ q0qSgKQcHtoj3Ei19qTx47GkRK6F2n2CpdZOHZMbUpWxf2d42xi2aDWO6Nj/SaAZ3rJOJA+lbkl
+ cN0ms8qBNWzEN/Aj2SevIky49Br1f6bc1wOJyd3SFH40hLcdNTnGO3fFYpjU=
+X-Gm-Gg: ASbGncsxkYUan2FoS3JZw8LAAhipuE9bzEvkiIFm/HPv0fJG6OVHFWh6kLHzDZE/Xon
+ wNKEpNstGRM7b+6+Q99c8A7fJk6iCJQH7pUB8EmeRDrygC7Gt+rXpmsmlNCGnskoYgvJbUQ9F8u
+ kt5wQx6yP1ZY6NxY4eyyavwJ/m6nSHuJlTGErRm++VJsqRPdrI39ZJ+KClgoGZlXOA1fz6EH32m
+ vthbF5UfQOfcGN0oxK2cC93YHPWiHEecUp4im2jr9xZtAMTVAnQ2gnvn7WQBBXuJ56BfyHXhy7Z
+ JAY=
+X-Received: by 2002:ad4:5bef:0:b0:6d8:8f81:e2ea with SMTP id
+ 6a1803df08f44-6d88f81e6cdmr154491316d6.31.1733137578594; 
+ Mon, 02 Dec 2024 03:06:18 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGjzuewtsoavkEm3OOJit9AmU7UeGAiGac4Ty3pvp6DGtcjaNlWqbjRqJK9teeS8VTfhgGFBQ==
+X-Received: by 2002:ad4:5bef:0:b0:6d8:8f81:e2ea with SMTP id
+ 6a1803df08f44-6d88f81e6cdmr154491026d6.31.1733137578164; 
+ Mon, 02 Dec 2024 03:06:18 -0800 (PST)
 Received: from [192.168.122.1] (nat-pool-mxp-t.redhat.com. [149.6.153.186])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7b6849c4b05sm391103685a.122.2024.12.02.03.06.10
+ af79cd13be357-7b6849aabcasm390853385a.86.2024.12.02.03.06.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Dec 2024 03:06:11 -0800 (PST)
+ Mon, 02 Dec 2024 03:06:17 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
-Subject: [PATCH v2 0/2] rust: safe wrappers for interrupt sources
-Date: Mon,  2 Dec 2024 12:06:07 +0100
-Message-ID: <20241202110609.36775-1-pbonzini@redhat.com>
+Subject: [PATCH v2 2/2] rust: add bindings for interrupt sources
+Date: Mon,  2 Dec 2024 12:06:09 +0100
+Message-ID: <20241202110609.36775-3-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20241202110609.36775-1-pbonzini@redhat.com>
+References: <20241202110609.36775-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: lIxa_1ZONWYKZMRq6350_CjKx3na0ro-GC3MuFJOf8g_1733137574
+X-Mimecast-MFC-PROC-ID: BBXMfPoVe6y8Ui95ibE7bgC6kdUrkle8umtl0QkJ0XI_1733137579
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -50
 X-Spam_score: -5.1
 X-Spam_bar: -----
 X-Spam_report: (-5.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=-0.01, RCVD_IN_MSPIKE_WL=-0.01,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -96,56 +99,250 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 02 Dec 2024 11:06:20 -0000
+X-List-Received-Date: Mon, 02 Dec 2024 11:06:26 -0000
+
+The InterruptSource bindings let us call qemu_set_irq() and sysbus_init_irq()
+as safe code.
 
 Interrupt sources, qemu_irq in C code, are pointers to IRQState objects.
 They are QOM link properties and can be written to outside the control
-of the device (i.e. from a shared reference); therefore their Rust
-representation must be an interior-mutable field.
+of the device (i.e. from a shared reference); therefore they must be
+interior-mutable in Rust.  Since thread-safety is provided by the BQL,
+what we want here is the newly-introduced BqlCell.  A pointer to the
+contents of the BqlCell (an IRQState**, or equivalently qemu_irq*)
+is then passed to the C sysbus_init_irq function.
 
-This make interrupt sources similar to a Cell<*mut IRQState>.  However,
-a Cell can only live within one thread, while here the semantics are
-"accessible by multiple threads but only under the Big QEMU Lock".
-
-Therefore, this series adds to QEMU a specialized cell type that checks
-locking rules with respect to the "Big QEMU Lock".  In particular,
-qemu_api::cell::BqlCell only allows get()/set() under BQL protection and
-therefore is Send/Sync.  The code for BqlCell is a bit long but most of
-it is lifted from the standard library and almost half is documentation,
-including doctests.
-
-Likewise, qemu_api::cell::RefCell would be a RefCell that is Send/Sync,
-because it checks that borrow()/borrow_mut() is only done under BQL.
-This is not added here because there is no use case (yet), but Zhao
-is going to use it for his HPET implementation.
-
-I am not fully satisfied with the solution I used for mocking the BQL;
-I have a prototype that runs doctests from "meson test" but that may be
-better left to Meson itself.
-
-Paolo
-
-v1->v2:
-- change debug_assert to assert
-- clarify meaning of active-high
-- allow declaring vectored interrupt source
-- fix documentation wrt threading rules
-
-Paolo Bonzini (2):
-  rust: add BQL-enforcing Cell variant
-  rust: add bindings for interrupt sources
-
- rust/hw/char/pl011/src/device.rs |  22 +--
- rust/qemu-api/meson.build        |   3 +
- rust/qemu-api/src/cell.rs        | 298 +++++++++++++++++++++++++++++++
- rust/qemu-api/src/irq.rs         |  91 ++++++++++
- rust/qemu-api/src/lib.rs         |   3 +
- rust/qemu-api/src/sysbus.rs      |  26 +++
- 6 files changed, 433 insertions(+), 10 deletions(-)
- create mode 100644 rust/qemu-api/src/cell.rs
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ rust/hw/char/pl011/src/device.rs | 22 ++++----
+ rust/qemu-api/meson.build        |  2 +
+ rust/qemu-api/src/irq.rs         | 91 ++++++++++++++++++++++++++++++++
+ rust/qemu-api/src/lib.rs         |  2 +
+ rust/qemu-api/src/sysbus.rs      | 26 +++++++++
+ 5 files changed, 133 insertions(+), 10 deletions(-)
  create mode 100644 rust/qemu-api/src/irq.rs
  create mode 100644 rust/qemu-api/src/sysbus.rs
 
+diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
+index 317a9b3c5ad..c5c8c463d37 100644
+--- a/rust/hw/char/pl011/src/device.rs
++++ b/rust/hw/char/pl011/src/device.rs
+@@ -13,6 +13,7 @@
+     c_str,
+     definitions::ObjectImpl,
+     device_class::TYPE_SYS_BUS_DEVICE,
++    irq::InterruptSource,
+ };
+ 
+ use crate::{
+@@ -94,7 +95,7 @@ pub struct PL011State {
+     ///  * sysbus IRQ 5: `UARTEINTR` (error interrupt line)
+     /// ```
+     #[doc(alias = "irq")]
+-    pub interrupts: [qemu_irq; 6usize],
++    pub interrupts: [InterruptSource; IRQMASK.len()],
+     #[doc(alias = "clk")]
+     pub clock: NonNull<Clock>,
+     #[doc(alias = "migrate_clk")]
+@@ -139,7 +140,8 @@ impl PL011State {
+     unsafe fn init(&mut self) {
+         const CLK_NAME: &CStr = c_str!("clk");
+ 
+-        let dev = addr_of_mut!(*self).cast::<DeviceState>();
++        let sbd = unsafe { &mut *(addr_of_mut!(*self).cast::<SysBusDevice>()) };
++
+         // SAFETY:
+         //
+         // self and self.iomem are guaranteed to be valid at this point since callers
+@@ -153,12 +155,15 @@ unsafe fn init(&mut self) {
+                 Self::TYPE_INFO.name,
+                 0x1000,
+             );
+-            let sbd = addr_of_mut!(*self).cast::<SysBusDevice>();
+             sysbus_init_mmio(sbd, addr_of_mut!(self.iomem));
+-            for irq in self.interrupts.iter_mut() {
+-                sysbus_init_irq(sbd, irq);
+-            }
+         }
++
++        for irq in self.interrupts.iter() {
++            sbd.init_irq(irq);
++        }
++
++        let dev = addr_of_mut!(*self).cast::<DeviceState>();
++
+         // SAFETY:
+         //
+         // self.clock is not initialized at this point; but since `NonNull<_>` is Copy,
+@@ -498,10 +503,7 @@ pub fn put_fifo(&mut self, value: c_uint) {
+     pub fn update(&self) {
+         let flags = self.int_level & self.int_enabled;
+         for (irq, i) in self.interrupts.iter().zip(IRQMASK) {
+-            // SAFETY: self.interrupts have been initialized in init().
+-            unsafe {
+-                qemu_set_irq(*irq, i32::from(flags & i != 0));
+-            }
++            irq.set(flags & i != 0);
+         }
+     }
+ 
+diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
+index edc21e1a3f8..973cfbcfb4a 100644
+--- a/rust/qemu-api/meson.build
++++ b/rust/qemu-api/meson.build
+@@ -17,7 +17,9 @@ _qemu_api_rs = static_library(
+       'src/c_str.rs',
+       'src/definitions.rs',
+       'src/device_class.rs',
++      'src/irq.rs',
+       'src/offset_of.rs',
++      'src/sysbus.rs',
+       'src/vmstate.rs',
+       'src/zeroable.rs',
+     ],
+diff --git a/rust/qemu-api/src/irq.rs b/rust/qemu-api/src/irq.rs
+new file mode 100644
+index 00000000000..011dbcf3dba
+--- /dev/null
++++ b/rust/qemu-api/src/irq.rs
+@@ -0,0 +1,91 @@
++// Copyright 2024 Red Hat, Inc.
++// Author(s): Paolo Bonzini <pbonzini@redhat.com>
++// SPDX-License-Identifier: GPL-2.0-or-later
++
++//! Bindings for interrupt sources
++
++use core::ptr;
++use std::{marker::PhantomData, os::raw::c_int};
++
++use crate::{
++    bindings::{qemu_set_irq, IRQState},
++    cell::BqlCell,
++};
++
++/// Interrupt sources are used by devices to pass changes to a value (typically
++/// a boolean).  The interrupt sink is usually an interrupt controller or
++/// GPIO controller.
++///
++/// As far as devices are concerned, interrupt sources are always active-high:
++/// for example, `InterruptSource<bool>`'s [`raise`](InterruptSource::raise)
++/// method sends a `true` value to the sink.  If the guest has to see a
++/// different polarity, that change is performed by the board between the
++/// device and the interrupt controller.
++///
++/// Interrupts are implemented as a pointer to the interrupt "sink", which has
++/// type [`IRQState`].  A device exposes its source as a QOM link property using
++/// a function such as
++/// [`SysBusDevice::init_irq`](crate::sysbus::SysBusDevice::init_irq), and
++/// initially leaves the pointer to a NULL value, representing an unconnected
++/// interrupt. To connect it, whoever creates the device fills the pointer with
++/// the sink's `IRQState *`, for example using `sysbus_connect_irq`.  Because
++/// devices are generally shared objects, interrupt sources are an example of
++/// the interior mutability pattern.
++///
++/// Interrupt sources can only be triggered under the Big QEMU Lock; `BqlCell`
++/// allows access from whatever thread has it.
++#[derive(Debug)]
++#[repr(transparent)]
++pub struct InterruptSource<T = bool>
++where
++    c_int: From<T>,
++{
++    cell: BqlCell<*mut IRQState>,
++    _marker: PhantomData<T>,
++}
++
++impl InterruptSource<bool> {
++    /// Send a low (`false`) value to the interrupt sink.
++    pub fn lower(&self) {
++        self.set(false);
++    }
++
++    /// Send a high-low pulse to the interrupt sink.
++    pub fn pulse(&self) {
++        self.set(true);
++        self.set(false);
++    }
++
++    /// Send a high (`true`) value to the interrupt sink.
++    pub fn raise(&self) {
++        self.set(true);
++    }
++}
++
++impl<T> InterruptSource<T>
++where
++    c_int: From<T>,
++{
++    /// Send `level` to the interrupt sink.
++    pub fn set(&self, level: T) {
++        let ptr = self.cell.get();
++        // SAFETY: the pointer is retrieved under the BQL and remains valid
++        // until the BQL is released, which is after qemu_set_irq() is entered.
++        unsafe {
++            qemu_set_irq(ptr, level.into());
++        }
++    }
++
++    pub(crate) const fn as_ptr(&self) -> *mut *mut IRQState {
++        self.cell.as_ptr()
++    }
++}
++
++impl Default for InterruptSource {
++    fn default() -> Self {
++        InterruptSource {
++            cell: BqlCell::new(ptr::null_mut()),
++            _marker: PhantomData,
++        }
++    }
++}
+diff --git a/rust/qemu-api/src/lib.rs b/rust/qemu-api/src/lib.rs
+index b04d110b3f5..aa692939688 100644
+--- a/rust/qemu-api/src/lib.rs
++++ b/rust/qemu-api/src/lib.rs
+@@ -11,7 +11,9 @@
+ pub mod cell;
+ pub mod definitions;
+ pub mod device_class;
++pub mod irq;
+ pub mod offset_of;
++pub mod sysbus;
+ pub mod vmstate;
+ pub mod zeroable;
+ 
+diff --git a/rust/qemu-api/src/sysbus.rs b/rust/qemu-api/src/sysbus.rs
+new file mode 100644
+index 00000000000..1a9b8a1f971
+--- /dev/null
++++ b/rust/qemu-api/src/sysbus.rs
+@@ -0,0 +1,26 @@
++// Copyright 2024 Red Hat, Inc.
++// Author(s): Paolo Bonzini <pbonzini@redhat.com>
++// SPDX-License-Identifier: GPL-2.0-or-later
++
++use std::ptr::addr_of;
++
++pub use bindings::{SysBusDevice, SysBusDeviceClass};
++
++use crate::{bindings, irq::InterruptSource};
++
++impl SysBusDevice {
++    /// Return `self` cast to a mutable pointer, for use in calls to C code.
++    const fn as_mut_ptr(&self) -> *mut SysBusDevice {
++        addr_of!(*self) as *mut _
++    }
++
++    /// Expose an interrupt source outside the device as a qdev GPIO output.
++    /// Note that the ordering of calls to `init_irq` is important, since
++    /// whoever creates the sysbus device will refer to the interrupts with
++    /// a number that corresponds to the order of calls to `init_irq`.
++    pub fn init_irq(&self, irq: &InterruptSource) {
++        unsafe {
++            bindings::sysbus_init_irq(self.as_mut_ptr(), irq.as_ptr());
++        }
++    }
++}
 -- 
 2.47.0
 
