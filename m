@@ -1,92 +1,120 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tI4GB-00053O-QI
-	for mharc-qemu-rust@gnu.org; Mon, 02 Dec 2024 06:06:36 -0500
+	id 1tIHIk-0001iP-1b
+	for mharc-qemu-rust@gnu.org; Mon, 02 Dec 2024 20:02:06 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tI4Fy-0004yf-Qs
- for qemu-rust@nongnu.org; Mon, 02 Dec 2024 06:06:24 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <junjie.mao@hotmail.com>)
+ id 1tIHIe-0001hm-VP; Mon, 02 Dec 2024 20:02:02 -0500
+Received: from mail-me3aus01olkn20801.outbound.protection.outlook.com
+ ([2a01:111:f403:2818::801]
+ helo=AUS01-ME3-obe.outbound.protection.outlook.com)
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tI4Fv-0005Bs-Og
- for qemu-rust@nongnu.org; Mon, 02 Dec 2024 06:06:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733137579;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vFZVeuOocEdpSoBqzsPyrTYWx9pROq8j1tqsBgVVe5Y=;
- b=O++YL7L+BHjgA3a6n8dDHdDrv1bPwxXrd9ySUOQF85TQc4Vwg8IzBRzIKCpFmPaO8i3qWG
- Hon3aW7cM+mr5sZPhtksRL+VWD1s7QLlPzrEYGxJfHIMy48zOa5pAjd92OgqH7Wk9+9Jr/
- RYDW4fYU2mrBnjzQDAnoG6xN8cyBLhc=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-169-w9lg_LD_MHyk7tvyJG7Tgg-1; Mon, 02 Dec 2024 06:06:18 -0500
-X-MC-Unique: w9lg_LD_MHyk7tvyJG7Tgg-1
-X-Mimecast-MFC-AGG-ID: w9lg_LD_MHyk7tvyJG7Tgg
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-466911d43f4so64626851cf.3
- for <qemu-rust@nongnu.org>; Mon, 02 Dec 2024 03:06:18 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733137576; x=1733742376;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=vFZVeuOocEdpSoBqzsPyrTYWx9pROq8j1tqsBgVVe5Y=;
- b=hhiXEHkrxNfWUrg3ioiRRNVqcooXor9AeUdWIuB1gB4PmUwrCJ32lpbAMpk+In0SiZ
- kkDCsLXnyiIhRI0DkT5AMIzUXqJpIm82rmTc1tB5Q5Tz9iZYXZ99qLF+ghtGT9luN5hR
- VD2QrfSmH1D3YIZ/NXQCwTGycKqnUgcAbrQi53hvGGGNGNQeuzwIS4px7g1P/GZp376U
- wUKm6pnVuhffhgX2Mz+cQ3XuHYzamb8Q8KvsmdorQ7xQa/GBVdWuU5ZeRzhAPWQT9AyZ
- 305lD7IIB5/MMGK6nu93q8EZGO6i+QStM67nAhbGKFcQbolgnY5oomOCAcPE9luMEca6
- 8lVw==
-X-Gm-Message-State: AOJu0Yzi++MOZPf3j9Blb4BmyVj/74UFpn8Nm7H2wBxqFopNNdCyANSB
- VNnpmZVbh3h4zjBlUcVqBuYgPKVXKGpF+AjGXr2cAvnUhMzJFGkNrIVkRFmGAAODpR2JEdBYNnt
- SIGRAgl8vw7+BMAYcvhngC1HMYo6vQLh8OJLoVT/bs4Pe5Zn08iutOlxZNlc=
-X-Gm-Gg: ASbGncvL7/HQnsi34GnlQKBg1KGwhaNHhC7NAu0/75f7RsYjRZrrSW8ezxtP2lDkYPw
- KUUmQJtHE5fsw5RU6Ev7KRGiQQnw4PK/VIMM2XHY0Oj84VBIbjlkQNiWrwWZelKSxAxSAC/Dr9W
- DybcZ901qg+VEuJBQ32XzbcvZ6w5IFBfQyJdGAgDGoRHkEswlJA6xYFcGtzUE+a9tGIw5wO1gbz
- P+zPyqX9yHxlumT1ZogvaP3FmolPnC1LvumxIFjdT+mCJsYch/RqQlRTsV7fD6oKSrLPSzdy5t4
- u38=
-X-Received: by 2002:a05:622a:54b:b0:460:ac8f:3bcd with SMTP id
- d75a77b69052e-466b36907c2mr339740961cf.45.1733137575658; 
- Mon, 02 Dec 2024 03:06:15 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFfsZJO5oK63TazZCpQWjKPNuzi/ehU/+0hdR27r9yQHQ9y77lj7wwDVglADmdjasAgOse/zA==
-X-Received: by 2002:a05:622a:54b:b0:460:ac8f:3bcd with SMTP id
- d75a77b69052e-466b36907c2mr339740561cf.45.1733137575109; 
- Mon, 02 Dec 2024 03:06:15 -0800 (PST)
-Received: from [192.168.122.1] (nat-pool-mxp-t.redhat.com. [149.6.153.186])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7b68492121esm392311385a.3.2024.12.02.03.06.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Dec 2024 03:06:14 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org
-Subject: [PATCH v2 1/2] rust: add BQL-enforcing Cell variant
-Date: Mon,  2 Dec 2024 12:06:08 +0100
-Message-ID: <20241202110609.36775-2-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20241202110609.36775-1-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <junjie.mao@hotmail.com>)
+ id 1tIHIb-0003No-J8; Mon, 02 Dec 2024 20:01:59 -0500
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kqIDNRRGcMcFjR655/dm27Aa67AWBhSQsjMOGWZKJ3ZuvSKIsLBVcL6Nyr5SYG93o89xhU2qIfsMaROMxuyjPxmHD1qPFGaKltA7zTL0Q0N8FF5Qu6lOqDnzl2nz1jFQmw11GJvHF21RQBNYbOnrC2gFGpOTdxulygq1OI4/xMMEhZjBSMIJUhByfu58gAqIAjuns3rWVSX5PwmqvIm0SIlPtpgHd6VeyTxuncx6eZJyApqC+J/9KeSFhxV7zgac/x/LnP1z+UpiecfRqd3xJ+e8+iJYr0qcsCBPWJSC2dP+j68bqLt0XDK5IJCuIw/Kp8BM4TAMMfkGxaKygZDSWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HQJkaxU9x0tapBtY9ZmlYA5Q1rKV56eCxYirX5E+lp8=;
+ b=LysN2JpyyvbC0h7EQK53XRhXaaZWsn3QoQOzeMHeNxFDv2w7eHkoq5jnm8E4rgLX2W1McsS8Mkizjt0tX7gziAO/blrnxmgC3usxkum4gyRi1nNTFeaDW0uGo11S0vKT4W5aOroephjlK4PU+GG4J+1SABy4IuWUMRbRrDcOTsqTh5BkA1LrGT0I1eZAZj1+tg85QUQwjHpP8edJx6i+v+NPKRk8aPrqsdLxyaM6QnwSwIH/lAYvPtW32vpiQlx1llYuIltRXPbc7enjuFC3W8DaoSFQkVwiUEONqODGyxn1eC0QcSa3gz8VYbvINVSf74LURPksW+U7cVqSMIxLKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HQJkaxU9x0tapBtY9ZmlYA5Q1rKV56eCxYirX5E+lp8=;
+ b=rN11ZB/bCwOiOdkMTVh2V9EqZq+3IIHgSSgnHTl/fVHGWv/ZrVpfX0OURgjy0bXPbu1fvnfIqx6QztiEQGWjq6mPCmRajr5hkPpEv1SUKkkRi8VTXsPCfxdtlwSBcVf9dRFJCT+KdXVBMOWEWb0CgW2SO6/fbYoSONZwFtcvAmM8osilGSnlcWw772NQpWQ+sLOQbCYOyVV07KtKjmKJWFnb0brmWiq/HyRkeaIjppLMxMiDzR99r8xfTZf36wBu1lr+EzG1cBegDiW0IpZ+V7HFrX09ZRdwgOCokxDOR8Vs6yw2b6PfyZjjbXHDfLFTnEBnmFz+aBJI0T+u+OfmGA==
+Received: from SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM (2603:10c6:10:282::22)
+ by SY8P300MB0210.AUSP300.PROD.OUTLOOK.COM (2603:10c6:10:267::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.17; Tue, 3 Dec
+ 2024 01:01:47 +0000
+Received: from SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::aea3:2365:f9e8:5bd]) by SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::aea3:2365:f9e8:5bd%4]) with mapi id 15.20.8207.017; Tue, 3 Dec 2024
+ 01:01:47 +0000
 References: <20241202110609.36775-1-pbonzini@redhat.com>
+ <20241202110609.36775-2-pbonzini@redhat.com>
+User-agent: mu4e 1.6.10; emacs 27.1
+From: Junjie Mao <junjie.mao@hotmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH v2 1/2] rust: add BQL-enforcing Cell variant
+Date: Tue, 03 Dec 2024 09:01:15 +0800
+In-reply-to: <20241202110609.36775-2-pbonzini@redhat.com>
+Message-ID: <SY0P300MB102656EAEE4C02500675056395362@SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM>
+Content-Type: text/plain
+X-ClientProxiedBy: KL1PR01CA0126.apcprd01.prod.exchangelabs.com
+ (2603:1096:820:4::18) To SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM
+ (2603:10c6:10:282::22)
+X-Microsoft-Original-Message-ID: <87h67linpw.fsf@hotmail.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: hlwVd6U0DTtVoAsf4wChog6RtS6cEA61whroDOdZMHs_1733137577
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -50
-X-Spam_score: -5.1
-X-Spam_bar: -----
-X-Spam_report: (-5.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SY0P300MB1026:EE_|SY8P300MB0210:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8aa8c2c4-1ee7-4ec9-a627-08dd13360ff8
+X-Microsoft-Antispam: BCL:0;
+ ARA:14566002|15080799006|7092599003|8060799006|19110799003|461199028|5072599009|3412199025|440099028;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?U5Eb/Jj1qIdoip/QgaGlcqccYmJsWtq8tmFYOeNLGXTVuCNm2dRlcYX6GW9C?=
+ =?us-ascii?Q?y5uKM0UMQjCXBZ2r0Pn1hbm+sdxps2K5tKiezIFkFfUfpNgXYkjmZJKKrn10?=
+ =?us-ascii?Q?XOzSm1Ii7jjTAGvGVBZvNmNVBJWK/b0MoraJzxRuz4QNG+6Fa0nH4Y3xm1WP?=
+ =?us-ascii?Q?dvQ4BozVzp2PzdXxkOzjkBj69vYCZkUCvuj1sPwpAr+wCW/sRTQxrYdrAVvl?=
+ =?us-ascii?Q?m7zthwG3CvCI4YCyf2E4kVkYCFoTaPVzJgT6Xz/jA0qMf8hE10bLeUkdaHiQ?=
+ =?us-ascii?Q?23PDXmHQsa8NQETbn6xvAReNvjflnxW0wgc76SxYUe+pX9oHHFteOTmLwa7P?=
+ =?us-ascii?Q?7v2gPGB6wqVgpAnOOGm8JzfdpK73wp2XNqmt07HfScPY/dINNrrc8NPeGL3a?=
+ =?us-ascii?Q?UMWOFHuJgTdaDMKrSPrr+lsXm7Guu83qn1tjZ2k/Ty5SvkgLp186futstopA?=
+ =?us-ascii?Q?Uz0J8NnWEJfm0NwRi+yYyd8RdX3Xny//Yh7vs2NDSKXbKqeMMGOLbi+/ZcWa?=
+ =?us-ascii?Q?aVYDkjQ68AKEllbVtDsRrPGy8zBfxTboIMjr8eddJQpPiAoysqQU4yb2o0V+?=
+ =?us-ascii?Q?i0iHdUmmB1XEoLm+xu7kS28cLc0O85pe7TBiLLCgUUWtlYujDq+IfBMztkG5?=
+ =?us-ascii?Q?LB8QRQmbRgDg5QU7ci4G9nfnTGxccvlP9rWvNf8Pa0KvGhcHfLvZYL6w8xAf?=
+ =?us-ascii?Q?LAlpLHDojEObzNYR4MQEMMe/M8vS9meZtFh8mLT6RQiQuJxxoBqDGrVZi1w8?=
+ =?us-ascii?Q?jnR4sirE0kbvfEVBzQqAhyfs4KlTOoAivYVE8dwbEV2WH7gM2PljBIkU2JHS?=
+ =?us-ascii?Q?Fos85uwVfy8/iWvRzCH0Al+t0UVxYq9r7uALmtHp9cs+W1pWvOR0e0qrtIvZ?=
+ =?us-ascii?Q?yKUHIaipCfZQy2AjbDG5tkPHzLxbSySTx2SVcp4N+pY78iToW8iwzlzPYQAl?=
+ =?us-ascii?Q?qUaZgJiJBdKexLK0Fihkl7JYvXtjlxIcx8t5CRiPzrPZyPSNfFlK/DFSkPfH?=
+ =?us-ascii?Q?+iWRTtV0dzPZWPKkAJUlhK40qB9+ZHG+FWTh2vLobwhI4Jg=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?xd9VI6Uru0utlS3RXjYr0okz55LrERax87RSDJZFGyEvnZcaIfqKweiKdydD?=
+ =?us-ascii?Q?fJhIlWSa+oLI6VqCylzexjg6eba9XVJ804vTA3ye4dvUa4AskxgD2Xau97wH?=
+ =?us-ascii?Q?E/T2Tl2a3Ydt/g9ZpZ6jAmEno/RkNZgEJ/te+RsgzJ75ZPlvFVL9UBMoZy+w?=
+ =?us-ascii?Q?WqnWSCDH1PZ1xPpIO2UWNMEoXpt6E3dYJMzzejHIGlKiHMG3hN6/wZY0DLt1?=
+ =?us-ascii?Q?Idp00dt2wwaLBi/h7FPQkssD1vnMypNzd+V9liVvZ10LfDpHWi+lyx65KFaa?=
+ =?us-ascii?Q?4xsN9KDWTxRwkULm1yAvM24fF4fpHFxPb0AFYdRbwsSOhvWBtFDK42DknyvG?=
+ =?us-ascii?Q?TkD16Ml/Fo76554B0LSfBbAQzW0587ibUwszd3B0wVnA5jzYugNwsQxAy/HJ?=
+ =?us-ascii?Q?qpnorg5Xn+pKSdARTUoEnKGqZYd+r6/SMDa1cqUJasROmZEpU2SCR5Q5lUuS?=
+ =?us-ascii?Q?nnsAlhSb9f9ZaIAmyHwFLqVe+kquAdVo9YeKscBr6i7J5ZqMpIKeqQZDJx3p?=
+ =?us-ascii?Q?kEuFbsYK4mnkAfNG6Bm4SYroI7cUvZosDQyZfinbDkrTKqbM0Z54Sjp+JN5g?=
+ =?us-ascii?Q?/1e+FvhkyBpVFZGsp6ySl7ZKGxrnyhKf7z1ZfAqvvCjKnXHBZ+WW9yf3byMf?=
+ =?us-ascii?Q?s/gMqmcGS8pGzYM/h/PBYukwg2DasD9btsCx+qjDXX2S/CoPqyjJAOpXmW7F?=
+ =?us-ascii?Q?mdI/gTZv2l/Fig/3rGXn4yt807xlkepppDtxBj/O2RssUzqMn8925pY/J9Ze?=
+ =?us-ascii?Q?AGhlZMu5km+5Z0qRrUbmy8DSI25P+2nd6PsDJ7S6/pJ2drWAuQLU19y0ieWA?=
+ =?us-ascii?Q?P0+EWXu791Dftd7InqeRj1u7U9K975Q6GtP1O+vz+dY5w8Yw7cL+1YcmIVX+?=
+ =?us-ascii?Q?NEoYQZ9L78eIcl/GblydPD0J9J2y10EConIsaCZgdq4F8FmV6Nhz3WQGO7DC?=
+ =?us-ascii?Q?qfhSB9OF+thl4/cRP2CFZ+NG3bWxvp3Kr0eQxkxzsWc6qzhWpicxOcm7Q1dE?=
+ =?us-ascii?Q?qGDBneAhFXW7jWC/5z2r1yn8phGBtGlebB3JsPQiN8/9s5MkJKrfrFHhLs2k?=
+ =?us-ascii?Q?bLpbaivnjUwLop5o/dzAwostQxrXMG8HgmANsnTrdEL3kb3+MbBUH4C18qTI?=
+ =?us-ascii?Q?++3gwakD/avdRVbBafZYCOx9I2w15LLjUIYRn2exNULgW8LNWra0FmxkKEf8?=
+ =?us-ascii?Q?8GAdxisxyzqGDuNbDWXZsGTMtk21qUEYZCgZYHlgXlFitGWLP0BaXzjxCvk?=
+ =?us-ascii?Q?=3D?=
+X-OriginatorOrg: sct-15-20-7719-20-msonline-outlook-448bf.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8aa8c2c4-1ee7-4ec9-a627-08dd13360ff8
+X-MS-Exchange-CrossTenant-AuthSource: SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2024 01:01:47.8555 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY8P300MB0210
+Received-SPF: pass client-ip=2a01:111:f403:2818::801;
+ envelope-from=junjie.mao@hotmail.com;
+ helo=AUS01-ME3-obe.outbound.protection.outlook.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,373 +127,44 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 02 Dec 2024 11:06:26 -0000
+X-List-Received-Date: Tue, 03 Dec 2024 01:02:03 -0000
 
-QEMU objects usually have their pointer shared with the "outside
-world" very early in their lifetime, for example when they create their
-MemoryRegions.  Because at this point it is not valid anymore to
-create a &mut reference to the device, individual parts of the
-device struct must be made mutable in a controlled manner.
 
-QEMU's Big Lock (BQL) effectively turns multi-threaded code into
-single-threaded code while device code runs, as long as the BQL is not
-released while the device is borrowed (because C code could sneak in and
-mutate the device).  We can then introduce custom interior mutability primitives
-that are semantically similar to the standard library's (single-threaded)
-Cell and RefCell, but account for QEMU's threading model.  Accessing
-the "BqlCell" or borrowing the "BqlRefCell" requires proving that the
-BQL is held, and attempting to access without the BQL is a runtime panic,
-similar to RefCell's already-borrowed panic.
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-With respect to naming I also considered omitting the "Bql" prefix or
-moving it to the module, e.g.  qemu_api::bql::{Cell, RefCell}.  However,
-this could easily lead to mistakes and confusion; for example rustc could
-suggest the wrong import, leading to subtle bugs.
+> QEMU objects usually have their pointer shared with the "outside
+> world" very early in their lifetime, for example when they create their
+> MemoryRegions.  Because at this point it is not valid anymore to
+> create a &mut reference to the device, individual parts of the
+> device struct must be made mutable in a controlled manner.
+>
+> QEMU's Big Lock (BQL) effectively turns multi-threaded code into
+> single-threaded code while device code runs, as long as the BQL is not
+> released while the device is borrowed (because C code could sneak in and
+> mutate the device).  We can then introduce custom interior mutability primitives
+> that are semantically similar to the standard library's (single-threaded)
+> Cell and RefCell, but account for QEMU's threading model.  Accessing
+> the "BqlCell" or borrowing the "BqlRefCell" requires proving that the
+> BQL is held, and attempting to access without the BQL is a runtime panic,
+> similar to RefCell's already-borrowed panic.
+>
+> With respect to naming I also considered omitting the "Bql" prefix or
+> moving it to the module, e.g.  qemu_api::bql::{Cell, RefCell}.  However,
+> this could easily lead to mistakes and confusion; for example rustc could
+> suggest the wrong import, leading to subtle bugs.
+>
+> As a start introduce the an equivalent of Cell.  Almost all of the code
+> was taken from Rust's standard library, while removing unstable features
+> and probably-unnecessary functionality that constitute a large of the
+> original code.  A lot of what's left is documentation, as well as unit
+> tests in the form of doctests.  These are not yet integrated in "make
+> check" but can be run with "cargo test --doc".
+>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-As a start introduce the an equivalent of Cell.  Almost all of the code
-was taken from Rust's standard library, while removing unstable features
-and probably-unnecessary functionality that constitute a large of the
-original code.  A lot of what's left is documentation, as well as unit
-tests in the form of doctests.  These are not yet integrated in "make
-check" but can be run with "cargo test --doc".
+Reviewed-by: Junjie Mao <junjie.mao@hotmail.com>
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- rust/qemu-api/meson.build |   1 +
- rust/qemu-api/src/cell.rs | 298 ++++++++++++++++++++++++++++++++++++++
- rust/qemu-api/src/lib.rs  |   1 +
- 3 files changed, 300 insertions(+)
- create mode 100644 rust/qemu-api/src/cell.rs
-
-diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
-index d719c13f46d..edc21e1a3f8 100644
---- a/rust/qemu-api/meson.build
-+++ b/rust/qemu-api/meson.build
-@@ -13,6 +13,7 @@ _qemu_api_rs = static_library(
-     [
-       'src/lib.rs',
-       'src/bindings.rs',
-+      'src/cell.rs',
-       'src/c_str.rs',
-       'src/definitions.rs',
-       'src/device_class.rs',
-diff --git a/rust/qemu-api/src/cell.rs b/rust/qemu-api/src/cell.rs
-new file mode 100644
-index 00000000000..373be23ba8b
---- /dev/null
-+++ b/rust/qemu-api/src/cell.rs
-@@ -0,0 +1,298 @@
-+// SPDX-License-Identifier: MIT
-+//
-+// This file is based on library/core/src/cell.rs from
-+// Rust 1.82.0.
-+//
-+// Permission is hereby granted, free of charge, to any
-+// person obtaining a copy of this software and associated
-+// documentation files (the "Software"), to deal in the
-+// Software without restriction, including without
-+// limitation the rights to use, copy, modify, merge,
-+// publish, distribute, sublicense, and/or sell copies of
-+// the Software, and to permit persons to whom the Software
-+// is furnished to do so, subject to the following
-+// conditions:
-+//
-+// The above copyright notice and this permission notice
-+// shall be included in all copies or substantial portions
-+// of the Software.
-+//
-+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
-+// ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-+// TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-+// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
-+// SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-+// CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
-+// IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-+// DEALINGS IN THE SOFTWARE.
-+
-+//! BQL-protected mutable containers.
-+//!
-+//! Rust memory safety is based on this rule: Given an object `T`, it is only
-+//! possible to have one of the following:
-+//!
-+//! - Having several immutable references (`&T`) to the object (also known as
-+//!   **aliasing**).
-+//! - Having one mutable reference (`&mut T`) to the object (also known as
-+//!   **mutability**).
-+//!
-+//! This is enforced by the Rust compiler. However, there are situations where
-+//! this rule is not flexible enough. Sometimes it is required to have multiple
-+//! references to an object and yet mutate it. In particular, QEMU objects
-+//! usually have their pointer shared with the "outside world very early in
-+//! their lifetime", for example when they create their
-+//! [`MemoryRegion`s](crate::bindings::MemoryRegion).  Therefore, individual
-+//! parts of a  device must be made mutable in a controlled manner through the
-+//! use of cell types.
-+//!
-+//! This module provides a way to do so via the Big QEMU Lock.  While
-+//! [`BqlCell<T>`] is essentially the same single-threaded primitive that is
-+//! available in `std::cell`, the BQL allows it to be used from a multi-threaded
-+//! context and to share references across threads, while maintaining Rust's
-+//! safety guarantees.  For this reason, unlike its `std::cell` counterpart,
-+//! `BqlCell` implements the `Sync` trait.
-+//!
-+//! BQL checks are performed in debug builds but can be optimized away in
-+//! release builds, providing runtime safety during development with no overhead
-+//! in production.
-+//!
-+//! Warning: While `BqlCell` is similar to its `std::cell` counterpart, the two
-+//! are not interchangeable. Using `std::cell` types in QEMU device
-+//! implementations is usually incorrect and can lead to thread-safety issues.
-+//!
-+//! ## `BqlCell<T>`
-+//!
-+//! [`BqlCell<T>`] implements interior mutability by moving values in and out of
-+//! the cell. That is, an `&mut T` to the inner value can never be obtained as
-+//! long as the cell is shared. The value itself cannot be directly obtained
-+//! without copying it, cloning it, or replacing it with something else. This
-+//! type provides the following methods, all of which can be called only while
-+//! the BQL is held:
-+//!
-+//!  - For types that implement [`Copy`], the [`get`](BqlCell::get) method
-+//!    retrieves the current interior value by duplicating it.
-+//!  - For types that implement [`Default`], the [`take`](BqlCell::take) method
-+//!    replaces the current interior value with [`Default::default()`] and
-+//!    returns the replaced value.
-+//!  - All types have:
-+//!    - [`replace`](BqlCell::replace): replaces the current interior value and
-+//!      returns the replaced value.
-+//!    - [`set`](BqlCell::set): this method replaces the interior value,
-+//!      dropping the replaced value.
-+
-+use std::{cell::UnsafeCell, cmp::Ordering, fmt, mem};
-+
-+use crate::bindings;
-+
-+// TODO: When building doctests do not include the actual BQL, because cargo
-+// does not know how to link them to libqemuutil.  This can be fixed by
-+// running rustdoc from "meson test" instead of relying on cargo.
-+fn bql_locked() -> bool {
-+    // SAFETY: the function does nothing but return a thread-local bool
-+    !cfg!(MESON) || unsafe { bindings::bql_locked() }
-+}
-+
-+/// A mutable memory location that is protected by the Big QEMU Lock.
-+///
-+/// # Memory layout
-+///
-+/// `BqlCell<T>` has the same in-memory representation as its inner type `T`.
-+#[repr(transparent)]
-+pub struct BqlCell<T> {
-+    value: UnsafeCell<T>,
-+}
-+
-+// SAFETY: Same as for std::sync::Mutex.  In the end this *is* a Mutex,
-+// except it is stored out-of-line
-+unsafe impl<T: Send> Send for BqlCell<T> {}
-+unsafe impl<T: Send> Sync for BqlCell<T> {}
-+
-+impl<T: Copy> Clone for BqlCell<T> {
-+    #[inline]
-+    fn clone(&self) -> BqlCell<T> {
-+        BqlCell::new(self.get())
-+    }
-+}
-+
-+impl<T: Default> Default for BqlCell<T> {
-+    /// Creates a `BqlCell<T>`, with the `Default` value for T.
-+    #[inline]
-+    fn default() -> BqlCell<T> {
-+        BqlCell::new(Default::default())
-+    }
-+}
-+
-+impl<T: PartialEq + Copy> PartialEq for BqlCell<T> {
-+    #[inline]
-+    fn eq(&self, other: &BqlCell<T>) -> bool {
-+        self.get() == other.get()
-+    }
-+}
-+
-+impl<T: Eq + Copy> Eq for BqlCell<T> {}
-+
-+impl<T: PartialOrd + Copy> PartialOrd for BqlCell<T> {
-+    #[inline]
-+    fn partial_cmp(&self, other: &BqlCell<T>) -> Option<Ordering> {
-+        self.get().partial_cmp(&other.get())
-+    }
-+}
-+
-+impl<T: Ord + Copy> Ord for BqlCell<T> {
-+    #[inline]
-+    fn cmp(&self, other: &BqlCell<T>) -> Ordering {
-+        self.get().cmp(&other.get())
-+    }
-+}
-+
-+impl<T> From<T> for BqlCell<T> {
-+    /// Creates a new `BqlCell<T>` containing the given value.
-+    fn from(t: T) -> BqlCell<T> {
-+        BqlCell::new(t)
-+    }
-+}
-+
-+impl<T: fmt::Debug + Copy> fmt::Debug for BqlCell<T> {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        self.get().fmt(f)
-+    }
-+}
-+
-+impl<T: fmt::Display + Copy> fmt::Display for BqlCell<T> {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        self.get().fmt(f)
-+    }
-+}
-+
-+impl<T> BqlCell<T> {
-+    /// Creates a new `BqlCell` containing the given value.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use qemu_api::cell::BqlCell;
-+    ///
-+    /// let c = BqlCell::new(5);
-+    /// ```
-+    #[inline]
-+    pub const fn new(value: T) -> BqlCell<T> {
-+        BqlCell {
-+            value: UnsafeCell::new(value),
-+        }
-+    }
-+
-+    /// Sets the contained value.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use qemu_api::cell::BqlCell;
-+    ///
-+    /// let c = BqlCell::new(5);
-+    ///
-+    /// c.set(10);
-+    /// ```
-+    #[inline]
-+    pub fn set(&self, val: T) {
-+        self.replace(val);
-+    }
-+
-+    /// Replaces the contained value with `val`, and returns the old contained
-+    /// value.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use qemu_api::cell::BqlCell;
-+    ///
-+    /// let cell = BqlCell::new(5);
-+    /// assert_eq!(cell.get(), 5);
-+    /// assert_eq!(cell.replace(10), 5);
-+    /// assert_eq!(cell.get(), 10);
-+    /// ```
-+    #[inline]
-+    pub fn replace(&self, val: T) -> T {
-+        assert!(bql_locked());
-+        // SAFETY: This can cause data races if called from multiple threads,
-+        // but it won't happen as long as C code accesses the value
-+        // under BQL protection only.
-+        mem::replace(unsafe { &mut *self.value.get() }, val)
-+    }
-+
-+    /// Unwraps the value, consuming the cell.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use qemu_api::cell::BqlCell;
-+    ///
-+    /// let c = BqlCell::new(5);
-+    /// let five = c.into_inner();
-+    ///
-+    /// assert_eq!(five, 5);
-+    /// ```
-+    pub fn into_inner(self) -> T {
-+        assert!(bql_locked());
-+        self.value.into_inner()
-+    }
-+}
-+
-+impl<T: Copy> BqlCell<T> {
-+    /// Returns a copy of the contained value.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use qemu_api::cell::BqlCell;
-+    ///
-+    /// let c = BqlCell::new(5);
-+    ///
-+    /// let five = c.get();
-+    /// ```
-+    #[inline]
-+    pub fn get(&self) -> T {
-+        assert!(bql_locked());
-+        // SAFETY: This can cause data races if called from multiple threads,
-+        // but it won't happen as long as C code accesses the value
-+        // under BQL protection only.
-+        unsafe { *self.value.get() }
-+    }
-+}
-+
-+impl<T> BqlCell<T> {
-+    /// Returns a raw pointer to the underlying data in this cell.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use qemu_api::cell::BqlCell;
-+    ///
-+    /// let c = BqlCell::new(5);
-+    ///
-+    /// let ptr = c.as_ptr();
-+    /// ```
-+    #[inline]
-+    pub const fn as_ptr(&self) -> *mut T {
-+        self.value.get()
-+    }
-+}
-+
-+impl<T: Default> BqlCell<T> {
-+    /// Takes the value of the cell, leaving `Default::default()` in its place.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use qemu_api::cell::BqlCell;
-+    ///
-+    /// let c = BqlCell::new(5);
-+    /// let five = c.take();
-+    ///
-+    /// assert_eq!(five, 5);
-+    /// assert_eq!(c.into_inner(), 0);
-+    /// ```
-+    pub fn take(&self) -> T {
-+        self.replace(Default::default())
-+    }
-+}
-diff --git a/rust/qemu-api/src/lib.rs b/rust/qemu-api/src/lib.rs
-index 440aff3817d..b04d110b3f5 100644
---- a/rust/qemu-api/src/lib.rs
-+++ b/rust/qemu-api/src/lib.rs
-@@ -8,6 +8,7 @@
- pub mod bindings;
- 
- pub mod c_str;
-+pub mod cell;
- pub mod definitions;
- pub mod device_class;
- pub mod offset_of;
--- 
-2.47.0
-
+--
+Best Regards
+Junjie Mao
 
