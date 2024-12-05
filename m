@@ -1,74 +1,74 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJDoM-0006fg-Vb
-	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 10:30:39 -0500
+	id 1tJECr-0005ZH-RK
+	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 10:55:57 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJDoG-0006Vt-NB
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 10:30:33 -0500
+ id 1tJECp-0005Yz-T4
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 10:55:55 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJDoA-0005g8-Dc
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 10:30:29 -0500
+ id 1tJECn-0006dM-Om
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 10:55:55 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733412623;
+ s=mimecast20190719; t=1733414150;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=+tPTDgLinHsfPqWn+mOs+RK/sRDK415QYzsnCGXLwdY=;
- b=T3FeZWCrseEDK+Fh3CbvoJ4WPb+rTSfuVzxIE9LIkKAQVjCkYsbXMQ6f/gpsshhi2E35ea
- lhabwQ7+GKbyiy6g4dIuEnoASdECPVKK1H9qgTeNcceLU7gaG836JxB099rGYclWyfLBP5
- NILrGmAJTNvhyd4CfUIQVclv8JC6M98=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=7VH6aBVI0v2Utc5ls8KiwZY+aj9+fZ4f9uYnISwwCs4=;
+ b=BiRZrbqqWSUeRWQph6PCMqLa0KIy7hwvhl7Cx3+bK2MBUFD1botD+ubzxBzh0XEfZt0kAY
+ 4w1ouHVO6pZ6WlFQSKmh3w8Bvgo4jwnzqSNUmEiauPt7MuHxlF2HtAk9Pp8qEwFr92Mj5g
+ ZGnjdQyAXIIZsSYIVssJBJh1Ii+XHBs=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-484-Bpxjy5ntO0mxyLKn1_0G3A-1; Thu, 05 Dec 2024 10:30:20 -0500
-X-MC-Unique: Bpxjy5ntO0mxyLKn1_0G3A-1
-X-Mimecast-MFC-AGG-ID: Bpxjy5ntO0mxyLKn1_0G3A
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-4669be6c87aso17157831cf.3
- for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 07:30:20 -0800 (PST)
+ us-mta-690-Rw_X8c8ZP3uIysXTdK899Q-1; Thu, 05 Dec 2024 10:55:49 -0500
+X-MC-Unique: Rw_X8c8ZP3uIysXTdK899Q-1
+X-Mimecast-MFC-AGG-ID: Rw_X8c8ZP3uIysXTdK899Q
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-7b67201e64eso146271785a.0
+ for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 07:55:49 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733412620; x=1734017420;
+ d=1e100.net; s=20230601; t=1733414149; x=1734018949;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=+tPTDgLinHsfPqWn+mOs+RK/sRDK415QYzsnCGXLwdY=;
- b=XaVgm3GPO6CyoEn83ZrT26s2xKBYDyYfhSHDwlf75hnVBZiKMMveOshkKy+Jtl910g
- AHM228Uzq8mJFaDNDO89i9bOC7PrmLsI1E7Y6MXN5kl+vTCaNhjQVpwGkLHNmgp3iQdc
- OaRBtna46OKXZjDmRZtIXVzAqlOpKNVhPJqDFxkId8CtcJ9k1NJJ4c4GDacX9I95wxp7
- /EP3rxtDnfqGGaWmPk+++lnCX4GyMLgSDNxnYfV3AHVstMsLM1Zv1EuZqdEDBrbNVfRD
- TWJO2L+8OzFMwvhjEO7vg/xEOBJKP9QTreBZHEJ4nD6ocHPkyAn5Q/XrIsD1GxUHfrwu
- yIsw==
+ bh=7VH6aBVI0v2Utc5ls8KiwZY+aj9+fZ4f9uYnISwwCs4=;
+ b=PuWlKkzddntII8LiZd1pkOlwtAwziaD3OqeXzVVQ1D7KF9NUDG+Kg8uiGr2s9EAmKl
+ PBDnbcVJOAN+Y0DIVyWL69LZ6YAupSTxMQtJYuyjsOlP/ZNhF+dVt+W8zMET+aZWruRd
+ dCQGBb7oUIQ8y3+znCRNsDrZd+xy24IcgprfeEe2wAqbcyL4AJUn6rrqKyQcjG5rOMU4
+ lKub44BcpbgJZNwfNi0eXy3L7W2VaMOAbtkG957eHOtNm3ZCbhVC/HOKVlUNK0r8QfHJ
+ +n3hFSxPocmNc9HT2LAcmQKgFEMlB5AZaRt5hMezPduUWPoZHSaR93tMHEqRlTRFtj2l
+ ejiQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVAfJ7UV+532cWmbcLe2/MoQNRqaTzlIxcPPtp36VDtwQzhEDNHsEqw/ImDDw6m8frb/VZr0+g7Z+E=@nongnu.org
-X-Gm-Message-State: AOJu0YzIzYNUOoafmZnS/L3M/Z5YjxjmdxCoZ3GKg06c8fdQbBOJ6SBt
- a9DannzeXS8FYQDf5bLkK3+wCxSaugL1dfEX39epPD7RNQQKz2nnbMi+BWMkQ9hNivOixO8lebj
- 7V60YX7Kqbm1DIzZTnGM5QeS6CpOC3WAHSP4OgJTqNp2OCH3jJ6E=
-X-Gm-Gg: ASbGncsKtDDNFc3xw3tuvRp/9iVirHObLua6KkyZGiPIWZFHXz/9Uy4f9oJsERupVqA
- pDBFfXCUSmbUjDLwm5um2XBozDt+nb+pCF1FxFtc6ylG8I4bh6fT5/bNlx03cwju6JvudLNbzwA
- 35iztNWSZqikX7i/dSnmE6zXs170gtcGPD3dMdJooCZ4T8eT2xJUsV6rsteE5hZNoUPP78T2rtz
- ycbPiIRHpunAtifpos95tAIuUz97lhL9oJBSUPZUoButeZH0XJq
-X-Received: by 2002:a05:622a:308:b0:466:a0cf:b06c with SMTP id
- d75a77b69052e-4670c6fcc56mr211627691cf.56.1733412619344; 
- Thu, 05 Dec 2024 07:30:19 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IH9avNw992Fx/1ywXKckLhJa1t1yNcx5Y7hukXZ2eu973yuJuDOadoa8PW6IXXesFqUAKlTCg==
-X-Received: by 2002:a05:622a:308:b0:466:a0cf:b06c with SMTP id
- d75a77b69052e-4670c6fcc56mr211626941cf.56.1733412618852; 
- Thu, 05 Dec 2024 07:30:18 -0800 (PST)
+ AJvYcCUdrPzwnQnrOEQVkhVuUsw3J0ZKy4AN4L10XttUzUo3Oag/ChLHLs5YQRzgL8aD1ErRDuHTlASKi1Y=@nongnu.org
+X-Gm-Message-State: AOJu0Yx795sRYZ1gYKa18/9QlvWEZFWGNwOhWn2oTRBz/0BM4A13nemM
+ MYrwMhP7uvCj16O9gnJb39gavDG/QSP1uCKEX/x0WTyxNU7aszDENoRne7Dt31xma/XeogCr/G/
+ yDSFhzdwuHvEV18B9Di1f2x98KRBkWwGWwWvbNNIyFncN2LYaN6I=
+X-Gm-Gg: ASbGncswLuBduzFTxGXNNtmrJLGVFVRvlDpZiEmzbqVXeeAo1/HDxJyRo6VO0G2cZTW
+ rPliX/vrJ34w3z9PC86iP9h3H0hZoiIqAZUZ/NdmuQbsbqSNj5oFe1rtLjq4QX36Zn0L33l7/YS
+ dqCmjHkQGj8NKNQyPuLSTseaJv9Jw9eD29G/zpM1xyiuYsew6XJUhnwyvIz1C5B3StaXk9PMJHG
+ BlB6OMgMjJFFwLoClydk+rGydASPdoh2s4rkJpZD6++a3jnRqW0
+X-Received: by 2002:a05:620a:4806:b0:7b6:7ac5:5de1 with SMTP id
+ af79cd13be357-7b6a5d51ae1mr1558432885a.7.1733414149187; 
+ Thu, 05 Dec 2024 07:55:49 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFxwWA8EKyzNa/fiZP1e7uBzZHteImkNVFYkfXtqTkkaiUD1cglyLAMwOfGKftfYkJQgd6zeA==
+X-Received: by 2002:a05:620a:4806:b0:7b6:7ac5:5de1 with SMTP id
+ af79cd13be357-7b6a5d51ae1mr1558429985a.7.1733414148887; 
+ Thu, 05 Dec 2024 07:55:48 -0800 (PST)
 Received: from [10.20.9.127] ([144.121.20.162])
  by smtp.googlemail.com with ESMTPSA id
- d75a77b69052e-467296efea0sm8900501cf.37.2024.12.05.07.30.17
+ af79cd13be357-7b6b5a9e5c7sm71285685a.99.2024.12.05.07.55.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Dec 2024 07:30:17 -0800 (PST)
-Message-ID: <1da970e8-1708-48ef-87c4-1099d23e8909@redhat.com>
-Date: Thu, 5 Dec 2024 16:30:15 +0100
+ Thu, 05 Dec 2024 07:55:48 -0800 (PST)
+Message-ID: <75edc6e5-e65f-40c0-90ee-6ac1fa018f5c@redhat.com>
+Date: Thu, 5 Dec 2024 16:55:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 09/13] i386/fw_cfg: move hpet_cfg definition to hpet.c
+Subject: Re: [RFC 03/13] rust/cell: add get_mut() method for BqlCell
 To: Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Junjie Mao <junjie.mao@hotmail.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
@@ -76,7 +76,7 @@ To: Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
  <philmd@linaro.org>, Peter Maydell <peter.maydell@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
- <20241205060714.256270-10-zhao1.liu@intel.com>
+ <20241205060714.256270-4-zhao1.liu@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -113,9 +113,9 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20241205060714.256270-10-zhao1.liu@intel.com>
+In-Reply-To: <20241205060714.256270-4-zhao1.liu@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: qp8voNa3Ld8h-3Cp9CYf5FCnKUQRfDB501TZj1yCM3I_1733412620
+X-Mimecast-MFC-PROC-ID: SONigGEQ0dHC-KLFWDcnbVdlKvVBftDED7jKLJFlqDk_1733414149
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -142,106 +142,121 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Dec 2024 15:30:34 -0000
+X-List-Received-Date: Thu, 05 Dec 2024 15:55:56 -0000
 
 On 12/5/24 07:07, Zhao Liu wrote:
-> HPET device needs to access and update hpet_cfg variable, but now it is
-> defined in hw/i386/fw_cfg.c and Rust code can't access it.
+> The get_mut() is useful when doing compound assignment operations, e.g.,
+> *c.get_mut() += 1.
 > 
-> Move hpet_cfg definition to hpet.c (and rename it to hpet_fw_cfg). This
-> allows Rust HPET device implements its own global hpet_fw_cfg variable,
-> and will further reduce the use of unsafe C code access and calls in the
-> Rust HPET implementation.
-> 
-> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
-> ---
->   hw/i386/fw_cfg.c        |  4 +---
->   hw/timer/hpet.c         | 16 +++++++++-------
->   include/hw/timer/hpet.h |  2 +-
->   3 files changed, 11 insertions(+), 11 deletions(-)
-> 
-> diff --git a/hw/i386/fw_cfg.c b/hw/i386/fw_cfg.c
-> index 0e4494627c21..965e6306838a 100644
-> --- a/hw/i386/fw_cfg.c
-> +++ b/hw/i386/fw_cfg.c
-> @@ -26,8 +26,6 @@
->   #include CONFIG_DEVICES
->   #include "target/i386/cpu.h"
->   
-> -struct hpet_fw_config hpet_cfg = {.count = UINT8_MAX};
+> Implement get_mut() for BqlCell by referring to Cell.
 
-This breaks if you disable HPET, which is why fw_cfg.c defines it.
+I think you can't do this because the BQL might be released while the owner has a &mut.  Like:
 
-You can do something like
+    let mtx = Mutex<BqlCell<u32>>::new();
+    let guard = mtx.lock();
+    let cell = &mut *guard;
+    let inner = cell.get_mut(cell);
+    // anything that releases bql_lock
+    *inner += 1;
 
-diff --git a/include/hw/timer/hpet-fw-cfg.h b/include/hw/timer/hpet-fw-cfg.h
-new file mode 100644
-index 00000000000..234a49fc92e
---- /dev/null
-+++ b/include/hw/timer/hpet-fw-cfg.h
-@@ -0,0 +1,16 @@
-+struct hpet_fw_entry
-+{
-+    uint32_t event_timer_block_id;
-+    uint64_t address;
-+    uint16_t min_tick;
-+    uint8_t page_prot;
-+} QEMU_PACKED;
-+
-+struct hpet_fw_config
-+{
-+    uint8_t count;
-+    struct hpet_fw_entry hpet[8];
-+} QEMU_PACKED;
-+
-+extern struct hpet_fw_config hpet_fw_cfg;
-+
-diff --git a/include/hw/timer/hpet.h b/include/hw/timer/hpet.h
-index d17a8d43199..6f7fcbc3c60 100644
---- a/include/hw/timer/hpet.h
-+++ b/include/hw/timer/hpet.h
-@@ -60,26 +60,12 @@
-  #define HPET_TN_INT_ROUTE_CAP_SHIFT 32
-  #define HPET_TN_CFG_BITS_READONLY_OR_RESERVED 0xffff80b1U
-  
--struct hpet_fw_entry
--{
--    uint32_t event_timer_block_id;
--    uint64_t address;
--    uint16_t min_tick;
--    uint8_t page_prot;
--} QEMU_PACKED;
--
--struct hpet_fw_config
--{
--    uint8_t count;
--    struct hpet_fw_entry hpet[8];
--} QEMU_PACKED;
--
--extern struct hpet_fw_config hpet_cfg;
--
-  #define TYPE_HPET "hpet"
-  
-  #define HPET_INTCAP "hpet-intcap"
-  
-+#include "hw/timer/hpet-fw-cfg.h"
-+
-  static inline bool hpet_find(void)
-  {
-      return object_resolve_path_type("", TYPE_HPET, NULL);
-diff --git a/rust/wrapper.h b/rust/wrapper.h
-index 285d0eb6ad0..82381e43472 100644
---- a/rust/wrapper.h
-+++ b/rust/wrapper.h
-@@ -62,3 +62,4 @@ typedef enum memory_order {
-  #include "qapi/error.h"
-  #include "migration/vmstate.h"
-  #include "chardev/char-serial.h"
-+#include "hw/timer/hpet-fw-cfg.h"
+On the other hand I don't think you need it.  You have just two uses.
 
+First, this one:
 
-but you will have to use unsafe to access it since it's a "static mut".
++        if set && self.is_int_level_triggered() {
++            // If Timer N Interrupt Enable bit is 0, "the timer will
++            // still operate and generate appropriate status bits, but
++            // will not cause an interrupt"
++            *self.get_state_mut().int_status.get_mut() |= mask;
++        } else {
++            *self.get_state_mut().int_status.get_mut() &= !mask;
++        }
+
+Where you can just write
+
+     self.get_state_ref().update_int_status(self.index,
+         set && self.is_int_level_triggered())
+
+and the HPETState can do something like
+
+     fn update_int_status(&self, index: u32, level: bool) {
+         self.int_status.set(deposit64(self.int_status.get(), bit, 1, level as u64));
+     }
+
+For hpet_fw_cfg you have unsafe in the device and it's better if you do:
+
+-        self.hpet_id.set(unsafe { hpet_fw_cfg.assign_hpet_id() });
++        self.hpet_id.set(fw_cfg_config::assign_hpet_id());
+
+with methods like this that do the unsafe access:
+
+impl fw_cfg_config {
+     pub(crate) fn assign_hpet_id() -> usize {
+         assert!(bql_locked());
+         // SAFETY: all accesses go through these methods, which guarantee
+         // that the accesses are protected by the BQL.
+         let fw_cfg = unsafe { &mut *hpet_fw_cfg };
+
+         if self.count == u8::MAX {
+             // first instance
+             fw_cfg.count = 0;
+         }
+
+         if fw_cfg.count == 8 {
+             // TODO: Add error binding: error_setg()
+             panic!("Only 8 instances of HPET is allowed");
+         }
+
+         let id: usize = fw_cfg.count.into();
+         fw_cfg.count += 1;
+         id
+     }
+}
+
+and you can assert bql_locked by hand instead of using the BqlCell.
 
 Paolo
+
+> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+> ---
+>   rust/qemu-api/src/cell.rs | 25 +++++++++++++++++++++++++
+>   1 file changed, 25 insertions(+)
+> 
+> diff --git a/rust/qemu-api/src/cell.rs b/rust/qemu-api/src/cell.rs
+> index 07b636f26266..95f1cc0b3eb5 100644
+> --- a/rust/qemu-api/src/cell.rs
+> +++ b/rust/qemu-api/src/cell.rs
+> @@ -324,6 +324,31 @@ impl<T> BqlCell<T> {
+>       pub const fn as_ptr(&self) -> *mut T {
+>           self.value.get()
+>       }
+> +
+> +    /// Returns a mutable reference to the underlying data.
+> +    ///
+> +    /// This call borrows `BqlCell` mutably (at compile-time) which guarantees
+> +    /// that we possess the only reference.
+> +    ///
+> +    /// However be cautious: this method expects `self` to be mutable, which is
+> +    /// generally not the case when using a `BqlCell`. If you require interior
+> +    /// mutability by reference, consider using `BqlRefCell` which provides
+> +    /// run-time checked mutable borrows through its [`borrow_mut`] method.
+> +    ///
+> +    /// [`borrow_mut`]: BqlRefCell::borrow_mut()
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// ```
+> +    /// use qemu_api::cell::BqlCell;;
+> +    ///
+> +    /// let mut c = BqlCell::new(5);
+> +    /// *c.get_mut() += 1;
+> +    ///
+> +    /// assert_eq!(c.get(), 6);
+> +    pub fn get_mut(&mut self) -> &mut T {
+> +        self.value.get_mut()
+> +    }
+>   }
+>   
+>   impl<T: Default> BqlCell<T> {
 
 
