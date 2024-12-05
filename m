@@ -1,74 +1,74 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJDfY-0002Pv-Iz
-	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 10:21:32 -0500
+	id 1tJDoM-0006fg-Vb
+	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 10:30:39 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJDfW-0002PV-NT
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 10:21:30 -0500
+ id 1tJDoG-0006Vt-NB
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 10:30:33 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJDfU-0007KQ-Ks
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 10:21:30 -0500
+ id 1tJDoA-0005g8-Dc
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 10:30:29 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733412087;
+ s=mimecast20190719; t=1733412623;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=bIoqRXZ/B1R564DTsFfbTZhSWQBt47EHzZvf61i+qT0=;
- b=duLwvWfZoJcyiLt2gM/qNT7x2QBHuVAFb5HrVwapN4ws2EEAU8j3KCH4GCrTTlRq5OxmTr
- K4D09U2Rv0zkM6A+OZpmbyznkDN8nKJiyEQav4TIRzBt+5+5o2UAcrLcuMTIh3Sc4XmyMI
- kzwAlTct5Q2GIlvdhFTvSxLiS9FCNT8=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=+tPTDgLinHsfPqWn+mOs+RK/sRDK415QYzsnCGXLwdY=;
+ b=T3FeZWCrseEDK+Fh3CbvoJ4WPb+rTSfuVzxIE9LIkKAQVjCkYsbXMQ6f/gpsshhi2E35ea
+ lhabwQ7+GKbyiy6g4dIuEnoASdECPVKK1H9qgTeNcceLU7gaG836JxB099rGYclWyfLBP5
+ NILrGmAJTNvhyd4CfUIQVclv8JC6M98=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-190-EOGt_7atM46FqD_mnEGp0g-1; Thu, 05 Dec 2024 10:21:25 -0500
-X-MC-Unique: EOGt_7atM46FqD_mnEGp0g-1
-X-Mimecast-MFC-AGG-ID: EOGt_7atM46FqD_mnEGp0g
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-6d88d5e89f1so19613816d6.2
- for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 07:21:25 -0800 (PST)
+ us-mta-484-Bpxjy5ntO0mxyLKn1_0G3A-1; Thu, 05 Dec 2024 10:30:20 -0500
+X-MC-Unique: Bpxjy5ntO0mxyLKn1_0G3A-1
+X-Mimecast-MFC-AGG-ID: Bpxjy5ntO0mxyLKn1_0G3A
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-4669be6c87aso17157831cf.3
+ for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 07:30:20 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733412085; x=1734016885;
+ d=1e100.net; s=20230601; t=1733412620; x=1734017420;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=bIoqRXZ/B1R564DTsFfbTZhSWQBt47EHzZvf61i+qT0=;
- b=Jh4H6CxpCCc/l1RcxxqUua0HVCSQsZ9Ev6NeP1r1McatuNq2eOVqwGgw43Nvv66RTK
- MAVZfUE+ff5ngeRSzAVO/Xy87qTRfWwGZE7G8IBc2x8CzerUHS/R1OCrmNPfHav8EF1B
- ShlOi0SgvJeDvXJUHZrs5fLu9ex7zhLPstwSjS52o58o2KzwS2E2tQpk7GfwHqaKDj+y
- ba3+j9QKuHSnAGua496p6PfXqrjIcMEBxgo4mEvu6SDtr+5mbz9kJStsF2X5mNX2ykTi
- JPl8jlrAMnkXHbQgLT/vpJQyBrOz/LWxczW/8N+srlB6NTxs1dmRUHsI9akeVPf67Q7A
- rtPA==
+ bh=+tPTDgLinHsfPqWn+mOs+RK/sRDK415QYzsnCGXLwdY=;
+ b=XaVgm3GPO6CyoEn83ZrT26s2xKBYDyYfhSHDwlf75hnVBZiKMMveOshkKy+Jtl910g
+ AHM228Uzq8mJFaDNDO89i9bOC7PrmLsI1E7Y6MXN5kl+vTCaNhjQVpwGkLHNmgp3iQdc
+ OaRBtna46OKXZjDmRZtIXVzAqlOpKNVhPJqDFxkId8CtcJ9k1NJJ4c4GDacX9I95wxp7
+ /EP3rxtDnfqGGaWmPk+++lnCX4GyMLgSDNxnYfV3AHVstMsLM1Zv1EuZqdEDBrbNVfRD
+ TWJO2L+8OzFMwvhjEO7vg/xEOBJKP9QTreBZHEJ4nD6ocHPkyAn5Q/XrIsD1GxUHfrwu
+ yIsw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUo/7AMFZwX9P36iu78aLJdYzgGioa8GM1iYvuCi/HRSuoKNFnj317P1apR4/Mdd6aVWPcpThr5Yfk=@nongnu.org
-X-Gm-Message-State: AOJu0YyxDSgKG1AXJhRao3GK+mgfbIYuz+m0Ki6TsC5lyDQ4821HyFja
- xQelz1e4xD7nJFfavtA6hZaNbvcfgmjv/W+WC7MduilffjnbYeiwGPIQz3vMRxwZOHZkfkD6PcV
- oOCTqcYx7It+KjmJECR+ApU7to4G4iZ1UT9Zt3A1jd50RJcmjYAE=
-X-Gm-Gg: ASbGncv9B3vaxOPYRCr38+Le/SeDk8m1WAWtzM3sVWZzdpB3iyKoQ25RdAr+WyXwiA1
- pjSuueNzg49gahtn664SYrDY/VNLiPIJygY9tofTihzXLGhDz3LleDQRrITGGk4f86YW6dxHMW5
- hY+oGDA+RZnYkAMDFpfK+sCdpjdZu45Ca0LnJaYtYa2YmPgiqOxk7rQGBqS5+x6nxmvDfFfYtWl
- YRYaceSh4E4D5FJisvL9CvxPRfW54tIhcSj3g5J98QVuw/OGFTz
-X-Received: by 2002:a05:6214:21e4:b0:6d8:a5f7:f108 with SMTP id
- 6a1803df08f44-6d8b73a5492mr194198066d6.26.1733412084782; 
- Thu, 05 Dec 2024 07:21:24 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGCk2HJ2Nj+RMV1gWbzGGum02m5IHJVQJtJ5SCJrcf8yb13NQnOEBV7IE1Sp4tl4vVml+WzQA==
-X-Received: by 2002:a05:6214:21e4:b0:6d8:a5f7:f108 with SMTP id
- 6a1803df08f44-6d8b73a5492mr194197636d6.26.1733412084501; 
- Thu, 05 Dec 2024 07:21:24 -0800 (PST)
+ AJvYcCVAfJ7UV+532cWmbcLe2/MoQNRqaTzlIxcPPtp36VDtwQzhEDNHsEqw/ImDDw6m8frb/VZr0+g7Z+E=@nongnu.org
+X-Gm-Message-State: AOJu0YzIzYNUOoafmZnS/L3M/Z5YjxjmdxCoZ3GKg06c8fdQbBOJ6SBt
+ a9DannzeXS8FYQDf5bLkK3+wCxSaugL1dfEX39epPD7RNQQKz2nnbMi+BWMkQ9hNivOixO8lebj
+ 7V60YX7Kqbm1DIzZTnGM5QeS6CpOC3WAHSP4OgJTqNp2OCH3jJ6E=
+X-Gm-Gg: ASbGncsKtDDNFc3xw3tuvRp/9iVirHObLua6KkyZGiPIWZFHXz/9Uy4f9oJsERupVqA
+ pDBFfXCUSmbUjDLwm5um2XBozDt+nb+pCF1FxFtc6ylG8I4bh6fT5/bNlx03cwju6JvudLNbzwA
+ 35iztNWSZqikX7i/dSnmE6zXs170gtcGPD3dMdJooCZ4T8eT2xJUsV6rsteE5hZNoUPP78T2rtz
+ ycbPiIRHpunAtifpos95tAIuUz97lhL9oJBSUPZUoButeZH0XJq
+X-Received: by 2002:a05:622a:308:b0:466:a0cf:b06c with SMTP id
+ d75a77b69052e-4670c6fcc56mr211627691cf.56.1733412619344; 
+ Thu, 05 Dec 2024 07:30:19 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IH9avNw992Fx/1ywXKckLhJa1t1yNcx5Y7hukXZ2eu973yuJuDOadoa8PW6IXXesFqUAKlTCg==
+X-Received: by 2002:a05:622a:308:b0:466:a0cf:b06c with SMTP id
+ d75a77b69052e-4670c6fcc56mr211626941cf.56.1733412618852; 
+ Thu, 05 Dec 2024 07:30:18 -0800 (PST)
 Received: from [10.20.9.127] ([144.121.20.162])
  by smtp.googlemail.com with ESMTPSA id
- 6a1803df08f44-6d8dabfa585sm7379636d6.99.2024.12.05.07.20.49
+ d75a77b69052e-467296efea0sm8900501cf.37.2024.12.05.07.30.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Dec 2024 07:21:23 -0800 (PST)
-Message-ID: <a76ccad6-5c8d-47e1-9613-9ac48df38940@redhat.com>
-Date: Thu, 5 Dec 2024 16:20:44 +0100
+ Thu, 05 Dec 2024 07:30:17 -0800 (PST)
+Message-ID: <1da970e8-1708-48ef-87c4-1099d23e8909@redhat.com>
+Date: Thu, 5 Dec 2024 16:30:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 13/13] i386: enable rust hpet for pc when rust is enabled
+Subject: Re: [RFC 09/13] i386/fw_cfg: move hpet_cfg definition to hpet.c
 To: Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Junjie Mao <junjie.mao@hotmail.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
@@ -76,7 +76,7 @@ To: Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
  <philmd@linaro.org>, Peter Maydell <peter.maydell@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
- <20241205060714.256270-14-zhao1.liu@intel.com>
+ <20241205060714.256270-10-zhao1.liu@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -113,9 +113,9 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20241205060714.256270-14-zhao1.liu@intel.com>
+In-Reply-To: <20241205060714.256270-10-zhao1.liu@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: crKSqHqO85Hv7D2T-cqMEkODq4qwervgtU7e6g6FSI8_1733412085
+X-Mimecast-MFC-PROC-ID: qp8voNa3Ld8h-3Cp9CYf5FCnKUQRfDB501TZj1yCM3I_1733412620
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -142,62 +142,106 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Dec 2024 15:21:30 -0000
+X-List-Received-Date: Thu, 05 Dec 2024 15:30:34 -0000
 
 On 12/5/24 07:07, Zhao Liu wrote:
-> Add HPET configuration in PC's Kconfig options, and select HPET device
-> (Rust version) if Rust is supported.
+> HPET device needs to access and update hpet_cfg variable, but now it is
+> defined in hw/i386/fw_cfg.c and Rust code can't access it.
+> 
+> Move hpet_cfg definition to hpet.c (and rename it to hpet_fw_cfg). This
+> allows Rust HPET device implements its own global hpet_fw_cfg variable,
+> and will further reduce the use of unsafe C code access and calls in the
+> Rust HPET implementation.
 > 
 > Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 > ---
->   hw/i386/Kconfig       | 2 ++
->   hw/timer/Kconfig      | 1 -
->   rust/hw/Kconfig       | 1 +
->   rust/hw/timer/Kconfig | 2 ++
->   4 files changed, 5 insertions(+), 1 deletion(-)
->   create mode 100644 rust/hw/timer/Kconfig
+>   hw/i386/fw_cfg.c        |  4 +---
+>   hw/timer/hpet.c         | 16 +++++++++-------
+>   include/hw/timer/hpet.h |  2 +-
+>   3 files changed, 11 insertions(+), 11 deletions(-)
 > 
-> diff --git a/hw/i386/Kconfig b/hw/i386/Kconfig
-> index 32818480d263..83ab3222c4f0 100644
-> --- a/hw/i386/Kconfig
-> +++ b/hw/i386/Kconfig
-> @@ -39,6 +39,8 @@ config PC
->       select PCSPK
->       select I8257
->       select MC146818RTC
-> +    select HPET if !HAVE_RUST
-> +    select X_HPET_RUST if HAVE_RUST
-
-HPET is optional, so you need to have...
-
->   config HPET
->       bool
-> -    default y if PC
+> diff --git a/hw/i386/fw_cfg.c b/hw/i386/fw_cfg.c
+> index 0e4494627c21..965e6306838a 100644
+> --- a/hw/i386/fw_cfg.c
+> +++ b/hw/i386/fw_cfg.c
+> @@ -26,8 +26,6 @@
+>   #include CONFIG_DEVICES
+>   #include "target/i386/cpu.h"
 >   
+> -struct hpet_fw_config hpet_cfg = {.count = UINT8_MAX};
 
-+default y if PC && !HAVE_RUST
+This breaks if you disable HPET, which is why fw_cfg.c defines it.
 
-with a matching "default y if PC && HAVE_RUST" for X_HPET_RUST.
+You can do something like
+
+diff --git a/include/hw/timer/hpet-fw-cfg.h b/include/hw/timer/hpet-fw-cfg.h
+new file mode 100644
+index 00000000000..234a49fc92e
+--- /dev/null
++++ b/include/hw/timer/hpet-fw-cfg.h
+@@ -0,0 +1,16 @@
++struct hpet_fw_entry
++{
++    uint32_t event_timer_block_id;
++    uint64_t address;
++    uint16_t min_tick;
++    uint8_t page_prot;
++} QEMU_PACKED;
++
++struct hpet_fw_config
++{
++    uint8_t count;
++    struct hpet_fw_entry hpet[8];
++} QEMU_PACKED;
++
++extern struct hpet_fw_config hpet_fw_cfg;
++
+diff --git a/include/hw/timer/hpet.h b/include/hw/timer/hpet.h
+index d17a8d43199..6f7fcbc3c60 100644
+--- a/include/hw/timer/hpet.h
++++ b/include/hw/timer/hpet.h
+@@ -60,26 +60,12 @@
+  #define HPET_TN_INT_ROUTE_CAP_SHIFT 32
+  #define HPET_TN_CFG_BITS_READONLY_OR_RESERVED 0xffff80b1U
+  
+-struct hpet_fw_entry
+-{
+-    uint32_t event_timer_block_id;
+-    uint64_t address;
+-    uint16_t min_tick;
+-    uint8_t page_prot;
+-} QEMU_PACKED;
+-
+-struct hpet_fw_config
+-{
+-    uint8_t count;
+-    struct hpet_fw_entry hpet[8];
+-} QEMU_PACKED;
+-
+-extern struct hpet_fw_config hpet_cfg;
+-
+  #define TYPE_HPET "hpet"
+  
+  #define HPET_INTCAP "hpet-intcap"
+  
++#include "hw/timer/hpet-fw-cfg.h"
++
+  static inline bool hpet_find(void)
+  {
+      return object_resolve_path_type("", TYPE_HPET, NULL);
+diff --git a/rust/wrapper.h b/rust/wrapper.h
+index 285d0eb6ad0..82381e43472 100644
+--- a/rust/wrapper.h
++++ b/rust/wrapper.h
+@@ -62,3 +62,4 @@ typedef enum memory_order {
+  #include "qapi/error.h"
+  #include "migration/vmstate.h"
+  #include "chardev/char-serial.h"
++#include "hw/timer/hpet-fw-cfg.h"
+
+
+but you will have to use unsafe to access it since it's a "static mut".
 
 Paolo
-
->   config I8254
->       bool
-> diff --git a/rust/hw/Kconfig b/rust/hw/Kconfig
-> index 4d934f30afe1..36f92ec02874 100644
-> --- a/rust/hw/Kconfig
-> +++ b/rust/hw/Kconfig
-> @@ -1,2 +1,3 @@
->   # devices Kconfig
->   source char/Kconfig
-> +source timer/Kconfig
-> diff --git a/rust/hw/timer/Kconfig b/rust/hw/timer/Kconfig
-> new file mode 100644
-> index 000000000000..afd980335037
-> --- /dev/null
-> +++ b/rust/hw/timer/Kconfig
-> @@ -0,0 +1,2 @@
-> +config X_HPET_RUST
-> +    bool
 
 
