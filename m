@@ -1,39 +1,39 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJ4ju-0006Ax-2c
-	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 00:49:26 -0500
+	id 1tJ4jx-0006Bh-Cx
+	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 00:49:29 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tJ4js-0006AP-5d; Thu, 05 Dec 2024 00:49:24 -0500
+ id 1tJ4jw-0006BM-0L; Thu, 05 Dec 2024 00:49:28 -0500
 Received: from mgamail.intel.com ([198.175.65.18])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tJ4jo-00077P-My; Thu, 05 Dec 2024 00:49:23 -0500
+ id 1tJ4ju-00079A-F5; Thu, 05 Dec 2024 00:49:27 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733377761; x=1764913761;
+ t=1733377767; x=1764913767;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=u4ULxLbBoMZS1PFeI3YxwZ6tEeXAKH8bdHoJ0zJEbDo=;
- b=NY/CRAKGVTzb9ofv5qTZlv7DhPY6Qd01G89G6HZIbThX1BUqWqrs2Hp4
- F/Fatw0PK+BIoLxTWZqp6DLqRY1SscyC/Ua1ZSR0Ueqx1Ns8xghgdUzbo
- ZTfpRR/1B2nGxaJxtEB6FBhZUGTctkt5McAugVkOre+XlZK2si94zRTss
- KHjEKpyKoTdT9qYAu47AI0nAME8s9xKf8+IP19DdbyPrb8okDwheYmHCa
- BTNQ1RRLXhpifnl5o3k3bnyZEYPClJxanifz9eVxQIQ5IkTDjPKFpuJHV
- 46dcRbkqw1ElEOw9G+uuTfYilJFb279RxUn/18ar0aC7j4FKUXngawBwW A==;
-X-CSE-ConnectionGUID: AcLTKBurROyFsFvBO8jIag==
-X-CSE-MsgGUID: P8+K/3U1Su6dg64iijPVPw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11276"; a="33815604"
-X-IronPort-AV: E=Sophos;i="6.12,209,1728975600"; d="scan'208";a="33815604"
+ bh=Sx8nPxJJRfYhQt7D0F4clWV/fbFfMbPN7go3+4J/5Rc=;
+ b=k9XC99M/lx1XFVaz2A4xoDvLqKocn6Eo9qv8T4oeYxh+3UullTfn1Dim
+ Cnty98ONsKmaASjVR/Rqw1jodll8N3WYWXucnsKxj+biWDJsRPFFg6wsi
+ HTMLG3L4QHhh1yKfs3oLP83ckCniy4qPY0IqOoJUx3xTCfYzFLGBwFaCR
+ 8Gvaeea8WChMKVYz2I26SNlRVnFsWtJh0y7+h35Bh7NHh6lrOYak3Zmab
+ OZX1/hrRVKrtb9tkAEVzGUkWqy/CtPFDLRKwwRYTuSVjsMUfeOMxRG1Z3
+ KnTSarQWWqrlWi4BD2212nw8tBOaOFOMoESjxHHJor5Z0LsecpkWDWQSM A==;
+X-CSE-ConnectionGUID: VoNbXnOFQIiTwfPMdimSQQ==
+X-CSE-MsgGUID: iFQ5Azm8QC+MpqjCEOvXOw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11276"; a="33815623"
+X-IronPort-AV: E=Sophos;i="6.12,209,1728975600"; d="scan'208";a="33815623"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2024 21:49:17 -0800
-X-CSE-ConnectionGUID: bAZlyB9+Tn67qaLo02lmMQ==
-X-CSE-MsgGUID: rvtGDoXxTwqC9yftYwTyHw==
+ 04 Dec 2024 21:49:24 -0800
+X-CSE-ConnectionGUID: TRWGioeHT7257PaafcEfDA==
+X-CSE-MsgGUID: sxO6YOnFTVqTlepySetzDw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,209,1728975600"; d="scan'208";a="94454950"
+X-IronPort-AV: E=Sophos;i="6.12,209,1728975600"; d="scan'208";a="94454972"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.36])
- by fmviesa009.fm.intel.com with ESMTP; 04 Dec 2024 21:49:14 -0800
+ by fmviesa009.fm.intel.com with ESMTP; 04 Dec 2024 21:49:21 -0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
  "Michael S . Tsirkin" <mst@redhat.com>,
@@ -43,10 +43,9 @@ To: Paolo Bonzini <pbonzini@redhat.com>,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  Peter Maydell <peter.maydell@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC 01/13] bql: check that the BQL is not dropped within marked
- sections
-Date: Thu,  5 Dec 2024 14:07:02 +0800
-Message-Id: <20241205060714.256270-2-zhao1.liu@intel.com>
+Subject: [RFC 03/13] rust/cell: add get_mut() method for BqlCell
+Date: Thu,  5 Dec 2024 14:07:04 +0800
+Message-Id: <20241205060714.256270-4-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241205060714.256270-1-zhao1.liu@intel.com>
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
@@ -74,116 +73,54 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Dec 2024 05:49:24 -0000
+X-List-Received-Date: Thu, 05 Dec 2024 05:49:28 -0000
 
-From: Paolo Bonzini <pbonzini@redhat.com>
+The get_mut() is useful when doing compound assignment operations, e.g.,
+*c.get_mut() += 1.
 
-The Big QEMU Lock (BQL) is used to provide interior mutability to Rust
-code.  While BqlCell performs indivisible accesses, an equivalent of
-RefCell will allow the borrower to hold to the interior content for a
-long time.  If the BQL is dropped, another thread could come and mutate
-the data from C code (Rust code would panic on borrow_mut() instead).
-In order to prevent this, add a new BQL primitive that can mark
-BQL-atomic sections and aborts if the BQL is dropped within them.
+Implement get_mut() for BqlCell by referring to Cell.
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- include/qemu/main-loop.h | 15 +++++++++++++++
- stubs/iothread-lock.c    | 15 +++++++++++++++
- system/cpus.c            | 15 +++++++++++++++
- 3 files changed, 45 insertions(+)
+ rust/qemu-api/src/cell.rs | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/include/qemu/main-loop.h b/include/qemu/main-loop.h
-index 5764db157c97..646306c272f7 100644
---- a/include/qemu/main-loop.h
-+++ b/include/qemu/main-loop.h
-@@ -262,6 +262,21 @@ AioContext *iohandler_get_aio_context(void);
-  */
- bool bql_locked(void);
- 
-+/**
-+ * bql_block: Allow/deny releasing the BQL
-+ *
-+ * The Big QEMU Lock (BQL) is used to provide interior mutability to
-+ * Rust code, but this only works if other threads cannot run while
-+ * the Rust code has an active borrow.  This is because C code in
-+ * other threads could come in and mutate data under the Rust code's
-+ * feet.
-+ *
-+ * @increase: Whether to increase or decrease the blocking counter.
-+ *            Releasing the BQL while the counter is nonzero triggers
-+ *            an assertion failure.
-+ */
-+void bql_block_unlock(bool increase);
+diff --git a/rust/qemu-api/src/cell.rs b/rust/qemu-api/src/cell.rs
+index 07b636f26266..95f1cc0b3eb5 100644
+--- a/rust/qemu-api/src/cell.rs
++++ b/rust/qemu-api/src/cell.rs
+@@ -324,6 +324,31 @@ impl<T> BqlCell<T> {
+     pub const fn as_ptr(&self) -> *mut T {
+         self.value.get()
+     }
 +
- /**
-  * qemu_in_main_thread: return whether it's possible to safely access
-  * the global state of the block layer.
-diff --git a/stubs/iothread-lock.c b/stubs/iothread-lock.c
-index d7890e5581c5..54676598950f 100644
---- a/stubs/iothread-lock.c
-+++ b/stubs/iothread-lock.c
-@@ -1,6 +1,8 @@
- #include "qemu/osdep.h"
- #include "qemu/main-loop.h"
- 
-+static uint32_t bql_unlock_blocked;
-+
- bool bql_locked(void)
- {
-     return false;
-@@ -12,4 +14,17 @@ void bql_lock_impl(const char *file, int line)
- 
- void bql_unlock(void)
- {
-+    assert(!bql_unlock_blocked);
-+}
-+
-+void bql_block_unlock(bool increase)
-+{
-+    uint32_t new_value;
-+
-+    assert(bql_locked());
-+
-+    /* check for overflow! */
-+    new_value = bql_unlock_blocked + increase - !increase;
-+    assert((new_value > bql_unlock_blocked) == increase);
-+    bql_unlock_blocked = new_value;
++    /// Returns a mutable reference to the underlying data.
++    ///
++    /// This call borrows `BqlCell` mutably (at compile-time) which guarantees
++    /// that we possess the only reference.
++    ///
++    /// However be cautious: this method expects `self` to be mutable, which is
++    /// generally not the case when using a `BqlCell`. If you require interior
++    /// mutability by reference, consider using `BqlRefCell` which provides
++    /// run-time checked mutable borrows through its [`borrow_mut`] method.
++    ///
++    /// [`borrow_mut`]: BqlRefCell::borrow_mut()
++    ///
++    /// # Examples
++    ///
++    /// ```
++    /// use qemu_api::cell::BqlCell;;
++    ///
++    /// let mut c = BqlCell::new(5);
++    /// *c.get_mut() += 1;
++    ///
++    /// assert_eq!(c.get(), 6);
++    pub fn get_mut(&mut self) -> &mut T {
++        self.value.get_mut()
++    }
  }
-diff --git a/system/cpus.c b/system/cpus.c
-index a1b46f68476a..793c4698c7ad 100644
---- a/system/cpus.c
-+++ b/system/cpus.c
-@@ -514,6 +514,20 @@ bool qemu_in_vcpu_thread(void)
  
- QEMU_DEFINE_STATIC_CO_TLS(bool, bql_locked)
- 
-+static uint32_t bql_unlock_blocked;
-+
-+void bql_block_unlock(bool increase)
-+{
-+    uint32_t new_value;
-+
-+    assert(bql_locked());
-+
-+    /* check for overflow! */
-+    new_value = bql_unlock_blocked + increase - !increase;
-+    assert((new_value > bql_unlock_blocked) == increase);
-+    bql_unlock_blocked = new_value;
-+}
-+
- bool bql_locked(void)
- {
-     return get_bql_locked();
-@@ -540,6 +554,7 @@ void bql_lock_impl(const char *file, int line)
- void bql_unlock(void)
- {
-     g_assert(bql_locked());
-+    g_assert(!bql_unlock_blocked);
-     set_bql_locked(false);
-     qemu_mutex_unlock(&bql);
- }
+ impl<T: Default> BqlCell<T> {
 -- 
 2.34.1
 
