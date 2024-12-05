@@ -1,69 +1,73 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJ4yi-0007Fu-5x
-	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 01:04:45 -0500
+	id 1tJAXY-0002FV-2t
+	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 07:01:04 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tJ4yf-0007FC-MF; Thu, 05 Dec 2024 01:04:41 -0500
-Received: from mgamail.intel.com ([192.198.163.11])
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1tJAXT-0002Eo-9r
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 07:01:01 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tJ4yX-0005Fn-Gz; Thu, 05 Dec 2024 01:04:40 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733378673; x=1764914673;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=sRVrzqxgowgNuEq+HU+J5QCFqfpel+2YZVRxDHlc328=;
- b=Fa3ft/CkcZgBhWR5IQ3ILiakDzQStPqmH42nA3ImHD9knjPb/LHq2Ytk
- 4No8z9Tmo9yN24aVs1ub6EbSGnCydahfdtsVTFymvQT5yHl4NqvJSNgk3
- vyaH5RjIXV3JuhS2+KawFi8Byhqd4uw52U6jGev4o7MzKM0TPKy9N82Zx
- 6rPlkvdSHZZDGoVFDPSHlPq7aqyEScQS4kd9++1MIRN2aJC/eOzDnwNF8
- p1REw95FrTLkC/RWRPf8hoxbfs3gCMHoQcah45oLcsXUSFHd4I+Vc4wqC
- ux3yKVfQdIHccg89aHhsexXvxnkeMpdEyK/zp4ahPp9Jq+lafHkKZKRil Q==;
-X-CSE-ConnectionGUID: wbLROBxaRs2IraBL/AC+dQ==
-X-CSE-MsgGUID: hyg3H8RtRhWYvY5hC5MUSw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11276"; a="44281055"
-X-IronPort-AV: E=Sophos;i="6.12,209,1728975600"; d="scan'208";a="44281055"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2024 22:04:28 -0800
-X-CSE-ConnectionGUID: PIC/4ZFDTwaE3A95eZQQhA==
-X-CSE-MsgGUID: mauZe62oR5OcegsQ/oyWKw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,209,1728975600"; d="scan'208";a="98961225"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.36])
- by orviesa005.jf.intel.com with ESMTP; 04 Dec 2024 22:04:26 -0800
-Date: Thu, 5 Dec 2024 14:22:37 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Junjie Mao <junjie.mao@hotmail.com>,
- Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
- Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>,
- Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
- Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [RFC 00/13] rust: Reinvent the wheel for HPET timer in Rust
-Message-ID: <Z1FGrQC4g8Nq0Wwr@intel.com>
-References: <20241205060714.256270-1-zhao1.liu@intel.com>
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1tJAXN-0002sq-DY
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 07:00:59 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1733400050;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kz+lWolidNLM4/3Lr+R4ibPfY0z6uplz27VVbpMn9HI=;
+ b=PF8hm7tWVm77nbblpPWMWH32H1AdMCjP1sQ7Fk1n+Kqs0RwRVreDCIfAV9QsutccYkvA8N
+ 3FMXcsb4fB4UgG4N0T0DxNO8i4XKnTR9TF5xR2McjqnNcVQfjX50oP/gGwFHrVsxEJH9Ks
+ j+czzNDdEzs9XP1Me1PI9Cgmv+w5mpc=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-510-SAPjHdJhP0-Qp4woHkl1Zg-1; Thu,
+ 05 Dec 2024 07:00:47 -0500
+X-MC-Unique: SAPjHdJhP0-Qp4woHkl1Zg-1
+X-Mimecast-MFC-AGG-ID: SAPjHdJhP0-Qp4woHkl1Zg
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id F01F01956046; Thu,  5 Dec 2024 12:00:43 +0000 (UTC)
+Received: from redhat.com (unknown [10.42.28.137])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 3BE101955F3D; Thu,  5 Dec 2024 12:00:39 +0000 (UTC)
+Date: Thu, 5 Dec 2024 12:00:34 +0000
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Stefan Hajnoczi <stefanha@gmail.com>, qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org, Paul Durrant <paul@xen.org>
+Subject: Re: Rust in QEMU roadmap
+Message-ID: <Z1GV4kwvjPoEob6j@redhat.com>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+References: <cc40943e-dec1-4890-a1d9-579350ce296f@pbonzini.local>
+ <CAJSP0QVGP9RQ57V-+2Lo2Se0x0O1KuENT24HzOn2X3A3vmn73A@mail.gmail.com>
+ <Z0cOKGl-46wg5NTG@redhat.com>
+ <CABgObfaZkCQMWH9oH5rLdqHB-B8t2n9uWSaYASsBzxiiMK1hRQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20241205060714.256270-1-zhao1.liu@intel.com>
-Received-SPF: pass client-ip=192.198.163.11; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -73
-X-Spam_score: -7.4
-X-Spam_bar: -------
-X-Spam_report: (-7.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.999,
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABgObfaZkCQMWH9oH5rLdqHB-B8t2n9uWSaYASsBzxiiMK1hRQ@mail.gmail.com>
+User-Agent: Mutt/2.2.13 (2024-03-09)
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -50
+X-Spam_score: -5.1
+X-Spam_bar: -----
+X-Spam_report: (-5.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -76,42 +80,37 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Dec 2024 06:04:42 -0000
+X-List-Received-Date: Thu, 05 Dec 2024 12:01:01 -0000
 
-> After making empty promises for many months, I have finally written the
-> Rust version of HPET :-) I'm also very grateful for the help from Paolo,
-> Manos, and Junjie!
+On Wed, Nov 27, 2024 at 01:22:00PM +0100, Paolo Bonzini wrote:
+> On Wed, Nov 27, 2024 at 1:18 PM Daniel P. Berrangé <berrange@redhat.com> wrote:
+> > I question the usefulness of the 'syslog' trace target. I can't see
+> > it being desirable as a option for 'production' builds, and it seems
+> > uneccessarily indirect for developers. What's its compelling USP ?
+> >
+> > WRT 'ftrace', IIUC, the Linux 'perf' command has built-in support
+> > for using USDT probes now:
+> >
+> >   https://www.brendangregg.com/perf.html#StaticUserTracing
 > 
-> Overall, HPET in Rust maintains the same logic as the original C
-> version, adhering to the IA-HPET spec v1.0a [1]. While keeping the logic
-> unchanged, it attempts to keep up with the current development progress
-> of Rust for QEMU, leveraging the latest and ongoing Rust binding updates
-> as much as possible, such as BqlCell / BqlRefCell, qom & qdev
-> enhancements, irq binding, and more. Additionally, it introduces new
-> bindings, including gpio_{in|out}, bitops, memattrs, and timer. Finally,
-> based on Paolo's suggestion, the vmstate part is temporarily on hold.
-> 
-> Welcome your comments and feedback!
+> I also wonder if 'ftrace' is duplicating 'log' these days. Anyhow, if
+> we can deprecate 'syslog' and 'ftrace' that would be good to know
+> independent of Rust.
 
-Based on Paolo's rust-next branch of https://gitlab.com/bonzini/qemu at
-the commit 05de50008121 ("rust: qom: move device_id to PL011 class side").
- 
-[snip]
+I looked back at the history of syslog and re-discovered that I raised
+the same question when it was first proposed. It was said that syslog
+was to be used by XenServer for some kind of logging they wanted:
 
-> Public and Private in QOM State
-> -------------------------------
-> 
-> I recently asked on the mailing list [4] about the reason for using
-> "<public>"/"<private>" comments in QOM structures. Peter, Junjie, and
-> Balaton provided some explanations and feedback (thank you all).
+  https://lists.nongnu.org/archive/html/qemu-devel/2016-08/msg00336.html
 
-And thanks Daniel!!
+I've CC'd Paul as it'd be useful to know if Xen did end up using this
+feature or not, as we don't want to rip the rug from under them.
 
-...
-
-> [4]: https://lore.kernel.org/qemu-devel/ZxPZ5oUDRcVroh7o@intel.com/
-
-Regards,
-Zhao
+With regards,
+Daniel
+-- 
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
 
 
