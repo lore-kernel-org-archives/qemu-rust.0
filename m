@@ -1,74 +1,74 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJECr-0005ZH-RK
-	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 10:55:57 -0500
+	id 1tJEQM-00020K-HR
+	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 11:09:54 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJECp-0005Yz-T4
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 10:55:55 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1tJEQL-000200-7W
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 11:09:53 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJECn-0006dM-Om
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 10:55:55 -0500
+ id 1tJEQJ-0001UB-B1
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 11:09:52 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733414150;
+ s=mimecast20190719; t=1733414989;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=7VH6aBVI0v2Utc5ls8KiwZY+aj9+fZ4f9uYnISwwCs4=;
- b=BiRZrbqqWSUeRWQph6PCMqLa0KIy7hwvhl7Cx3+bK2MBUFD1botD+ubzxBzh0XEfZt0kAY
- 4w1ouHVO6pZ6WlFQSKmh3w8Bvgo4jwnzqSNUmEiauPt7MuHxlF2HtAk9Pp8qEwFr92Mj5g
- ZGnjdQyAXIIZsSYIVssJBJh1Ii+XHBs=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=EsvhqekRj8pSgByReoQUTkJu/oYQaDoS5+V3eLnOXYw=;
+ b=PlPtluT+ZCSzNXwUOMBzEh5nRHd74kZzIIEPh8SPrrb5FoqwaSncYQDMJOPy05Mn8PRaNt
+ C4C2sIME7IKXMm+6nNXtc/kPtIwJpqOYdkoD76eJquhWjqi40TkGLwBJuij7YD8VKLhCbS
+ feQS2SW4TIPtQXrWBxMtBS1j7n9gU2o=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-690-Rw_X8c8ZP3uIysXTdK899Q-1; Thu, 05 Dec 2024 10:55:49 -0500
-X-MC-Unique: Rw_X8c8ZP3uIysXTdK899Q-1
-X-Mimecast-MFC-AGG-ID: Rw_X8c8ZP3uIysXTdK899Q
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7b67201e64eso146271785a.0
- for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 07:55:49 -0800 (PST)
+ us-mta-679-jDqXNukDMpSYnDJMFFJ3Nw-1; Thu, 05 Dec 2024 11:09:45 -0500
+X-MC-Unique: jDqXNukDMpSYnDJMFFJ3Nw-1
+X-Mimecast-MFC-AGG-ID: jDqXNukDMpSYnDJMFFJ3Nw
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-466c542d9aaso17497601cf.2
+ for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 08:09:44 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733414149; x=1734018949;
+ d=1e100.net; s=20230601; t=1733414984; x=1734019784;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=7VH6aBVI0v2Utc5ls8KiwZY+aj9+fZ4f9uYnISwwCs4=;
- b=PuWlKkzddntII8LiZd1pkOlwtAwziaD3OqeXzVVQ1D7KF9NUDG+Kg8uiGr2s9EAmKl
- PBDnbcVJOAN+Y0DIVyWL69LZ6YAupSTxMQtJYuyjsOlP/ZNhF+dVt+W8zMET+aZWruRd
- dCQGBb7oUIQ8y3+znCRNsDrZd+xy24IcgprfeEe2wAqbcyL4AJUn6rrqKyQcjG5rOMU4
- lKub44BcpbgJZNwfNi0eXy3L7W2VaMOAbtkG957eHOtNm3ZCbhVC/HOKVlUNK0r8QfHJ
- +n3hFSxPocmNc9HT2LAcmQKgFEMlB5AZaRt5hMezPduUWPoZHSaR93tMHEqRlTRFtj2l
- ejiQ==
+ bh=EsvhqekRj8pSgByReoQUTkJu/oYQaDoS5+V3eLnOXYw=;
+ b=Ie6eTwueM9nKpqkMgI5qasObHKdJlZN4SC1Nxsru+jtr5sI2otKpMD9wRrzLvgic1j
+ KcsYs6Z2SIVedcg5WFN4pMis0iKkYUhdj6TKJWMIeOfVMSn/XOCL7LfdOHvU8/66WhUH
+ FowPMi/wkJjk26h7TLvuKbL2iTqolRKWu9g37vLd5WBVu05FfufM0ODC65JtZ1ZJsLLa
+ nDqWycaEYuNpkHViNuz4Z5cq5EraANjaqWmwo4cjdsgfcQH+nwAHrzXH7tWBq10xepor
+ 6rsszctllnMmY2bB3U6NipdcZ77vFtt2xYP1zL3lO1ecueQ3XPoBjmsG52KJVq1i/4DT
+ xvWA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUdrPzwnQnrOEQVkhVuUsw3J0ZKy4AN4L10XttUzUo3Oag/ChLHLs5YQRzgL8aD1ErRDuHTlASKi1Y=@nongnu.org
-X-Gm-Message-State: AOJu0Yx795sRYZ1gYKa18/9QlvWEZFWGNwOhWn2oTRBz/0BM4A13nemM
- MYrwMhP7uvCj16O9gnJb39gavDG/QSP1uCKEX/x0WTyxNU7aszDENoRne7Dt31xma/XeogCr/G/
- yDSFhzdwuHvEV18B9Di1f2x98KRBkWwGWwWvbNNIyFncN2LYaN6I=
-X-Gm-Gg: ASbGncswLuBduzFTxGXNNtmrJLGVFVRvlDpZiEmzbqVXeeAo1/HDxJyRo6VO0G2cZTW
- rPliX/vrJ34w3z9PC86iP9h3H0hZoiIqAZUZ/NdmuQbsbqSNj5oFe1rtLjq4QX36Zn0L33l7/YS
- dqCmjHkQGj8NKNQyPuLSTseaJv9Jw9eD29G/zpM1xyiuYsew6XJUhnwyvIz1C5B3StaXk9PMJHG
- BlB6OMgMjJFFwLoClydk+rGydASPdoh2s4rkJpZD6++a3jnRqW0
-X-Received: by 2002:a05:620a:4806:b0:7b6:7ac5:5de1 with SMTP id
- af79cd13be357-7b6a5d51ae1mr1558432885a.7.1733414149187; 
- Thu, 05 Dec 2024 07:55:49 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFxwWA8EKyzNa/fiZP1e7uBzZHteImkNVFYkfXtqTkkaiUD1cglyLAMwOfGKftfYkJQgd6zeA==
-X-Received: by 2002:a05:620a:4806:b0:7b6:7ac5:5de1 with SMTP id
- af79cd13be357-7b6a5d51ae1mr1558429985a.7.1733414148887; 
- Thu, 05 Dec 2024 07:55:48 -0800 (PST)
+ AJvYcCV5Mx9nsAbpazOyXnZZ4LoPuYRGcs99GCyQSBjGkKJvsgevRz/PZV4+3P/RQ9be+cJGPFXvVxa5bIM=@nongnu.org
+X-Gm-Message-State: AOJu0Yw9h2k6ius9dVXTZBntRb7L46oFfCVt8vZF/4vpQgCzXwsJ3vBz
+ ROCQ5hjVBisRvu7gouozOB6TGGgXcACg+6t3zwHPmjrhK9WsEvjEqd8WtpyB0SBGASEW09DA7dp
+ bt12s7dWEzhGQvIDiD8pOx99RVguouOWNqm8sHL/fHjz+JiamyxA=
+X-Gm-Gg: ASbGncuACOVWWILxX99MNFg6bVTdnbcPXzK118g5b9zk1X5XwVvcmLlW2MCFYlhTcqw
+ 3iyVCfcdShBGojWIp2a/nLfvkiby0Txm+9/Nix3Cf6Zf7UwRDctT0sr87yjYQvxjX8TbZ+Skydm
+ AR2/o6koFXaZs5U78RZpI0EJT2h+IjHNpoco38MXGb7wptN5eUJEtGNu5Og2murTFSzpP/0xXpv
+ 5mbdaaYZ5DandxP/c7H5XZAVlNg/PfIvvPvzKmbwRgM8ovsnceb
+X-Received: by 2002:a05:622a:c5:b0:45d:5f8c:8280 with SMTP id
+ d75a77b69052e-4670c39ac40mr164530401cf.35.1733414984481; 
+ Thu, 05 Dec 2024 08:09:44 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IF4ogBoO6oxxetfKmfXfVD01k2GGF7Ih8yAElhaQQx92Dml9FwhsEZDxszJogbUalSdz7BD4Q==
+X-Received: by 2002:a05:622a:c5:b0:45d:5f8c:8280 with SMTP id
+ d75a77b69052e-4670c39ac40mr164529941cf.35.1733414984036; 
+ Thu, 05 Dec 2024 08:09:44 -0800 (PST)
 Received: from [10.20.9.127] ([144.121.20.162])
  by smtp.googlemail.com with ESMTPSA id
- af79cd13be357-7b6b5a9e5c7sm71285685a.99.2024.12.05.07.55.47
+ d75a77b69052e-467297d6bb5sm9194401cf.85.2024.12.05.08.09.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Dec 2024 07:55:48 -0800 (PST)
-Message-ID: <75edc6e5-e65f-40c0-90ee-6ac1fa018f5c@redhat.com>
-Date: Thu, 5 Dec 2024 16:55:47 +0100
+ Thu, 05 Dec 2024 08:09:43 -0800 (PST)
+Message-ID: <adb80a8c-ee40-4d8e-898b-a62d12746aa9@redhat.com>
+Date: Thu, 5 Dec 2024 17:09:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 03/13] rust/cell: add get_mut() method for BqlCell
+Subject: Re: [RFC 05/13] rust: add a bit operation binding for deposit64
 To: Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Junjie Mao <junjie.mao@hotmail.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
@@ -76,7 +76,7 @@ To: Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
  <philmd@linaro.org>, Peter Maydell <peter.maydell@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
- <20241205060714.256270-4-zhao1.liu@intel.com>
+ <20241205060714.256270-6-zhao1.liu@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -113,14 +113,14 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20241205060714.256270-4-zhao1.liu@intel.com>
+In-Reply-To: <20241205060714.256270-6-zhao1.liu@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: SONigGEQ0dHC-KLFWDcnbVdlKvVBftDED7jKLJFlqDk_1733414149
+X-Mimecast-MFC-PROC-ID: F0RJl_kIaUJy6zc8Tn8f3tH8ngxgtg4itLmiFAn5vzg_1733414984
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -50
 X-Spam_score: -5.1
@@ -129,7 +129,7 @@ X-Spam_report: (-5.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -142,121 +142,45 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Dec 2024 15:55:56 -0000
+X-List-Received-Date: Thu, 05 Dec 2024 16:09:53 -0000
 
 On 12/5/24 07:07, Zhao Liu wrote:
-> The get_mut() is useful when doing compound assignment operations, e.g.,
-> *c.get_mut() += 1.
-> 
-> Implement get_mut() for BqlCell by referring to Cell.
+> +pub fn deposit64(value: u64, start: usize, length: usize, fieldval: u64) -> u64 {
+> +    /* FIXME: Implement a more elegant check with error handling support? */
+> +    assert!(length > 0 && length <= 64 - start);
+> +
+> +    let mask = (u64::MAX >> (64 - length)) << start;
+> +    (value & !mask) | ((fieldval << start) & mask)
+> +}
 
-I think you can't do this because the BQL might be released while the owner has a &mut.  Like:
+This should be more generic and implemented as a trait that is
+implemented by u8/u16/u32/u64.  It's okay to rewrite these utility
+functions in Rust instead of relying on bindgen, because the way
+you'd like to use them is likely different from C.  Something like:
 
-    let mtx = Mutex<BqlCell<u32>>::new();
-    let guard = mtx.lock();
-    let cell = &mut *guard;
-    let inner = cell.get_mut(cell);
-    // anything that releases bql_lock
-    *inner += 1;
+pub trait IntegerExt
+{
+     fn deposit(self, start: u32, length: u32, fieldval: U) -> Self;
+}
 
-On the other hand I don't think you need it.  You have just two uses.
+impl IntegerExt for u64
+{
+     fn deposit(self, start: usize, length: usize, fieldval: u64) -> u64 {
+         /* FIXME: Implement a more elegant check with error handling support? */
+         assert!(length > 0 && length <= 64 - start);
 
-First, this one:
-
-+        if set && self.is_int_level_triggered() {
-+            // If Timer N Interrupt Enable bit is 0, "the timer will
-+            // still operate and generate appropriate status bits, but
-+            // will not cause an interrupt"
-+            *self.get_state_mut().int_status.get_mut() |= mask;
-+        } else {
-+            *self.get_state_mut().int_status.get_mut() &= !mask;
-+        }
-
-Where you can just write
-
-     self.get_state_ref().update_int_status(self.index,
-         set && self.is_int_level_triggered())
-
-and the HPETState can do something like
-
-     fn update_int_status(&self, index: u32, level: bool) {
-         self.int_status.set(deposit64(self.int_status.get(), bit, 1, level as u64));
-     }
-
-For hpet_fw_cfg you have unsafe in the device and it's better if you do:
-
--        self.hpet_id.set(unsafe { hpet_fw_cfg.assign_hpet_id() });
-+        self.hpet_id.set(fw_cfg_config::assign_hpet_id());
-
-with methods like this that do the unsafe access:
-
-impl fw_cfg_config {
-     pub(crate) fn assign_hpet_id() -> usize {
-         assert!(bql_locked());
-         // SAFETY: all accesses go through these methods, which guarantee
-         // that the accesses are protected by the BQL.
-         let fw_cfg = unsafe { &mut *hpet_fw_cfg };
-
-         if self.count == u8::MAX {
-             // first instance
-             fw_cfg.count = 0;
-         }
-
-         if fw_cfg.count == 8 {
-             // TODO: Add error binding: error_setg()
-             panic!("Only 8 instances of HPET is allowed");
-         }
-
-         let id: usize = fw_cfg.count.into();
-         fw_cfg.count += 1;
-         id
+         let mask = (u64::MAX >> (64 - length)) << start;
+         (value & !mask) | ((fieldval << start) & mask)
      }
 }
 
-and you can assert bql_locked by hand instead of using the BqlCell.
+And we can add a "prelude" module so that you can do
+
+use qemu_api::prelude::*;
+
+and get all these useful traits at once.  I will send a patch after
+fleshing the idea out a bit more.
 
 Paolo
-
-> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
-> ---
->   rust/qemu-api/src/cell.rs | 25 +++++++++++++++++++++++++
->   1 file changed, 25 insertions(+)
-> 
-> diff --git a/rust/qemu-api/src/cell.rs b/rust/qemu-api/src/cell.rs
-> index 07b636f26266..95f1cc0b3eb5 100644
-> --- a/rust/qemu-api/src/cell.rs
-> +++ b/rust/qemu-api/src/cell.rs
-> @@ -324,6 +324,31 @@ impl<T> BqlCell<T> {
->       pub const fn as_ptr(&self) -> *mut T {
->           self.value.get()
->       }
-> +
-> +    /// Returns a mutable reference to the underlying data.
-> +    ///
-> +    /// This call borrows `BqlCell` mutably (at compile-time) which guarantees
-> +    /// that we possess the only reference.
-> +    ///
-> +    /// However be cautious: this method expects `self` to be mutable, which is
-> +    /// generally not the case when using a `BqlCell`. If you require interior
-> +    /// mutability by reference, consider using `BqlRefCell` which provides
-> +    /// run-time checked mutable borrows through its [`borrow_mut`] method.
-> +    ///
-> +    /// [`borrow_mut`]: BqlRefCell::borrow_mut()
-> +    ///
-> +    /// # Examples
-> +    ///
-> +    /// ```
-> +    /// use qemu_api::cell::BqlCell;;
-> +    ///
-> +    /// let mut c = BqlCell::new(5);
-> +    /// *c.get_mut() += 1;
-> +    ///
-> +    /// assert_eq!(c.get(), 6);
-> +    pub fn get_mut(&mut self) -> &mut T {
-> +        self.value.get_mut()
-> +    }
->   }
->   
->   impl<T: Default> BqlCell<T> {
 
 
