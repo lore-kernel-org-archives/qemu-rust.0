@@ -1,71 +1,94 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJAxf-0002lh-2m
-	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 07:28:03 -0500
+	id 1tJCu7-0004Mp-3t
+	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 09:32:31 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tJAxd-0002lF-Dd; Thu, 05 Dec 2024 07:28:01 -0500
-Received: from mgamail.intel.com ([192.198.163.19])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tJAxa-0005No-Sl; Thu, 05 Dec 2024 07:28:01 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733401679; x=1764937679;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=R3cvo7UCjBrkosfaR7DMNE86/sLoF69l0f0xPT/L72I=;
- b=AXP9EVvB2V7wkpdmUhwJZA4tmVL2XA6ArxsiWkE0PeeaLYdRqJ27D2nq
- dXu2ySUywnOm9e5v4R375BFgjKuXeOGyB+0DUid/L3Kidu5CMq3d2R7pT
- JXU67mPcQkD0Ngb8KIUBLMUVi4bEOuSZ+TeuWYfmZ963IBuR3otBpQNVV
- NZBk5atAazTF/0NRW0AUjGy9rjNu7KeFhdWHOhxvgrDNEu8FPBVK18hPC
- yVj1vMz9wVj8NUL+CkpH77G/YM91tQOArQbvfwiOiVxB2PAmi0MEcdyMg
- EC9ebNYP9LwVLtQUv01RGr4GFUGZnb+OyuZy5r+X2GwuGoLxsG3DXIBb7 Q==;
-X-CSE-ConnectionGUID: k6KEleOoRi2JEZu5DEydKg==
-X-CSE-MsgGUID: q2IFqEwOTNS4jwu+vZ5lRA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11276"; a="33042702"
-X-IronPort-AV: E=Sophos;i="6.12,210,1728975600"; d="scan'208";a="33042702"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2024 04:27:56 -0800
-X-CSE-ConnectionGUID: nD8+nR2rRkKUsMlCWo1Cag==
-X-CSE-MsgGUID: gAxxQp6iTT+fZt+wRzWaJQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,210,1728975600"; d="scan'208";a="124995048"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.36])
- by fmviesa001.fm.intel.com with ESMTP; 05 Dec 2024 04:27:53 -0800
-Date: Thu, 5 Dec 2024 20:46:05 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Junjie Mao <junjie.mao@hotmail.com>,
- Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org
-Subject: Re: [RFC 09/13] i386/fw_cfg: move hpet_cfg definition to hpet.c
-Message-ID: <Z1GgjZOCc8vkkB3A@intel.com>
-References: <20241205060714.256270-1-zhao1.liu@intel.com>
- <20241205060714.256270-10-zhao1.liu@intel.com>
- <ed49af53-4a10-4cee-829e-d5921b8aee3c@linaro.org>
+ (Exim 4.90_1) (envelope-from <xadimgnik@gmail.com>)
+ id 1tJAgV-0006TD-RU; Thu, 05 Dec 2024 07:10:21 -0500
+Received: from mail-wm1-x32e.google.com ([2a00:1450:4864:20::32e])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <xadimgnik@gmail.com>)
+ id 1tJAgT-0007Xj-UB; Thu, 05 Dec 2024 07:10:19 -0500
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-434a10588f3so5716595e9.1; 
+ Thu, 05 Dec 2024 04:10:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1733400613; x=1734005413; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:organization:content-language
+ :references:cc:to:subject:reply-to:user-agent:mime-version:date
+ :message-id:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=wzOqahYN05AJxdvK3zEwaQAfgNzQFqxcSg9tqEAFraU=;
+ b=Tr24QUgz3towzE39zeMVvy3pbjYi4uS2j59PeR8QOv0SUGdu3YigP4uGM3iy/ID1LL
+ xrQmTEFZqHC3PTrTjlq41ZFsxD1Vjy9IIEEYnv+cozfqXeUhCp8V6M42ojjphnq/FASA
+ cOhAddUCxQVBNcGlwppZ3OmOr1TdH2Xn3Gok/dMh3b70LzTi8FAACMF/Y0JTao2eG51B
+ IDWq7bpjo0ZPTeyn0QNE6lJPOOre3yJIq49QTjY3sHUedXsaekDUUodoELHNQLekdkHa
+ tNf4jQJmY7QN1lfTPX3g+tVVCpdajiVmv8GUXdIRmeUF8YVO0HcxSkVi5HXSW53AuVSM
+ SsTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733400613; x=1734005413;
+ h=content-transfer-encoding:in-reply-to:organization:content-language
+ :references:cc:to:subject:reply-to:user-agent:mime-version:date
+ :message-id:from:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wzOqahYN05AJxdvK3zEwaQAfgNzQFqxcSg9tqEAFraU=;
+ b=HZOWqpJD4LwDs9WIAu4DOYRdqeVXJoAdfoQ9Jv6igHQn9udT4sG6lFHqFhuUBlBV7a
+ YRt+U/JCJf5q/ULnY+yL6jchoj1OHaiwqFVjmXZQiQCvTVmkVEmexnIdmLpAkreljluQ
+ UFkBWf7Hs7QEM6JpO9PAlbcs8//GqRXr9DNGGkElZqID23xYohvLoH2NUp2pS9dAw+hs
+ zV3rZ3Nt26CN6rqDW78e8mBVH5eft53RXRDfehhx7Ab8k9E9otCiwDFrBic3MuKWI+JI
+ ivqyyCwtLWsZDLx/txVkevK/cTsRcwW4rh41466aZIk0JSKoq4TpoZ88tLkDyAYOmrMM
+ 7Hlw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUvUzEYm0dZveBf3NRLOfmRlUQCwC+nSlw28LZ+yl/1ynZqGt2gAR/0viyA5Xk2LWVvBuDyV+2Xvk2C@nongnu.org,
+ AJvYcCWoni1DcFlf+V1npZco6OHWsDVk0ZYRJikqztSbrwRIFPkO8Qpv/BH9FoYr+m1kQIuN9pWT4ZIVZ/64@nongnu.org
+X-Gm-Message-State: AOJu0YzYTIzvLu83eLcYVNVUhsSn7nv67sJAYOe38RxPLoKWmS8fvoIT
+ 8k5Nt4A59KjAIfLmyedJHGTj3ismfUYz5QUP1Kh/7ewcnhQSwr2U
+X-Gm-Gg: ASbGncssawVbrX62bSMwagToc/2IejNV/nWuXL99I4F3CWEuHp78sXMW1QCiw+nUnqV
+ 3UTO/V2nPmIWK9TLM3h6OdbhNRd2vSwi/xlAkDsGSdW0v9IA0xr6uJ8cFZzoyumFxz+382jWd5N
+ 8dKTxBKYUvH7fTuyYHupnFAHRRAu0PiTe0kxJHMcGfijuJwIqaPVmoDXuprO2c/y5Rvf/SBTOn0
+ p43QJEQZUpAycV0HO12IAE9t+H7TuwgdrCOwviSq5jTj4jQVofpHIXQHWZidD1gMt8efTKXmRFg
+ OV7v2Q==
+X-Google-Smtp-Source: AGHT+IG9tdvRwmyes0gZjCEdCw/TMyaknFY73tgIdnFFdvX525rWDB+NlguS8gp4Su4uIXIcp+Y4ZA==
+X-Received: by 2002:a05:600c:3b8d:b0:431:6153:a258 with SMTP id
+ 5b1f17b1804b1-434d3fa051emr73646475e9.13.1733400612429; 
+ Thu, 05 Dec 2024 04:10:12 -0800 (PST)
+Received: from [192.168.2.208] (54-240-197-232.amazon.com. [54.240.197.232])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3861ecf4395sm1778796f8f.10.2024.12.05.04.10.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Dec 2024 04:10:12 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: Paul Durrant <paul@xen.org>
+Message-ID: <2f10ff1f-99a0-4359-92ca-9f648c1908a5@xen.org>
+Date: Thu, 5 Dec 2024 12:10:11 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Reply-To: paul@xen.org
+Subject: Re: Rust in QEMU roadmap
+To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>
+Cc: Stefan Hajnoczi <stefanha@gmail.com>, qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org
+References: <cc40943e-dec1-4890-a1d9-579350ce296f@pbonzini.local>
+ <CAJSP0QVGP9RQ57V-+2Lo2Se0x0O1KuENT24HzOn2X3A3vmn73A@mail.gmail.com>
+ <Z0cOKGl-46wg5NTG@redhat.com>
+ <CABgObfaZkCQMWH9oH5rLdqHB-B8t2n9uWSaYASsBzxiiMK1hRQ@mail.gmail.com>
+ <Z1GV4kwvjPoEob6j@redhat.com>
+Content-Language: en-US
+Organization: Xen Project
+In-Reply-To: <Z1GV4kwvjPoEob6j@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ed49af53-4a10-4cee-829e-d5921b8aee3c@linaro.org>
-Received-SPF: pass client-ip=192.198.163.19; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -73
-X-Spam_score: -7.4
-X-Spam_bar: -------
-X-Spam_report: (-7.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+Received-SPF: pass client-ip=2a00:1450:4864:20::32e;
+ envelope-from=xadimgnik@gmail.com; helo=mail-wm1-x32e.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Thu, 05 Dec 2024 09:32:28 -0500
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,50 +100,37 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Dec 2024 12:28:02 -0000
+X-List-Received-Date: Thu, 05 Dec 2024 12:10:25 -0000
 
-Hi Philippe,
-
-On Thu, Dec 05, 2024 at 01:04:58PM +0100, Philippe Mathieu-Daudé wrote:
-> Date: Thu, 5 Dec 2024 13:04:58 +0100
-> From: Philippe Mathieu-Daudé <philmd@linaro.org>
-> Subject: Re: [RFC 09/13] i386/fw_cfg: move hpet_cfg definition to hpet.c
+On 05/12/2024 12:00, Daniel P. BerrangÃ© wrote:
+> On Wed, Nov 27, 2024 at 01:22:00PM +0100, Paolo Bonzini wrote:
+>> On Wed, Nov 27, 2024 at 1:18â€¯PM Daniel P. BerrangÃ© <berrange@redhat.com> wrote:
+>>> I question the usefulness of the 'syslog' trace target. I can't see
+>>> it being desirable as a option for 'production' builds, and it seems
+>>> uneccessarily indirect for developers. What's its compelling USP ?
+>>>
+>>> WRT 'ftrace', IIUC, the Linux 'perf' command has built-in support
+>>> for using USDT probes now:
+>>>
+>>>    https://www.brendangregg.com/perf.html#StaticUserTracing
+>>
+>> I also wonder if 'ftrace' is duplicating 'log' these days. Anyhow, if
+>> we can deprecate 'syslog' and 'ftrace' that would be good to know
+>> independent of Rust.
 > 
-> On 5/12/24 07:07, Zhao Liu wrote:
-> > HPET device needs to access and update hpet_cfg variable, but now it is
-> > defined in hw/i386/fw_cfg.c and Rust code can't access it.
-> > 
-> > Move hpet_cfg definition to hpet.c (and rename it to hpet_fw_cfg). This
-> > allows Rust HPET device implements its own global hpet_fw_cfg variable,
-> > and will further reduce the use of unsafe C code access and calls in the
-> > Rust HPET implementation.
-> > 
-> > Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
-> > ---
-> >   hw/i386/fw_cfg.c        |  4 +---
-> >   hw/timer/hpet.c         | 16 +++++++++-------
-> >   include/hw/timer/hpet.h |  2 +-
-> >   3 files changed, 11 insertions(+), 11 deletions(-)
+> I looked back at the history of syslog and re-discovered that I raised
+> the same question when it was first proposed. It was said that syslog
+> was to be used by XenServer for some kind of logging they wanted:
 > 
+>    https://lists.nongnu.org/archive/html/qemu-devel/2016-08/msg00336.html
 > 
-> > diff --git a/include/hw/timer/hpet.h b/include/hw/timer/hpet.h
-> > index d17a8d43199e..dbf709251a8f 100644
-> > --- a/include/hw/timer/hpet.h
-> > +++ b/include/hw/timer/hpet.h
-> > @@ -74,7 +74,7 @@ struct hpet_fw_config
-> >       struct hpet_fw_entry hpet[8];
-> >   } QEMU_PACKED;
-> > -extern struct hpet_fw_config hpet_cfg;
-> > +extern struct hpet_fw_config hpet_fw_cfg;
+> I've CC'd Paul as it'd be useful to know if Xen did end up using this
+> feature or not, as we don't want to rip the rug from under them.
 > 
-> Could this field belong to the (yet unexisting) HPETClass?
 
-Several instances would share the same class, so HPETClass could manage
-multiple HPETState info.
+Pretty sure we did use it in XenServer. I've not been involved for more 
+than 5 years now so maybe someone else who's still working on XenServer 
+knows better... Not sure of the right contact though, unfortunately.
 
-But in fw_cfg.c, do you have idea about how to get the HPETClass?
-
-Regards,
-Zhao
-
+   Paul
 
