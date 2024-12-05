@@ -1,74 +1,74 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJEQM-00020K-HR
-	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 11:09:54 -0500
+	id 1tJEil-0001bt-Ir
+	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 11:28:55 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJEQL-000200-7W
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 11:09:53 -0500
+ id 1tJEik-0001bX-8p
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 11:28:54 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJEQJ-0001UB-B1
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 11:09:52 -0500
+ id 1tJEii-0000vc-8w
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 11:28:54 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733414989;
+ s=mimecast20190719; t=1733416131;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=EsvhqekRj8pSgByReoQUTkJu/oYQaDoS5+V3eLnOXYw=;
- b=PlPtluT+ZCSzNXwUOMBzEh5nRHd74kZzIIEPh8SPrrb5FoqwaSncYQDMJOPy05Mn8PRaNt
- C4C2sIME7IKXMm+6nNXtc/kPtIwJpqOYdkoD76eJquhWjqi40TkGLwBJuij7YD8VKLhCbS
- feQS2SW4TIPtQXrWBxMtBS1j7n9gU2o=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=dyuZQedkGWeC/t5RhOgZnANiZAS48OwM1oe3H7aK0iE=;
+ b=MYc9k8celN/HXy7M/v4Q6W7JL7cMe3PbFvFmJqylOW2go0UGYNQ+Xnn3ikGVVLZZtAkE1H
+ 4ouGutqqE4V4aEITVv9wYryvRldbbdFi8XTG+gA0VHeqW5mpRUeQTZo27xWKeddXv1UygL
+ 8dicR0K/7qA1Qlkteb4ljQPTtgJSSCs=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-679-jDqXNukDMpSYnDJMFFJ3Nw-1; Thu, 05 Dec 2024 11:09:45 -0500
-X-MC-Unique: jDqXNukDMpSYnDJMFFJ3Nw-1
-X-Mimecast-MFC-AGG-ID: jDqXNukDMpSYnDJMFFJ3Nw
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-466c542d9aaso17497601cf.2
- for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 08:09:44 -0800 (PST)
+ us-mta-553-rrSOZNp_PJmU5YYto19HGQ-1; Thu, 05 Dec 2024 11:28:48 -0500
+X-MC-Unique: rrSOZNp_PJmU5YYto19HGQ-1
+X-Mimecast-MFC-AGG-ID: rrSOZNp_PJmU5YYto19HGQ
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-466ba56bd89so46938691cf.0
+ for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 08:28:48 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733414984; x=1734019784;
+ d=1e100.net; s=20230601; t=1733416128; x=1734020928;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=EsvhqekRj8pSgByReoQUTkJu/oYQaDoS5+V3eLnOXYw=;
- b=Ie6eTwueM9nKpqkMgI5qasObHKdJlZN4SC1Nxsru+jtr5sI2otKpMD9wRrzLvgic1j
- KcsYs6Z2SIVedcg5WFN4pMis0iKkYUhdj6TKJWMIeOfVMSn/XOCL7LfdOHvU8/66WhUH
- FowPMi/wkJjk26h7TLvuKbL2iTqolRKWu9g37vLd5WBVu05FfufM0ODC65JtZ1ZJsLLa
- nDqWycaEYuNpkHViNuz4Z5cq5EraANjaqWmwo4cjdsgfcQH+nwAHrzXH7tWBq10xepor
- 6rsszctllnMmY2bB3U6NipdcZ77vFtt2xYP1zL3lO1ecueQ3XPoBjmsG52KJVq1i/4DT
- xvWA==
+ bh=dyuZQedkGWeC/t5RhOgZnANiZAS48OwM1oe3H7aK0iE=;
+ b=bSmsQf9E2UMwPUtA7aDmYYulomaGqK9G241t4vmaiqsUNk9TKqs2GSWKFmDVeEOXed
+ 6P+NTbh+FOoDLu8mVYzchyAnr5t0TKLf33eiAjcgQpNWprVZCBY6zEEiK6o12eeUdiCj
+ c9ZW5xMlxueXVwNKUa4Lronq73qRs2+Lr0pUJcIIWEGFd1Uvg9tVcOi3xSUM/DA5bMRU
+ m1QkxGfI+JZFqkTfa+JaBugTmeVEU0GO3VaIVnEjOmL23aRVRAgDX5Nq10WPCMvU6axG
+ j+h0TiQjgZxUw3XYXNRM7GxQJDVX9yGPkXn5XzZIgMMAC3AaQLHVP3V4doQlFRbMBZj3
+ q9ug==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV5Mx9nsAbpazOyXnZZ4LoPuYRGcs99GCyQSBjGkKJvsgevRz/PZV4+3P/RQ9be+cJGPFXvVxa5bIM=@nongnu.org
-X-Gm-Message-State: AOJu0Yw9h2k6ius9dVXTZBntRb7L46oFfCVt8vZF/4vpQgCzXwsJ3vBz
- ROCQ5hjVBisRvu7gouozOB6TGGgXcACg+6t3zwHPmjrhK9WsEvjEqd8WtpyB0SBGASEW09DA7dp
- bt12s7dWEzhGQvIDiD8pOx99RVguouOWNqm8sHL/fHjz+JiamyxA=
-X-Gm-Gg: ASbGncuACOVWWILxX99MNFg6bVTdnbcPXzK118g5b9zk1X5XwVvcmLlW2MCFYlhTcqw
- 3iyVCfcdShBGojWIp2a/nLfvkiby0Txm+9/Nix3Cf6Zf7UwRDctT0sr87yjYQvxjX8TbZ+Skydm
- AR2/o6koFXaZs5U78RZpI0EJT2h+IjHNpoco38MXGb7wptN5eUJEtGNu5Og2murTFSzpP/0xXpv
- 5mbdaaYZ5DandxP/c7H5XZAVlNg/PfIvvPvzKmbwRgM8ovsnceb
-X-Received: by 2002:a05:622a:c5:b0:45d:5f8c:8280 with SMTP id
- d75a77b69052e-4670c39ac40mr164530401cf.35.1733414984481; 
- Thu, 05 Dec 2024 08:09:44 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IF4ogBoO6oxxetfKmfXfVD01k2GGF7Ih8yAElhaQQx92Dml9FwhsEZDxszJogbUalSdz7BD4Q==
-X-Received: by 2002:a05:622a:c5:b0:45d:5f8c:8280 with SMTP id
- d75a77b69052e-4670c39ac40mr164529941cf.35.1733414984036; 
- Thu, 05 Dec 2024 08:09:44 -0800 (PST)
-Received: from [10.20.9.127] ([144.121.20.162])
+ AJvYcCWZLMT1icTlblP3jcUP/k/UEK5kYO0WAxCcQE8NSvrX2u6cUHKA0zB9BJAtvB8S54F30OVT5uPU3g8=@nongnu.org
+X-Gm-Message-State: AOJu0Yz+0wbvgghEal9cfuEl+P2oFcGDgvmATjJkHBQeNqXMLKmpLes4
+ +/cbtj7SoXUtKN2y6ITyY3Xet4pkZhPdEUK0EWwZaCoF5VyMLXbZAp6vJUWX9H7sQZZGR77atzV
+ ZapFYEQVKKQpwO1tfaOnIGbNZrQJhdpK0UuaYxXIiJH78G8JEQ6A=
+X-Gm-Gg: ASbGncu3ETqLuq3azeQdUPmP3h504PleArUPeAo5lWdOwyaqF114M+7UPXKKsqF0j9P
+ 1DsF/aCVcLY3hZuI2zprIwfwjJGROZTCmAoHHthLrsZGHSQ3Gi4Tn6mx0iUuf0Jh66WAkWbXTef
+ nnCRzIR3xa9b2/CgiaYf3DFinMOpeG4L7H99Ska/mDIodLHeG01teRwrqbcC9O0FGf2I1I79bf5
+ l1tVu9H4oLQbbMBIdNA3eVXW1hJapCEg5sY+Tul8feQPIPlv1Nybd3fpg==
+X-Received: by 2002:ac8:5781:0:b0:463:5261:366f with SMTP id
+ d75a77b69052e-46727a76916mr59843521cf.23.1733416127761; 
+ Thu, 05 Dec 2024 08:28:47 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEKtDx8eeoZYIr+DatVQOMragStw4tldrSxKVpdZ7JUQEdHxZ0slxSxIOwhLl8lgc6BECCjtA==
+X-Received: by 2002:ac8:5781:0:b0:463:5261:366f with SMTP id
+ d75a77b69052e-46727a76916mr59843161cf.23.1733416127378; 
+ Thu, 05 Dec 2024 08:28:47 -0800 (PST)
+Received: from [192.168.101.123] ([144.121.20.163])
  by smtp.googlemail.com with ESMTPSA id
- d75a77b69052e-467297d6bb5sm9194401cf.85.2024.12.05.08.09.42
+ d75a77b69052e-467296f4429sm9429601cf.41.2024.12.05.08.28.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Dec 2024 08:09:43 -0800 (PST)
-Message-ID: <adb80a8c-ee40-4d8e-898b-a62d12746aa9@redhat.com>
-Date: Thu, 5 Dec 2024 17:09:42 +0100
+ Thu, 05 Dec 2024 08:28:46 -0800 (PST)
+Message-ID: <2f42c553-5673-4826-bc2f-14ec1306e8c0@redhat.com>
+Date: Thu, 5 Dec 2024 17:28:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 05/13] rust: add a bit operation binding for deposit64
+Subject: Re: [RFC 00/13] rust: Reinvent the wheel for HPET timer in Rust
 To: Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Junjie Mao <junjie.mao@hotmail.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
@@ -76,7 +76,6 @@ To: Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
  <philmd@linaro.org>, Peter Maydell <peter.maydell@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
- <20241205060714.256270-6-zhao1.liu@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -113,9 +112,9 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20241205060714.256270-6-zhao1.liu@intel.com>
+In-Reply-To: <20241205060714.256270-1-zhao1.liu@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: F0RJl_kIaUJy6zc8Tn8f3tH8ngxgtg4itLmiFAn5vzg_1733414984
+X-Mimecast-MFC-PROC-ID: bJqpwPMd6gRxz4cO0sHGq2pihkOEFYkKxhfhQAZcTnY_1733416128
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -142,44 +141,127 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Dec 2024 16:09:53 -0000
+X-List-Received-Date: Thu, 05 Dec 2024 16:28:54 -0000
 
 On 12/5/24 07:07, Zhao Liu wrote:
-> +pub fn deposit64(value: u64, start: usize, length: usize, fieldval: u64) -> u64 {
-> +    /* FIXME: Implement a more elegant check with error handling support? */
-> +    assert!(length > 0 && length <= 64 - start);
-> +
-> +    let mask = (u64::MAX >> (64 - length)) << start;
-> +    (value & !mask) | ((fieldval << start) & mask)
-> +}
+> * Proper bindings for MemoryRegionOps, which needs to wrap the ram
+>    read/write callbacks.
+>    - I think it shouldn't be complicated because qom/qdev already
+>      provides good examples.
 
-This should be more generic and implemented as a trait that is
-implemented by u8/u16/u32/u64.  It's okay to rewrite these utility
-functions in Rust instead of relying on bindgen, because the way
-you'd like to use them is likely different from C.  Something like:
+Sounds good, I have some initial work on PL011.
 
-pub trait IntegerExt
-{
-     fn deposit(self, start: u32, length: u32, fieldval: U) -> Self;
-}
+> * vmstate support.
+>    - vmstate code for HPET is actually ready, but it will be pending (and
+>      maybe re-writing) until the vmstate infra gets cleaned up.
 
-impl IntegerExt for u64
-{
-     fn deposit(self, start: usize, length: usize, fieldval: u64) -> u64 {
-         /* FIXME: Implement a more elegant check with error handling support? */
-         assert!(length > 0 && length <= 64 - start);
+Yeah, mostly due to the cells.
 
-         let mask = (u64::MAX >> (64 - length)) << start;
-         (value & !mask) | ((fieldval << start) & mask)
-     }
-}
+> * Error handling.
+>    - Now HPET just use panic and println to replace error_setg and
+>      warn_report.
+> 
+> * Trace support.
+>    - No trace for now.
 
-And we can add a "prelude" module so that you can do
+> Anything that needs to be modified within a callback should be protected
+> by BqlCell/BqlRefCell.
+> 
+> Based on this, I am also considering how the opaque parameter in certain
+> callbacks should interact with BQL cells. In the timer binding (patch
+> 7), I think the opaque parameter accepted by the timer callback should
+> be placed in a BQL cell. However, considering generality, I did not make
+> further changes and only passed BqlRefCell<HPETTimer> as the opaque
+> parameter in the HPET code.
 
-use qemu_api::prelude::*;
+That sounds good.
 
-and get all these useful traits at once.  I will send a patch after
-fleshing the idea out a bit more.
+I'll review your timer bindings and post the infrastructure that I have 
+for callbacks.
+
+> Furthermore, is it possible in the future to wrap the entire state
+> within a BQL cell? This could save the effort of wrapping many state
+> members individually when state becomes very huge and complex.
+
+I think it's better if we keep a split between the mutable and immutable 
+parts.  For example properties are immutable.
+
+> QDEV Property
+> -------------
+> 
+> To support bit type property, I added another macro variant (in patch 8)
+> to allow bitnr parameter. However, I think this lacks scalability.
+> 
+> In qdev-properties.h, it is clear that the PropertyInfo of a property is
+> bound to its type. Previously, Junjie and I attempted to do the same in
+> Rust by binding PropertyInfo to the type, thereby avoiding the need to
+> specify too many parameters in the macro definitions:
+> 
+> https://lore.kernel.org/qemu-devel/20241017143245.1248589-1-zhao1.liu@intel.com/
+
+Oops, sorry.  I have applied patch 1, but patch 2 is a bit problematic 
+because I think it's not const-friendly.  Maybe it was applied to older 
+code?
+
+I haven't looked closely at whether it's possible to use trait { ... 
+const TYPE: &Property = ... }, maybe only in newer Rust?  But as you 
+point out there is an issue with multiple PropertyInfos that can apply 
+to the same type, therefore I think the way to go here is to use a 
+procedural macro and a #[property] attribute.  That also makes bit 
+properties easy:
+
+     #[property(bit=0, name="foo")
+     #[property(bit=1, name="bar")
+     features: u32,
+
+> MEMTXATTRS_UNSPECIFIED
+> ----------------------
+> 
+> MEMTXATTRS_UNSPECIFIED is another global variable. Since it is
+> immutable, BQL cell is not needed.
+> 
+> But MemTxAttrs is a structure with bitfields, and the bindings generated
+> by bindgen can only be modified through methods. Therefore, it is
+> necessary to introduce lazy to initialize MEMTXATTRS_UNSPECIFIED in a
+> const context (patch 6).
+
+Ugh, that's a pity.  Maybe instead of introducing a new dependency we 
+can use an always-inlined function?
+
+In an ideal world, bindgen would produce const functions.  A hackish but 
+easy possibility is to modify the generated bindgen code (with sed? :)) 
+to apply const to the bitfield functions.
+
+> Cycle Reference
+> ---------------
+> 
+> A common pattern in QEMU devices is that a sub-member of the state
+> contains a pointer to the state itself.
+> 
+> For HPETState, it maintains a HPETTimer array, and each HPETTimer also
+> has the pointer to parent HPETState. So there's the cycle reference
+> issue.
+> 
+> The common way to address this is to use RefCell<Weak<>> [2], but in
+> practice, I found it's difficult to be applied in device code. The
+> device instance is not created in Rust side, and there's only init()
+> method to initialize created device instance. This way, it's hard to be
+> compatible with the pattern of creating weak references (at least I
+> failed).
+> 
+> Then, I chose NonNull to address this issue, as recommended by the
+> author of NonNull and the standard collections [3].
+
+NonNull is okay for now.  Later on we will handle it with pinned_init.
+
+However, do not get a &mut HPETState, everything should go through 
+&HPETState and cells.
+
+> Therefore, I believe that in Rust devices, QOM members should also be
+> kept private or at most `pub(crate)`. This is also why I tried to avoid
+> using direct `pub` in HPET.
+
+Yes, I agree.  I should look at unnecessarily pub things in pl011.
 
 Paolo
 
