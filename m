@@ -1,89 +1,137 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJGQr-0003m6-3w
-	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 13:18:34 -0500
+	id 1tJGcq-0005nP-Bk
+	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 13:30:56 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <richard.henderson@linaro.org>)
- id 1tJGQo-0003lh-JW
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 13:18:30 -0500
-Received: from mail-oa1-x32.google.com ([2001:4860:4864:20::32])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <richard.henderson@linaro.org>)
- id 1tJGQm-0003aE-AN
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 13:18:30 -0500
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-29e2a50586dso835463fac.0
- for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 10:18:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733422707; x=1734027507; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=OvW+AoLKv7khBYjogVRnXYPZ9+tLmE67smJq3+Ckyxw=;
- b=QPln7iUGCaTPpe7N/+MzURrGLp1sArE4eZGdFf+Fy0ilYACXTmHM5ft+vIkCxYAvKG
- 0bN+VuAJZjPrzdBSJ5CEef5iH0YGIyEUwxtH/FiaRl2vF1B3hLqACUlRR4+j5iWWhMh1
- LZwYyQCfJERmkwUOelZt8NLYioGkT4X3Lj6ilKxDugK2ml5gOzTwuNCNUP0j8ljkBi6k
- ukgSsB8UgunsVbYsjTr5URofGZvsiUR3NnTweZq8o4DcP17vxIUuKnADmqmfcPKuhUtC
- +w5hUH5f3cNc098hnlVzFw37fvK9becSVSnAy3nMRDH+PLHG9gm44yr3E83G7dyqlzR1
- ObTA==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tJGco-0005nA-Nx
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 13:30:54 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tJGcm-0000FJ-6k
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 13:30:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1733423450;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=0EV2Pl0XhfhPDgKftqMIgmpyNoNxcUWIgGvtN1nSogc=;
+ b=iY+EK6E9azj+eGct9Nwk19ufe3OiNeoR3M7BWbZ2GqBNCBTgJpf8D9zKuLc1iOSFPMpNAE
+ MXqDvKD/TmShqMqR4YSBNlCy/WOZ8riUs7Mock8jAlMw+zJssFm4FKjzxYCLrD1T6hlDEi
+ CNCNtaHPzzmkf+FdVw7+1Yywiomug30=
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+ [209.85.167.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-38-ubka1bF1PkGxlRUQqrVBkw-1; Thu, 05 Dec 2024 13:30:48 -0500
+X-MC-Unique: ubka1bF1PkGxlRUQqrVBkw-1
+X-Mimecast-MFC-AGG-ID: ubka1bF1PkGxlRUQqrVBkw
+Received: by mail-oi1-f199.google.com with SMTP id
+ 5614622812f47-3ea305e40ceso1318165b6e.1
+ for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 10:30:48 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733422707; x=1734027507;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=OvW+AoLKv7khBYjogVRnXYPZ9+tLmE67smJq3+Ckyxw=;
- b=XxwuCqk1W4cZ39lDP2ZumSNy+y/HV8SaFqmj3wLjlc3O2IN54HtOoZCaKz18VU62cg
- 4Cy6OWOYeV4EfoQMtRc3dmgT/h+3Fo3yNZLcSQoi/Iqsu06ZOaHdmBlDYgGsdJcSl60y
- v3XekSUTxSrylqPWx0QN6YrjJo0vaOK7eUUe//g5UkSrKb2J2TzCGS5Ecl2taGpP8eMk
- 0K21UzYompen7z14RR0LLi9X6GMlKreJYoMnVaAnjFG/5UYdamUxzInJzQYGmalJggqv
- tAKocQSefP75JDrHt5t22T7fX7qd01WZoryGViywFUCBqnDTGgS2h1jNFKdusQgzOc3Q
- tJAA==
+ d=1e100.net; s=20230601; t=1733423448; x=1734028248;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0EV2Pl0XhfhPDgKftqMIgmpyNoNxcUWIgGvtN1nSogc=;
+ b=YqIqc3idv/1qZO20Y26DcWMZV+F3FxDF5EdN4+Q9pAMwYIIUykWFuZnqP+cCjzRbDE
+ 2YjqGl0K53dkh7+KJlGDuk5Ytp3I2rKCECIyuaR8hgXUt1LGnoWBYeHZujk/d4vZrXJq
+ A5gQdDlMiWYBZ35ubrD2zS+EeM1iGvMi/LdlqPaqYoBhJZJMPgX7zXXEaNIF9ocAufun
+ 1FNGAwd/BXW2qDuuPCzPeASWzu+aF6/cob6j2qzhGQCcZAmkqbT/n5+B9vWCrNl48L4U
+ kaYAfFs4nAZQMtwPJy/K1AodAC8evKIhUrXTJ91Ak9YMMj0xTym9pSyttTtgrlZD1i/m
+ Aaog==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVzpx9PWO/BnUyw8mJ5dpOO7ZB8PrdO+DzTWM18+stJLS/2sWFNC2Hwl6arCzPfSwftMnYfCIs1n2s=@nongnu.org
-X-Gm-Message-State: AOJu0Yx5LK+/YmSG87I3mVkp4Mwf3SKd+f4L6BE4aC1ah+wCAKDYvnnR
- 41jdZaVPFfXVfFQ94ta8U8yeuB2jMbuwdfs3MJCU7YE4dnZQRCaUE7WE9L59k4w=
-X-Gm-Gg: ASbGncs/hGWDlgXFyqjmRAPUjGCflLYu8VdmflWY+89nk63EFind1cgIvz8lmda1OFM
- a47kdOovRgbSKS/rxdHTV4vDlMhBhnvzWFx9XmjUsPat55hmhGlNK3lAgtzS/dzY/u0xUnXBwTL
- 74GZ7Yfm1W6DPsUdQMVOI8bFP7DLWS94JpBgBJRC6DTTahdpzeBY1zttiVVdnVmFdMKySIoxiA4
- h2NHm747L9Py37vf+UhkI52k0I3xNY2gfaHyvPAxW9mVO8XRgWXPPwRSIzCGFxCFA2z1iVcD8kO
- LueMxdY233kugTpiI3AccStYg3mi
-X-Google-Smtp-Source: AGHT+IH6hz6vVkAApltL6NLxWhz4VChjsDF15qLCj4QcuhLmWYDlnnHc+SLTuk592+nw+jE+rSzZ4w==
-X-Received: by 2002:a05:6808:1482:b0:3e6:5792:2fb1 with SMTP id
- 5614622812f47-3eae4f2f567mr13867097b6e.10.1733422706758; 
- Thu, 05 Dec 2024 10:18:26 -0800 (PST)
-Received: from [192.168.4.112] (fixed-187-189-51-143.totalplay.net.
- [187.189.51.143]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-3eb077f4235sm398319b6e.34.2024.12.05.10.18.25
+ AJvYcCXn5WybNhRXyAmTPUglqmYIuWmDsZszZOvq0dz/w3Cdcsf2NJA6Mka5F3Vz4iBH4oNTMD626suZJZ0=@nongnu.org
+X-Gm-Message-State: AOJu0Yxsn7x/Wh24XjmP/+qtVL9FYA8AZ3BndvpyYSJTEpQxAaNCQm0w
+ SSvDZgN2w8b5Cs1UCwgPIUrKFIeL4jWJWNRcBWf90J8KxE5i5ZcHCJVsdJWuOnfzY+oNsS8pPv4
+ 6yqUSlxu562O7NqRRuHm2OJoH54asCDt14TU2YUl0oF4zAk+b1C8=
+X-Gm-Gg: ASbGncsArtkZV7bpK0d+dM2vU6L6Siv6PQp+KkmShbcMUkNTRfHeFvSFu0j8r47whO5
+ 2m3Pc4yhbr3FJWM9u2XrcgwpJ2ieqr+1w0jxoOGEc9UbH1FgDKhBxT9vta+5xaRSV2KUtsk4+yl
+ SqRkpnzCgH7k49kwHpl6CTfilx91crrpV6234pZOjiM4+6Flrqem2D8OkOfQAKmjdAfxTeOA4UZ
+ v34092J0gHeEMuV/t3ksqAAcyEjxV59ncWAH2+l05DR15NsuJeDsjA/
+X-Received: by 2002:a05:6808:e88:b0:3e6:5761:aea with SMTP id
+ 5614622812f47-3eae4f2d456mr14144176b6e.10.1733423447968; 
+ Thu, 05 Dec 2024 10:30:47 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGbUowyf/omcVXPrzm5frtjBkRRg4AJOqATqSbWoO+I1+y3GvLe22q5ojWMQemsIE4YCpc3Gw==
+X-Received: by 2002:a05:6808:e88:b0:3e6:5761:aea with SMTP id
+ 5614622812f47-3eae4f2d456mr14144134b6e.10.1733423447627; 
+ Thu, 05 Dec 2024 10:30:47 -0800 (PST)
+Received: from [10.195.154.128] ([144.121.20.163])
+ by smtp.googlemail.com with ESMTPSA id
+ 6a1803df08f44-6d8da9fd389sm9028976d6.79.2024.12.05.10.30.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Dec 2024 10:18:26 -0800 (PST)
-Message-ID: <cc6cc13d-ec95-45d2-8722-e12f3b82ff92@linaro.org>
-Date: Thu, 5 Dec 2024 12:18:23 -0600
+ Thu, 05 Dec 2024 10:30:46 -0800 (PST)
+Message-ID: <1f008c2a-aaf6-497d-becd-f36f5d9aea17@redhat.com>
+Date: Thu, 5 Dec 2024 19:30:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 07/13] rust: add bindings for timer
-To: Zhao Liu <zhao1.liu@intel.com>, Paolo Bonzini <pbonzini@redhat.com>,
- "Michael S . Tsirkin" <mst@redhat.com>,
+Subject: Re: [RFC 06/13] rust: add bindings for memattrs
+To: Richard Henderson <richard.henderson@linaro.org>,
+ Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Junjie Mao <junjie.mao@hotmail.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
  <alex.bennee@linaro.org>, =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?=
  <philmd@linaro.org>, Peter Maydell <peter.maydell@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
- <20241205060714.256270-8-zhao1.liu@intel.com>
+ <20241205060714.256270-7-zhao1.liu@intel.com>
+ <b34733f3-1525-4e35-8c07-f84ad56b01e0@linaro.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+In-Reply-To: <b34733f3-1525-4e35-8c07-f84ad56b01e0@linaro.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: uLmGJ6DbAR52Xxnr1q9zSNnSIdAprZBq48FZVUN_Az8_1733423448
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-From: Richard Henderson <richard.henderson@linaro.org>
-In-Reply-To: <20241205060714.256270-8-zhao1.liu@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=2001:4860:4864:20::32;
- envelope-from=richard.henderson@linaro.org; helo=mail-oa1-x32.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -50
+X-Spam_score: -5.1
+X-Spam_bar: -----
+X-Spam_report: (-5.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -96,30 +144,44 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Dec 2024 18:18:30 -0000
+X-List-Received-Date: Thu, 05 Dec 2024 18:30:55 -0000
 
-On 12/5/24 00:07, Zhao Liu wrote:
-> The bindgen supports `static inline` function binding since v0.64.0 as
-> an experimental feature (`--wrap-static-fns`), and stabilizes it after
-> v0.70.0.
+On 12/5/24 19:15, Richard Henderson wrote:
+> On 12/5/24 00:07, Zhao Liu wrote:
+>> The MemTxAttrs structure is composed of bitfield members, and bindgen is
+>> unable to generate an equivalent macro definition for
+>> MEMTXATTRS_UNSPECIFIED.
 > 
-> But the oldest version of bindgen supported by QEMU is v0.60.1, so
-> there's no way to generate the bindings for timer_new() and its variants
-> which are `static inline` (in include/qemu/timer.h).
-> 
-> Manually implement bindings to help create new timers in Rust.
-> Additionally, wrap timer_mod(), timer_del() and
-> qemu_clock_get_virtual_ns() as safe functions to make timer interfaces
-> more Rust-idiomatic.
-> 
-> In addition, for timer_new() and its variants, to convert the idiomatic
-> Rust callback into a C-style callback QEMUTimerCB, introduce a trait
-> QEMUTimerImpl. For any object needs to initialize a new timer, it needs
-> to implement QEMUTimerImpl trait and define a handler.
+> I'm happy to move away from bit fields to uint32_t or suchlike to enable 
+> MEMTXATTRS_UNSPECIFIED be a compile-time constant.
 
-It might be cleaner to move all of those static inline into timer.c.
-I don't see anything performance sensitive there...
+Yeah, if we go from
 
+typedef struct MemTxAttrs {
+     unsigned int unspecified:1;
+     unsigned int secure:1;
+     unsigned int space:2;
+     unsigned int user:1;
+     unsigned int memory:1;
+     unsigned int requester_id:16;
+     unsigned int pid:8;
+} MemTxAttrs;
 
-r~
+to
+
+typedef struct MemTxAttrs {
+     uint8_t unspecified;
+     uint8_t secure;
+     uint8_t space;
+     uint8_t user;
+     uint8_t memory;
+     uint8_t pid;
+     uint16_t requester_id;
+} MemTxAttrs;
+
+is still decently packed and simplifies things a lot.  Zhao, can you 
+submit that as an independent patch?
+
+Paolo
+
 
