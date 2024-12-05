@@ -1,81 +1,80 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJJFv-0005t1-N7
-	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 16:19:27 -0500
+	id 1tJJHV-0006rl-IN
+	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 16:21:05 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJJFt-0005sS-7D
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 16:19:25 -0500
+ id 1tJJHU-0006r8-56
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 16:21:04 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJJFp-0004U9-Rn
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 16:19:24 -0500
+ id 1tJJHS-0004or-Jv
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 16:21:03 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733433559;
+ s=mimecast20190719; t=1733433661;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=JXI3tsfTyvI9BuejIpXKaDaqjzqRGG5fozWw8z2vD2w=;
- b=fJ3W0IBQZHOP5Da+kAnXzXyXUCU6KFeCSDUPv8VexpXd3L32ZYamqGr2+VllSgZInMtMO6
- P/3XbtwDDOQ3uihAGb/vpHN7aCJDokeXBCPG84Y43QvToWQsHYpOStvTvQyhAYBd6o64O0
- UEtua8LzuiDXJwOD2a2OORVBCm9xLro=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=43Lc1qkqIGe8YXJdAU6bbqzg75+1s7x6Dpw0bghVJn4=;
+ b=emJ93fW9DFrknot6M+P2QPuhV8nZiprdKVT7miDnKvQMjENafeuiM0XAdbMJ3MAvto0Yid
+ lSY5r0p+Ef1c6mxqflrk/Imp8wGXz7HTecU8oueRy1ACNi58VYQt7g9GSNkM5Lh5EDWiht
+ mPY1N/n6YunHxvkwOm5/+lych3Az2u0=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-351-6jC6CJiLMni1DdddVbalOg-1; Thu, 05 Dec 2024 16:19:18 -0500
-X-MC-Unique: 6jC6CJiLMni1DdddVbalOg-1
-X-Mimecast-MFC-AGG-ID: 6jC6CJiLMni1DdddVbalOg
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-385d80576abso1014389f8f.3
- for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 13:19:17 -0800 (PST)
+ us-mta-529-4yMbt9nINlumCgkIbmK8mA-1; Thu, 05 Dec 2024 16:21:00 -0500
+X-MC-Unique: 4yMbt9nINlumCgkIbmK8mA-1
+X-Mimecast-MFC-AGG-ID: 4yMbt9nINlumCgkIbmK8mA
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-4349d895ef8so13346945e9.0
+ for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 13:21:00 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733433556; x=1734038356;
+ d=1e100.net; s=20230601; t=1733433659; x=1734038459;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=JXI3tsfTyvI9BuejIpXKaDaqjzqRGG5fozWw8z2vD2w=;
- b=U/BXtFXKtfzi17BYqYtUza0+2UhEgnncn6NgysFiLJ2JJlurogkMRCN5XhtZupXxfR
- MffmLLAtmNMzs7mG74GCeTJdvdx0iQiE1fHQqm9g7yiHDr1Qqejugq3TYL6PcVKBXrlZ
- yHqZMLVGxJvNmAAowUtbWemjYXgZzuenqPNyQUgDaeZAHwDlQR3Nv9erONsF5/uWwt4U
- pt6mSjg1hJzS/l9Tgxcvk0addrMG9hbAczFpjR5RqmPoyYCRlj/bgjUdkcpQmZx+hzlh
- G/IC7zSGniUrTZSUc9vjxWj6aTK82dB/P8DwU+dDDVk4cwEIxDSoYIi9ztvd0CL7GXwi
- lB3A==
+ bh=43Lc1qkqIGe8YXJdAU6bbqzg75+1s7x6Dpw0bghVJn4=;
+ b=p8p6ZYg3nTM9NVCy9q9OGtf8cm1kVN4r10Pl8rNaVrpF7K6FGVUNgQbCXDqELsoTJJ
+ FEwtr0Eg+5L6U4nXVsHePW53JSLbsgDbA6na0VDrZLAxi2GjgthuGWpmU5XzD0hHoJFq
+ zRt9ce1QUL/k6zq7EXUhpR0viOms7s24o5z5Pv7WFrk5zY0X4JumhClCr2UZndbubgnf
+ kY0ChG52q3vplZOT48jvuBEQ6iuvzcKhZD5BRvv5jk4Oum24doMpZ5B7u20sOqWXVwSy
+ 7E379f5lvmOTfAKKYMdFuzHelcEABLB+QS5rQlw8AixtqdhKe4yuYVb9a9kPbsO2+Su0
+ yAIQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVgRO7e7zeoPGk0WJwUuG5EQ/rUc2Cgfa6Xc/6etjinYWKqWFugg9XCsFcCm/HAODyMVwPewEtVrN0=@nongnu.org
-X-Gm-Message-State: AOJu0YwM7/OfTJc4SugPYYC4hXlylW4CH2YsE6U6/WQ4yARVDl/eAf2W
- pyyCTzwUzrOimggobmHBNbswQwJ33bMPCXKs1/TWXxqVktL1UPWGqjrvTKOaK4Kh0jEcYrrIiuz
- 57AHvGoi0T8ymtM6jPAthm0I4FTiGHZtmaNu620rdW6TjITzgjabKukVeTMUI3QYE50oMSy9ofV
- 3BNIaaZozcZ31id4Fek4bn7x5V2XdTnNGYlw==
-X-Gm-Gg: ASbGnctM5iQFRiuNnsjydlqjotLuIEEHnTyd69dV2jc3s7+b5Tn5L3zECD1ViGfiAMV
- D2kFpUWaz42iA1XnbG8ehymIg4J363qeI
-X-Received: by 2002:a5d:5f8c:0:b0:385:f66a:4271 with SMTP id
- ffacd0b85a97d-3862b33ce03mr429189f8f.4.1733433555983; 
- Thu, 05 Dec 2024 13:19:15 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFrPmaF9yr+0WjzCSAwMpfuWJn+5BcSt4W/dF3U8X0EMuudal6yikyprmhQBKXNpw1yA0wzRE+hgclksex+D0Y=
-X-Received: by 2002:a5d:5f8c:0:b0:385:f66a:4271 with SMTP id
- ffacd0b85a97d-3862b33ce03mr429169f8f.4.1733433555599; Thu, 05 Dec 2024
- 13:19:15 -0800 (PST)
+ AJvYcCXSHD44cu1cUanoxROmYlL9pSqI3NhrjKjpEfBNzmom7N0Oc8dEhGojF4w1fDsScS6x2sVxbHbGUqc=@nongnu.org
+X-Gm-Message-State: AOJu0YxQFzT/EXe6qZfTV6FwIm0r37Nx+OmUulV7zWM7+W9dZkAdUYxC
+ wt9wyYFBUS088nzov4qm9XHA/Lf1xrn3fJBJwmjeO3m2YJxOEB3lK2i3XjZbaGl753RCPHY/b+j
+ plyBZNVX99sVPMKjMKY3GvtAwF95C25h6pQV+A6dkMgCsYRzIhJUJtWMvAz915QstG9wwvM3Py5
+ EA37p7iXULWUNNv29N5ogLKbBXNg==
+X-Gm-Gg: ASbGncsBZB6W4Q0++xeQjrItYNzuurSWqb5bHeM8n3GA1eUn8c4TRbQknsCm05Fphq0
+ TDfV56lLl4Ps1M3FddeSFtB+tJ7JsJS4P
+X-Received: by 2002:a05:6000:18a7:b0:386:1ab5:f0e1 with SMTP id
+ ffacd0b85a97d-3862b355428mr549538f8f.14.1733433659581; 
+ Thu, 05 Dec 2024 13:20:59 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFiv9rD97P0nB7n+IyFpR02kYuXC5B89tPtfRxH4yNU0toswWiLkYb3XpDcPSrdpA5/qH81l8PERW45wC3jpMc=
+X-Received: by 2002:a05:6000:18a7:b0:386:1ab5:f0e1 with SMTP id
+ ffacd0b85a97d-3862b355428mr549522f8f.14.1733433659231; Thu, 05 Dec 2024
+ 13:20:59 -0800 (PST)
 MIME-Version: 1.0
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
- <20241205060714.256270-10-zhao1.liu@intel.com>
- <ed49af53-4a10-4cee-829e-d5921b8aee3c@linaro.org> <Z1GgjZOCc8vkkB3A@intel.com>
- <8cb0a692-420a-4645-b1b8-bc6e47bbb116@linaro.org>
-In-Reply-To: <8cb0a692-420a-4645-b1b8-bc6e47bbb116@linaro.org>
+ <20241205060714.256270-12-zhao1.liu@intel.com>
+ <b107c5c3-9ee4-4939-a4e3-eff0cd92bad6@redhat.com>
+In-Reply-To: <b107c5c3-9ee4-4939-a4e3-eff0cd92bad6@redhat.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Thu, 5 Dec 2024 22:19:04 +0100
-Message-ID: <CABgObfa7ojzTWOdzd9MUq76ebO8oEU24ew=N80JOOEd=7XuO5g@mail.gmail.com>
-Subject: Re: [RFC 09/13] i386/fw_cfg: move hpet_cfg definition to hpet.c
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>
-Cc: Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>, 
+Date: Thu, 5 Dec 2024 22:20:47 +0100
+Message-ID: <CABgObfbojr4fkXq8tuuXCAGUdr3Vefddx=ERtMUx9w6Bqy0a3g@mail.gmail.com>
+Subject: Re: [RFC 11/13] rust/timer/hpet: add basic HPET timer & state
+To: Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>, 
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Junjie Mao <junjie.mao@hotmail.com>, 
  =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
- Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+ Peter Maydell <peter.maydell@linaro.org>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 1qJxnSLbquTX2Mry6SRkAadbCDEINmjR6B0gSIFXRWw_1733433557
+X-Mimecast-MFC-PROC-ID: PqQroKi7CxCooHiTLRJK9wRRPK26FU4lXnzSfO89Yh8_1733433660
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -88,7 +87,7 @@ X-Spam_report: (-5.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -101,63 +100,19 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Dec 2024 21:19:25 -0000
+X-List-Received-Date: Thu, 05 Dec 2024 21:21:04 -0000
 
-On Thu, Dec 5, 2024 at 10:18=E2=80=AFPM Philippe Mathieu-Daud=C3=A9
-<philmd@linaro.org> wrote:
->
-> On 5/12/24 13:46, Zhao Liu wrote:
-> > Hi Philippe,
-> >
-> > On Thu, Dec 05, 2024 at 01:04:58PM +0100, Philippe Mathieu-Daud=C3=A9 w=
-rote:
-> >> Date: Thu, 5 Dec 2024 13:04:58 +0100
-> >> From: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
-> >> Subject: Re: [RFC 09/13] i386/fw_cfg: move hpet_cfg definition to hpet=
-.c
-> >>
-> >> On 5/12/24 07:07, Zhao Liu wrote:
-> >>> HPET device needs to access and update hpet_cfg variable, but now it =
-is
-> >>> defined in hw/i386/fw_cfg.c and Rust code can't access it.
-> >>>
-> >>> Move hpet_cfg definition to hpet.c (and rename it to hpet_fw_cfg). Th=
-is
-> >>> allows Rust HPET device implements its own global hpet_fw_cfg variabl=
-e,
-> >>> and will further reduce the use of unsafe C code access and calls in =
-the
-> >>> Rust HPET implementation.
-> >>>
-> >>> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
-> >>> ---
-> >>>    hw/i386/fw_cfg.c        |  4 +---
-> >>>    hw/timer/hpet.c         | 16 +++++++++-------
-> >>>    include/hw/timer/hpet.h |  2 +-
-> >>>    3 files changed, 11 insertions(+), 11 deletions(-)
-> >>
-> >>
-> >>> diff --git a/include/hw/timer/hpet.h b/include/hw/timer/hpet.h
-> >>> index d17a8d43199e..dbf709251a8f 100644
-> >>> --- a/include/hw/timer/hpet.h
-> >>> +++ b/include/hw/timer/hpet.h
-> >>> @@ -74,7 +74,7 @@ struct hpet_fw_config
-> >>>        struct hpet_fw_entry hpet[8];
-> >>>    } QEMU_PACKED;
-> >>> -extern struct hpet_fw_config hpet_cfg;
-> >>> +extern struct hpet_fw_config hpet_fw_cfg;
-> >>
-> >> Could this field belong to the (yet unexisting) HPETClass?
-> >
-> > Several instances would share the same class, so HPETClass could manage
-> > multiple HPETState info.
-> >
-> > But in fw_cfg.c, do you have idea about how to get the HPETClass?
->
-> Have hpet_find() return an Object and call object_get_class()?
+On Thu, Dec 5, 2024 at 9:23=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com> =
+wrote:
+> > +    /// Instance id (HPET timer block ID).
+> > +    hpet_id: BqlCell<usize>,
+> > +}
+> > +
+> Like flags this does not need to be a cell.
 
-That would work, but anyhow this patch breaks compilation without HPET
-so the question is a bit moot. :)
+Well, this *should not* need to be a cell (ideally fw_cfg would call a
+C function to generate FW_CFG_HPET) but it can't be done yet, so you
+can keep it. flags need not be a BqlCell though.
 
 Paolo
 
