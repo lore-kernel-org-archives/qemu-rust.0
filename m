@@ -1,84 +1,82 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJGcq-0005nP-Bk
-	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 13:30:56 -0500
+	id 1tJGsS-0000i2-6s
+	for mharc-qemu-rust@gnu.org; Thu, 05 Dec 2024 13:47:04 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJGco-0005nA-Nx
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 13:30:54 -0500
+ id 1tJGsQ-0000hC-PN
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 13:47:02 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJGcm-0000FJ-6k
- for qemu-rust@nongnu.org; Thu, 05 Dec 2024 13:30:54 -0500
+ id 1tJGsO-0007zB-Ul
+ for qemu-rust@nongnu.org; Thu, 05 Dec 2024 13:47:02 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733423450;
+ s=mimecast20190719; t=1733424418;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0EV2Pl0XhfhPDgKftqMIgmpyNoNxcUWIgGvtN1nSogc=;
- b=iY+EK6E9azj+eGct9Nwk19ufe3OiNeoR3M7BWbZ2GqBNCBTgJpf8D9zKuLc1iOSFPMpNAE
- MXqDvKD/TmShqMqR4YSBNlCy/WOZ8riUs7Mock8jAlMw+zJssFm4FKjzxYCLrD1T6hlDEi
- CNCNtaHPzzmkf+FdVw7+1Yywiomug30=
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
- [209.85.167.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=xcpz8nXLGwmC9vZDFAe3HAaWzF6qmVFTKeo9sRmtICs=;
+ b=KZ1CGD2CzAs9ecjCOb/T6lCk/8gmLjaDqm1JX9L6flVP+WqEj5+uYdw3d5Di/Tw6LmxyzI
+ LQbS8fjZ4rflq0OTKZ6rMp5Affk1qrbZJMtcis8Cxkkuie/gfgZsJNjyo3fcLRsfmX8AiD
+ Gorvr4aiLlBxEmfsTkJEAa8busxvaZo=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-38-ubka1bF1PkGxlRUQqrVBkw-1; Thu, 05 Dec 2024 13:30:48 -0500
-X-MC-Unique: ubka1bF1PkGxlRUQqrVBkw-1
-X-Mimecast-MFC-AGG-ID: ubka1bF1PkGxlRUQqrVBkw
-Received: by mail-oi1-f199.google.com with SMTP id
- 5614622812f47-3ea305e40ceso1318165b6e.1
- for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 10:30:48 -0800 (PST)
+ us-mta-356-BKydV9LCNuSZZZVlNwJSkg-1; Thu, 05 Dec 2024 13:46:55 -0500
+X-MC-Unique: BKydV9LCNuSZZZVlNwJSkg-1
+X-Mimecast-MFC-AGG-ID: BKydV9LCNuSZZZVlNwJSkg
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-7b676e150fcso287984485a.3
+ for <qemu-rust@nongnu.org>; Thu, 05 Dec 2024 10:46:55 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733423448; x=1734028248;
+ d=1e100.net; s=20230601; t=1733424415; x=1734029215;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=0EV2Pl0XhfhPDgKftqMIgmpyNoNxcUWIgGvtN1nSogc=;
- b=YqIqc3idv/1qZO20Y26DcWMZV+F3FxDF5EdN4+Q9pAMwYIIUykWFuZnqP+cCjzRbDE
- 2YjqGl0K53dkh7+KJlGDuk5Ytp3I2rKCECIyuaR8hgXUt1LGnoWBYeHZujk/d4vZrXJq
- A5gQdDlMiWYBZ35ubrD2zS+EeM1iGvMi/LdlqPaqYoBhJZJMPgX7zXXEaNIF9ocAufun
- 1FNGAwd/BXW2qDuuPCzPeASWzu+aF6/cob6j2qzhGQCcZAmkqbT/n5+B9vWCrNl48L4U
- kaYAfFs4nAZQMtwPJy/K1AodAC8evKIhUrXTJ91Ak9YMMj0xTym9pSyttTtgrlZD1i/m
- Aaog==
+ bh=xcpz8nXLGwmC9vZDFAe3HAaWzF6qmVFTKeo9sRmtICs=;
+ b=GxZwWisFXKB6/q5vYLA3nDvLgn01ptomzFToNNjcxOyBbc3gZ6XI/yjurdd/e0EY9G
+ GXtEeyZudQbmplK/Jb3Vk/U6WeGTSq6/19Ny47KKnHGkYAn9MZa+620OTTA1HxsXo/M3
+ pJ2iRI8Vmj/EB4/vJtAa76rJK7sIY8VwvU5Wt3krdccE5C9oOf5Y3cY4+0fvNRexug8b
+ Q+o0dVj8xH7BqrABx4RRplhx7heoZ6pBpR4Z2OIJaDF02FS2bkBxxeoS48XT1PuOR7Fm
+ jFQuwf6Jp4bdWd+W9HNa+d9bHhLGcgLMJCoI5zYxHPfGnT1OTq2ddOtz3lhNcNtg16BL
+ mXsA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXn5WybNhRXyAmTPUglqmYIuWmDsZszZOvq0dz/w3Cdcsf2NJA6Mka5F3Vz4iBH4oNTMD626suZJZ0=@nongnu.org
-X-Gm-Message-State: AOJu0Yxsn7x/Wh24XjmP/+qtVL9FYA8AZ3BndvpyYSJTEpQxAaNCQm0w
- SSvDZgN2w8b5Cs1UCwgPIUrKFIeL4jWJWNRcBWf90J8KxE5i5ZcHCJVsdJWuOnfzY+oNsS8pPv4
- 6yqUSlxu562O7NqRRuHm2OJoH54asCDt14TU2YUl0oF4zAk+b1C8=
-X-Gm-Gg: ASbGncsArtkZV7bpK0d+dM2vU6L6Siv6PQp+KkmShbcMUkNTRfHeFvSFu0j8r47whO5
- 2m3Pc4yhbr3FJWM9u2XrcgwpJ2ieqr+1w0jxoOGEc9UbH1FgDKhBxT9vta+5xaRSV2KUtsk4+yl
- SqRkpnzCgH7k49kwHpl6CTfilx91crrpV6234pZOjiM4+6Flrqem2D8OkOfQAKmjdAfxTeOA4UZ
- v34092J0gHeEMuV/t3ksqAAcyEjxV59ncWAH2+l05DR15NsuJeDsjA/
-X-Received: by 2002:a05:6808:e88:b0:3e6:5761:aea with SMTP id
- 5614622812f47-3eae4f2d456mr14144176b6e.10.1733423447968; 
- Thu, 05 Dec 2024 10:30:47 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGbUowyf/omcVXPrzm5frtjBkRRg4AJOqATqSbWoO+I1+y3GvLe22q5ojWMQemsIE4YCpc3Gw==
-X-Received: by 2002:a05:6808:e88:b0:3e6:5761:aea with SMTP id
- 5614622812f47-3eae4f2d456mr14144134b6e.10.1733423447627; 
- Thu, 05 Dec 2024 10:30:47 -0800 (PST)
+ AJvYcCX9k5XBFAS9PDyFf3tUluoPNKtUlU7J+DDxmd+bK3ZFVWHK0r3qp+Nhq3t957KwbyptwFw86PrTams=@nongnu.org
+X-Gm-Message-State: AOJu0Ywaiexd43dopuGtWm1o6TLMTOcGNgfWZ7fm4vShCA2bmJ0/GPUh
+ EkjT8GVlyyUO+CE+t6MECqthM6MQ07tyOplLHZMpFhg2EYuxnJ710KvRDIAMeVntQsvlhGAvn93
+ nbqntUrC9mmezvCXrtJGdEtSc9dTLwRkypH68w2kQU3+VTpJBsUU=
+X-Gm-Gg: ASbGncvjHv7hoCcqpXRnjlChWOvumvid0cAC7pfhjge+OPlXOHHClRlr+soJvB62eud
+ UU5sP+xEfMu1hH/mzTfhaR5mKnWYa1xelZdAwu74l0JACtrhc/vc/zGKJcJh5wbX7+ah6I39nfT
+ IJIh3j9sKF7F1FEdGf47ync06S37igq6J3QObINPwz/78hDFDnRx8cs7nlPE1cwZ7QggCM6NhG1
+ Ze83Sg4940zBPArTM/hBPoJ5ONX/EnBrQnm3FXs26voGZb7FNA9/jus
+X-Received: by 2002:a05:620a:45a9:b0:7b1:3c0e:b7ea with SMTP id
+ af79cd13be357-7b6bcb74152mr43753885a.45.1733424415338; 
+ Thu, 05 Dec 2024 10:46:55 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFWSbLOEyH0ChvRbHZmVKDH2iR96SThkC8Fb/8tIoxKDUmk5c/mNbNGYoNWdjNiWVoYKlJVjQ==
+X-Received: by 2002:a05:620a:45a9:b0:7b1:3c0e:b7ea with SMTP id
+ af79cd13be357-7b6bcb74152mr43750585a.45.1733424414994; 
+ Thu, 05 Dec 2024 10:46:54 -0800 (PST)
 Received: from [10.195.154.128] ([144.121.20.163])
  by smtp.googlemail.com with ESMTPSA id
- 6a1803df08f44-6d8da9fd389sm9028976d6.79.2024.12.05.10.30.46
+ af79cd13be357-7b6b5a5c3casm85880985a.43.2024.12.05.10.46.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Dec 2024 10:30:46 -0800 (PST)
-Message-ID: <1f008c2a-aaf6-497d-becd-f36f5d9aea17@redhat.com>
-Date: Thu, 5 Dec 2024 19:30:45 +0100
+ Thu, 05 Dec 2024 10:46:54 -0800 (PST)
+Message-ID: <9cb123e2-5237-46e7-b6fe-ce8f813cc43c@redhat.com>
+Date: Thu, 5 Dec 2024 19:46:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 06/13] rust: add bindings for memattrs
-To: Richard Henderson <richard.henderson@linaro.org>,
- Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+Subject: Re: [RFC 07/13] rust: add bindings for timer
+To: Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Junjie Mao <junjie.mao@hotmail.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
  <alex.bennee@linaro.org>, =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?=
  <philmd@linaro.org>, Peter Maydell <peter.maydell@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
- <20241205060714.256270-7-zhao1.liu@intel.com>
- <b34733f3-1525-4e35-8c07-f84ad56b01e0@linaro.org>
+ <20241205060714.256270-8-zhao1.liu@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -115,9 +113,9 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <b34733f3-1525-4e35-8c07-f84ad56b01e0@linaro.org>
+In-Reply-To: <20241205060714.256270-8-zhao1.liu@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: uLmGJ6DbAR52Xxnr1q9zSNnSIdAprZBq48FZVUN_Az8_1733423448
+X-Mimecast-MFC-PROC-ID: vgCEdXh_NOwLyibGOGLZkWRZP3MT-y0koYyWo3QkSSo_1733424415
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -144,43 +142,84 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Dec 2024 18:30:55 -0000
+X-List-Received-Date: Thu, 05 Dec 2024 18:47:03 -0000
 
-On 12/5/24 19:15, Richard Henderson wrote:
-> On 12/5/24 00:07, Zhao Liu wrote:
->> The MemTxAttrs structure is composed of bitfield members, and bindgen is
->> unable to generate an equivalent macro definition for
->> MEMTXATTRS_UNSPECIFIED.
-> 
-> I'm happy to move away from bit fields to uint32_t or suchlike to enable 
-> MEMTXATTRS_UNSPECIFIED be a compile-time constant.
+On 12/5/24 07:07, Zhao Liu wrote:
+> +impl QEMUTimer {
+> +    fn new() -> Self {
+> +        QEMUTimer {
+> +            expire_time: 0,
+> +            timer_list: ::core::ptr::null_mut(),
+> +            cb: None,
+> +            opaque: ::core::ptr::null_mut(),
+> +            next: ::core::ptr::null_mut(),
+> +            attributes: 0,
+> +            scale: 0,
+> +        }
+> +    }
 
-Yeah, if we go from
+Please implement Zeroable instead and make this just Self::ZERO.
 
-typedef struct MemTxAttrs {
-     unsigned int unspecified:1;
-     unsigned int secure:1;
-     unsigned int space:2;
-     unsigned int user:1;
-     unsigned int memory:1;
-     unsigned int requester_id:16;
-     unsigned int pid:8;
-} MemTxAttrs;
+> +    // TODO: Consider how to avoid passing in C style callbacks directly.
+> +    fn timer_new_full<T: QEMUTimerImpl>(
+> +        timer_list_group: Option<&mut QEMUTimerListGroup>,
+> +        clk_type: QEMUClockType,
+> +        scale: u32,
+> +        attributes: u32,
+> +        opaque: &mut T::Opaque,
 
-to
+This gets tricky when you have more than one timer per device.  With the right
+infrastructure we can make this something like
 
-typedef struct MemTxAttrs {
-     uint8_t unspecified;
-     uint8_t secure;
-     uint8_t space;
-     uint8_t user;
-     uint8_t memory;
-     uint8_t pid;
-     uint16_t requester_id;
-} MemTxAttrs;
+     fn timer_init_full<'a, 'b: 'a, T, F: 'b Fn(&'b T)>(
+         &'a mut self,
+         timer_list_group: Option<&mut QEMUTimerListGroup>,
+         clk_type: QEMUClockType,
+         scale: u32,
+         attributes: u32,
+         f: &F,
+         opaque: &'b T) {
+         // SAFETY: the opaque outlives the timer
+         unsafe {
+             timer_init_full(...)
+         }
+     }
 
-is still decently packed and simplifies things a lot.  Zhao, can you 
-submit that as an independent patch?
+So I guess that's another thing I have to extract and post. :)
+
+BTW don't bother with timer_new, only do the non-pointer timer_init.
+
+> +    pub fn timer_del(&mut self) {
+> +        unsafe { timer_del(self as *mut QEMUTimer) };
+> +    }
+> +}
+
+Please also add a Drop implementation that calls timer_del.
+
+> +pub fn qemu_clock_get_virtual_ns() -> u64 {
+> +    // SAFETY:
+> +    // Valid parameter.
+> +    (unsafe { qemu_clock_get_ns(QEMUClockType::QEMU_CLOCK_VIRTUAL) }) as u64
+> +}
+
+Maybe something like
+
+pub struct Clock {
+     id: QEMUClockType
+}
+
+impl Clock {
+     pub fn get_ns() -> u64 {
+         // SAFETY: cannot be created outside this module, therefore id
+         // is valid
+         (unsafe { qemu_clock_get_ns(self.id) }) as u64
+     }
+}
+
+pub static CLOCK_VIRTUAL: Clock = Clock { id: QEMUClockType::QEMU_CLOCK_VIRTUAL };
+// etc.
+
+and then the user can do timer::CLOCK_VIRTUAL::get_ns().
 
 Paolo
 
