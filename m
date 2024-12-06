@@ -1,81 +1,93 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJW3x-0005Hw-NM
-	for mharc-qemu-rust@gnu.org; Fri, 06 Dec 2024 05:59:58 -0500
+	id 1tJYz9-0003TN-L3
+	for mharc-qemu-rust@gnu.org; Fri, 06 Dec 2024 09:07:11 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tJW3v-0005HE-Kg
- for qemu-rust@nongnu.org; Fri, 06 Dec 2024 05:59:55 -0500
-Received: from mail-ej1-x62d.google.com ([2a00:1450:4864:20::62d])
+ (Exim 4.90_1) (envelope-from <richard.henderson@linaro.org>)
+ id 1tJYz7-0003T4-MW
+ for qemu-rust@nongnu.org; Fri, 06 Dec 2024 09:07:09 -0500
+Received: from mail-oi1-x234.google.com ([2607:f8b0:4864:20::234])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tJW3p-0004lN-DL
- for qemu-rust@nongnu.org; Fri, 06 Dec 2024 05:59:53 -0500
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a9a977d6cc7so272089966b.3
- for <qemu-rust@nongnu.org>; Fri, 06 Dec 2024 02:59:47 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <richard.henderson@linaro.org>)
+ id 1tJYz6-0005XY-AI
+ for qemu-rust@nongnu.org; Fri, 06 Dec 2024 09:07:09 -0500
+Received: by mail-oi1-x234.google.com with SMTP id
+ 5614622812f47-3ea462a98b9so1236942b6e.0
+ for <qemu-rust@nongnu.org>; Fri, 06 Dec 2024 06:07:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733482786; x=1734087586; darn=nongnu.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=cCjvmfEs5EJgidXuCv0XGMV7m2dF6rGGbBlwA4fs2fg=;
- b=qPOQw5fJgK3T0ZuIMpcrzUOfWTcz0ErHgQTYtxC/ApXz0Z1dPySTsNBkLu8cml+Y9t
- pTya+H/MUHBuSJ+sJsTxorHcqJvL4GL7V6I1Yn6NqgKcYM4/YpeiE2GO3tRHgHsQq0l4
- BebT8WtAoT5RuPMg47iuDYe3/GMH+fYz2lmz5vZPQ00qtlYzmdTWq6QkKwp9H50m2ADG
- 029HQhzudTu5l91shtg7ZvSg5FK2naLf9rJn0ruRk1/S0mqNXx/Dr6CW58AeIgmUZB9K
- qd+2p6+B8AkyWIUcOJy5CzIM0HSAwHcWcMY4urnruALzoE3Yz4A9i0JJzR6mzeaxViFj
- nMFw==
+ d=linaro.org; s=google; t=1733494027; x=1734098827; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=GY/cAPhW3/oqi/C1YCvCLavQZ4L9C4haY7O1gunfYt0=;
+ b=JymKmm0O4gK4qS4QwBrCvvHUoxWPqvCAHpSLeTrsN9T5aBSyyoU1YQdX5CRcQGbHpE
+ 5XAika0q+/7vBYcEn0DVh79QTg3omjFvV2nypZoR4SWGH1b88En00UAgB6MDpGutAqtb
+ zQRycP1lmlREM1TVWyRaZPr/OwsI4Er730LJbpB3qYp9SwLhImzGApnXMVm0yNaxatnw
+ 5wSp4u5mmGAksTxImd0ocz2+UEA3PH62S7uc5ctPcChtUkkDAk/s7QMIuPs0Meml5LdK
+ B1axv2vyZjOff4DM55qJXvxEIOYHt4+tojscehxcITgHVqZthv0wUSduIW8NGeX89nt9
+ wxyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733482786; x=1734087586;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=cCjvmfEs5EJgidXuCv0XGMV7m2dF6rGGbBlwA4fs2fg=;
- b=iIV8lDmYM9BRqpm/8RxDBCq4Wfmg6S4KPyaIoHyg+wDMBTFPrkz7t46vHB2lH28Hcu
- A02/tB0rh4qA8FgfZZZUkNgztXEuwawbAR/hKYM65K6goNxJUKid/YC8KTMBh39pmGKn
- fpenaGvqGi/Pa99FmXmbSKewusIvlzsPk5a7BveX4w54/4aWWSXV69Jerx2nM1Gi6Fhl
- Pk9AeaPPcZsWAgsTCPbd5/+q/WPiVXaOH3CPPd5DofHokIQztTe0gSjyzSmqqZ4x0Bzj
- T2QE9lNzMeEj95hvQ6hu98rUMfNU0hovXxhm89ca93W0ZbVStZwDSulAjbuJ467PbeK0
- z23w==
+ d=1e100.net; s=20230601; t=1733494027; x=1734098827;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=GY/cAPhW3/oqi/C1YCvCLavQZ4L9C4haY7O1gunfYt0=;
+ b=o7lD8oK1Oo7SdQ54AgGx1rxkbIUCdI3jNhtMg6ApaO9YZZzmwZ9vgaie+eY1R6BZro
+ rAeKHZZuXR5jHh34KDizsJQsXTlQFFxFjB9JNDZOLmufEjtSCe9tnolbTO5AhTtuoIA8
+ e7QYWc/0WdNx1ck7XNKZxz/MDEWvq68eGr3/rDLSjCblRVPaPJDTmUzUKJKcJJSRqJFb
+ Bt+CyAP0AKcUgbKD84fIQIl2v5RqfoHSuZ9NU0IJggtF+gsG90/oJcKQuJFqaysBFRwl
+ NhvapXNRSEVmMCrFRtBKmhyscgSxgKoA4F3Rw+BykbiflNK6cJ6zAPWTBjZVM5iw708/
+ zVbg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUEcvylQdEexAWuGcxWVszXmzABllEuXbadBBMxmD0+Hrrtg1fof2t/1IMQbm8aIFN5ONTERyB7TWs=@nongnu.org
-X-Gm-Message-State: AOJu0YyUcImtZBddQwMEoMBfsTVc3iwyCeOVP8rgV85HLOqdlTJMckSp
- gPlqJSNEYv42W0ru9LugMg+s5HD+XYg/D2vn1msh/+u/zcMXo3Q7L1dACRuLUhAh5g1VmnAPt9Y
- aM/YcOCTm0bJbxWIrLYaPTK3jY57SnFCFdr+cBw==
-X-Gm-Gg: ASbGncv2QXL4W9FepmMqaPxYjjTIi6NpyB5dL3O4DGXIp8LuuxrSXbZOcjZjqguEwIe
- +anYH1o5ntlTW7qL6XKVMUHYnTxSWm0fR
-X-Google-Smtp-Source: AGHT+IHwzOcUzTAejnJDa1pS1n1NDczMHLQrdR232D9/vsdR5L8/dNlSMgwd3uJnhocg06m4DZM5GrHKgCrAjZhKNIQ=
-X-Received: by 2002:a05:6402:3604:b0:5d0:d2ed:ebb with SMTP id
- 4fb4d7f45d1cf-5d3be661a54mr6052184a12.3.1733482785871; Fri, 06 Dec 2024
- 02:59:45 -0800 (PST)
+ AJvYcCVIOhBFHWP0tNHfc5Nm0Y4omBeJD6P6LNMbhngF7g1lptV90KPDrtsaOS6qc8WWSvt0PdOu8yCucMc=@nongnu.org
+X-Gm-Message-State: AOJu0YxZM8nFPl1KdSfws0IE9Y31UpIXIRPX2KNbgfDO+kFHjENjS3jw
+ v0jwZuQStYItjCLZvYis/bMQymdu8qqMa1ficZpWrcDqTNxCx6bcpJkTyaqp3Pk=
+X-Gm-Gg: ASbGncusLWTNMLjeXp2vLjMFj2+b1eDoHqd6QBRHt0oryIZ1YI1aG76kpRT95F/bATb
+ q0ddwdrAnuPCHEKUPEsHpILDvM2zE7fBArJLnOJEhXumaMMqx0VFwU493Zk3dKbQ14B+YWBCiyi
+ 65INxJ/2qJP0SGqHyEiO2SGHlj4QGySjqSJAv9NdV96fPBhwxq8FRMUN3XTYeLSl3UPAV2LkfY2
+ 5ZKSe3gw6Kdmlai16HcmmbPQCRvcXMXsfTjZrKjoMWlEe84x8GqK9krG/buxNBvSc20VzAO/WPU
+ wAHMIhUiST0AkFZgJ3tVx8biCvJm
+X-Google-Smtp-Source: AGHT+IGIBgVv2ZeXUAhczbXb9OvXaoDFvRRPfwwI2WHV+fzEur55jsIhXtYZVUdA58d4QGtpmXQKDg==
+X-Received: by 2002:a05:6808:2f1a:b0:3e6:580b:d7d0 with SMTP id
+ 5614622812f47-3eb19ce346bmr3702232b6e.19.1733494026909; 
+ Fri, 06 Dec 2024 06:07:06 -0800 (PST)
+Received: from [192.168.4.112] (fixed-187-189-51-143.totalplay.net.
+ [187.189.51.143]) by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-3eb07674c71sm749383b6e.5.2024.12.06.06.07.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 06 Dec 2024 06:07:06 -0800 (PST)
+Message-ID: <aa9dc46c-d99a-41c7-849a-aa9077d8ccda@linaro.org>
+Date: Fri, 6 Dec 2024 08:07:04 -0600
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 06/13] rust: add bindings for memattrs
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, "Michael S . Tsirkin"
+ <mst@redhat.com>, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Junjie Mao <junjie.mao@hotmail.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?=
+ <philmd@linaro.org>, Peter Maydell <peter.maydell@linaro.org>,
+ qemu-devel@nongnu.org, qemu-rust@nongnu.org
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
  <20241205060714.256270-7-zhao1.liu@intel.com>
  <b34733f3-1525-4e35-8c07-f84ad56b01e0@linaro.org>
  <1f008c2a-aaf6-497d-becd-f36f5d9aea17@redhat.com>
-In-Reply-To: <1f008c2a-aaf6-497d-becd-f36f5d9aea17@redhat.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Fri, 6 Dec 2024 10:59:35 +0000
-Message-ID: <CAFEAcA9SCfMcrhpd_x0LmgwtD-5XwT4TY+QXBJMOjWbdtBPCUg@mail.gmail.com>
-Subject: Re: [RFC 06/13] rust: add bindings for memattrs
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>,
- Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
- Junjie Mao <junjie.mao@hotmail.com>,
- =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
- qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Content-Type: text/plain; charset="UTF-8"
-Received-SPF: pass client-ip=2a00:1450:4864:20::62d;
- envelope-from=peter.maydell@linaro.org; helo=mail-ej1-x62d.google.com
+ <edfa85a7-2963-46d8-8b02-4d22ec1aeee6@linaro.org>
+ <Z1K4uc+XJIypkNaw@intel.com>
+Content-Language: en-US
+From: Richard Henderson <richard.henderson@linaro.org>
+In-Reply-To: <Z1K4uc+XJIypkNaw@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=2607:f8b0:4864:20::234;
+ envelope-from=richard.henderson@linaro.org; helo=mail-oi1-x234.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -88,50 +100,14 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Dec 2024 10:59:55 -0000
+X-List-Received-Date: Fri, 06 Dec 2024 14:07:09 -0000
 
-On Thu, 5 Dec 2024 at 18:30, Paolo Bonzini <pbonzini@redhat.com> wrote:
->
-> On 12/5/24 19:15, Richard Henderson wrote:
-> > On 12/5/24 00:07, Zhao Liu wrote:
-> >> The MemTxAttrs structure is composed of bitfield members, and bindgen is
-> >> unable to generate an equivalent macro definition for
-> >> MEMTXATTRS_UNSPECIFIED.
-> >
-> > I'm happy to move away from bit fields to uint32_t or suchlike to enable
-> > MEMTXATTRS_UNSPECIFIED be a compile-time constant.
->
-> Yeah, if we go from
->
-> typedef struct MemTxAttrs {
->      unsigned int unspecified:1;
->      unsigned int secure:1;
->      unsigned int space:2;
->      unsigned int user:1;
->      unsigned int memory:1;
->      unsigned int requester_id:16;
->      unsigned int pid:8;
-> } MemTxAttrs;
->
-> to
->
-> typedef struct MemTxAttrs {
->      uint8_t unspecified;
->      uint8_t secure;
->      uint8_t space;
->      uint8_t user;
->      uint8_t memory;
->      uint8_t pid;
->      uint16_t requester_id;
-> } MemTxAttrs;
->
-> is still decently packed and simplifies things a lot.
+On 12/6/24 02:41, Zhao Liu wrote:
+> BTW, may I ask why you favor bool over uint8_t, and is it because they
+> are indeed just 0/1 as well? :)
 
-The old struct is 4 bytes, and the new one is 8 bytes. We do
-a lot of directly passing 'struct MemTxAttrs' arguments around
-as arguments to functions (i.e. not passing pointers to them),
-so increasing it in size is not completely free.
+Yes, exactly.  :-)
 
-thanks
--- PMM
+
+r~
 
