@@ -1,73 +1,66 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJZKM-0004Zu-Ts
-	for mharc-qemu-rust@gnu.org; Fri, 06 Dec 2024 09:29:07 -0500
+	id 1tJZXm-0004kY-NX
+	for mharc-qemu-rust@gnu.org; Fri, 06 Dec 2024 09:42:58 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJZKI-0004YP-De
- for qemu-rust@nongnu.org; Fri, 06 Dec 2024 09:29:04 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tJZKG-00037Y-FX
- for qemu-rust@nongnu.org; Fri, 06 Dec 2024 09:29:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733495338;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WuBfDqRzTmalrjhIj0wnHu8EZWo3fAKR972eaIibV+c=;
- b=GQ+buq7qNL589LnaqDXCEVtznoelyB+LVeqmELLakutJ5/E1KftZJmoUdvvL4ok6hz2g4r
- hd4mBBAcLQruxRSFlEwm1vHV3cX00TjLcGQVVklmhtODnZFKE8hhOMGItsQ6iHqxaRmpMY
- xXQL3RmprSx77TV1Tmfr2xwisWiryV8=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-537-srrPct6jMyS9sxI04GZe3A-1; Fri, 06 Dec 2024 09:28:57 -0500
-X-MC-Unique: srrPct6jMyS9sxI04GZe3A-1
-X-Mimecast-MFC-AGG-ID: srrPct6jMyS9sxI04GZe3A
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-386321c8f4bso58884f8f.0
- for <qemu-rust@nongnu.org>; Fri, 06 Dec 2024 06:28:56 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tJZXl-0004kI-EK
+ for qemu-rust@nongnu.org; Fri, 06 Dec 2024 09:42:57 -0500
+Received: from mail-ed1-x532.google.com ([2a00:1450:4864:20::532])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tJZXj-0005r7-Q6
+ for qemu-rust@nongnu.org; Fri, 06 Dec 2024 09:42:57 -0500
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3bbb0f09dso1206979a12.2
+ for <qemu-rust@nongnu.org>; Fri, 06 Dec 2024 06:42:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1733496174; x=1734100974; darn=nongnu.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=zNNjniwqUhMlBfoCOuzJRb4aiH2/raOgGs4PxJ7xGnY=;
+ b=xz0KwP4cluQ4FTeOZ+WteCM+/AAfwFJpncCbubqYgBOqZRsedGhvuh7av1wLmy4PYH
+ x930P8bfGzuar9RPLagsoaLk+A2Wqu9ryNCj3be490CyvD1xCOTV9GF3Ub55SMU6caGx
+ XLlZPr1X7XKmgm3I5/VdebFh1JGuTqthaZiBI1NOs/ll7w6STdW7rR+8nNtAQltXtUB0
+ bANaFmCEyW28CbItue1jLb3l/aV+bvOLaxascVwdAJ94HMKmKpv5dnw7q1wLbsuHauen
+ igXySKxrOBk4vI8ecrJZMNU7rCHVcTbNA3vEup5erScz8o//cEGPjolRvLHhfWinsC1I
+ UkPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733495336; x=1734100136;
+ d=1e100.net; s=20230601; t=1733496174; x=1734100974;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=WuBfDqRzTmalrjhIj0wnHu8EZWo3fAKR972eaIibV+c=;
- b=gK2UsIMBUeMZpINEms0Q0OQLtP1IFRo3R/G/4gYQ2++it1vB0hGxEa2wLhNboV+5KN
- rsmGHATLJR8ET3dalx1crJEPEqyZwLYndfsBSizGH2k1m+vEfnhFofxkw84iI6xz0ADT
- YTkaGaJTGLFZpgvXMnpRvkgym8pIdfFbpxebpmhi8/daQ/fUTfdxUuwcsxautsN58cbj
- OQGfI2d+7RukJKc2XCSo+HUNan0VDrcNaTz4tlyEsmPINWnVNokW92aPd38cQ4KG79iw
- EFA4A2gpPGmOmPZ3/CWElP+AchDtX9ygMtM+go5+xlVJKJh+pC33BaaLU0JFwNXLQKSk
- JAAw==
+ bh=zNNjniwqUhMlBfoCOuzJRb4aiH2/raOgGs4PxJ7xGnY=;
+ b=SlciEbKozPx3sCOHI5AnoIxtdLcTzV4bZI6f9kIx9n8xH7m8IEBnmWcoODX1pGeVLw
+ RFiCrvfxsGLGbbpyYBcpIwOwDBaj0oUiUBfBozIJHYrWtX4XSBZPrme7rSA7TH6vOie6
+ EkU/lRAbLQOchli3cE29wrSZipvKyudNkyNgAHUKiBub6slpeqEUB5rq4F4Bdr+Fh1fZ
+ PBJCXepiFUUr/5UC+RytRVprrtxtbs4Libnp5sHCf/v2hrl2J3/rW305UWLUq0th4PC0
+ fxcmlvMLAJVNm2+loya3BEFf1y4z0cRkGjCvg6z3VPSXp6LFD/L1uC9Wouc8Te8itewN
+ DZxg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVCsL3qeVGwZ4jZSpGuNr+LljLfaL/zq+VNzdFr++8tA80P2iVbknPMAirSqTuPUxSmAPjt5LiaS5s=@nongnu.org
-X-Gm-Message-State: AOJu0YziOG+Yrw9Bg0UwwXvOcDPLqzVq38Uij8gaxIm4K54gnlaCSDr5
- d5wFbyZcTUpwRaBiJe4l9dYr7FTF1RfurvHjA5C4V20u90TxT4j/9aggeubZ+eHPIXpcp0iPS6J
- lAMEpe84ea0Kw9D0/1teEx46t6hOXxgoLgUS5ZyCLAcmDcgZEpIz5ZmPLqDIN3ePB9IgesRTBvr
- XTmwEq9EuufzsMHEjT61tYEQvuKA==
-X-Gm-Gg: ASbGncvTDdBOtH4ocaB/bO/zlNNoXOaGhtob/D6w3Uf1xQB+wU+vmZAVF0BcyxKWJYw
- JU55b9Zs0Xj+N+TtvV7uXPmZ2W0yqhXnd
-X-Received: by 2002:a5d:47ae:0:b0:386:32ca:aa12 with SMTP id
- ffacd0b85a97d-38632caaac5mr74228f8f.49.1733495335902; 
- Fri, 06 Dec 2024 06:28:55 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEnW02DorhxxRcOrG+5XQz6s+euuI8xPo0tyMTc1FMir6vnGk1H8t8qwKvhgYc0yulTDUc+ScX1aTmb+9n4Qmo=
-X-Received: by 2002:a5d:47ae:0:b0:386:32ca:aa12 with SMTP id
- ffacd0b85a97d-38632caaac5mr74210f8f.49.1733495335628; Fri, 06 Dec 2024
- 06:28:55 -0800 (PST)
+ AJvYcCWeWDXy664El2QPhVV7criouaJ1LBFjndw5KASIrTon++A78VCG1WmUTPLOZwQK8MsD0FM1XMM9MPY=@nongnu.org
+X-Gm-Message-State: AOJu0YwGtyeM8vUt9Oy21q84A0aN/RMJTG4uzm6G0HxrJEk4s1jAEZIy
+ 1PGDSdk4+5g+UO5MunEAt0Ep5Z6eaHKAcBYWp97CDFkLh3hUFalIn0Ov8uZcxuTEqiOcdHiPM4k
+ VASzuynx2C71yHAYSJroiEwjm3UO1jPCmbL53Sg==
+X-Gm-Gg: ASbGncslJwHuigrqhF0uX7d6upCTILBt2cYD3g4/qTlkfUdpwXHjF9o7L23LoAn87kY
+ KA1mSMSg/X8z6ws+vN+in1HEsqcaagJvH
+X-Google-Smtp-Source: AGHT+IG+4QjcRBK/DasgfnyR9UQQiv1EsnNQR1FmEULqMJInJmDgYpCFJgEJdG6WWAuCRqvny0P3ZtVzXUv2UCN2YR0=
+X-Received: by 2002:a05:6402:254e:b0:5d0:d30b:d53e with SMTP id
+ 4fb4d7f45d1cf-5d3be697749mr2745482a12.19.1733496174107; Fri, 06 Dec 2024
+ 06:42:54 -0800 (PST)
 MIME-Version: 1.0
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
  <20241205060714.256270-7-zhao1.liu@intel.com>
  <b34733f3-1525-4e35-8c07-f84ad56b01e0@linaro.org>
  <1f008c2a-aaf6-497d-becd-f36f5d9aea17@redhat.com>
  <CAFEAcA9SCfMcrhpd_x0LmgwtD-5XwT4TY+QXBJMOjWbdtBPCUg@mail.gmail.com>
-In-Reply-To: <CAFEAcA9SCfMcrhpd_x0LmgwtD-5XwT4TY+QXBJMOjWbdtBPCUg@mail.gmail.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Fri, 6 Dec 2024 09:28:44 -0500
-Message-ID: <CABgObfZSR2s5AYEAcJfsdF0jKQGf_AVcDafKQq47qzLmBuX0RQ@mail.gmail.com>
+ <CABgObfZSR2s5AYEAcJfsdF0jKQGf_AVcDafKQq47qzLmBuX0RQ@mail.gmail.com>
+In-Reply-To: <CABgObfZSR2s5AYEAcJfsdF0jKQGf_AVcDafKQq47qzLmBuX0RQ@mail.gmail.com>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Fri, 6 Dec 2024 14:42:43 +0000
+Message-ID: <CAFEAcA_dVnpN2Vn+VAf1XZSAdj183wJhQZ3pVNtb=NHeMOF2Jg@mail.gmail.com>
 Subject: Re: [RFC 06/13] rust: add bindings for memattrs
-To: Peter Maydell <peter.maydell@linaro.org>
+To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: Richard Henderson <richard.henderson@linaro.org>,
  Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
@@ -75,20 +68,16 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
  =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
  =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
  qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ktaGwhJVwQW02qrOEqgtERPz0SKxDvBOVV0mNNAajSk_1733495336
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="000000000000b3465806289ad5f3"
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -50
-X-Spam_score: -5.1
-X-Spam_bar: -----
-X-Spam_report: (-5.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Content-Type: text/plain; charset="UTF-8"
+Received-SPF: pass client-ip=2a00:1450:4864:20::532;
+ envelope-from=peter.maydell@linaro.org; helo=mail-ed1-x532.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -101,63 +90,24 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Dec 2024 14:29:04 -0000
+X-List-Received-Date: Fri, 06 Dec 2024 14:42:57 -0000
 
---000000000000b3465806289ad5f3
-Content-Type: text/plain; charset="UTF-8"
-
-Il ven 6 dic 2024, 05:59 Peter Maydell <peter.maydell@linaro.org> ha
-scritto:
-
-> > is still decently packed and simplifies things a lot.
->
-> The old struct is 4 bytes, and the new one is 8 bytes.
-
-
-Yes, hence "decently" packed. But I think in both cases it's passed in
-registers, and for 64-bit machine that shouldn't change anything.
-
-Paolo
-
-We do
-> a lot of directly passing 'struct MemTxAttrs' arguments around
-> as arguments to functions (i.e. not passing pointers to them),
-> so increasing it in size is not completely free.
->
-> thanks
-> -- PMM
+On Fri, 6 Dec 2024 at 14:28, Paolo Bonzini <pbonzini@redhat.com> wrote:
 >
 >
+>
+> Il ven 6 dic 2024, 05:59 Peter Maydell <peter.maydell@linaro.org> ha scritto:
+>>
+>> > is still decently packed and simplifies things a lot.
+>>
+>> The old struct is 4 bytes, and the new one is 8 bytes.
+>
+>
+> Yes, hence "decently" packed. But I think in both cases it's passed in registers, and for 64-bit machine that shouldn't change anything.
 
---000000000000b3465806289ad5f3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+True. Though it does mean we go from "space to add new fields
+without making it overflow from one register to two" to
+"completely full and no space for expanding it".
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">Il ven 6 dic 2024, 05:59 Peter Maydell &lt;<a href=3D"=
-mailto:peter.maydell@linaro.org" target=3D"_blank" rel=3D"noreferrer">peter=
-.maydell@linaro.org</a>&gt; ha scritto:<br></div><blockquote class=3D"gmail=
-_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
-,204);padding-left:1ex">&gt; is still decently packed and simplifies things=
- a lot.<br>
-<br>
-The old struct is 4 bytes, and the new one is 8 bytes.</blockquote></div></=
-div><div dir=3D"auto"><br></div><div dir=3D"auto">Yes, hence &quot;decently=
-&quot; packed. But I think in both cases it&#39;s passed in registers, and =
-for 64-bit machine that shouldn&#39;t change anything.</div><div dir=3D"aut=
-o"><br></div><div dir=3D"auto">Paolo</div><div dir=3D"auto"><br></div><div =
-dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
-ding-left:1ex">We do<br>
-a lot of directly passing &#39;struct MemTxAttrs&#39; arguments around<br>
-as arguments to functions (i.e. not passing pointers to them),<br>
-so increasing it in size is not completely free.<br>
-<br>
-thanks<br>
--- PMM<br>
-<br>
-</blockquote></div></div></div>
-
---000000000000b3465806289ad5f3--
-
+-- PMM
 
