@@ -1,73 +1,69 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJTcZ-0002tn-UF
-	for mharc-qemu-rust@gnu.org; Fri, 06 Dec 2024 03:23:32 -0500
+	id 1tJU0v-0001PJ-0E
+	for mharc-qemu-rust@gnu.org; Fri, 06 Dec 2024 03:48:41 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tJTcV-0002t7-4S; Fri, 06 Dec 2024 03:23:27 -0500
-Received: from mgamail.intel.com ([192.198.163.15])
+ id 1tJU0t-0001P1-AP; Fri, 06 Dec 2024 03:48:39 -0500
+Received: from mgamail.intel.com ([198.175.65.21])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tJTcS-0005R8-Ju; Fri, 06 Dec 2024 03:23:26 -0500
+ id 1tJU0q-000281-IH; Fri, 06 Dec 2024 03:48:39 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733473404; x=1765009404;
+ t=1733474917; x=1765010917;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=d0bBf2aJq8qJrZoVZcY56IO4lvha0pWpGB3hXm0gvmA=;
- b=j5tO/07TmJWVc2rWRMkNuK+hyqrxTdGR+pu9MQRiXEn6J9WCZozY8rvy
- HRVh3cWao9xch2BOdftXOD8eoYo2gZhEOwLZjEnSCae7jkGB5eUlMufG3
- ktoN4V17XceaFpDPetNLn25r/IY9Y+iydBAKF3G/UdrQGcJXNektuHONc
- DJjkVgER/nwTJWJwjrgM1ina0M7WKs+WD3Ps4827BPjqMHVR+yNbUDhqY
- sBV997mtAOVoK+CuvLtLnY9oev4s+nUk61eDaNUqFKdqM7DAWI76LSkav
- cxCrn87wuGpVYPlt6MDTQbNBAPIi++dYFmDTCWjQWv67hTnsvoqD4oO9y w==;
-X-CSE-ConnectionGUID: GlDiDHhzTKKrnJKZsW8VeA==
-X-CSE-MsgGUID: 4SklLraBStaMg4r4YrjdWw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11277"; a="33941573"
-X-IronPort-AV: E=Sophos;i="6.12,212,1728975600"; d="scan'208";a="33941573"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2024 00:23:19 -0800
-X-CSE-ConnectionGUID: ligpvUqCQP+Ei2gTyr+14g==
-X-CSE-MsgGUID: kL1r/oqaToOgHmxHrad7RA==
+ mime-version:in-reply-to;
+ bh=NbLCRzDIFRKoVHiBviovQ5AhbZ97mMp/mc4EDknjibE=;
+ b=Gtx5yK8iyhgaIGYLCqNQk7WUmuIowrlmMxd6bG9CJc23yXIZbU/aKAKA
+ /XBCoCBQsEKIOPQvDOfynPGvF8LPlRDUgg6LT/OvGz7rDf/UMY2Z9Fk/F
+ ysKZsZgX5Fp9VYRuuOS3xkGSfxUL+R51lE+1bUorf0rmXNy68/EANPU4U
+ Y1t0xC9HrfpG5D6IKyA3akYHHw/TFRPzKcbfQUyq55hwFq5jJQpJVdPxb
+ fdvAXwmHtDIHKPypDkNGomgY9GXRET5qX0fKRVqOX36vb+TIxDkWSYiX3
+ fGeDgA5Y9nGFRxaYSj2f4H6HZ8FSZtblQd6GtGcBMP6eCO/pnzqyGl8uv Q==;
+X-CSE-ConnectionGUID: HRBM/TgSSIyhI4kaEtpGgw==
+X-CSE-MsgGUID: y8yFTYRiQ7qK/LD47TuG5w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11277"; a="33741984"
+X-IronPort-AV: E=Sophos;i="6.12,212,1728975600"; d="scan'208";a="33741984"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Dec 2024 00:48:34 -0800
+X-CSE-ConnectionGUID: f1h6/wlSRomWbhZKNuPq6A==
+X-CSE-MsgGUID: yy9baQwYTRKNMoIKsLqAWQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,212,1728975600"; d="scan'208";a="125188180"
+X-IronPort-AV: E=Sophos;i="6.12,212,1728975600"; d="scan'208";a="94828118"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.36])
- by orviesa002.jf.intel.com with ESMTP; 06 Dec 2024 00:23:16 -0800
-Date: Fri, 6 Dec 2024 16:41:29 +0800
+ by fmviesa009.fm.intel.com with ESMTP; 06 Dec 2024 00:48:31 -0800
+Date: Fri, 6 Dec 2024 17:06:43 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
-To: Richard Henderson <richard.henderson@linaro.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
- "Michael S . Tsirkin" <mst@redhat.com>,
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Junjie Mao <junjie.mao@hotmail.com>,
  Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
  Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
  Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org,
  qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: Re: [RFC 06/13] rust: add bindings for memattrs
-Message-ID: <Z1K4uc+XJIypkNaw@intel.com>
+Subject: Re: [RFC 13/13] i386: enable rust hpet for pc when rust is enabled
+Message-ID: <Z1K+o+VPgJ+RkxDn@intel.com>
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
- <20241205060714.256270-7-zhao1.liu@intel.com>
- <b34733f3-1525-4e35-8c07-f84ad56b01e0@linaro.org>
- <1f008c2a-aaf6-497d-becd-f36f5d9aea17@redhat.com>
- <edfa85a7-2963-46d8-8b02-4d22ec1aeee6@linaro.org>
+ <20241205060714.256270-14-zhao1.liu@intel.com>
+ <a76ccad6-5c8d-47e1-9613-9ac48df38940@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <edfa85a7-2963-46d8-8b02-4d22ec1aeee6@linaro.org>
-Received-SPF: pass client-ip=192.198.163.15; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <a76ccad6-5c8d-47e1-9613-9ac48df38940@redhat.com>
+Received-SPF: pass client-ip=198.175.65.21; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -73
 X-Spam_score: -7.4
 X-Spam_bar: -------
 X-Spam_report: (-7.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_MSPIKE_H2=-0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -80,62 +76,51 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Dec 2024 08:23:29 -0000
+X-List-Received-Date: Fri, 06 Dec 2024 08:48:39 -0000
 
-On Thu, Dec 05, 2024 at 05:51:42PM -0600, Richard Henderson wrote:
-> Date: Thu, 5 Dec 2024 17:51:42 -0600
-> From: Richard Henderson <richard.henderson@linaro.org>
-> Subject: Re: [RFC 06/13] rust: add bindings for memattrs
+On Thu, Dec 05, 2024 at 04:20:44PM +0100, Paolo Bonzini wrote:
+> Date: Thu, 5 Dec 2024 16:20:44 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: Re: [RFC 13/13] i386: enable rust hpet for pc when rust is enabled
 > 
-> On 12/5/24 12:30, Paolo Bonzini wrote:
-> > On 12/5/24 19:15, Richard Henderson wrote:
-> > > On 12/5/24 00:07, Zhao Liu wrote:
-> > > > The MemTxAttrs structure is composed of bitfield members, and bindgen is
-> > > > unable to generate an equivalent macro definition for
-> > > > MEMTXATTRS_UNSPECIFIED.
-> > > 
-> > > I'm happy to move away from bit fields to uint32_t or suchlike to
-> > > enable MEMTXATTRS_UNSPECIFIED be a compile-time constant.
+> On 12/5/24 07:07, Zhao Liu wrote:
+> > Add HPET configuration in PC's Kconfig options, and select HPET device
+> > (Rust version) if Rust is supported.
 > > 
-> > Yeah, if we go from
+> > Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+> > ---
+> >   hw/i386/Kconfig       | 2 ++
+> >   hw/timer/Kconfig      | 1 -
+> >   rust/hw/Kconfig       | 1 +
+> >   rust/hw/timer/Kconfig | 2 ++
+> >   4 files changed, 5 insertions(+), 1 deletion(-)
+> >   create mode 100644 rust/hw/timer/Kconfig
 > > 
-> > typedef struct MemTxAttrs {
-> >      unsigned int unspecified:1;
-> >      unsigned int secure:1;
-> >      unsigned int space:2;
-> >      unsigned int user:1;
-> >      unsigned int memory:1;
-> >      unsigned int requester_id:16;
-> >      unsigned int pid:8;
-> > } MemTxAttrs;
-> > 
-> > to
-> > 
-> > typedef struct MemTxAttrs {
-> >      uint8_t unspecified;
-> >      uint8_t secure;
-> >      uint8_t space;
-> >      uint8_t user;
-> >      uint8_t memory;
-> >      uint8_t pid;
-> >      uint16_t requester_id;
-> > } MemTxAttrs;
-> > 
-> > is still decently packed and simplifies things a lot.  Zhao, can you
-> > submit that as an independent patch?
-> Hmm.  I'd been thinking of uint32_t and hw/registerfields.h, but I have not
-> scoped the size of that conversion.
+> > diff --git a/hw/i386/Kconfig b/hw/i386/Kconfig
+> > index 32818480d263..83ab3222c4f0 100644
+> > --- a/hw/i386/Kconfig
+> > +++ b/hw/i386/Kconfig
+> > @@ -39,6 +39,8 @@ config PC
+> >       select PCSPK
+> >       select I8257
+> >       select MC146818RTC
+> > +    select HPET if !HAVE_RUST
+> > +    select X_HPET_RUST if HAVE_RUST
 > 
-> But short of that, please use 'bool' not 'uint8_t' for those single-bit flags.
+> HPET is optional, so you need to have...
+
+Oops, I didn't realize that.
+
+> >   config HPET
+> >       bool
+> > -    default y if PC
 > 
+> +default y if PC && !HAVE_RUST
+> 
+> with a matching "default y if PC && HAVE_RUST" for X_HPET_RUST.
 
-Sure! Thank u both!
+Thank you!
 
-BTW, may I ask why you favor bool over uint8_t, and is it because they
-are indeed just 0/1 as well? :)
-
-Thanks,
-Zhao
-
+-Zhao
 
 
