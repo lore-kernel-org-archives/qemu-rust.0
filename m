@@ -1,69 +1,81 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tJU0v-0001PJ-0E
-	for mharc-qemu-rust@gnu.org; Fri, 06 Dec 2024 03:48:41 -0500
+	id 1tJW3x-0005Hw-NM
+	for mharc-qemu-rust@gnu.org; Fri, 06 Dec 2024 05:59:58 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tJU0t-0001P1-AP; Fri, 06 Dec 2024 03:48:39 -0500
-Received: from mgamail.intel.com ([198.175.65.21])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tJU0q-000281-IH; Fri, 06 Dec 2024 03:48:39 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733474917; x=1765010917;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=NbLCRzDIFRKoVHiBviovQ5AhbZ97mMp/mc4EDknjibE=;
- b=Gtx5yK8iyhgaIGYLCqNQk7WUmuIowrlmMxd6bG9CJc23yXIZbU/aKAKA
- /XBCoCBQsEKIOPQvDOfynPGvF8LPlRDUgg6LT/OvGz7rDf/UMY2Z9Fk/F
- ysKZsZgX5Fp9VYRuuOS3xkGSfxUL+R51lE+1bUorf0rmXNy68/EANPU4U
- Y1t0xC9HrfpG5D6IKyA3akYHHw/TFRPzKcbfQUyq55hwFq5jJQpJVdPxb
- fdvAXwmHtDIHKPypDkNGomgY9GXRET5qX0fKRVqOX36vb+TIxDkWSYiX3
- fGeDgA5Y9nGFRxaYSj2f4H6HZ8FSZtblQd6GtGcBMP6eCO/pnzqyGl8uv Q==;
-X-CSE-ConnectionGUID: HRBM/TgSSIyhI4kaEtpGgw==
-X-CSE-MsgGUID: y8yFTYRiQ7qK/LD47TuG5w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11277"; a="33741984"
-X-IronPort-AV: E=Sophos;i="6.12,212,1728975600"; d="scan'208";a="33741984"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2024 00:48:34 -0800
-X-CSE-ConnectionGUID: f1h6/wlSRomWbhZKNuPq6A==
-X-CSE-MsgGUID: yy9baQwYTRKNMoIKsLqAWQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,212,1728975600"; d="scan'208";a="94828118"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.36])
- by fmviesa009.fm.intel.com with ESMTP; 06 Dec 2024 00:48:31 -0800
-Date: Fri, 6 Dec 2024 17:06:43 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Junjie Mao <junjie.mao@hotmail.com>,
- Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
- Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: Re: [RFC 13/13] i386: enable rust hpet for pc when rust is enabled
-Message-ID: <Z1K+o+VPgJ+RkxDn@intel.com>
-References: <20241205060714.256270-1-zhao1.liu@intel.com>
- <20241205060714.256270-14-zhao1.liu@intel.com>
- <a76ccad6-5c8d-47e1-9613-9ac48df38940@redhat.com>
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tJW3v-0005HE-Kg
+ for qemu-rust@nongnu.org; Fri, 06 Dec 2024 05:59:55 -0500
+Received: from mail-ej1-x62d.google.com ([2a00:1450:4864:20::62d])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tJW3p-0004lN-DL
+ for qemu-rust@nongnu.org; Fri, 06 Dec 2024 05:59:53 -0500
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a9a977d6cc7so272089966b.3
+ for <qemu-rust@nongnu.org>; Fri, 06 Dec 2024 02:59:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1733482786; x=1734087586; darn=nongnu.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=cCjvmfEs5EJgidXuCv0XGMV7m2dF6rGGbBlwA4fs2fg=;
+ b=qPOQw5fJgK3T0ZuIMpcrzUOfWTcz0ErHgQTYtxC/ApXz0Z1dPySTsNBkLu8cml+Y9t
+ pTya+H/MUHBuSJ+sJsTxorHcqJvL4GL7V6I1Yn6NqgKcYM4/YpeiE2GO3tRHgHsQq0l4
+ BebT8WtAoT5RuPMg47iuDYe3/GMH+fYz2lmz5vZPQ00qtlYzmdTWq6QkKwp9H50m2ADG
+ 029HQhzudTu5l91shtg7ZvSg5FK2naLf9rJn0ruRk1/S0mqNXx/Dr6CW58AeIgmUZB9K
+ qd+2p6+B8AkyWIUcOJy5CzIM0HSAwHcWcMY4urnruALzoE3Yz4A9i0JJzR6mzeaxViFj
+ nMFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733482786; x=1734087586;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=cCjvmfEs5EJgidXuCv0XGMV7m2dF6rGGbBlwA4fs2fg=;
+ b=iIV8lDmYM9BRqpm/8RxDBCq4Wfmg6S4KPyaIoHyg+wDMBTFPrkz7t46vHB2lH28Hcu
+ A02/tB0rh4qA8FgfZZZUkNgztXEuwawbAR/hKYM65K6goNxJUKid/YC8KTMBh39pmGKn
+ fpenaGvqGi/Pa99FmXmbSKewusIvlzsPk5a7BveX4w54/4aWWSXV69Jerx2nM1Gi6Fhl
+ Pk9AeaPPcZsWAgsTCPbd5/+q/WPiVXaOH3CPPd5DofHokIQztTe0gSjyzSmqqZ4x0Bzj
+ T2QE9lNzMeEj95hvQ6hu98rUMfNU0hovXxhm89ca93W0ZbVStZwDSulAjbuJ467PbeK0
+ z23w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUEcvylQdEexAWuGcxWVszXmzABllEuXbadBBMxmD0+Hrrtg1fof2t/1IMQbm8aIFN5ONTERyB7TWs=@nongnu.org
+X-Gm-Message-State: AOJu0YyUcImtZBddQwMEoMBfsTVc3iwyCeOVP8rgV85HLOqdlTJMckSp
+ gPlqJSNEYv42W0ru9LugMg+s5HD+XYg/D2vn1msh/+u/zcMXo3Q7L1dACRuLUhAh5g1VmnAPt9Y
+ aM/YcOCTm0bJbxWIrLYaPTK3jY57SnFCFdr+cBw==
+X-Gm-Gg: ASbGncv2QXL4W9FepmMqaPxYjjTIi6NpyB5dL3O4DGXIp8LuuxrSXbZOcjZjqguEwIe
+ +anYH1o5ntlTW7qL6XKVMUHYnTxSWm0fR
+X-Google-Smtp-Source: AGHT+IHwzOcUzTAejnJDa1pS1n1NDczMHLQrdR232D9/vsdR5L8/dNlSMgwd3uJnhocg06m4DZM5GrHKgCrAjZhKNIQ=
+X-Received: by 2002:a05:6402:3604:b0:5d0:d2ed:ebb with SMTP id
+ 4fb4d7f45d1cf-5d3be661a54mr6052184a12.3.1733482785871; Fri, 06 Dec 2024
+ 02:59:45 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a76ccad6-5c8d-47e1-9613-9ac48df38940@redhat.com>
-Received-SPF: pass client-ip=198.175.65.21; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -73
-X-Spam_score: -7.4
-X-Spam_bar: -------
-X-Spam_report: (-7.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+References: <20241205060714.256270-1-zhao1.liu@intel.com>
+ <20241205060714.256270-7-zhao1.liu@intel.com>
+ <b34733f3-1525-4e35-8c07-f84ad56b01e0@linaro.org>
+ <1f008c2a-aaf6-497d-becd-f36f5d9aea17@redhat.com>
+In-Reply-To: <1f008c2a-aaf6-497d-becd-f36f5d9aea17@redhat.com>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Fri, 6 Dec 2024 10:59:35 +0000
+Message-ID: <CAFEAcA9SCfMcrhpd_x0LmgwtD-5XwT4TY+QXBJMOjWbdtBPCUg@mail.gmail.com>
+Subject: Re: [RFC 06/13] rust: add bindings for memattrs
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>,
+ Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
+ Junjie Mao <junjie.mao@hotmail.com>,
+ =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+ qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
+Received-SPF: pass client-ip=2a00:1450:4864:20::62d;
+ envelope-from=peter.maydell@linaro.org; helo=mail-ej1-x62d.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -76,51 +88,50 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Dec 2024 08:48:39 -0000
+X-List-Received-Date: Fri, 06 Dec 2024 10:59:55 -0000
 
-On Thu, Dec 05, 2024 at 04:20:44PM +0100, Paolo Bonzini wrote:
-> Date: Thu, 5 Dec 2024 16:20:44 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: Re: [RFC 13/13] i386: enable rust hpet for pc when rust is enabled
-> 
-> On 12/5/24 07:07, Zhao Liu wrote:
-> > Add HPET configuration in PC's Kconfig options, and select HPET device
-> > (Rust version) if Rust is supported.
-> > 
-> > Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
-> > ---
-> >   hw/i386/Kconfig       | 2 ++
-> >   hw/timer/Kconfig      | 1 -
-> >   rust/hw/Kconfig       | 1 +
-> >   rust/hw/timer/Kconfig | 2 ++
-> >   4 files changed, 5 insertions(+), 1 deletion(-)
-> >   create mode 100644 rust/hw/timer/Kconfig
-> > 
-> > diff --git a/hw/i386/Kconfig b/hw/i386/Kconfig
-> > index 32818480d263..83ab3222c4f0 100644
-> > --- a/hw/i386/Kconfig
-> > +++ b/hw/i386/Kconfig
-> > @@ -39,6 +39,8 @@ config PC
-> >       select PCSPK
-> >       select I8257
-> >       select MC146818RTC
-> > +    select HPET if !HAVE_RUST
-> > +    select X_HPET_RUST if HAVE_RUST
-> 
-> HPET is optional, so you need to have...
+On Thu, 5 Dec 2024 at 18:30, Paolo Bonzini <pbonzini@redhat.com> wrote:
+>
+> On 12/5/24 19:15, Richard Henderson wrote:
+> > On 12/5/24 00:07, Zhao Liu wrote:
+> >> The MemTxAttrs structure is composed of bitfield members, and bindgen is
+> >> unable to generate an equivalent macro definition for
+> >> MEMTXATTRS_UNSPECIFIED.
+> >
+> > I'm happy to move away from bit fields to uint32_t or suchlike to enable
+> > MEMTXATTRS_UNSPECIFIED be a compile-time constant.
+>
+> Yeah, if we go from
+>
+> typedef struct MemTxAttrs {
+>      unsigned int unspecified:1;
+>      unsigned int secure:1;
+>      unsigned int space:2;
+>      unsigned int user:1;
+>      unsigned int memory:1;
+>      unsigned int requester_id:16;
+>      unsigned int pid:8;
+> } MemTxAttrs;
+>
+> to
+>
+> typedef struct MemTxAttrs {
+>      uint8_t unspecified;
+>      uint8_t secure;
+>      uint8_t space;
+>      uint8_t user;
+>      uint8_t memory;
+>      uint8_t pid;
+>      uint16_t requester_id;
+> } MemTxAttrs;
+>
+> is still decently packed and simplifies things a lot.
 
-Oops, I didn't realize that.
+The old struct is 4 bytes, and the new one is 8 bytes. We do
+a lot of directly passing 'struct MemTxAttrs' arguments around
+as arguments to functions (i.e. not passing pointers to them),
+so increasing it in size is not completely free.
 
-> >   config HPET
-> >       bool
-> > -    default y if PC
-> 
-> +default y if PC && !HAVE_RUST
-> 
-> with a matching "default y if PC && HAVE_RUST" for X_HPET_RUST.
-
-Thank you!
-
--Zhao
-
+thanks
+-- PMM
 
