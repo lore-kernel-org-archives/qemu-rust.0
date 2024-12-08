@@ -1,95 +1,75 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tKDcs-0005F7-EF
-	for mharc-qemu-rust@gnu.org; Sun, 08 Dec 2024 04:30:57 -0500
+	id 1tKJHK-0002Mc-WC
+	for mharc-qemu-rust@gnu.org; Sun, 08 Dec 2024 10:33:03 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tKDcq-0005Ee-V4
- for qemu-rust@nongnu.org; Sun, 08 Dec 2024 04:30:52 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tKJHG-0002Lh-5t; Sun, 08 Dec 2024 10:32:58 -0500
+Received: from mgamail.intel.com ([198.175.65.11])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tKDco-0005LI-IM
- for qemu-rust@nongnu.org; Sun, 08 Dec 2024 04:30:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733650248;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=d2rmLG3d447gSg4MtN5KAmy0j3oHN9UluUCGk7IN/5E=;
- b=eNJ20mQ/CGtUGiQsAcdvFa1LKXa9sO7kbhX9W2ikWSIQIjO7l/f2iyyi1OnIktjx62G7pg
- ZBrLZFJ+dU7XFwRzX06o1C+GcoKiojPf68eN2n9/mbL2H/T7DXW01kFY8ALe+FXlR6LHqn
- Yl8/5h+PEFiYExSvF1feq8GKpYqLuO0=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-52-KSYNN87uM7y3-el2tRjigw-1; Sun, 08 Dec 2024 04:30:46 -0500
-X-MC-Unique: KSYNN87uM7y3-el2tRjigw-1
-X-Mimecast-MFC-AGG-ID: KSYNN87uM7y3-el2tRjigw
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-434ed70b74eso6875585e9.1
- for <qemu-rust@nongnu.org>; Sun, 08 Dec 2024 01:30:46 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733650245; x=1734255045;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=d2rmLG3d447gSg4MtN5KAmy0j3oHN9UluUCGk7IN/5E=;
- b=roOFBN5O6Fq3BsfxCzYV+PA6nsdUxU5//xo/dOAb6qVkNoJLP5SXMR/Dg8k3vc52VS
- CglWVGTX8T+bfPwEjZPNwPUyJXPAH/7kd9FM/r7hz9zwdIVpKE1VC7vQIr702MRJhl6x
- P7wKzNjyFCVUYv1ZsTxFjBvMW3zYLCkkU6SsFrTSeE6ujXKi0BRJl5Ez04LLUNiKkNsZ
- kOqbEXWa3GHzeJzavrSKgxc+cng1vV2tlll9Jq2uUytYwctrQgoDqLnhRe7FFbhAGevb
- kB3bfKY6aUIycLCbIjX6pM3W2ELvXlrLyq/Z829qvdTXrUUsQJgkYqVu+YLJVxarlIVB
- h8rQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUJXMFaX90WXCC7y/yAkvrzXm78CeqZpxHkfZAtzViWvmZrXuwBReT11xG6hSNK+BOnUskiiXjfm6w=@nongnu.org
-X-Gm-Message-State: AOJu0YzaxVfphfVO1ZbGg98Nz+NMr3i/HlyD28w3jDXQC7uUJzK6yqZk
- tacEE463iJw084Sxowcbh6PB7OS3B3KXYrNCYHiKmDCch9fkT3/FB/FXMuUypQ8LKTyBvwfqxYv
- GSKPk8A/bJPG7s83MykwtUd1EsU72WUpC+UeRGi4N669OiXKOqmuBu7j9T5dIzADE+ZSBHffnLx
- VPUgEbGWtm9MLkj1eYvsCr4fi49w==
-X-Gm-Gg: ASbGnctPuxnA+AdDpoU4iz2z7ArUeFKOe4JT8XnCxQh0ryHoY5QS6sRBXOcVb9vArbz
- IwExOjBA+QiRw06p0kPz10dtk3qQSFAc=
-X-Received: by 2002:a05:6000:18a7:b0:385:f7d9:99f5 with SMTP id
- ffacd0b85a97d-3862b3cefbbmr7517672f8f.51.1733650245371; 
- Sun, 08 Dec 2024 01:30:45 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IG42347YA2RS3WGKuiu97ood0dzN6lxRkr8coNAoo/6acZUNKAtnhDC5EmuslichPx71zPE1sxzWTTTz5itXdM=
-X-Received: by 2002:a05:6000:18a7:b0:385:f7d9:99f5 with SMTP id
- ffacd0b85a97d-3862b3cefbbmr7517651f8f.51.1733650245013; Sun, 08 Dec 2024
- 01:30:45 -0800 (PST)
-MIME-Version: 1.0
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tKJHC-00037G-EF; Sun, 08 Dec 2024 10:32:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1733671975; x=1765207975;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=dYWmi23TQoVyAfM+oeJ4DI3Wu614MnS7MQcn3XO2veA=;
+ b=EHNhn6D1U64eIxkhgG8eUb+Du0yojPBVxrijLsGfq0ryHXDAx4C9Rx/l
+ QIdV6/eIzbkFH43KYj+8p48wX7tPObABP+qO3bCBerRUaATfjj7jHkRUs
+ La7bdT3GnxGC9W7a9zQXJz/8/GWeg+yMxU3/XwcBrbcrDDh6p/CXgtHRP
+ I4jUwe0wbXrTi/dCGO1eqOSSN06nr0S69jQQlioz/twJJQCOqoCVp3IBi
+ uzQs+9DQ1W1lzYQN7PdIIEWPSXKAtoFBA6hGb8nPl5XWIkpNCEMcd/nhz
+ swhR7kNiGP2Et13OG2uaGiKOxrCyF0rkdFQdy7JUAzMShwlRmlTV9lQ7R w==;
+X-CSE-ConnectionGUID: ZiG3cgkhTbKKQ1QHoRl3DA==
+X-CSE-MsgGUID: LreneVcvTqKej4QlTqxjHQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11280"; a="44440957"
+X-IronPort-AV: E=Sophos;i="6.12,217,1728975600"; d="scan'208";a="44440957"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2024 07:32:50 -0800
+X-CSE-ConnectionGUID: XaTshz/9QqOTqdlEm7QrxQ==
+X-CSE-MsgGUID: qgkmR0rHT+2YayiqvIaxxw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,217,1728975600"; d="scan'208";a="99670656"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.36])
+ by fmviesa004.fm.intel.com with ESMTP; 08 Dec 2024 07:32:46 -0800
+Date: Sun, 8 Dec 2024 23:51:00 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ "Michael S . Tsirkin" <mst@redhat.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Junjie Mao <junjie.mao@hotmail.com>,
+ Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+ qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
+Subject: Re: [RFC 06/13] rust: add bindings for memattrs
+Message-ID: <Z1XAZA9K40hfrOrl@intel.com>
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
  <20241205060714.256270-7-zhao1.liu@intel.com>
  <b34733f3-1525-4e35-8c07-f84ad56b01e0@linaro.org>
  <1f008c2a-aaf6-497d-becd-f36f5d9aea17@redhat.com>
  <CAFEAcA9SCfMcrhpd_x0LmgwtD-5XwT4TY+QXBJMOjWbdtBPCUg@mail.gmail.com>
  <06e90014-40b3-4928-b61f-6598193151f1@linaro.org>
-In-Reply-To: <06e90014-40b3-4928-b61f-6598193151f1@linaro.org>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Sun, 8 Dec 2024 10:30:34 +0100
-Message-ID: <CABgObfbYfR=OjsQk78TyqUwyfAr0Mxn2bgX062Ck5kuAwW3f3g@mail.gmail.com>
-Subject: Re: [RFC 06/13] rust: add bindings for memattrs
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>
-Cc: Peter Maydell <peter.maydell@linaro.org>, 
- Richard Henderson <richard.henderson@linaro.org>,
- Zhao Liu <zhao1.liu@intel.com>, "Michael S . Tsirkin" <mst@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
- Junjie Mao <junjie.mao@hotmail.com>,
- =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
- qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: JR_RYLGIXwcP7KAszaV9PMIG0eWAzsov0SDLIdpCqss_1733650245
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="00000000000004ed000628bee713"
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -50
-X-Spam_score: -5.1
-X-Spam_bar: -----
-X-Spam_report: (-5.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.999,
+ <CABgObfbYfR=OjsQk78TyqUwyfAr0Mxn2bgX062Ck5kuAwW3f3g@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABgObfbYfR=OjsQk78TyqUwyfAr0Mxn2bgX062Ck5kuAwW3f3g@mail.gmail.com>
+Received-SPF: pass client-ip=198.175.65.11; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -48
+X-Spam_score: -4.9
+X-Spam_bar: ----
+X-Spam_report: (-4.9 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.495,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -102,62 +82,35 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Sun, 08 Dec 2024 09:30:53 -0000
+X-List-Received-Date: Sun, 08 Dec 2024 15:32:59 -0000
 
---00000000000004ed000628bee713
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Il sab 7 dic 2024, 10:21 Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org> ha
-scritto:
-
-> >> is still decently packed and simplifies things a lot.
+On Sun, Dec 08, 2024 at 10:30:34AM +0100, Paolo Bonzini wrote:
+> Date: Sun, 8 Dec 2024 10:30:34 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: Re: [RFC 06/13] rust: add bindings for memattrs
+> 
+> Il sab 7 dic 2024, 10:21 Philippe Mathieu-Daudé <philmd@linaro.org> ha
+> scritto:
+> 
+> > >> is still decently packed and simplifies things a lot.
+> > >
+> > > The old struct is 4 bytes, and the new one is 8 bytes. We do
+> > > a lot of directly passing 'struct MemTxAttrs' arguments around
+> > > as arguments to functions (i.e. not passing pointers to them),
+> > > so increasing it in size is not completely free.
 > >
-> > The old struct is 4 bytes, and the new one is 8 bytes. We do
-> > a lot of directly passing 'struct MemTxAttrs' arguments around
-> > as arguments to functions (i.e. not passing pointers to them),
-> > so increasing it in size is not completely free.
->
-> Should we add a check to not pass 8 bytes?
->
->    QEMU_BUILD_BUG_ON(sizeof(MemTxAttrs) !=3D sizeof(uint64_t));
+> > Should we add a check to not pass 8 bytes?
+> >
+> >    QEMU_BUILD_BUG_ON(sizeof(MemTxAttrs) != sizeof(uint64_t));
+> >
+> 
+> Yes, why not.
 >
 
-Yes, why not.
+Thank you all! Will also include this in the followup clean-up patches.
 
-Paolo
+Regards,
+Zhao
 
-
->
-
---00000000000004ed000628bee713
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">Il sab 7 dic 2024, 10:21 Philippe Mathieu-Daud=C3=A9 &=
-lt;<a href=3D"mailto:philmd@linaro.org">philmd@linaro.org</a>&gt; ha scritt=
-o:</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
-;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-&gt;&gt; is still decently packed and simplifies things a lot.<br>
-&gt; <br>
-&gt; The old struct is 4 bytes, and the new one is 8 bytes. We do<br>
-&gt; a lot of directly passing &#39;struct MemTxAttrs&#39; arguments around=
-<br>
-&gt; as arguments to functions (i.e. not passing pointers to them),<br>
-&gt; so increasing it in size is not completely free.<br>
-<br>
-Should we add a check to not pass 8 bytes?<br>
-<br>
-=C2=A0 =C2=A0QEMU_BUILD_BUG_ON(sizeof(MemTxAttrs) !=3D sizeof(uint64_t));<b=
-r></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Ye=
-s, why not.=C2=A0</div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo<=
-/div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quot=
-e"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
-er-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-</blockquote></div></div></div>
-
---00000000000004ed000628bee713--
 
 
