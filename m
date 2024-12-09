@@ -1,79 +1,79 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tKd4E-0006bE-3I
-	for mharc-qemu-rust@gnu.org; Mon, 09 Dec 2024 07:40:50 -0500
+	id 1tKd4I-0006yA-52
+	for mharc-qemu-rust@gnu.org; Mon, 09 Dec 2024 07:40:55 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tKd1s-0004Ac-Ij
- for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:38:25 -0500
+ id 1tKd1p-0004AA-RP
+ for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:38:24 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tKd1q-0007ZW-AY
- for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:38:23 -0500
+ id 1tKd1n-0007Z3-JC
+ for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:38:21 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733747901;
+ s=mimecast20190719; t=1733747899;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YJRarGtTvkM8QsI1PbQS6ZxbhzzviSf81sTcl05pEiA=;
- b=ViFdAUraVq3w4Ls3uaxPWJ3slqta3EtN6GsQfJxDRaDV/jB6n8hTKMdFIroMprx4P1AVFG
- TSfttEmAc9HyRQFicbpIevARNf8sQDCz4jj81IzKg66T8LY8VBHDqoZGFwiMPPDTkZmmUq
- 7gx+GMhNfEENT1/3zBVJj9OCrNSbj2Q=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=8uEcPFIxXxKd/mahbXkvWTwydRcIWtDLPmh0PhjQLUk=;
+ b=R4Mp1EmexXRbxpjOOj9PFDiiEbBIn8SR6/tk3UrDTa17xNk/C+FeJE16BNPzWs9ZV9eZLs
+ U1EJPsfYIbc/lEW8XZFtjMYm8odXCwyj9BIxyrJUYptBNzRWjPPkpmr+2ZwtW2jkBwlhTA
+ uoDxW/QkeLUeMSYFZv2+MDq4x3op8eU=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-662-Mw10B3DQMBmTzQDyOHx2EA-1; Mon, 09 Dec 2024 07:38:20 -0500
-X-MC-Unique: Mw10B3DQMBmTzQDyOHx2EA-1
-X-Mimecast-MFC-AGG-ID: Mw10B3DQMBmTzQDyOHx2EA
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-3862be3bfc9so1607146f8f.3
- for <qemu-rust@nongnu.org>; Mon, 09 Dec 2024 04:38:20 -0800 (PST)
+ us-mta-470-PPaSZIolNPqP1r3eS5kZ_g-1; Mon, 09 Dec 2024 07:38:17 -0500
+X-MC-Unique: PPaSZIolNPqP1r3eS5kZ_g-1
+X-Mimecast-MFC-AGG-ID: PPaSZIolNPqP1r3eS5kZ_g
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-385d51ba2f5so1655516f8f.2
+ for <qemu-rust@nongnu.org>; Mon, 09 Dec 2024 04:38:17 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733747899; x=1734352699;
+ d=1e100.net; s=20230601; t=1733747895; x=1734352695;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=YJRarGtTvkM8QsI1PbQS6ZxbhzzviSf81sTcl05pEiA=;
- b=nqDXd43yNV5ej8ZpRfmMcq8tT7iB7EpgzH+ERm4R+nZEDjbtpM2mpIrLdIOJnJl5xZ
- vDgJiwUbR9ySDCxFr99r93Z1/KGpbyN7foXZ+Y6A460klaS9gwHwnNnCmR7dEVpH7r/C
- 64aTWDV4qliaLT+anMjzo+8BHIXQ6nbdvG/QzzYk9bckL9U9BE5b0wvdsk34j/LAWqTa
- HgUizXjqZ8Hb2HGPZP2KKpL4reacUS4ntSjJqdo2jOosQhvMwfaESH+MlBEFwL6xXYye
- 1AVRFYY7EH/m5RNs2rgu00bescn0REFNhnsKQ0fMH0TRjhTANbNeU3Ac7Nx1naf9w6cy
- qEhg==
-X-Gm-Message-State: AOJu0Yzv+viQacF/w8D2wrqePdJkK2Z1f7ILnatmhWBjqWqWL/4t4UBX
- G6pzcBbmulBnEmqZ6dkTjGaQbqSNPNmUj/663urIEtOlZSS0c8Ntc0B62ZYCxi+aanoi9HNjhzi
- RIH1MznDyg5HrNGWlqLleOWQkluKgSme24XoJYG/eSRdRlhfvusM=
-X-Gm-Gg: ASbGncuwLr8NwOHWfb6VWDDeoNaAwVTa/plRaSD2q5HY/vwnmDS7ryVCjg8aTB3+Uhy
- aH9kmOGLx95PT322rRMtV6J4JmcDGATiyNsJoJyJBWwlpvvscsfO/ueu9wJgTzZp8epUCqemLH3
- MnCf1YiMrLY2BUykRHcwr7lwDU5qAojg5DW/FbFjkDSaD4N0QWbR7suhDwciw1aRtf+6G5RGhK6
- JK0SUdLrDk3mi81/6b41b6gc25jN/vPfhJNU6Wh/b/0ExVj0YHPgw==
-X-Received: by 2002:a5d:5f8f:0:b0:385:de67:228d with SMTP id
- ffacd0b85a97d-3862b36ccf8mr7497012f8f.21.1733747899184; 
- Mon, 09 Dec 2024 04:38:19 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHAabb6hI6BtQ2yeCXBE0/4aE5JAUvqsTI5unR0FhR44d+JwapLUBECB3/0yAJ2JG752BWjCw==
-X-Received: by 2002:a5d:5f8f:0:b0:385:de67:228d with SMTP id
- ffacd0b85a97d-3862b36ccf8mr7497006f8f.21.1733747898823; 
- Mon, 09 Dec 2024 04:38:18 -0800 (PST)
+ bh=8uEcPFIxXxKd/mahbXkvWTwydRcIWtDLPmh0PhjQLUk=;
+ b=JExdgwkaABJVp3P60dlN3oBJqlluIQ73nljCJu+2noi/74Ng4wKNZ2+1tjMY75PqKp
+ JNCfBK5IRqa6Z/TBi4cOjhOhTi2JxA2jI/v1jCmYoxkNWeRHEYA7syMNXbHeU7+eArcu
+ HNYhs907D94c+R7abeqNDi1BR81ClWJurZ9BYvj4q8A4qFcYR4gawr/A9BuW3WdUGpC8
+ bzZwUpwgqRdzrinuPMLKsOD/vOSrI3CCQGw8NL9Ulckb8pKdJtYpp4I4flJs3hJcXWTM
+ z8znai/EeDcA84ki3GhMJdhgY/q5mQKAL7uy0OwHu/Rvk/wJGKTajSteCHELpRphUTZQ
+ G+4Q==
+X-Gm-Message-State: AOJu0YyH1NpnkegXz6A9AX4zZJCkZyufau3Y1fFv/sd0kXFvMh1yMs9b
+ pOd5lnv4v326sVE+/HDyB/BX3md+AALFmgtyLNvCUAo3DAD++r7h+NBR2l9L5qk/izQRFolxMCN
+ DYC9WZ2GoQ/JS88nSHiornVO6L0BuaOEX5btXlLfPK0pd6mMoRmdbcrqTKsU=
+X-Gm-Gg: ASbGncuE5FV0JlXtswdcRNjSY5GD4NDSHI+6I7tKnoBB4jB0v3DTtRDQ27wFR1h5z3m
+ C0mbZ0jqopvSU6yibqJLjWGecaAf65ibk5UDm4JWQfF2yIL+eCpNOTxEDaMeQwyN6Mv20RFrZap
+ Gg1i+0YW8sidNcWoaSn4k11eXNXMTYEIfKEQv8kRFobBKdgKZ1xi3/4+Z2Vycij3+8jZzIG0+w8
+ 82i3Z+P8yELnnUyFKLzecyLU0EVbNBu4qCSt9POkZJOmK9Q0dxz2Q==
+X-Received: by 2002:a05:6000:184d:b0:385:ef39:6cd5 with SMTP id
+ ffacd0b85a97d-3862b33ef3dmr8472036f8f.1.1733747895351; 
+ Mon, 09 Dec 2024 04:38:15 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEWJMYdNT8YTYcEVF0k48QxoZc6Rdq22mNcPglVw95b1mKCZ+fBrZ9tkmS/t/2k80Wvfqg3Dg==
+X-Received: by 2002:a05:6000:184d:b0:385:ef39:6cd5 with SMTP id
+ ffacd0b85a97d-3862b33ef3dmr8472015f8f.1.1733747894960; 
+ Mon, 09 Dec 2024 04:38:14 -0800 (PST)
 Received: from [192.168.10.47] ([151.81.118.45])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-386219098d3sm13322459f8f.70.2024.12.09.04.38.15
+ ffacd0b85a97d-3862de365f0sm9885129f8f.3.2024.12.09.04.38.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Dec 2024 04:38:16 -0800 (PST)
+ Mon, 09 Dec 2024 04:38:14 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>,
  Junjie Mao <junjie.mao@hotmail.com>
-Subject: [PATCH 24/26] rust: qom: move device_id to PL011 class side
-Date: Mon,  9 Dec 2024 13:37:15 +0100
-Message-ID: <20241209123717.99077-25-pbonzini@redhat.com>
+Subject: [PATCH 23/26] rust: qom: add initial subset of methods on Object
+Date: Mon,  9 Dec 2024 13:37:14 +0100
+Message-ID: <20241209123717.99077-24-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20241209123717.99077-1-pbonzini@redhat.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: raw1vUEeUlwZVGPJwlTjKMZmNpTaKFIUP63eQ_4rltU_1733747899
+X-Mimecast-MFC-PROC-ID: -gk5jkXsCmqG3w95Hpj7BTIURDxPEki0JoYK2kUjEbo_1733747896
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -99,148 +99,147 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Dec 2024 12:38:32 -0000
+X-List-Received-Date: Mon, 09 Dec 2024 12:38:28 -0000
 
-There is no need to monkeypatch DeviceId::Luminary into the already-initialized
-PL011State.  Instead, now that we can define a class hierarchy, we can define
-PL011Class and make device_id a field in there.
+Add an example of implementing instance methods and converting the
+result back to a Rust type.  In this case the returned types are a
+string (actually a Cow<str>; but that's transparent as long as it derefs
+to &str) and a QOM class.
 
-There is also no need anymore to have "Arm" as zero, so change DeviceId into a
-wrapper for the array; all it does is provide an Index<hwaddr> implementation
-because arrays can only be indexed by usize.
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/hw/char/pl011/src/device.rs | 59 +++++++++++++++-----------------
- 1 file changed, 28 insertions(+), 31 deletions(-)
+ rust/qemu-api/src/prelude.rs |  1 +
+ rust/qemu-api/src/qom.rs     | 56 ++++++++++++++++++++++++++++++++++--
+ rust/qemu-api/tests/tests.rs | 12 ++++++++
+ 3 files changed, 66 insertions(+), 3 deletions(-)
 
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index e85d13c5a2b..41220c99a83 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -5,7 +5,7 @@
- use core::ptr::{addr_of_mut, NonNull};
+diff --git a/rust/qemu-api/src/prelude.rs b/rust/qemu-api/src/prelude.rs
+index a0a71fcd6bc..6f32deeb2ed 100644
+--- a/rust/qemu-api/src/prelude.rs
++++ b/rust/qemu-api/src/prelude.rs
+@@ -12,6 +12,7 @@
+ pub use crate::qom::ObjectCast;
+ pub use crate::qom::ObjectCastMut;
+ pub use crate::qom::ObjectDeref;
++pub use crate::qom::ObjectMethods;
+ pub use crate::qom::ObjectType;
+ 
+ pub use crate::qom_isa;
+diff --git a/rust/qemu-api/src/qom.rs b/rust/qemu-api/src/qom.rs
+index 7115d85df6f..d7475b8ed6a 100644
+--- a/rust/qemu-api/src/qom.rs
++++ b/rust/qemu-api/src/qom.rs
+@@ -5,8 +5,8 @@
+ //! Bindings to access QOM functionality from Rust.
+ //!
+ //! The QEMU Object Model (QOM) provides inheritance and dynamic typing for QEMU
+-//! devices. This module makes QOM's features available in Rust through two main
+-//! mechanisms:
++//! devices. This module makes QOM's features available in Rust through three
++//! main mechanisms:
+ //!
+ //! * Automatic creation and registration of `TypeInfo` for classes that are
+ //!   written in Rust, as well as mapping between Rust traits and QOM vtables.
+@@ -15,6 +15,11 @@
+ //!   trait and methods such as [`upcast`](ObjectCast::upcast) and
+ //!   [`downcast`](ObjectCast::downcast).
+ //!
++//! * Automatic delegation of parent class methods to child classes. When a
++//!   trait uses [`IsA`] as a bound, its contents become available to all child
++//!   classes through blanket implementations. This works both for class methods
++//!   and for instance methods accessed through references or smart pointers.
++//!
+ //! # Structure of a class
+ //!
+ //! A concrete class only needs a struct holding instance state. The struct must
+@@ -40,6 +45,16 @@
+ //!   `ClassInitImpl<DeviceClass>`. This fills the vtable in the class struct,
+ //!   typically with wrappers that call into the
+ //!   [`DeviceImpl`](crate::qdev::DeviceImpl) implementations.
++//!
++//! * a trait for instance methods, for example `DeviceMethods`. This trait is
++//!   automatically implemented for any reference or smart pointer to a device
++//!   instance.  It calls into the vtable provides access across all subclasses
++//!   to methods defined for the class.
++//!
++//! * optionally, a trait for class methods, for example `DeviceClassMethods`.
++//!   This provides access to class-wide functionality that doesn't depend on
++//!   instance data. Like instance methods, these are automatically inherited by
++//!   child classes.
+ 
  use std::{
      ffi::CStr,
--    os::raw::{c_int, c_uchar, c_uint, c_void},
-+    os::raw::{c_int, c_uint, c_void},
- };
+@@ -49,7 +64,7 @@
  
- use qemu_api::{
-@@ -14,7 +14,7 @@
-     irq::InterruptSource,
-     prelude::*,
-     qdev::DeviceImpl,
--    qom::ObjectImpl,
-+    qom::{ClassInitImpl, ObjectImpl},
- };
+ pub use bindings::{Object, ObjectClass};
  
- use crate::{
-@@ -35,27 +35,20 @@
- /// QEMU sourced constant.
- pub const PL011_FIFO_DEPTH: usize = 16_usize;
+-use crate::bindings::{self, object_dynamic_cast, TypeInfo};
++use crate::bindings::{self, object_dynamic_cast, object_get_class, object_get_typename, TypeInfo};
  
--#[derive(Clone, Copy, Debug)]
--enum DeviceId {
--    #[allow(dead_code)]
--    Arm = 0,
--    Luminary,
--}
-+#[derive(Clone, Copy)]
-+struct DeviceId(&'static [u8; 8]);
- 
- impl std::ops::Index<hwaddr> for DeviceId {
--    type Output = c_uchar;
-+    type Output = u8;
- 
-     fn index(&self, idx: hwaddr) -> &Self::Output {
--        match self {
--            Self::Arm => &Self::PL011_ID_ARM[idx as usize],
--            Self::Luminary => &Self::PL011_ID_LUMINARY[idx as usize],
--        }
-+        &self.0[idx as usize]
-     }
+ /// Marker trait: `Self` can be statically upcasted to `P` (i.e. `P` is a direct
+ /// or indirect parent of `Self`).
+@@ -504,3 +519,38 @@ unsafe impl ObjectType for Object {
+     const TYPE_NAME: &'static CStr =
+         unsafe { CStr::from_bytes_with_nul_unchecked(bindings::TYPE_OBJECT) };
  }
- 
- impl DeviceId {
--    const PL011_ID_ARM: [c_uchar; 8] = [0x11, 0x10, 0x14, 0x00, 0x0d, 0xf0, 0x05, 0xb1];
--    const PL011_ID_LUMINARY: [c_uchar; 8] = [0x11, 0x00, 0x18, 0x01, 0x0d, 0xf0, 0x05, 0xb1];
-+    const ARM: Self = Self(&[0x11, 0x10, 0x14, 0x00, 0x0d, 0xf0, 0x05, 0xb1]);
-+    const LUMINARY: Self = Self(&[0x11, 0x00, 0x18, 0x01, 0x0d, 0xf0, 0x05, 0xb1]);
- }
- 
- #[repr(C)]
-@@ -102,17 +95,28 @@ pub struct PL011State {
-     pub clock: NonNull<Clock>,
-     #[doc(alias = "migrate_clk")]
-     pub migrate_clock: bool,
--    /// The byte string that identifies the device.
--    device_id: DeviceId,
- }
- 
- qom_isa!(PL011State : SysBusDevice, DeviceState, Object);
- 
-+pub struct PL011Class {
-+    parent_class: <SysBusDevice as ObjectType>::Class,
-+    /// The byte string that identifies the device.
-+    device_id: DeviceId,
-+}
 +
- unsafe impl ObjectType for PL011State {
--    type Class = <SysBusDevice as ObjectType>::Class;
-+    type Class = PL011Class;
-     const TYPE_NAME: &'static CStr = crate::TYPE_PL011;
- }
- 
-+impl ClassInitImpl<PL011Class> for PL011State {
-+    fn class_init(klass: &mut PL011Class) {
-+        klass.device_id = DeviceId::ARM;
-+        <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut klass.parent_class);
++/// Trait for methods exposed by the Object class.  The methods can be
++/// called on all objects that have the trait `IsA<Object>`.
++///
++/// The trait should only be used through the blanket implementation,
++/// which guarantees safety via `IsA`
++pub trait ObjectMethods: ObjectDeref
++where
++    Self::Target: IsA<Object>,
++{
++    /// Return the name of the type of `self`
++    fn typename(&self) -> std::borrow::Cow<'_, str> {
++        let obj = self.upcast::<Object>();
++        // SAFETY: safety of this is the requirement for implementing IsA
++        // The result of the C API has static lifetime
++        unsafe {
++            let p = object_get_typename(obj.as_mut_ptr());
++            CStr::from_ptr(p).to_string_lossy()
++        }
++    }
++
++    fn get_class(&self) -> &'static <Self::Target as ObjectType>::Class {
++        let obj = self.upcast::<Object>();
++
++        // SAFETY: all objects can call object_get_class; the actual class
++        // type is guaranteed by the implementation of `ObjectType` and
++        // `ObjectImpl`.
++        let klass: &'static <Self::Target as ObjectType>::Class =
++            unsafe { &*object_get_class(obj.as_mut_ptr()).cast() };
++
++        klass
 +    }
 +}
 +
- impl ObjectImpl for PL011State {
-     type ParentType = SysBusDevice;
- 
-@@ -190,7 +194,8 @@ pub fn read(&mut self, offset: hwaddr, _size: c_uint) -> std::ops::ControlFlow<u
- 
-         std::ops::ControlFlow::Break(match RegisterOffset::try_from(offset) {
-             Err(v) if (0x3f8..0x400).contains(&(v >> 2)) => {
--                u64::from(self.device_id[(offset - 0xfe0) >> 2])
-+                let device_id = self.get_class().device_id;
-+                u64::from(device_id[(offset - 0xfe0) >> 2])
-             }
-             Err(_) => {
-                 // qemu_log_mask(LOG_GUEST_ERROR, "pl011_read: Bad offset 0x%x\n", (int)offset);
-@@ -621,16 +626,10 @@ pub struct PL011Luminary {
-     parent_obj: PL011State,
- }
- 
--impl PL011Luminary {
--    /// Initializes a pre-allocated, unitialized instance of `PL011Luminary`.
--    ///
--    /// # Safety
--    ///
--    /// We expect the FFI user of this function to pass a valid pointer, that
--    /// has the same size as [`PL011Luminary`]. We also expect the device is
--    /// readable/writeable from one thread at any time.
--    unsafe fn init(&mut self) {
--        self.parent_obj.device_id = DeviceId::Luminary;
-+impl ClassInitImpl<PL011Class> for PL011Luminary {
-+    fn class_init(klass: &mut PL011Class) {
-+        klass.device_id = DeviceId::LUMINARY;
-+        <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut klass.parent_class);
++impl<R: ObjectDeref> ObjectMethods for R where R::Target: IsA<Object> {}
+diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
+index 549e9699c26..4c766c7f808 100644
+--- a/rust/qemu-api/tests/tests.rs
++++ b/rust/qemu-api/tests/tests.rs
+@@ -88,6 +88,18 @@ fn test_object_new() {
      }
  }
  
-@@ -643,8 +642,6 @@ unsafe impl ObjectType for PL011Luminary {
- 
- impl ObjectImpl for PL011Luminary {
-     type ParentType = PL011State;
--
--    const INSTANCE_INIT: Option<unsafe fn(&mut Self)> = Some(Self::init);
- }
- 
- impl DeviceImpl for PL011Luminary {}
++#[test]
++/// Try invoking a method on an object.
++fn test_typename() {
++    init_qom();
++    let p: *mut DummyState = unsafe { object_new(DummyState::TYPE_NAME.as_ptr()).cast() };
++    let p_ref: &DummyState = unsafe { &*p };
++    assert_eq!(p_ref.typename(), "dummy");
++    unsafe {
++        object_unref(p_ref.as_object_mut_ptr().cast::<c_void>());
++    }
++}
++
+ // a note on all "cast" tests: usually, especially for downcasts the desired
+ // class would be placed on the right, for example:
+ //
 -- 
 2.47.1
 
