@@ -1,83 +1,83 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tKd1O-0003vO-CV
-	for mharc-qemu-rust@gnu.org; Mon, 09 Dec 2024 07:37:54 -0500
+	id 1tKd1Q-0003wo-8K
+	for mharc-qemu-rust@gnu.org; Mon, 09 Dec 2024 07:37:56 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tKd14-0003kX-TA
- for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:37:36 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1tKd1M-0003rw-Jj
+ for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:37:52 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tKd11-0007Oa-Vv
- for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:37:34 -0500
+ id 1tKd1E-0007Q3-PM
+ for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:37:47 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733747851;
+ s=mimecast20190719; t=1733747860;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=wMF7KkhAi7BwGkG3WdZkbBzWjurjR2HS0qfiOPgjOHU=;
- b=NmqamS8TtWmUpj4OO8zRwUpHr4YL+f7dTbM+DK/0r8ca/B49Z8BxOXOfEYZFQGr8/qaxtV
- zWUtn5WOJA77psggz6rloC6kk9EWTvZbqwbsSxUXcnb+VOoK7U93mFwoVAhE4lKwNVpM7A
- 1Ma9ZC0L9Fg6rSjv1TNXiPp3no6L9bo=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=d/CuNDAf/h1lPd4tHb600O5eISjRNvbweuEs0GGCzf8=;
+ b=X/agfe0S3WIA2BW3VorIKAJoIc3rq+nspfy2A3I50ps71bQ6tMdz08036rPaGRwY9Wdd/R
+ LXF9dtinsV9OazFMq/MsmTN4bfc1mp6Ba1jHVyKaFoJHzxsFxgB0nqQWnPNRaSVu4PHa8W
+ CcS7s3H7S59ZcuQVqzjkOhijyZwVeyI=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-669-yFLF2ullN8KQ7O-5qzjXag-1; Mon, 09 Dec 2024 07:37:30 -0500
-X-MC-Unique: yFLF2ullN8KQ7O-5qzjXag-1
-X-Mimecast-MFC-AGG-ID: yFLF2ullN8KQ7O-5qzjXag
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-385df115288so1788567f8f.2
- for <qemu-rust@nongnu.org>; Mon, 09 Dec 2024 04:37:29 -0800 (PST)
+ us-mta-552-uDJ5vheqOA-XV0seeRHONQ-1; Mon, 09 Dec 2024 07:37:39 -0500
+X-MC-Unique: uDJ5vheqOA-XV0seeRHONQ-1
+X-Mimecast-MFC-AGG-ID: uDJ5vheqOA-XV0seeRHONQ
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-434f7516bf2so4554245e9.1
+ for <qemu-rust@nongnu.org>; Mon, 09 Dec 2024 04:37:39 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733747848; x=1734352648;
+ d=1e100.net; s=20230601; t=1733747857; x=1734352657;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=wMF7KkhAi7BwGkG3WdZkbBzWjurjR2HS0qfiOPgjOHU=;
- b=umN9zZ8QovWmAcgbQfzpvw1zRN0LH5UD9JPFFlXn4QSDh8oBHMERtMaGR+JMIpmPct
- sbMK9sZxaKgieD6VoQgDbC5jOPK92M/zDP29SVHRH5aVIdyo1trFuHoOi6D09U8DrLRG
- w5HAOkz2k0HMuNbtrCcHtvBTYzPEOb9hNYxWrHqyHntx3B89r72xHCUIJGo5oiCT1TDs
- flGN9IlizApO4JEhgBzieEAxRcwQ3wEMTDbIUtW7OAboax7KSjsJ6HcbmwDZuSoQ8oan
- f3o0Da+T9D0rv2g+MRQRcDNhPlPZURux+vCZsFswGyrP3pZcczqfACJlGgHFuvLE6vf8
- t3nQ==
-X-Gm-Message-State: AOJu0Yz5X2Qr0gyoIU+jrkfX+wO4vJxTfIWGPce7za455DgWJOOl4w/m
- 8FF85vP2n9OPgcGqZChzwezdMePg9wipL0QxqN/ywGOsOa6MVjzZF5vFLOw35Ok/ic7yq5fPBiH
- ImFBK88/52or+IQrk5emdYTNcgnsSkbvsz1enGfM0xS87EKgJAT+Kms7iK6c=
-X-Gm-Gg: ASbGncv+dTfePj9DNrwl8Mr2tT/dT/GQAKL6lrSTG18STzNtJSlXXHMM7NV7zOhl/xz
- S5dU9pCUobMLBCMO/2+quGh13xBSQCnr7zZv2rpVU9jAwmc6v4RNqtI4YNiQVYk/LnOCj8KUKBr
- rSQbLcLnH8m8QvfKkDK+vSpU6DXYmV6DeVyqBmvTrJLBWgeqFYWh12Ej/MIA03zANBN0HtUr4Cm
- C5Wi75pLCwzhC+KgNpPG0z7poKHokqkNApcR4qQPtnD6FnQ1aZcaQ==
-X-Received: by 2002:a5d:5f53:0:b0:386:5b2:a9d9 with SMTP id
- ffacd0b85a97d-386453fbd04mr134468f8f.53.1733747847862; 
- Mon, 09 Dec 2024 04:37:27 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHudZUgpkRU+aSyObe3pCtfO2GlnG4ukBn4FRXPkvB8Xz3AG0t9lU7v4GCtsSs9xEN66yW4yw==
-X-Received: by 2002:a5d:5f53:0:b0:386:5b2:a9d9 with SMTP id
- ffacd0b85a97d-386453fbd04mr134437f8f.53.1733747847279; 
- Mon, 09 Dec 2024 04:37:27 -0800 (PST)
+ bh=d/CuNDAf/h1lPd4tHb600O5eISjRNvbweuEs0GGCzf8=;
+ b=G/15KeXpbZwdtRO+55evq1lD1TfmbfmL5HCvn6wqnVaFHF7PDKJiqIVCQTB8ZPvvA6
+ yO0073D0Oj8huD/TIip669+H0ndbhixblSdByuD/OdGOX5Ixe8F9L3HWLHDpwV9orduB
+ ZPUCf2VJCcnFoMH04j33I8WJIRDCY24DZrddjWuUqW+BYYyLqfHMQsnphCaYrxjNih4p
+ CyMiuSQTvMUy3p/XhBFTGhXZE5FU9P/A2YLa2AucQ+g68YTt+Wd77G8h4PwuSorVW4Hu
+ OOypqTjlH4CDLMm8BaiCbyBFygwgiaaJWrkF9PXwbs9MjqVQkGZEsIFcX7CwwX1KV9Zm
+ Pm/Q==
+X-Gm-Message-State: AOJu0YwD4e4sNCeKy/X1HIqy/nxxAvUcOlKjE5pVyqZivJ6bAixKpYj8
+ 2/mFf5J6l3aAWK1cPrG3EL7wALLaa8wA5OtwLddOdYi52/EYi6oh5wkl25eXhBkrbAz+fuTGdDQ
+ lTpa8bTAfvUjcHdA5qYEC+VddipUDCjjnQmVmND31QkEAmWEGrP9Bb8kmgeg=
+X-Gm-Gg: ASbGnctHXdDUHyfblKVmgkP26kXPZYdttVuJkzXIkiQsyJ+M3IY0P8U4zuic0Jzgtys
+ +4OiLN7wATSE1HZEQv/+n9aPwtkUQPNRPLGFxvducMd+W9MOC7BJAA1qsJ+Dm3E/M35IDIczkKy
+ KdINez+FT8PXqCmbXH6feR3GDTkuV6UeVGPnfvCDp1gOHZzOnCv5k7EbRb2HPh8gyxKCdWIMhLr
+ qNnY9xY1skTFzMzN2wMz1knXLIm+e/jtxruHhWG0OBhcTFG21Tj3w==
+X-Received: by 2002:a05:600c:3b1e:b0:434:9d3c:31ec with SMTP id
+ 5b1f17b1804b1-434d92bf66amr121067925e9.10.1733747857674; 
+ Mon, 09 Dec 2024 04:37:37 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEKosmxVjsdlGtzG1n53ELAg0Tz6RFW8udLUmBqIrFlJPlfcQ6F4Dy5UXlW6uhM4cO07tODkg==
+X-Received: by 2002:a05:600c:3b1e:b0:434:9d3c:31ec with SMTP id
+ 5b1f17b1804b1-434d92bf66amr121067765e9.10.1733747857319; 
+ Mon, 09 Dec 2024 04:37:37 -0800 (PST)
 Received: from [192.168.10.47] ([151.81.118.45])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-386348182d4sm7824324f8f.53.2024.12.09.04.37.25
+ 5b1f17b1804b1-434d52c0be4sm191423765e9.28.2024.12.09.04.37.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Dec 2024 04:37:26 -0800 (PST)
+ Mon, 09 Dec 2024 04:37:35 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>,
  Junjie Mao <junjie.mao@hotmail.com>
-Subject: [PATCH 03/26] rust: cell: add BQL-enforcing RefCell variant
-Date: Mon,  9 Dec 2024 13:36:54 +0100
-Message-ID: <20241209123717.99077-4-pbonzini@redhat.com>
+Subject: [PATCH 07/26] rust: qom: add default definitions for ObjectImpl
+Date: Mon,  9 Dec 2024 13:36:58 +0100
+Message-ID: <20241209123717.99077-8-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20241209123717.99077-1-pbonzini@redhat.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: _2mivamb957bC8P9Oq7i3N37L3KmV8HBCFJ6Qp_vEQA_1733747849
+X-Mimecast-MFC-PROC-ID: Sz4DKSIRDH_8NVmTNkgklO7Jf46xkvwYM6NRTlDvDiw_1733747858
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -25
 X-Spam_score: -2.6
@@ -99,634 +99,75 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Dec 2024 12:37:36 -0000
+X-List-Received-Date: Mon, 09 Dec 2024 12:37:53 -0000
 
-Similar to the existing BqlCell, introduce a custom interior mutability
-primitive that resembles RefCell but accounts for QEMU's threading model.
-Borrowing the RefCell requires proving that the BQL is held, and
-attempting to access without the BQL is a runtime panic.
-
-Almost all of the code was taken from Rust's standard library, while
-removing unstable features and probably-unnecessary functionality that
-amounts to 60% of the original code.  A lot of what's left is documentation,
-as well as unit tests in the form of doctests.  These are not yet integrated
-in "make check" but can be run with "cargo test --doc".
+Remove a bunch of duplicate const definitions.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/qemu-api/Cargo.toml  |   3 +-
- rust/qemu-api/meson.build |   3 +
- rust/qemu-api/src/cell.rs | 544 +++++++++++++++++++++++++++++++++++++-
- 3 files changed, 539 insertions(+), 11 deletions(-)
+ rust/hw/char/pl011/src/device.rs | 6 ------
+ rust/qemu-api/src/definitions.rs | 8 ++++----
+ rust/qemu-api/tests/tests.rs     | 4 ----
+ 3 files changed, 4 insertions(+), 14 deletions(-)
 
-diff --git a/rust/qemu-api/Cargo.toml b/rust/qemu-api/Cargo.toml
-index 669f288d1cb..4aa22f31986 100644
---- a/rust/qemu-api/Cargo.toml
-+++ b/rust/qemu-api/Cargo.toml
-@@ -20,8 +20,9 @@ qemu_api_macros = { path = "../qemu-api-macros" }
- version_check = "~0.9"
- 
- [features]
--default = []
-+default = ["debug_cell"]
- allocator = []
-+debug_cell = []
- 
- [lints]
- workspace = true
-diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
-index edc21e1a3f8..cacb112c5c3 100644
---- a/rust/qemu-api/meson.build
-+++ b/rust/qemu-api/meson.build
-@@ -6,6 +6,9 @@ _qemu_api_cfg = run_command(rustc_args,
- if rustc.version().version_compare('>=1.77.0')
-   _qemu_api_cfg += ['--cfg', 'has_offset_of']
- endif
-+if get_option('debug_mutex')
-+  _qemu_api_cfg += ['--feature', 'debug_cell']
-+endif
- 
- _qemu_api_rs = static_library(
-   'qemu_api',
-diff --git a/rust/qemu-api/src/cell.rs b/rust/qemu-api/src/cell.rs
-index 2e4ea8d590d..28349de291a 100644
---- a/rust/qemu-api/src/cell.rs
-+++ b/rust/qemu-api/src/cell.rs
-@@ -46,20 +46,30 @@
- //! parts of a  device must be made mutable in a controlled manner through the
- //! use of cell types.
- //!
--//! This module provides a way to do so via the Big QEMU Lock.  While
--//! [`BqlCell<T>`] is essentially the same single-threaded primitive that is
--//! available in `std::cell`, the BQL allows it to be used from a multi-threaded
--//! context and to share references across threads, while maintaining Rust's
--//! safety guarantees.  For this reason, unlike its `std::cell` counterpart,
--//! `BqlCell` implements the `Sync` trait.
-+//! [`BqlCell<T>`] and [`BqlRefCell<T>`] allow doing this via the Big QEMU Lock.
-+//! While they are essentially the same single-threaded primitives that are
-+//! available in `std::cell`, the BQL allows them to be used from a
-+//! multi-threaded context and to share references across threads, while
-+//! maintaining Rust's safety guarantees.  For this reason, unlike
-+//! their `std::cell` counterparts, `BqlCell` and `BqlRefCell` implement the
-+//! `Sync` trait.
- //!
- //! BQL checks are performed in debug builds but can be optimized away in
- //! release builds, providing runtime safety during development with no overhead
- //! in production.
- //!
--//! Warning: While `BqlCell` is similar to its `std::cell` counterpart, the two
--//! are not interchangeable. Using `std::cell` types in QEMU device
--//! implementations is usually incorrect and can lead to thread-safety issues.
-+//! The two provide different ways of handling interior mutability.
-+//! `BqlRefCell` is best suited for data that is primarily accessed by the
-+//! device's own methods, where multiple reads and writes can be grouped within
-+//! a single borrow and a mutable reference can be passed around.  Instead,
-+//! [`BqlCell`] is a better choice when sharing small pieces of data with
-+//! external code (especially C code), because it provides simple get/set
-+//! operations that can be used one at a time.
-+//!
-+//! Warning: While `BqlCell` and `BqlRefCell` are similar to their `std::cell`
-+//! counterparts, they are not interchangeable. Using `std::cell` types in
-+//! QEMU device implementations is usually incorrect and can lead to
-+//! thread-safety issues.
- //!
- //! ## `BqlCell<T>`
- //!
-@@ -80,8 +90,37 @@
- //!      returns the replaced value.
- //!    - [`set`](BqlCell::set): this method replaces the interior value,
- //!      dropping the replaced value.
-+//!
-+//! ## `BqlRefCell<T>`
-+//!
-+//! [`BqlRefCell<T>`] uses Rust's lifetimes to implement "dynamic borrowing", a
-+//! process whereby one can claim temporary, exclusive, mutable access to the
-+//! inner value:
-+//!
-+//! ```ignore
-+//! fn clear_interrupts(&self, val: u32) {
-+//!     // A mutable borrow gives read-write access to the registers
-+//!     let mut regs = self.registers.borrow_mut();
-+//!     let old = regs.interrupt_status();
-+//!     regs.update_interrupt_status(old & !val);
-+//! }
-+//! ```
-+//!
-+//! Borrows for `BqlRefCell<T>`s are tracked at _runtime_, unlike Rust's native
-+//! reference types which are entirely tracked statically, at compile time.
-+//! Multiple immutable borrows are allowed via [`borrow`](BqlRefCell::borrow),
-+//! or a single mutable borrow via [`borrow_mut`](BqlRefCell::borrow_mut).  The
-+//! thread will panic if these rules are violated or if the BQL is not held.
- 
--use std::{cell::UnsafeCell, cmp::Ordering, fmt, mem};
-+use std::{
-+    cell::{Cell, UnsafeCell},
-+    cmp::Ordering,
-+    fmt,
-+    marker::PhantomData,
-+    mem,
-+    ops::{Deref, DerefMut},
-+    ptr::NonNull,
-+};
- 
- use crate::bindings;
- 
-@@ -93,6 +132,15 @@ pub fn bql_locked() -> bool {
-     !cfg!(MESON) || unsafe { bindings::bql_locked() }
+diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
+index c5c8c463d37..3d173ae816d 100644
+--- a/rust/hw/char/pl011/src/device.rs
++++ b/rust/hw/char/pl011/src/device.rs
+@@ -109,10 +109,7 @@ impl ObjectImpl for PL011State {
+     const TYPE_INFO: qemu_api::bindings::TypeInfo = qemu_api::type_info! { Self };
+     const TYPE_NAME: &'static CStr = crate::TYPE_PL011;
+     const PARENT_TYPE_NAME: Option<&'static CStr> = Some(TYPE_SYS_BUS_DEVICE);
+-    const ABSTRACT: bool = false;
+     const INSTANCE_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = Some(pl011_init);
+-    const INSTANCE_POST_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
+-    const INSTANCE_FINALIZE: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
  }
  
-+fn bql_block_unlock(increase: bool) {
-+    if cfg!(MESON) {
-+        // SAFETY: this only adjusts a counter
-+        unsafe {
-+            bindings::bql_block_unlock(increase);
-+        }
-+    }
-+}
-+
- /// A mutable memory location that is protected by the Big QEMU Lock.
- ///
- /// # Memory layout
-@@ -296,3 +344,479 @@ pub fn take(&self) -> T {
-         self.replace(Default::default())
+ #[repr(C)]
+@@ -666,8 +663,5 @@ impl ObjectImpl for PL011Luminary {
+     const TYPE_INFO: qemu_api::bindings::TypeInfo = qemu_api::type_info! { Self };
+     const TYPE_NAME: &'static CStr = crate::TYPE_PL011_LUMINARY;
+     const PARENT_TYPE_NAME: Option<&'static CStr> = Some(crate::TYPE_PL011);
+-    const ABSTRACT: bool = false;
+     const INSTANCE_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = Some(pl011_luminary_init);
+-    const INSTANCE_POST_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
+-    const INSTANCE_FINALIZE: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
+ }
+diff --git a/rust/qemu-api/src/definitions.rs b/rust/qemu-api/src/definitions.rs
+index 26597934bbd..92b3c6f9118 100644
+--- a/rust/qemu-api/src/definitions.rs
++++ b/rust/qemu-api/src/definitions.rs
+@@ -14,10 +14,10 @@ pub trait ObjectImpl {
+     const TYPE_INFO: TypeInfo;
+     const TYPE_NAME: &'static CStr;
+     const PARENT_TYPE_NAME: Option<&'static CStr>;
+-    const ABSTRACT: bool;
+-    const INSTANCE_INIT: Option<unsafe extern "C" fn(obj: *mut Object)>;
+-    const INSTANCE_POST_INIT: Option<unsafe extern "C" fn(obj: *mut Object)>;
+-    const INSTANCE_FINALIZE: Option<unsafe extern "C" fn(obj: *mut Object)>;
++    const ABSTRACT: bool = false;
++    const INSTANCE_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
++    const INSTANCE_POST_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
++    const INSTANCE_FINALIZE: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
+ }
+ 
+ pub trait Class {
+diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
+index 925f5a3c77b..f793ff26e5d 100644
+--- a/rust/qemu-api/tests/tests.rs
++++ b/rust/qemu-api/tests/tests.rs
+@@ -58,10 +58,6 @@ impl ObjectImpl for DummyState {
+         const TYPE_INFO: qemu_api::bindings::TypeInfo = qemu_api::type_info! { Self };
+         const TYPE_NAME: &'static CStr = c_str!("dummy");
+         const PARENT_TYPE_NAME: Option<&'static CStr> = Some(device_class::TYPE_DEVICE);
+-        const ABSTRACT: bool = false;
+-        const INSTANCE_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
+-        const INSTANCE_POST_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
+-        const INSTANCE_FINALIZE: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
      }
- }
-+
-+/// A mutable memory location with dynamically checked borrow rules,
-+/// protected by the Big QEMU Lock.
-+///
-+/// See the [module-level documentation](self) for more.
-+///
-+/// # Memory layout
-+///
-+/// `BqlRefCell<T>` starts with the same in-memory representation as its
-+/// inner type `T`.
-+#[repr(C)]
-+pub struct BqlRefCell<T> {
-+    // It is important that this is the first field (which is not the case
-+    // for std::cell::BqlRefCell), so that we can use offset_of! on it.
-+    // UnsafeCell and repr(C) both prevent usage of niches.
-+    value: UnsafeCell<T>,
-+    borrow: Cell<BorrowFlag>,
-+    // Stores the location of the earliest currently active borrow.
-+    // This gets updated whenever we go from having zero borrows
-+    // to having a single borrow. When a borrow occurs, this gets included
-+    // in the panic message
-+    #[cfg(feature = "debug_cell")]
-+    borrowed_at: Cell<Option<&'static std::panic::Location<'static>>>,
-+}
-+
-+// Positive values represent the number of `BqlRef` active. Negative values
-+// represent the number of `BqlRefMut` active. Right now QEMU's implementation
-+// does not allow to create `BqlRefMut`s that refer to distinct, nonoverlapping
-+// components of a `BqlRefCell` (e.g., different ranges of a slice).
-+//
-+// `BqlRef` and `BqlRefMut` are both two words in size, and so there will likely
-+// never be enough `BqlRef`s or `BqlRefMut`s in existence to overflow half of
-+// the `usize` range. Thus, a `BorrowFlag` will probably never overflow or
-+// underflow. However, this is not a guarantee, as a pathological program could
-+// repeatedly create and then mem::forget `BqlRef`s or `BqlRefMut`s. Thus, all
-+// code must explicitly check for overflow and underflow in order to avoid
-+// unsafety, or at least behave correctly in the event that overflow or
-+// underflow happens (e.g., see BorrowRef::new).
-+type BorrowFlag = isize;
-+const UNUSED: BorrowFlag = 0;
-+
-+#[inline(always)]
-+const fn is_writing(x: BorrowFlag) -> bool {
-+    x < UNUSED
-+}
-+
-+#[inline(always)]
-+const fn is_reading(x: BorrowFlag) -> bool {
-+    x > UNUSED
-+}
-+
-+impl<T> BqlRefCell<T> {
-+    /// Creates a new `BqlRefCell` containing `value`.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use qemu_api::cell::BqlRefCell;
-+    ///
-+    /// let c = BqlRefCell::new(5);
-+    /// ```
-+    #[inline]
-+    pub const fn new(value: T) -> BqlRefCell<T> {
-+        BqlRefCell {
-+            value: UnsafeCell::new(value),
-+            borrow: Cell::new(UNUSED),
-+            #[cfg(feature = "debug_cell")]
-+            borrowed_at: Cell::new(None),
-+        }
-+    }
-+}
-+
-+// This ensures the panicking code is outlined from `borrow_mut` for
-+// `BqlRefCell`.
-+#[inline(never)]
-+#[cold]
-+#[cfg(feature = "debug_cell")]
-+fn panic_already_borrowed(source: &Cell<Option<&'static std::panic::Location<'static>>>) -> ! {
-+    // If a borrow occurred, then we must already have an outstanding borrow,
-+    // so `borrowed_at` will be `Some`
-+    panic!("already borrowed at {:?}", source.take().unwrap())
-+}
-+
-+#[inline(never)]
-+#[cold]
-+#[cfg(not(feature = "debug_cell"))]
-+fn panic_already_borrowed() -> ! {
-+    panic!("already borrowed")
-+}
-+
-+impl<T> BqlRefCell<T> {
-+    #[inline]
-+    #[allow(clippy::unused_self)]
-+    fn panic_already_borrowed(&self) -> ! {
-+        #[cfg(feature = "debug_cell")]
-+        {
-+            panic_already_borrowed(&self.borrowed_at)
-+        }
-+        #[cfg(not(feature = "debug_cell"))]
-+        {
-+            panic_already_borrowed()
-+        }
-+    }
-+
-+    /// Immutably borrows the wrapped value.
-+    ///
-+    /// The borrow lasts until the returned `BqlRef` exits scope. Multiple
-+    /// immutable borrows can be taken out at the same time.
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if the value is currently mutably borrowed.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use qemu_api::cell::BqlRefCell;
-+    ///
-+    /// let c = BqlRefCell::new(5);
-+    ///
-+    /// let borrowed_five = c.borrow();
-+    /// let borrowed_five2 = c.borrow();
-+    /// ```
-+    ///
-+    /// An example of panic:
-+    ///
-+    /// ```should_panic
-+    /// use qemu_api::cell::BqlRefCell;
-+    ///
-+    /// let c = BqlRefCell::new(5);
-+    ///
-+    /// let m = c.borrow_mut();
-+    /// let b = c.borrow(); // this causes a panic
-+    /// ```
-+    #[inline]
-+    #[track_caller]
-+    pub fn borrow(&self) -> BqlRef<'_, T> {
-+        if let Some(b) = BorrowRef::new(&self.borrow) {
-+            // `borrowed_at` is always the *first* active borrow
-+            if b.borrow.get() == 1 {
-+                #[cfg(feature = "debug_cell")]
-+                self.borrowed_at.set(Some(std::panic::Location::caller()));
-+            }
-+
-+            bql_block_unlock(true);
-+
-+            // SAFETY: `BorrowRef` ensures that there is only immutable access
-+            // to the value while borrowed.
-+            let value = unsafe { NonNull::new_unchecked(self.value.get()) };
-+            BqlRef { value, borrow: b }
-+        } else {
-+            self.panic_already_borrowed()
-+        }
-+    }
-+
-+    /// Mutably borrows the wrapped value.
-+    ///
-+    /// The borrow lasts until the returned `BqlRefMut` or all `BqlRefMut`s
-+    /// derived from it exit scope. The value cannot be borrowed while this
-+    /// borrow is active.
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if the value is currently borrowed.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use qemu_api::cell::BqlRefCell;
-+    ///
-+    /// let c = BqlRefCell::new("hello".to_owned());
-+    ///
-+    /// *c.borrow_mut() = "bonjour".to_owned();
-+    ///
-+    /// assert_eq!(&*c.borrow(), "bonjour");
-+    /// ```
-+    ///
-+    /// An example of panic:
-+    ///
-+    /// ```should_panic
-+    /// use qemu_api::cell::BqlRefCell;
-+    ///
-+    /// let c = BqlRefCell::new(5);
-+    /// let m = c.borrow();
-+    ///
-+    /// let b = c.borrow_mut(); // this causes a panic
-+    /// ```
-+    #[inline]
-+    #[track_caller]
-+    pub fn borrow_mut(&self) -> BqlRefMut<'_, T> {
-+        if let Some(b) = BorrowRefMut::new(&self.borrow) {
-+            #[cfg(feature = "debug_cell")]
-+            {
-+                self.borrowed_at.set(Some(std::panic::Location::caller()));
-+            }
-+
-+            // SAFETY: this only adjusts a counter
-+            bql_block_unlock(true);
-+
-+            // SAFETY: `BorrowRefMut` guarantees unique access.
-+            let value = unsafe { NonNull::new_unchecked(self.value.get()) };
-+            BqlRefMut {
-+                value,
-+                _borrow: b,
-+                marker: PhantomData,
-+            }
-+        } else {
-+            self.panic_already_borrowed()
-+        }
-+    }
-+
-+    /// Returns a raw pointer to the underlying data in this cell.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use qemu_api::cell::BqlRefCell;
-+    ///
-+    /// let c = BqlRefCell::new(5);
-+    ///
-+    /// let ptr = c.as_ptr();
-+    /// ```
-+    #[inline]
-+    pub const fn as_ptr(&self) -> *mut T {
-+        self.value.get()
-+    }
-+}
-+
-+// SAFETY: Same as for std::sync::Mutex.  In the end this is a Mutex that is
-+// stored out-of-line.  Even though BqlRefCell includes Cells, they are
-+// themselves protected by the Big QEMU Lock.  Furtheremore, the Big QEMU
-+// Lock cannot be released while any borrows is active.
-+unsafe impl<T> Send for BqlRefCell<T> where T: Send {}
-+unsafe impl<T> Sync for BqlRefCell<T> {}
-+
-+impl<T: Clone> Clone for BqlRefCell<T> {
-+    /// # Panics
-+    ///
-+    /// Panics if the value is currently mutably borrowed.
-+    #[inline]
-+    #[track_caller]
-+    fn clone(&self) -> BqlRefCell<T> {
-+        BqlRefCell::new(self.borrow().clone())
-+    }
-+
-+    /// # Panics
-+    ///
-+    /// Panics if `source` is currently mutably borrowed.
-+    #[inline]
-+    #[track_caller]
-+    fn clone_from(&mut self, source: &Self) {
-+        self.value.get_mut().clone_from(&source.borrow())
-+    }
-+}
-+
-+impl<T: Default> Default for BqlRefCell<T> {
-+    /// Creates a `BqlRefCell<T>`, with the `Default` value for T.
-+    #[inline]
-+    fn default() -> BqlRefCell<T> {
-+        BqlRefCell::new(Default::default())
-+    }
-+}
-+
-+impl<T: PartialEq> PartialEq for BqlRefCell<T> {
-+    /// # Panics
-+    ///
-+    /// Panics if the value in either `BqlRefCell` is currently mutably
-+    /// borrowed.
-+    #[inline]
-+    fn eq(&self, other: &BqlRefCell<T>) -> bool {
-+        *self.borrow() == *other.borrow()
-+    }
-+}
-+
-+impl<T: Eq> Eq for BqlRefCell<T> {}
-+
-+impl<T: PartialOrd> PartialOrd for BqlRefCell<T> {
-+    /// # Panics
-+    ///
-+    /// Panics if the value in either `BqlRefCell` is currently mutably
-+    /// borrowed.
-+    #[inline]
-+    fn partial_cmp(&self, other: &BqlRefCell<T>) -> Option<Ordering> {
-+        self.borrow().partial_cmp(&*other.borrow())
-+    }
-+}
-+
-+impl<T: Ord> Ord for BqlRefCell<T> {
-+    /// # Panics
-+    ///
-+    /// Panics if the value in either `BqlRefCell` is currently mutably
-+    /// borrowed.
-+    #[inline]
-+    fn cmp(&self, other: &BqlRefCell<T>) -> Ordering {
-+        self.borrow().cmp(&*other.borrow())
-+    }
-+}
-+
-+impl<T> From<T> for BqlRefCell<T> {
-+    /// Creates a new `BqlRefCell<T>` containing the given value.
-+    fn from(t: T) -> BqlRefCell<T> {
-+        BqlRefCell::new(t)
-+    }
-+}
-+
-+struct BorrowRef<'b> {
-+    borrow: &'b Cell<BorrowFlag>,
-+}
-+
-+impl<'b> BorrowRef<'b> {
-+    #[inline]
-+    fn new(borrow: &'b Cell<BorrowFlag>) -> Option<BorrowRef<'b>> {
-+        let b = borrow.get().wrapping_add(1);
-+        if !is_reading(b) {
-+            // Incrementing borrow can result in a non-reading value (<= 0) in these cases:
-+            // 1. It was < 0, i.e. there are writing borrows, so we can't allow a read
-+            //    borrow due to Rust's reference aliasing rules
-+            // 2. It was isize::MAX (the max amount of reading borrows) and it overflowed
-+            //    into isize::MIN (the max amount of writing borrows) so we can't allow an
-+            //    additional read borrow because isize can't represent so many read borrows
-+            //    (this can only happen if you mem::forget more than a small constant amount
-+            //    of `BqlRef`s, which is not good practice)
-+            None
-+        } else {
-+            // Incrementing borrow can result in a reading value (> 0) in these cases:
-+            // 1. It was = 0, i.e. it wasn't borrowed, and we are taking the first read
-+            //    borrow
-+            // 2. It was > 0 and < isize::MAX, i.e. there were read borrows, and isize is
-+            //    large enough to represent having one more read borrow
-+            borrow.set(b);
-+            Some(BorrowRef { borrow })
-+        }
-+    }
-+}
-+
-+impl Drop for BorrowRef<'_> {
-+    #[inline]
-+    fn drop(&mut self) {
-+        let borrow = self.borrow.get();
-+        debug_assert!(is_reading(borrow));
-+        self.borrow.set(borrow - 1);
-+        bql_block_unlock(false)
-+    }
-+}
-+
-+impl Clone for BorrowRef<'_> {
-+    #[inline]
-+    fn clone(&self) -> Self {
-+        BorrowRef::new(self.borrow).unwrap()
-+    }
-+}
-+
-+/// Wraps a borrowed reference to a value in a `BqlRefCell` box.
-+/// A wrapper type for an immutably borrowed value from a `BqlRefCell<T>`.
-+///
-+/// See the [module-level documentation](self) for more.
-+pub struct BqlRef<'b, T: 'b> {
-+    // NB: we use a pointer instead of `&'b T` to avoid `noalias` violations, because a
-+    // `BqlRef` argument doesn't hold immutability for its whole scope, only until it drops.
-+    // `NonNull` is also covariant over `T`, just like we would have with `&T`.
-+    value: NonNull<T>,
-+    borrow: BorrowRef<'b>,
-+}
-+
-+impl<T> Deref for BqlRef<'_, T> {
-+    type Target = T;
-+
-+    #[inline]
-+    fn deref(&self) -> &T {
-+        // SAFETY: the value is accessible as long as we hold our borrow.
-+        unsafe { self.value.as_ref() }
-+    }
-+}
-+
-+impl<'b, T> BqlRef<'b, T> {
-+    /// Copies a `BqlRef`.
-+    ///
-+    /// The `BqlRefCell` is already immutably borrowed, so this cannot fail.
-+    ///
-+    /// This is an associated function that needs to be used as
-+    /// `BqlRef::clone(...)`. A `Clone` implementation or a method would
-+    /// interfere with the widespread use of `r.borrow().clone()` to clone
-+    /// the contents of a `BqlRefCell`.
-+    #[must_use]
-+    #[inline]
-+    #[allow(clippy::should_implement_trait)]
-+    pub fn clone(orig: &BqlRef<'b, T>) -> BqlRef<'b, T> {
-+        BqlRef {
-+            value: orig.value,
-+            borrow: orig.borrow.clone(),
-+        }
-+    }
-+}
-+
-+impl<T: fmt::Debug> fmt::Debug for BqlRef<'_, T> {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        (**self).fmt(f)
-+    }
-+}
-+
-+impl<T: fmt::Display> fmt::Display for BqlRef<'_, T> {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        (**self).fmt(f)
-+    }
-+}
-+
-+struct BorrowRefMut<'b> {
-+    borrow: &'b Cell<BorrowFlag>,
-+}
-+
-+impl<'b> BorrowRefMut<'b> {
-+    #[inline]
-+    fn new(borrow: &'b Cell<BorrowFlag>) -> Option<BorrowRefMut<'b>> {
-+        // There must currently be no existing references when borrow_mut() is
-+        // called, so we explicitly only allow going from UNUSED to UNUSED - 1.
-+        match borrow.get() {
-+            UNUSED => {
-+                borrow.set(UNUSED - 1);
-+                Some(BorrowRefMut { borrow })
-+            }
-+            _ => None,
-+        }
-+    }
-+}
-+
-+impl Drop for BorrowRefMut<'_> {
-+    #[inline]
-+    fn drop(&mut self) {
-+        let borrow = self.borrow.get();
-+        debug_assert!(is_writing(borrow));
-+        self.borrow.set(borrow + 1);
-+        bql_block_unlock(false)
-+    }
-+}
-+
-+/// A wrapper type for a mutably borrowed value from a `BqlRefCell<T>`.
-+///
-+/// See the [module-level documentation](self) for more.
-+pub struct BqlRefMut<'b, T: 'b> {
-+    // NB: we use a pointer instead of `&'b mut T` to avoid `noalias` violations, because a
-+    // `BqlRefMut` argument doesn't hold exclusivity for its whole scope, only until it drops.
-+    value: NonNull<T>,
-+    _borrow: BorrowRefMut<'b>,
-+    // `NonNull` is covariant over `T`, so we need to reintroduce invariance.
-+    marker: PhantomData<&'b mut T>,
-+}
-+
-+impl<T> Deref for BqlRefMut<'_, T> {
-+    type Target = T;
-+
-+    #[inline]
-+    fn deref(&self) -> &T {
-+        // SAFETY: the value is accessible as long as we hold our borrow.
-+        unsafe { self.value.as_ref() }
-+    }
-+}
-+
-+impl<T> DerefMut for BqlRefMut<'_, T> {
-+    #[inline]
-+    fn deref_mut(&mut self) -> &mut T {
-+        // SAFETY: the value is accessible as long as we hold our borrow.
-+        unsafe { self.value.as_mut() }
-+    }
-+}
-+
-+impl<T: fmt::Debug> fmt::Debug for BqlRefMut<'_, T> {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        (**self).fmt(f)
-+    }
-+}
-+
-+impl<T: fmt::Display> fmt::Display for BqlRefMut<'_, T> {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        (**self).fmt(f)
-+    }
-+}
+ 
+     impl Class for DummyClass {
 -- 
 2.47.1
 
