@@ -1,80 +1,80 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tKd21-0004Yt-Pv
-	for mharc-qemu-rust@gnu.org; Mon, 09 Dec 2024 07:38:42 -0500
+	id 1tKd2N-0004eU-Jd
+	for mharc-qemu-rust@gnu.org; Mon, 09 Dec 2024 07:39:01 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tKd1R-0003y8-VW
- for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:37:58 -0500
+ id 1tKd1T-0003z4-9H
+ for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:37:59 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tKd1O-0007T0-ME
- for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:37:57 -0500
+ id 1tKd1P-0007T8-HO
+ for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:37:58 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  s=mimecast20190719; t=1733747874;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=S2XjECiQ3aF3ccKlQ+UfpX2Co0fO2a2DC8TPDve57ok=;
- b=gVLVmVsqkNMETT6YNwGk6kkEynhQkp8ZpSN6Zn7l6hLirb9k18/cNa9FoH7IcC4A8zxT3Z
- E9/8zysSHPJIuoQI0SjO82Cc+Dl/NV0B4s9CEPdbsq7oZoO1m37J72TKh+vYZGdB5C4f4E
- NaNoaMeGbSaa2eAelrT710oZjM7ZPg0=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=yc6FheuyZyH/oA7b36KKccLApc1+iqI4hAPCi9UKt0s=;
+ b=Z0n3//cVs7fDgjQ8dBdYB69KDdTyzE2b1zWdeGo0ohwHOLnU3YRS2sG1TI/Z2U15Bg4+u8
+ H3BqmNm//FYo47XDhQ0llQLQDaKhiBgJKqYHnvyolIqJumDsjduXAGtb4RjUC3D35b+iDK
+ 43k8FOAxKDgC9C6f3CPLA6p8oDTNMaA=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-56-CanWawc3M_mU310ylyn6PA-1; Mon, 09 Dec 2024 07:37:50 -0500
-X-MC-Unique: CanWawc3M_mU310ylyn6PA-1
-X-Mimecast-MFC-AGG-ID: CanWawc3M_mU310ylyn6PA
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-385df115288so1788818f8f.2
- for <qemu-rust@nongnu.org>; Mon, 09 Dec 2024 04:37:50 -0800 (PST)
+ us-mta-136-Wevz83j4OF22Ep3UG6SlDw-1; Mon, 09 Dec 2024 07:37:53 -0500
+X-MC-Unique: Wevz83j4OF22Ep3UG6SlDw-1
+X-Mimecast-MFC-AGG-ID: Wevz83j4OF22Ep3UG6SlDw
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-434f3a758dbso9976745e9.0
+ for <qemu-rust@nongnu.org>; Mon, 09 Dec 2024 04:37:53 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733747869; x=1734352669;
+ d=1e100.net; s=20230601; t=1733747871; x=1734352671;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=S2XjECiQ3aF3ccKlQ+UfpX2Co0fO2a2DC8TPDve57ok=;
- b=Pkhhb02fLSffmtJQIHrvMnLeAcwtpbGPiBLD8jmUQ0wb20lebVPt3c7yfyNvymdwAQ
- aylX4xobq7TCR2rZxXseKSZqjgHEUor8y81b7Bay1krjRIWY6FY1JAICHT/tTOVf7Fpl
- DQrh3qIFcKUzSJPfFyLssFvGgDofkSSYi17fiilGDuNBzoxVSBGOqnveQARHpYp2hUUT
- 3H/072whY8UA9a2ggcIn7PVbPnEcV2Pnu142MB36YcjnJYAe60j0731ORf9UW2GaYOOG
- W8vLAGTDka0vJfQGXZrAIK1pavqg0DLKUyFJienTVABNsfLquW31JZAIgKMPqddkzpb7
- n+NQ==
-X-Gm-Message-State: AOJu0YybhOz4W3OIfaeYzh9+z7GqGgmM5WILOV6dTg68mwyD2nCEauyP
- hGEMS1mvXDCNBk4O5O+EEayWXceU7W2Vj1lasIr6WMa1V6v6IjHHqc8TAwD2gKsmRC7Y1GkKqbL
- fWezCohxllSl21Z8prUWwBbDD9AvxFb+Hxc9Q7ywWRB+NPbkyAkQ=
-X-Gm-Gg: ASbGncsWggHxA8xbdd09MYDljXvGoiSER5uuHMJtEk0owktYuerABQM5iIiQqjnNoBD
- jK0OIIA0pGhPU04hAxRfv7CGkrteiPdyDhWvepSXlctPsS7vUZWP9vYbe5SBUcvcodW/qx+fqgh
- 0ubGoZ9URNpF+m3fQIin/KnZcc4lgsUTaNzcIBeHTqpFulH8HhydXOSBvsUgAY8flQ3cj8zn7zG
- YSjegZkbmW+ItYKgpuxvDEvv2KCziuN3th7bv3ya+78mWcsYeElOw==
-X-Received: by 2002:a5d:5989:0:b0:385:de67:2269 with SMTP id
- ffacd0b85a97d-386453f67d0mr134681f8f.36.1733747869278; 
- Mon, 09 Dec 2024 04:37:49 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IH1jEk838B0P5aDCFXoIWlGcKXrjWlDpoOWk27luUi4kdcFBTVRh3sHrmTSDuTICl5fi5QAbA==
-X-Received: by 2002:a5d:5989:0:b0:385:de67:2269 with SMTP id
- ffacd0b85a97d-386453f67d0mr134658f8f.36.1733747868914; 
- Mon, 09 Dec 2024 04:37:48 -0800 (PST)
+ bh=yc6FheuyZyH/oA7b36KKccLApc1+iqI4hAPCi9UKt0s=;
+ b=qpZAKwFiQ61vbSwjuxjnFT6iR7n8IMEkgnu5XUvr2Mn0iKuetvVhSevtqwYrQNuFm4
+ 4OV6UzelwrnQ9lt3FtShtzO/G+QBZGPP6cpVj2YCeD/y4KxBVOgrKvhqfGOOtgk4+R/J
+ HePmbQ1SYZh1sFZA6uMuaqThsiOkkcwJd85JuC4yIbROVtUHAxPbFuGuqbhhhBIcKSq5
+ 4AAE+baPNvXqhA8hHSHizKNDJOFQfH/Dh/U9ImqsPvGoODN7KCRj7ArtNX38frOVUJDX
+ bv3zavBQpw6+apRqCNe9iSDUbr8qzGt37eZo5ZudRxaq9h3ToCa+koHRXgvdvSz6Ld9K
+ hAKA==
+X-Gm-Message-State: AOJu0YwR4RzvZaOEdNLPYn7gvfjLE+/VAvePd2H0YqTo1R4N2MtJKEGK
+ sYRA6Oic5/ldLo0pyk3SAkqTEUCjShoxnCiPHkHPf9jUpmXRTdSlguXiR26MnD0XqmrEmmTqcr5
+ YtBoxq+Zxa2I2QOFFieV3gdSTEqZvdcLlvZp3qFqz8kPTqj1+jEhcIZhHbuA=
+X-Gm-Gg: ASbGncv/uFILjdeh+/HulFZZ0S2B9FC48W8YtfSZrOcWdmoBooS7vkWn/CfLSNxrbHk
+ fAPgEID9FxC9EOvcRYNwqC/sSHSFJmaKl3m7Z+sAKQDF0UvROEjmt4sQdK+VksdP0a8ckttaNqP
+ 4gOo9b53MTVuJYEDFY1Kvt+21Kxo6SwEd7YuYvrfM2TBQv/aRBQif+VQDtz5R5by5y3Yd94Tl1X
+ qt5nDyZbNh/syg3IDAsTdyvsGT0DNOx+S9LogRapHgiHSAmH0fmTQ==
+X-Received: by 2002:a05:600c:458c:b0:434:9ec0:9e4e with SMTP id
+ 5b1f17b1804b1-434fffba059mr3550035e9.30.1733747871607; 
+ Mon, 09 Dec 2024 04:37:51 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEXo5oYAIaHVB3/q0A3uBCASjycc1vAb0yhaygilhId7tYKgqlabvux4EtEuo9ZUx2wrcbr3A==
+X-Received: by 2002:a05:600c:458c:b0:434:9ec0:9e4e with SMTP id
+ 5b1f17b1804b1-434fffba059mr3549755e9.30.1733747871210; 
+ Mon, 09 Dec 2024 04:37:51 -0800 (PST)
 Received: from [192.168.10.47] ([151.81.118.45])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3863157fb80sm8857813f8f.19.2024.12.09.04.37.47
+ 5b1f17b1804b1-434f43aedb2sm55069405e9.41.2024.12.09.04.37.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Dec 2024 04:37:47 -0800 (PST)
+ Mon, 09 Dec 2024 04:37:50 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>,
  Junjie Mao <junjie.mao@hotmail.com>
-Subject: [PATCH 12/26] rust: qdev: move bridge for realize and reset functions
- out of pl011
-Date: Mon,  9 Dec 2024 13:37:03 +0100
-Message-ID: <20241209123717.99077-13-pbonzini@redhat.com>
+Subject: [PATCH 13/26] rust: qom: automatically use Drop trait to implement
+ instance_finalize
+Date: Mon,  9 Dec 2024 13:37:04 +0100
+Message-ID: <20241209123717.99077-14-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20241209123717.99077-1-pbonzini@redhat.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: IFKr1fLWERLlE3LSERai6fh7m_emBI_VcgOCEE5g1V0_1733747869
+X-Mimecast-MFC-PROC-ID: sC0RFNsHsBL-WRM1RTDLk2ZmN_XGWSN6Wvk7TouRLvY_1733747872
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -100,151 +100,51 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Dec 2024 12:37:58 -0000
+X-List-Received-Date: Mon, 09 Dec 2024 12:37:59 -0000
 
-Allow the DeviceImpl trait to expose safe Rust functions.
-rust_device_class_init<> adds thunks around the functions
-in DeviceImpl.
+Replace the customizable INSTANCE_FINALIZE with a generic function
+that drops the Rust object.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/hw/char/pl011/src/device.rs       |  5 ++--
- rust/hw/char/pl011/src/device_class.rs | 26 -------------------
- rust/qemu-api/src/definitions.rs       |  2 +-
- rust/qemu-api/src/device_class.rs      | 36 +++++++++++++++++++++-----
- 4 files changed, 33 insertions(+), 36 deletions(-)
+ rust/qemu-api/src/definitions.rs | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index 28b1924337d..56403c36609 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -125,9 +125,8 @@ fn properties() -> &'static [Property] {
-     fn vmsd() -> Option<&'static VMStateDescription> {
-         Some(&device_class::VMSTATE_PL011)
-     }
--    const REALIZE: Option<unsafe extern "C" fn(*mut DeviceState, *mut *mut Error)> =
--        Some(device_class::pl011_realize);
--    const RESET: Option<unsafe extern "C" fn(*mut DeviceState)> = Some(device_class::pl011_reset);
-+    const REALIZE: Option<fn(&mut Self)> = Some(Self::realize);
-+    const RESET: Option<fn(&mut Self)> = Some(Self::reset);
- }
- 
- impl_device_class!(PL011State);
-diff --git a/rust/hw/char/pl011/src/device_class.rs b/rust/hw/char/pl011/src/device_class.rs
-index c61b6bb0258..975c3d42be7 100644
---- a/rust/hw/char/pl011/src/device_class.rs
-+++ b/rust/hw/char/pl011/src/device_class.rs
-@@ -92,29 +92,3 @@ extern "C" fn pl011_post_load(opaque: *mut c_void, version_id: c_int) -> c_int {
-         default = true
-     ),
- }
--
--/// # Safety
--///
--/// We expect the FFI user of this function to pass a valid pointer, that has
--/// the same size as [`PL011State`]. We also expect the device is
--/// readable/writeable from one thread at any time.
--pub unsafe extern "C" fn pl011_realize(dev: *mut DeviceState, _errp: *mut *mut Error) {
--    unsafe {
--        assert!(!dev.is_null());
--        let mut state = NonNull::new_unchecked(dev.cast::<PL011State>());
--        state.as_mut().realize();
--    }
--}
--
--/// # Safety
--///
--/// We expect the FFI user of this function to pass a valid pointer, that has
--/// the same size as [`PL011State`]. We also expect the device is
--/// readable/writeable from one thread at any time.
--pub unsafe extern "C" fn pl011_reset(dev: *mut DeviceState) {
--    unsafe {
--        assert!(!dev.is_null());
--        let mut state = NonNull::new_unchecked(dev.cast::<PL011State>());
--        state.as_mut().reset();
--    }
--}
 diff --git a/rust/qemu-api/src/definitions.rs b/rust/qemu-api/src/definitions.rs
-index 487712611f6..0467e6290e0 100644
+index 0467e6290e0..d64a581a5cc 100644
 --- a/rust/qemu-api/src/definitions.rs
 +++ b/rust/qemu-api/src/definitions.rs
-@@ -47,7 +47,7 @@ pub trait ObjectImpl: ClassInitImpl + Sized {
- /// Each QOM type has one such class struct.
- ///
- /// The Rust implementation of methods will usually come from a trait
--/// like [`ObjectImpl`].
-+/// like [`ObjectImpl`] or [`DeviceImpl`](crate::device_class::DeviceImpl).
- pub trait ClassInitImpl {
-     /// Function that is called after all parent class initialization
-     /// has occurred.  On entry, the virtual method pointers are set to
-diff --git a/rust/qemu-api/src/device_class.rs b/rust/qemu-api/src/device_class.rs
-index f683f94f2a5..f25904be4f6 100644
---- a/rust/qemu-api/src/device_class.rs
-+++ b/rust/qemu-api/src/device_class.rs
-@@ -17,14 +17,14 @@ pub trait DeviceImpl {
-     ///
-     /// If not `None`, the parent class's `realize` method is overridden
-     /// with the function pointed to by `REALIZE`.
--    const REALIZE: Option<unsafe extern "C" fn(*mut DeviceState, *mut *mut Error)> = None;
-+    const REALIZE: Option<fn(&mut Self)> = None;
+@@ -8,6 +8,13 @@
  
-     /// If not `None`, the parent class's `reset` method is overridden
-     /// with the function pointed to by `RESET`.
-     ///
-     /// Rust does not yet support the three-phase reset protocol; this is
-     /// usually okay for leaf classes.
--    const RESET: Option<unsafe extern "C" fn(dev: *mut DeviceState)> = None;
-+    const RESET: Option<fn(&mut Self)> = None;
+ use crate::bindings::{Object, ObjectClass, TypeInfo};
  
-     /// An array providing the properties that the user can set on the
-     /// device.  Not a `const` because referencing statics in constants
-@@ -41,6 +41,30 @@ fn vmsd() -> Option<&'static VMStateDescription> {
-     }
- }
- 
-+/// # Safety
-+///
-+/// This function is only called through the QOM machinery and
-+/// the `impl_device_class!` macro.
-+/// We expect the FFI user of this function to pass a valid pointer that
-+/// can be downcasted to type `T`. We also expect the device is
-+/// readable/writeable from one thread at any time.
-+unsafe extern "C" fn rust_realize_fn<T: DeviceImpl>(dev: *mut DeviceState, _errp: *mut *mut Error) {
-+    assert!(!dev.is_null());
-+    let state = dev.cast::<T>();
-+    T::REALIZE.unwrap()(unsafe { &mut *state });
++unsafe extern "C" fn drop_object<T: ObjectImpl>(obj: *mut Object) {
++    // SAFETY: obj is an instance of T, since drop_object<T>
++    // is called from QOM core as the instance_finalize function
++    // for class T
++    unsafe { std::ptr::drop_in_place(obj.cast::<T>()) }
 +}
 +
-+/// # Safety
-+///
-+/// We expect the FFI user of this function to pass a valid pointer that
-+/// can be downcasted to type `T`. We also expect the device is
-+/// readable/writeable from one thread at any time.
-+unsafe extern "C" fn rust_reset_fn<T: DeviceImpl>(dev: *mut DeviceState) {
-+    assert!(!dev.is_null());
-+    let state = dev.cast::<T>();
-+    T::RESET.unwrap()(unsafe { &mut *state });
-+}
-+
- /// # Safety
- ///
- /// We expect the FFI user of this function to pass a valid pointer that
-@@ -53,11 +77,11 @@ fn vmsd() -> Option<&'static VMStateDescription> {
-     let mut dc = ::core::ptr::NonNull::new(klass.cast::<DeviceClass>()).unwrap();
-     unsafe {
-         let dc = dc.as_mut();
--        if let Some(realize_fn) = <T as DeviceImpl>::REALIZE {
--            dc.realize = Some(realize_fn);
-+        if <T as DeviceImpl>::REALIZE.is_some() {
-+            dc.realize = Some(rust_realize_fn::<T>);
-         }
--        if let Some(reset_fn) = <T as DeviceImpl>::RESET {
--            bindings::device_class_set_legacy_reset(dc, Some(reset_fn));
-+        if <T as DeviceImpl>::RESET.is_some() {
-+            bindings::device_class_set_legacy_reset(dc, Some(rust_reset_fn::<T>));
-         }
-         if let Some(vmsd) = <T as DeviceImpl>::vmsd() {
-             dc.vmsd = vmsd;
+ /// Trait a type must implement to be registered with QEMU.
+ pub trait ObjectImpl: ClassInitImpl + Sized {
+     type Class;
+@@ -16,7 +23,6 @@ pub trait ObjectImpl: ClassInitImpl + Sized {
+     const ABSTRACT: bool = false;
+     const INSTANCE_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
+     const INSTANCE_POST_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
+-    const INSTANCE_FINALIZE: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
+ 
+     const TYPE_INFO: TypeInfo = TypeInfo {
+         name: Self::TYPE_NAME.as_ptr(),
+@@ -29,7 +35,7 @@ pub trait ObjectImpl: ClassInitImpl + Sized {
+         instance_align: core::mem::align_of::<Self>(),
+         instance_init: Self::INSTANCE_INIT,
+         instance_post_init: Self::INSTANCE_POST_INIT,
+-        instance_finalize: Self::INSTANCE_FINALIZE,
++        instance_finalize: Some(drop_object::<Self>),
+         abstract_: Self::ABSTRACT,
+         class_size: core::mem::size_of::<Self::Class>(),
+         class_init: <Self as ClassInitImpl>::CLASS_INIT,
 -- 
 2.47.1
 
