@@ -1,83 +1,84 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tKd1V-00040r-Hq
-	for mharc-qemu-rust@gnu.org; Mon, 09 Dec 2024 07:38:01 -0500
+	id 1tKd1V-00041F-Oq
+	for mharc-qemu-rust@gnu.org; Mon, 09 Dec 2024 07:38:03 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tKd1P-0003we-Qy
- for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:37:56 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1tKd1O-0003vL-8p
+ for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:37:54 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tKd1M-0007RX-Bj
- for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:37:55 -0500
+ id 1tKd1K-0007RN-67
+ for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:37:53 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  s=mimecast20190719; t=1733747867;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=rnI0niveAFX2WdKfqxklK+1Zt06kPSFJCN7eFa7HF+8=;
- b=PSNVN+JVu7P/GTQSPB2VHyeREiSiDzN2jDfpYzgxUktgGtWUD6lgfXqO4UqTl7I1rJvTKx
- 6W8Av/OOmQqmjyXYrNvaqL2Ur3tqTuUmYejaXQowX7N35mtnipz4QqekpUbb+cCRw5Dzny
- 07MZ9lmVihp9b1cSKiZ7Jiw/D6uOdGs=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=3KnA6nxj6wRieH/eonLUIy1D83UK4FyVWaqyO6ZnPKE=;
+ b=KytvSaHxJN/O4XtNWbOAKf1eAF01lYbz4LvdJ9PLi4Ff+9lNl7HVZ0njyRvSz+/L+mHfEy
+ bKXmKWpKWnGdivMlWyuJbOws0LYm/bfkqjnI9oRjAK9U7n1VQtRS9C3MYkYgSg+Kqxo4NR
+ IQzzugtrrYF9BqvjCt5MzoTe3eapWB8=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-633-NYYLzAHvPuKJL4frjpKqdw-1; Mon, 09 Dec 2024 07:37:45 -0500
-X-MC-Unique: NYYLzAHvPuKJL4frjpKqdw-1
-X-Mimecast-MFC-AGG-ID: NYYLzAHvPuKJL4frjpKqdw
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-385dcae001fso1568556f8f.1
+ us-mta-168-n04NONeYM06BoNWnQljr4Q-1; Mon, 09 Dec 2024 07:37:45 -0500
+X-MC-Unique: n04NONeYM06BoNWnQljr4Q-1
+X-Mimecast-MFC-AGG-ID: n04NONeYM06BoNWnQljr4Q
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-434f1d39147so8931475e9.0
  for <qemu-rust@nongnu.org>; Mon, 09 Dec 2024 04:37:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1733747864; x=1734352664;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rnI0niveAFX2WdKfqxklK+1Zt06kPSFJCN7eFa7HF+8=;
- b=mhH4bO9yWBvJu+u603qNKaX+Hu2KttuTk/01UhtPqpxhpdPY1G4i5u9K7N0Xt/qORO
- azPnDJP5dqiauNhhCLwMc9x2hyDBAbfz1aGiivGuzMf8aYsyLMmdJbsgRFL/JuUMZiNi
- wFvt6aaaBvzzSrBJ8FT+AmHq830nmD4PQxh/E1ShOXQTqWJiRjnIqHy0aNRCpj4XxJys
- dy8/ZMhazfUQOHQnh5LvxoJzJrLUf+WSDLB+M9CvhZx91KPN6TLdedKw/6eOBGJRTAT+
- ulwYsxHiBU6HjVa01N+VezSv8pFLWJtTgq7A0nVXR03T3iY2FyX4oZiB2R5Wqn0bFsRZ
- jiLg==
-X-Gm-Message-State: AOJu0Yx0vYL1ce4Bmm8WqopOvm9wAtmG6avhCvlna3rvZypTfaLmsyLj
- ORHhQUKdVbxkLoh2tUALtkYtaSc0YXbEEnsgOAUYqjmyqEiTKanH+Ahd6AJSFFGuds9Vyou0ER1
- qDWhpcVa9grkQvwtZcjjB/SLCJsvopvWCTao6n2icHBANX0n6Wbg=
-X-Gm-Gg: ASbGncugjSHg8XbYDytXDyqKYgcDvdAWV0egsufzG1cxv/aTH6YXzKZn3n2+CCssJ4H
- QB78CkyKFCPeftB8993DnlJ8eo8B+ESMcYjWu9z0mN1LFnK3Q7MSgNqrX9tJqD5PB7XbxFlldUb
- Yb5idh6ug+/0ew1Rfq4Th9Ei1+pBP25XyWF6HNX6rV8EPYa/P7DtqNIHjagkVkwGJAD29GAIGr0
- u7ZaMIUZu85R7c+IlrG4Li4HtEB4arK8PCBCp1McIbpeeui79cohA==
-X-Received: by 2002:a5d:6c69:0:b0:385:e013:39ec with SMTP id
- ffacd0b85a97d-3862b33f0d1mr9303158f8f.8.1733747864275; 
- Mon, 09 Dec 2024 04:37:44 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEaI5mpcGtPfQA/5tjvnqn4QZw2Pce8+RV3HgH+A6JNVqnFNEEY9kcB0+Ainpq7S21I/hgG8A==
-X-Received: by 2002:a5d:6c69:0:b0:385:e013:39ec with SMTP id
- ffacd0b85a97d-3862b33f0d1mr9303141f8f.8.1733747863883; 
- Mon, 09 Dec 2024 04:37:43 -0800 (PST)
+ bh=3KnA6nxj6wRieH/eonLUIy1D83UK4FyVWaqyO6ZnPKE=;
+ b=jw1S0UhVM46thEvRTshsH1Iw984Rhq9GScD3aVikmG6CRUrmgRXOuAGiHjMG6xCfaK
+ Sb017QC2irPgeYVsu4iEcIGLxjAiNnTbbiF9JRSuBuD8a0b1fynqnXCETX80IIW7Ulm4
+ V5Hn92U7QevYG1Mg13LaI4se5+kicnx7a/6kGG77UKrQd9u40DO3Mq99hzw//Zhl3wBA
+ sq9LYLXa3nBzB9Ak9NoS+IZuJFDk8PuhJXvUm9/2/Sj2G4gjH8CbGzeFJ7Mh5KwUw6ve
+ mOQlLD5R1abqlJUGWr7j/NpVFg0QlXGBnS3k2uGXR01f0UXeDd4ET0Uv5dx5FgnxPjKL
+ bxsw==
+X-Gm-Message-State: AOJu0Yz5Nu38FT8Dq/Br8gWzrl8+dxP0o8AlN8+eW5Jj43kygerX6O25
+ YJ+0gJDaJmrb4yrL6tpvhgjs/aGsRqKzQ1ilZ6JnU01X/sY+uzYxOnrCwLoYPTtmYLvYLAExKf5
+ 5QxlhEQ+m5RX+YZ+imKczFWbzazstRLyyWIMe35OGxfi2UmM5RwU=
+X-Gm-Gg: ASbGnctkKdm5htMzzVYAXhiHp6zP7N9w9lrvjmTLV7n46SXTwqReD1AP0SL4TrIx+wL
+ 1gCVmypodU8UYTZPZ8Q36ogisrOBuuqJfaAT4nnSmhW4qbYZ1rl2MZKE/rqHIoTyr6NIJUuM3yc
+ GtMWYf3nSGbaWEiI+dFL6diElEgpNGXibM0m7PIyTomoNGJSxyHAkQBz7qfU3OTwn5tnjJd0M/H
+ WFGbRvmMbA9Lv4D0+9Z577GgK/gt6zKW9tJ8x2Wn5hHktITBHewfA==
+X-Received: by 2002:a05:600c:4447:b0:431:5863:4240 with SMTP id
+ 5b1f17b1804b1-434fffa2a31mr2416445e9.24.1733747862506; 
+ Mon, 09 Dec 2024 04:37:42 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEEAVQBoTp9SPcNz6rRg1uImK74hwNwwXWayI3C2hJkGn6J5hBPTMiDx3R2ecMnTcnDOHcz/g==
+X-Received: by 2002:a05:600c:4447:b0:431:5863:4240 with SMTP id
+ 5b1f17b1804b1-434fffa2a31mr2416285e9.24.1733747862149; 
+ Mon, 09 Dec 2024 04:37:42 -0800 (PST)
 Received: from [192.168.10.47] ([151.81.118.45])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3861ecf40a0sm12875064f8f.13.2024.12.09.04.37.43
+ 5b1f17b1804b1-434f7160599sm43836515e9.23.2024.12.09.04.37.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Dec 2024 04:37:43 -0800 (PST)
+ Mon, 09 Dec 2024 04:37:40 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>,
  Junjie Mao <junjie.mao@hotmail.com>
-Subject: [PATCH 10/26] rust: qom: move ClassInitImpl to the instance side
-Date: Mon,  9 Dec 2024 13:37:01 +0100
-Message-ID: <20241209123717.99077-11-pbonzini@redhat.com>
+Subject: [PATCH 09/26] rust: qom: convert type_info! macro to an associated
+ const
+Date: Mon,  9 Dec 2024 13:37:00 +0100
+Message-ID: <20241209123717.99077-10-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20241209123717.99077-1-pbonzini@redhat.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: jlxo8ebCuSFZcOQ5JAvMbqFiJjLaUNzj2C9xbVrF09k_1733747864
+X-Mimecast-MFC-PROC-ID: GLS0rwUBIL5cBmfI6JoS9WlTpnoL50mmkLxIqOula28_1733747864
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -25
 X-Spam_score: -2.6
@@ -99,85 +100,140 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Dec 2024 12:37:56 -0000
+X-List-Received-Date: Mon, 09 Dec 2024 12:37:54 -0000
 
-Put all traits on the instance struct, which makes it possible to reuse
-class structs if no new virtual methods or class fields are added.
-This is almost always the case for devices (because they are leaf
-classes), which is the primary use case for Rust.
-
-This is also simpler: soon we will find the implemented methods without
-macros, and this removes the need to go from the class struct to the
-instance struct to find the implementation of the *Impl traits.
+type_info! is only used in the definition of ObjectImpl::TYPE_INFO, and
+in fact in all of them.  Pull type_info!'s definition into the ObjectImpl
+trait, thus simplifying the external interface of qemu_api::definitions.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/hw/char/pl011/src/device.rs | 4 ++--
- rust/qemu-api/src/definitions.rs | 8 ++++----
- rust/qemu-api/tests/tests.rs     | 2 +-
- 3 files changed, 7 insertions(+), 7 deletions(-)
+ rust/hw/char/pl011/src/device.rs |  6 ++--
+ rust/qemu-api/src/definitions.rs | 50 ++++++++++++++------------------
+ rust/qemu-api/tests/tests.rs     |  1 -
+ 3 files changed, 24 insertions(+), 33 deletions(-)
 
 diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index bcb146c24d6..2384d4bcb95 100644
+index bd12067aaf0..bcb146c24d6 100644
 --- a/rust/hw/char/pl011/src/device.rs
 +++ b/rust/hw/char/pl011/src/device.rs
-@@ -116,7 +116,7 @@ pub struct PL011Class {
-     _inner: [u8; 0],
- }
+@@ -106,7 +106,6 @@ pub struct PL011State {
  
--impl qemu_api::definitions::ClassInitImpl for PL011Class {
-+impl qemu_api::definitions::ClassInitImpl for PL011State {
-     const CLASS_INIT: Option<unsafe extern "C" fn(klass: *mut ObjectClass, data: *mut c_void)> =
-         Some(crate::device_class::pl011_class_init);
-     const CLASS_BASE_INIT: Option<
-@@ -649,7 +649,7 @@ pub struct PL011LuminaryClass {
-     }
- }
+ impl ObjectImpl for PL011State {
+     type Class = PL011Class;
+-    const TYPE_INFO: qemu_api::bindings::TypeInfo = qemu_api::type_info! { Self };
+     const TYPE_NAME: &'static CStr = crate::TYPE_PL011;
+     const PARENT_TYPE_NAME: Option<&'static CStr> = Some(TYPE_SYS_BUS_DEVICE);
+     const INSTANCE_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = Some(pl011_init);
+@@ -149,7 +148,7 @@ unsafe fn init(&mut self) {
+                 addr_of_mut!(*self).cast::<Object>(),
+                 &PL011_OPS,
+                 addr_of_mut!(*self).cast::<c_void>(),
+-                Self::TYPE_INFO.name,
++                Self::TYPE_NAME.as_ptr(),
+                 0x1000,
+             );
+             sysbus_init_mmio(sbd, addr_of_mut!(self.iomem));
+@@ -598,7 +597,7 @@ pub fn post_load(&mut self, _version_id: u32) -> Result<(), ()> {
+     chr: *mut Chardev,
+ ) -> *mut DeviceState {
+     unsafe {
+-        let dev: *mut DeviceState = qdev_new(PL011State::TYPE_INFO.name);
++        let dev: *mut DeviceState = qdev_new(PL011State::TYPE_NAME.as_ptr());
+         let sysbus: *mut SysBusDevice = dev.cast::<SysBusDevice>();
  
--impl qemu_api::definitions::ClassInitImpl for PL011LuminaryClass {
-+impl qemu_api::definitions::ClassInitImpl for PL011Luminary {
-     const CLASS_INIT: Option<unsafe extern "C" fn(klass: *mut ObjectClass, data: *mut c_void)> =
-         None;
-     const CLASS_BASE_INIT: Option<
+         qdev_prop_set_chr(dev, c_str!("chardev").as_ptr(), chr);
+@@ -660,7 +659,6 @@ impl qemu_api::definitions::ClassInitImpl for PL011LuminaryClass {
+ 
+ impl ObjectImpl for PL011Luminary {
+     type Class = PL011LuminaryClass;
+-    const TYPE_INFO: qemu_api::bindings::TypeInfo = qemu_api::type_info! { Self };
+     const TYPE_NAME: &'static CStr = crate::TYPE_PL011_LUMINARY;
+     const PARENT_TYPE_NAME: Option<&'static CStr> = Some(crate::TYPE_PL011);
+     const INSTANCE_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = Some(pl011_luminary_init);
 diff --git a/rust/qemu-api/src/definitions.rs b/rust/qemu-api/src/definitions.rs
-index 6ecfaf51b09..487712611f6 100644
+index 3291f4242ce..6ecfaf51b09 100644
 --- a/rust/qemu-api/src/definitions.rs
 +++ b/rust/qemu-api/src/definitions.rs
-@@ -9,8 +9,8 @@
+@@ -9,15 +9,34 @@
  use crate::bindings::{Object, ObjectClass, TypeInfo};
  
  /// Trait a type must implement to be registered with QEMU.
--pub trait ObjectImpl: Sized {
--    type Class: ClassInitImpl;
-+pub trait ObjectImpl: ClassInitImpl + Sized {
-+    type Class;
+-pub trait ObjectImpl {
+-    type Class;
+-    const TYPE_INFO: TypeInfo;
++pub trait ObjectImpl: Sized {
++    type Class: ClassInitImpl;
      const TYPE_NAME: &'static CStr;
      const PARENT_TYPE_NAME: Option<&'static CStr>;
      const ABSTRACT: bool = false;
-@@ -32,8 +32,8 @@ pub trait ObjectImpl: Sized {
-         instance_finalize: Self::INSTANCE_FINALIZE,
-         abstract_: Self::ABSTRACT,
-         class_size: core::mem::size_of::<Self::Class>(),
--        class_init: <Self::Class as ClassInitImpl>::CLASS_INIT,
--        class_base_init: <Self::Class as ClassInitImpl>::CLASS_BASE_INIT,
-+        class_init: <Self as ClassInitImpl>::CLASS_INIT,
-+        class_base_init: <Self as ClassInitImpl>::CLASS_BASE_INIT,
-         class_data: core::ptr::null_mut(),
-         interfaces: core::ptr::null_mut(),
+     const INSTANCE_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
+     const INSTANCE_POST_INIT: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
+     const INSTANCE_FINALIZE: Option<unsafe extern "C" fn(obj: *mut Object)> = None;
++
++    const TYPE_INFO: TypeInfo = TypeInfo {
++        name: Self::TYPE_NAME.as_ptr(),
++        parent: if let Some(pname) = Self::PARENT_TYPE_NAME {
++            pname.as_ptr()
++        } else {
++            core::ptr::null_mut()
++        },
++        instance_size: core::mem::size_of::<Self>(),
++        instance_align: core::mem::align_of::<Self>(),
++        instance_init: Self::INSTANCE_INIT,
++        instance_post_init: Self::INSTANCE_POST_INIT,
++        instance_finalize: Self::INSTANCE_FINALIZE,
++        abstract_: Self::ABSTRACT,
++        class_size: core::mem::size_of::<Self::Class>(),
++        class_init: <Self::Class as ClassInitImpl>::CLASS_INIT,
++        class_base_init: <Self::Class as ClassInitImpl>::CLASS_BASE_INIT,
++        class_data: core::ptr::null_mut(),
++        interfaces: core::ptr::null_mut(),
++    };
+ }
+ 
+ /// Trait used to fill in a class struct.
+@@ -83,28 +102,3 @@ extern "C" fn ctor_fn() {
+         }
      };
+ }
+-
+-#[macro_export]
+-macro_rules! type_info {
+-    ($t:ty) => {
+-        $crate::bindings::TypeInfo {
+-            name: <$t as $crate::definitions::ObjectImpl>::TYPE_NAME.as_ptr(),
+-            parent: if let Some(pname) = <$t as $crate::definitions::ObjectImpl>::PARENT_TYPE_NAME {
+-                pname.as_ptr()
+-            } else {
+-                ::core::ptr::null_mut()
+-            },
+-            instance_size: ::core::mem::size_of::<$t>(),
+-            instance_align: ::core::mem::align_of::<$t>(),
+-            instance_init: <$t as $crate::definitions::ObjectImpl>::INSTANCE_INIT,
+-            instance_post_init: <$t as $crate::definitions::ObjectImpl>::INSTANCE_POST_INIT,
+-            instance_finalize: <$t as $crate::definitions::ObjectImpl>::INSTANCE_FINALIZE,
+-            abstract_: <$t as $crate::definitions::ObjectImpl>::ABSTRACT,
+-            class_size:  ::core::mem::size_of::<<$t as $crate::definitions::ObjectImpl>::Class>(),
+-            class_init: <<$t as $crate::definitions::ObjectImpl>::Class as $crate::definitions::ClassInitImpl>::CLASS_INIT,
+-            class_base_init: <<$t as $crate::definitions::ObjectImpl>::Class as $crate::definitions::ClassInitImpl>::CLASS_BASE_INIT,
+-            class_data: ::core::ptr::null_mut(),
+-            interfaces: ::core::ptr::null_mut(),
+-        };
+-    }
+-}
 diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
-index 7f9df348b00..fd0c979121c 100644
+index 704c63c846f..7f9df348b00 100644
 --- a/rust/qemu-api/tests/tests.rs
 +++ b/rust/qemu-api/tests/tests.rs
-@@ -59,7 +59,7 @@ impl ObjectImpl for DummyState {
+@@ -55,7 +55,6 @@ pub struct DummyClass {
+ 
+     impl ObjectImpl for DummyState {
+         type Class = DummyClass;
+-        const TYPE_INFO: qemu_api::bindings::TypeInfo = qemu_api::type_info! { Self };
+         const TYPE_NAME: &'static CStr = c_str!("dummy");
          const PARENT_TYPE_NAME: Option<&'static CStr> = Some(device_class::TYPE_DEVICE);
      }
- 
--    impl ClassInitImpl for DummyClass {
-+    impl ClassInitImpl for DummyState {
-         const CLASS_INIT: Option<unsafe extern "C" fn(klass: *mut ObjectClass, data: *mut c_void)> =
-             Some(dummy_class_init);
-         const CLASS_BASE_INIT: Option<
 -- 
 2.47.1
 
