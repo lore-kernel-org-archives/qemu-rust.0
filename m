@@ -1,92 +1,81 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tKd6h-0008O5-5f
-	for mharc-qemu-rust@gnu.org; Mon, 09 Dec 2024 07:43:24 -0500
+	id 1tKgZ8-0007va-PD
+	for mharc-qemu-rust@gnu.org; Mon, 09 Dec 2024 11:24:58 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tKd1k-00046R-3T
- for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:38:22 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tKd1i-0007Xw-2k
- for qemu-rust@nongnu.org; Mon, 09 Dec 2024 07:38:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1733747892;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=cmaMuh+/1R6nn1pVbFPg8WJblYj+VkUXSy659iDTG4g=;
- b=NbIcWB2baPRpiAzjJvHrg3xr5iNCXh0TE6yuTbI3AAljQLrxcTZ/FTj674K8Fx5B4y/1kB
- hVMPHJs9CLV1lRJ1o2QPUpSUjwRI434yFl1FPkiQ7knk15f+H9GK7Kt74fp/QgpB2+yLNX
- mOLmF/5/4x6aZZ78Oi9lCdlfdxOh79E=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-675-Ae-ZLMeTOYuUzGZ7y3-60w-1; Mon, 09 Dec 2024 07:38:11 -0500
-X-MC-Unique: Ae-ZLMeTOYuUzGZ7y3-60w-1
-X-Mimecast-MFC-AGG-ID: Ae-ZLMeTOYuUzGZ7y3-60w
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-434f02ea82dso14300755e9.3
- for <qemu-rust@nongnu.org>; Mon, 09 Dec 2024 04:38:10 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tKgZ6-0007vA-0P
+ for qemu-rust@nongnu.org; Mon, 09 Dec 2024 11:24:56 -0500
+Received: from mail-pj1-x1036.google.com ([2607:f8b0:4864:20::1036])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tKgZ3-0002zf-Nc
+ for qemu-rust@nongnu.org; Mon, 09 Dec 2024 11:24:54 -0500
+Received: by mail-pj1-x1036.google.com with SMTP id
+ 98e67ed59e1d1-2ee46851b5eso3269864a91.1
+ for <qemu-rust@nongnu.org>; Mon, 09 Dec 2024 08:24:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1733761492; x=1734366292; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=rQ6HhFBEUg7Y5nMS526uaJ8jSTS3tu04kQ6F32MdhAw=;
+ b=EjLrjFQhYU5OL6tBQxmVRQd9iQD0i2/Fcb4C4BJ9T013JR7wIN1h7Kmeqq9mwOwTyD
+ bFs0saIxy/sEQzmPIZ0XqQLbLNj5Rxd63yG5Q4wsZMbkzX2uUAIWp/gd3A6Q90jq4Rjx
+ EFjfixH0DxYRWij+pV9ZPs+XS9LiFaCmkw8696xzT9jli2m2JaO/XGYr2jRkWhVNq3Xr
+ fODbiAQ1DiUsr8Ve88qKZM1UnFkAo/iryWpqHr99Xa48jU7q0XI/nwacs3aQctr/Jkn2
+ ujD4P/e/K5c+PdJ8ARd3J6wB40RKKJpmwYwSMj6Vc9rcA51thEwG2msPdM6agP9XoA+T
+ YCag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733747889; x=1734352689;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cmaMuh+/1R6nn1pVbFPg8WJblYj+VkUXSy659iDTG4g=;
- b=hKX+TXJP8Ro1ER7n6V5F64dhr21bG5Qz0YZwGH2Cbm1MhGB8j0XYjNOc4PpNHeEZPM
- TAUfhF0Kxk2j84gWVx5n3f6PQUNAsXsw0z0BQuJ3PkwuiqjDVRHQhuf0vOYqs+36yftt
- GoijY1DmzcQSh0OuOeR0EDBGQ4qm0ODhhJjdrBhQsF4GtGbjE08wS1Xq3UjJE63hOPjf
- yn3p5xgK+NbaNYO1GJTsp23DzUNOJzwqibisqhZBAagoXYqv3ywTK+DYPavtewCpI/o2
- 3CdnfiZPPUeVLUuMtnHDBOiVvujltWrn3iFGifq1rqkhAGAUTVouV9Mu9uYT73K5HyTa
- 1zxg==
-X-Gm-Message-State: AOJu0YzjCFeep+Pgr9z+rOaJR83Oe7+/N2CKH/+2tYX2duaKlT3oCw7h
- BhAEtZuzHK/6VCiUIgVon6WoDay4qN3BgfMRDf70+3liSx6WelDUVd4sF/3+5P86k9KlvPIiOks
- 9q8TIAJWHHnjRgIkYKvsShQuYrsrNNg1Qv52badlaC4rCcyzoZfx0UeTqEvY=
-X-Gm-Gg: ASbGncv/3qnr9apk6fmp9656XVIl31c92JYH2UKkJic6i8FLTTLC27ApAv8Lxy3xAIe
- 7guefPoGOUDdhZph3ljECv8UwtsCEih8Zvz6bPkhWFki/8/OY6JgVDyf4mwoHOFoHGyTpRW7sa7
- GB753qPmU9Cs/4CllcSErRpyzmXypocrjgKiO0v9p4dHMPXdS+kGz0uNwjtTvLx+j+5OSYzr8kZ
- QvdnaKH4SWdk0hKKUlNqV+nzEwJk/Wc0v+ImBx4fDT6egFlO5dLww==
-X-Received: by 2002:a05:600c:1c96:b0:431:5632:448b with SMTP id
- 5b1f17b1804b1-434fff9849dmr2482215e9.25.1733747888796; 
- Mon, 09 Dec 2024 04:38:08 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEzxrIt2hL84FuIM5l+V57mX/GA9hUrrhEw+bUfQlZXN7YqyIgAcSrIvzXh5BA7Vs54nPmEKg==
-X-Received: by 2002:a05:600c:1c96:b0:431:5632:448b with SMTP id
- 5b1f17b1804b1-434fff9849dmr2482005e9.25.1733747888422; 
- Mon, 09 Dec 2024 04:38:08 -0800 (PST)
-Received: from [192.168.10.47] ([151.81.118.45])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434d527395csm189736155e9.17.2024.12.09.04.38.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Dec 2024 04:38:06 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
+ d=1e100.net; s=20230601; t=1733761492; x=1734366292;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=rQ6HhFBEUg7Y5nMS526uaJ8jSTS3tu04kQ6F32MdhAw=;
+ b=dWhjUy71KnF5ajAztx/SXhUTbYeg3Yf/UVLLjNaQAT6E4tYMAfREkHriHE5SJyvcnN
+ 1E8tIF85ALTpQdPyq/vt7BtYmBr9ixs3dtQgUlW8sS6CkL5snzylXBm0u1gkDyluNAYb
+ N2/h8IGJaogQUXehc0GQntwcCpxZTGfSuocAxYfOJAAARSceYYoUILVwRTSbaOnxxW2E
+ P/0ukoE6BPpKKBvGCnvIliWWNRZqm+UwSapnP3Ij/5GuIBJr1JfSME1CyfZV+5PVlWsA
+ SHTd+etMpRG9ksqMX0MRA31/jtgDtyqyVGFUB6eke4/DTA2VK2g0SOE/sQKqRd8H+kSd
+ 8zjw==
+X-Gm-Message-State: AOJu0YwLyBWez+UI6QmitXzNbv3NyNJex+EhqEoN85I6SVzrx1J84Pky
+ SWP4o2bCZHke2+zhG88+90knEgEvQwJjuqI3jV8tlEnY9j2/2SBBbE85dLmK1vo=
+X-Gm-Gg: ASbGncsvjDXm1HlbCtJMDDjm2HLve6dbz2+wPwuVNcxjIpD7ZbUT3emHwLu3xQ9aMmB
+ Q27Dvj+8GRXp59HvcCYKNdMD7UCS1dN5Zi7x+5ThgURl271KwQyXd2I8Y0wJLoOTlVyjjxEY9rt
+ GM9Maa19hRnuT/MoAMSymllxNN5l0noPaBa92Y/9Jw5tOjenOLvaKbrBtzPwQNpbIgmROKnPx8v
+ tzpN0IGttbstpCjEMGjeAtceNNVOoD7MqiErKWriGWnYVt/8RYNKAyAjrOdUxOzPihL2qqlpLdi
+ sv/Om1p9rvRJKpgWEmHh0dsvRaml1DF8
+X-Google-Smtp-Source: AGHT+IERvUW3VpS1dSDrXTrDdG18SQ+azPUEfNK/FP9Z2UUpB4dCg4KTRRiDgC87/h3fIHA+BrbXxg==
+X-Received: by 2002:a17:90b:2246:b0:2ee:f653:9f8e with SMTP id
+ 98e67ed59e1d1-2ef6ab29349mr20898628a91.35.1733761492276; 
+ Mon, 09 Dec 2024 08:24:52 -0800 (PST)
+Received: from [192.168.1.17] (lfbn-bay-1-170-196.w83-193.abo.wanadoo.fr.
+ [83.193.250.196]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2ef6bf32bcasm6395805a91.23.2024.12.09.08.24.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Dec 2024 08:24:51 -0800 (PST)
+Message-ID: <f85a2be4-f2ad-4c00-aecf-c045b7cd2e1f@linaro.org>
+Date: Mon, 9 Dec 2024 17:24:45 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/26] rust: bundle of prerequisites for HPET
+ implementation
+To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>,
  Junjie Mao <junjie.mao@hotmail.com>
-Subject: [PATCH 20/26] rust: re-export C types from qemu-api submodules
-Date: Mon,  9 Dec 2024 13:37:11 +0100
-Message-ID: <20241209123717.99077-21-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20241209123717.99077-1-pbonzini@redhat.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: XNmxMj7KtUrq-nlV-aPACgoVTFNQLgmBEJCKE-CeHuw_1733747890
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -25
-X-Spam_score: -2.6
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20241209123717.99077-1-pbonzini@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=2607:f8b0:4864:20::1036;
+ envelope-from=philmd@linaro.org; helo=mail-pj1-x1036.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.489,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,143 +88,39 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Dec 2024 12:38:30 -0000
-X-List-Received-Date: Mon, 09 Dec 2024 12:38:30 -0000
+X-List-Received-Date: Mon, 09 Dec 2024 16:24:56 -0000
 
-Long term we do not want device code to use "bindings" at all, so make it
-possible to get the relevant types from the other modules of qemu-api.
+On 9/12/24 13:36, Paolo Bonzini wrote:
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- rust/qemu-api/src/qdev.rs    |  7 +++++--
- rust/qemu-api/src/qom.rs     | 10 ++++++----
- rust/qemu-api/src/sysbus.rs  |  3 ++-
- rust/qemu-api/src/vmstate.rs |  9 +++++----
- rust/qemu-api/tests/tests.rs |  3 ++-
- 5 files changed, 20 insertions(+), 12 deletions(-)
+> Paolo Bonzini (26):
+>    bql: check that the BQL is not dropped within marked sections
+>    rust: cell: add BQL-enforcing Cell variant
+>    rust: cell: add BQL-enforcing RefCell variant
+>    rust: define prelude
+>    rust: add bindings for interrupt sources
+>    rust: add a bit operation module
+>    rust: qom: add default definitions for ObjectImpl
+>    rust: qom: rename Class trait to ClassInitImpl
+>    rust: qom: convert type_info! macro to an associated const
+>    rust: qom: move ClassInitImpl to the instance side
+>    rust: qdev: move device_class_init! body to generic function,
+>      ClassInitImpl implementation to macro
+>    rust: qdev: move bridge for realize and reset functions out of pl011
+>    rust: qom: automatically use Drop trait to implement instance_finalize
+>    rust: qom: move bridge for TypeInfo functions out of pl011
+>    rust: qom: split ObjectType from ObjectImpl trait
+>    rust: qom: change the parent type to an associated type
+>    rust: qom: put class_init together from multiple ClassInitImpl<>
+>    rust: qom: add possibility of overriding unparent
+>    rust: rename qemu-api modules to follow C code a bit more
+>    rust: re-export C types from qemu-api submodules
+>    rust: tests: allow writing more than one test
+>    rust: qom: add casting functionality
+>    rust: qom: add initial subset of methods on Object
+>    rust: qom: move device_id to PL011 class side
+>    rust: qemu-api: add a module to wrap functions and zero-sized closures
+>    rust: callbacks: allow passing optional callbacks as ()
 
-diff --git a/rust/qemu-api/src/qdev.rs b/rust/qemu-api/src/qdev.rs
-index 1228dabaaaf..96a4b1515da 100644
---- a/rust/qemu-api/src/qdev.rs
-+++ b/rust/qemu-api/src/qdev.rs
-@@ -6,10 +6,13 @@
- 
- use std::ffi::CStr;
- 
-+pub use bindings::{DeviceClass, DeviceState, Property};
-+
- use crate::{
--    bindings::{self, DeviceClass, DeviceState, Error, ObjectClass, Property, VMStateDescription},
-+    bindings::{self, Error},
-     prelude::*,
--    qom::ClassInitImpl,
-+    qom::{ClassInitImpl, ObjectClass},
-+    vmstate::VMStateDescription,
-     zeroable::Zeroable,
- };
- 
-diff --git a/rust/qemu-api/src/qom.rs b/rust/qemu-api/src/qom.rs
-index 9b316e07efa..6e3923d8ed0 100644
---- a/rust/qemu-api/src/qom.rs
-+++ b/rust/qemu-api/src/qom.rs
-@@ -36,7 +36,9 @@
- 
- use std::{ffi::CStr, os::raw::c_void};
- 
--use crate::bindings::{self, Object, ObjectClass, TypeInfo};
-+pub use bindings::{Object, ObjectClass};
-+
-+use crate::bindings::{self, TypeInfo};
- 
- unsafe extern "C" fn rust_instance_init<T: ObjectImpl>(obj: *mut Object) {
-     // SAFETY: obj is an instance of T, since rust_instance_init<T>
-@@ -161,8 +163,8 @@ pub trait ObjectImpl: ObjectType + ClassInitImpl<Self::Class> {
- ///
- /// Each struct will implement this trait with `T` equal to each
- /// superclass.  For example, a device should implement at least
--/// `ClassInitImpl<`[`DeviceClass`](crate::bindings::DeviceClass)`>` and
--/// `ClassInitImpl<`[`ObjectClass`](crate::bindings::ObjectClass)`>`.
-+/// `ClassInitImpl<`[`DeviceClass`](crate::qdev::DeviceClass)`>` and
-+/// `ClassInitImpl<`[`ObjectClass`]`>`.
- ///
- /// Fortunately, this is almost never necessary.  Instead, the Rust
- /// implementation of methods will usually come from a trait like
-@@ -193,7 +195,7 @@ pub trait ClassInitImpl<T> {
-     ///
-     /// The virtual method implementations usually come from another
-     /// trait, for example [`DeviceImpl`](crate::qdev::DeviceImpl)
--    /// when `T` is [`DeviceClass`](crate::bindings::DeviceClass).
-+    /// when `T` is [`DeviceClass`](crate::qdev::DeviceClass).
-     ///
-     /// On entry, `klass`'s parent class is initialized, while the other fields
-     /// are all zero; it is therefore assumed that all fields in `T` can be
-diff --git a/rust/qemu-api/src/sysbus.rs b/rust/qemu-api/src/sysbus.rs
-index fa69cadd7c1..a23562d7273 100644
---- a/rust/qemu-api/src/sysbus.rs
-+++ b/rust/qemu-api/src/sysbus.rs
-@@ -7,10 +7,11 @@
- pub use bindings::{SysBusDevice, SysBusDeviceClass};
- 
- use crate::{
--    bindings::{self, DeviceClass},
-+    bindings,
-     cell::bql_locked,
-     irq::InterruptSource,
-     prelude::*,
-+    qdev::DeviceClass,
-     qom::ClassInitImpl,
- };
- 
-diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-index bedcf1e8f39..25c68b703ea 100644
---- a/rust/qemu-api/src/vmstate.rs
-+++ b/rust/qemu-api/src/vmstate.rs
-@@ -10,6 +10,8 @@
- //! [`vmstate_fields`](crate::vmstate_fields) are meant to be used when
- //! declaring a device model state struct.
- 
-+pub use crate::bindings::VMStateDescription;
-+
- #[doc(alias = "VMSTATE_UNUSED_BUFFER")]
- #[macro_export]
- macro_rules! vmstate_unused_buffer {
-@@ -328,7 +330,7 @@ macro_rules! vmstate_fields {
- }
- 
- /// A transparent wrapper type for the `subsections` field of
--/// [`VMStateDescription`](crate::bindings::VMStateDescription).
-+/// [`VMStateDescription`].
- ///
- /// This is necessary to be able to declare subsection descriptions as statics,
- /// because the only way to implement `Sync` for a foreign type (and `*const`
-@@ -342,9 +344,8 @@ macro_rules! vmstate_fields {
- 
- unsafe impl Sync for VMStateSubsectionsWrapper {}
- 
--/// Helper macro to declare a list of subsections
--/// ([`VMStateDescription`](`crate::bindings::VMStateDescription`)) into a
--/// static and return a pointer to the array of pointers it created.
-+/// Helper macro to declare a list of subsections ([`VMStateDescription`])
-+/// into a static and return a pointer to the array of pointers it created.
- #[macro_export]
- macro_rules! vmstate_subsections {
-     ($($subsection:expr),*$(,)*) => {{
-diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
-index fc57eb81290..68557fb85c7 100644
---- a/rust/qemu-api/tests/tests.rs
-+++ b/rust/qemu-api/tests/tests.rs
-@@ -8,8 +8,9 @@
-     bindings::*,
-     c_str, declare_properties, define_property,
-     prelude::*,
--    qdev::DeviceImpl,
-+    qdev::{DeviceImpl, DeviceState, Property},
-     qom::ObjectImpl,
-+    vmstate::VMStateDescription,
-     zeroable::Zeroable,
- };
- 
--- 
-2.47.1
-
+Am I correct some patches are from Zhao Liu and got the
+authorship inadvertently removed?
 
