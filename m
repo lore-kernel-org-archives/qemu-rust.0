@@ -1,54 +1,54 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tKuLH-00069s-NX
-	for mharc-qemu-rust@gnu.org; Tue, 10 Dec 2024 02:07:35 -0500
+	id 1tKv6O-0008Sz-PQ
+	for mharc-qemu-rust@gnu.org; Tue, 10 Dec 2024 02:56:16 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tKuLF-000696-LB; Tue, 10 Dec 2024 02:07:33 -0500
-Received: from mgamail.intel.com ([198.175.65.14])
+ id 1tKv6J-0008S5-M5; Tue, 10 Dec 2024 02:56:12 -0500
+Received: from mgamail.intel.com ([192.198.163.9])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tKuLD-0001zU-Qy; Tue, 10 Dec 2024 02:07:33 -0500
+ id 1tKv6G-0006im-D3; Tue, 10 Dec 2024 02:56:11 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733814452; x=1765350452;
+ t=1733817368; x=1765353368;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=coGPBQhNTHCyJm0nBr/HK99I2IV0DqSM0ggVJlMIn3Y=;
- b=fAULgLKQybv5fka8AZ0lUQjfhO5awcIAYKetlBKJhwtv94iqB2qioe7o
- g99OMDPbNYABs1mSdr4J7F32Gah8SBXt5MoAxq8dLrAhcCB4UEzQyTRa1
- AMSzdLvya0/F0pwfjQ9LfSviBXpiTale0qyBSRRFLZo7MZIKQ+z+accmf
- Y2qs1AS/ZRPPOBIi2UK8uIVlbEnf2VzjSLdQWbXgkBkGg01AUORbyO5Ge
- VwV+YeR9BU2v/3MICv5GjfCtSef9m6ohz+P4e/Hsl7ov0WoVokc6qR0+C
- qVko+LEbuoFnE0GJtLU93WDKGtFFthAqVHvRd85WIuSvq58KWv/mNkTB7 A==;
-X-CSE-ConnectionGUID: kTafMvscTcS8+VevhvdqIw==
-X-CSE-MsgGUID: 9uYlZaZdQpiT18s2nWvYOg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11281"; a="37928440"
-X-IronPort-AV: E=Sophos;i="6.12,221,1728975600"; d="scan'208";a="37928440"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2024 23:07:29 -0800
-X-CSE-ConnectionGUID: EyyqTZqBQJmK3iY8NCQOmw==
-X-CSE-MsgGUID: Ac/MUlC1QH+egoWhY/Yz6g==
+ bh=AW/OojooGAlOfX+HuWRZqnlmLd0Vt5vDPewJ7bPTJSE=;
+ b=iRpOh0Ihy6KSNNKh6eiflQ08CSjly/GHPKNiMderzhAaw07rF08GjuEW
+ rzN97YHeWbCfYUNr0BpzmVftPAu+L8lJDizXWg6ZWV6Iny6iHQBrT86jO
+ 6S/fDdLbk2utfSZkaVcduTulrzTK8e4Ty+jvyuJK8e6jzoZSMGU3tYOwV
+ nANYrdCMHX/FHct/2WTtL9bPPyt+oo1O9K8Pp7gJhPNQEYGCRZ+7P3jsg
+ VddaHnyd6WHIkerLy4EqvHFEjDpweF6UUAzpltE7oup5NLlmAgISIdifk
+ xbEFWs32r35yBbD15jHuFsSWlnzELHWF5aJT6V105UDpbexOjtuF3ZLDx A==;
+X-CSE-ConnectionGUID: W0utFZ91RBy6LGqD1nYqhg==
+X-CSE-MsgGUID: wPpPHXzJRGW6byWmG53LFw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11281"; a="44821631"
+X-IronPort-AV: E=Sophos;i="6.12,221,1728975600"; d="scan'208";a="44821631"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2024 23:55:07 -0800
+X-CSE-ConnectionGUID: 8ixUab6yQ8S1c+yl9L+yzw==
+X-CSE-MsgGUID: 7Fg0VOayQbicBKB41pWVmg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,221,1728975600"; d="scan'208";a="100124858"
+X-IronPort-AV: E=Sophos;i="6.12,221,1728975600"; d="scan'208";a="95775342"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.36])
- by fmviesa004.fm.intel.com with ESMTP; 09 Dec 2024 23:07:28 -0800
-Date: Tue, 10 Dec 2024 15:25:42 +0800
+ by orviesa007.jf.intel.com with ESMTP; 09 Dec 2024 23:55:06 -0800
+Date: Tue, 10 Dec 2024 16:13:20 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>
-Subject: Re: [PATCH 05/26] rust: add bindings for interrupt sources
-Message-ID: <Z1fs9lmj+rU8qeYW@intel.com>
+Subject: Re: [PATCH 06/26] rust: add a bit operation module
+Message-ID: <Z1f4IN3mfYB/jq8G@intel.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
- <20241209123717.99077-6-pbonzini@redhat.com>
+ <20241209123717.99077-7-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241209123717.99077-6-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.14; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20241209123717.99077-7-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.9; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -48
 X-Spam_score: -4.9
@@ -70,36 +70,142 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Dec 2024 07:07:34 -0000
+X-List-Received-Date: Tue, 10 Dec 2024 07:56:12 -0000
 
-On Mon, Dec 09, 2024 at 01:36:56PM +0100, Paolo Bonzini wrote:
-> Date: Mon,  9 Dec 2024 13:36:56 +0100
+On Mon, Dec 09, 2024 at 01:36:57PM +0100, Paolo Bonzini wrote:
+> Date: Mon,  9 Dec 2024 13:36:57 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 05/26] rust: add bindings for interrupt sources
+> Subject: [PATCH 06/26] rust: add a bit operation module
 > X-Mailer: git-send-email 2.47.1
 > 
-> The InterruptSource bindings let us call qemu_set_irq() and sysbus_init_irq()
-> as safe code.
+> The bindgen supports `static inline` function binding since v0.64.0 as
+> an experimental feature (`--wrap-static-fns`), and stabilizes it after
+> v0.70.0.
 > 
-> Interrupt sources, qemu_irq in C code, are pointers to IRQState objects.
-> They are QOM link properties and can be written to outside the control
-> of the device (i.e. from a shared reference); therefore they must be
-> interior-mutable in Rust.  Since thread-safety is provided by the BQL,
-> what we want here is the newly-introduced BqlCell.  A pointer to the
-> contents of the BqlCell (an IRQState**, or equivalently qemu_irq*)
-> is then passed to the C sysbus_init_irq function.
+> But the oldest version of bindgen supported by QEMU is v0.60.1, so
+> there's no way to generate the binding for deposit64() which is `static
+> inline` (in include/qemu/bitops.h).
 > 
+> Instead, implement it by hand in Rust and make it available for all
+> unsigned types through an IntegerExt trait. Since it only involves bit
+> operations, the Rust version of the code is almost identical to the
+> original C version, but it applies to more types than just u64.
+> 
+> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+> Co-authored-by: Paolo Bonzini <pbonzini@redhat.com>
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  rust/hw/char/pl011/src/device.rs | 22 ++++----
->  rust/qemu-api/meson.build        |  2 +
->  rust/qemu-api/src/irq.rs         | 91 ++++++++++++++++++++++++++++++++
->  rust/qemu-api/src/lib.rs         |  2 +
->  rust/qemu-api/src/sysbus.rs      | 27 ++++++++++
->  5 files changed, 134 insertions(+), 10 deletions(-)
->  create mode 100644 rust/qemu-api/src/irq.rs
->  create mode 100644 rust/qemu-api/src/sysbus.rs
-> 
+>  rust/qemu-api/meson.build    |   1 +
+>  rust/qemu-api/src/bitops.rs  | 119 +++++++++++++++++++++++++++++++++++
+>  rust/qemu-api/src/lib.rs     |   1 +
+>  rust/qemu-api/src/prelude.rs |   2 +
+>  4 files changed, 123 insertions(+)
+>  create mode 100644 rust/qemu-api/src/bitops.rs
+>
+> diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
+> index b927eb58c8e..adcee661150 100644
+> --- a/rust/qemu-api/meson.build
+> +++ b/rust/qemu-api/meson.build
+> @@ -16,6 +16,7 @@ _qemu_api_rs = static_library(
+>      [
+>        'src/lib.rs',
+>        'src/bindings.rs',
+> +      'src/bitops.rs',
+>        'src/cell.rs',
+>        'src/c_str.rs',
+>        'src/definitions.rs',
+> diff --git a/rust/qemu-api/src/bitops.rs b/rust/qemu-api/src/bitops.rs
+> new file mode 100644
+> index 00000000000..5acd6642d1a
+> --- /dev/null
+> +++ b/rust/qemu-api/src/bitops.rs
+> @@ -0,0 +1,119 @@
+> +// Copyright (C) 2024 Intel Corporation.
+> +// Author(s): Zhao Liu <zhai1.liu@intel.com>
+
+You deserve to be the author!
+
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +
+> +//! This module provides bit operation extensions to integer types.
+> +//! It is usually included via the `qemu_api` prelude.
+> +
+> +use std::ops::{
+> +    Add, AddAssign, BitAnd, BitAndAssign, BitOr, BitOrAssign, BitXor, BitXorAssign, Div, DivAssign,
+> +    Mul, MulAssign, Not, Rem, RemAssign, Shl, ShlAssign, Shr, ShrAssign,
+> +};
+> +
+> +/// Trait for extensions to integer types
+> +pub trait IntegerExt:
+> +    Add<Self, Output = Self> + AddAssign<Self> +
+> +    BitAnd<Self, Output = Self> + BitAndAssign<Self> +
+> +    BitOr<Self, Output = Self> + BitOrAssign<Self> +
+> +    BitXor<Self, Output = Self> + BitXorAssign<Self> +
+> +    Copy +
+> +    Div<Self, Output = Self> + DivAssign<Self> +
+> +    Eq +
+> +    Mul<Self, Output = Self> + MulAssign<Self> +
+> +    Not<Output = Self> + Ord + PartialOrd +
+> +    Rem<Self, Output = Self> + RemAssign<Self> +
+> +    Shl<Self, Output = Self> + ShlAssign<Self> +
+> +    Shl<u32, Output = Self> + ShlAssign<u32> + // add more as needed
+
+Ah, I used to define shift bits as usize. I can change the bit shift
+type back to u32 in HPET.
+
+> +    Shr<Self, Output = Self> + ShrAssign<Self> +
+> +    Shr<u32, Output = Self> + ShrAssign<u32> // add more as needed
+> +{
+> +    const BITS: u32;
+> +    const MAX: Self;
+> +    const MIN: Self;
+> +    const ONE: Self;
+> +    const ZERO: Self;
+> +
+> +    #[inline]
+> +    #[must_use]
+> +    fn bit(start: u32) -> Self
+> +    {
+> +        assert!(start <= Self::BITS);
+> +
+> +        Self::ONE << start
+> +    }
+
+I think with this helper, I can add activating_bit() and deactivating_bit()
+bindings, as they are also commonly used operations.
+
+I will rename them to activate_bit and deactivate_bit, if no one has any
+objections.
+
+> +    #[inline]
+> +    #[must_use]
+> +    fn mask(start: u32, length: u32) -> Self
+> +    {
+> +        /* FIXME: Implement a more elegant check with error handling support? */
+
+I think current design is elegant enough, and this FIXME is not needed.
+
+> +        assert!(length > 0 && length <= Self::BITS - start);
+> +
+> +        (Self::MAX >> (Self::BITS - length)) << start
+> +    }
+> +
+> +    #[inline]
+> +    #[must_use]
+> +    fn deposit<U: IntegerExt>(self, start: u32, length: u32,
+> +                          fieldval: U) -> Self
+> +        where Self: From<U>
+> +    {
+> +        debug_assert!(length <= U::BITS);
+
+assert? as you've already replaced debug_assert with assert in BqlCell.
+
+> +        let mask = Self::mask(start, length);
+> +        (self & !mask) | ((Self::from(fieldval) << start) & mask)
+> +    }
+> +
+
+Very useful for HPET! Thanks.
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
