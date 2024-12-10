@@ -1,58 +1,54 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tKpqy-000478-Tm
-	for mharc-qemu-rust@gnu.org; Mon, 09 Dec 2024 21:20:00 -0500
+	id 1tKuF6-0004jo-Re
+	for mharc-qemu-rust@gnu.org; Tue, 10 Dec 2024 02:01:12 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tKpqx-00046g-5A; Mon, 09 Dec 2024 21:19:59 -0500
-Received: from mgamail.intel.com ([192.198.163.9])
+ id 1tKuF5-0004jT-Bk; Tue, 10 Dec 2024 02:01:11 -0500
+Received: from mgamail.intel.com ([198.175.65.11])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tKpqu-00064p-E3; Mon, 09 Dec 2024 21:19:58 -0500
+ id 1tKuF2-0001aW-BQ; Tue, 10 Dec 2024 02:01:11 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733797196; x=1765333196;
+ t=1733814068; x=1765350068;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=uysF80S1yd/OJmgxa+64hcQYxG7HISslCaMN3yYx/Uc=;
- b=eotoB0i920+9PvzBpKAL7QqyMM+M1CSBxpEnrleEG+3VWN1TUQCQVJ3S
- /9jVjw0J9pPUsp2kvwqucivlCO8H2vALkErj+8Qk4ytbizXYayNbYBFNw
- zAAkpLERl2+1vFwlYlZDKHxcs5RrwPYgC7K6PcqVoAhGn7/e2bfI+qiSW
- 5MeLHNPZFD+m/hklZvMKst4P23cjuYbd0NbYAq7i6/cqjBJdc3bzweS0p
- b0bViEQjcHcbw/N6CtER541GMbQCzwxKsCrPG1zQa8wTNPC7zq2Ni5BJB
- 2YYAtwolGWxOROy8x8UlFYTzPgg794jKpRvXExx7S6/+JjSemNgRpqQK3 Q==;
-X-CSE-ConnectionGUID: 2HIMuuw6QOuwyBh4agpZ8w==
-X-CSE-MsgGUID: d4/a+9fFQK6V34myUOy0Ig==
-X-IronPort-AV: E=McAfee;i="6700,10204,11281"; a="44800205"
-X-IronPort-AV: E=Sophos;i="6.12,221,1728975600"; d="scan'208";a="44800205"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2024 18:19:50 -0800
-X-CSE-ConnectionGUID: 6i/bHd7sS+ySDe4uleCwIA==
-X-CSE-MsgGUID: LijIjvBrQzSl2eO3Vlix8w==
+ mime-version:in-reply-to;
+ bh=1fFwSLVo0H6rOhoVAiWMSXmRBiYrEfJR5XC6lLLyJRg=;
+ b=Th/p8ZE4JgvC7y338MXjIIJNG1yNP5SgMOcybXVff6rQmpElb0XmDTRz
+ ngOFpiylzQF3bLZCRfXPul3rxPDA0owAAEaqrW7vRiHNZaOCiKKQ0PxVV
+ izTzKHhP0A5GihPPJvUuK66ejrysAywks1vTkOOcQr/i1QEyr7Czaa42L
+ tMf7XInzHgsVEGxIJdvl4L33XtVsI6hw3oqyvOjMyBhVQW6HjUPjo7qS2
+ WiYukGaNGEaF7ShKCwFcJI23TjtL78EHyGB+PIDhrpdh6bpYtzpi42/pr
+ pTgi5wq9jO86pLI7L0Jx6f4Jk9PaPIxqI0pkKjSzQ6b+8p7wIq9z7jmfy A==;
+X-CSE-ConnectionGUID: fu61GLe7RrW4r2KqfhPIqQ==
+X-CSE-MsgGUID: lofS2kjgRQ+WOuKPUbVtuA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11281"; a="44612761"
+X-IronPort-AV: E=Sophos;i="6.12,221,1728975600"; d="scan'208";a="44612761"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2024 23:01:05 -0800
+X-CSE-ConnectionGUID: KfeF5OQCS+C0Y9+ESb+Flw==
+X-CSE-MsgGUID: 2KSOz+wQRiW4QwSKUQNnlg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,221,1728975600"; d="scan'208";a="100314131"
+X-IronPort-AV: E=Sophos;i="6.12,221,1728975600"; d="scan'208";a="95380659"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.36])
- by orviesa004.jf.intel.com with ESMTP; 09 Dec 2024 18:19:49 -0800
-Date: Tue, 10 Dec 2024 10:38:02 +0800
+ by orviesa006.jf.intel.com with ESMTP; 09 Dec 2024 23:01:03 -0800
+Date: Tue, 10 Dec 2024 15:19:17 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
- qemu-devel@nongnu.org, qemu-rust@nongnu.org,
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>
-Subject: Re: [PATCH 00/26] rust: bundle of prerequisites for HPET
- implementation
-Message-ID: <Z1epij0qxzewmyd4@intel.com>
+Subject: Re: [PATCH 04/26] rust: define prelude
+Message-ID: <Z1frdQh+eD7Cy8hI@intel.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
- <f85a2be4-f2ad-4c00-aecf-c045b7cd2e1f@linaro.org>
- <CABgObfaT7cSDpuUzZ-imuhdBnsg86Qi7mt7KZ+-V-SU60+TXkg@mail.gmail.com>
+ <20241209123717.99077-5-pbonzini@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABgObfaT7cSDpuUzZ-imuhdBnsg86Qi7mt7KZ+-V-SU60+TXkg@mail.gmail.com>
-Received-SPF: pass client-ip=192.198.163.9; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20241209123717.99077-5-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.11; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -48
 X-Spam_score: -4.9
@@ -74,65 +70,26 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Dec 2024 02:19:59 -0000
+X-List-Received-Date: Tue, 10 Dec 2024 07:01:11 -0000
 
-On Mon, Dec 09, 2024 at 06:23:21PM +0100, Paolo Bonzini wrote:
-> Date: Mon, 9 Dec 2024 18:23:21 +0100
+On Mon, Dec 09, 2024 at 01:36:55PM +0100, Paolo Bonzini wrote:
+> Date: Mon,  9 Dec 2024 13:36:55 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: Re: [PATCH 00/26] rust: bundle of prerequisites for HPET
->  implementation
+> Subject: [PATCH 04/26] rust: define prelude
+> X-Mailer: git-send-email 2.47.1
 > 
-> On Mon, Dec 9, 2024 at 5:24 PM Philippe Mathieu-Daudé <philmd@linaro.org> wrote:
-> >
-> > On 9/12/24 13:36, Paolo Bonzini wrote:
-> >
-> > > Paolo Bonzini (26):
-> > >    bql: check that the BQL is not dropped within marked sections
-> > >    rust: cell: add BQL-enforcing Cell variant
-> > >    rust: cell: add BQL-enforcing RefCell variant
-> > >    rust: define prelude
-> > >    rust: add bindings for interrupt sources
-> > >    rust: add a bit operation module
-> > >    rust: qom: add default definitions for ObjectImpl
-> > >    rust: qom: rename Class trait to ClassInitImpl
-> > >    rust: qom: convert type_info! macro to an associated const
-> > >    rust: qom: move ClassInitImpl to the instance side
-> > >    rust: qdev: move device_class_init! body to generic function,
-> > >      ClassInitImpl implementation to macro
-> > >    rust: qdev: move bridge for realize and reset functions out of pl011
-> > >    rust: qom: automatically use Drop trait to implement instance_finalize
-> > >    rust: qom: move bridge for TypeInfo functions out of pl011
-> > >    rust: qom: split ObjectType from ObjectImpl trait
-> > >    rust: qom: change the parent type to an associated type
-> > >    rust: qom: put class_init together from multiple ClassInitImpl<>
-> > >    rust: qom: add possibility of overriding unparent
-> > >    rust: rename qemu-api modules to follow C code a bit more
-> > >    rust: re-export C types from qemu-api submodules
-> > >    rust: tests: allow writing more than one test
-> > >    rust: qom: add casting functionality
-> > >    rust: qom: add initial subset of methods on Object
-> > >    rust: qom: move device_id to PL011 class side
-> > >    rust: qemu-api: add a module to wrap functions and zero-sized closures
-> > >    rust: callbacks: allow passing optional callbacks as ()
-> >
-> > Am I correct some patches are from Zhao Liu and got the
-> > authorship inadvertently removed?
+> Add a module that will contain frequently used traits and
+> occasionally structs.  They can be included quickly with
+> "use qemu_api::prelude::*".
 > 
-> Just one, which is co-authored; it has
-> 
-> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
-> Co-authored-by: Paolo Bonzini <pbonzini@redhat.com>
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> 
-> So I should have put either Co-authored-by him or left him as the
-> primary author.
-> 
+> ---
+>  rust/qemu-api/meson.build    | 1 +
+>  rust/qemu-api/src/lib.rs     | 5 +++++
+>  rust/qemu-api/src/prelude.rs | 6 ++++++
+>  3 files changed, 12 insertions(+)
+>  create mode 100644 rust/qemu-api/src/prelude.rs
 
-Thank you Paolo! You deserve to be credited as the author. It's
-completely different from my previous solution, so it's all your
-work! HPET will be a user.
-
-Regards,
-Zhao
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
