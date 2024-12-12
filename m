@@ -1,86 +1,85 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tLmtc-0006tQ-Ua
-	for mharc-qemu-rust@gnu.org; Thu, 12 Dec 2024 12:22:40 -0500
+	id 1tLmtW-0006pu-Om
+	for mharc-qemu-rust@gnu.org; Thu, 12 Dec 2024 12:22:34 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tLmtW-0006pr-AN
- for qemu-rust@nongnu.org; Thu, 12 Dec 2024 12:22:34 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1tLmtR-0006ms-4K
+ for qemu-rust@nongnu.org; Thu, 12 Dec 2024 12:22:30 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tLmtU-0006p0-LC
- for qemu-rust@nongnu.org; Thu, 12 Dec 2024 12:22:34 -0500
+ id 1tLmtH-0006mh-Vn
+ for qemu-rust@nongnu.org; Thu, 12 Dec 2024 12:22:28 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1734024151;
+ s=mimecast20190719; t=1734024138;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bSm79oz08FdIlTp31rLzEqSvbz1oNHscAzWwfiPVPzw=;
- b=Bi8Ok4K/FyKMEGTK2LjUZS7i9A+0eb5PM0mz0NTVtUa9e1ReBDiUhw3syPc2V3/SNtXtd4
- o8Q7JtDBCsDFTpXfV7dvKRfLgmE0EsaEzYwj8AJ+7e+VzksOz+TCpw6TYq3zBCQmTc1TWN
- gtMJ12MfiPNIEIMWNO3mqq24ftSAyIU=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=zlSROje/jH4aIG+vHs+aMStbuV+YcJ8QhC20zV8MRIQ=;
+ b=TJT7znXASleZYGxAblWRgnfykXqUvEJqSfkR2eZEZb5uaoJxaW208+1oE44TpQcUvKch8w
+ wzVcvwtGaXkPKRxUrNxNKBVh9GxGRd9oSrRFRHyYZ5FXUmRVpmsx6hXHfrr/7Tn+v81AhU
+ BEagu1j+c8Xz835R2tWo8/rhPq+wJAc=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-683-qQRbWa2VOq2T2a84_PTCcw-1; Thu, 12 Dec 2024 12:22:30 -0500
-X-MC-Unique: qQRbWa2VOq2T2a84_PTCcw-1
-X-Mimecast-MFC-AGG-ID: qQRbWa2VOq2T2a84_PTCcw
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-3862e986d17so414532f8f.3
- for <qemu-rust@nongnu.org>; Thu, 12 Dec 2024 09:22:30 -0800 (PST)
+ us-mta-568-w7jC56PeNtGggW_b6HOboQ-1; Thu, 12 Dec 2024 12:22:17 -0500
+X-MC-Unique: w7jC56PeNtGggW_b6HOboQ-1
+X-Mimecast-MFC-AGG-ID: w7jC56PeNtGggW_b6HOboQ
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-434efe65e62so5516195e9.3
+ for <qemu-rust@nongnu.org>; Thu, 12 Dec 2024 09:22:17 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734024149; x=1734628949;
+ d=1e100.net; s=20230601; t=1734024136; x=1734628936;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=bSm79oz08FdIlTp31rLzEqSvbz1oNHscAzWwfiPVPzw=;
- b=kaZ5NTijVKQUaHnrpVRpADD5omQZaTPeTgTctENu/klgMKewJCBlB18UJ66j6fHaeI
- ZpTvwoD/KzKU+zJ0FkwxD7cIR/7SWrldS+avxbqSuXb5zjcGLnBLmff3jxN/z1FL9/nE
- HFZXEGoO8e5pFHfqLBFq8V19M9zp+2okeKohrY4edWf6fgjJYWF4xc+jC0eUburMkpru
- AnMZU0/etC3Au31+nBEtRecPYuvCqG3I2SK6uOGAzgB7YdedpESajk2MsUJfGsrfaC4v
- JEalTuwQ9WIPVBdDxNBL15RsiznwDt8uY7slriRpS7sK78RBfF66EhDtTzs9ovNeYGDM
- PXuQ==
+ bh=zlSROje/jH4aIG+vHs+aMStbuV+YcJ8QhC20zV8MRIQ=;
+ b=Tfp7uG05ARMv36afvf2xqXRmnQbTz8LMVmHLJ0F/GWMsF3+NQoM3BrVfVmiqoxZyOM
+ ecNhNDK5qtyC84zs2X0auoiyQqNXPYo8bkaht696K7Mp5nCnlOvvKnS80LG0cCuAASOn
+ A/j53PGTT4uPndIFMTfdRMYJobGmaqoKV7a75ZE9LOMhhkQRLlk1QOzkDrkMF/nWvN5A
+ hgJZBfgqvQ/xKB2ZaU5p0pXbZgqgXLD9GDpkVaray5/kiGyJTNWOF37sLL844fXOALsu
+ R7OBw9H8Q9seIwL8Azbt5hKVRRqxUTXpDJZyOX2tcMjBTX6zYkHqkN5Qb3ynMwloyWlX
+ PcGg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV8EbUU8S24yqhoOqcUHmpqt1vtDaWrpDAdj2VJnst0fqJkD8jnLO0MSRXEx0snGYCh7y0zCofMNSs=@nongnu.org
-X-Gm-Message-State: AOJu0Yxmm0o9XY+oLdXikQMSGObsISIE4u7HkXqefp6h3B/htyXfupvT
- mSpriUA+QIdlwMP7hA4MdFRz8UOCkQZ4lkJzF3X93GCY50CkWbXor2IKxBP8oIT0o9va2Lq7mUh
- yqZTmtvBjJqPPGkTE3c3lJu5k43JRReaN0kKemtWdvbsSQjQkGPs=
-X-Gm-Gg: ASbGnctyp1IbLaUO50rbxTMKvjmOEQEGwxesqear6xRvIbAdMmqhC/dYaVX4aNV2h1k
- VLODUexWO2r2wvaeg1n1fc0kAyDqYBrMmgB4Mf4I+vF1S54SncV035aTWOqGpurnQk6zoCBgSGZ
- WqznbOjVnSc9XfcENWQis02VAs9uPtym8Mt96Tl1iL5ePpOrMhtTotXWbxSX9UpIZ4RUq+9rSl6
- 6P4mgo/ftVPtPsAqSux4srR42xRl+bgpAkoTcUKkD5nmW1UBjzx4/b8+1mq
-X-Received: by 2002:a5d:588b:0:b0:385:e2c4:1f8d with SMTP id
- ffacd0b85a97d-3864ce96ed1mr6918667f8f.19.1734024149479; 
- Thu, 12 Dec 2024 09:22:29 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IERL4Pz7X8hJNKtOv0Z7DJ23nsR1ReastYOYfmmQ5wyeBe1Qf2yPsHd+ZqVQEJy/Mj+1+eu/A==
-X-Received: by 2002:a5d:588b:0:b0:385:e2c4:1f8d with SMTP id
- ffacd0b85a97d-3864ce96ed1mr6918651f8f.19.1734024149076; 
- Thu, 12 Dec 2024 09:22:29 -0800 (PST)
+ AJvYcCVq6HTpaHquLXNABjkCArV475YCsQoUAKdx3OkMQ/zyfGQKBNtyAmD5gxZMKVFWjWfCNbWsjAQr7Dc=@nongnu.org
+X-Gm-Message-State: AOJu0Yzq576NvOmoUrYjJKLD14Zalq/N2WD4Xv54TxhjMAY2uMt/mnZx
+ S2N6GxZQrPfJnYoL5NQQeArM2bonqN1WymTWGr6zQcpZy4UiDwLqHvKAL6I2smTR1hcKJDDxldY
+ guuqBr69imaw4337ESY9xD1XBttTkWAXEUhBJqKwhxcy5Avx5wM0=
+X-Gm-Gg: ASbGnct8bRiLG3O4fXs9c1P17RYMcxEqkaf3jADTDefmZkAthTnO4QBfuVqD12IZks9
+ vA0gWQSHYjvOldXf/AUzgLWEpxRi1LxITsPji4hhDxmta0npeeNcXc2gxVEVH4TTqWVraZxQXkR
+ 3WOwDL5Hdv4qRmiWuTcGxKggD7bN0ggprj8S/CTCgTHzqFR3zhTdEHqIWn9O3ZWUEFs93Tvi+r0
+ Nt7osNpW485M+EZ46lNl9Rp2Jw0CFRa3cUBxLdxL2VSmTY5ouZoVUSCkmKj
+X-Received: by 2002:a05:600c:4e4b:b0:434:ff08:202b with SMTP id
+ 5b1f17b1804b1-4361c36f5b3mr66285415e9.12.1734024136054; 
+ Thu, 12 Dec 2024 09:22:16 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFsA5q7Fbw+NO+Mi5ht77fAvi9wOGQ4Iwy+WrOa3qRpj3Ln99lbAVYKYkTAluwaRHRWlIHtvw==
+X-Received: by 2002:a05:600c:4e4b:b0:434:ff08:202b with SMTP id
+ 5b1f17b1804b1-4361c36f5b3mr66285185e9.12.1734024135711; 
+ Thu, 12 Dec 2024 09:22:15 -0800 (PST)
 Received: from [192.168.10.47] ([151.81.118.45])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4361ec87bc3sm37435585e9.1.2024.12.12.09.22.27
+ 5b1f17b1804b1-4361ec88993sm27906175e9.2.2024.12.12.09.22.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Dec 2024 09:22:28 -0800 (PST)
+ Thu, 12 Dec 2024 09:22:14 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: philmd@linaro.org,
 	qemu-rust@nongnu.org
-Subject: [PATCH 7/7] rust: pl011: simplify handling of the FIFO enabled bit in
- LCR
-Date: Thu, 12 Dec 2024 18:22:04 +0100
-Message-ID: <20241212172209.533779-8-pbonzini@redhat.com>
+Subject: [PATCH 2/7] rust: pl011: match break logic of C version
+Date: Thu, 12 Dec 2024 18:21:59 +0100
+Message-ID: <20241212172209.533779-3-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20241212172209.533779-1-pbonzini@redhat.com>
 References: <20241212172209.533779-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 4PdlhR5c6Tps5KH76CsEgsZ9ST63vw6_ar24fnxe_nk_1734024149
+X-Mimecast-MFC-PROC-ID: G5xEugOnjpKmU_5MMUt9XsnEL1LDo5X4cvNNXfOk3K4_1734024136
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -25
 X-Spam_score: -2.6
@@ -89,7 +88,7 @@ X-Spam_report: (-2.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.496,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -102,57 +101,33 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Dec 2024 17:22:34 -0000
+X-List-Received-Date: Thu, 12 Dec 2024 17:22:30 -0000
 
-Use ==/!= instead of going through bool and xor.
+Check loopback_enabled(), not fifo_enabled(), like the C code.
+
+Also, set_break_error() must not happen until the break is read from
+the FIFO.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/hw/char/pl011/src/device.rs | 6 ++----
- rust/hw/char/pl011/src/lib.rs    | 6 ------
- 2 files changed, 2 insertions(+), 10 deletions(-)
+ rust/hw/char/pl011/src/device.rs | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index cfe2734703e..169ff3779c6 100644
+index 41220c99a83..c6a8dbe1af4 100644
 --- a/rust/hw/char/pl011/src/device.rs
 +++ b/rust/hw/char/pl011/src/device.rs
-@@ -307,9 +307,7 @@ pub fn write(&mut self, offset: hwaddr, value: u64) {
-             Ok(LCR_H) => {
-                 let new_val: registers::LineControl = value.into();
-                 // Reset the FIFO state on FIFO enable or disable
--                if bool::from(self.line_control.fifos_enabled())
--                    ^ bool::from(new_val.fifos_enabled())
--                {
-+                if self.line_control.fifos_enabled() != new_val.fifos_enabled() {
-                     self.reset_rx_fifo();
-                     self.reset_tx_fifo();
-                 }
-@@ -502,7 +500,7 @@ pub fn event(&mut self, event: QEMUChrEvent) {
- 
-     #[inline]
-     pub fn fifo_enabled(&self) -> bool {
--        matches!(self.line_control.fifos_enabled(), registers::Mode::FIFO)
-+        self.line_control.fifos_enabled() == registers::Mode::FIFO
+@@ -465,9 +465,8 @@ pub fn can_receive(&self) -> bool {
      }
  
-     #[inline]
-diff --git a/rust/hw/char/pl011/src/lib.rs b/rust/hw/char/pl011/src/lib.rs
-index 0747e130cae..69064d6929b 100644
---- a/rust/hw/char/pl011/src/lib.rs
-+++ b/rust/hw/char/pl011/src/lib.rs
-@@ -419,12 +419,6 @@ pub enum Mode {
-         FIFO = 1,
+     pub fn event(&mut self, event: QEMUChrEvent) {
+-        if event == bindings::QEMUChrEvent::CHR_EVENT_BREAK && !self.fifo_enabled() {
++        if event == bindings::QEMUChrEvent::CHR_EVENT_BREAK && !self.loopback_enabled() {
+             self.put_fifo(DATA_BREAK);
+-            self.receive_status_error_clear.set_break_error(true);
+         }
      }
  
--    impl From<Mode> for bool {
--        fn from(val: Mode) -> Self {
--            matches!(val, Mode::FIFO)
--        }
--    }
--
-     #[bitsize(2)]
-     #[derive(Clone, Copy, Debug, Eq, FromBits, PartialEq)]
-     /// `WLEN` Word length, field of [Line Control register](LineControl).
 -- 
 2.47.1
 
