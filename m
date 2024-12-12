@@ -1,79 +1,80 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tLhAG-0000PO-Ap
-	for mharc-qemu-rust@gnu.org; Thu, 12 Dec 2024 06:15:29 -0500
+	id 1tLhMb-00032D-8q
+	for mharc-qemu-rust@gnu.org; Thu, 12 Dec 2024 06:28:13 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tLhAE-0000Od-1f
- for qemu-rust@nongnu.org; Thu, 12 Dec 2024 06:15:26 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1tLhMZ-00031k-QW
+ for qemu-rust@nongnu.org; Thu, 12 Dec 2024 06:28:11 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tLhAA-0005Ae-QU
- for qemu-rust@nongnu.org; Thu, 12 Dec 2024 06:15:25 -0500
+ id 1tLhMX-0001GP-0n
+ for qemu-rust@nongnu.org; Thu, 12 Dec 2024 06:28:11 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1734002122;
+ s=mimecast20190719; t=1734002887;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9mTt6IERyXjuxa8VakgUtxDJBiPM+TiXIG4XZH2QDB8=;
- b=F71xPUMAl4m5lfGIrBycziScIP6QssW8ANiY+H/Q445FteooraaMmPXqVxXWnwfeRVq9B8
- LYUV+F/qw4H9cjbyBOkMri/DNjncw712YvDnvC5yf/v9xachNF51apvXWXyPl0prhHZc9z
- YLK8m7bhPPOSPCmyP9yHuRWLykISpoE=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=1cbVtSCNqR4lsvh+JjM+Bc/gVcHF93W/WF+OcqQvvNg=;
+ b=CppSVaoP43bavXp/ushkaBGtYoWgMJ2pE0tWT1nq98C71Q4d0BiYYIIuF4lUd+hgS7lNzb
+ X8XZeq7W/SBNmiSFOHezU78yu8y9yOpxYqeVS0H+xWa1I/gM3lbm3AMEtvftcvR7QYaGWY
+ igCJpMBwy69NKn61byNrqid+YvyxRq4=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-101-wJlRS759PDG-u5JuHaRl4A-1; Thu, 12 Dec 2024 06:15:20 -0500
-X-MC-Unique: wJlRS759PDG-u5JuHaRl4A-1
-X-Mimecast-MFC-AGG-ID: wJlRS759PDG-u5JuHaRl4A
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-385ded5e92aso206513f8f.3
- for <qemu-rust@nongnu.org>; Thu, 12 Dec 2024 03:15:19 -0800 (PST)
+ us-mta-362-3t5qd1jVMHW-LcZnP1CtPQ-1; Thu, 12 Dec 2024 06:28:06 -0500
+X-MC-Unique: 3t5qd1jVMHW-LcZnP1CtPQ-1
+X-Mimecast-MFC-AGG-ID: 3t5qd1jVMHW-LcZnP1CtPQ
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-3862f3ccf4fso201777f8f.0
+ for <qemu-rust@nongnu.org>; Thu, 12 Dec 2024 03:28:06 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734002119; x=1734606919;
+ d=1e100.net; s=20230601; t=1734002885; x=1734607685;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=9mTt6IERyXjuxa8VakgUtxDJBiPM+TiXIG4XZH2QDB8=;
- b=cKTqdxXJl+LCHNAbZNlaCdZPE78yLbrNwe1p+ixoIjeQlhFwTJxW3cMUaicpWcG97P
- T+gioSmQqPSCxixZRWyB6Dop+nEuxnmvyKTHxCUA1lHRJJa006xG1m5K7GTYxR1dg6P+
- PMuP08CMk3V7PbnF9LlUZuI8G1UxnY84AspKCgufWGVii/qa9se7mhgDRQ0SCNW8NZ1Y
- s4nJ7H3xW93wKgBJGpTeHmIuBwJJym7jKpgxTgP4h0D4czBypohWYTiE0UxMO6VxfR38
- C6QPNo9CToB7amV8RHI60XRfF+T4JZfYnVZszf20DVVDKAa1pYQhWg0vOYJF4LSZkG1A
- h2rA==
+ bh=1cbVtSCNqR4lsvh+JjM+Bc/gVcHF93W/WF+OcqQvvNg=;
+ b=HOVbA5r3y1FOyvDkyQpoulS/sQMEH+TmpAq36ggn7WBhDjM3H5nXNkuVbbkvrotmBM
+ RSv3V+hCKa90fO2s/YFBayguETy1PGRW3/UAHR+d0Ec5d2s8SvDBjAPD29dIX/+RNcB3
+ V02XKYCzc1ttmZkwq07k0R+9m55JMc8jHCGk2ab8rH2RW+mgId7U6PZHB6E6zo4IFLVe
+ 8WE7mzHL6Lvp0zS3f3RVh5ESnmar0/bHDqfRVYWoVR1sdcoXBZNuepkqSeCrpDahYb6u
+ HtRC6jHVp0jAPU7sGH3LhgfUF1PYPOLpV/KvcA0VvxLP/J4s7SuPjAlMI4BBlXPQEMse
+ DGfA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXee16XzA6P/yB5uzDfJ9I0q4Sug4Xy9OAuvim1or94mrA57Md9kXjtFQd0FVrB7y2pvy1plrfkdaQ=@nongnu.org
-X-Gm-Message-State: AOJu0YwQNkpUJfgygLCcwHdFfMuUNhnkFabqCRWc9MwnA6a7p6X9BHeK
- Q73l1eUOcPYspmz8k/LzRACGQ39zT4M4tv+hxQebwQ7A3czyzKnSIh6vTB3zp1HeQkr+Cq2lMvF
- DNyR0JW5m6HmR6AwkP1MxUG6gy8yj0QmbtV3UIiE2sWPDHNzAGLQ=
-X-Gm-Gg: ASbGncspQdsqPlydmG/awmA65iSSOpBxzA8+DPxsUguFZdJNcwe1isAln2ZQDxLnFgo
- gZLoRtDwFiHk4i4XxBfPWEc4oyonge6XqSJ+dxqSqS7BaEXjCgiz2JMfP9WlJtGID1gQeZBmi74
- M+LC92f/a7X5mttyx6NDDJAH3fjCy/VaSJBa8VX0FdnxsHI17NbeoPTywNkU2a0ubvrnxTvaDF0
- 2o3t50kaBsKu4GJ467buUBMhgZXiF6uXuV4I/C1jAm/Vn0Eb6svCTv3/z2T
-X-Received: by 2002:a5d:6487:0:b0:385:f5c4:b30d with SMTP id
- ffacd0b85a97d-3864ce9382fmr5918056f8f.39.1734002118783; 
- Thu, 12 Dec 2024 03:15:18 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IH8djUlrM2k6LUKBxzNu8If4oeMRfW1v6NHdzIV8I7gCCNsfHCgwh1ujzHkzDebmYSiHrV/7w==
-X-Received: by 2002:a5d:6487:0:b0:385:f5c4:b30d with SMTP id
- ffacd0b85a97d-3864ce9382fmr5918035f8f.39.1734002118474; 
- Thu, 12 Dec 2024 03:15:18 -0800 (PST)
+ AJvYcCWRKIokoy69eqwcA3Hd01yT9rrFYAz/U36lIb8DMgFV1YncCNHH4SP3fgbgFBtrM//HSmYiuQdprSE=@nongnu.org
+X-Gm-Message-State: AOJu0Yw7uls1iAz8LlNtaE4feb91tQ6ve4iVTJeEvygr9gwMGq3ZdfD/
+ 2TcL91IrJ/ENVkqMxo1UiIgmn3WqE8IXM9ypYMxH+ocA5YtAPEYlTJxq3+D9ihm47x069Ztqd8S
+ TrHHcXW5CmlRDq6OJn1D1/98Cqc+iYKzinbDuJRR9SpPtA9v/5qM=
+X-Gm-Gg: ASbGncvZNgJpTOunywik+dXQTNPN40OkZUFO145PXhAx4ZI1U/Tmnogap8OXRBGlHwU
+ znoxeq/LDR8omXDtLZVPoAQjJQl27nPEF9D2RcO59R289xHmhx5eRzAFeIv/FLF27IHGo577uLo
+ WPVlkUIhIllV6sIuXnarZr2KARriBvqBHvjnG5RdsnQv6V2KwznuAjmQHC6+LfN6UkDZpGHFnJy
+ BKaH0dsmmA1p8zeuXdCcQV3dGmEGHHD98zCk1gstxTtruxQqy1d8ZjE/Ln7
+X-Received: by 2002:a05:6000:a18:b0:386:3cfa:62ad with SMTP id
+ ffacd0b85a97d-38787685668mr2506209f8f.1.1734002884947; 
+ Thu, 12 Dec 2024 03:28:04 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHunw5p82l3r6A9jJJXorOG2M3a1xQJ6hI7FnafG25QUIjmNCYqvO6y7i7lkX8Ka5lSLwwizw==
+X-Received: by 2002:a05:6000:a18:b0:386:3cfa:62ad with SMTP id
+ ffacd0b85a97d-38787685668mr2506193f8f.1.1734002884565; 
+ Thu, 12 Dec 2024 03:28:04 -0800 (PST)
 Received: from [192.168.10.27] ([151.81.118.45])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-3878251c5a0sm3689723f8f.92.2024.12.12.03.15.17
+ ffacd0b85a97d-387824a4d19sm3764507f8f.32.2024.12.12.03.28.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Dec 2024 03:15:17 -0800 (PST)
-Message-ID: <58766430-cfe3-41dc-9275-8fa0ad605076@redhat.com>
-Date: Thu, 12 Dec 2024 12:15:16 +0100
+ Thu, 12 Dec 2024 03:28:03 -0800 (PST)
+Message-ID: <a0bdbf2a-8430-480e-bc56-e8a4875dd577@redhat.com>
+Date: Thu, 12 Dec 2024 12:28:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 18/26] rust: qom: add possibility of overriding unparent
+Subject: Re: [PATCH 19/26] rust: rename qemu-api modules to follow C code a
+ bit more
 To: Zhao Liu <zhao1.liu@intel.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
- <20241209123717.99077-19-pbonzini@redhat.com> <Z1qvdU+oukSRe8I4@intel.com>
+ <20241209123717.99077-20-pbonzini@redhat.com> <Z1qyeThRA8yJMMoM@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -110,14 +111,14 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <Z1qvdU+oukSRe8I4@intel.com>
+In-Reply-To: <Z1qyeThRA8yJMMoM@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: r-thK6BB-ZEDnPbF6z1gQfrb7AOMC1jEWHbbmAxH2u8_1734002119
+X-Mimecast-MFC-PROC-ID: 0lgXZX6pWY1P5ofjc0-r3ALMZnaCsXzkIvqCIu9FU1E_1734002885
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -25
 X-Spam_score: -2.6
@@ -139,60 +140,79 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Dec 2024 11:15:26 -0000
+X-List-Received-Date: Thu, 12 Dec 2024 11:28:12 -0000
 
-On 12/12/24 10:40, Zhao Liu wrote:
-> On Mon, Dec 09, 2024 at 01:37:09PM +0100, Paolo Bonzini wrote:
->> Date: Mon,  9 Dec 2024 13:37:09 +0100
+On 12/12/24 10:52, Zhao Liu wrote:
+> On Mon, Dec 09, 2024 at 01:37:10PM +0100, Paolo Bonzini wrote:
+>> Date: Mon,  9 Dec 2024 13:37:10 +0100
 >> From: Paolo Bonzini <pbonzini@redhat.com>
->> Subject: [PATCH 18/26] rust: qom: add possibility of overriding unparent
+>> Subject: [PATCH 19/26] rust: rename qemu-api modules to follow C code a bit
+>>   more
 >> X-Mailer: git-send-email 2.47.1
 >>
->> Add a blanket definition of ClassInitImpl<ObjectClass> that thunks
->> ObjectImpl::UNPARENT and overrides it in ObjectClass if it is not
->> None.
->>
->> ClassInitImpl<DeviceClass> can now call its superclass's ClassInitImpl,
->> so that the C and Rust hierarchies match more closely.
->>
->> This is mostly done as an example of implementing the metaclass
->> hierarchy under ClassInitImpl.
+>> A full match would mean calling them qom::object and hw::core::qdev.  For now,
+>> keep the names shorter but still a bit easier to find.
 >>
 >> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 >> ---
->>   rust/qemu-api/src/definitions.rs  | 44 ++++++++++++++++++++++++++++---
->>   rust/qemu-api/src/device_class.rs |  6 +++--
->>   2 files changed, 45 insertions(+), 5 deletions(-)
-> 
-> Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
-> 
-> (with an additional comment below...)
-> 
->> diff --git a/rust/qemu-api/src/definitions.rs b/rust/qemu-api/src/definitions.rs
->> index 2429b9f53f0..958ea34decc 100644
+>>   rust/hw/char/pl011/src/device.rs              |  4 +-
+>>   rust/qemu-api-macros/src/lib.rs               |  2 +-
+>>   rust/qemu-api/meson.build                     |  5 +-
+>>   rust/qemu-api/src/lib.rs                      |  5 +-
+>>   rust/qemu-api/src/module.rs                   | 43 +++++++++++
+>>   rust/qemu-api/src/prelude.rs                  |  2 +-
+>>   .../qemu-api/src/{device_class.rs => qdev.rs} |  4 +-
+>>   rust/qemu-api/src/{definitions.rs => qom.rs}  | 74 +++++++++----------
+>>   rust/qemu-api/src/sysbus.rs                   |  2 +-
+>>   rust/qemu-api/tests/tests.rs                  |  5 +-
+>>   10 files changed, 92 insertions(+), 54 deletions(-)
+>>   create mode 100644 rust/qemu-api/src/module.rs
+>>   rename rust/qemu-api/src/{device_class.rs => qdev.rs} (97%)
+>>   rename rust/qemu-api/src/{definitions.rs => qom.rs} (83%)
+>>
 >> --- a/rust/qemu-api/src/definitions.rs
->> +++ b/rust/qemu-api/src/definitions.rs
->> @@ -6,7 +6,7 @@
+>> +++ b/rust/qemu-api/src/qom.rs
+>> @@ -2,7 +2,37 @@
+>>   // Author(s): Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+>>   // SPDX-License-Identifier: GPL-2.0-or-later
 >>   
->>   use std::{ffi::CStr, os::raw::c_void};
->>   
->> -use crate::bindings::{Object, ObjectClass, TypeInfo};
->> +use crate::bindings::{self, Object, ObjectClass, TypeInfo};
->>   
->>   unsafe extern "C" fn rust_instance_init<T: ObjectImpl>(obj: *mut Object) {
->>       // SAFETY: obj is an instance of T, since rust_instance_init<T>
->> @@ -115,6 +115,9 @@ pub trait ObjectImpl: ObjectType + ClassInitImpl<Self::Class> {
->>           class_data: core::ptr::null_mut(),
->>           interfaces: core::ptr::null_mut(),
->>       };
->> +
->> +    // methods on ObjectClass
->> +    const UNPARENT: Option<fn(&mut Self)> = None;
->>   }
+>> -//! Definitions required by QEMU when registering a device.
+>> +//! Bindings to access QOM functionality from Rust.
+>> +//!
+>> +//! This module provides automatic creation and registration of `TypeInfo`
+>> +//! for classes that are written in Rust, and mapping between Rust traits
+>> +//! and QOM vtables.
+>> +//!
+>> +//! # Structure of a class
+>> +//!
+>> +//! A concrete class only needs a struct holding instance state. The struct must
+>> +//! implement the [`ObjectType`] and [`IsA`] traits, as well as any `*Impl`
+>> +//! traits provided by its superclasses.
 > 
-> Will we change `&mut Self` to an immutable reference in the future?
+> In this commit, this comment is a bit ahead, but I think it's okay.
+> 
+> qom and qdev are both good names. In addition, we can rename the files
+> of PL011 as well. Perhaps device_class.rs could be merged into device.rs
+> (and eventually renamed to pl011.rs). I guess you might be planning to
+> keep it until the cleanup of vmstate and property is done.
 
-Good point, let's do it now since anyway UNPARENT is unused.
+Yeah, I don't have any specific plans but memory_ops will certainly go 
+away.  device_class doesn't do much, but keeping it separate is a 
+reminder for things that are still there to be cleaned up.
+
+As to VMState, there are two parts.  One is the vmstate_description 
+macro, probably it has to be replaced with something else to incorporate 
+the trampolines for pre_save/post_load/...  I haven't looked at it but 
+it should not be a lot of work.
+
+The second is VMStateFields, for which my idea is to implement a trait 
+on types to retrieve a basic VMStateField (for example something like 
+vmstate_uint32 would become an implementation of the VMState trait on 
+u32).  Then you'd write something like "vmstate_of!(Type, 
+field).with_version_id(2)" (i.e. vmstate_of retrieves the basic field 
+and fills in the offset, then you apply more changes on top).  But that 
+may take a while, and I think it cannot be done without the 
+const_refs_to_static feature, which is only stable in 1.83.0.
 
 Paolo
 
