@@ -1,59 +1,55 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tLPjk-0002Ib-Al
-	for mharc-qemu-rust@gnu.org; Wed, 11 Dec 2024 11:38:58 -0500
+	id 1tLf0W-0005Tw-NS
+	for mharc-qemu-rust@gnu.org; Thu, 12 Dec 2024 03:57:16 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tLPjX-0001iN-QS; Wed, 11 Dec 2024 11:38:44 -0500
-Received: from mgamail.intel.com ([198.175.65.12])
+ id 1tLf0V-0005TK-9v; Thu, 12 Dec 2024 03:57:15 -0500
+Received: from mgamail.intel.com ([198.175.65.14])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tLPjU-0002a0-LE; Wed, 11 Dec 2024 11:38:43 -0500
+ id 1tLf0S-0003fQ-9s; Thu, 12 Dec 2024 03:57:15 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733935121; x=1765471121;
+ t=1733993833; x=1765529833;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=lGDuG1wgfD376M5q17+Nm6wS/8Utxh8Nhg6DJY2dVy4=;
- b=BGYMsv1E4Sg44ohemjGXj8BnsdILYvqxNZVOK1Tbb4kTgJ31bK+//l0X
- norbdW1Mh8yU5B9stfzn6eg5wy1KtC++jQMu/cayGVb931ZcZQCz7Wyzd
- tsREQYofQnMKKaVV2d4NZf5DXyJJfkOnQYQK1oj1Pn/zLou7is7Q9Kg0Q
- eIeySSgx1g+3JXcL1oVlfYh+yCbSkeeI6BcJwlFbBxm8y+RRCuJIMMMB8
- Ip/4sMUTBlJjgrlrJdNXG3TABiX4RCI++R7sD8ntD3H9Jdtb/E1Ls1fzw
- wRyOxSIyScn9YGr8xtU+1iOy5QOkKmqw5ErrJzI1NZrsyb00Q8KIhVLZy A==;
-X-CSE-ConnectionGUID: RV/taBWnS8KkeZKYS+szNQ==
-X-CSE-MsgGUID: vvDQ+nSoRyiHoyjQKgbt4g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11278"; a="45705027"
-X-IronPort-AV: E=Sophos;i="6.12,214,1728975600"; d="scan'208";a="45705027"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Dec 2024 08:38:38 -0800
-X-CSE-ConnectionGUID: 2Gqx/xJyRiuGDAUtKFQIfw==
-X-CSE-MsgGUID: m2OIRmbLRTK9OGji4TxRRA==
+ bh=Wbwd++wwkn1Mj3aQSNGe3XqFI2JDXUXwmz5MPa6CSOw=;
+ b=FIF3zz7DzzG7DW8/vA/pqs24eoVRBGNCiRo7va4fTGtC0ZmFN/1jIug9
+ HCzM/rdZNaYwdoZAYox0wKWjjjrsrXIj5IGpJD3ReXaO+ZqwEjqc1vCxQ
+ 36dDmpTEYYg1wdEXb0O3Y8GGOSVM5pWANwt5Jd0ctsB2pu3Jw/t0U072I
+ vGdZOSe/X9WIXgtEfnuBpPHuPs1EskBGwtw/qI7B83NVzL11yQLFwDtb3
+ qanMEnEceZI5SsLcNGZYd4AGu1nmFV5Ek384Wzjl9sWeMIqySiRUN7B1f
+ Ue71mgKZMYw+eFTq6pBQ4AOegRyiqowSWU0nGe0MVDwhuhLiNGyqDBWUR Q==;
+X-CSE-ConnectionGUID: SPCl93BFTjS3s8w+wjdpEg==
+X-CSE-MsgGUID: lWQC01mkQAydFlavhgQ9tQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11283"; a="38184634"
+X-IronPort-AV: E=Sophos;i="6.12,228,1728975600"; d="scan'208";a="38184634"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Dec 2024 00:57:09 -0800
+X-CSE-ConnectionGUID: qhCk3v74TLO4ATFF3AYsHg==
+X-CSE-MsgGUID: +wPK0zIxRAG+fAFaaRL43w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,226,1728975600"; d="scan'208";a="95725577"
+X-IronPort-AV: E=Sophos;i="6.12,228,1728975600"; d="scan'208";a="101026587"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.36])
- by orviesa009.jf.intel.com with ESMTP; 11 Dec 2024 08:38:36 -0800
-Date: Thu, 12 Dec 2024 00:56:50 +0800
+ by fmviesa004.fm.intel.com with ESMTP; 12 Dec 2024 00:57:07 -0800
+Date: Thu, 12 Dec 2024 17:15:22 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org,
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>
-Subject: Re: [PATCH 14/26] rust: qom: move bridge for TypeInfo functions out
- of pl011
-Message-ID: <Z1nEUmzHa5dA5C0d@intel.com>
+Subject: Re: [PATCH 17/26] rust: qom: put class_init together from multiple
+ ClassInitImpl<>
+Message-ID: <Z1qpqvwRYZ4GaRE6@intel.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
- <20241209123717.99077-15-pbonzini@redhat.com>
- <Z1hjX+5Yyi46N+sX@intel.com>
- <ada60844-546a-42ca-a05f-7b6dc225ff53@redhat.com>
- <Z1lGZdXsVR5ra4hl@intel.com>
- <CABgObfbs57rVNU4jTwUbPeZEbvEKpVPAZj0Pd8OF75D8ojQEMQ@mail.gmail.com>
+ <20241209123717.99077-18-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CABgObfbs57rVNU4jTwUbPeZEbvEKpVPAZj0Pd8OF75D8ojQEMQ@mail.gmail.com>
-Received-SPF: pass client-ip=198.175.65.12; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20241209123717.99077-18-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.14; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -48
 X-Spam_score: -4.9
@@ -75,78 +71,23 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Dec 2024 16:38:53 -0000
+X-List-Received-Date: Thu, 12 Dec 2024 08:57:16 -0000
 
-> Generally:
-> 
-> - embedded objects will have to be initialized in instance_init unless they
-> are Options
+> Since CLASS_BASE_INIT applies to the type that is being defined,
+> and only to it, move it to ObjectImpl.
 
-I see, at least for HPETTimer array, I need to prepare all of them in
-instance_init()...
+It makes sense since class_base_init() is used when subclass is being
+initialized.
 
-> - if you don't need properties you can choose between post_init and
-> realize, if you need properties you need to initialize in realize (and
-> then, unlike C, you might need to explicitly allow the pre-realize state;
-> for example using Option<&...> instead of just a reference; or Vec<>
-> instead of an array).
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  rust/hw/char/pl011/src/device.rs  | 19 +------
+>  rust/qemu-api/src/definitions.rs  | 85 +++++++++++++++++++++++--------
+>  rust/qemu-api/src/device_class.rs | 50 +++++++-----------
+>  rust/qemu-api/src/sysbus.rs       | 18 ++++++-
+>  rust/qemu-api/tests/tests.rs      |  9 +---
+>  5 files changed, 101 insertions(+), 80 deletions(-)
 
-...in realize(), also need to handle the "timers" property to enable
-the timers that property requires.
-
-> - sysbus_init_irq and sysbus_init_mmio can be called in both instance_init
-> and instance_post_init for now, but they will have to be in post_init once
-> the signature of init changes to return impl PinInit
-
-make sense, thanks!
-
-> >
-> > > The way that this will become safe is to use the pinned_init crate from
-> > > Linux: instance_init returns the initialization as an "impl
-> > PinInit<Self>",
-> >
-> > Then do we need to place OBJECT in some suitable memory location (Box or
-> > something) for Rust implementation?
-> >
-> 
-> Allocation is still done by the C code, so I am not sure I understand the
-> question. Rust code allocates QOM objects with object_new() so they are
-> malloc-ed.
-
-Sorry, I'm not familiar enough with this piece...I have the question
-because PinInit doc said "you will need a suitable memory location that
-can hold a T. This can be KBox<T>, Arc<T>, UniqueArc<T> or even the
-stack (see stack_pin_init!)."
-
-I see that the core point is ensuring that structures cannot be moved.
-Given that object_new() on the C side ensures that the allocated object
-will not be moved, Rust side does not need to worry about pinning, correct?
-
-> I discussed it with Manos some time ago and in principle you
-> could use a Box (QOM supports custom freeing functions) but it's a bit
-> complex because the freeing function would have to free the memory without
-> dropping the contents of the Box (the drop is done by QOM via
-> instance_finalize).
-> 
-> If you want to allocate the HPETTimers at realize time, I think you can
-> place them in a Vec. I think you won't need NonNull for this, but I am not
-> 100% sure. Alternatively if you want to always prepare all MAX_TIMERS of
-> them and then only use a subset, you can use an array.
-
-Vec seems to lack proper vmstate support. I understand that we need to
-modify VMSTATE_STRUCT_VARRAY_POINTER_* to introduce a variant for Vec.
-
-Since the array support is already available, I chose to use an array
-instead (although vmstate is disabled for now).
-
-> Either way, probably it makes sense for you to have an "fn
-> timers_iter(&self) -> impl Iter<Item = &BqlRefCell<HPETTimer>>" in
-> HPETState, or something like that. Then you can easily use for loops to
-> walk all timers between 0 and self.num_timers-1.
-
-Good idea, yes, will do.
-
-Thanks,
-Zhao
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
