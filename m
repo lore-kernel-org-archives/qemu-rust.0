@@ -1,55 +1,54 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tLfay-00031e-5R
-	for mharc-qemu-rust@gnu.org; Thu, 12 Dec 2024 04:34:56 -0500
+	id 1tLfdL-0005s2-Fv
+	for mharc-qemu-rust@gnu.org; Thu, 12 Dec 2024 04:37:23 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tLfav-00030x-Jj; Thu, 12 Dec 2024 04:34:53 -0500
-Received: from mgamail.intel.com ([198.175.65.9])
+ id 1tLfdJ-0005rS-Hs; Thu, 12 Dec 2024 04:37:21 -0500
+Received: from mgamail.intel.com ([198.175.65.12])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tLfap-0006cQ-Vq; Thu, 12 Dec 2024 04:34:53 -0500
+ id 1tLfdH-0007Vu-GL; Thu, 12 Dec 2024 04:37:21 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1733996088; x=1765532088;
+ t=1733996240; x=1765532240;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=Ciluf764JPJfsHq9Nkh6FmiN6HvdYzCFWGzi8reLiRo=;
- b=Zln6SXBLa6q25Ku65+xvAiQ5SOvHWgUMi0oIjuW+bExF+El9FKNvTLPL
- ruFUkJX1S5mXchwG18YNypO/hF9kICvjDjbCBlBHy9P8Z5GPzbO1wVE0B
- P14CkBp0qEQirnKADVL+GUGwHi23HrRWaS16KbruCmbA6DymWxYVtFtYL
- 3ZWvHWzdLWa1+uScXkliGkUtFXvCVGamf+DGRzgsvSuKpKSQ8D00nNHvN
- qImvd1WbceSgS6U1FXrunJO4AtJD7T1yQAIr+qiKpvLs+f6xkj0QFjQ1X
- lb8ZyH0J66ZLHWVfY3nZU/cDAJZe0mwXRT9mxiEwzxJExMu7uDjCToZlS w==;
-X-CSE-ConnectionGUID: sbjZHNI5TGeyJ+iyciQa3g==
-X-CSE-MsgGUID: +hSpe/V9S2uqHugjgf0fug==
-X-IronPort-AV: E=McAfee;i="6700,10204,11283"; a="56878431"
-X-IronPort-AV: E=Sophos;i="6.12,228,1728975600"; d="scan'208";a="56878431"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2024 01:34:43 -0800
-X-CSE-ConnectionGUID: lPuDF8y3TICo5WlQaN0dGA==
-X-CSE-MsgGUID: 41l9TdpJSdCnUDOhQpoPXQ==
+ bh=mlYoJrzGX5NuPJYlKB4uXOWtJvTEY8ZIW1Kq3WDJKxI=;
+ b=nRrGT1G43Pa39PPfTA+AD9deFE/LrpnaPFFJ9jICeqlDfDe5esCwyEHU
+ u+xc8gz50NDFAcksBCGtEZ3UIwsvo4tKLlzCow5/s0mbBHfxTlW4cpTzr
+ W28NVmrZSAQ1nBh9Vx93D8Xw+0WVAmDLN+dvxgC+zm/LUYUl2O27eDnh8
+ DFOthAL+sSS5EPLtjFlhdOOBG26M7HlVIh66uriGO4G7BUnWKAOnLqduh
+ 7SR3zcywP7k+0TQTK2oBjA3CYCo786BTwd8iTWLJPYXdoFgXjyyE9gkmy
+ aL31m+eJrYeKcdqRFfUmGTpMR+KqyV4qtzvEt0Lp4HXBNbY27bLveZLYN w==;
+X-CSE-ConnectionGUID: Jx1duiFoQD2HXB2LHgcBuQ==
+X-CSE-MsgGUID: NgGqCYU7TyiTk9aPuNv44g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11278"; a="45790707"
+X-IronPort-AV: E=Sophos;i="6.12,214,1728975600"; d="scan'208";a="45790707"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Dec 2024 01:37:17 -0800
+X-CSE-ConnectionGUID: DpKcTb3TQEWjI8OndLiLMg==
+X-CSE-MsgGUID: lGRW47QqTM+0SrD5YDUSew==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,228,1728975600"; d="scan'208";a="96070015"
+X-IronPort-AV: E=Sophos;i="6.12,228,1728975600"; d="scan'208";a="95932009"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.36])
- by orviesa009.jf.intel.com with ESMTP; 12 Dec 2024 01:34:43 -0800
-Date: Thu, 12 Dec 2024 17:52:57 +0800
+ by fmviesa006.fm.intel.com with ESMTP; 12 Dec 2024 01:37:15 -0800
+Date: Thu, 12 Dec 2024 17:55:30 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>
-Subject: Re: [PATCH 19/26] rust: rename qemu-api modules to follow C code a
- bit more
-Message-ID: <Z1qyeThRA8yJMMoM@intel.com>
+Subject: Re: [PATCH 20/26] rust: re-export C types from qemu-api submodules
+Message-ID: <Z1qzEudUZP4OY5gh@intel.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
- <20241209123717.99077-20-pbonzini@redhat.com>
+ <20241209123717.99077-21-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241209123717.99077-20-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.9; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20241209123717.99077-21-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.12; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -48
 X-Spam_score: -4.9
@@ -71,60 +70,25 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Dec 2024 09:34:54 -0000
+X-List-Received-Date: Thu, 12 Dec 2024 09:37:22 -0000
 
-On Mon, Dec 09, 2024 at 01:37:10PM +0100, Paolo Bonzini wrote:
-> Date: Mon,  9 Dec 2024 13:37:10 +0100
+On Mon, Dec 09, 2024 at 01:37:11PM +0100, Paolo Bonzini wrote:
+> Date: Mon,  9 Dec 2024 13:37:11 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 19/26] rust: rename qemu-api modules to follow C code a bit
->  more
+> Subject: [PATCH 20/26] rust: re-export C types from qemu-api submodules
 > X-Mailer: git-send-email 2.47.1
 > 
-> A full match would mean calling them qom::object and hw::core::qdev.  For now,
-> keep the names shorter but still a bit easier to find.
+> Long term we do not want device code to use "bindings" at all, so make it
+> possible to get the relevant types from the other modules of qemu-api.
 > 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  rust/hw/char/pl011/src/device.rs              |  4 +-
->  rust/qemu-api-macros/src/lib.rs               |  2 +-
->  rust/qemu-api/meson.build                     |  5 +-
->  rust/qemu-api/src/lib.rs                      |  5 +-
->  rust/qemu-api/src/module.rs                   | 43 +++++++++++
->  rust/qemu-api/src/prelude.rs                  |  2 +-
->  .../qemu-api/src/{device_class.rs => qdev.rs} |  4 +-
->  rust/qemu-api/src/{definitions.rs => qom.rs}  | 74 +++++++++----------
->  rust/qemu-api/src/sysbus.rs                   |  2 +-
->  rust/qemu-api/tests/tests.rs                  |  5 +-
->  10 files changed, 92 insertions(+), 54 deletions(-)
->  create mode 100644 rust/qemu-api/src/module.rs
->  rename rust/qemu-api/src/{device_class.rs => qdev.rs} (97%)
->  rename rust/qemu-api/src/{definitions.rs => qom.rs} (83%)
-> 
-> --- a/rust/qemu-api/src/definitions.rs
-> +++ b/rust/qemu-api/src/qom.rs
-> @@ -2,7 +2,37 @@
->  // Author(s): Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
->  // SPDX-License-Identifier: GPL-2.0-or-later
->  
-> -//! Definitions required by QEMU when registering a device.
-> +//! Bindings to access QOM functionality from Rust.
-> +//!
-> +//! This module provides automatic creation and registration of `TypeInfo`
-> +//! for classes that are written in Rust, and mapping between Rust traits
-> +//! and QOM vtables.
-> +//!
-> +//! # Structure of a class
-> +//!
-> +//! A concrete class only needs a struct holding instance state. The struct must
-> +//! implement the [`ObjectType`] and [`IsA`] traits, as well as any `*Impl`
-> +//! traits provided by its superclasses.
-
-In this commit, this comment is a bit ahead, but I think it's okay.
-
-qom and qdev are both good names. In addition, we can rename the files
-of PL011 as well. Perhaps device_class.rs could be merged into device.rs
-(and eventually renamed to pl011.rs). I guess you might be planning to
-keep it until the cleanup of vmstate and property is done.
+>  rust/qemu-api/src/qdev.rs    |  7 +++++--
+>  rust/qemu-api/src/qom.rs     | 10 ++++++----
+>  rust/qemu-api/src/sysbus.rs  |  3 ++-
+>  rust/qemu-api/src/vmstate.rs |  9 +++++----
+>  rust/qemu-api/tests/tests.rs |  3 ++-
+>  5 files changed, 20 insertions(+), 12 deletions(-)
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
