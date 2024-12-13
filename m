@@ -1,61 +1,57 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tM18k-0003PD-9g
-	for mharc-qemu-rust@gnu.org; Fri, 13 Dec 2024 03:35:14 -0500
+	id 1tM1YX-0000b0-Ho
+	for mharc-qemu-rust@gnu.org; Fri, 13 Dec 2024 04:01:53 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tM18j-0003Oj-AT; Fri, 13 Dec 2024 03:35:13 -0500
-Received: from mgamail.intel.com ([198.175.65.9])
+ id 1tM1YT-0000ad-IB; Fri, 13 Dec 2024 04:01:49 -0500
+Received: from mgamail.intel.com ([192.198.163.17])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tM18d-0008OD-Ge; Fri, 13 Dec 2024 03:35:12 -0500
+ id 1tM1YQ-0005to-R5; Fri, 13 Dec 2024 04:01:49 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734078907; x=1765614907;
+ t=1734080507; x=1765616507;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=YaE4IkK5AV+coszAICjl/n893OwhkcIehAwDV4r7L5Y=;
- b=OH4Bdy9HYnuYIdzzDIZy39cuZVQXcb7V2XYtHBBVsd1IQi5BWLO5e4Aq
- 4i82TkFUy83mfnIglZvUAu54SXUtZEKQPol7SL/s3IREao/9XN/W6v8i6
- 74tdX4kO2LNZhfzcbY2AOryBMtmaXEVpeGGNXpGHoHylWFN8laRAbpMZS
- LWM7+xsK0gl730T5RDiYsEudbE+9un2lHKh81DdsnEl4LeRQOQrFzTQuq
- ptQBLE92oPJgMnF/AkoBSXYdBQFHCPJBf28v8GN/yu9+uvr4b8gIQy2ux
- PtpbOXCUC9roP4iS4YsQ809NYrFnvHzG1prap/4KgxRRkxRwi2uul++gF A==;
-X-CSE-ConnectionGUID: Ukq8+HRbTMau7yQCONDn2Q==
-X-CSE-MsgGUID: I5bc4yXnTnqyfqz6/OJYPg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11284"; a="56997677"
-X-IronPort-AV: E=Sophos;i="6.12,230,1728975600"; d="scan'208";a="56997677"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Dec 2024 00:35:03 -0800
-X-CSE-ConnectionGUID: S9E/mUSpQdirWdjDlM+/Bw==
-X-CSE-MsgGUID: n6p+iwYqRQ2LZj5jPgMrWA==
+ bh=b5TxyzI7IAj9wccNYON1ldI9MUnQxLxP4jydcfUFkiw=;
+ b=kIplFa2E60w/IPAd3Jkbr3VNXUZ1KpQLj08XvXY7ssaytKKgBX/pbqOC
+ VCEieaWImFxpl/hF76N2uR/ZWU0m9TSfynzd5OuRKE78osmqIcESDJpG6
+ mMpZSJOdigki0RX2vjvqVW3yMPvyblr0G2W6cz6TkImOVjGh0bPaT8O75
+ Y1/iyHtIU7UIeciasGDlfA7u9wmc6+XYmn6Ay02sNAGJVAalNfm149z/5
+ iT2oDlVS5O1RbCANF4fUu55PgSBrQClIuC2d2z7Z9aMwLpOA0uzCZ96u5
+ P3PiOu+tSawAz7OCoY5iERe7m3iPbwNgmMhqql/17PEArLip5/CIvdF36 g==;
+X-CSE-ConnectionGUID: umKSAjIpRtGVesOTfj1f5A==
+X-CSE-MsgGUID: Do1vMALoTx23CEstUXhIww==
+X-IronPort-AV: E=McAfee;i="6700,10204,11284"; a="34431514"
+X-IronPort-AV: E=Sophos;i="6.12,230,1728975600"; d="scan'208";a="34431514"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Dec 2024 01:01:35 -0800
+X-CSE-ConnectionGUID: Lbv2BEqnSjOBhBsYJ+93lQ==
+X-CSE-MsgGUID: +wAUjzlhQO+oQ05R1GRvtg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,230,1728975600"; d="scan'208";a="127287537"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="96919239"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.36])
- by orviesa002.jf.intel.com with ESMTP; 13 Dec 2024 00:35:02 -0800
-Date: Fri, 13 Dec 2024 16:53:17 +0800
+ by orviesa007.jf.intel.com with ESMTP; 13 Dec 2024 01:01:34 -0800
+Date: Fri, 13 Dec 2024 17:19:50 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org,
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>
-Subject: Re: [PATCH 14/26] rust: qom: move bridge for TypeInfo functions out
- of pl011
-Message-ID: <Z1v1/WswJ+rNU5th@intel.com>
+Subject: Re: [PATCH 19/26] rust: rename qemu-api modules to follow C code a
+ bit more
+Message-ID: <Z1v8NhJb/xBp/K2D@intel.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
- <20241209123717.99077-15-pbonzini@redhat.com>
- <Z1hjX+5Yyi46N+sX@intel.com>
- <ada60844-546a-42ca-a05f-7b6dc225ff53@redhat.com>
- <Z1lGZdXsVR5ra4hl@intel.com>
- <CABgObfbs57rVNU4jTwUbPeZEbvEKpVPAZj0Pd8OF75D8ojQEMQ@mail.gmail.com>
- <Z1nEUmzHa5dA5C0d@intel.com>
- <CABgObfY0T1N5-6ZwMWERsptEXHYhWnZP=TABGt3iovjtM3uWBA@mail.gmail.com>
+ <20241209123717.99077-20-pbonzini@redhat.com>
+ <Z1qyeThRA8yJMMoM@intel.com>
+ <a0bdbf2a-8430-480e-bc56-e8a4875dd577@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CABgObfY0T1N5-6ZwMWERsptEXHYhWnZP=TABGt3iovjtM3uWBA@mail.gmail.com>
-Received-SPF: pass client-ip=198.175.65.9; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <a0bdbf2a-8430-480e-bc56-e8a4875dd577@redhat.com>
+Received-SPF: pass client-ip=192.198.163.17; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -48
 X-Spam_score: -4.9
@@ -64,7 +60,7 @@ X-Spam_report: (-4.9 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.496,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- T_SPF_TEMPERROR=0.01 autolearn=ham autolearn_force=no
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -77,131 +73,55 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Dec 2024 08:35:13 -0000
+X-List-Received-Date: Fri, 13 Dec 2024 09:01:50 -0000
 
-> I see -- though, thinking more about it, since you have
+> > In this commit, this comment is a bit ahead, but I think it's okay.
+> > 
+> > qom and qdev are both good names. In addition, we can rename the files
+> > of PL011 as well. Perhaps device_class.rs could be merged into device.rs
+> > (and eventually renamed to pl011.rs). I guess you might be planning to
+> > keep it until the cleanup of vmstate and property is done.
 > 
->     fn init_timer(&mut self) {
->         let raw_ptr: *mut HPETState = self;
+> Yeah, I don't have any specific plans but memory_ops will certainly go away.
+
+This depends on MemoryRegionOps binding. I will see how much HPET can do,
+and I'm sorry for not being able to review the remaining patches yet in
+this week, especially the last two. I will continue next week (my machine
+will be powered down until next Monday :( ).
+
+> device_class doesn't do much, but keeping it separate is a reminder for
+> things that are still there to be cleaned up.
 > 
->         for i in 0..HPET_MAX_TIMERS {
->             let mut timer = self.get_timer(i).borrow_mut();
->             timer.init(i, raw_ptr).init_timer_with_state();
->         }
->     }
+> As to VMState, there are two parts.  One is the vmstate_description macro,
+> probably it has to be replaced with something else to incorporate the
+> trampolines for pre_save/post_load/...  I haven't looked at it but it should
+> not be a lot of work.
 > 
-> It seems to me that you can do everything in instance_init. Later on a
-> function like the above
-> will become something like
-> 
-> impl HPETTimer {
->     fn init_timer(hpet: NonNull<HPETState>, n: usize) -> impl PinInit<Self> {
+> The second is VMStateFields, 
 
-Thank you! I should pass NonNull type other than `*mut HPETState` for now :-)
+I found vmstate_array_of_pointer_to_struct missed a `info` field, and I
+could submit a patch to fix this nit next week (along with other cleanup
+you and other miantainers suggested for HPET).
 
->         pin_init!(&this in HPETTimer {
->             index: n,
->             qemu_timer <- Timer::init_ns(...),
->             state: hpet,
->             config: 0,
->             cmp: 0,
->             fsb: 0,
->             cmp64: 0,
->             period: 0,
->             wrap_flag: false,
->             last: 0,
->         }
->     }
-> }
+I'd also like to try apply zeroable to VMStateField to avoid missing any
+items...
 
-That's the right and ideal way, and I like it.
+> for which my idea is to implement a trait on
+> types to retrieve a basic VMStateField (for example something like
+> vmstate_uint32 would become an implementation of the VMState trait on u32).
 
-> But even now you can write something that takes a &mut self as the
-> first argument. It's undefined behavior but it's okay as long as we
-> have a path forward.
+This makes sense.
 
-Yes, I agree. In the next version, I can follow your suggestion and put
-these embedded items into instance_init(), to be better prepared for the
-next step.
+> Then you'd write something like "vmstate_of!(Type,
+> field).with_version_id(2)" (i.e. vmstate_of retrieves the basic field and
+> fills in the offset, then you apply more changes on top).  But that may take
+> a while, and I think it cannot be done without the const_refs_to_static
+> feature, which is only stable in 1.83.0.
 
-> > > > > The way that this will become safe is to use the pinned_init crate from
-> > > > > Linux: instance_init returns the initialization as an "impl
-> > > > PinInit<Self>",
-> > > >
-> > > > Then do we need to place OBJECT in some suitable memory location (Box or
-> > > > something) for Rust implementation?
-> > > >
-> > >
-> > > Allocation is still done by the C code, so I am not sure I understand the
-> > > question. Rust code allocates QOM objects with object_new() so they are
-> > > malloc-ed.
-> >
-> > Sorry, I'm not familiar enough with this piece...I have the question
-> > because PinInit doc said "you will need a suitable memory location that
-> > can hold a T. This can be KBox<T>, Arc<T>, UniqueArc<T> or even the
-> > stack (see stack_pin_init!)."
-> 
-> Ah, I see. You can use __pinned_init directly on the memory that is
-> passed to rust_instance_init. See for example the implementation of
-> InPlaceWrite for Box
-> (https://docs.rs/pinned-init/latest/src/pinned_init/lib.rs.html#1307).
+I also like this idea!
 
-Thank you! I understand your intention. A similar implementation would
-also be quite natural in rust_instance_init.
-
-> > I see that the core point is ensuring that structures cannot be moved.
-> > Given that object_new() on the C side ensures that the allocated object
-> > will not be moved, Rust side does not need to worry about pinning, correct?
-> 
-> Sort of... You still need to worry about it for two reasons:
-> 
-> 1) if you have &mut Self you can move values out of the object using
-> e.g. mem::replace or mem::swap. Those would move the value in memory
-> and cause trouble (think of moving a QEMUTimer while it is pointed to
-> by the QEMUTimerList). This is solved by 1) using &Self all the time +
-> interior mutability
-
-With your help and through our discussions, I have gained a clearer
-understanding of this intention.
-
-> 2) using pinned_init's "PinnedDrop" functionality,
-> because &Self can be used in QEMU-specific APIs but (obviously) not in
-> the built-in Drop trait.
-> 
-> 2) right now marking something as pinned is an indirect way to tell
-> the compiler and miri that there are external references to it. For a
-> longer discussion you can read
-> https://crates.io/crates/pinned-aliasable or
-> https://gist.github.com/Darksonn/1567538f56af1a8038ecc3c664a42462.
-
-Thanks for sharing!
-
-> Linux does this with a wrapper type similar to the one in pinned-aliasable:
-> 
-> /// Stores an opaque value.
-> ///
-> /// This is meant to be used with FFI objects that are never
-> interpreted by Rust code.
-> #[repr(transparent)]
-> pub struct Opaque<T> {
->     value: UnsafeCell<MaybeUninit<T>>,
->     _pin: PhantomPinned,
-> }
-> 
-> It's on my todo list to introduce it in qemu_api::cell and (for
-> example) change qom::Object from
-> 
->     pub use bindings::Object
-> 
-> to
-> 
->     pub type Object = Opaque<bindings::Object>;
-> 
-> Or something like that.
-
-Yes, I agree with this idea. It's what we need.
-
-Regards,
+Thanks,
 Zhao
+
 
 
