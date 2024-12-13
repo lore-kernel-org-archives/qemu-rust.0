@@ -1,94 +1,70 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tLmtZ-0006rR-S6
-	for mharc-qemu-rust@gnu.org; Thu, 12 Dec 2024 12:22:37 -0500
+	id 1tM18k-0003PD-9g
+	for mharc-qemu-rust@gnu.org; Fri, 13 Dec 2024 03:35:14 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tLmtV-0006oh-Ah
- for qemu-rust@nongnu.org; Thu, 12 Dec 2024 12:22:33 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tM18j-0003Oj-AT; Fri, 13 Dec 2024 03:35:13 -0500
+Received: from mgamail.intel.com ([198.175.65.9])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tLmtT-0006oG-6R
- for qemu-rust@nongnu.org; Thu, 12 Dec 2024 12:22:32 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1734024149;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=HdA/kdjoP/9szKTJTz2r1k+8hRh1UCiqvXnOngQ4uto=;
- b=NB6zkgWzDHenPeu22lccr3UA77Lx3cPjxfr5u6cZ4f5HP9rZRxOV/0DRqJtm4qbCEEcAYn
- E1VJ4MsQB85lvEmXkwoR8jIELE+bhRJsQp5G0UDJAG8vjo3jkabeT1KY8WDkbmDb3Rm/Pq
- +i+CspHG2m/SG6gksgGVhCcaBBEXBl0=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-686-8-psUxp_MQ2jhOcLZn2CKA-1; Thu, 12 Dec 2024 12:22:28 -0500
-X-MC-Unique: 8-psUxp_MQ2jhOcLZn2CKA-1
-X-Mimecast-MFC-AGG-ID: 8-psUxp_MQ2jhOcLZn2CKA
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-43624b081f3so7980705e9.1
- for <qemu-rust@nongnu.org>; Thu, 12 Dec 2024 09:22:28 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734024147; x=1734628947;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=HdA/kdjoP/9szKTJTz2r1k+8hRh1UCiqvXnOngQ4uto=;
- b=eYE1KOvaARFcIOcaENjvjgdRj7AmVH/DP/WTq+Mkdw+phuM01AwwjiT/Y9gWF2LO0N
- o8Rr2cSN4Lu72lm8l7165zslZcMGkKv1Kh7pWVajBShIZFeJMsi+JAdtvibA6Rj+RUvw
- EPiY/s1Kp1JrA5JRYVVTHcbJk+1ZEIPhlDLOl7oqekH6liQL8McNCk+RUpoeMGUBnb21
- Nga4RzF28XhUsJnxnM68SK1oO9NyYdINsYuuepKgCrlEn762KJUANf2hzWomNwUJDiof
- 1P4WY+VMP9gHy7a/E0dvaglhh7oaXhGe7T1kR6khJ3uT5+J/5ukz6c7RruaIFRH44TpG
- e8ew==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV6hqFtIgvszzzbcq17xBGBSc5LkkEovqZdj60buxFKFMjTeFnIQ1589gLGFIOYYZhZ72oCB06bmvk=@nongnu.org
-X-Gm-Message-State: AOJu0Yz2+qzCYNlmIMFNkOcLbjk11IMDnWmrbXtknzCgx77WAwxFPtZi
- tblmb+s3xwUC+Mlvzf1l1j81V5zoic4IwiyP7SnUJGeiSKGZc8KycJWuIeh1T41hmvFB5v/letz
- Qhu1rAZLR6t5NMczaB7J0pSEqJaCT7PuZo0D3d6GtZsBy94sx8k4=
-X-Gm-Gg: ASbGncvLlQ2uVJlWTsdbLu8EoPE5jqXcvYrMOyYu3RNrQHO+xFVZ6vFg6JatsG4GkNv
- tDxPxTxG/c6RbD+bucUwRur9K+etBaXPheNeJb3lNMmSRD7+g0vBttK1ICyGHGnhTkI1p/kbnwp
- RjD+iwt6YIh56M8/gAHnb76GeVviIfQXBlpH1Rlt5sTOKJ+Ijz3pkp3mBqSvMuDiFW4vSbjP3aH
- LYngcPIUjuXOX2VM+evx7af7qMbb35KE8WglEoZAjjLApp6LwjdeulmU1Al
-X-Received: by 2002:a05:600c:1ca6:b0:434:f396:525e with SMTP id
- 5b1f17b1804b1-43622832ff4mr38313645e9.9.1734024147354; 
- Thu, 12 Dec 2024 09:22:27 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGA3AUAESDQriN/fq+NBro7IZR6DAtQIjHdmjuYFRNgyeHWebyZMBctglmsS6VoA2E3HvPcrQ==
-X-Received: by 2002:a05:600c:1ca6:b0:434:f396:525e with SMTP id
- 5b1f17b1804b1-43622832ff4mr38313245e9.9.1734024146919; 
- Thu, 12 Dec 2024 09:22:26 -0800 (PST)
-Received: from [192.168.10.47] ([151.81.118.45])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43625550532sm22987545e9.7.2024.12.12.09.22.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Dec 2024 09:22:25 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: philmd@linaro.org,
-	qemu-rust@nongnu.org
-Subject: [PATCH 6/7] rust: pl011: fix migration stream
-Date: Thu, 12 Dec 2024 18:22:03 +0100
-Message-ID: <20241212172209.533779-7-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20241212172209.533779-1-pbonzini@redhat.com>
-References: <20241212172209.533779-1-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tM18d-0008OD-Ge; Fri, 13 Dec 2024 03:35:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1734078907; x=1765614907;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=YaE4IkK5AV+coszAICjl/n893OwhkcIehAwDV4r7L5Y=;
+ b=OH4Bdy9HYnuYIdzzDIZy39cuZVQXcb7V2XYtHBBVsd1IQi5BWLO5e4Aq
+ 4i82TkFUy83mfnIglZvUAu54SXUtZEKQPol7SL/s3IREao/9XN/W6v8i6
+ 74tdX4kO2LNZhfzcbY2AOryBMtmaXEVpeGGNXpGHoHylWFN8laRAbpMZS
+ LWM7+xsK0gl730T5RDiYsEudbE+9un2lHKh81DdsnEl4LeRQOQrFzTQuq
+ ptQBLE92oPJgMnF/AkoBSXYdBQFHCPJBf28v8GN/yu9+uvr4b8gIQy2ux
+ PtpbOXCUC9roP4iS4YsQ809NYrFnvHzG1prap/4KgxRRkxRwi2uul++gF A==;
+X-CSE-ConnectionGUID: Ukq8+HRbTMau7yQCONDn2Q==
+X-CSE-MsgGUID: I5bc4yXnTnqyfqz6/OJYPg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11284"; a="56997677"
+X-IronPort-AV: E=Sophos;i="6.12,230,1728975600"; d="scan'208";a="56997677"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Dec 2024 00:35:03 -0800
+X-CSE-ConnectionGUID: S9E/mUSpQdirWdjDlM+/Bw==
+X-CSE-MsgGUID: n6p+iwYqRQ2LZj5jPgMrWA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,230,1728975600"; d="scan'208";a="127287537"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.36])
+ by orviesa002.jf.intel.com with ESMTP; 13 Dec 2024 00:35:02 -0800
+Date: Fri, 13 Dec 2024 16:53:17 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org,
+ Junjie Mao <junjie.mao@hotmail.com>
+Subject: Re: [PATCH 14/26] rust: qom: move bridge for TypeInfo functions out
+ of pl011
+Message-ID: <Z1v1/WswJ+rNU5th@intel.com>
+References: <20241209123717.99077-1-pbonzini@redhat.com>
+ <20241209123717.99077-15-pbonzini@redhat.com>
+ <Z1hjX+5Yyi46N+sX@intel.com>
+ <ada60844-546a-42ca-a05f-7b6dc225ff53@redhat.com>
+ <Z1lGZdXsVR5ra4hl@intel.com>
+ <CABgObfbs57rVNU4jTwUbPeZEbvEKpVPAZj0Pd8OF75D8ojQEMQ@mail.gmail.com>
+ <Z1nEUmzHa5dA5C0d@intel.com>
+ <CABgObfY0T1N5-6ZwMWERsptEXHYhWnZP=TABGt3iovjtM3uWBA@mail.gmail.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 59wMMWoewkD_EW-YWu_sJYyRXmBTwASlWq9-m_W73E4_1734024147
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -25
-X-Spam_score: -2.6
-X-Spam_bar: --
-X-Spam_report: (-2.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.496,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CABgObfY0T1N5-6ZwMWERsptEXHYhWnZP=TABGt3iovjtM3uWBA@mail.gmail.com>
+Received-SPF: pass client-ip=198.175.65.9; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -48
+X-Spam_score: -4.9
+X-Spam_bar: ----
+X-Spam_report: (-4.9 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.496,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ T_SPF_TEMPERROR=0.01 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -101,164 +77,131 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Dec 2024 17:22:33 -0000
+X-List-Received-Date: Fri, 13 Dec 2024 08:35:13 -0000
 
-The Rust vmstate macros lack the type-safety of their C equivalents (so
-safe, much abstraction), and therefore they were predictably wrong.
+> I see -- though, thinking more about it, since you have
+> 
+>     fn init_timer(&mut self) {
+>         let raw_ptr: *mut HPETState = self;
+> 
+>         for i in 0..HPET_MAX_TIMERS {
+>             let mut timer = self.get_timer(i).borrow_mut();
+>             timer.init(i, raw_ptr).init_timer_with_state();
+>         }
+>     }
+> 
+> It seems to me that you can do everything in instance_init. Later on a
+> function like the above
+> will become something like
+> 
+> impl HPETTimer {
+>     fn init_timer(hpet: NonNull<HPETState>, n: usize) -> impl PinInit<Self> {
 
-The registers have already been changed to 32-bits in the previous patch,
-but read_pos/read_count/read_trigger also have to be u32 instead of usize.
-The easiest way to do so is to let the FIFO use u32 indices instead
-of usize.
+Thank you! I should pass NonNull type other than `*mut HPETState` for now :-)
 
-My plan for making VMStateField typesafe is to have a trait to retrieve
-a basic VMStateField; for example something like vmstate_uint32 would
-become an implementation of the VMState trait on u32.  Then you'd write
-something like "vmstate_of!(Type, field).with_version_id(2)".  That is,
-vmstate_of retrieves the basic VMStateField and fills in the offset,
-and then more changes can be applied on top.
+>         pin_init!(&this in HPETTimer {
+>             index: n,
+>             qemu_timer <- Timer::init_ns(...),
+>             state: hpet,
+>             config: 0,
+>             cmp: 0,
+>             fsb: 0,
+>             cmp64: 0,
+>             period: 0,
+>             wrap_flag: false,
+>             last: 0,
+>         }
+>     }
+> }
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- rust/hw/char/pl011/src/device.rs       | 38 ++++++++++++++++++++++----
- rust/hw/char/pl011/src/device_class.rs |  8 +++---
- rust/qemu-api/src/vmstate.rs           | 22 ---------------
- 3 files changed, 36 insertions(+), 32 deletions(-)
+That's the right and ideal way, and I like it.
 
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index 332e0a31a82..cfe2734703e 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -31,7 +31,7 @@
- const FBRD_MASK: u32 = 0x3f;
- 
- /// QEMU sourced constant.
--pub const PL011_FIFO_DEPTH: usize = 16_usize;
-+pub const PL011_FIFO_DEPTH: u32 = 16;
- 
- #[derive(Clone, Copy)]
- struct DeviceId(&'static [u8; 8]);
-@@ -49,6 +49,32 @@ impl DeviceId {
-     const LUMINARY: Self = Self(&[0x11, 0x00, 0x18, 0x01, 0x0d, 0xf0, 0x05, 0xb1]);
- }
- 
-+// FIFOs use 32-bit indices instead of usize, for compatibility with
-+// the migration stream produced by the C version of this device.
-+#[repr(transparent)]
-+#[derive(Debug, Default)]
-+pub struct Fifo([registers::Data; PL011_FIFO_DEPTH as usize]);
-+
-+impl Fifo {
-+    const fn len(&self) -> u32 {
-+        self.0.len() as u32
-+    }
-+}
-+
-+impl std::ops::IndexMut<u32> for Fifo {
-+    fn index_mut(&mut self, idx: u32) -> &mut Self::Output {
-+        &mut self.0[idx as usize]
-+    }
-+}
-+
-+impl std::ops::Index<u32> for Fifo {
-+    type Output = registers::Data;
-+
-+    fn index(&self, idx: u32) -> &Self::Output {
-+        &self.0[idx as usize]
-+    }
-+}
-+
- #[repr(C)]
- #[derive(Debug, qemu_api_macros::Object, qemu_api_macros::offsets)]
- /// PL011 Device Model in QEMU
-@@ -66,14 +92,14 @@ pub struct PL011State {
-     pub dmacr: u32,
-     pub int_enabled: u32,
-     pub int_level: u32,
--    pub read_fifo: [registers::Data; PL011_FIFO_DEPTH],
-+    pub read_fifo: Fifo,
-     pub ilpr: u32,
-     pub ibrd: u32,
-     pub fbrd: u32,
-     pub ifl: u32,
--    pub read_pos: usize,
--    pub read_count: usize,
--    pub read_trigger: usize,
-+    pub read_pos: u32,
-+    pub read_count: u32,
-+    pub read_trigger: u32,
-     #[doc(alias = "chr")]
-     pub char_backend: CharBackend,
-     /// QEMU interrupts
-@@ -485,7 +511,7 @@ pub fn loopback_enabled(&self) -> bool {
-     }
- 
-     #[inline]
--    pub fn fifo_depth(&self) -> usize {
-+    pub fn fifo_depth(&self) -> u32 {
-         // Note: FIFO depth is expected to be power-of-2
-         if self.fifo_enabled() {
-             return PL011_FIFO_DEPTH;
-diff --git a/rust/hw/char/pl011/src/device_class.rs b/rust/hw/char/pl011/src/device_class.rs
-index 975c3d42be7..759c521a99e 100644
---- a/rust/hw/char/pl011/src/device_class.rs
-+++ b/rust/hw/char/pl011/src/device_class.rs
-@@ -6,7 +6,7 @@
- use std::os::raw::{c_int, c_void};
- 
- use qemu_api::{
--    bindings::*, c_str, vmstate_clock, vmstate_fields, vmstate_int32, vmstate_subsections,
-+    bindings::*, c_str, vmstate_clock, vmstate_fields, vmstate_subsections,
-     vmstate_uint32, vmstate_uint32_array, vmstate_unused, zeroable::Zeroable,
- };
- 
-@@ -64,9 +64,9 @@ extern "C" fn pl011_post_load(opaque: *mut c_void, version_id: c_int) -> c_int {
-         vmstate_uint32!(ibrd, PL011State),
-         vmstate_uint32!(fbrd, PL011State),
-         vmstate_uint32!(ifl, PL011State),
--        vmstate_int32!(read_pos, PL011State),
--        vmstate_int32!(read_count, PL011State),
--        vmstate_int32!(read_trigger, PL011State),
-+        vmstate_uint32!(read_pos, PL011State),
-+        vmstate_uint32!(read_count, PL011State),
-+        vmstate_uint32!(read_trigger, PL011State),
-     },
-     subsections: vmstate_subsections! {
-         VMSTATE_PL011_CLOCK
-diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-index 25c68b703ea..63c897abcdf 100644
---- a/rust/qemu-api/src/vmstate.rs
-+++ b/rust/qemu-api/src/vmstate.rs
-@@ -106,28 +106,6 @@ macro_rules! vmstate_uint32 {
-     }};
- }
- 
--#[doc(alias = "VMSTATE_INT32_V")]
--#[macro_export]
--macro_rules! vmstate_int32_v {
--    ($field_name:ident, $struct_name:ty, $version_id:expr) => {{
--        $crate::vmstate_single!(
--            $field_name,
--            $struct_name,
--            $version_id,
--            ::core::ptr::addr_of!($crate::bindings::vmstate_info_int32),
--            ::core::mem::size_of::<i32>()
--        )
--    }};
--}
--
--#[doc(alias = "VMSTATE_INT32")]
--#[macro_export]
--macro_rules! vmstate_int32 {
--    ($field_name:ident, $struct_name:ty) => {{
--        $crate::vmstate_int32_v!($field_name, $struct_name, 0)
--    }};
--}
--
- #[doc(alias = "VMSTATE_ARRAY")]
- #[macro_export]
- macro_rules! vmstate_array {
--- 
-2.47.1
+> But even now you can write something that takes a &mut self as the
+> first argument. It's undefined behavior but it's okay as long as we
+> have a path forward.
+
+Yes, I agree. In the next version, I can follow your suggestion and put
+these embedded items into instance_init(), to be better prepared for the
+next step.
+
+> > > > > The way that this will become safe is to use the pinned_init crate from
+> > > > > Linux: instance_init returns the initialization as an "impl
+> > > > PinInit<Self>",
+> > > >
+> > > > Then do we need to place OBJECT in some suitable memory location (Box or
+> > > > something) for Rust implementation?
+> > > >
+> > >
+> > > Allocation is still done by the C code, so I am not sure I understand the
+> > > question. Rust code allocates QOM objects with object_new() so they are
+> > > malloc-ed.
+> >
+> > Sorry, I'm not familiar enough with this piece...I have the question
+> > because PinInit doc said "you will need a suitable memory location that
+> > can hold a T. This can be KBox<T>, Arc<T>, UniqueArc<T> or even the
+> > stack (see stack_pin_init!)."
+> 
+> Ah, I see. You can use __pinned_init directly on the memory that is
+> passed to rust_instance_init. See for example the implementation of
+> InPlaceWrite for Box
+> (https://docs.rs/pinned-init/latest/src/pinned_init/lib.rs.html#1307).
+
+Thank you! I understand your intention. A similar implementation would
+also be quite natural in rust_instance_init.
+
+> > I see that the core point is ensuring that structures cannot be moved.
+> > Given that object_new() on the C side ensures that the allocated object
+> > will not be moved, Rust side does not need to worry about pinning, correct?
+> 
+> Sort of... You still need to worry about it for two reasons:
+> 
+> 1) if you have &mut Self you can move values out of the object using
+> e.g. mem::replace or mem::swap. Those would move the value in memory
+> and cause trouble (think of moving a QEMUTimer while it is pointed to
+> by the QEMUTimerList). This is solved by 1) using &Self all the time +
+> interior mutability
+
+With your help and through our discussions, I have gained a clearer
+understanding of this intention.
+
+> 2) using pinned_init's "PinnedDrop" functionality,
+> because &Self can be used in QEMU-specific APIs but (obviously) not in
+> the built-in Drop trait.
+> 
+> 2) right now marking something as pinned is an indirect way to tell
+> the compiler and miri that there are external references to it. For a
+> longer discussion you can read
+> https://crates.io/crates/pinned-aliasable or
+> https://gist.github.com/Darksonn/1567538f56af1a8038ecc3c664a42462.
+
+Thanks for sharing!
+
+> Linux does this with a wrapper type similar to the one in pinned-aliasable:
+> 
+> /// Stores an opaque value.
+> ///
+> /// This is meant to be used with FFI objects that are never
+> interpreted by Rust code.
+> #[repr(transparent)]
+> pub struct Opaque<T> {
+>     value: UnsafeCell<MaybeUninit<T>>,
+>     _pin: PhantomPinned,
+> }
+> 
+> It's on my todo list to introduce it in qemu_api::cell and (for
+> example) change qom::Object from
+> 
+>     pub use bindings::Object
+> 
+> to
+> 
+>     pub type Object = Opaque<bindings::Object>;
+> 
+> Or something like that.
+
+Yes, I agree with this idea. It's what we need.
+
+Regards,
+Zhao
 
 
