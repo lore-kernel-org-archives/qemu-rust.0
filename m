@@ -1,79 +1,78 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tNacf-0001Ag-2b
-	for mharc-qemu-rust@gnu.org; Tue, 17 Dec 2024 11:40:37 -0500
+	id 1tNamK-0004ad-Dx
+	for mharc-qemu-rust@gnu.org; Tue, 17 Dec 2024 11:50:37 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tNacd-0001AN-HU
- for qemu-rust@nongnu.org; Tue, 17 Dec 2024 11:40:35 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1tNamD-0004VT-4K
+ for qemu-rust@nongnu.org; Tue, 17 Dec 2024 11:50:29 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tNacb-0000oj-Ek
- for qemu-rust@nongnu.org; Tue, 17 Dec 2024 11:40:35 -0500
+ id 1tNamB-00043D-Bh
+ for qemu-rust@nongnu.org; Tue, 17 Dec 2024 11:50:28 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1734453630;
+ s=mimecast20190719; t=1734454225;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=QT5XAi3VeCL08Ldzx0pcvaqmh7pIhOo6NyCCjwApyE0=;
- b=e8jvPIsr0LbVXGjy0tfXCl+5Z2KtL2lFbty8+skz+bA+rVXxZEm59eDOLRpJ5qUI8bOcDD
- 8bkKbK+KZbWofsrRTn8xKg/dM9VK5OAGTBJlHDjfPKURhJ3HqB/Ff/HWTO7rASSH2L+38A
- pzCS8/uYlLLPFN6kWqjhnNgMzlzoQR4=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=Hu/9pdkuiuanNzhJ1wScBiefsC05dTNERTjnpoqBxdo=;
+ b=DOrnIg0CLVnKfTlJ5wG8J2zzgp2yt+jICnrkCemDRdPwtQjzq4I3gRoZqUvOChK2gJyUXF
+ mgJtiiiYRo5OW1vO3EeQe/dP6bjz0XHMAl0kdo6DADl5iP4YJ743vZoXHTeBzG/V2OKUVg
+ gPMFlK70Y8sEf337OFbfXExkvloSjfk=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-617-udXrmAk_NYiryx3umXsSVg-1; Tue, 17 Dec 2024 11:40:28 -0500
-X-MC-Unique: udXrmAk_NYiryx3umXsSVg-1
-X-Mimecast-MFC-AGG-ID: udXrmAk_NYiryx3umXsSVg
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-4361ecebc5bso14327955e9.1
- for <qemu-rust@nongnu.org>; Tue, 17 Dec 2024 08:40:28 -0800 (PST)
+ us-mta-422-ZmOZ6W2vMMqZF-JfzPtI_g-1; Tue, 17 Dec 2024 11:50:23 -0500
+X-MC-Unique: ZmOZ6W2vMMqZF-JfzPtI_g-1
+X-Mimecast-MFC-AGG-ID: ZmOZ6W2vMMqZF-JfzPtI_g
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-3862c67763dso2284216f8f.3
+ for <qemu-rust@nongnu.org>; Tue, 17 Dec 2024 08:50:22 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734453627; x=1735058427;
+ d=1e100.net; s=20230601; t=1734454222; x=1735059022;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=QT5XAi3VeCL08Ldzx0pcvaqmh7pIhOo6NyCCjwApyE0=;
- b=HJiw/VJJjQb5edKKiyasxWU8xqD1oOQJ9owTNBZsGQ35sA7wlCu3hrJiCDmjwbMsV1
- T6iYTdZgKnL2JFca4y8PdqzcqFhf/Q4xO23Bs+gwhwJy+AxDr2hFdyZycO1/Vyryh9Wr
- xm5ztsuEgTu9BlZb70GM7OMo57ddPof+kjU+SbijWN9rUDgH2sRyU9WdvnXD9OKF9wru
- GzcbrvHYGW3LTmpuVfKyRcjfzr27bM6s9niOVmA+b9wFKfNQHemLPs29SiN41oULA9xn
- MFSXt1vk/3Me1A4FQmn8oIyH5nhPJ3CAduIXpMTLocdqgytP+afJBGiKoY9gtx0XXegU
- QYpw==
+ bh=Hu/9pdkuiuanNzhJ1wScBiefsC05dTNERTjnpoqBxdo=;
+ b=UUdS/kzDiV3DPTKUds5mojCDvVSCGsZ0oKR760418y7Wm3PVC9E8xwY/anGOKCLvqt
+ Og3cNmKVM3b8eevvV1HL6Vk+MP1Vg7ld4dS/pZ65u3tuuhlOX9mELKpy9ec7s7aAzngQ
+ zLQQkmSir/NLbJ5vatiUTgfREOHvcJ0hW7gUEsCGvFo57cF0y2Jat1yhdQ7aHWAlQnSh
+ OwsEEDD2Ufwgc9F1aT8botgOsP61Xn8Vz5R5bu8+xKzxu2erhyK1vHvVOH7PoOVQ35na
+ SvWvV6PX5FF8RjbckkOZkhMdDbkK4Jyo57tQbqP3vbAJ91CjJ9d1DBOJVLVwmFYNFhgS
+ wG6Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUdOqxg3bjJrCGIMbAHIuCKneiYctJIXDe2c6bM6zzm9XgJfB9JFYWe9TFQ2y3PLQjWBYx6ybUFmbo=@nongnu.org
-X-Gm-Message-State: AOJu0YwshuO9dbwmAtGc86NSFXGfIGiGZ3ep5CvS1Fp53yJoPEbtoocF
- edKN9CsQGhBAedKgl9WkiAiuezGL29XwrH4DFYtVuHTVrKiVvshRd6JWyLTwY1WIHUEedr+9CjO
- wBD9Uv5Z31Lw5j6D0FfW6L6XTHw/crfBYmP4YbAylgzugjxSvkTuuJvB+JrD7F3NoYyLuYeGcKM
- CX0vuFFw8uHr8BkhXhV/PbQMUzAg==
-X-Gm-Gg: ASbGncsW9sd0Q+SISujsHkuV2CEXw9jl/29ZhUJGzAjYoW6coM5Zn2ipwoulXu9nDsH
- uloO7279ibmlJe+OVOsohludKYR/cY4b6Gr9n5Q==
-X-Received: by 2002:a05:6000:71a:b0:385:e17a:ce6f with SMTP id
- ffacd0b85a97d-38880acce62mr15111344f8f.24.1734453627290; 
- Tue, 17 Dec 2024 08:40:27 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHgNAgc247RVGluYEL/AbibV6+knwjw5EamWxuuUi+wLVS7rIdVFyDc9WVFvuUnbAvZK9YzN/T3sGeS00QdEDk=
-X-Received: by 2002:a05:6000:71a:b0:385:e17a:ce6f with SMTP id
- ffacd0b85a97d-38880acce62mr15111328f8f.24.1734453626951; Tue, 17 Dec 2024
- 08:40:26 -0800 (PST)
+ AJvYcCWo4sJbiX20Wu224kFhoqiN/HGINhlmK4Nd2RJN/wOYChfCL9NGv/YEw5CIi+lsK8nkZywGLzCQ3k4=@nongnu.org
+X-Gm-Message-State: AOJu0Yyx+oRWhGs0wVqaFZbfPFVQyjPITqrjmMJR0BUS7jk5Ownl5TGt
+ U9Jg5I+rBoK3o2hzD09/hf6xyDxDj5eCsjt2p8IUimGhISgoDD+eUyqwPKThwUZBUTEUSAMTWg4
+ f4PYaCNiEb6ZJhMpMn2l7b7ikfTBvNiRnG5WH2EGY9WDP0chD6Dalh+iVr3ylM1pdhfNGGaQYwt
+ jV320Wn6/NdN41vKO7lvUgfOpjVA==
+X-Gm-Gg: ASbGncujTVaqq5xYycOvXbCDxttbWyqQ6e2QtQmAYR5F0UIBE+uHLpNaA9wsDmx9FHH
+ z+a578WFY6jA2rE1kBw/LoQevSjqnhDXKyITUiw==
+X-Received: by 2002:a5d:64a3:0:b0:386:424e:32d5 with SMTP id
+ ffacd0b85a97d-38880acd269mr13718791f8f.14.1734454221842; 
+ Tue, 17 Dec 2024 08:50:21 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFpAKXuMxm8PmVpDOYptZdwoYh7en457ZACuuF/qAiP1urP0GySIE7gZoVfi534zqQhJo0rnNVWBb/33Im2cy8=
+X-Received: by 2002:a5d:64a3:0:b0:386:424e:32d5 with SMTP id
+ ffacd0b85a97d-38880acd269mr13718774f8f.14.1734454221455; Tue, 17 Dec 2024
+ 08:50:21 -0800 (PST)
 MIME-Version: 1.0
 References: <20241209123717.99077-1-pbonzini@redhat.com>
- <20241209123717.99077-27-pbonzini@redhat.com>
- <Z2GjLOppRcHFBpAT@intel.com>
-In-Reply-To: <Z2GjLOppRcHFBpAT@intel.com>
+ <20241209123717.99077-25-pbonzini@redhat.com>
+ <Z2D2zk2Wdlqc5q2k@intel.com>
+In-Reply-To: <Z2D2zk2Wdlqc5q2k@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 17 Dec 2024 17:40:14 +0100
-Message-ID: <CABgObfYE8z5QeVSWT7odaPcZYNfW0Ox1gNmGyCvj0YRTsDEGrg@mail.gmail.com>
-Subject: Re: [PATCH 26/26] rust: callbacks: allow passing optional callbacks
- as ()
+Date: Tue, 17 Dec 2024 17:50:09 +0100
+Message-ID: <CABgObfY=jyu96eZ+ZcU9GXU+amt2wRm53vpvubHYTaeY9MWd2A@mail.gmail.com>
+Subject: Re: [PATCH 24/26] rust: qom: move device_id to PL011 class side
 To: Zhao Liu <zhao1.liu@intel.com>
 Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org, 
  Junjie Mao <junjie.mao@hotmail.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: HYyMXiPImwEm21-SMhwE_OgJxj9dIqdU5j53WrKkNVo_1734453627
+X-Mimecast-MFC-PROC-ID: TEmgJthQfirJVxaqguV5fr3EXPFnnd_NF_YPPtJuQRw_1734454222
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="0000000000005076f8062979f4fe"
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Content-Type: multipart/alternative; boundary="000000000000bfe2e606297a1755"
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -31
 X-Spam_score: -3.2
@@ -95,131 +94,135 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Dec 2024 16:40:35 -0000
+X-List-Received-Date: Tue, 17 Dec 2024 16:50:31 -0000
 
---0000000000005076f8062979f4fe
+--000000000000bfe2e606297a1755
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Il mar 17 dic 2024, 16:55 Zhao Liu <zhao1.liu@intel.com> ha scritto:
+Il mar 17 dic 2024, 04:39 Zhao Liu <zhao1.liu@intel.com> ha scritto:
 
-> On Mon, Dec 09, 2024 at 01:37:17PM +0100, Paolo Bonzini wrote:
-> > Date: Mon,  9 Dec 2024 13:37:17 +0100
-> > From: Paolo Bonzini <pbonzini@redhat.com>
-> > Subject: [PATCH 26/26] rust: callbacks: allow passing optional callbacks
-> as
-> >  ()
-> > X-Mailer: git-send-email 2.47.1
-> >
-> > In some cases, callbacks are optional.  Using "Some(function)" and "None"
-> > does not work well, because when someone writes "None" the compiler does
-> > not know what to use for "F" in "Option<F>".
+> > +impl ClassInitImpl<PL011Class> for PL011State {
+> > +    fn class_init(klass: &mut PL011Class) {
+> > +        klass.device_id =3D DeviceId::ARM;
+> > +        <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut
+> klass.parent_class);
 >
-> I understand the direct use case is MemoryRegionOps, which has optional
-> callbacks. However, I'm not quite sure how exactly it should be applied
-> to C bindings and how it will play with Option<callback>.
+> This seems a bit of a conflict with the C version of QOM semantics. In C,
+> class_init is registered in TypeInfo, and then the QOM code will
+> automatically call the parent's class_init without needing to explicitly
+> call the parent's in the child's class_init.
 >
 
-You wouldn't use Option<callback> at all, using () instead of None; the
-difference is that () does not have a parameter while None does (and the
-compiler cannot infer it). But I am okay with leaving this patch behind
-until there's a need.
+This is the same in Rust.
+
+The difference is that in C you have a single class_init function that sets
+all members of ObjectClass, DeviceClass, etc. In Rust each class has one
+trait and there is a chain of ClassInitImpl implementations=E2=80=94one fil=
+ling in
+"oc" from ObjectImpl, one filling in "dc" from DeviceImpl and so on.
+
+But in both cases you get a chain of calls from qom/object.c.
+
+Therefore, the call here seems valid from the code logic's perspective.
+> But, when there is deeper class inheritance, it seems impossible to
+> prevent class_init from being called both by the C side's QOM code and by
+> this kind of recursive case on the Rust side.
+>
+
+Note that here you have two parameters: what class is being filled (the
+argument C of ClassInitImpl<C>) *and* what type is being initialized
+(that's Self).
+
+The "recursion" is only on the argument C, and matches the way C code
+implements class_init.
+
+Maybe the confusion is because I implemented class_init twice instead of
+using a separate trait "PL011Impl"?
 
 Paolo
 
-Could u pls provide a simple example?
+So, for devices like SysBusDevice that are registered on the C side,
+> should we not implement class_init and also not call it explicitly?
 >
-> > Therefore, adopt () to mean a "null" callback.  It is possible to enforce
-> > that a callback is valid by adding a "let _: () = F::ASSERT_IS_SOME"
-> before
-> > the invocation of F::call.
-> >
-> > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> > ---
-> >  rust/qemu-api/src/callbacks.rs | 97 ++++++++++++++++++++++++++++++++++
-> >  1 file changed, 97 insertions(+)
-> >
-> > diff --git a/rust/qemu-api/src/callbacks.rs b/rust/qemu-api/src/
-> callbacks.rs
-> > index 6401d807198..83c681d6478 100644
-> > --- a/rust/qemu-api/src/callbacks.rs
-> > +++ b/rust/qemu-api/src/callbacks.rs
-> > @@ -76,6 +76,31 @@
-> >  /// call_it(&move |_| String::from(x), "hello workd");
+> Or should we distinguish between two different usages of class_init? One
+> is registered in TypeInfo (only as a callback in rust_class_init) - perha=
+ps
+> rename it as qom_class_init, and the other is used as a helper for
+> Rust-side
+> calls (similar to the recursive usage here) - maybe rename it as
+> class_inter_init.
 >
-> typo: s/workd/word/ (in previous patch :-))
+> > +    }
+> > +}
 >
 >
 
---0000000000005076f8062979f4fe
+--000000000000bfe2e606297a1755
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
-ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mar 17 dic 2024, 16:55 Zhao L=
+ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mar 17 dic 2024, 04:39 Zhao L=
 iu &lt;<a href=3D"mailto:zhao1.liu@intel.com">zhao1.liu@intel.com</a>&gt; h=
 a scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Mo=
-n, Dec 09, 2024 at 01:37:17PM +0100, Paolo Bonzini wrote:<br>
-&gt; Date: Mon,=C2=A0 9 Dec 2024 13:37:17 +0100<br>
-&gt; From: Paolo Bonzini &lt;<a href=3D"mailto:pbonzini@redhat.com" target=
-=3D"_blank" rel=3D"noreferrer">pbonzini@redhat.com</a>&gt;<br>
-&gt; Subject: [PATCH 26/26] rust: callbacks: allow passing optional callbac=
-ks as<br>
-&gt;=C2=A0 ()<br>
-&gt; X-Mailer: git-send-email 2.47.1<br>
-&gt; <br>
-&gt; In some cases, callbacks are optional.=C2=A0 Using &quot;Some(function=
-)&quot; and &quot;None&quot;<br>
-&gt; does not work well, because when someone writes &quot;None&quot; the c=
-ompiler does<br>
-&gt; not know what to use for &quot;F&quot; in &quot;Option&lt;F&gt;&quot;.=
+px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">&gt; =
++impl ClassInitImpl&lt;PL011Class&gt; for PL011State {<br>
+&gt; +=C2=A0 =C2=A0 fn class_init(klass: &amp;mut PL011Class) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 klass.device_id =3D DeviceId::ARM;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 &lt;Self as ClassInitImpl&lt;SysBusDevice=
+Class&gt;&gt;::class_init(&amp;mut klass.parent_class);<br>
 <br>
+This seems a bit of a conflict with the C version of QOM semantics. In C,<b=
+r>
+class_init is registered in TypeInfo, and then the QOM code will<br>
+automatically call the parent&#39;s class_init without needing to explicitl=
+y<br>
+call the parent&#39;s in the child&#39;s class_init.<br></blockquote></div>=
+</div><div dir=3D"auto"><br></div><div dir=3D"auto">This is the same in Rus=
+t.</div><div dir=3D"auto"><br></div><div dir=3D"auto">The difference is tha=
+t in C you have a single class_init function that sets all members of Objec=
+tClass, DeviceClass, etc. In Rust each class has one trait and there is a c=
+hain of ClassInitImpl implementations=E2=80=94one filling in &quot;oc&quot;=
+ from ObjectImpl, one filling in &quot;dc&quot; from DeviceImpl and so on.<=
+/div><div dir=3D"auto"><br></div><div dir=3D"auto">But in both cases you ge=
+t a chain of calls from qom/object.c.</div><div dir=3D"auto"><br></div><div=
+ dir=3D"auto"><div class=3D"gmail_quote gmail_quote_container"><blockquote =
+class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
+id rgb(204,204,204);padding-left:1ex">Therefore, the call here seems valid =
+from the code logic&#39;s perspective.<br>
+But, when there is deeper class inheritance, it seems impossible to<br>
+prevent class_init from being called both by the C side&#39;s QOM code and =
+by<br>
+this kind of recursive case on the Rust side.<br></blockquote></div></div><=
+div dir=3D"auto"><br></div><div dir=3D"auto">Note that here you have two pa=
+rameters: what class is being filled (the argument C of ClassInitImpl&lt;C&=
+gt;) *and* what type is being initialized (that&#39;s Self).</div><div dir=
+=3D"auto"><br></div><div dir=3D"auto">The &quot;recursion&quot; is only on =
+the argument C, and matches the way C code implements class_init.</div><div=
+ dir=3D"auto"><br></div><div dir=3D"auto">Maybe the confusion is because I =
+implemented class_init twice instead of using a separate trait &quot;PL011I=
+mpl&quot;?</div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo</div><d=
+iv dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote gmail=
+_quote_container"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">So, for=
+ devices like SysBusDevice that are registered on the C side,<br>
+should we not implement class_init and also not call it explicitly?<br>
 <br>
-I understand the direct use case is MemoryRegionOps, which has optional<br>
-callbacks. However, I&#39;m not quite sure how exactly it should be applied=
+Or should we distinguish between two different usages of class_init? One<br=
+>
+is registered in TypeInfo (only as a callback in rust_class_init) - perhaps=
 <br>
-to C bindings and how it will play with Option&lt;callback&gt;.<br></blockq=
-uote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">You wouldn&#=
-39;t use Option&lt;callback&gt; at all, using () instead of None; the diffe=
-rence is that () does not have a parameter while None does (and the compile=
-r cannot infer it). But I am okay with leaving this patch behind until ther=
-e&#39;s a need.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo</d=
-iv><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote =
-gmail_quote_container"><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-Could u pls provide a simple example?<br>
+rename it as qom_class_init, and the other is used as a helper for Rust-sid=
+e<br>
+calls (similar to the recursive usage here) - maybe rename it as<br>
+class_inter_init.<br>
 <br>
-&gt; Therefore, adopt () to mean a &quot;null&quot; callback.=C2=A0 It is p=
-ossible to enforce<br>
-&gt; that a callback is valid by adding a &quot;let _: () =3D F::ASSERT_IS_=
-SOME&quot; before<br>
-&gt; the invocation of F::call.<br>
-&gt; <br>
-&gt; Signed-off-by: Paolo Bonzini &lt;<a href=3D"mailto:pbonzini@redhat.com=
-" target=3D"_blank" rel=3D"noreferrer">pbonzini@redhat.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 rust/qemu-api/src/<a href=3D"http://callbacks.rs" rel=3D"norefer=
-rer noreferrer" target=3D"_blank">callbacks.rs</a> | 97 +++++++++++++++++++=
-+++++++++++++++<br>
-&gt;=C2=A0 1 file changed, 97 insertions(+)<br>
-&gt; <br>
-&gt; diff --git a/rust/qemu-api/src/<a href=3D"http://callbacks.rs" rel=3D"=
-noreferrer noreferrer" target=3D"_blank">callbacks.rs</a> b/rust/qemu-api/s=
-rc/<a href=3D"http://callbacks.rs" rel=3D"noreferrer noreferrer" target=3D"=
-_blank">callbacks.rs</a><br>
-&gt; index 6401d807198..83c681d6478 100644<br>
-&gt; --- a/rust/qemu-api/src/<a href=3D"http://callbacks.rs" rel=3D"norefer=
-rer noreferrer" target=3D"_blank">callbacks.rs</a><br>
-&gt; +++ b/rust/qemu-api/src/<a href=3D"http://callbacks.rs" rel=3D"norefer=
-rer noreferrer" target=3D"_blank">callbacks.rs</a><br>
-&gt; @@ -76,6 +76,31 @@<br>
-&gt;=C2=A0 /// call_it(&amp;move |_| String::from(x), &quot;hello workd&quo=
-t;);<br>
-<br>
-typo: s/workd/word/ (in previous patch :-))<br>
+&gt; +=C2=A0 =C2=A0 }<br>
+&gt; +}<br>
 <br>
 </blockquote></div></div></div>
 
---0000000000005076f8062979f4fe--
+--000000000000bfe2e606297a1755--
 
 
