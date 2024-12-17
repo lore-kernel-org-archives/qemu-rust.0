@@ -1,62 +1,63 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tNOQz-0005HO-Us
-	for mharc-qemu-rust@gnu.org; Mon, 16 Dec 2024 22:39:46 -0500
+	id 1tNYpB-0003W3-Ol
+	for mharc-qemu-rust@gnu.org; Tue, 17 Dec 2024 09:45:25 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tNOQr-0005GS-RC; Mon, 16 Dec 2024 22:39:38 -0500
-Received: from mgamail.intel.com ([192.198.163.14])
+ id 1tNYp8-0003VT-Gt; Tue, 17 Dec 2024 09:45:22 -0500
+Received: from mgamail.intel.com ([198.175.65.21])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tNOQn-0001Yf-2R; Mon, 16 Dec 2024 22:39:37 -0500
+ id 1tNYp6-0007Ju-DA; Tue, 17 Dec 2024 09:45:22 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734406773; x=1765942773;
+ t=1734446721; x=1765982721;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=1lKqA14A+q7aPJdRP/DccKwQ8mg3UVxW3vBWti0y9/g=;
- b=Fsa5aVrnEb4PGByXTHuQvacMHaNcWL8pTAoa4Yti/ca/AS3LItq375iV
- ejzg0EbVKtghQ+sp31ddgeE1aMfJjUClTTXlIDHcLzFjp/VuS1vzrFPG4
- OVxz+4E+okONk12ycnaNaV9Ze2NU1KSbKRxFMa/zBS4sC72X8RT0jdgBu
- bJjs4K2msIntDfg5xSiPJl9ijJ//1wfwWZEhKdbnPWd+VPA7hSchcvCS2
- 5OyN4/apRSud3nUXnoagE3EJkMpkydNlit7jRwYIfPgzCe5wKpqEK91Fs
- 4ux2uH+80dT59YEieqg6L74OtjHykyATIsLH8URHfdPf3GbCtwv2XPLDJ A==;
-X-CSE-ConnectionGUID: VPMbF/lqREaaGVIFyda7+g==
-X-CSE-MsgGUID: lMsednBQQM6dhvzaIFyLIg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11288"; a="35043055"
-X-IronPort-AV: E=Sophos;i="6.12,240,1728975600"; d="scan'208";a="35043055"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2024 19:39:28 -0800
-X-CSE-ConnectionGUID: nE2bIs7RRzCXKEMu/Pf2Mg==
-X-CSE-MsgGUID: 8qEa4zJVRGueQ2UJONimRg==
+ bh=iptoBTJPS9MacQBKezLAbV1jlTY3hrIeBNktHV6LGMo=;
+ b=HyY8A7+LYJxmT0kZjEAiypayb3hZRxgp/3pAT1yVW/fu4fucsNiaS4sV
+ vg1T6UIt0FqUb4RABhFr7BR/VjsXFCRxYKaT4unOjbyoLbygc62GPzULu
+ z9kVEP2b9u8K85j1HRhDnMuSiCF/4qUbWAdNR/xjZS/2Jgg2ExjK0lePF
+ wv8zN7ykCY3Gz7llRxA8den2VEGIM7wKvsyTYby71sse2gyCfIgsDpDdD
+ Ny7Kw43AxB9BBXiENisuVjbfh/cmsXQyXwiMRjy+8BsVw6zMvJwE/sqJY
+ kbnePF/l1P8jDEPh/uM6V2XyTn8s+Njr2wPq21IntRXqqYpeJh8Tj35MT w==;
+X-CSE-ConnectionGUID: NAIFhPhhRz28qybmw1KHIQ==
+X-CSE-MsgGUID: bTcF9utXQfy7Pr025ttVpg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11288"; a="34783776"
+X-IronPort-AV: E=Sophos;i="6.12,242,1728975600"; d="scan'208";a="34783776"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2024 06:45:16 -0800
+X-CSE-ConnectionGUID: 9KKPAgOgQB+rv6A2Dnmp1Q==
+X-CSE-MsgGUID: H9DEf4S8Qou+Pimnv8X20Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,240,1728975600"; d="scan'208";a="97445348"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="97404397"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa006.jf.intel.com with ESMTP; 16 Dec 2024 19:39:27 -0800
-Date: Tue, 17 Dec 2024 11:58:06 +0800
+ by orviesa010.jf.intel.com with ESMTP; 17 Dec 2024 06:45:15 -0800
+Date: Tue, 17 Dec 2024 23:03:54 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>
-Subject: Re: [PATCH 24/26] rust: qom: move device_id to PL011 class side
-Message-ID: <Z2D2zk2Wdlqc5q2k@intel.com>
+Subject: Re: [PATCH 25/26] rust: qemu-api: add a module to wrap functions and
+ zero-sized closures
+Message-ID: <Z2GS2vs/eGfQ/lhL@intel.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
- <20241209123717.99077-25-pbonzini@redhat.com>
+ <20241209123717.99077-26-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241209123717.99077-25-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.14; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20241209123717.99077-26-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.21; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
 X-Spam_bar: ----
 X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -70,37 +71,49 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Dec 2024 03:39:42 -0000
+X-List-Received-Date: Tue, 17 Dec 2024 14:45:22 -0000
 
-> +impl ClassInitImpl<PL011Class> for PL011State {
-> +    fn class_init(klass: &mut PL011Class) {
-> +        klass.device_id = DeviceId::ARM;
-> +        <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut klass.parent_class);
-
-This seems a bit of a conflict with the C version of QOM semantics. In C,
-class_init is registered in TypeInfo, and then the QOM code will
-automatically call the parent's class_init without needing to explicitly
-call the parent's in the child's class_init.
-
-However, SysBusDevice (and Device) is a bit different. Its TypeInfo is
-registered on the C side, and the class_init method on the Rust side is not
-actually a real QOM class_init (because it is not registered on the Rust
-side).
-
-Therefore, the call here seems valid from the code logic's perspective.
-But, when there is deeper class inheritance, it seems impossible to
-prevent class_init from being called both by the C side's QOM code and by
-this kind of recursive case on the Rust side.
-
-So, for devices like SysBusDevice that are registered on the C side,
-should we not implement class_init and also not call it explicitly?
-
-Or should we distinguish between two different usages of class_init? One
-is registered in TypeInfo (only as a callback in rust_class_init) - perhaps
-rename it as qom_class_init, and the other is used as a helper for Rust-side
-calls (similar to the recursive usage here) - maybe rename it as
-class_inter_init.
-
-> +    }
+> +pub unsafe trait FnCall<Args, R = ()>: 'static + Sync + Sized {
+> +    /// Referring to this internal constant asserts that the `Self` type is
+> +    /// zero-sized.  Can be replaced by an inline const expression in
+> +    /// Rust 1.79.0+.
+> +    const ASSERT_ZERO_SIZED: () = { assert!(mem::size_of::<Self>() == 0) };
+> +
+> +    /// Call the function with the arguments in args.
+> +    fn call(a: Args) -> R;
 > +}
+> +
+> +macro_rules! impl_call {
+> +    ($($args:ident,)* ) => (
+> +        // SAFETY: because each function is treated as a separate type,
+> +        // accessing `FnCall` is only possible in code that would be
+> +        // allowed to call the function.
+> +        unsafe impl<F, $($args,)* R> FnCall<($($args,)*), R> for F
+> +        where
+> +            F: 'static + Sync + Sized + Fn($($args, )*) -> R,
+> +        {
+> +            #[inline(always)]
+> +            fn call(a: ($($args,)*)) -> R {
+> +                let _: () = Self::ASSERT_ZERO_SIZED;
+> +
+> +                // SAFETY: the safety of this method is the condition for implementing
+> +                // `FnCall`.  As to the `NonNull` idiom to create a zero-sized type,
+> +                // see https://github.com/rust-lang/libs-team/issues/292.
+> +                let f: &'static F = unsafe { &*NonNull::<Self>::dangling().as_ptr() };
+
+Awesome! The definition of FnCall and this trick are both very elegant!
+I've learned a lot.
+
+> +                let ($($args,)*) = a;
+> +                f($($args,)*)
+> +            }
+> +        }
+> +    )
+> +}
+> +
+
+The examples and test both show the power of this callback pattern,
+
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+
 
