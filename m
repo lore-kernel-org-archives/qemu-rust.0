@@ -1,64 +1,88 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tNZud-0002vp-44
-	for mharc-qemu-rust@gnu.org; Tue, 17 Dec 2024 10:55:07 -0500
+	id 1tNacf-0001Ag-2b
+	for mharc-qemu-rust@gnu.org; Tue, 17 Dec 2024 11:40:37 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tNZub-0002vJ-Or; Tue, 17 Dec 2024 10:55:05 -0500
-Received: from mgamail.intel.com ([192.198.163.9])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tNacd-0001AN-HU
+ for qemu-rust@nongnu.org; Tue, 17 Dec 2024 11:40:35 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tNZuW-0001Ed-GN; Tue, 17 Dec 2024 10:55:05 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734450900; x=1765986900;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=vuQ3KoCPzQgb6wxfO6E75TTecEzX0afWei6P6wTlA2o=;
- b=Urb1TODs6qEMce4PKS04vXkE7iw6hBJf/U9N/yOcmhXycq5YMzhO8npS
- 6CqFBOqah0vTAY1cV7lnZSc5sGdVg4xpVQ+b8EzITfHZBaO946K4PWrpt
- uRJT2im2ycH+UE4tcCUcBYWjPXvaXULicmLQ4F6IXq+9ndBQZQM3uTanW
- FJ3yGWkM/ifcUJH7HJIEwRJvU5Sk/mgCW7+4TfgtXGh5Hg7lxc1JyBKI7
- 6NvHUSnw9EcumRaKVxU4QguyTYeDEbUd1NL9nwY5GwG4sCqZ0I2CXhXRo
- NEuELCE9QrFEozPCgVFGVrX/Xele7Cc35GxS/3JY6hMEonp5ozKtl+tln w==;
-X-CSE-ConnectionGUID: xq6dnvYGQcu3i/bmtr7khQ==
-X-CSE-MsgGUID: oQlyn6cVTb6mzk+GtaL7ZA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11288"; a="45579759"
-X-IronPort-AV: E=Sophos;i="6.12,242,1728975600"; d="scan'208";a="45579759"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2024 07:54:54 -0800
-X-CSE-ConnectionGUID: hv6IZlsmT12T4/AX0SM3RA==
-X-CSE-MsgGUID: YhMkV4X5S7W/ggcB6kIrzg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="97424922"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa010.jf.intel.com with ESMTP; 17 Dec 2024 07:54:53 -0800
-Date: Wed, 18 Dec 2024 00:13:32 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
- Junjie Mao <junjie.mao@hotmail.com>
-Subject: Re: [PATCH 26/26] rust: callbacks: allow passing optional callbacks
- as ()
-Message-ID: <Z2GjLOppRcHFBpAT@intel.com>
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tNacb-0000oj-Ek
+ for qemu-rust@nongnu.org; Tue, 17 Dec 2024 11:40:35 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1734453630;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=QT5XAi3VeCL08Ldzx0pcvaqmh7pIhOo6NyCCjwApyE0=;
+ b=e8jvPIsr0LbVXGjy0tfXCl+5Z2KtL2lFbty8+skz+bA+rVXxZEm59eDOLRpJ5qUI8bOcDD
+ 8bkKbK+KZbWofsrRTn8xKg/dM9VK5OAGTBJlHDjfPKURhJ3HqB/Ff/HWTO7rASSH2L+38A
+ pzCS8/uYlLLPFN6kWqjhnNgMzlzoQR4=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-617-udXrmAk_NYiryx3umXsSVg-1; Tue, 17 Dec 2024 11:40:28 -0500
+X-MC-Unique: udXrmAk_NYiryx3umXsSVg-1
+X-Mimecast-MFC-AGG-ID: udXrmAk_NYiryx3umXsSVg
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-4361ecebc5bso14327955e9.1
+ for <qemu-rust@nongnu.org>; Tue, 17 Dec 2024 08:40:28 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734453627; x=1735058427;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QT5XAi3VeCL08Ldzx0pcvaqmh7pIhOo6NyCCjwApyE0=;
+ b=HJiw/VJJjQb5edKKiyasxWU8xqD1oOQJ9owTNBZsGQ35sA7wlCu3hrJiCDmjwbMsV1
+ T6iYTdZgKnL2JFca4y8PdqzcqFhf/Q4xO23Bs+gwhwJy+AxDr2hFdyZycO1/Vyryh9Wr
+ xm5ztsuEgTu9BlZb70GM7OMo57ddPof+kjU+SbijWN9rUDgH2sRyU9WdvnXD9OKF9wru
+ GzcbrvHYGW3LTmpuVfKyRcjfzr27bM6s9niOVmA+b9wFKfNQHemLPs29SiN41oULA9xn
+ MFSXt1vk/3Me1A4FQmn8oIyH5nhPJ3CAduIXpMTLocdqgytP+afJBGiKoY9gtx0XXegU
+ QYpw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUdOqxg3bjJrCGIMbAHIuCKneiYctJIXDe2c6bM6zzm9XgJfB9JFYWe9TFQ2y3PLQjWBYx6ybUFmbo=@nongnu.org
+X-Gm-Message-State: AOJu0YwshuO9dbwmAtGc86NSFXGfIGiGZ3ep5CvS1Fp53yJoPEbtoocF
+ edKN9CsQGhBAedKgl9WkiAiuezGL29XwrH4DFYtVuHTVrKiVvshRd6JWyLTwY1WIHUEedr+9CjO
+ wBD9Uv5Z31Lw5j6D0FfW6L6XTHw/crfBYmP4YbAylgzugjxSvkTuuJvB+JrD7F3NoYyLuYeGcKM
+ CX0vuFFw8uHr8BkhXhV/PbQMUzAg==
+X-Gm-Gg: ASbGncsW9sd0Q+SISujsHkuV2CEXw9jl/29ZhUJGzAjYoW6coM5Zn2ipwoulXu9nDsH
+ uloO7279ibmlJe+OVOsohludKYR/cY4b6Gr9n5Q==
+X-Received: by 2002:a05:6000:71a:b0:385:e17a:ce6f with SMTP id
+ ffacd0b85a97d-38880acce62mr15111344f8f.24.1734453627290; 
+ Tue, 17 Dec 2024 08:40:27 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHgNAgc247RVGluYEL/AbibV6+knwjw5EamWxuuUi+wLVS7rIdVFyDc9WVFvuUnbAvZK9YzN/T3sGeS00QdEDk=
+X-Received: by 2002:a05:6000:71a:b0:385:e17a:ce6f with SMTP id
+ ffacd0b85a97d-38880acce62mr15111328f8f.24.1734453626951; Tue, 17 Dec 2024
+ 08:40:26 -0800 (PST)
+MIME-Version: 1.0
 References: <20241209123717.99077-1-pbonzini@redhat.com>
  <20241209123717.99077-27-pbonzini@redhat.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241209123717.99077-27-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.9; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ <Z2GjLOppRcHFBpAT@intel.com>
+In-Reply-To: <Z2GjLOppRcHFBpAT@intel.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Tue, 17 Dec 2024 17:40:14 +0100
+Message-ID: <CABgObfYE8z5QeVSWT7odaPcZYNfW0Ox1gNmGyCvj0YRTsDEGrg@mail.gmail.com>
+Subject: Re: [PATCH 26/26] rust: callbacks: allow passing optional callbacks
+ as ()
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org, 
+ Junjie Mao <junjie.mao@hotmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: HYyMXiPImwEm21-SMhwE_OgJxj9dIqdU5j53WrKkNVo_1734453627
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/alternative; boundary="0000000000005076f8062979f4fe"
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -31
+X-Spam_score: -3.2
+X-Spam_bar: ---
+X-Spam_report: (-3.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-1.116,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -71,41 +95,131 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Dec 2024 15:55:06 -0000
+X-List-Received-Date: Tue, 17 Dec 2024 16:40:35 -0000
 
-On Mon, Dec 09, 2024 at 01:37:17PM +0100, Paolo Bonzini wrote:
-> Date: Mon,  9 Dec 2024 13:37:17 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 26/26] rust: callbacks: allow passing optional callbacks as
->  ()
-> X-Mailer: git-send-email 2.47.1
-> 
-> In some cases, callbacks are optional.  Using "Some(function)" and "None"
-> does not work well, because when someone writes "None" the compiler does
-> not know what to use for "F" in "Option<F>".
+--0000000000005076f8062979f4fe
+Content-Type: text/plain; charset="UTF-8"
 
-I understand the direct use case is MemoryRegionOps, which has optional
-callbacks. However, I'm not quite sure how exactly it should be applied
-to C bindings and how it will play with Option<callback>.
+Il mar 17 dic 2024, 16:55 Zhao Liu <zhao1.liu@intel.com> ha scritto:
+
+> On Mon, Dec 09, 2024 at 01:37:17PM +0100, Paolo Bonzini wrote:
+> > Date: Mon,  9 Dec 2024 13:37:17 +0100
+> > From: Paolo Bonzini <pbonzini@redhat.com>
+> > Subject: [PATCH 26/26] rust: callbacks: allow passing optional callbacks
+> as
+> >  ()
+> > X-Mailer: git-send-email 2.47.1
+> >
+> > In some cases, callbacks are optional.  Using "Some(function)" and "None"
+> > does not work well, because when someone writes "None" the compiler does
+> > not know what to use for "F" in "Option<F>".
+>
+> I understand the direct use case is MemoryRegionOps, which has optional
+> callbacks. However, I'm not quite sure how exactly it should be applied
+> to C bindings and how it will play with Option<callback>.
+>
+
+You wouldn't use Option<callback> at all, using () instead of None; the
+difference is that () does not have a parameter while None does (and the
+compiler cannot infer it). But I am okay with leaving this patch behind
+until there's a need.
+
+Paolo
 
 Could u pls provide a simple example?
+>
+> > Therefore, adopt () to mean a "null" callback.  It is possible to enforce
+> > that a callback is valid by adding a "let _: () = F::ASSERT_IS_SOME"
+> before
+> > the invocation of F::call.
+> >
+> > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> > ---
+> >  rust/qemu-api/src/callbacks.rs | 97 ++++++++++++++++++++++++++++++++++
+> >  1 file changed, 97 insertions(+)
+> >
+> > diff --git a/rust/qemu-api/src/callbacks.rs b/rust/qemu-api/src/
+> callbacks.rs
+> > index 6401d807198..83c681d6478 100644
+> > --- a/rust/qemu-api/src/callbacks.rs
+> > +++ b/rust/qemu-api/src/callbacks.rs
+> > @@ -76,6 +76,31 @@
+> >  /// call_it(&move |_| String::from(x), "hello workd");
+>
+> typo: s/workd/word/ (in previous patch :-))
+>
+>
 
-> Therefore, adopt () to mean a "null" callback.  It is possible to enforce
-> that a callback is valid by adding a "let _: () = F::ASSERT_IS_SOME" before
-> the invocation of F::call.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/qemu-api/src/callbacks.rs | 97 ++++++++++++++++++++++++++++++++++
->  1 file changed, 97 insertions(+)
-> 
-> diff --git a/rust/qemu-api/src/callbacks.rs b/rust/qemu-api/src/callbacks.rs
-> index 6401d807198..83c681d6478 100644
-> --- a/rust/qemu-api/src/callbacks.rs
-> +++ b/rust/qemu-api/src/callbacks.rs
-> @@ -76,6 +76,31 @@
->  /// call_it(&move |_| String::from(x), "hello workd");
+--0000000000005076f8062979f4fe
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-typo: s/workd/word/ (in previous patch :-))
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
+ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mar 17 dic 2024, 16:55 Zhao L=
+iu &lt;<a href=3D"mailto:zhao1.liu@intel.com">zhao1.liu@intel.com</a>&gt; h=
+a scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
+px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Mo=
+n, Dec 09, 2024 at 01:37:17PM +0100, Paolo Bonzini wrote:<br>
+&gt; Date: Mon,=C2=A0 9 Dec 2024 13:37:17 +0100<br>
+&gt; From: Paolo Bonzini &lt;<a href=3D"mailto:pbonzini@redhat.com" target=
+=3D"_blank" rel=3D"noreferrer">pbonzini@redhat.com</a>&gt;<br>
+&gt; Subject: [PATCH 26/26] rust: callbacks: allow passing optional callbac=
+ks as<br>
+&gt;=C2=A0 ()<br>
+&gt; X-Mailer: git-send-email 2.47.1<br>
+&gt; <br>
+&gt; In some cases, callbacks are optional.=C2=A0 Using &quot;Some(function=
+)&quot; and &quot;None&quot;<br>
+&gt; does not work well, because when someone writes &quot;None&quot; the c=
+ompiler does<br>
+&gt; not know what to use for &quot;F&quot; in &quot;Option&lt;F&gt;&quot;.=
+<br>
+<br>
+I understand the direct use case is MemoryRegionOps, which has optional<br>
+callbacks. However, I&#39;m not quite sure how exactly it should be applied=
+<br>
+to C bindings and how it will play with Option&lt;callback&gt;.<br></blockq=
+uote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">You wouldn&#=
+39;t use Option&lt;callback&gt; at all, using () instead of None; the diffe=
+rence is that () does not have a parameter while None does (and the compile=
+r cannot infer it). But I am okay with leaving this patch behind until ther=
+e&#39;s a need.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo</d=
+iv><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote =
+gmail_quote_container"><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+Could u pls provide a simple example?<br>
+<br>
+&gt; Therefore, adopt () to mean a &quot;null&quot; callback.=C2=A0 It is p=
+ossible to enforce<br>
+&gt; that a callback is valid by adding a &quot;let _: () =3D F::ASSERT_IS_=
+SOME&quot; before<br>
+&gt; the invocation of F::call.<br>
+&gt; <br>
+&gt; Signed-off-by: Paolo Bonzini &lt;<a href=3D"mailto:pbonzini@redhat.com=
+" target=3D"_blank" rel=3D"noreferrer">pbonzini@redhat.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 rust/qemu-api/src/<a href=3D"http://callbacks.rs" rel=3D"norefer=
+rer noreferrer" target=3D"_blank">callbacks.rs</a> | 97 +++++++++++++++++++=
++++++++++++++++<br>
+&gt;=C2=A0 1 file changed, 97 insertions(+)<br>
+&gt; <br>
+&gt; diff --git a/rust/qemu-api/src/<a href=3D"http://callbacks.rs" rel=3D"=
+noreferrer noreferrer" target=3D"_blank">callbacks.rs</a> b/rust/qemu-api/s=
+rc/<a href=3D"http://callbacks.rs" rel=3D"noreferrer noreferrer" target=3D"=
+_blank">callbacks.rs</a><br>
+&gt; index 6401d807198..83c681d6478 100644<br>
+&gt; --- a/rust/qemu-api/src/<a href=3D"http://callbacks.rs" rel=3D"norefer=
+rer noreferrer" target=3D"_blank">callbacks.rs</a><br>
+&gt; +++ b/rust/qemu-api/src/<a href=3D"http://callbacks.rs" rel=3D"norefer=
+rer noreferrer" target=3D"_blank">callbacks.rs</a><br>
+&gt; @@ -76,6 +76,31 @@<br>
+&gt;=C2=A0 /// call_it(&amp;move |_| String::from(x), &quot;hello workd&quo=
+t;);<br>
+<br>
+typo: s/workd/word/ (in previous patch :-))<br>
+<br>
+</blockquote></div></div></div>
+
+--0000000000005076f8062979f4fe--
 
 
