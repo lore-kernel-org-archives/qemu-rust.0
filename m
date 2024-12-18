@@ -1,135 +1,78 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tNrGR-00032g-Je
-	for mharc-qemu-rust@gnu.org; Wed, 18 Dec 2024 05:26:47 -0500
+	id 1tNs3O-00037f-Bv
+	for mharc-qemu-rust@gnu.org; Wed, 18 Dec 2024 06:17:22 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tNrGP-00032J-Rt
- for qemu-rust@nongnu.org; Wed, 18 Dec 2024 05:26:46 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tNrGM-0008K4-MG
- for qemu-rust@nongnu.org; Wed, 18 Dec 2024 05:26:44 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1734517600;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0h9EnY5bBzS8BbonSZZIOt9iNgCdC5WLtCE2yrTu3UQ=;
- b=RWPqqP+74z3rHOWF+Xb2XygRLxMXQQg7j5FAODjrQQvh+6glgBxhKbQvk1XUFl+ei2EhAc
- DYbeAEp6Wjq00SnGib9zG+nuUiK/bqPCIBEgnlwSMLQpitG4qCCZVrKx0luy/sufYFbYnV
- WJASlUKlEFmQppiZsav9ogFfSRxm6B4=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-282-JJKC94vEMvq9S77o4sjZ0g-1; Wed, 18 Dec 2024 05:26:38 -0500
-X-MC-Unique: JJKC94vEMvq9S77o4sjZ0g-1
-X-Mimecast-MFC-AGG-ID: JJKC94vEMvq9S77o4sjZ0g
-Received: by mail-ed1-f71.google.com with SMTP id
- 4fb4d7f45d1cf-5d09962822bso3242011a12.1
- for <qemu-rust@nongnu.org>; Wed, 18 Dec 2024 02:26:38 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tNs3N-00033B-3a
+ for qemu-rust@nongnu.org; Wed, 18 Dec 2024 06:17:21 -0500
+Received: from mail-wr1-x430.google.com ([2a00:1450:4864:20::430])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tNs3K-00086Q-62
+ for qemu-rust@nongnu.org; Wed, 18 Dec 2024 06:17:20 -0500
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-385e2880606so5719347f8f.3
+ for <qemu-rust@nongnu.org>; Wed, 18 Dec 2024 03:17:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1734520635; x=1735125435; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=S+DB6N73yHGvsAXmUommk/ZUinIeBiSObIv3EDMmrBc=;
+ b=DvgxtCf8qbud83AuklimUURy8pEUd4rDBSqpoYQgu5J2I/uwdrgA+wq2pSbjwQtBuM
+ 05SfkgO4hccdUYcGTru5/djL0A/U8R+SFvfOX5IdGbi0IMiRUawD/68Zjh3yNdt0dv6o
+ g62YlW+huFOEf5sPTx5P1J7iPeHcmc2RqecdHi+oRDWxMvdsBOvhqsCrk9ng/0xK7EWu
+ F07j7aiJcdzxuDDskzN2yd2opqw8SML20L6gd0/no+VJfTuuW9ohhEu+upBWSDpJJ69Q
+ tzV3/TjgMz4AEd/djy6a9znSK617cdJ7etOtMGVvZ70J4vawMw5j8XAxACgaWcBKlMR9
+ Vdkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734517597; x=1735122397;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=0h9EnY5bBzS8BbonSZZIOt9iNgCdC5WLtCE2yrTu3UQ=;
- b=cOdTs8S+108PYKM7FumOyU+0+Spdkjo1j9anH5oavZAqVA8w8/J+sr6AhupGXeJDUM
- py8f/M38pVt/LatSSpF766kQRUjD+xvAyYX6O835z3GacPbu/q2aP1IfAnT0rjL7OCWD
- +RrDuCr4aMmVHJhNwrD2GNH33ziUt5egJNeSORQ5SnuJK+IRoOQte0JAAAirusW1tB3B
- jqkdZ/T+awzztwhJY07OQv7utlMYQIidTy+Q1cNIVONL2/r2Sx4wbDYi++vPKLCJBXi9
- 1vwO41EIzS0utKdZLZUhXGGnR7rCrxTahNP317nquuSFNRKCNx5XkOtuGr4tU0zCYwUL
- Vl1Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWEOMDgh1cllXHRRGqQ/4s7g91k2JPu7O03U0mJ8uFByPcmZarAF9smNJyyjHe4tvuqCayMuUPXDUE=@nongnu.org
-X-Gm-Message-State: AOJu0YxQI/SyvMd43ZyZgsI/9TlJl4zD5wSSzilW+75IgcAn6gJTS3dX
- iCNR4t4pBlW0QyXFPMtImFAJafnX6Z4LLLC5L75BzIKkish5tghqUTeqIdRBkPg1jDmiCEYzOdH
- 9lS4avrM9JcCaMvvzyM4wt42rlAojWvh3ZjcccvrWLSITiBjwdX8=
-X-Gm-Gg: ASbGnctPvIeDnPoEm8vnY9yU1YydRnhVQ/NidNQ3ylOcTp1kEwqzcwKJDM6CdIfxojX
- n4xZsIncqk4qkztLOxVQR3XFR8DOW4tCt8uXyha3uNmq/fLbRStN77IvY4WCDPZ82O6SaAosTa+
- 6gvKCSboDNNGWUby5epsWiTwMWJiYCMQhT5nHiSQKVWR1LepY8UXxrTPgTm+rj2RwBCp7V3QlO6
- WdQSctGQ1CDhOafB4E4xFMk6T8LF+OHKfXtdWmaxbKB4ZTsWwXVGsUt3aBm
-X-Received: by 2002:a05:6402:50cb:b0:5d1:2652:42ba with SMTP id
- 4fb4d7f45d1cf-5d7ee3b405fmr1976083a12.16.1734517597452; 
- Wed, 18 Dec 2024 02:26:37 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGNjlATdD9hV+7LQk16XII8cgUE/kpxFqnB7kAswm5NJNHG6bn6BDPZMJgbMhg+Ar1Kc7Fxew==
-X-Received: by 2002:a05:6402:50cb:b0:5d1:2652:42ba with SMTP id
- 4fb4d7f45d1cf-5d7ee3b405fmr1976059a12.16.1734517597033; 
- Wed, 18 Dec 2024 02:26:37 -0800 (PST)
-Received: from [192.168.10.47] ([151.81.118.45])
- by smtp.googlemail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d652f25adasm5436926a12.54.2024.12.18.02.26.36
+ d=1e100.net; s=20230601; t=1734520635; x=1735125435;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=S+DB6N73yHGvsAXmUommk/ZUinIeBiSObIv3EDMmrBc=;
+ b=qXYuEh0vObLsb+6GgrrVBoEzRU3A/nT+/sl4bqs1c94H9NyX2lv7kRlhr8W/araWES
+ /QfDfK19LuptX4Eq3FTtDFw6vuaxAJIGy3ZWhHgc5GbeAaNKG7s40KEmdaiPtW7nnI7/
+ BPtSHGlSh+O/3MBFc8zGPQsB+M6/pP2T8wIDzSkm/5Nrfm8uUsevpaW3VzYt06cvdlk0
+ 2udVwRVcFxIfKYS3cBYBGv2URHuVy0IljJb+YDih2r278AuN+34u1SBpml3U5ma4CMoT
+ aZ2n1beJ3nqd/3MRHHyRYfBzEKTt2K+7+qzs1Xi5PgRM3Xs2nFMDBk+/hWpy74sdCo5a
+ aBlg==
+X-Gm-Message-State: AOJu0YzXBRfVvRh9Vi5Yxcedk7OtDQtYaxFyl0q+G2w5puWZ2xfyXh2n
+ gtcDy5Np0Ezv/v1JqN5Ld1N3snsVBZHZLUDXHuNstG7VgnVHd2n+FB7K4bvAhQs=
+X-Gm-Gg: ASbGncttXuLxP6dU3apt9kj36CqN+rZzOsuIsKe5cmsUYx6nM81mIjiK69DORG+t7Wz
+ nhAxzP5ckQrupztcsvfSji8+tpNc8kLYy6JnCStfe3/wz85UbmcxC7NBzETKPUX9Za78uaiXALT
+ 1bxbgGSCc9QKbVcC6xF06ZbdJd1IHIiapL4XPR6Nh+iYdWUdp4RQk7Tv/MSU4wvJglibG2sVqpu
+ 2Yyr1KIDeHGjRVJTiMgpd/fdvDEVNea3+7fN9m5heV7PRlDjJvuYBRPsF27RV1dBv8r7/Le
+X-Google-Smtp-Source: AGHT+IGbWE0XttpHCE/SxeKtb2o43ZYzjwwHRxUlBlCCjHUwO3Qcs+aRXoJ+9uhRfvcCUGr4NB/K8Q==
+X-Received: by 2002:a05:6000:2a4:b0:385:f66a:4271 with SMTP id
+ ffacd0b85a97d-388e4d6a338mr1994183f8f.4.1734520634899; 
+ Wed, 18 Dec 2024 03:17:14 -0800 (PST)
+Received: from [192.168.1.117] ([78.196.4.158])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-388c801a487sm14070763f8f.45.2024.12.18.03.17.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Dec 2024 02:26:36 -0800 (PST)
-Message-ID: <d01798d5-1c93-48f7-bb78-d4602a13baac@redhat.com>
-Date: Wed, 18 Dec 2024 11:26:35 +0100
+ Wed, 18 Dec 2024 03:17:14 -0800 (PST)
+Message-ID: <ecac6a6d-163d-42ba-83f5-e4e5980c9ee3@linaro.org>
+Date: Wed, 18 Dec 2024 12:17:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 24/26] rust: qom: move device_id to PL011 class side
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org,
- Junjie Mao <junjie.mao@hotmail.com>
-References: <20241209123717.99077-1-pbonzini@redhat.com>
- <20241209123717.99077-25-pbonzini@redhat.com> <Z2D2zk2Wdlqc5q2k@intel.com>
- <CABgObfY=jyu96eZ+ZcU9GXU+amt2wRm53vpvubHYTaeY9MWd2A@mail.gmail.com>
- <Z2JycooziPsfV8vX@intel.com>
- <CABgObfboJFTRMsuqO055g11ZWNx1qKNxrLgvYLc-Hh6RcmWtOw@mail.gmail.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <CABgObfboJFTRMsuqO055g11ZWNx1qKNxrLgvYLc-Hh6RcmWtOw@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Db_89hT28KO2nv-Cjved_Idrc-htSp0zwkDOyS2WMQs_1734517598
-X-Mimecast-Originator: redhat.com
+Subject: Re: [PATCH 0/7] rust: pl011: bug fixes
+To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
+References: <20241212172209.533779-1-pbonzini@redhat.com>
 Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20241212172209.533779-1-pbonzini@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -31
-X-Spam_score: -3.2
-X-Spam_bar: ---
-X-Spam_report: (-3.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-1.116,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Received-SPF: pass client-ip=2a00:1450:4864:20::430;
+ envelope-from=philmd@linaro.org; helo=mail-wr1-x430.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -142,128 +85,32 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Dec 2024 10:26:46 -0000
+X-List-Received-Date: Wed, 18 Dec 2024 11:17:21 -0000
 
-On 12/18/24 08:14, Paolo Bonzini wrote:
->     Moving on to another topic, about the gap (or question :-)) where a
->     child class inherits the ClassInitImpl trait from the parent, please see
->     my test case example below: Doing something similar to SysBusDevice and
->     DeviceState using a generic T outside of the QOM library would violate
->     the orphan rule.
+On 12/12/24 18:21, Paolo Bonzini wrote:
+> While preparing the comparison at
+> https://lists.nongnu.org/archive/html/qemu-rust/2024-12/msg00006.html,
+> I noticed some bugs in the code.  These are the corresponding fixes.
 > 
-> Ugh, you're right. Maybe ClassInitImpl should just be merged into 
-> ObjectImpl etc. as a default method implementation. I will check.
+> CCing Philippe because he expressed interest in bringing the Rust
+> version on par with the C version of the pl011 device.
 
-Ok, I think we can make it mostly a documentation issue:
+Also cc'ing Zhao.
 
-diff --git a/rust/qemu-api/src/qom.rs b/rust/qemu-api/src/qom.rs
-index 2b472915707..ee95eda0447 100644
---- a/rust/qemu-api/src/qom.rs
-+++ b/rust/qemu-api/src/qom.rs
-@@ -451,13 +451,14 @@ pub trait ObjectImpl: ObjectType + ClassInitImpl<Self::Class> {
-  /// Each struct will implement this trait with `T` equal to each
-  /// superclass.  For example, a device should implement at least
-  /// `ClassInitImpl<`[`DeviceClass`](crate::qdev::DeviceClass)`>` and
--/// `ClassInitImpl<`[`ObjectClass`]`>`.
-+/// `ClassInitImpl<`[`ObjectClass`]`>`.  Such implementations are
-+/// made in one of two ways.
-  ///
--/// Fortunately, this is almost never necessary.  Instead, the Rust
--/// implementation of methods will usually come from a trait like
--/// [`ObjectImpl`] or [`DeviceImpl`](crate::qdev::DeviceImpl).
--/// `ClassInitImpl` then can be provided by blanket implementations
--/// that operate on all implementors of the `*Impl`* trait.  For example:
-+/// For most superclasses, `ClassInitImpl` is provided by the `qemu-api`
-+/// crate itself.  The Rust implementation of methods will come from a
-+/// trait like [`ObjectImpl`] or [`DeviceImpl`](crate::qdev::DeviceImpl),
-+/// and `ClassInitImpl` is provided by blanket implementations that
-+/// operate on all implementors of the `*Impl`* trait.  For example:
-  ///
-  /// ```ignore
-  /// impl<T> ClassInitImpl<DeviceClass> for T
-@@ -469,11 +470,37 @@ pub trait ObjectImpl: ObjectType + ClassInitImpl<Self::Class> {
-  /// after initializing the `DeviceClass` part of the class struct,
-  /// the parent [`ObjectClass`] is initialized as well.
-  ///
--/// The only case in which a manual implementation of the trait is needed
--/// is for interfaces (note that there is no Rust example yet for using
--/// interfaces).  In this case, unlike the C case, the Rust class _has_
--/// to define its own class struct `FooClass` to go together with
--/// `ClassInitImpl<FooClass>`.
-+/// In some other cases, manual implementation of the trait is needed.
-+/// These are the following:
-+///
-+/// * for classes that implement interfaces, the Rust code _has_
-+///   to define its own class struct `FooClass` and implement
-+///   `ClassInitImpl<FooClass>`.  `ClassInitImpl<FooClass>`'s
-+///   `class_init` method will then forward to multiple other
-+///   `class_init`s, for the interfaces as well as the superclass.
-+///   (Note that there is no Rust example yet for using
-+///   interfaces).
-+///
-+/// * for classes implemented outside the ``qemu-api`` crate, it's
-+///   not possible to add blanket implementations like the above one,
-+///   due to orphan rules.  In that case, the easiest solution is to
-+///   implement `ClassInitImpl<YourSuperclass>` for each subclass,
-+///   and not have a `YourSuperclassImpl` trait at all:
-+///
-+///   ```ignore
-+///   impl ClassInitImpl<YourSuperclass> for YourSubclass {
-+///       fn class_init(klass: &mut YourSuperclass) {
-+///           klass.some_method = Some(Self::some_method);
-+///           <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut klass.parent_class);
-+///       }
-+///   }
-+///   ```
-+///
-+///   While this method incurs a small amount of code duplication,
-+///   it is generally limited to the recursive call on the last line.
-+///   This is because classes defined in Rust do not need the same
-+///   glue code that is needed when the classes are defined in C code.
-+///   You may consider using a macro if you have many subclasses.
-  pub trait ClassInitImpl<T> {
-      /// Initialize `klass` to point to the virtual method implementations
-      /// for `Self`.  On entry, the virtual method pointers are set to
-
-
-Optionally, something like this can be squashed in this patch, but I
-do not think it's worth the savings of... 3 lines of code:
-
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index 41220c99a83..cbd3abb96ec 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -46,11 +46,6 @@ fn index(&self, idx: hwaddr) -> &Self::Output {
-      }
-  }
-  
--impl DeviceId {
--    const ARM: Self = Self(&[0x11, 0x10, 0x14, 0x00, 0x0d, 0xf0, 0x05, 0xb1]);
--    const LUMINARY: Self = Self(&[0x11, 0x00, 0x18, 0x01, 0x0d, 0xf0, 0x05, 0xb1]);
--}
--
-  #[repr(C)]
-  #[derive(Debug, qemu_api_macros::Object, qemu_api_macros::offsets)]
-  /// PL011 Device Model in QEMU
-@@ -112,7 +107,8 @@ unsafe impl ObjectType for PL011State {
-  
-  impl ClassInitImpl<PL011Class> for PL011State {
-      fn class_init(klass: &mut PL011Class) {
--        klass.device_id = DeviceId::ARM;
-+        klass.device_id = DeviceId(&[0x11, 0x10, 0x14, 0x00, 0x0d, 0xf0, 0x05, 0xb1]);
-+
-          <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut klass.parent_class);
-      }
-  }
-@@ -628,7 +624,8 @@ pub struct PL011Luminary {
-  
-  impl ClassInitImpl<PL011Class> for PL011Luminary {
-      fn class_init(klass: &mut PL011Class) {
--        klass.device_id = DeviceId::LUMINARY;
-+        klass.device_id = DeviceId(&[0x11, 0x00, 0x18, 0x01, 0x0d, 0xf0, 0x05, 0xb1]);
-+
-          <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut klass.parent_class);
-      }
-  }
+> Paolo Bonzini (7):
+>    rust: pl011: fix declaration of LineControl bits
+>    rust: pl011: match break logic of C version
+>    rust: pl011: always use reset() method on registers
+>    rust: pl011: fix break errors and definition of Data struct
+>    rust: pl011: extend registers to 32 bits
+>    rust: pl011: fix migration stream
+>    rust: pl011: simplify handling of the FIFO enabled bit in LCR
+> 
+>   rust/hw/char/pl011/src/device.rs       | 119 +++++++++++-------
+>   rust/hw/char/pl011/src/device_class.rs |   8 +-
+>   rust/hw/char/pl011/src/lib.rs          | 161 +++++++++++++------------
+>   rust/qemu-api/src/vmstate.rs           |  22 ----
+>   4 files changed, 160 insertions(+), 150 deletions(-)
+> 
 
 
