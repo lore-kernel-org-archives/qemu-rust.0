@@ -1,79 +1,66 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tNuL9-0002HH-NC
-	for mharc-qemu-rust@gnu.org; Wed, 18 Dec 2024 08:43:52 -0500
+	id 1tNumf-0001IL-OD
+	for mharc-qemu-rust@gnu.org; Wed, 18 Dec 2024 09:12:17 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tNuKV-0001Jg-Fv
- for qemu-rust@nongnu.org; Wed, 18 Dec 2024 08:43:12 -0500
-Received: from mail-wm1-x335.google.com ([2a00:1450:4864:20::335])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tNuKR-0005ex-Lj
- for qemu-rust@nongnu.org; Wed, 18 Dec 2024 08:43:10 -0500
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43618283dedso62923635e9.3
- for <qemu-rust@nongnu.org>; Wed, 18 Dec 2024 05:43:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734529386; x=1735134186; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=BpfgCgqmjRnFtWOFA/8n5tIUZ3UhRJDzx4+XUahnt+k=;
- b=ABGGdBImiLaZ6L3zboa0U3yca+vFQPHKIxCZBmQ0rf+Fz+Y4glmLai0MXCp/WHJg+q
- sDd1ehkEpM04TT/YKXWQ7Iqx1QvwsCrw/J6eX/KSnsO5xM24AHcqeiuK6khlxHPs69ue
- eyFp/q29jdVnH9YxAykbji96iBgsouuMOYZjPu35ldDdSBXfg3cxDxh2+k9K+8GJ/GOn
- +IAyaX0ThhR7+jUd5lE72CCa+8a/IyGGvO8+/f9XOGwaNNf0SWPfms3s2JsezrjV4wth
- t6sFq4bP2XdgivvPCixI9i79B7YP9viezapkLeEsGtnvB8oOIEgatXafTkt5MPbHtQDG
- jKQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734529386; x=1735134186;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BpfgCgqmjRnFtWOFA/8n5tIUZ3UhRJDzx4+XUahnt+k=;
- b=RqaobkhqnH3x7quenwfPIg8jYfzn7grk5KbVAralf4UWtynp5oNC2AUBzjt6mBH2Hh
- 7EkxzveIcy1O+IZoWGP/L6RXoCQPOmIDPyZ8zosDiVXpy576b99Lcv1X9yV2G2BU6Etz
- 56m9JJkn5yPptQBtqczCwIpCAnS64/8QODem3JyIfsQ6vjRiPEV4eHsI3g5dPjTgfj2d
- MqceCUbz4L6YIa5TDkt7/rgfpGcOlaPjSYNcpxasA7bbn4d0TyeMXlPRrn9tPdA2OiCC
- VH2Sboi/fU5rgeGQWXf5HKh0SBFT+85y6NT2LLyzGRXDRbp6jH5f6b8pMGeFIJ2ERBnl
- EIhw==
-X-Gm-Message-State: AOJu0YybJ6w9UymGiQ0Tu7wBSZGvX732Q2Fah5wSN4DEZIUcW8g+JPvA
- No7cbb8tPceWJwIEO1zklxalVGPLy1Jjjy5GcSdg6384v93q4yoMZrHh2Dzrq63vzcrkyrZGbfx
- S
-X-Gm-Gg: ASbGncsSop4CTxrUL4+ozEeMTgoZVd4HzPgjR9yzKeTYBfueLyVrW6IDePQ2JbShjIf
- 5ppxD2WLMG9Ttlop+tw421oXhD5r/l3WHoubgwM1KyQ50KhLx3Ec1Ay9CIF6piXjL68LNZgcRnE
- lgrd7umFaaBlqIxU9VncKFZQCxotMfJ1tmSrTTCtVYu/pJnsE9SVSR3O356Mo36/9qQAEVpFuVV
- lbWJJ5ELfYyv/RImgyfDFMZhfJCzfCDHBB7OkrokHYJJNnDvg76TPmXLRwqnG5c5fnIG4fQ
-X-Google-Smtp-Source: AGHT+IGMDVw0UvdLp/ZKIs8ScGhZu8pCTr4YSAgP21wA6B7azBCoRNbI0hhp4SbT+lh1tmWs6Gghlg==
-X-Received: by 2002:a05:600c:3b0e:b0:434:9df4:5485 with SMTP id
- 5b1f17b1804b1-436553ff1ddmr23633015e9.32.1734529385746; 
- Wed, 18 Dec 2024 05:43:05 -0800 (PST)
-Received: from [192.168.1.117] ([78.196.4.158])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43656b12498sm20622655e9.21.2024.12.18.05.43.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Dec 2024 05:43:05 -0800 (PST)
-Message-ID: <b51dfeff-c567-4f21-95ae-59a59f371085@linaro.org>
-Date: Wed, 18 Dec 2024 14:43:04 +0100
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tNumb-0001Er-0B; Wed, 18 Dec 2024 09:12:13 -0500
+Received: from mgamail.intel.com ([192.198.163.12])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tNumZ-00071h-3j; Wed, 18 Dec 2024 09:12:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1734531131; x=1766067131;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=dtVLVjcGMGv3WzoMW4E+eWrZx/eWQnpVTKr7VONHlTo=;
+ b=VX76J87rYiF8BFmZL72T0+X+vltH7DihieAJSag1RjkepjWBN9ShELuu
+ pl9+7d04dk8xEXvGKQcQ/xneTkPL7Cb4jhQQPGHeATxcKmTE6YTCQqp+N
+ yT23houl82k2haruutBadHTntyy4+KemnFFcBROsRpU/M+1aSsqByOP9J
+ 9oAsp91wCm4OgItPZhX0CISHPSKq9duDnIEDhCSAF+P+7tzZZm6QVjV7N
+ cMyXBi0tKRT8vpZZIp41AXv/ReL0ybrf6pIk4zHo0qZqeIAPB+oRkQlkD
+ b7Wykkq6+4+Co2Tur/W1nRdV+del222+EEBd7fxyrKhV5T0coP/J+2288 Q==;
+X-CSE-ConnectionGUID: URT38MyeTj2S2CrUSCzEMQ==
+X-CSE-MsgGUID: 4KPdqzYpR+GLxD6hzPcLmQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11290"; a="38943293"
+X-IronPort-AV: E=Sophos;i="6.12,244,1728975600"; d="scan'208";a="38943293"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2024 06:12:07 -0800
+X-CSE-ConnectionGUID: ESr1MCOKTDadDkh6reX+EQ==
+X-CSE-MsgGUID: g6334WAQRTmn3sVaDB6Ebg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="102483547"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa005.fm.intel.com with ESMTP; 18 Dec 2024 06:12:06 -0800
+Date: Wed, 18 Dec 2024 22:30:45 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org,
+ Junjie Mao <junjie.mao@hotmail.com>
+Subject: Re: [PATCH 24/26] rust: qom: move device_id to PL011 class side
+Message-ID: <Z2LclR0SuCdEV03z@intel.com>
+References: <20241209123717.99077-1-pbonzini@redhat.com>
+ <20241209123717.99077-25-pbonzini@redhat.com>
+ <Z2D2zk2Wdlqc5q2k@intel.com>
+ <CABgObfY=jyu96eZ+ZcU9GXU+amt2wRm53vpvubHYTaeY9MWd2A@mail.gmail.com>
+ <Z2JycooziPsfV8vX@intel.com>
+ <CABgObfboJFTRMsuqO055g11ZWNx1qKNxrLgvYLc-Hh6RcmWtOw@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] rust: pl011: extend registers to 32 bits
-To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org
-References: <20241212172209.533779-1-pbonzini@redhat.com>
- <20241212172209.533779-6-pbonzini@redhat.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20241212172209.533779-6-pbonzini@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::335;
- envelope-from=philmd@linaro.org; helo=mail-wm1-x335.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CABgObfboJFTRMsuqO055g11ZWNx1qKNxrLgvYLc-Hh6RcmWtOw@mail.gmail.com>
+Received-SPF: pass client-ip=192.198.163.12; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -87,33 +74,38 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Dec 2024 13:43:14 -0000
+X-List-Received-Date: Wed, 18 Dec 2024 14:12:15 -0000
 
-On 12/12/24 18:22, Paolo Bonzini wrote:
-> The PL011 Technical Reference Manual lists the "real" size of the
-> registers in table 3-1, and only rounds up to the next byte when
-> describing the registers; for example, UARTDR is listed as having
-> width 12/8 (12 bits read, 8 written) and only bits 15:0 are listed
-> in "Table 3-2 UARTDR Register".
+> No, Self is not PL011Class. Self is PL011State (or PL011Luminary/ and it
+> always remains the same. What changes is *what part* of the class is
+> overwritten, but the order of calls from qom/object.c follows the same
+> logic in both C and Rust.
+
+Thanks! Now I feel I see!
+
+For C side, type_initialize() will allocate a new class instance by
+`ti->class = g_malloc0(ti->class_size)`, then actually C side's parent
+class_init will initialize that new class instance.
+
+For Rust side, the initialization call chain will initialize Self's
+embedded parent class, one by one.
+
+So that's fine!
+
+> > Maybe the confusion is because I implemented class_init twice instead of
+> > > using a separate trait "PL011Impl"?
+> >
+> > Ah, yes! But I think the Rust call chain should not use class_init anymore
+> > but should use a different method. This way, the original class_init would
+> > only serve the C QOM. A separate trait might break the inheritance
+> > relationship similar to ClassInitImpl.
+> >
 > 
-> However, in practice these are 32-bit registers, accessible only
-> through 32-bit MMIO accesses; preserving the fiction that they're
-> smaller introduces multiple casts (to go from the bilge bitfield
-> type to e.g u16 to u64) and more importantly it breaks the
-> migration stream (though only on big-endian machines) because
-> the Rust vmstate macros are not yet type safe.
+> Do you still think that this is the case?
 
-This also better matches PL011_OPS::impl_.
+No, now this patch is fine for me!
 
-> 
-> So, just make everything 32-bits wide.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->   rust/hw/char/pl011/src/device.rs | 36 ++++++++++++++------------------
->   rust/hw/char/pl011/src/lib.rs    | 23 +++++++++-----------
->   2 files changed, 26 insertions(+), 33 deletions(-)
-
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Thanks,
+Zhao
 
 
