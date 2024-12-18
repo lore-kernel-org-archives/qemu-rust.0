@@ -1,79 +1,80 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tNtwt-0006Hg-2c
-	for mharc-qemu-rust@gnu.org; Wed, 18 Dec 2024 08:18:47 -0500
+	id 1tNtzK-0007Rg-MH
+	for mharc-qemu-rust@gnu.org; Wed, 18 Dec 2024 08:21:18 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tNtwl-0006GF-Fr
- for qemu-rust@nongnu.org; Wed, 18 Dec 2024 08:18:40 -0500
-Received: from mail-pf1-x432.google.com ([2607:f8b0:4864:20::432])
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tNtzB-0007Qu-C7
+ for qemu-rust@nongnu.org; Wed, 18 Dec 2024 08:21:12 -0500
+Received: from mail-pf1-x431.google.com ([2607:f8b0:4864:20::431])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tNtwk-0006Fp-0h
- for qemu-rust@nongnu.org; Wed, 18 Dec 2024 08:18:39 -0500
-Received: by mail-pf1-x432.google.com with SMTP id
- d2e1a72fcca58-728e729562fso5569338b3a.0
- for <qemu-rust@nongnu.org>; Wed, 18 Dec 2024 05:18:36 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tNtz2-0006h8-A9
+ for qemu-rust@nongnu.org; Wed, 18 Dec 2024 08:21:07 -0500
+Received: by mail-pf1-x431.google.com with SMTP id
+ d2e1a72fcca58-728f1e66418so5676450b3a.2
+ for <qemu-rust@nongnu.org>; Wed, 18 Dec 2024 05:20:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734527916; x=1735132716; darn=nongnu.org;
+ d=linaro.org; s=google; t=1734528057; x=1735132857; darn=nongnu.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Oj/+Bc426eYh9OMfhw7IQd7PlkdQHF7+6nYyfarJhPQ=;
- b=BfoFBSDzFclBbCJftJHhNdqjq+dcIQDp/ukPlfRciT4oRnb5ZXgJ2mxoXj8zsePClv
- gWdxJi92Ww5eIGBZNyCE7meHqMZ5XhKiq98yEZ12DCU1zJRXeEJQIzCOf4kBwBo/hVum
- 4NO8YPSHUTTtwAFXeqixbScLhIeoPbfQ+VnFjcvxo1wAyUmkY4/tLhZSLr91GK9Q+08d
- Jb8Y2lcvkOpgctozjmtWpcryu0K4ri4pqAH9fQX8rk5iEkR7tLAdAwHBpAfsIZz9E+iS
- 1CLBrZmqTTCYA3Dg2ZxUaUo8x64x9vf7CEdF1TOJJIhvxkrWPyUjTLY0POBi2xwtiJjh
- qavQ==
+ bh=wd0XUmjdcfVtYA54yQSjmI0QoTn/5+Ke86U4Hn/dNFA=;
+ b=vx5wkR6X6SyaVYn/Gnf82U6uiXdCWE17qmZXJZe2nfafi7pIb5oK454QWTlfbNfUm1
+ g0EYMJ6zLoh5byTYACW+b0mKcQl7ANxPLb96IYM8gI+Ua7p4UPmelBgO53JRp8emOpyu
+ aMJ4zGLg4Vg7mUrbhnVggnDmk68orbSGyvnnweSBi+jQaxUnRbWYRpGKIXqVrv5pL2yG
+ 9nVAHVbmyalbNQV0zhuUtGH4rXKdETf5tRkL6JrhixDsPwUDmaQrh85r2XEYvLLGbHIt
+ BfTuMor6mh22iL2a6ZEkMkeLW3bw1ZTif5Fj9VdBDTsenbFj4CHdtONx8X1XMc0MvAgh
+ QZBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734527916; x=1735132716;
+ d=1e100.net; s=20230601; t=1734528057; x=1735132857;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Oj/+Bc426eYh9OMfhw7IQd7PlkdQHF7+6nYyfarJhPQ=;
- b=t5QT8wAgQ+EvHoHyae3VngbCK4Tlyl7mkB3TkN1TwIKBG7xw6id3o9PNGbW9CizxlR
- RYDQzUuofA5LVG/RIVldyKynaQk8ZgHXESZbfy7LOmjHDNIuauCbmGtVmBQHDERBaOMi
- /kvQB5+59p6IEjQS0EEq9OuRckOyW1y8ZqwK2cLbdDhpZ/uRzm4GKDMyxUmlHSYymYb/
- qiwgCffGT4ILykwDeNoH0cosS1YdXjWdnSKTHeQK0QPynACYuDj27TeuAClRgEdhztge
- Zt8VX6OQ0+At06mmiffeAinwmKyPtbDyyLUbqnerF/3FkI5ARIjWxEtI1l4JPf9tXz5Y
- wj3Q==
-X-Gm-Message-State: AOJu0YxQ1x5EM2/TcSts+f66/LPTGNR9KJE4SzAqOsj9x2M+jENFz+4W
- pWoO72qQYOQsItp3w8wYDahiD4HRxL7/xH4MnBfVv1wgY49IZ58EDToeDfeLBzA=
-X-Gm-Gg: ASbGnctxGE3gYxeFjbETSY2RomOmksA6qUMe3bRYur3lsjwKEMvBdRkrQ/ab1tqFfuk
- C6O/EEkiqYq9ZGTRUsnp9hSndlap3a72R3w8SwZC6FR+Y2emXRe4LmJyoatJP9mCojNBredu6Oh
- 3AO3WNA5ovz6NNnOnoVElUli/GFRR4CBANFyIrAiiJ6Vjgm3JmzrGihBTUy7CpWTUfJu1GVp0/j
- JOVccugwpDuPS/wpfMTVz04CNlublnV4VtOM5cQcUzGiYdoW759OcRgHAqkED/GALORdo7+
-X-Google-Smtp-Source: AGHT+IFBRDVGnOHfVLJawh4Ma3u7QTo5SWCW+GlwaMF7Dx6v/EQMxymnfEbjKuc05wzIM5dRF+vFWA==
-X-Received: by 2002:a05:6a21:32a5:b0:1e1:9662:a6f2 with SMTP id
- adf61e73a8af0-1e5b487d810mr5092263637.35.1734527915721; 
- Wed, 18 Dec 2024 05:18:35 -0800 (PST)
+ bh=wd0XUmjdcfVtYA54yQSjmI0QoTn/5+Ke86U4Hn/dNFA=;
+ b=sZ+6eI+FTYJ1fWqrEYQa7ehbZxW8AYkZxlCLMs92uLBlJ8Ft+jkhYJWqKdH28XsvUV
+ iBkEkacgHjhL/oGkiY1q7YVGCkks6GmuelRjMWc5SFGvtjtpSClJOY6ikubusaCRSjQk
+ parcMgvPhvzRsYy083Bt0bgRQAhHzg8GelqXFSYBBzqDNqaULkpU6LU71EVsBPXxGM2j
+ OgqaKCKqCofKYdUO1enBwZjE35LWColrxdsyANzxyV5pTreCbuVWSCTg152AKoc53+m6
+ pzmQJaibwFpjqbAWHjJNeAs0IC7u307980SmYbKT3RcomWxeSTOvwYIBa+vDCpGR6YtZ
+ bu7w==
+X-Gm-Message-State: AOJu0YxJZuoKqpogJtljsPVG35kiZBUbYaiUs5RWIRGSmp2q30CjaWc3
+ MuGejgK9zvtxYOJHGNSldstzBoex4hNYJyyvVeb7g68ZdAVHLusiQ9VLDI4yrq4=
+X-Gm-Gg: ASbGncu4Afc8NjSFETBTHNlfuhh/Kx9NuhpoUc25t2iHUXdplMtTqi+Jy7tFRaods7b
+ sFUCncK6KIrm37sAGyeHvxq5kbYmpGFpqvG2WwDt+9Umzr5QIsunYhXwkdHxBD3XASjchU+EBEb
+ 8tt6VppZ1/oBIcb6DMckf/rYJ5gUsvsITCDgTUaOUp3ngJXqmmF8EyHKJkr+tDfcUDUIPhQLPFX
+ Sz27iLxPRSkQoJzUDMSbOp173qCkWs63JL4W5KTS8ZhIdG7D67SGa8NN3UpMGfmDk5nhaii
+X-Google-Smtp-Source: AGHT+IEPvmtgjiT8ozC3Dx6MOPjjEcKSpvjkOl8tP8XcJDKiM8JMWNEH9XzAMJWVDpyHUtXI61TDNQ==
+X-Received: by 2002:a05:6a21:3985:b0:1e1:a716:316a with SMTP id
+ adf61e73a8af0-1e5b47fc5a5mr4771348637.10.1734528057189; 
+ Wed, 18 Dec 2024 05:20:57 -0800 (PST)
 Received: from [192.168.1.117] ([78.196.4.158])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-72918ac84f3sm8792371b3a.24.2024.12.18.05.18.33
+ d2e1a72fcca58-72918ad8f34sm8502173b3a.77.2024.12.18.05.20.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Dec 2024 05:18:35 -0800 (PST)
-Message-ID: <f83920e3-b770-4f15-b319-7cb1672fe109@linaro.org>
-Date: Wed, 18 Dec 2024 14:18:30 +0100
+ Wed, 18 Dec 2024 05:20:56 -0800 (PST)
+Message-ID: <d6eb56fd-47d6-4271-a62f-7d6a4feae2b3@linaro.org>
+Date: Wed, 18 Dec 2024 14:20:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] rust: pl011: match break logic of C version
+Subject: Re: [PATCH 7/7] rust: pl011: simplify handling of the FIFO enabled
+ bit in LCR
 To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
 References: <20241212172209.533779-1-pbonzini@redhat.com>
- <20241212172209.533779-3-pbonzini@redhat.com>
+ <20241212172209.533779-8-pbonzini@redhat.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20241212172209.533779-3-pbonzini@redhat.com>
+In-Reply-To: <20241212172209.533779-8-pbonzini@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2607:f8b0:4864:20::432;
- envelope-from=philmd@linaro.org; helo=mail-pf1-x432.google.com
+Received-SPF: pass client-ip=2607:f8b0:4864:20::431;
+ envelope-from=philmd@linaro.org; helo=mail-pf1-x431.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -86,18 +87,16 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Dec 2024 13:18:45 -0000
+X-List-Received-Date: Wed, 18 Dec 2024 13:21:12 -0000
 
-On 12/12/24 18:21, Paolo Bonzini wrote:
-> Check loopback_enabled(), not fifo_enabled(), like the C code.
-> 
-> Also, set_break_error() must not happen until the break is read from
-> the FIFO.
+On 12/12/24 18:22, Paolo Bonzini wrote:
+> Use ==/!= instead of going through bool and xor.
 > 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->   rust/hw/char/pl011/src/device.rs | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
+>   rust/hw/char/pl011/src/device.rs | 6 ++----
+>   rust/hw/char/pl011/src/lib.rs    | 6 ------
+>   2 files changed, 2 insertions(+), 10 deletions(-)
 
 Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
