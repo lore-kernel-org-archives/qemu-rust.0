@@ -1,87 +1,66 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tNamK-0004ad-Dx
-	for mharc-qemu-rust@gnu.org; Tue, 17 Dec 2024 11:50:37 -0500
+	id 1tNniP-0007Dq-KR
+	for mharc-qemu-rust@gnu.org; Wed, 18 Dec 2024 01:39:25 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tNamD-0004VT-4K
- for qemu-rust@nongnu.org; Tue, 17 Dec 2024 11:50:29 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tNniN-0007Ct-9N; Wed, 18 Dec 2024 01:39:23 -0500
+Received: from mgamail.intel.com ([198.175.65.15])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tNamB-00043D-Bh
- for qemu-rust@nongnu.org; Tue, 17 Dec 2024 11:50:28 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1734454225;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Hu/9pdkuiuanNzhJ1wScBiefsC05dTNERTjnpoqBxdo=;
- b=DOrnIg0CLVnKfTlJ5wG8J2zzgp2yt+jICnrkCemDRdPwtQjzq4I3gRoZqUvOChK2gJyUXF
- mgJtiiiYRo5OW1vO3EeQe/dP6bjz0XHMAl0kdo6DADl5iP4YJ743vZoXHTeBzG/V2OKUVg
- gPMFlK70Y8sEf337OFbfXExkvloSjfk=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-422-ZmOZ6W2vMMqZF-JfzPtI_g-1; Tue, 17 Dec 2024 11:50:23 -0500
-X-MC-Unique: ZmOZ6W2vMMqZF-JfzPtI_g-1
-X-Mimecast-MFC-AGG-ID: ZmOZ6W2vMMqZF-JfzPtI_g
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-3862c67763dso2284216f8f.3
- for <qemu-rust@nongnu.org>; Tue, 17 Dec 2024 08:50:22 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734454222; x=1735059022;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Hu/9pdkuiuanNzhJ1wScBiefsC05dTNERTjnpoqBxdo=;
- b=UUdS/kzDiV3DPTKUds5mojCDvVSCGsZ0oKR760418y7Wm3PVC9E8xwY/anGOKCLvqt
- Og3cNmKVM3b8eevvV1HL6Vk+MP1Vg7ld4dS/pZ65u3tuuhlOX9mELKpy9ec7s7aAzngQ
- zLQQkmSir/NLbJ5vatiUTgfREOHvcJ0hW7gUEsCGvFo57cF0y2Jat1yhdQ7aHWAlQnSh
- OwsEEDD2Ufwgc9F1aT8botgOsP61Xn8Vz5R5bu8+xKzxu2erhyK1vHvVOH7PoOVQ35na
- SvWvV6PX5FF8RjbckkOZkhMdDbkK4Jyo57tQbqP3vbAJ91CjJ9d1DBOJVLVwmFYNFhgS
- wG6Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWo4sJbiX20Wu224kFhoqiN/HGINhlmK4Nd2RJN/wOYChfCL9NGv/YEw5CIi+lsK8nkZywGLzCQ3k4=@nongnu.org
-X-Gm-Message-State: AOJu0Yyx+oRWhGs0wVqaFZbfPFVQyjPITqrjmMJR0BUS7jk5Ownl5TGt
- U9Jg5I+rBoK3o2hzD09/hf6xyDxDj5eCsjt2p8IUimGhISgoDD+eUyqwPKThwUZBUTEUSAMTWg4
- f4PYaCNiEb6ZJhMpMn2l7b7ikfTBvNiRnG5WH2EGY9WDP0chD6Dalh+iVr3ylM1pdhfNGGaQYwt
- jV320Wn6/NdN41vKO7lvUgfOpjVA==
-X-Gm-Gg: ASbGncujTVaqq5xYycOvXbCDxttbWyqQ6e2QtQmAYR5F0UIBE+uHLpNaA9wsDmx9FHH
- z+a578WFY6jA2rE1kBw/LoQevSjqnhDXKyITUiw==
-X-Received: by 2002:a5d:64a3:0:b0:386:424e:32d5 with SMTP id
- ffacd0b85a97d-38880acd269mr13718791f8f.14.1734454221842; 
- Tue, 17 Dec 2024 08:50:21 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFpAKXuMxm8PmVpDOYptZdwoYh7en457ZACuuF/qAiP1urP0GySIE7gZoVfi534zqQhJo0rnNVWBb/33Im2cy8=
-X-Received: by 2002:a5d:64a3:0:b0:386:424e:32d5 with SMTP id
- ffacd0b85a97d-38880acd269mr13718774f8f.14.1734454221455; Tue, 17 Dec 2024
- 08:50:21 -0800 (PST)
-MIME-Version: 1.0
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tNniK-0001KA-3o; Wed, 18 Dec 2024 01:39:22 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1734503960; x=1766039960;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=0j7yWL1ku3s8tx6AjaydGcnQsUTd3IjyXBmPGFmWXw4=;
+ b=GvFvsplt2pUE2lgTitB1sbsiAQXoGTlk/lNcZ17yPMZngwJvAiEs/V+6
+ /SfcNnxAboJqciCm3Zsq3UoyFne1OSFXhdriCynMQfmtuI8ksoPXNnyVv
+ is5PTBBG5ownrfGD45WFiQWm7wpTk/pCQ9rBMJGKGTRfrqOyYOkOaikQC
+ OhNjj1bMoBp3FbgXUpaGF8KId1uh3UnOoXkRKAzNMm/lWRidyRAqpayRT
+ O9db9d1RCyJ9zXi0u+8K1GpErwm9qXasvuQZ0YIwCbZP4wneQW6xdhDJJ
+ a5aJiTExrjAnWhkhFNsmJ7BqASg667RO6ae3iC7a4BGBpHjSzo1Or8UWi g==;
+X-CSE-ConnectionGUID: 7d4lqVZhQ8KqsxyM7AZeww==
+X-CSE-MsgGUID: MYBb8/2/TnuYxp+LGqMWgA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11289"; a="38639578"
+X-IronPort-AV: E=Sophos;i="6.12,244,1728975600"; d="scan'208";a="38639578"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2024 22:39:16 -0800
+X-CSE-ConnectionGUID: miwF27DHQMy1dnIxi9voKQ==
+X-CSE-MsgGUID: VCB4b5HMSme3Hf7isY3xtQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,244,1728975600"; d="scan'208";a="102604995"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa004.fm.intel.com with ESMTP; 17 Dec 2024 22:39:14 -0800
+Date: Wed, 18 Dec 2024 14:57:54 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org,
+ Junjie Mao <junjie.mao@hotmail.com>
+Subject: Re: [PATCH 24/26] rust: qom: move device_id to PL011 class side
+Message-ID: <Z2JycooziPsfV8vX@intel.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
  <20241209123717.99077-25-pbonzini@redhat.com>
  <Z2D2zk2Wdlqc5q2k@intel.com>
-In-Reply-To: <Z2D2zk2Wdlqc5q2k@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 17 Dec 2024 17:50:09 +0100
-Message-ID: <CABgObfY=jyu96eZ+ZcU9GXU+amt2wRm53vpvubHYTaeY9MWd2A@mail.gmail.com>
-Subject: Re: [PATCH 24/26] rust: qom: move device_id to PL011 class side
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org, 
- Junjie Mao <junjie.mao@hotmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: TEmgJthQfirJVxaqguV5fr3EXPFnnd_NF_YPPtJuQRw_1734454222
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="000000000000bfe2e606297a1755"
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -31
-X-Spam_score: -3.2
-X-Spam_bar: ---
-X-Spam_report: (-3.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ <CABgObfY=jyu96eZ+ZcU9GXU+amt2wRm53vpvubHYTaeY9MWd2A@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABgObfY=jyu96eZ+ZcU9GXU+amt2wRm53vpvubHYTaeY9MWd2A@mail.gmail.com>
+Received-SPF: pass client-ip=198.175.65.15; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-1.116,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -94,135 +73,190 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Dec 2024 16:50:31 -0000
+X-List-Received-Date: Wed, 18 Dec 2024 06:39:24 -0000
 
---000000000000bfe2e606297a1755
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Il mar 17 dic 2024, 04:39 Zhao Liu <zhao1.liu@intel.com> ha scritto:
-
-> > +impl ClassInitImpl<PL011Class> for PL011State {
-> > +    fn class_init(klass: &mut PL011Class) {
-> > +        klass.device_id =3D DeviceId::ARM;
-> > +        <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut
-> klass.parent_class);
+On Tue, Dec 17, 2024 at 05:50:09PM +0100, Paolo Bonzini wrote:
+> Date: Tue, 17 Dec 2024 17:50:09 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: Re: [PATCH 24/26] rust: qom: move device_id to PL011 class side
+> 
+> Il mar 17 dic 2024, 04:39 Zhao Liu <zhao1.liu@intel.com> ha scritto:
+> 
+> > > +impl ClassInitImpl<PL011Class> for PL011State {
+> > > +    fn class_init(klass: &mut PL011Class) {
+> > > +        klass.device_id = DeviceId::ARM;
+> > > +        <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut
+> > klass.parent_class);
+> >
+> > This seems a bit of a conflict with the C version of QOM semantics. In C,
+> > class_init is registered in TypeInfo, and then the QOM code will
+> > automatically call the parent's class_init without needing to explicitly
+> > call the parent's in the child's class_init.
+> >
+> 
+> This is the same in Rust.
+> 
+> The difference is that in C you have a single class_init function that sets
+> all members of ObjectClass, DeviceClass, etc. In Rust each class has one
+> trait and there is a chain of ClassInitImpl implementations—one filling in
+> "oc" from ObjectImpl, one filling in "dc" from DeviceImpl and so on.
 >
-> This seems a bit of a conflict with the C version of QOM semantics. In C,
-> class_init is registered in TypeInfo, and then the QOM code will
-> automatically call the parent's class_init without needing to explicitly
-> call the parent's in the child's class_init.
->
+> But in both cases you get a chain of calls from qom/object.c.
+> 
+> Therefore, the call here seems valid from the code logic's perspective.
 
-This is the same in Rust.
+I supposed a case, where there is such a QOM (QEMU Object Model)
+structure relationship:
 
-The difference is that in C you have a single class_init function that sets
-all members of ObjectClass, DeviceClass, etc. In Rust each class has one
-trait and there is a chain of ClassInitImpl implementations=E2=80=94one fil=
-ling in
-"oc" from ObjectImpl, one filling in "dc" from DeviceImpl and so on.
+* DummyState / DummyClass: defined in Rust side, and registered the
+  TypeInfo by `Object` macro.
 
-But in both cases you get a chain of calls from qom/object.c.
+  - So its class_init will be called by C QOM code.
 
-Therefore, the call here seems valid from the code logic's perspective.
-> But, when there is deeper class inheritance, it seems impossible to
-> prevent class_init from being called both by the C side's QOM code and by
-> this kind of recursive case on the Rust side.
->
+* DummyChildState / DummyChildClass: defined in Rust side as the
+  child-object of DummyState, and registered the TypeInfo by `Object`
+  macro. And suppose it can inherit the trait of DummyClass -
+  ClassInitImpl<DummyClass> (but I found a gap here, as detailed later;
+  I expect it should be able to inherit normally).
 
-Note that here you have two parameters: what class is being filled (the
-argument C of ClassInitImpl<C>) *and* what type is being initialized
-(that's Self).
+ - So its class_init will be called by C QOM code. In C code call chain,
+   its parent's class_init should be called by C before its own
+   class_init.
+ - However, note that according to the Rust class initialization call
+   chain, it should also call the parent's class_init within its own
+   class_init.
+ - :( the parent's class_init gets called twice.
 
-The "recursion" is only on the argument C, and matches the way C code
-implements class_init.
+If you agree this case indeed exists, then I think we should distinguish
+between different class_init methods for the Rust and C call chains.
 
-Maybe the confusion is because I implemented class_init twice instead of
-using a separate trait "PL011Impl"?
+Moving on to another topic, about the gap (or question :-)) where a
+child class inherits the ClassInitImpl trait from the parent, please see
+my test case example below: Doing something similar to SysBusDevice and
+DeviceState using a generic T outside of the QOM library would violate
+the orphan rule.
 
-Paolo
+diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
+index 7edadf911cca..8cae222a37be 100644
+--- a/rust/qemu-api/tests/tests.rs
++++ b/rust/qemu-api/tests/tests.rs
+@@ -13,8 +13,8 @@
+ use qemu_api::{
+     bindings::*,
+     c_str, declare_properties, define_property,
+-    qdev::{DeviceImpl, DeviceState, Property},
+-    qom::{ObjectCast, ObjectCastMut, ObjectImpl, ObjectMethods, ObjectType},
++    qdev::{DeviceClass, DeviceImpl, DeviceState, Property},
++    qom::{ClassInitImpl, ObjectCast, ObjectCastMut, ObjectImpl, ObjectMethods, ObjectType},
+     qom_isa,
+     vmstate::VMStateDescription,
+     zeroable::Zeroable,
+@@ -37,6 +37,10 @@ pub struct DummyState {
 
-So, for devices like SysBusDevice that are registered on the C side,
-> should we not implement class_init and also not call it explicitly?
->
-> Or should we distinguish between two different usages of class_init? One
-> is registered in TypeInfo (only as a callback in rust_class_init) - perha=
-ps
-> rename it as qom_class_init, and the other is used as a helper for
-> Rust-side
-> calls (similar to the recursive usage here) - maybe rename it as
-> class_inter_init.
->
-> > +    }
-> > +}
->
->
+ qom_isa!(DummyState: Object, DeviceState);
 
---000000000000bfe2e606297a1755
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
++pub struct DummyClass {
++    parent_class: <DeviceState as ObjectType>::Class,
++}
++
+ declare_properties! {
+     DUMMY_PROPERTIES,
+         define_property!(
+@@ -49,7 +53,7 @@ pub struct DummyState {
+ }
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
-ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mar 17 dic 2024, 04:39 Zhao L=
-iu &lt;<a href=3D"mailto:zhao1.liu@intel.com">zhao1.liu@intel.com</a>&gt; h=
-a scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">&gt; =
-+impl ClassInitImpl&lt;PL011Class&gt; for PL011State {<br>
-&gt; +=C2=A0 =C2=A0 fn class_init(klass: &amp;mut PL011Class) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 klass.device_id =3D DeviceId::ARM;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 &lt;Self as ClassInitImpl&lt;SysBusDevice=
-Class&gt;&gt;::class_init(&amp;mut klass.parent_class);<br>
-<br>
-This seems a bit of a conflict with the C version of QOM semantics. In C,<b=
-r>
-class_init is registered in TypeInfo, and then the QOM code will<br>
-automatically call the parent&#39;s class_init without needing to explicitl=
-y<br>
-call the parent&#39;s in the child&#39;s class_init.<br></blockquote></div>=
-</div><div dir=3D"auto"><br></div><div dir=3D"auto">This is the same in Rus=
-t.</div><div dir=3D"auto"><br></div><div dir=3D"auto">The difference is tha=
-t in C you have a single class_init function that sets all members of Objec=
-tClass, DeviceClass, etc. In Rust each class has one trait and there is a c=
-hain of ClassInitImpl implementations=E2=80=94one filling in &quot;oc&quot;=
- from ObjectImpl, one filling in &quot;dc&quot; from DeviceImpl and so on.<=
-/div><div dir=3D"auto"><br></div><div dir=3D"auto">But in both cases you ge=
-t a chain of calls from qom/object.c.</div><div dir=3D"auto"><br></div><div=
- dir=3D"auto"><div class=3D"gmail_quote gmail_quote_container"><blockquote =
-class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
-id rgb(204,204,204);padding-left:1ex">Therefore, the call here seems valid =
-from the code logic&#39;s perspective.<br>
-But, when there is deeper class inheritance, it seems impossible to<br>
-prevent class_init from being called both by the C side&#39;s QOM code and =
-by<br>
-this kind of recursive case on the Rust side.<br></blockquote></div></div><=
-div dir=3D"auto"><br></div><div dir=3D"auto">Note that here you have two pa=
-rameters: what class is being filled (the argument C of ClassInitImpl&lt;C&=
-gt;) *and* what type is being initialized (that&#39;s Self).</div><div dir=
-=3D"auto"><br></div><div dir=3D"auto">The &quot;recursion&quot; is only on =
-the argument C, and matches the way C code implements class_init.</div><div=
- dir=3D"auto"><br></div><div dir=3D"auto">Maybe the confusion is because I =
-implemented class_init twice instead of using a separate trait &quot;PL011I=
-mpl&quot;?</div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo</div><d=
-iv dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote gmail=
-_quote_container"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">So, for=
- devices like SysBusDevice that are registered on the C side,<br>
-should we not implement class_init and also not call it explicitly?<br>
-<br>
-Or should we distinguish between two different usages of class_init? One<br=
->
-is registered in TypeInfo (only as a callback in rust_class_init) - perhaps=
-<br>
-rename it as qom_class_init, and the other is used as a helper for Rust-sid=
-e<br>
-calls (similar to the recursive usage here) - maybe rename it as<br>
-class_inter_init.<br>
-<br>
-&gt; +=C2=A0 =C2=A0 }<br>
-&gt; +}<br>
-<br>
-</blockquote></div></div></div>
+ unsafe impl ObjectType for DummyState {
+-    type Class = <DeviceState as ObjectType>::Class;
++    type Class = DummyClass;
+     const TYPE_NAME: &'static CStr = c_str!("dummy");
+ }
 
---000000000000bfe2e606297a1755--
+@@ -67,6 +71,51 @@ fn vmsd() -> Option<&'static VMStateDescription> {
+     }
+ }
+
++// `impl<T> ClassInitImpl<DummyClass> for T` doesn't work since it violates orphan rule.
++impl ClassInitImpl<DummyClass> for DummyState {
++    fn class_init(klass: &mut DummyClass) {
++        <Self as ClassInitImpl<DeviceClass>>::class_init(&mut klass.parent_class);
++    }
++}
++
++#[derive(qemu_api_macros::offsets)]
++#[repr(C)]
++#[derive(qemu_api_macros::Object)]
++pub struct DummyChildState {
++    parent: DummyState,
++    migrate_clock: bool,
++}
++
++qom_isa!(DummyChildState: Object, DeviceState, DummyState);
++
++pub struct DummyChildClass {
++    parent_class: <DummyState as ObjectType>::Class,
++}
++
++unsafe impl ObjectType for DummyChildState {
++    type Class = DummyChildClass;
++    const TYPE_NAME: &'static CStr = c_str!("dummy_child");
++}
++
++impl ObjectImpl for DummyChildState {
++    type ParentType = DummyState;
++    const ABSTRACT: bool = false;
++}
++
++impl DeviceImpl for DummyChildState {}
++
++impl ClassInitImpl<DummyClass> for DummyChildState {
++    fn class_init(klass: &mut DummyClass) {
++        <Self as ClassInitImpl<DeviceClass>>::class_init(&mut klass.parent_class);
++    }
++}
++
++impl ClassInitImpl<DummyChildClass> for DummyChildState {
++    fn class_init(klass: &mut DummyChildClass) {
++        <Self as ClassInitImpl<DummyClass>>::class_init(&mut klass.parent_class);
++    }
++}
++
+ fn init_qom() {
+     static ONCE: Mutex<Cell<bool>> = Mutex::new(Cell::new(false));
+
+@@ -85,6 +134,7 @@ fn test_object_new() {
+     init_qom();
+     unsafe {
+         object_unref(object_new(DummyState::TYPE_NAME.as_ptr()).cast());
++        object_unref(object_new(DummyChildState::TYPE_NAME.as_ptr()).cast());
+     }
+ }
+
+> > But, when there is deeper class inheritance, it seems impossible to
+> > prevent class_init from being called both by the C side's QOM code and by
+> > this kind of recursive case on the Rust side.
+> >
+> 
+> Note that here you have two parameters: what class is being filled (the
+> argument C of ClassInitImpl<C>) *and* what type is being initialized
+> (that's Self).
+> 
+> The "recursion" is only on the argument C, and matches the way C code
+> implements class_init.
+
+For Rust side, PL011Class' class_init calls SysBusDeviceClass' class_init,
+and SysBusDeviceClass will also call DeviceClass' class_init. So this is
+also recursion, right?
+
+> Maybe the confusion is because I implemented class_init twice instead of
+> using a separate trait "PL011Impl"?
+
+Ah, yes! But I think the Rust call chain should not use class_init anymore
+but should use a different method. This way, the original class_init would
+only serve the C QOM. A separate trait might break the inheritance
+relationship similar to ClassInitImpl.
+
+Regards,
+Zhao
+
 
 
