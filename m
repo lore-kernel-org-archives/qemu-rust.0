@@ -1,58 +1,54 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tNumf-0001IL-OD
-	for mharc-qemu-rust@gnu.org; Wed, 18 Dec 2024 09:12:17 -0500
+	id 1tNv4M-0000mW-O1
+	for mharc-qemu-rust@gnu.org; Wed, 18 Dec 2024 09:30:35 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tNumb-0001Er-0B; Wed, 18 Dec 2024 09:12:13 -0500
-Received: from mgamail.intel.com ([192.198.163.12])
+ id 1tNv3w-0000Ya-Tf; Wed, 18 Dec 2024 09:30:14 -0500
+Received: from mgamail.intel.com ([192.198.163.8])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tNumZ-00071h-3j; Wed, 18 Dec 2024 09:12:12 -0500
+ id 1tNv3v-0004FM-4U; Wed, 18 Dec 2024 09:30:08 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734531131; x=1766067131;
+ t=1734532207; x=1766068207;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=dtVLVjcGMGv3WzoMW4E+eWrZx/eWQnpVTKr7VONHlTo=;
- b=VX76J87rYiF8BFmZL72T0+X+vltH7DihieAJSag1RjkepjWBN9ShELuu
- pl9+7d04dk8xEXvGKQcQ/xneTkPL7Cb4jhQQPGHeATxcKmTE6YTCQqp+N
- yT23houl82k2haruutBadHTntyy4+KemnFFcBROsRpU/M+1aSsqByOP9J
- 9oAsp91wCm4OgItPZhX0CISHPSKq9duDnIEDhCSAF+P+7tzZZm6QVjV7N
- cMyXBi0tKRT8vpZZIp41AXv/ReL0ybrf6pIk4zHo0qZqeIAPB+oRkQlkD
- b7Wykkq6+4+Co2Tur/W1nRdV+del222+EEBd7fxyrKhV5T0coP/J+2288 Q==;
-X-CSE-ConnectionGUID: URT38MyeTj2S2CrUSCzEMQ==
-X-CSE-MsgGUID: 4KPdqzYpR+GLxD6hzPcLmQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11290"; a="38943293"
-X-IronPort-AV: E=Sophos;i="6.12,244,1728975600"; d="scan'208";a="38943293"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2024 06:12:07 -0800
-X-CSE-ConnectionGUID: ESr1MCOKTDadDkh6reX+EQ==
-X-CSE-MsgGUID: g6334WAQRTmn3sVaDB6Ebg==
+ bh=ECYa1ISu3mUk8ZxqBTRCpB9mnPeFUyXwRxUzf2tDNLM=;
+ b=QZug9hUmeUKuryWNIv2Wj43ArMGCPglxDLJzP0FqwJ8b+inXs5IFK+Zg
+ 6HELaz8rLTV4osT1xvpz5k3OupICyoz5ESnq7OFrUy2KG/az5NwDOeXLD
+ TucPkndSlGj9IM+0km+ZDYhvK4eR65ojCzrqP2l4E/mq2HF55sd48JETG
+ /O9s9o/K6+4k8fuIRC8+ewyr43kkoEc1h6sQt6ifO6ZyiyDQA+CgO+W0e
+ 1SHqYHRcm8BFueP3nhKlYS0HqBci3ujkw1Q3t8KBH/6bNO+dSju0yv96G
+ 9z1QFx0h7sp/giXWfoMoi9jpaLWTpBGj+C7IJvbhQrfTMMBj0YA7BA0sF g==;
+X-CSE-ConnectionGUID: hy2up2pAQzS23wSrWgoY6A==
+X-CSE-MsgGUID: k7oD2YOsQRepm4oPV0JIOg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11290"; a="52535594"
+X-IronPort-AV: E=Sophos;i="6.12,244,1728975600"; d="scan'208";a="52535594"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2024 06:28:44 -0800
+X-CSE-ConnectionGUID: 5u3AVuLqSxukXA4SqUdiBw==
+X-CSE-MsgGUID: rCfhBhv+Qb+DBddVO2/law==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="102483547"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="102019948"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa005.fm.intel.com with ESMTP; 18 Dec 2024 06:12:06 -0800
-Date: Wed, 18 Dec 2024 22:30:45 +0800
+ by fmviesa003.fm.intel.com with ESMTP; 18 Dec 2024 06:28:43 -0800
+Date: Wed, 18 Dec 2024 22:47:23 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org,
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>
 Subject: Re: [PATCH 24/26] rust: qom: move device_id to PL011 class side
-Message-ID: <Z2LclR0SuCdEV03z@intel.com>
+Message-ID: <Z2Lge39BPLR2dTAt@intel.com>
 References: <20241209123717.99077-1-pbonzini@redhat.com>
  <20241209123717.99077-25-pbonzini@redhat.com>
- <Z2D2zk2Wdlqc5q2k@intel.com>
- <CABgObfY=jyu96eZ+ZcU9GXU+amt2wRm53vpvubHYTaeY9MWd2A@mail.gmail.com>
- <Z2JycooziPsfV8vX@intel.com>
- <CABgObfboJFTRMsuqO055g11ZWNx1qKNxrLgvYLc-Hh6RcmWtOw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CABgObfboJFTRMsuqO055g11ZWNx1qKNxrLgvYLc-Hh6RcmWtOw@mail.gmail.com>
-Received-SPF: pass client-ip=192.198.163.12; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20241209123717.99077-25-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.8; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -74,38 +70,26 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Dec 2024 14:12:15 -0000
+X-List-Received-Date: Wed, 18 Dec 2024 14:30:25 -0000
 
-> No, Self is not PL011Class. Self is PL011State (or PL011Luminary/ and it
-> always remains the same. What changes is *what part* of the class is
-> overwritten, but the order of calls from qom/object.c follows the same
-> logic in both C and Rust.
-
-Thanks! Now I feel I see!
-
-For C side, type_initialize() will allocate a new class instance by
-`ti->class = g_malloc0(ti->class_size)`, then actually C side's parent
-class_init will initialize that new class instance.
-
-For Rust side, the initialization call chain will initialize Self's
-embedded parent class, one by one.
-
-So that's fine!
-
-> > Maybe the confusion is because I implemented class_init twice instead of
-> > > using a separate trait "PL011Impl"?
-> >
-> > Ah, yes! But I think the Rust call chain should not use class_init anymore
-> > but should use a different method. This way, the original class_init would
-> > only serve the C QOM. A separate trait might break the inheritance
-> > relationship similar to ClassInitImpl.
-> >
+On Mon, Dec 09, 2024 at 01:37:15PM +0100, Paolo Bonzini wrote:
+> Date: Mon,  9 Dec 2024 13:37:15 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH 24/26] rust: qom: move device_id to PL011 class side
+> X-Mailer: git-send-email 2.47.1
 > 
-> Do you still think that this is the case?
+> There is no need to monkeypatch DeviceId::Luminary into the already-initialized
+> PL011State.  Instead, now that we can define a class hierarchy, we can define
+> PL011Class and make device_id a field in there.
+> 
+> There is also no need anymore to have "Arm" as zero, so change DeviceId into a
+> wrapper for the array; all it does is provide an Index<hwaddr> implementation
+> because arrays can only be indexed by usize.
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  rust/hw/char/pl011/src/device.rs | 59 +++++++++++++++-----------------
+>  1 file changed, 28 insertions(+), 31 deletions(-)
 
-No, now this patch is fine for me!
-
-Thanks,
-Zhao
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
