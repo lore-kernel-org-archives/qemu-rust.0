@@ -1,88 +1,133 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tNoYn-0005xx-0S
-	for mharc-qemu-rust@gnu.org; Wed, 18 Dec 2024 02:33:33 -0500
+	id 1tNrGR-00032g-Je
+	for mharc-qemu-rust@gnu.org; Wed, 18 Dec 2024 05:26:47 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tNoYa-0005wk-EJ
- for qemu-rust@nongnu.org; Wed, 18 Dec 2024 02:33:27 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1tNrGP-00032J-Rt
+ for qemu-rust@nongnu.org; Wed, 18 Dec 2024 05:26:46 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tNoYX-0002xd-GR
- for qemu-rust@nongnu.org; Wed, 18 Dec 2024 02:33:20 -0500
+ id 1tNrGM-0008K4-MG
+ for qemu-rust@nongnu.org; Wed, 18 Dec 2024 05:26:44 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1734507195;
+ s=mimecast20190719; t=1734517600;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ADIowwNWyQ2GKFEmqJDfWnWcP/SykytSgyeLV3hG0vI=;
- b=E/39ZnR6qIdqpNTwDLOrfmOhRux5HUAMV89ANfLJZbRkV9iECwWHv7E175y/MJyPj8yR05
- I82s0XXyVoBVdDwFn7Te3csHGjhHcG22cVX4LGgAJX+ai7f6TXHnnFsWcCsfo0ypeZ/hDb
- hur06My4VGVn4v/14S0xogNtUDy7bV4=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=0h9EnY5bBzS8BbonSZZIOt9iNgCdC5WLtCE2yrTu3UQ=;
+ b=RWPqqP+74z3rHOWF+Xb2XygRLxMXQQg7j5FAODjrQQvh+6glgBxhKbQvk1XUFl+ei2EhAc
+ DYbeAEp6Wjq00SnGib9zG+nuUiK/bqPCIBEgnlwSMLQpitG4qCCZVrKx0luy/sufYFbYnV
+ WJASlUKlEFmQppiZsav9ogFfSRxm6B4=
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-417-fRmrUsUePOWTb5fKO2ammw-1; Wed, 18 Dec 2024 02:33:12 -0500
-X-MC-Unique: fRmrUsUePOWTb5fKO2ammw-1
-X-Mimecast-MFC-AGG-ID: fRmrUsUePOWTb5fKO2ammw
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-3878ad4bf8cso3897507f8f.1
- for <qemu-rust@nongnu.org>; Tue, 17 Dec 2024 23:33:12 -0800 (PST)
+ us-mta-282-JJKC94vEMvq9S77o4sjZ0g-1; Wed, 18 Dec 2024 05:26:38 -0500
+X-MC-Unique: JJKC94vEMvq9S77o4sjZ0g-1
+X-Mimecast-MFC-AGG-ID: JJKC94vEMvq9S77o4sjZ0g
+Received: by mail-ed1-f71.google.com with SMTP id
+ 4fb4d7f45d1cf-5d09962822bso3242011a12.1
+ for <qemu-rust@nongnu.org>; Wed, 18 Dec 2024 02:26:38 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734507191; x=1735111991;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1734517597; x=1735122397;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :references:cc:to:from:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=ADIowwNWyQ2GKFEmqJDfWnWcP/SykytSgyeLV3hG0vI=;
- b=m/Xz4Ts71sekDE3ZtRAENOox6jk71OdK5Rod4+4QTg83jnljeLYnABWf4EzfMcmaNU
- JdS8qtcCpCIKdVbYGUNcHdbB8da37HAPwoBcnAXNV6R6uQ5ac9pv3H0v6f76JVpKZumn
- 6W1y3WVfVqWa4Dyzv4pFtXTIJccyFlKBErjOicaMfEY5gkh1MknnRo02BpwTvFcCiRWM
- sc0WVdwq4fKfXG2q7duentEO8PQ3ARD34vVoUpilxgj0fFHeq4d8gFdph3vNjGfuWsb1
- YjjYcDInN6NYrKh5T1aFsikPFe5Xslg+a6nYgqq9BwT+7x8K4XdEwjT7/auDBhVOltzM
- sPYQ==
+ bh=0h9EnY5bBzS8BbonSZZIOt9iNgCdC5WLtCE2yrTu3UQ=;
+ b=cOdTs8S+108PYKM7FumOyU+0+Spdkjo1j9anH5oavZAqVA8w8/J+sr6AhupGXeJDUM
+ py8f/M38pVt/LatSSpF766kQRUjD+xvAyYX6O835z3GacPbu/q2aP1IfAnT0rjL7OCWD
+ +RrDuCr4aMmVHJhNwrD2GNH33ziUt5egJNeSORQ5SnuJK+IRoOQte0JAAAirusW1tB3B
+ jqkdZ/T+awzztwhJY07OQv7utlMYQIidTy+Q1cNIVONL2/r2Sx4wbDYi++vPKLCJBXi9
+ 1vwO41EIzS0utKdZLZUhXGGnR7rCrxTahNP317nquuSFNRKCNx5XkOtuGr4tU0zCYwUL
+ Vl1Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUzb5fgiP5ha0UtnDMBFWCNGdteoo2I9+zFH1jgeyHS4q5fcKw+mLuoQbHciyl5urH8zoHBhLrqxRs=@nongnu.org
-X-Gm-Message-State: AOJu0Ywxp2iOrhlWweO2MjttGaSuMZwL1Id8s+khulyW2T90Eg5ibuAo
- jXHagnVZVzkyHKu1AsalD24qTMco40N1x1ZsGzzgNacC/augZRXjDa3RRi1Nm6qSUJzRx6qDE3d
- fc2WiK5HSZrYuKC72QeQZ14gqIR5dZbjFp0AmlFrz5ZzEzTauWbbtphYkKDdE9ypUGLvysmdST+
- ojOekfz0cKislWLAPqz5UGPBdvcg==
-X-Gm-Gg: ASbGnctImcpbVNDShcVKgH92OEtnAKJWLsDmHuGPvz+CxNJFvZOF+AzSm18sJFTTA6W
- rT/GUS8IAJMeBU4LhDCvZQ+khHeYZu9u2VOTE
-X-Received: by 2002:a05:6000:4b0a:b0:385:fb56:5596 with SMTP id
- ffacd0b85a97d-388e4d444damr1328235f8f.19.1734507191430; 
- Tue, 17 Dec 2024 23:33:11 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGfF/T7xstYRU7sAKQS4uQhrPSmPeSQWFaBB5Qa6WSQqLQzPid22HHUT7IqvkObELJ9nPgxesN8jlLH0PddZfg=
-X-Received: by 2002:a05:6000:4b0a:b0:385:fb56:5596 with SMTP id
- ffacd0b85a97d-388e4d444damr1328213f8f.19.1734507191023; Tue, 17 Dec 2024
- 23:33:11 -0800 (PST)
+ AJvYcCWEOMDgh1cllXHRRGqQ/4s7g91k2JPu7O03U0mJ8uFByPcmZarAF9smNJyyjHe4tvuqCayMuUPXDUE=@nongnu.org
+X-Gm-Message-State: AOJu0YxQI/SyvMd43ZyZgsI/9TlJl4zD5wSSzilW+75IgcAn6gJTS3dX
+ iCNR4t4pBlW0QyXFPMtImFAJafnX6Z4LLLC5L75BzIKkish5tghqUTeqIdRBkPg1jDmiCEYzOdH
+ 9lS4avrM9JcCaMvvzyM4wt42rlAojWvh3ZjcccvrWLSITiBjwdX8=
+X-Gm-Gg: ASbGnctPvIeDnPoEm8vnY9yU1YydRnhVQ/NidNQ3ylOcTp1kEwqzcwKJDM6CdIfxojX
+ n4xZsIncqk4qkztLOxVQR3XFR8DOW4tCt8uXyha3uNmq/fLbRStN77IvY4WCDPZ82O6SaAosTa+
+ 6gvKCSboDNNGWUby5epsWiTwMWJiYCMQhT5nHiSQKVWR1LepY8UXxrTPgTm+rj2RwBCp7V3QlO6
+ WdQSctGQ1CDhOafB4E4xFMk6T8LF+OHKfXtdWmaxbKB4ZTsWwXVGsUt3aBm
+X-Received: by 2002:a05:6402:50cb:b0:5d1:2652:42ba with SMTP id
+ 4fb4d7f45d1cf-5d7ee3b405fmr1976083a12.16.1734517597452; 
+ Wed, 18 Dec 2024 02:26:37 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGNjlATdD9hV+7LQk16XII8cgUE/kpxFqnB7kAswm5NJNHG6bn6BDPZMJgbMhg+Ar1Kc7Fxew==
+X-Received: by 2002:a05:6402:50cb:b0:5d1:2652:42ba with SMTP id
+ 4fb4d7f45d1cf-5d7ee3b405fmr1976059a12.16.1734517597033; 
+ Wed, 18 Dec 2024 02:26:37 -0800 (PST)
+Received: from [192.168.10.47] ([151.81.118.45])
+ by smtp.googlemail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5d652f25adasm5436926a12.54.2024.12.18.02.26.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Dec 2024 02:26:36 -0800 (PST)
+Message-ID: <d01798d5-1c93-48f7-bb78-d4602a13baac@redhat.com>
+Date: Wed, 18 Dec 2024 11:26:35 +0100
 MIME-Version: 1.0
-References: <20241209123717.99077-1-pbonzini@redhat.com>
- <20241209123717.99077-27-pbonzini@redhat.com>
- <Z2GjLOppRcHFBpAT@intel.com>
- <CABgObfYE8z5QeVSWT7odaPcZYNfW0Ox1gNmGyCvj0YRTsDEGrg@mail.gmail.com>
- <Z2J1EI+R51GqPhVA@intel.com>
-In-Reply-To: <Z2J1EI+R51GqPhVA@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 24/26] rust: qom: move device_id to PL011 class side
 From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Wed, 18 Dec 2024 08:32:59 +0100
-Message-ID: <CABgObfZJNC2EWsYYSZfTYF8mebRzAmiYwD=d6bdG=10oQ3tQBg@mail.gmail.com>
-Subject: Re: [PATCH 26/26] rust: callbacks: allow passing optional callbacks
- as ()
 To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org, 
+Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>
+References: <20241209123717.99077-1-pbonzini@redhat.com>
+ <20241209123717.99077-25-pbonzini@redhat.com> <Z2D2zk2Wdlqc5q2k@intel.com>
+ <CABgObfY=jyu96eZ+ZcU9GXU+amt2wRm53vpvubHYTaeY9MWd2A@mail.gmail.com>
+ <Z2JycooziPsfV8vX@intel.com>
+ <CABgObfboJFTRMsuqO055g11ZWNx1qKNxrLgvYLc-Hh6RcmWtOw@mail.gmail.com>
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+In-Reply-To: <CABgObfboJFTRMsuqO055g11ZWNx1qKNxrLgvYLc-Hh6RcmWtOw@mail.gmail.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: NiqQF2zy9kSW7beYwQPcz7xJU6EMzhgPS5SB7rPUkX8_1734507191
+X-Mimecast-MFC-PROC-ID: Db_89hT28KO2nv-Cjved_Idrc-htSp0zwkDOyS2WMQs_1734517598
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="000000000000fb5a9f0629866cb9"
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -31
 X-Spam_score: -3.2
 X-Spam_bar: ---
 X-Spam_report: (-3.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-1.116,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-1.116,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -97,76 +142,128 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Dec 2024 07:33:31 -0000
+X-List-Received-Date: Wed, 18 Dec 2024 10:26:46 -0000
 
---000000000000fb5a9f0629866cb9
-Content-Type: text/plain; charset="UTF-8"
+On 12/18/24 08:14, Paolo Bonzini wrote:
+>     Moving on to another topic, about the gap (or question :-)) where a
+>     child class inherits the ClassInitImpl trait from the parent, please see
+>     my test case example below: Doing something similar to SysBusDevice and
+>     DeviceState using a generic T outside of the QOM library would violate
+>     the orphan rule.
+> 
+> Ugh, you're right. Maybe ClassInitImpl should just be merged into 
+> ObjectImpl etc. as a default method implementation. I will check.
 
-Il mer 18 dic 2024, 07:50 Zhao Liu <zhao1.liu@intel.com> ha scritto:
+Ok, I think we can make it mostly a documentation issue:
 
-> Am I using the wrong terminology? Function pointers in a structure should
-> be called a vtable, rather than callbacks (for example, methods in
-> TypeInfo,
-> read/write methods in MemoryRegionOps). Callbacks are typically function
-> pointers used as function parameters (for example, timer/gpio). So, is the
-> callback implementation here only used for the latter case?
->
+diff --git a/rust/qemu-api/src/qom.rs b/rust/qemu-api/src/qom.rs
+index 2b472915707..ee95eda0447 100644
+--- a/rust/qemu-api/src/qom.rs
++++ b/rust/qemu-api/src/qom.rs
+@@ -451,13 +451,14 @@ pub trait ObjectImpl: ObjectType + ClassInitImpl<Self::Class> {
+  /// Each struct will implement this trait with `T` equal to each
+  /// superclass.  For example, a device should implement at least
+  /// `ClassInitImpl<`[`DeviceClass`](crate::qdev::DeviceClass)`>` and
+-/// `ClassInitImpl<`[`ObjectClass`]`>`.
++/// `ClassInitImpl<`[`ObjectClass`]`>`.  Such implementations are
++/// made in one of two ways.
+  ///
+-/// Fortunately, this is almost never necessary.  Instead, the Rust
+-/// implementation of methods will usually come from a trait like
+-/// [`ObjectImpl`] or [`DeviceImpl`](crate::qdev::DeviceImpl).
+-/// `ClassInitImpl` then can be provided by blanket implementations
+-/// that operate on all implementors of the `*Impl`* trait.  For example:
++/// For most superclasses, `ClassInitImpl` is provided by the `qemu-api`
++/// crate itself.  The Rust implementation of methods will come from a
++/// trait like [`ObjectImpl`] or [`DeviceImpl`](crate::qdev::DeviceImpl),
++/// and `ClassInitImpl` is provided by blanket implementations that
++/// operate on all implementors of the `*Impl`* trait.  For example:
+  ///
+  /// ```ignore
+  /// impl<T> ClassInitImpl<DeviceClass> for T
+@@ -469,11 +470,37 @@ pub trait ObjectImpl: ObjectType + ClassInitImpl<Self::Class> {
+  /// after initializing the `DeviceClass` part of the class struct,
+  /// the parent [`ObjectClass`] is initialized as well.
+  ///
+-/// The only case in which a manual implementation of the trait is needed
+-/// is for interfaces (note that there is no Rust example yet for using
+-/// interfaces).  In this case, unlike the C case, the Rust class _has_
+-/// to define its own class struct `FooClass` to go together with
+-/// `ClassInitImpl<FooClass>`.
++/// In some other cases, manual implementation of the trait is needed.
++/// These are the following:
++///
++/// * for classes that implement interfaces, the Rust code _has_
++///   to define its own class struct `FooClass` and implement
++///   `ClassInitImpl<FooClass>`.  `ClassInitImpl<FooClass>`'s
++///   `class_init` method will then forward to multiple other
++///   `class_init`s, for the interfaces as well as the superclass.
++///   (Note that there is no Rust example yet for using
++///   interfaces).
++///
++/// * for classes implemented outside the ``qemu-api`` crate, it's
++///   not possible to add blanket implementations like the above one,
++///   due to orphan rules.  In that case, the easiest solution is to
++///   implement `ClassInitImpl<YourSuperclass>` for each subclass,
++///   and not have a `YourSuperclassImpl` trait at all:
++///
++///   ```ignore
++///   impl ClassInitImpl<YourSuperclass> for YourSubclass {
++///       fn class_init(klass: &mut YourSuperclass) {
++///           klass.some_method = Some(Self::some_method);
++///           <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut klass.parent_class);
++///       }
++///   }
++///   ```
++///
++///   While this method incurs a small amount of code duplication,
++///   it is generally limited to the recursive call on the last line.
++///   This is because classes defined in Rust do not need the same
++///   glue code that is needed when the classes are defined in C code.
++///   You may consider using a macro if you have many subclasses.
+  pub trait ClassInitImpl<T> {
+      /// Initialize `klass` to point to the virtual method implementations
+      /// for `Self`.  On entry, the virtual method pointers are set to
 
-The callback implementation is not used for QOM indeed. In that case, using
-FnCall would require something like
 
-const UNPARENT: impl FnCall((&Self,));
+Optionally, something like this can be squashed in this patch, but I
+do not think it's worth the savings of... 3 lines of code:
 
-which does not exist as far as I know?
-
-MemoryRegionOps is a mix of callbacks and a vtable.  From the Rust point of
-view, with the API that uses the builder pattern, MemoryRegionOps (and
-VMStateDescription too) would be closer to callbacks. Instead when you use
-traits and fill in the class object, that's clearly a vtable.
-
-But in this sense MemoryRegionOps do not need optional callbacks. You just
-don't call the ops.read() method if you don't need to set a read callback
-for example. So I am not sure if anything that is planned right now needs
-the optional callbacks. It's good to have the patch for the future but it's
-not necessary right now.
-
-Paolo
-
---000000000000fb5a9f0629866cb9
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">Il mer 18 dic 2024, 07:50 Zhao Liu &lt;<a href=3D"mail=
-to:zhao1.liu@intel.com" target=3D"_blank" rel=3D"noreferrer">zhao1.liu@inte=
-l.com</a>&gt; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">Am I using the wrong terminology? Function pointers in a structu=
-re should<br>
-be called a vtable, rather than callbacks (for example, methods in TypeInfo=
-,<br>
-read/write methods in MemoryRegionOps). Callbacks are typically function<br=
->
-pointers used as function parameters (for example, timer/gpio). So, is the<=
-br>
-callback implementation here only used for the latter case?<br></blockquote=
-></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">The callback imp=
-lementation is not used for QOM indeed. In that case, using FnCall would re=
-quire something like</div><div dir=3D"auto"><br></div><div dir=3D"auto">con=
-st UNPARENT: impl FnCall((&amp;Self,));</div><div dir=3D"auto"><br></div><d=
-iv dir=3D"auto">which does not exist as far as I know?</div><div dir=3D"aut=
-o"><br></div><div dir=3D"auto">MemoryRegionOps is a mix of callbacks and a =
-vtable.=C2=A0 From the Rust point of view, with the API that uses the build=
-er pattern, MemoryRegionOps (and VMStateDescription too) would be closer to=
- callbacks. Instead when you use traits and fill in the class object, that&=
-#39;s clearly a vtable.</div><div dir=3D"auto"><br></div><div dir=3D"auto">=
-But in this sense MemoryRegionOps do not need optional callbacks. You just =
-don&#39;t call the ops.read() method if you don&#39;t need to set a read ca=
-llback for example. So I am not sure if anything that is planned right now =
-needs the optional callbacks. It&#39;s good to have the patch for the futur=
-e but it&#39;s not necessary right now.</div><div dir=3D"auto"><br></div><d=
-iv dir=3D"auto">Paolo</div></div>
-
---000000000000fb5a9f0629866cb9--
+diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
+index 41220c99a83..cbd3abb96ec 100644
+--- a/rust/hw/char/pl011/src/device.rs
++++ b/rust/hw/char/pl011/src/device.rs
+@@ -46,11 +46,6 @@ fn index(&self, idx: hwaddr) -> &Self::Output {
+      }
+  }
+  
+-impl DeviceId {
+-    const ARM: Self = Self(&[0x11, 0x10, 0x14, 0x00, 0x0d, 0xf0, 0x05, 0xb1]);
+-    const LUMINARY: Self = Self(&[0x11, 0x00, 0x18, 0x01, 0x0d, 0xf0, 0x05, 0xb1]);
+-}
+-
+  #[repr(C)]
+  #[derive(Debug, qemu_api_macros::Object, qemu_api_macros::offsets)]
+  /// PL011 Device Model in QEMU
+@@ -112,7 +107,8 @@ unsafe impl ObjectType for PL011State {
+  
+  impl ClassInitImpl<PL011Class> for PL011State {
+      fn class_init(klass: &mut PL011Class) {
+-        klass.device_id = DeviceId::ARM;
++        klass.device_id = DeviceId(&[0x11, 0x10, 0x14, 0x00, 0x0d, 0xf0, 0x05, 0xb1]);
++
+          <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut klass.parent_class);
+      }
+  }
+@@ -628,7 +624,8 @@ pub struct PL011Luminary {
+  
+  impl ClassInitImpl<PL011Class> for PL011Luminary {
+      fn class_init(klass: &mut PL011Class) {
+-        klass.device_id = DeviceId::LUMINARY;
++        klass.device_id = DeviceId(&[0x11, 0x00, 0x18, 0x01, 0x0d, 0xf0, 0x05, 0xb1]);
++
+          <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut klass.parent_class);
+      }
+  }
 
 
