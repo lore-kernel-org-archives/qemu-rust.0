@@ -1,92 +1,88 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tOBy4-0004aC-67
-	for mharc-qemu-rust@gnu.org; Thu, 19 Dec 2024 03:33:12 -0500
+	id 1tSQ3A-0003NM-CJ
+	for mharc-qemu-rust@gnu.org; Mon, 30 Dec 2024 19:23:56 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tOBy2-0004ZO-Sn
- for qemu-rust@nongnu.org; Thu, 19 Dec 2024 03:33:10 -0500
+ id 1tSQ35-0003MY-Ov
+ for qemu-rust@nongnu.org; Mon, 30 Dec 2024 19:23:53 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tOBy0-00058l-Ju
- for qemu-rust@nongnu.org; Thu, 19 Dec 2024 03:33:10 -0500
+ id 1tSQ33-0001xW-1A
+ for qemu-rust@nongnu.org; Mon, 30 Dec 2024 19:23:51 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1734597187;
+ s=mimecast20190719; t=1735604625;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VfN/9GQVfhxdzR3tEbIrQoWnaMvt0ggSFeNUo7cpLhw=;
- b=PZGBWF7Nto8ZbsEWqumqRoWX1eCZHSF4mq6Pl12313aaIxAKFrd0KUlsorxbQA6hXJbWxB
- syApv4qrVfDm2e4Cjo5qWAE6XqOgeOTZhh/9ncc19okjrN1iOowJ1u8LVh/WMXRptNKTLD
- CHbb287WSBOnBXZaRfB4gaveHd0O6ZM=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding;
+ bh=20JLlnKhVGNyGf1xgIyZoN4lgjdqIel1uxoMLonmRjI=;
+ b=QbZsfOQX2D4XyngnS+T9fEkAU1tA9T/dmYpOsk8pU1vZqS+YtXJfWS8iD8Ypvav96cnGx5
+ 1cZbgFZFSolyOFHYrjWcLe/7HjzUIN3hBvmhL9JcrGPbznM9IQ3hdK3sFERIYQAu/s/eoU
+ 6iiBEgOYzlYpT0cUiwFkJsAfzW1ZHE4=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-444-pdKTy4ViPL6kV7WTzbYJgg-1; Thu, 19 Dec 2024 03:33:06 -0500
-X-MC-Unique: pdKTy4ViPL6kV7WTzbYJgg-1
-X-Mimecast-MFC-AGG-ID: pdKTy4ViPL6kV7WTzbYJgg
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-4361ac607b6so4590675e9.0
- for <qemu-rust@nongnu.org>; Thu, 19 Dec 2024 00:33:06 -0800 (PST)
+ us-mta-118-HcPjWcq_Pt-Unmx6WRn3ng-1; Mon, 30 Dec 2024 19:23:40 -0500
+X-MC-Unique: HcPjWcq_Pt-Unmx6WRn3ng-1
+X-Mimecast-MFC-AGG-ID: HcPjWcq_Pt-Unmx6WRn3ng
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-4361ecebc5bso9977265e9.1
+ for <qemu-rust@nongnu.org>; Mon, 30 Dec 2024 16:23:40 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734597185; x=1735201985;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VfN/9GQVfhxdzR3tEbIrQoWnaMvt0ggSFeNUo7cpLhw=;
- b=AXXVZNVfmjDTaX5l8SrOPW6zY605Yc74Y5luEpmtJgmpOWZFNljuGaiTFVZe4WgZHd
- J6mItrNAWFavufqh4JOzMNZsIA0inOEaL9Vj/JDSKcc5czV+umaP+KXg9EZf3fpCb/b6
- 4iGxZpXrzGVQuxdxtflkk37JgbT6ffYqoL1rdNIX8XjiaEJo/rQLIHBuPJks5vjgTwxC
- ASb9G6omrJcKYbTPNvx1XvvvEi2hAjy2V8d0oaOi9+bs56C3hqEJQb0XeB70a+SyGOQv
- dImjjqzhd/P2s7SDxjUq2xnN32ZR5UHtEG/Ovjw44X4b5h8MtKf6FgoUXwoZGh07Z4DM
- WN3Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUDM+kLvmCrzC2QjDhM2dINrJlvkf9jEl8zzYunKLPvwm78bYXcPHw4pPTZVt7qbaaDp6bydBScOb4=@nongnu.org
-X-Gm-Message-State: AOJu0YxHhdC2NN5gRVl29N+Zsnnr0hGLhVKVQ2QnT3uS8Jho5vy//Tjk
- DmZ33LhXkr4YQtnV01DdeO1rKB1Ser4FGn7HeoGe/pCiYFnXjJjW8mzuLiSCtSGmoxBfsOHRy91
- fLwhgEdgKE+f3hJFUMu3urUPCncEKHgseE0QdkdmGqGtsH9XsGWivw37Qmk4=
-X-Gm-Gg: ASbGnctjiljijKvhhVsB1ZFLy+fgqpzni4wQDDFpUhpHFOSRvx+kyoy81XTl9awddSY
- 1CwTptI5mOag9IKgLH5IjovIV5eQ6QHtroxnCJy64/q0OC0BgRf981yjtSZ/7pkIEUX+t3kM8jH
- ZU7OT1VozmWRcEQX6v74id8IO5hIKNAtBd+hztegnMQ01FlZmdzmhJ4xinL9v82JPTaPcrwE3De
- BldtV9eZqdvmGT2H+vih1Oz/3KkivGa0g/wyFXdTAwEXe5MiM241ikc4TW6
-X-Received: by 2002:a05:6000:4916:b0:386:37f5:99e7 with SMTP id
- ffacd0b85a97d-388e4d64938mr5959485f8f.33.1734597185015; 
- Thu, 19 Dec 2024 00:33:05 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IH6tZMVwBA7gyFZ5L/qy4qkPy8xuADDK7kUaGu2ZLlU02ZkIR5eJwLLWgmHCt5KQePV7L8Eow==
-X-Received: by 2002:a05:6000:4916:b0:386:37f5:99e7 with SMTP id
- ffacd0b85a97d-388e4d64938mr5959455f8f.33.1734597184659; 
- Thu, 19 Dec 2024 00:33:04 -0800 (PST)
-Received: from [192.168.10.47] ([151.81.118.45])
+ d=1e100.net; s=20230601; t=1735604619; x=1736209419;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=20JLlnKhVGNyGf1xgIyZoN4lgjdqIel1uxoMLonmRjI=;
+ b=W8VazmO9Wf8mpYB14ktahkcPi5NZxgOgDz4Uut83Z2UBqVghtnfwEhUVJfDOXVWnr0
+ tBuFV2aeB79luyC1uBbpya2m29R6sxzJRKKvCvFlbsItCBFcVVl/c8U8LuyDNrMdMPjK
+ bFuLRvtYNiEOhKLccOiOWBhbO9DCNSsvS78gXO5H45PPXn4P2ky7PSeuhl3OQmnL/hqo
+ /pSoq9e/DytKJdwaAxl2YtkvkHaPxwJYBCb79sz6U9JcJYa1a26nl5HPMhl8rkY+Kd/0
+ zKGA6yLgw0oz86EbX4TfjCYFtDG27/DPu5dbLIOwuLuIzQmptcoHGT0R1UhkwBiIboiQ
+ sbYQ==
+X-Gm-Message-State: AOJu0Yw54YytkIblkaVxpKeAfQTNxtCbsE2etwjU76SIr8915NH/2LOq
+ dEHGtQPKs8ux/AesRfZAg+q6yAbkkU1maskSqk8fWZop3yKHhH/rr438JdmmPpR7TwpgXxy2f0A
+ WZYVXhEj7R1jW0dMj40aFX06HQccFlbbK2EjINa2ILmXZvfnnTFc=
+X-Gm-Gg: ASbGnctS25uu16cZLxkHYsxsAXAKwSDw64L/wTmkMgGh2NDVvDXhWx9SbISFLuZgcZk
+ n9gMb2zJIkL/o11pWIb1LpumgpdxnXd295vcMtAruV8hsKhFizCjZjfi9llGEK8rtRhkAt1Ene7
+ qQUjKSWwIjbkqK9BxPuPHKL3W18Cbyuaih0kRHpWsi9RJaXPcZuKksojC799ZhHaOz9Ye1UJEXl
+ plIe1WACem14s6gXmlZHmExLP6sEJqCEGaVdj3DVKa90iYAd+bcGlKrIO0=
+X-Received: by 2002:a05:600c:3505:b0:434:fafe:edb with SMTP id
+ 5b1f17b1804b1-43668b5f326mr286831115e9.24.1735604619208; 
+ Mon, 30 Dec 2024 16:23:39 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEJDir+9oM2746BzqIGIR55h8Jcc3q+74tzCVMJaCQfmht6jkQUz9kA/lc2WpcBx7beQkEw8Q==
+X-Received: by 2002:a05:600c:3505:b0:434:fafe:edb with SMTP id
+ 5b1f17b1804b1-43668b5f326mr286831065e9.24.1735604618797; 
+ Mon, 30 Dec 2024 16:23:38 -0800 (PST)
+Received: from [192.168.10.3] ([151.62.105.73])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c8add5asm964519f8f.107.2024.12.19.00.33.02
+ 5b1f17b1804b1-43656b11aecsm403171205e9.23.2024.12.30.16.23.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Dec 2024 00:33:02 -0800 (PST)
+ Mon, 30 Dec 2024 16:23:38 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
-Cc: Richard Henderson <richard.henderson@linaro.org>,
-	qemu-rust@nongnu.org
-Subject: [PULL 17/41] rust/qemu-api: Use device_class_set_props_n
-Date: Thu, 19 Dec 2024 09:32:04 +0100
-Message-ID: <20241219083228.363430-18-pbonzini@redhat.com>
+Cc: qemu-rust@nongnu.org,
+	zhao1.liu@intel.com,
+	junjie.mao@hotmail.com
+Subject: [RFC PATCH 0/9] rust: (mostly) type safe VMState
+Date: Tue, 31 Dec 2024 01:23:27 +0100
+Message-ID: <20241231002336.25931-1-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20241219083228.363430-1-pbonzini@redhat.com>
-References: <20241219083228.363430-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: lzTAUl2nFMDNRpqLS7xn03HiQLHyMpuU26WF-QDaQEc_1734597185
+X-Mimecast-MFC-PROC-ID: 4_Xx-ER_I2CgUVv2b_s2qbeFEmKbyo6390YwyudjVrU_1735604619
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
 Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -31
-X-Spam_score: -3.2
-X-Spam_bar: ---
-X-Spam_report: (-3.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+X-Spam_score_int: -42
+X-Spam_score: -4.3
+X-Spam_bar: ----
+X-Spam_report: (-4.3 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.187,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-1.116,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -101,72 +97,74 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Dec 2024 08:33:11 -0000
+X-List-Received-Date: Tue, 31 Dec 2024 00:23:53 -0000
 
-From: Richard Henderson <richard.henderson@linaro.org>
+The existing translation of the C macros for vmstate does not make
+any attempt to type-check vmstate declarations against the struct, so
+introduce a new system that computes VMStateField based on the actual
+struct declaration.
 
-This means we can update declare_properties to drop the
-zero terminator at the end of the array as well.
+Macros do not have full access to the type system, therefore a full
+implementation of this scheme requires a helper trait to analyze the type
+and produce a VMStateField from it; the trait stores the VMStateField
+as ana associated const.  Then, a macro "vmstate_of!" accepts arguments
+similar to "offset_of!" and tricks the compiler into looking up the
+trait for the right type.
 
-Cc: qemu-rust@nongnu.org
-Signed-off-by: Richard Henderson <richard.henderson@linaro.org>
-Reviewed-by: Paolo Bonzini <pbonzini@redhat.com>
-Link: https://lore.kernel.org/r/20241216035109.3486070-18-richard.henderson@linaro.org
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- rust/qemu-api/src/device_class.rs | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+Structs and cells have their own sub-VMStateDescription.  This poses
+a problem in that references can only be included in associated consts
+starting with Rust 1.83.0, when the const_refs_static was stabilized.
+So for now structs and cells cannot be done in a type-safe manner,
+but arrays, pointers and scalars can.
 
-diff --git a/rust/qemu-api/src/device_class.rs b/rust/qemu-api/src/device_class.rs
-index 03d03feee83..c98f0b2c7da 100644
---- a/rust/qemu-api/src/device_class.rs
-+++ b/rust/qemu-api/src/device_class.rs
-@@ -7,7 +7,6 @@
- use crate::{
-     bindings::{self, DeviceClass, DeviceState, Error, ObjectClass, Property, VMStateDescription},
-     prelude::*,
--    zeroable::Zeroable,
- };
- 
- /// Trait providing the contents of [`DeviceClass`].
-@@ -31,7 +30,7 @@ pub trait DeviceImpl {
-     /// device.  Not a `const` because referencing statics in constants
-     /// is unstable until Rust 1.83.0.
-     fn properties() -> &'static [Property] {
--        &[Zeroable::ZERO; 1]
-+        &[]
-     }
- 
-     /// A `VMStateDescription` providing the migration format for the device
-@@ -87,7 +86,10 @@ fn vmsd() -> Option<&'static VMStateDescription> {
-         if let Some(vmsd) = <T as DeviceImpl>::vmsd() {
-             dc.vmsd = vmsd;
-         }
--        bindings::device_class_set_props(dc, <T as DeviceImpl>::properties().as_ptr());
-+        let prop = <T as DeviceImpl>::properties();
-+        if !prop.is_empty() {
-+            bindings::device_class_set_props_n(dc, prop.as_ptr(), prop.len());
-+        }
-     }
- }
- 
-@@ -134,7 +136,7 @@ macro_rules! define_property {
- macro_rules! declare_properties {
-     ($ident:ident, $($prop:expr),*$(,)*) => {
-         pub static $ident: [$crate::bindings::Property; {
--            let mut len = 1;
-+            let mut len = 0;
-             $({
-                 _ = stringify!($prop);
-                 len += 1;
-@@ -142,7 +144,6 @@ macro_rules! declare_properties {
-             len
-         }] = [
-             $($prop),*,
--            $crate::zeroable::Zeroable::ZERO,
-         ];
-     };
- }
+Technically, scalar types have the same issue in that they point to a
+VMStateInfo.  For this case however there is onlyya limited list of
+VMStateInfos, so I am placing them in an enum, and going from enum
+to &VMStateInfo only when building the VMStateField (i.e. in a static's
+value rather than in an associated const, and in a macro rather than in
+a const fn).  This isn't great, but it's easily removed when QEMU starts
+accepting a newer Rust version.
+
+The series also introduces the pattern of applying changes to a struct
+using methods with a fn(mut self) -> Self signature, for example
+
+    pub const fn with_version_id(mut self, version_id: i32) -> Self {
+        self.version_id = version_id;
+        self
+    }
+
+This is not quite the builder pattern because there is no need for a
+final ".build()" call, but it's similar/related.
+
+The unfavorable diffstat comes half from the const_refs_static workaround,
+half from new documentation (so in that case it's a plus rather than
+a minus).  And also, there is more functionality and extensibility in
+the new mechanism, whereas only a subset of the C macros was included
+in the previous implementation.  The exception is "field_exists", which
+may be added later if needed as a modifier, similar to with_version_id().
+
+Paolo
+
+
+Paolo Bonzini (9):
+  rust: vmstate: add new type safe implementation
+  rust: vmstate: implement VMState for non-leaf types
+  rust: vmstate: add varray support to vmstate_of!
+  rust: vmstate: implement Zeroable for VMStateField
+  rust: vmstate: implement VMState for scalar types
+  rust: vmstate: add public utility macros to implement VMState
+  rust: qemu_api: add vmstate_struct and vmstate_cell
+  rust: pl011: switch vmstate to new-style macros
+  rust: vmstate: remove translation of C vmstate macros
+
+ rust/hw/char/pl011/src/device.rs       |   3 +-
+ rust/hw/char/pl011/src/device_class.rs |  36 +-
+ rust/hw/char/pl011/src/lib.rs          |   6 +
+ rust/qemu-api/src/prelude.rs           |   2 +
+ rust/qemu-api/src/vmstate.rs           | 673 ++++++++++++++++---------
+ rust/qemu-api/src/zeroable.rs          |  31 ++
+ 6 files changed, 481 insertions(+), 270 deletions(-)
+
 -- 
 2.47.1
 
