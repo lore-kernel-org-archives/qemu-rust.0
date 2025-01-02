@@ -1,92 +1,86 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tSQ3O-0003V3-Cu
-	for mharc-qemu-rust@gnu.org; Mon, 30 Dec 2024 19:24:10 -0500
+	id 1tTOcV-0006Tz-8Z
+	for mharc-qemu-rust@gnu.org; Thu, 02 Jan 2025 12:04:27 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tSQ3M-0003UK-Q1
- for qemu-rust@nongnu.org; Mon, 30 Dec 2024 19:24:08 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tSQ3J-00020O-Rs
- for qemu-rust@nongnu.org; Mon, 30 Dec 2024 19:24:08 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1735604642;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0uVl+dn480T+3VzLrS0d1h50fyBb5C28oZegz0tUkU0=;
- b=FXymHtQORSnRc0FOesML8BxtMTRNHm7k/7dngmQ8rEamoDqcJJ/vIZAHmr2fdbJBo9brhe
- UEvPO7CwurCJ3cLt7/RJ+LzzkWM3yripT3b45QGt+pq31uBJMjB9DTBj9QW1FS8fmUtzzn
- MZDmL7LTMsLxJDpHLHLplNbUnw+/Hws=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-673-HM6UA7RGOaeMUs8Y0-zHDg-1; Mon, 30 Dec 2024 19:23:58 -0500
-X-MC-Unique: HM6UA7RGOaeMUs8Y0-zHDg-1
-X-Mimecast-MFC-AGG-ID: HM6UA7RGOaeMUs8Y0-zHDg
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-3862e986d17so4326839f8f.3
- for <qemu-rust@nongnu.org>; Mon, 30 Dec 2024 16:23:58 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tTOcS-0006QU-CA
+ for qemu-rust@nongnu.org; Thu, 02 Jan 2025 12:04:24 -0500
+Received: from mail-wm1-x32f.google.com ([2a00:1450:4864:20::32f])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tTOcQ-0002Ox-Nu
+ for qemu-rust@nongnu.org; Thu, 02 Jan 2025 12:04:24 -0500
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4364a37a1d7so122008075e9.3
+ for <qemu-rust@nongnu.org>; Thu, 02 Jan 2025 09:04:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1735837460; x=1736442260; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=OmAlhZpQsAKEBA0E73VS/v2bvw8ZDZwE8WrobfO2y1M=;
+ b=iL68JxEzO0i2PfNJsUH5tqb1dCispuecFfK57U4Yzakuch3KwQdsTSomVA6a/NrTON
+ Dne0Rq4pzWuREA+o0XuUMDRXyzEFXRP3XdIZ4NfOVpqd5PdsvRFVcoIMf7rlCZIjR42W
+ nvnYMRiwBl+Jep5gjEByGQw7pRtkaUv1Ud+pNVXUes7P1dAwhVQbrFPxme3Qt7/xTHyC
+ 6Pccup37e7S0P2gWs28YKaQFK/noalK7jbN13kQnZq1g6ElEXLNpoJnvaLfuP6TO/uRV
+ 2Kt51wz7R5OFE35R0BNB64V7v+YB50E0J91Ud4zTHI/NbVrOI7NgHMHEXjY/c0L61Qe9
+ yHsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735604637; x=1736209437;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=0uVl+dn480T+3VzLrS0d1h50fyBb5C28oZegz0tUkU0=;
- b=OgmZwggG5aZloEX99ZwX5DOx7Js2BQv0D/z2if3GZfxH6etsDUFHpN9iCcAUqiXuBQ
- jPWa6dSYdrSjLqnyx0PN6459JRwBK06b/Ma9thbRfHf40GNs14ti2Yh5omCgHN6/ir67
- 9kGAwkaZ+ZWt6AZEe9kRCgb6wqNnh/TkLMcUCqgbfv1huzgRkt5r47C9jbSpxEjXijDG
- opQD6H62iKEGdk0fySPKKEBd0QNj7zUVsQYPxrBIJpmDrvAB/TuDAHjGz1J1kBqXHw+D
- WHwQHJ5bw2g4n5W14v3oY9K5MejEX0GSVmOfw0Dlu2UcS7xjArg+Zf3PkBecSmqTDn+W
- UZtQ==
-X-Gm-Message-State: AOJu0YwY2mSFZ3FE+frdnlzaxhtjySlsXOkemzCEmCqRUW23EiEj1Dl5
- q2CyKiPEoPdEwyC6RrFnGzrdKW+AqqV00DZ2kcPUopcMdzA3LvAJLiE36J/nAbpQgQL3+5L0H7b
- AKbRgSH2CBeVNP8aRk2nZjdlYkiwvQbj8tjiM+V52R92zU2F0IHml9+fzbmCVOw==
-X-Gm-Gg: ASbGncsi1sNGWG0a2OJ4q4RUbl1LkY7kkAYDDUzq3ohhrO8DynURCLdwJxvTapdJ+Ku
- ABju5wWLroNT00+qQhJz94MWrJ0dsA/RvnjoScqwgl7cLFx6BN0dCcp0Du1Uz8PJxW3gJbCf7BJ
- TPcNQWlSdvwY447y9AKfHx6yX8iLwXSZDMFh08qEFy1oC4K7QNKUd7uubwLCwDFBvEtSHecUbZW
- J5iBHtTopAkGBLCmalgxZ12Lsy/wUe6XfAXqjG8LDspt6Jb1/7yKYpJ2UY=
-X-Received: by 2002:a05:6000:4a0a:b0:385:ef39:6ce9 with SMTP id
- ffacd0b85a97d-38a221f1716mr36518147f8f.21.1735604637052; 
- Mon, 30 Dec 2024 16:23:57 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFvXzYyJWX8Fb3jJHzeylhs2LlThMR/Quu3QQyaP/zVm3en/VGZA1Gz5ARRS6Xt7WnVXVZZuA==
-X-Received: by 2002:a05:6000:4a0a:b0:385:ef39:6ce9 with SMTP id
- ffacd0b85a97d-38a221f1716mr36518138f8f.21.1735604636667; 
- Mon, 30 Dec 2024 16:23:56 -0800 (PST)
-Received: from [192.168.10.3] ([151.62.105.73])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43661219a08sm373893925e9.25.2024.12.30.16.23.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Dec 2024 16:23:55 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org,
-	zhao1.liu@intel.com,
-	junjie.mao@hotmail.com
-Subject: [RFC PATCH 7/9] rust: qemu_api: add vmstate_struct and vmstate_cell
-Date: Tue, 31 Dec 2024 01:23:34 +0100
-Message-ID: <20241231002336.25931-8-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20241231002336.25931-1-pbonzini@redhat.com>
-References: <20241231002336.25931-1-pbonzini@redhat.com>
+ d=1e100.net; s=20230601; t=1735837460; x=1736442260;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=OmAlhZpQsAKEBA0E73VS/v2bvw8ZDZwE8WrobfO2y1M=;
+ b=pVKzUvd0jERLXn3G8bqET2zY6xSbVIV1eOojD8naIKbuN/MBLeXakWYnZWXwq1K2sP
+ y9Q/1GSVjVomXQ1ULiXGfwJKQvmIxRX88yNVmMTqIT10r0dFADKNUK4opkswiLqIlcMW
+ BONVueJcAsSl8bL6JIZ9nID3/S8EyPIMlz3Eu+85O5K1VzLMrnrfQ7xUXfjMKsNUafpM
+ Z36G+7JS2INONRWp+221KR0xsKdK+J8qeVnjpZGhVnnVipgCtgCKDflNV/gvGNoor8mj
+ kRZSdBliyd9/pgs/aZvELycqNIdXTIqrxtGxpVzET915SovUD/piNJ0oSTBGLQ8px4KJ
+ 4qlw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXyd1IgWTL796lbJJ9E/mrY78wCVgqjrVLrz1RHpr8tqNj9jdyUlk4BWTPdtIZU0lrh4wtp1o4+o0Q=@nongnu.org
+X-Gm-Message-State: AOJu0Yxlx50rcXFMOqb7qPclhn9QQAMRwH5gUskL6ehwj1AW4F/qziNs
+ hfypQ/U5iG4ituIFuW/i+ETLCFR64cg22shzEOHavl30EYM8TCTz1+seuKpWxM+RmIEnP4xMVFo
+ vZOl85Q==
+X-Gm-Gg: ASbGncu+6FkW31p48Bp+P/iVnmoeLTsHyltjyhVD/mvWrkrHE4pwtwmcEJrtnKHzt1h
+ oeuZ0PrL6kSU497XgxYTOWZRP1H5ck0O/N3+NcGl5MDAzAkcVXpZN7Hzw3I6fZKf23zkEJsIzlJ
+ 5lr8iuUJeQLWjYVzCzDvya222C5NrZlYPOm2UM02y1CBf1maydyXrQjQUkesQFkZsVuAWN+LXwT
+ yfB0TftlP30smd5wTg40Iy3128jh0oHlOKzp/jD0ztxOvldZJNAqmqqTSvaAZgSkziMwsBb9ev/
+ IxAQj5K6WKcJ+FBlRqOSUt8v
+X-Google-Smtp-Source: AGHT+IF+EM49eWNItqBaBhDanafMOSMhfoK9CwGM8lczfOAwiSygHwDFefERZu426Cf/nctqPBicCQ==
+X-Received: by 2002:a5d:5f54:0:b0:385:fb53:c67 with SMTP id
+ ffacd0b85a97d-38a221e2743mr44571123f8f.3.1735837460081; 
+ Thu, 02 Jan 2025 09:04:20 -0800 (PST)
+Received: from [192.168.69.132] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4366127c4bbsm455232135e9.32.2025.01.02.09.04.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 02 Jan 2025 09:04:19 -0800 (PST)
+Message-ID: <daea6757-a67b-45d5-bf2a-807fd9569a70@linaro.org>
+Date: Thu, 2 Jan 2025 18:04:18 +0100
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: q-IxqoPf-gqZVjyAJB5Vo1VK6n1sJwQzZlJV11ME0t4_1735604637
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -42
-X-Spam_score: -4.3
-X-Spam_bar: ----
-X-Spam_report: (-4.3 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.187,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PULL 25/41] rust: qom: put class_init together from multiple
+ ClassInitImpl<>
+To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org
+Cc: Zhao Liu <zhao1.liu@intel.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
+ <marcandre.lureau@redhat.com>
+References: <20241219083228.363430-1-pbonzini@redhat.com>
+ <20241219083228.363430-26-pbonzini@redhat.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20241219083228.363430-26-pbonzini@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=2a00:1450:4864:20::32f;
+ envelope-from=philmd@linaro.org; helo=mail-wm1-x32f.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -100,62 +94,91 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Dec 2024 00:24:09 -0000
+X-List-Received-Date: Thu, 02 Jan 2025 17:04:24 -0000
 
-These are not type safe, but they're the best that can be done without
-const_refs_static.
+Hi,
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- rust/qemu-api/src/vmstate.rs | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+On 19/12/24 09:32, Paolo Bonzini wrote:
+> Parameterize the implementation of ClassInitImpl so that it is
+> possible to call up the chain of implementations, one superclass at
+> a time starting at ClassInitImpl<Self::Class>.
+> 
+> In order to avoid having to implement (for example)
+> ClassInitImpl<PL011Class>, also remove the dummy PL011Class and
+> PL011LuminaryClass structs and specify the same ObjectType::Class as
+> the superclass.  In the future this default behavior can be handled by
+> a procedural macro, by looking at the first field in the struct.
+> 
+> Note that the new trait is safe: the calls are started by
+> rust_class_init<>(), which is not public and can convert the class
+> pointer to a Rust reference.
+> 
+> Since CLASS_BASE_INIT applies to the type that is being defined,
+> and only to it, move it to ObjectImpl.
+> 
+> Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>   rust/hw/char/pl011/src/device.rs  |  19 +----
+>   rust/qemu-api/src/definitions.rs  | 111 ++++++++++++++++++++++++------
+>   rust/qemu-api/src/device_class.rs |  50 +++++---------
+>   rust/qemu-api/src/sysbus.rs       |  18 ++++-
+>   rust/qemu-api/tests/tests.rs      |   9 +--
+>   5 files changed, 127 insertions(+), 80 deletions(-)
 
-diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-index b59a4b66339..e45c93587b2 100644
---- a/rust/qemu-api/src/vmstate.rs
-+++ b/rust/qemu-api/src/vmstate.rs
-@@ -610,6 +610,40 @@ macro_rules! vmstate_array_of_pointer_to_struct {
-     }};
- }
- 
-+// FIXME: including the `vmsd` field in a `const` is not possible without
-+// the const_refs_static feature (stabilized in Rust 1.83.0).  Without it,
-+// it is not possible to use VMS_STRUCT in a transparent manner using
-+// `vmstate_of!`.  While VMSTATE_CLOCK can at least try to be type-safe,
-+// VMSTATE_STRUCT includes $type only for documentation purposes; it
-+// is checked against $field_name and $struct_name, but not against $vmsd
-+// which is what really would matter.
-+#[doc(alias = "VMSTATE_STRUCT")]
-+#[macro_export]
-+macro_rules! vmstate_struct {
-+    ($field_name:ident, $struct_name:ty, $vmsd:expr, $type:ty) => {{
-+        $crate::bindings::VMStateField {
-+            name: ::core::concat!(::core::stringify!($field_name), "\0")
-+                .as_bytes()
-+                .as_ptr() as *const ::std::os::raw::c_char,
-+            offset: {
-+                $crate::assert_field_type!($struct_name, $field_name, $type);
-+                $crate::offset_of!($struct_name, $field_name)
-+            }
-+            size: ::core::mem::size_of::<$type>(),
-+            flags: $crate::bindings::VMStateFlags::VMS_STRUCT,
-+            vmsd: unsafe { $vmsd },
-+            ..$crate::zeroable::Zeroable::ZERO
-+        }
-+    }};
-+}
-+
-+#[macro_export]
-+macro_rules! vmstate_cell {
-+    ($field_name:ident, $struct_name:ty, $vmsd:expr, $type:ty) => {
-+        $crate::vmstate_struct!($field_name, $struct_name, $vmsd, $type)
-+    };
-+}
-+
- #[doc(alias = "VMSTATE_CLOCK_V")]
- #[macro_export]
- macro_rules! vmstate_clock_v {
--- 
-2.47.1
+
+> diff --git a/rust/qemu-api/src/device_class.rs b/rust/qemu-api/src/device_class.rs
+> index c98f0b2c7da..dcec5488291 100644
+> --- a/rust/qemu-api/src/device_class.rs
+> +++ b/rust/qemu-api/src/device_class.rs
+
+
+> -/// # Safety
+> -///
+> -/// We expect the FFI user of this function to pass a valid pointer that
+> -/// can be downcasted to type `DeviceClass`, because `T` implements
+> -/// `DeviceImpl`.
+> -pub unsafe extern "C" fn rust_device_class_init<T: DeviceImpl>(
+> -    klass: *mut ObjectClass,
+> -    _: *mut c_void,
+> -) {
+> -    let mut dc = ::core::ptr::NonNull::new(klass.cast::<DeviceClass>()).unwrap();
+> -    unsafe {
+> -        let dc = dc.as_mut();
+> +impl<T> ClassInitImpl<DeviceClass> for T
+> +where
+> +    T: DeviceImpl,
+> +{
+> +    fn class_init(dc: &mut DeviceClass) {
+>           if <T as DeviceImpl>::REALIZE.is_some() {
+>               dc.realize = Some(rust_realize_fn::<T>);
+>           }
+>           if <T as DeviceImpl>::RESET.is_some() {
+> -            bindings::device_class_set_legacy_reset(dc, Some(rust_reset_fn::<T>));
+> +            unsafe {
+> +                bindings::device_class_set_legacy_reset(dc, Some(rust_reset_fn::<T>));
+
+Pre-existing, but since it appears on this patch, Rust device models
+should not implement this legacy interface. If a non-Rust parent
+implements it, I think we should convert the non-Rust parent before
+adding a Rust child. No clue how to check a parent don't implement
+this interface in Rust.
+
+Generally, we shouldn't access legacy API from Rust IMHO.
+
+> +            }
+>           }
+>           if let Some(vmsd) = <T as DeviceImpl>::vmsd() {
+>               dc.vmsd = vmsd;
+>           }
+>           let prop = <T as DeviceImpl>::properties();
+>           if !prop.is_empty() {
+> -            bindings::device_class_set_props_n(dc, prop.as_ptr(), prop.len());
+> +            unsafe {
+> +                bindings::device_class_set_props_n(dc, prop.as_ptr(), prop.len());
+> +            }
+>           }
+>       }
+>   }
 
 
