@@ -1,87 +1,67 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tTOcV-0006Tz-8Z
-	for mharc-qemu-rust@gnu.org; Thu, 02 Jan 2025 12:04:27 -0500
+	id 1tTdI9-0000Ov-EP
+	for mharc-qemu-rust@gnu.org; Fri, 03 Jan 2025 03:44:30 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tTOcS-0006QU-CA
- for qemu-rust@nongnu.org; Thu, 02 Jan 2025 12:04:24 -0500
-Received: from mail-wm1-x32f.google.com ([2a00:1450:4864:20::32f])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tTOcQ-0002Ox-Nu
- for qemu-rust@nongnu.org; Thu, 02 Jan 2025 12:04:24 -0500
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4364a37a1d7so122008075e9.3
- for <qemu-rust@nongnu.org>; Thu, 02 Jan 2025 09:04:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1735837460; x=1736442260; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=OmAlhZpQsAKEBA0E73VS/v2bvw8ZDZwE8WrobfO2y1M=;
- b=iL68JxEzO0i2PfNJsUH5tqb1dCispuecFfK57U4Yzakuch3KwQdsTSomVA6a/NrTON
- Dne0Rq4pzWuREA+o0XuUMDRXyzEFXRP3XdIZ4NfOVpqd5PdsvRFVcoIMf7rlCZIjR42W
- nvnYMRiwBl+Jep5gjEByGQw7pRtkaUv1Ud+pNVXUes7P1dAwhVQbrFPxme3Qt7/xTHyC
- 6Pccup37e7S0P2gWs28YKaQFK/noalK7jbN13kQnZq1g6ElEXLNpoJnvaLfuP6TO/uRV
- 2Kt51wz7R5OFE35R0BNB64V7v+YB50E0J91Ud4zTHI/NbVrOI7NgHMHEXjY/c0L61Qe9
- yHsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735837460; x=1736442260;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=OmAlhZpQsAKEBA0E73VS/v2bvw8ZDZwE8WrobfO2y1M=;
- b=pVKzUvd0jERLXn3G8bqET2zY6xSbVIV1eOojD8naIKbuN/MBLeXakWYnZWXwq1K2sP
- y9Q/1GSVjVomXQ1ULiXGfwJKQvmIxRX88yNVmMTqIT10r0dFADKNUK4opkswiLqIlcMW
- BONVueJcAsSl8bL6JIZ9nID3/S8EyPIMlz3Eu+85O5K1VzLMrnrfQ7xUXfjMKsNUafpM
- Z36G+7JS2INONRWp+221KR0xsKdK+J8qeVnjpZGhVnnVipgCtgCKDflNV/gvGNoor8mj
- kRZSdBliyd9/pgs/aZvELycqNIdXTIqrxtGxpVzET915SovUD/piNJ0oSTBGLQ8px4KJ
- 4qlw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXyd1IgWTL796lbJJ9E/mrY78wCVgqjrVLrz1RHpr8tqNj9jdyUlk4BWTPdtIZU0lrh4wtp1o4+o0Q=@nongnu.org
-X-Gm-Message-State: AOJu0Yxlx50rcXFMOqb7qPclhn9QQAMRwH5gUskL6ehwj1AW4F/qziNs
- hfypQ/U5iG4ituIFuW/i+ETLCFR64cg22shzEOHavl30EYM8TCTz1+seuKpWxM+RmIEnP4xMVFo
- vZOl85Q==
-X-Gm-Gg: ASbGncu+6FkW31p48Bp+P/iVnmoeLTsHyltjyhVD/mvWrkrHE4pwtwmcEJrtnKHzt1h
- oeuZ0PrL6kSU497XgxYTOWZRP1H5ck0O/N3+NcGl5MDAzAkcVXpZN7Hzw3I6fZKf23zkEJsIzlJ
- 5lr8iuUJeQLWjYVzCzDvya222C5NrZlYPOm2UM02y1CBf1maydyXrQjQUkesQFkZsVuAWN+LXwT
- yfB0TftlP30smd5wTg40Iy3128jh0oHlOKzp/jD0ztxOvldZJNAqmqqTSvaAZgSkziMwsBb9ev/
- IxAQj5K6WKcJ+FBlRqOSUt8v
-X-Google-Smtp-Source: AGHT+IF+EM49eWNItqBaBhDanafMOSMhfoK9CwGM8lczfOAwiSygHwDFefERZu426Cf/nctqPBicCQ==
-X-Received: by 2002:a5d:5f54:0:b0:385:fb53:c67 with SMTP id
- ffacd0b85a97d-38a221e2743mr44571123f8f.3.1735837460081; 
- Thu, 02 Jan 2025 09:04:20 -0800 (PST)
-Received: from [192.168.69.132] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4366127c4bbsm455232135e9.32.2025.01.02.09.04.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Jan 2025 09:04:19 -0800 (PST)
-Message-ID: <daea6757-a67b-45d5-bf2a-807fd9569a70@linaro.org>
-Date: Thu, 2 Jan 2025 18:04:18 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tTdI3-0000OE-9r; Fri, 03 Jan 2025 03:44:20 -0500
+Received: from mgamail.intel.com ([192.198.163.9])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tTdHt-0005P3-19; Fri, 03 Jan 2025 03:44:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1735893849; x=1767429849;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=IP0N4rA9fC6fq0fvtdX//sG5i+5U7I47ylSvHqDyEoU=;
+ b=RSKZfpnsReYQwb/D8eVXmRLImaGjdkFdEmlWYdSgAz7NvYXwGkBZ+adi
+ D0br4kuv3+lqPECSlovCwxWpnZJrGQGuEF4snnNKww7aDP0AaYSzSZQu7
+ 0b8YMFWUZAg5s0Z94C+ilXdLbBzeEcz8scaD36+tG52ZhoNKppA6bMl7v
+ mundTvLOTxpFZparN8XPAQhhEawj9/Dz9Biy1Ff7ACNk3idV9FXWYg1p8
+ ZF3FEfIMxVZhzJmqMDUVuOvaF/MtBLBGgA5mj6Xa0qDOlF6c7cbEsNQPK
+ /UkYUPIOPWiKLMGyEB0Z7c63i+UTYHrz3Uyip4/H+Zvkt9OB892RzqYgy Q==;
+X-CSE-ConnectionGUID: VltXQhtaRjeA+c5A+Symqg==
+X-CSE-MsgGUID: s52yw8YJRhGDrZ6PMysHkw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11303"; a="46814176"
+X-IronPort-AV: E=Sophos;i="6.12,286,1728975600"; d="scan'208";a="46814176"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jan 2025 00:44:05 -0800
+X-CSE-ConnectionGUID: i6Wf5Xj3SuyyazIYJ0vb1A==
+X-CSE-MsgGUID: /ynekpAHQRWecY6s/LSe8A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,286,1728975600"; d="scan'208";a="101577813"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa009.jf.intel.com with ESMTP; 03 Jan 2025 00:44:03 -0800
+Date: Fri, 3 Jan 2025 17:02:49 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org,
+ Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+ =?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>
 Subject: Re: [PULL 25/41] rust: qom: put class_init together from multiple
  ClassInitImpl<>
-To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org
-Cc: Zhao Liu <zhao1.liu@intel.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
- <marcandre.lureau@redhat.com>
+Message-ID: <Z3enuYCHnKuiANmv@intel.com>
 References: <20241219083228.363430-1-pbonzini@redhat.com>
  <20241219083228.363430-26-pbonzini@redhat.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20241219083228.363430-26-pbonzini@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::32f;
- envelope-from=philmd@linaro.org; helo=mail-wm1-x32f.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ <daea6757-a67b-45d5-bf2a-807fd9569a70@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <daea6757-a67b-45d5-bf2a-807fd9569a70@linaro.org>
+Received-SPF: pass client-ip=192.198.163.9; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -65
+X-Spam_score: -6.6
+X-Spam_bar: ------
+X-Spam_report: (-6.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.185,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -94,91 +74,77 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Jan 2025 17:04:24 -0000
+X-List-Received-Date: Fri, 03 Jan 2025 08:44:22 -0000
 
-Hi,
-
-On 19/12/24 09:32, Paolo Bonzini wrote:
-> Parameterize the implementation of ClassInitImpl so that it is
-> possible to call up the chain of implementations, one superclass at
-> a time starting at ClassInitImpl<Self::Class>.
+> > -/// # Safety
+> > -///
+> > -/// We expect the FFI user of this function to pass a valid pointer that
+> > -/// can be downcasted to type `DeviceClass`, because `T` implements
+> > -/// `DeviceImpl`.
+> > -pub unsafe extern "C" fn rust_device_class_init<T: DeviceImpl>(
+> > -    klass: *mut ObjectClass,
+> > -    _: *mut c_void,
+> > -) {
+> > -    let mut dc = ::core::ptr::NonNull::new(klass.cast::<DeviceClass>()).unwrap();
+> > -    unsafe {
+> > -        let dc = dc.as_mut();
+> > +impl<T> ClassInitImpl<DeviceClass> for T
+> > +where
+> > +    T: DeviceImpl,
+> > +{
+> > +    fn class_init(dc: &mut DeviceClass) {
+> >           if <T as DeviceImpl>::REALIZE.is_some() {
+> >               dc.realize = Some(rust_realize_fn::<T>);
+> >           }
+> >           if <T as DeviceImpl>::RESET.is_some() {
+> > -            bindings::device_class_set_legacy_reset(dc, Some(rust_reset_fn::<T>));
+> > +            unsafe {
+> > +                bindings::device_class_set_legacy_reset(dc, Some(rust_reset_fn::<T>));
 > 
-> In order to avoid having to implement (for example)
-> ClassInitImpl<PL011Class>, also remove the dummy PL011Class and
-> PL011LuminaryClass structs and specify the same ObjectType::Class as
-> the superclass.  In the future this default behavior can be handled by
-> a procedural macro, by looking at the first field in the struct.
+> Pre-existing, but since it appears on this patch, Rust device models
+> should not implement this legacy interface. 
+
+Rust pl011 is just faithful to the C functionality, and it's really time
+to make the rust version drop the previous technical debt too! 
+
+But I think this patch is OK for now since using legacy interface is the
+most simplified approach, and next step we can consider how to convert
+it to the modern interface with proper rust binding (my initial thought
+tells me that there is at least some effort needed here to explore
+whether a simple resettable trait would be enough...).
+
+> If a non-Rust parent
+> implements it, I think we should convert the non-Rust parent before
+> adding a Rust child. No clue how to check a parent don't implement
+> this interface in Rust.
+
+For C side, I also didn't find some case to check parent's
+legacy_reset before device_class_set_legacy_reset().
+
+Maybe we should add `assert(!dc->legacy_reset)` in 
+device_class_set_legacy_reset()?
+
+Similarly, device_class_set_parent_[realize|unrealize] are worth
+adding assert().
+
+If you agree, I'd be happy to add assert() to these three functions as
+well. :-)
+
+> Generally, we shouldn't access legacy API from Rust IMHO.
 > 
-> Note that the new trait is safe: the calls are started by
-> rust_class_init<>(), which is not public and can convert the class
-> pointer to a Rust reference.
+> > +            }
+> >           }
+> >           if let Some(vmsd) = <T as DeviceImpl>::vmsd() {
+> >               dc.vmsd = vmsd;
+> >           }
+> >           let prop = <T as DeviceImpl>::properties();
+> >           if !prop.is_empty() {
+> > -            bindings::device_class_set_props_n(dc, prop.as_ptr(), prop.len());
+> > +            unsafe {
+> > +                bindings::device_class_set_props_n(dc, prop.as_ptr(), prop.len());
+> > +            }
+> >           }
+> >       }
+> >   }
 > 
-> Since CLASS_BASE_INIT applies to the type that is being defined,
-> and only to it, move it to ObjectImpl.
-> 
-> Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->   rust/hw/char/pl011/src/device.rs  |  19 +----
->   rust/qemu-api/src/definitions.rs  | 111 ++++++++++++++++++++++++------
->   rust/qemu-api/src/device_class.rs |  50 +++++---------
->   rust/qemu-api/src/sysbus.rs       |  18 ++++-
->   rust/qemu-api/tests/tests.rs      |   9 +--
->   5 files changed, 127 insertions(+), 80 deletions(-)
-
-
-> diff --git a/rust/qemu-api/src/device_class.rs b/rust/qemu-api/src/device_class.rs
-> index c98f0b2c7da..dcec5488291 100644
-> --- a/rust/qemu-api/src/device_class.rs
-> +++ b/rust/qemu-api/src/device_class.rs
-
-
-> -/// # Safety
-> -///
-> -/// We expect the FFI user of this function to pass a valid pointer that
-> -/// can be downcasted to type `DeviceClass`, because `T` implements
-> -/// `DeviceImpl`.
-> -pub unsafe extern "C" fn rust_device_class_init<T: DeviceImpl>(
-> -    klass: *mut ObjectClass,
-> -    _: *mut c_void,
-> -) {
-> -    let mut dc = ::core::ptr::NonNull::new(klass.cast::<DeviceClass>()).unwrap();
-> -    unsafe {
-> -        let dc = dc.as_mut();
-> +impl<T> ClassInitImpl<DeviceClass> for T
-> +where
-> +    T: DeviceImpl,
-> +{
-> +    fn class_init(dc: &mut DeviceClass) {
->           if <T as DeviceImpl>::REALIZE.is_some() {
->               dc.realize = Some(rust_realize_fn::<T>);
->           }
->           if <T as DeviceImpl>::RESET.is_some() {
-> -            bindings::device_class_set_legacy_reset(dc, Some(rust_reset_fn::<T>));
-> +            unsafe {
-> +                bindings::device_class_set_legacy_reset(dc, Some(rust_reset_fn::<T>));
-
-Pre-existing, but since it appears on this patch, Rust device models
-should not implement this legacy interface. If a non-Rust parent
-implements it, I think we should convert the non-Rust parent before
-adding a Rust child. No clue how to check a parent don't implement
-this interface in Rust.
-
-Generally, we shouldn't access legacy API from Rust IMHO.
-
-> +            }
->           }
->           if let Some(vmsd) = <T as DeviceImpl>::vmsd() {
->               dc.vmsd = vmsd;
->           }
->           let prop = <T as DeviceImpl>::properties();
->           if !prop.is_empty() {
-> -            bindings::device_class_set_props_n(dc, prop.as_ptr(), prop.len());
-> +            unsafe {
-> +                bindings::device_class_set_props_n(dc, prop.as_ptr(), prop.len());
-> +            }
->           }
->       }
->   }
-
 
