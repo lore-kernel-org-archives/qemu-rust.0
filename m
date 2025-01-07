@@ -1,62 +1,88 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tV57y-0002Ri-CS
-	for mharc-qemu-rust@gnu.org; Tue, 07 Jan 2025 03:39:55 -0500
+	id 1tV8d3-0004Bh-Jv
+	for mharc-qemu-rust@gnu.org; Tue, 07 Jan 2025 07:24:13 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tV57w-0002RB-4d; Tue, 07 Jan 2025 03:39:52 -0500
-Received: from mgamail.intel.com ([198.175.65.17])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tV8d2-0004BW-MU
+ for qemu-rust@nongnu.org; Tue, 07 Jan 2025 07:24:12 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tV57q-00082w-Sa; Tue, 07 Jan 2025 03:39:51 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736239187; x=1767775187;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=wy4C1JLqouyAQa7rS1oC3i8VxtHk8A6mXEyq4Eb/X3s=;
- b=PGKanqSQjl5NnSjE7DOQRBsL0rUM8IGD9RWHxPFbz+KnHdkaiwqhDBIc
- vpwA3WRPo9C1+o65rxKIElLql7oJ9kG7qTdq27pMseFAJEMQU79/yvz6q
- 7VrGP+xv60hICgz+Cf9VU5uadCjrNcSkDd20VyIupJjfMP0XwUiix9VDd
- KywK9sZ7VngiBDHRRk0jKaLr13p0Tgtu0fOYW6Cj7Wk39xbORB24TcHrV
- H2jwCfmb6cAdQIhdZckNIEG4ghQrN7HeRyPNNZ2Pg54YHYJhTnJ+gIZGB
- XCs6jYSJys4JBu15wAGzvmI4A9nOTLO8rDZwpyJhAD/1VjplLyusu2QUU w==;
-X-CSE-ConnectionGUID: ztIfaf4UQXunlIWrezJGPg==
-X-CSE-MsgGUID: PaSqxhltS6m+5B00BIGv8g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11307"; a="36426856"
-X-IronPort-AV: E=Sophos;i="6.12,295,1728975600"; d="scan'208";a="36426856"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2025 00:39:44 -0800
-X-CSE-ConnectionGUID: FaL/xuO0TY6w99zRF3rQGA==
-X-CSE-MsgGUID: HM74yDQpRVizIFmUN1SksQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,295,1728975600"; d="scan'208";a="102598663"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa007.fm.intel.com with ESMTP; 07 Jan 2025 00:39:42 -0800
-Date: Tue, 7 Jan 2025 16:58:30 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, junjie.mao@hotmail.com
-Subject: Re: [RFC PATCH 1/9] rust: vmstate: add new type safe implementation
-Message-ID: <Z3zstgKXAgeRrIU2@intel.com>
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tV8d0-0001tB-V8
+ for qemu-rust@nongnu.org; Tue, 07 Jan 2025 07:24:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1736252647;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=tBhgfETM99NEMDiU1FVnu4UUpsHSbAgJWNnVsfsni24=;
+ b=IkG1p5jErO4yHnGRtNHlMFoFhlQB5cC/sp1voRYkl2+OzgS8GWSQtxorQiSNhYytit9MP1
+ IlYENPo1hjcmxAM7VqVrmNU8lKWilLSiCZIpiVaGrvboMPu/JTkTbZI3o3XxVFOaK/m5Ox
+ qwJPf4FhUGUr573Gz6Q7t4i89AzTT1M=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-693-sOduqcTfMgWYPb09SlbxDA-1; Tue, 07 Jan 2025 07:24:06 -0500
+X-MC-Unique: sOduqcTfMgWYPb09SlbxDA-1
+X-Mimecast-MFC-AGG-ID: sOduqcTfMgWYPb09SlbxDA
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-3862b364578so7618920f8f.1
+ for <qemu-rust@nongnu.org>; Tue, 07 Jan 2025 04:24:05 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736252645; x=1736857445;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tBhgfETM99NEMDiU1FVnu4UUpsHSbAgJWNnVsfsni24=;
+ b=YgfwESBVsZpqVk78xXRGQBwJFmzPRUtp0Rud3M1C4kQ61Guq52ith8BVMkuGCf+dg4
+ RU02A+ua7okQfwWy3UOdxGcapNUh1SPkaGHO0PbHkCKHmef9f34hf5o69FfNnb7rzvqs
+ 0shMVgT+oVQipgasQxS/kWawfXc93LXg0+aSTHEIb5HOCynQVAUU+wkSAvS6l+tGVlEy
+ pxb/3Z+HQfj2fWE0Y8T8+KPk6E3YyRcjQ2SYoWvdztCV/gWb3jDBQRazxzb11vZUeq53
+ ifRDp8h7RnahlZQx9Q9MftCvG1gRwksH+h9yXeFBTH/O3WJfyGVILPCDwg9IXsbuhhW4
+ L8TA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXGGUFudsP6N0BAq+xqNALK9TJ67jgcbKlbBj9ld088WmeIirC+JuPQVpgG/m+NUnejLz/cC2Ejiwc=@nongnu.org
+X-Gm-Message-State: AOJu0YySVT67w9UfSEzYy/6QeW3Lhvon0P8492Qfz2GBta3U02yrYhwz
+ ogA4OufgsQyHgXeovYajIBsnxbqaT+b+j780H8nE+XQGAI/U/EdCg8IJ5l/Z4amjzt9FeeJkBS8
+ F+SELVlAAizkBgt5Zjslj2ITInKi5EMeyprKKdfVaBLyquTTN6c8bl3YHPbzGDoIQhrFak51N/e
+ hRxwjFZZegVGXsxelilfNBze4I5A==
+X-Gm-Gg: ASbGncvkuFRI+ns52dmt9qCT9gK9ZuE6i4gakkyU7Jm8QIJBJa59ytITCCAI5/t49u7
+ RhTzIEyrg5kQdfCHBLHAZicI6GxsKc5mxeOi3Ow==
+X-Received: by 2002:a5d:5f56:0:b0:382:45db:6a1e with SMTP id
+ ffacd0b85a97d-38a7913bcf8mr2711313f8f.14.1736252644727; 
+ Tue, 07 Jan 2025 04:24:04 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEdCOBT/WPKqbvxYoZE1G1ce2F6839rhweRBKlBnacFSZhluProYmcnIpDOweSXkOJJ9GaBJbJOd+9g+ItmULs=
+X-Received: by 2002:a5d:5f56:0:b0:382:45db:6a1e with SMTP id
+ ffacd0b85a97d-38a7913bcf8mr2711195f8f.14.1736252642416; Tue, 07 Jan 2025
+ 04:24:02 -0800 (PST)
+MIME-Version: 1.0
 References: <20241231002336.25931-1-pbonzini@redhat.com>
  <20241231002336.25931-2-pbonzini@redhat.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241231002336.25931-2-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.17; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -47
-X-Spam_score: -4.8
-X-Spam_bar: ----
-X-Spam_report: (-4.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.446,
+ <Z3zstgKXAgeRrIU2@intel.com>
+In-Reply-To: <Z3zstgKXAgeRrIU2@intel.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Tue, 7 Jan 2025 13:23:50 +0100
+Message-ID: <CABgObfbdFo9B1nedC+Bu2QQfjTL1TOpmSQt0p0a0d0iWev6UKg@mail.gmail.com>
+Subject: Re: [RFC PATCH 1/9] rust: vmstate: add new type safe implementation
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, junjie.mao@hotmail.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: x7Pf6AT4sTn7LL1L4km6vJ76a6xFYOiThh6WYjnZhqc_1736252645
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -24
+X-Spam_score: -2.5
+X-Spam_bar: --
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.437,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -69,196 +95,99 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Jan 2025 08:39:52 -0000
+X-List-Received-Date: Tue, 07 Jan 2025 12:24:12 -0000
 
-On Tue, Dec 31, 2024 at 01:23:28AM +0100, Paolo Bonzini wrote:
-> Date: Tue, 31 Dec 2024 01:23:28 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [RFC PATCH 1/9] rust: vmstate: add new type safe implementation
-> X-Mailer: git-send-email 2.47.1
-> 
-> The existing translation of the C macros for vmstate does not make
-> any attempt to type-check vmstate declarations against the struct, so
-> introduce a new system that computes VMStateField based on the actual
-> struct declaration.
-> 
-> Macros do not have full access to the type system, therefore a full
-> implementation of this scheme requires a helper trait to analyze the
-> type and produce a VMStateField from it; a macro "vmstate_of!" accepts
-> arguments similar to "offset_of!" and tricks the compiler into looking
-> up the trait for the right type.
-> 
-> The patch introduces not just vmstate_of!, but also the slightly too
-> clever enabling macro call_func_with_field!.  The particular trick used
-> here was proposed on the users.rust-lang.org forum, so I take no merit
-> and all the blame.
+On Tue, Jan 7, 2025 at 9:39=E2=80=AFAM Zhao Liu <zhao1.liu@intel.com> wrote=
+:
+> This is very good work! I am curious about how QEMU plays with Rust
+> forum:
+>
+> Rust forum's disscussion is under MIT and Apache 2.0 licenses [1], and
+> since vmstate.rs is under the GPLv2 license, do we need to specify that
+> certain code retains the MIT license?
 
-This is very good work! I am curious about how QEMU plays with Rust
-forum:
+I will add a note similar to the one that is already there in offset_of.
 
-Rust forum's disscussion is under MIT and Apache 2.0 licenses [1], and
-since vmstate.rs is under the GPLv2 license, do we need to specify that
-certain code retains the MIT license?
+> > +/// ```
+> > +/// # use qemu_api::call_func_with_field;
+> > +/// # use core::marker::PhantomData;
+> > +/// const fn size_of_field<T>(_: PhantomData<T>) -> usize {
+> > +///     std::mem::size_of::<T>()
+> > +/// }
+> > +///
+> > +/// struct Foo {
+> > +///     x: u16,
+> > +/// };
+> > +/// // calls size_of_field::<u16>()
+> > +/// assert_eq!(call_func_with_field!(size_of_field, Foo, x), 2);
+> > +/// ```
+> > +#[macro_export]
+> > +macro_rules! call_func_with_field {
+> > +    ($func:expr, $typ:ty, $($field:tt).+) =3D> {
+> > +        $func(loop {
+> > +            #![allow(unreachable_code)]
+> > +            const fn phantom__<T>(_: &T) -> ::core::marker::PhantomDat=
+a<T> { ::core::marker::PhantomData }
+> > +            // Unreachable code is exempt from checks on uninitialized=
+ values.
+> > +            // Use that trick to infer the type of this PhantomData.
+> > +            break ::core::marker::PhantomData;
+> > +            break phantom__(&{ let value__: $typ; value__.$($field).+ =
+});
+> > +        })
+> > +    };
+> > +}
+>
+> Very flexible and powerful. (I even think this code could be released as
+> a new public crate.)
 
-[1]: https://users.rust-lang.org/t/tos-updated-to-match-rfcs-and-rust-repository/45650
+It's probably not _that_ useful in general, unless you're implementing
+this kind of reflection... otherwise I would have found an existing
+solution. :) But yes, it's very powerful.
 
-> Introduce the trait and some functions to access it; the actual
-> implementation comes later.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/qemu-api/src/prelude.rs |   2 +
->  rust/qemu-api/src/vmstate.rs | 110 +++++++++++++++++++++++++++++++++--
->  2 files changed, 106 insertions(+), 6 deletions(-)
-> 
-> diff --git a/rust/qemu-api/src/prelude.rs b/rust/qemu-api/src/prelude.rs
-> index 4ea70b9c823..2dc86e19b29 100644
-> --- a/rust/qemu-api/src/prelude.rs
-> +++ b/rust/qemu-api/src/prelude.rs
-> @@ -18,3 +18,5 @@
->  pub use crate::qom_isa;
->  
->  pub use crate::sysbus::SysBusDeviceMethods;
-> +
-> +pub use crate::vmstate::VMState;
-> diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-> index 63c897abcdf..bfcf06e8f1d 100644
-> --- a/rust/qemu-api/src/vmstate.rs
-> +++ b/rust/qemu-api/src/vmstate.rs
-> @@ -4,13 +4,111 @@
->  
->  //! Helper macros to declare migration state for device models.
->  //!
-> -//! Some macros are direct equivalents to the C macros declared in
-> -//! `include/migration/vmstate.h` while
-> -//! [`vmstate_subsections`](crate::vmstate_subsections) and
-> -//! [`vmstate_fields`](crate::vmstate_fields) are meant to be used when
-> -//! declaring a device model state struct.
-> +//! This module includes three families of macros:
-> +//!
-> +//! * [`vmstate_unused!`](crate::vmstate_unused) and
-> +//!   [`vmstate_of!`](crate::vmstate_of), which are used to express the
-> +//!   migration format for a struct.  This is based on the [`VMState`] trait,
-> +//!   which is defined by all migrateable types.
-> +//!
-> +//! * helper macros to declare a device model state struct, in particular
-> +//!   [`vmstate_subsections`](crate::vmstate_subsections) and
-> +//!   [`vmstate_fields`](crate::vmstate_fields).
-> +//!
-> +//! * direct equivalents to the C macros declared in
-> +//!   `include/migration/vmstate.h`. These are not type-safe and should not be
-> +//!   used if the equivalent functionality is available with `vmstate_of!`.
->  
-> -pub use crate::bindings::VMStateDescription;
-> +use core::marker::PhantomData;
-> +
-> +pub use crate::bindings::{VMStateDescription, VMStateField};
-> +
-> +/// This macro is used to call a function with a generic argument bound
-> +/// to the type of a field.  The function must take a
-> +/// [`PhantomData`]`<T>` argument; `T` is the type of
-> +/// field `$field` in the `$typ` type.
-> +///
-> +/// # Examples
-> +///
-> +/// ```
-> +/// # use qemu_api::call_func_with_field;
-> +/// # use core::marker::PhantomData;
-> +/// const fn size_of_field<T>(_: PhantomData<T>) -> usize {
-> +///     std::mem::size_of::<T>()
-> +/// }
-> +///
-> +/// struct Foo {
-> +///     x: u16,
-> +/// };
-> +/// // calls size_of_field::<u16>()
-> +/// assert_eq!(call_func_with_field!(size_of_field, Foo, x), 2);
-> +/// ```
-> +#[macro_export]
-> +macro_rules! call_func_with_field {
-> +    ($func:expr, $typ:ty, $($field:tt).+) => {
-> +        $func(loop {
-> +            #![allow(unreachable_code)]
-> +            const fn phantom__<T>(_: &T) -> ::core::marker::PhantomData<T> { ::core::marker::PhantomData }
-> +            // Unreachable code is exempt from checks on uninitialized values.
-> +            // Use that trick to infer the type of this PhantomData.
-> +            break ::core::marker::PhantomData;
-> +            break phantom__(&{ let value__: $typ; value__.$($field).+ });
-> +        })
-> +    };
-> +}
+Out of curiosity, I asked claude.ai to explain it and it said "This is
+a rather advanced use of Rust's type system and macro capabilities to
+do compile-time reflection - basically inspecting the types of struct
+fields without runtime overhead. While creative, this pattern isn't
+commonly needed in everyday Rust code."
 
-Very flexible and powerful. (I even think this code could be released as
-a new public crate.)
+When fed the initial comment from the Rust forum it said "your comment
+about wanting to access <T as SomeTrait>::SOMETHING for a field's type
+is a classic serialization pattern - often used to get things like
+type IDs, serialization formats, or field metadata at compile time".
+That's actually pretty impressive; the LLM was also impressed and it
+started asking me more about it ("Are you building a custom
+serialization framework from scratch, or extending an existing one?").
 
-> +/// A trait for types that can be included in a device's migration stream.  It
-> +/// provides the base contents of a `VMStateField` (minus the name and offset).
-> +///
-> +/// # Safety
-> +///
-> +/// The contents of this trait go straight into structs that are parsed by C
-> +/// code and used to introspect into other structs.  Be careful.
-> +pub unsafe trait VMState {
-> +    /// The base contents of a `VMStateField` (minus the name and offset) for
-> +    /// the type that is implementing the trait.
-> +    const BASE: VMStateField;
-> +}
-> +
-> +/// Internal utility function to retrieve a type's `VMStateField`;
-> +/// used by [`vmstate_of!`](crate::vmstate_of).
-> +pub const fn vmstate_base<T: VMState>(_: PhantomData<T>) -> VMStateField {
-> +    T::BASE
-> +}
-> +
-> +/// Return the `VMStateField` for a field of a struct.  The field must be
-> +/// visible in the current scope.
-> +///
-> +/// In order to support other types, the trait `VMState` must be implemented
-> +/// for them.
-> +#[macro_export]
-> +macro_rules! vmstate_of {
-> +    ($struct_name:ty, $field_name:ident $(,)?) => {
+> > +/// Return the `VMStateField` for a field of a struct.  The field must=
+ be
+> > +/// visible in the current scope.
+> > +///
+> > +/// In order to support other types, the trait `VMState` must be imple=
+mented
+> > +/// for them.
+> > +#[macro_export]
+> > +macro_rules! vmstate_of {
+> > +    ($struct_name:ty, $field_name:ident $(,)?) =3D> {
+>
+> why allow a comma at the end? It seems other patches don't use that
+> style.
 
-why allow a comma at the end? It seems other patches don't use that
-style.
+I copied it from the standard library offset_of, but I can remove it too.
 
-> +        $crate::bindings::VMStateField {
-> +            name: ::core::concat!(::core::stringify!($field_name), "\0")
-> +                .as_bytes()
-> +                .as_ptr() as *const ::std::os::raw::c_char,
-> +            offset: $crate::offset_of!($struct_name, $field_name),
-> +            // Compute most of the VMStateField from the type of the field.
-> +            ..$crate::call_func_with_field!(
-> +                $crate::vmstate::vmstate_base,
-> +                $struct_name,
-> +                $field_name
-> +            )
-> +        }
-> +    };
-> +}
-> +
-> +// Add a couple builder-style methods to VMStateField, allowing
-> +// easy derivation of VMStateField constants from other types.
-> +impl VMStateField {
-> +    #[must_use]
-> +    pub const fn with_version_id(mut self, version_id: i32) -> Self {
+> > +// Add a couple builder-style methods to VMStateField, allowing
+> > +// easy derivation of VMStateField constants from other types.
+> > +impl VMStateField {
+> > +    #[must_use]
+> > +    pub const fn with_version_id(mut self, version_id: i32) -> Self {
+>
+> Why not use u32 (and omit an assert)?
 
-Why not use u32 (and omit an assert)?
+The version_id field is an int in the C struct; you'd still need to
+assert that it's <=3D i32::MAX, and you'd also need an 'as i32'. In
+practice it will always be a constant, therefore it will auto-cast to
+either i32 or u32.
 
-> +        assert!(version_id >= 0);
-> +        self.version_id = version_id;
-> +        self
-> +    }
-> +}
->  
->  #[doc(alias = "VMSTATE_UNUSED_BUFFER")]
->  #[macro_export]
-> -- 
-> 2.47.1
-
-Good design! Look good to me.
-
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
-
+Paolo
 
 
