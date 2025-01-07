@@ -1,93 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tUovB-0002bm-8M
-	for mharc-qemu-rust@gnu.org; Mon, 06 Jan 2025 10:21:37 -0500
+	id 1tV57y-0002Ri-CS
+	for mharc-qemu-rust@gnu.org; Tue, 07 Jan 2025 03:39:55 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tUov9-0002bC-8R
- for qemu-rust@nongnu.org; Mon, 06 Jan 2025 10:21:35 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tV57w-0002RB-4d; Tue, 07 Jan 2025 03:39:52 -0500
+Received: from mgamail.intel.com ([198.175.65.17])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tUov6-0004Vj-RD
- for qemu-rust@nongnu.org; Mon, 06 Jan 2025 10:21:35 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1736176891;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=HlJ4+Qy6GgfCO5yiBUzos7Dl9d3hIVivSqa8SZuW7Ig=;
- b=EOueoPd8JM5/p9KQR7n/eRaebuj1//RnicmhLkXA+v1hFgMmjWu4m+J4X1qctw3IbM49kP
- 1OdevUeWHTx0f49cPVbNykyD/IqZoxxMQNA5NAMlcyqRja4Ral+/ww0etGTe2QakwE03wQ
- A9tXyKhlkrnzsIElcP0fU0ZsJQ9BxO0=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-213-TPt0iXs3NOWYIqjoTtY8QQ-1; Mon, 06 Jan 2025 10:21:29 -0500
-X-MC-Unique: TPt0iXs3NOWYIqjoTtY8QQ-1
-X-Mimecast-MFC-AGG-ID: TPt0iXs3NOWYIqjoTtY8QQ
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-38a2140a400so8917044f8f.0
- for <qemu-rust@nongnu.org>; Mon, 06 Jan 2025 07:21:29 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736176888; x=1736781688;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=HlJ4+Qy6GgfCO5yiBUzos7Dl9d3hIVivSqa8SZuW7Ig=;
- b=fBpZ5JPwLXreXuRhCsUZqr54y0qzghaAD0ss1oAOghJGigXBMqpg43j71L3Q9egonm
- uw1i48n1K31M2HVjk+F2FPxgpMEZDhnthbM9rwB+KoOFj8VRQej03iaD8QgfM6AKRS7M
- 3YDGaekEGfdrxZQAX7d1ZxniIU62DeLVCqCbfJHe0gl3SDCY+dYfk1m+fJEYsRUdu5bT
- fah5m3S4QUupmnsLBJjMkPBZ0Kv1SRqBT7rfEeXZAo12HWoKnMOT83dfNIVQumBcIFOc
- qJnnMgt5pLvZEFtnTXMnSynbEbFl/hSibXG7IgAxK/5FZSjvFaiSqvUxgJs1SyA6/Dad
- cwgg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCViPP4I6i5nSAO58TMfxjja9lf0U5zynLaH8h9W2rlX2x6BWXWtOkrq6KbSHW9JjM78955hCT49MJg=@nongnu.org
-X-Gm-Message-State: AOJu0Yy7h03B4yqOvGGqJSooH3ce0/MROD0ANODqTThAjFYhezcRT3nS
- RO0g6HguZwWK0aZUjpl6vI9OR4WXMUQLAPd/Jrj1jhDYz8sDwhux+TQuZ5BW0iorySwdBk3dPQR
- 04p0Z+4KsX2izQogvuFzIudidqvS1iyZxIdeWGS+Cs0A86PYG9l+bKylz/t0U39DhMyOVTiI+jP
- X37/2Smb0eKPgPgn7TlHs3S8TGkw==
-X-Gm-Gg: ASbGncuj0Br3HuNMUHvozvRczzx4EXOl/cgny1NUJKgGNO5obK5tGQs6l6ckz3NejF3
- qaPCD26submJIRNC33IWBZsPGM9VavgqilSp2VQ==
-X-Received: by 2002:a05:6000:18a8:b0:385:f7d2:7e29 with SMTP id
- ffacd0b85a97d-38a221ea539mr48530051f8f.15.1736176888549; 
- Mon, 06 Jan 2025 07:21:28 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEOovEQZm3ht7n5+nHRPhWRFImJWCNuQcSHrPn6DtSZ2iQTaACqTmB/MmBO1URglumKAFbZkaObRVddsJB4HKE=
-X-Received: by 2002:a05:6000:18a8:b0:385:f7d2:7e29 with SMTP id
- ffacd0b85a97d-38a221ea539mr48530031f8f.15.1736176888170; Mon, 06 Jan 2025
- 07:21:28 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tV57q-00082w-Sa; Tue, 07 Jan 2025 03:39:51 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1736239187; x=1767775187;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=wy4C1JLqouyAQa7rS1oC3i8VxtHk8A6mXEyq4Eb/X3s=;
+ b=PGKanqSQjl5NnSjE7DOQRBsL0rUM8IGD9RWHxPFbz+KnHdkaiwqhDBIc
+ vpwA3WRPo9C1+o65rxKIElLql7oJ9kG7qTdq27pMseFAJEMQU79/yvz6q
+ 7VrGP+xv60hICgz+Cf9VU5uadCjrNcSkDd20VyIupJjfMP0XwUiix9VDd
+ KywK9sZ7VngiBDHRRk0jKaLr13p0Tgtu0fOYW6Cj7Wk39xbORB24TcHrV
+ H2jwCfmb6cAdQIhdZckNIEG4ghQrN7HeRyPNNZ2Pg54YHYJhTnJ+gIZGB
+ XCs6jYSJys4JBu15wAGzvmI4A9nOTLO8rDZwpyJhAD/1VjplLyusu2QUU w==;
+X-CSE-ConnectionGUID: ztIfaf4UQXunlIWrezJGPg==
+X-CSE-MsgGUID: PaSqxhltS6m+5B00BIGv8g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11307"; a="36426856"
+X-IronPort-AV: E=Sophos;i="6.12,295,1728975600"; d="scan'208";a="36426856"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jan 2025 00:39:44 -0800
+X-CSE-ConnectionGUID: FaL/xuO0TY6w99zRF3rQGA==
+X-CSE-MsgGUID: HM74yDQpRVizIFmUN1SksQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,295,1728975600"; d="scan'208";a="102598663"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa007.fm.intel.com with ESMTP; 07 Jan 2025 00:39:42 -0800
+Date: Tue, 7 Jan 2025 16:58:30 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, junjie.mao@hotmail.com
+Subject: Re: [RFC PATCH 1/9] rust: vmstate: add new type safe implementation
+Message-ID: <Z3zstgKXAgeRrIU2@intel.com>
+References: <20241231002336.25931-1-pbonzini@redhat.com>
+ <20241231002336.25931-2-pbonzini@redhat.com>
 MIME-Version: 1.0
-References: <20241219083228.363430-1-pbonzini@redhat.com>
- <20241219083228.363430-26-pbonzini@redhat.com>
- <daea6757-a67b-45d5-bf2a-807fd9569a70@linaro.org>
- <CABgObfYMP5-9uN9cLofPT6DzBS_o1CVfbHbY8pwn9xjdOXOqgw@mail.gmail.com>
- <CAFEAcA-PE1paXOJNUo-cihu__htZQUYogZphVhRAjFNFzgi7JA@mail.gmail.com>
-In-Reply-To: <CAFEAcA-PE1paXOJNUo-cihu__htZQUYogZphVhRAjFNFzgi7JA@mail.gmail.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Mon, 6 Jan 2025 16:21:16 +0100
-Message-ID: <CABgObfZ7FFW5yhA2u6Rt5=MndrLsF=BnNhgE73LAyUWUGF=yXQ@mail.gmail.com>
-Subject: Re: [PULL 25/41] rust: qom: put class_init together from multiple
- ClassInitImpl<>
-To: Peter Maydell <peter.maydell@linaro.org>
-Cc: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
- qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org, 
- Zhao Liu <zhao1.liu@intel.com>,
- =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
- =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: U2XQ-lrv3o2Kokbe1DmUYiewYFvlgttTZPsd-HmLgOY_1736176889
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="000000000000afee7c062b0b2e29"
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -24
-X-Spam_score: -2.5
-X-Spam_bar: --
-X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.446,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241231002336.25931-2-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.17; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -47
+X-Spam_score: -4.8
+X-Spam_bar: ----
+X-Spam_report: (-4.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.446,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -100,61 +69,196 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Jan 2025 15:21:35 -0000
+X-List-Received-Date: Tue, 07 Jan 2025 08:39:52 -0000
 
---000000000000afee7c062b0b2e29
-Content-Type: text/plain; charset="UTF-8"
+On Tue, Dec 31, 2024 at 01:23:28AM +0100, Paolo Bonzini wrote:
+> Date: Tue, 31 Dec 2024 01:23:28 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [RFC PATCH 1/9] rust: vmstate: add new type safe implementation
+> X-Mailer: git-send-email 2.47.1
+> 
+> The existing translation of the C macros for vmstate does not make
+> any attempt to type-check vmstate declarations against the struct, so
+> introduce a new system that computes VMStateField based on the actual
+> struct declaration.
+> 
+> Macros do not have full access to the type system, therefore a full
+> implementation of this scheme requires a helper trait to analyze the
+> type and produce a VMStateField from it; a macro "vmstate_of!" accepts
+> arguments similar to "offset_of!" and tricks the compiler into looking
+> up the trait for the right type.
+> 
+> The patch introduces not just vmstate_of!, but also the slightly too
+> clever enabling macro call_func_with_field!.  The particular trick used
+> here was proposed on the users.rust-lang.org forum, so I take no merit
+> and all the blame.
 
-Il lun 6 gen 2025, 14:32 Peter Maydell <peter.maydell@linaro.org> ha
-scritto:
+This is very good work! I am curious about how QEMU plays with Rust
+forum:
 
-> I think here I agree with Philippe that we might as well
-> provide only the new API to Rust devices.
->
+Rust forum's disscussion is under MIT and Apache 2.0 licenses [1], and
+since vmstate.rs is under the GPLv2 license, do we need to specify that
+certain code retains the MIT license?
 
-Ok, I wasn't thinking of doing that because there isn't right now an easy
-way to add interfaces to Rust-defined classes. However, all devices are
-Resettable and Device isn't defined in Rust, so it's not hard to add a
-ResettableImpl trait in rust/qemu-api/srv/qdev.rs, and initialize it for
-all devices.
+[1]: https://users.rust-lang.org/t/tos-updated-to-match-rfcs-and-rust-repository/45650
 
-If anybody wants to do it as an exercise, I am happy to help, otherwise I
-can prepare a patch too.
+> Introduce the trait and some functions to access it; the actual
+> implementation comes later.
+> 
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  rust/qemu-api/src/prelude.rs |   2 +
+>  rust/qemu-api/src/vmstate.rs | 110 +++++++++++++++++++++++++++++++++--
+>  2 files changed, 106 insertions(+), 6 deletions(-)
+> 
+> diff --git a/rust/qemu-api/src/prelude.rs b/rust/qemu-api/src/prelude.rs
+> index 4ea70b9c823..2dc86e19b29 100644
+> --- a/rust/qemu-api/src/prelude.rs
+> +++ b/rust/qemu-api/src/prelude.rs
+> @@ -18,3 +18,5 @@
+>  pub use crate::qom_isa;
+>  
+>  pub use crate::sysbus::SysBusDeviceMethods;
+> +
+> +pub use crate::vmstate::VMState;
+> diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
+> index 63c897abcdf..bfcf06e8f1d 100644
+> --- a/rust/qemu-api/src/vmstate.rs
+> +++ b/rust/qemu-api/src/vmstate.rs
+> @@ -4,13 +4,111 @@
+>  
+>  //! Helper macros to declare migration state for device models.
+>  //!
+> -//! Some macros are direct equivalents to the C macros declared in
+> -//! `include/migration/vmstate.h` while
+> -//! [`vmstate_subsections`](crate::vmstate_subsections) and
+> -//! [`vmstate_fields`](crate::vmstate_fields) are meant to be used when
+> -//! declaring a device model state struct.
+> +//! This module includes three families of macros:
+> +//!
+> +//! * [`vmstate_unused!`](crate::vmstate_unused) and
+> +//!   [`vmstate_of!`](crate::vmstate_of), which are used to express the
+> +//!   migration format for a struct.  This is based on the [`VMState`] trait,
+> +//!   which is defined by all migrateable types.
+> +//!
+> +//! * helper macros to declare a device model state struct, in particular
+> +//!   [`vmstate_subsections`](crate::vmstate_subsections) and
+> +//!   [`vmstate_fields`](crate::vmstate_fields).
+> +//!
+> +//! * direct equivalents to the C macros declared in
+> +//!   `include/migration/vmstate.h`. These are not type-safe and should not be
+> +//!   used if the equivalent functionality is available with `vmstate_of!`.
+>  
+> -pub use crate::bindings::VMStateDescription;
+> +use core::marker::PhantomData;
+> +
+> +pub use crate::bindings::{VMStateDescription, VMStateField};
+> +
+> +/// This macro is used to call a function with a generic argument bound
+> +/// to the type of a field.  The function must take a
+> +/// [`PhantomData`]`<T>` argument; `T` is the type of
+> +/// field `$field` in the `$typ` type.
+> +///
+> +/// # Examples
+> +///
+> +/// ```
+> +/// # use qemu_api::call_func_with_field;
+> +/// # use core::marker::PhantomData;
+> +/// const fn size_of_field<T>(_: PhantomData<T>) -> usize {
+> +///     std::mem::size_of::<T>()
+> +/// }
+> +///
+> +/// struct Foo {
+> +///     x: u16,
+> +/// };
+> +/// // calls size_of_field::<u16>()
+> +/// assert_eq!(call_func_with_field!(size_of_field, Foo, x), 2);
+> +/// ```
+> +#[macro_export]
+> +macro_rules! call_func_with_field {
+> +    ($func:expr, $typ:ty, $($field:tt).+) => {
+> +        $func(loop {
+> +            #![allow(unreachable_code)]
+> +            const fn phantom__<T>(_: &T) -> ::core::marker::PhantomData<T> { ::core::marker::PhantomData }
+> +            // Unreachable code is exempt from checks on uninitialized values.
+> +            // Use that trick to infer the type of this PhantomData.
+> +            break ::core::marker::PhantomData;
+> +            break phantom__(&{ let value__: $typ; value__.$($field).+ });
+> +        })
+> +    };
+> +}
 
-Paolo
+Very flexible and powerful. (I even think this code could be released as
+a new public crate.)
 
+> +/// A trait for types that can be included in a device's migration stream.  It
+> +/// provides the base contents of a `VMStateField` (minus the name and offset).
+> +///
+> +/// # Safety
+> +///
+> +/// The contents of this trait go straight into structs that are parsed by C
+> +/// code and used to introspect into other structs.  Be careful.
+> +pub unsafe trait VMState {
+> +    /// The base contents of a `VMStateField` (minus the name and offset) for
+> +    /// the type that is implementing the trait.
+> +    const BASE: VMStateField;
+> +}
+> +
+> +/// Internal utility function to retrieve a type's `VMStateField`;
+> +/// used by [`vmstate_of!`](crate::vmstate_of).
+> +pub const fn vmstate_base<T: VMState>(_: PhantomData<T>) -> VMStateField {
+> +    T::BASE
+> +}
+> +
+> +/// Return the `VMStateField` for a field of a struct.  The field must be
+> +/// visible in the current scope.
+> +///
+> +/// In order to support other types, the trait `VMState` must be implemented
+> +/// for them.
+> +#[macro_export]
+> +macro_rules! vmstate_of {
+> +    ($struct_name:ty, $field_name:ident $(,)?) => {
 
-> -- PMM
->
->
+why allow a comma at the end? It seems other patches don't use that
+style.
 
---000000000000afee7c062b0b2e29
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> +        $crate::bindings::VMStateField {
+> +            name: ::core::concat!(::core::stringify!($field_name), "\0")
+> +                .as_bytes()
+> +                .as_ptr() as *const ::std::os::raw::c_char,
+> +            offset: $crate::offset_of!($struct_name, $field_name),
+> +            // Compute most of the VMStateField from the type of the field.
+> +            ..$crate::call_func_with_field!(
+> +                $crate::vmstate::vmstate_base,
+> +                $struct_name,
+> +                $field_name
+> +            )
+> +        }
+> +    };
+> +}
+> +
+> +// Add a couple builder-style methods to VMStateField, allowing
+> +// easy derivation of VMStateField constants from other types.
+> +impl VMStateField {
+> +    #[must_use]
+> +    pub const fn with_version_id(mut self, version_id: i32) -> Self {
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
-ner"><div dir=3D"ltr" class=3D"gmail_attr">Il lun 6 gen 2025, 14:32 Peter M=
-aydell &lt;<a href=3D"mailto:peter.maydell@linaro.org">peter.maydell@linaro=
-.org</a>&gt; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">I think here I agree with Philippe that we might as well<br>
-provide only the new API to Rust devices.<br></blockquote></div></div><div =
-dir=3D"auto"><br></div><div dir=3D"auto">Ok, I wasn&#39;t thinking of doing=
- that because there isn&#39;t right now an easy way to add interfaces to Ru=
-st-defined classes. However, all devices are Resettable and Device isn&#39;=
-t defined in Rust, so it&#39;s not hard to add a ResettableImpl trait in ru=
-st/qemu-api/srv/<a href=3D"http://qdev.rs">qdev.rs</a>, and initialize it f=
-or all devices.</div><div dir=3D"auto"><br></div><div dir=3D"auto">If anybo=
-dy wants to do it as an exercise, I am happy to help, otherwise I can prepa=
-re a patch too.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo</d=
-iv><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote =
-gmail_quote_container"><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
--- PMM<br>
-<br>
-</blockquote></div></div></div>
+Why not use u32 (and omit an assert)?
 
---000000000000afee7c062b0b2e29--
+> +        assert!(version_id >= 0);
+> +        self.version_id = version_id;
+> +        self
+> +    }
+> +}
+>  
+>  #[doc(alias = "VMSTATE_UNUSED_BUFFER")]
+>  #[macro_export]
+> -- 
+> 2.47.1
+
+Good design! Look good to me.
+
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+
 
 
