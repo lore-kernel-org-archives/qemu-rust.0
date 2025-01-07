@@ -1,54 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tVBRp-00019l-I7
-	for mharc-qemu-rust@gnu.org; Tue, 07 Jan 2025 10:24:50 -0500
+	id 1tVBdp-0003Cv-Oq
+	for mharc-qemu-rust@gnu.org; Tue, 07 Jan 2025 10:37:13 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tVBRn-00019M-OS; Tue, 07 Jan 2025 10:24:47 -0500
-Received: from mgamail.intel.com ([198.175.65.10])
+ id 1tVBdn-0002y4-Os; Tue, 07 Jan 2025 10:37:11 -0500
+Received: from mgamail.intel.com ([198.175.65.9])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tVBRk-0003jp-RJ; Tue, 07 Jan 2025 10:24:47 -0500
+ id 1tVBdl-0005YM-M8; Tue, 07 Jan 2025 10:37:11 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736263485; x=1767799485;
+ t=1736264229; x=1767800229;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=TIIM4dkj0OCU1RcFETy0gaMxAsMM7RGugczvPHwe4Zo=;
- b=SMItgzSN5y1FTEUooomrzEO2/Mp015UOJADYt5HL8vz2Rf0BzrQwo+Co
- EO4Ho2+ek7I+qsvCdr4aeKoXLOwL7pB2uL4dNX2fNJguJrEBo6inZ+Ymp
- QdZ6s5TN4U0BtMB9rmaUQ3rtsbOffY7fzXGACP1FoLKlXzhAliOj6HJep
- qbD1WR1tsc18ezgVfCVa6dvOjNLLyYI9hF7lxTy9X+xBOSrUj7rAhiV6K
- 854LuuHVKXW9rrOSuoyDxkyk7nDVJ7Gzv0EXZahWCBh3k5tqk/eZ9t1Lm
- /fqUM+vCgf+ehLz8WJC0C4bFa597PBQjHRD4W7JtPTFteQtWqH8sTxFan g==;
-X-CSE-ConnectionGUID: lvwt563PRi+FYaBlMVUvnQ==
-X-CSE-MsgGUID: eaGsVRjYSlaZFaBWmLh3jA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11308"; a="53869682"
-X-IronPort-AV: E=Sophos;i="6.12,295,1728975600"; d="scan'208";a="53869682"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2025 07:24:39 -0800
-X-CSE-ConnectionGUID: 6pRcvfvdQOG3g0wiFP28Aw==
-X-CSE-MsgGUID: oG3Lstq1RaCMyT0mDjn9uw==
+ bh=XCZzl+buYDclRmkgsVH4Yt09a40/e44VZXfhyc5VbpQ=;
+ b=Yhz3Bd0e0q5Ai0Uz14ixFK6eriVIsULXq0oMCQAtOxV17zqLlKO69Mw6
+ 9d8okJBeycCvgr/zB8MewUmq5FJhkQNOgimLihzIUL8HO+HLUJVo8jFsf
+ YqM/MS9lbeUu4cQNfigwYUOLym/gnoOtFA0t+ES55zewKugcI4fSyVaVU
+ qQP2MxOsqynfehnIRYlU63TvHpsBEs+MWnyy2UJnglM/ghfdHhJcmk0Ab
+ xvcPY1uwgayJknpfxeMSLDp57AGbz29A7FtBDletMUWyp1JcaC68HyNjm
+ gTF8rP8TCLenMA/Vb+SAov9QreR6yKxcGRs1PKOUOtK1kVWabAsoNJEVD Q==;
+X-CSE-ConnectionGUID: VmHZWESXRDuXcBQ07bAMnA==
+X-CSE-MsgGUID: R2/oXIxkRBuS0ypDYVtsKw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11308"; a="58918289"
+X-IronPort-AV: E=Sophos;i="6.12,295,1728975600"; d="scan'208";a="58918289"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jan 2025 07:37:06 -0800
+X-CSE-ConnectionGUID: cAaLE8/KTEantrsyvHyn2w==
+X-CSE-MsgGUID: qL2+2CzjQHazhhTdck2m1w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,295,1728975600"; d="scan'208";a="103307912"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="126095713"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa009.fm.intel.com with ESMTP; 07 Jan 2025 07:24:37 -0800
-Date: Tue, 7 Jan 2025 23:43:25 +0800
+ by fmviesa002.fm.intel.com with ESMTP; 07 Jan 2025 07:37:04 -0800
+Date: Tue, 7 Jan 2025 23:55:52 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, junjie.mao@hotmail.com
-Subject: Re: [RFC PATCH 2/9] rust: vmstate: implement VMState for non-leaf
- types
-Message-ID: <Z31LnWiD8jysxBGv@intel.com>
-References: <20241231002336.25931-1-pbonzini@redhat.com>
- <20241231002336.25931-3-pbonzini@redhat.com>
+Cc: Peter Maydell <peter.maydell@linaro.org>,
+ Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+ qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org,
+ Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+ =?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>
+Subject: Re: [PULL 25/41] rust: qom: put class_init together from multiple
+ ClassInitImpl<>
+Message-ID: <Z31OiMcYT/66AGDt@intel.com>
+References: <20241219083228.363430-1-pbonzini@redhat.com>
+ <20241219083228.363430-26-pbonzini@redhat.com>
+ <daea6757-a67b-45d5-bf2a-807fd9569a70@linaro.org>
+ <CABgObfYMP5-9uN9cLofPT6DzBS_o1CVfbHbY8pwn9xjdOXOqgw@mail.gmail.com>
+ <CAFEAcA-PE1paXOJNUo-cihu__htZQUYogZphVhRAjFNFzgi7JA@mail.gmail.com>
+ <CABgObfZ7FFW5yhA2u6Rt5=MndrLsF=BnNhgE73LAyUWUGF=yXQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241231002336.25931-3-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.10; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <CABgObfZ7FFW5yhA2u6Rt5=MndrLsF=BnNhgE73LAyUWUGF=yXQ@mail.gmail.com>
+Received-SPF: pass client-ip=198.175.65.9; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -47
 X-Spam_score: -4.8
@@ -70,149 +78,34 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Jan 2025 15:24:48 -0000
+X-List-Received-Date: Tue, 07 Jan 2025 15:37:12 -0000
 
-On Tue, Dec 31, 2024 at 01:23:29AM +0100, Paolo Bonzini wrote:
-> Date: Tue, 31 Dec 2024 01:23:29 +0100
+On Mon, Jan 06, 2025 at 04:21:16PM +0100, Paolo Bonzini wrote:
+> Date: Mon, 6 Jan 2025 16:21:16 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [RFC PATCH 2/9] rust: vmstate: implement VMState for non-leaf types
-> X-Mailer: git-send-email 2.47.1
+> Subject: Re: [PULL 25/41] rust: qom: put class_init together from multiple
+>  ClassInitImpl<>
 > 
-> Arrays, pointers and cells use a VMStateField that is based on that
-> for the inner type.  The implementation therefore delegates to the
-> VMState implementation of the inner type.
+> Il lun 6 gen 2025, 14:32 Peter Maydell <peter.maydell@linaro.org> ha
+> scritto:
 > 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/qemu-api/src/vmstate.rs | 66 +++++++++++++++++++++++++++++++++++-
->  1 file changed, 65 insertions(+), 1 deletion(-)
+> > I think here I agree with Philippe that we might as well
+> > provide only the new API to Rust devices.
+> >
 > 
-> diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-> index bfcf06e8f1d..e20f27b172b 100644
-> --- a/rust/qemu-api/src/vmstate.rs
-> +++ b/rust/qemu-api/src/vmstate.rs
-> @@ -19,8 +19,9 @@
->  //!   `include/migration/vmstate.h`. These are not type-safe and should not be
->  //!   used if the equivalent functionality is available with `vmstate_of!`.
->  
-> -use core::marker::PhantomData;
-> +use core::{marker::PhantomData, mem, ptr::NonNull};
->  
-> +use crate::bindings::VMStateFlags;
->  pub use crate::bindings::{VMStateDescription, VMStateField};
->  
->  /// This macro is used to call a function with a generic argument bound
-> @@ -108,6 +109,69 @@ pub const fn with_version_id(mut self, version_id: i32) -> Self {
->          self.version_id = version_id;
->          self
->      }
-> +
-> +    #[must_use]
-> +    pub const fn with_array_flag(mut self, num: usize) -> Self { 
-> +        assert!(num <= 0x7FFF_FFFFusize);
-
-I see, this is the similar case to check overflow like your comment for
-patch 1. I think we can use i32::MAX to avoid such magic number.
-
-> +        assert!((self.flags.0 & VMStateFlags::VMS_ARRAY.0) == 0);
-
-Do we need to also check varray flags? e.g.,
-
-But the doc (in vmstate.h) of VMS_ARRAY said "May not be combined with
-VMS_VARRAY*", I understand VMS_ARRAY shouldn't be combined with
-VMS_VARRAY*, am I right?
-
-If so, we can add a simple const variable that combines all VARRY flags,
-e.g,
-
-const VMS_VARRAY_FLAGS: VMStateFlags = VMStateFlags(
-    VMStateFlags::VMS_VARRAY_INT32.0 |
-    VMStateFlags::VMS_VARRAY_UINT8.0 |
-    VMStateFlags::VMS_VARRAY_UINT16.0 |
-    VMStateFlags::VMS_VARRAY_UINT32.0
-);
-
-...
-
-assert!((self.flags.0 & VMS_VARRAY_FLAGS.0) == 0);
-
-> +        if (self.flags.0 & VMStateFlags::VMS_POINTER.0) != 0 {
-> +            self.flags = VMStateFlags(self.flags.0 & !VMStateFlags::VMS_POINTER.0);
-> +            self.flags = VMStateFlags(self.flags.0 | VMStateFlags::VMS_ARRAY_OF_POINTER.0);
-> +        }
-> +        self.flags = VMStateFlags(self.flags.0 & !VMStateFlags::VMS_SINGLE.0);
-> +        self.flags = VMStateFlags(self.flags.0 | VMStateFlags::VMS_ARRAY.0);
-> +        self.num = num as i32;
-> +        self
-> +    }
-> +
-> +    #[must_use]
-> +    pub const fn with_pointer_flag(mut self) -> Self {
-> +        assert!((self.flags.0 & VMStateFlags::VMS_POINTER.0) == 0);
-
-Maybe VMS_ARRAY_OF_POINTER should be checked here as well?
-
-> +        self.flags = VMStateFlags(self.flags.0 | VMStateFlags::VMS_POINTER.0);
-> +        self
-> +    }
-> +}
-> +
-> +// Transparent wrappers: just use the internal type
-> +
-> +macro_rules! impl_vmstate_transparent {
-> +    ($type:ty where $base:tt: VMState $($where:tt)*) => {
-> +        unsafe impl<$base> VMState for $type where $base: VMState $($where)* {
-> +            const BASE: VMStateField = VMStateField {
-> +                size: mem::size_of::<$type>(),
-> +                ..<$base as VMState>::BASE
-> +            };
-> +        }
-> +    };
-> +}
-> +
-> +impl_vmstate_transparent!(std::cell::Cell<T> where T: VMState);
-> +impl_vmstate_transparent!(std::cell::UnsafeCell<T> where T: VMState);
-> +impl_vmstate_transparent!(crate::cell::BqlCell<T> where T: VMState);
-> +impl_vmstate_transparent!(crate::cell::BqlRefCell<T> where T: VMState);
-> +
-> +// Pointer types using the underlying type's VMState plus VMS_POINTER
-> +
-> +macro_rules! impl_vmstate_pointer {
-> +    ($type:ty where $base:tt: VMState $($where:tt)*) => {
-> +        unsafe impl<$base> VMState for $type where $base: VMState $($where)* {
-> +            const SCALAR_TYPE: VMStateFieldType = <T as VMState>::SCALAR_TYPE;
-
-Rebase issue: SCALAR_TYPE is introduced in patch 5.
-
-> +            const BASE: VMStateField = <$base as VMState>::BASE.with_pointer_flag();
-> +        }
-> +    };
-> +}
-> +
-> +impl_vmstate_pointer!(*const T where T: VMState);
-> +impl_vmstate_pointer!(*mut T where T: VMState);
-> +impl_vmstate_pointer!(NonNull<T> where T: VMState);
-> +impl_vmstate_pointer!(Option<NonNull<T>> where T: VMState);
-> +
-> +// Arrays using the underlying type's VMState plus
-> +// VMS_ARRAY/VMS_ARRAY_OF_POINTER
-> +
-> +unsafe impl<T: VMState, const N: usize> VMState for [T; N] {
-> +    const SCALAR_TYPE: VMStateFieldType = <T as VMState>::SCALAR_TYPE;
-
-Ditto.
-
-> +    const BASE: VMStateField = <T as VMState>::BASE.with_array_flag(N);
->  }
->  
->  #[doc(alias = "VMSTATE_UNUSED_BUFFER")]
-> -- 
-> 2.47.1
+> Ok, I wasn't thinking of doing that because there isn't right now an easy
+> way to add interfaces to Rust-defined classes. However, all devices are
+> Resettable and Device isn't defined in Rust, so it's not hard to add a
+> ResettableImpl trait in rust/qemu-api/srv/qdev.rs, and initialize it for
+> all devices.
+> 
+> If anybody wants to do it as an exercise, I am happy to help, otherwise I
+> can prepare a patch too.
 >
 
-Overall, I think this patch handles the array/pointer/cell cases very
-well. So (with some nits fixed :-)),
+If possible and if no one else wants to practice, I would also like to
+give it a try (I'll add it to my list).
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+Zhao
 
 
