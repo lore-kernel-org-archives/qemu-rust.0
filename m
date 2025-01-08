@@ -1,87 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tVClb-000390-KB
-	for mharc-qemu-rust@gnu.org; Tue, 07 Jan 2025 11:49:19 -0500
+	id 1tVMS2-0003kV-ED
+	for mharc-qemu-rust@gnu.org; Tue, 07 Jan 2025 22:09:46 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tVClb-00038k-3l
- for qemu-rust@nongnu.org; Tue, 07 Jan 2025 11:49:19 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tVMS0-0003k9-7c; Tue, 07 Jan 2025 22:09:44 -0500
+Received: from mgamail.intel.com ([192.198.163.13])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tVClZ-0005OV-KF
- for qemu-rust@nongnu.org; Tue, 07 Jan 2025 11:49:18 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1736268557;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=V8/csrjcE/UEWRc5Rp4XCkWcnSQqKk4EReSRr1S8hSc=;
- b=itgo01eQxInC0a/IIIUXT0NM6QwsZBYkOOsPmJbkEEbvUhkn+mt2IBw9V6gRqmnDkdAKRJ
- YTUJIv75He3uwuvet+nALDVdPwsq2pHCdIoxJVhUKwrSDW5ayaNYf0vAviOgPmzMzvVbhy
- JZuOBegzXr/Ma+dO7BL+oPa1GXITuZw=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-481-u5vThn5_PMi4zH4P9RoWyw-1; Tue, 07 Jan 2025 11:49:15 -0500
-X-MC-Unique: u5vThn5_PMi4zH4P9RoWyw-1
-X-Mimecast-MFC-AGG-ID: u5vThn5_PMi4zH4P9RoWyw
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-43621907030so121002215e9.1
- for <qemu-rust@nongnu.org>; Tue, 07 Jan 2025 08:49:15 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736268554; x=1736873354;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=V8/csrjcE/UEWRc5Rp4XCkWcnSQqKk4EReSRr1S8hSc=;
- b=NkGFmoBxVKejTyDKyhDBexRUBkVwrhBYmHGZ4w5nPvgoU6B9dp48LE79CFqRMCQNA+
- jNhkqVDYOfeAnTzZPL2bgkZl7xIagZZOIelWpJ5UqE7bZjgNHgUlcqJD+x2yvWlPU9W1
- Y2BQMek44A3J5bR6FP3KGxSZZdDb3l9tsbKwAO7bmhu2WdE04QxnV/l705vgYQ+AeUlY
- 3Jk3u8tu/smabCni8aftxa3z9fM6OJ9MunXNdItMCwo8EGKATl/OwkNTCv6b871BVI/3
- DiRlgjYE9Q9J95EBHD6wtAFqx1M5BVcILV9KF69/WTpiuQGXWvsMKdXwayEu4YhWaPBs
- fmsQ==
-X-Gm-Message-State: AOJu0YwlDTy4PZSm2TQC+TP2O8lqL1ylhkLhi8MhtZJ/sCvtky7dgE4N
- e6pGn5axk3IU1QRPJbofbuxwIFiSIvcbVwLkg68gR3apIQT4qhpFyMcO0HaXIFwjskWlak4aaMq
- wmViqqzeVwV+QEub19ARaM1sledzK5u0l0HbzJXeMuPvKTC1yEJv94JoolWd6raEz7a99o9gctn
- JkN6m/elBJnXFKZf0v/cF0DzAl+/ve6tjexzT+
-X-Gm-Gg: ASbGnctaAvMigBgPaE5TH+KlowkzSGb164Fh2fDmAtbJjky2vTjhDwfsaYNagzjP4Rb
- fRbyjeep7vFqlXYk4I+QeWEacXvgVffFBMUQIRw==
-X-Received: by 2002:a05:6000:1568:b0:385:dc45:ea22 with SMTP id
- ffacd0b85a97d-38a223f835dmr50147126f8f.39.1736268553781; 
- Tue, 07 Jan 2025 08:49:13 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFImnDvUOrUVwow5VNhJ2KAH86i0UbSybuVTtT7Q/VaDc8JYj9vubn5LDPd6lPYid5C6qR4R9KT5hb3cfY+8Gc=
-X-Received: by 2002:a05:6000:1568:b0:385:dc45:ea22 with SMTP id
- ffacd0b85a97d-38a223f835dmr50147101f8f.39.1736268553356; Tue, 07 Jan 2025
- 08:49:13 -0800 (PST)
-MIME-Version: 1.0
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tVMRx-0003c1-RI; Tue, 07 Jan 2025 22:09:44 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1736305782; x=1767841782;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=venH0gsGse56FvTnI1E73uXmJ/NSnyci+2xe3OHoz5w=;
+ b=HUXqNcL4kspWpscsX1QbbyvgEfylw2qvd2Yk0Vheew29hskVzhrE1mwy
+ hPbJeN22x/yDB0LToLQEvPy2AYU2SkFY9JSk/GSz7TNUvBu9Zj1YsT80+
+ jIlKFrpIuDv/EK2Aw3Ed8s8NIaNhtxZGakgkrLcncFAxN1Cp5HxX4aeb1
+ U+Pe0RnjLQ4w8ho5m8QSoUvnxB+C6Li3pX+jRAO56I9FgO719PHjt9J+7
+ 8LLV9faXF1OFaUJJAySnjjCtViCnX7hMwJhPHq35J02joExf9Aju5fHIM
+ NSTh3xPw4BFp4dR7J6lb6wOO3YfdYIXIEwbDyOqnBX6E+vZ1/Oj63/a8r w==;
+X-CSE-ConnectionGUID: KBDNU0wRSa+r/JxpYLd2mA==
+X-CSE-MsgGUID: eqQ1Se7gQWy5/sdv8iAZzQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11308"; a="39338693"
+X-IronPort-AV: E=Sophos;i="6.12,297,1728975600"; d="scan'208";a="39338693"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jan 2025 19:09:37 -0800
+X-CSE-ConnectionGUID: KoHM1h5USe6vOHx5Xl5CHQ==
+X-CSE-MsgGUID: j8v5p1WRRVCTF45Umq/tRQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="126254074"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa002.fm.intel.com with ESMTP; 07 Jan 2025 19:09:35 -0800
+Date: Wed, 8 Jan 2025 11:28:23 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, junjie.mao@hotmail.com
+Subject: Re: [RFC PATCH 3/9] rust: vmstate: add varray support to vmstate_of!
+Message-ID: <Z33w1ykoafUl2WD7@intel.com>
 References: <20241231002336.25931-1-pbonzini@redhat.com>
- <20241231002336.25931-8-pbonzini@redhat.com>
-In-Reply-To: <20241231002336.25931-8-pbonzini@redhat.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 7 Jan 2025 17:49:01 +0100
-X-Gm-Features: AbW1kva1osy-KoUHQiF0jDUJx4pR-YIHhy6wptvPoHcpcL5tMNaP6cj6Di9jDmw
-Message-ID: <CABgObfZ0O3r02v26+KiqAMNk2CSsYp8q2siN_f1xwUDXvT=VDg@mail.gmail.com>
-Subject: Re: [RFC PATCH 7/9] rust: qemu_api: add vmstate_struct and
- vmstate_cell
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org, zhao1.liu@intel.com, junjie.mao@hotmail.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: X1lVYrTB_ER_wfZOhyI7qFUFykDm97k_JO2TA_Are-w_1736268555
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -24
-X-Spam_score: -2.5
-X-Spam_bar: --
-X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.437,
+ <20241231002336.25931-4-pbonzini@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241231002336.25931-4-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.13; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -47
+X-Spam_score: -4.8
+X-Spam_bar: ----
+X-Spam_report: (-4.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.437,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -94,75 +69,140 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Jan 2025 16:49:19 -0000
+X-List-Received-Date: Wed, 08 Jan 2025 03:09:44 -0000
 
-On Tue, Dec 31, 2024 at 1:23=E2=80=AFAM Paolo Bonzini <pbonzini@redhat.com>=
- wrote:
->
-> These are not type safe, but they're the best that can be done without
-> const_refs_static.
->
+On Tue, Dec 31, 2024 at 01:23:30AM +0100, Paolo Bonzini wrote:
+> Date: Tue, 31 Dec 2024 01:23:30 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [RFC PATCH 3/9] rust: vmstate: add varray support to vmstate_of!
+> X-Mailer: git-send-email 2.47.1
+> 
+> Untested...
+> 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-FWIW, I'll change these patch to support varrays in v2.
-
-Paolo
-
 > ---
->  rust/qemu-api/src/vmstate.rs | 34 ++++++++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
->
+>  rust/qemu-api/src/vmstate.rs | 45 +++++++++++++++++++++++++++++++++---
+>  1 file changed, 42 insertions(+), 3 deletions(-)
+> 
 > diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-> index b59a4b66339..e45c93587b2 100644
+> index e20f27b172b..079c19c687b 100644
 > --- a/rust/qemu-api/src/vmstate.rs
 > +++ b/rust/qemu-api/src/vmstate.rs
-> @@ -610,6 +610,40 @@ macro_rules! vmstate_array_of_pointer_to_struct {
->      }};
->  }
->
-> +// FIXME: including the `vmsd` field in a `const` is not possible withou=
-t
-> +// the const_refs_static feature (stabilized in Rust 1.83.0).  Without i=
-t,
-> +// it is not possible to use VMS_STRUCT in a transparent manner using
-> +// `vmstate_of!`.  While VMSTATE_CLOCK can at least try to be type-safe,
-> +// VMSTATE_STRUCT includes $type only for documentation purposes; it
-> +// is checked against $field_name and $struct_name, but not against $vms=
-d
-> +// which is what really would matter.
-> +#[doc(alias =3D "VMSTATE_STRUCT")]
-> +#[macro_export]
-> +macro_rules! vmstate_struct {
-> +    ($field_name:ident, $struct_name:ty, $vmsd:expr, $type:ty) =3D> {{
-> +        $crate::bindings::VMStateField {
-> +            name: ::core::concat!(::core::stringify!($field_name), "\0")
-> +                .as_bytes()
-> +                .as_ptr() as *const ::std::os::raw::c_char,
-> +            offset: {
-> +                $crate::assert_field_type!($struct_name, $field_name, $t=
-ype);
-> +                $crate::offset_of!($struct_name, $field_name)
-> +            }
-> +            size: ::core::mem::size_of::<$type>(),
-> +            flags: $crate::bindings::VMStateFlags::VMS_STRUCT,
-> +            vmsd: unsafe { $vmsd },
-> +            ..$crate::zeroable::Zeroable::ZERO
-> +        }
-> +    }};
-> +}
+> @@ -69,6 +69,15 @@ pub unsafe trait VMState {
+>      /// The base contents of a `VMStateField` (minus the name and offset) for
+>      /// the type that is implementing the trait.
+>      const BASE: VMStateField;
 > +
-> +#[macro_export]
-> +macro_rules! vmstate_cell {
-> +    ($field_name:ident, $struct_name:ty, $vmsd:expr, $type:ty) =3D> {
-> +        $crate::vmstate_struct!($field_name, $struct_name, $vmsd, $type)
+> +    /// A flag that is added to another field's `VMStateField` to specify the
+> +    /// length's type in a variable-sized array.  If this is not a supported
+> +    /// type for the length (i.e. if it is not `u8`, `u16`, `u32`), using it
+> +    /// in a call to [`vmstate_of!`](crate::vmstate_of) will cause a
+> +    /// compile-time error.
+> +    const VARRAY_FLAG: VMStateFlags = {
+> +        panic!("invalid type for variable-sized array");
 > +    };
+>  }
+>  
+>  /// Internal utility function to retrieve a type's `VMStateField`;
+> @@ -77,6 +86,13 @@ pub const fn vmstate_base<T: VMState>(_: PhantomData<T>) -> VMStateField {
+>      T::BASE
+>  }
+>  
+> +/// Internal utility function to retrieve a type's `VMStateFlags` when it
+> +/// is used as the element count of a `VMSTATE_VARRAY`; used by
+> +/// [`vmstate_of!`](crate::vmstate_of).
+> +pub const fn vmstate_varray_flag<T: VMState>(_: PhantomData<T>) -> VMStateField {
+> +    T::BASE
 > +}
-> +
->  #[doc(alias =3D "VMSTATE_CLOCK_V")]
->  #[macro_export]
->  macro_rules! vmstate_clock_v {
-> --
-> 2.47.1
->
 
+a copy issue:
+
+pub const fn vmstate_varray_flag<T: VMState>(_: PhantomData<T>) -> VMStateFlags {
+    T::VARRAY_FLAG
+}
+
+> +
+>  /// Return the `VMStateField` for a field of a struct.  The field must be
+>  /// visible in the current scope.
+>  ///
+> @@ -84,18 +100,24 @@ pub const fn vmstate_base<T: VMState>(_: PhantomData<T>) -> VMStateField {
+>  /// for them.
+>  #[macro_export]
+>  macro_rules! vmstate_of {
+> -    ($struct_name:ty, $field_name:ident $(,)?) => {
+> +    ($struct_name:ty, $field_name:ident $([0 .. $num:ident $(* $factor:expr)?])? $(,)?) => {
+
+Compared to something like "[num]", the format "[0 .. num]" is more
+elegant, so I also support this style.
+
+>          $crate::bindings::VMStateField {
+>              name: ::core::concat!(::core::stringify!($field_name), "\0")
+>                  .as_bytes()
+>                  .as_ptr() as *const ::std::os::raw::c_char,
+>              offset: $crate::offset_of!($struct_name, $field_name),
+> -            // Compute most of the VMStateField from the type of the field.
+> +            $(.num_offset: $crate::offset_of!($struct_name, $num),)?
+> +            // The calls to `call_func_with_field!` are the magic that
+> +            // computes most of the VMStateField from the type of the field.
+>              ..$crate::call_func_with_field!(
+>                  $crate::vmstate::vmstate_base,
+>                  $struct_name,
+>                  $field_name
+> -            )
+> +            )$(.with_varray_flag($crate::call_func_with_field!(
+> +                    $crate::vmstate::vmstate_varray_flag,
+> +                    $struct_name,
+> +                    $num))
+> +               $(.with_varray_multiply($factor))?)?
+>          }
+>      };
+>  }
+> @@ -130,6 +152,22 @@ pub const fn with_pointer_flag(mut self) -> Self {
+>          self.flags = VMStateFlags(self.flags.0 | VMStateFlags::VMS_POINTER.0);
+>          self
+>      }
+> +
+> +    #[must_use]
+> +    pub const fn with_varray_flag<T: VMState>(mut self, flag: VMStateFlags) -> VMStateField {
+> +        assert!((self.flags.0 & VMStateFlags::VMS_ARRAY.0) != 0);
+
+I understand you checked VMS_ARRAY here since [T; N] has this array
+flag.
+
+What if a Rust device just store a pointer to the array? If we allow
+this use, then it seems also possible to set varray flags...Then what
+about dropping this limitation?
+
+However, I also doube that pointer usage is bad; we should always use
+Vec.
+
+> +        self.flags = VMStateFlags(self.flags.0 & !VMStateFlags::VMS_ARRAY.0);
+> +        self.flags = VMStateFlags(self.flags.0 | flag.0);
+> +        self
+> +    }
+> +
+> +    #[must_use]
+> +    pub const fn with_varray_multiply(mut self, num: u32) -> VMStateField {
+> +        assert!(num <= 0x7FFF_FFFFu32);
+
+Similarly, what about using "assert!(num <= i32::MAX as u32);"?
+
+> +        self.flags = VMStateFlags(self.flags.0 | VMStateFlags::VMS_MULTIPLY_ELEMENTS.0);
+> +        self.num = num as i32;
+> +        self
+> +    }
+>  }
+>  
+>  // Transparent wrappers: just use the internal type
+> @@ -141,6 +179,7 @@ unsafe impl<$base> VMState for $type where $base: VMState $($where)* {
+>                  size: mem::size_of::<$type>(),
+>                  ..<$base as VMState>::BASE
+>              };
+> +            const VARRAY_FLAG: VMStateFlags = <$base as VMState>::VARRAY_FLAG;
+>          }
+>      };
+>  }
+> -- 
+> 2.47.1
+> 
 
