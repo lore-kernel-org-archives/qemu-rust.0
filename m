@@ -1,53 +1,54 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tVMS2-0003kV-ED
-	for mharc-qemu-rust@gnu.org; Tue, 07 Jan 2025 22:09:46 -0500
+	id 1tVPWm-0005M1-LU
+	for mharc-qemu-rust@gnu.org; Wed, 08 Jan 2025 01:26:52 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tVMS0-0003k9-7c; Tue, 07 Jan 2025 22:09:44 -0500
-Received: from mgamail.intel.com ([192.198.163.13])
+ id 1tVPWk-0005LU-Rx; Wed, 08 Jan 2025 01:26:50 -0500
+Received: from mgamail.intel.com ([198.175.65.14])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tVMRx-0003c1-RI; Tue, 07 Jan 2025 22:09:44 -0500
+ id 1tVPWX-0001Fg-MM; Wed, 08 Jan 2025 01:26:44 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736305782; x=1767841782;
+ t=1736317598; x=1767853598;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=venH0gsGse56FvTnI1E73uXmJ/NSnyci+2xe3OHoz5w=;
- b=HUXqNcL4kspWpscsX1QbbyvgEfylw2qvd2Yk0Vheew29hskVzhrE1mwy
- hPbJeN22x/yDB0LToLQEvPy2AYU2SkFY9JSk/GSz7TNUvBu9Zj1YsT80+
- jIlKFrpIuDv/EK2Aw3Ed8s8NIaNhtxZGakgkrLcncFAxN1Cp5HxX4aeb1
- U+Pe0RnjLQ4w8ho5m8QSoUvnxB+C6Li3pX+jRAO56I9FgO719PHjt9J+7
- 8LLV9faXF1OFaUJJAySnjjCtViCnX7hMwJhPHq35J02joExf9Aju5fHIM
- NSTh3xPw4BFp4dR7J6lb6wOO3YfdYIXIEwbDyOqnBX6E+vZ1/Oj63/a8r w==;
-X-CSE-ConnectionGUID: KBDNU0wRSa+r/JxpYLd2mA==
-X-CSE-MsgGUID: eqQ1Se7gQWy5/sdv8iAZzQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11308"; a="39338693"
-X-IronPort-AV: E=Sophos;i="6.12,297,1728975600"; d="scan'208";a="39338693"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2025 19:09:37 -0800
-X-CSE-ConnectionGUID: KoHM1h5USe6vOHx5Xl5CHQ==
-X-CSE-MsgGUID: j8v5p1WRRVCTF45Umq/tRQ==
+ bh=D+f6I4khuT9mZpVa85hfC86Y59CHSX5yUs05nQk0y6A=;
+ b=oBcek3coS8mHO6d3sToHJIRXYuDTppLP2gD/HCfLa/F0l5IrDosi2CGT
+ ZuNidEittDZtqpecTUIr1fwL181FIn4Vx/TfBlZT0yLBPSsptl54Stpgg
+ YODyBVWWxLpvgg1j8dD5xK1JyFAzFn1n1cPyPE8GZE6/9nzoIC/wVn1yB
+ 9mvjMHN7Xm+Tsk40sjbEBHOcsQGdk/gkeVkMCnVkinIUd3x/YQLw75GQj
+ rxzhodhZJ2XreNLF8FWJi99cCk5TF3HRWM0OA6PhdNygllRhsbEShv9Jf
+ hk+PfdcMO3/gn9Id8/IcTDTnwkwXpHKirWGAjQtbATEEuQGILBpPNWl/D Q==;
+X-CSE-ConnectionGUID: B2jM+MNlR5yzHnYMglU+5A==
+X-CSE-MsgGUID: pmp3fQyQT72mUrKpbGBUEA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11308"; a="40297009"
+X-IronPort-AV: E=Sophos;i="6.12,297,1728975600"; d="scan'208";a="40297009"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jan 2025 22:26:34 -0800
+X-CSE-ConnectionGUID: EooSmLB9S/6AFwlD2qyKOw==
+X-CSE-MsgGUID: UH2Sqi0gRjqgfy3gWlERnA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="126254074"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108094319"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa002.fm.intel.com with ESMTP; 07 Jan 2025 19:09:35 -0800
-Date: Wed, 8 Jan 2025 11:28:23 +0800
+ by orviesa005.jf.intel.com with ESMTP; 07 Jan 2025 22:26:32 -0800
+Date: Wed, 8 Jan 2025 14:45:20 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, junjie.mao@hotmail.com
-Subject: Re: [RFC PATCH 3/9] rust: vmstate: add varray support to vmstate_of!
-Message-ID: <Z33w1ykoafUl2WD7@intel.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, zhao1.liu@intel.com,
+ junjie.mao@hotmail.com
+Subject: Re: [RFC PATCH 5/9] rust: vmstate: implement VMState for scalar types
+Message-ID: <Z34fAFD4d/BVZQkn@intel.com>
 References: <20241231002336.25931-1-pbonzini@redhat.com>
- <20241231002336.25931-4-pbonzini@redhat.com>
+ <20241231002336.25931-6-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241231002336.25931-4-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.13; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20241231002336.25931-6-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.14; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -47
 X-Spam_score: -4.8
@@ -69,140 +70,67 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Jan 2025 03:09:44 -0000
+X-List-Received-Date: Wed, 08 Jan 2025 06:26:51 -0000
 
-On Tue, Dec 31, 2024 at 01:23:30AM +0100, Paolo Bonzini wrote:
-> Date: Tue, 31 Dec 2024 01:23:30 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [RFC PATCH 3/9] rust: vmstate: add varray support to vmstate_of!
-> X-Mailer: git-send-email 2.47.1
-> 
-> Untested...
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/qemu-api/src/vmstate.rs | 45 +++++++++++++++++++++++++++++++++---
->  1 file changed, 42 insertions(+), 3 deletions(-)
-> 
-> diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-> index e20f27b172b..079c19c687b 100644
-> --- a/rust/qemu-api/src/vmstate.rs
-> +++ b/rust/qemu-api/src/vmstate.rs
-> @@ -69,6 +69,15 @@ pub unsafe trait VMState {
->      /// The base contents of a `VMStateField` (minus the name and offset) for
->      /// the type that is implementing the trait.
->      const BASE: VMStateField;
-> +
-> +    /// A flag that is added to another field's `VMStateField` to specify the
-> +    /// length's type in a variable-sized array.  If this is not a supported
-> +    /// type for the length (i.e. if it is not `u8`, `u16`, `u32`), using it
-> +    /// in a call to [`vmstate_of!`](crate::vmstate_of) will cause a
-> +    /// compile-time error.
-> +    const VARRAY_FLAG: VMStateFlags = {
-> +        panic!("invalid type for variable-sized array");
-> +    };
->  }
->  
->  /// Internal utility function to retrieve a type's `VMStateField`;
-> @@ -77,6 +86,13 @@ pub const fn vmstate_base<T: VMState>(_: PhantomData<T>) -> VMStateField {
->      T::BASE
->  }
->  
-> +/// Internal utility function to retrieve a type's `VMStateFlags` when it
-> +/// is used as the element count of a `VMSTATE_VARRAY`; used by
-> +/// [`vmstate_of!`](crate::vmstate_of).
-> +pub const fn vmstate_varray_flag<T: VMState>(_: PhantomData<T>) -> VMStateField {
-> +    T::BASE
-> +}
-
-a copy issue:
-
-pub const fn vmstate_varray_flag<T: VMState>(_: PhantomData<T>) -> VMStateFlags {
-    T::VARRAY_FLAG
-}
-
-> +
->  /// Return the `VMStateField` for a field of a struct.  The field must be
->  /// visible in the current scope.
->  ///
-> @@ -84,18 +100,24 @@ pub const fn vmstate_base<T: VMState>(_: PhantomData<T>) -> VMStateField {
->  /// for them.
 >  #[macro_export]
 >  macro_rules! vmstate_of {
-> -    ($struct_name:ty, $field_name:ident $(,)?) => {
-> +    ($struct_name:ty, $field_name:ident $([0 .. $num:ident $(* $factor:expr)?])? $(,)?) => {
+> -    ($struct_name:ty, $field_name:ident $([0 .. $num:ident $(* $factor:expr)?])? $(,)?) => {
+> +    ($struct_name:ty, $field_name:ident $([0 .. $num:tt $(* $factor:expr)?])? $(,)?) => {
 
-Compared to something like "[num]", the format "[0 .. num]" is more
-elegant, so I also support this style.
+Why change ident to tt? 
 
 >          $crate::bindings::VMStateField {
 >              name: ::core::concat!(::core::stringify!($field_name), "\0")
 >                  .as_bytes()
->                  .as_ptr() as *const ::std::os::raw::c_char,
->              offset: $crate::offset_of!($struct_name, $field_name),
-> -            // Compute most of the VMStateField from the type of the field.
-> +            $(.num_offset: $crate::offset_of!($struct_name, $num),)?
-> +            // The calls to `call_func_with_field!` are the magic that
-> +            // computes most of the VMStateField from the type of the field.
+> @@ -109,6 +197,11 @@ macro_rules! vmstate_of {
+>              $(.num_offset: $crate::offset_of!($struct_name, $num),)?
+>              // The calls to `call_func_with_field!` are the magic that
+>              // computes most of the VMStateField from the type of the field.
+> +            info: $crate::info_enum_to_ref!($crate::call_func_with_field!(
+> +                $crate::vmstate::vmstate_scalar_type,
+> +                $struct_name,
+> +                $field_name
+> +            )),
 >              ..$crate::call_func_with_field!(
 >                  $crate::vmstate::vmstate_base,
 >                  $struct_name,
->                  $field_name
-> -            )
-> +            )$(.with_varray_flag($crate::call_func_with_field!(
-> +                    $crate::vmstate::vmstate_varray_flag,
-> +                    $struct_name,
-> +                    $num))
-> +               $(.with_varray_multiply($factor))?)?
->          }
->      };
->  }
-> @@ -130,6 +152,22 @@ pub const fn with_pointer_flag(mut self) -> Self {
->          self.flags = VMStateFlags(self.flags.0 | VMStateFlags::VMS_POINTER.0);
->          self
->      }
+
+...
+
+> +impl_vmstate_scalar!(vmstate_info_bool, bool);
+> +impl_vmstate_scalar!(vmstate_info_int8, i8);
+> +impl_vmstate_scalar!(vmstate_info_int16, i16);
+> +impl_vmstate_scalar!(vmstate_info_int32, i32);
+
+missed VMS_VARRAY_INT32 :-)
+
+> +impl_vmstate_scalar!(vmstate_info_int64, i64);
+> +impl_vmstate_scalar!(vmstate_info_uint8, u8, VMS_VARRAY_UINT8);
+> +impl_vmstate_scalar!(vmstate_info_uint16, u16, VMS_VARRAY_UINT16);
+> +impl_vmstate_scalar!(vmstate_info_uint32, u32, VMS_VARRAY_UINT32);
+
+If we want to expand in the future (e.g., support vmstate_info_int32_equal
+and vmstate_info_int32_le), then introducing new macro variants will be
+straightforward. So, fair enough.
+
+> +impl_vmstate_scalar!(vmstate_info_uint64, u64);
+
+What about applying this to "usize" with vmstate_info_uint64?
+
+For array length, I think usize is also used wildly. Maybe we can add
+VMS_VARRAY_UINT64 and just treat usize as u64.
+
+> +impl_vmstate_scalar!(vmstate_info_timer, bindings::QEMUTimer);
 > +
-> +    #[must_use]
-> +    pub const fn with_varray_flag<T: VMState>(mut self, flag: VMStateFlags) -> VMStateField {
-> +        assert!((self.flags.0 & VMStateFlags::VMS_ARRAY.0) != 0);
-
-I understand you checked VMS_ARRAY here since [T; N] has this array
-flag.
-
-What if a Rust device just store a pointer to the array? If we allow
-this use, then it seems also possible to set varray flags...Then what
-about dropping this limitation?
-
-However, I also doube that pointer usage is bad; we should always use
-Vec.
-
-> +        self.flags = VMStateFlags(self.flags.0 & !VMStateFlags::VMS_ARRAY.0);
-> +        self.flags = VMStateFlags(self.flags.0 | flag.0);
-> +        self
-> +    }
-> +
-> +    #[must_use]
-> +    pub const fn with_varray_multiply(mut self, num: u32) -> VMStateField {
-> +        assert!(num <= 0x7FFF_FFFFu32);
-
-Similarly, what about using "assert!(num <= i32::MAX as u32);"?
-
-> +        self.flags = VMStateFlags(self.flags.0 | VMStateFlags::VMS_MULTIPLY_ELEMENTS.0);
-> +        self.num = num as i32;
-> +        self
-> +    }
->  }
+>  // Pointer types using the underlying type's VMState plus VMS_POINTER
 >  
->  // Transparent wrappers: just use the internal type
-> @@ -141,6 +179,7 @@ unsafe impl<$base> VMState for $type where $base: VMState $($where)* {
->                  size: mem::size_of::<$type>(),
->                  ..<$base as VMState>::BASE
->              };
-> +            const VARRAY_FLAG: VMStateFlags = <$base as VMState>::VARRAY_FLAG;
->          }
->      };
->  }
+>  macro_rules! impl_vmstate_pointer {
 > -- 
 > 2.47.1
-> 
+
+Overall, I think it's good; the design idea is coherent.
+
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+
+
 
