@@ -1,70 +1,129 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tXxEd-0003tz-KY
-	for mharc-qemu-rust@gnu.org; Wed, 15 Jan 2025 01:50:40 -0500
+	id 1tY0Q2-0003xG-6R
+	for mharc-qemu-rust@gnu.org; Wed, 15 Jan 2025 05:14:38 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tXxEZ-0003tC-Pk; Wed, 15 Jan 2025 01:50:36 -0500
-Received: from mgamail.intel.com ([198.175.65.15])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tY0Pz-0003we-1n
+ for qemu-rust@nongnu.org; Wed, 15 Jan 2025 05:14:35 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tXxES-0001AM-Nm; Wed, 15 Jan 2025 01:50:32 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736923829; x=1768459829;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=w1W6rlQfcGyzJJxG5ZQpv6yqnDxH0DbXb3AANEBszhQ=;
- b=AvX5e8LmjmvaucHBIVC/P3UOQQSqCbhovgNjzUF9NY7yEOY4/FskkP/0
- RkeIYonYLY/9/IKsci0yKb/HMo8bfePj1gA6BmdFbibEV2z5xtfO30WKN
- MRewRb6uc8ftGWTjAI8/ff17p4AQmicJlcTsbkKDpMe+A5sFLRbI+GU5V
- TysvV1nOkJzRurQUDnLimtxobFKaF8psXsHxk2KOjqQYHr273fI3X2mgR
- 6ErUdyUyT4QuamiY689beRSCGhZhh0PrLSaYe/p9d8foJAAEJjZ2E5e02
- jyapCAlXRAJz02CSPgMkLq+1xf0PgeDr9i8hixXq5GbIyzxgHimiMDW4Z A==;
-X-CSE-ConnectionGUID: HtGBxQPqTauKc6Ge/ilkSw==
-X-CSE-MsgGUID: yaloiS38Q2STZikA9LY/bw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11315"; a="40925512"
-X-IronPort-AV: E=Sophos;i="6.12,316,1728975600"; d="scan'208";a="40925512"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2025 22:50:25 -0800
-X-CSE-ConnectionGUID: y6vRTzulR7q3LLL2IqdOzQ==
-X-CSE-MsgGUID: eVEVxukNQ4++drC6garH0A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="135901500"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa001.fm.intel.com with ESMTP; 14 Jan 2025 22:50:22 -0800
-Date: Wed, 15 Jan 2025 15:09:13 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Junjie Mao <junjie.mao@hotmail.com>,
- Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
- Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org
-Subject: Re: [RFC 07/13] rust: add bindings for timer
-Message-ID: <Z4dfGcf1SbXaNSEM@intel.com>
-References: <20241205060714.256270-1-zhao1.liu@intel.com>
- <20241205060714.256270-8-zhao1.liu@intel.com>
- <9cb123e2-5237-46e7-b6fe-ce8f813cc43c@redhat.com>
- <Z4aEkLhcGVbXX82O@intel.com>
- <CABgObfYRAYPBidb+cUPCrtdAEXGZiSG2hf5CvJskXmTpR1ftpQ@mail.gmail.com>
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tY0Pr-0001s2-Bp
+ for qemu-rust@nongnu.org; Wed, 15 Jan 2025 05:14:34 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1736936059;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Me9WQY6EBeV4wwEolMAXIhmUxCWUpgkVAiWnJ+WGn5A=;
+ b=YE7kWrtmholeb+uUZOiMROE82yHCHDvU5X0UAiVvhJR769uIgys1ucrtMO3C2b08CbBo8R
+ wSdSMPBytubq3/N/Jcs1tnHcGOnLylWSfS3MvFdyrH4fbgnlaTOClFoFQbmWA6/68Sf45l
+ 5cCP7vLqBNutfA9raaMm0nYIy1BIi9w=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-12-zMkYBgsXMJWkYcGuYtPIVA-1; Wed, 15 Jan 2025 05:14:14 -0500
+X-MC-Unique: zMkYBgsXMJWkYcGuYtPIVA-1
+X-Mimecast-MFC-AGG-ID: zMkYBgsXMJWkYcGuYtPIVA
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-43624b08181so3339595e9.0
+ for <qemu-rust@nongnu.org>; Wed, 15 Jan 2025 02:14:14 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736936053; x=1737540853;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Me9WQY6EBeV4wwEolMAXIhmUxCWUpgkVAiWnJ+WGn5A=;
+ b=hMhhEzJy29ClDGz6WEc7LBfaN5VQssXr5UG1XFQWCnqh3ohNytlvyqMpRqi1j7YWva
+ nQRmoqUddgmVwY/sg9eiiE7oDPdCesnzgw9OuPxtXvW9P9gAM2rxWNA0ofjh4o5YR4l1
+ O0UXjh7Mva8iaiX0Rebv4OP2X0gi0NerLk6H6B2YNVyuG5B3Qm4FszhJ92MsFIiJmKIC
+ xtKGz59wN+u4Oz/p4CMuEewjzMxPdoYuEBRljwwX54TBBdmNOc6fWXYclLrBrVZPCBrV
+ /Fe5rth/G4i3KztnVNKMYnukb//3w6SjBg+RRK3fdFnro5JF9kqgqZce4o4x+mh+sqRA
+ vnbQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUXdLsgRdhl+OJWN7m1zA+B+5yebMKgypdbU5iSBR4bY8upWJ4z8h6vJPstYWe31IpEeX5O/hUuBQw=@nongnu.org
+X-Gm-Message-State: AOJu0YyVcjyxGqtYi1aSHDYpnVqPq0xtAH+Qyz2G/FUYRVtKQiARoypJ
+ jfZ8bn1uRk0PVOaXa9nLMvDoYXpG9WVQJnCs53CjoSyV56JeBRofecTPXXhyHH9oHmlVPJ5PC4S
+ EpW111xe0e56uygpAgxIIKdpnXTKyM/CO6tqtoK27Edv4ZVm0KOw=
+X-Gm-Gg: ASbGncvba6oxeD5PmDzp3JcnoaU6mmoXHm+YzOVz5yF9hbP1SUrDE6ib27m/37n2lmB
+ DyJri63PwLjaGskKGXvxT4y1nSoIru1V7ebMxvLO114mn+HwGvZn9Cr4wJ8LwHH5vDtpl//nmVQ
+ j1Ynv5UHoi0793qn46on/v40VMf5Wn7D1HGXEi7u3kDp1KqwUR/pW2DJFGyxJI6GOraXSRNpSlU
+ 4PR9D4hpi3PsX6bZfd0W4/WzoMdqHaH2mpCNfH4Y3U2taIkegmDf6Cl3TSu
+X-Received: by 2002:a05:600c:4c06:b0:434:92f8:54a8 with SMTP id
+ 5b1f17b1804b1-437c6a86b58mr17756275e9.0.1736936053436; 
+ Wed, 15 Jan 2025 02:14:13 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFUlQGFN224qrGoQhgJFBSJrA/2XZxUHpWk+JKYjYdrqzdiFC0XQ/W4fiLFT6f6ACcc1BpiIg==
+X-Received: by 2002:a05:600c:4c06:b0:434:92f8:54a8 with SMTP id
+ 5b1f17b1804b1-437c6a86b58mr17756095e9.0.1736936053125; 
+ Wed, 15 Jan 2025 02:14:13 -0800 (PST)
+Received: from [192.168.10.3] ([176.206.124.70])
+ by smtp.googlemail.com with ESMTPSA id
+ 5b1f17b1804b1-437c74d8cddsm17781285e9.30.2025.01.15.02.14.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jan 2025 02:14:12 -0800 (PST)
+Message-ID: <9a0389fa-765c-443b-ac2f-7c99ed862982@redhat.com>
+Date: Wed, 15 Jan 2025 11:14:04 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABgObfYRAYPBidb+cUPCrtdAEXGZiSG2hf5CvJskXmTpR1ftpQ@mail.gmail.com>
-Received-SPF: pass client-ip=198.175.65.15; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -62
-X-Spam_score: -6.3
-X-Spam_bar: ------
-X-Spam_report: (-6.3 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.063,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 3/9] rust: vmstate: add varray support to vmstate_of!
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, junjie.mao@hotmail.com
+References: <20241231002336.25931-1-pbonzini@redhat.com>
+ <20241231002336.25931-4-pbonzini@redhat.com> <Z33w1ykoafUl2WD7@intel.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
+ CxXPkIBTvYY+ZPkoTh5xF9oS1jqI8iRLzouzF8yXs3QjQIZ2SfuCxSVwlV65jotcjD2FTN04
+ hVopm9llFijNZpVIOGUTqzM4U55sdsCcZUluWM6x4HSOdw5F5Utxfp1wOjD/v92Lrax0hjiX
+ DResHSt48q+8FrZzY+AUbkUS+Jm34qjswdrgsC5uxeVcLkBgWLmov2kMaMROT0YmFY6A3m1S
+ P/kXmHDXxhe23gKb3dgwxUTpENDBGcfEzrzilWueOeUWiOcWuFOed/C3SyijBx3Av/lbCsHU
+ Vx6pMycNTdzU1BuAroB+Y3mNEuW56Yd44jlInzG2UOwt9XjjdKkJZ1g0P9dwptwLEgTEd3Fo
+ UdhAQyRXGYO8oROiuh+RZ1lXp6AQ4ZjoyH8WLfTLf5g1EKCTc4C1sy1vQSdzIRu3rBIjAvnC
+ tGZADei1IExLqB3uzXKzZ1BZ+Z8hnt2og9hb7H0y8diYfEk2w3R7wEr+Ehk5NQsT2MPI2QBd
+ wEv1/Aj1DgUHZAHzG1QN9S8wNWQ6K9DqHZTBnI1hUlkp22zCSHK/6FwUCuYp1zcAEQEAAc0j
+ UGFvbG8gQm9uemluaSA8cGJvbnppbmlAcmVkaGF0LmNvbT7CwU0EEwECACMFAlRCcBICGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRB+FRAMzTZpsbceDp9IIN6BIA0Ol7MoB15E
+ 11kRz/ewzryFY54tQlMnd4xxfH8MTQ/mm9I482YoSwPMdcWFAKnUX6Yo30tbLiNB8hzaHeRj
+ jx12K+ptqYbg+cevgOtbLAlL9kNgLLcsGqC2829jBCUTVeMSZDrzS97ole/YEez2qFpPnTV0
+ VrRWClWVfYh+JfzpXmgyhbkuwUxNFk421s4Ajp3d8nPPFUGgBG5HOxzkAm7xb1cjAuJ+oi/K
+ CHfkuN+fLZl/u3E/fw7vvOESApLU5o0icVXeakfSz0LsygEnekDbxPnE5af/9FEkXJD5EoYG
+ SEahaEtgNrR4qsyxyAGYgZlS70vkSSYJ+iT2rrwEiDlo31MzRo6Ba2FfHBSJ7lcYdPT7bbk9
+ AO3hlNMhNdUhoQv7M5HsnqZ6unvSHOKmReNaS9egAGdRN0/GPDWr9wroyJ65ZNQsHl9nXBqE
+ AukZNr5oJO5vxrYiAuuTSd6UI/xFkjtkzltG3mw5ao2bBpk/V/YuePrJsnPFHG7NhizrxttB
+ nTuOSCMo45pfHQ+XYd5K1+Cv/NzZFNWscm5htJ0HznY+oOsZvHTyGz3v91pn51dkRYN0otqr
+ bQ4tlFFuVjArBZcapSIe6NV8C4cEiSTOwE0EVEJx7gEIAMeHcVzuv2bp9HlWDp6+RkZe+vtl
+ KwAHplb/WH59j2wyG8V6i33+6MlSSJMOFnYUCCL77bucx9uImI5nX24PIlqT+zasVEEVGSRF
+ m8dgkcJDB7Tps0IkNrUi4yof3B3shR+vMY3i3Ip0e41zKx0CvlAhMOo6otaHmcxr35sWq1Jk
+ tLkbn3wG+fPQCVudJJECvVQ//UAthSSEklA50QtD2sBkmQ14ZryEyTHQ+E42K3j2IUmOLriF
+ dNr9NvE1QGmGyIcbw2NIVEBOK/GWxkS5+dmxM2iD4Jdaf2nSn3jlHjEXoPwpMs0KZsgdU0pP
+ JQzMUMwmB1wM8JxovFlPYrhNT9MAEQEAAcLBMwQYAQIACQUCVEJx7gIbDAAKCRB+FRAMzTZp
+ sadRDqCctLmYICZu4GSnie4lKXl+HqlLanpVMOoFNnWs9oRP47MbE2wv8OaYh5pNR9VVgyhD
+ OG0AU7oidG36OeUlrFDTfnPYYSF/mPCxHttosyt8O5kabxnIPv2URuAxDByz+iVbL+RjKaGM
+ GDph56ZTswlx75nZVtIukqzLAQ5fa8OALSGum0cFi4ptZUOhDNz1onz61klD6z3MODi0sBZN
+ Aj6guB2L/+2ZwElZEeRBERRd/uommlYuToAXfNRdUwrwl9gRMiA0WSyTb190zneRRDfpSK5d
+ usXnM/O+kr3Dm+Ui+UioPf6wgbn3T0o6I5BhVhs4h4hWmIW7iNhPjX1iybXfmb1gAFfjtHfL
+ xRUr64svXpyfJMScIQtBAm0ihWPltXkyITA92ngCmPdHa6M1hMh4RDX+Jf1fiWubzp1voAg0
+ JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
+ dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
+ b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
+In-Reply-To: <Z33w1ykoafUl2WD7@intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: BAy3JOs1O8a8RZh4cILz4Si3WcQQ8m8lV9csMpAhMEw_1736936053
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -39
+X-Spam_score: -4.0
+X-Spam_bar: ----
+X-Spam_report: (-4.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.063,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_MSPIKE_H2=-1.794,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-1.794,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -79,151 +138,40 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Jan 2025 06:50:37 -0000
+X-List-Received-Date: Wed, 15 Jan 2025 10:14:36 -0000
 
-On Tue, Jan 14, 2025 at 05:14:48PM +0100, Paolo Bonzini wrote:
-> Date: Tue, 14 Jan 2025 17:14:48 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: Re: [RFC 07/13] rust: add bindings for timer
+On 1/8/25 04:28, Zhao Liu wrote:
+>> +    #[must_use]
+>> +    pub const fn with_varray_flag<T: VMState>(mut self, flag: VMStateFlags) -> VMStateField {
+>> +        assert!((self.flags.0 & VMStateFlags::VMS_ARRAY.0) != 0);
 > 
-> On Tue, Jan 14, 2025 at 4:18 PM Zhao Liu <zhao1.liu@intel.com> wrote:
-> > ...Now I have a draft for timer binding:
-> >
-> > * timer binding:
-> >
-> > impl QEMUTimer {
-> >     pub fn new() -> Self {
-> >         Zeroable::ZERO
-> >     }
+> I understand you checked VMS_ARRAY here since [T; N] has this array
+> flag.
 > 
-> Maybe Default too (not sure if you even need new())?
+> What if a Rust device just store a pointer to the array? If we allow
+> this use, then it seems also possible to set varray flags...Then what
+> about dropping this limitation?
 
-Yes, I find bindgen has already implemented Default for QEMUTimer:
+Box can be added for that purpose:
 
-#[repr(C)]
-#[derive(Debug)]
-pub struct QEMUTimer {
-    pub expire_time: i64,
-    pub timer_list: *mut QEMUTimerList,
-    pub cb: QEMUTimerCB,
-    pub opaque: *mut std::os::raw::c_void,
-    pub next: *mut QEMUTimer,
-    pub attributes: std::os::raw::c_int,
-    pub scale: std::os::raw::c_int,
-}
+impl_vmstate_pointer!(Box<T> where T: VMState);
 
-impl Default for QEMUTimer {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
+Also I need to drop Option<NonNull<>> because of
 
-HPETTimer just has a pointer to a QEMUTimer, so I need the new() in
-init_timer_with_state() to create QEMUTimer within a Box<>. I'll use
-Default instead in new().
+             if (field->flags & VMS_POINTER) {
+                 first_elem = *(void **)first_elem;
+                 assert(first_elem || !n_elems || !size);
+             }
 
-> >     pub fn timer_init_full<'a, 'b: 'a, T, F>(
-> 
-> It's better to use longer names like 'timer and 'opaque. But it's also
-> always possible to pass a longer lifetime, so 'opaque: 'timer is
-> strictly speaking not needed: you can just use &'timer T which in turn
-> means that lifetime elision applies. That said, I think I like the
-> idea of using 'timer and 'opaque lifetimes here, for clarity.
+in migration/vmstate.c.
 
-Thanks, I'll change the lifetime names.
+> However, I also doube that pointer usage is bad; we should always use
+> Vec.
 
-> >         &'a mut self,
-> >         timer_list_group: Option<&mut QEMUTimerListGroup>,
-> 
-> I think QEMUTimerListGroup can (should) be shared because it's thread safe.
+Vec support is a bit tricky because the number of elements is not 
+accessible from C.  But unbounded arrays are rare in devices.  We can 
+think about it later.
 
-I understand here I can pass the immutable reference like (and that's
-the updated timer_init_full()):
-
-    pub fn timer_init_full<'timer, 'opaque: 'timer, T, F>(
-        &'timer mut self,
-        timer_list_group: Option<&QEMUTimerListGroup>,
-        clk_type: QEMUClockType,
-        scale: u32,
-        attributes: u32,
-        _f: F,
-        opaque: &'opaque T,
-    ) where
-        F: for<'a> FnCall<(&'a T,)>,
-    {
-        let timer_cb: unsafe extern "C" fn(*mut c_void) = rust_timer_handler::<T, F>;
-
-        // SAFETY: the opaque outlives the timer
-        unsafe {
-            timer_init_full(
-                self,
-                if let Some(g) = timer_list_group {
-                    g as *const QEMUTimerListGroup as *mut QEMUTimerListGroup
-                } else {
-                    ::core::ptr::null_mut()
-                },
-                clk_type,
-                scale as c_int,
-                attributes as c_int,
-                Some(timer_cb),
-                opaque as *const T as *const c_void as *mut c_void,
-            )
-        }
-    }
-
-> >         clk_type: QEMUClockType,
-> >         scale: u32,
-> >         attributes: u32,
-> >         _f: &F,
-> 
-> Better: "_f: &'static F", or even "_f: F" if it works.
-
-"_f: F" can work since I passed a function reference (&cb, not a
-function pointer).
-
-With "_f: F", passing timer_handler directly is better.
-
-> >         opaque: &'b T,
-> >     ) where
-> >         F: for<'c> FnCall<(&'c T,)> + 'b,
-> 
-> 'b ('opaque) is not needed here because the opaque is passed _into_
-> the function (thus its lifetime is 'c). 'timer would make sense, but
-> in fact the function itself is always 'static (see FnCall declaration)
-> so it is unnecessary to add a lifetime to FnCall.
-
-I see! Thank you for clarification.
-
-> > fn timer_handler(timer_cell: &BqlRefCell<HPETTimer>) {
-> >     timer_cell.borrow_mut().callback()
-> > }
-> >
-> > impl HPETTimer {
-> >     ...
-> >
-> >     fn init_timer_with_state(&mut self) {
-> >         let index = self.index;
-> >         let cb = |cell: &BqlRefCell<HPETTimer>| {
-> >             timer_handler(cell);
-> >         };
-> 
-> Why is the anonymous function needed?  Can you just pass "timer_handler"?
-
-Yes, I should clean up this closure...
-
-> > Is this timer binding as you expected? Hope I am on the right track. :-)
-> 
-> If the only correction is to the function declaration, that's as good
-> as it can be for Rust! ;)
-> 
-
-Thank you! Now I have a updated timer_init_full() (like I pasted above).
-
-Regards,
-Zhao
+Paolo
 
 
