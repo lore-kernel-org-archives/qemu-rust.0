@@ -1,62 +1,55 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tYFtL-0003Yh-P8
-	for mharc-qemu-rust@gnu.org; Wed, 15 Jan 2025 21:45:55 -0500
+	id 1tYJYv-0006En-EF
+	for mharc-qemu-rust@gnu.org; Thu, 16 Jan 2025 01:41:05 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tYFtJ-0003Y7-7p; Wed, 15 Jan 2025 21:45:53 -0500
-Received: from mgamail.intel.com ([192.198.163.16])
+ id 1tYJYp-0006Dw-R8; Thu, 16 Jan 2025 01:41:00 -0500
+Received: from mgamail.intel.com ([198.175.65.12])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tYFtG-0001pm-Js; Wed, 15 Jan 2025 21:45:52 -0500
+ id 1tYJYn-0001Go-Ks; Thu, 16 Jan 2025 01:40:59 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736995550; x=1768531550;
+ t=1737009658; x=1768545658;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=/MEp7Ja/ZIQvM3D5ev3oVp39/DU7F9jwhT+6+q/m/aQ=;
- b=bB3cGaHCSDmJQOSHrJvxXlWmcNoDvcryUDbc6dfpzQBc0lvAo1LOe3mb
- oo0LFR+d0PgQE2GEPhQpcOT0LAZIm3YXj48HvOLSdh1Mb/atSITp7pRhq
- /5axqg0XVYJ0alFHaHdtzXdCBqxZLUXW2L9Xj5OKZe6PHJhotLSuGnnpF
- QmIQ2icSbmLBJvVHYpauhHgZHAxCsHvEXJVPbP2mW9lg+xWiG4HizF4jE
- i+oKbsySr9fjz/K8fmiJ0ubrrji+cXqZrlp4FkeEiYk/aztXR1xWdCyZ+
- VUVYSI5utJW0ktDJEuMAmeQ9VWHgh5Jm4Bmh/b0k1fLSh0A81L+yh5PnX A==;
-X-CSE-ConnectionGUID: SbLngo7hQsiwt1C7GqrtWg==
-X-CSE-MsgGUID: AAtBQYmhR1u9mLYS3eU5Ww==
-X-IronPort-AV: E=McAfee;i="6700,10204,11316"; a="24957923"
-X-IronPort-AV: E=Sophos;i="6.13,208,1732608000"; d="scan'208";a="24957923"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jan 2025 18:45:46 -0800
-X-CSE-ConnectionGUID: Ak9i/FK0QB6+jUT1sgdaNw==
-X-CSE-MsgGUID: rOJeAuYeQ9OpsNaWGnVR2w==
+ bh=/wsEbh5k8KU0W75EnTf8XFQwAcpvl3BDAnKbMS64w3o=;
+ b=amepFBkMC7QhBff9Ofajgqd0+jKFdUjmd9HtRHqKVTiP3TUWsoBoOR8x
+ eLns9YfV90FjI36vD/iNrRcxMkgnf2KIv0HExnWijv8uvFk9tUHY1oyFn
+ GZOIRjStm8BKA0DhSKE5G6LwlrxJxSmhvEKEYXFtDhMg0qCCQhp3PIbl7
+ PsdRPO2qm0UnhaONBTRXboUyzFEZuSPiL5tT+47qfS6RynDYsgzFzO1ZN
+ jZbtNUPwB85fxXn6/LW/l5iphLA+qadbWB0IcHcxGs+vG+5i5/oQjH5Cc
+ 26eFojDsFWCvz1CxbT0+y7bUSeXn4ptUCAn7ZEFKVjRyXLM294wtNWD+0 g==;
+X-CSE-ConnectionGUID: gxDFPZ1wTuK+iYNuXfe6/A==
+X-CSE-MsgGUID: f4U1XzK4RJaI0+lUeM5g7w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11316"; a="48772795"
+X-IronPort-AV: E=Sophos;i="6.13,208,1732608000"; d="scan'208";a="48772795"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jan 2025 22:40:54 -0800
+X-CSE-ConnectionGUID: LgUVV+bpROGqC/5MIp4pbg==
+X-CSE-MsgGUID: Z4KYTdadT/6Pl+s/Qb027g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,208,1732608000"; d="scan'208";a="105151986"
+X-IronPort-AV: E=Sophos;i="6.13,208,1732608000"; d="scan'208";a="110362990"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa006.fm.intel.com with ESMTP; 15 Jan 2025 18:45:44 -0800
-Date: Thu, 16 Jan 2025 11:04:35 +0800
+ by fmviesa004.fm.intel.com with ESMTP; 15 Jan 2025 22:40:51 -0800
+Date: Thu, 16 Jan 2025 14:59:43 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Junjie Mao <junjie.mao@hotmail.com>,
- Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
- Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org
-Subject: Re: [RFC 04/13] rust: add bindings for gpio_{in|out} initialization
-Message-ID: <Z4h3Q/JBxtWxi+bK@intel.com>
-References: <20241205060714.256270-1-zhao1.liu@intel.com>
- <20241205060714.256270-5-zhao1.liu@intel.com>
- <6108dfe6-f629-431c-be91-51abff338e85@redhat.com>
- <Z1XJBJp+l92+OrY9@intel.com>
- <CABgObfaeoLociD5rzptg4Uj4anMonc0M8iP_TK3qa-17FecR2A@mail.gmail.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, junjie.mao@hotmail.com
+Subject: Re: [RFC PATCH 5/9] rust: vmstate: implement VMState for scalar types
+Message-ID: <Z4iuX5oTr2r5B569@intel.com>
+References: <20241231002336.25931-1-pbonzini@redhat.com>
+ <20241231002336.25931-6-pbonzini@redhat.com>
+ <Z34fAFD4d/BVZQkn@intel.com>
+ <f1e17aac-543a-4d9b-906b-8ee98d1ff55e@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CABgObfaeoLociD5rzptg4Uj4anMonc0M8iP_TK3qa-17FecR2A@mail.gmail.com>
-Received-SPF: pass client-ip=192.198.163.16; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <f1e17aac-543a-4d9b-906b-8ee98d1ff55e@redhat.com>
+Received-SPF: pass client-ip=198.175.65.12; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -44
 X-Spam_score: -4.5
@@ -78,138 +71,59 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Jan 2025 02:45:53 -0000
+X-List-Received-Date: Thu, 16 Jan 2025 06:41:02 -0000
 
-> and the structure of all the blanket implementation is always the same:
+ 
+> > > +impl_vmstate_scalar!(vmstate_info_uint64, u64);
+> > 
+> > What about applying this to "usize" with vmstate_info_uint64?
 > 
-> pub trait DeviceClassMethods: IsA<DeviceState> {...}
-> impl<T> DeviceClassMethods for T where T: IsA<DeviceState> {}
+> There's 32-bit hosts too...  So one would have to add vmstate_info_ulong
+> which is serialized as 64-bit.
 > 
-> pub trait DeviceMethods: ObjectDeref
-> where
->     Self::Target: IsA<DeviceState>,
-> {...}
-> impl<R: ObjectDeref> DeviceMethods for R where R::Target: IsA<DeviceState> {}
+> We can add it later, but perhaps we could also create a derive(Index,
+> IndexMut) macro that makes it possible to specify the type of the index.
+> While Rust uses usize instead of uNN for array indices, that does not have
+> to be universal; using uNN is a lot better if it means you can get rid of
+> casts from register values to array indices and back.  See for example
+> commit 6b4f7b0705b ("rust: pl011: fix migration stream", 2024-12-19).
+
+Yes, I agree!
+
+> That is indeed also an issue for HPET, but in that case it can be isolated
+> to a couple lines,
 > 
-> impl<T> ClassInitImpl<DeviceClass> for T
-> where
->     T: ClassInitImpl<ObjectClass> + DeviceImpl
-> {...}
+>             let timer_id: usize = ((addr - 0x100) / 0x20) as usize;
+> 
+> and it could even be wrapped further
+> 
+>     fn timer_and_addr(&self, addr: hwaddr) -> Option<&BqlRefCell<HPETTimer>,
+> hwaddr> {
+>         let timer_id: usize = ((addr - 0x100) / 0x20) as usize;
+>         if timer_id > self.num_timers.get() {
+>             // TODO: Add trace point -
+> trace_hpet_timer_id_out_of_range(timer_id)
+>             None
+>         } else {
+>             Some((self.get_timer(timer_id), addr & 0x18))
+>         }
+>     }
+> 
+>     ...
+> 
+>     match self.timer_and_addr(addr) {
+>         None => 0 // Reserved,
+>         Some(timer, addr) => timer.borrow_mut().read(addr, size)
+>     }
+> 
+> 
+> So for HPET you didn't reach the threshold of having to create "pub struct
+> HPETTimers([BqlRefCell<HPETTimer>; MAX_HPET_TIMERS])" and implement Index<>.
 > 
 
-Similiar to timer, now I've also worked out the gpio bindings (but one
-thing that's different is that it uses `self` as an parameter) like:
+Thank you Paolo! Will apply your wrapping suggestion!
 
-* gpio_in and gpio_out:
-
-/// Trait for methods of [`DeviceState`] and its subclasses.
-pub trait DeviceMethods: ObjectDeref
-where
-    Self::Target: IsA<DeviceState>,
-{
-    fn init_gpio_in<F>(&self, lines_num: u32, _f: F)
-    where
-        F: for<'a> FnCall<(&'a Self::Target, u32, u32)>,
-    {
-        unsafe extern "C" fn rust_irq_handler<T, F: for<'a> FnCall<(&'a T, u32, u32)>>(
-            opaque: *mut c_void,
-            lines_num: c_int,
-            level: c_int,
-        ) {
-            // SAFETY: the opaque was passed as a reference to `T`
-            F::call((
-                unsafe { &*(opaque.cast::<T>()) },
-                lines_num as u32,
-                level as u32,
-            ))
-        }
-
-        let gpio_in_cb: unsafe extern "C" fn(*mut c_void, c_int, c_int) =
-            rust_irq_handler::<Self::Target, F>;
-
-        unsafe {
-            qdev_init_gpio_in(
-                self.upcast::<DeviceState>() as *const DeviceState as *mut DeviceState,
-                Some(gpio_in_cb),
-                lines_num as c_int,
-            );
-        }
-    }
-
-    fn init_gpio_out(&self, pins: &[InterruptSource]) {
-        assert!(pins.len() > 0);
-
-        unsafe {
-            qdev_init_gpio_out(
-                self.upcast::<DeviceState>() as *const DeviceState as *mut DeviceState,
-                pins[0].as_ptr(),
-                pins.len() as c_int,
-            );
-        }
-    }
-}
-
-impl<R: ObjectDeref> DeviceMethods for R where R::Target: IsA<DeviceState> {}
-
-
-* Use case in HPET:
-
-impl HPETState {
-    ...
-
-    fn handle_legacy_irq(&self, irq: u32, level: u32) {
-        if irq == HPET_LEGACY_PIT_INT {
-            if !self.is_legacy_mode() {
-                self.irqs[0].set(level != 0);
-            }
-        } else {
-            self.rtc_irq_level.set(level as u8);
-            if !self.is_legacy_mode() {
-                self.irqs[RTC_ISA_IRQ].set(level != 0);
-            }
-        }
-    }
-
-    ...
-
-    fn realize(&self) {
-        ...
-        self.init_gpio_in(2, HPETState::handle_legacy_irq);
-        self.init_gpio_out(from_ref(&self.pit_enabled));
-    }
-}
-
----
-
-I made the handler accept the inmuttable reference, but init_gpio_in()
-is called in realize(), which now accepts the `&mut self`.
-
-I think init_gpio_in() should be called in realize() so that realize()
-needs to become safe in advance (before your plan).
-
-The safe realize() mainly affects pl011, and before you formally
-introduce char binding, if you don't mind, I can make this change to
-pl011:
-
--    pub fn realize(&mut self) {
-+    pub fn realize(&self) {
-         // SAFETY: self.char_backend has the correct size and alignment for a
-         // CharBackend object, and its callbacks are of the correct types.
-         unsafe {
-             qemu_chr_fe_set_handlers(
--                addr_of_mut!(self.char_backend),
-+                addr_of!(self.char_backend) as *mut CharBackend,
-                 Some(pl011_can_receive),
-                 Some(pl011_receive),
-                 Some(pl011_event),
-                 None,
--                addr_of_mut!(*self).cast::<c_void>(),
-+                addr_of!(*self).cast::<c_void>() as *mut c_void,
-                 core::ptr::null_mut(),
-                 true,
-             );
-
-Thanks,
+Regards,
 Zhao
 
 
