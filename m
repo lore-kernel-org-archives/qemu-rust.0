@@ -1,75 +1,78 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tYsCW-0001Tf-6S
-	for mharc-qemu-rust@gnu.org; Fri, 17 Jan 2025 14:40:16 -0500
+	id 1tYsCX-0001VN-US
+	for mharc-qemu-rust@gnu.org; Fri, 17 Jan 2025 14:40:17 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tYsCU-0001Rx-Mb
- for qemu-rust@nongnu.org; Fri, 17 Jan 2025 14:40:14 -0500
+ id 1tYsCV-0001SU-7m
+ for qemu-rust@nongnu.org; Fri, 17 Jan 2025 14:40:15 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tYsCS-0002Ad-0g
+ id 1tYsCT-0002B6-AO
  for qemu-rust@nongnu.org; Fri, 17 Jan 2025 14:40:14 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1737142809;
+ s=mimecast20190719; t=1737142812;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=oL6dTYh2RuaJWRfVXT8oeGcsfRJVUnHMv7b65g9t8lI=;
- b=PIF75Vka2QX9ors4DybzH9LELZRk/HB77hfUdZPhwIKZgEG0JUouL44jKVpRyp98m3y359
- l+YgSLsiLOEjfDENZOLLmnXjGdfRnV+1cZIgkP0zdeyN5k2y4+1gVpOMBVhk+MuOh0aTFW
- s3+fEE/VDXxQLq9iGci6CR1xdAy/m7I=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=D0ARwjCk/01hXKDGIyxRI2rwcuyqDQN//xQ3CzCZhAQ=;
+ b=a7uz7v9rTGyh1jbj+SiMedGopMKIDeBS9rcqgKnlixImdXGGtw1DcH6h+WI0jLwe5xg6ed
+ iylL1VydsucainOOgX29tibf5iUHrdPNPXTPIsmn1ApJx3i11GSm8zBRQb0dNpb5xrrgYI
+ MXniYC4MMhxNuiDqXFtmo1mpM7UnsiE=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-30-aUH0pF3xPn-nJa9WPDSQfw-1; Fri, 17 Jan 2025 14:40:07 -0500
-X-MC-Unique: aUH0pF3xPn-nJa9WPDSQfw-1
-X-Mimecast-MFC-AGG-ID: aUH0pF3xPn-nJa9WPDSQfw
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-ab2e529dc35so262021866b.3
- for <qemu-rust@nongnu.org>; Fri, 17 Jan 2025 11:40:06 -0800 (PST)
+ us-mta-496--tSVVDtANceDJRlK4A0_gQ-1; Fri, 17 Jan 2025 14:40:11 -0500
+X-MC-Unique: -tSVVDtANceDJRlK4A0_gQ-1
+X-Mimecast-MFC-AGG-ID: -tSVVDtANceDJRlK4A0_gQ
+Received: by mail-ej1-f70.google.com with SMTP id
+ a640c23a62f3a-aa634496f58so248001766b.2
+ for <qemu-rust@nongnu.org>; Fri, 17 Jan 2025 11:40:11 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737142805; x=1737747605;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oL6dTYh2RuaJWRfVXT8oeGcsfRJVUnHMv7b65g9t8lI=;
- b=rmjAsWNbt/b5b7ka+LXtCINm0QFXLUCN0HIZNbNbRtJIYHKg/pb4RHLDarXhTXV1Q/
- jJRgxiar5yjCHdFtjL0qKkWx2GW+U2AWcd/NM+pj5Zt5lYTSlfJpkYl4xMWSdeKuqB1/
- IkKK/R9o8XDPtwd5XOpZVWlbRLBsUQ2lMRnaSqq6uKYHSH2hfuOpiGcasKY1GNKHO+4J
- VkvGpBUcl0QZMpxNLPBNAetCIEwAM/GSJHM+BS6+KSVj+cZBGPh2U+GqWTWzg/OTExpF
- g/2XIw3n28AOOT7qU2UwUovFvNHYU1ZbJ+9i6ZaQwTJVNJhFHO+T57OBsYd/8omVh87c
- A1Wg==
-X-Gm-Message-State: AOJu0YwKSzJO8ALt4sgA0YAnCJfFuCjCcO4TpdnDLg6Fpxk7dcT6aJpZ
- IaGalxBGjlbjIRRlk8tbtkXXkXfpZ7PpsVOkuruHwKixBePz1QUHyP/Xo1CLuUb3KXWQQKpL7HY
- mTaGeeU+ieGX2pBFlUWvpgQMuGNN6RGX6ADJaSnes+BtAoFMBvaUkwMFdeHr91g==
-X-Gm-Gg: ASbGncs3x62c8Wryb2Xv6ICK2TSe+ykUDFVjFIH9z53Ux0tBzJQz2wCNzJ5NCpOoaD8
- qcIeukAm/Ruo+Q3Ejv26h17S6HGvNYaIVSJVJgxAvTTSR7jx1mwBg0L9FZz9k4QfObUrowLn3DO
- w6W/SHo/QwkrEnr0VQSRjd1PFinqoUDGAO6hX993k5sYdJhiW3BrO+NY9KQhvn5ZyTHbHVBPYt3
- hwCXOt9sLmZJes+05lqgNQCR8r7+Axeme3x/u12jr1Mzw/ND2VsqYLGzXO5Ng==
-X-Received: by 2002:a17:906:4783:b0:aa6:3f93:fb99 with SMTP id
- a640c23a62f3a-ab38b3841e5mr384936066b.36.1737142805388; 
- Fri, 17 Jan 2025 11:40:05 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHLBuBP70OXFnADQniFxop/Iejj77O7nKrcI4gYoTNBzUMbfLUHoSgnVW0jFBV892kB6ui8uQ==
-X-Received: by 2002:a17:906:4783:b0:aa6:3f93:fb99 with SMTP id
- a640c23a62f3a-ab38b3841e5mr384934066b.36.1737142804891; 
- Fri, 17 Jan 2025 11:40:04 -0800 (PST)
+ d=1e100.net; s=20230601; t=1737142809; x=1737747609;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=D0ARwjCk/01hXKDGIyxRI2rwcuyqDQN//xQ3CzCZhAQ=;
+ b=pmWovSpTMidObMm3J5Tx0i1Ux54jjSkUiGFU3Iz0GRL1+MIZf1fN78XktRjtZvoFIc
+ JEY0AchgncoJXQXTbqWhD4hK+o9Wy4o0UTDp0w9bvWydpUxsqmY2p2gOHGkFqakfoDsu
+ Z0sPy3e2XzqkAGZ8/yJUOLtm/ep+ko9KUk72pc36DBxOYIokgRLKCZOXeZ7r762gg6oW
+ UnxskZwZRpgje9Rk4OmHsiw7k7ziAK8nQEVTa2SyK3YG9S7iDefhm2tNIP/4nkhO9r09
+ SJRNv5WNRnEQv+a+3kztlJM5zRkjbst0aKfmTYet3qNzovAIUGScoeB1s+qgZZDVtVhk
+ wSjQ==
+X-Gm-Message-State: AOJu0Yw8qomYtA2RuOeT4BNbuSgs5MgSgMcCsrdRxv27cyIMCuNR0q90
+ BZELuF0pYrVq0rvnbUaDo6N17EF/wrwu1R1RWc1o/kAx/ou/BlIIhFv7QZbIoGYm/Vu5kEUVDVZ
+ YWaFkbMK+G2RCZN9O7RiDIUSYWZUScWtHtMMIH3gAzQ9nUr3ERzTY9QXOV8Ky8w==
+X-Gm-Gg: ASbGncuWlZ0NpZOSqXAo6y4YKU1eS0p5EL5pAaTmuSKs9Wdi/XkXbtJXEhvihumKR4l
+ T/BO+5cbGNKo4GlySow5ehJ7A5NOvQ4rM8cOT7gK+I0zFqJD35zH3C395KslZawjUjXzspAn2Gm
+ +pMZw1dyG6E5+jtUt1kZieu7vmq1+2jIQgYNaqnCiHMln0+zfDcFN2fqh7SvgG2m8eKRVD0FzwD
+ RPwu7Y/HbEAaq7dCn0K3cG7lkpHGI3RVDe+CJU8gtG/FCICHYWp4xCSR56Ejw==
+X-Received: by 2002:a17:907:1b15:b0:aae:b259:ef5e with SMTP id
+ a640c23a62f3a-ab38aedb10amr439698366b.0.1737142809312; 
+ Fri, 17 Jan 2025 11:40:09 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFMDRdERqU2cfUiTl47s86HjchaelOmwLr6bdW4pbj5I3PpuiERcQKQgI69m80YCaGYdfXq3w==
+X-Received: by 2002:a17:907:1b15:b0:aae:b259:ef5e with SMTP id
+ a640c23a62f3a-ab38aedb10amr439696366b.0.1737142808843; 
+ Fri, 17 Jan 2025 11:40:08 -0800 (PST)
 Received: from [192.168.10.47] ([176.206.124.70])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab384f22457sm215552666b.114.2025.01.17.11.40.04
+ a640c23a62f3a-ab384c61388sm217563366b.20.2025.01.17.11.40.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jan 2025 11:40:04 -0800 (PST)
+ Fri, 17 Jan 2025 11:40:08 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
-Subject: [RFC PATCH 00/10] rust: remaining part of qdev bindings
-Date: Fri, 17 Jan 2025 20:39:53 +0100
-Message-ID: <20250117194003.1173231-1-pbonzini@redhat.com>
+Subject: [PATCH 02/10] rust: qom: add reference counting functionality
+Date: Fri, 17 Jan 2025 20:39:55 +0100
+Message-ID: <20250117194003.1173231-3-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20250117194003.1173231-1-pbonzini@redhat.com>
+References: <20250117194003.1173231-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: THCI6-Vm57c8XBacbZEHf3ASEkV8Vx6_b9-65yxFV-o_1737142806
+X-Mimecast-MFC-PROC-ID: sqmLgO3vlxwCSewlihvDIrvdDhqP6fiehcdBoW6ey4A_1737142810
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -95,73 +98,206 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Jan 2025 19:40:14 -0000
+X-List-Received-Date: Fri, 17 Jan 2025 19:40:15 -0000
 
-This is what I have left for qdev bindings, including 1) reference
-counting and object creation 2) clocks 3) Resettable 4) MemoryRegionOps.
-I have no rush for this series, and I expect HPET to be merged before it.
-The documentation is not yet complete (will be fixed) and the API is
-limited to what is needed for pl011 (which I am not considering a bug,
-since the QEMU API is so large), but I think it's already ready for an
-initial review.
+Add a smart pointer that allows to add and remove references from
+QOM objects.  It's important to note that while all QOM objects have a
+reference count, in practice not all of them have their lifetime guarded
+by it.  Embedded objects, specifically, are confined to the lifetime of
+the owner.
 
-The most interesting part is perhaps the usage of the builder pattern
-for MemoryRegionOps:
+When writing Rust bindings this is important, because embedded objects are
+*never* used through the "Owned<>" smart pointer that is introduced here.
 
-    static PL011_OPS: MemoryRegionOps<PL011State> = MemoryRegionOpsBuilder::<PL011State>::new()
-        .read(&PL011State::read) 
-        .write(&PL011State::write)   
-        .native_endian()
-        .impl_sizes(4, 4)
-        .build();
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ rust/qemu-api/src/qom.rs     | 121 ++++++++++++++++++++++++++++++++++-
+ rust/qemu-api/src/vmstate.rs |   6 +-
+ 2 files changed, 125 insertions(+), 2 deletions(-)
 
-The code is getting closer to the synopsis at
-https://lists.nongnu.org/archive/html/qemu-rust/2024-12/msg00006.html,
-except that it works (at least as far as CI is concerned) instead of just
-compiling. :)  And since I'm citing it, a reminder that it may still be
-worth asking your Rust questions as replies to that message.
-
-You can find the code in the rust-next branch of
-https://gitlab.com/bonzini/qemu/, where it passed CI.
-
-Paolo
-
-Paolo Bonzini (9):
-  rust: qom: add reference counting functionality
-  rust: qom: add object creation functionality
-  rust: callbacks: allow passing optional callbacks as ()
-  rust: qdev: add clock creation
-  rust: qom: allow initializing interface vtables
-  rust: qdev: make ObjectImpl a supertrait of DeviceImpl
-  rust: qdev: switch from legacy reset to Resettable
-  rust: bindings: add Sync markers to types referred to by
-    MemoryRegionOps
-  rust: bindings for MemoryRegionOps
-
-Zhao Liu (1):
-  rust: qemu-api: add sub-subclass to the integration tests
-
- meson.build                          |   1 +
- rust/hw/char/pl011/src/device.rs     |  88 ++++++++--------
- rust/hw/char/pl011/src/lib.rs        |   1 -
- rust/hw/char/pl011/src/memory_ops.rs |  36 -------
- rust/qemu-api/meson.build            |   1 +
- rust/qemu-api/src/bindings.rs        |  19 +++-
- rust/qemu-api/src/callbacks.rs       |  97 ++++++++++++++++++
- rust/qemu-api/src/irq.rs             |   3 +
- rust/qemu-api/src/lib.rs             |   1 +
- rust/qemu-api/src/memory.rs          | 191 +++++++++++++++++++++++++++++++++++
- rust/qemu-api/src/prelude.rs         |   4 +
- rust/qemu-api/src/qdev.rs            | 188 +++++++++++++++++++++++++++++-----
- rust/qemu-api/src/qom.rs             | 181 ++++++++++++++++++++++++++++++++-
- rust/qemu-api/src/sysbus.rs          |   7 +-
- rust/qemu-api/src/vmstate.rs         |  10 +-
- rust/qemu-api/src/zeroable.rs        |  12 +++
- rust/qemu-api/tests/tests.rs         |  87 ++++++++++++----
- 17 files changed, 793 insertions(+), 134 deletions(-)
- delete mode 100644 rust/hw/char/pl011/src/memory_ops.rs
- create mode 100644 rust/qemu-api/src/memory.rs
-
+diff --git a/rust/qemu-api/src/qom.rs b/rust/qemu-api/src/qom.rs
+index 97901fb9084..c404f8a1aa7 100644
+--- a/rust/qemu-api/src/qom.rs
++++ b/rust/qemu-api/src/qom.rs
+@@ -56,13 +56,21 @@
+ use std::{
+     ffi::CStr,
+     fmt,
++    mem::ManuallyDrop,
+     ops::{Deref, DerefMut},
+     os::raw::c_void,
++    ptr::NonNull,
+ };
+ 
+ pub use bindings::{Object, ObjectClass};
+ 
+-use crate::bindings::{self, object_dynamic_cast, object_get_class, object_get_typename, TypeInfo};
++use crate::{
++    bindings::{
++        self, object_dynamic_cast, object_get_class, object_get_typename, object_ref, object_unref,
++        TypeInfo,
++    },
++    cell::bql_locked,
++};
+ 
+ /// Marker trait: `Self` can be statically upcasted to `P` (i.e. `P` is a direct
+ /// or indirect parent of `Self`).
+@@ -605,6 +613,110 @@ unsafe impl ObjectType for Object {
+         unsafe { CStr::from_bytes_with_nul_unchecked(bindings::TYPE_OBJECT) };
+ }
+ 
++/// A reference-counted pointer to a QOM object.
++///
++/// `Owned<T>` wraps `T` with automatic reference counting.  It increases the
++/// reference count when created via [`Owned::from`] and decreases it when
++/// dropped. This ensures that the reference count remains elevated as long as
++/// any `Owned<T>` references to it exist. Note that however the object may
++/// disappear if it is *embedded* within a larger object. For more information
++/// see the [`Owned::from`].
++///
++/// It is *not* safe to send `Owned<T>` to another thread, because currently
++/// `object_unref` requires the Big QEMU Lock.
++#[repr(transparent)]
++#[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
++pub struct Owned<T: ObjectType>(NonNull<T>);
++
++// SAFETY: the implementation asserts via `bql_locked` that the BQL is taken
++unsafe impl<T: ObjectType + Sync> Sync for Owned<T> {}
++
++impl<T: ObjectType> Owned<T> {
++    /// Convert a raw C pointer into an owned reference to the QOM
++    /// object it points to.  The object's reference count will be
++    /// decreased when the `Owned` is dropped.
++    ///
++    /// # Panics
++    ///
++    /// Panics if `ptr` is NULL.
++    ///
++    /// # Safety
++    ///
++    /// The caller must indeed own a reference to the QOM object.
++    /// The object must not be embedded in another unless the outer
++    /// object is guaranteed to have a longer lifetime.
++    ///
++    /// A raw pointer obtained via [`Owned::into_raw()`] can always be passed
++    /// back to `from_raw()` (assuming the original `Owned` was valid!),
++    /// since the owned reference remains there between the calls to
++    /// `into_raw()` and `from_raw()`.
++    #[allow(clippy::missing_const_for_fn)]
++    pub unsafe fn from_raw(ptr: *const T) -> Self {
++        // SAFETY NOTE: while NonNull requires a mutable pointer, only
++        // Deref is implemented so the pointer passed to from_raw
++        // remains const
++        Owned(NonNull::new(ptr as *mut T).unwrap())
++    }
++
++    /// Obtain a raw C pointer from a reference.  `src` is consumed
++    /// and the reference is leaked.
++    #[allow(clippy::missing_const_for_fn)]
++    pub fn into_raw(src: Owned<T>) -> *mut T {
++        let src = ManuallyDrop::new(src);
++        src.0.as_ptr()
++    }
++
++    /// Increase the reference count of a QOM object and return
++    /// a new owned reference to it.
++    ///
++    /// # Safety
++    ///
++    /// The object must not be embedded in another, unless the outer
++    /// object is guaranteed to have a longer lifetime.
++    pub unsafe fn from(obj: &T) -> Self {
++        unsafe {
++            object_ref(obj.as_object_mut_ptr().cast::<c_void>());
++
++            // SAFETY NOTE: while NonNull requires a mutable pointer, only
++            // Deref is implemented so the reference passed to from_raw
++            // remains shared
++            Owned(NonNull::new_unchecked(obj.as_mut_ptr()))
++        }
++    }
++}
++
++impl<T: ObjectType> Deref for Owned<T> {
++    type Target = T;
++
++    fn deref(&self) -> &Self::Target {
++        // SAFETY: creation method is unsafe; whoever calls it has
++        // responsibility that the pointer is valid, and remains valid
++        // throughout the lifetime of the `Owned<T>`.
++        // With that guarantee, reference counting ensures that
++        // the object remains alive.
++        unsafe { &*self.0.as_ptr() }
++    }
++}
++impl<T: ObjectType> ObjectDeref for Owned<T> {}
++
++impl<T: ObjectType> Drop for Owned<T> {
++    fn drop(&mut self) {
++        assert!(bql_locked());
++        // SAFETY: creation method is unsafe, and whoever calls it has
++        // responsibility that the pointer is valid, and remains valid
++        // throughout the lifetime of the `Owned<T>`.
++        unsafe {
++            object_unref(self.as_object_mut_ptr().cast::<c_void>());
++        }
++    }
++}
++
++impl<T: IsA<Object>> fmt::Debug for Owned<T> {
++    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
++        self.deref().debug_fmt(f)
++    }
++}
++
+ /// Trait for methods exposed by the Object class.  The methods can be
+ /// called on all objects that have the trait `IsA<Object>`.
+ ///
+@@ -636,6 +748,13 @@ fn get_class(&self) -> &'static <Self::Target as ObjectType>::Class {
+ 
+         klass
+     }
++
++    /// Convenience function for implementing the Debug trait
++    fn debug_fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
++        f.debug_tuple(&self.typename())
++            .field(&(self as *const Self))
++            .finish()
++    }
+ }
+ 
+ impl<R: ObjectDeref> ObjectMethods for R where R::Target: IsA<Object> {}
+diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
+index 6ac432cf52f..11d21b8791c 100644
+--- a/rust/qemu-api/src/vmstate.rs
++++ b/rust/qemu-api/src/vmstate.rs
+@@ -29,6 +29,8 @@
+ pub use crate::bindings::{VMStateDescription, VMStateField};
+ use crate::{
+     bindings::{self, VMStateFlags},
++    prelude::*,
++    qom::Owned,
+     zeroable::Zeroable,
+ };
+ 
+@@ -191,7 +193,8 @@ pub const fn vmstate_varray_flag<T: VMState>(_: PhantomData<T>) -> VMStateFlags
+ /// * a transparent wrapper for any of the above (`Cell`, `UnsafeCell`,
+ ///   [`BqlCell`](crate::cell::BqlCell), [`BqlRefCell`](crate::cell::BqlRefCell)
+ /// * a raw pointer to any of the above
+-/// * a `NonNull` pointer or a `Box` for any of the above
++/// * a `NonNull` pointer, a `Box` or an [`Owned`](crate::qom::Owned) for any of
++///   the above
+ /// * an array of any of the above
+ ///
+ /// In order to support other types, the trait `VMState` must be implemented
+@@ -398,6 +401,7 @@ unsafe impl<$base> VMState for $type where $base: VMState $($where)* {
+ // Unlike C pointers, Box is always non-null therefore there is no need
+ // to specify VMS_ALLOC.
+ impl_vmstate_pointer!(Box<T> where T: VMState);
++impl_vmstate_pointer!(Owned<T> where T: VMState + ObjectType);
+ 
+ // Arrays using the underlying type's VMState plus
+ // VMS_ARRAY/VMS_ARRAY_OF_POINTER
 -- 
 2.47.1
 
