@@ -1,73 +1,97 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tYk1A-0005JY-Gy
-	for mharc-qemu-rust@gnu.org; Fri, 17 Jan 2025 05:56:00 -0500
+	id 1tYllt-0000tc-D6
+	for mharc-qemu-rust@gnu.org; Fri, 17 Jan 2025 07:48:22 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tYk17-0005Im-Em; Fri, 17 Jan 2025 05:55:57 -0500
-Received: from mgamail.intel.com ([192.198.163.8])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tYllk-0000st-2v
+ for qemu-rust@nongnu.org; Fri, 17 Jan 2025 07:48:13 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tYk15-0000B8-70; Fri, 17 Jan 2025 05:55:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737111355; x=1768647355;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=zzlSGjWEBiAzt8BVRjUGQb5eR0GNjttLRovMi6NHpw8=;
- b=CAOtcoJfRre2hY8I6RYNwYWT6FrJSVnfNZ5OsOgRUJ239doVq8kJfn9L
- yvaVn0VYR3yTeDYneoWUsCPJ7TsvXnIwrrNctaC3xv7yzDlpAe39NEGe9
- KdE/TxVIIpT1vuwXe5DfDXgH6AVYFjoiSKiPnFQBqLvdywzh2RgH/g7y8
- LvKpXgfTzIiKTjlhhr0CD1xVzLoS9UoZ88UmvoQmVYsInILZZnu2U1BHS
- 7VU1r31YCRL+zRibcSsMKIHe8oJuMNkjBg7xFq/xsNS/5iM98+52gg871
- blReO0fegWY+WsFNT6uLOomSCgOUHVC7KdEENCfcBPqRCoe7lwdVCNurO Q==;
-X-CSE-ConnectionGUID: rr4+uPvIT0KeDjrtLKzHxg==
-X-CSE-MsgGUID: oVuR8izBQeaoZvDZyA53eg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11317"; a="55087976"
-X-IronPort-AV: E=Sophos;i="6.13,212,1732608000"; d="scan'208";a="55087976"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2025 02:55:50 -0800
-X-CSE-ConnectionGUID: V1FA4IXLQVGkTQjCoCX9Rw==
-X-CSE-MsgGUID: eJQ2ZzsoSBS2BfP2KBqnjQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="136656268"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa001.fm.intel.com with ESMTP; 17 Jan 2025 02:55:46 -0800
-Date: Fri, 17 Jan 2025 19:14:37 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Junjie Mao <junjie.mao@hotmail.com>,
- Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
- Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org
-Subject: Re: [RFC 04/13] rust: add bindings for gpio_{in|out} initialization
-Message-ID: <Z4o7nbonhTHftVXq@intel.com>
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tYlli-0000q5-7y
+ for qemu-rust@nongnu.org; Fri, 17 Jan 2025 07:48:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1737118088;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=mmkPZyvqlnHW2+0reQ+L1NkQ1IaWqwGv+wpX1YNVsl4=;
+ b=J6r1rHIiGy1SzDAZ/JPx1b1k3oWQsWKLxKsEP9GD64rWolIq8/SU6TiTFCl20aOu5DbwXG
+ 1FXq0DU8ROUNFKgo31LjARzRcMkuT21/uH/8H9vepTlPzYkUKQSdzB02hlE8LUjaZv2Y8d
+ j4uqnbZWNxrC7TZNWXoHXA9lUsSlweI=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-438-wKgYPdXwNkOfIcOWDasOOA-1; Fri, 17 Jan 2025 07:48:07 -0500
+X-MC-Unique: wKgYPdXwNkOfIcOWDasOOA-1
+X-Mimecast-MFC-AGG-ID: wKgYPdXwNkOfIcOWDasOOA
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-385e1fd40acso1186146f8f.3
+ for <qemu-rust@nongnu.org>; Fri, 17 Jan 2025 04:48:07 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737118086; x=1737722886;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mmkPZyvqlnHW2+0reQ+L1NkQ1IaWqwGv+wpX1YNVsl4=;
+ b=TdWPSTY0v/G6OJAziecI9xW33JjTNGLceHL6dT8UIgriY9HXE8Py/By/KqlU6eEUsz
+ uh27DJmlVJS62lUCvxKzBjAI27osIcodxfqc2QogOQUHG8s3v87+Y19gku8CSZjV0vAD
+ sxClh+vl3PsHsdaTjeo9rWqjNferNUBQqIN6N4LGqsTCi5Xx2R16HvhX0uR2zS6uPWvJ
+ YFprXpUNdofjkElq/nC1Sn9jZK3xgew6Xd4rWR6OE2hGKMKmhdV6qAyCq9E3z7qH2dbN
+ yuF6gLaj/OpV+puNTjJXqAMSKpqO5RaGIQ27ugTJ1x5ZmPZUurLKkyqcIQtGi6UJwtVr
+ YUTQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVoI/44Qgc1tI9WkNAtkR7kPUzs3X+uLpD1HYV8C6ZVqwDg4e/s2fyZIsGbmTzYlnKVy2swU6+HuMQ=@nongnu.org
+X-Gm-Message-State: AOJu0Yx4dPdFmfgAnSAdTHzhUfPe2VC73OXXLfUNGjTmFu7nKTwYsWWB
+ b++rVHn3IOjVC5cMgOe8pCjUtdkCDN6rLAojdTKwAv7/gPuUzOmJAqvDmyeRB9i0kamyuKnyF3O
+ nrUgqvjGUDkz4eDW29NrkoBxXO077W74+HUWl2cDHk+QDoutfEceGijL0F6EPEgjpIRr3gyEaUB
+ 7wq1LXGjdM/CaV0q5auV8nwwFfSg==
+X-Gm-Gg: ASbGncuMT97lTiu5ZqttjtHM4ZTTtU6HjbXinlcyUXsl91qMDGyJ8d9YcaFTHfSk/hW
+ l25RcYU/datkARi/HtVf1GbldwTvcegcHUXjigcg=
+X-Received: by 2002:a05:6000:156c:b0:385:eb85:f111 with SMTP id
+ ffacd0b85a97d-38bf577f703mr2988636f8f.14.1737118085814; 
+ Fri, 17 Jan 2025 04:48:05 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHjijlmkAex1lTQbuAdJ2jHBqPhfL9DhXWLVFBk/XqfD3Vlsibpfl15G2LvanU3GtskTWSwdxiRTVeC+WW5M9k=
+X-Received: by 2002:a05:6000:156c:b0:385:eb85:f111 with SMTP id
+ ffacd0b85a97d-38bf577f703mr2988606f8f.14.1737118085495; Fri, 17 Jan 2025
+ 04:48:05 -0800 (PST)
+MIME-Version: 1.0
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
  <20241205060714.256270-5-zhao1.liu@intel.com>
- <6108dfe6-f629-431c-be91-51abff338e85@redhat.com>
- <Z1XJBJp+l92+OrY9@intel.com>
+ <6108dfe6-f629-431c-be91-51abff338e85@redhat.com> <Z1XJBJp+l92+OrY9@intel.com>
  <CABgObfaeoLociD5rzptg4Uj4anMonc0M8iP_TK3qa-17FecR2A@mail.gmail.com>
  <Z4h3Q/JBxtWxi+bK@intel.com>
  <CABgObfYeRASh3oao6fpKBcijnhGaMKdAWsAQbrya7rwwOJfE1g@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CABgObfYeRASh3oao6fpKBcijnhGaMKdAWsAQbrya7rwwOJfE1g@mail.gmail.com>
-Received-SPF: pass client-ip=192.198.163.8; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -44
-X-Spam_score: -4.5
+ <Z4o7nbonhTHftVXq@intel.com>
+In-Reply-To: <Z4o7nbonhTHftVXq@intel.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Fri, 17 Jan 2025 13:47:53 +0100
+X-Gm-Features: AbW1kvY3wTqvYJy5sNXP7wJHPrFhuIb9YpcIC29pcfx69wLBheAfdjsTMcruJSo
+Message-ID: <CABgObfaDdSitQxnLvOnXqFiLFR+wR1+cLK1E8kHbTb47F_08tw@mail.gmail.com>
+Subject: Re: [RFC 04/13] rust: add bindings for gpio_{in|out} initialization
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
+ Junjie Mao <junjie.mao@hotmail.com>,
+ =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+ Peter Maydell <peter.maydell@linaro.org>, qemu-devel <qemu-devel@nongnu.org>,
+ qemu-rust@nongnu.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: ytexZsUnzhNFRDHrBAdxZwbH0aTdT89slIL9RWry29c_1737118086
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/alternative; boundary="0000000000006b5e76062be6529e"
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -39
+X-Spam_score: -4.0
 X-Spam_bar: ----
-X-Spam_report: (-4.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.093,
+X-Spam_report: (-4.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.132,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-1.79,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -80,55 +104,140 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Jan 2025 10:55:57 -0000
+X-List-Received-Date: Fri, 17 Jan 2025 12:48:15 -0000
 
-> >         unsafe {
-> >             qdev_init_gpio_in(
-> >                 self.upcast::<DeviceState>() as *const DeviceState as *mut DeviceState,
-> 
-> I think you can use self.as_mut_ptr::<DeviceState>() or something like that.
+--0000000000006b5e76062be6529e
+Content-Type: text/plain; charset="UTF-8"
 
-Yes, thank you!
+Il ven 17 gen 2025, 11:55 Zhao Liu <zhao1.liu@intel.com> ha scritto:
 
-> 
-> >         assert!(pins.len() > 0);
-> 
-> !pins.is_empty().
-
-Yes.
-
-> But I am not sure it's needed...
+> > >         assert!(pins.len() > 0);
 > >
-> >         unsafe {
-> >             qdev_init_gpio_out(
-> >                 self.upcast::<DeviceState>() as *const DeviceState as *mut DeviceState,
-> >                 pins[0].as_ptr(),
-> >                 pins.len() as c_int,
-> 
-> ... if you use instead pins.as_ptr() without the initial dereference.
+> > !pins.is_empty().
+>
+> Yes.
+>
+> > But I am not sure it's needed...
+> > >
+> > >         unsafe {
+> > >             qdev_init_gpio_out(
+> > >                 self.upcast::<DeviceState>() as *const DeviceState as
+> *mut DeviceState,
+> > >                 pins[0].as_ptr(),
+> > >                 pins.len() as c_int,
+> >
+> > ... if you use instead pins.as_ptr() without the initial dereference.
+>
+> Emm, pins.as_ptr() returns `*const InterruptSource`, which can't be
+> converted to `*mut *mut IRQState` with InterruptSource::as_ptr().
+>
 
-Emm, pins.as_ptr() returns `*const InterruptSource`, which can't be
-converted to `*mut *mut IRQState` with InterruptSource::as_ptr().
+It can be cast, since an InterruptSource is essentially a *mut IRQState,
+but I agree it's not pretty.
+
+Maybe add a "pub(crate) fn as_slice_of_qemu_irq(slice: [Self]) -> [*mut
+IRQState)" to InterruptSource? It would just do a transmute and build the
+new slice with from_raw_parts. And then "let pins =
+InterruptSource::as_slice_of_qemu_irq(pins)" lets you use pins.as_ptr().
+
+Paolo
 
 So I haven't thought of a better way yet...
-
-> > impl HPETState {
-> >     ...
+>
+> > > impl HPETState {
+> > >     ...
+> > >
+> > >     fn handle_legacy_irq(&self, irq: u32, level: u32) {
+> > >         if irq == HPET_LEGACY_PIT_INT {
+> > >             if !self.is_legacy_mode() {
+> > >                 self.irqs[0].set(level != 0);
+> > >             }
+> > >         } else {
+> > >             self.rtc_irq_level.set(level as u8);
 > >
-> >     fn handle_legacy_irq(&self, irq: u32, level: u32) {
-> >         if irq == HPET_LEGACY_PIT_INT {
-> >             if !self.is_legacy_mode() {
-> >                 self.irqs[0].set(level != 0);
-> >             }
-> >         } else {
-> >             self.rtc_irq_level.set(level as u8);
-> 
-> Any reason why you defined rtc_irq_level as InterruptSource<u8>
-> instead of InterruptSource<u32>?
+> > Any reason why you defined rtc_irq_level as InterruptSource<u8>
+> > instead of InterruptSource<u32>?
+>
+> Thanks! I missed to clean up this, having previously used u8.
+>
+> Regards,
+> Zhao
+>
+>
 
-Thanks! I missed to clean up this, having previously used u8.
+--0000000000006b5e76062be6529e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Regards,
-Zhao
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
+ner"><div dir=3D"ltr" class=3D"gmail_attr">Il ven 17 gen 2025, 11:55 Zhao L=
+iu &lt;<a href=3D"mailto:zhao1.liu@intel.com">zhao1.liu@intel.com</a>&gt; h=
+a scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
+px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">&gt; =
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0assert!(pins.len() &gt; 0);<br>
+&gt; <br>
+&gt; !pins.is_empty().<br>
+<br>
+Yes.<br>
+<br>
+&gt; But I am not sure it&#39;s needed...<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsafe {<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0qdev_init_gpio_out=
+(<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0self=
+.upcast::&lt;DeviceState&gt;() as *const DeviceState as *mut DeviceState,<b=
+r>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pins=
+[0].as_ptr(),<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pins=
+.len() as c_int,<br>
+&gt; <br>
+&gt; ... if you use instead pins.as_ptr() without the initial dereference.<=
+br>
+<br>
+Emm, pins.as_ptr() returns `*const InterruptSource`, which can&#39;t be<br>
+converted to `*mut *mut IRQState` with InterruptSource::as_ptr().<br></bloc=
+kquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">It can be =
+cast, since an InterruptSource is essentially a *mut IRQState, but I agree =
+it&#39;s not pretty.</div><div dir=3D"auto"><br></div><div dir=3D"auto">May=
+be add a &quot;pub(crate) fn as_slice_of_qemu_irq(slice: [Self]) -&gt; [*mu=
+t IRQState)&quot; to InterruptSource? It would just do a transmute and buil=
+d the new slice with from_raw_parts. And then &quot;let pins =3D InterruptS=
+ource::as_slice_of_qemu_irq(pins)&quot; lets you use pins.as_ptr().</div><d=
+iv dir=3D"auto"><br></div><div dir=3D"auto">Paolo</div><div dir=3D"auto"><b=
+r></div><div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_container">=
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex">
+So I haven&#39;t thought of a better way yet...<br>
+<br>
+&gt; &gt; impl HPETState {<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0...<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0fn handle_legacy_irq(&amp;self, irq: u32, leve=
+l: u32) {<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if irq =3D=3D HPET_LEGACY_PIT_IN=
+T {<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if !self.is_legacy=
+_mode() {<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0self=
+.irqs[0].set(level !=3D 0);<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0self.rtc_irq_level=
+.set(level as u8);<br>
+&gt; <br>
+&gt; Any reason why you defined rtc_irq_level as InterruptSource&lt;u8&gt;<=
+br>
+&gt; instead of InterruptSource&lt;u32&gt;?<br>
+<br>
+Thanks! I missed to clean up this, having previously used u8.<br>
+<br>
+Regards,<br>
+Zhao<br>
+<br>
+</blockquote></div></div></div>
+
+--0000000000006b5e76062be6529e--
 
 
