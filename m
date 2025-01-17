@@ -1,95 +1,73 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tYjOH-0006Of-0t
-	for mharc-qemu-rust@gnu.org; Fri, 17 Jan 2025 05:15:49 -0500
+	id 1tYk1A-0005JY-Gy
+	for mharc-qemu-rust@gnu.org; Fri, 17 Jan 2025 05:56:00 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tYjOF-0006OB-Cc
- for qemu-rust@nongnu.org; Fri, 17 Jan 2025 05:15:47 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tYk17-0005Im-Em; Fri, 17 Jan 2025 05:55:57 -0500
+Received: from mgamail.intel.com ([192.198.163.8])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tYjOD-0002Hm-L4
- for qemu-rust@nongnu.org; Fri, 17 Jan 2025 05:15:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1737108943;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Rf/dwWEh9N5dRnVbhZAlKcF59bupXvDai4d0/kk6ee8=;
- b=Yqlhjh4s8N0Y6+KTDq9oh7gkjMeJB7VvzMLcR+L2YRFRbkraYUZ1AgKap85KglARuTle8f
- zCD9Q0Qab8RGespc12d3F9+sjb8RCPbRVZP53uvvelxO97cwJiyhPTPhwbCAxxpI+4syU2
- wGRHykhHB4STjxN5gVboGTyjmZBg6TM=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-633-ZbG51OG8MHeQhTbk0GP-_g-1; Fri, 17 Jan 2025 05:15:42 -0500
-X-MC-Unique: ZbG51OG8MHeQhTbk0GP-_g-1
-X-Mimecast-MFC-AGG-ID: ZbG51OG8MHeQhTbk0GP-_g
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-43626224274so9821195e9.0
- for <qemu-rust@nongnu.org>; Fri, 17 Jan 2025 02:15:41 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737108941; x=1737713741;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Rf/dwWEh9N5dRnVbhZAlKcF59bupXvDai4d0/kk6ee8=;
- b=ostmcsBcsPbz2HOrGogTcQYA8jc6lRNaUNrkcYk0H2dzeY7uR1bDlJ17mresXAvB+y
- eEpt3m02tlLet39yif5GfhnVhv5NJj11908xpSDwywon2FuyKmaLPN9Pj7WgEBpCC2xO
- DrYMtRfnZzbX5KKGtu0iOWV9a3r0AMhehbjHnpA9DoWcyM/NR4GQFcnC8gqSDZhyaSea
- pJ3TDx25IbWRr3IW+585Uqvp9f5SayveKGtu7gFTuN52fXZyYiU0sSUgj0JoVowuAfz7
- Ka25atH2thCJ50yI+WHzPqXId9/p5RR7et1zMHGT6ZIpFZBr0OqoiEBroid+0OFIW+uf
- agKg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVjwZsU+PsT/P7eiu6lvyniq+J/PQpJxXvac64IRPldXVx1NT12GhOZccLkkmStEr/ivOmZr9yDCj8=@nongnu.org
-X-Gm-Message-State: AOJu0YxpDtQzDDiLmlwEvJnyJ7OqrxMbEqLGmzyjFi5IFjP6rnd8rJiQ
- um7UWq83aMPvKV8BvK0nTkREcKQYSF0dbaE2cFkc337Iu07CnGvPySCoehMHZzZ0YByksIKGw0T
- cowxFWsNrS/SuGOKWaeiNweZuuQNx359zg4fDI8ldg4rUkDbXNH2ZdoJuIu7NHasOGr3Mri/OR7
- EVeYtHfwS1xFoSkFpX0kb6kRuBKQ==
-X-Gm-Gg: ASbGnctDSl9PX5AJvlJM8BxgXo1YxReqeRfRWOr2APgGOyU0U+ICuJZ3s5aBjTuKbxp
- cC3C4h/IZBErH12Fepn3kuLSgia8HyN5IdiBwTAU=
-X-Received: by 2002:adf:f1cc:0:b0:38b:ed88:f045 with SMTP id
- ffacd0b85a97d-38bf566fb1bmr1636108f8f.33.1737108940940; 
- Fri, 17 Jan 2025 02:15:40 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGFfN4qkuFaGI6ruWNDms5fpkiAkzYj5cts9GQ3U/ld64iK3BAhLmtufYDzagn1kigquPlNxu1rJ/LQP0QqWX4=
-X-Received: by 2002:adf:f1cc:0:b0:38b:ed88:f045 with SMTP id
- ffacd0b85a97d-38bf566fb1bmr1636078f8f.33.1737108940583; Fri, 17 Jan 2025
- 02:15:40 -0800 (PST)
-MIME-Version: 1.0
-References: <20241205060714.256270-1-zhao1.liu@intel.com>
- <20241205060714.256270-10-zhao1.liu@intel.com>
- <1da970e8-1708-48ef-87c4-1099d23e8909@redhat.com> <Z4oxlydZIK/f/aNC@intel.com>
-In-Reply-To: <Z4oxlydZIK/f/aNC@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Fri, 17 Jan 2025 11:15:27 +0100
-X-Gm-Features: AbW1kvYwh5EnV3-4UzXKu7DL7k7YTgb-rqadUh6ZWRK06h7_iM0h_Qljj727zUY
-Message-ID: <CABgObfY4dLcti4QkPdRB1bwNHzioRm7tFt9isc5Pn4HGRVoqbQ@mail.gmail.com>
-Subject: Re: [RFC 09/13] i386/fw_cfg: move hpet_cfg definition to hpet.c
-To: Zhao Liu <zhao1.liu@intel.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tYk15-0000B8-70; Fri, 17 Jan 2025 05:55:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1737111355; x=1768647355;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=zzlSGjWEBiAzt8BVRjUGQb5eR0GNjttLRovMi6NHpw8=;
+ b=CAOtcoJfRre2hY8I6RYNwYWT6FrJSVnfNZ5OsOgRUJ239doVq8kJfn9L
+ yvaVn0VYR3yTeDYneoWUsCPJ7TsvXnIwrrNctaC3xv7yzDlpAe39NEGe9
+ KdE/TxVIIpT1vuwXe5DfDXgH6AVYFjoiSKiPnFQBqLvdywzh2RgH/g7y8
+ LvKpXgfTzIiKTjlhhr0CD1xVzLoS9UoZ88UmvoQmVYsInILZZnu2U1BHS
+ 7VU1r31YCRL+zRibcSsMKIHe8oJuMNkjBg7xFq/xsNS/5iM98+52gg871
+ blReO0fegWY+WsFNT6uLOomSCgOUHVC7KdEENCfcBPqRCoe7lwdVCNurO Q==;
+X-CSE-ConnectionGUID: rr4+uPvIT0KeDjrtLKzHxg==
+X-CSE-MsgGUID: oVuR8izBQeaoZvDZyA53eg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11317"; a="55087976"
+X-IronPort-AV: E=Sophos;i="6.13,212,1732608000"; d="scan'208";a="55087976"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jan 2025 02:55:50 -0800
+X-CSE-ConnectionGUID: V1FA4IXLQVGkTQjCoCX9Rw==
+X-CSE-MsgGUID: eJQ2ZzsoSBS2BfP2KBqnjQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="136656268"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa001.fm.intel.com with ESMTP; 17 Jan 2025 02:55:46 -0800
+Date: Fri, 17 Jan 2025 19:14:37 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: "Michael S . Tsirkin" <mst@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Junjie Mao <junjie.mao@hotmail.com>,
- =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+ Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+ Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
  Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org,
  qemu-rust@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: PdjCAPbSlLVmbbZTXE7r0R2_kCmd5FO7qig7iixTldo_1737108941
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -21
-X-Spam_score: -2.2
-X-Spam_bar: --
-X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.093,
+Subject: Re: [RFC 04/13] rust: add bindings for gpio_{in|out} initialization
+Message-ID: <Z4o7nbonhTHftVXq@intel.com>
+References: <20241205060714.256270-1-zhao1.liu@intel.com>
+ <20241205060714.256270-5-zhao1.liu@intel.com>
+ <6108dfe6-f629-431c-be91-51abff338e85@redhat.com>
+ <Z1XJBJp+l92+OrY9@intel.com>
+ <CABgObfaeoLociD5rzptg4Uj4anMonc0M8iP_TK3qa-17FecR2A@mail.gmail.com>
+ <Z4h3Q/JBxtWxi+bK@intel.com>
+ <CABgObfYeRASh3oao6fpKBcijnhGaMKdAWsAQbrya7rwwOJfE1g@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CABgObfYeRASh3oao6fpKBcijnhGaMKdAWsAQbrya7rwwOJfE1g@mail.gmail.com>
+Received-SPF: pass client-ip=192.198.163.8; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -44
+X-Spam_score: -4.5
+X-Spam_bar: ----
+X-Spam_report: (-4.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.093,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -102,51 +80,55 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Jan 2025 10:15:47 -0000
+X-List-Received-Date: Fri, 17 Jan 2025 10:55:57 -0000
 
-On Fri, Jan 17, 2025 at 11:13=E2=80=AFAM Zhao Liu <zhao1.liu@intel.com> wro=
-te:>
-> Unfortunately, this way doesn't work either, if we disable both
-> CONFIG_HPET and CONFIG_X_HPET_RUST.
->
-> This is because I integrate hpet_fw_cfg into hpet lib which is compiled
-> under CONFIG_X_HPET_RUST along with other HPET parts.
->
-> The place broken is when hpet_fw_cfg is written into machine's fw_cfg (in
-> hw/i386/fw_cfg.c).
->
-> diff --git a/hw/i386/fw_cfg.c b/hw/i386/fw_cfg.c
-> index 162785019b7a..3635b83620da 100644
-> --- a/hw/i386/fw_cfg.c
-> +++ b/hw/i386/fw_cfg.c
-> @@ -147,7 +147,14 @@ FWCfgState *fw_cfg_arch_create(MachineState *ms,
->  #endif
->      fw_cfg_add_i32(fw_cfg, FW_CFG_IRQ0_OVERRIDE, 1);
->
-> -    fw_cfg_add_bytes(fw_cfg, FW_CFG_HPET, &hpet_fw_cfg, sizeof(hpet_fw_c=
-fg));
-> +#if defined(CONFIG_HPET) || defined(CONFIG_X_HPET_RUST)
-> +    PCMachineState *pcms =3D (PCMachineState *)object_dynamic_cast(OBJEC=
-T(ms),
-> +                                                                 TYPE_PC=
-_MACHINE);
-> +    if (pcms && pcms->hpet_enabled) {
-> +        fw_cfg_add_bytes(fw_cfg, FW_CFG_HPET, &hpet_fw_cfg, sizeof(hpet_=
-fw_cfg));
-> +    }
-> +#endif
-> +
->      /* allocate memory for the NUMA channel: one (64bit) word for the nu=
-mber
->       * of nodes, one word for each VCPU->node and one word for each node=
- to
->       * hold the amount of memory.
->
-> I think this is a thorough enough solution and I can post a separate
-> patch.
+> >         unsafe {
+> >             qdev_init_gpio_in(
+> >                 self.upcast::<DeviceState>() as *const DeviceState as *mut DeviceState,
+> 
+> I think you can use self.as_mut_ptr::<DeviceState>() or something like that.
 
-Yes, go ahead so that we can evaluate it separately from Rust concerns.
+Yes, thank you!
 
-Paolo
+> 
+> >         assert!(pins.len() > 0);
+> 
+> !pins.is_empty().
+
+Yes.
+
+> But I am not sure it's needed...
+> >
+> >         unsafe {
+> >             qdev_init_gpio_out(
+> >                 self.upcast::<DeviceState>() as *const DeviceState as *mut DeviceState,
+> >                 pins[0].as_ptr(),
+> >                 pins.len() as c_int,
+> 
+> ... if you use instead pins.as_ptr() without the initial dereference.
+
+Emm, pins.as_ptr() returns `*const InterruptSource`, which can't be
+converted to `*mut *mut IRQState` with InterruptSource::as_ptr().
+
+So I haven't thought of a better way yet...
+
+> > impl HPETState {
+> >     ...
+> >
+> >     fn handle_legacy_irq(&self, irq: u32, level: u32) {
+> >         if irq == HPET_LEGACY_PIT_INT {
+> >             if !self.is_legacy_mode() {
+> >                 self.irqs[0].set(level != 0);
+> >             }
+> >         } else {
+> >             self.rtc_irq_level.set(level as u8);
+> 
+> Any reason why you defined rtc_irq_level as InterruptSource<u8>
+> instead of InterruptSource<u32>?
+
+Thanks! I missed to clean up this, having previously used u8.
+
+Regards,
+Zhao
 
 
