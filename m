@@ -1,69 +1,95 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tYjLn-0004We-I3
-	for mharc-qemu-rust@gnu.org; Fri, 17 Jan 2025 05:13:15 -0500
+	id 1tYjOH-0006Of-0t
+	for mharc-qemu-rust@gnu.org; Fri, 17 Jan 2025 05:15:49 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tYjLl-0004W2-KH; Fri, 17 Jan 2025 05:13:14 -0500
-Received: from mgamail.intel.com ([198.175.65.18])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tYjOF-0006OB-Cc
+ for qemu-rust@nongnu.org; Fri, 17 Jan 2025 05:15:47 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tYjLf-0001nf-Gw; Fri, 17 Jan 2025 05:13:13 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737108788; x=1768644788;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=SIgXHvANC82Vg5ReA7IdnJaf8txoLEWwOmUSigIHr1E=;
- b=QPk0OGdfwugbp1V+cygNjkyxbi0mC8tZnKqauNvmHQxDJvgG4saIQZp5
- NHbRgO7iJiAMP95GpP6cw0CpjJI31CgnCuVG/R25aCJBEKixQKeERNObC
- PR46qOtWyeEaoNxeKTdYoLdv0wjRomdcaG9GkGKoHNQfQdGH3fXMGZTj2
- xWrwi8hP30EuPggPVoDCcBJ9af5LsD1DTIp7V3E8f2VTtaJukj9SxiKsI
- VysXe8KSh6Yvg1CxJRDPqkVhItpWaamqy6r6KFEBH9B7levDJzBOr/3Dr
- 5hs0H0B67ALz7SzGRSWAVZ//bHJ3V5d0WAfezWcS0bruY0L2kwN0cbesP A==;
-X-CSE-ConnectionGUID: jjOKpBM6QbSVpKQ/mxph9g==
-X-CSE-MsgGUID: 3GElGCZARo2MT9Ez1cEgWA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="37653914"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="37653914"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2025 02:13:02 -0800
-X-CSE-ConnectionGUID: uuQp4KGPSf2/vMZfvMk9eg==
-X-CSE-MsgGUID: 5/19OrRTQO2IA3olY19A1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="105612788"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa010.jf.intel.com with ESMTP; 17 Jan 2025 02:12:59 -0800
-Date: Fri, 17 Jan 2025 18:31:51 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Junjie Mao <junjie.mao@hotmail.com>,
- Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
- Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org
-Subject: Re: [RFC 09/13] i386/fw_cfg: move hpet_cfg definition to hpet.c
-Message-ID: <Z4oxlydZIK/f/aNC@intel.com>
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tYjOD-0002Hm-L4
+ for qemu-rust@nongnu.org; Fri, 17 Jan 2025 05:15:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1737108943;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Rf/dwWEh9N5dRnVbhZAlKcF59bupXvDai4d0/kk6ee8=;
+ b=Yqlhjh4s8N0Y6+KTDq9oh7gkjMeJB7VvzMLcR+L2YRFRbkraYUZ1AgKap85KglARuTle8f
+ zCD9Q0Qab8RGespc12d3F9+sjb8RCPbRVZP53uvvelxO97cwJiyhPTPhwbCAxxpI+4syU2
+ wGRHykhHB4STjxN5gVboGTyjmZBg6TM=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-633-ZbG51OG8MHeQhTbk0GP-_g-1; Fri, 17 Jan 2025 05:15:42 -0500
+X-MC-Unique: ZbG51OG8MHeQhTbk0GP-_g-1
+X-Mimecast-MFC-AGG-ID: ZbG51OG8MHeQhTbk0GP-_g
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-43626224274so9821195e9.0
+ for <qemu-rust@nongnu.org>; Fri, 17 Jan 2025 02:15:41 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737108941; x=1737713741;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Rf/dwWEh9N5dRnVbhZAlKcF59bupXvDai4d0/kk6ee8=;
+ b=ostmcsBcsPbz2HOrGogTcQYA8jc6lRNaUNrkcYk0H2dzeY7uR1bDlJ17mresXAvB+y
+ eEpt3m02tlLet39yif5GfhnVhv5NJj11908xpSDwywon2FuyKmaLPN9Pj7WgEBpCC2xO
+ DrYMtRfnZzbX5KKGtu0iOWV9a3r0AMhehbjHnpA9DoWcyM/NR4GQFcnC8gqSDZhyaSea
+ pJ3TDx25IbWRr3IW+585Uqvp9f5SayveKGtu7gFTuN52fXZyYiU0sSUgj0JoVowuAfz7
+ Ka25atH2thCJ50yI+WHzPqXId9/p5RR7et1zMHGT6ZIpFZBr0OqoiEBroid+0OFIW+uf
+ agKg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVjwZsU+PsT/P7eiu6lvyniq+J/PQpJxXvac64IRPldXVx1NT12GhOZccLkkmStEr/ivOmZr9yDCj8=@nongnu.org
+X-Gm-Message-State: AOJu0YxpDtQzDDiLmlwEvJnyJ7OqrxMbEqLGmzyjFi5IFjP6rnd8rJiQ
+ um7UWq83aMPvKV8BvK0nTkREcKQYSF0dbaE2cFkc337Iu07CnGvPySCoehMHZzZ0YByksIKGw0T
+ cowxFWsNrS/SuGOKWaeiNweZuuQNx359zg4fDI8ldg4rUkDbXNH2ZdoJuIu7NHasOGr3Mri/OR7
+ EVeYtHfwS1xFoSkFpX0kb6kRuBKQ==
+X-Gm-Gg: ASbGnctDSl9PX5AJvlJM8BxgXo1YxReqeRfRWOr2APgGOyU0U+ICuJZ3s5aBjTuKbxp
+ cC3C4h/IZBErH12Fepn3kuLSgia8HyN5IdiBwTAU=
+X-Received: by 2002:adf:f1cc:0:b0:38b:ed88:f045 with SMTP id
+ ffacd0b85a97d-38bf566fb1bmr1636108f8f.33.1737108940940; 
+ Fri, 17 Jan 2025 02:15:40 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGFfN4qkuFaGI6ruWNDms5fpkiAkzYj5cts9GQ3U/ld64iK3BAhLmtufYDzagn1kigquPlNxu1rJ/LQP0QqWX4=
+X-Received: by 2002:adf:f1cc:0:b0:38b:ed88:f045 with SMTP id
+ ffacd0b85a97d-38bf566fb1bmr1636078f8f.33.1737108940583; Fri, 17 Jan 2025
+ 02:15:40 -0800 (PST)
+MIME-Version: 1.0
 References: <20241205060714.256270-1-zhao1.liu@intel.com>
  <20241205060714.256270-10-zhao1.liu@intel.com>
- <1da970e8-1708-48ef-87c4-1099d23e8909@redhat.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1da970e8-1708-48ef-87c4-1099d23e8909@redhat.com>
-Received-SPF: pass client-ip=198.175.65.18; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -44
-X-Spam_score: -4.5
-X-Spam_bar: ----
-X-Spam_report: (-4.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.093,
+ <1da970e8-1708-48ef-87c4-1099d23e8909@redhat.com> <Z4oxlydZIK/f/aNC@intel.com>
+In-Reply-To: <Z4oxlydZIK/f/aNC@intel.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Fri, 17 Jan 2025 11:15:27 +0100
+X-Gm-Features: AbW1kvYwh5EnV3-4UzXKu7DL7k7YTgb-rqadUh6ZWRK06h7_iM0h_Qljj727zUY
+Message-ID: <CABgObfY4dLcti4QkPdRB1bwNHzioRm7tFt9isc5Pn4HGRVoqbQ@mail.gmail.com>
+Subject: Re: [RFC 09/13] i386/fw_cfg: move hpet_cfg definition to hpet.c
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
+ Junjie Mao <junjie.mao@hotmail.com>,
+ =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+ Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: PdjCAPbSlLVmbbZTXE7r0R2_kCmd5FO7qig7iixTldo_1737108941
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -21
+X-Spam_score: -2.2
+X-Spam_bar: --
+X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.093,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- T_SPF_TEMPERROR=0.01 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -76,130 +102,51 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Jan 2025 10:13:14 -0000
+X-List-Received-Date: Fri, 17 Jan 2025 10:15:47 -0000
 
-> This breaks if you disable HPET, which is why fw_cfg.c defines it.
-> 
-> You can do something like
-> 
-> diff --git a/include/hw/timer/hpet-fw-cfg.h b/include/hw/timer/hpet-fw-cfg.h
-> new file mode 100644
-> index 00000000000..234a49fc92e
-> --- /dev/null
-> +++ b/include/hw/timer/hpet-fw-cfg.h
-> @@ -0,0 +1,16 @@
-> +struct hpet_fw_entry
-> +{
-> +    uint32_t event_timer_block_id;
-> +    uint64_t address;
-> +    uint16_t min_tick;
-> +    uint8_t page_prot;
-> +} QEMU_PACKED;
+On Fri, Jan 17, 2025 at 11:13=E2=80=AFAM Zhao Liu <zhao1.liu@intel.com> wro=
+te:>
+> Unfortunately, this way doesn't work either, if we disable both
+> CONFIG_HPET and CONFIG_X_HPET_RUST.
+>
+> This is because I integrate hpet_fw_cfg into hpet lib which is compiled
+> under CONFIG_X_HPET_RUST along with other HPET parts.
+>
+> The place broken is when hpet_fw_cfg is written into machine's fw_cfg (in
+> hw/i386/fw_cfg.c).
+>
+> diff --git a/hw/i386/fw_cfg.c b/hw/i386/fw_cfg.c
+> index 162785019b7a..3635b83620da 100644
+> --- a/hw/i386/fw_cfg.c
+> +++ b/hw/i386/fw_cfg.c
+> @@ -147,7 +147,14 @@ FWCfgState *fw_cfg_arch_create(MachineState *ms,
+>  #endif
+>      fw_cfg_add_i32(fw_cfg, FW_CFG_IRQ0_OVERRIDE, 1);
+>
+> -    fw_cfg_add_bytes(fw_cfg, FW_CFG_HPET, &hpet_fw_cfg, sizeof(hpet_fw_c=
+fg));
+> +#if defined(CONFIG_HPET) || defined(CONFIG_X_HPET_RUST)
+> +    PCMachineState *pcms =3D (PCMachineState *)object_dynamic_cast(OBJEC=
+T(ms),
+> +                                                                 TYPE_PC=
+_MACHINE);
+> +    if (pcms && pcms->hpet_enabled) {
+> +        fw_cfg_add_bytes(fw_cfg, FW_CFG_HPET, &hpet_fw_cfg, sizeof(hpet_=
+fw_cfg));
+> +    }
+> +#endif
 > +
-> +struct hpet_fw_config
-> +{
-> +    uint8_t count;
-> +    struct hpet_fw_entry hpet[8];
-> +} QEMU_PACKED;
-> +
-> +extern struct hpet_fw_config hpet_fw_cfg;
-> +
-> diff --git a/include/hw/timer/hpet.h b/include/hw/timer/hpet.h
-> index d17a8d43199..6f7fcbc3c60 100644
-> --- a/include/hw/timer/hpet.h
-> +++ b/include/hw/timer/hpet.h
-> @@ -60,26 +60,12 @@
->  #define HPET_TN_INT_ROUTE_CAP_SHIFT 32
->  #define HPET_TN_CFG_BITS_READONLY_OR_RESERVED 0xffff80b1U
-> -struct hpet_fw_entry
-> -{
-> -    uint32_t event_timer_block_id;
-> -    uint64_t address;
-> -    uint16_t min_tick;
-> -    uint8_t page_prot;
-> -} QEMU_PACKED;
-> -
-> -struct hpet_fw_config
-> -{
-> -    uint8_t count;
-> -    struct hpet_fw_entry hpet[8];
-> -} QEMU_PACKED;
-> -
-> -extern struct hpet_fw_config hpet_cfg;
-> -
->  #define TYPE_HPET "hpet"
->  #define HPET_INTCAP "hpet-intcap"
-> +#include "hw/timer/hpet-fw-cfg.h"
-> +
->  static inline bool hpet_find(void)
->  {
->      return object_resolve_path_type("", TYPE_HPET, NULL);
-> diff --git a/rust/wrapper.h b/rust/wrapper.h
-> index 285d0eb6ad0..82381e43472 100644
-> --- a/rust/wrapper.h
-> +++ b/rust/wrapper.h
-> @@ -62,3 +62,4 @@ typedef enum memory_order {
->  #include "qapi/error.h"
->  #include "migration/vmstate.h"
->  #include "chardev/char-serial.h"
-> +#include "hw/timer/hpet-fw-cfg.h"
-> 
-> 
-> but you will have to use unsafe to access it since it's a "static mut".
-> 
+>      /* allocate memory for the NUMA channel: one (64bit) word for the nu=
+mber
+>       * of nodes, one word for each VCPU->node and one word for each node=
+ to
+>       * hold the amount of memory.
+>
+> I think this is a thorough enough solution and I can post a separate
+> patch.
 
-Unfortunately, this way doesn't work either, if we disable both
-CONFIG_HPET and CONFIG_X_HPET_RUST.
+Yes, go ahead so that we can evaluate it separately from Rust concerns.
 
-This is because I integrates hpet_fw_cfg into hpet lib which is compiled
-under CONFIG_X_HPET_RUST along with other HPET parts.
-
-The place broken is when hpet_fw_cfg is written into machine's fw_cfg (in
-hw/i386/fw_cfg.c).
-
-I think we can just wrap such write like:
-
-diff --git a/hw/i386/fw_cfg.c b/hw/i386/fw_cfg.c
-index 162785019b7a..3635b83620da 100644
---- a/hw/i386/fw_cfg.c
-+++ b/hw/i386/fw_cfg.c
-@@ -147,7 +147,14 @@ FWCfgState *fw_cfg_arch_create(MachineState *ms,
- #endif
-     fw_cfg_add_i32(fw_cfg, FW_CFG_IRQ0_OVERRIDE, 1);
-
--    fw_cfg_add_bytes(fw_cfg, FW_CFG_HPET, &hpet_fw_cfg, sizeof(hpet_fw_cfg));
-+#if defined(CONFIG_HPET) || defined(CONFIG_X_HPET_RUST)
-+    PCMachineState *pcms = (PCMachineState *)object_dynamic_cast(OBJECT(ms),
-+                                                                 TYPE_PC_MACHINE);
-+    if (pcms && pcms->hpet_enabled) {
-+        fw_cfg_add_bytes(fw_cfg, FW_CFG_HPET, &hpet_fw_cfg, sizeof(hpet_fw_cfg));
-+    }
-+#endif
-+
-     /* allocate memory for the NUMA channel: one (64bit) word for the number
-      * of nodes, one word for each VCPU->node and one word for each node to
-      * hold the amount of memory.
-
----
-
-The hpet_fw_cfg is written unconditionally since 40ac17cd, because it
-concerns ACPI HPET is created unconditionally. But that fact has changed
-and ACPI checks HPET device now (hw/i386/acpi-build.c):
-
-static void acpi_get_misc_info(AcpiMiscInfo *info)
-{
-    info->has_hpet = hpet_find();
-#ifdef CONFIG_TPM
-    info->tpm_version = tpm_get_version(tpm_find());
-#endif
-}
-
-I think this is a thorough enough solution and I can post a separate
-patch.
-
-Thanks,
-Zhao
-
-
+Paolo
 
 
