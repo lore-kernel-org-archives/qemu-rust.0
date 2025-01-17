@@ -1,90 +1,90 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tYidH-0002Yf-IB
-	for mharc-qemu-rust@gnu.org; Fri, 17 Jan 2025 04:27:15 -0500
+	id 1tYidJ-0002Zf-L5
+	for mharc-qemu-rust@gnu.org; Fri, 17 Jan 2025 04:27:17 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tYidF-0002YF-M9
- for qemu-rust@nongnu.org; Fri, 17 Jan 2025 04:27:13 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1tYidI-0002ZE-8E
+ for qemu-rust@nongnu.org; Fri, 17 Jan 2025 04:27:16 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tYidE-0003Pq-5W
- for qemu-rust@nongnu.org; Fri, 17 Jan 2025 04:27:13 -0500
+ id 1tYidG-0003Qc-97
+ for qemu-rust@nongnu.org; Fri, 17 Jan 2025 04:27:16 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1737106031;
+ s=mimecast20190719; t=1737106033;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=yQ+sUuwc6C6WWkzJforxNjfkV4dPtivna2iSl2/kOD4=;
- b=RoicWiEEoIR9/dkFsqK36nQZLR0zNabg8k7iQ92K+rx9B8I9Giqvqn05gdB19Q26Y9K98C
- ROvuvAYYz6HmF4Ow1fdsTm8pFvArnZCXO2G+mDLa4sl9fcVlWVQa5ucDB7oPtgbdP82/QY
- Cr3W5Y7DXH1HjtTs9kG1/7ndV1G+Sbs=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=fXzW1PWCx2t+pwE+gDuweFFhlLiqOMxBQW7g5vUIp6E=;
+ b=fCKp5lIVlRw5LKqu99icLiRkWEoyaFhBKDw/EQldw9sub9Y0JbbXL/DbhUJ7sirjLtV77x
+ yqALb164LBfE2ZMyaFdEdKtM2qom1ylpm8E9senRGzPgeo7Y3DkbKs1JxMcdKnZrDILjjx
+ +PNJqvTSdVk0VQLUs/2vuN6F5YMn/Do=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-49-NtwjpQ6JPXaA_5O_lCXoyg-1; Fri, 17 Jan 2025 04:27:09 -0500
-X-MC-Unique: NtwjpQ6JPXaA_5O_lCXoyg-1
-X-Mimecast-MFC-AGG-ID: NtwjpQ6JPXaA_5O_lCXoyg
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-aa691c09772so167084166b.1
- for <qemu-rust@nongnu.org>; Fri, 17 Jan 2025 01:27:09 -0800 (PST)
+ us-mta-404-RVUeIz9dOtanMgR3fetFdg-1; Fri, 17 Jan 2025 04:27:12 -0500
+X-MC-Unique: RVUeIz9dOtanMgR3fetFdg-1
+X-Mimecast-MFC-AGG-ID: RVUeIz9dOtanMgR3fetFdg
+Received: by mail-ej1-f69.google.com with SMTP id
+ a640c23a62f3a-ab2e529dc35so202885766b.3
+ for <qemu-rust@nongnu.org>; Fri, 17 Jan 2025 01:27:11 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737106028; x=1737710828;
+ d=1e100.net; s=20230601; t=1737106030; x=1737710830;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=yQ+sUuwc6C6WWkzJforxNjfkV4dPtivna2iSl2/kOD4=;
- b=lIMgybPFwe92mO6AP4QTx2TMpOELOLUk+GVdRt7I4M7QJSzmu+iunqaNy2oJN93hIz
- gDWZKpH8Viur5F11+8Vh4a1wyJsmZ9z3+CzdT8rhnFjRnQsRU5CbFanruYxyxlVfQZMl
- 3bys23Wj+KMGGHz2jEe1JJN3f80yJrYRZ2qq3OTx5/ZDPmyGSSfuHPrhPQhR6zxYiKqp
- 6UYpzX0AWgBic5iQIecUJ+5f1BK5vvRnDAJ+O78PATrs2y6PnbPB+3E/9KM1qP7IeDi+
- rENJ2mNfXtAQlTvPqr7kKuz/2UpGaqRTLjU7TovloZTI7f6X+ictbpqJXRQDZ+AX0BZb
- nqJg==
-X-Gm-Message-State: AOJu0YzVQuMiykJgJwzYySteYx0kxgs6ACnkydvxiGnnpZH2GCkH0gI1
- UYBsHwNAXD+XBh3aQsF1zMdTStinySPHTNC19HG+1yC1I66d3h7mRyEtBsdYnLp5i9YmLnpHLCd
- 7SbRlTehH2lPjyB88vAZTbhzKN3qWksjP1mHjNxTxPWONYRxtA9chnais/vt9og==
-X-Gm-Gg: ASbGnct1R+JP/COfxT96tdZ5dX8QL29riuqjGRowER04yS5WhLsORDJWLLFuiqcJS/G
- b8IbmOEsyLpp6zyt20jHhg3mGWFazF++AnAmek6U5/yZAXlnKRVn3Q3K7hSCeiGhCpbrHWLwqSt
- 22oc8Qf3ZsMyKdqM+r6h66v93CrweZzdsj5SBqSArzmWbGP91G1FtYY2jk4QE2vWm/xYCRsK/Cz
- RfoVl/mnNaGaksO1u6wTrWrWx1I/+nmC54IQKJFSah5469tRluvF2xNiY3m
-X-Received: by 2002:a17:907:2cc7:b0:aa6:9ee3:e51f with SMTP id
- a640c23a62f3a-ab38b377762mr207322366b.41.1737106028252; 
- Fri, 17 Jan 2025 01:27:08 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGgFxSLGX9Q61z3o5ZA4AS2wJlP8GSEz8jJmPmXVBKvBnkZo5ZLjwrAObdov9L/LckRkqw2Gw==
-X-Received: by 2002:a17:907:2cc7:b0:aa6:9ee3:e51f with SMTP id
- a640c23a62f3a-ab38b377762mr207319966b.41.1737106027825; 
- Fri, 17 Jan 2025 01:27:07 -0800 (PST)
+ bh=fXzW1PWCx2t+pwE+gDuweFFhlLiqOMxBQW7g5vUIp6E=;
+ b=GNpuRaAM3TfozoJt2D2APrKTgKbNn4p2NnfLG98DIbwGwYEn+6d5EaxCmvjHhP97D6
+ DX8pDg28cuitT651LC6bPZ1KgTuwdEkQhxNVKbyoZX5H55eSkhN79q6nOK1UqPBHRNxT
+ 9CgE6b+0SSmHH0BY0mNZ6iGQFK9D286ZAoWCpWk35pc6fWOEjQFb1afCgINRPJqdivao
+ VHb6bIhHZQVsEEdAn4FCQstOKaF/zQLgQhiw8d1eDBOVxfgdcGMMzvx2bQZvdQIDPhU8
+ RUzdlZLKTTS2vXws6fKW7iMfdOQk2sE61QIo15X5BO/cs8hriubByI30ARfCIasmG2a9
+ G5cw==
+X-Gm-Message-State: AOJu0YyMngOwaURTcPRCy5h7qlWOrUWRporleUtk1vRfCCVDurtgaAA0
+ lZKBOKQ6wbOFCEGBDT/xhPFxpUVRkQ7uu76Q/LwoPNjgtDsFLSr8M452W9fG+moTxsXRhRNWobF
+ pK6ZYJulCRpOqV/5EwhQpr+nlJ55NIsWN81dAH/g6QQ2/LVKTIo6p6eGb5FGfVA==
+X-Gm-Gg: ASbGncvJYM4zOpkQXuSID9GuHGe/rzXa1Od4Yv4Ssr1wM0EjSVCr7nKK1LV15NWsNpP
+ +9BBvp8bJmEKyC7ICiv2VM2a/kdENJXr9/D5T4R1DiYyf3YxwQ+Xy6HTHa4hse54ezGJ7X+TKa4
+ uhCK/e0/SUGQU2HqycTH3c8UAXeP87vf+Z8++G89TxpJ2s9GT9G9/WaxiBcK9JMkYeOcDGAxESP
+ hjbGBA9Ii+62/GqLPKIPkgzvE8z+3zBqniPTulO4HYAySPd5DUFzYdXt+bH
+X-Received: by 2002:a17:907:9710:b0:aa6:a21b:2a9 with SMTP id
+ a640c23a62f3a-ab38b3e2ed0mr197954466b.57.1737106030513; 
+ Fri, 17 Jan 2025 01:27:10 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGHhRa8RaSJ9NpeAmOvSfs3cxied5hB/iXsr+26UCo3MWxX3lVniKyIWzlY51SautRHczjLZg==
+X-Received: by 2002:a17:907:9710:b0:aa6:a21b:2a9 with SMTP id
+ a640c23a62f3a-ab38b3e2ed0mr197952366b.57.1737106030038; 
+ Fri, 17 Jan 2025 01:27:10 -0800 (PST)
 Received: from [192.168.10.3] ([176.206.124.70])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab384fcec76sm136223366b.184.2025.01.17.01.27.05
+ a640c23a62f3a-ab384f2903esm138579566b.109.2025.01.17.01.27.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jan 2025 01:27:06 -0800 (PST)
+ Fri, 17 Jan 2025 01:27:08 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
-Subject: [PATCH 04/10] rust: pl011: extract CharBackend receive logic into a
- separate function
-Date: Fri, 17 Jan 2025 10:26:51 +0100
-Message-ID: <20250117092657.1051233-5-pbonzini@redhat.com>
+Subject: [PATCH 05/10] rust: pl011: pull interrupt updates out of read/write
+ ops
+Date: Fri, 17 Jan 2025 10:26:52 +0100
+Message-ID: <20250117092657.1051233-6-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250117092657.1051233-1-pbonzini@redhat.com>
 References: <20250117092657.1051233-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ADIxh26Rhwe1Vd3fOfA_zFUAcqgzupJijckpiLcDimk_1737106029
+X-Mimecast-MFC-PROC-ID: xAmfGCkKxgwIJNpJm0kVbLGLBBVUe460ZuTeIEJ2SG0_1737106031
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -21
-X-Spam_score: -2.2
-X-Spam_bar: --
-X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.093,
+X-Spam_score_int: -39
+X-Spam_score: -4.0
+X-Spam_bar: ----
+X-Spam_report: (-4.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.093,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-1.797,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -99,65 +99,214 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Jan 2025 09:27:13 -0000
+X-List-Received-Date: Fri, 17 Jan 2025 09:27:16 -0000
 
-Prepare for moving all references to the registers and the FIFO into a
-separate struct.
+qemu_irqs are not part of the vmstate, therefore they will remain in
+PL011State.  Update them if needed after regs_read()/regs_write().
+
+Apply #[must_use] to functions that return whether the interrupt state
+could have changed, so that it's harder to forget the call to update().
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/hw/char/pl011/src/device.rs | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ rust/hw/char/pl011/src/device.rs | 68 ++++++++++++++++++--------------
+ 1 file changed, 38 insertions(+), 30 deletions(-)
 
 diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index 6d662865182..2e8707aef97 100644
+index 2e8707aef97..67c3e63baa1 100644
 --- a/rust/hw/char/pl011/src/device.rs
 +++ b/rust/hw/char/pl011/src/device.rs
-@@ -6,7 +6,7 @@
- use std::{
-     ffi::CStr,
-     ops::ControlFlow,
--    os::raw::{c_int, c_uint, c_void},
-+    os::raw::{c_int, c_void},
- };
- 
- use qemu_api::{
-@@ -480,6 +480,12 @@ pub fn can_receive(&self) -> bool {
-         self.read_count < self.fifo_depth()
+@@ -234,7 +234,6 @@ fn regs_read(&mut self, offset: RegisterOffset) -> ControlFlow<u32, u32> {
+                 }
+                 // Update error bits.
+                 self.receive_status_error_clear.set_from_data(c);
+-                self.update();
+                 // Must call qemu_chr_fe_accept_input, so return Continue:
+                 return ControlFlow::Continue(u32::from(c));
+             },
+@@ -258,7 +257,7 @@ fn regs_read(&mut self, offset: RegisterOffset) -> ControlFlow<u32, u32> {
+         })
      }
  
-+    pub fn receive(&mut self, ch: u32) {
-+        if !self.loopback_enabled() {
-+            self.put_fifo(ch)
-+        }
-+    }
-+
+-    fn regs_write(&mut self, offset: RegisterOffset, value: u32) {
++    fn regs_write(&mut self, offset: RegisterOffset, value: u32) -> bool {
+         // eprintln!("write offset {offset} value {value}");
+         use RegisterOffset::*;
+         match offset {
+@@ -273,9 +272,10 @@ fn regs_write(&mut self, offset: RegisterOffset, value: u32) {
+                 unsafe {
+                     qemu_chr_fe_write_all(addr_of_mut!(self.char_backend), &ch, 1);
+                 }
+-                self.loopback_tx(value);
++                // interrupts always checked
++                let _ = self.loopback_tx(value);
+                 self.int_level |= registers::INT_TX;
+-                self.update();
++                return true;
+             }
+             RSR => {
+                 self.receive_status_error_clear = 0.into();
+@@ -299,7 +299,7 @@ fn regs_write(&mut self, offset: RegisterOffset, value: u32) {
+                     self.reset_rx_fifo();
+                     self.reset_tx_fifo();
+                 }
+-                if self.line_control.send_break() ^ new_val.send_break() {
++                let update = (self.line_control.send_break() != new_val.send_break()) && {
+                     let mut break_enable: c_int = new_val.send_break().into();
+                     // SAFETY: self.char_backend is a valid CharBackend instance after it's been
+                     // initialized in realize().
+@@ -310,15 +310,16 @@ fn regs_write(&mut self, offset: RegisterOffset, value: u32) {
+                             addr_of_mut!(break_enable).cast::<c_void>(),
+                         );
+                     }
+-                    self.loopback_break(break_enable > 0);
+-                }
++                    self.loopback_break(break_enable > 0)
++                };
+                 self.line_control = new_val;
+                 self.set_read_trigger();
++                return update;
+             }
+             CR => {
+                 // ??? Need to implement the enable bit.
+                 self.control = value.into();
+-                self.loopback_mdmctrl();
++                return self.loopback_mdmctrl();
+             }
+             FLS => {
+                 self.ifl = value;
+@@ -326,13 +327,13 @@ fn regs_write(&mut self, offset: RegisterOffset, value: u32) {
+             }
+             IMSC => {
+                 self.int_enabled = value;
+-                self.update();
++                return true;
+             }
+             RIS => {}
+             MIS => {}
+             ICR => {
+                 self.int_level &= !value;
+-                self.update();
++                return true;
+             }
+             DMACR => {
+                 self.dmacr = value;
+@@ -342,14 +343,12 @@ fn regs_write(&mut self, offset: RegisterOffset, value: u32) {
+                 }
+             }
+         }
++        false
+     }
+ 
+     #[inline]
+-    fn loopback_tx(&mut self, value: u32) {
+-        if !self.loopback_enabled() {
+-            return;
+-        }
+-
++    #[must_use]
++    fn loopback_tx(&mut self, value: u32) -> bool {
+         // Caveat:
+         //
+         // In real hardware, TX loopback happens at the serial-bit level
+@@ -367,12 +366,13 @@ fn loopback_tx(&mut self, value: u32) {
+         // hardware flow-control is enabled.
+         //
+         // For simplicity, the above described is not emulated.
+-        self.put_fifo(value);
++        self.loopback_enabled() && self.put_fifo(value)
+     }
+ 
+-    fn loopback_mdmctrl(&mut self) {
++    #[must_use]
++    fn loopback_mdmctrl(&mut self) -> bool {
+         if !self.loopback_enabled() {
+-            return;
++            return false;
+         }
+ 
+         /*
+@@ -413,13 +413,11 @@ fn loopback_mdmctrl(&mut self) {
+             il |= Interrupt::RI as u32;
+         }
+         self.int_level = il;
+-        self.update();
++        true
+     }
+ 
+-    fn loopback_break(&mut self, enable: bool) {
+-        if enable {
+-            self.loopback_tx(registers::Data::BREAK.into());
+-        }
++    fn loopback_break(&mut self, enable: bool) -> bool {
++        enable && self.loopback_tx(registers::Data::BREAK.into())
+     }
+ 
+     fn set_read_trigger(&mut self) {
+@@ -481,14 +479,17 @@ pub fn can_receive(&self) -> bool {
+     }
+ 
+     pub fn receive(&mut self, ch: u32) {
+-        if !self.loopback_enabled() {
+-            self.put_fifo(ch)
++        if !self.loopback_enabled() && self.put_fifo(ch) {
++            self.update();
+         }
+     }
+ 
      pub fn event(&mut self, event: QEMUChrEvent) {
          if event == bindings::QEMUChrEvent::CHR_EVENT_BREAK && !self.loopback_enabled() {
-             self.put_fifo(registers::Data::BREAK.into());
-@@ -505,7 +511,7 @@ pub fn fifo_depth(&self) -> u32 {
+-            self.put_fifo(registers::Data::BREAK.into());
++            let update = self.put_fifo(registers::Data::BREAK.into());
++            if update {
++                self.update();
++            }
+         }
+     }
+ 
+@@ -511,7 +512,8 @@ pub fn fifo_depth(&self) -> u32 {
          1
      }
  
--    pub fn put_fifo(&mut self, value: c_uint) {
-+    pub fn put_fifo(&mut self, value: u32) {
+-    pub fn put_fifo(&mut self, value: u32) {
++    #[must_use]
++    pub fn put_fifo(&mut self, value: u32) -> bool {
          let depth = self.fifo_depth();
          assert!(depth > 0);
          let slot = (self.read_pos + self.read_count) & (depth - 1);
-@@ -615,12 +621,9 @@ pub fn write(&mut self, offset: hwaddr, value: u64) {
-     unsafe {
-         debug_assert!(!opaque.is_null());
-         let mut state = NonNull::new_unchecked(opaque.cast::<PL011State>());
--        if state.as_ref().loopback_enabled() {
--            return;
--        }
-         if size > 0 {
-             debug_assert!(!buf.is_null());
--            state.as_mut().put_fifo(c_uint::from(buf.read_volatile()))
-+            state.as_mut().receive(u32::from(buf.read_volatile()));
+@@ -524,8 +526,9 @@ pub fn put_fifo(&mut self, value: u32) {
+ 
+         if self.read_count == self.read_trigger {
+             self.int_level |= registers::INT_RX;
+-            self.update();
++            return true;
+         }
++        false
+     }
+ 
+     pub fn update(&self) {
+@@ -568,14 +571,19 @@ pub fn read(&mut self, offset: hwaddr, _size: u32) -> ControlFlow<u64, u64> {
+             }
+             Ok(field) => match self.regs_read(field) {
+                 ControlFlow::Break(value) => ControlFlow::Break(value.into()),
+-                ControlFlow::Continue(value) => ControlFlow::Continue(value.into()),
++                ControlFlow::Continue(value) => {
++                    self.update();
++                    ControlFlow::Continue(value.into())
++                },
+             }
          }
      }
- }
+ 
+     pub fn write(&mut self, offset: hwaddr, value: u64) {
+         if let Ok(field) = RegisterOffset::try_from(offset) {
+-           self.regs_write(field, value as u32);
++            if self.regs_write(field, value as u32) {
++                self.update();
++            }
+         } else {
+             eprintln!("write bad offset {offset} value {value}");
+         }
 -- 
 2.47.1
 
