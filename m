@@ -1,78 +1,79 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tacDX-0000Va-Q4
-	for mharc-qemu-rust@gnu.org; Wed, 22 Jan 2025 10:00:31 -0500
+	id 1tacI0-0001w1-Qs
+	for mharc-qemu-rust@gnu.org; Wed, 22 Jan 2025 10:05:10 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tacDU-0000Uz-L2
- for qemu-rust@nongnu.org; Wed, 22 Jan 2025 10:00:29 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1tacHx-0001rR-IH
+ for qemu-rust@nongnu.org; Wed, 22 Jan 2025 10:05:06 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tacDQ-0008G0-Va
- for qemu-rust@nongnu.org; Wed, 22 Jan 2025 10:00:28 -0500
+ id 1tacHv-0001ZG-R9
+ for qemu-rust@nongnu.org; Wed, 22 Jan 2025 10:05:05 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1737558021;
+ s=mimecast20190719; t=1737558302;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=POlz4POCIL9jNnb+niuB0G+X/RMlLL8vO4VLJU7O3JY=;
- b=MgTTmF+cg60kcCaBFU6vLu0SpqSHngI58plH7wG5O4d9JEZFOs6TS6foTNXPRwgGz0OWhj
- r2fZpTHyd7BFRna4JkoVMV8QZb345s3eh47bzx7rvmrzhmNgn5SszBvCq4LpjdHzHqSr6o
- UG9urZrmSLtydwR6O1jC4srQXCdySTM=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=hBSer5RHte3DiPfBuHNWLnhAhecs5oss4gYGurWr2Rc=;
+ b=PdHu0JdhBVbf8wEHoChR3MwLcaFUZeX4N1GXhSlI3/C5C8pmTgLHeGf4uIO1AfBVjSsXYR
+ MAUIoGV43P76Il3sG5kNcUfdE0Ilq0juW6JGsZ0AciO0+LCJhdPQyIwKXosn+IjxFc0RRu
+ lNfb//gTB7nqT56XeUEDLxW22yjk8p4=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-326-7aSR6jdiPAKTBZuV2iQpBQ-1; Wed, 22 Jan 2025 10:00:20 -0500
-X-MC-Unique: 7aSR6jdiPAKTBZuV2iQpBQ-1
-X-Mimecast-MFC-AGG-ID: 7aSR6jdiPAKTBZuV2iQpBQ
-Received: by mail-ej1-f69.google.com with SMTP id
- a640c23a62f3a-aa67f18cb95so780094266b.1
- for <qemu-rust@nongnu.org>; Wed, 22 Jan 2025 07:00:19 -0800 (PST)
+ us-mta-119-dgIJ2q3mOL2YF8rpFN-AUg-1; Wed, 22 Jan 2025 10:05:00 -0500
+X-MC-Unique: dgIJ2q3mOL2YF8rpFN-AUg-1
+X-Mimecast-MFC-AGG-ID: dgIJ2q3mOL2YF8rpFN-AUg
+Received: by mail-ej1-f70.google.com with SMTP id
+ a640c23a62f3a-aa68203d288so514366666b.1
+ for <qemu-rust@nongnu.org>; Wed, 22 Jan 2025 07:05:00 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737558018; x=1738162818;
+ d=1e100.net; s=20230601; t=1737558299; x=1738163099;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=POlz4POCIL9jNnb+niuB0G+X/RMlLL8vO4VLJU7O3JY=;
- b=IzRY3d91PHhnP4CXDfPf9BVqFGHyXnKKvFRJNVzw9MGD8AvuxdSSBfhgQjV5RqygZS
- NDPICnId0samKDq+cJeqDuH5KvNrEJay5BAmcdMzmNdG4l0NKwl/6UwIxHEelAEb9TWf
- sEyWI5u/8f177uFqkhKgWmbuIoebfgyWL6WG5L+z8IPAKXCibfQ0kabYsBzbCfEHSOTU
- MhRnhyyqoJdG9YG8mdqI6tA5pru+qLBC0jzIDqVuqgOC+2Nv2JNhTPOWuz4WBYR7lHDU
- 1vVo0FwA/QsVfHJrshhJcjcMKVRORbnWPH3CbAKXrM5btUlPLxD//ckWWoILpD5VU3t3
- MrVg==
+ bh=hBSer5RHte3DiPfBuHNWLnhAhecs5oss4gYGurWr2Rc=;
+ b=j/sim30/iBNNUOWRywJTA95JOqeBbRa1na92h59F9oKsF0+Suz+NMOjYzLh3w2LnaZ
+ MABHXeYYnE0gl+ai8m5HygPFNMbVnOfOAoQn/cfV59PBcopGdpezDsoaEuZWcM8ElTRq
+ U2a/vaq1lWeboaSLUxk14pEpjzyggBzrPvntS7oMFdOwnj1WwtN8TNOzdpEJatkqFrMw
+ TPEjaMlbyScqgKdGz41u+p4zNm5+Nn/jmYr+dE7NV/4yM4qgGO1Ap8THEzIv8mw532XG
+ L9hiWLXANYlkk/OGiPyVidgiajXoK7LH9RHDk4B17QWL33tnpde8ZS940EIqK6RMyBRU
+ 56lg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV9dwAZMflFzp92xUJm42ea+z2osmNa4TIdQwfXGQLhh89KbWZYRKTFRRPm8x7w7ph2D+12twMoc40=@nongnu.org
-X-Gm-Message-State: AOJu0YwgVqbWvbn3FjJ0ca6HPfK24JGHBJkCzhgxrt2u/rrikJFaZBWS
- 2FfFvuCIf/mJKEoO/DcSh+Ebr3FsgUVev3lD85cSzsDHXS+CwnGas8oSA4tp5fBJX/9VSLoNVt0
- XIA0JZeCuo78FppkGM99pPmnjjgekobWtOE6qsicSS5GnorcQAU9CEr+WxGv+Jg==
-X-Gm-Gg: ASbGncvnRH9OGJ6S4xBO+09mJ9UBaY+atGvSoDdbV2Wrmj3YaXnxCcePKBNowawBU9W
- oOYN5gnF8s6Vq3mXC/X7PmnxNs8Tn9GEIRt8Bvi/BcfasM/RM0HV1JGdKsYH7MrdXdA4bT6S9jU
- bbkoUVT2kTe5WZmHl+uANw7uQLz+Xpotio1v0CtDVvrmEfcBxCc64dKKKmVZ20Jg/6OfA3n4ywh
- 2oYceY7ADKJ1etCH4/cLe7SZ92fEbB8vLpNb214kAmdtQJbbAshwJ1Bq6Qhs1SGFascICxUssA=
-X-Received: by 2002:a17:907:6d09:b0:aa6:8935:ae71 with SMTP id
- a640c23a62f3a-ab38b0b7f21mr2005327266b.12.1737558018022; 
- Wed, 22 Jan 2025 07:00:18 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFN1t+NlFl7VeBM57UE85R9UjvwoSv7A2Q+GbNoK+wbwwUtjlEh37HaE0sPoxQ5GMW97o+PZg==
-X-Received: by 2002:a17:907:6d09:b0:aa6:8935:ae71 with SMTP id
- a640c23a62f3a-ab38b0b7f21mr2005315566b.12.1737558016617; 
- Wed, 22 Jan 2025 07:00:16 -0800 (PST)
+ AJvYcCU2K2DWCtI4nSN1AlUmXmOcU9tFbQNOhvzGJLD2aT4Qio+lBfHXqG2JTTECdqeaO2DG3CJGcYIRZmE=@nongnu.org
+X-Gm-Message-State: AOJu0YzluWIoo2luCMOgHCmiRHaQqokhS26g4lvvpU4dPyBQE7dfpFc9
+ wn5igX+GyrO8B8lkuNBIIRzRtv0qH4BMi49WB6YbGaKUZZpb/29fey8ATZWRb8hRwFnkTs4ZrDc
+ 3SG/4Dm9V0jrp3XW3KTToqsPIM3vzNNYcpac1Bg7oOR4UWg6TTcI=
+X-Gm-Gg: ASbGncuU/9YxH5zMdJvLqT2RxGRwm0UP4b+noJhmSdOskpG6ACQlabzx40XooPNdwRf
+ bvcBwylOPcodLDkwXtSNoKNyBhVh3SJaRl6tCBDkgvBFrkLeVGhppOa2+OWJKgeZVouhPU6nxvV
+ AljcYzx6sdpqEHP2WCkLQHMT7MRwDARcb5UdWoOnAlof0zH8QAaeQ3kyBkL88QPuiouTKxoospl
+ Ny0IC2gCXJjqOZnD+jNTeN2WTDTMRnzqbOI7Oilp6vsNcaiCBHRWGpRj/sJxjaMbf0f8lMpAPw=
+X-Received: by 2002:a17:907:930b:b0:aa6:a9fe:46e5 with SMTP id
+ a640c23a62f3a-ab38b3dae38mr2251359966b.53.1737558299620; 
+ Wed, 22 Jan 2025 07:04:59 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHFfMJeYJxCZardkse5PMD2GWir/3u16u3koAtpOEvxHnjU7PSyLVQ/mrUWEw52kIdaHVuuRA==
+X-Received: by 2002:a17:907:930b:b0:aa6:a9fe:46e5 with SMTP id
+ a640c23a62f3a-ab38b3dae38mr2251351866b.53.1737558298951; 
+ Wed, 22 Jan 2025 07:04:58 -0800 (PST)
 Received: from [192.168.10.47] ([176.206.124.70])
  by smtp.googlemail.com with ESMTPSA id
- a640c23a62f3a-ab384c607aesm914089266b.23.2025.01.22.07.00.13
+ a640c23a62f3a-ab384d2d3dcsm912532166b.81.2025.01.22.07.04.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Jan 2025 07:00:13 -0800 (PST)
-Message-ID: <6d7ad183-6685-4ba6-a8ef-d899162879ea@redhat.com>
-Date: Wed, 22 Jan 2025 16:00:12 +0100
+ Wed, 22 Jan 2025 07:04:57 -0800 (PST)
+Message-ID: <5ace2ad3-3633-4c79-81c1-aac9d10a16ca@redhat.com>
+Date: Wed, 22 Jan 2025 16:04:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/10] rust: pl011: extract conversion to RegisterOffset
+Subject: Re: [PATCH 04/10] rust: pl011: extract CharBackend receive logic into
+ a separate function
 To: Zhao Liu <zhao1.liu@intel.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 References: <20250117092657.1051233-1-pbonzini@redhat.com>
- <20250117092657.1051233-4-pbonzini@redhat.com> <Z5EB3b0VqvqxUaWm@intel.com>
+ <20250117092657.1051233-5-pbonzini@redhat.com> <Z5EHu/7nEbS51IlH@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -109,21 +110,21 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <Z5EB3b0VqvqxUaWm@intel.com>
+In-Reply-To: <Z5EHu/7nEbS51IlH@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: w2W6U5i_c5GTZ-JmydxDjnNl72bDVJNQxkquuYdBNHU_1737558019
+X-Mimecast-MFC-PROC-ID: gevSLPurQ-_Iz6m-8GU9XjzDIWrN4OTEUxBbAu4YSFM_1737558300
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -50
 X-Spam_score: -5.1
 X-Spam_bar: -----
 X-Spam_report: (-5.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.043,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -138,61 +139,17 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Jan 2025 15:00:30 -0000
+X-List-Received-Date: Wed, 22 Jan 2025 15:05:07 -0000
 
-On 1/22/25 15:34, Zhao Liu wrote:
-> On Fri, Jan 17, 2025 at 10:26:50AM +0100, Paolo Bonzini wrote:
->> Date: Fri, 17 Jan 2025 10:26:50 +0100
->> From: Paolo Bonzini <pbonzini@redhat.com>
->> Subject: [PATCH 03/10] rust: pl011: extract conversion to RegisterOffset
->> X-Mailer: git-send-email 2.47.1
->>
->> As an added bonus, this also makes the new function return u32 instead
->> of u64, thus factoring some casts into a single place.
->>
->> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
->> ---
->>   rust/hw/char/pl011/src/device.rs | 114 +++++++++++++++++--------------
->>   1 file changed, 63 insertions(+), 51 deletions(-)
+On 1/22/25 15:59, Zhao Liu wrote:
+>>           if size > 0 {
+>>               debug_assert!(!buf.is_null());
+>> -            state.as_mut().put_fifo(c_uint::from(buf.read_volatile()))
 > 
-> [snip]
-> 
->> -    pub fn read(&mut self, offset: hwaddr, _size: c_uint) -> std::ops::ControlFlow<u64, u64> {
->> +    fn regs_read(&mut self, offset: RegisterOffset) -> ControlFlow<u32, u32> {
->>           use RegisterOffset::*;
-> 
-> Can we move this "use" to the start of the file?
+> An extra question...here I'm not sure, do we really need read_volatile?
 
-I don't think it's a good idea to make the register names visible 
-globally...  "use Enum::*" before a match statement is relatively 
-common.  For example: https://doc.rust-lang.org/src/std/io/error.rs.html#436
-
->> +        std::ops::ControlFlow::Break(match offset {
-> 
-> std::ops can be omitted now.
-
-Done, add added a patch to get rid of ControlFlow completely.
-
->> -            Ok(RSR) => {
->> -                self.receive_status_error_clear.reset();
->> +            RSR => {
->> +                self.receive_status_error_clear = 0.into();
-> 
-> Emm, why do we use 0.into() instead of reset() here? It looks they're
-> same.
-
-Fixed.
-
->> +    pub fn read(&mut self, offset: hwaddr, _size: u32) -> ControlFlow<u64, u64> {
-> 
-> Maybe pub(crate)? But both are fine for me :-)
-
-The struct is not public outside the crate, so it doesn't make a 
-difference, does it?
-
-> Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
-
-Thanks, I'll post a quick v2 anyway once you've finished reviewing.
+No, the buffer is not guest visible.  It will certainly go away together 
+with chardev bindings.
 
 Paolo
 
