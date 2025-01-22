@@ -1,52 +1,52 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1taYrM-0005KW-8C
-	for mharc-qemu-rust@gnu.org; Wed, 22 Jan 2025 06:25:24 -0500
+	id 1taZcl-00066P-As
+	for mharc-qemu-rust@gnu.org; Wed, 22 Jan 2025 07:14:25 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1taYrI-0005Jb-CV; Wed, 22 Jan 2025 06:25:20 -0500
+ id 1taZcj-00062W-8n; Wed, 22 Jan 2025 07:14:21 -0500
 Received: from mgamail.intel.com ([192.198.163.19])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1taYrB-00070L-B7; Wed, 22 Jan 2025 06:25:16 -0500
+ id 1taZcg-0000fb-7a; Wed, 22 Jan 2025 07:14:20 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737545113; x=1769081113;
+ t=1737548058; x=1769084058;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=c9VGuQ/HJ+I/lboBeD5qmVCyEqHLF7KJIcnFyr56VRw=;
- b=CvxOYPfUyJ1sJfh2pyO443hF1JGrUtoLPczUaYAjqd/YPz5lIrQHXPBf
- bbq3FQuFTqkAlDzBXZRrGQmXhmHSJOawApkfzGdYNomfm09J5WYrJLvJX
- FrQW11yYk098lYiNqa1+STkrJRyFmwM1MLWmLLexwlcHn5cgJ4M1SO5IM
- dZMsHtVz+8igogoZV8P0+LjYJ+pF2xZV/pZcQiI0yYSdelXT1gVxnpBQ1
- hFqWrxFvnaAA7BBAsUJq7YqUM296N7aE7MlUC6BXRDqb2H5cFSnh573sL
- LZk0DHY4etKZ8VLip0ZF+oBnxS1iFwKrVU5Q5W555fP4Een3OOuJ0HFas A==;
-X-CSE-ConnectionGUID: HeVqy595RrucDcILgL5gMg==
-X-CSE-MsgGUID: cVA4BUqtTyegmM1li6LWeQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11322"; a="37207807"
-X-IronPort-AV: E=Sophos;i="6.13,225,1732608000"; d="scan'208";a="37207807"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ bh=p/MEDBHQJ56AH0MsVuiWC0F2edG1GENGkpR5CUKIRac=;
+ b=DC0YeActwjr6CGkNoQdEXEoO2IMWExC0fhBWm0z0y8n3jA7IOEQNsokI
+ r3xX1ExNRIaSO61XrM/vP93lNZFbyC9G1tfTwPWR+gH2eRZVENLRbpmHq
+ bp1vZ2e6ufRiDlDd1AvcerA6Dnom1fMBx2T7tPujdmKw19IprnvxuZC+q
+ 4y0zhuL97PceW0+n0XeGpJBM/lvjLQ3S51Tvab2IfnAKzH4UEGARqBSuy
+ 1AuCagf9HePk7cDn0uBkoGeOC5OVMFGmihS65nHsUvxzLfKaw0Y2UaE/F
+ VKFZSrPZ1Tw9OnIw32auM+OSraCd8OkhICjjNUywNP1Zj04w/1iTbUdkO g==;
+X-CSE-ConnectionGUID: RuEei4hKROykgR0itjku1w==
+X-CSE-MsgGUID: COY3TeQYSB2on8sEAgROxQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11322"; a="37211821"
+X-IronPort-AV: E=Sophos;i="6.13,225,1732608000"; d="scan'208";a="37211821"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2025 03:25:09 -0800
-X-CSE-ConnectionGUID: 2sn2VvzuTOCRtWNIwgOxPQ==
-X-CSE-MsgGUID: kZi4t8AOS6e4K88hwMNQ1g==
+ 22 Jan 2025 04:14:14 -0800
+X-CSE-ConnectionGUID: spvVcfSYTlGtK4JbZ2Hoow==
+X-CSE-MsgGUID: xrUxPDnySvq67xNPURIq/Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="130417410"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="111764691"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa002.fm.intel.com with ESMTP; 22 Jan 2025 03:25:08 -0800
-Date: Wed, 22 Jan 2025 19:44:30 +0800
+ by fmviesa005.fm.intel.com with ESMTP; 22 Jan 2025 04:14:12 -0800
+Date: Wed, 22 Jan 2025 20:33:34 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 03/10] rust: vmstate: add varray support to vmstate_of!
-Message-ID: <Z5DaHvM2LARwXxbz@intel.com>
+Subject: Re: [PATCH 05/10] rust: vmstate: implement VMState for scalar types
+Message-ID: <Z5DlngFjERVqmxca@intel.com>
 References: <20250117090046.1045010-1-pbonzini@redhat.com>
- <20250117090046.1045010-4-pbonzini@redhat.com>
+ <20250117090046.1045010-6-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250117090046.1045010-4-pbonzini@redhat.com>
+In-Reply-To: <20250117090046.1045010-6-pbonzini@redhat.com>
 Received-SPF: pass client-ip=192.198.163.19; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -73
@@ -54,8 +54,8 @@ X-Spam_score: -7.4
 X-Spam_bar: -------
 X-Spam_report: (-7.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -69,31 +69,72 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Jan 2025 11:25:22 -0000
+X-List-Received-Date: Wed, 22 Jan 2025 12:14:22 -0000
 
-On Fri, Jan 17, 2025 at 10:00:39AM +0100, Paolo Bonzini wrote:
-> Date: Fri, 17 Jan 2025 10:00:39 +0100
+On Fri, Jan 17, 2025 at 10:00:41AM +0100, Paolo Bonzini wrote:
+> Date: Fri, 17 Jan 2025 10:00:41 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 03/10] rust: vmstate: add varray support to vmstate_of!
+> Subject: [PATCH 05/10] rust: vmstate: implement VMState for scalar types
 > X-Mailer: git-send-email 2.47.1
+> 
+> Scalar types are those that have their own VMStateInfo.  This poses
+> a problem in that references to VMStateInfo can only be included in
+> associated consts starting with Rust 1.83.0, when the const_refs_static
+> was stabilized.  Removing the requirement is done by placing a limited
+> list of VMStateInfos in an enum, and going from enum to &VMStateInfo
+> only when building the VMStateField.
+> 
+> The same thing cannot be done with VMS_STRUCT because the set of
+> VMStateDescriptions extends to structs defined by the devices.
+> Therefore, structs and cells cannot yet use vmstate_of!.
 > 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  rust/qemu-api/src/vmstate.rs | 42 ++++++++++++++++++++++++++++++++++--
->  1 file changed, 40 insertions(+), 2 deletions(-)
+>  rust/qemu-api/src/vmstate.rs | 128 ++++++++++++++++++++++++++++++++++-
+>  1 file changed, 126 insertions(+), 2 deletions(-)
 
-...
 
-> +/// Internal utility function to retrieve a type's `VMStateFlags` when it
-> +/// is used as the element count of a `VMSTATE_VARRAY`; used by
-> +/// [`vmstate_of!`](crate::vmstate_of).
-> +pub const fn vmstate_varray_flag<T: VMState>(_: PhantomData<T>) -> VMStateField {
+>  /// Internal utility function to retrieve a type's `VMStateField`;
+>  /// used by [`vmstate_of!`](crate::vmstate_of).
+>  pub const fn vmstate_base<T: VMState>(_: PhantomData<T>) -> VMStateField {
+> @@ -99,6 +178,15 @@ pub const fn vmstate_varray_flag<T: VMState>(_: PhantomData<T>) -> VMStateField
+>  /// Return the `VMStateField` for a field of a struct.  The field must be
+>  /// visible in the current scope.
+>  ///
+> +/// Only a limited set of types is supported out of the box:
+> +/// * scalar types (integer and `bool`)
+> +/// * the C struct `QEMUTimer`
+> +/// * a transparent wrapper for any of the above (`Cell`, `UnsafeCell`,
+> +///   [`BqlCell`](crate::cell::BqlCell), [`BqlRefCell`](crate::cell::BqlRefCell)
+> +/// * a raw pointer to any of the above
+> +/// * a `NonNull` pointer to any of the above, possibly wrapped with `Option`
 
-A typo? It should return VMStateFlags type.
+I just found your rust-next has already updated and removed `Option` :-)
 
-> +    T::VARRAY_FLAG
-> +}
-> +
+> +/// * an array of any of the above
+> +///
+>  /// In order to support other types, the trait `VMState` must be implemented
+>  /// for them.
+>  #[macro_export]
+> @@ -109,8 +197,14 @@ macro_rules! vmstate_of {
+>                  .as_bytes()
+>                  .as_ptr() as *const ::std::os::raw::c_char,
+>              offset: $crate::offset_of!($struct_name, $field_name),
+> -            // Compute most of the VMStateField from the type of the field.
+
+Rebase mistake? This comment seems no need to be deleted.
+
+>              $(.num_offset: $crate::offset_of!($struct_name, $num),)?
+> +            // The calls to `call_func_with_field!` are the magic that
+> +            // computes most of the VMStateField from the type of the field.
+> +            info: $crate::info_enum_to_ref!($crate::call_func_with_field!(
+> +                $crate::vmstate::vmstate_scalar_type,
+> +                $struct_name,
+> +                $field_name
+> +            )),
+>
+
+Only a nit above,
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
