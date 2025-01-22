@@ -1,54 +1,55 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tadeD-0005jO-Rj
-	for mharc-qemu-rust@gnu.org; Wed, 22 Jan 2025 11:32:09 -0500
+	id 1tadnP-0008A0-DR
+	for mharc-qemu-rust@gnu.org; Wed, 22 Jan 2025 11:41:39 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1taddz-0005ZM-0t; Wed, 22 Jan 2025 11:31:59 -0500
-Received: from mgamail.intel.com ([192.198.163.11])
+ id 1tadnN-00089j-W8; Wed, 22 Jan 2025 11:41:38 -0500
+Received: from mgamail.intel.com ([192.198.163.13])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1taddt-0006Zz-4n; Wed, 22 Jan 2025 11:31:53 -0500
+ id 1tadnL-0003w0-IC; Wed, 22 Jan 2025 11:41:37 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737563509; x=1769099509;
+ t=1737564095; x=1769100095;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=W0CEBDItbQycNDfZ7B7OcSu3dB5zqUDBtqxse3ndIY0=;
- b=RME/J/SDft4wlCbbou3lMO5md6HEx8YiK+aLlPXU6jlYtS9zdwphnSxp
- UfjffPnTMks6IuyvH2oV7zo6yRvcY5++UJ9Vd3PmsSeiNkfBTUDE29bz7
- RbvEoTK2rt4DqILqxST4HlFUtnfG3NF1/kpuzi14iIWx2CoCaVl1EogfM
- rFGbMINWRjz06CbMTuHh6KboXCzLxn0mFzJnTz8ZgV7TV9+On/i93YjdZ
- ebB2p8m3DeGhqWlf9AAF+SJJeD9dyks5nVg3CP+QZXytxs8G4xO00HduB
- iQ5yeyJ1DGfoz6yaqPnIDCIvHiFJFppo7bGfHo6yIy9LM/0Z/OZ5J5g+M A==;
-X-CSE-ConnectionGUID: uKznSBkCQv+v2aD1YU0iGg==
-X-CSE-MsgGUID: 8Kc+VPjKS4+Y5h8kbdn3VQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11323"; a="48624788"
-X-IronPort-AV: E=Sophos;i="6.13,225,1732608000"; d="scan'208";a="48624788"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2025 08:31:20 -0800
-X-CSE-ConnectionGUID: sPifOw+7RUiC8+5H83MOoQ==
-X-CSE-MsgGUID: ykdb5zhISSWtqndLz07VzA==
+ bh=HA7E5MBHVOQ8GO8gmVyMe6RSuRY1j98khQpGMbsP4so=;
+ b=kTylyvhOQyc6fqFn4/TY6LXFgCs6/o7scnB0k1gP593Ep2d127F6V2YZ
+ l+G0Lq6nD2ocfk1zzFVFzOjIQ4Snxt8w2Cy8MtvkTnOimbIfwuJ0ZTjLw
+ vyCDX/bL2NKcCt0ArewKz/5O2Bc12JS2BK6gxrwQPjL4bhNP4dcll5+Hr
+ zq02Ol7+K/OrrZ3lTaQHUeM1dAGCJp9VA4Wk1Z2chFCLzTrONC7d48mZa
+ b4TwD4KktLPmxGZtgi3XVcte4uDIO1DD+fyzOTLb1u4Iwcwcl1yuR10jg
+ x2lE8SpD3gTXlQCI9SA+/f3ZViFZXrlAalke/dswBvFRzCCtJFDCv3Adl g==;
+X-CSE-ConnectionGUID: IdeP5XIeTxqvExn3BMyuiQ==
+X-CSE-MsgGUID: 5PNv4vCYSiG/Cdo4ksUa7Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11323"; a="40852203"
+X-IronPort-AV: E=Sophos;i="6.13,225,1732608000"; d="scan'208";a="40852203"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2025 08:41:32 -0800
+X-CSE-ConnectionGUID: AnscbEFIRoebmfnRqx9XZw==
+X-CSE-MsgGUID: okt9cAGgT6+fB/6lF8yDRA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="107631399"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="111833339"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa007.jf.intel.com with ESMTP; 22 Jan 2025 08:31:19 -0800
-Date: Thu, 23 Jan 2025 00:50:41 +0800
+ by fmviesa005.fm.intel.com with ESMTP; 22 Jan 2025 08:41:31 -0800
+Date: Thu, 23 Jan 2025 01:00:54 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 05/10] rust: pl011: pull interrupt updates out of
- read/write ops
-Message-ID: <Z5Eh4Yj2Mp+xQV5Z@intel.com>
+Subject: Re: [PATCH 03/10] rust: pl011: extract conversion to RegisterOffset
+Message-ID: <Z5EkRg8IUrlmHeVA@intel.com>
 References: <20250117092657.1051233-1-pbonzini@redhat.com>
- <20250117092657.1051233-6-pbonzini@redhat.com>
+ <20250117092657.1051233-4-pbonzini@redhat.com>
+ <Z5EB3b0VqvqxUaWm@intel.com>
+ <6d7ad183-6685-4ba6-a8ef-d899162879ea@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250117092657.1051233-6-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.11; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <6d7ad183-6685-4ba6-a8ef-d899162879ea@redhat.com>
+Received-SPF: pass client-ip=192.198.163.13; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -73
 X-Spam_score: -7.4
@@ -70,45 +71,37 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Jan 2025 16:32:07 -0000
+X-List-Received-Date: Wed, 22 Jan 2025 16:41:38 -0000
 
-On Fri, Jan 17, 2025 at 10:26:52AM +0100, Paolo Bonzini wrote:
-> Date: Fri, 17 Jan 2025 10:26:52 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 05/10] rust: pl011: pull interrupt updates out of
->  read/write ops
-> X-Mailer: git-send-email 2.47.1
+> > > -    pub fn read(&mut self, offset: hwaddr, _size: c_uint) -> std::ops::ControlFlow<u64, u64> {
+> > > +    fn regs_read(&mut self, offset: RegisterOffset) -> ControlFlow<u32, u32> {
+> > >           use RegisterOffset::*;
+> > 
+> > Can we move this "use" to the start of the file?
 > 
-> qemu_irqs are not part of the vmstate, therefore they will remain in
-> PL011State.  Update them if needed after regs_read()/regs_write().
+> I don't think it's a good idea to make the register names visible
+> globally...  "use Enum::*" before a match statement is relatively common.
+> For example: https://doc.rust-lang.org/src/std/io/error.rs.html#436
+
+Thanks!
+
+> > > +    pub fn read(&mut self, offset: hwaddr, _size: u32) -> ControlFlow<u64, u64> {
+> > 
+> > Maybe pub(crate)? But both are fine for me :-)
 > 
-> Apply #[must_use] to functions that return whether the interrupt state
-> could have changed, so that it's harder to forget the call to update().
+> The struct is not public outside the crate, so it doesn't make a difference,
+> does it?
+
+You're right.
+
+> > Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 > 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/hw/char/pl011/src/device.rs | 68 ++++++++++++++++++--------------
->  1 file changed, 38 insertions(+), 30 deletions(-)
+> Thanks, I'll post a quick v2 anyway once you've finished reviewing.
 > 
 
-[snip]
+The remaining critical ones, I'll go through them all tomorrow.
 
->  
->      pub fn event(&mut self, event: QEMUChrEvent) {
->          if event == bindings::QEMUChrEvent::CHR_EVENT_BREAK && !self.loopback_enabled() {
-> -            self.put_fifo(registers::Data::BREAK.into());
-> +            let update = self.put_fifo(registers::Data::BREAK.into());
-
-We can omit this `update` variable.
-
-> +            if update {
-> +                self.update();
-> +            }
->          }
->      }
-
-Nice refactoring!
-
-Reviewed-by: Zhao Liu <zhao.liu@intel.com>
+Regerds,
+Zhao
 
 
