@@ -1,61 +1,82 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1taXzu-0001Y2-9L
-	for mharc-qemu-rust@gnu.org; Wed, 22 Jan 2025 05:30:10 -0500
+	id 1taY6i-00044L-DS
+	for mharc-qemu-rust@gnu.org; Wed, 22 Jan 2025 05:37:12 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1taXzm-0001Ri-6P; Wed, 22 Jan 2025 05:30:05 -0500
-Received: from mgamail.intel.com ([198.175.65.18])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1taXzj-0004oO-UD; Wed, 22 Jan 2025 05:30:01 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737541800; x=1769077800;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=1RrwgssKEK25K5PKpW3gE7SUjcQRKfYVJLxYPvUtzXs=;
- b=lr2YXheGk35ggB8PqkuBxd2DfP87ZbjYK5V9uB6+6EJ8AN5WJe6JGZYj
- 63vUV3MYc4ow6IWJkhgl5QQnJSsYtotTDMp8G/8gLk5PiamcX/LYQ2cH/
- PtPvw8MD7b7K52LvKwZWw9L/41KX2oN5KjQ3BkSVtKNoA/AZcxymvNyoV
- N5Ib34xYDEaFN2iCwIQUCXum7Z1m8Hv9c1bgEKPJcHGLh++XUHSSkMFXW
- PzUnfrioHuCq2TUqVjjg5Jhe1ejI21IOp35yhnE7hP8DBS53WmzrBx0Zk
- wOfZrxoJv2jTOVcxQNK0jNv4gzaHCBxQw3UiJIl6pvbbWY58HPb72shay g==;
-X-CSE-ConnectionGUID: iPJpMT1rSHCI5ZCusGHX3Q==
-X-CSE-MsgGUID: ewDfMeX9R4u+WPGMVoV63w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="38094458"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="38094458"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2025 02:29:56 -0800
-X-CSE-ConnectionGUID: kU6RKQHITXmGjFJ5tuFb2w==
-X-CSE-MsgGUID: 8kHla6krQGmHLigG0NV5TQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,224,1732608000"; d="scan'208";a="112128098"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa004.jf.intel.com with ESMTP; 22 Jan 2025 02:29:55 -0800
-Date: Wed, 22 Jan 2025 18:49:17 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 02/10] rust: vmstate: implement VMState for non-leaf types
-Message-ID: <Z5DNLaEkklbInqh9@intel.com>
-References: <20250117090046.1045010-1-pbonzini@redhat.com>
- <20250117090046.1045010-3-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1taY6h-00043f-IJ
+ for qemu-rust@nongnu.org; Wed, 22 Jan 2025 05:37:11 -0500
+Received: from mail-wm1-x330.google.com ([2a00:1450:4864:20::330])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1taY6f-0007of-To
+ for qemu-rust@nongnu.org; Wed, 22 Jan 2025 05:37:11 -0500
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-436345cc17bso48175155e9.0
+ for <qemu-rust@nongnu.org>; Wed, 22 Jan 2025 02:37:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1737542228; x=1738147028; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=JClirEZhGSs2HNw1ii7DYoOZ+9JhtZcsAi84vf1O18Q=;
+ b=Wf/60l3YYa6AGrBKvDme7dC03QC9WAez2Xx2yA4URcRdBOo6MeuxQqUoFF5qJSGj9Z
+ pDwppsuLZMyZg/kFwPBh4xWns91Jkhga3TY3TqZTehbJmdNOyurRCp84lapLKCJvxFJF
+ Gj6fhvE+aKFT+aDgT+v2OHRfMqAoMsbwUEl/9HU7+ZrYtbimon8Ly7BveDXZ8xl2TqiI
+ KLU0tP0kiH5hhr2etQLosEH1Kaj+GQtJ0kaBpGWGIZPBliAnCdAfESO5/ZN9iAoqAZl9
+ YbR1dU2/rCvJjMGLT11Qar2uM+lFqEeb7DAAlRQmIiqLzTTv1L+pT1rkC8SbGdtpkPNE
+ oHCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737542228; x=1738147028;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=JClirEZhGSs2HNw1ii7DYoOZ+9JhtZcsAi84vf1O18Q=;
+ b=ZmRMCQT4zQINUmk+uaoVL20jpWsiHPHVrYnnV7je3uvHL/4rDS31ftsoty9eht/sG5
+ lprXnyMUutHIu4vOgcG4n3fgEgt6VVAnJGq7p6KijostKEmjVsatrPzkEAXtbXPCRSed
+ 1LDJoWckyHkL/LOBgL8CsFD250PRtU8EazGpdl30OJlqrdOuWQNvSVeoUMY/Hw2L+WXR
+ CLMvEzqjB3d6Cwfa0AnhbSd8fpwAcy5jCaZg1iwLtJM058Rxdjn35vn70vn+wHZNgYPG
+ b8kdm/srOEz8Ha3YBxUGue+Mk+5xifnH6IK04GXlpb7hREEewS/7qqjPlXCz9zeZo6u9
+ OzDw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW9z1E6A8OY7GHLmsBJR+e9R1/AXt+R/UWt7yw0/H3F7tXYDpP7kw6IySMm/JRmx5TifRAvV586lB8=@nongnu.org
+X-Gm-Message-State: AOJu0YwyQz/z/13Ttp2j8hpFp2fYKu4NWDx0a04FoVSFYPh1yJLBVpNV
+ 6k7NVqJLfwjkOcSfc858csyZy8PKjtpkVdQZLQe309TDgEzI4DYeCVKjDmuKOL0=
+X-Gm-Gg: ASbGncux7w0PSnccgFHLjNoM6gO3Ao0lMUqeUavZ9TBpL7MUISFck7LGInjjHERBsLo
+ H6NrWLzMpJRcKd9VGH45CKwjkT5kDFPmsSDjVPHzBukql0SrYTON8VKQwovMVMsD0DQ/ud4cRqv
+ oUvUjxm+TU1s+NdYMl0AMHx/bfllv2uzFLXl/0Z8Ltf06wF/MwrYZlz2flfhRz3AMDdT5EiD4RZ
+ /BGlBWM0w/jro8HPuW7krG0WSgjUgDcvMxKEkofKWh4dMjA3HUOMIhoAZqNiE+2Y9U3BHKqa3nT
+ h5b0A5Gv1cqD/RT0+5txgrXe8g4/jKNP0H2kyg==
+X-Google-Smtp-Source: AGHT+IEi14KAMMW3sfrZXONjud4kBqwnOBmFJqbWs3flgkvoIVrOJNAAad5R3xY4qo+hTqgUQ7RezA==
+X-Received: by 2002:a05:600c:1e1c:b0:434:f0df:9f6 with SMTP id
+ 5b1f17b1804b1-438913bf655mr203889315e9.3.1737542227865; 
+ Wed, 22 Jan 2025 02:37:07 -0800 (PST)
+Received: from [192.168.69.181] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-438b318c004sm19605455e9.4.2025.01.22.02.37.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Jan 2025 02:37:07 -0800 (PST)
+Message-ID: <e8ba79eb-824f-4c9b-a224-026d5a3daa1a@linaro.org>
+Date: Wed, 22 Jan 2025 11:37:06 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250117090046.1045010-3-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.18; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -73
-X-Spam_score: -7.4
-X-Spam_bar: -------
-X-Spam_report: (-7.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/10] rust: vmstate: make order of parameters consistent
+ in vmstate_clock
+To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
+Cc: zhao1.liu@intel.com, qemu-rust@nongnu.org
+References: <20250117090046.1045010-1-pbonzini@redhat.com>
+ <20250117090046.1045010-11-pbonzini@redhat.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20250117090046.1045010-11-pbonzini@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=2a00:1450:4864:20::330;
+ envelope-from=philmd@linaro.org; helo=mail-wm1-x330.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -69,24 +90,17 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Jan 2025 10:30:09 -0000
+X-List-Received-Date: Wed, 22 Jan 2025 10:37:11 -0000
 
-On Fri, Jan 17, 2025 at 10:00:38AM +0100, Paolo Bonzini wrote:
-> Date: Fri, 17 Jan 2025 10:00:38 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 02/10] rust: vmstate: implement VMState for non-leaf types
-> X-Mailer: git-send-email 2.47.1
-> 
-> Arrays, pointers and cells use a VMStateField that is based on that
-> for the inner type.  The implementation therefore delegates to the
-> VMState implementation of the inner type.
+On 17/1/25 10:00, Paolo Bonzini wrote:
+> Place struct_name before field_name, similar to offset_of.
 > 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  rust/qemu-api/src/vmstate.rs | 79 +++++++++++++++++++++++++++++++++++-
->  1 file changed, 78 insertions(+), 1 deletion(-)
-> 
+>   rust/hw/char/pl011/src/device_class.rs | 2 +-
+>   rust/qemu-api/src/vmstate.rs           | 2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
 
