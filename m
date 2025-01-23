@@ -1,62 +1,87 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1taqFp-0003FH-0G
-	for mharc-qemu-rust@gnu.org; Thu, 23 Jan 2025 00:59:49 -0500
+	id 1tasDw-0001k4-Bu
+	for mharc-qemu-rust@gnu.org; Thu, 23 Jan 2025 03:06:00 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1taqFn-00039e-7a; Thu, 23 Jan 2025 00:59:47 -0500
-Received: from mgamail.intel.com ([198.175.65.17])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tasDu-0001jO-5x
+ for qemu-rust@nongnu.org; Thu, 23 Jan 2025 03:05:58 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1taqFl-00060Q-H3; Thu, 23 Jan 2025 00:59:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737611986; x=1769147986;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=4RNSsvyIfyI527p9rN4aht97v6yUbBMyqkIAj23NyVc=;
- b=JtEvMYwasm2T/Ymw3Rp/wu2DZ1TkUCilGdq+5sTByr4utzwTvYL/Bze9
- Zl90Q6lwJxBBE9uOlq5jTMB0OIc+NbWQJaW1q7r6oTcaOXgNpD0fzwmq/
- aHo8m/FSRdDvXaosr6ZhgWGgzsdwfai7lFP6ovk/wuO3sX3e3UnMNSnDE
- KEwIAYdwf+fu+FM88hB0kAHYHwKpL6tPW0JO1H97ZZ/5+qoiMPqQ34z9I
- X+lTb1pJ+I9GEzzkHtEpO9v0kKsjFWjDEmckrhPbZlyn4QHpBVW9vGgtw
- zoox0fKT5W2DsqgkW3/+JPa9Dd0HenT3xBnyJeSmSchI5biEfVqwlh9Kb g==;
-X-CSE-ConnectionGUID: xyuqskLUTc6xBlgsA1oVGQ==
-X-CSE-MsgGUID: te5g/gGMRAuF98A86AEihA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11323"; a="38126781"
-X-IronPort-AV: E=Sophos;i="6.13,227,1732608000"; d="scan'208";a="38126781"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2025 21:59:44 -0800
-X-CSE-ConnectionGUID: zAaWcYM9SsWUTPu80laYkQ==
-X-CSE-MsgGUID: tddI6TDsTqC/rnt+lgiZAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="107792977"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa007.jf.intel.com with ESMTP; 22 Jan 2025 21:59:42 -0800
-Date: Thu, 23 Jan 2025 14:19:04 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 10/10] rust: qdev: make reset take a shared reference
-Message-ID: <Z5HfWANS6cda+fcN@intel.com>
-References: <20250117092657.1051233-1-pbonzini@redhat.com>
- <20250117092657.1051233-11-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tasDs-0007K4-5x
+ for qemu-rust@nongnu.org; Thu, 23 Jan 2025 03:05:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1737619553;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=s0z8ILOTcINTa/TqyvCpAwADN3NaOl6SkqeH4X0ef9Q=;
+ b=IpA5vw9PeFVaUOAG127MxnWdwg5DdQA097pBBqvOicA+GP+Km4mYbOfBxgXWTWwrKfo4F1
+ XHLLCV5+MzT5bSXMt9cvqyZpNV383g00lb9ua9X9eoMNomq9BKDMNdfEG1phKhIFeSyPSY
+ sXHnE940uJK9UprIvQw1t/PkTdVug7M=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-586-hQQZGwePNuG5zUSYjQyxmw-1; Thu, 23 Jan 2025 03:05:48 -0500
+X-MC-Unique: hQQZGwePNuG5zUSYjQyxmw-1
+X-Mimecast-MFC-AGG-ID: hQQZGwePNuG5zUSYjQyxmw
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-3862e986d17so225513f8f.3
+ for <qemu-rust@nongnu.org>; Thu, 23 Jan 2025 00:05:48 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737619547; x=1738224347;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=s0z8ILOTcINTa/TqyvCpAwADN3NaOl6SkqeH4X0ef9Q=;
+ b=hVSO4TW8ZJDEw9wPMsuBND9aOSdastedIrwlo4VAFTuIK71rUFK99EryMfM+l2+v0m
+ G3BhUZVSuqdRC21LM3wqQB1Zyoz2sf8mMsR0vB1o/MhMYNMIzL8bwtA36gKFb+3ZEl0L
+ xJxGRwWU9bzrXD062Ze/CA+qpQOx/Qdbxlc3QBMKUyxSZ/xYZzFx0da/TFqhaibgDX9O
+ zE0N33IetIWDGpepZgq2YoVAhzAQftQMhdfozVGxtfSdTjS0oqKZLunEKGs0LHIoJklr
+ yDzE877kyC+ov6pa8D6JJyGa9Lwwlze3urqeFuTcG+pHl7ec9mdTepIwy9GA6ofyROu3
+ Bj/w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWyz5M8aNTIvX9riBD5suFTtBtAyKlBN0xdWvJI4VhFYq2SjOr1PiU5G6AN+FNgBoUlJG5xkVF4v5o=@nongnu.org
+X-Gm-Message-State: AOJu0YzjooCoZ6kOhVmtN+38ZVEFDUF4r4yjuPdAryMI8qG1aMaWfNw7
+ V1CGZAK1FxEmJoJw730GMNMjnwFkuhZJgtItmQ6faY7zGAeAufgClK6bBVcpBRE40SBuk8NPNOt
+ kzvTYOAdXYJNXy/VRyiGn66Uz3dZuvfTdKQX0nL+GqIjaEGObi7/WOVieW3dUjJwBa6cHenilSx
+ L/2qduXK6tkkd62NlP7FhjwLzqSA==
+X-Gm-Gg: ASbGnctSwPAPCGZCgM5dmUVn8GXjQzncq1Xp7Cqs4C2iMcCq2ySFwswajhvrdAUxBSd
+ CgrnqVzUAQ0UoeleYFMIOIUTBFNcxMmpmlAb5BHy+VfiLD6+Dkws=
+X-Received: by 2002:a05:6000:4012:b0:38a:9f27:838c with SMTP id
+ ffacd0b85a97d-38bf57ce8b8mr21778889f8f.55.1737619547301; 
+ Thu, 23 Jan 2025 00:05:47 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHtUIRVQrFKXj+YTwBprlYRlz3QDkPaM+H7i6onXfiZmJ76ipmSp/rK6nZjV9NTEs0bU545Hu8y55fL13IfgUc=
+X-Received: by 2002:a05:6000:4012:b0:38a:9f27:838c with SMTP id
+ ffacd0b85a97d-38bf57ce8b8mr21778856f8f.55.1737619546879; Thu, 23 Jan 2025
+ 00:05:46 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250117092657.1051233-11-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.17; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -73
-X-Spam_score: -7.4
-X-Spam_bar: -------
-X-Spam_report: (-7.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
+References: <20250117092657.1051233-1-pbonzini@redhat.com>
+ <20250117092657.1051233-8-pbonzini@redhat.com>
+ <Z5HX2G0+bt+3vzVB@intel.com>
+In-Reply-To: <Z5HX2G0+bt+3vzVB@intel.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Thu, 23 Jan 2025 09:05:34 +0100
+X-Gm-Features: AWEUYZlY9lco2vho1KVgBFpiF_ZI6lrdz3KBE9aiZn1pk37Gl-Z7_N5xK02MAC8
+Message-ID: <CABgObfYRG-BFGj3cK4xz_PZYSiVgCY-YkSJitQMSk=2AtkcBcA@mail.gmail.com>
+Subject: Re: [PATCH 07/10] rust: pl011: wrap registers with BqlRefCell
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: DhCsWr2_2O9IXkoGOXCWQNriwD0ahg2g06_7VUFKIio_1737619547
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/alternative; boundary="000000000000d8d900062c5b13e9"
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -50
+X-Spam_score: -5.1
+X-Spam_bar: -----
+X-Spam_report: (-5.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_MSPIKE_H2=-0.043,
+ HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.043,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -69,24 +94,304 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Jan 2025 05:59:47 -0000
+X-List-Received-Date: Thu, 23 Jan 2025 08:05:58 -0000
 
-On Fri, Jan 17, 2025 at 10:26:57AM +0100, Paolo Bonzini wrote:
-> Date: Fri, 17 Jan 2025 10:26:57 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 10/10] rust: qdev: make reset take a shared reference
-> X-Mailer: git-send-email 2.47.1
-> 
-> Because register reset is within a borrow_mut() call, reset
-> does not need anymore a mut reference to the PL011State.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/hw/char/pl011/src/device.rs | 4 ++--
->  rust/qemu-api/src/qdev.rs        | 2 +-
->  2 files changed, 3 insertions(+), 3 deletions(-)
-> 
+--000000000000d8d900062c5b13e9
+Content-Type: text/plain; charset="UTF-8"
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+Il gio 23 gen 2025, 06:27 Zhao Liu <zhao1.liu@intel.com> ha scritto:
+
+> On Fri, Jan 17, 2025 at 10:26:54AM +0100, Paolo Bonzini wrote:
+> > Date: Fri, 17 Jan 2025 10:26:54 +0100
+> > From: Paolo Bonzini <pbonzini@redhat.com>
+> > Subject: [PATCH 07/10] rust: pl011: wrap registers with BqlRefCell
+> > X-Mailer: git-send-email 2.47.1
+> >
+> > This is a step towards making memory ops use a shared reference to the
+> > device type; it's not yet possible due to the calls to character device
+> > functions.
+> >
+> > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> > ---
+> >  rust/hw/char/pl011/src/device.rs       | 38 +++++++++++++-------------
+> >  rust/hw/char/pl011/src/device_class.rs |  8 +++---
+> >  rust/hw/char/pl011/src/memory_ops.rs   |  2 +-
+> >  3 files changed, 24 insertions(+), 24 deletions(-)
+> >
+> > diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/
+> device.rs
+> > index 476abe765a9..1d3da59e481 100644
+> > --- a/rust/hw/char/pl011/src/device.rs
+> > +++ b/rust/hw/char/pl011/src/device.rs
+> > @@ -102,14 +102,14 @@ pub struct PL011Registers {
+> >  }
+> >
+> >  #[repr(C)]
+> > -#[derive(Debug, qemu_api_macros::Object, qemu_api_macros::offsets)]
+>
+> This is the issue I also met, so why not drive "Debug" for BqlRefCell?
+>
+
+Because it is not entirely possible to do it safely--there could be
+outstanding borrows that break invariants and cause debug() to fail. Maybe
+we could implement it on BqlRefCell<PL011Registers> with a custom derive
+macro...
+
+RefCell doesn't implement Debug either for the same reason.
+
+I tried to do this in [*]. Do we need to reconsider this?
+>
+> [*]:
+> https://lore.kernel.org/qemu-devel/20241205060714.256270-3-zhao1.liu@intel.com/
+>
+> > +#[derive(qemu_api_macros::Object, qemu_api_macros::offsets)]
+> >  /// PL011 Device Model in QEMU
+> >  pub struct PL011State {
+> >      pub parent_obj: ParentField<SysBusDevice>,
+> >      pub iomem: MemoryRegion,
+> >      #[doc(alias = "chr")]
+> >      pub char_backend: CharBackend,
+> > -    pub regs: PL011Registers,
+> > +    pub regs: BqlRefCell<PL011Registers>,
+>
+> This is a good example on the usage of BqlRefCell!
+>
+> //! `BqlRefCell` is best suited for data that is primarily accessed by the
+> //! device's own methods, where multiple reads and writes can be grouped
+> within
+> //! a single borrow and a mutable reference can be passed around. "
+>
+
+Yeah, the comment was inspired by this usage and not vice versa. :D
+
+>      /// QEMU interrupts
+> >      ///
+> >      /// ```text
+> > @@ -530,8 +530,8 @@ fn post_init(&self) {
+> >          }
+> >      }
+> >
+> > +    #[allow(clippy::needless_pass_by_ref_mut)]
+>
+> How did you trigger this lint error? I switched to 1.84 and didn't get
+> any errors (I noticed that 1.84 fixed the issue of ignoring `self` [*],
+> but it still doesn't seem to work on my side).
+>
+
+I will double check. But I do see that there is no mut access inside, at
+least not until the qemu_chr_fe_accept_input() is moved here. Unfortunately
+until all MemoryRegion and CharBackend bindings are available the uses of
+&mut and the casts to *mut are really really wonky.
+
+(On the other hand it wouldn't be possible to have a grip on the qemu_api
+code without users).
+
+Paolo
+
+> @@ -603,19 +603,19 @@ pub fn realize(&mut self) {
+> >      }
+> >
+> >      pub fn reset(&mut self) {
+>
+> In principle, this place should also trigger `needless_pass_by_ref_mut`.
+>
+
+Yes but clippy hides it because this function is assigned to a function
+pointer const. At least I think so---the point is more generally that you
+can't change &mut to & without breaking compilation.
+
+
+> > -        self.regs.reset();
+> > +        self.regs.borrow_mut().reset();
+> >      }
+>
+> [snip]
+>
+> > @@ -657,10 +657,10 @@ pub fn post_load(&mut self, _version_id: u32) ->
+> Result<(), ()> {
+> >  pub unsafe extern "C" fn pl011_receive(opaque: *mut c_void, buf: *const
+> u8, size: c_int) {
+> >      unsafe {
+> >          debug_assert!(!opaque.is_null());
+> > -        let mut state =
+> NonNull::new_unchecked(opaque.cast::<PL011State>());
+> > +        let state = NonNull::new_unchecked(opaque.cast::<PL011State>());
+>
+> Perhaps we can use NonNull::new and unwrap()? Then debug_assert! is
+> unnecessary.
+>
+> let state = unsafe {
+> NonNull::new(opaque.cast::<PL011State>()).unwrap().as_ref() };
+>
+
+Yeah, though that's preexisting and it's code that will go away relatively
+soon. I tried to minimize unrelated changes and changes to these temporary
+unsafe functions, but in some cases there were some that sneaked in.
+
+Let me know what you prefer.
+
+Paolo
+
+--000000000000d8d900062c5b13e9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
+ner"><div dir=3D"ltr" class=3D"gmail_attr">Il gio 23 gen 2025, 06:27 Zhao L=
+iu &lt;<a href=3D"mailto:zhao1.liu@intel.com">zhao1.liu@intel.com</a>&gt; h=
+a scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
+px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Fr=
+i, Jan 17, 2025 at 10:26:54AM +0100, Paolo Bonzini wrote:<br>
+&gt; Date: Fri, 17 Jan 2025 10:26:54 +0100<br>
+&gt; From: Paolo Bonzini &lt;<a href=3D"mailto:pbonzini@redhat.com" target=
+=3D"_blank" rel=3D"noreferrer">pbonzini@redhat.com</a>&gt;<br>
+&gt; Subject: [PATCH 07/10] rust: pl011: wrap registers with BqlRefCell<br>
+&gt; X-Mailer: git-send-email 2.47.1<br>
+&gt; <br>
+&gt; This is a step towards making memory ops use a shared reference to the=
+<br>
+&gt; device type; it&#39;s not yet possible due to the calls to character d=
+evice<br>
+&gt; functions.<br>
+&gt; <br>
+&gt; Signed-off-by: Paolo Bonzini &lt;<a href=3D"mailto:pbonzini@redhat.com=
+" target=3D"_blank" rel=3D"noreferrer">pbonzini@redhat.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 rust/hw/char/pl011/src/<a href=3D"http://device.rs" rel=3D"noref=
+errer noreferrer" target=3D"_blank">device.rs</a>=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0| 38 +++++++++++++-------------<br>
+&gt;=C2=A0 rust/hw/char/pl011/src/<a href=3D"http://device_class.rs" rel=3D=
+"noreferrer noreferrer" target=3D"_blank">device_class.rs</a> |=C2=A0 8 +++=
+---<br>
+&gt;=C2=A0 rust/hw/char/pl011/src/<a href=3D"http://memory_ops.rs" rel=3D"n=
+oreferrer noreferrer" target=3D"_blank">memory_ops.rs</a>=C2=A0 =C2=A0|=C2=
+=A0 2 +-<br>
+&gt;=C2=A0 3 files changed, 24 insertions(+), 24 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/rust/hw/char/pl011/src/<a href=3D"http://device.rs" rel=
+=3D"noreferrer noreferrer" target=3D"_blank">device.rs</a> b/rust/hw/char/p=
+l011/src/<a href=3D"http://device.rs" rel=3D"noreferrer noreferrer" target=
+=3D"_blank">device.rs</a><br>
+&gt; index 476abe765a9..1d3da59e481 100644<br>
+&gt; --- a/rust/hw/char/pl011/src/<a href=3D"http://device.rs" rel=3D"noref=
+errer noreferrer" target=3D"_blank">device.rs</a><br>
+&gt; +++ b/rust/hw/char/pl011/src/<a href=3D"http://device.rs" rel=3D"noref=
+errer noreferrer" target=3D"_blank">device.rs</a><br>
+&gt; @@ -102,14 +102,14 @@ pub struct PL011Registers {<br>
+&gt;=C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 #[repr(C)]<br>
+&gt; -#[derive(Debug, qemu_api_macros::Object, qemu_api_macros::offsets)]<b=
+r>
+<br>
+This is the issue I also met, so why not drive &quot;Debug&quot; for BqlRef=
+Cell?<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"a=
+uto">Because it is not entirely possible to do it safely--there could be ou=
+tstanding borrows that break invariants and cause debug() to fail. Maybe we=
+ could implement it on BqlRefCell&lt;PL011Registers&gt; with a custom deriv=
+e macro...</div><div dir=3D"auto"><br></div><div dir=3D"auto">RefCell doesn=
+&#39;t implement Debug either for the same reason.</div><div dir=3D"auto"><=
+br></div><div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_container"=
+><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
+-left:1px solid rgb(204,204,204);padding-left:1ex">
+I tried to do this in [*]. Do we need to reconsider this?<br>
+<br>
+[*]: <a href=3D"https://lore.kernel.org/qemu-devel/20241205060714.256270-3-=
+zhao1.liu@intel.com/" rel=3D"noreferrer noreferrer" target=3D"_blank">https=
+://lore.kernel.org/qemu-devel/20241205060714.256270-3-zhao1.liu@intel.com/<=
+/a><br>
+<br>
+&gt; +#[derive(qemu_api_macros::Object, qemu_api_macros::offsets)]<br>
+&gt;=C2=A0 /// PL011 Device Model in QEMU<br>
+&gt;=C2=A0 pub struct PL011State {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 pub parent_obj: ParentField&lt;SysBusDevice&gt;,<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 pub iomem: MemoryRegion,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 #[doc(alias =3D &quot;chr&quot;)]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 pub char_backend: CharBackend,<br>
+&gt; -=C2=A0 =C2=A0 pub regs: PL011Registers,<br>
+&gt; +=C2=A0 =C2=A0 pub regs: BqlRefCell&lt;PL011Registers&gt;,<br>
+<br>
+This is a good example on the usage of BqlRefCell!<br>
+<br>
+//! `BqlRefCell` is best suited for data that is primarily accessed by the<=
+br>
+//! device&#39;s own methods, where multiple reads and writes can be groupe=
+d within<br>
+//! a single borrow and a mutable reference can be passed around. &quot;<br=
+></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Yea=
+h, the comment was inspired by this usage and not vice versa. :D</div><div =
+dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote gmail_qu=
+ote_container"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
+x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+&gt;=C2=A0 =C2=A0 =C2=A0 /// QEMU interrupts<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 ///<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 /// ```text<br>
+&gt; @@ -530,8 +530,8 @@ fn post_init(&amp;self) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; +=C2=A0 =C2=A0 #[allow(clippy::needless_pass_by_ref_mut)]<br>
+<br>
+How did you trigger this lint error? I switched to 1.84 and didn&#39;t get<=
+br>
+any errors (I noticed that 1.84 fixed the issue of ignoring `self` [*],<br>
+but it still doesn&#39;t seem to work on my side).<br></blockquote></div></=
+div><div dir=3D"auto"><br></div><div dir=3D"auto">I will double check. But =
+I do see that there is no mut access inside, at least not until the qemu_ch=
+r_fe_accept_input() is moved here. Unfortunately until all MemoryRegion and=
+ CharBackend bindings are available the uses of &amp;mut and the casts to *=
+mut are really really wonky.</div><div dir=3D"auto"><br></div><div dir=3D"a=
+uto">(On the other hand it wouldn&#39;t be possible to have a grip on the q=
+emu_api code without users).</div><div dir=3D"auto"><br></div><div dir=3D"a=
+uto">Paolo</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D=
+"gmail_quote gmail_quote_container"><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">
+&gt; @@ -603,19 +603,19 @@ pub fn realize(&amp;mut self) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 pub fn reset(&amp;mut self) {<br>
+<br>
+In principle, this place should also trigger `needless_pass_by_ref_mut`.<br=
+></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Yes=
+ but clippy hides it because this function is assigned to a function pointe=
+r const. At least I think so---the point is more generally that you can&#39=
+;t change &amp;mut to &amp; without breaking compilation.</div><div dir=3D"=
+auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_con=
+tainer"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 self.regs.reset();<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 self.regs.borrow_mut().reset();<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
+[snip]<br>
+<br>
+&gt; @@ -657,10 +657,10 @@ pub fn post_load(&amp;mut self, _version_id: u32=
+) -&gt; Result&lt;(), ()&gt; {<br>
+&gt;=C2=A0 pub unsafe extern &quot;C&quot; fn pl011_receive(opaque: *mut c_=
+void, buf: *const u8, size: c_int) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 unsafe {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 debug_assert!(!opaque.is_null());<br=
+>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 let mut state =3D NonNull::new_unchecked(=
+opaque.cast::&lt;PL011State&gt;());<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 let state =3D NonNull::new_unchecked(opaq=
+ue.cast::&lt;PL011State&gt;());<br>
+<br>
+Perhaps we can use NonNull::new and unwrap()? Then debug_assert! is<br>
+unnecessary.<br>
+<br>
+let state =3D unsafe { NonNull::new(opaque.cast::&lt;PL011State&gt;()).unwr=
+ap().as_ref() };<br></blockquote></div></div><div dir=3D"auto"><br></div><d=
+iv dir=3D"auto">Yeah, though that&#39;s preexisting and it&#39;s code that =
+will go away relatively soon. I tried to minimize unrelated changes and cha=
+nges to these temporary unsafe functions, but in some cases there were some=
+ that sneaked in.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Let me=
+ know what you prefer.</div><div dir=3D"auto"><br></div><div dir=3D"auto">P=
+aolo</div></div>
+
+--000000000000d8d900062c5b13e9--
 
 
