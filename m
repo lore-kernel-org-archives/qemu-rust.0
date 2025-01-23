@@ -1,129 +1,60 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1taeWv-0000lf-3Z
-	for mharc-qemu-rust@gnu.org; Wed, 22 Jan 2025 12:28:41 -0500
+	id 1tanqV-0001yl-De
+	for mharc-qemu-rust@gnu.org; Wed, 22 Jan 2025 22:25:31 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1taeWt-0000lV-Jf
- for qemu-rust@nongnu.org; Wed, 22 Jan 2025 12:28:39 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tanqN-0001xM-Jz; Wed, 22 Jan 2025 22:25:24 -0500
+Received: from mgamail.intel.com ([192.198.163.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1taeWo-0003gK-9m
- for qemu-rust@nongnu.org; Wed, 22 Jan 2025 12:28:39 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1737566912;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=INZM1f1/nzdZchas4RooMRok0z3xAteaBOVK50milpQ=;
- b=Bc5XQBgWSZilGamOfJ4orP2h5kjAcXgfeaKEmbu9PNmGqcsUsyc0xnibdxh3jyhDYK3d+w
- 8snueWJ7neLXyddueRb6TbK/oGsQm24D5mOKudfDGgPi6Cpy/vEcbAyKJSSGX4echlzTpj
- mRgrPeQyZ+ZOc6sNPktXC02jnzYOxzk=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-564-JJN5XjeSOjCYzNOO44yxng-1; Wed, 22 Jan 2025 12:28:31 -0500
-X-MC-Unique: JJN5XjeSOjCYzNOO44yxng-1
-X-Mimecast-MFC-AGG-ID: JJN5XjeSOjCYzNOO44yxng
-Received: by mail-ed1-f71.google.com with SMTP id
- 4fb4d7f45d1cf-5d3ded861f5so14912a12.2
- for <qemu-rust@nongnu.org>; Wed, 22 Jan 2025 09:28:31 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737566910; x=1738171710;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=INZM1f1/nzdZchas4RooMRok0z3xAteaBOVK50milpQ=;
- b=aPQofBiIQhucCjxaOzMKMQEbVjY/N/VUp1wc9MzESnGT480tnjHaUqa5u4Ms7ktVgG
- VEkKQmUvtrzfNwDYdKi2JHbMfpLQ/YXJAPlVxQi1ylvk7rbjZX5JGPu9Bwrxrj8xTXul
- VyQSVCEosdpmYnp8RnBlKttZu2rNdwADP/gVeg6QCK2UbT9zJMPtHEuh0aiawDy3RrSg
- GAj+qC6j45Oh5GFfFspa5TPiTK6d2TH4REOXPJVZ/SyE1w6wW5gc8xffRp2p57wvsAH/
- zW0p95+q9NxvKqlL9wO54LPdlzXP1XzvsLcmV6gpPlhv6TkkTMeSs6mfSdfYzX7pXPvC
- HJPg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWNvKkezeKIHQT3i0BDWYce638sE3M1SpXeu2A2V3Z6VsmfL8NlWydaPrErzkeYln/CWwbjFPETUGs=@nongnu.org
-X-Gm-Message-State: AOJu0Yzmo2kFCYp7EWy/c7cFX69AKH0LvtgjNeVN8dW/le1JM9ZTzjOC
- /E/JK6aCEqBPQtikIFlV1SDVc0cP4zZrsAhagauexivfU8cdUSAktlcKcADT2z2nOGI6JATRHaV
- 7xERWG6F2BRGDow2RrpjEXtkI7ucRn9pxvi+ck7sAZYZyd4FXsOM=
-X-Gm-Gg: ASbGncvSbrC3mGeW9uD44uBvpetHTbJWEtXQlgC6VwActT44Q4kPwekgU8kVnT90py8
- mpTlZ04T9cx453rzWvo2Lhk9ghI+6L2m9E5K/GdlwggdWftuxUBrdBznPF8OGLo28sO4VGecpUW
- y7+0ajhHbpbeheB/UP7o4ZVaRlKT0kZRRkiU9g14P0Une2zp3fCWW3XEUPG9Oxf28rmqDyT4taw
- 7BAIXAH83MaXwQr3yYlzndt6AFIogPhSg2KLHCWGLNh8laUVVfEKqf3M8k1NC2cH0CCrVFlN0g=
-X-Received: by 2002:a05:6402:42d6:b0:5d9:f9b8:e7e5 with SMTP id
- 4fb4d7f45d1cf-5db7d300368mr22894404a12.15.1737566909489; 
- Wed, 22 Jan 2025 09:28:29 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHm17iHgsEOMiNm8qTq3y6IjMGjRta+JkCdmC6XfzKLAEXaKPTJfmKwocUDiVbQH/5jcyT9nw==
-X-Received: by 2002:a05:6402:42d6:b0:5d9:f9b8:e7e5 with SMTP id
- 4fb4d7f45d1cf-5db7d300368mr22894288a12.15.1737566907626; 
- Wed, 22 Jan 2025 09:28:27 -0800 (PST)
-Received: from [192.168.10.47] ([176.206.124.70])
- by smtp.googlemail.com with ESMTPSA id
- 4fb4d7f45d1cf-5db73670ddesm8999744a12.21.2025.01.22.09.28.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Jan 2025 09:28:27 -0800 (PST)
-Message-ID: <6b30a54a-c196-48d5-9003-ad9cb69a830a@redhat.com>
-Date: Wed, 22 Jan 2025 18:28:24 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/10] rust: vmstate: implement VMState for scalar types
-To: Zhao Liu <zhao1.liu@intel.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tanqK-0007oh-El; Wed, 22 Jan 2025 22:25:22 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1737602721; x=1769138721;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=hIuggwS8LttmgUG+c9Sg/8e9bPRYZ5hol/G0goAP4Ws=;
+ b=NzFul1n94+WCzDsFjGOvLAVZP4f7Y6YuHIOwILWhkL5ObgjVK6wNcIlo
+ E83zD4hO8c0/4CmsbCuiyji8aUwcNOvsfdNxEBpB0Nr7s5HgZHSeaz1A1
+ c5DZ/lAsz39Y+LtVZ6zQiOIse/dhFnm2chNoxHLrN3dNxUtf1W1vFF1VK
+ aAsQrEzypqX+y0J6T/spqAaHTeSK96xWwItaCWUOqJt29U9rV83jVjJm4
+ s/XOzZPF3kP9xKV7i3zxw+jsygsdDjoiAtuchTchVxrhsE4TeBK7HB+tX
+ XKjzquJqwyyan6IniVx50YI26NjPBCfn36s/5qVAn6CxBOnIu6bvsv+xI w==;
+X-CSE-ConnectionGUID: zojbp44CRbiy7S7pAsEMRA==
+X-CSE-MsgGUID: oBlCFFTmQFOpDfu6MeYmwg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11323"; a="25687667"
+X-IronPort-AV: E=Sophos;i="6.13,227,1732608000"; d="scan'208";a="25687667"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2025 19:25:16 -0800
+X-CSE-ConnectionGUID: 6DnP22rGR52bfR9yqUbNlA==
+X-CSE-MsgGUID: 30HWyjWeTbSbIuPFBBvgUw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="111352544"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa003.fm.intel.com with ESMTP; 22 Jan 2025 19:25:06 -0800
+Date: Thu, 23 Jan 2025 11:44:28 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-References: <20250117090046.1045010-1-pbonzini@redhat.com>
- <20250117090046.1045010-6-pbonzini@redhat.com> <Z5DlngFjERVqmxca@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <Z5DlngFjERVqmxca@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: tiUTOqkQxbwWxWqf0cpL6mR3EQk210ivb4rZxDsGmas_1737566910
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -50
-X-Spam_score: -5.1
-X-Spam_bar: -----
-X-Spam_report: (-5.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
+Subject: Re: [PATCH 06/10] rust: pl011: extract PL011Registers
+Message-ID: <Z5G7HOjOfvE9+810@intel.com>
+References: <20250117092657.1051233-1-pbonzini@redhat.com>
+ <20250117092657.1051233-7-pbonzini@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250117092657.1051233-7-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.16; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -73
+X-Spam_score: -7.4
+X-Spam_bar: -------
+X-Spam_report: (-7.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_MSPIKE_H2=-0.043, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -138,83 +69,26 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Jan 2025 17:28:39 -0000
+X-List-Received-Date: Thu, 23 Jan 2025 03:25:28 -0000
 
-On 1/22/25 13:33, Zhao Liu wrote:
-> On Fri, Jan 17, 2025 at 10:00:41AM +0100, Paolo Bonzini wrote:
->> Date: Fri, 17 Jan 2025 10:00:41 +0100
->> From: Paolo Bonzini <pbonzini@redhat.com>
->> Subject: [PATCH 05/10] rust: vmstate: implement VMState for scalar types
->> X-Mailer: git-send-email 2.47.1
->>
->> Scalar types are those that have their own VMStateInfo.  This poses
->> a problem in that references to VMStateInfo can only be included in
->> associated consts starting with Rust 1.83.0, when the const_refs_static
->> was stabilized.  Removing the requirement is done by placing a limited
->> list of VMStateInfos in an enum, and going from enum to &VMStateInfo
->> only when building the VMStateField.
->>
->> The same thing cannot be done with VMS_STRUCT because the set of
->> VMStateDescriptions extends to structs defined by the devices.
->> Therefore, structs and cells cannot yet use vmstate_of!.
->>
->> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
->> ---
->>   rust/qemu-api/src/vmstate.rs | 128 ++++++++++++++++++++++++++++++++++-
->>   1 file changed, 126 insertions(+), 2 deletions(-)
-> 
-> 
->>   /// Internal utility function to retrieve a type's `VMStateField`;
->>   /// used by [`vmstate_of!`](crate::vmstate_of).
->>   pub const fn vmstate_base<T: VMState>(_: PhantomData<T>) -> VMStateField {
->> @@ -99,6 +178,15 @@ pub const fn vmstate_varray_flag<T: VMState>(_: PhantomData<T>) -> VMStateField
->>   /// Return the `VMStateField` for a field of a struct.  The field must be
->>   /// visible in the current scope.
->>   ///
->> +/// Only a limited set of types is supported out of the box:
->> +/// * scalar types (integer and `bool`)
->> +/// * the C struct `QEMUTimer`
->> +/// * a transparent wrapper for any of the above (`Cell`, `UnsafeCell`,
->> +///   [`BqlCell`](crate::cell::BqlCell), [`BqlRefCell`](crate::cell::BqlRefCell)
->> +/// * a raw pointer to any of the above
->> +/// * a `NonNull` pointer to any of the above, possibly wrapped with `Option`
-> 
-> I just found your rust-next has already updated and removed `Option` :-)
-> 
->> +/// * an array of any of the above
->> +///
->>   /// In order to support other types, the trait `VMState` must be implemented
->>   /// for them.
->>   #[macro_export]
->> @@ -109,8 +197,14 @@ macro_rules! vmstate_of {
->>                   .as_bytes()
->>                   .as_ptr() as *const ::std::os::raw::c_char,
->>               offset: $crate::offset_of!($struct_name, $field_name),
->> -            // Compute most of the VMStateField from the type of the field.
-> 
-> Rebase mistake? This comment seems no need to be deleted.
+> --- a/rust/hw/char/pl011/src/device_class.rs
+> +++ b/rust/hw/char/pl011/src/device_class.rs
+> @@ -6,11 +6,11 @@
+>  use std::os::raw::{c_int, c_void};
+>  
+>  use qemu_api::{
+> -    bindings::*, c_str, vmstate_clock, vmstate_fields, vmstate_of, vmstate_subsections,
+> -    vmstate_unused, zeroable::Zeroable,
+> +    bindings::*, c_str, vmstate_clock, vmstate_fields, vmstate_of, vmstate_struct,
 
-It's moved below because there's now more than one call_func_with_field 
-call.  I can make it so that the phrasing and placement remains the same 
-throughout the series.
+Oops, I forgot to clean up this bindings::*.
 
-Paolo
+> +    vmstate_subsections, vmstate_unused, zeroable::Zeroable,
+>  };
+>  
 
->>               $(.num_offset: $crate::offset_of!($struct_name, $num),)?
->> +            // The calls to `call_func_with_field!` are the magic that
->> +            // computes most of the VMStateField from the type of the field.
->> +            info: $crate::info_enum_to_ref!($crate::call_func_with_field!(
->> +                $crate::vmstate::vmstate_scalar_type,
->> +                $struct_name,
->> +                $field_name
->> +            )),
->>
-> 
-> Only a nit above,
-> 
-> Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
-> 
-> 
-> 
+Very good example!
+
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
