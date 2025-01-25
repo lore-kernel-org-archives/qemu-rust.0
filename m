@@ -1,66 +1,80 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tbfLN-0008ME-3X
-	for mharc-qemu-rust@gnu.org; Sat, 25 Jan 2025 07:32:57 -0500
+	id 1tbjUs-0003wQ-ST
+	for mharc-qemu-rust@gnu.org; Sat, 25 Jan 2025 11:59:03 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tbfLL-0008LB-RF; Sat, 25 Jan 2025 07:32:55 -0500
-Received: from mgamail.intel.com ([198.175.65.18])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tbfLK-0005Un-72; Sat, 25 Jan 2025 07:32:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737808374; x=1769344374;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Ngo80kE7rdcQaPMVlhyywcWW9dcxu3fWW0S2k8Zk7ic=;
- b=dXq/BK82zL3OWUJvdydzxZMJceyg65Ox4Iq3xo9wXiXS6u5yKUUybCnj
- YkZ6AUwSl3N/npiTogLH467RoHonuVpG/RoWYImzEvh+TUmazA2UuvFZJ
- pdxwyTvnrGzjG+X3WOhsArd+BstHotANn1lw1oX2YVD5aHWLF4FtxJ0yz
- iOYNsdxHQMb/pJlWh5bLY0yd6DoMgacwkTp0NumUnlJ3R8EjyV1DF3HEe
- aVOg8adMKKKEem86h0Sd34HzYDxzgng9BWnUIQOD97VVopttWV7xZ4bvr
- XtfEFJquN6C1PTaVqaMD0xmMeOUVpm6NYKZAHAFeSWWDbhKBBJXQtz+xk Q==;
-X-CSE-ConnectionGUID: vXFvvfwqQ5mnLHuqdpF1lg==
-X-CSE-MsgGUID: SWOjgJBpQW2DMxrUTJPmkA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="38434740"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="38434740"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2025 04:32:53 -0800
-X-CSE-ConnectionGUID: crK7dXFeRk68l3QCaBbnYg==
-X-CSE-MsgGUID: wqSB+Gn2Tdy+Q9CUgdH6pA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,234,1732608000"; d="scan'208";a="107897789"
-Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa007.fm.intel.com with ESMTP; 25 Jan 2025 04:32:50 -0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tbjUr-0003wA-FE
+ for qemu-rust@nongnu.org; Sat, 25 Jan 2025 11:59:01 -0500
+Received: from mail-wm1-x330.google.com ([2a00:1450:4864:20::330])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tbjUq-0008Nk-0n
+ for qemu-rust@nongnu.org; Sat, 25 Jan 2025 11:59:01 -0500
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4363dc916ceso26609785e9.0
+ for <qemu-rust@nongnu.org>; Sat, 25 Jan 2025 08:58:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1737824337; x=1738429137; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vl8eHc07qy9w4iSjn1hsKOzQrxEbvrS/cmwezgpPirA=;
+ b=HENe/ZT4HhAQ2JqJnAxYKmTyzHItT2iBPjsuTdPzp6OYGyBueJGISM/RBSZcEDNioP
+ /pGanoVQrdvqJ8DW3cAEOfjfqSXnWc1bCSEAX5iPWd/bQdOB1dirB7ppSc+HUtjUGOJ7
+ SR3AMg6V90z9QpKUrLCgYy1wD132hURh3QxpkE8JtnS11aOi/vGpJlxIadYgvB2w+L0P
+ bkoiRadog4rT14ScyrD+83pOzGbHPOeIZs1dLwcFJZwge8wRkiKpACyMQpUpbiUn7lQ5
+ uL31B8f5htXuvxJuuSDLcfNEquduh4xt3zq2yjW71cBKc3qIfiX3GWCul789u4wDHSdo
+ XNZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737824337; x=1738429137;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=vl8eHc07qy9w4iSjn1hsKOzQrxEbvrS/cmwezgpPirA=;
+ b=XOPxTGVQs6a5M8p54oY/K2j+U/A0h+yEaaQKPda+Grl9GthoIg7hs4l+phTDgYKNly
+ uCiWWANDMMcHYSgyrcpWPti4/Mfq/T5Pi1SfyDXxQZCQoVRTS587vq2gFIsFQ+pq4OLK
+ vOV7T/W00eyhsn7tF4XzV8elIkmxIOUQ0bpLebw3yog5C5fgnh1GU6Csek9QyV9IkV7U
+ MpOyBWoKKrVZtosloTOd2I8FLhZ0W2YCmRPkZ4wedc9Kg5oqllzCUbrIfFg5VXWqzRWz
+ A/2+ZjMZeQVTP0RrZ8iUZ4gT9x6gC4d9pq7ORmMEqlSmF4Cc1wDGkjw5wAZmqryCBbW4
+ HupQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVHDiQu/liMGF3+Yjgu2t4y+eZwoAPCijCoKYUHpBmjzyCjSoFPvPnybxTFGXrI6R17zGwJsd/5h8Q=@nongnu.org
+X-Gm-Message-State: AOJu0YyZVlBYxn4TVR2EtlzlDcFBbOyqYISYoY2+1F2LJNG37bYCCyI+
+ HfMbgBeBCdxCLb0JGTjiinvAh5mjWg3cdLJ/Yq/IXvcBp/IpGM3MQM3jlnmK350=
+X-Gm-Gg: ASbGncvIIKh2Q1+8CvAjVzQdnVyjNx8IJxuSOivwax2gWcHdPDUrmMaMZZWpIXwLOwz
+ bZv4NSuAOMMS7uHrQ+0cz/r3N4slz9OkZdKY+83hbqFY7wPjBqx1q6BFAayIa+ubJQYtnND0FtF
+ anNkhJ46kSTtSwybLkCyIPOQHtr4sl18BQbME+doonnUpmr53Jie0ZxKpKoc/hevkU8cGzu5ymR
+ CMIo0VNbv9bKEMGcBOk7wPrmTeqS0HIZ7QkivDHYMun3eBdoFne03Dk/4PxbBf7hOUa1hHJVwJv
+ UNee/6TUgm9t7yiUJVXgkqxkoebf4knW+btkgU0b3sGYXIMFsNtRA9Y=
+X-Google-Smtp-Source: AGHT+IEBRaAZ7+mLdhJjgm9AhOLIgHolcvpDeFIuooGkwxYtBzTJdzM0JjjqkiDmmbyjryWkAxysVg==
+X-Received: by 2002:a05:600c:21d8:b0:434:ea1a:e30c with SMTP id
+ 5b1f17b1804b1-438bd0bca9amr74777855e9.13.1737824337360; 
+ Sat, 25 Jan 2025 08:58:57 -0800 (PST)
+Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38c2a188a77sm6148916f8f.51.2025.01.25.08.58.56
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sat, 25 Jan 2025 08:58:56 -0800 (PST)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+ qemu-rust@nongnu.org, Eduardo Habkost <eduardo@habkost.net>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Junjie Mao <junjie.mao@hotmail.com>,
- =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Richard Henderson <richard.henderson@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>,
- =?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 10/10] i386: enable rust hpet for pc when rust is enabled
-Date: Sat, 25 Jan 2025 20:51:37 +0800
-Message-Id: <20250125125137.1223277-11-zhao1.liu@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250125125137.1223277-1-zhao1.liu@intel.com>
-References: <20250125125137.1223277-1-zhao1.liu@intel.com>
+ Paolo Bonzini <pbonzini@redhat.com>, Markus Armbruster <armbru@redhat.com>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+Subject: [PATCH 0/2] qom: Introduce class_post_init() handler
+Date: Sat, 25 Jan 2025 17:58:53 +0100
+Message-ID: <20250125165855.32168-1-philmd@linaro.org>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=198.175.65.18; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -73
-X-Spam_score: -7.4
-X-Spam_bar: -------
-X-Spam_report: (-7.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.996,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
+Received-SPF: pass client-ip=2a00:1450:4864:20::330;
+ envelope-from=philmd@linaro.org; helo=mail-wm1-x330.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
  T_SCC_BODY_TEXT_LINE=-0.01 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -74,113 +88,23 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Sat, 25 Jan 2025 12:32:56 -0000
+X-List-Received-Date: Sat, 25 Jan 2025 16:59:01 -0000
 
-Add HPET configuration in PC's Kconfig options, and select HPET device
-(Rust version) if Rust is supported.
+Add a class_post_init() handler to be called by parents
+*after* child class_init() handler is called. This is
+necessary to have parent class check children properly
+set some values or mandatory handlers.
 
-Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
----
-Changes since RFC:
- * Fix rust hpet not being optional.
- * Fix bios-tables-test missing rust hpet.
----
- configs/devices/i386-softmmu/default.mak | 1 +
- hw/i386/fw_cfg.c                         | 2 +-
- hw/i386/pc.c                             | 2 +-
- hw/timer/Kconfig                         | 6 +++++-
- rust/hw/Kconfig                          | 1 +
- rust/hw/timer/Kconfig                    | 2 ++
- tests/qtest/meson.build                  | 3 ++-
- 7 files changed, 13 insertions(+), 4 deletions(-)
- create mode 100644 rust/hw/timer/Kconfig
+Philippe Mathieu-Daudé (2):
+  qom: Declare class_base_init() before class_init()
+  qom: Introduce class_post_init() handler
 
-diff --git a/configs/devices/i386-softmmu/default.mak b/configs/devices/i386-softmmu/default.mak
-index 4faf2f0315e2..9ef343cace06 100644
---- a/configs/devices/i386-softmmu/default.mak
-+++ b/configs/devices/i386-softmmu/default.mak
-@@ -6,6 +6,7 @@
- #CONFIG_APPLESMC=n
- #CONFIG_FDC=n
- #CONFIG_HPET=n
-+#CONFIG_X_HPET_RUST=n
- #CONFIG_HYPERV=n
- #CONFIG_ISA_DEBUG=n
- #CONFIG_ISA_IPMI_BT=n
-diff --git a/hw/i386/fw_cfg.c b/hw/i386/fw_cfg.c
-index 546de63123e6..a7d69a49edbf 100644
---- a/hw/i386/fw_cfg.c
-+++ b/hw/i386/fw_cfg.c
-@@ -147,7 +147,7 @@ FWCfgState *fw_cfg_arch_create(MachineState *ms,
- #endif
-     fw_cfg_add_i32(fw_cfg, FW_CFG_IRQ0_OVERRIDE, 1);
- 
--#ifdef CONFIG_HPET
-+#if defined(CONFIG_HPET) || defined(CONFIG_X_HPET_RUST)
-     PCMachineState *pcms =
-         (PCMachineState *)object_dynamic_cast(OBJECT(ms), TYPE_PC_MACHINE);
-     if (pcms && pcms->hpet_enabled) {
-diff --git a/hw/i386/pc.c b/hw/i386/pc.c
-index b46975c8a4db..04554817e021 100644
---- a/hw/i386/pc.c
-+++ b/hw/i386/pc.c
-@@ -1701,7 +1701,7 @@ static void pc_machine_initfn(Object *obj)
-     pcms->sata_enabled = true;
-     pcms->i8042_enabled = true;
-     pcms->max_fw_size = 8 * MiB;
--#ifdef CONFIG_HPET
-+#if defined(CONFIG_HPET) || defined(CONFIG_X_HPET_RUST)
-     pcms->hpet_enabled = true;
- #endif
-     pcms->fd_bootchk = true;
-diff --git a/hw/timer/Kconfig b/hw/timer/Kconfig
-index c96fd5d97ae8..c051597180f4 100644
---- a/hw/timer/Kconfig
-+++ b/hw/timer/Kconfig
-@@ -11,7 +11,11 @@ config A9_GTIMER
- 
- config HPET
-     bool
--    default y if PC
-+    default y if PC && !HAVE_RUST
-+
-+config X_HPET_RUST
-+    bool
-+    default y if PC && HAVE_RUST
- 
- config I8254
-     bool
-diff --git a/rust/hw/Kconfig b/rust/hw/Kconfig
-index 4d934f30afe1..36f92ec02874 100644
---- a/rust/hw/Kconfig
-+++ b/rust/hw/Kconfig
-@@ -1,2 +1,3 @@
- # devices Kconfig
- source char/Kconfig
-+source timer/Kconfig
-diff --git a/rust/hw/timer/Kconfig b/rust/hw/timer/Kconfig
-new file mode 100644
-index 000000000000..afd980335037
---- /dev/null
-+++ b/rust/hw/timer/Kconfig
-@@ -0,0 +1,2 @@
-+config X_HPET_RUST
-+    bool
-diff --git a/tests/qtest/meson.build b/tests/qtest/meson.build
-index 94b28e5a5347..0268c657cc8f 100644
---- a/tests/qtest/meson.build
-+++ b/tests/qtest/meson.build
-@@ -102,7 +102,8 @@ qtests_i386 = \
-    config_all_devices.has_key('CONFIG_VIRTIO_PCI') and                                      \
-    slirp.found() ? ['virtio-net-failover'] : []) +                                          \
-   (unpack_edk2_blobs and                                                                    \
--   config_all_devices.has_key('CONFIG_HPET') and                                            \
-+   (config_all_devices.has_key('CONFIG_HPET') or                                            \
-+    config_all_devices.has_key('CONFIG_X_HPET_RUST')) and                                   \
-    config_all_devices.has_key('CONFIG_PARALLEL') ? ['bios-tables-test'] : []) +             \
-   qtests_pci +                                                                              \
-   qtests_cxl +                                                                              \
+ include/qom/object.h     | 17 ++++++++++-------
+ qom/object.c             | 14 ++++++++++++--
+ rust/qemu-api/src/qom.rs |  8 +++++++-
+ 3 files changed, 29 insertions(+), 10 deletions(-)
+
 -- 
-2.34.1
+2.47.1
 
 
