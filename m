@@ -1,39 +1,39 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tbfLD-0008G9-Ok
-	for mharc-qemu-rust@gnu.org; Sat, 25 Jan 2025 07:32:47 -0500
+	id 1tbfLE-0008GP-6E
+	for mharc-qemu-rust@gnu.org; Sat, 25 Jan 2025 07:32:48 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tbfL7-0008Dm-3h; Sat, 25 Jan 2025 07:32:42 -0500
+ id 1tbfL2-0008DB-F2; Sat, 25 Jan 2025 07:32:37 -0500
 Received: from mgamail.intel.com ([198.175.65.18])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tbfL5-0005Tn-ES; Sat, 25 Jan 2025 07:32:40 -0500
+ id 1tbfKz-0005Tn-Tn; Sat, 25 Jan 2025 07:32:35 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737808359; x=1769344359;
+ t=1737808354; x=1769344354;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Bv9++MIdsioOarcOj78lH/SZyI4MnsCAuILQhxiMHgE=;
- b=l/nE541tlCJwtNiTvWhu5yD7VsQuQqEgbMsbB6h/fIaaExsvoayxy3yV
- kAGFFeCHE4NAqhVh7aQkcY7kdUzzEEBr1PzyCrdQRovhoAy11T1cfucZW
- xh/4Bqs73m6NCQf8y6Lvb+g0ytb3ArGEdA6MsW2LdnhZzzlI2qJbjDicD
- fJNzGRZ5OTtgryZJVmP3ZeBHif2VqxsqnIMIHoGYydFSpmTTjFfoe8OGP
- 4qLXKCgnzZIIQyIpuAOF7yNXObyfqqP+USqa7mi4krCxvN/w6a6A3ogW+
- aAqsXP3kt2Y/vLtayjW7TaahE5KH1fp/1JbNFASqUNgAq7rFHGX9RV0Qm Q==;
-X-CSE-ConnectionGUID: Em5MPB/aTfaYzrVqlkJ29w==
-X-CSE-MsgGUID: CGZEneUzSwyUscbmTIYfqg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="38434716"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="38434716"
+ bh=g2Nb+4+IFvjo/YNhUOjtEgb72fVfBiMk6M52lBhjmVA=;
+ b=iNzXPL/UHa2WH/USw/k54QGSlMVmp/0Y1kHNDkX6cAUNe9GGRe8JvqIR
+ jdnNsGTz6qvt5gCTr4nOoXa31ipAu+0CG+QCKAjyLcxrH28ACdSy+kRpV
+ hg0v4KIjtHZLlTsepLENol5IzNy4ubnDyZLI5JAPtlF9axgv5qXym/k/A
+ SqxyCK+FSzgjUe6Iz864s1C+2pRioGMu4oqzq8Ac2uJyqWej7YkYNLxMW
+ JxJK+vbU15LvSW98Kr65YoFkawY+tySZf24d8D6BAZcki8Qx04OxCeILe
+ XjCo+u0WQq88dVtd/1X+55TLARMo28UHry6qMsgnPEd4w1v2LPYW0yyxc Q==;
+X-CSE-ConnectionGUID: 18ODjvVRRsat0x5mdvkdbw==
+X-CSE-MsgGUID: KENYnHVGRMSd943nIIh1oA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="38434706"
+X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="38434706"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2025 04:32:38 -0800
-X-CSE-ConnectionGUID: NbjuRh2QQ8GuGU+/G6HELw==
-X-CSE-MsgGUID: VaWIrpoPR5CiKHCDoDyUFQ==
+ 25 Jan 2025 04:32:32 -0800
+X-CSE-ConnectionGUID: 1jKWWoHKQPu2yQGtfejnPw==
+X-CSE-MsgGUID: SfP/7m22RgWE/3NXrvmXUQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,234,1732608000"; d="scan'208";a="107897684"
+X-IronPort-AV: E=Sophos;i="6.13,234,1732608000"; d="scan'208";a="107897660"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa007.fm.intel.com with ESMTP; 25 Jan 2025 04:32:35 -0800
+ by fmviesa007.fm.intel.com with ESMTP; 25 Jan 2025 04:32:30 -0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
@@ -44,9 +44,10 @@ To: Paolo Bonzini <pbonzini@redhat.com>,
  Peter Maydell <peter.maydell@linaro.org>,
  =?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 05/10] rust: add bindings for memattrs
-Date: Sat, 25 Jan 2025 20:51:32 +0800
-Message-Id: <20250125125137.1223277-6-zhao1.liu@intel.com>
+Subject: [PATCH 03/10] rust/irq: Add a helper to convert [InterruptSource] to
+ [*mut IRQState]
+Date: Sat, 25 Jan 2025 20:51:30 +0800
+Message-Id: <20250125125137.1223277-4-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250125125137.1223277-1-zhao1.liu@intel.com>
 References: <20250125125137.1223277-1-zhao1.liu@intel.com>
@@ -76,80 +77,55 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
 X-List-Received-Date: Sat, 25 Jan 2025 12:32:45 -0000
 
-The MemTxAttrs structure contains bitfield members, and bindgen is
-unable to generate an equivalent macro definition for
-MEMTXATTRS_UNSPECIFIED.
+This is useful to hanlde InterruptSource slice and pass it to C
+bindings.
 
-Therefore, manually define a global constant variable
-MEMTXATTRS_UNSPECIFIED to support calls from Rust code.
-
+Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
 Changes since RFC:
- * With a boolean type unspecified field, no need to add once_cell.
- * Merge memattrs binding to memory.rs.
+ * New commit.
 ---
- rust/qemu-api/src/memory.rs   | 16 ++++++++++++++--
- rust/qemu-api/src/zeroable.rs |  1 +
- rust/wrapper.h                |  1 +
- 3 files changed, 16 insertions(+), 2 deletions(-)
+ rust/qemu-api/src/irq.rs | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/rust/qemu-api/src/memory.rs b/rust/qemu-api/src/memory.rs
-index 963d689c27d4..fff92508c68f 100644
---- a/rust/qemu-api/src/memory.rs
-+++ b/rust/qemu-api/src/memory.rs
-@@ -2,7 +2,7 @@
- // Author(s): Paolo Bonzini <pbonzini@redhat.com>
- // SPDX-License-Identifier: GPL-2.0-or-later
+diff --git a/rust/qemu-api/src/irq.rs b/rust/qemu-api/src/irq.rs
+index 638545c3a649..7dca3b9ee5a8 100644
+--- a/rust/qemu-api/src/irq.rs
++++ b/rust/qemu-api/src/irq.rs
+@@ -5,12 +5,10 @@
+ //! Bindings for interrupt sources
  
--//! Bindings for `MemoryRegion` and `MemoryRegionOps`
-+//! Bindings for `MemoryRegion`, `MemoryRegionOps` and `MemTxAttrs`
+ use core::ptr;
+-use std::{marker::PhantomData, os::raw::c_int};
++use std::{marker::PhantomData, os::raw::c_int, slice};
  
- use std::{
-     ffi::{CStr, CString},
-@@ -11,7 +11,7 @@
-     ptr::addr_of,
- };
+-use crate::{
+-    bindings::{qemu_set_irq, IRQState},
+-    prelude::*,
+-};
++pub(crate) use crate::bindings::IRQState;
++use crate::{bindings::qemu_set_irq, prelude::*};
  
--pub use bindings::hwaddr;
-+pub use bindings::{hwaddr, MemTxAttrs};
- 
- use crate::{
-     bindings::{self, device_endian, memory_region_init_io},
-@@ -189,3 +189,15 @@ unsafe impl ObjectType for MemoryRegion {
-         unsafe { CStr::from_bytes_with_nul_unchecked(bindings::TYPE_MEMORY_REGION) };
- }
- qom_isa!(MemoryRegion: Object);
+ /// Interrupt sources are used by devices to pass changes to a value (typically
+ /// a boolean).  The interrupt sink is usually an interrupt controller or
+@@ -81,6 +79,16 @@ pub fn set(&self, level: T) {
+     pub(crate) const fn as_ptr(&self) -> *mut *mut IRQState {
+         self.cell.as_ptr()
+     }
 +
-+/// A special `MemTxAttrs` constant, used to indicate that no memary
-+/// attributes are specified.
-+///
-+/// Bus masters which don't specify any attributes will get this,
-+/// which has all attribute bits clear except the topmost one
-+/// (so that we can distinguish "all attributes deliberately clear"
-+/// from "didn't specify" if necessary).
-+pub const MEMTXATTRS_UNSPECIFIED: MemTxAttrs = MemTxAttrs {
-+    unspecified: true,
-+    ..Zeroable::ZERO
-+};
-diff --git a/rust/qemu-api/src/zeroable.rs b/rust/qemu-api/src/zeroable.rs
-index 75742b50d4e3..9f009606b1ab 100644
---- a/rust/qemu-api/src/zeroable.rs
-+++ b/rust/qemu-api/src/zeroable.rs
-@@ -101,3 +101,4 @@ fn default() -> Self {
- impl_zeroable!(crate::bindings::MemoryRegionOps__bindgen_ty_1);
- impl_zeroable!(crate::bindings::MemoryRegionOps__bindgen_ty_2);
- impl_zeroable!(crate::bindings::MemoryRegionOps);
-+impl_zeroable!(crate::bindings::MemTxAttrs);
-diff --git a/rust/wrapper.h b/rust/wrapper.h
-index a9bc67af0d5f..54839ce0f510 100644
---- a/rust/wrapper.h
-+++ b/rust/wrapper.h
-@@ -62,3 +62,4 @@ typedef enum memory_order {
- #include "qapi/error.h"
- #include "migration/vmstate.h"
- #include "chardev/char-serial.h"
-+#include "exec/memattrs.h"
++    #[allow(dead_code)]
++    pub(crate) fn as_slice_of_qemu_irq(slice: &[Self]) -> &[*mut IRQState] {
++        unsafe {
++            // SAFETY: InterruptSource has the same memory layout as *mut IRQState.
++            // Additionally, the slice parameter itself, as a reference to a slice type,
++            // can be converted into a valid pointer and has a valid length.
++            slice::from_raw_parts(slice.as_ptr().cast::<*mut IRQState>(), slice.len())
++        }
++    }
+ }
+ 
+ impl Default for InterruptSource {
 -- 
 2.34.1
 
