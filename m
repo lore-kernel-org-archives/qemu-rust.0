@@ -1,39 +1,39 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tbfLC-0008Fh-NA
-	for mharc-qemu-rust@gnu.org; Sat, 25 Jan 2025 07:32:46 -0500
+	id 1tbfLD-0008G9-Ok
+	for mharc-qemu-rust@gnu.org; Sat, 25 Jan 2025 07:32:47 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tbfKy-0008BM-DW; Sat, 25 Jan 2025 07:32:33 -0500
+ id 1tbfL7-0008Dm-3h; Sat, 25 Jan 2025 07:32:42 -0500
 Received: from mgamail.intel.com ([198.175.65.18])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tbfKv-0005TB-0m; Sat, 25 Jan 2025 07:32:31 -0500
+ id 1tbfL5-0005Tn-ES; Sat, 25 Jan 2025 07:32:40 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737808349; x=1769344349;
+ t=1737808359; x=1769344359;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aBNXUK51XTb5h+RZylc8ESD+bwtNxYy97oEksRtg0Sk=;
- b=PSkz1y/0l4t268RjkRQWi+puHKnG1HhDbGfseda3iQEt7Kfz1L3y1cIl
- ZmwSOct5s99X3t+K6xqC0sXYSfQvYjxQzPVPJ51Kw1Ejc3om0LJqJmCro
- +OPkQ/biTgudxpEGN5U2EbAfGbJYcESCgeC53+gNhhTLctOyWe+LS39Bi
- Hz47K3iyqGwpWTkmSNNwNXf/P/FA+umfdHl1reYftpfEIELC+ny+LKfWp
- ECY7NmDHN6RHI86PE2hhUu03uk9QZRb9aUS6AkDDydNIS3V3WNCc3Xiat
- fkuGWKuioU0txMMObLBvZdj+p8ycd43REHN9DpiHoYDuZ1ou6ct/d3WH6 A==;
-X-CSE-ConnectionGUID: dOzJujxPQo+LvQsDTTByaQ==
-X-CSE-MsgGUID: LH3ZoiiURKqokSwOfTDksA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="38434697"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="38434697"
+ bh=Bv9++MIdsioOarcOj78lH/SZyI4MnsCAuILQhxiMHgE=;
+ b=l/nE541tlCJwtNiTvWhu5yD7VsQuQqEgbMsbB6h/fIaaExsvoayxy3yV
+ kAGFFeCHE4NAqhVh7aQkcY7kdUzzEEBr1PzyCrdQRovhoAy11T1cfucZW
+ xh/4Bqs73m6NCQf8y6Lvb+g0ytb3ArGEdA6MsW2LdnhZzzlI2qJbjDicD
+ fJNzGRZ5OTtgryZJVmP3ZeBHif2VqxsqnIMIHoGYydFSpmTTjFfoe8OGP
+ 4qLXKCgnzZIIQyIpuAOF7yNXObyfqqP+USqa7mi4krCxvN/w6a6A3ogW+
+ aAqsXP3kt2Y/vLtayjW7TaahE5KH1fp/1JbNFASqUNgAq7rFHGX9RV0Qm Q==;
+X-CSE-ConnectionGUID: Em5MPB/aTfaYzrVqlkJ29w==
+X-CSE-MsgGUID: CGZEneUzSwyUscbmTIYfqg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="38434716"
+X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="38434716"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2025 04:32:27 -0800
-X-CSE-ConnectionGUID: it/u1kMrQG2UInClstZ4Fg==
-X-CSE-MsgGUID: kzOQkwweR2SSqVl4klD0XQ==
+ 25 Jan 2025 04:32:38 -0800
+X-CSE-ConnectionGUID: NbjuRh2QQ8GuGU+/G6HELw==
+X-CSE-MsgGUID: VaWIrpoPR5CiKHCDoDyUFQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,234,1732608000"; d="scan'208";a="107897640"
+X-IronPort-AV: E=Sophos;i="6.13,234,1732608000"; d="scan'208";a="107897684"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa007.fm.intel.com with ESMTP; 25 Jan 2025 04:32:24 -0800
+ by fmviesa007.fm.intel.com with ESMTP; 25 Jan 2025 04:32:35 -0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
@@ -44,9 +44,9 @@ To: Paolo Bonzini <pbonzini@redhat.com>,
  Peter Maydell <peter.maydell@linaro.org>,
  =?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 01/10] i386/fw_cfg: move hpet_cfg definition to hpet.c
-Date: Sat, 25 Jan 2025 20:51:28 +0800
-Message-Id: <20250125125137.1223277-2-zhao1.liu@intel.com>
+Subject: [PATCH 05/10] rust: add bindings for memattrs
+Date: Sat, 25 Jan 2025 20:51:32 +0800
+Message-Id: <20250125125137.1223277-6-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250125125137.1223277-1-zhao1.liu@intel.com>
 References: <20250125125137.1223277-1-zhao1.liu@intel.com>
@@ -74,104 +74,82 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Sat, 25 Jan 2025 12:32:37 -0000
+X-List-Received-Date: Sat, 25 Jan 2025 12:32:45 -0000
 
-HPET device needs to access and update hpet_cfg variable, but now it is
-defined in hw/i386/fw_cfg.c and Rust code can't access it.
+The MemTxAttrs structure contains bitfield members, and bindgen is
+unable to generate an equivalent macro definition for
+MEMTXATTRS_UNSPECIFIED.
 
-Move hpet_cfg definition to hpet.c (and rename it to hpet_fw_cfg). This
-allows Rust HPET device implements its own global hpet_fw_cfg variable,
-and will further reduce the use of unsafe C code access and calls in the
-Rust HPET implementation.
+Therefore, manually define a global constant variable
+MEMTXATTRS_UNSPECIFIED to support calls from Rust code.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- hw/i386/fw_cfg.c        |  4 +---
- hw/timer/hpet.c         | 14 ++++++++------
- include/hw/timer/hpet.h |  2 +-
- 3 files changed, 10 insertions(+), 10 deletions(-)
+Changes since RFC:
+ * With a boolean type unspecified field, no need to add once_cell.
+ * Merge memattrs binding to memory.rs.
+---
+ rust/qemu-api/src/memory.rs   | 16 ++++++++++++++--
+ rust/qemu-api/src/zeroable.rs |  1 +
+ rust/wrapper.h                |  1 +
+ 3 files changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/hw/i386/fw_cfg.c b/hw/i386/fw_cfg.c
-index d2cb08715a21..546de63123e6 100644
---- a/hw/i386/fw_cfg.c
-+++ b/hw/i386/fw_cfg.c
-@@ -26,8 +26,6 @@
- #include CONFIG_DEVICES
- #include "target/i386/cpu.h"
+diff --git a/rust/qemu-api/src/memory.rs b/rust/qemu-api/src/memory.rs
+index 963d689c27d4..fff92508c68f 100644
+--- a/rust/qemu-api/src/memory.rs
++++ b/rust/qemu-api/src/memory.rs
+@@ -2,7 +2,7 @@
+ // Author(s): Paolo Bonzini <pbonzini@redhat.com>
+ // SPDX-License-Identifier: GPL-2.0-or-later
  
--struct hpet_fw_config hpet_cfg = {.count = UINT8_MAX};
--
- const char *fw_cfg_arch_key_name(uint16_t key)
- {
-     static const struct {
-@@ -153,7 +151,7 @@ FWCfgState *fw_cfg_arch_create(MachineState *ms,
-     PCMachineState *pcms =
-         (PCMachineState *)object_dynamic_cast(OBJECT(ms), TYPE_PC_MACHINE);
-     if (pcms && pcms->hpet_enabled) {
--        fw_cfg_add_bytes(fw_cfg, FW_CFG_HPET, &hpet_cfg, sizeof(hpet_cfg));
-+        fw_cfg_add_bytes(fw_cfg, FW_CFG_HPET, &hpet_fw_cfg, sizeof(hpet_fw_cfg));
-     }
- #endif
+-//! Bindings for `MemoryRegion` and `MemoryRegionOps`
++//! Bindings for `MemoryRegion`, `MemoryRegionOps` and `MemTxAttrs`
  
-diff --git a/hw/timer/hpet.c b/hw/timer/hpet.c
-index 92b6d509edda..f2e2d83a3f67 100644
---- a/hw/timer/hpet.c
-+++ b/hw/timer/hpet.c
-@@ -40,6 +40,8 @@
- #include "qom/object.h"
- #include "trace.h"
+ use std::{
+     ffi::{CStr, CString},
+@@ -11,7 +11,7 @@
+     ptr::addr_of,
+ };
  
-+struct hpet_fw_config hpet_fw_cfg = {.count = UINT8_MAX};
+-pub use bindings::hwaddr;
++pub use bindings::{hwaddr, MemTxAttrs};
+ 
+ use crate::{
+     bindings::{self, device_endian, memory_region_init_io},
+@@ -189,3 +189,15 @@ unsafe impl ObjectType for MemoryRegion {
+         unsafe { CStr::from_bytes_with_nul_unchecked(bindings::TYPE_MEMORY_REGION) };
+ }
+ qom_isa!(MemoryRegion: Object);
 +
- #define HPET_MSI_SUPPORT        0
- 
- OBJECT_DECLARE_SIMPLE_TYPE(HPETState, HPET)
-@@ -655,8 +657,8 @@ static void hpet_reset(DeviceState *d)
-     s->hpet_counter = 0ULL;
-     s->hpet_offset = 0ULL;
-     s->config = 0ULL;
--    hpet_cfg.hpet[s->hpet_id].event_timer_block_id = (uint32_t)s->capability;
--    hpet_cfg.hpet[s->hpet_id].address = sbd->mmio[0].addr;
-+    hpet_fw_cfg.hpet[s->hpet_id].event_timer_block_id = (uint32_t)s->capability;
-+    hpet_fw_cfg.hpet[s->hpet_id].address = sbd->mmio[0].addr;
- 
-     /* to document that the RTC lowers its output on reset as well */
-     s->rtc_irq_level = 0;
-@@ -698,17 +700,17 @@ static void hpet_realize(DeviceState *dev, Error **errp)
-     if (!s->intcap) {
-         warn_report("Hpet's intcap not initialized");
-     }
--    if (hpet_cfg.count == UINT8_MAX) {
-+    if (hpet_fw_cfg.count == UINT8_MAX) {
-         /* first instance */
--        hpet_cfg.count = 0;
-+        hpet_fw_cfg.count = 0;
-     }
- 
--    if (hpet_cfg.count == 8) {
-+    if (hpet_fw_cfg.count == 8) {
-         error_setg(errp, "Only 8 instances of HPET is allowed");
-         return;
-     }
- 
--    s->hpet_id = hpet_cfg.count++;
-+    s->hpet_id = hpet_fw_cfg.count++;
- 
-     for (i = 0; i < HPET_NUM_IRQ_ROUTES; i++) {
-         sysbus_init_irq(sbd, &s->irqs[i]);
-diff --git a/include/hw/timer/hpet.h b/include/hw/timer/hpet.h
-index 71e8c62453d1..c2656f7f0bef 100644
---- a/include/hw/timer/hpet.h
-+++ b/include/hw/timer/hpet.h
-@@ -73,7 +73,7 @@ struct hpet_fw_config
-     struct hpet_fw_entry hpet[8];
- } QEMU_PACKED;
- 
--extern struct hpet_fw_config hpet_cfg;
-+extern struct hpet_fw_config hpet_fw_cfg;
- 
- #define TYPE_HPET "hpet"
- 
++/// A special `MemTxAttrs` constant, used to indicate that no memary
++/// attributes are specified.
++///
++/// Bus masters which don't specify any attributes will get this,
++/// which has all attribute bits clear except the topmost one
++/// (so that we can distinguish "all attributes deliberately clear"
++/// from "didn't specify" if necessary).
++pub const MEMTXATTRS_UNSPECIFIED: MemTxAttrs = MemTxAttrs {
++    unspecified: true,
++    ..Zeroable::ZERO
++};
+diff --git a/rust/qemu-api/src/zeroable.rs b/rust/qemu-api/src/zeroable.rs
+index 75742b50d4e3..9f009606b1ab 100644
+--- a/rust/qemu-api/src/zeroable.rs
++++ b/rust/qemu-api/src/zeroable.rs
+@@ -101,3 +101,4 @@ fn default() -> Self {
+ impl_zeroable!(crate::bindings::MemoryRegionOps__bindgen_ty_1);
+ impl_zeroable!(crate::bindings::MemoryRegionOps__bindgen_ty_2);
+ impl_zeroable!(crate::bindings::MemoryRegionOps);
++impl_zeroable!(crate::bindings::MemTxAttrs);
+diff --git a/rust/wrapper.h b/rust/wrapper.h
+index a9bc67af0d5f..54839ce0f510 100644
+--- a/rust/wrapper.h
++++ b/rust/wrapper.h
+@@ -62,3 +62,4 @@ typedef enum memory_order {
+ #include "qapi/error.h"
+ #include "migration/vmstate.h"
+ #include "chardev/char-serial.h"
++#include "exec/memattrs.h"
 -- 
 2.34.1
 
