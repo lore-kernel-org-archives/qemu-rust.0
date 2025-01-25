@@ -1,59 +1,59 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tbjUy-0003xk-Io
-	for mharc-qemu-rust@gnu.org; Sat, 25 Jan 2025 11:59:08 -0500
+	id 1tbjV4-0003zX-8w
+	for mharc-qemu-rust@gnu.org; Sat, 25 Jan 2025 11:59:14 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tbjUv-0003xF-QE
- for qemu-rust@nongnu.org; Sat, 25 Jan 2025 11:59:05 -0500
-Received: from mail-wr1-x42b.google.com ([2a00:1450:4864:20::42b])
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tbjV1-0003yp-UT
+ for qemu-rust@nongnu.org; Sat, 25 Jan 2025 11:59:12 -0500
+Received: from mail-wm1-x32a.google.com ([2a00:1450:4864:20::32a])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tbjUu-0008OY-6d
- for qemu-rust@nongnu.org; Sat, 25 Jan 2025 11:59:05 -0500
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-38634c35129so2797656f8f.3
- for <qemu-rust@nongnu.org>; Sat, 25 Jan 2025 08:59:03 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tbjV0-0008PP-7c
+ for qemu-rust@nongnu.org; Sat, 25 Jan 2025 11:59:11 -0500
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4361dc6322fso20555225e9.3
+ for <qemu-rust@nongnu.org>; Sat, 25 Jan 2025 08:59:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737824343; x=1738429143; darn=nongnu.org;
+ d=linaro.org; s=google; t=1737824348; x=1738429148; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=X7KSVe0Pu2BA5nyUjsZvrSv4yu0Zq1gmeaMsg5YcpCk=;
- b=MW1MlkQle2TEkxFbsOvyhv67COVhN7Z/fjKq7u2Y8uCKr3H/TN8tqrXjn/kngdiacf
- Csfjrk1OJOz7vXUxaRTXRwEzyRjVD5wgshKklx56YYiFqnk02SQkR9HGg2AtV5kFEUDk
- qYeWRvWubKMIgUB+vS1RBt4vyLofPSsebDw0CmzF4DNRw3AKZ6BU3nI4fJJSwZF9hEKW
- NMpA1k4XmlPa+8u1gxDD7jue929IkM46ddPETX+xmZde5DbNtJNVCfCCjApQXnk7vSju
- s7BhtykwWvjvNyy6N6BvBEasULXehN+Qr80+dItQFNwD7+2sV2Wlhbtx2BQnSmINwSQt
- N6eA==
+ bh=jM1PDPP54X96ITEZl+g5K5x7jxsI9/uafvBKFxpKGD8=;
+ b=q+06aIkCssHxL4rnWOj0GbETYXxCOi95h8R1Qtma/PBgtfOy7CzkWkpIs3Whbnu44B
+ DwA+P4cX7XD8bEqECcPXrSnYgeihLJstk/sPKX2VcSNkoCwREr6C7cyRIJ1RKLH0bJQA
+ Z+xlJOVqZuPZ/azEQ70F55mUDidIBiW/RQbl7bsPXhkhMYKTpkTrAsM71IQPSePrjvht
+ QzosT5ut67ceHxy45fQFVTsqdgV3iJYlElK4UwY/WxtHY7aBTo44BleESzG8PQFNpIyy
+ pZaf5WnnOiUz1zutNLkEUPdFwfibQE1VTVhQU+IC5Kl9tS0IDCJEGKE+5TtkqTSXNE08
+ BjoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737824343; x=1738429143;
+ d=1e100.net; s=20230601; t=1737824348; x=1738429148;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=X7KSVe0Pu2BA5nyUjsZvrSv4yu0Zq1gmeaMsg5YcpCk=;
- b=EQ5WokQd6X4GnbH7R+JtGlBCNLwtAXPWsHKKMFNh/e99LWCSCCpGY915AenVvzMLDz
- Zgjm18MxztlJ0KenuOk6lYWZ6O/C7FCJrpeF6TLWu8xnAWjqqxz6ZYCnuJIvpH1dV0sB
- RGeaseLAyEvudGnFSXhrKqDFXiDY1r2MXRRSYZP3MgT0wrK55acJCOQTtVUJIb9GIyB4
- ZFDR8mkE6805tBItWZ/l+SWYEkt/zE/Zx9XeiKgm2ekDdVjj/jaxAjLrXp/3dVxAa0k4
- 1O+kzumAB+Hs3uoyDrXgZekXXIDzq2zMlp/BmIGSik0HD5ywZGo+WwtRRG+GK5VLCr1O
- Yifw==
+ bh=jM1PDPP54X96ITEZl+g5K5x7jxsI9/uafvBKFxpKGD8=;
+ b=IV3PwG4h86tl6JXlcNzv0HwGZNLn0XR0qIMiRZPP0xcVhr3UZxF/VBUE706vmK928s
+ nLL8+zu7pQdjkyhhuNiRVKJRCbcIPSlsaFm2ZWuYXBsBwlqt7e793b1NxM/wbL9ZmjyE
+ l27tp0FPRV+plxHpVMs5Hz0bPYsT63I31063R6OEsT1A3IUZ9oZQuJoj627annjNALOP
+ qP8f4T0sMzq+KtipoIDm2K+qVpYLRhgEjPrBUp1XaSbM86wbRcQTLgyc3iu17C9DMNFQ
+ 5a+XOTRU3DcunrX+mcgcUxoaj1A0hWcwx8JSZLs6jg+OHyTEWiLZqamp3OS6u1tBInvf
+ EWGw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUY28LIrmwuGom+lN2XxYUnLsgdN15+iH/rF7qmn3mQ44l5MD0F4oHBOtk53QayvLf8rZBRV5aJNtI=@nongnu.org
-X-Gm-Message-State: AOJu0YzNYnUuD8k/DDnUKmeruJM804eaWmGjh3aCB+lJYTt+xVNsNhiQ
- 9AoVkFmEEd6ZI2HS4bkD2kW8848vU2Ko+tAc7o4pCnxBdzDHlObEmJqFXwjtTdw=
-X-Gm-Gg: ASbGncsyPUOuK8IQlyCEKXXGsRaPdtxsT/IRcYZmujkkCQ5zAFSyCfWVOCUe8yqfiBt
- VQvpPP6mjw5tJpucL8Fewut0s3NuNvmYY4azZoYeekJVf6JCVQ64I9Up3er7Hab7nbdKtVCveSH
- ZASutPBzjKzHGMssizSxcEwqZYszTs2XG/wsOruIe9HYjWRj7gSluYyl52nCx2GC0y5LnVMus0e
- uAXU36KL0lMWsA/LyfoW0GjUUuEMnvWAlvc2yy18TT0wpNS4hal9l2pEpD6IvewmXIfjeMwdc5e
- NSrGJGe1JaxbhojLC2MRiKEZv9Qekb9RHdNsu3SEYPHQ7jHndJ5BZTU=
-X-Google-Smtp-Source: AGHT+IEY/q6snjyQOBUoXWOdiFJPHuSkxSsUtir/U13sCGxAW4WnvHOwbzKXZWBGrF6VG97E7JoS1w==
-X-Received: by 2002:a05:6000:1e48:b0:385:f00a:a45b with SMTP id
- ffacd0b85a97d-38bf5784bdamr26780412f8f.21.1737824342701; 
- Sat, 25 Jan 2025 08:59:02 -0800 (PST)
+ AJvYcCVpXCYKwwef6ahGUGDrSMJHX3ueg5+xruzY41fknMYEZRGHDZ/I7S0FztmJLsE6gPXtQKClJ5Frs80=@nongnu.org
+X-Gm-Message-State: AOJu0Yz/imKT873nU7+qB2wgO2f5ooef/Rvte7f3DXjEgjiZnCL4M60p
+ 2ZNTzNqEJupEFMXN0tZZYAml7wlPNReNIuYwY2dUj0KC7hQ+5J0ES0mxHkOS0X8=
+X-Gm-Gg: ASbGnctdeRQuyxRxarxm88GZOPRtWdx7cfHpmgEllOG35b62mhFETPVLUHzikks0/vY
+ Nh3oSGb97gYATvKukJDS7hVaWx95qrThHAPltIiegafm47Ehf5lqYhefvRZlaCKf0F+M5xjxhLd
+ +19NFx40NCvyekExsejSWsONX2OqJyPN19OlxfD48LwD+2xaC7IAOSdXcZS2P8KBBzlwSuMuerT
+ wftyy0o3GtSH6YTopPkjXMmLHCyTTmbqqDjsUBbVCV89X8oKtFicCZo6G2QYBooMpRDzvnYapSR
+ B2qJkoWae0TxT8Xv7NerXHDga7JH5D/yghcIZ2iLJmKFgZEMBHipdug=
+X-Google-Smtp-Source: AGHT+IEstb4RZCs9m6dWIM/YMoKVchpKZu+hmMSvyEt3TEhmfaGBpswIi44gipDf2veJAgKr/x79kQ==
+X-Received: by 2002:a05:600c:1f10:b0:434:ff9d:a370 with SMTP id
+ 5b1f17b1804b1-438912d1d49mr340960205e9.0.1737824348113; 
+ Sat, 25 Jan 2025 08:59:08 -0800 (PST)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c2a1bb0easm5966939f8f.77.2025.01.25.08.59.01
+ 5b1f17b1804b1-438bd507c59sm66304325e9.17.2025.01.25.08.59.06
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 25 Jan 2025 08:59:01 -0800 (PST)
+ Sat, 25 Jan 2025 08:59:06 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
@@ -61,17 +61,17 @@ Cc: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Paolo Bonzini <pbonzini@redhat.com>, Markus Armbruster <armbru@redhat.com>,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH 1/2] qom: Declare class_base_init() before class_init()
-Date: Sat, 25 Jan 2025 17:58:54 +0100
-Message-ID: <20250125165855.32168-2-philmd@linaro.org>
+Subject: [PATCH 2/2] qom: Introduce class_post_init() handler
+Date: Sat, 25 Jan 2025 17:58:55 +0100
+Message-ID: <20250125165855.32168-3-philmd@linaro.org>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250125165855.32168-1-philmd@linaro.org>
 References: <20250125165855.32168-1-philmd@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::42b;
- envelope-from=philmd@linaro.org; helo=mail-wr1-x42b.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::32a;
+ envelope-from=philmd@linaro.org; helo=mail-wm1-x32a.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -91,87 +91,101 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Sat, 25 Jan 2025 16:59:06 -0000
+X-List-Received-Date: Sat, 25 Jan 2025 16:59:13 -0000
 
-Since class_base_init() is called *before* class_init(),
-move its declaration in TypeInfo before class_init() to
-help a bit. No logical change.
+Add a class_post_init() handler to be called by parents
+*after* child class_init() handler is called. This is
+necessary to have parent class check children properly
+set some values or mandatory handlers.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- include/qom/object.h     | 10 +++++-----
- qom/object.c             |  4 ++--
- rust/qemu-api/src/qom.rs |  2 +-
- 3 files changed, 8 insertions(+), 8 deletions(-)
+ include/qom/object.h     |  7 +++++--
+ qom/object.c             | 10 ++++++++++
+ rust/qemu-api/src/qom.rs |  6 ++++++
+ 3 files changed, 21 insertions(+), 2 deletions(-)
 
 diff --git a/include/qom/object.h b/include/qom/object.h
-index 9192265db76..3776267e903 100644
+index 3776267e903..d1e437a81be 100644
 --- a/include/qom/object.h
 +++ b/include/qom/object.h
-@@ -457,14 +457,14 @@ struct Object
-  *   assumed to be the size of the parent class.  This allows a type to avoid
-  *   implementing an explicit class type if they are not adding additional
-  *   virtual functions.
-- * @class_init: This function is called after all parent class initialization
-- *   has occurred to allow a class to set its default virtual method pointers.
-- *   This is also the function to use to override virtual methods from a parent
-- *   class.
-  * @class_base_init: This function is called for all base classes after all
-  *   parent class initialization has occurred, but before the class itself
-  *   is initialized.  This is the function to use to undo the effects of
-  *   memcpy from the parent class to the descendants.
-+ * @class_init: This function is called after all parent class initialization
-+ *   has occurred to allow a class to set its default virtual method pointers.
-+ *   This is also the function to use to override virtual methods from a parent
-+ *   class.
-  * @class_data: Data to pass to the @class_init,
-  *   @class_base_init. This can be useful when building dynamic
+@@ -465,8 +465,10 @@ struct Object
+  *   has occurred to allow a class to set its default virtual method pointers.
+  *   This is also the function to use to override virtual methods from a parent
+  *   class.
+- * @class_data: Data to pass to the @class_init,
+- *   @class_base_init. This can be useful when building dynamic
++ * @class_post_init: This function is called to finish initialization of
++ *   a class, after all @class_init functions were called.
++ * @class_data: Data to pass to the @class_base_init, @class_init, and
++ *   @class_post_init. This can be useful when building dynamic
   *   classes.
-@@ -486,8 +486,8 @@ struct TypeInfo
-     bool abstract;
-     size_t class_size;
+  * @interfaces: The list of interfaces associated with this type.  This
+  *   should point to a static array that's terminated with a zero filled
+@@ -488,6 +490,7 @@ struct TypeInfo
  
--    void (*class_init)(ObjectClass *klass, void *data);
      void (*class_base_init)(ObjectClass *klass, void *data);
-+    void (*class_init)(ObjectClass *klass, void *data);
+     void (*class_init)(ObjectClass *klass, void *data);
++    void (*class_post_init)(ObjectClass *klass, void *data);
      void *class_data;
  
      InterfaceInfo *interfaces;
 diff --git a/qom/object.c b/qom/object.c
-index ec447f14a78..1a686dff5a0 100644
+index 1a686dff5a0..694009f0c94 100644
 --- a/qom/object.c
 +++ b/qom/object.c
-@@ -54,8 +54,8 @@ struct TypeImpl
-     size_t instance_size;
-     size_t instance_align;
+@@ -56,6 +56,7 @@ struct TypeImpl
  
--    void (*class_init)(ObjectClass *klass, void *data);
      void (*class_base_init)(ObjectClass *klass, void *data);
-+    void (*class_init)(ObjectClass *klass, void *data);
+     void (*class_init)(ObjectClass *klass, void *data);
++    void (*class_post_init)(ObjectClass *klass, void *data);
  
      void *class_data;
  
-@@ -119,8 +119,8 @@ static TypeImpl *type_new(const TypeInfo *info)
-     ti->instance_size = info->instance_size;
-     ti->instance_align = info->instance_align;
+@@ -121,6 +122,7 @@ static TypeImpl *type_new(const TypeInfo *info)
  
--    ti->class_init = info->class_init;
      ti->class_base_init = info->class_base_init;
-+    ti->class_init = info->class_init;
+     ti->class_init = info->class_init;
++    ti->class_post_init = info->class_post_init;
      ti->class_data = info->class_data;
  
      ti->instance_init = info->instance_init;
+@@ -416,6 +418,14 @@ static void type_initialize(TypeImpl *ti)
+     if (ti->class_init) {
+         ti->class_init(ti->class, ti->class_data);
+     }
++
++    parent = type_get_parent(ti);
++    while (parent) {
++        if (parent->class_post_init) {
++            parent->class_post_init(ti->class, ti->class_data);
++        }
++        parent = type_get_parent(parent);
++    }
+ }
+ 
+ static void object_init_with_type(Object *obj, TypeImpl *ti)
 diff --git a/rust/qemu-api/src/qom.rs b/rust/qemu-api/src/qom.rs
-index 97901fb9084..6033228e338 100644
+index 6033228e338..d95e90153a9 100644
 --- a/rust/qemu-api/src/qom.rs
 +++ b/rust/qemu-api/src/qom.rs
-@@ -486,8 +486,8 @@ pub trait ObjectImpl: ObjectType + ClassInitImpl<Self::Class> {
-         instance_finalize: Some(drop_object::<Self>),
-         abstract_: Self::ABSTRACT,
+@@ -470,6 +470,11 @@ pub trait ObjectImpl: ObjectType + ClassInitImpl<Self::Class> {
+         unsafe extern "C" fn(klass: *mut ObjectClass, data: *mut c_void),
+     > = None;
+ 
++    /// Called to finish initialization of a class.
++    const CLASS_POST_INIT: Option<
++        unsafe extern "C" fn(klass: *mut ObjectClass, data: *mut c_void),
++    > = None;
++
+     const TYPE_INFO: TypeInfo = TypeInfo {
+         name: Self::TYPE_NAME.as_ptr(),
+         parent: Self::ParentType::TYPE_NAME.as_ptr(),
+@@ -488,6 +493,7 @@ pub trait ObjectImpl: ObjectType + ClassInitImpl<Self::Class> {
          class_size: core::mem::size_of::<Self::Class>(),
--        class_init: Some(rust_class_init::<Self>),
          class_base_init: Self::CLASS_BASE_INIT,
-+        class_init: Some(rust_class_init::<Self>),
+         class_init: Some(rust_class_init::<Self>),
++        class_post_init: Self::CLASS_POST_INIT,
          class_data: core::ptr::null_mut(),
          interfaces: core::ptr::null_mut(),
      };
