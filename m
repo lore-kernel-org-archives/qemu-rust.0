@@ -1,53 +1,53 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tc43m-0007HA-Gp
-	for mharc-qemu-rust@gnu.org; Sun, 26 Jan 2025 09:56:26 -0500
+	id 1tcJhq-000194-1g
+	for mharc-qemu-rust@gnu.org; Mon, 27 Jan 2025 02:38:50 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tc43k-0007Gl-Ot; Sun, 26 Jan 2025 09:56:25 -0500
-Received: from mgamail.intel.com ([192.198.163.15])
+ id 1tcJhb-00017a-6Q; Mon, 27 Jan 2025 02:38:35 -0500
+Received: from mgamail.intel.com ([198.175.65.17])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tc43i-0007gS-Sd; Sun, 26 Jan 2025 09:56:24 -0500
+ id 1tcJhZ-0000BF-EY; Mon, 27 Jan 2025 02:38:34 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737903383; x=1769439383;
+ t=1737963513; x=1769499513;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=EOfQD7wJs/heqaF+kayW8lEZfAd8tm/HXf2yRjISUGQ=;
- b=K9n2pmwKvocriTgYZIAhMvbvtVDrEkLQQWnyU0plDEqDaHXKV5uXKerY
- 22O57OsQu/dB5iWiGwEOxQ+QrgkeJpm1uZQv55fj8u68cx1RL45Ac4fyr
- +ldQz/whQh+hwcXvuswq0p8b+6U1uDEF5frR+c4IQR7ablfy5rj1Tzr6e
- QawRpmHEZR8NJtQE7PcmfPQRWX4XVLBssKTku3luXZOZuo4ul3+Ghw9XF
- eyh6r+29E8OEIgjJiazTi5yaxlSHeULQxV1fNtGyBTT9yZiAzeGBh0Y3v
- Lmf8iWiu92LwVBmJwa9ybwuxn2+et/sRid2/69I6+i/3/aAeCuhAcdQpg A==;
-X-CSE-ConnectionGUID: LERZRKl0TC+vERTlfODZqA==
-X-CSE-MsgGUID: /rl33qU8Qpm2twvDzd4dKA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11327"; a="38543974"
-X-IronPort-AV: E=Sophos;i="6.13,236,1732608000"; d="scan'208";a="38543974"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2025 06:56:18 -0800
-X-CSE-ConnectionGUID: Hty65QKfRR+5TFQbFn+wiw==
-X-CSE-MsgGUID: qgm0VFW0RtKHT7rZopBC/w==
+ bh=gUjYa/wXHmfmKSJyMDgaO+wx9TfzH4TNlD4321+7HX8=;
+ b=II74H7n84rviAD/XEDeYFm1OoFbu5g38Bc2KmVmraMlmLhLJfO5gYXuy
+ BnDCWRWogl4OyTjCL2m4WmWOCuQPYt8Fwx1kc8SxuQkKkJtTgXqo+njxJ
+ TyFiQUJ/1B2hG65HV6I+86Yca+20A/sSO39QdlGgRmDR789NQx8am5OqQ
+ ahC64OtOXEzozo3oI9uI8h9+agCFHA2X5OujjsVbXgX16NoSTWVpq10bN
+ jesKuqF0xrBQ+U699eDQCySd6XcgDMl1j/NcDagnyJVd1au0eunAg7Z51
+ YlW5CI2BG11iAMYKrehdTra9aknRtaThHUwOT5ZK4zgiapkXCjcvHNaEV w==;
+X-CSE-ConnectionGUID: f3vJvVkFQhaFrZTZyfANGQ==
+X-CSE-MsgGUID: zSXDRlCRQn2Z0zNVbN0U1Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11327"; a="38444098"
+X-IronPort-AV: E=Sophos;i="6.13,237,1732608000"; d="scan'208";a="38444098"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2025 23:38:30 -0800
+X-CSE-ConnectionGUID: qRoe3rdKSWyCyQnt9HJGXg==
+X-CSE-MsgGUID: JCZaExa1TPebNCY9HbQS1A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="112237615"
+X-IronPort-AV: E=Sophos;i="6.13,237,1732608000"; d="scan'208";a="113355882"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa003.fm.intel.com with ESMTP; 26 Jan 2025 06:56:17 -0800
-Date: Sun, 26 Jan 2025 23:15:41 +0800
+ by fmviesa004.fm.intel.com with ESMTP; 26 Jan 2025 23:38:28 -0800
+Date: Mon, 27 Jan 2025 15:57:53 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 Subject: Re: [PATCH 02/10] rust: qom: add reference counting functionality
-Message-ID: <Z5ZRnYDZdZcgyCsR@intel.com>
+Message-ID: <Z5c8gVcUn4rzVpID@intel.com>
 References: <20250117194003.1173231-1-pbonzini@redhat.com>
  <20250117194003.1173231-3-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20250117194003.1173231-3-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.15; envelope-from=zhao1.liu@intel.com;
+Received-SPF: pass client-ip=198.175.65.17; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -56
 X-Spam_score: -5.7
@@ -69,68 +69,108 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Sun, 26 Jan 2025 14:56:25 -0000
+X-List-Received-Date: Mon, 27 Jan 2025 07:38:46 -0000
 
-Hi Paolo,
+> +impl<T: ObjectType> Owned<T> {
+> +    /// Convert a raw C pointer into an owned reference to the QOM
+> +    /// object it points to.  The object's reference count will be
+> +    /// decreased when the `Owned` is dropped.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if `ptr` is NULL.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// The caller must indeed own a reference to the QOM object.
+> +    /// The object must not be embedded in another unless the outer
+> +    /// object is guaranteed to have a longer lifetime.
+> +    ///
+> +    /// A raw pointer obtained via [`Owned::into_raw()`] can always be passed
+> +    /// back to `from_raw()` (assuming the original `Owned` was valid!),
+> +    /// since the owned reference remains there between the calls to
+> +    /// `into_raw()` and `from_raw()`.
+> +    #[allow(clippy::missing_const_for_fn)]
+> +    pub unsafe fn from_raw(ptr: *const T) -> Self {
+> +        // SAFETY NOTE: while NonNull requires a mutable pointer, only
+> +        // Deref is implemented so the pointer passed to from_raw
+> +        // remains const
+> +        Owned(NonNull::new(ptr as *mut T).unwrap())
+> +    }
 
-On Fri, Jan 17, 2025 at 08:39:55PM +0100, Paolo Bonzini wrote:
-> Date: Fri, 17 Jan 2025 20:39:55 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 02/10] rust: qom: add reference counting functionality
-> X-Mailer: git-send-email 2.47.1
-> 
-> Add a smart pointer that allows to add and remove references from
-> QOM objects.  It's important to note that while all QOM objects have a
-> reference count, in practice not all of them have their lifetime guarded
-> by it.
+...
 
-About the background, I have a maybe common question...why Rust needs
-extra reference count guarding?
+> +    /// Increase the reference count of a QOM object and return
+> +    /// a new owned reference to it.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// The object must not be embedded in another, unless the outer
+> +    /// object is guaranteed to have a longer lifetime.
+> +    pub unsafe fn from(obj: &T) -> Self {
+> +        unsafe {
+> +            object_ref(obj.as_object_mut_ptr().cast::<c_void>());
+> +
+> +            // SAFETY NOTE: while NonNull requires a mutable pointer, only
+> +            // Deref is implemented so the reference passed to from_raw
+> +            // remains shared
+> +            Owned(NonNull::new_unchecked(obj.as_mut_ptr()))
+> +        }
+> +    }
+> +}
+> +
 
-For C side, I notice for child objects, which may be totally embedded in
-parent object, or may be pointed to by a pointer member in parent object
-(like pl011's clock), they usually become the Child<> property of their
-parents by object_initialize_child() (for embedded child) or
-object_property_add_child() (for child pointer).
+About the difference between from_raw() and from(), I understand if the
+C side also holds a pointer, the Rust side must increase the reference
+count (using Owned::from), and If the C side does not have any other
+pointers, Rust can directly use Owned::from_raw. Am I right?
 
-And both these 2 interfaces will increase the ref count in
-object_property_try_add_child(). With ref count increasing, it seems
-that the Child<> property also express the meaning like "the child
-object is 'owned' by its parent".
+* The use of from():
 
-So, what are the benefits of `Owned` when we also creates Child<>
-relationship?
+        fn do_init_clock_in(
+            dev: *mut DeviceState,
+            name: &str,
+            cb: Option<unsafe extern "C" fn(*mut c_void, ClockEvent)>,
+            events: ClockEvent,
+        ) -> Owned<Clock> {
+            assert!(bql_locked());
 
-Additionally, I felt that the ref count may be a bit confusing. After
-creating Child<> property, the child object's ref count is sometimes 1,
-and other times it's 2:
+            // SAFETY: the clock is heap allocated and does not have a reference, so
+            // Owned::from adds one.  the callback is disabled automatically
+            // when the clock is unparented, which happens before the device is
+            // finalized.
+            unsafe {
+                let cstr = CString::new(name).unwrap();
+                let clk = bindings::qdev_init_clock_in(
+                    dev,
+                    cstr.as_ptr(),
+                    cb,
+                    dev.cast::<c_void>(),
+                    events.0,
+                );
 
- * With object_initialize_child(), child's ref count is 1.
+                Owned::from(&*clk)
+            }
+        }
 
- * With object_property_add_child() (usually after a object_new() to
-   create child first):
+* The use of from_raw():
 
-   - sometimes user will call object_unref(), and then the ref count is 1.
-     E.g., x86_cpu_apic_create() in target/i386/cpu-apic.c.
+    fn new() -> Owned<Self> {
+        assert!(bql_locked());
+        // SAFETY: the object created by object_new is allocated on
+        // the heap and has a reference count of 1
+        unsafe {
+            let obj = &*object_new(Self::TYPE_NAME.as_ptr());
+            Owned::from_raw(obj.unsafe_cast::<Self>())
+        }
+    }
 
-   - sometimes no object_unref(), then ref count is 2.
-     E.g., exynos4210_realize() in hw/arm/exynos4210.c, creats "cortex-a9".
 
-> Embedded objects, specifically, are confined to the lifetime of
-> the owner.
-> 
-> When writing Rust bindings this is important, because embedded objects are
-> *never* used through the "Owned<>" smart pointer that is introduced here.
+Comparing with these 2 use cases, I find the difference is
+qdev_init_clock_in() creates a pointer in qdev_init_clocklist().
 
-From this description, I understand your goal is:
-
- * For embedded child object, its lifetimer is managed by its parent
-   object, through Child<> for the most cases.
-
- * For non-embedded child - a pointer/reference in parent object, its
-   lifetimer is managed by `Owned<>` (and with Child<>).
-
-Am I right?
+Then the comment "the clock is heap allocated and does not have
+a reference" sounds like a conflict. I'm sure I'm missing something. :-(
 
 Thanks,
 Zhao
