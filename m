@@ -1,62 +1,86 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tcJhq-000194-1g
-	for mharc-qemu-rust@gnu.org; Mon, 27 Jan 2025 02:38:50 -0500
+	id 1tcK8O-00079E-7c
+	for mharc-qemu-rust@gnu.org; Mon, 27 Jan 2025 03:06:16 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tcJhb-00017a-6Q; Mon, 27 Jan 2025 02:38:35 -0500
-Received: from mgamail.intel.com ([198.175.65.17])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tcJhZ-0000BF-EY; Mon, 27 Jan 2025 02:38:34 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737963513; x=1769499513;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=gUjYa/wXHmfmKSJyMDgaO+wx9TfzH4TNlD4321+7HX8=;
- b=II74H7n84rviAD/XEDeYFm1OoFbu5g38Bc2KmVmraMlmLhLJfO5gYXuy
- BnDCWRWogl4OyTjCL2m4WmWOCuQPYt8Fwx1kc8SxuQkKkJtTgXqo+njxJ
- TyFiQUJ/1B2hG65HV6I+86Yca+20A/sSO39QdlGgRmDR789NQx8am5OqQ
- ahC64OtOXEzozo3oI9uI8h9+agCFHA2X5OujjsVbXgX16NoSTWVpq10bN
- jesKuqF0xrBQ+U699eDQCySd6XcgDMl1j/NcDagnyJVd1au0eunAg7Z51
- YlW5CI2BG11iAMYKrehdTra9aknRtaThHUwOT5ZK4zgiapkXCjcvHNaEV w==;
-X-CSE-ConnectionGUID: f3vJvVkFQhaFrZTZyfANGQ==
-X-CSE-MsgGUID: zSXDRlCRQn2Z0zNVbN0U1Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11327"; a="38444098"
-X-IronPort-AV: E=Sophos;i="6.13,237,1732608000"; d="scan'208";a="38444098"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2025 23:38:30 -0800
-X-CSE-ConnectionGUID: qRoe3rdKSWyCyQnt9HJGXg==
-X-CSE-MsgGUID: JCZaExa1TPebNCY9HbQS1A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,237,1732608000"; d="scan'208";a="113355882"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa004.fm.intel.com with ESMTP; 26 Jan 2025 23:38:28 -0800
-Date: Mon, 27 Jan 2025 15:57:53 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 02/10] rust: qom: add reference counting functionality
-Message-ID: <Z5c8gVcUn4rzVpID@intel.com>
-References: <20250117194003.1173231-1-pbonzini@redhat.com>
- <20250117194003.1173231-3-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tcK8M-00078v-B5
+ for qemu-rust@nongnu.org; Mon, 27 Jan 2025 03:06:14 -0500
+Received: from mail-wr1-x433.google.com ([2a00:1450:4864:20::433])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tcK8K-0002qu-AL
+ for qemu-rust@nongnu.org; Mon, 27 Jan 2025 03:06:13 -0500
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-385e27c75f4so3630461f8f.2
+ for <qemu-rust@nongnu.org>; Mon, 27 Jan 2025 00:06:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1737965170; x=1738569970; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=zRDFifUSykghhZo2AgAcnmAVAVfzz/ZXaFqrQ5/35Ro=;
+ b=Z1+H6JrRglWZ/Z816aTHetlCROTN1qB9ySZ9i3WXusbbFJ201HHkIVGfCUVgmWtIQf
+ bnuy5g8cmtUJ/5XwkObtMyCX2/JtyT4EQOTZ3US5Tubb9DMM+x8CHnVDxTkf0ppmcl+C
+ W7NArHSnsbnbAEP6IVVnU1r6BKNYJ2oJL2BOrH3qyCV7FbpUz/nEddNmeOh2gYG42VIl
+ dmvlgV3XxvKyAhoVvO5y+LUC/RdOA5hLCtYNuTZtIMHQfzwTq4F1EoybHe+6w6EWjApX
+ XxAtFgXPaoOvkcNbRu9/TtcDzm2z8DlAMTF77YxUIB1U2xRnygyDv42UbBJSkmGmcJfA
+ VX9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737965170; x=1738569970;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=zRDFifUSykghhZo2AgAcnmAVAVfzz/ZXaFqrQ5/35Ro=;
+ b=T1+6AnEIEkqL5ojXAyuTdz++v1tk0YaHlgZRooITTEpyVXa8ETmj80VN2N7/Vg/0w9
+ 9F8VJxD+zhDK7XWbeW6Lp19GhfzPpRboVXEDLDrSglxUMNGFsV5NoT5YJaMhjEMIfeuC
+ wFeTwII8b3LjF9K1g2UlU3YKPUJDMOSngzMH9YGkHXAP05LMFgfKKjux2g2wxjNnAImq
+ JMlg7t863FxrCcLWbujK8qL51TEzaw54kXI0H5R4zne1ZFRrDQT+a3kAonaxArdKgP1S
+ NeN98I9i2CftA9ISKFeUVra9iODSI1VdasSfA8cR3eOfCGRDDUqd/qxb/5rALex7sd/s
+ j4vg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUAiET3LCLJgNKrajQ4yH4y0kYF7YsUjRDBpKHMM4TWH1qrjOobkChghDZlOsTgDCjKzISWU4jzt0w=@nongnu.org
+X-Gm-Message-State: AOJu0YwNYD+0uaW6JXBpJqUKK8eB1QaPgcFRKGkLDz5sM+l+bS+OuY9h
+ HBr6m5XolOEDlF0JyxDj9OVHoYlJjLErlXA8N96JeWCZWM3ID45m6OBMBSaWbfI=
+X-Gm-Gg: ASbGncsBe6d1blav+V/7QvRnblfHcxAPefLtx74qAg0kv+4OgVskHne/KPr6dubqnEc
+ hLXtZgrH3r11iCqwjtacIw2XowfqgnFSlViDVfFHGQOUD5ZkhWpqi4VuvRp0CkPlWnHUFUWECBy
+ wKFH2savfDIOs8QZhx9w5C4+y0DMi7Ii0S0X+XNB3yKJtZ+qFtn4N/qQ5sUYaDaJFSZwbFzsGQp
+ kEgUSVIw6mqumP1qsuSbnAbbLPXfB1Wyj8GkzkiHOPZjXFPtOVVy6m2UcWk4FZvwmMoq5RL/iC5
+ uJb/VfbobJ2oUPBDVGBUsXr6ZuAqLq7IQTuovqRpuDxrqKx0
+X-Google-Smtp-Source: AGHT+IFg7/mUPKBN/mM6PW1LQiacIdLORSuEIWD+zXq3W1Q+I+5sEiovlW+kacyejyZ1ShEcvJhhIQ==
+X-Received: by 2002:a5d:6d82:0:b0:388:c61d:43e0 with SMTP id
+ ffacd0b85a97d-38bf59ef478mr41661468f8f.48.1737965170570; 
+ Mon, 27 Jan 2025 00:06:10 -0800 (PST)
+Received: from [192.168.69.181] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38c2a1bb0d4sm10518840f8f.69.2025.01.27.00.06.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Jan 2025 00:06:10 -0800 (PST)
+Message-ID: <4ab5cc49-a8c6-430b-a3d8-82a62f0f0fe4@linaro.org>
+Date: Mon, 27 Jan 2025 09:06:09 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250117194003.1173231-3-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.17; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -56
-X-Spam_score: -5.7
-X-Spam_bar: -----
-X-Spam_report: (-5.7 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.299,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
- T_SCC_BODY_TEXT_LINE=-0.01 autolearn=ham autolearn_force=no
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] qom: Introduce class_post_init() handler
+To: Markus Armbruster <armbru@redhat.com>
+Cc: qemu-devel@nongnu.org, =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?=
+ <berrange@redhat.com>, qemu-rust@nongnu.org,
+ Eduardo Habkost <eduardo@habkost.net>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Paolo Bonzini <pbonzini@redhat.com>
+References: <20250125165855.32168-1-philmd@linaro.org>
+ <20250125165855.32168-3-philmd@linaro.org> <87wmegoi6g.fsf@pond.sub.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <87wmegoi6g.fsf@pond.sub.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=2a00:1450:4864:20::433;
+ envelope-from=philmd@linaro.org; helo=mail-wr1-x433.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
+ T_SCC_BODY_TEXT_LINE=-0.01 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -69,110 +93,26 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Jan 2025 07:38:46 -0000
+X-List-Received-Date: Mon, 27 Jan 2025 08:06:14 -0000
 
-> +impl<T: ObjectType> Owned<T> {
-> +    /// Convert a raw C pointer into an owned reference to the QOM
-> +    /// object it points to.  The object's reference count will be
-> +    /// decreased when the `Owned` is dropped.
-> +    ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if `ptr` is NULL.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// The caller must indeed own a reference to the QOM object.
-> +    /// The object must not be embedded in another unless the outer
-> +    /// object is guaranteed to have a longer lifetime.
-> +    ///
-> +    /// A raw pointer obtained via [`Owned::into_raw()`] can always be passed
-> +    /// back to `from_raw()` (assuming the original `Owned` was valid!),
-> +    /// since the owned reference remains there between the calls to
-> +    /// `into_raw()` and `from_raw()`.
-> +    #[allow(clippy::missing_const_for_fn)]
-> +    pub unsafe fn from_raw(ptr: *const T) -> Self {
-> +        // SAFETY NOTE: while NonNull requires a mutable pointer, only
-> +        // Deref is implemented so the pointer passed to from_raw
-> +        // remains const
-> +        Owned(NonNull::new(ptr as *mut T).unwrap())
-> +    }
+On 27/1/25 08:00, Markus Armbruster wrote:
+> Philippe Mathieu-Daudé <philmd@linaro.org> writes:
+> 
+>> Add a class_post_init() handler to be called by parents
+>> *after* child class_init() handler is called. This is
+>> necessary to have parent class check children properly
+>> set some values or mandatory handlers.
+>>
+>> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> 
+> Plausible, but I'd like to see actual use.  What uses do you have in
+> mind?
 
-...
+See for example:
+https://lore.kernel.org/qemu-devel/20250125170125.32855-25-philmd@linaro.org/
 
-> +    /// Increase the reference count of a QOM object and return
-> +    /// a new owned reference to it.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// The object must not be embedded in another, unless the outer
-> +    /// object is guaranteed to have a longer lifetime.
-> +    pub unsafe fn from(obj: &T) -> Self {
-> +        unsafe {
-> +            object_ref(obj.as_object_mut_ptr().cast::<c_void>());
-> +
-> +            // SAFETY NOTE: while NonNull requires a mutable pointer, only
-> +            // Deref is implemented so the reference passed to from_raw
-> +            // remains shared
-> +            Owned(NonNull::new_unchecked(obj.as_mut_ptr()))
-> +        }
-> +    }
-> +}
-> +
+Where the abstract parent CPUClass checks concrete target implementation
+registered a handler.
 
-About the difference between from_raw() and from(), I understand if the
-C side also holds a pointer, the Rust side must increase the reference
-count (using Owned::from), and If the C side does not have any other
-pointers, Rust can directly use Owned::from_raw. Am I right?
-
-* The use of from():
-
-        fn do_init_clock_in(
-            dev: *mut DeviceState,
-            name: &str,
-            cb: Option<unsafe extern "C" fn(*mut c_void, ClockEvent)>,
-            events: ClockEvent,
-        ) -> Owned<Clock> {
-            assert!(bql_locked());
-
-            // SAFETY: the clock is heap allocated and does not have a reference, so
-            // Owned::from adds one.  the callback is disabled automatically
-            // when the clock is unparented, which happens before the device is
-            // finalized.
-            unsafe {
-                let cstr = CString::new(name).unwrap();
-                let clk = bindings::qdev_init_clock_in(
-                    dev,
-                    cstr.as_ptr(),
-                    cb,
-                    dev.cast::<c_void>(),
-                    events.0,
-                );
-
-                Owned::from(&*clk)
-            }
-        }
-
-* The use of from_raw():
-
-    fn new() -> Owned<Self> {
-        assert!(bql_locked());
-        // SAFETY: the object created by object_new is allocated on
-        // the heap and has a reference count of 1
-        unsafe {
-            let obj = &*object_new(Self::TYPE_NAME.as_ptr());
-            Owned::from_raw(obj.unsafe_cast::<Self>())
-        }
-    }
-
-
-Comparing with these 2 use cases, I find the difference is
-qdev_init_clock_in() creates a pointer in qdev_init_clocklist().
-
-Then the comment "the clock is heap allocated and does not have
-a reference" sounds like a conflict. I'm sure I'm missing something. :-(
-
-Thanks,
-Zhao
-
+(I'll cc you on another use shortly).
 
