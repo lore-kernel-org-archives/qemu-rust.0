@@ -1,92 +1,80 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1td3Jv-0006O1-GS
-	for mharc-qemu-rust@gnu.org; Wed, 29 Jan 2025 03:21:15 -0500
+	id 1td3Pj-00087s-Ml
+	for mharc-qemu-rust@gnu.org; Wed, 29 Jan 2025 03:27:11 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1td3Jh-0006KI-Mz
- for qemu-rust@nongnu.org; Wed, 29 Jan 2025 03:20:57 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1td3Jg-0004Eq-Cl
- for qemu-rust@nongnu.org; Wed, 29 Jan 2025 03:20:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738138854;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=kmWDchkgNMCOHLnNxHT63tYJxxCZKeV/TOaAclkBW9w=;
- b=HPMD65ro9t0yP7ZXNo00iI30Ft+efyUwmE5/75fEWoNm7Hal64QFfZkVwwigfLuPfUhpsx
- wwTqEMHIDFOy06EW1jV6kaP+hOeVfl1HCD34g4fUb+2/FJ43QEtIMiPZdqntOgBhn5KMid
- gC/beAiZdlwdFGEAQEizvWIRlOkos9c=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-128-XqkpOUbcNXq0KnmrEbIGUg-1; Wed, 29 Jan 2025 03:20:48 -0500
-X-MC-Unique: XqkpOUbcNXq0KnmrEbIGUg-1
-X-Mimecast-MFC-AGG-ID: XqkpOUbcNXq0KnmrEbIGUg
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-4361eb83f46so50947495e9.3
- for <qemu-rust@nongnu.org>; Wed, 29 Jan 2025 00:20:48 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1td3Pd-00087B-Vk
+ for qemu-rust@nongnu.org; Wed, 29 Jan 2025 03:27:05 -0500
+Received: from mail-wr1-x429.google.com ([2a00:1450:4864:20::429])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1td3Pc-00056E-EI
+ for qemu-rust@nongnu.org; Wed, 29 Jan 2025 03:27:05 -0500
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-385df53e559so4706643f8f.3
+ for <qemu-rust@nongnu.org>; Wed, 29 Jan 2025 00:27:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1738139220; x=1738744020; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=AHZiF47NWWjd2AYAWKEbCROUr9QzBMOCZsoHUD8kiic=;
+ b=iDYVDkLJ83OeZDxHDeVPjn8Ob6bmUSHDHDQDl+EKI+cjn9OBrsMbBi/Lw5iqjLcdpW
+ a/SN3vjDu/Pd4Zxg3D/F8mJEy0v9rKG3CjrSfQLcnwOw1yXBwv7iI2BXY5i4cXM05aUw
+ sNbxnKkvVo2XQz7B0lZLQH97h3DhgPU+xxXghins5b/KqQXLDrKzS2JJzVaOIJ26b9/v
+ 7QHjtHIloS81dwSPpApwGoj/dl/6QRg23PI7uLiwyl1WwpHj9B4786pRPzCOXTKO3VPG
+ b6RoqAJOfWIqaObCqyjP28+zEv5MHPyrxGI48qcOog8AuanJPFw2oK87+QmZO0Xf246p
+ dIjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738138847; x=1738743647;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=kmWDchkgNMCOHLnNxHT63tYJxxCZKeV/TOaAclkBW9w=;
- b=dhzSyNdIWXlLvQmaX64dAEo83OAYuT/VrHk9Gg9nbCd8DXHjZ+rV66t+/oR54sj0tq
- n2+vbQknYB4OQA8sh+andfn1Futma96QXnJ2T3zXKQxqdRQ7s4sdIIkxMm+c0UKN01Q2
- Hghpzjjmzyoa9IQCy+k5ffg/uaEM3PtukyfiD9GRxcoamENJuaOxe5CX2gnhgb0vyRH5
- JPFKc6DOcvWFD1NokAC3cy6c6UW6gly8bAdH6mZ+cGHolkRfJUAtgElfjWFaFxYQChuJ
- rdlcqxPzTEulCU/dOmelGjECdy57Ifk6mLS8horhLydW32sfkoxTvzTNghknuF8JU63h
- i7NA==
+ d=1e100.net; s=20230601; t=1738139220; x=1738744020;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=AHZiF47NWWjd2AYAWKEbCROUr9QzBMOCZsoHUD8kiic=;
+ b=J+G1uRWzFNRVU+oRKMVkB8Yc6bVbW8JQJOnl0OLIy3uiwKffrpGCZ6ehByf9nWrcjG
+ rTPVhPnO+zBwlM44YcmOb0XJt18O03XQBJpZBv6LXv4t/MVsI91dwn1fU9o6qG7Z1kq8
+ nEiF7cG4tRdl2FsWIPPsqTmdaX8j5FpIp1BEXLtNM7AaQYnzSv7nWR8zbzE2knlygmGT
+ FMmbq9jIDPmfQA41RTNL3UQz4xWFv2uxuKoKN0/sWenu2oEXnOPVVT9b4oK5texqCRXO
+ i8Ry+MzjufR7dK1dZ8GUL/he6a6U8t/zvg8fQOUZUU+lDkcEwICUiI5EbV+mBI/eAwAZ
+ yjrg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWAgZKmVkV1j9TIoqbDtwNJXHNuyWoQiCjuY2YJ/WVgH3g7GW7lGwvuVGw90pw/JoK8zHIctX75j1Q=@nongnu.org
-X-Gm-Message-State: AOJu0YxbJ8ZHyhz4jaIDTJhUgqNUkKNZvv1q4gK4+uaWwzqxCE12R1Jq
- XDh8lGwcCatjlyyQAYc2842lYE8wDQQWvKKJHv568BHbHDNm00LCT1unzm9eQsg6kwPZd4kxErc
- UZERgkq0TiztPwYB1Yrj7hMMX4NHlyr3ZmkoPN64Is5nqMLR+/NA=
-X-Gm-Gg: ASbGncsaxHb65gjaAhWfk6fgsYsEbU8LVSbJjaA9rxvn7VqdOVmTkGdrdyrYW81LlMt
- xyFVYg2bIslSqeFXLGiGmQ6z5ro2qNtr+/CrEP0oSBuPx76WVmsD+mCfNLJ1ahFe2EJhzSDXYJ5
- pIvC8gsixVYNSWBDsSYUGLaAEGwsx2Dm6GyiwlWXYLTaFzGziD0gYWjiSK3dvVAmlWi9HVWCkJj
- q5qrE3lMESwq90Mska8KTpGymtUEHtG2VWKBwhvlgugV07//J/BsDThhOWXHrdigX6Vr/b0Xbtr
- mfhOEg==
-X-Received: by 2002:a05:600c:1d1e:b0:436:ed33:1535 with SMTP id
- 5b1f17b1804b1-438dc3bf129mr15945225e9.12.1738138847053; 
- Wed, 29 Jan 2025 00:20:47 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEweJxqvsTxtpXAZYVjRsKDWKJMu638NkLjAIdF/obghHTcAmSBVPrca+kwQ+jgaANhjGsSgw==
-X-Received: by 2002:a05:600c:1d1e:b0:436:ed33:1535 with SMTP id
- 5b1f17b1804b1-438dc3bf129mr15945025e9.12.1738138846761; 
- Wed, 29 Jan 2025 00:20:46 -0800 (PST)
-Received: from [192.168.10.3] ([151.62.97.55])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-438dcc6de7csm13675845e9.32.2025.01.29.00.20.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jan 2025 00:20:46 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: berrange@redhat.com,
-	qemu-rust@nongnu.org
-Subject: [PATCH] gitlab-ci: include full Rust backtraces in test runs
-Date: Wed, 29 Jan 2025 09:20:45 +0100
-Message-ID: <20250129082045.1319203-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.48.1
+ AJvYcCWJuGqT2fCVSQmNbk0H8h5z+pSzDXk3uRMRmTtrVaGMx3ur0ZxSJZDQm4rmfOfPOA9Z7dHuGiUhWik=@nongnu.org
+X-Gm-Message-State: AOJu0YzfiymseCc2jl22whRecCKekQqaHG5r32san2jEYjB4nifEn9DY
+ 6on9Chi1IjyxG2myvTUDeVAwKo1lXUelaM8bVbEmq5U79TiK9vS76aop9pVCdsU=
+X-Gm-Gg: ASbGncvgZiNqOF6QKCTbmRIK88CPuEQdRJSkRi3M/rlWHJy5cT8Z2b2ffZmv8hNii9g
+ dAkqiSKBJO+8clwh7HeVTBHBfgKYYFp/rEZ197NA7ZA+3JTQuiA/c4oUvN3jRc6AT2u6ztwJkOX
+ 4IiNQeUEWBFbP7omlx+sJdHnpb5u04t75KOYHcTCk9YI6/bMEaAFkT8WIUL703pRQR18t6/5/JB
+ FhQX/h8PEWqnD12opk77YE8TOYPerSMmO1c3WyjiZao9xohKR1WkOJ7b4lsOOjJ1S1fD3FPFme9
+ RPp6BWGv9rATUkg1AJUuhK9owa3YWAXrgK8cuKCxjdyysQx7cF12Ykw2QXc=
+X-Google-Smtp-Source: AGHT+IEqSd/3rz5Y5ORNplSWaBL8eAnVT8r6p3lyhI5cOv8lRtUUgyZW149RH7IvKocqdgMyJ9Rjsw==
+X-Received: by 2002:a05:6000:400e:b0:38a:3732:444d with SMTP id
+ ffacd0b85a97d-38c5195c27dmr1733276f8f.23.1738139219814; 
+ Wed, 29 Jan 2025 00:26:59 -0800 (PST)
+Received: from [192.168.69.235] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-438dcc2e3a6sm14299365e9.20.2025.01.29.00.26.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Jan 2025 00:26:59 -0800 (PST)
+Message-ID: <22ef753c-60d8-4e21-8317-e64b6d81ff5e@linaro.org>
+Date: Wed, 29 Jan 2025 09:26:58 +0100
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: u_1MMfuL-Aa_dUoR7vDTD8gR0K5QbtmX8bV-pRAiijg_1738138847
-X-Mimecast-Originator: redhat.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] gitlab-ci: include full Rust backtraces in test runs
+To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
+Cc: berrange@redhat.com, qemu-rust@nongnu.org
+References: <20250129082045.1319203-1-pbonzini@redhat.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20250129082045.1319203-1-pbonzini@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -33
-X-Spam_score: -3.4
-X-Spam_bar: ---
-X-Spam_report: (-3.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.3,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
+Received-SPF: pass client-ip=2a00:1450:4864:20::429;
+ envelope-from=philmd@linaro.org; helo=mail-wr1-x429.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
  T_SCC_BODY_TEXT_LINE=-0.01 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -100,26 +88,29 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jan 2025 08:20:58 -0000
+X-List-Received-Date: Wed, 29 Jan 2025 08:27:06 -0000
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- .gitlab-ci.d/buildtest-template.yml | 1 +
- 1 file changed, 1 insertion(+)
+On 29/1/25 09:20, Paolo Bonzini wrote:
 
-diff --git a/.gitlab-ci.d/buildtest-template.yml b/.gitlab-ci.d/buildtest-template.yml
-index 39da7698b09..4cc19239319 100644
---- a/.gitlab-ci.d/buildtest-template.yml
-+++ b/.gitlab-ci.d/buildtest-template.yml
-@@ -63,6 +63,7 @@
-   stage: test
-   image: $CI_REGISTRY_IMAGE/qemu/$IMAGE:$QEMU_CI_CONTAINER_TAG
-   script:
-+    - export RUST_BACKTRACE=1
-     - source scripts/ci/gitlab-ci-section
-     - section_start buildenv "Setting up to run tests"
-     - scripts/git-submodule.sh update roms/SLOF
--- 
-2.48.1
+Stefan Hajnoczi <stefanha@redhat.com>
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>   .gitlab-ci.d/buildtest-template.yml | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/.gitlab-ci.d/buildtest-template.yml b/.gitlab-ci.d/buildtest-template.yml
+> index 39da7698b09..4cc19239319 100644
+> --- a/.gitlab-ci.d/buildtest-template.yml
+> +++ b/.gitlab-ci.d/buildtest-template.yml
+> @@ -63,6 +63,7 @@
+>     stage: test
+>     image: $CI_REGISTRY_IMAGE/qemu/$IMAGE:$QEMU_CI_CONTAINER_TAG
+>     script:
+> +    - export RUST_BACKTRACE=1
+>       - source scripts/ci/gitlab-ci-section
+>       - section_start buildenv "Setting up to run tests"
+>       - scripts/git-submodule.sh update roms/SLOF
 
 
