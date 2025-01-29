@@ -1,134 +1,90 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1td3Pt-00089q-1B
-	for mharc-qemu-rust@gnu.org; Wed, 29 Jan 2025 03:27:27 -0500
+	id 1td3ZV-0002vp-A8
+	for mharc-qemu-rust@gnu.org; Wed, 29 Jan 2025 03:37:17 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1td3Ph-00087V-I7
- for qemu-rust@nongnu.org; Wed, 29 Jan 2025 03:27:11 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1td3ZT-0002v3-Ej
+ for qemu-rust@nongnu.org; Wed, 29 Jan 2025 03:37:15 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1td3Pf-00057F-Vo
- for qemu-rust@nongnu.org; Wed, 29 Jan 2025 03:27:09 -0500
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1td3ZR-0006Vr-L7
+ for qemu-rust@nongnu.org; Wed, 29 Jan 2025 03:37:15 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738139226;
+ s=mimecast20190719; t=1738139833;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uhRPwPXXkUtk4qtk1ADHu85nY/PQCqPJP8ED0l5ljJs=;
- b=X2Iffsd9AfMI83CfExSfJAJSTor7rUuxG6eMrghvfAowBZ3RGgmlu9ZETJ3L9dvcM76n2K
- gVnJz00Zp4m3rEu3VvEU+VmCuno2ym2Dxlb7XcDN07xi4OxCaFRRdZni5rotXhn19Nl8Au
- 3uT4wJ6JmVTgwj8EaajW5HdoexWEpAU=
+ in-reply-to:in-reply-to:references:references;
+ bh=Lf4c6h56xYCNge6XjLmVtzeXRglB5fuipR2Vwz8DQLs=;
+ b=UlaP98gzQVngd5YWBIp1HVnhi8z+ZdI24U2H3kPTQ9V8YFpj/3roj0i4+qZ7kVbUeE/6XU
+ XvFTvJZa23x+NjludNbKVeZo22YYgh+Sl0utaGdkfTYlGVWQAbOePLFFlN82Oa2K4FaCMb
+ +iYuEajrVn9Z3HnAK+Mde+FOV9w/Ofo=
 Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
  [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-532-OlGkWTCLPj-p8kK06QJv_w-1; Wed, 29 Jan 2025 03:27:03 -0500
-X-MC-Unique: OlGkWTCLPj-p8kK06QJv_w-1
-X-Mimecast-MFC-AGG-ID: OlGkWTCLPj-p8kK06QJv_w
+ us-mta-269-49K6rVNGNyijU5R2DZZeaA-1; Wed, 29 Jan 2025 03:37:11 -0500
+X-MC-Unique: 49K6rVNGNyijU5R2DZZeaA-1
+X-Mimecast-MFC-AGG-ID: 49K6rVNGNyijU5R2DZZeaA
 Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4361d4e8359so47292375e9.3
- for <qemu-rust@nongnu.org>; Wed, 29 Jan 2025 00:27:03 -0800 (PST)
+ 5b1f17b1804b1-4361ecebc5bso33179275e9.1
+ for <qemu-rust@nongnu.org>; Wed, 29 Jan 2025 00:37:11 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738139222; x=1738744022;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uhRPwPXXkUtk4qtk1ADHu85nY/PQCqPJP8ED0l5ljJs=;
- b=mPRJuPb0IYTJzA5j58u3keZLWmGh6mwqZ3dBCIVaJHpDwD0tMcZelc+ZjV/uqsbAV1
- el7Rau20qQ7tmKCXqYKQ9cJoQw/DGsTJz+vs96l6chzx5aVHqF0hm540xlrjmMtESNab
- AhEnIwhEamWL9pC3yz85mrvkYjc5PKYXK2win7g848lkvs5Yp8vKysDWPdSFVdCzBmjg
- J0bgJM+3J2wHA+9OoljSZmgtNMCo+70Z0eTotqyD1TzIMpar3vPStu4FOB4FMvLF2mSq
- o5b65dabdkEJWSEqRVYugvJcJiTBzzPyGvZLz4xIg6MulcfVeNpfC8uVfcqZsw+xRfkk
- SmZA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV5ACJk8NoOprNoGntmmONFnsGexcAiMgRaEofND4S/lQT5OMrftoLkLIOFwBfrBVAXMex6NqOBjwE=@nongnu.org
-X-Gm-Message-State: AOJu0Yy6rr2rZZI1Sy3oQd7fewHXgoKzeITen5zXpAZVuWnw/CdARyrZ
- +wNW4krfa1+kr254zrZPOqUibFeAIYMnIAWnghr3w5eNgVY609MwmAbn2OMcFDnxsQX3G1h7L/R
- AfxfhNM5P6HK+if2QsSuDRO8yHj57lMCxSnHHCQQWZNZdySZ+vMs=
-X-Gm-Gg: ASbGncvpXZFNJHQBDOV0JHlwwkpXoQNx/hvRrNhBmLE/1ODPY3Z7lcTx/11DlHc/iUp
- VEZQie3SsJPDLAbmJLFWVGO/9H95WVQbEZd1LKR9YT5+9TRxGhLLNvQ6cWy2Afgxr3ZMuDemzOd
- grXBKho8NtTLz8K4EUJF3kNTeqX+/WrUwzIzrNgWXz187b2AcHe7zKgzsriu1M82SHP+LbGgkaM
- 2p+Ne3AYYVT3y6e0aixu+mdeym/5GJ6fjcSk0pqP9OrCMOKcQ/UXOekXg9xs0g7AOETQpdREjdG
- 8Z5tvjvVC31LXl+1vXGLnJxVeP7r1ZBA8of0
-X-Received: by 2002:a05:600c:3c88:b0:434:9c60:95a3 with SMTP id
- 5b1f17b1804b1-438dc3c2992mr19662255e9.11.1738139222191; 
- Wed, 29 Jan 2025 00:27:02 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGY15f1vv0TN9ui2CWEl5vmG35aOeyZqcmwkiACNmpppgzBRjB8oTNg7pnGSkhkwCG0r+HB8g==
-X-Received: by 2002:a05:600c:3c88:b0:434:9c60:95a3 with SMTP id
- 5b1f17b1804b1-438dc3c2992mr19661785e9.11.1738139221471; 
- Wed, 29 Jan 2025 00:27:01 -0800 (PST)
-Received: from [192.168.0.7] (ip-109-42-50-234.web.vodafone.de.
- [109.42.50.234]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-438dcc32f6bsm13799495e9.26.2025.01.29.00.26.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jan 2025 00:27:00 -0800 (PST)
-Message-ID: <b31bf66c-f6ac-4520-ad23-35fb78533eed@redhat.com>
-Date: Wed, 29 Jan 2025 09:26:58 +0100
+ d=1e100.net; s=20230601; t=1738139830; x=1738744630;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Lf4c6h56xYCNge6XjLmVtzeXRglB5fuipR2Vwz8DQLs=;
+ b=t4mKfxWnF8SFRMinbc6AlwSfIQMzeh+765fi98mbkY/JG4sbS1E8dWEAcamryvfN7R
+ moH5+JWLYuMJXsq5PTxiRNjhkY6FK6Fyhvdzn/R7rSh2lEuH7cpNJa5yeJrozMVIGVOO
+ DtOrOIi1ZgSVeNIG1rMmcWj1OPHbxoUqTqLF6hPW3tP+K7F7tKxmRggG3JSj7OSKaAqI
+ 34w04gtu0nS2qFXqcRGBD162fvbtH5oLqEDd66yYDcjPlUmMDA1DQ71IDGIhEQws2HqK
+ 63rNX1YHtN3PMPBh3j60n94YbQWGOXnfu4Jnab4wNwwImxtDDH0DDTkvjN1ktS7xraM7
+ ExCQ==
+X-Gm-Message-State: AOJu0YyhNQrSwp+78UZE88zbHceypY/7FeOAYp889RhF7EDT0/PuMVV+
+ j1uXnpZ5e7573PQFpVthCpT6W2IuiNT5bWxLBJ3MozRj3dr7Ny666mGf4uRoAVSsOI43qt3r+lY
+ jwL8sBq9F8kG516860ZXIEsTcehffGH3bgk+rnDvS4/zPEGHgFNMZsCsG4KSa4Q==
+X-Gm-Gg: ASbGncu5iYA0f9ur/smsBRTTONfXlQSaBbe71/lNml47HWKNciJMUsdq1Nx8eqI6TVS
+ ted+uTiPi+Zwroqk6RHSowjx9a8Chl3MplyWvtfd1a37I8KVys1cr+qZFCopb9wnBaqboqcSiYa
+ aYpKyJWX/OFgw2Fy8sZdxuJUdjxO11miaJMQQdRQgPCBhAFE1S5oxe5Catr1LA2Scv6Hk+LHBKF
+ 6bI0g1jzRthDQpkShaL9StOZiO0a5NhUqHCVZJaaM5DLCi/GMHHCwo/TjjA5Yn9BuMuBpXWJ554
+ OaDZuw==
+X-Received: by 2002:a05:600c:1d1e:b0:431:5e3c:2ff0 with SMTP id
+ 5b1f17b1804b1-438dc3bd896mr16331245e9.8.1738139830006; 
+ Wed, 29 Jan 2025 00:37:10 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IG0oTdCksnKM5Ry20svhj0xsJ1mBq1bwn5vByG9CcgFXtBiJpLbwjMnEpORx25ZVJThaToxEQ==
+X-Received: by 2002:a05:600c:1d1e:b0:431:5e3c:2ff0 with SMTP id
+ 5b1f17b1804b1-438dc3bd896mr16331035e9.8.1738139829654; 
+ Wed, 29 Jan 2025 00:37:09 -0800 (PST)
+Received: from [192.168.10.3] ([151.62.97.55])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-438dcc81d74sm14240565e9.37.2025.01.29.00.37.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Jan 2025 00:37:08 -0800 (PST)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org
+Subject: [PATCH 1/2] rust: remove unnecessary Cargo.toml metadata
+Date: Wed, 29 Jan 2025 09:37:03 +0100
+Message-ID: <20250129083705.1321407-2-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250129083705.1321407-1-pbonzini@redhat.com>
+References: <20250129083705.1321407-1-pbonzini@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] gitlab-ci: include full Rust backtraces in test runs
-To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
-Cc: berrange@redhat.com, qemu-rust@nongnu.org
-References: <20250129082045.1319203-1-pbonzini@redhat.com>
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- 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
-In-Reply-To: <20250129082045.1319203-1-pbonzini@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: oFY_hfV-jX8GiJ-JN7vaIr-6rRlafSheE2IpMAI4mrA_1738139222
+X-Mimecast-MFC-PROC-ID: DTCQTGF_-wz1yYfnXYUtS27T5W-iqn5KlpqezpUKPKk_1738139830
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=thuth@redhat.com;
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -33
 X-Spam_score: -3.4
 X-Spam_bar: ---
 X-Spam_report: (-3.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.3,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
  T_SCC_BODY_TEXT_LINE=-0.01 autolearn=ham autolearn_force=no
@@ -144,27 +100,132 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jan 2025 08:27:11 -0000
+X-List-Received-Date: Wed, 29 Jan 2025 08:37:15 -0000
 
-On 29/01/2025 09.20, Paolo Bonzini wrote:
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->   .gitlab-ci.d/buildtest-template.yml | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/.gitlab-ci.d/buildtest-template.yml b/.gitlab-ci.d/buildtest-template.yml
-> index 39da7698b09..4cc19239319 100644
-> --- a/.gitlab-ci.d/buildtest-template.yml
-> +++ b/.gitlab-ci.d/buildtest-template.yml
-> @@ -63,6 +63,7 @@
->     stage: test
->     image: $CI_REGISTRY_IMAGE/qemu/$IMAGE:$QEMU_CI_CONTAINER_TAG
->     script:
-> +    - export RUST_BACKTRACE=1
->       - source scripts/ci/gitlab-ci-section
->       - section_start buildenv "Setting up to run tests"
->       - scripts/git-submodule.sh update roms/SLOF
+Some items of Cargo.toml (readme, homepage, repository) are
+only present because of clippy::cargo warnings being enabled in
+rust/hw/char/pl011/src/lib.rs.  But these items are not
+particularly useful and would be all the same for all Cargo.toml
+files in the QEMU workspace.  Clean them up.
 
-Reviewed-by: Thomas Huth <thuth@redhat.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ rust/hw/char/pl011/Cargo.toml   |  3 ---
+ rust/hw/char/pl011/README.md    | 31 -------------------------------
+ rust/hw/char/pl011/src/lib.rs   | 14 ++++++--------
+ rust/qemu-api-macros/Cargo.toml |  3 ---
+ rust/qemu-api-macros/README.md  |  1 -
+ 5 files changed, 6 insertions(+), 46 deletions(-)
+ delete mode 100644 rust/hw/char/pl011/README.md
+ delete mode 100644 rust/qemu-api-macros/README.md
+
+diff --git a/rust/hw/char/pl011/Cargo.toml b/rust/hw/char/pl011/Cargo.toml
+index 58f3e859f7e..2b4097864df 100644
+--- a/rust/hw/char/pl011/Cargo.toml
++++ b/rust/hw/char/pl011/Cargo.toml
+@@ -4,10 +4,7 @@ version = "0.1.0"
+ edition = "2021"
+ authors = ["Manos Pitsidianakis <manos.pitsidianakis@linaro.org>"]
+ license = "GPL-2.0-or-later"
+-readme = "README.md"
+-homepage = "https://www.qemu.org"
+ description = "pl011 device model for QEMU"
+-repository = "https://gitlab.com/epilys/rust-for-qemu"
+ resolver = "2"
+ publish = false
+ keywords = []
+diff --git a/rust/hw/char/pl011/README.md b/rust/hw/char/pl011/README.md
+deleted file mode 100644
+index cd7dea31634..00000000000
+--- a/rust/hw/char/pl011/README.md
++++ /dev/null
+@@ -1,31 +0,0 @@
+-# PL011 QEMU Device Model
+-
+-This library implements a device model for the PrimeCell® UART (PL011)
+-device in QEMU.
+-
+-## Build static lib
+-
+-Host build target must be explicitly specified:
+-
+-```sh
+-cargo build --target x86_64-unknown-linux-gnu
+-```
+-
+-Replace host target triplet if necessary.
+-
+-## Generate Rust documentation
+-
+-To generate docs for this crate, including private items:
+-
+-```sh
+-cargo doc --no-deps --document-private-items --target x86_64-unknown-linux-gnu
+-```
+-
+-To include direct dependencies like `bilge` (bitmaps for register types):
+-
+-```sh
+-cargo tree --depth 1 -e normal --prefix none \
+- | cut -d' ' -f1 \
+- | xargs printf -- '-p %s\n' \
+- | xargs cargo doc --no-deps --document-private-items --target x86_64-unknown-linux-gnu
+-```
+diff --git a/rust/hw/char/pl011/src/lib.rs b/rust/hw/char/pl011/src/lib.rs
+index e2df4586bcc..e704daf6e3e 100644
+--- a/rust/hw/char/pl011/src/lib.rs
++++ b/rust/hw/char/pl011/src/lib.rs
+@@ -1,13 +1,12 @@
+ // Copyright 2024, Linaro Limited
+ // Author(s): Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+ // SPDX-License-Identifier: GPL-2.0-or-later
+-//
+-// PL011 QEMU Device Model
+-//
+-// This library implements a device model for the PrimeCell® UART (PL011)
+-// device in QEMU.
+-//
+-#![doc = include_str!("../README.md")]
++
++//! PL011 QEMU Device Model
++//!
++//! This library implements a device model for the PrimeCell® UART (PL011)
++//! device in QEMU.
++//!
+ //! # Library crate
+ //!
+ //! See [`PL011State`](crate::device::PL011State) for the device model type and
+@@ -18,7 +17,6 @@
+     clippy::suspicious,
+     clippy::complexity,
+     clippy::perf,
+-    clippy::cargo,
+     clippy::nursery,
+     clippy::style
+ )]
+diff --git a/rust/qemu-api-macros/Cargo.toml b/rust/qemu-api-macros/Cargo.toml
+index 5a27b52ee6e..b9b4baecddb 100644
+--- a/rust/qemu-api-macros/Cargo.toml
++++ b/rust/qemu-api-macros/Cargo.toml
+@@ -4,10 +4,7 @@ version = "0.1.0"
+ edition = "2021"
+ authors = ["Manos Pitsidianakis <manos.pitsidianakis@linaro.org>"]
+ license = "GPL-2.0-or-later"
+-readme = "README.md"
+-homepage = "https://www.qemu.org"
+ description = "Rust bindings for QEMU - Utility macros"
+-repository = "https://gitlab.com/qemu-project/qemu/"
+ resolver = "2"
+ publish = false
+ keywords = []
+diff --git a/rust/qemu-api-macros/README.md b/rust/qemu-api-macros/README.md
+deleted file mode 100644
+index f60f54ac4be..00000000000
+--- a/rust/qemu-api-macros/README.md
++++ /dev/null
+@@ -1 +0,0 @@
+-# `qemu-api-macros` - Utility macros for defining QEMU devices
+-- 
+2.48.1
 
 
