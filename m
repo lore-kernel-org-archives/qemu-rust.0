@@ -1,90 +1,90 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1td4vM-0005VE-Ra
-	for mharc-qemu-rust@gnu.org; Wed, 29 Jan 2025 05:03:58 -0500
+	id 1td57j-0008CY-OZ
+	for mharc-qemu-rust@gnu.org; Wed, 29 Jan 2025 05:16:43 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1td4vG-0005TX-QE
- for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:03:51 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1td57h-0008CN-Vv
+ for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:16:42 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1td4vE-0001r4-Nq
- for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:03:50 -0500
+ id 1td57g-0003pv-9K
+ for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:16:41 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738145027;
+ s=mimecast20190719; t=1738145797;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+F3okHwWkg0OXxkny/J3TL1cy7Ca6BTuE7DFW3H/2ww=;
- b=XcCQIYUqnUT9YAaNrrlMeoaJscR+HQh6mOj9dM3KywUHfnLfNL1PXMSGUmhQV37vEth74s
- zC0yaQRNW9I0z0TTqnoXxn4c3iHE8McSotT8vHJkC1D1ufYcvGhORxslbKcHVxoNlWHLEv
- /lrFXPpKPhLb47MlbwberQ4yoqEuRJQ=
+ bh=w+G8waqSz+sW1WzRxyXqVcZa+E1OzGMu5DN+Rnb5mGQ=;
+ b=QrGp962C2vzkUATfomcM2CdFCu8byKaIcXRMuhNtKqo703zoiiai7T38jqhNcCviE1PoKJ
+ ozPmlCnSlkFDajvSwEFqtquhusFxLMIK8GcI+SvJMhEpfcAhx/jEwR/xzXzi/kJ1hhSmgu
+ CmNZud1hVvXsoSdTosIzCbKDrLydi0A=
 Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
  [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-646-wq0PMEuDO0KzU6CKHUr2xQ-1; Wed, 29 Jan 2025 05:03:44 -0500
-X-MC-Unique: wq0PMEuDO0KzU6CKHUr2xQ-1
-X-Mimecast-MFC-AGG-ID: wq0PMEuDO0KzU6CKHUr2xQ
+ us-mta-235-wjzWrKPPMgiMl0CBr9TIVA-1; Wed, 29 Jan 2025 05:16:36 -0500
+X-MC-Unique: wjzWrKPPMgiMl0CBr9TIVA-1
+X-Mimecast-MFC-AGG-ID: wjzWrKPPMgiMl0CBr9TIVA
 Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-38639b4f19cso4334977f8f.0
- for <qemu-rust@nongnu.org>; Wed, 29 Jan 2025 02:03:44 -0800 (PST)
+ ffacd0b85a97d-3862be3bfc9so3727568f8f.3
+ for <qemu-rust@nongnu.org>; Wed, 29 Jan 2025 02:16:35 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738145023; x=1738749823;
+ d=1e100.net; s=20230601; t=1738145793; x=1738750593;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+F3okHwWkg0OXxkny/J3TL1cy7Ca6BTuE7DFW3H/2ww=;
- b=UN9Hel9KWjDMSo2DQIXQyD5wwIsNEylhK9sKaz0A3LGQ41ugi/kDbojbrn327WHmn6
- VnSxRzchdISuXMUDNSJMckZ2JBGlqZdlyYSXWF5/kdrLHkK4+YRWKh53Y7NSl68DPxZX
- 3U47roLptCQzWITkrWinPF/zGSRS2rZEhQCpLrhTxT0mdwNQJI7bwEB/Dk12KLf00jKn
- FzHHOIbc2t5KBJxShlMIxe75RCfrleUcYvup+1gFASCUez7WOGilPPpvoW/lsGfF/pPt
- gQKT8hdTqIk6d+PSWO1wAb00+Z26c6yXIts+xPb9A7YJaMlkmfaLOVqptt/RANcdmsYo
- JuyQ==
+ bh=w+G8waqSz+sW1WzRxyXqVcZa+E1OzGMu5DN+Rnb5mGQ=;
+ b=LlHPEnQdMKTv1p6otKNGekAlBV2wZzmAfwFt2LFq3/9OoAdJ17U2zc1cIr+cT+bf4M
+ C4Kcm6SZGobyUYfKUNQkP3fPhR3ERBcSG+m4hoSZQkYZtfu40wagmdcbg4ygrB6O75Cr
+ E8cT7qr3ay7XidTiUD8Cq6RED4+LUwXpm//chQJRzQTSYbmVTKwBke7nRRLPqhbnsXBd
+ cgw2GchfkIER7whDdYkBeLzgqgyQwvut1pfKArRRzWi6a8LftMB/wwDW86zNEi5GlSd8
+ 1I8GMt/bGTYu8u8JFDauR7o9IMONEQwfWkmmTFkYfS4NWQgAlzr5piQpnMLoMTqhAwOa
+ i21A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVHNQBFcTtq6iNp3j9TYeH6ArOZgapSGjHI9304Z3uOdfikXvt5iTHR26pLYGySuITjP3oshCFk1UU=@nongnu.org
-X-Gm-Message-State: AOJu0YywgrH4RCD2ei0hmJEZEpVvoMjagz5jXGaww4oAdLDNS9DFaWWT
- hIMfBdsjkFtagqQZ7GshRfuZHmfgzWuCCNkTBQabilIVoX+9TNnKyfaQfU1zFVEDVDxovRCF189
- 49fTVq2jBIxW6S8mSYFSRUTWA3lvEhjUxftXzvd1aa1pP0mPNOFNcELAvJFxrmxYuWmFIccN2cT
- Q3xTPAtkQ+2p5+1luP3DfM1gdt9g==
-X-Gm-Gg: ASbGncvhmYCbnRiUTPjAg2KBe3hPasQEfy8hoXdl5qzhdehz+XK+GYTKZR/ycHsGUzz
- 9sqlLKfCdnBIA/JFtomEmQqQduU0gzU0Q2/xf9Bmq4wQOQjGJwUk9oWNjywR4
-X-Received: by 2002:a5d:518f:0:b0:38a:4184:152a with SMTP id
- ffacd0b85a97d-38c5196a391mr1580629f8f.28.1738145023391; 
- Wed, 29 Jan 2025 02:03:43 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IF4/btLbqKPxOkC4OmpVsZgHerM5ledUTtQPiDd1fKbdmVAa2xvw+gV7/QajT/tzxzIt9bU8+fMq2lDtIZvVJI=
-X-Received: by 2002:a5d:518f:0:b0:38a:4184:152a with SMTP id
- ffacd0b85a97d-38c5196a391mr1580594f8f.28.1738145023064; Wed, 29 Jan 2025
- 02:03:43 -0800 (PST)
+ AJvYcCVs+vLkzPVyFTd3BRE3FwSVz779ugYT82b7vRp7w4SaRT7ZSlAIXfl5KhhVFl90RXGeFTNKQiyZ5aw=@nongnu.org
+X-Gm-Message-State: AOJu0YxqpOlcZBee3QQ+B9Z2ECeyrd4+DlDdmKU2RxqBH617jOIa9z7A
+ 5/lOclygD6nh9F2iUljzSTnYq1vp219yBOD9k2dd25w1havZz9N9/gsqPUHMe2x38raYZBlhLQA
+ rwdGB6ete/qnR7tB2wk5+RGW8nUSWVE4A8GLak7TpgBxf8QWiz55PoIbJjh/TTUfqKrOHYrXFzZ
+ aU8dma1a99ookETyOzBAmRaobMJvgC/SrxeivLSSQ=
+X-Gm-Gg: ASbGncu3dYgovLHTzaSNekdn7y7q3tOE6rqn2zSz1smMgm4dABU+wvs2CTUk2QVvwok
+ bmynacHn4vlm+B7yZQINOPY8/opPlbqzLNshflZd89R8lTMKEgRkyQ1a62Ipu
+X-Received: by 2002:a5d:5847:0:b0:386:3825:2c3b with SMTP id
+ ffacd0b85a97d-38c5194c75cmr2063746f8f.18.1738145793551; 
+ Wed, 29 Jan 2025 02:16:33 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFl8vBQYpbHBsp1jESsQ6cQcP7IETOy40haopYAa2Ua2mN5lsq8HmtyeKT+BL6k2TtclADwNcEW0D4WLX2CbMI=
+X-Received: by 2002:a5d:5847:0:b0:386:3825:2c3b with SMTP id
+ ffacd0b85a97d-38c5194c75cmr2063723f8f.18.1738145793176; Wed, 29 Jan 2025
+ 02:16:33 -0800 (PST)
 MIME-Version: 1.0
 References: <20250117194003.1173231-1-pbonzini@redhat.com>
  <20250117194003.1173231-3-pbonzini@redhat.com>
- <Z5ZRnYDZdZcgyCsR@intel.com>
-In-Reply-To: <Z5ZRnYDZdZcgyCsR@intel.com>
+ <Z5c8gVcUn4rzVpID@intel.com>
+In-Reply-To: <Z5c8gVcUn4rzVpID@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Wed, 29 Jan 2025 11:03:31 +0100
-X-Gm-Features: AWEUYZmeIuW4JSWbg1IrDyCA_2MmWvOct6_kvul0XV2OusmvWiOmiUpKbwig6t0
-Message-ID: <CABgObfZ1659K9TrAAa3HYfhr0vf31eveoN-=33rSmpJnLo1RKg@mail.gmail.com>
+Date: Wed, 29 Jan 2025 11:16:21 +0100
+X-Gm-Features: AWEUYZkqaWvqQNdpUWQut2JEKbrMIOETSMl_-j2ga15e1vqt8M_ETs5WhouNLQE
+Message-ID: <CABgObfbLaHXtoGAkUVW9CUXio-N_1A=Awq0=ZCY3G8sAO+9NXQ@mail.gmail.com>
 Subject: Re: [PATCH 02/10] rust: qom: add reference counting functionality
 To: Zhao Liu <zhao1.liu@intel.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: KoIw7T01HlihbnQeRzU1ucJzFIVDYrWePqzY26O7j5c_1738145023
+X-Mimecast-MFC-PROC-ID: qWFqyB4JFFmAcXKZEXukt2BKAkoVCIF4eLGByQZcUEw_1738145795
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -33
 X-Spam_score: -3.4
 X-Spam_bar: ---
 X-Spam_report: (-3.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.3,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
- T_SCC_BODY_TEXT_LINE=-0.01 autolearn=ham autolearn_force=no
+ T_SCC_BODY_TEXT_LINE=-0.01 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -97,109 +97,121 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jan 2025 10:03:51 -0000
+X-List-Received-Date: Wed, 29 Jan 2025 10:16:42 -0000
 
-On Sun, Jan 26, 2025 at 3:56=E2=80=AFPM Zhao Liu <zhao1.liu@intel.com> wrot=
+On Mon, Jan 27, 2025 at 8:38=E2=80=AFAM Zhao Liu <zhao1.liu@intel.com> wrot=
 e:
 >
-> Hi Paolo,
+> > +impl<T: ObjectType> Owned<T> {
+> > +    /// Convert a raw C pointer into an owned reference to the QOM
+> > +    /// object it points to.  The object's reference count will be
+> > +    /// decreased when the `Owned` is dropped.
+> > +    ///
+> > +    /// # Panics
+> > +    ///
+> > +    /// Panics if `ptr` is NULL.
+> > +    ///
+> > +    /// # Safety
+> > +    ///
+> > +    /// The caller must indeed own a reference to the QOM object.
+> > +    /// The object must not be embedded in another unless the outer
+> > +    /// object is guaranteed to have a longer lifetime.
+> > +    ///
+> > +    /// A raw pointer obtained via [`Owned::into_raw()`] can always be=
+ passed
+> > +    /// back to `from_raw()` (assuming the original `Owned` was valid!=
+),
+> > +    /// since the owned reference remains there between the calls to
+> > +    /// `into_raw()` and `from_raw()`.
+> > +    #[allow(clippy::missing_const_for_fn)]
+> > +    pub unsafe fn from_raw(ptr: *const T) -> Self {
+> > +        // SAFETY NOTE: while NonNull requires a mutable pointer, only
+> > +        // Deref is implemented so the pointer passed to from_raw
+> > +        // remains const
+> > +        Owned(NonNull::new(ptr as *mut T).unwrap())
+> > +    }
 >
-> On Fri, Jan 17, 2025 at 08:39:55PM +0100, Paolo Bonzini wrote:
-> > Date: Fri, 17 Jan 2025 20:39:55 +0100
-> > From: Paolo Bonzini <pbonzini@redhat.com>
-> > Subject: [PATCH 02/10] rust: qom: add reference counting functionality
-> > X-Mailer: git-send-email 2.47.1
-> >
-> > Add a smart pointer that allows to add and remove references from
-> > QOM objects.  It's important to note that while all QOM objects have a
-> > reference count, in practice not all of them have their lifetime guarde=
-d
-> > by it.
+> ...
 >
-> About the background, I have a maybe common question...why Rust needs
-> extra reference count guarding?
-
-Children properties are removed, and thus their reference is dropped,
-before instance_finalize() is called (see object_finalize() in
-qom/object.c). This is not valid in Rust, you need to keep the object
-alive until the last line of Rust code has run - which is after
-Drop::drop() has run.
-
-> Additionally, I felt that the ref count may be a bit confusing. After
-> creating Child<> property, the child object's ref count is sometimes 1,
-> and other times it's 2:
+> > +    /// Increase the reference count of a QOM object and return
+> > +    /// a new owned reference to it.
+> > +    ///
+> > +    /// # Safety
+> > +    ///
+> > +    /// The object must not be embedded in another, unless the outer
+> > +    /// object is guaranteed to have a longer lifetime.
+> > +    pub unsafe fn from(obj: &T) -> Self {
+> > +        unsafe {
+> > +            object_ref(obj.as_object_mut_ptr().cast::<c_void>());
+> > +
+> > +            // SAFETY NOTE: while NonNull requires a mutable pointer, =
+only
+> > +            // Deref is implemented so the reference passed to from_ra=
+w
+> > +            // remains shared
+> > +            Owned(NonNull::new_unchecked(obj.as_mut_ptr()))
+> > +        }
+> > +    }
+> > +}
+> > +
 >
->  * With object_initialize_child(), child's ref count is 1.
+> About the difference between from_raw() and from(), I understand if the
+> C side also holds a pointer, the Rust side must increase the reference
+> count (using Owned::from), and If the C side does not have any other
+> pointers, Rust can directly use Owned::from_raw. Am I right?
+
+Pretty much - more precisely you use Object::from_raw 1) if the C side
+gifts a reference 2) if you got the pointer from Owned::into_raw. The
+second case is similar to Arc::from_raw, which expects that you got a
+reference from Arc::into_raw. The first is the more common case.
+
 >
->  * With object_property_add_child() (usually after a object_new() to
->    create child first):
+> * The use of from():
 >
->    - sometimes user will call object_unref(), and then the ref count is 1=
-.
->      E.g., x86_cpu_apic_create() in target/i386/cpu-apic.c.
+>                 let clk =3D bindings::qdev_init_clock_in(...)
+>                 Owned::from(&*clk)
+
+In this case the C side wants to manage the reference that
+qdev_init_clock_in() returns; it is dropped in
+qdev_finalize_clocklist(). So Rust code needs to increase the
+refcount.
+
+> * The use of from_raw():
 >
->    - sometimes no object_unref(), then ref count is 2.
->      E.g., exynos4210_realize() in hw/arm/exynos4210.c, creats "cortex-a9=
-".
+>     fn new() -> Owned<Self> {
+>         assert!(bql_locked());
+>         // SAFETY: the object created by object_new is allocated on
+>         // the heap and has a reference count of 1
+>         unsafe {
+>             let obj =3D &*object_new(Self::TYPE_NAME.as_ptr());
+>             Owned::from_raw(obj.unsafe_cast::<Self>())
+>         }
+>     }
 
-In C, having a ref count of 2 is usually a latent memory leak (because
-most of the time there's not going to be an object_unref() in the
-instance_finalize() method). In this case the leak is latent, because
-TYPE_EXYNOS4210_SOC is not hot-unpluggable and thus will never really
-go away once realized.
+In this case the C side lets the caller manage the (only) reference
+when object_new returns, so you must not increase the refcount.
 
-In Rust, this class of leaks simply does not exist with the right API.
-ObjectMethods::property_add_child() could either:
+Owned::from() is slightly less efficient, though that almost never
+matters. If it does you can use ManuallyDrop::new(Owned::from_raw(p)).
 
-- take an Owned<T> and consume it, thus always giving a ref count of 1
-on exit. If you want to keep the object you would have to clone it.
+> Comparing with these 2 use cases, I find the difference is
+> qdev_init_clock_in() creates a pointer in qdev_init_clocklist().
 
-- take "&'owner self, &'child T where 'owner: 'child", then you can
-pass an embedded object like object_initialize_child().
+That is related, but more precisely the difference is that
+qdev_init_clock_in() wants to unref that pointer later.
 
-In the latter case however you *still* need to keep the reference
-count elevated until Drop runs. That is, unlike C, Rust code will
-always have a ref count of 2 for children. For this reason, instead of
-having a "T" in the struct you would have another wrapper---something
-like Child<'owner, T>. This wrapper cannot be cloned but it does an
-unref when dropped.
+> Then the comment "the clock is heap allocated and does not have
+> a reference" sounds like a conflict. I'm sure I'm missing something. :-(
 
-My expectation is that property_add_child() will be used exclusivel
-for the first case, i.e. it will take an Owned<T>. If you want to
-create a child property from an embedded object, something like
-object_initialize_child() can be used once pinned-init is used to
-rewrite how instance_init is used. It will look something like
+Changed:
 
-pin_init! {
-  &this in MyClass {
-    ...,
-    iomem <- MemoryRegion::init_io(
-            this,
-            &MY_MR_OPS,
-            "memory-region-name",
-            0x1000,
-    ),
-    child_obj <- ChildClass::init().to_child(this, "prop-name")
-  }
-}
+      // SAFETY: the clock is heap allocated, but qdev_init_clock_in()
+      // does not gift the reference to its caller; so use Owned::from to
+      // add one.  the callback is disabled automatically when the clock
+      // is unparented, which happens before the device is finalized.
 
-where to_child() wraps an "impl PinInit<T>" and turns it into an "impl
-PinInit<Child<'a, T>>". Or something like that. :)
 
-> From this description, I understand your goal is:
->
->  * For embedded child object, its lifetimer is managed by its parent
->    object, through Child<> for the most cases.
->
->  * For non-embedded child - a pointer/reference in parent object, its
->    lifetimer is managed by `Owned<>` (and with Child<>).
->
-> Am I right?
-
-Yes, you're right.
-
-I am not sure if you meant Child<> as the QOM concept, or as a Rust
-struct. If the latter, you're really really right.
+Thanks for the review!
 
 Paolo
 
