@@ -1,76 +1,76 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1td5mM-0002U0-LG
-	for mharc-qemu-rust@gnu.org; Wed, 29 Jan 2025 05:58:43 -0500
+	id 1td5mZ-0002mQ-Ki
+	for mharc-qemu-rust@gnu.org; Wed, 29 Jan 2025 05:58:55 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1td5mK-0002TU-Rd
- for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:58:41 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1td5mX-0002dZ-17
+ for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:58:53 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1td5mJ-0001QZ-6i
- for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:58:40 -0500
+ id 1td5mV-0001Rd-J2
+ for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:58:52 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738148316;
+ s=mimecast20190719; t=1738148331;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=zYyFaiw5RYqEPTsuc0zEVoccThPEdlpcW/A8Wdk4WxM=;
- b=SasGNmxmpa+qbutAQ8R/nbzqK4gOi7C8shtxxdCb2MqLo6j+oBwb7f4W6iOpsbNCwrqExr
- 182Eyx7ro3mUkGK5p5p+BQSjXaSZUxQ455woGi9CWO/gGIoQpPPsfunkwuoTQP2BtNUvaC
- WZxA43RQ7gV3VS3U3n084F5mIEc83Bw=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=OE05GPBGftHUbBb/8qVxPpXhE61datWse2aXCCUVcEk=;
+ b=Gt92MqrawEBk0mOkUyTDNyhFMBYc1OaT8HKC2YFsmmp/+NsrkMNzMfJ5rgr81auySePoDF
+ 4BvYS04AlhgK6wdbkFF48p1bBCsvNs4MbNd5VWaF23sn0hEpdszaW6z1pIezG/Hg8RQSP4
+ 9+Hi6A9vph/0t1AZbJ2HA+pQRLCj6e8=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-517-taWieFziO-qb_rtVw7Kp7A-1; Wed, 29 Jan 2025 05:58:35 -0500
-X-MC-Unique: taWieFziO-qb_rtVw7Kp7A-1
-X-Mimecast-MFC-AGG-ID: taWieFziO-qb_rtVw7Kp7A
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-385e2579507so2826668f8f.1
- for <qemu-rust@nongnu.org>; Wed, 29 Jan 2025 02:58:35 -0800 (PST)
+ us-mta-542-x0PAvzh8OWSDdqXBpoUT_A-1; Wed, 29 Jan 2025 05:58:49 -0500
+X-MC-Unique: x0PAvzh8OWSDdqXBpoUT_A-1
+X-Mimecast-MFC-AGG-ID: x0PAvzh8OWSDdqXBpoUT_A
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-4361f371908so46354485e9.0
+ for <qemu-rust@nongnu.org>; Wed, 29 Jan 2025 02:58:49 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738148314; x=1738753114;
+ d=1e100.net; s=20230601; t=1738148328; x=1738753128;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :references:cc:to:subject:from:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=zYyFaiw5RYqEPTsuc0zEVoccThPEdlpcW/A8Wdk4WxM=;
- b=grf1xNt+G1Hs/fLrL6FP61rgIJmj6bJIARcQgQ/T9Y+ifiPzDKkzUCg+6smf8x44bl
- Zj26jWHEYB9v1y1ECF0UJoShZoHAOk1xf5u8k7R0HeguDkdQwscfcSVSb+rMihyd6gl4
- tmb0Ou7vqgu+Ne5bU4R4ytzMPgafcqhadbc1+sfruXN76RybCFW4+9tz7UNkceJtTR7O
- efADpxvnHg9SxCNExxSeWL3YoowSyFgZPPtO/VEpNVtzjWjY9H9O7J8wqbUqUhC2uWrv
- 4buX4LbOrHZ7hF6pEZiC3JyesaP8zQ8qxHD4n8fDJQDtTjSBmdhMZi0JrCDYjr60O9uY
- 9JAQ==
+ bh=OE05GPBGftHUbBb/8qVxPpXhE61datWse2aXCCUVcEk=;
+ b=Wsz/uQnIqIcN5KS0gaQ6WQhgGOJubMRTDeY7TEHlm2o3xYb9RpBLhrMNseiJyTPVwY
+ N9yqvq8Bvcws7hCZm+2OnrRXMqlxqFWEGBuez4OeueEA2vXaPoEGVsm5sNT/Drdu2utm
+ JdnLMHo5QZ85f9SWpxLOZ90s6V7O1RHSqX8BcH+pn4YycD3ZiqAbpH/yDlme1UiRU2sG
+ nGmNQcPpD0P832VEjqGDks1DH3lab7AB9CqLJvv61Gxdl3AsZom47dR3BxEA3OdIdRKI
+ RWFZowvN7uBWYRwjKrP8oo5kg1+9BfgQT4Z4LL1W+FpiHqNE+SQEOX+VLY8N8H/HxW/f
+ G4JQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXlmRyyxy9TCXHbsCar0uXsHkTY1OONc8IIoWbKFvfxZqiSKTVH9uq6DS8h0jEPrxhanWu+5iwheiE=@nongnu.org
-X-Gm-Message-State: AOJu0Yw94gDJdSOqn/2P1lPI2KNg1BVRO9V88hF/LiX9zI/z1pFbN+c0
- qDuyUR3lHKOA+tN7b2vi7kW/vusApsqmzRSIMwWNZDT1IOVD4nzBrSfPQd8EILlR+U/H5VyJ8X/
- 7ZQRFaWOxNzPBmcJ4aV3pOMm9Goa47zGHRgOQ4dmKHxslX41UGGs=
-X-Gm-Gg: ASbGncvzGm6YTixcobWU+7c1N+1xlr/uowfDZpsF4/Jyyz1G1QEwlUgLPc3Kgicu3w/
- /xHrtMTM7aOHSIsTNKvgsRlOcJSt3eveNvWxsXHA5OoY6pmnb35fPwhZ6qquq3ds98BouUxjtlO
- q3loFMzlTsflVq5gFhDpn8ju9RMTgYZdliLfFLZP0//C3sC4HyZD4j5AgfnDbri5X3o5N8vQkib
- dtypHir7DsHSR35ilgB0EOxwGtHtPFhy4Ox5MRqQ63ZxwpddulaHYA3y6fyzn/qrpSHhXpJFHwg
- JBcLjQ==
-X-Received: by 2002:a5d:6d88:0:b0:38a:4b8b:c57a with SMTP id
- ffacd0b85a97d-38c5209351bmr2871659f8f.44.1738148314195; 
- Wed, 29 Jan 2025 02:58:34 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IF19I6ObrUzo4ap8AX8sAx9fzxfkxp24VTBV2ROz4h+yVI4C1tNhQfZWbIjOUe6Sr4LM8EeSg==
-X-Received: by 2002:a5d:6d88:0:b0:38a:4b8b:c57a with SMTP id
- ffacd0b85a97d-38c5209351bmr2871632f8f.44.1738148313777; 
- Wed, 29 Jan 2025 02:58:33 -0800 (PST)
+ AJvYcCWkNuumRg1ueVFEeIfyTshXETozp1EbLLyiP0F3Mag7030bhCtGfwNy5E5Fo3KLFSKaRRFIh5MXu9c=@nongnu.org
+X-Gm-Message-State: AOJu0YyblXF/adfc5TfL8OINwVoGX7ROsGbi64J+fM+HawtcwF+FOTV+
+ Clb3CcjwTrs3FfvIynNDkiAhNrq7F0U5ymLjkauxCi9Sh3fobjfnSSkcizaXfc2ybWtz2aPyXli
+ Uuu0HO8PBPbyvnH+DKxKxXbOt3n0lk2U6PbpZeI1ZEXA+JDGEuK0=
+X-Gm-Gg: ASbGnct/WvNfFVRdWmaS9Sc+/Q4NluYazucS8mH9WETt/QefJrXXct8W8DDJsEshcq0
+ hUMIW3n/C261akBXzZsx3GUwWnkZ15QlXkzr1SOu0vXhnPYe+ndsWHaZc6sFqHzfGU8CVUjVG2t
+ ZbnNgYT2uqGBn8dfbfKKqBD2BxMp4CpsrFy7KnBEiYnXyBPoglUTlwpludnRQZdolVsndHnhmqA
+ msfERREkEv9P/4LlFoePndvQedIOLCwaYGDJmtK1oeEFWdbcxRgzemlwHFuQojTbbVz/JAz89Au
+ 3wsNtg==
+X-Received: by 2002:a05:600c:1d1e:b0:434:a5d1:9905 with SMTP id
+ 5b1f17b1804b1-438dc42238dmr17557325e9.26.1738148328286; 
+ Wed, 29 Jan 2025 02:58:48 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IExGCBlBOLV2pUkqmtAuaFfwYscz9bHBOCP+yNs58IVN4Ovy+MebUewBN21QCvNBjQshEcU/A==
+X-Received: by 2002:a05:600c:1d1e:b0:434:a5d1:9905 with SMTP id
+ 5b1f17b1804b1-438dc42238dmr17557095e9.26.1738148327911; 
+ Wed, 29 Jan 2025 02:58:47 -0800 (PST)
 Received: from [192.168.10.3] ([151.62.97.55])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-38c2a176519sm16468875f8f.2.2025.01.29.02.58.32
+ 5b1f17b1804b1-438dcc81911sm18349895e9.38.2025.01.29.02.58.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jan 2025 02:58:33 -0800 (PST)
-Message-ID: <a30bfa1c-ddb8-4a5b-9f95-7b000c11cd54@redhat.com>
-Date: Wed, 29 Jan 2025 11:58:32 +0100
+ Wed, 29 Jan 2025 02:58:47 -0800 (PST)
+Message-ID: <f2339eb2-f129-48a7-aed8-9d4ee6bcdf05@redhat.com>
+Date: Wed, 29 Jan 2025 11:58:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH 06/10] rust: add bindings for timer
+Subject: Re: [PATCH 07/10] rust/timer/hpet: define hpet_cfg
 To: Zhao Liu <zhao1.liu@intel.com>
 Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Junjie Mao <junjie.mao@hotmail.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
@@ -80,7 +80,7 @@ Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  =?UTF-8?Q?Daniel_P_=2E_Berrang=C3=A9?= <berrange@redhat.com>,
  qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
 References: <20250125125137.1223277-1-zhao1.liu@intel.com>
- <20250125125137.1223277-7-zhao1.liu@intel.com>
+ <20250125125137.1223277-8-zhao1.liu@intel.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
  CxXPkIBTvYY+ZPkoTh5xF9oS1jqI8iRLzouzF8yXs3QjQIZ2SfuCxSVwlV65jotcjD2FTN04
@@ -116,24 +116,24 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20250125125137.1223277-7-zhao1.liu@intel.com>
+In-Reply-To: <20250125125137.1223277-8-zhao1.liu@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 8a1fGdmhR92yfGz6AbkZYW87rqHdpRIWxAmrt-BJjuw_1738148314
+X-Mimecast-MFC-PROC-ID: bjzRR4KKdjtvS9um6-ndGyYsjMo-LH-SBxd_xraEpaQ_1738148328
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -33
 X-Spam_score: -3.4
 X-Spam_bar: ---
 X-Spam_report: (-3.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.3,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
- T_SCC_BODY_TEXT_LINE=-0.01 autolearn=unavailable autolearn_force=no
+ T_SCC_BODY_TEXT_LINE=-0.01 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -146,166 +146,32 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jan 2025 10:58:41 -0000
+X-List-Received-Date: Wed, 29 Jan 2025 10:58:53 -0000
 
 
 
 On Sat, Jan 25, 2025 at 1:32 PM Zhao Liu <zhao1.liu@intel.com> wrote:
-> +  c_nocopy = [
-> +    'QEMUTimer',
-> +  ]
-> +  # Used to customize Drop trait
-> +  foreach struct : c_nocopy
-> +    bindgen_args += ['--no-copy', struct]
-> +  endforeach
+> @@ -5,6 +5,7 @@ edition = "2021"
+>  authors = ["Zhao Liu <zhao1.liu@intel.com>"]
+>  license = "GPL-2.0-or-later"
+>  description = "IA-PC High Precision Event Timer emulation in Rust"
 
-Nice.
+Please add
 
-> +pub use bindings::QEMUTimer;
-> +
-> +use crate::{
-> +    bindings::{
-> +        self, qemu_clock_get_ns, timer_del, timer_init_full, timer_mod, QEMUClockType,
-> +        QEMUTimerListGroup,
-> +    },
-> +    callbacks::FnCall,
-> +};
-> +
-> +impl QEMUTimer {
-> +    pub fn new() -> Self {
-> +        Default::default()
-> +    }
-> +
-> +    pub fn timer_init_full<'timer, 'opaque: 'timer, T, F>(
+rust-version = "1.63.0"
 
-General question - should the names:
+here.
 
-- include the "timer" part, matching QEMU C code, or exclude it to avoid 
-repetition? I would say remove it, but I'm open to suggestions and other 
-opinions
+> +        // SAFETY: all accesses go through these methods, which guarantee
+> +        // that the accesses are protected by the BQL.
+> +        let fw_cfg = unsafe { &mut hpet_fw_cfg };
 
-- include the "QEMU" part? I'd say remove it, similar to ClockType below 
-that is:
+Clippy complains about references to static mut; use
 
--pub use bindings::QEMUTimer;
-+pub use bindings::QEMUTimer as Timer;
-+pub use bindings::QEMUTimerList as TimerList;
-+pub use bindings::QEMUTimerListGroup as TimerListGroup;
+    let mut fw_cfg = unsafe { *addr_of_mut!(hpet_fw_cfg) };
 
-> +        &'timer mut self,
-> +        timer_list_group: Option<&QEMUTimerListGroup>,
-> +        clk_type: QEMUClockType,
-
-Please take a ClockType instead.
-
-> +        scale: u32,
-> +        attributes: u32,
-> +        _f: F,
-> +        opaque: &'opaque T,
-> +    ) where
-> +        F: for<'a> FnCall<(&'a T,)>,
-> +    {
-> +        /// timer expiration callback
-> +        unsafe extern "C" fn rust_timer_handler<T, F: for<'a> FnCall<(&'a T,)>>(
-> +            opaque: *mut c_void,
-> +        ) {
-> +            // SAFETY: the opaque was passed as a reference to `T`.
-> +            F::call((unsafe { &*(opaque.cast::<T>()) },))
-> +        }
-
-Please add "let _: () = F::ASSERT_IS_SOME;", which is added by the 
-qdev_init_clock_in() patch.
-
-> +        let timer_cb: unsafe extern "C" fn(*mut c_void) = rust_timer_handler::<T, F>;
-> +
-> +        // SAFETY: the opaque outlives the timer
-> +        unsafe {
-> +            timer_init_full(
-> +                self,
-> +                if let Some(g) = timer_list_group {
-> +                    g as *const QEMUTimerListGroup as *mut QEMUTimerListGroup
-> +                } else {
-> +                    ::core::ptr::null_mut()
-> +                },
-> +                clk_type,
-> +                scale as c_int,
-> +                attributes as c_int,
-> +                Some(timer_cb),
-> +                (opaque as *const T).cast::<c_void>() as *mut c_void,
-> +            )
-> +        }
-> +    }
-> +
-> +    pub fn timer_mod(&mut self, expire_time: u64) {
-> +        unsafe { timer_mod(self as *mut QEMUTimer, expire_time as i64) }
-> +    }
-
-This can take &self, because timers are thread-safe:
-
-     pub fn timer_mod(&self, expire_time: u64) {
-         unsafe { timer_mod(self.as_mut_ptr(), expire_time as i64) }
-     }
-
-     const fn as_mut_ptr(&self) -> *mut Self {
-         self as *const QEMUTimer as *mut _
-     }
-
-> +}
-> +
-> +impl Drop for QEMUTimer {
-> +    fn drop(&mut self) {
-> +        unsafe { timer_del(self as *mut QEMUTimer) }
-> +    }
-
-timer_del() can be useful even outside Drop, so
-
-     pub fn timer_del(&self) {
-         unsafe { timer_del(self.as_mut_ptr()) }
-     }
-
-and just use self.timer_del() here.
-
-> +}
-> +
-> +pub fn qemu_clock_get_virtual_ns() -> u64 {
-> +    // SAFETY:
-> +    // Valid parameter.
-> +    (unsafe { qemu_clock_get_ns(QEMUClockType::QEMU_CLOCK_VIRTUAL) }) as u64
-> +}
-
-Not needed.
-
-> +pub struct ClockType {
-> +    pub id: QEMUClockType,
-> +}
-
-The field does not have to be "pub" (maybe "pub(self)", I'm not sure 
-offhand).
+to make it happy; same below in update_hpet_cfg().
 
 Paolo
-
-> +impl ClockType {
-> +    pub fn get_ns(&self) -> u64 {
-> +        // SAFETY: cannot be created outside this module, therefore id
-> +        // is valid
-> +        (unsafe { qemu_clock_get_ns(self.id) }) as u64
-> +    }
-> +}
-> +
-> +pub const CLOCK_VIRTUAL: ClockType = ClockType {
-> +    id: QEMUClockType::QEMU_CLOCK_VIRTUAL,
-> +};
-> diff --git a/rust/wrapper.h b/rust/wrapper.h
-> index 54839ce0f510..a35bfbd1760d 100644
-> --- a/rust/wrapper.h
-> +++ b/rust/wrapper.h
-> @@ -63,3 +63,4 @@ typedef enum memory_order {
->  #include "migration/vmstate.h"
->  #include "chardev/char-serial.h"
->  #include "exec/memattrs.h"
-> +#include "qemu/timer.h"
-> --
-> 2.34.1
->
 
 
