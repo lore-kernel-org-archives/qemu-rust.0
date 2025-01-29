@@ -1,76 +1,76 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1td5m9-0002R8-SB
-	for mharc-qemu-rust@gnu.org; Wed, 29 Jan 2025 05:58:30 -0500
+	id 1td5mM-0002U0-LG
+	for mharc-qemu-rust@gnu.org; Wed, 29 Jan 2025 05:58:43 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1td5m1-0002OT-Ib
- for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:58:27 -0500
+ id 1td5mK-0002TU-Rd
+ for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:58:41 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1td5m0-0001Os-4R
- for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:58:21 -0500
+ id 1td5mJ-0001QZ-6i
+ for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:58:40 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738148298;
+ s=mimecast20190719; t=1738148316;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ejWY4xLZzxdHiHjWPQpKMn4uXTIrdOaoIGzEsQCoZlI=;
- b=L1roJfTR7vbODzlT56Rns3Cyv5OWvNKTzFiaz93dpXhYLF6Lx2C0h68d2OeUfgCdajiyX/
- v2HfkCrogcsPkoEM50TtnmNs81Q5eOS3UpboHtGBor9hBMcdhPd+MVPasZxvfWdzjAPIlP
- UljqkevAwtQd6cMhMsRAkH3dtJd4JWI=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=zYyFaiw5RYqEPTsuc0zEVoccThPEdlpcW/A8Wdk4WxM=;
+ b=SasGNmxmpa+qbutAQ8R/nbzqK4gOi7C8shtxxdCb2MqLo6j+oBwb7f4W6iOpsbNCwrqExr
+ 182Eyx7ro3mUkGK5p5p+BQSjXaSZUxQ455woGi9CWO/gGIoQpPPsfunkwuoTQP2BtNUvaC
+ WZxA43RQ7gV3VS3U3n084F5mIEc83Bw=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-83-5pOTz-6yO-2OuWVRMyf2CA-1; Wed, 29 Jan 2025 05:58:17 -0500
-X-MC-Unique: 5pOTz-6yO-2OuWVRMyf2CA-1
-X-Mimecast-MFC-AGG-ID: 5pOTz-6yO-2OuWVRMyf2CA
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-38a35a65575so4639741f8f.1
- for <qemu-rust@nongnu.org>; Wed, 29 Jan 2025 02:58:17 -0800 (PST)
+ us-mta-517-taWieFziO-qb_rtVw7Kp7A-1; Wed, 29 Jan 2025 05:58:35 -0500
+X-MC-Unique: taWieFziO-qb_rtVw7Kp7A-1
+X-Mimecast-MFC-AGG-ID: taWieFziO-qb_rtVw7Kp7A
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-385e2579507so2826668f8f.1
+ for <qemu-rust@nongnu.org>; Wed, 29 Jan 2025 02:58:35 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738148296; x=1738753096;
+ d=1e100.net; s=20230601; t=1738148314; x=1738753114;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :references:cc:to:subject:from:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=ejWY4xLZzxdHiHjWPQpKMn4uXTIrdOaoIGzEsQCoZlI=;
- b=dzMH7GdJ/lBRpGihp//DrjVeL4A5peBt2uugnYL4MEHGOU2wLrcR7yqyYeiwOuz6MO
- tTUj30C7F3l736HSN9pXCpaW2Q/M5/v3gI7+m7hgD0DHxirwK8EYqbSd1v+SDCXkHpEX
- MFfHhWoD9UYFFGFNn4bj6Yq+d2Q4215i4qZLbgS5e8N8gWSj2YufhFraJkcX72if4TNG
- XCVwVdq9zvs4az2FJnNTNHydUa5iDP4hAWrpX6Bf1YOqWOagN2W4L5UA8y1nJPD0Rk3W
- nsiR+yztvuQ9BGmzKiTFjfhu5Ih8AT1REseqKYlcXCBU5Ukhcj0oNwBqLQ1RrjrRzIRe
- fV9g==
+ bh=zYyFaiw5RYqEPTsuc0zEVoccThPEdlpcW/A8Wdk4WxM=;
+ b=grf1xNt+G1Hs/fLrL6FP61rgIJmj6bJIARcQgQ/T9Y+ifiPzDKkzUCg+6smf8x44bl
+ Zj26jWHEYB9v1y1ECF0UJoShZoHAOk1xf5u8k7R0HeguDkdQwscfcSVSb+rMihyd6gl4
+ tmb0Ou7vqgu+Ne5bU4R4ytzMPgafcqhadbc1+sfruXN76RybCFW4+9tz7UNkceJtTR7O
+ efADpxvnHg9SxCNExxSeWL3YoowSyFgZPPtO/VEpNVtzjWjY9H9O7J8wqbUqUhC2uWrv
+ 4buX4LbOrHZ7hF6pEZiC3JyesaP8zQ8qxHD4n8fDJQDtTjSBmdhMZi0JrCDYjr60O9uY
+ 9JAQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUiCjFFzfTij3h077HfOVAE1HWWNBlG+P64AJxsKEVWjAjLcXg4BYPoELnkVQo0PS5rnKnPtqLJuhs=@nongnu.org
-X-Gm-Message-State: AOJu0Yx2VHG2wTL84OBvv5LUqn1maxydKoeaFnfnwEthEh8nGD4WOVoL
- Z52wTTR+WeL9vsVHH47/366U+W2d8lp3qUT0FFmVF05wIG/XtYE/6AKxEtVsiqqZM6bfUwNgz29
- NVotTwCXTDZn9uN8hmpCOcVTJwVAM7FdElKg9waKYDk1by5pehoE=
-X-Gm-Gg: ASbGnct2f92sidto+T9Pfo2Ht4w3CXImnhx1luZ80RrCPsLIn3cG0XAIhP1KoyVrMFC
- p007uQ+S+NnDR1irEdZU1yMbUP8jtIkPSl9WK6ZL+HNvoPD85OGzCbOKaGz/YRA5mSW+U+L9mXA
- EN4fWfTG0G8LPCKUVexZB0tWqvru8jSx/l/+7u71pFVxN7lFXBtb8GpXelobZUZzUxGYfsumnWi
- zk09S1i+W8MaeMkKQY8YWHH+8cpz1tDe1tzCZjh+ePm/5IkPRKfAA9XhT3uTqpU3LwNQKPiYCPI
- RJeWXA==
-X-Received: by 2002:a5d:6d0a:0:b0:385:e30a:394e with SMTP id
- ffacd0b85a97d-38c51931f8emr2155307f8f.3.1738148296079; 
- Wed, 29 Jan 2025 02:58:16 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHwIl3iKLs8VOWDhRPEOSMXDj8eT79UO4yJaSyvpFY//CYNceTpz5mvssTNeQ/KWQYHtNCA7w==
-X-Received: by 2002:a5d:6d0a:0:b0:385:e30a:394e with SMTP id
- ffacd0b85a97d-38c51931f8emr2155281f8f.3.1738148295707; 
- Wed, 29 Jan 2025 02:58:15 -0800 (PST)
+ AJvYcCXlmRyyxy9TCXHbsCar0uXsHkTY1OONc8IIoWbKFvfxZqiSKTVH9uq6DS8h0jEPrxhanWu+5iwheiE=@nongnu.org
+X-Gm-Message-State: AOJu0Yw94gDJdSOqn/2P1lPI2KNg1BVRO9V88hF/LiX9zI/z1pFbN+c0
+ qDuyUR3lHKOA+tN7b2vi7kW/vusApsqmzRSIMwWNZDT1IOVD4nzBrSfPQd8EILlR+U/H5VyJ8X/
+ 7ZQRFaWOxNzPBmcJ4aV3pOMm9Goa47zGHRgOQ4dmKHxslX41UGGs=
+X-Gm-Gg: ASbGncvzGm6YTixcobWU+7c1N+1xlr/uowfDZpsF4/Jyyz1G1QEwlUgLPc3Kgicu3w/
+ /xHrtMTM7aOHSIsTNKvgsRlOcJSt3eveNvWxsXHA5OoY6pmnb35fPwhZ6qquq3ds98BouUxjtlO
+ q3loFMzlTsflVq5gFhDpn8ju9RMTgYZdliLfFLZP0//C3sC4HyZD4j5AgfnDbri5X3o5N8vQkib
+ dtypHir7DsHSR35ilgB0EOxwGtHtPFhy4Ox5MRqQ63ZxwpddulaHYA3y6fyzn/qrpSHhXpJFHwg
+ JBcLjQ==
+X-Received: by 2002:a5d:6d88:0:b0:38a:4b8b:c57a with SMTP id
+ ffacd0b85a97d-38c5209351bmr2871659f8f.44.1738148314195; 
+ Wed, 29 Jan 2025 02:58:34 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IF19I6ObrUzo4ap8AX8sAx9fzxfkxp24VTBV2ROz4h+yVI4C1tNhQfZWbIjOUe6Sr4LM8EeSg==
+X-Received: by 2002:a5d:6d88:0:b0:38a:4b8b:c57a with SMTP id
+ ffacd0b85a97d-38c5209351bmr2871632f8f.44.1738148313777; 
+ Wed, 29 Jan 2025 02:58:33 -0800 (PST)
 Received: from [192.168.10.3] ([151.62.97.55])
  by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-438d7aa605asm32217335e9.1.2025.01.29.02.58.14
+ ffacd0b85a97d-38c2a176519sm16468875f8f.2.2025.01.29.02.58.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jan 2025 02:58:15 -0800 (PST)
-Message-ID: <750f06f3-6326-473f-9d08-ad6bb1f2a54a@redhat.com>
-Date: Wed, 29 Jan 2025 11:58:14 +0100
+ Wed, 29 Jan 2025 02:58:33 -0800 (PST)
+Message-ID: <a30bfa1c-ddb8-4a5b-9f95-7b000c11cd54@redhat.com>
+Date: Wed, 29 Jan 2025 11:58:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH 09/10] rust/timer/hpet: add qom and qdev APIs support
+Subject: Re: [PATCH 06/10] rust: add bindings for timer
 To: Zhao Liu <zhao1.liu@intel.com>
 Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Junjie Mao <junjie.mao@hotmail.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
@@ -80,7 +80,7 @@ Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  =?UTF-8?Q?Daniel_P_=2E_Berrang=C3=A9?= <berrange@redhat.com>,
  qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
 References: <20250125125137.1223277-1-zhao1.liu@intel.com>
- <20250125125137.1223277-10-zhao1.liu@intel.com>
+ <20250125125137.1223277-7-zhao1.liu@intel.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
  CxXPkIBTvYY+ZPkoTh5xF9oS1jqI8iRLzouzF8yXs3QjQIZ2SfuCxSVwlV65jotcjD2FTN04
@@ -116,9 +116,9 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20250125125137.1223277-10-zhao1.liu@intel.com>
+In-Reply-To: <20250125125137.1223277-7-zhao1.liu@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: q8Q6PFhPaUzZM8xh-IzOIXds4oaL7WOI4FdN8eYXaq0_1738148296
+X-Mimecast-MFC-PROC-ID: 8a1fGdmhR92yfGz6AbkZYW87rqHdpRIWxAmrt-BJjuw_1738148314
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -133,7 +133,7 @@ X-Spam_report: (-3.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.3,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
- T_SCC_BODY_TEXT_LINE=-0.01 autolearn=ham autolearn_force=no
+ T_SCC_BODY_TEXT_LINE=-0.01 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -146,100 +146,166 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jan 2025 10:58:28 -0000
+X-List-Received-Date: Wed, 29 Jan 2025 10:58:41 -0000
 
 
 
 On Sat, Jan 25, 2025 at 1:32 PM Zhao Liu <zhao1.liu@intel.com> wrote:
->      fn read(&mut self, addr: hwaddr, _size: u32) -> u64 {
+> +  c_nocopy = [
+> +    'QEMUTimer',
+> +  ]
+> +  # Used to customize Drop trait
+> +  foreach struct : c_nocopy
+> +    bindgen_args += ['--no-copy', struct]
+> +  endforeach
 
-This can be &self.
+Nice.
 
->          let shift: u64 = (addr & 4) * 8;
->
-> +        match addr {
-> +            HPET_TN_CFG_REG => self.config >> shift, // including interrupt capabilities
+> +pub use bindings::QEMUTimer;
+> +
+> +use crate::{
+> +    bindings::{
+> +        self, qemu_clock_get_ns, timer_del, timer_init_full, timer_mod, QEMUClockType,
+> +        QEMUTimerListGroup,
+> +    },
+> +    callbacks::FnCall,
+> +};
+> +
+> +impl QEMUTimer {
+> +    pub fn new() -> Self {
+> +        Default::default()
+> +    }
+> +
+> +    pub fn timer_init_full<'timer, 'opaque: 'timer, T, F>(
 
-This needs to be "match addr & !4".
+General question - should the names:
 
-> +            HPET_TN_CMP_REG => self.cmp >> shift,    // comparator register
-> +            HPET_TN_FSB_ROUTE_REG => self.fsb >> shift,
-> +            _ => {
-> +                // TODO: Add trace point - trace_hpet_ram_read_invalid()
-> +                // Reserved.
-> +                0
-> +            }
+- include the "timer" part, matching QEMU C code, or exclude it to avoid 
+repetition? I would say remove it, but I'm open to suggestions and other 
+opinions
+
+- include the "QEMU" part? I'd say remove it, similar to ClockType below 
+that is:
+
+-pub use bindings::QEMUTimer;
++pub use bindings::QEMUTimer as Timer;
++pub use bindings::QEMUTimerList as TimerList;
++pub use bindings::QEMUTimerListGroup as TimerListGroup;
+
+> +        &'timer mut self,
+> +        timer_list_group: Option<&QEMUTimerListGroup>,
+> +        clk_type: QEMUClockType,
+
+Please take a ClockType instead.
+
+> +        scale: u32,
+> +        attributes: u32,
+> +        _f: F,
+> +        opaque: &'opaque T,
+> +    ) where
+> +        F: for<'a> FnCall<(&'a T,)>,
+> +    {
+> +        /// timer expiration callback
+> +        unsafe extern "C" fn rust_timer_handler<T, F: for<'a> FnCall<(&'a T,)>>(
+> +            opaque: *mut c_void,
+> +        ) {
+> +            // SAFETY: the opaque was passed as a reference to `T`.
+> +            F::call((unsafe { &*(opaque.cast::<T>()) },))
+> +        }
+
+Please add "let _: () = F::ASSERT_IS_SOME;", which is added by the 
+qdev_init_clock_in() patch.
+
+> +        let timer_cb: unsafe extern "C" fn(*mut c_void) = rust_timer_handler::<T, F>;
+> +
+> +        // SAFETY: the opaque outlives the timer
+> +        unsafe {
+> +            timer_init_full(
+> +                self,
+> +                if let Some(g) = timer_list_group {
+> +                    g as *const QEMUTimerListGroup as *mut QEMUTimerListGroup
+> +                } else {
+> +                    ::core::ptr::null_mut()
+> +                },
+> +                clk_type,
+> +                scale as c_int,
+> +                attributes as c_int,
+> +                Some(timer_cb),
+> +                (opaque as *const T).cast::<c_void>() as *mut c_void,
+> +            )
 > +        }
 > +    }
 > +
-> +    fn write(&mut self, addr: hwaddr, value: u64, size: u32) {
-> +        let shift = ((addr & 4) * 8) as u32;
-> +        let len = std::cmp::min(size * 8, 64 - shift);
-> +
-> +        match addr {
-> +            HPET_TN_CFG_REG => self.set_tn_cfg_reg(shift, len, value),
+> +    pub fn timer_mod(&mut self, expire_time: u64) {
+> +        unsafe { timer_mod(self as *mut QEMUTimer, expire_time as i64) }
+> +    }
 
-Likewise.
+This can take &self, because timers are thread-safe:
 
-> +    fn write(&self, addr: hwaddr, value: u64, size: u32) {
-> +        let shift = ((addr & 4) * 8) as u32;
-> +        let len = std::cmp::min(size * 8, 64 - shift);
-> +
-> +        // TODO: Add trace point - trace_hpet_ram_write(addr, value)
-> +        if (0x100..=0x3ff).contains(&addr
-) {
-> +            match self.timer_and_addr(addr) {
-> +                None => return, // Reserved.
+     pub fn timer_mod(&self, expire_time: u64) {
+         unsafe { timer_mod(self.as_mut_ptr(), expire_time as i64) }
+     }
 
-Clippy complains about an unnecessary return, just replace it with "()".
+     const fn as_mut_ptr(&self) -> *mut Self {
+         self as *const QEMUTimer as *mut _
+     }
 
-> +                Some((timer, addr)) => timer.borrow_mut().write(addr, value, size),
-> +            }
-
-> +
-> +    fn reset_hold(&self, _type: ResetType) {
-> +        let sbd = self.upcast::<SysBusDevice>();
-> +
-> +        for timer in self.timers.iter().take(self.num_timers.get()) {
-> +            timer.borrow_mut().reset();
-> +        }
-> +
-> +        self.counter.set(0);
-> +        self.config.set(0);
-> +        self.pit_enabled.set(true);
-> +        self.hpet_offset.set(0);
-> +
-> +        HPETFwConfig::update_hpet_cfg(
-> +            self.hpet_id.get(),
-> +            Some(self.capability.get() as u32),
-> +            Some((*sbd).mmio[0].addr),
-> +        );
-
-This can be simply sbd.mmio[0].addr, without the (*...).
-
-Also, you can change update_hpet_cfg to take arguments without the 
-Option<> around them.
-
-> +// TODO: add OBJECT_DECLARE_SIMPLE_TYPE.
-> +#[repr(C)]
-> +pub struct HPETClass {
-> +    parent_class: <SysBusDevice as ObjectType>::Class,
 > +}
 > +
-> +unsafe impl ObjectType for HPETState {
-> +    type Class = HPETClass;
-> +    const TYPE_NAME: &'static CStr = crate::TYPE_HPET;
+> +impl Drop for QEMUTimer {
+> +    fn drop(&mut self) {
+> +        unsafe { timer_del(self as *mut QEMUTimer) }
+> +    }
+
+timer_del() can be useful even outside Drop, so
+
+     pub fn timer_del(&self) {
+         unsafe { timer_del(self.as_mut_ptr()) }
+     }
+
+and just use self.timer_del() here.
+
+> +}
+> +
+> +pub fn qemu_clock_get_virtual_ns() -> u64 {
+> +    // SAFETY:
+> +    // Valid parameter.
+> +    (unsafe { qemu_clock_get_ns(QEMUClockType::QEMU_CLOCK_VIRTUAL) }) as u64
 > +}
 
-No need for HPETClass (and for ClassInitImpl<HPETClass>), just do
+Not needed.
 
-unsafe impl ObjectType for HPETState {
-     type Class = <SysBusDevice as ObjectType>::Class;
-      const TYPE_NAME: &'static CStr = crate::TYPE_HPET;
-}
+> +pub struct ClockType {
+> +    pub id: QEMUClockType,
+> +}
 
-which is indeed more similar to OBJECT_DECLARE_SIMPLE_TYPE().
+The field does not have to be "pub" (maybe "pub(self)", I'm not sure 
+offhand).
 
 Paolo
+
+> +impl ClockType {
+> +    pub fn get_ns(&self) -> u64 {
+> +        // SAFETY: cannot be created outside this module, therefore id
+> +        // is valid
+> +        (unsafe { qemu_clock_get_ns(self.id) }) as u64
+> +    }
+> +}
+> +
+> +pub const CLOCK_VIRTUAL: ClockType = ClockType {
+> +    id: QEMUClockType::QEMU_CLOCK_VIRTUAL,
+> +};
+> diff --git a/rust/wrapper.h b/rust/wrapper.h
+> index 54839ce0f510..a35bfbd1760d 100644
+> --- a/rust/wrapper.h
+> +++ b/rust/wrapper.h
+> @@ -63,3 +63,4 @@ typedef enum memory_order {
+>  #include "migration/vmstate.h"
+>  #include "chardev/char-serial.h"
+>  #include "exec/memattrs.h"
+> +#include "qemu/timer.h"
+> --
+> 2.34.1
+>
 
 
