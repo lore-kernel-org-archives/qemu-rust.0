@@ -1,63 +1,63 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1texdl-00040r-2H
-	for mharc-qemu-rust@gnu.org; Mon, 03 Feb 2025 09:41:33 -0500
+	id 1texdt-00047P-Jl
+	for mharc-qemu-rust@gnu.org; Mon, 03 Feb 2025 09:41:41 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1texdL-0003fX-QX
- for qemu-rust@nongnu.org; Mon, 03 Feb 2025 09:41:09 -0500
-Received: from mail-ej1-x62f.google.com ([2a00:1450:4864:20::62f])
+ id 1texdS-0003ia-6U
+ for qemu-rust@nongnu.org; Mon, 03 Feb 2025 09:41:18 -0500
+Received: from mail-ed1-x533.google.com ([2a00:1450:4864:20::533])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1texdB-0002OA-4V
- for qemu-rust@nongnu.org; Mon, 03 Feb 2025 09:41:06 -0500
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-aaf0f1adef8so854333366b.3
- for <qemu-rust@nongnu.org>; Mon, 03 Feb 2025 06:40:56 -0800 (PST)
+ id 1texdD-0002QV-VV
+ for qemu-rust@nongnu.org; Mon, 03 Feb 2025 09:41:13 -0500
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3f65844deso8325735a12.0
+ for <qemu-rust@nongnu.org>; Mon, 03 Feb 2025 06:40:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738593655; x=1739198455; darn=nongnu.org;
+ d=linaro.org; s=google; t=1738593658; x=1739198458; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NqkvdbJVB8UnpcPUocH0maI2AO9mRVOLCVcPRrsvb5A=;
- b=AG5z2bCO3EoN92hSjtSanaYGrJqEvQ/Q52ptcQUuJesoF+dwISVzQ40cQ1bMbBTxI7
- 77jY6w+34lygSFm1xnxuj9bjwaVhfEzRMnyBAXWKWtsDfhSNnpz7nCEWjx/hLoxTK1hy
- AXuQczhGRYtaHkDMUYBbmgr3enJP6b1eohCf2OS/NdBBMjyzip9YBL2fkKZoWrM/RnjG
- msyiChC0kZ3RyMaCcKLaEsL/tZBnF+wNsBSq2Ga/zp2hgsX611rBJyfXWeFI7DnbB2/n
- F5dlGHiVxMTOG5aB4aTuf/1jjvqCx4ZPppFYHfUNBonv+FUV4wDerazEsu3hN0/bYVNT
- FUVw==
+ bh=Vu9pOked5UqOucuAkIMsH1wV3NsjfZIqorCbgdhJbNs=;
+ b=oz+PZ6kuKYzRbF0YsJ24w2ZlzLXWsH6vlpQ6lvDLM61YNufw5HDa9Pd07PAoxcI17A
+ Egr2JPiH9/rPIRdoPt6k5cvGVzepqygM7IPQRoV7gIWdIuo+7vccv12IYw5QlelaIVpK
+ 83+e2zGxYyzGdZjIYOxWPyxbvXyzh9iQlehp9AUXf1GRdMRHTpG0LtbOYRIuS7LitXYf
+ M+NJ9p5o69xgyRaMI4qKWxAJe4OAnwQHuKOff26WwDKTdtc+Ao8cmEnsWQefrNCy3O8v
+ ZoszT+5HlDUp5PLMXyNVreggW0eNXjRD7K5k3Ecsj+OHXxMZrvpLqLH1xy6hpZkNAhkK
+ u3PQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738593655; x=1739198455;
+ d=1e100.net; s=20230601; t=1738593658; x=1739198458;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=NqkvdbJVB8UnpcPUocH0maI2AO9mRVOLCVcPRrsvb5A=;
- b=HRDgqPGnw2HUoewrohAidAVRLglOKblBIV+IwsCGU1piLG0RSTGO2g4m+pm7xaTi+j
- /dr86w0Ab4ocOASE+lBHWyfvBa1S1IBc6ZipjS+2OS5h1GYORJB91Dzx21WF60LLqXHs
- 7bfTABZRYwYDNdaAZ1s6PRNw46GuQ1foUhDGynji+It7UlPsTBu5dWxk2a7ME2x5XDBr
- HDANFzIBr0HblH4ik4rLo4qrNtgY034N/wkYlyX+eCC9GK60nSvSnXvhq+/ibKQUTr7M
- dt4t2w/qcEmPP23QAPw/uw5yf+OEDKJgVvIbRzKagW4k5AIOZ2dvoZjidZpBLkCXk/M3
- h6rA==
+ bh=Vu9pOked5UqOucuAkIMsH1wV3NsjfZIqorCbgdhJbNs=;
+ b=cipKEfL7FJWUwyJEREzAAFJqJeqMdD4VHsMbKFG3hRmu6HgU4QaHae2CDRWvyCXgx4
+ CKP5oJi/4TDpCsooh+skgSWA7g4YiiqoLEJnQxoDXIg+7bTs6jFnAVZNmLobJGhUv6ed
+ 6kUVJUnf3gvPtRtO5rQdvm9AXD4dqF9ZjWTFERg20kWFPOBBNDNNghyhGKW97zFu6ZO6
+ rD7ZyBQ0V3VPl1ixom2YE7PqChtIaIjW6HZ+UBvnvjBTiOnMKP3+vBrBhkUz8eVuM1Ls
+ /ZLn82lu6rURDz7Rdyej1S5eMzWLd4tk75kIdqwOkrIQqziQiKrGUd8/PUm/QBkys9JO
+ LhmQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXmEkBWROux6JhJXhST2QX8XNRijNbcTiAPuzUu/+iVawqOnMyo6QMJJNJ2CPyTcdv64m7LIJAJU90=@nongnu.org
-X-Gm-Message-State: AOJu0YyA3y15mPT1zy4B6UusDuosYIphMChca9tYEfKfVBKGtKGzxMha
- N1Xq/oHCym28Zihsj9kZB8ub9fpA2bISyAF40j5VEi3WgwGyTlLJWfTDNqdrnpw=
-X-Gm-Gg: ASbGncv8LESQ8PsdJfFLB8ckyG6MvwG5o4z4sl9GH9ItCPKx/kfFcvC6JOVFW/+FVBa
- M8WcyWeR6ol9LsBKetjwNJ9qv6/yGpN9rs3iRIpfOFda3R9q5q8gW9MQp6qOQwP/iIEp30nuLn5
- 9QLjG2yiZCJLQAps9a6yq0RKAJBJgfCEp4IfBfzEam8M+JivyQxYhOJa34gbwI979VZO1ehFuI9
- juIX2WZN/wbtgvuP3SlJZUr1CvGA6wC/IwHpzP+pmgyuFPDQXX2zjEgvFbqfyThDjBRl8QOvB/g
- DKsh6l/QTcc9J3oJiA==
-X-Google-Smtp-Source: AGHT+IEQdSsQBFqNvTf5x0rLvejw32f8+W18KIN47jGJS7+Q76a4wDMDkjs3VbipYSz8xDczWXWgHw==
-X-Received: by 2002:a17:907:7d8a:b0:ab6:eeb4:504f with SMTP id
- a640c23a62f3a-ab6eeb457a8mr1558116566b.21.1738593655326; 
- Mon, 03 Feb 2025 06:40:55 -0800 (PST)
+ AJvYcCVEqL6OFhcjaHBdbHr/jk0ZLo64YW0uABUqhJ/mL/vPGJcPPgy4gDjOJWMLBUvHoPqsd7k572ELXKI=@nongnu.org
+X-Gm-Message-State: AOJu0YwFsNr6OHwiqpeq1PJBCbZ3tMwLqiAUvvU6DNEbG/SCDnMcULGR
+ JeTvwz2kNQbTFzUCf6atQWOAwNtsT4jbn28J3To7WuFokvlFRvOKPv/XG58vKkU=
+X-Gm-Gg: ASbGncvojU03xArqB85bJ41VaUdtzZjno4a2U3oHMeqwiTkKv7nr2i/QBdY7j00MJqe
+ BOZYSDPW3VJNCIjtVOAC9Jkdnp7fqH4g+UZruFOdzcC19gbez0a3MlpIs5gLve8r8H+0RqGcBzU
+ H8toz9APipHfxGkOkqxOMuvo+4VEeCL0qj8bfI5XyW7RFI5UBT9JRvJ+yMOqfSD9bOeiuusNNH6
+ NrT3CoK3gHjXOsKtT0G5Cepg1oLhrRmcVhtruqhbAIgOyFe+QzURqDE1gqrwRNeVqS3Oj8rzllH
+ 0YJLTboj5wcyxh5BeA==
+X-Google-Smtp-Source: AGHT+IEdVQrHge+ZZtzPsalbMXBN7f3sBneytdfxQblWWoHlxRiCnjis6+76OPfKMAyMU4FY0srneQ==
+X-Received: by 2002:a17:907:8b94:b0:aa6:8a1b:8b84 with SMTP id
+ a640c23a62f3a-ab6cfe17745mr2460903766b.57.1738593658202; 
+ Mon, 03 Feb 2025 06:40:58 -0800 (PST)
 Received: from draig.lan ([185.126.160.109]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e4a59855sm763310266b.180.2025.02.03.06.40.51
+ a640c23a62f3a-ab6e47a7b0fsm769101066b.12.2025.02.03.06.40.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Feb 2025 06:40:53 -0800 (PST)
+ Mon, 03 Feb 2025 06:40:57 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 673165FB89;
- Mon,  3 Feb 2025 14:40:49 +0000 (GMT)
+ by draig.lan (Postfix) with ESMTP id 03C70609FC;
+ Mon,  3 Feb 2025 14:40:50 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: qemu-ppc@nongnu.org, Mahmoud Mandour <ma.mandourr@gmail.com>,
@@ -77,18 +77,19 @@ Cc: qemu-ppc@nongnu.org, Mahmoud Mandour <ma.mandourr@gmail.com>,
  Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Weiwei Li <liwei1518@gmail.com>,
  qemu-riscv@nongnu.org, Fabiano Rosas <farosas@suse.de>,
  Tyrone Ting <kfting@nuvoton.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Nicholas Piggin <npiggin@gmail.com>, Alexandre Iooss <erdnaxe@crans.org>
-Subject: [PATCH 08/18] tests/qtest/migration: Add --full option
-Date: Mon,  3 Feb 2025 14:40:38 +0000
-Message-Id: <20250203144048.2131117-9-alex.bennee@linaro.org>
+ Nicholas Piggin <npiggin@gmail.com>, Alexandre Iooss <erdnaxe@crans.org>,
+ Ilya Leoshkevich <iii@linux.ibm.com>
+Subject: [PATCH 13/18] user: Introduce host_interrupt_signal
+Date: Mon,  3 Feb 2025 14:40:43 +0000
+Message-Id: <20250203144048.2131117-14-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250203144048.2131117-1-alex.bennee@linaro.org>
 References: <20250203144048.2131117-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::62f;
- envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x62f.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::533;
+ envelope-from=alex.bennee@linaro.org; helo=mail-ed1-x533.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -108,253 +109,162 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Feb 2025 14:41:13 -0000
+X-List-Received-Date: Mon, 03 Feb 2025 14:41:19 -0000
 
-From: Fabiano Rosas <farosas@suse.de>
+From: Ilya Leoshkevich <iii@linux.ibm.com>
 
-Add a new command line option to allow selecting between running the
-full set of tests or a smaller set of tests. The default will be to
-run the small set (i.e. no comand line option provided) so we can
-reduce the amount of tests run by default. Only hosts which support
-KVM for the target architecture being tested will run the complete set
-of tests.
+Attaching to the gdbstub of a running process requires stopping its
+threads. For threads that run on a CPU, cpu_exit() is enough, but the
+only way to grab attention of a thread that is stuck in a long-running
+syscall is to interrupt it with a signal.
 
-Adjust the meson.build file to pass in the --full option when
-appropriate.
+Reserve a host realtime signal for this, just like it's already done
+for TARGET_SIGABRT on Linux. This may reduce the number of available
+guest realtime signals by one, but this is acceptable, since there are
+quite a lot of them, and it's unlikely that there are apps that need
+them all.
 
-(for now, set the option unconditionally until the next patch actually
-creates the small set)
+Set signal_pending for the safe_sycall machinery to prevent invoking
+the syscall. This is a lie, since we don't queue a guest signal, but
+process_pending_signals() can handle the absence of pending signals.
+The syscall returns with QEMU_ERESTARTSYS errno, which arranges for
+the automatic restart. This is important, because it helps avoiding
+disturbing poorly written guests.
 
-Use cases:
-
-configure --target-list=aarch64-softmmu,ppc64-softmmu,s390x-softmmu,x86_64-softmmu
-
-                        | before - 615s/244 tests  | after - 244s/100 tests
-------------------------+--------------------------+-----------------------------
-make check              | full set for all archs   | full set for the KVM arch,
-make check-qtest        |                          | small set for the rest
-                        |                          |
-qemu-system-$ARCH       | full set for $ARCH       | small set for $ARCH, KVM or
-./migration-test        |                          | TCG automatically chosen
-                        |                          |
-qemu-system-$ARCH       | N/A                      | full set for $ARCH, KVM or
-./migration-test --full |                          | TCG automatically chosen
-                        |                          |
-migration-compat-x86_64 | full set for x86_64      | small set for x86_64
-CI job                  |                          |
-------------------------+--------------------------+-----------------------------
-
-Signed-off-by: Fabiano Rosas <farosas@suse.de>
-Reviewed-by: Peter Xu <peterx@redhat.com>
-Message-Id: <20250130184012.5711-2-farosas@suse.de>
+Reviewed-by: Warner Losh <imp@bsdimp.com>
+Signed-off-by: Ilya Leoshkevich <iii@linux.ibm.com>
+Message-Id: <20250117001542.8290-5-iii@linux.ibm.com>
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
 ---
- tests/qtest/migration/framework.h         |  1 +
- tests/qtest/migration-test.c              | 26 +++++++++++++++++++++++
- tests/qtest/migration/compression-tests.c |  4 ++++
- tests/qtest/migration/cpr-tests.c         |  4 ++++
- tests/qtest/migration/file-tests.c        |  4 ++++
- tests/qtest/migration/misc-tests.c        |  4 ++++
- tests/qtest/migration/postcopy-tests.c    |  4 ++++
- tests/qtest/migration/precopy-tests.c     |  4 ++++
- tests/qtest/migration/tls-tests.c         |  4 ++++
- tests/qtest/meson.build                   | 11 +++++++++-
- 10 files changed, 65 insertions(+), 1 deletion(-)
+ include/user/signal.h |  2 ++
+ bsd-user/signal.c     | 12 ++++++++++++
+ linux-user/signal.c   | 25 ++++++++++++++++++++-----
+ 3 files changed, 34 insertions(+), 5 deletions(-)
 
-diff --git a/tests/qtest/migration/framework.h b/tests/qtest/migration/framework.h
-index cb4a984700..e4a11870f6 100644
---- a/tests/qtest/migration/framework.h
-+++ b/tests/qtest/migration/framework.h
-@@ -24,6 +24,7 @@ typedef struct MigrationTestEnv {
-     bool uffd_feature_thread_id;
-     bool has_dirty_ring;
-     bool is_x86;
-+    bool full_set;
-     const char *arch;
-     const char *qemu_src;
-     const char *qemu_dst;
-diff --git a/tests/qtest/migration-test.c b/tests/qtest/migration-test.c
-index 5cad5060b3..61180fcbd5 100644
---- a/tests/qtest/migration-test.c
-+++ b/tests/qtest/migration-test.c
-@@ -14,13 +14,39 @@
- #include "migration/framework.h"
- #include "qemu/module.h"
+diff --git a/include/user/signal.h b/include/user/signal.h
+index 19b6b9e5dd..7fa33b05d9 100644
+--- a/include/user/signal.h
++++ b/include/user/signal.h
+@@ -20,4 +20,6 @@
+  */
+ int target_to_host_signal(int sig);
  
-+static void parse_args(int *argc_p, char ***argv_p, bool *full_set)
-+{
-+    int argc = *argc_p;
-+    char **argv = *argv_p;
-+    int i, j;
++extern int host_interrupt_signal;
 +
-+    j = 1;
-+    for (i = 1; i < argc; i++) {
-+        if (g_str_equal(argv[i], "--full")) {
-+            *full_set = true;
-+            continue;
-+        }
-+        argv[j++] = argv[i];
-+        if (i >= j) {
-+            argv[i] = NULL;
-+        }
-+    }
-+    *argc_p = j;
-+}
+ #endif
+diff --git a/bsd-user/signal.c b/bsd-user/signal.c
+index 8c51f6ce65..ff2ccbbf60 100644
+--- a/bsd-user/signal.c
++++ b/bsd-user/signal.c
+@@ -51,6 +51,8 @@ static inline int sas_ss_flags(TaskState *ts, unsigned long sp)
+         on_sig_stack(ts, sp) ? SS_ONSTACK : 0;
+ }
+ 
++int host_interrupt_signal = SIGRTMAX;
 +
- int main(int argc, char **argv)
- {
-     MigrationTestEnv *env;
-     int ret;
-+    bool full_set = false;
-+
-+    /* strip the --full option if it's present */
-+    parse_args(&argc, &argv, &full_set);
+ /*
+  * The BSD ABIs use the same signal numbers across all the CPU architectures, so
+  * (unlike Linux) these functions are just the identity mapping. This might not
+@@ -491,6 +493,12 @@ static void host_signal_handler(int host_sig, siginfo_t *info, void *puc)
+     uintptr_t pc = 0;
+     bool sync_sig = false;
  
-     g_test_init(&argc, &argv, NULL);
-     env = migration_get_env();
-+    env->full_set = full_set;
-+    env->full_set = true; /* temporary */
-     module_call_init(MODULE_INIT_QOM);
- 
-     migration_test_add_tls(env);
-diff --git a/tests/qtest/migration/compression-tests.c b/tests/qtest/migration/compression-tests.c
-index d78f1f11f1..9d0a258d51 100644
---- a/tests/qtest/migration/compression-tests.c
-+++ b/tests/qtest/migration/compression-tests.c
-@@ -155,6 +155,10 @@ void migration_test_add_compression(MigrationTestEnv *env)
- {
-     tmpfs = env->tmpfs;
- 
-+    if (!env->full_set) {
-+        return;
-+    }
-+
- #ifdef CONFIG_ZSTD
-     migration_test_add("/migration/multifd/tcp/plain/zstd",
-                        test_multifd_tcp_zstd);
-diff --git a/tests/qtest/migration/cpr-tests.c b/tests/qtest/migration/cpr-tests.c
-index 215b0df8c0..b1651fe48c 100644
---- a/tests/qtest/migration/cpr-tests.c
-+++ b/tests/qtest/migration/cpr-tests.c
-@@ -104,6 +104,10 @@ void migration_test_add_cpr(MigrationTestEnv *env)
- {
-     tmpfs = env->tmpfs;
- 
-+    if (!env->full_set) {
++    if (host_sig == host_interrupt_signal) {
++        ts->signal_pending = 1;
++        cpu_exit(thread_cpu);
 +        return;
 +    }
 +
      /*
-      * Our CI system has problems with shared memory.
-      * Don't run this test until we find a workaround.
-diff --git a/tests/qtest/migration/file-tests.c b/tests/qtest/migration/file-tests.c
-index 84225c8c33..5b190853a5 100644
---- a/tests/qtest/migration/file-tests.c
-+++ b/tests/qtest/migration/file-tests.c
-@@ -304,6 +304,10 @@ void migration_test_add_file(MigrationTestEnv *env)
- {
-     tmpfs = env->tmpfs;
+      * Non-spoofed SIGSEGV and SIGBUS are synchronous, and need special
+      * handling wrt signal blocking and unwinding.
+@@ -854,6 +862,9 @@ void signal_init(void)
  
-+    if (!env->full_set) {
+     for (i = 1; i <= TARGET_NSIG; i++) {
+         host_sig = target_to_host_signal(i);
++        if (host_sig == host_interrupt_signal) {
++            continue;
++        }
+         sigaction(host_sig, NULL, &oact);
+         if (oact.sa_sigaction == (void *)SIG_IGN) {
+             sigact_table[i - 1]._sa_handler = TARGET_SIG_IGN;
+@@ -872,6 +883,7 @@ void signal_init(void)
+             sigaction(host_sig, &act, NULL);
+         }
+     }
++    sigaction(host_interrupt_signal, &act, NULL);
+ }
+ 
+ static void handle_pending_signal(CPUArchState *env, int sig,
+diff --git a/linux-user/signal.c b/linux-user/signal.c
+index bffbef235c..81a98c6d02 100644
+--- a/linux-user/signal.c
++++ b/linux-user/signal.c
+@@ -517,6 +517,8 @@ static int core_dump_signal(int sig)
+     }
+ }
+ 
++int host_interrupt_signal;
++
+ static void signal_table_init(const char *rtsig_map)
+ {
+     int hsig, tsig, count;
+@@ -580,10 +582,10 @@ static void signal_table_init(const char *rtsig_map)
+          * Attempts for configure "missing" signals via sigaction will be
+          * silently ignored.
+          *
+-         * Reserve one signal for internal usage (see below).
++         * Reserve two signals for internal usage (see below).
+          */
+ 
+-        hsig = SIGRTMIN + 1;
++        hsig = SIGRTMIN + 2;
+         for (tsig = TARGET_SIGRTMIN;
+              hsig <= SIGRTMAX && tsig <= TARGET_NSIG;
+              hsig++, tsig++) {
+@@ -604,12 +606,17 @@ static void signal_table_init(const char *rtsig_map)
+     host_to_target_signal_table[SIGABRT] = 0;
+     for (hsig = SIGRTMIN; hsig <= SIGRTMAX; hsig++) {
+         if (!host_to_target_signal_table[hsig]) {
+-            host_to_target_signal_table[hsig] = TARGET_SIGABRT;
+-            break;
++            if (host_interrupt_signal) {
++                host_to_target_signal_table[hsig] = TARGET_SIGABRT;
++                break;
++            } else {
++                host_interrupt_signal = hsig;
++            }
+         }
+     }
+     if (hsig > SIGRTMAX) {
+-        fprintf(stderr, "No rt signals left for SIGABRT mapping\n");
++        fprintf(stderr,
++                "No rt signals left for interrupt and SIGABRT mapping\n");
+         exit(EXIT_FAILURE);
+     }
+ 
+@@ -689,6 +696,8 @@ void signal_init(const char *rtsig_map)
+         }
+         sigact_table[tsig - 1]._sa_handler = thand;
+     }
++
++    sigaction(host_interrupt_signal, &act, NULL);
+ }
+ 
+ /* Force a synchronously taken signal. The kernel force_sig() function
+@@ -1036,6 +1045,12 @@ static void host_signal_handler(int host_sig, siginfo_t *info, void *puc)
+     bool sync_sig = false;
+     void *sigmask;
+ 
++    if (host_sig == host_interrupt_signal) {
++        ts->signal_pending = 1;
++        cpu_exit(thread_cpu);
 +        return;
 +    }
 +
-     migration_test_add("/migration/precopy/file",
-                        test_precopy_file);
- 
-diff --git a/tests/qtest/migration/misc-tests.c b/tests/qtest/migration/misc-tests.c
-index dda3707cf3..996256ef87 100644
---- a/tests/qtest/migration/misc-tests.c
-+++ b/tests/qtest/migration/misc-tests.c
-@@ -262,6 +262,10 @@ void migration_test_add_misc(MigrationTestEnv *env)
- {
-     tmpfs = env->tmpfs;
- 
-+    if (!env->full_set) {
-+        return;
-+    }
-+
-     migration_test_add("/migration/bad_dest", test_baddest);
- #ifndef _WIN32
-     migration_test_add("/migration/analyze-script", test_analyze_script);
-diff --git a/tests/qtest/migration/postcopy-tests.c b/tests/qtest/migration/postcopy-tests.c
-index daf7449f2c..b08cde3270 100644
---- a/tests/qtest/migration/postcopy-tests.c
-+++ b/tests/qtest/migration/postcopy-tests.c
-@@ -81,6 +81,10 @@ static void test_postcopy_preempt_recovery(void)
- 
- void migration_test_add_postcopy(MigrationTestEnv *env)
- {
-+    if (!env->full_set) {
-+        return;
-+    }
-+
-     if (env->has_uffd) {
-         migration_test_add("/migration/postcopy/plain", test_postcopy);
-         migration_test_add("/migration/postcopy/recovery/plain",
-diff --git a/tests/qtest/migration/precopy-tests.c b/tests/qtest/migration/precopy-tests.c
-index 436dbd98e8..c99a487bf1 100644
---- a/tests/qtest/migration/precopy-tests.c
-+++ b/tests/qtest/migration/precopy-tests.c
-@@ -955,6 +955,10 @@ void migration_test_add_precopy(MigrationTestEnv *env)
- {
-     tmpfs = env->tmpfs;
- 
-+    if (!env->full_set) {
-+        return;
-+    }
-+
-     if (env->is_x86) {
-         migration_test_add("/migration/precopy/unix/suspend/live",
-                            test_precopy_unix_suspend_live);
-diff --git a/tests/qtest/migration/tls-tests.c b/tests/qtest/migration/tls-tests.c
-index 5704a1f992..aee56930ac 100644
---- a/tests/qtest/migration/tls-tests.c
-+++ b/tests/qtest/migration/tls-tests.c
-@@ -726,6 +726,10 @@ void migration_test_add_tls(MigrationTestEnv *env)
- {
-     tmpfs = env->tmpfs;
- 
-+    if (!env->full_set) {
-+        return;
-+    }
-+
-     migration_test_add("/migration/precopy/unix/tls/psk",
-                        test_precopy_unix_tls_psk);
- 
-diff --git a/tests/qtest/meson.build b/tests/qtest/meson.build
-index e60e92fe9d..1fa05e53a2 100644
---- a/tests/qtest/meson.build
-+++ b/tests/qtest/meson.build
-@@ -404,6 +404,8 @@ foreach dir : target_dirs
-   target_base = dir.split('-')[0]
-   qtest_emulator = emulators['qemu-system-' + target_base]
-   target_qtests = get_variable('qtests_' + target_base, []) + qtests_generic
-+  has_kvm = ('CONFIG_KVM' in config_all_accel and host_os == 'linux'
-+             and cpu == target_base and fs.exists('/dev/kvm'))
- 
-   test_deps = roms
-   qtest_env = environment()
-@@ -437,11 +439,18 @@ foreach dir : target_dirs
-         test: executable(test, src, dependencies: deps)
-       }
-     endif
-+
-+    test_args = ['--tap', '-k']
-+
-+    if test == 'migration-test' and has_kvm
-+      test_args += ['--full']
-+    endif
-+
-     test('qtest-@0@/@1@'.format(target_base, test),
-          qtest_executables[test],
-          depends: [test_deps, qtest_emulator, emulator_modules],
-          env: qtest_env,
--         args: ['--tap', '-k'],
-+         args: test_args,
-          protocol: 'tap',
-          timeout: slow_qtests.get(test, 60),
-          priority: slow_qtests.get(test, 60),
+     /*
+      * Non-spoofed SIGSEGV and SIGBUS are synchronous, and need special
+      * handling wrt signal blocking and unwinding.  Non-spoofed SIGILL,
 -- 
 2.39.5
 
