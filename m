@@ -1,62 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1texlO-0000r7-0D
-	for mharc-qemu-rust@gnu.org; Mon, 03 Feb 2025 09:49:27 -0500
+	id 1texlS-0000uS-Ad
+	for mharc-qemu-rust@gnu.org; Mon, 03 Feb 2025 09:49:30 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1texlK-0000pI-SC
- for qemu-rust@nongnu.org; Mon, 03 Feb 2025 09:49:23 -0500
-Received: from mail-ej1-x636.google.com ([2a00:1450:4864:20::636])
+ id 1texlM-0000qP-Ai
+ for qemu-rust@nongnu.org; Mon, 03 Feb 2025 09:49:25 -0500
+Received: from mail-ej1-x630.google.com ([2a00:1450:4864:20::630])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1texlH-0003H6-M9
- for qemu-rust@nongnu.org; Mon, 03 Feb 2025 09:49:22 -0500
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-ab698eae2d9so902900666b.0
+ id 1texlI-0003HE-Af
+ for qemu-rust@nongnu.org; Mon, 03 Feb 2025 09:49:24 -0500
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-aaec111762bso375649666b.2
  for <qemu-rust@nongnu.org>; Mon, 03 Feb 2025 06:49:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738594147; x=1739198947; darn=nongnu.org;
+ d=linaro.org; s=google; t=1738594148; x=1739198948; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=BYLUPD3P/9Yhc9T5gc39GsuYcITC/cYJ3+WE96RAZnc=;
- b=ZJmmiEU2YwO8sK8ZLu2i4XWkVHGOwJjSYb/KkJBq0O8xhynSIjoJFsOP5ZT/LwXx/Y
- htZnbgWh4HjGGwu52JTSk9gNHm/c6nFc0xd6G2Ben1p6bJ4fp2w+L/IKQiMZLgvrJG+j
- T7gSlaJ8WAbB9U29hKGg9tlh4bw9MQvAslEna7eBWi+nNLIRxu5dbPPwMOUyX7c+8S8B
- zDe2qocimYGbfvw5F0ld3Inw5OFQ0cv1UpAh4P3Y1F6CRo8bapurCVx4vydseGZfvjno
- 3DI4hghj69rNW8Uz257xo9Q0nNR966dv7hKz2+9iOWPx44LOoVR3VjZmI78Hk+TL2AKw
- B6Aw==
+ bh=nWETF7v5SQvqoJsQUou+WYUPWgAQpGGIidnYpzh2j4Q=;
+ b=HNSm6bRdHGDDFxqkp3PlHuInutEPWBEk2K1Hfw+WbHURBlxDRcrnH+3RzDPKWdHb1F
+ yWyZU5X/+R1SE65AsZQdIMvQYPJezx4R/3YkrZTl/fKVbX9KbeE3sLmie6ywPjtW27g8
+ uFE9TRtiGIKGKj5GpOvoN1uPXwYrFBO5rYqPsj4IKAC1Tmp4xonvbQKgBWSW2K8VjBpy
+ XZU+tKVV90FGp1s/Hb+jaf7b8+/l5IAACDaZGXWRpG8vlKuSg5SJ92tWdNvEI0pCJ3Uk
+ kE6o1OHLBfjC+zMA1RwB6IwKXWoF+IPCSoJVQBa1j5+lWSU+jS1I5I7aYaG89WOeEwQI
+ 1iQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738594147; x=1739198947;
+ d=1e100.net; s=20230601; t=1738594148; x=1739198948;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=BYLUPD3P/9Yhc9T5gc39GsuYcITC/cYJ3+WE96RAZnc=;
- b=Wc6tDPvBfQCMZKSGTeVq5ECIQv3KC4Dbsr4htovMxPNjwOOjl9tyhnJOLFV6E7JcUY
- o4VUSFLJdIyTxLuepMozHN78gsmR2CN7vkrYXKYDxwV0m0/KX7tfyq9iN0hyHZnim3+v
- cV260zKrkAyfi29ExTjl0Ym3myu9Q1pUEFFmm/2mkFLv0eqpGoOJJolo/WWMVu8ahyBv
- DKIQqwywMsipSHyPaoGBsn3ORzHzJ1YtQPGxHVB3LREQoNm/NRLbn+BJqQ0DoNzRC3Rt
- ZpSwTMgBtlxTdmqAyxiXsoqIszicDhU5iP4gVHQ9x3Cl17euu8LsC/SxOxDl3SJd8O5L
- uF3Q==
+ bh=nWETF7v5SQvqoJsQUou+WYUPWgAQpGGIidnYpzh2j4Q=;
+ b=dbGAyRhdgdRZEPzaZVZs83wCms1tnieCh0C5QT/ULU4s8D2hYLp82Gn8pudjWA9BsL
+ KIcLUGYq7dhxBji24nGrevQVqjIjf2BwEAJfh8Do+Fom2SjeSIumNam2j8nCl4Wwsgvn
+ 1ZYcjCR/6a20qQ69C+FnK3bjNnQ1qwscl94A651y2QEFnYUWFoJSRAau2q9j3DiW3Q24
+ GBlOV0hilsHkiKjJ5Y8k/LAITuhlv8u+uF5w2ymgrU64C7KTW+XUggrABJJuDay0FFP4
+ 55BclXtK2PX1Yit9/6LW5QyH48qINxnXP7g06OXZLRgYdQx33zBqHa2dY3xt6HPLfntb
+ CxUw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW7T+OivRyqaPGT3mjE6DlsQik/4FzC0imr3T+/GJ2ziJfcHLbYA8KxSNHkHivrS4lWybwT4ag+TTc=@nongnu.org
-X-Gm-Message-State: AOJu0YxlBZvo1scnlQioJgISmO5Q4Vo1P85kLAzLQM+Mwsm8/KShY19h
- odc07pqzzIePqfgl3e61HPT5ukDxvf0tA9+P9j89r83Awxz6Nw50TAwUbD+wtVY=
-X-Gm-Gg: ASbGncvnowIZsEHQZUkJGVkRZDVNcLZqmflozRKp3+rO6q09i5VYHzDs1alzn/co0S5
- TZRTWvNilMM+bTQuprKcOgxuY29wr7ppX9apCR8Rru2SLtYX0LzMBvK9f9LJWvSxfzupwvJBBjS
- 4Tc0oHJ6ywBV55l2CqKWwzGqwJC/pnVEELha6LB8PmYyCa9C7EgDXV7SVCTJhLe0zfK6RQESF2s
- 5AN+O5ZsdsW3T5CY2ShcPE6qulVm2XFEtiTmUF0219LFKhovJ+I/EFz3g6jOsY1eF9K1hgVOoVj
- aM/5V/jyjZTqycZy1g==
-X-Google-Smtp-Source: AGHT+IHgsx6VegpQf/B5RuOCVkQFxqV47V8mc1V6eFUOyK0LWGPsQGdoL7+XE026OxIOUgxH9LTjpw==
-X-Received: by 2002:a17:907:72c1:b0:aa6:ab70:4a78 with SMTP id
- a640c23a62f3a-ab6cfda4254mr2919815166b.37.1738594147146; 
+ AJvYcCW+u5ndSzf5DqvKiDSj1xhalU2I3Dpum1HIgVcWLheqUwLOtB4XE7BIi8N2fGwnFbd9MzbZoia0lbY=@nongnu.org
+X-Gm-Message-State: AOJu0YzSc4JX14SUtQvgk2Cvt/H26eMS62gy/wQZk1onRUdva2qNDPon
+ CWmiBAqWYOuS/VjsfU9O4Au3Z5Z2KcoLoASbQ3ONrGyFWEhcL1Udtj8BiiGBUCY=
+X-Gm-Gg: ASbGnctUWCLGuVhN033rw1H5C3cBOaKzcyPuQey+/xEkVp2MnH0SHfUto2BNPOKogVa
+ 0hu5oZCrLiaPx2h6WI6nUyGHcqnL7DsCOlE9+3YZhNZiV8ifhfm2HzxrQRTjFVq0XFRMos8rii3
+ eWfgxhiKcD0hdnBEY4Pvj+DV/LmmDtazG7G74xlRmLimzCLoh78TF5UYImjVcW/yY8DAqvelYnN
+ j1SNyG7xITH92G0lVv0jR96PJb98WTDmIcIdrLJ1avhmcJw08WvHLPcuNwLrpsrfB+Vu/EoVf5Q
+ mARc57rJ1vlq3dRalA==
+X-Google-Smtp-Source: AGHT+IHCBJbspYBJtSHjAYclL3HRGFlq9TESmSXnRpqM9nfvkyXmc3bXADWs6SZLLMr4H9qJqw87bw==
+X-Received: by 2002:a17:907:6e92:b0:aae:8be7:ba07 with SMTP id
+ a640c23a62f3a-ab6cfcdf5dfmr2398457766b.17.1738594147546; 
  Mon, 03 Feb 2025 06:49:07 -0800 (PST)
 Received: from draig.lan ([185.126.160.109]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab71166a8e0sm404508566b.158.2025.02.03.06.49.06
+ a640c23a62f3a-ab7106178ccsm412435466b.9.2025.02.03.06.49.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Mon, 03 Feb 2025 06:49:06 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 4D79B60C3D;
+ by draig.lan (Postfix) with ESMTP id 8209F60F1B;
  Mon,  3 Feb 2025 14:40:50 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
@@ -78,19 +78,18 @@ Cc: qemu-ppc@nongnu.org, Mahmoud Mandour <ma.mandourr@gmail.com>,
  qemu-riscv@nongnu.org, Fabiano Rosas <farosas@suse.de>,
  Tyrone Ting <kfting@nuvoton.com>, Paolo Bonzini <pbonzini@redhat.com>,
  Nicholas Piggin <npiggin@gmail.com>, Alexandre Iooss <erdnaxe@crans.org>,
- Ilya Leoshkevich <iii@linux.ibm.com>
-Subject: [PATCH 16/18] docs/user: Document the %d placeholder and suspend=n
- QEMU_GDB features
-Date: Mon,  3 Feb 2025 14:40:46 +0000
-Message-Id: <20250203144048.2131117-17-alex.bennee@linaro.org>
+ =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
+Subject: [PATCH 18/18] plugins: fix -Werror=maybe-uninitialized false-positive
+Date: Mon,  3 Feb 2025 14:40:48 +0000
+Message-Id: <20250203144048.2131117-19-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250203144048.2131117-1-alex.bennee@linaro.org>
 References: <20250203144048.2131117-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::636;
- envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x636.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::630;
+ envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x630.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -110,52 +109,38 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Feb 2025 14:49:24 -0000
+X-List-Received-Date: Mon, 03 Feb 2025 14:49:25 -0000
 
-From: Ilya Leoshkevich <iii@linux.ibm.com>
+From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
-Signed-off-by: Ilya Leoshkevich <iii@linux.ibm.com>
-Message-Id: <20250117001542.8290-8-iii@linux.ibm.com>
+../contrib/plugins/cache.c:638:9: error: ‘l2_cache’ may be used uninitialized [-Werror=maybe-uninitialized]
+  638 |         append_stats_line(rep, l1_dmem_accesses, l1_dmisses,
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Is a false-positive, since cores > 1, so the variable is set in the
+above loop.
+
+Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+Reviewed-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
+Message-Id: <20250114104820.2613099-1-marcandre.lureau@redhat.com>
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
 ---
- docs/user/main.rst | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ contrib/plugins/cache.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/docs/user/main.rst b/docs/user/main.rst
-index 80a77f0a0c..9a1c60448c 100644
---- a/docs/user/main.rst
-+++ b/docs/user/main.rst
-@@ -54,7 +54,7 @@ Command line options
+diff --git a/contrib/plugins/cache.c b/contrib/plugins/cache.c
+index 7baff86860..7cfd3df249 100644
+--- a/contrib/plugins/cache.c
++++ b/contrib/plugins/cache.c
+@@ -603,7 +603,7 @@ static int l2_cmp(gconstpointer a, gconstpointer b)
+ static void log_stats(void)
+ {
+     int i;
+-    Cache *icache, *dcache, *l2_cache;
++    Cache *icache, *dcache, *l2_cache = NULL;
  
- ::
- 
--   qemu-i386 [-h] [-d] [-L path] [-s size] [-cpu model] [-g port] [-B offset] [-R size] program [arguments...]
-+   qemu-i386 [-h] [-d] [-L path] [-s size] [-cpu model] [-g endpoint] [-B offset] [-R size] program [arguments...]
- 
- ``-h``
-    Print the help
-@@ -91,8 +91,18 @@ Debug options:
-    Activate logging of the specified items (use '-d help' for a list of
-    log items)
- 
--``-g port``
--   Wait gdb connection to port
-+``-g endpoint``
-+   Wait gdb connection to a port (e.g., ``1234``) or a unix socket (e.g.,
-+   ``/tmp/qemu.sock``).
-+
-+   If a unix socket path contains single ``%d`` placeholder (e.g.,
-+   ``/tmp/qemu-%d.sock``), it is replaced by the emulator PID, which is useful
-+   when passing this option via the ``QEMU_GDB`` environment variable to a
-+   multi-process application.
-+
-+   If the endpoint address is followed by ``,suspend=n`` (e.g.,
-+   ``1234,suspend=n``), then the emulated program starts without waiting for a
-+   connection, which can be established at any later point in time.
- 
- ``-one-insn-per-tb``
-    Run the emulation with one guest instruction per translation block.
+     g_autoptr(GString) rep = g_string_new("core #, data accesses, data misses,"
+                                           " dmiss rate, insn accesses,"
 -- 
 2.39.5
 
