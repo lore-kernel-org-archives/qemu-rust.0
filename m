@@ -1,139 +1,102 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1td5mx-0003aZ-VY
-	for mharc-qemu-rust@gnu.org; Wed, 29 Jan 2025 05:59:20 -0500
+	id 1texdB-0003SI-8c
+	for mharc-qemu-rust@gnu.org; Mon, 03 Feb 2025 09:40:57 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1td5mv-0003UM-So
- for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:59:17 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1td5mu-0001TO-Cw
- for qemu-rust@nongnu.org; Wed, 29 Jan 2025 05:59:17 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738148354;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=F1Z2b5SplCCulCnrThb1IgfVC3F5Flk3ECgk19GSKfY=;
- b=WCvzgufT7rn9heRW0K1pprKMBVAy/dcP4LLKUk+xkC+9oqK8B/8ZQTfS2Q0mewK8nt8Op/
- cwzR0srtRnABLy/c23h5YCFELi7IBOP7Dsn7WHKwvKoXQbGnMadSssWOLwFQZucKvH+rxf
- mUJ8ZS+Jr7XhSwL76VIJCskWhaPg/SM=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-93-iKqut0_6OSK5L7Ix-P9phw-1; Wed, 29 Jan 2025 05:59:07 -0500
-X-MC-Unique: iKqut0_6OSK5L7Ix-P9phw-1
-X-Mimecast-MFC-AGG-ID: iKqut0_6OSK5L7Ix-P9phw
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-43631d8d9c7so3060465e9.1
- for <qemu-rust@nongnu.org>; Wed, 29 Jan 2025 02:59:06 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
+ id 1texd8-0003Qy-VI
+ for qemu-rust@nongnu.org; Mon, 03 Feb 2025 09:40:55 -0500
+Received: from mail-ej1-x631.google.com ([2a00:1450:4864:20::631])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
+ id 1texd6-0002L8-2O
+ for qemu-rust@nongnu.org; Mon, 03 Feb 2025 09:40:54 -0500
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-ab2aea81cd8so804135566b.2
+ for <qemu-rust@nongnu.org>; Mon, 03 Feb 2025 06:40:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1738593650; x=1739198450; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TgN34HFjNsDM8vD8ylx4YNq6temrMo6Bfwlmv/QI6BI=;
+ b=hKyUtqsAaxZxylw6Tv9N84zqnI+wGv6KW8UTkmOrQLZPhczt4k1ItN2iuCMMZl8OMS
+ 3e3ivfn8ap8zw0ivs9ckq9q5bWleSsfBoOjGhoh8qcrkoGQD4aJoFNous6igCWoHCPmt
+ KgInbJG027NUlcs9xu4ULv6ugQV1lHsS8eJLlxTpaGSVIxj9hTV24ah3OMtCMVwn/cTK
+ ljL6RjpRWiXKUys9q+RMQ5e0P2GA+6SDcYAYXJzt7O3Mtjobf3XWifNCRxg6LK6cdbXw
+ nuYLyrbNLKTwl6Hcgl9lFI+3LX3K7QsESWWsXDOUg5hl62/rjWsNb3DvdSEnZhbtkbfT
+ r4sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738148346; x=1738753146;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :references:cc:to:subject:from:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=F1Z2b5SplCCulCnrThb1IgfVC3F5Flk3ECgk19GSKfY=;
- b=Zz75wAEkRpzSOH53KwCftdaNPDvVlqZsD/+FK+XH7s4kIApQWwIPvo9F2sV9Iaj8TH
- yLWQdVMN0EYKgyoGBMvWLJe3unhmvLN36ZDrXLuJUlEbDOeaNY+B5V1P02ttl/rQMRAz
- U5OUweFS3t57CW3SHFXJ4IGwn0tm/7VcI4gpj+a2J6vKjCQUwA4qLOxVlYk6jlrEaki3
- Obs6j/afKsf6byXN5wbmmdZRhlSctfti+7ALR+WUxedkUCTTxUvMta2+1lJ0EtU+ajNZ
- 5dL1+eD4sKQolyEONssdE7i7Dqp0tzxqqqB6dCsygtqVETUlAn9i2AfKOkN+b+GhCZoq
- 91YQ==
+ d=1e100.net; s=20230601; t=1738593650; x=1739198450;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TgN34HFjNsDM8vD8ylx4YNq6temrMo6Bfwlmv/QI6BI=;
+ b=VAG7RfFUIr/Bz5GI7oqhY8ubSrwlRFV8ekmYqzFAtRE9pF976nT2ogKTFhoXrpczRt
+ iBBkM3E9V4SNU/rl7yqa4EYx23bexRJNvb70ACVopP0ZsGObCmaKYFO9K89fUbHhh3q+
+ 9yU9WZiJw3tsqPGoE8kqfSif+V/S8J006TqD89XpQM+3ZVKpmcWU7a40NBcrwnrDHS5c
+ +hmfgEILOWjGPSf50U1aQ5wF9HhJJjiV9gMOI0N39ajsaJvemzzlJuTQPlJNaYRDML3w
+ vhdsIE3bH4L7sbqcb5Jy7COmXaGsebN2e54IgG4QYS87O459yXhfT+C+yuVygDojTfEE
+ OuiQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUOuntmfwqFcXoTGwabCRwilrRet43HXHM8BDjgoSpE+ZmoJSMECCpHb5nIcecYoaQ4qROfNbITwW0=@nongnu.org
-X-Gm-Message-State: AOJu0YwZjucaVe1sPTy2PvguoliAaaLrbhMeRurWcknn/b6l2KsuEoju
- CwhyJk+jsif1/bZJNAPSPEPUMjYjjRjcu82wC0naNadfSKnaJggkUxuO+q1P5+u+AS4lSZd9Hgf
- H9tjsbDB8NC6Gw8fhEAbZ42sJHomjo2vh/msuCSJY4Ut/9tzhlWo=
-X-Gm-Gg: ASbGncuw7aBsSheBGSNA6jbZJtZLr0URVhtSANAbcUD7UdWssZ9dKJ87pfRtoZITEcV
- 25twUY0B46la++MKhiVc2e7ulwosAA5uEtWympgqLj8Fp2G7zz64blb6y3dSFGri0GwaJg3mYrt
- L3dL4agYxMCY/S2uE3L3rr1A1W/XUZJ+p6//WE29Opo8p8JCf5rmawqVfGPVa8N/f/K/tUG8N3w
- g0u5SlRtAXTm9l8AHEy8im9vGHNXPLavo2Cs6igVPv7WhqwdN/l3dL+rwgKQ4Cngw3beQE8qnHE
- WRLWnQ==
-X-Received: by 2002:a05:600c:3d87:b0:436:1b0b:2633 with SMTP id
- 5b1f17b1804b1-438dbe9a124mr25259265e9.9.1738148345907; 
- Wed, 29 Jan 2025 02:59:05 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEpji0f2qhnG/LJPTman0u74BgwolbJa2Etkiau+0YR3gHpY/jMPjMYZ9BXiYs1iP84SpO+Mg==
-X-Received: by 2002:a05:600c:3d87:b0:436:1b0b:2633 with SMTP id
- 5b1f17b1804b1-438dbe9a124mr25259065e9.9.1738148345587; 
- Wed, 29 Jan 2025 02:59:05 -0800 (PST)
-Received: from [192.168.10.3] ([151.62.97.55])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-38c2a18867esm16401996f8f.43.2025.01.29.02.59.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jan 2025 02:59:05 -0800 (PST)
-Message-ID: <5a19e7d2-9d69-45fe-812f-84145229876f@redhat.com>
-Date: Wed, 29 Jan 2025 11:59:04 +0100
+ AJvYcCXzuAvWTg2Zv2ITIt9TKro/q5KlUqotbLom9gT5SMaVC4sYXMz6R9TAP6XxBs0xYcLJny4BoEvIwI4=@nongnu.org
+X-Gm-Message-State: AOJu0Yzl7OI9agdswi3N1NE8HK+pFi/a4iaTJeaRSBUdlJZx0m3Ndlx3
+ TfTytpTgOAyJi2WfKZGWEAfi7BUWUdYzmTF0HIyGo73alpb/NUlkTacHlKLhZOY=
+X-Gm-Gg: ASbGncveOG3Rv2e87CTA/dmY6zNA5pafsHBFCbrdhT6sU5QBYJ4/CM3PHJi6QvT4jJZ
+ uTecvuAPx97nNYZV1fxUV9h4UXRuLvSrNjnHCCyvxewwHVMc2nKVeh5RivKB8qThvpFBBKF8k6x
+ Iqro4Xe8TuY/Zcbru/3RnoVpWbnBK06/WkkK4Pb2LRalKZ3aMJAEaSU/QGRlH9OkEp6OD76oqB8
+ wMzl2ImN/QQsUCS1krb3DR4f8KWTXAUoqQKPOiKIm63AeA0QqB3RJvzWif0DUDBtmga4FxBst9r
+ hnQvc8GGEMW8xvLH2Q==
+X-Google-Smtp-Source: AGHT+IEcl4zF1C3b5Y37dufNsJusKaOyWNSbjr00HndpAn1u4fiePANdl3YqC8WFb0pLP232jxxpAA==
+X-Received: by 2002:a17:907:9452:b0:ab6:f99f:45e0 with SMTP id
+ a640c23a62f3a-ab6f99f5410mr1861892366b.37.1738593650045; 
+ Mon, 03 Feb 2025 06:40:50 -0800 (PST)
+Received: from draig.lan ([185.126.160.109]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6e4a56fbdsm775529966b.179.2025.02.03.06.40.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Feb 2025 06:40:49 -0800 (PST)
+Received: from draig.lan (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id DA0415FA5E;
+ Mon,  3 Feb 2025 14:40:48 +0000 (GMT)
+From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: qemu-ppc@nongnu.org, Mahmoud Mandour <ma.mandourr@gmail.com>,
+ Thomas Huth <thuth@redhat.com>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Hao Wu <wuhaotsh@google.com>, Peter Xu <peterx@redhat.com>,
+ Warner Losh <imp@bsdimp.com>,
+ Pierrick Bouvier <pierrick.bouvier@linaro.org>, qemu-arm@nongnu.org,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Kyle Evans <kevans@freebsd.org>,
+ Laurent Vivier <laurent@vivier.eu>, Riku Voipio <riku.voipio@iki.fi>,
+ Bin Meng <bmeng.cn@gmail.com>, qemu-rust@nongnu.org,
+ Laurent Vivier <lvivier@redhat.com>,
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Weiwei Li <liwei1518@gmail.com>,
+ qemu-riscv@nongnu.org, Fabiano Rosas <farosas@suse.de>,
+ Tyrone Ting <kfting@nuvoton.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Alexandre Iooss <erdnaxe@crans.org>
+Subject: [PATCH 03/18] tests/qtest: don't step clock at start of npcm7xx
+ periodic IRQ test
+Date: Mon,  3 Feb 2025 14:40:33 +0000
+Message-Id: <20250203144048.2131117-4-alex.bennee@linaro.org>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250203144048.2131117-1-alex.bennee@linaro.org>
+References: <20250203144048.2131117-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH 04/10] rust: add bindings for gpio_{in|out} initialization
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Junjie Mao <junjie.mao@hotmail.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?=
- <philmd@linaro.org>, Richard Henderson <richard.henderson@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>,
- =?UTF-8?Q?Daniel_P_=2E_Berrang=C3=A9?= <berrange@redhat.com>,
- qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-References: <20250125125137.1223277-1-zhao1.liu@intel.com>
- <20250125125137.1223277-5-zhao1.liu@intel.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <20250125125137.1223277-5-zhao1.liu@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ZDXriIUH2D1WToAWxZFsZPzkLfM0MV_jafPjRwq_nOg_1738148346
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -33
-X-Spam_score: -3.4
-X-Spam_bar: ---
-X-Spam_report: (-3.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.3,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
- T_SCC_BODY_TEXT_LINE=-0.01 autolearn=ham autolearn_force=no
+Received-SPF: pass client-ip=2a00:1450:4864:20::631;
+ envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x631.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -146,27 +109,31 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jan 2025 10:59:18 -0000
+X-List-Received-Date: Mon, 03 Feb 2025 14:40:56 -0000
 
+Until there are timers enabled the semantics of clock_step_next() will
+fail. Since d524441a36 (system/qtest: properly feedback results of
+clock_[step|set]) we will signal a FAIL if time doesn't advance.
 
+Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+Reviewed-by: Hao Wu <wuhaotsh@google.com>
+---
+ tests/qtest/npcm7xx_timer-test.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-On Sat, Jan 25, 2025 at 1:32 PM Zhao Liu <zhao1.liu@intel.com> wrote:
-> +    fn init_gpio_in<F: for<'a> FnCall<(&'a Self::Target, u32, u32)>>(&self, num_lines: u32, _f: F) {
-> +        unsafe extern "C" fn rust_irq_handler<T, F: for<'a> FnCall<(&'a T, u32, u32)>>(
-> +            opaque: *mut c_void,
-> +            line: c_int,
-> +            level: c_int,
-> +        ) {
-> +            // SAFETY: the opaque was passed as a reference to `T`
-> +            F::call((unsafe { &*(opaque.cast::<T>()) }, line as u32, level as u32))
-> +        }
-> +
-> +        let gpio_in_cb: unsafe extern "C" fn(*mut c_void, c_int, c_int) =
-> +            rust_irq_handler::<Self::Target, F>;
-
-Please add "let _: () = F::ASSERT_IS_SOME;", which is added by the 
-qdev_init_clock_in() patch.
-
-Paolo
+diff --git a/tests/qtest/npcm7xx_timer-test.c b/tests/qtest/npcm7xx_timer-test.c
+index 58f58c2f71..43711049ca 100644
+--- a/tests/qtest/npcm7xx_timer-test.c
++++ b/tests/qtest/npcm7xx_timer-test.c
+@@ -465,7 +465,6 @@ static void test_periodic_interrupt(gconstpointer test_data)
+     int i;
+ 
+     tim_reset(td);
+-    clock_step_next();
+ 
+     tim_write_ticr(td, count);
+     tim_write_tcsr(td, CEN | IE | MODE_PERIODIC | PRESCALE(ps));
+-- 
+2.39.5
 
 
