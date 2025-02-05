@@ -1,56 +1,55 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tfaT2-000141-Iy
-	for mharc-qemu-rust@gnu.org; Wed, 05 Feb 2025 03:09:04 -0500
+	id 1tfbAZ-0002kG-BY
+	for mharc-qemu-rust@gnu.org; Wed, 05 Feb 2025 03:54:03 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tfaSt-000126-Rq; Wed, 05 Feb 2025 03:08:58 -0500
-Received: from mgamail.intel.com ([192.198.163.15])
+ id 1tfbAX-0002jl-Vc; Wed, 05 Feb 2025 03:54:01 -0500
+Received: from mgamail.intel.com ([192.198.163.19])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tfaSr-0001E9-I6; Wed, 05 Feb 2025 03:08:55 -0500
+ id 1tfbAV-00014y-W0; Wed, 05 Feb 2025 03:54:01 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738742934; x=1770278934;
+ t=1738745640; x=1770281640;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=Yb1GwAcOa0aO1yeLYu4Yq+LWNnT1bGHQr+oZVW53MYc=;
- b=LDwMwv033+RUAlTkQTHJF5ST2/mxJGegg5w/a4NH0pg+iE2YS88t+q+e
- K11z1D09byA/KV/tZig44Ipvwcqw0WBr5JjEYObi/amQAETr7kDF4refI
- 3Pzvx8fKJu2XRwLwWPZdjNhJu/x5JsWPSOvekE4WlaT4QtyU93FKE0QBB
- ZeoMK2H0SfJWR9LCXpblR80iFMDAfmGZdtjMow8kRy8yKX2Gt6hYLB81m
- szu59IDqUP/Tnjky9dZeZ3g94TRJlUseZy1eokNVqP+Sq4G6L4f0lFdcB
- lMsiVXGSbLCk0V/FnE/NuRbiQlHOiyW8YMQMSIFCfVMF/tOQNQYDyKINW Q==;
-X-CSE-ConnectionGUID: 1L7kc7atS7Wpa4NTULgV6g==
-X-CSE-MsgGUID: e7zjKvnsTjOWy3CiMvAP1A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="39453697"
-X-IronPort-AV: E=Sophos;i="6.13,260,1732608000"; d="scan'208";a="39453697"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2025 00:08:48 -0800
-X-CSE-ConnectionGUID: rUnbGF3FQSKH6IK5Zl6p9w==
-X-CSE-MsgGUID: HnYJ6bSwQKSiTIElndhnsQ==
+ mime-version:in-reply-to;
+ bh=IWWAHcSVrzMYLkR/9OBX/FJ6/zwJPQ2ZQSugd41Tpuc=;
+ b=HA1oY9TBjqSCgOm6q8Oc0U8wRd4YUiuTpA5bwAUP2g7zVrvw8L3MlmUo
+ 9hO2FlJy3SvXqv4B076LcLCQIDNVgxoAFTLpbjIinre4KD97OOknlR0ED
+ mOKN6umXdhG6VRCc7lrYQmtefmNfcw7XkCnRkPG9XfVkLyhDEfB/5Bs+E
+ FJZyjIbx16qK3GLmPgZYSsx5twlLJUBe8xFx63ez57tfzyrILNoHpxmyV
+ UPXDoothcO1cVRZRnKudbJjiDRP3paHmK1dNNMEEskv32CLaGcumVO9f2
+ t9Ev8CH6HVSAnA3NA0lDliAXHy30ojYiJ8g/IX5eGpiiMfyqDTZ+TCjQ2 A==;
+X-CSE-ConnectionGUID: 2BUGaAjbRIaEGly9CIKkBw==
+X-CSE-MsgGUID: XREHNBNiQ7y2k7C/OPKYcw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="38507530"
+X-IronPort-AV: E=Sophos;i="6.13,261,1732608000"; d="scan'208";a="38507530"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2025 00:53:56 -0800
+X-CSE-ConnectionGUID: ZsvX12Y7TpuiE6cl+NdHMw==
+X-CSE-MsgGUID: k0I1n5GiTG6JXHNw3VqqAA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="141720847"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="111278749"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa001.fm.intel.com with ESMTP; 05 Feb 2025 00:08:46 -0800
-Date: Wed, 5 Feb 2025 16:28:15 +0800
+ by orviesa007.jf.intel.com with ESMTP; 05 Feb 2025 00:53:55 -0800
+Date: Wed, 5 Feb 2025 17:13:23 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 Subject: Re: [PATCH 02/10] rust: qom: add reference counting functionality
-Message-ID: <Z6MhH0bLVRw8O/8c@intel.com>
+Message-ID: <Z6Mrs4l+fRF7jcay@intel.com>
 References: <20250117194003.1173231-1-pbonzini@redhat.com>
  <20250117194003.1173231-3-pbonzini@redhat.com>
- <Z5ZRnYDZdZcgyCsR@intel.com>
- <CABgObfZ1659K9TrAAa3HYfhr0vf31eveoN-=33rSmpJnLo1RKg@mail.gmail.com>
+ <Z5c8gVcUn4rzVpID@intel.com>
+ <CABgObfbLaHXtoGAkUVW9CUXio-N_1A=Awq0=ZCY3G8sAO+9NXQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABgObfZ1659K9TrAAa3HYfhr0vf31eveoN-=33rSmpJnLo1RKg@mail.gmail.com>
-Received-SPF: pass client-ip=192.198.163.15; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <CABgObfbLaHXtoGAkUVW9CUXio-N_1A=Awq0=ZCY3G8sAO+9NXQ@mail.gmail.com>
+Received-SPF: pass client-ip=192.198.163.19; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -72,132 +71,45 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Feb 2025 08:09:02 -0000
+X-List-Received-Date: Wed, 05 Feb 2025 08:54:02 -0000
 
-On Wed, Jan 29, 2025 at 11:03:31AM +0100, Paolo Bonzini wrote:
-> Date: Wed, 29 Jan 2025 11:03:31 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: Re: [PATCH 02/10] rust: qom: add reference counting functionality
-> 
-> On Sun, Jan 26, 2025 at 3:56 PM Zhao Liu <zhao1.liu@intel.com> wrote:
+> > * The use of from():
 > >
-> > Hi Paolo,
-> >
-> > On Fri, Jan 17, 2025 at 08:39:55PM +0100, Paolo Bonzini wrote:
-> > > Date: Fri, 17 Jan 2025 20:39:55 +0100
-> > > From: Paolo Bonzini <pbonzini@redhat.com>
-> > > Subject: [PATCH 02/10] rust: qom: add reference counting functionality
-> > > X-Mailer: git-send-email 2.47.1
-> > >
-> > > Add a smart pointer that allows to add and remove references from
-> > > QOM objects.  It's important to note that while all QOM objects have a
-> > > reference count, in practice not all of them have their lifetime guarded
-> > > by it.
-> >
-> > About the background, I have a maybe common question...why Rust needs
-> > extra reference count guarding?
+> >                 let clk = bindings::qdev_init_clock_in(...)
+> >                 Owned::from(&*clk)
 > 
-> Children properties are removed, and thus their reference is dropped,
-> before instance_finalize() is called (see object_finalize() in
-> qom/object.c). This is not valid in Rust, you need to keep the object
-> alive until the last line of Rust code has run - which is after
-> Drop::drop() has run.
+> In this case the C side wants to manage the reference that
+> qdev_init_clock_in() returns; it is dropped in
+> qdev_finalize_clocklist(). So Rust code needs to increase the
+> refcount.
 
-I see, this is also a typical effort to eliminate unsafe crossing of FFI
-boundaries.
+Pls forgive me for one more question about qdev_init_clock_in() on the C
+side. :-)
 
-> > Additionally, I felt that the ref count may be a bit confusing. After
-> > creating Child<> property, the child object's ref count is sometimes 1,
-> > and other times it's 2:
-> >
-> >  * With object_initialize_child(), child's ref count is 1.
-> >
-> >  * With object_property_add_child() (usually after a object_new() to
-> >    create child first):
-> >
-> >    - sometimes user will call object_unref(), and then the ref count is 1.
-> >      E.g., x86_cpu_apic_create() in target/i386/cpu-apic.c.
-> >
-> >    - sometimes no object_unref(), then ref count is 2.
-> >      E.g., exynos4210_realize() in hw/arm/exynos4210.c, creats "cortex-a9".
+qdev_init_clock_in() didn't unref `clk` after object_property_add_child(),
+so it is intentional, to make the ref count of `clk` be 2:
+ * 1 count is held by clocklist until qdev_finalize_clocklist().
+ * another 1 is held by its parent via QOM Child<>.
+
+Am I understanding it correctly?
+
+> > Then the comment "the clock is heap allocated and does not have
+> > a reference" sounds like a conflict. I'm sure I'm missing something. :-(
 > 
-> In C, having a ref count of 2 is usually a latent memory leak (because
-> most of the time there's not going to be an object_unref() in the
-> instance_finalize() method). In this case the leak is latent, because
-> TYPE_EXYNOS4210_SOC is not hot-unpluggable and thus will never really
-> go away once realized.
-
-Further, what about doing object_unref() in object_property_add_child()
-or object_property_try_add_child()?
-
-Then we can ensure the object will have ref count of 1 on the exit of
-object_property_add_child() and people will no longer miss
-object_unref().
-
-Although, there are a few more devices involved to fix similar issues.
-
-> In Rust, this class of leaks simply does not exist with the right API.
-> ObjectMethods::property_add_child() could either:
+> Changed:
 > 
-> - take an Owned<T> and consume it, thus always giving a ref count of 1
-> on exit. If you want to keep the object you would have to clone it.
->
-> - take "&'owner self, &'child T where 'owner: 'child", then you can
-> pass an embedded object like object_initialize_child().
-> 
-> In the latter case however you *still* need to keep the reference
-> count elevated until Drop runs. That is, unlike C, Rust code will
-> always have a ref count of 2 for children. For this reason, instead of
-> having a "T" in the struct you would have another wrapper---something
-> like Child<'owner, T>. This wrapper cannot be cloned but it does an
-> unref when dropped.
+>       // SAFETY: the clock is heap allocated, but qdev_init_clock_in()
+>       // does not gift the reference to its caller; so use Owned::from to
+>       // add one.  the callback is disabled automatically when the clock
+>       // is unparented, which happens before the device is finalized.
 
-Thanks, the whole picture is nice.
+LGTM.
 
-> My expectation is that property_add_child() will be used exclusivel
-> for the first case, i.e. it will take an Owned<T>. If you want to
-> create a child property from an embedded object, something like
-> object_initialize_child() can be used once pinned-init is used to
-> rewrite how instance_init is used. It will look something like
-> 
-> pin_init! {
->   &this in MyClass {
->     ...,
->     iomem <- MemoryRegion::init_io(
->             this,
->             &MY_MR_OPS,
->             "memory-region-name",
->             0x1000,
->     ),
->     child_obj <- ChildClass::init().to_child(this, "prop-name")
->   }
-> }
-> 
-> where to_child() wraps an "impl PinInit<T>" and turns it into an "impl
-> PinInit<Child<'a, T>>". Or something like that. :)
-
-Elegant code design, looking forward to pin_init.
-
-> > From this description, I understand your goal is:
-> >
-> >  * For embedded child object, its lifetimer is managed by its parent
-> >    object, through Child<> for the most cases.
-> >
-> >  * For non-embedded child - a pointer/reference in parent object, its
-> >    lifetimer is managed by `Owned<>` (and with Child<>).
-> >
-> > Am I right?
-> 
-> Yes, you're right.
-> 
-> I am not sure if you meant Child<> as the QOM concept, or as a Rust
-> struct. If the latter, you're really really right.
-> 
-
-Thank you :-) It seems virtio device will have an embedded case to adopt
-Child<> struct (virtio_instance_init_common()).
+Thank you very much for your patience. I think I understand ref count
+now.
 
 Regards,
 Zhao
+
 
 
