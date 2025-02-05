@@ -1,102 +1,65 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1texlT-0000ux-1m
-	for mharc-qemu-rust@gnu.org; Mon, 03 Feb 2025 09:49:31 -0500
+	id 1tfaT2-000141-Iy
+	for mharc-qemu-rust@gnu.org; Wed, 05 Feb 2025 03:09:04 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1texlO-0000rA-1s
- for qemu-rust@nongnu.org; Mon, 03 Feb 2025 09:49:27 -0500
-Received: from mail-ej1-x631.google.com ([2a00:1450:4864:20::631])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1texlJ-0003H4-Gb
- for qemu-rust@nongnu.org; Mon, 03 Feb 2025 09:49:25 -0500
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-ab7157cf352so376721166b.0
- for <qemu-rust@nongnu.org>; Mon, 03 Feb 2025 06:49:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738594148; x=1739198948; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gkJVfCavNsBQMZBi92Kjm0ej3U2Pdiir6so6tZSVLo8=;
- b=llWg49HQy7LIUgk0ureWH1hH7ychITM+21b+zGQ9yzmdGmqRViUBr0irDAHrJ4V0UV
- V5a6JeZuJWokCU+LOtF55WqN+QIbQT8uPcqvIlT0uKWzmmhqPSY0rTBatFjR/rYHnqmU
- rQ/Y4tXI9C909GlVi1bh/ZUF2gpFVEOXZBH3PupnVSZ5Fidu0RAJb+1BMaTO+4tsvtoN
- ujGMavj8W3GfS+L4gMzvqS5tHyw8G4Qo41IrSwEgT7AdZl+XAj3+C45KNCRcUtF4enwI
- WjMcqDuzo4weH5mund4uAcgNCxxpx5ZdHmvzj4zKDXxMNbbaaS14eR6irKactMWMhq3l
- 9Z5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738594148; x=1739198948;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gkJVfCavNsBQMZBi92Kjm0ej3U2Pdiir6so6tZSVLo8=;
- b=TR/uINOJHPdLUO1gqKhnAEeWIPAMg9J8DRMq/OYoWAhXlTv4yQ4ZEU9y+3es0brZLE
- 8Y/xNlL1++cQB3+wSxS9kfmHeQV2FcNgbwOjidhWqz16fLpCedzfgmiItWoAV8mpzREq
- PomEhb93Kt2GWaScMSVap6EDTczdc5nZzffvDW1FaWIH0ypg6BFAfnj3u3TaJG3+0AQQ
- 1fTWeDprgDGfxaaryZfUcwFYYkh7YOR0IO6tjR2YeeVwO3wWDXgLvQOj4m2rO4+gVMNR
- mDC+uaBFpMI3ZBWb55ky2MXvyq6qtPUBBd1xMX+CjwLhIEe7kQ91YuC5ulPd/KBU9UzK
- m7KQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUZo4VV+i3cgkk9Nv1ZTZiM1uw+xtLhjiLJDxzTiBAYqRWAMqraImkhMHfmiTRQQpowSKj7TWnlqzE=@nongnu.org
-X-Gm-Message-State: AOJu0YzvlfDtynt+swAFfGOkISsKZT92FQDxX17AfcxLPJAL67/kgrUG
- Zcw8wrDURRH6mdelK0kIikvzCYqToyk8wFwDcrKRloClCHl1Z8tsMm1d0o9lH9w=
-X-Gm-Gg: ASbGncuYII5aCQrV+qai7VMzN68daT4erObJTAKjYKKqql48IQmqczC8zAI3ThWvK3X
- s26tK3wpkpiV7S4CI7Oq2H1HbES0wGlVXzdrKx/dMPVHUN/cIk9zIF7yyBKFEFm2TM//sOqNWBN
- 1n1vAbuNh/rm0ORiusjPQm1wCa16nvWPVlNG/Xr/n1W4O7a+iPBFtLMxaYHVTz4rk9OEKotn0Hq
- erhEYmIUwbJ6acZejgkjIvdyMN6fZRa2AcxboyVsBw+zKEtqxPPWr5Q3PaE9UmPvDTM+/qekBXH
- 88B4Klvyvh8VVg9WrQ==
-X-Google-Smtp-Source: AGHT+IG/R51KQCA20rloLv6h0Yx+mgpOInhWpoetLZCdqvmzyD8160ZmwTltdG6Jk/YZg+WP0W0CNg==
-X-Received: by 2002:a17:906:6a09:b0:aab:8311:951f with SMTP id
- a640c23a62f3a-ab6e0bc1e0fmr2196191966b.6.1738594147989; 
- Mon, 03 Feb 2025 06:49:07 -0800 (PST)
-Received: from draig.lan ([185.126.160.109]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab6e4a318fasm764533766b.134.2025.02.03.06.49.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Feb 2025 06:49:06 -0800 (PST)
-Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 6901060E67;
- Mon,  3 Feb 2025 14:40:50 +0000 (GMT)
-From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: qemu-devel@nongnu.org
-Cc: qemu-ppc@nongnu.org, Mahmoud Mandour <ma.mandourr@gmail.com>,
- Thomas Huth <thuth@redhat.com>,
- Daniel Henrique Barboza <danielhb413@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Hao Wu <wuhaotsh@google.com>, Peter Xu <peterx@redhat.com>,
- Warner Losh <imp@bsdimp.com>,
- Pierrick Bouvier <pierrick.bouvier@linaro.org>, qemu-arm@nongnu.org,
- Harsh Prateek Bora <harshpb@linux.ibm.com>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Kyle Evans <kevans@freebsd.org>,
- Laurent Vivier <laurent@vivier.eu>, Riku Voipio <riku.voipio@iki.fi>,
- Bin Meng <bmeng.cn@gmail.com>, qemu-rust@nongnu.org,
- Laurent Vivier <lvivier@redhat.com>,
- Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Weiwei Li <liwei1518@gmail.com>,
- qemu-riscv@nongnu.org, Fabiano Rosas <farosas@suse.de>,
- Tyrone Ting <kfting@nuvoton.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Nicholas Piggin <npiggin@gmail.com>, Alexandre Iooss <erdnaxe@crans.org>,
- Ilya Leoshkevich <iii@linux.ibm.com>
-Subject: [PATCH 17/18] tests/tcg: Add late gdbstub attach test
-Date: Mon,  3 Feb 2025 14:40:47 +0000
-Message-Id: <20250203144048.2131117-18-alex.bennee@linaro.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250203144048.2131117-1-alex.bennee@linaro.org>
-References: <20250203144048.2131117-1-alex.bennee@linaro.org>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tfaSt-000126-Rq; Wed, 05 Feb 2025 03:08:58 -0500
+Received: from mgamail.intel.com ([192.198.163.15])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tfaSr-0001E9-I6; Wed, 05 Feb 2025 03:08:55 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1738742934; x=1770278934;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=Yb1GwAcOa0aO1yeLYu4Yq+LWNnT1bGHQr+oZVW53MYc=;
+ b=LDwMwv033+RUAlTkQTHJF5ST2/mxJGegg5w/a4NH0pg+iE2YS88t+q+e
+ K11z1D09byA/KV/tZig44Ipvwcqw0WBr5JjEYObi/amQAETr7kDF4refI
+ 3Pzvx8fKJu2XRwLwWPZdjNhJu/x5JsWPSOvekE4WlaT4QtyU93FKE0QBB
+ ZeoMK2H0SfJWR9LCXpblR80iFMDAfmGZdtjMow8kRy8yKX2Gt6hYLB81m
+ szu59IDqUP/Tnjky9dZeZ3g94TRJlUseZy1eokNVqP+Sq4G6L4f0lFdcB
+ lMsiVXGSbLCk0V/FnE/NuRbiQlHOiyW8YMQMSIFCfVMF/tOQNQYDyKINW Q==;
+X-CSE-ConnectionGUID: 1L7kc7atS7Wpa4NTULgV6g==
+X-CSE-MsgGUID: e7zjKvnsTjOWy3CiMvAP1A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="39453697"
+X-IronPort-AV: E=Sophos;i="6.13,260,1732608000"; d="scan'208";a="39453697"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2025 00:08:48 -0800
+X-CSE-ConnectionGUID: rUnbGF3FQSKH6IK5Zl6p9w==
+X-CSE-MsgGUID: HnYJ6bSwQKSiTIElndhnsQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="141720847"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa001.fm.intel.com with ESMTP; 05 Feb 2025 00:08:46 -0800
+Date: Wed, 5 Feb 2025 16:28:15 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH 02/10] rust: qom: add reference counting functionality
+Message-ID: <Z6MhH0bLVRw8O/8c@intel.com>
+References: <20250117194003.1173231-1-pbonzini@redhat.com>
+ <20250117194003.1173231-3-pbonzini@redhat.com>
+ <Z5ZRnYDZdZcgyCsR@intel.com>
+ <CABgObfZ1659K9TrAAa3HYfhr0vf31eveoN-=33rSmpJnLo1RKg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::631;
- envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x631.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+In-Reply-To: <CABgObfZ1659K9TrAAa3HYfhr0vf31eveoN-=33rSmpJnLo1RKg@mail.gmail.com>
+Received-SPF: pass client-ip=192.198.163.15; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -109,170 +72,132 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Feb 2025 14:49:27 -0000
+X-List-Received-Date: Wed, 05 Feb 2025 08:09:02 -0000
 
-From: Ilya Leoshkevich <iii@linux.ibm.com>
+On Wed, Jan 29, 2025 at 11:03:31AM +0100, Paolo Bonzini wrote:
+> Date: Wed, 29 Jan 2025 11:03:31 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: Re: [PATCH 02/10] rust: qom: add reference counting functionality
+> 
+> On Sun, Jan 26, 2025 at 3:56 PM Zhao Liu <zhao1.liu@intel.com> wrote:
+> >
+> > Hi Paolo,
+> >
+> > On Fri, Jan 17, 2025 at 08:39:55PM +0100, Paolo Bonzini wrote:
+> > > Date: Fri, 17 Jan 2025 20:39:55 +0100
+> > > From: Paolo Bonzini <pbonzini@redhat.com>
+> > > Subject: [PATCH 02/10] rust: qom: add reference counting functionality
+> > > X-Mailer: git-send-email 2.47.1
+> > >
+> > > Add a smart pointer that allows to add and remove references from
+> > > QOM objects.  It's important to note that while all QOM objects have a
+> > > reference count, in practice not all of them have their lifetime guarded
+> > > by it.
+> >
+> > About the background, I have a maybe common question...why Rust needs
+> > extra reference count guarding?
+> 
+> Children properties are removed, and thus their reference is dropped,
+> before instance_finalize() is called (see object_finalize() in
+> qom/object.c). This is not valid in Rust, you need to keep the object
+> alive until the last line of Rust code has run - which is after
+> Drop::drop() has run.
 
-Add a small test to prevent regressions.
-Make sure that host_interrupt_signal is not visible to the guest.
+I see, this is also a typical effort to eliminate unsafe crossing of FFI
+boundaries.
 
-Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
-Signed-off-by: Ilya Leoshkevich <iii@linux.ibm.com>
-Message-Id: <20250117001542.8290-9-iii@linux.ibm.com>
-Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
----
- tests/tcg/multiarch/late-attach.c          | 41 ++++++++++++++++++++++
- tests/guest-debug/run-test.py              | 15 ++++++--
- tests/tcg/multiarch/Makefile.target        |  9 ++++-
- tests/tcg/multiarch/gdbstub/late-attach.py | 28 +++++++++++++++
- 4 files changed, 90 insertions(+), 3 deletions(-)
- create mode 100644 tests/tcg/multiarch/late-attach.c
- create mode 100644 tests/tcg/multiarch/gdbstub/late-attach.py
+> > Additionally, I felt that the ref count may be a bit confusing. After
+> > creating Child<> property, the child object's ref count is sometimes 1,
+> > and other times it's 2:
+> >
+> >  * With object_initialize_child(), child's ref count is 1.
+> >
+> >  * With object_property_add_child() (usually after a object_new() to
+> >    create child first):
+> >
+> >    - sometimes user will call object_unref(), and then the ref count is 1.
+> >      E.g., x86_cpu_apic_create() in target/i386/cpu-apic.c.
+> >
+> >    - sometimes no object_unref(), then ref count is 2.
+> >      E.g., exynos4210_realize() in hw/arm/exynos4210.c, creats "cortex-a9".
+> 
+> In C, having a ref count of 2 is usually a latent memory leak (because
+> most of the time there's not going to be an object_unref() in the
+> instance_finalize() method). In this case the leak is latent, because
+> TYPE_EXYNOS4210_SOC is not hot-unpluggable and thus will never really
+> go away once realized.
 
-diff --git a/tests/tcg/multiarch/late-attach.c b/tests/tcg/multiarch/late-attach.c
-new file mode 100644
-index 0000000000..20a364034b
---- /dev/null
-+++ b/tests/tcg/multiarch/late-attach.c
-@@ -0,0 +1,41 @@
-+/*
-+ * Test attaching GDB to a running process.
-+ *
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ */
-+#include <assert.h>
-+#include <signal.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+
-+static const char *phase = "start";
-+
-+int main(void)
-+{
-+    sigset_t set;
-+    int sig;
-+
-+    assert(sigfillset(&set) == 0);
-+    assert(sigprocmask(SIG_BLOCK, &set, NULL) == 0);
-+
-+    /* Let GDB know it can send SIGUSR1. */
-+    phase = "sigwait";
-+    if (getenv("LATE_ATTACH_PY")) {
-+        assert(sigwait(&set, &sig) == 0);
-+        if (sig != SIGUSR1) {
-+            fprintf(stderr, "Unexpected signal %d\n", sig);
-+            return EXIT_FAILURE;
-+        }
-+    }
-+
-+    /* Check that the guest does not see host_interrupt_signal. */
-+    assert(sigpending(&set) == 0);
-+    for (sig = 1; sig < NSIG; sig++) {
-+        if (sigismember(&set, sig)) {
-+            fprintf(stderr, "Unexpected signal %d\n", sig);
-+            return EXIT_FAILURE;
-+        }
-+    }
-+
-+    return EXIT_SUCCESS;
-+}
-diff --git a/tests/guest-debug/run-test.py b/tests/guest-debug/run-test.py
-index 5a091db8be..75e9c92e03 100755
---- a/tests/guest-debug/run-test.py
-+++ b/tests/guest-debug/run-test.py
-@@ -36,6 +36,8 @@ def get_args():
-     parser.add_argument("--gdb-args", help="Additional gdb arguments")
-     parser.add_argument("--output", help="A file to redirect output to")
-     parser.add_argument("--stderr", help="A file to redirect stderr to")
-+    parser.add_argument("--no-suspend", action="store_true",
-+                        help="Ask the binary to not wait for GDB connection")
- 
-     return parser.parse_args()
- 
-@@ -73,10 +75,19 @@ def log(output, msg):
- 
-     # Launch QEMU with binary
-     if "system" in args.qemu:
-+        if args.no_suspend:
-+            suspend = ''
-+        else:
-+            suspend = ' -S'
-         cmd = f'{args.qemu} {args.qargs} {args.binary}' \
--            f' -S -gdb unix:path={socket_name},server=on'
-+            f'{suspend} -gdb unix:path={socket_name},server=on'
-     else:
--        cmd = f'{args.qemu} {args.qargs} -g {socket_name} {args.binary}'
-+        if args.no_suspend:
-+            suspend = ',suspend=n'
-+        else:
-+            suspend = ''
-+        cmd = f'{args.qemu} {args.qargs} -g {socket_name}{suspend}' \
-+            f' {args.binary}'
- 
-     log(output, "QEMU CMD: %s" % (cmd))
-     inferior = subprocess.Popen(shlex.split(cmd))
-diff --git a/tests/tcg/multiarch/Makefile.target b/tests/tcg/multiarch/Makefile.target
-index 18d3cf4ae0..688a6be203 100644
---- a/tests/tcg/multiarch/Makefile.target
-+++ b/tests/tcg/multiarch/Makefile.target
-@@ -130,6 +130,13 @@ run-gdbstub-follow-fork-mode-parent: follow-fork-mode
- 		--bin $< --test $(MULTIARCH_SRC)/gdbstub/follow-fork-mode-parent.py, \
- 	following parents on fork)
- 
-+run-gdbstub-late-attach: late-attach
-+	$(call run-test, $@, env LATE_ATTACH_PY=1 $(GDB_SCRIPT) \
-+		--gdb $(GDB) \
-+		--qemu $(QEMU) --qargs "$(QEMU_OPTS)" --no-suspend \
-+		--bin $< --test $(MULTIARCH_SRC)/gdbstub/late-attach.py, \
-+	attaching to a running process)
-+
- else
- run-gdbstub-%:
- 	$(call skip-test, "gdbstub test $*", "need working gdb with $(patsubst -%,,$(TARGET_NAME)) support")
-@@ -139,7 +146,7 @@ EXTRA_RUNS += run-gdbstub-sha1 run-gdbstub-qxfer-auxv-read \
- 	      run-gdbstub-registers run-gdbstub-prot-none \
- 	      run-gdbstub-catch-syscalls run-gdbstub-follow-fork-mode-child \
- 	      run-gdbstub-follow-fork-mode-parent \
--	      run-gdbstub-qxfer-siginfo-read
-+	      run-gdbstub-qxfer-siginfo-read run-gdbstub-late-attach
- 
- # ARM Compatible Semi Hosting Tests
- #
-diff --git a/tests/tcg/multiarch/gdbstub/late-attach.py b/tests/tcg/multiarch/gdbstub/late-attach.py
-new file mode 100644
-index 0000000000..1d40efb5ec
---- /dev/null
-+++ b/tests/tcg/multiarch/gdbstub/late-attach.py
-@@ -0,0 +1,28 @@
-+"""Test attaching GDB to a running process.
-+
-+SPDX-License-Identifier: GPL-2.0-or-later
-+"""
-+from test_gdbstub import main, report
-+
-+
-+def run_test():
-+    """Run through the tests one by one"""
-+    try:
-+        phase = gdb.parse_and_eval("phase").string()
-+    except gdb.error:
-+        # Assume the guest did not reach main().
-+        phase = "start"
-+
-+    if phase == "start":
-+        gdb.execute("break sigwait")
-+        gdb.execute("continue")
-+        phase = gdb.parse_and_eval("phase").string()
-+    report(phase == "sigwait", "{} == \"sigwait\"".format(phase))
-+
-+    gdb.execute("signal SIGUSR1")
-+
-+    exitcode = int(gdb.parse_and_eval("$_exitcode"))
-+    report(exitcode == 0, "{} == 0".format(exitcode))
-+
-+
-+main(run_test)
--- 
-2.39.5
+Further, what about doing object_unref() in object_property_add_child()
+or object_property_try_add_child()?
+
+Then we can ensure the object will have ref count of 1 on the exit of
+object_property_add_child() and people will no longer miss
+object_unref().
+
+Although, there are a few more devices involved to fix similar issues.
+
+> In Rust, this class of leaks simply does not exist with the right API.
+> ObjectMethods::property_add_child() could either:
+> 
+> - take an Owned<T> and consume it, thus always giving a ref count of 1
+> on exit. If you want to keep the object you would have to clone it.
+>
+> - take "&'owner self, &'child T where 'owner: 'child", then you can
+> pass an embedded object like object_initialize_child().
+> 
+> In the latter case however you *still* need to keep the reference
+> count elevated until Drop runs. That is, unlike C, Rust code will
+> always have a ref count of 2 for children. For this reason, instead of
+> having a "T" in the struct you would have another wrapper---something
+> like Child<'owner, T>. This wrapper cannot be cloned but it does an
+> unref when dropped.
+
+Thanks, the whole picture is nice.
+
+> My expectation is that property_add_child() will be used exclusivel
+> for the first case, i.e. it will take an Owned<T>. If you want to
+> create a child property from an embedded object, something like
+> object_initialize_child() can be used once pinned-init is used to
+> rewrite how instance_init is used. It will look something like
+> 
+> pin_init! {
+>   &this in MyClass {
+>     ...,
+>     iomem <- MemoryRegion::init_io(
+>             this,
+>             &MY_MR_OPS,
+>             "memory-region-name",
+>             0x1000,
+>     ),
+>     child_obj <- ChildClass::init().to_child(this, "prop-name")
+>   }
+> }
+> 
+> where to_child() wraps an "impl PinInit<T>" and turns it into an "impl
+> PinInit<Child<'a, T>>". Or something like that. :)
+
+Elegant code design, looking forward to pin_init.
+
+> > From this description, I understand your goal is:
+> >
+> >  * For embedded child object, its lifetimer is managed by its parent
+> >    object, through Child<> for the most cases.
+> >
+> >  * For non-embedded child - a pointer/reference in parent object, its
+> >    lifetimer is managed by `Owned<>` (and with Child<>).
+> >
+> > Am I right?
+> 
+> Yes, you're right.
+> 
+> I am not sure if you meant Child<> as the QOM concept, or as a Rust
+> struct. If the latter, you're really really right.
+> 
+
+Thank you :-) It seems virtio device will have an embedded case to adopt
+Child<> struct (virtio_instance_init_common()).
+
+Regards,
+Zhao
 
 
