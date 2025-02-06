@@ -1,85 +1,94 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tg0IG-0003fm-Uc
-	for mharc-qemu-rust@gnu.org; Thu, 06 Feb 2025 06:43:40 -0500
+	id 1tg49o-0001Fu-VX
+	for mharc-qemu-rust@gnu.org; Thu, 06 Feb 2025 10:51:13 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tg0IF-0003fO-W2
- for qemu-rust@nongnu.org; Thu, 06 Feb 2025 06:43:40 -0500
-Received: from mail-wm1-x335.google.com ([2a00:1450:4864:20::335])
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tg49m-0001Et-JJ
+ for qemu-rust@nongnu.org; Thu, 06 Feb 2025 10:51:10 -0500
+Received: from mail-yb1-xb29.google.com ([2607:f8b0:4864:20::b29])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tg0IE-0005KC-8H
- for qemu-rust@nongnu.org; Thu, 06 Feb 2025 06:43:39 -0500
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43675b1155bso8703345e9.2
- for <qemu-rust@nongnu.org>; Thu, 06 Feb 2025 03:43:37 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tg49k-0005fF-EU
+ for qemu-rust@nongnu.org; Thu, 06 Feb 2025 10:51:10 -0500
+Received: by mail-yb1-xb29.google.com with SMTP id
+ 3f1490d57ef6-e58a7e02514so925267276.1
+ for <qemu-rust@nongnu.org>; Thu, 06 Feb 2025 07:51:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738842216; x=1739447016; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=BUm+oKv4IDns3lDH754Ob+WUqxC8MNFQ8NAJlwERYlM=;
- b=uOtJyGnuW67h2Youyes3IlkKCxKbX4RWCvEM9BW2oVP1JGcp1O5mDf31c9TiLIU3/e
- 1ab9YokfntwJqzPAZ11RB7aYoDuNdq03iaVuumysKcFDQmd8f2sUVotRqnPDKkOmkBFW
- JUIX/7WEpMNko6Q3t5YVlrqWckRK4auxt+sCCmPlLupovubHyRA9feJ4HxsJ2p/t73I7
- AV6zvhU+DP/evT9LSnhdAOLUq3d+eZHBdNDKfRd6iAiaJXJFS1KcyKJ3j6idQ8QPUMUD
- ldXvV5PrwVRxts8FXUl+CrEZIWJ7dmx2j0T5t0BygZ+Qc1qHElV+mj+Y05ckqv/QPTOa
- 6s5g==
+ d=linaro.org; s=google; t=1738857066; x=1739461866; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ASDW0A2tZEwrvkv7i8MRxtiQwCq0H8EN+WLjmcNfDFM=;
+ b=VLa4q/JigSAPLjAtP6BBtS6K8fal+6B/n9MTeOK2V/o4RlNdfSANP0IzkTi9OZQajN
+ 96D4JfuxtlNxeZ+vDKE0h5Q1571M0G/WXPCFVk2yBlOXkDT7dsgB8LXP7keJHPfSqRSh
+ 9PURKvDKqz+3hS5OKy6jxOzQLRl73ac4CaS6sylrm/BwWKhflVxSiIDfPWKsRoMjtyCd
+ NY6UkRScvi4D1sGBA2KI6Hi6rSjloyQAxJP5+UckjjVSGn1Fsnt6XWM+5Mb29Q38JNSs
+ d/q5LOu/oA5/zWjn4L7WUsARe9q6HLgUD2BWJZro5/96aJZBRnzb7mJtGXAziEo+hnQG
+ B80Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738842216; x=1739447016;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BUm+oKv4IDns3lDH754Ob+WUqxC8MNFQ8NAJlwERYlM=;
- b=Ev9nTxHdydafUwJwJDRsH4ysDPS+uILxzkmopyKiRhWR9rOd2xGjeJQiK3ap2G4C88
- +DnHv3bd/qnvbp/67+TJlTT6ElTqCldryWgNKkFahs17KiDFtOyXZQinwYatXuLmpUbD
- N9xECHPSTAc14uWigXR+OA3+VGQos1gh+hW7C9YwLKcCiq7LHoES4UtsGm/UC3Lc0Whl
- s9x+GVQxd82/ptXTxCMG11YnsLVDLnTFZ3hk6epzqwbVNM5Rl0lGpS06jyrXX4PalWtB
- JYZyotLBOOBiIU+TnrgJYxjH87sU7unJEN7geOfdAGjNCeKFtmyArHtA/w2iHs71Z4O7
- i4lg==
+ d=1e100.net; s=20230601; t=1738857066; x=1739461866;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ASDW0A2tZEwrvkv7i8MRxtiQwCq0H8EN+WLjmcNfDFM=;
+ b=j/rouVKzZjPdX42GVZzfF4F1TBBMksD81rr8Evp+BZ0DZf59znAasCKE1K8Zr2830G
+ sxBku1oKYJDBFhmbmeTk/5gerAIo7jzL+t1q0bMQtdkRfwdIZb49XHcEdfN9IGfn7XZC
+ GE+cBqm/0HkevHpDDeSWEW3f2kTWh6BJR/2TWPhXDRwZFZ2vmDkK4hsg0DaeuUjGsnH1
+ LD3xBnzsy7GpOwYsp1EP7qzEyKdJEEUYVZs8FTVjQg8X0928L8vUteZRqIlwd+XE2rO1
+ 6ViS5KtZLsY/YN2aXIPx4R8H6hlMf/wcamSerodrxVjxPLIYXUOqOGFq8yGieiXl3l+X
+ 5aqA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU6m+n4wwCR5Qi4o/Drlk49BfZQDc9Zovbh57WbSZBrh8Flf4kQGMEq7YTr5J0Sz48+t66l/XvsQn8=@nongnu.org
-X-Gm-Message-State: AOJu0Ywbu6NcoLv6HTsxKuK3MlZU2zhCutwnB6h2QVeMDIOBMuWxGrxT
- F6HiJxVzD+YxQCE/FAL6oaj3uQU+HZPxybPZkx1FNYiGxDLKL7Y/3QejM2TkVkc=
-X-Gm-Gg: ASbGnctHpT6ehpAaTd3jY0f2dneJ2g7pvvlWiSV5y4poPJwQwJTl9WHp+CsPJS2lget
- 5MR8IUTXRV5LJrNzzYXZk8eYBdi9fY/t5/Pemn+0eSdiu+dfyFnmqsGtpPV2OtS2uhvxLCVkzP6
- owp6Yy6JeIBwnFXbFub37ydMUNCu7iD5RnIzazqzxsbCYMaQ9WlOKfGwSz57rtGDlz9rOd6paEZ
- ezAXqpGsjVfvN5d5BZXZ9LAXN1fc/7PrQOa/tu4890IRFaQuBY9z5X1A6V7kG90APrCzUXd72+U
- hWkrn/9mAdxTPDZisKxmmKdR3LqVIgcW42I4lzPEOmGpQrMsLmjplrIqUJY=
-X-Google-Smtp-Source: AGHT+IHdu/IoQHRZg5H2NmqxcujFEafSzkB3J34j9A8YLR4PteP2a5XSvEaJJL67ohILgOZ81jV9ug==
-X-Received: by 2002:a05:600c:83ca:b0:434:f218:e1a8 with SMTP id
- 5b1f17b1804b1-439133fe7abmr18120085e9.19.1738842216519; 
- Thu, 06 Feb 2025 03:43:36 -0800 (PST)
-Received: from [192.168.69.198] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38dc4d00645sm257805f8f.66.2025.02.06.03.43.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Feb 2025 03:43:36 -0800 (PST)
-Message-ID: <f64a58c5-1080-49de-915a-56d4895d51a1@linaro.org>
-Date: Thu, 6 Feb 2025 12:43:35 +0100
+ AJvYcCWLtU70vPeMjXuOb6PNDeqAMMD0zZbvtNaVj3S+WnrQ+QRUQhoKSO5tit1WeoHiAtFqKh2FhQ3trOE=@nongnu.org
+X-Gm-Message-State: AOJu0Yzl20iffvXq2qT4INe1nAhGWtb2eiTgkX7Mn0RtJTpYOp5un8XQ
+ zxhdH2bkHOZ+zJDpwk5mIo1/kkTmzRhX1iQsPfoLdhIE3P0NDbw36J8T/Hxq8QWISsoXG4i+6CB
+ HNR3QbHTMBoVSC0SfsqYn5zh4/B81f/5wXLBMHQ==
+X-Gm-Gg: ASbGncubUluRKDIDIpzXpqkjon7Rh3muCBTwHtaJJcUs+cvg5vqgTulkGj78bcBY9wl
+ YfRfrU+Zzx3l7AmCaV8Lg1l1gkFMbU+nqfJ5ipDS3+Za4zyoBqU4w36Ydwq1RAgQef8oxob2mwQ
+ ==
+X-Google-Smtp-Source: AGHT+IEVply1qiNn7znAT8fQMFvgeU86wRbWjC73n9GgoJ6MafGCxRH+1m00cw4BFE1qriSGZOIZY/VTW8vN2rZ7ZSM=
+X-Received: by 2002:a05:6902:2210:b0:e5b:1746:7fa3 with SMTP id
+ 3f1490d57ef6-e5b25bc6f9amr5963299276.23.1738857066557; Thu, 06 Feb 2025
+ 07:51:06 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] rust: add --rust-target option for bindgen
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, qemu-stable@nongnu.org,
- Thomas Huth <thuth@redhat.com>, =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?=
- <berrange@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>
-References: <20250206111514.2134895-1-pbonzini@redhat.com>
- <298a7473-e5e5-418d-8902-2cbd30730db6@linaro.org>
- <CABgObfYzncjR=DtvE8asLfqJA89JjatMzs352F=4PbfTBrq1sw@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <CABgObfYzncjR=DtvE8asLfqJA89JjatMzs352F=4PbfTBrq1sw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::335;
- envelope-from=philmd@linaro.org; helo=mail-wm1-x335.google.com
+References: <20250203144048.2131117-1-alex.bennee@linaro.org>
+ <20250203144048.2131117-5-alex.bennee@linaro.org>
+In-Reply-To: <20250203144048.2131117-5-alex.bennee@linaro.org>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Thu, 6 Feb 2025 15:50:55 +0000
+X-Gm-Features: AWEUYZmb9iLML0ZpPW3OB0h1I8Pz0Rcl4bMdig2uKDsyMoFyCdpxYC5JLddP9OM
+Message-ID: <CAFEAcA-SRrdyeBExuCruVd-CuDdosyQKG98stELvkV-EM9q-Tw@mail.gmail.com>
+Subject: Re: [PATCH 04/18] tests/qtest: simplify qtest_process_inbuf
+To: =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
+Cc: qemu-devel@nongnu.org, qemu-ppc@nongnu.org, 
+ Mahmoud Mandour <ma.mandourr@gmail.com>, Thomas Huth <thuth@redhat.com>, 
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>, 
+ Hao Wu <wuhaotsh@google.com>, Peter Xu <peterx@redhat.com>,
+ Warner Losh <imp@bsdimp.com>, 
+ Pierrick Bouvier <pierrick.bouvier@linaro.org>, qemu-arm@nongnu.org, 
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Kyle Evans <kevans@freebsd.org>, 
+ Laurent Vivier <laurent@vivier.eu>, Riku Voipio <riku.voipio@iki.fi>,
+ Bin Meng <bmeng.cn@gmail.com>, 
+ qemu-rust@nongnu.org, Laurent Vivier <lvivier@redhat.com>, 
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Weiwei Li <liwei1518@gmail.com>, 
+ qemu-riscv@nongnu.org, Fabiano Rosas <farosas@suse.de>,
+ Tyrone Ting <kfting@nuvoton.com>, 
+ Paolo Bonzini <pbonzini@redhat.com>, Nicholas Piggin <npiggin@gmail.com>, 
+ Alexandre Iooss <erdnaxe@crans.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2607:f8b0:4864:20::b29;
+ envelope-from=peter.maydell@linaro.org; helo=mail-yb1-xb29.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -92,19 +101,21 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Feb 2025 11:43:40 -0000
+X-List-Received-Date: Thu, 06 Feb 2025 15:51:10 -0000
 
-On 6/2/25 12:38, Paolo Bonzini wrote:
-> On Thu, Feb 6, 2025 at 12:37 PM Philippe Mathieu-Daudé
-> <philmd@linaro.org> wrote:
->>>      if bindgen.version().version_compare('<0.61.0')
->>>        # default in 0.61+
->>>        bindgen_args += ['--size_t-is-usize']
->>
->> Should this be merged directly on master as build-fix?
-> 
-> If it's breaking CI I can send a pull request later. I wasn't sure if
-> it was just my branch with other Rust changes.
+On Mon, 3 Feb 2025 at 14:41, Alex Benn=C3=A9e <alex.bennee@linaro.org> wrot=
+e:
+>
+> Don't both creating a GString to temporarily hold our qtest command.
+> Instead do a simpler g_strndup and use autofree to clean up
+> afterwards.
+>
+> Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+> ---
 
-No, this is now affecting the main repository, so also all forks.
+
+Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
+
+thanks
+-- PMM
 
