@@ -1,53 +1,53 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tfsE2-0006Or-FB
-	for mharc-qemu-rust@gnu.org; Wed, 05 Feb 2025 22:06:46 -0500
+	id 1tfwKn-00040V-PJ
+	for mharc-qemu-rust@gnu.org; Thu, 06 Feb 2025 02:30:01 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tfsE0-0006OU-HQ; Wed, 05 Feb 2025 22:06:44 -0500
-Received: from mgamail.intel.com ([198.175.65.16])
+ id 1tfwKl-000404-EE; Thu, 06 Feb 2025 02:30:00 -0500
+Received: from mgamail.intel.com ([192.198.163.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tfsDx-0008Ll-Mt; Wed, 05 Feb 2025 22:06:44 -0500
+ id 1tfwKi-0000Je-Dw; Thu, 06 Feb 2025 02:29:59 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738811202; x=1770347202;
+ t=1738826996; x=1770362996;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=y0Z9R+38t3DIqdjo7tymkl+VihsQu+D1LwW3LVsDQeo=;
- b=knkdso5MOkqcr0qsGxlMl1CYYI/tqZpKiHX3xZj5hoI6F/+2zoFFNstU
- RfUa5/rLMVn2dN5CJbDPSQIqlvS1cN3/jbqaqNpLfQb7j+BA96nLK4WM1
- UR5f98RsUWSD2KDbEtPvPzXD8EQWj2pVxtOqqPFKnR/mxOnRx2geBcdza
- JkghC588vxedYAfo7edhjizo+PUqw0M6V6RBKbpiitgiQp2Yh15wMauno
- 6bCbVSougO/KeCJ/M3eKzxxSeAfDiX/UuODsuV56+6fxufKmC/gh6OTxm
- gDbczQxb8S2YUMJkPQxOcCQek4/dO2Don0UxZWbF37AB0Ame7x5GqsxK2 Q==;
-X-CSE-ConnectionGUID: LM0J+fELSBi92nQMh5oW/Q==
-X-CSE-MsgGUID: 6OdTb4w7R6C5tpoIsnnAtg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="39534137"
-X-IronPort-AV: E=Sophos;i="6.13,263,1732608000"; d="scan'208";a="39534137"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2025 19:06:39 -0800
-X-CSE-ConnectionGUID: LWADxBl8SWqNJn0V0AUmVQ==
-X-CSE-MsgGUID: uMEhz41PQvytT7lySjtuxg==
+ bh=2Dl8CD4CEiWIJhHmA5uHRjIfr53pL/pZCraNq9eCULU=;
+ b=a4OhdmPHBHN9fF6een2z6fyo5i3rJ5QsmxUS3Pw0bZzmE5MKsqNB/6Jz
+ Nl3FsF5gUa7Q4I5gxah1omz+Fk62sRQPFq6uFAx6yuGhVIPvNB2UB797/
+ TlJWevn2D+6se8xsWx7syPYUuuktpNt4IfqO7j44BAY0459YQmxHNKSqU
+ Dl1bqQUc/h/jx59Btxt4tk+kNiIKAzi4FZ4VI9WEzQ6t0GLoSwF66NpGm
+ ex8fhZ7j0SGdVcoM2fyLyMKqnsrlqKUBgoZMY8+GHXE0hnDkV3bMTvRv+
+ 7RQ50snweV2IT8XV6w8Pj7cKKhPqziXNMZ9L1cFta6ma+QlxFiG8YqZZj g==;
+X-CSE-ConnectionGUID: ytRHnIpQQWCnsVISJ3nsmQ==
+X-CSE-MsgGUID: bBKTbCpeTwmO1ct9VI5rwQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="27019599"
+X-IronPort-AV: E=Sophos;i="6.13,263,1732608000"; d="scan'208";a="27019599"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2025 23:29:51 -0800
+X-CSE-ConnectionGUID: wGte8rsKQfOJ+Gyiyvu+rA==
+X-CSE-MsgGUID: C3qOvC2mRI+Zt16D1EfUBg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,263,1732608000"; d="scan'208";a="110920875"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="116090642"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa006.fm.intel.com with ESMTP; 05 Feb 2025 19:06:37 -0800
-Date: Thu, 6 Feb 2025 11:26:06 +0800
+ by orviesa003.jf.intel.com with ESMTP; 05 Feb 2025 23:29:49 -0800
+Date: Thu, 6 Feb 2025 15:49:18 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 02/10] rust: qom: add reference counting functionality
-Message-ID: <Z6QrzloVEEpi/9p0@intel.com>
+Subject: Re: [PATCH 03/10] rust: qom: add object creation functionality
+Message-ID: <Z6RpfkKHEjsQowOW@intel.com>
 References: <20250117194003.1173231-1-pbonzini@redhat.com>
- <20250117194003.1173231-3-pbonzini@redhat.com>
+ <20250117194003.1173231-4-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250117194003.1173231-3-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.16; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250117194003.1173231-4-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.16; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -69,31 +69,73 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Feb 2025 03:06:44 -0000
+X-List-Received-Date: Thu, 06 Feb 2025 07:30:00 -0000
 
-On Fri, Jan 17, 2025 at 08:39:55PM +0100, Paolo Bonzini wrote:
-> Date: Fri, 17 Jan 2025 20:39:55 +0100
+On Fri, Jan 17, 2025 at 08:39:56PM +0100, Paolo Bonzini wrote:
+> Date: Fri, 17 Jan 2025 20:39:56 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 02/10] rust: qom: add reference counting functionality
+> Subject: [PATCH 03/10] rust: qom: add object creation functionality
 > X-Mailer: git-send-email 2.47.1
 > 
-> Add a smart pointer that allows to add and remove references from
-> QOM objects.  It's important to note that while all QOM objects have a
-> reference count, in practice not all of them have their lifetime guarded
-> by it.  Embedded objects, specifically, are confined to the lifetime of
-> the owner.
-> 
-> When writing Rust bindings this is important, because embedded objects are
-> *never* used through the "Owned<>" smart pointer that is introduced here.
+> The basic object lifecycle test can now be implemented using safe code!
 > 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  rust/qemu-api/src/qom.rs     | 121 ++++++++++++++++++++++++++++++++++-
->  rust/qemu-api/src/vmstate.rs |   6 +-
->  2 files changed, 125 insertions(+), 2 deletions(-)
->
+>  rust/hw/char/pl011/src/device.rs | 13 ++++++++-----
+>  rust/qemu-api/src/prelude.rs     |  1 +
+>  rust/qemu-api/src/qom.rs         | 23 +++++++++++++++++++++--
+>  rust/qemu-api/tests/tests.rs     | 30 +++++++++++-------------------
+>  4 files changed, 41 insertions(+), 26 deletions(-)
+> 
+> diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
+> index 27563700665..d8409f3d310 100644
+> --- a/rust/hw/char/pl011/src/device.rs
+> +++ b/rust/hw/char/pl011/src/device.rs
+> @@ -690,15 +690,18 @@ pub fn post_load(&self, _version_id: u32) -> Result<(), ()> {
+>      irq: qemu_irq,
+>      chr: *mut Chardev,
+>  ) -> *mut DeviceState {
+> +    let pl011 = PL011State::new();
+>      unsafe {
+> -        let dev: *mut DeviceState = qdev_new(PL011State::TYPE_NAME.as_ptr());
+> -        let sysbus: *mut SysBusDevice = dev.cast::<SysBusDevice>();
+> -
+> +        let dev = pl011.as_mut_ptr::<DeviceState>();
+>          qdev_prop_set_chr(dev, c_str!("chardev").as_ptr(), chr);
+> -        sysbus_realize_and_unref(sysbus, addr_of_mut!(error_fatal));
+> +
+> +        let sysbus = pl011.as_mut_ptr::<SysBusDevice>();
+> +        sysbus_realize(sysbus, addr_of_mut!(error_fatal));
+>          sysbus_mmio_map(sysbus, 0, addr);
+>          sysbus_connect_irq(sysbus, 0, irq);
+> -        dev
+> +
+> +        // return the pointer, which is kept alive by the QOM tree; drop owned ref
+> +        pl011.as_mut_ptr()
 
-Revisit this patch (with Paolo's explaination), LGTM,
+The ref count of Owned<> is decreased on exit, so we need to use
+sysbus_realize() instead of sysbus_realize_and_unref() to ensure ref
+count is correct at C side.
+
+Initially, I hesitated here for an entire morning because this didn't
+seem to conform to the usual usage of sysbus_realize_and_unref() (or,
+further, qdev_realize_and_unref()).
+
+But now I realize that qdev_realize() is used for embedded objects,
+while qdev_realize_and_unref() is used for non-embedded cases. Therefore,
+moving forward, perhaps qdev_realize_and_unref() should not exist on the
+Rust side.
+
+Owned<> will automatically drop and thus automatically unref, while
+Child<> will not unref. Based on this consideration, I am now convincing
+myself that this change (using sysbus_realize()) is reasonable. :-)
+
+In the future, maybe we need some wrappers on qdev_realize()/sysbus_realize().
+
+>      }
+>  }
+
+Overall, still fine for me,
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
