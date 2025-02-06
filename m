@@ -1,64 +1,64 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tg49o-0001Fu-VX
-	for mharc-qemu-rust@gnu.org; Thu, 06 Feb 2025 10:51:13 -0500
+	id 1tg4BT-0002Bo-Dn
+	for mharc-qemu-rust@gnu.org; Thu, 06 Feb 2025 10:52:55 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tg49m-0001Et-JJ
- for qemu-rust@nongnu.org; Thu, 06 Feb 2025 10:51:10 -0500
-Received: from mail-yb1-xb29.google.com ([2607:f8b0:4864:20::b29])
+ id 1tg4BO-00027j-Oa
+ for qemu-rust@nongnu.org; Thu, 06 Feb 2025 10:52:51 -0500
+Received: from mail-yb1-xb34.google.com ([2607:f8b0:4864:20::b34])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tg49k-0005fF-EU
- for qemu-rust@nongnu.org; Thu, 06 Feb 2025 10:51:10 -0500
-Received: by mail-yb1-xb29.google.com with SMTP id
- 3f1490d57ef6-e58a7e02514so925267276.1
- for <qemu-rust@nongnu.org>; Thu, 06 Feb 2025 07:51:07 -0800 (PST)
+ id 1tg4BJ-0006td-DW
+ for qemu-rust@nongnu.org; Thu, 06 Feb 2025 10:52:48 -0500
+Received: by mail-yb1-xb34.google.com with SMTP id
+ 3f1490d57ef6-e589c258663so1113105276.1
+ for <qemu-rust@nongnu.org>; Thu, 06 Feb 2025 07:52:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738857066; x=1739461866; darn=nongnu.org;
+ d=linaro.org; s=google; t=1738857159; x=1739461959; darn=nongnu.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ASDW0A2tZEwrvkv7i8MRxtiQwCq0H8EN+WLjmcNfDFM=;
- b=VLa4q/JigSAPLjAtP6BBtS6K8fal+6B/n9MTeOK2V/o4RlNdfSANP0IzkTi9OZQajN
- 96D4JfuxtlNxeZ+vDKE0h5Q1571M0G/WXPCFVk2yBlOXkDT7dsgB8LXP7keJHPfSqRSh
- 9PURKvDKqz+3hS5OKy6jxOzQLRl73ac4CaS6sylrm/BwWKhflVxSiIDfPWKsRoMjtyCd
- NY6UkRScvi4D1sGBA2KI6Hi6rSjloyQAxJP5+UckjjVSGn1Fsnt6XWM+5Mb29Q38JNSs
- d/q5LOu/oA5/zWjn4L7WUsARe9q6HLgUD2BWJZro5/96aJZBRnzb7mJtGXAziEo+hnQG
- B80Q==
+ bh=qK0YsYi5T0TrmWuzPT6kLfisgyFRI4UVYy2zpuffB5k=;
+ b=saz22xorWG+9KIYeHMBgHo+3beIDjPP3O1N7z1r8RJcSOqk/1TSa5AdExeFgecMAW2
+ SetwIrPXO5PelPFktjJHrhMMxyjos9ktReL5zwz3NYhat5nOKbmFQlGiJ+jm8wrbYJ8P
+ cWI6zGSMQwfh5jpoqp2TxWoNdSOXMq8s3rvkj7XTXiEukuqm/rhPZP2HZWnV/bkGyr29
+ f3M+nTl3lyTsltjLdvRPOv1/Ro6N1PrgSX7tpgr2ulmRrBVuGYblDZqZ9azb0XvdUQnr
+ m2LDaT0gEkEzVsOAjrT9KWLb7jV3sxJ+oJEp8u7XNEXkCvNPp+sDCm3LBYXcx+cT1cX8
+ ok7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738857066; x=1739461866;
+ d=1e100.net; s=20230601; t=1738857159; x=1739461959;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ASDW0A2tZEwrvkv7i8MRxtiQwCq0H8EN+WLjmcNfDFM=;
- b=j/rouVKzZjPdX42GVZzfF4F1TBBMksD81rr8Evp+BZ0DZf59znAasCKE1K8Zr2830G
- sxBku1oKYJDBFhmbmeTk/5gerAIo7jzL+t1q0bMQtdkRfwdIZb49XHcEdfN9IGfn7XZC
- GE+cBqm/0HkevHpDDeSWEW3f2kTWh6BJR/2TWPhXDRwZFZ2vmDkK4hsg0DaeuUjGsnH1
- LD3xBnzsy7GpOwYsp1EP7qzEyKdJEEUYVZs8FTVjQg8X0928L8vUteZRqIlwd+XE2rO1
- 6ViS5KtZLsY/YN2aXIPx4R8H6hlMf/wcamSerodrxVjxPLIYXUOqOGFq8yGieiXl3l+X
- 5aqA==
+ bh=qK0YsYi5T0TrmWuzPT6kLfisgyFRI4UVYy2zpuffB5k=;
+ b=XH/Xo6ttTl0m48hkbAuT1qjA2rW/2Z7wO48m+6unA5YMs9POh5ih8KOXZlgOirfK+P
+ HjUQ6A2FZFSH9+udfAWDKdfnXZFqlNHjkBtnX6oSbIqxX20uSdGKizk89qZM5Jrfk3Cz
+ LGyPePadEbSIWNEefRlaOTcR785xkprnChd1qqQJ+qlU9eeiK5Uwkf5OElTMYFqFGnRC
+ Mp0vEiX3pugEo5eHXpNykR5KsV/S9dcPPC0h+U0ABtKsqIv3sJbtyuCApPFQiN4EeDQY
+ 0dfsR3FXAMpHvcTIBd1jYW35SEBmeiOkuFnuNNfysWfEzqvMUc6OF6snEE0IjfYqd/IN
+ 24ew==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWLtU70vPeMjXuOb6PNDeqAMMD0zZbvtNaVj3S+WnrQ+QRUQhoKSO5tit1WeoHiAtFqKh2FhQ3trOE=@nongnu.org
-X-Gm-Message-State: AOJu0Yzl20iffvXq2qT4INe1nAhGWtb2eiTgkX7Mn0RtJTpYOp5un8XQ
- zxhdH2bkHOZ+zJDpwk5mIo1/kkTmzRhX1iQsPfoLdhIE3P0NDbw36J8T/Hxq8QWISsoXG4i+6CB
- HNR3QbHTMBoVSC0SfsqYn5zh4/B81f/5wXLBMHQ==
-X-Gm-Gg: ASbGncubUluRKDIDIpzXpqkjon7Rh3muCBTwHtaJJcUs+cvg5vqgTulkGj78bcBY9wl
- YfRfrU+Zzx3l7AmCaV8Lg1l1gkFMbU+nqfJ5ipDS3+Za4zyoBqU4w36Ydwq1RAgQef8oxob2mwQ
+ AJvYcCUyFOZiRWqqmOnEvPEWbU2IU6h3egHz1dXw4viP0nzOA9cfmAwFBuk6FbhzfPw3HYyRQ1tdQY1gFSU=@nongnu.org
+X-Gm-Message-State: AOJu0YzeJMZ6qQ2q9uBhWMzDO4IP3kQrNwaog5ga0LHkWWQ7xNMVyts+
+ LTqMsm1xoPsw+T7EAQhwef/mZ2T8Ev2LMGtjQAD7GwoIprWNijh69xj9sOSpCAkNYxuRidEuPfx
+ Ppo9PCw+UAHxoloBi12BfS3lAbE21PZAPxNpc7w==
+X-Gm-Gg: ASbGncvZpiA0rHJinrwNAloPbEB+ML7ynsNJ59WcXI1ElhmO4174asOiNoiTjkIwI5u
+ Lht3epntQNz7mGvBzFA/m4rrdm5A/VlAQkE0tAR4wxMJB8dm9yaToi5T4z2d7NVTHiLIzq/gtXQ
  ==
-X-Google-Smtp-Source: AGHT+IEVply1qiNn7znAT8fQMFvgeU86wRbWjC73n9GgoJ6MafGCxRH+1m00cw4BFE1qriSGZOIZY/VTW8vN2rZ7ZSM=
-X-Received: by 2002:a05:6902:2210:b0:e5b:1746:7fa3 with SMTP id
- 3f1490d57ef6-e5b25bc6f9amr5963299276.23.1738857066557; Thu, 06 Feb 2025
- 07:51:06 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGINeWTSKbjmfoPs4JgPVdgMOggbKB4BYTLBGiV0ephLv9sPQFpHMENgqCDe7gKGTrcm7ROiGqMd8iBtYFmdt4=
+X-Received: by 2002:a05:6902:1087:b0:e54:ab05:4505 with SMTP id
+ 3f1490d57ef6-e5b25c0957bmr6324767276.44.1738857159185; Thu, 06 Feb 2025
+ 07:52:39 -0800 (PST)
 MIME-Version: 1.0
 References: <20250203144048.2131117-1-alex.bennee@linaro.org>
- <20250203144048.2131117-5-alex.bennee@linaro.org>
-In-Reply-To: <20250203144048.2131117-5-alex.bennee@linaro.org>
+ <20250203144048.2131117-7-alex.bennee@linaro.org>
+In-Reply-To: <20250203144048.2131117-7-alex.bennee@linaro.org>
 From: Peter Maydell <peter.maydell@linaro.org>
-Date: Thu, 6 Feb 2025 15:50:55 +0000
-X-Gm-Features: AWEUYZmb9iLML0ZpPW3OB0h1I8Pz0Rcl4bMdig2uKDsyMoFyCdpxYC5JLddP9OM
-Message-ID: <CAFEAcA-SRrdyeBExuCruVd-CuDdosyQKG98stELvkV-EM9q-Tw@mail.gmail.com>
-Subject: Re: [PATCH 04/18] tests/qtest: simplify qtest_process_inbuf
+Date: Thu, 6 Feb 2025 15:52:27 +0000
+X-Gm-Features: AWEUYZnAPSByxpRAMEhM1UO803j7aoDYdB1KX7S44_DfsCu2bJkbx0AXWGbu_is
+Message-ID: <CAFEAcA8ZcYtD44h1VupTR+Ka30D+HY6H+n-DnTW9muhy7_u6NQ@mail.gmail.com>
+Subject: Re: [PATCH 06/18] tests/qtest: tighten up the checks on clock_step
 To: =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-ppc@nongnu.org, 
  Mahmoud Mandour <ma.mandourr@gmail.com>, Thomas Huth <thuth@redhat.com>, 
@@ -80,8 +80,8 @@ Cc: qemu-devel@nongnu.org, qemu-ppc@nongnu.org,
  Alexandre Iooss <erdnaxe@crans.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2607:f8b0:4864:20::b29;
- envelope-from=peter.maydell@linaro.org; helo=mail-yb1-xb29.google.com
+Received-SPF: pass client-ip=2607:f8b0:4864:20::b34;
+ envelope-from=peter.maydell@linaro.org; helo=mail-yb1-xb34.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -101,18 +101,17 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Feb 2025 15:51:10 -0000
+X-List-Received-Date: Thu, 06 Feb 2025 15:52:52 -0000
 
-On Mon, 3 Feb 2025 at 14:41, Alex Benn=C3=A9e <alex.bennee@linaro.org> wrot=
+On Mon, 3 Feb 2025 at 14:42, Alex Benn=C3=A9e <alex.bennee@linaro.org> wrot=
 e:
 >
-> Don't both creating a GString to temporarily hold our qtest command.
-> Instead do a simpler g_strndup and use autofree to clean up
-> afterwards.
+> It is invalid to call clock_step with an implied time to step forward
+> as if no timers are running we won't be able to advance.
 >
 > Signed-off-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+>
 > ---
-
 
 Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
 
