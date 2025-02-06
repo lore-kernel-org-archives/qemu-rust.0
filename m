@@ -1,80 +1,89 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tfxQn-0005XC-DQ
-	for mharc-qemu-rust@gnu.org; Thu, 06 Feb 2025 03:40:20 -0500
+	id 1tfxXX-0007SB-P7
+	for mharc-qemu-rust@gnu.org; Thu, 06 Feb 2025 03:47:15 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tfxQZ-0005RF-Px
- for qemu-rust@nongnu.org; Thu, 06 Feb 2025 03:40:04 -0500
-Received: from mail-wr1-x42f.google.com ([2a00:1450:4864:20::42f])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tfxQX-0006qo-7L
- for qemu-rust@nongnu.org; Thu, 06 Feb 2025 03:40:03 -0500
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-38dc0cd94a6so85304f8f.0
- for <qemu-rust@nongnu.org>; Thu, 06 Feb 2025 00:40:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738831199; x=1739435999; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=RRBCmpXi86GF5fl4sYooUTspcXzwih+sD5Ce9BzWcZA=;
- b=pxVUczfV9W5kobxoU7Dntg64s26xe+NAtPYIaN0LNH23+BWX4yvxUnbq+7fNqJdTZR
- L5Hu6TKRxaTFi/rT/lW7u+CH8uuwBjqpFZIrIkphC/vYE9Vt4Eb5qPlocSb2I4lA8GUV
- KdoZp3Rh3SW87h3MRfFktTA/rFjoXEXEc9EqG9xh8vzGGeLgjo7vlVZfODEXRWKa81z0
- LQZEq9P7eWAntb4nqFRHWjNVUgV0/H96UCzSGwZKOOutd1U1E/7ZEvK8Oss4aY+ucBXy
- e0N59Cpz0OBhGwfClESq8xwfciz2Ys1Leza9JiKL2qkN4bid9N/5s3mYh2Faz3TQLSdn
- b7YQ==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tfxXW-0007Rn-4S
+ for qemu-rust@nongnu.org; Thu, 06 Feb 2025 03:47:14 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tfxXT-0001BL-GN
+ for qemu-rust@nongnu.org; Thu, 06 Feb 2025 03:47:13 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1738831629;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EcWn8gSOffuGG6xc/qk0gAVlgO1wnVL90OnmFr38kqo=;
+ b=LcYRkOPir4VjoRtm20ed3OzvnDTqk02aIhTkDZYqx4hakE60bfKqTyJkUqtLhML8SuYryh
+ LqWCu7+yLuUKQ2R5nf7eVB7+5890t/6CG9sWXFvh521zfKLWQVyLi8sY82LIdGTD0nUQkE
+ 2VFQ++PljcN9UaTlqnnbvQyFNklyJmc=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-330-Lm_fr2y7NqCF0qy_LNDFFg-1; Thu, 06 Feb 2025 03:47:08 -0500
+X-MC-Unique: Lm_fr2y7NqCF0qy_LNDFFg-1
+X-Mimecast-MFC-AGG-ID: Lm_fr2y7NqCF0qy_LNDFFg
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-38dafe1699cso356954f8f.3
+ for <qemu-rust@nongnu.org>; Thu, 06 Feb 2025 00:47:08 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738831199; x=1739435999;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RRBCmpXi86GF5fl4sYooUTspcXzwih+sD5Ce9BzWcZA=;
- b=i1zYS2nLJNqD5v4zW/1330Irpl4AVTwCZGQgEvI/7+W5Lgzgx5fd7vP1CTFntQQ9co
- PBqb6gM//F3vEfQLsk2oqm6TkGjHb/TIZ7dDBPS3MWYH1CAu8mToObypuZpOUdpR8FWn
- D5Frz6YF6+cuOjrZ+WsSvpX2kxHzVETiHbKBYmst5wJXg+2kk6Nw9yqeNNLr4nYYBLna
- xk5fo9ssU6OpUWh7KL0FRG6OWXqLettlS/+GMFIXONpC+b8NxTCHzwFeWVjcV6Gcm9pa
- AgNc6qDOM9CYiy1WKeE3co05HToJ7UQJxnzUrGCpj6ACRx9qqF/TbGL+jBHTdK7XrkCC
- Hdpg==
-X-Gm-Message-State: AOJu0YxnSP1ZfT5Y0I+BzVN6zBktA/bPrVpvkpvR5Ed9a6VI4Tz9DknI
- johGa8rZNjxU5SeDRWfm42mbZXszboJt6tbDsAtGo+jAiqKPmij6kOyIUdV/ACY=
-X-Gm-Gg: ASbGncuzUcVF4IFiYu94Pmq9SUQJyX/fV7qiqytSI/dY0nTF98X6B/EwuvwYoGihFGJ
- PKSLTZqkvciCN8aItOl44CWFQ5UKFEvp5YHbQNMp+g+lQvzbGnVmzZELulN0GWvLhTAe3ERhdym
- erfDkKFCIwQaU+JjVILheTFT3dfSOCW22TzphBj3GI9LdieFPaRdYgfKNdzpymlE1w2fnmjdnni
- mVIpXIrXwcsqjaVDXcT0EBp7TgfGaoCylQVzvf/wTuToValhXllC4ZKnV9zK1Dys0Kqp2rji2o2
- 7es95DB05zDG+NoNDOvf9jegNW5T+79xclv4NJpzZ8afH1ATXZFxlFOkS+8=
-X-Google-Smtp-Source: AGHT+IHou+ssgCD7cHcPG4ExQ3JCnYX8LGVk+AR5k7qkQMftTDZDlOg1us89AHGKgsacb/rIsCNToQ==
-X-Received: by 2002:a5d:5f93:0:b0:38d:a90c:d489 with SMTP id
- ffacd0b85a97d-38db491fd30mr4322471f8f.45.1738831199381; 
- Thu, 06 Feb 2025 00:39:59 -0800 (PST)
-Received: from [192.168.69.198] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4390daf4480sm47486765e9.27.2025.02.06.00.39.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Feb 2025 00:39:58 -0800 (PST)
-Message-ID: <7e35b5b6-01dd-457b-b36f-507a85300b45@linaro.org>
-Date: Thu, 6 Feb 2025 09:39:58 +0100
+ d=1e100.net; s=20230601; t=1738831627; x=1739436427;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=EcWn8gSOffuGG6xc/qk0gAVlgO1wnVL90OnmFr38kqo=;
+ b=qvzuLhzX/UhFEYFFagw03Fe0jhwCgIzEDMCsQYFkzS6kTNAVQM/yc4qmJD+kUSn5A9
+ wzfeX/bC77oSF36+9DBtlcetGYqhX4E4VcrCzn1l2aF1LSVq1OPUbYCKJjzKqU1dJaVG
+ 1+8WYVxPTSJPr0c/pkQlG0RTSQNenTXbtYW1RFd5SvAaEmUXMSCsk1o3JuA19+wGNuBk
+ VyBGBvQImQLUic57pHKjbXBbthbmAdwvRAck3pYoP5skksI6q7a+Oe2Q/XhF23oUYCre
+ CqhA9o6zbyFKLXyXPiONTf1K3tnbwFAlwkrN2jalN5bPSCjbRC2ghME7m0azf2RWwyaQ
+ YYLw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXshk6x9VTakWSuZ3j5SenlA6oBzOeZvPH8FK0OtAfPVH0ToxThnPZHBICXDp8vnJCSrhJjBiwvRCI=@nongnu.org
+X-Gm-Message-State: AOJu0Yx+KhnORQ+WxnwDoXoR7PnDqtv4ZaWIusOlYx7KE4rOAbveT/id
+ hfWxb+EGYMPgJRS50yt3maYkzxXQ4aZoBeJHPt5NYeF2/oQwXsxTKR5Wu8pHeiEGOGmd69AGOOO
+ KupJ0t0rVbSdBTIv46kY3JftmPmUkhds1f8Qg0sG5KR6/zIdEtK8CCj8cJcPhPzE/8I+WFNjS/6
+ q8Wvmnd2/pZKa4VQciEiF2YKkebIw+wNTlYeNNQcs=
+X-Gm-Gg: ASbGncvRAUQdTylLGYjJUXkHLGzABchxkanwMuw+kEtliipza/SrcHozbZSbwKIpxQH
+ XBAfqh15WlJkb8ebseMwfEVShZ5ShwfJQO9JzPv6QMfCru3DdrwtM+zGFWm8s
+X-Received: by 2002:adf:ef89:0:b0:38d:a883:b95b with SMTP id
+ ffacd0b85a97d-38db48a42f8mr5028506f8f.28.1738831626945; 
+ Thu, 06 Feb 2025 00:47:06 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFlxdf4q9l9eLa8gvhUvQS1NxRxxKh+gU5zLlUtK7r/0iHxQr3yjDcucAXdBkr+sCnb84nyiLgU65nathbfMiA=
+X-Received: by 2002:adf:ef89:0:b0:38d:a883:b95b with SMTP id
+ ffacd0b85a97d-38db48a42f8mr5028479f8f.28.1738831626400; Thu, 06 Feb 2025
+ 00:47:06 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/10] rust: bindings for MemoryRegionOps
-To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org
 References: <20250117194003.1173231-1-pbonzini@redhat.com>
  <20250117194003.1173231-11-pbonzini@redhat.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20250117194003.1173231-11-pbonzini@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::42f;
- envelope-from=philmd@linaro.org; helo=mail-wr1-x42f.google.com
+ <7e35b5b6-01dd-457b-b36f-507a85300b45@linaro.org>
+In-Reply-To: <7e35b5b6-01dd-457b-b36f-507a85300b45@linaro.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Thu, 6 Feb 2025 09:46:55 +0100
+X-Gm-Features: AWEUYZlB2pxLs7Dq_G9DR4KiTmGwj1YsmeJEeWxJBc3ObuUMho9e6UPAfANYJU8
+Message-ID: <CABgObfbr4yHBJxCVtOk9rQau3Z8M-QUy0+OqTnjecTsKTXrH0Q@mail.gmail.com>
+Subject: Re: [PATCH 10/10] rust: bindings for MemoryRegionOps
+To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Xu1mvz99xz5R_Ph85VS7G8zKtnygQeAvtlq_gRnEUns_1738831627
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -87,133 +96,80 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Feb 2025 08:40:05 -0000
+X-List-Received-Date: Thu, 06 Feb 2025 08:47:14 -0000
 
-Hi Paolo,
+On Thu, Feb 6, 2025 at 9:40=E2=80=AFAM Philippe Mathieu-Daud=C3=A9 <philmd@=
+linaro.org> wrote:
+>
+> Hi Paolo,
+>
+> On 17/1/25 20:40, Paolo Bonzini wrote:
+> > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> > ---
+> >   rust/hw/char/pl011/src/device.rs     |  43 +++---
+> >   rust/hw/char/pl011/src/lib.rs        |   1 -
+> >   rust/hw/char/pl011/src/memory_ops.rs |  36 -----
+> >   rust/qemu-api/meson.build            |   1 +
+> >   rust/qemu-api/src/lib.rs             |   1 +
+> >   rust/qemu-api/src/memory.rs          | 191 ++++++++++++++++++++++++++=
++
+> >   rust/qemu-api/src/sysbus.rs          |   7 +-
+> >   rust/qemu-api/src/zeroable.rs        |  12 ++
+> >   8 files changed, 234 insertions(+), 58 deletions(-)
+> >   delete mode 100644 rust/hw/char/pl011/src/memory_ops.rs
+> >   create mode 100644 rust/qemu-api/src/memory.rs
+> >
+> > diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/=
+device.rs
+> > index 259efacb046..294394c6e82 100644
+> > --- a/rust/hw/char/pl011/src/device.rs
+> > +++ b/rust/hw/char/pl011/src/device.rs
+> > @@ -2,7 +2,7 @@
+> >   // Author(s): Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+> >   // SPDX-License-Identifier: GPL-2.0-or-later
+> >
+> > -use core::ptr::{addr_of_mut, NonNull};
+> > +use core::ptr::{addr_of, addr_of_mut, NonNull};
+> >   use std::{
+> >       ffi::CStr,
+> >       os::raw::{c_int, c_void},
+> > @@ -12,14 +12,14 @@
+> >       bindings::{self, *},
+> >       c_str, impl_vmstate_forward,
+> >       irq::InterruptSource,
+> > +    memory::{hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOpsBui=
+lder},
+> >       prelude::*,
+> > -    qdev::{Clock, ClockEvent, DeviceImpl, ResettablePhasesImpl, ResetT=
+ype},
+> > +    qdev::{Clock, ClockEvent, DeviceImpl, ResetType, ResettablePhasesI=
+mpl},
+> >       qom::{ClassInitImpl, ObjectImpl, Owned, ParentField},
+> >   };
+> >
+> >   use crate::{
+> >       device_class,
+> > -    memory_ops::PL011_OPS,
+> >       registers::{self, Interrupt},
+> >       RegisterOffset,
+> >   };
+> > @@ -490,20 +490,24 @@ impl PL011State {
+> >       /// location/instance. All its fields are expected to hold unitia=
+lized
+> >       /// values with the sole exception of `parent_obj`.
+> >       unsafe fn init(&mut self) {
+> > +        static PL011_OPS: MemoryRegionOps<PL011State> =3D MemoryRegion=
+OpsBuilder::<PL011State>::new()
+> > +            .read(&PL011State::read)
+> > +            .write(&PL011State::write)
+> > +            .native_endian()
+>
+> Could we always make .valid_sizes() explicit?
 
-On 17/1/25 20:40, Paolo Bonzini wrote:
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->   rust/hw/char/pl011/src/device.rs     |  43 +++---
->   rust/hw/char/pl011/src/lib.rs        |   1 -
->   rust/hw/char/pl011/src/memory_ops.rs |  36 -----
->   rust/qemu-api/meson.build            |   1 +
->   rust/qemu-api/src/lib.rs             |   1 +
->   rust/qemu-api/src/memory.rs          | 191 +++++++++++++++++++++++++++
->   rust/qemu-api/src/sysbus.rs          |   7 +-
->   rust/qemu-api/src/zeroable.rs        |  12 ++
->   8 files changed, 234 insertions(+), 58 deletions(-)
->   delete mode 100644 rust/hw/char/pl011/src/memory_ops.rs
->   create mode 100644 rust/qemu-api/src/memory.rs
-> 
-> diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-> index 259efacb046..294394c6e82 100644
-> --- a/rust/hw/char/pl011/src/device.rs
-> +++ b/rust/hw/char/pl011/src/device.rs
-> @@ -2,7 +2,7 @@
->   // Author(s): Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
->   // SPDX-License-Identifier: GPL-2.0-or-later
->   
-> -use core::ptr::{addr_of_mut, NonNull};
-> +use core::ptr::{addr_of, addr_of_mut, NonNull};
->   use std::{
->       ffi::CStr,
->       os::raw::{c_int, c_void},
-> @@ -12,14 +12,14 @@
->       bindings::{self, *},
->       c_str, impl_vmstate_forward,
->       irq::InterruptSource,
-> +    memory::{hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder},
->       prelude::*,
-> -    qdev::{Clock, ClockEvent, DeviceImpl, ResettablePhasesImpl, ResetType},
-> +    qdev::{Clock, ClockEvent, DeviceImpl, ResetType, ResettablePhasesImpl},
->       qom::{ClassInitImpl, ObjectImpl, Owned, ParentField},
->   };
->   
->   use crate::{
->       device_class,
-> -    memory_ops::PL011_OPS,
->       registers::{self, Interrupt},
->       RegisterOffset,
->   };
-> @@ -490,20 +490,24 @@ impl PL011State {
->       /// location/instance. All its fields are expected to hold unitialized
->       /// values with the sole exception of `parent_obj`.
->       unsafe fn init(&mut self) {
-> +        static PL011_OPS: MemoryRegionOps<PL011State> = MemoryRegionOpsBuilder::<PL011State>::new()
-> +            .read(&PL011State::read)
-> +            .write(&PL011State::write)
-> +            .native_endian()
+Yes (for example build() could even fail to compile if you don't have
+impl_sizes/valid_sizes set), but why do you want that? I'm not even
+sure that all cases of .valid.max_access_size=3D4 are correct...
 
-Could we always make .valid_sizes() explicit?
-
-> +            .impl_sizes(4, 4)
-> +            .build();
-> +
->           // SAFETY:
->           //
->           // self and self.iomem are guaranteed to be valid at this point since callers
->           // must make sure the `self` reference is valid.
-> -        unsafe {
-> -            memory_region_init_io(
-> -                addr_of_mut!(self.iomem),
-> -                addr_of_mut!(*self).cast::<Object>(),
-> -                &PL011_OPS,
-> -                addr_of_mut!(*self).cast::<c_void>(),
-> -                Self::TYPE_NAME.as_ptr(),
-> -                0x1000,
-> -            );
-> -        }
-> +        MemoryRegion::init_io(
-> +            unsafe { &mut *addr_of_mut!(self.iomem) },
-> +            addr_of_mut!(*self),
-> +            &PL011_OPS,
-> +            "pl011",
-> +            0x1000,
-> +        );
-
-
-> diff --git a/rust/hw/char/pl011/src/lib.rs b/rust/hw/char/pl011/src/lib.rs
-> index 300c732ae1d..5622e974cbc 100644
-> --- a/rust/hw/char/pl011/src/lib.rs
-> +++ b/rust/hw/char/pl011/src/lib.rs
-> @@ -29,7 +29,6 @@
->   
->   mod device;
->   mod device_class;
-> -mod memory_ops;
->   
->   pub use device::pl011_create;
->   
-> diff --git a/rust/hw/char/pl011/src/memory_ops.rs b/rust/hw/char/pl011/src/memory_ops.rs
-> deleted file mode 100644
-> index 95b4df794e4..00000000000
-> --- a/rust/hw/char/pl011/src/memory_ops.rs
-> +++ /dev/null
-> @@ -1,36 +0,0 @@
-> -// Copyright 2024, Linaro Limited
-> -// Author(s): Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-> -// SPDX-License-Identifier: GPL-2.0-or-later
-> -
-> -use core::ptr::NonNull;
-> -use std::os::raw::{c_uint, c_void};
-> -
-> -use qemu_api::{bindings::*, zeroable::Zeroable};
-> -
-> -use crate::device::PL011State;
-> -
-> -pub static PL011_OPS: MemoryRegionOps = MemoryRegionOps {
-> -    read: Some(pl011_read),
-> -    write: Some(pl011_write),
-> -    read_with_attrs: None,
-> -    write_with_attrs: None,
-> -    endianness: device_endian::DEVICE_NATIVE_ENDIAN,
-> -    valid: Zeroable::ZERO,
-> -    impl_: MemoryRegionOps__bindgen_ty_2 {
-> -        min_access_size: 4,
-> -        max_access_size: 4,
-> -        ..Zeroable::ZERO
-> -    },
-> -};
+Paolo
 
 
