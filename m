@@ -1,57 +1,53 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tfbbA-00030G-FM
-	for mharc-qemu-rust@gnu.org; Wed, 05 Feb 2025 04:21:32 -0500
+	id 1tfsE2-0006Or-FB
+	for mharc-qemu-rust@gnu.org; Wed, 05 Feb 2025 22:06:46 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tfbam-0002u9-Ag; Wed, 05 Feb 2025 04:21:10 -0500
-Received: from mgamail.intel.com ([192.198.163.9])
+ id 1tfsE0-0006OU-HQ; Wed, 05 Feb 2025 22:06:44 -0500
+Received: from mgamail.intel.com ([198.175.65.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tfbaj-0006qJ-Sx; Wed, 05 Feb 2025 04:21:08 -0500
+ id 1tfsDx-0008Ll-Mt; Wed, 05 Feb 2025 22:06:44 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738747266; x=1770283266;
+ t=1738811202; x=1770347202;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=56YG1c6IAIg9q7pHPYpqG3eIIpnnTeky04Rw2vBMQro=;
- b=VB6MBCX+D97ORgjjOjjvSloFJ4i46p0gensW/xkGZYsEMNlcQDXG59vY
- GfhjWQK8Ws3cnMInMISe0foU0PQVzJGhlxOiX+bs54VMEDqhNrZ90MMhJ
- 6T/NrgiD/ymtMIg+OkS1NJVJQ3XlW4d1Rv4kplkXuaaK00hcKq3pwtlh2
- FSAYcLyQSdVjT7JtC0kwuiQHPVdYIaMecz7UWYirCX4Cz4yNy6Y2Dnjnx
- LbHDHn+uqWWLHUPOXSfuDrzYDTt0uiEhvQoa3zk4lu1cnxA4ukf0iNyac
- Z8Oju8QGsYTJeTKKHMsWiY9vd0sxZk5FhVwFRwZZOV+99hTVDGgybOGzS A==;
-X-CSE-ConnectionGUID: 25zGqCIKTRSTUY0h/EBO6g==
-X-CSE-MsgGUID: FG/106HVSNaQHvmmOIiPKw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="49953593"
-X-IronPort-AV: E=Sophos;i="6.13,261,1732608000"; d="scan'208";a="49953593"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2025 01:21:03 -0800
-X-CSE-ConnectionGUID: k7DuzR3lQyyCo7Fz+E4wEA==
-X-CSE-MsgGUID: 1LV8+IShRnmxQX//AdMedQ==
+ bh=y0Z9R+38t3DIqdjo7tymkl+VihsQu+D1LwW3LVsDQeo=;
+ b=knkdso5MOkqcr0qsGxlMl1CYYI/tqZpKiHX3xZj5hoI6F/+2zoFFNstU
+ RfUa5/rLMVn2dN5CJbDPSQIqlvS1cN3/jbqaqNpLfQb7j+BA96nLK4WM1
+ UR5f98RsUWSD2KDbEtPvPzXD8EQWj2pVxtOqqPFKnR/mxOnRx2geBcdza
+ JkghC588vxedYAfo7edhjizo+PUqw0M6V6RBKbpiitgiQp2Yh15wMauno
+ 6bCbVSougO/KeCJ/M3eKzxxSeAfDiX/UuODsuV56+6fxufKmC/gh6OTxm
+ gDbczQxb8S2YUMJkPQxOcCQek4/dO2Don0UxZWbF37AB0Ame7x5GqsxK2 Q==;
+X-CSE-ConnectionGUID: LM0J+fELSBi92nQMh5oW/Q==
+X-CSE-MsgGUID: 6OdTb4w7R6C5tpoIsnnAtg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="39534137"
+X-IronPort-AV: E=Sophos;i="6.13,263,1732608000"; d="scan'208";a="39534137"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2025 19:06:39 -0800
+X-CSE-ConnectionGUID: LWADxBl8SWqNJn0V0AUmVQ==
+X-CSE-MsgGUID: uMEhz41PQvytT7lySjtuxg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,261,1732608000"; d="scan'208";a="111381205"
+X-IronPort-AV: E=Sophos;i="6.13,263,1732608000"; d="scan'208";a="110920875"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa010.fm.intel.com with ESMTP; 05 Feb 2025 01:21:01 -0800
-Date: Wed, 5 Feb 2025 17:40:30 +0800
+ by fmviesa006.fm.intel.com with ESMTP; 05 Feb 2025 19:06:37 -0800
+Date: Thu, 6 Feb 2025 11:26:06 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 Subject: Re: [PATCH 02/10] rust: qom: add reference counting functionality
-Message-ID: <Z6MyDtU8zpLxU1xo@intel.com>
+Message-ID: <Z6QrzloVEEpi/9p0@intel.com>
 References: <20250117194003.1173231-1-pbonzini@redhat.com>
  <20250117194003.1173231-3-pbonzini@redhat.com>
- <Z5c8gVcUn4rzVpID@intel.com>
- <CABgObfbLaHXtoGAkUVW9CUXio-N_1A=Awq0=ZCY3G8sAO+9NXQ@mail.gmail.com>
- <Z6Mrs4l+fRF7jcay@intel.com>
- <8e5cbee9-4a37-4a7f-948d-52dccb27ddd6@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8e5cbee9-4a37-4a7f-948d-52dccb27ddd6@redhat.com>
-Received-SPF: pass client-ip=192.198.163.9; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250117194003.1173231-3-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.16; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -73,53 +69,32 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Feb 2025 09:21:29 -0000
+X-List-Received-Date: Thu, 06 Feb 2025 03:06:44 -0000
 
-On Wed, Feb 05, 2025 at 10:10:01AM +0100, Paolo Bonzini wrote:
-> Date: Wed, 5 Feb 2025 10:10:01 +0100
+On Fri, Jan 17, 2025 at 08:39:55PM +0100, Paolo Bonzini wrote:
+> Date: Fri, 17 Jan 2025 20:39:55 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: Re: [PATCH 02/10] rust: qom: add reference counting functionality
+> Subject: [PATCH 02/10] rust: qom: add reference counting functionality
+> X-Mailer: git-send-email 2.47.1
 > 
-> On 2/5/25 10:13, Zhao Liu wrote:
-> > > > * The use of from():
-> > > > 
-> > > >                  let clk = bindings::qdev_init_clock_in(...)
-> > > >                  Owned::from(&*clk)
-> > > 
-> > > In this case the C side wants to manage the reference that
-> > > qdev_init_clock_in() returns; it is dropped in
-> > > qdev_finalize_clocklist(). So Rust code needs to increase the
-> > > refcount.
-> > 
-> > Pls forgive me for one more question about qdev_init_clock_in() on the C
-> > side. :-)
-> > 
-> > qdev_init_clock_in() didn't unref `clk` after object_property_add_child(),
-> > so it is intentional, to make the ref count of `clk` be 2:
-> >   * 1 count is held by clocklist until qdev_finalize_clocklist().
-> >   * another 1 is held by its parent via QOM Child<>.
-> > 
-> > Am I understanding it correctly?
+> Add a smart pointer that allows to add and remove references from
+> QOM objects.  It's important to note that while all QOM objects have a
+> reference count, in practice not all of them have their lifetime guarded
+> by it.  Embedded objects, specifically, are confined to the lifetime of
+> the owner.
 > 
-> Yes, that's more precise.  In Rust it will be 3, the two above plus the
-> Owned<Clock>.
-
-Thanks!
-
-> Ah wait... qdev_finalize_clocklist() is only called _after_ the Rust struct
-> is Drop::drop-ped, because device_finalize() is called after the subclass's
-> instance_finalize.
+> When writing Rust bindings this is important, because embedded objects are
+> *never* used through the "Owned<>" smart pointer that is introduced here.
 > 
-> So the result of qdev_init_clock_in(), strictly speaking, does not have to
-> be an Owned<Clock>.  It can also be a &'device Clock; either is possible.
-> Would you prefer that, or do you think it's enough to add a comment?
-> 
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  rust/qemu-api/src/qom.rs     | 121 ++++++++++++++++++++++++++++++++++-
+>  rust/qemu-api/src/vmstate.rs |   6 +-
+>  2 files changed, 125 insertions(+), 2 deletions(-)
+>
 
-I prefer the latter, i.e., keep current Owned<Clock> and add a comment
-to mention something like "Although strictly speaking, it does not have
-to be an Owned<Clock>. Owned<> is still worth favor to use to protect
-Rust code from FFI. When unsure whether to use Owned<>, then use Owned<>."
+Revisit this patch (with Paolo's explaination), LGTM,
 
--Zhao
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
