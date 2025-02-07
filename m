@@ -1,62 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tgQNg-0005EB-0y
-	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 10:35:01 -0500
+	id 1tgQNi-0005I1-UW
+	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 10:35:05 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tgQKT-0008FV-II
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 10:31:51 -0500
-Received: from mail-ej1-x630.google.com ([2a00:1450:4864:20::630])
+ id 1tgQKY-0008G6-DP
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 10:31:52 -0500
+Received: from mail-ed1-x52e.google.com ([2a00:1450:4864:20::52e])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tgQKE-00042d-OO
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 10:31:39 -0500
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-aaee2c5ee6eso377649566b.1
- for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 07:31:24 -0800 (PST)
+ id 1tgQKG-00044P-Fl
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 10:31:42 -0500
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5dce27a72e8so5170936a12.2
+ for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 07:31:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738942283; x=1739547083; darn=nongnu.org;
+ d=linaro.org; s=google; t=1738942286; x=1739547086; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+6N9ryvNx2tTT6HdSFLFKVlKftlNVXYRqQdp7SLQm3o=;
- b=QDOCmzDnR6lDCWbGxrpptVcpOr+EZC3ASYjZSPsGMtmu61FBUAaT/GhsYOwEeYknZq
- hFNizwhIbcB2Aif3N5VdHMZ/0wGOFoHO+IJBDPbOFjbVOjb+ly2YIlDSYyok6g7M4nzS
- LYs0x+DFNwI6vxj/HM22CIIumO54jXzTXclnPHyhKXspmtM32zOm22+ZBYNrT5XK50Km
- Vho4sauydB4Xn8o6As7aK3mKEp7xXGoTZXmI01TM8ZY6vbEcLJakSRoeZhbWBb+LlKkD
- hG8QKseSfQkO7ValAELFl3UuVo2O+jL+So9apNTC9JGcRGXt+ldUv47iEa7V4vZvVZps
- pefg==
+ bh=DNmUeNVqLMWnKw5VpxIg7HB3Zjmh6ElltpcE7zlO/sI=;
+ b=MiD6eUT3WnfnkpqKlDG+JXkYJyiDcqOC8tAK8NIbN1apzyqH57+v97qqT92TFHYPMb
+ pVPpMU+RA9Ski6WYGhyV0QcIoADiX7UJrUe8QjztM5T/sxtzdShgmmp0p21QZuxsyzUN
+ NtVOMDzZ6T8Da7VB5rQtnnYX5qKHSqPPoeLUK+wmR1UAf7q2pNu9qEc2iOZr8Ds0bHeA
+ +xw3qX5MTLqIEOtf3HRCO8470VC/OUMYLfypP84Zy7Bni0CjULjPIDveS28HrmLYdQHG
+ 3C0U+Gn5wMxTtUx+fX2RThid42/Un0Lms5xa337XWgDHxmLC5APexvILjEPmNfUUXisI
+ OD6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738942283; x=1739547083;
+ d=1e100.net; s=20230601; t=1738942286; x=1739547086;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+6N9ryvNx2tTT6HdSFLFKVlKftlNVXYRqQdp7SLQm3o=;
- b=AP6bKHfU2SAh2oQcKhfFzebCx+Kdkgut1hV75JlJ3lp6CDbFStf1NLUB/RznwHhC1d
- T6+/iXa9bUzp0xLl1ahHDgfRwQsb0hZp+qdapVp4ILEufhIvEw0kIYs7QXHhl87VrOtU
- 0WrB0fKTrcdhAc24yez7OG6VatiVXuS1z+g0N+nFoY3nuX4MGnaskmb6+4O/OhCJm6W2
- GjoEWneL3oFL1Q5YivjOkjobXtwGyXIPY3BfQUDRs7g0O/eJ5NU7aVpouzECRi/JtBsM
- hrhmY0p8srUrGwLrl6EHT7DBSXlvO4mXieE6+sVZt1H8aOa6p09VYbPHj9ib1a4/Mdv9
- BmEA==
+ bh=DNmUeNVqLMWnKw5VpxIg7HB3Zjmh6ElltpcE7zlO/sI=;
+ b=ec0ai7sP598v7VWdhv31jwpiJqhCgfQFltXkD34LvyUmY5WEWdUuaEJIMUYT6O/GUk
+ /yl2+i5ceRIWaATOXVkylP4naEvTMgiKNm4nbPv+9V7j3qYVou0tUTvzglTuSu/siFV4
+ OMZU4w/pEiCCQQ/D6TKyEq/SoSujuAIjnq4U8l8jBX+ijEQu+ygRT1evOCH5TW6Gi7nB
+ kuHTTdmoMOfXlhbykITSQecKQSLk/x47Uz6Tm9I2uAkIrfcA3s1w1aI8R/cpqKHoHBwB
+ yJPy4aTjgrXrmNCMFOQFTZ3aVLUI2o9R/CTyi0IUb6ymyyBOJMS54x2dWMBxoudQ6WmS
+ m8wQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWjhMRdopawe4znKagvEvtxhGgnHXbnc93Jd4cWq9Q4BscSv1pnTe/pjdOrnztPnMpJTF5Div0TDbU=@nongnu.org
-X-Gm-Message-State: AOJu0YwJRuB8yoeW/JdIHGu6RjB7TX/YrEym0orTrhr+/6bLehAFsNp/
- g/9M5EUrcW74JGNcgs9UkT2GGdbYXeGXU1LeVldjVdkaf84oHD+tq2YZqC1qGqA=
-X-Gm-Gg: ASbGnctxG7WEIC3xmW4UUvPPI+pFvozJk62u4qqe1bRflISRjC+N7AruwYVg1jMiw/O
- eiEI92TcGg8irXZ3lgZ2P3QPOIocoxic3cMciHEwjEv5FxRDUhZqka1jV65cMZy0gMpz8sPbls6
- bIgq8WsW1HHpIGWq0OM/4UVbx4PMAL8kuhmHJEupWpnl+6rqRkoba586yI7hjAx7Ip9aWWG27Yi
- ccyIrNjSnN72laaA52KkI7nCsCpZUw/+59mRRL7gB+Z0PD8g2GnRd6JWXn4c487+8PmrTHu4lS7
- GV2firkppE3FSuTDXQ==
-X-Google-Smtp-Source: AGHT+IGEqyms4T0+QP+oLlTpKko3AJZAofeuvgE+M7sIMrTL7r4br1e6xECR9X/F93EiULGYnjARpw==
-X-Received: by 2002:a17:906:f6c4:b0:ab7:9285:3442 with SMTP id
- a640c23a62f3a-ab7928534f3mr176977466b.3.1738942283134; 
- Fri, 07 Feb 2025 07:31:23 -0800 (PST)
+ AJvYcCUohjNK3Y9ogXmIS77Vjci+klvN6srxlLn2qpDZAYLwbetcYbhq7PJsyjmCz0pIlFoUoe8a3vAN7Dg=@nongnu.org
+X-Gm-Message-State: AOJu0YwzsoM0PlIuY4FXCDGZnsl9ZWnLP3fyD2jZXcI0tEoTBfTjjvTn
+ 0uPy1dSxWUevDIA05izm0T2N2H/y0SwJt4D9JhSogSSSpcw1tp1o0e/giMICtiA=
+X-Gm-Gg: ASbGnct+USpJGJFVDmJl+BIpn46OzRHzkcCvL+GWcHAQMLduFM0brObNUZEFgLISA2O
+ inDYKf/wPOKbYoCsCZXWGW/jMb9W/SM8ihidaQO6NOTKoDd4wFqXVSXrFHu/0xMxznybyv3I4Jx
+ +pXEkalJ0+8BkM48q2U5nqLTy0x8GR3luYBV6ieJC6YvNl1dxhV9M2I2dgqAZcbXOZwJj/Cbwvl
+ 3gEFOHsmkN+2ShPg+kb5h8QfARqCzytRirJIf0gyqGoY6UwAGXVJuAmxX/vr54rHzI2Csk5eAhs
+ z1taiWPQZBTiboXvvw==
+X-Google-Smtp-Source: AGHT+IFirjpS0mVz0/6YA1kXSmyvyFpcRXUjfPU9FLurAIGWWuhQj7+PsqxZa9tcLtwCZXGyFQ6igw==
+X-Received: by 2002:a50:d6d7:0:b0:5dc:113c:46c3 with SMTP id
+ 4fb4d7f45d1cf-5de4508dcabmr3021579a12.21.1738942285586; 
+ Fri, 07 Feb 2025 07:31:25 -0800 (PST)
 Received: from draig.lan ([185.126.160.109]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab78e82cc0csm105485566b.12.2025.02.07.07.31.16
+ 4fb4d7f45d1cf-5dcf6c9f8besm2702253a12.52.2025.02.07.07.31.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2025 07:31:18 -0800 (PST)
+ Fri, 07 Feb 2025 07:31:23 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 665686099F;
+ by draig.lan (Postfix) with ESMTP id BF95060E67;
  Fri,  7 Feb 2025 15:31:13 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
@@ -80,17 +80,17 @@ Cc: Peter Xu <peterx@redhat.com>,
  Mahmoud Mandour <ma.mandourr@gmail.com>, qemu-ppc@nongnu.org,
  Paolo Bonzini <pbonzini@redhat.com>, qemu-rust@nongnu.org,
  qemu-riscv@nongnu.org, Ilya Leoshkevich <iii@linux.ibm.com>
-Subject: [PATCH v2 11/17] gdbstub: Try unlinking the unix socket before binding
-Date: Fri,  7 Feb 2025 15:31:06 +0000
-Message-Id: <20250207153112.3939799-12-alex.bennee@linaro.org>
+Subject: [PATCH v2 15/17] gdbstub: Allow late attachment
+Date: Fri,  7 Feb 2025 15:31:10 +0000
+Message-Id: <20250207153112.3939799-16-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250207153112.3939799-1-alex.bennee@linaro.org>
 References: <20250207153112.3939799-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::630;
- envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x630.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::52e;
+ envelope-from=alex.bennee@linaro.org; helo=mail-ed1-x52e.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -111,129 +111,205 @@ List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
 X-List-Received-Date: Fri, 07 Feb 2025 15:31:58 -0000
-X-List-Received-Date: Fri, 07 Feb 2025 15:31:58 -0000
 
 From: Ilya Leoshkevich <iii@linux.ibm.com>
 
-In case an emulated process execve()s another emulated process, bind()
-will fail, because the socket already exists. So try deleting it. Use
-the existing unix_listen() function which does this. Link qemu-user
-with qemu-sockets.c and add the monitor_get_fd() stub.
+Allow debugging individual processes in multi-process applications by
+starting them with export QEMU_GDB=/tmp/qemu-%d.sock,suspend=n.
+Currently one would have to attach to every process to ensure the app
+makes progress.
 
-Note that it is not possible to handle this in do_execv(): deleting
-gdbserver_user_state.socket_path before safe_execve() is not correct,
-because the latter may fail, and afterwards we may lose control.
+In case suspend=n is not specified, the flow remains unchanged. If it
+is specified, then accepting the client connection is delegated to a
+thread. In the future this machinery may be reused for handling
+reconnections and interruptions.
+
+On accepting a connection, the thread schedules gdb_handlesig() on the
+first CPU and wakes it up with host_interrupt_signal. Note that the
+result of this gdb_handlesig() invocation is handled, as opposed to
+many other existing call sites. These other call sites probably need to
+be fixed separately.
 
 Signed-off-by: Ilya Leoshkevich <iii@linux.ibm.com>
-Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
-Message-Id: <20250117001542.8290-3-iii@linux.ibm.com>
+Message-Id: <20250117001542.8290-7-iii@linux.ibm.com>
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
 ---
- gdbstub/user.c     | 29 +++--------------------------
- stubs/monitor-fd.c |  9 +++++++++
- stubs/meson.build  |  2 ++
- util/meson.build   |  2 ++
- 4 files changed, 16 insertions(+), 26 deletions(-)
- create mode 100644 stubs/monitor-fd.c
+ bsd-user/main.c   |   1 -
+ gdbstub/user.c    | 115 +++++++++++++++++++++++++++++++++++++++++-----
+ linux-user/main.c |   1 -
+ 3 files changed, 103 insertions(+), 14 deletions(-)
 
+diff --git a/bsd-user/main.c b/bsd-user/main.c
+index b2f6a9be2f..fdb160bed0 100644
+--- a/bsd-user/main.c
++++ b/bsd-user/main.c
+@@ -629,7 +629,6 @@ int main(int argc, char **argv)
+ 
+     if (gdbstub) {
+         gdbserver_start(gdbstub, &error_fatal);
+-        gdb_handlesig(cpu, 0, NULL, NULL, 0);
+     }
+     cpu_loop(env);
+     /* never exits */
 diff --git a/gdbstub/user.c b/gdbstub/user.c
-index fd29d595f4..8225b70280 100644
+index 8225b70280..3730f32c41 100644
 --- a/gdbstub/user.c
 +++ b/gdbstub/user.c
-@@ -315,12 +315,10 @@ static bool gdb_accept_socket(int gdb_fd)
-     return true;
+@@ -22,6 +22,7 @@
+ #include "gdbstub/user.h"
+ #include "gdbstub/enums.h"
+ #include "hw/core/cpu.h"
++#include "user/signal.h"
+ #include "trace.h"
+ #include "internals.h"
+ 
+@@ -393,32 +394,122 @@ static int gdbserver_open_port(int port, Error **errp)
+     return fd;
  }
  
--static int gdbserver_open_socket(const char *path)
-+static int gdbserver_open_socket(const char *path, Error **errp)
+-bool gdbserver_start(const char *port_or_path, Error **errp)
++static bool gdbserver_accept(int port, int gdb_fd, const char *path)
  {
-     g_autoptr(GString) buf = g_string_new("");
--    struct sockaddr_un sockaddr = {};
-     char *pid_placeholder;
--    int fd, ret;
+-    int port = g_ascii_strtoull(port_or_path, NULL, 10);
++    bool ret;
++
++    if (port > 0) {
++        ret = gdb_accept_tcp(gdb_fd);
++    } else {
++        ret = gdb_accept_socket(gdb_fd);
++        if (ret) {
++            gdbserver_user_state.socket_path = g_strdup(path);
++        }
++    }
++
++    if (!ret) {
++        close(gdb_fd);
++    }
++
++    return ret;
++}
++
++struct {
++    int port;
+     int gdb_fd;
++    char *path;
++} gdbserver_args;
++
++static void do_gdb_handlesig(CPUState *cs, run_on_cpu_data arg)
++{
++    int sig;
++
++    sig = target_to_host_signal(gdb_handlesig(cs, 0, NULL, NULL, 0));
++    if (sig >= 1 && sig < NSIG) {
++        qemu_kill_thread(gdb_get_cpu_index(cs), sig);
++    }
++}
++
++static void *gdbserver_accept_thread(void *arg)
++{
++    if (gdbserver_accept(gdbserver_args.port, gdbserver_args.gdb_fd,
++                         gdbserver_args.path)) {
++        CPUState *cs = first_cpu;
++
++        async_safe_run_on_cpu(cs, do_gdb_handlesig, RUN_ON_CPU_NULL);
++        qemu_kill_thread(gdb_get_cpu_index(cs), host_interrupt_signal);
++    }
++
++    g_free(gdbserver_args.path);
++    gdbserver_args.path = NULL;
++
++    return NULL;
++}
  
-     pid_placeholder = strstr(path, "%d");
-     if (pid_placeholder != NULL) {
-@@ -330,28 +328,7 @@ static int gdbserver_open_socket(const char *path)
-         path = buf->str;
-     }
- 
--    fd = socket(AF_UNIX, SOCK_STREAM, 0);
--    if (fd < 0) {
--        perror("create socket");
--        return -1;
--    }
--
--    sockaddr.sun_family = AF_UNIX;
--    pstrcpy(sockaddr.sun_path, sizeof(sockaddr.sun_path) - 1, path);
--    ret = bind(fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
--    if (ret < 0) {
--        perror("bind socket");
--        close(fd);
--        return -1;
--    }
--    ret = listen(fd, 1);
--    if (ret < 0) {
--        perror("listen socket");
--        close(fd);
--        return -1;
--    }
--
--    return fd;
-+    return unix_listen(path, errp);
- }
- 
- static bool gdb_accept_tcp(int gdb_fd)
-@@ -424,7 +401,7 @@ bool gdbserver_start(const char *port_or_path, Error **errp)
++#define USAGE "\nUsage: -g {port|path}[,suspend={y|n}]"
++
++bool gdbserver_start(const char *args, Error **errp)
++{
++    g_auto(GStrv) argv = g_strsplit(args, ",", 0);
++    const char *port_or_path = NULL;
++    bool suspend = true;
++    int gdb_fd, port;
++    GStrv arg;
++
++    for (arg = argv; *arg; arg++) {
++        g_auto(GStrv) tokens = g_strsplit(*arg, "=", 2);
++
++        if (g_strcmp0(tokens[0], "suspend") == 0) {
++            if (tokens[1] == NULL) {
++                error_setg(errp,
++                           "gdbstub: missing \"suspend\" option value" USAGE);
++                return false;
++            } else if (!qapi_bool_parse(tokens[0], tokens[1],
++                                        &suspend, errp)) {
++                return false;
++            }
++        } else {
++            if (port_or_path) {
++                error_setg(errp, "gdbstub: unknown option \"%s\"" USAGE, *arg);
++                return false;
++            }
++            port_or_path = *arg;
++        }
++    }
++    if (!port_or_path) {
++        error_setg(errp, "gdbstub: port or path not specified" USAGE);
++        return false;
++    }
++
++    port = g_ascii_strtoull(port_or_path, NULL, 10);
      if (port > 0) {
          gdb_fd = gdbserver_open_port(port, errp);
      } else {
--        gdb_fd = gdbserver_open_socket(port_or_path);
-+        gdb_fd = gdbserver_open_socket(port_or_path, errp);
+         gdb_fd = gdbserver_open_socket(port_or_path, errp);
+     }
+-
+     if (gdb_fd < 0) {
+         return false;
      }
  
-     if (gdb_fd < 0) {
-diff --git a/stubs/monitor-fd.c b/stubs/monitor-fd.c
-new file mode 100644
-index 0000000000..9bb6749885
---- /dev/null
-+++ b/stubs/monitor-fd.c
-@@ -0,0 +1,9 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
+-    if (port > 0 && gdb_accept_tcp(gdb_fd)) {
+-        return true;
+-    } else if (gdb_accept_socket(gdb_fd)) {
+-        gdbserver_user_state.socket_path = g_strdup(port_or_path);
++    if (suspend) {
++        if (gdbserver_accept(port, gdb_fd, port_or_path)) {
++            gdb_handlesig(first_cpu, 0, NULL, NULL, 0);
++            return true;
++        } else {
++            error_setg(errp, "gdbstub: failed to accept connection");
++            return false;
++        }
++    } else {
++        QemuThread thread;
 +
-+#include "qemu/osdep.h"
-+#include "monitor/monitor.h"
-+
-+int monitor_get_fd(Monitor *mon, const char *fdname, Error **errp)
-+{
-+    abort();
-+}
-diff --git a/stubs/meson.build b/stubs/meson.build
-index a8b3aeb564..b0fee37e05 100644
---- a/stubs/meson.build
-+++ b/stubs/meson.build
-@@ -61,6 +61,8 @@ if have_user
-   if not have_system
-     stub_ss.add(files('qdev.c'))
-   endif
-+
-+  stub_ss.add(files('monitor-fd.c'))
- endif
++        gdbserver_args.port = port;
++        gdbserver_args.gdb_fd = gdb_fd;
++        gdbserver_args.path = g_strdup(port_or_path);
++        qemu_thread_create(&thread, "gdb-accept",
++                           &gdbserver_accept_thread, NULL,
++                           QEMU_THREAD_DETACHED);
+         return true;
+     }
+-
+-    /* gone wrong */
+-    close(gdb_fd);
+-    error_setg(errp, "gdbstub: failed to accept connection");
+-    return false;
+ }
  
- if have_system
-diff --git a/util/meson.build b/util/meson.build
-index 5d8bef9891..780b5977a8 100644
---- a/util/meson.build
-+++ b/util/meson.build
-@@ -84,6 +84,8 @@ if have_block or have_ga
-   util_ss.add(files('qemu-coroutine.c', 'qemu-coroutine-lock.c', 'qemu-coroutine-io.c'))
-   util_ss.add(files(f'coroutine-@coroutine_backend@.c'))
-   util_ss.add(files('thread-pool.c', 'qemu-timer.c'))
-+endif
-+if have_block or have_ga or have_user
-   util_ss.add(files('qemu-sockets.c'))
- endif
- if have_block
+ void gdbserver_fork_start(void)
+diff --git a/linux-user/main.c b/linux-user/main.c
+index 7198fa0986..5c74c52cc5 100644
+--- a/linux-user/main.c
++++ b/linux-user/main.c
+@@ -1024,7 +1024,6 @@ int main(int argc, char **argv, char **envp)
+ 
+     if (gdbstub) {
+         gdbserver_start(gdbstub, &error_fatal);
+-        gdb_handlesig(cpu, 0, NULL, NULL, 0);
+     }
+ 
+ #ifdef CONFIG_SEMIHOSTING
 -- 
 2.39.5
 
