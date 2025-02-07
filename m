@@ -1,90 +1,138 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tgPWV-0004ep-Ev
-	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 09:40:03 -0500
+	id 1tgPm1-0004tS-UQ
+	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 09:56:06 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tgPWT-0004c5-L6
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 09:40:01 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1tgPly-0004sb-Sx
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 09:56:03 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tgPWR-0004cW-Nf
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 09:40:01 -0500
+ id 1tgPlw-0004rB-LQ
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 09:56:02 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738939198;
+ s=mimecast20190719; t=1738940159;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=V4vYN424Zst0W94i5JbD8fyChMDv/Dgup2Y4cOwoh0g=;
- b=H22bgab7sXzVx7OiSya5cL+ACAD9Z0AtDHUeCCUEIIMlxkztWscCPzI2+7zk0raj1/ARE/
- 8bBHRV2I9qFabveq9juG2qUxIM3vdwEIGzYJSJ5ZoDkOWUpzFfAOwqOW3GCW5TFl+9Kza8
- cQcoPvcnphKJuoigJ6PoXk5fy5EOc/0=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=IgzIX2w+eeMvvxb9Co3aD1LBRfY1wQyT9xSooMJ5yRA=;
+ b=Jwt7U/NuyWvRJgEJ/BNwBceoVL6/IytO1yFCapmKdM8HffiWpKWRIPVSrF08MFAHpT10ri
+ YFNIWCzFPlrWrAn3A4xdoH+kA9UOXJW8JEq8EzDHG5t3gwJA6IpFCcWZCgcUHMy3YLIBxG
+ DVYfO5E4AwKowyNImQ+SJFSSbPXP+3Y=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-19-a27c_YVEOUC_yYnDTJ1_BA-1; Fri, 07 Feb 2025 09:39:57 -0500
-X-MC-Unique: a27c_YVEOUC_yYnDTJ1_BA-1
-X-Mimecast-MFC-AGG-ID: a27c_YVEOUC_yYnDTJ1_BA
-Received: by mail-ed1-f71.google.com with SMTP id
- 4fb4d7f45d1cf-5d90a59999aso2400339a12.3
- for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 06:39:57 -0800 (PST)
+ us-mta-76-xpKWfZeVPxWCCDdJUz2Y2A-1; Fri, 07 Feb 2025 09:55:56 -0500
+X-MC-Unique: xpKWfZeVPxWCCDdJUz2Y2A-1
+X-Mimecast-MFC-AGG-ID: xpKWfZeVPxWCCDdJUz2Y2A
+Received: by mail-ej1-f72.google.com with SMTP id
+ a640c23a62f3a-ab6eecc3221so271239666b.0
+ for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 06:55:56 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738939196; x=1739543996;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1738940155; x=1739544955;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=V4vYN424Zst0W94i5JbD8fyChMDv/Dgup2Y4cOwoh0g=;
- b=JYYHKzuoo6e49q9lYxpA6Fb9Dt8jPyi0PDrgvwEEB8jsR539vsyBYdGfeTNj8gy5Dk
- zsJnO8JtyMgjwdqJUUxiSGdDiK7DAlkbRR6MZuJcRazOSWXPMJ1dveTSTrkBmfTYp3YJ
- o+fypuZ5/QnzEwzeb8/FQnuYGDmV2msnOHvXhtTGR5reI/Wqx2sSNcFq+bqFyviTTww3
- KHpSrz4IHdp/vukhXIiTtk84Jj+nc0QT0AteQHHqPlE0XeMiBMMPOWXtUGQpftXfYHgP
- YYA4pab9Jev8hYAuQmFEKLYt9n+nImb+Hp4N/Zv7hNhdt2pKgmSF/n9YSamzXnILGWx7
- iqgg==
+ bh=IgzIX2w+eeMvvxb9Co3aD1LBRfY1wQyT9xSooMJ5yRA=;
+ b=dhJ4p4a3eZFJmQXm9zYvd/IGxRcVizYL5YA4O52fuPz39iY4iYN12H124P8045Fucn
+ oasW43KDBvpNilfIXkepE2DfFUqqfPqAub+cQ5B9OilMsaco/2Irwym2Mn+z5kbmLKcc
+ odxZ87nRc2vRXtH5r116jSGogK0UiRPyESaIIOPf7oYruPPsGEvimXjDUTuCn1HI6xMs
+ V+Cu5ypR5CTVTZV+09lxrrmYy+2zXRduA7UWvyUoXc/FfZOaUCOR9D9XMBO/gR8gtPbC
+ 78qTYVjQTctWK61IujozABRdEoM5gz1AgzVQGc5GPZ3OaRtu4oNAGrc1Rhi3x5G55Hgo
+ p9rA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVvTusEiw3SJtp7BbrsEcTvxtiH7TCROz7azKY4NpZFP0ZuJmANNsYcJles6a/M4l1THotoaQMyfhg=@nongnu.org
-X-Gm-Message-State: AOJu0Ywaxib4rfpx7r5yspYbrYIqBg8VvKUEWzNrcir+Q0BAOKMqGOeg
- GmrPFmBvsMjl1Ly+xsQ/yuFahF9os0AapgLUwNy2UPuizhvG3Z743J8Tz86zkDd21eR0hDpB6Uf
- t7Vvb0ag9+7qE0qcYcG5QdJLCamvOjL3fMROP9QvfiDpH/jnVuD3HWasg4AS0/Q==
-X-Gm-Gg: ASbGncsiVoLmcFQQAlV3VYax+Bcv0xzZcymbmCNayKFXkEw9YagohbfpTEUh1SEJSNr
- a6feTR535n0nazwqdT42FiFwt+n7Kz40qChSWadceSV9oOZggUX7y1oAtGYuPR6ZuapLbKMM55d
- p8b/BRPq3o2zxy6HWpftRcXBFB9OwdUAI2kkkW2PhXKTWnBjkb3V9ROeNmNOG6tlK7DnupnzOzd
- U7/wwA7k+go5L+aBZ4SFiCGGO5Jhp7oYI0vRePldS8qZomxBPLmPkaGcai/Spr0ScMsexMNXDJp
- BPxCEQ==
-X-Received: by 2002:a05:6402:e8a:b0:5dc:a44f:6ec4 with SMTP id
- 4fb4d7f45d1cf-5de45018934mr4660812a12.13.1738939196200; 
- Fri, 07 Feb 2025 06:39:56 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFt8z6hhClcKw+IkdWrfCzLuzskC5ay1gUIrxBvWYM48W9IW9cCggo44xDh4DzYCVksEsc9MA==
-X-Received: by 2002:a05:6402:e8a:b0:5dc:a44f:6ec4 with SMTP id
- 4fb4d7f45d1cf-5de45018934mr4660768a12.13.1738939195756; 
- Fri, 07 Feb 2025 06:39:55 -0800 (PST)
+ AJvYcCVxJbVi94TW7whWAcsXjI1ZycL4nhV27cj1YWmdbnP6s1zzUdE+B67PzZbhcPJQkw535zcIMr0uZig=@nongnu.org
+X-Gm-Message-State: AOJu0Yx3z8BWDTMMvXdvZjUkTnCXxTFKzOT9W0jFzSC9xL296oEurvoX
+ cQxjHUy5/fbgl5vgXgu9WnsSO82WxS1qv0ioEH4Lb08m/h5gk++OWPZ2ofNUDCwHnnoHkYOiZ3U
+ gn29yMDfGUIvbj++Vw92BHfS7QPXu6wEh3oaEPN+oBGelNlyPZM4=
+X-Gm-Gg: ASbGncvPkKF4eA0LGcMFfY5jibajTDyF1cYTWFdX/7ZVVUO/b5Na1da2faCNngBQQoT
+ QPrBuy7s9HbBLWc/iZkA+AWBRWwb/EuQ37KnPuF3OMl1dK2065sMCqgL57+vuDA6TtKTQp765ed
+ xq/bonwQvEcjYtfZkekQQJUJwxgb41IuLts6dHQ/dQzkJbSMS+mI/BxoqSnRuRwASsrnVNyW1k4
+ lJrQiabg/TD+N1JFJBZNXkGX07GdY3xUNzVYr+ny40RcQZau30wZEAu/pcWeCafcfwbYKl7Gu8S
+ OY5RkA==
+X-Received: by 2002:a17:907:2d9e:b0:aab:740f:e467 with SMTP id
+ a640c23a62f3a-ab789a6b576mr317737966b.8.1738940154955; 
+ Fri, 07 Feb 2025 06:55:54 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGIoIFlcRFVayX5vYNC747k8ip7Y0QEl67zFHQRAlpYauaJEzbmZ/CVT2ciQYvJaM4js/RmOQ==
+X-Received: by 2002:a17:907:2d9e:b0:aab:740f:e467 with SMTP id
+ a640c23a62f3a-ab789a6b576mr317733866b.8.1738940154466; 
+ Fri, 07 Feb 2025 06:55:54 -0800 (PST)
 Received: from [192.168.10.3] ([151.62.97.55])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dcf1b7ae65sm2549015a12.17.2025.02.07.06.39.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2025 06:39:54 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: stefanha@redhat.com,
-	qemu-rust@nongnu.org
-Subject: [PATCH] rust: restrict missing_const_for_fn to qemu_api crate
-Date: Fri,  7 Feb 2025 15:39:52 +0100
-Message-ID: <20250207143952.2486587-2-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.48.1
+ by smtp.googlemail.com with ESMTPSA id
+ a640c23a62f3a-ab772f843b4sm279190566b.42.2025.02.07.06.55.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 07 Feb 2025 06:55:53 -0800 (PST)
+Message-ID: <57c08026-81a2-4643-8c2a-bab1e3299432@redhat.com>
+Date: Fri, 7 Feb 2025 15:55:52 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 06/10] rust: add bindings for timer
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Junjie Mao <junjie.mao@hotmail.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?=
+ <philmd@linaro.org>, Richard Henderson <richard.henderson@linaro.org>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
+ qemu-devel@nongnu.org, qemu-rust@nongnu.org
+References: <20250125125137.1223277-1-zhao1.liu@intel.com>
+ <20250125125137.1223277-7-zhao1.liu@intel.com>
+ <a30bfa1c-ddb8-4a5b-9f95-7b000c11cd54@redhat.com>
+ <Z6YLwAqDGm+9aiaM@intel.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+In-Reply-To: <Z6YLwAqDGm+9aiaM@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Tie-cvAk43Yy89ttKiNK5R5xG9abadJ90qGQTjOIjbQ_1738939197
+X-Mimecast-MFC-PROC-ID: KspjJuJk7p9fg6TNEaTMC8rSzs9_EkA0heUSVAqOjSA_1738940155
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -99,55 +147,78 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Feb 2025 14:40:02 -0000
+X-List-Received-Date: Fri, 07 Feb 2025 14:56:03 -0000
 
-missing_const_for_fn is not necessarily useful or good.  For example in
-a private API you can always add const later, and in a public API
-it can be unnecessarily restrictive to annotate everything with const
-(blocking further improvements to the API).
+On 2/7/25 14:33, Zhao Liu wrote:
+>>> +pub use bindings::QEMUTimer;
+>>> +
+>>> +use crate::{
+>>> +    bindings::{
+>>> +        self, qemu_clock_get_ns, timer_del, timer_init_full, timer_mod, QEMUClockType,
+>>> +        QEMUTimerListGroup,
+>>> +    },
+>>> +    callbacks::FnCall,
+>>> +};
+>>> +
+>>> +impl QEMUTimer {
+>>> +    pub fn new() -> Self {
+>>> +        Default::default()
+>>> +    }
+>>> +
+>>> +    pub fn timer_init_full<'timer, 'opaque: 'timer, T, F>(
+>>
+>> General question - should the names:
+>>
+>> - include the "timer" part, matching QEMU C code, or exclude it to avoid
+>> repetition? I would say remove it,
+> 
+> I agree and I would name it "init()" instead of "init_full()".
 
-Nevertheless, QEMU turns it on because qemu_api uses const quite
-aggressively and therefore it can be handy to have as much as possible
-annotated with const.  Outside qemu_api though, not so much: devices
-are self contained consumers and if there is nothing that could use
-their functions in const contexts that were not anticipated.
+Please keep init_full(); init() would be a version without some of the 
+arguments (e.g. the TimerListGroup, or the attributes).
 
-Since missing_const_for_fn can be a bit noisy and trigger on trivial
-functions that no one would ever call in const context, do not
-turn it on everywhere and only keep it in qemu_api as a special case.
+> I notice you've picked another way for IRQState, so I could follow that
+> like:
+> 
+> pub type Timer = bindings::QEMUTimer;
+> 
+> This style make it easy to add doc (timer binding currently lacks
+> doc, but I will add it as much as possible).
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- rust/Cargo.toml          | 1 -
- rust/qemu-api/src/lib.rs | 2 ++
- 2 files changed, 2 insertions(+), 1 deletion(-)
+Good point.
 
-diff --git a/rust/Cargo.toml b/rust/Cargo.toml
-index 5b6b6ca4382..5b0cb559286 100644
---- a/rust/Cargo.toml
-+++ b/rust/Cargo.toml
-@@ -52,7 +52,6 @@ empty_structs_with_brackets = "deny"
- ignored_unit_patterns = "deny"
- implicit_clone = "deny"
- macro_use_imports = "deny"
--missing_const_for_fn = "deny"
- missing_safety_doc = "deny"
- multiple_crate_versions = "deny"
- mut_mut = "deny"
-diff --git a/rust/qemu-api/src/lib.rs b/rust/qemu-api/src/lib.rs
-index bfb6c6d6e42..20134d75ce5 100644
---- a/rust/qemu-api/src/lib.rs
-+++ b/rust/qemu-api/src/lib.rs
-@@ -4,6 +4,8 @@
- 
- #![cfg_attr(not(MESON), doc = include_str!("../README.md"))]
- 
-+#![deny(clippy::missing_const_for_fn)]
-+
- #[rustfmt::skip]
- pub mod bindings;
- 
--- 
-2.48.1
+> Another option may be to wrap QEMUTimer as what MemoryRegionOps did, but
+> timer has only 1 callback so I think it's not necessary.
+
+Yes, and we actually should do it sooner or later to add a PhantomPinned 
+field, because timers can't move in memory!  But no need to do it now.
+
+>>> +        scale: u32,
+
+While at it, can you add constants for the scale, i.e.
+
+     pub const NS: u32 = bindings::SCALE_NS;
+     pub const US: u32 = bindings::SCALE_US;
+     pub const MS: u32 = bindings::SCALE_MS;
+
+? Using Timer::NS is clear enough and removes the need to import from 
+"bindings".  At least in theory, bindings should not even have to be 
+"pub" (or at least that's where the code should move towards).
+
+>>> +    pub fn timer_mod(&mut self, expire_time: u64) {
+>>> +        unsafe { timer_mod(self as *mut QEMUTimer, expire_time as i64) }
+>>> +    }
+>>
+>> This can take &self, because timers are thread-safe:
+>>
+>>      pub fn timer_mod(&self, expire_time: u64) {
+>>          unsafe { timer_mod(self.as_mut_ptr(), expire_time as i64) }
+>>      }
+> 
+> timer_mod means "modify a timer", so I'd rename this method to "modify"
+
+Yeah, changing mod/del to modify/delete is fine!
+
+Paolo
 
 
