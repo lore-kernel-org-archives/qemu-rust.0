@@ -1,80 +1,80 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tgLQJ-0007ec-Mc
-	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 05:17:24 -0500
+	id 1tgLQL-0007fW-PC
+	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 05:17:25 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tgLPb-0007KH-F3
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:16:45 -0500
+ id 1tgLPk-0007Ll-3C
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:16:53 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tgLPZ-0003ji-77
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:16:39 -0500
+ id 1tgLPi-00042n-18
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:16:47 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738923395;
+ s=mimecast20190719; t=1738923405;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ynfSiKySz1E493NM3nAmhgtxqEj3XUDWlZBIVMVVqV8=;
- b=Wq4Qalayi0txA7sepGUQ6IdrJfQwEe0a5zXJmiE76t/QvnColSHfopcaWWsL8sT8Lj0l3i
- /dEEuE3lPXvd9yhFlYbWLq9Ap4oOWtzNaB5ApMyUbGwLj9HrVwAoCIiPaQNwqVHBQmI+GG
- ylLWugvnRIl247N/6HXrVHn7fMd5lZM=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=ejM9LdULLid2GnKlRXBOXJbddnv2FpH9YLwLU6Alx7U=;
+ b=g+XPfgnNsm1k1VS4MIaYOypaMy4vLYdQnGcx5SHpU9RezfW7RvAzoXbX/gDJQAJ/TfoJzk
+ DExliPcyYErp1QambAVdFKFppnkoy/UfLzWu+4sfXlgVokveD0O3ZbhBmIpl5kC5SL6odo
+ H4qivEZ5rFmkZP3YzREFgLK95u41Vsk=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-450-apxN3lBKM6q5MJJCK7OyGQ-1; Fri, 07 Feb 2025 05:16:34 -0500
-X-MC-Unique: apxN3lBKM6q5MJJCK7OyGQ-1
-X-Mimecast-MFC-AGG-ID: apxN3lBKM6q5MJJCK7OyGQ
-Received: by mail-ej1-f70.google.com with SMTP id
- a640c23a62f3a-ab6e2b653a0so204124766b.3
- for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 02:16:34 -0800 (PST)
+ us-mta-532-u7_EiaykMU-_n7KUDRQEjQ-1; Fri, 07 Feb 2025 05:16:43 -0500
+X-MC-Unique: u7_EiaykMU-_n7KUDRQEjQ-1
+X-Mimecast-MFC-AGG-ID: u7_EiaykMU-_n7KUDRQEjQ
+Received: by mail-ej1-f69.google.com with SMTP id
+ a640c23a62f3a-ab7912ce928so24564966b.0
+ for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 02:16:43 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738923390; x=1739528190;
+ d=1e100.net; s=20230601; t=1738923401; x=1739528201;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ynfSiKySz1E493NM3nAmhgtxqEj3XUDWlZBIVMVVqV8=;
- b=uM7ULdvNakRP2wGCA6j83nOPp8XEZTDtdOF97Z4jg2St9B7q1IClSMgfmGHhKJlCtQ
- Eg5mGIYU8YwxZWxirO8PMGe74KsF6P9gRsAY2+J6zPwbujo3q+NR5lUokRJkoiTgvFSm
- NVwGZorbR2Lva0jtZfdrcprFk5eLZU5mLBsdxc+kvq8x+21vzs4SL7G30aHS/jCXZOul
- r7bVEMfw7Xp6HHYfCPvdJZqMBAfHrSXWFM6ed3Sr3CzA4atfHARL/YHZnNhs1fonryvr
- pr52pf1yad3VPBoWb2G42gvZzsiTLEA/32hGUjyMh4tGv/wV/HJEjtH14uRnFTtOS+oy
- DtQw==
-X-Gm-Message-State: AOJu0YwVLEQRdEUvPZfiBVHoLLykwj2XMKIG3gZv/CsmuELTPGrVdm3d
- ufwSKpEv88sytWf3u3dzfxKtii1mDa1VnZOmOQ6TaJfR8Lja8G48NV+c0JXL5CJ1QZGMjL19Jmo
- RTUyuvjWWnFoe4y0umHCz/jeGfo01d//TtLYvS9Xc0MLgWYRZwAe2aCsx4Zw/BQ==
-X-Gm-Gg: ASbGncvQGA0WRRn1EVVlSb9FPs7lerKikv6S3F8reYhJc5fxNI7iq0eHtjNJTq0lv5Y
- aWnUgCoSAbiHSbHOldEzLFRTFNEEnbARVYlYooXC8mRkNz8yYx1/jSZZqcPFnLSZ8ZIxo5Nu1iw
- J5gX9Psihji2iVVgxR7skuVHa4JMYfYoviCk2PX4vfJGA+Z14dGZW+32ph78D+q/mve1TRKnHqY
- egd8/dc6VMeGNEuDpszuyI1F4xEImOzY9dRZHiK4JebSnxUl98+k4uzXrwtCOQIIkphBMFRNloj
- jhk4JQ==
-X-Received: by 2002:a17:907:72d4:b0:ab7:5f0e:87e9 with SMTP id
- a640c23a62f3a-ab789c709d0mr241698566b.55.1738923390147; 
- Fri, 07 Feb 2025 02:16:30 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHtNVzUSMaVefP8pN97PYvnHBMVz7li2Kz2Y5myFpgrULJWY3/oHyeUKMhZENZnChv/evvjtw==
-X-Received: by 2002:a17:907:72d4:b0:ab7:5f0e:87e9 with SMTP id
- a640c23a62f3a-ab789c709d0mr241693666b.55.1738923389586; 
- Fri, 07 Feb 2025 02:16:29 -0800 (PST)
+ bh=ejM9LdULLid2GnKlRXBOXJbddnv2FpH9YLwLU6Alx7U=;
+ b=Ecwin8+sHZjBmMGdNhPcnUpdTKna1xaeEZuf5fq3ogm729JTSMId9xRoBh/3n9vriM
+ 9YFPBJGZzKyuG2bgIdtysNcomECoaRBHEAT+78BuF/JptlAJLdZNetpuAhdokX5KoKlJ
+ gFgLAuc2dr1jh2eUufAsS+/5wwxYzK9rzZ50N15mu1MWSwE48eF33VeFUbWE6t9jC/aD
+ o1IClsyGyYFHmLbdJ6FjSGVIMk4GJM9+M16NQ2XpSj6F3MWicGqAQIF4d7HihiJZkibx
+ JUFNlrGqK92Ku+FnwPitLGJbfmhZsWkJLaaO+6IGffUG5kVukwR3I0iWWdEvSbNmTvyL
+ 3jkA==
+X-Gm-Message-State: AOJu0YyLkNWCQ4TVXWpnI1rbrJnraz8uOz+lOxEtc1z3qEX5tiHJAMum
+ f0N4s/dePyu44kmzc4R6LVs+HvVJi7/n+bfJk4B7oxsyT5m+Dd1DPElUf52tVG36A1NYcN4g/gf
+ JZgKTL53cmjINwVph1uKUiIIHfu2cF2+zWYjx8hFCYk1Y4csaObLhZoikCdY1mw==
+X-Gm-Gg: ASbGncvAFPWrIZ7N+7ppwc9r1OJCl+9LOSSdnpf/DkalRv0gqsGoO10/y9MyxGa5V8d
+ o2cM1RX+J7hgymNqdToElo8b2NLRQZDv8Hx2Z8g2hEk9nChDSXaxYNFx1A4cDyVkdhyTrSPUbkU
+ tbCZIsd5mem8JEfv9IebOC2F5ll87RUGyXhzQpK37kEMdvN0mTHM2EjniEoPXjtUaXWglHj/Vlj
+ Sk4f/T6PQAd2k6pCaM9p5GldRcGnTqPQdJTDbv6KziiIw9vBOB05h+fQ0EXhskwLHHGI95vZmBY
+ Qt+zIA==
+X-Received: by 2002:a17:907:9484:b0:ab2:f6e5:3f1 with SMTP id
+ a640c23a62f3a-ab789ace50cmr220063066b.8.1738923401252; 
+ Fri, 07 Feb 2025 02:16:41 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFYFvkx7kxL5wQX/I6eTUg9VtwNiAsz7cQrnkIWtbX2vjwB7yapZwzOC5xnpFw7o24m1v/ngw==
+X-Received: by 2002:a17:907:9484:b0:ab2:f6e5:3f1 with SMTP id
+ a640c23a62f3a-ab789ace50cmr220060566b.8.1738923400879; 
+ Fri, 07 Feb 2025 02:16:40 -0800 (PST)
 Received: from [192.168.10.3] ([151.62.97.55])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5de3e49c372sm1343232a12.3.2025.02.07.02.16.26
+ a640c23a62f3a-ab772f49361sm240505766b.33.2025.02.07.02.16.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2025 02:16:27 -0800 (PST)
+ Fri, 07 Feb 2025 02:16:36 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org,
 	zhao1.liu@intel.com
-Subject: [PATCH 01/12] rust: qom: add reference counting functionality
-Date: Fri,  7 Feb 2025 11:16:12 +0100
-Message-ID: <20250207101623.2443552-2-pbonzini@redhat.com>
+Subject: [PATCH 03/12] rust: callbacks: allow passing optional callbacks as ()
+Date: Fri,  7 Feb 2025 11:16:14 +0100
+Message-ID: <20250207101623.2443552-4-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250207101623.2443552-1-pbonzini@redhat.com>
 References: <20250207101623.2443552-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: S5M0jI9RbOEYmWRZKF-ZmlxpwOFGoZe18OrgRUnhl7Q_1738923393
+X-Mimecast-MFC-PROC-ID: xO-r2bKvvcRpuCnRQrrdba-NkcMpcATg04Vwa5DaIgU_1738923402
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -100,266 +100,152 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Feb 2025 10:16:52 -0000
+X-List-Received-Date: Fri, 07 Feb 2025 10:16:59 -0000
 
-Add a smart pointer that allows to add and remove references from
-QOM objects.  It's important to note that while all QOM objects have a
-reference count, in practice not all of them have their lifetime guarded
-by it.  Embedded objects, specifically, are confined to the lifetime of
-the owner.
+In some cases, callbacks are optional.  Using "Some(function)" and "None"
+does not work well, because when someone writes "None" the compiler does
+not know what to use for "F" in "Option<F>".
 
-When writing Rust bindings this is important, because embedded objects are
-*never* used through the "Owned<>" smart pointer that is introduced here.
+Therefore, adopt () to mean a "null" callback.  It is possible to enforce
+that a callback is valid by adding a "let _: () = F::ASSERT_IS_SOME" before
+the invocation of F::call.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/qemu-api/src/qom.rs     | 158 ++++++++++++++++++++++++++++++++++-
- rust/qemu-api/src/vmstate.rs |   6 +-
- rust/qemu-api/tests/tests.rs |  10 +++
- 3 files changed, 172 insertions(+), 2 deletions(-)
+ rust/qemu-api/src/callbacks.rs | 97 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 97 insertions(+)
 
-diff --git a/rust/qemu-api/src/qom.rs b/rust/qemu-api/src/qom.rs
-index f50ee371aac..4a2e84c9aed 100644
---- a/rust/qemu-api/src/qom.rs
-+++ b/rust/qemu-api/src/qom.rs
-@@ -56,6 +56,7 @@
- use std::{
-     ffi::CStr,
-     fmt,
-+    mem::ManuallyDrop,
-     ops::{Deref, DerefMut},
-     os::raw::c_void,
-     ptr::NonNull,
-@@ -63,7 +64,13 @@
+diff --git a/rust/qemu-api/src/callbacks.rs b/rust/qemu-api/src/callbacks.rs
+index 314f9dce962..9642a16eb89 100644
+--- a/rust/qemu-api/src/callbacks.rs
++++ b/rust/qemu-api/src/callbacks.rs
+@@ -79,6 +79,31 @@
+ /// call_it(&move |_| String::from(x), "hello workd");
+ /// ```
+ ///
++/// `()` can be used to indicate "no function":
++///
++/// ```
++/// # use qemu_api::callbacks::FnCall;
++/// fn optional<F: for<'a> FnCall<(&'a str,), String>>(_f: &F, s: &str) -> Option<String> {
++///     if F::IS_SOME {
++///         Some(F::call((s,)))
++///     } else {
++///         None
++///     }
++/// }
++///
++/// assert!(optional(&(), "hello world").is_none());
++/// ```
++///
++/// Invoking `F::call` will then be a run-time error.
++///
++/// ```should_panic
++/// # use qemu_api::callbacks::FnCall;
++/// # fn call_it<F: for<'a> FnCall<(&'a str,), String>>(_f: &F, s: &str) -> String {
++/// #     F::call((s,))
++/// # }
++/// let s: String = call_it(&(), "hello world"); // panics
++/// ```
++///
+ /// # Safety
+ ///
+ /// Because `Self` is a zero-sized type, all instances of the type are
+@@ -93,10 +118,70 @@ pub unsafe trait FnCall<Args, R = ()>: 'static + Sync + Sized {
+     /// Rust 1.79.0+.
+     const ASSERT_ZERO_SIZED: () = { assert!(mem::size_of::<Self>() == 0) };
  
- pub use bindings::{Object, ObjectClass};
- 
--use crate::bindings::{self, object_dynamic_cast, object_get_class, object_get_typename, TypeInfo};
-+use crate::{
-+    bindings::{
-+        self, object_dynamic_cast, object_get_class, object_get_typename, object_ref, object_unref,
-+        TypeInfo,
-+    },
-+    cell::bql_locked,
-+};
- 
- /// Marker trait: `Self` can be statically upcasted to `P` (i.e. `P` is a direct
- /// or indirect parent of `Self`).
-@@ -610,6 +617,148 @@ unsafe impl ObjectType for Object {
-         unsafe { CStr::from_bytes_with_nul_unchecked(bindings::TYPE_OBJECT) };
++    /// Referring to this constant asserts that the `Self` type is an actual
++    /// function type, which can be used to catch incorrect use of `()`
++    /// at compile time.
++    ///
++    /// # Examples
++    ///
++    /// ```compile_fail
++    /// # use qemu_api::callbacks::FnCall;
++    /// fn call_it<F: for<'a> FnCall<(&'a str,), String>>(_f: &F, s: &str) -> String {
++    ///     let _: () = F::ASSERT_IS_SOME;
++    ///     F::call((s,))
++    /// }
++    ///
++    /// let s: String = call_it((), "hello world"); // does not compile
++    /// ```
++    ///
++    /// Note that this can be more simply `const { assert!(F::IS_SOME) }` in
++    /// Rust 1.79.0 or newer.
++    const ASSERT_IS_SOME: () = { assert!(Self::IS_SOME) };
++
++    /// `true` if `Self` is an actual function type and not `()`.
++    ///
++    /// # Examples
++    ///
++    /// You can use `IS_SOME` to catch this at compile time:
++    ///
++    /// ```compile_fail
++    /// # use qemu_api::callbacks::FnCall;
++    /// fn call_it<F: for<'a> FnCall<(&'a str,), String>>(_f: &F, s: &str) -> String {
++    ///     const { assert!(F::IS_SOME) }
++    ///     F::call((s,))
++    /// }
++    ///
++    /// let s: String = call_it((), "hello world"); // does not compile
++    /// ```
++    const IS_SOME: bool;
++
++    /// `false` if `Self` is an actual function type, `true` if it is `()`.
++    fn is_none() -> bool {
++        !Self::IS_SOME
++    }
++
++    /// `true` if `Self` is an actual function type, `false` if it is `()`.
++    fn is_some() -> bool {
++        Self::IS_SOME
++    }
++
+     /// Call the function with the arguments in args.
+     fn call(a: Args) -> R;
  }
  
-+/// A reference-counted pointer to a QOM object.
-+///
-+/// `Owned<T>` wraps `T` with automatic reference counting.  It increases the
-+/// reference count when created via [`Owned::from`] or cloned, and decreases
-+/// it when dropped.  This ensures that the reference count remains elevated
-+/// as long as any `Owned<T>` references to it exist.
-+///
-+/// `Owned<T>` can be used for two reasons:
-+/// * because the lifetime of the QOM object is unknown and someone else could
-+///   take a reference (similar to `Arc<T>`, for example): in this case, the
-+///   object can escape and outlive the Rust struct that contains the `Owned<T>`
-+///   field;
-+///
-+/// * to ensure that the object stays alive until after `Drop::drop` is called
-+///   on the Rust struct: in this case, the object will always die together with
-+///   the Rust struct that contains the `Owned<T>` field.
-+///
-+/// Child properties are an example of the second case: in C, an object that
-+/// is created with `object_initialize_child` will die *before*
-+/// `instance_finalize` is called, whereas Rust expects the struct to have valid
-+/// contents when `Drop::drop` is called.  Therefore Rust structs that have
-+/// child properties need to keep a reference to the child object.  Right now
-+/// this can be done with `Owned<T>`; in the future one might have a separate
-+/// `Child<'parent, T>` smart pointer that keeps a reference to a `T`, like
-+/// `Owned`, but does not allow cloning.
-+///
-+/// Note that dropping an `Owned<T>` requires the big QEMU lock to be taken.
-+#[repr(transparent)]
-+#[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
-+pub struct Owned<T: ObjectType>(NonNull<T>);
++/// `()` acts as a "null" callback.  Using `()` and `function` is nicer
++/// than `None` and `Some(function)`, because the compiler is unable to
++/// infer the type of just `None`.  Therefore, the trait itself acts as the
++/// option type, with functions [`FnCall::is_some`] and [`FnCall::is_none`].
++unsafe impl<Args, R> FnCall<Args, R> for () {
++    const IS_SOME: bool = false;
 +
-+// The following rationale for safety is taken from Linux's kernel::sync::Arc.
-+
-+// SAFETY: It is safe to send `Owned<T>` to another thread when the underlying
-+// `T` is `Sync` because it effectively means sharing `&T` (which is safe
-+// because `T` is `Sync`); additionally, it needs `T` to be `Send` because any
-+// thread that has an `Owned<T>` may ultimately access `T` using a
-+// mutable reference when the reference count reaches zero and `T` is dropped.
-+unsafe impl<T: ObjectType + Send + Sync> Send for Owned<T> {}
-+
-+// SAFETY: It is safe to send `&Owned<T>` to another thread when the underlying
-+// `T` is `Sync` because it effectively means sharing `&T` (which is safe
-+// because `T` is `Sync`); additionally, it needs `T` to be `Send` because any
-+// thread that has a `&Owned<T>` may clone it and get an `Owned<T>` on that
-+// thread, so the thread may ultimately access `T` using a mutable reference
-+// when the reference count reaches zero and `T` is dropped.
-+unsafe impl<T: ObjectType + Sync + Send> Sync for Owned<T> {}
-+
-+impl<T: ObjectType> Owned<T> {
-+    /// Convert a raw C pointer into an owned reference to the QOM
-+    /// object it points to.  The object's reference count will be
-+    /// decreased when the `Owned` is dropped.
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if `ptr` is NULL.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The caller must indeed own a reference to the QOM object.
-+    /// The object must not be embedded in another unless the outer
-+    /// object is guaranteed to have a longer lifetime.
-+    ///
-+    /// A raw pointer obtained via [`Owned::into_raw()`] can always be passed
-+    /// back to `from_raw()` (assuming the original `Owned` was valid!),
-+    /// since the owned reference remains there between the calls to
-+    /// `into_raw()` and `from_raw()`.
-+    pub unsafe fn from_raw(ptr: *const T) -> Self {
-+        // SAFETY NOTE: while NonNull requires a mutable pointer, only
-+        // Deref is implemented so the pointer passed to from_raw
-+        // remains const
-+        Owned(NonNull::new(ptr as *mut T).unwrap())
-+    }
-+
-+    /// Obtain a raw C pointer from a reference.  `src` is consumed
-+    /// and the reference is leaked.
-+    #[allow(clippy::missing_const_for_fn)]
-+    pub fn into_raw(src: Owned<T>) -> *mut T {
-+        let src = ManuallyDrop::new(src);
-+        src.0.as_ptr()
-+    }
-+
-+    /// Increase the reference count of a QOM object and return
-+    /// a new owned reference to it.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The object must not be embedded in another, unless the outer
-+    /// object is guaranteed to have a longer lifetime.
-+    pub unsafe fn from(obj: &T) -> Self {
-+        unsafe {
-+            object_ref(obj.as_object_mut_ptr().cast::<c_void>());
-+
-+            // SAFETY NOTE: while NonNull requires a mutable pointer, only
-+            // Deref is implemented so the reference passed to from_raw
-+            // remains shared
-+            Owned(NonNull::new_unchecked(obj.as_mut_ptr()))
-+        }
++    /// Call the function with the arguments in args.
++    fn call(_a: Args) -> R {
++        panic!("callback not specified")
 +    }
 +}
 +
-+impl<T: ObjectType> Clone for Owned<T> {
-+    fn clone(&self) -> Self {
-+        // SAFETY: creation method is unsafe; whoever calls it has
-+        // responsibility that the pointer is valid, and remains valid
-+        // throughout the lifetime of the `Owned<T>` and its clones.
-+        unsafe { Owned::from(self.deref()) }
-+    }
-+}
+ macro_rules! impl_call {
+     ($($args:ident,)* ) => (
+         // SAFETY: because each function is treated as a separate type,
+@@ -106,6 +191,8 @@ unsafe impl<F, $($args,)* R> FnCall<($($args,)*), R> for F
+         where
+             F: 'static + Sync + Sized + Fn($($args, )*) -> R,
+         {
++            const IS_SOME: bool = true;
 +
-+impl<T: ObjectType> Deref for Owned<T> {
-+    type Target = T;
-+
-+    fn deref(&self) -> &Self::Target {
-+        // SAFETY: creation method is unsafe; whoever calls it has
-+        // responsibility that the pointer is valid, and remains valid
-+        // throughout the lifetime of the `Owned<T>` and its clones.
-+        // With that guarantee, reference counting ensures that
-+        // the object remains alive.
-+        unsafe { &*self.0.as_ptr() }
-+    }
-+}
-+impl<T: ObjectType> ObjectDeref for Owned<T> {}
-+
-+impl<T: ObjectType> Drop for Owned<T> {
-+    fn drop(&mut self) {
-+        assert!(bql_locked());
-+        // SAFETY: creation method is unsafe, and whoever calls it has
-+        // responsibility that the pointer is valid, and remains valid
-+        // throughout the lifetime of the `Owned<T>` and its clones.
-+        unsafe {
-+            object_unref(self.as_object_mut_ptr().cast::<c_void>());
-+        }
-+    }
-+}
-+
-+impl<T: IsA<Object>> fmt::Debug for Owned<T> {
-+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-+        self.deref().debug_fmt(f)
-+    }
-+}
-+
- /// Trait for methods exposed by the Object class.  The methods can be
- /// called on all objects that have the trait `IsA<Object>`.
- ///
-@@ -641,6 +790,13 @@ fn get_class(&self) -> &'static <Self::Target as ObjectType>::Class {
- 
-         klass
+             #[inline(always)]
+             fn call(a: ($($args,)*)) -> R {
+                 let _: () = Self::ASSERT_ZERO_SIZED;
+@@ -141,4 +228,14 @@ fn do_test_call<'a, F: FnCall<(&'a str,), String>>(_f: &F) -> String {
+     fn test_call() {
+         assert_eq!(do_test_call(&str::to_owned), "hello world")
      }
 +
-+    /// Convenience function for implementing the Debug trait
-+    fn debug_fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-+        f.debug_tuple(&self.typename())
-+            .field(&(self as *const Self))
-+            .finish()
++    // The `_f` parameter is unused but it helps the compiler infer `F`.
++    fn do_test_is_some<'a, F: FnCall<(&'a str,), String>>(_f: &F) {
++        assert!(F::is_some());
++    }
++
++    #[test]
++    fn test_is_some() {
++        do_test_is_some(&str::to_owned);
 +    }
  }
- 
- impl<R: ObjectDeref> ObjectMethods for R where R::Target: IsA<Object> {}
-diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-index 6ac432cf52f..11d21b8791c 100644
---- a/rust/qemu-api/src/vmstate.rs
-+++ b/rust/qemu-api/src/vmstate.rs
-@@ -29,6 +29,8 @@
- pub use crate::bindings::{VMStateDescription, VMStateField};
- use crate::{
-     bindings::{self, VMStateFlags},
-+    prelude::*,
-+    qom::Owned,
-     zeroable::Zeroable,
- };
- 
-@@ -191,7 +193,8 @@ pub const fn vmstate_varray_flag<T: VMState>(_: PhantomData<T>) -> VMStateFlags
- /// * a transparent wrapper for any of the above (`Cell`, `UnsafeCell`,
- ///   [`BqlCell`](crate::cell::BqlCell), [`BqlRefCell`](crate::cell::BqlRefCell)
- /// * a raw pointer to any of the above
--/// * a `NonNull` pointer or a `Box` for any of the above
-+/// * a `NonNull` pointer, a `Box` or an [`Owned`](crate::qom::Owned) for any of
-+///   the above
- /// * an array of any of the above
- ///
- /// In order to support other types, the trait `VMState` must be implemented
-@@ -398,6 +401,7 @@ unsafe impl<$base> VMState for $type where $base: VMState $($where)* {
- // Unlike C pointers, Box is always non-null therefore there is no need
- // to specify VMS_ALLOC.
- impl_vmstate_pointer!(Box<T> where T: VMState);
-+impl_vmstate_pointer!(Owned<T> where T: VMState + ObjectType);
- 
- // Arrays using the underlying type's VMState plus
- // VMS_ARRAY/VMS_ARRAY_OF_POINTER
-diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
-index 5c3e75ed3d5..69ddac7f1c5 100644
---- a/rust/qemu-api/tests/tests.rs
-+++ b/rust/qemu-api/tests/tests.rs
-@@ -138,6 +138,16 @@ fn test_object_new() {
-     }
- }
- 
-+#[test]
-+#[allow(clippy::redundant_clone)]
-+/// Create, clone and then drop an instance.
-+fn test_clone() {
-+    init_qom();
-+    let p = DummyState::new();
-+    assert_eq!(p.clone().typename(), "dummy");
-+    drop(p);
-+}
-+
- #[test]
- /// Try invoking a method on an object.
- fn test_typename() {
 -- 
 2.48.1
 
