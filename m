@@ -1,91 +1,91 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tgLQN-0007n0-P5
-	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 05:17:27 -0500
+	id 1tgLQO-0007oI-1q
+	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 05:17:28 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tgLQ8-0007XF-8b
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:17:14 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1tgLPu-0007OK-D6
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:16:59 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tgLQ5-0004J7-RA
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:17:11 -0500
+ id 1tgLPs-0004HU-SQ
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:16:58 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738923428;
+ s=mimecast20190719; t=1738923416;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=uES4HqqtaqOqQfE1eDVbpmrfNp7K4yqKrpgY/1SVq6M=;
- b=UguqNHtP1PTDO/2X1yrBUqS+KOlm3do7FVW8ghHUU7+HNjCAVKxSA0s2NK56D7G7g0pNuY
- hcxiJ3gzQxNgxARPNiwU8Vgia0CVze6dtOeHzENsLzX9dQanI4E0P096TWqupQ0tb0rQ1a
- Z7Sx2Au9F44K61GrFBvB+pGMbG2qcx8=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=e8ugkz2MCTVi9k0wZ/H/gZ6hjpuLYxOLaMc5B1rAzi0=;
+ b=G4j6LK/sr1p3Kdnb4X+kDRK2pRTKa6ECz92C9PHYyPapxMsLeebB/XIO43ruMcvOKiy02y
+ 8WCPudNbEvwahsdkMlxAYNQF707yuaXpR6MZ3Dr6X5DA2EKk8rxzRYAqPg9mEkClKH8b13
+ HL2fE4Zr/71unQl+x3W4gra3b2n65Qo=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-203-wKk9NL-ZN16WaQCPeq-Svg-1; Fri, 07 Feb 2025 05:17:06 -0500
-X-MC-Unique: wKk9NL-ZN16WaQCPeq-Svg-1
-X-Mimecast-MFC-AGG-ID: wKk9NL-ZN16WaQCPeq-Svg
-Received: by mail-ej1-f71.google.com with SMTP id
- a640c23a62f3a-ab69e4c2563so247100066b.1
- for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 02:17:06 -0800 (PST)
+ us-mta-456-a7SFKtUMOyePakgVX8UHNA-1; Fri, 07 Feb 2025 05:16:55 -0500
+X-MC-Unique: a7SFKtUMOyePakgVX8UHNA-1
+X-Mimecast-MFC-AGG-ID: a7SFKtUMOyePakgVX8UHNA
+Received: by mail-ej1-f72.google.com with SMTP id
+ a640c23a62f3a-ab397fff5a3so213369566b.1
+ for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 02:16:55 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738923423; x=1739528223;
+ d=1e100.net; s=20230601; t=1738923413; x=1739528213;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=uES4HqqtaqOqQfE1eDVbpmrfNp7K4yqKrpgY/1SVq6M=;
- b=Y0/gzbMW+eSFrgkim9hchE50LEOxevmSV/qGeVcMaAV45abGmysRqTxT+eAVrFjlyO
- c97GrAhD8XXC6tAbKZVdemhXShmnXIpJcg0bTQ7uMFLb270giI1G9tXsjiiekEfkzrzh
- xqWwHFGExusIB+Fk9lKiTZQGSzc4PlXh9mMaGqQTY260G893fw+G7jTw0CyWlY/dB68A
- CvsRJjaq90p9HIDZul6djpEi61YhPp2Qn32Uz6QMu6ZLQ7Cjy01CrwtkwsrL615XbhFf
- NMa/lhJSeA5YrGSDEfkM5/MKV2HBERq5DF6aPpLtxcOspVUvGyp+Euvd6JqgIUXnUh4/
- O5Qw==
-X-Gm-Message-State: AOJu0Yyz9fFze+kt2l8MgxqZ9m3GvvvlGfAHp7UXb8+Zsq1b8oo1oJ+8
- CYRXraz+uTh9IUWY4GEVhAcKBO9kKXXAHIGM4S5el9zZdoGIRKMROfie1db3xUoo7johxm202bE
- pg0+bSrOCxyPtVzumDecMlQlSL8KxvZ7naLYey35t8fSa58r324JGa3GVl7pO+Q==
-X-Gm-Gg: ASbGnctbKsR5Qj5hdvSpg/jJyEkWWe65dnn1/n39LHzbixaMvYKE/piCyOmGThoUN/s
- kiF+uCNVFpDc5puJtVCwQa+vOL6Jnfrs1oJbqnuP1Au9c8Jf/ipkNQDFn/+gfUJKdX7QBavwR5A
- DZXQLaZFoTEUBFddB6T9JsAatb3AYj4b/qSdqmZmtnREtmslj7Wjse1DUS1iVngJ3v8wQ428uGy
- LvH79FtA9vdtqZV54x8epO2Ny6WYf6dwIrYNwa6sU8Alkp83OaRiMf1hHlG/yrjyGewWLXxc0sz
- D5MIkw==
-X-Received: by 2002:a17:907:1c9c:b0:aab:ee4a:6788 with SMTP id
- a640c23a62f3a-ab789c52c06mr265614066b.57.1738923422786; 
- Fri, 07 Feb 2025 02:17:02 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFO1fspAubICNGVr5jbIr6183o8CuCT9k/HZqztef1KcklMNYJUU3W4/K74J0ggeoj8UGHV0g==
-X-Received: by 2002:a17:907:1c9c:b0:aab:ee4a:6788 with SMTP id
- a640c23a62f3a-ab789c52c06mr265609966b.57.1738923422303; 
- Fri, 07 Feb 2025 02:17:02 -0800 (PST)
+ bh=e8ugkz2MCTVi9k0wZ/H/gZ6hjpuLYxOLaMc5B1rAzi0=;
+ b=fvsIrqoLpiL82siPvMZTjJKw95EB/qna9o8hI0Qf+gCDFMPSB4K/zApH9XeIlJ9He+
+ UdVy/lfMx2ShvEmG0HaJQFp40auPfAE+iWJvqeq7sHtNxWu0CjQO0yBo5vyteuXBe8ra
+ +eXtz2gQVqAA0+IA06JCULu/lxAIOCgJut6MskINvZ6PyAdaZZmA5Xjg+ue7duwKybSi
+ MTEhx8IoVn/kIef3aXpg9eyBqbfO8kLxKjqdj0zhZ5YOgO1qv3HHDb/fo70I3jeOiugp
+ WlA3NMK8bSqKe7rruRf/OVs7QKmjSf8CQcohmEfti/Xef65ddOAXlnQw0y9Xu9YYSkRy
+ WQ6A==
+X-Gm-Message-State: AOJu0YylgP2D4/laq6vocICxut05RBB1CUIYYhfgn9QrJ0DKnc2dQWVa
+ o9gbYQ5zqV22iowzuDqCrCwDq5aH9p8qR1Gtl+z8mEpbsGOAZEebhcCBMGXCLaTMVvk3G8xNwNU
+ F3hCC0jO5scMX49gS6tFl87GGBojZl3TqWw429V2bgozUHyypexMi2j+guVG0mQ==
+X-Gm-Gg: ASbGnctcHDIanTsGjZwAQKuz2LyXjhiMRVeJPI9OyIEhWLRHkybHpVfSrDXUF77un86
+ T+kCao3l4QwL586cqmMY/WRhqTUeY+mbDBMNbGTP8OfrrFd2+mvmQMX9dYuw2+c1qK4f9iqTbiI
+ uwi6ogGSKYIASYHv2MPFbURsACnChdPz4Lgyy1xLhyzl5ygd37gxv82NJtA81HBH+uPIxuAk2KX
+ ocU+USIiK0vck//RnhhKKnxZBVxw9YZvXSOoVcqvIed3LeIwJlIO7qrJAUalb++Jp8icMOu9+ML
+ /aZpuQ==
+X-Received: by 2002:a17:907:7e8c:b0:ab6:f782:3ee2 with SMTP id
+ a640c23a62f3a-ab76e896c1cmr679680366b.9.1738923412819; 
+ Fri, 07 Feb 2025 02:16:52 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFM3lk2ydc7epwpkztg3w/h+v1br1TpLcOGK5HJ3x0fJvwRo4UJf6MhFQZ1H9LxVlL2Y6xFHw==
+X-Received: by 2002:a17:907:7e8c:b0:ab6:f782:3ee2 with SMTP id
+ a640c23a62f3a-ab76e896c1cmr679677266b.9.1738923412411; 
+ Fri, 07 Feb 2025 02:16:52 -0800 (PST)
 Received: from [192.168.10.3] ([151.62.97.55])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab772fd6933sm239441866b.78.2025.02.07.02.16.58
+ a640c23a62f3a-ab7732e7232sm241982766b.97.2025.02.07.02.16.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2025 02:16:59 -0800 (PST)
+ Fri, 07 Feb 2025 02:16:46 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org,
 	zhao1.liu@intel.com
-Subject: [PATCH 07/12] rust: qdev: switch from legacy reset to Resettable
-Date: Fri,  7 Feb 2025 11:16:18 +0100
-Message-ID: <20250207101623.2443552-8-pbonzini@redhat.com>
+Subject: [PATCH 05/12] rust: qom: allow initializing interface vtables
+Date: Fri,  7 Feb 2025 11:16:16 +0100
+Message-ID: <20250207101623.2443552-6-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250207101623.2443552-1-pbonzini@redhat.com>
 References: <20250207101623.2443552-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 0bYsx-MzZEfNVCT4TfVnyjTiry93xUjZtG_CZyZiBSc_1738923425
+X-Mimecast-MFC-PROC-ID: ErpvCtFnUohi1kzUbh-AIy4zjlcbKZ81RMQT7QGf9MI_1738923414
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -100,259 +100,95 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Feb 2025 10:17:20 -0000
+X-List-Received-Date: Fri, 07 Feb 2025 10:16:59 -0000
 
+Unlike regular classes, interface vtables can only be obtained via
+object_class_dynamic_cast.  Provide a wrapper that allows accessing
+the vtable and pass it to a ClassInitImpl implementation, for example
+ClassInitImpl<ResettableClass>.
+
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- meson.build                      |   1 +
- rust/hw/char/pl011/src/device.rs |  10 ++-
- rust/qemu-api/src/qdev.rs        | 111 ++++++++++++++++++++++++-------
- rust/qemu-api/tests/tests.rs     |   5 +-
- 4 files changed, 99 insertions(+), 28 deletions(-)
+ rust/qemu-api/src/prelude.rs |  1 +
+ rust/qemu-api/src/qom.rs     | 45 ++++++++++++++++++++++++++++++++++--
+ 2 files changed, 44 insertions(+), 2 deletions(-)
 
-diff --git a/meson.build b/meson.build
-index 131b2225ab6..32abefb7c48 100644
---- a/meson.build
-+++ b/meson.build
-@@ -4072,6 +4072,7 @@ if have_rust
-     'MigrationPriority',
-     'QEMUChrEvent',
-     'QEMUClockType',
-+    'ResetType',
-     'device_endian',
-     'module_init_type',
-   ]
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index 37936a328b8..1d0390b4fbe 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -18,7 +18,7 @@
-     c_str, impl_vmstate_forward,
-     irq::InterruptSource,
-     prelude::*,
--    qdev::{Clock, ClockEvent, DeviceImpl, DeviceState, Property},
-+    qdev::{Clock, ClockEvent, DeviceImpl, DeviceState, Property, ResetType, ResettablePhasesImpl},
-     qom::{ClassInitImpl, ObjectImpl, Owned, ParentField},
-     sysbus::{SysBusDevice, SysBusDeviceClass},
-     vmstate::VMStateDescription,
-@@ -171,7 +171,10 @@ fn vmsd() -> Option<&'static VMStateDescription> {
-         Some(&device_class::VMSTATE_PL011)
-     }
-     const REALIZE: Option<fn(&Self)> = Some(Self::realize);
--    const RESET: Option<fn(&Self)> = Some(Self::reset);
-+}
-+
-+impl ResettablePhasesImpl for PL011State {
-+    const HOLD: Option<fn(&Self, ResetType)> = Some(Self::reset_hold);
- }
+diff --git a/rust/qemu-api/src/prelude.rs b/rust/qemu-api/src/prelude.rs
+index 87e3ce90f26..254edb476dd 100644
+--- a/rust/qemu-api/src/prelude.rs
++++ b/rust/qemu-api/src/prelude.rs
+@@ -9,6 +9,7 @@
  
- impl PL011Registers {
-@@ -622,7 +625,7 @@ pub fn realize(&self) {
-         }
-     }
+ pub use crate::qdev::DeviceMethods;
  
--    pub fn reset(&self) {
-+    pub fn reset_hold(&self, _type: ResetType) {
-         self.regs.borrow_mut().reset();
-     }
- 
-@@ -737,3 +740,4 @@ impl ObjectImpl for PL011Luminary {
- }
- 
- impl DeviceImpl for PL011Luminary {}
-+impl ResettablePhasesImpl for PL011Luminary {}
-diff --git a/rust/qemu-api/src/qdev.rs b/rust/qemu-api/src/qdev.rs
-index cb6f12e726c..2ec1ecc8489 100644
---- a/rust/qemu-api/src/qdev.rs
-+++ b/rust/qemu-api/src/qdev.rs
-@@ -10,10 +10,10 @@
-     ptr::NonNull,
- };
- 
--pub use bindings::{Clock, ClockEvent, DeviceClass, DeviceState, Property};
-+pub use bindings::{Clock, ClockEvent, DeviceClass, DeviceState, Property, ResetType};
++pub use crate::qom::InterfaceType;
+ pub use crate::qom::IsA;
+ pub use crate::qom::Object;
+ pub use crate::qom::ObjectCast;
+diff --git a/rust/qemu-api/src/qom.rs b/rust/qemu-api/src/qom.rs
+index fad4759d7a6..fa69ae4c702 100644
+--- a/rust/qemu-api/src/qom.rs
++++ b/rust/qemu-api/src/qom.rs
+@@ -66,8 +66,8 @@
  
  use crate::{
--    bindings::{self, Error},
-+    bindings::{self, Error, ResettableClass},
-     callbacks::FnCall,
+     bindings::{
+-        self, object_dynamic_cast, object_get_class, object_get_typename, object_new, object_ref,
+-        object_unref, TypeInfo,
++        self, object_class_dynamic_cast, object_dynamic_cast, object_get_class,
++        object_get_typename, object_new, object_ref, object_unref, TypeInfo,
+     },
      cell::bql_locked,
-     prelude::*,
-@@ -21,8 +21,70 @@
-     vmstate::VMStateDescription,
  };
- 
-+/// Trait providing the contents of the `ResettablePhases` struct,
-+/// which is part of the QOM `Resettable` interface.
-+pub trait ResettablePhasesImpl {
-+    /// If not None, this is called when the object enters reset. It
-+    /// can reset local state of the object, but it must not do anything that
-+    /// has a side-effect on other objects, such as raising or lowering an
-+    /// [`InterruptSource`](crate::irq::InterruptSource), or reading or
-+    /// writing guest memory. It takes the reset's type as argument.
-+    const ENTER: Option<fn(&Self, ResetType)> = None;
-+
-+    /// If not None, this is called when the object for entry into reset, once
-+    /// every object in the system which is being reset has had its
-+    /// `ResettablePhasesImpl::ENTER` method called. At this point devices
-+    /// can do actions that affect other objects.
-+    ///
-+    /// If in doubt, implement this method.
-+    const HOLD: Option<fn(&Self, ResetType)> = None;
-+
-+    /// If not None, this phase is called when the object leaves the reset
-+    /// state. Actions affecting other objects are permitted.
-+    const EXIT: Option<fn(&Self, ResetType)> = None;
-+}
-+
-+/// # Safety
-+///
-+/// We expect the FFI user of this function to pass a valid pointer that
-+/// can be downcasted to type `T`. We also expect the device is
-+/// readable/writeable from one thread at any time.
-+unsafe extern "C" fn rust_resettable_enter_fn<T: ResettablePhasesImpl>(
-+    obj: *mut Object,
-+    typ: ResetType,
-+) {
-+    let state = NonNull::new(obj).unwrap().cast::<T>();
-+    T::ENTER.unwrap()(unsafe { state.as_ref() }, typ);
-+}
-+
-+/// # Safety
-+///
-+/// We expect the FFI user of this function to pass a valid pointer that
-+/// can be downcasted to type `T`. We also expect the device is
-+/// readable/writeable from one thread at any time.
-+unsafe extern "C" fn rust_resettable_hold_fn<T: ResettablePhasesImpl>(
-+    obj: *mut Object,
-+    typ: ResetType,
-+) {
-+    let state = NonNull::new(obj).unwrap().cast::<T>();
-+    T::HOLD.unwrap()(unsafe { state.as_ref() }, typ);
-+}
-+
-+/// # Safety
-+///
-+/// We expect the FFI user of this function to pass a valid pointer that
-+/// can be downcasted to type `T`. We also expect the device is
-+/// readable/writeable from one thread at any time.
-+unsafe extern "C" fn rust_resettable_exit_fn<T: ResettablePhasesImpl>(
-+    obj: *mut Object,
-+    typ: ResetType,
-+) {
-+    let state = NonNull::new(obj).unwrap().cast::<T>();
-+    T::EXIT.unwrap()(unsafe { state.as_ref() }, typ);
-+}
-+
- /// Trait providing the contents of [`DeviceClass`].
--pub trait DeviceImpl: ObjectImpl {
-+pub trait DeviceImpl: ObjectImpl + ResettablePhasesImpl {
-     /// _Realization_ is the second stage of device creation. It contains
-     /// all operations that depend on device properties and can fail (note:
-     /// this is not yet supported for Rust devices).
-@@ -31,13 +93,6 @@ pub trait DeviceImpl: ObjectImpl {
-     /// with the function pointed to by `REALIZE`.
-     const REALIZE: Option<fn(&Self)> = None;
- 
--    /// If not `None`, the parent class's `reset` method is overridden
--    /// with the function pointed to by `RESET`.
--    ///
--    /// Rust does not yet support the three-phase reset protocol; this is
--    /// usually okay for leaf classes.
--    const RESET: Option<fn(&Self)> = None;
--
-     /// An array providing the properties that the user can set on the
-     /// device.  Not a `const` because referencing statics in constants
-     /// is unstable until Rust 1.83.0.
-@@ -65,29 +120,36 @@ fn vmsd() -> Option<&'static VMStateDescription> {
-     T::REALIZE.unwrap()(unsafe { state.as_ref() });
- }
- 
--/// # Safety
--///
--/// We expect the FFI user of this function to pass a valid pointer that
--/// can be downcasted to type `T`. We also expect the device is
--/// readable/writeable from one thread at any time.
--unsafe extern "C" fn rust_reset_fn<T: DeviceImpl>(dev: *mut DeviceState) {
--    let mut state = NonNull::new(dev).unwrap().cast::<T>();
--    T::RESET.unwrap()(unsafe { state.as_mut() });
-+unsafe impl InterfaceType for ResettableClass {
-+    const TYPE_NAME: &'static CStr =
-+        unsafe { CStr::from_bytes_with_nul_unchecked(bindings::TYPE_RESETTABLE_INTERFACE) };
-+}
-+
-+impl<T> ClassInitImpl<ResettableClass> for T
-+where
-+    T: ResettablePhasesImpl,
-+{
-+    fn class_init(rc: &mut ResettableClass) {
-+        if <T as ResettablePhasesImpl>::ENTER.is_some() {
-+            rc.phases.enter = Some(rust_resettable_enter_fn::<T>);
-+        }
-+        if <T as ResettablePhasesImpl>::HOLD.is_some() {
-+            rc.phases.hold = Some(rust_resettable_hold_fn::<T>);
-+        }
-+        if <T as ResettablePhasesImpl>::EXIT.is_some() {
-+            rc.phases.exit = Some(rust_resettable_exit_fn::<T>);
-+        }
-+    }
- }
- 
- impl<T> ClassInitImpl<DeviceClass> for T
- where
--    T: ClassInitImpl<ObjectClass> + DeviceImpl,
-+    T: ClassInitImpl<ObjectClass> + ClassInitImpl<ResettableClass> + DeviceImpl,
- {
-     fn class_init(dc: &mut DeviceClass) {
-         if <T as DeviceImpl>::REALIZE.is_some() {
-             dc.realize = Some(rust_realize_fn::<T>);
-         }
--        if <T as DeviceImpl>::RESET.is_some() {
--            unsafe {
--                bindings::device_class_set_legacy_reset(dc, Some(rust_reset_fn::<T>));
--            }
--        }
-         if let Some(vmsd) = <T as DeviceImpl>::vmsd() {
-             dc.vmsd = vmsd;
-         }
-@@ -98,6 +160,7 @@ fn class_init(dc: &mut DeviceClass) {
-             }
-         }
- 
-+        ResettableClass::interface_init::<T, DeviceState>(dc);
-         <T as ClassInitImpl<ObjectClass>>::class_init(&mut dc.parent_class);
+@@ -263,6 +263,47 @@ unsafe fn as_object_mut_ptr(&self) -> *mut Object {
      }
  }
-diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
-index 9986925d71f..ccf915d64f3 100644
---- a/rust/qemu-api/tests/tests.rs
-+++ b/rust/qemu-api/tests/tests.rs
-@@ -13,7 +13,7 @@
-     cell::{self, BqlCell},
-     declare_properties, define_property,
-     prelude::*,
--    qdev::{DeviceClass, DeviceImpl, DeviceState, Property},
-+    qdev::{DeviceClass, DeviceImpl, DeviceState, Property, ResettablePhasesImpl},
-     qom::{ClassInitImpl, ObjectImpl, ParentField},
-     vmstate::VMStateDescription,
-     zeroable::Zeroable,
-@@ -61,6 +61,8 @@ impl ObjectImpl for DummyState {
-     const ABSTRACT: bool = false;
- }
  
-+impl ResettablePhasesImpl for DummyState {}
++/// Trait exposed by all structs corresponding to QOM interfaces.
++/// Unlike `ObjectType`, it is implemented on the class type (which provides
++/// the vtable for the interfaces).
++///
++/// # Safety
++///
++/// `TYPE` must match the contents of the `TypeInfo` as found in the C code;
++/// right now, interfaces can only be declared in C.
++pub unsafe trait InterfaceType: Sized {
++    /// The name of the type, which can be passed to
++    /// `object_class_dynamic_cast()` to obtain the pointer to the vtable
++    /// for this interface.
++    const TYPE_NAME: &'static CStr;
 +
- impl DeviceImpl for DummyState {
-     fn properties() -> &'static [Property] {
-         &DUMMY_PROPERTIES
-@@ -101,6 +103,7 @@ impl ObjectImpl for DummyChildState {
-     const ABSTRACT: bool = false;
- }
- 
-+impl ResettablePhasesImpl for DummyChildState {}
- impl DeviceImpl for DummyChildState {}
- 
- impl ClassInitImpl<DummyClass> for DummyChildState {
++    /// Initialize the vtable for the interface; the generic argument `T` is the
++    /// type being initialized, while the generic argument `U` is the type that
++    /// lists the interface in its `TypeInfo`.
++    ///
++    /// # Panics
++    ///
++    /// Panic if the incoming argument if `T` does not implement the interface.
++    fn interface_init<
++        T: ObjectType + ClassInitImpl<Self> + ClassInitImpl<U::Class>,
++        U: ObjectType,
++    >(
++        klass: &mut U::Class,
++    ) {
++        unsafe {
++            // SAFETY: upcasting to ObjectClass is always valid, and the
++            // return type is either NULL or the argument itself
++            let result: *mut Self = object_class_dynamic_cast(
++                (klass as *mut U::Class).cast(),
++                Self::TYPE_NAME.as_ptr(),
++            )
++            .cast();
++
++            <T as ClassInitImpl<Self>>::class_init(result.as_mut().unwrap())
++        }
++    }
++}
++
+ /// This trait provides safe casting operations for QOM objects to raw pointers,
+ /// to be used for example for FFI. The trait can be applied to any kind of
+ /// reference or smart pointers, and enforces correctness through the [`IsA`]
 -- 
 2.48.1
 
