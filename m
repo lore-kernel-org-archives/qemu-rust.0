@@ -1,96 +1,90 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tgL7C-0002uj-DE
-	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 04:57:38 -0500
+	id 1tgLPl-0007MY-EI
+	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 05:16:53 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tgL7A-0002uQ-I5
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 04:57:36 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1tgLPX-0007Ii-NE
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:16:35 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tgL79-0001DA-8M
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 04:57:36 -0500
+ id 1tgLPV-0003fW-0T
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:16:34 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738922254;
+ s=mimecast20190719; t=1738923390;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lvaWgedovhL6qvDodJtc27J/k74HSE3JQmFk9FPCRRI=;
- b=dO/B/D84kS1pNStlSh7ySk6dstUl3rmwZK0K2JIvdW5ny/W5PS2yJQavvV3T1rPMmmStGs
- 7dZF1Ub0zmaIbCb4ZWBnqj/ZGCHOZpf/DKJdq4OGEITUon21FQRcTapbzdO2clLSxCeU2c
- ITMqGSVmjPNGqj/H3yWDQKtX31DKqjg=
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding;
+ bh=WfSf2kR+KPzGYZoZgRGQYLCZot2N1LSU/8KPAc59nEg=;
+ b=EkzQMjhUvyFnEXkZBF0N1AVWXC9v8GA2El6XgZcW0qoxlvo50AKiTrYMphu2h0yXEPtvTv
+ Zu11+gD2hD8CkoL4ZOtiE1GB8iRykxQqeihgNop9DnV3m3ckVf0OuLjr/w99J6o2xukZzq
+ 0nBUUwq//iZM8ILbMLmdBLYukyNDGxs=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-336-Y9FhkTiIO5aGbl26fJjwUA-1; Fri, 07 Feb 2025 04:57:30 -0500
-X-MC-Unique: Y9FhkTiIO5aGbl26fJjwUA-1
-X-Mimecast-MFC-AGG-ID: Y9FhkTiIO5aGbl26fJjwUA
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-2f550d28f7dso4106004a91.3
- for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 01:57:30 -0800 (PST)
+ us-mta-447-ESmIx1PIPC6TDkDVEj-vCA-1; Fri, 07 Feb 2025 05:16:29 -0500
+X-MC-Unique: ESmIx1PIPC6TDkDVEj-vCA-1
+X-Mimecast-MFC-AGG-ID: ESmIx1PIPC6TDkDVEj-vCA
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-ab7907bb87eso39150466b.3
+ for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 02:16:29 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738922250; x=1739527050;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1738923388; x=1739528188;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=lvaWgedovhL6qvDodJtc27J/k74HSE3JQmFk9FPCRRI=;
- b=Phf3AZ83zRNdM4PzUo3uJxdQnNP7Fd9e4P1+KM9ftpQuXmuadLIPUXexuffgSXfe1w
- nf2UOxkk6koE3GPNXr7TXCPBTzZi3m5PcoL3hYN67mH4o4qjXenw6ZRR4vBxqIi7VfNt
- K4PQabMVHMTlVXZm3DGA9xnzR95MmT4JlyFwvSeQWWCn2xPT9ZcEt6uGX1HOpig+Nm9h
- qaQh0QRL3vo7B5+GUwtT10GDevrs0ir0tY3hT1sZAd40gtfpOw2eJOfgCLEYr+nH8rdg
- pngMCZ7iJ7M3xMr1uJKOBo5WEXr4D2AToVzduH2YKxVyyBad0BWve8yJodLhgIgmR2tS
- qBUQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUew05EuyVf7nSxCV2PiWJ4Un7CpsHeWyBRcMAKkF9w33USFaQbgcxfiFa/991MFxBOQnC/zwzIZQI=@nongnu.org
-X-Gm-Message-State: AOJu0YweLv834Kjde5OO6iJZZB1758tGU+GwgnJCzgqzAUKjpCCZ1PCQ
- jnAdoEP+ZFDCcRxyaS6MtxlWoiq7UvCBvZEkCpPRRoCP0CInSlVYv12Jg2I+L/Ge0UXLG8elY3C
- yZu66RFNKHbA6K4RE4LEuhgTbxLJoYV2dlQHNVA6r3Iz18HJKesjzDJZyzwsIUSm9IOg59IEKij
- 60skn5FuUMxHtiQlUrdqhwvJW4dg==
-X-Gm-Gg: ASbGncv1k18vk3xmgw291AzAJpVVXqQU6PDWVIFwZNoMB4ofRetEtq3Fgh5Z1+QhGuj
- nKu4H+ZNn7Lmkz1u30JGZ233bXR330Jd/Ugw7IfxHn4zPsXPfEoFt4Sc/nGzf
-X-Received: by 2002:a17:90b:4b:b0:2f4:47fc:7f18 with SMTP id
- 98e67ed59e1d1-2fa2406b9aemr4303374a91.10.1738922249795; 
- Fri, 07 Feb 2025 01:57:29 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IE8vg7sO/fnXGSX1pcn/6c7jld/122tubULgKnf5kYhDaNVh9PRJuH9QAaxWY/wP0GsOFXCRDVI+e//iAVUqOk=
-X-Received: by 2002:a17:90b:4b:b0:2f4:47fc:7f18 with SMTP id
- 98e67ed59e1d1-2fa2406b9aemr4303343a91.10.1738922249487; Fri, 07 Feb 2025
- 01:57:29 -0800 (PST)
-MIME-Version: 1.0
-References: <20250125125137.1223277-1-zhao1.liu@intel.com>
- <20250125125137.1223277-4-zhao1.liu@intel.com>
- <17907481-89d6-457c-bcd3-66a444b1325d@redhat.com> <Z6Wx/RGBIElMaeZy@intel.com>
- <Z6W56AH3J1qOx18m@intel.com>
-In-Reply-To: <Z6W56AH3J1qOx18m@intel.com>
+ bh=WfSf2kR+KPzGYZoZgRGQYLCZot2N1LSU/8KPAc59nEg=;
+ b=oayQiHZZ+UMJytvj2EfMi9tA3DOwTY72w953mp2zw4MTP28HgtgziUJtbDjlJ2PoH+
+ Lk94oaX4dqr9/5yo6peA2bbiT6i2MwrQ9PLVlK0fkpP6mu5W4ZiBAkcRndiCSWoGs84c
+ dbDe6pEo4lCuhkMorhpFypm6n7YVxbCqV7ZfKm+T3vmtsmT1WeRyytbcBWClG5CEQ60X
+ +mTgKGM+Bex/Q4KZ2tfbXEiYr4GhQ14VLeCe3W+3pO95FFlmHtYVgmiqJYhWu7R2C8c3
+ lwzPwzLKyomWv1QvfI4it2lWL5whHd0BJBKpmeJFyVgPiSbjUu1K0Gfobsr3ACQxWymY
+ ne7A==
+X-Gm-Message-State: AOJu0YxBBIlyz+XKklRDaWsY29mrPPe413CbWY4sw7wUs4XO1XL2GFp3
+ kW4SheATuPPh8XV+NSdaH1WfseR0ghmfT+5Wmf63yoC9gAwNYqGBDs/jaVIIPABec6NFtADCWik
+ cdywnAKIiG+tnCJd4EGMAJB0ze+FPiPwF1pGxCEuARiNn66JanYw=
+X-Gm-Gg: ASbGncs3KNI/jSP5KAFwwMNbn4o/4fXDCWT41LuhtwDT0b676epoZXH5vVcIjdbZLuO
+ tZv8O9LmzZhddyV1NtDBq7yREuhGOnu7EHT9Nq4c/DB8Vxydk/l6SQmdmhaKDijlyRp3zFw6vNq
+ qYIozvmLuHQJBX9h4b984XcraUQxnE60bD3u1I9ALbiIkocJeUAOyTRkzGnx/i7Fr3r+dQSwVxE
+ 088CLF6zw9ejgFn2byX00KFNaFkhv+1vQB1X0OEJNG8+LGdqSat4xnAqeF16OverVudVBvzaPlV
+ I61yKg==
+X-Received: by 2002:a17:907:7b9c:b0:ab6:dbd2:df78 with SMTP id
+ a640c23a62f3a-ab789c62da8mr266969366b.35.1738923386722; 
+ Fri, 07 Feb 2025 02:16:26 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFTL9U5CDgnSIv/7MajCE2s3sb7k8RK9tIeNNAZoR/G9cmHnAefxIlgeA+16DiCL+IsNCutuA==
+X-Received: by 2002:a17:907:7b9c:b0:ab6:dbd2:df78 with SMTP id
+ a640c23a62f3a-ab789c62da8mr266964366b.35.1738923386303; 
+ Fri, 07 Feb 2025 02:16:26 -0800 (PST)
+Received: from [192.168.10.3] ([151.62.97.55])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab77365fc7dsm237097866b.182.2025.02.07.02.16.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Feb 2025 02:16:25 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Fri, 7 Feb 2025 10:57:11 +0100
-X-Gm-Features: AWEUYZn2gU4VufkLk8QEyRFVx4vlcD4ak9JuJiEFz8GxxeARNPiPzUJNMBAn4Po
-Message-ID: <CABgObfa+_VVQWvrGWf6fJjf39O0AkoNB5aoptDrhk7dDx_SNXQ@mail.gmail.com>
-Subject: Re: [PATCH 03/10] rust/irq: Add a helper to convert [InterruptSource]
- to [*mut IRQState]
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Junjie Mao <junjie.mao@hotmail.com>, 
- =?UTF-8?Q?Alex_Benn=EF=BF=BDe?= <alex.bennee@linaro.org>, 
- =?UTF-8?B?UGhpbGlwcGUgTWF0aGlldS1EYXVk77+9?= <philmd@linaro.org>, 
- Richard Henderson <richard.henderson@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>, 
- =?UTF-8?B?RGFuaWVsIFAgLiBCZXJyYW5n77+9?= <berrange@redhat.com>, 
- qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org,
+	zhao1.liu@intel.com
+Subject: [PATCH 00/12] rust: remaining parts of qdev bindings
+Date: Fri,  7 Feb 2025 11:16:11 +0100
+Message-ID: <20250207101623.2443552-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.48.1
+MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: V-qyNDbEh9aPO-l8MHurrldVVbOAye3m64OrIZrN3P8_1738922250
+X-Mimecast-MFC-PROC-ID: P7FmxiR3Sx9cAJEAcB1Fny912LMmpYEgEuFKeNgwB1A_1738923388
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="000000000000f9210a062d8a6265"
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -103,66 +97,75 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Feb 2025 09:57:36 -0000
+X-List-Received-Date: Fri, 07 Feb 2025 10:16:35 -0000
 
---000000000000f9210a062d8a6265
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This concludes the part of the qdev bindings that is needed to convert
+pl011 to safe Rust, with the exception of chardev bindings and switching
+to the pinned_init crate.
 
-Il ven 7 feb 2025, 08:25 Zhao Liu <zhao1.liu@intel.com> ha scritto:
+It includes reference counting, object creation, clocks, Resettable
+and MemoryRegionOps.  Documentation is at least decent.
 
-> Just to confirm, I check with `cargo +nightly clippy` but it doesn't
-> complain about this case. Should I switch to another version of clippy
-> when I do such check? (currently I'm using v0.1.63 clippy as well, to
-> match rustc.)
->
+The code is getting closer to the synopsis at
+https://lists.nongnu.org/archive/html/qemu-rust/2024-12/msg00006.html,
+except that it works (at least as far as CI is concerned) instead of just
+compiling. :)  And since I'm citing it, a reminder that it may still be
+worth asking your Rust questions as replies to that message.
 
-I don't remember exactly how I noticed it=E2=80=94I am pretty sure it broke=
- in CI
-though. Maybe the change to add rust_version hid it.
-
-To answer your question, generally the idea is that we use the latest
-version of the developer tools (cargo, rustfmt, clippy). In particular old
-versions of cargo don't support retrieving clippy settings from Cargo.toml.
+You can find the code in the rust-next branch of
+https://gitlab.com/bonzini/qemu/.
 
 Paolo
 
+RFC->v1:
+- improvements and fixes for docs and comments
+- fixed Sync/Send declarations for Owned
+- prefer NonNull::cast (could use NonNull<> arguments too in the future)
+- add Send markers too, not just Sync
+- use impl_zeroable! macro
+- add qdev_init_clock_out() too
+- add comments about when to use Owned<>
+- add Owned::clone
+- add conversion of pl011_create to safe Rust for more uses of Owned<>
 
-> Thanks,
-> Zhao
->
->
+Paolo Bonzini (12):
+  rust: qom: add reference counting functionality
+  rust: qom: add object creation functionality
+  rust: callbacks: allow passing optional callbacks as ()
+  rust: qdev: add clock creation
+  rust: qom: allow initializing interface vtables
+  rust: qdev: make ObjectImpl a supertrait of DeviceImpl
+  rust: qdev: switch from legacy reset to Resettable
+  rust: bindings: add Send and Sync markers for types that have bindings
+  rust: bindings for MemoryRegionOps
+  rust: irq: define ObjectType for IRQState
+  rust: chardev, qdev: add bindings to qdev_prop_set_chr
+  rust: pl011: convert pl011_create to safe Rust
 
---000000000000f9210a062d8a6265
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ meson.build                          |   1 +
+ rust/hw/char/pl011/src/device.rs     | 121 +++++++-------
+ rust/hw/char/pl011/src/lib.rs        |   1 -
+ rust/hw/char/pl011/src/memory_ops.rs |  34 ----
+ rust/qemu-api/meson.build            |   2 +
+ rust/qemu-api/src/bindings.rs        |  46 ++++++
+ rust/qemu-api/src/callbacks.rs       |  97 ++++++++++++
+ rust/qemu-api/src/chardev.rs         |  19 +++
+ rust/qemu-api/src/irq.rs             |  18 ++-
+ rust/qemu-api/src/lib.rs             |   2 +
+ rust/qemu-api/src/memory.rs          | 191 ++++++++++++++++++++++
+ rust/qemu-api/src/prelude.rs         |   4 +
+ rust/qemu-api/src/qdev.rs            | 227 ++++++++++++++++++++++++---
+ rust/qemu-api/src/qom.rs             | 218 ++++++++++++++++++++++++-
+ rust/qemu-api/src/sysbus.rs          |  39 ++++-
+ rust/qemu-api/src/vmstate.rs         |  10 +-
+ rust/qemu-api/src/zeroable.rs        |   1 +
+ rust/qemu-api/tests/tests.rs         |  45 +++---
+ 18 files changed, 924 insertions(+), 152 deletions(-)
+ delete mode 100644 rust/hw/char/pl011/src/memory_ops.rs
+ create mode 100644 rust/qemu-api/src/chardev.rs
+ create mode 100644 rust/qemu-api/src/memory.rs
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
-ner"><div dir=3D"ltr" class=3D"gmail_attr">Il ven 7 feb 2025, 08:25 Zhao Li=
-u &lt;<a href=3D"mailto:zhao1.liu@intel.com">zhao1.liu@intel.com</a>&gt; ha=
- scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
-x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Just t=
-o confirm, I check with `cargo +nightly clippy` but it doesn&#39;t<br>
-complain about this case. Should I switch to another version of clippy<br>
-when I do such check? (currently I&#39;m using v0.1.63 clippy as well, to<b=
-r>
-match rustc.)<br></blockquote></div></div><div dir=3D"auto"><br></div><div =
-dir=3D"auto">I don&#39;t remember exactly how I noticed it=E2=80=94I am pre=
-tty sure it broke in CI though. Maybe the change to add rust_version hid it=
-.</div><div dir=3D"auto"><br></div><div dir=3D"auto">To answer your questio=
-n, generally the idea is that we use the latest version of the developer to=
-ols (cargo, rustfmt, clippy). In particular old versions of cargo don&#39;t=
- support retrieving clippy settings from Cargo.toml.</div><div dir=3D"auto"=
-><br></div><div dir=3D"auto">Paolo=C2=A0</div><div dir=3D"auto"><br></div><=
-div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_container"><blockquo=
-te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px =
-solid rgb(204,204,204);padding-left:1ex">
-<br>
-Thanks,<br>
-Zhao<br>
-<br>
-</blockquote></div></div></div>
-
---000000000000f9210a062d8a6265--
+-- 
+2.48.1
 
 
