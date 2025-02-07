@@ -1,71 +1,92 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tgP4k-0004Vi-CG
-	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 09:11:22 -0500
+	id 1tgPWT-0004c1-IH
+	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 09:40:01 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tgP4i-0004UD-5F; Fri, 07 Feb 2025 09:11:20 -0500
-Received: from mgamail.intel.com ([198.175.65.10])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tgPWR-0004Yt-Mk
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 09:39:59 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tgP4f-0000zH-2C; Fri, 07 Feb 2025 09:11:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738937477; x=1770473477;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=JaL/UL+TA4FuGB7aoV0l8ICOHuU1aCLdlnyesY6Y150=;
- b=FiK0bvrLt5YMWHUQQkigQ0A55C2DlHkpjKNuE4GKEOut8GHVenyJop+7
- PPgWpsQbTdXb5tAZwVCPHMNbrmD0k9haAq3lLfex4M1RysTS9tiWdMSOK
- VNO95tMNMfIa+3HpEQwhphQ0Z7uJBBcpDYdPvDT61gob2bkNFatiypKEl
- 15RyqOXOhdBvxyr8lYWI4qclsdqd0usbRPLFPb807w6O5tJkH8byoq6MT
- hU1wuxVrkru0upWzW3p3VZ1mhH+4LmIUbW1hAZ8sKXVUBvsCYhEzjXYfn
- xzivPv7ZURSj3kxEwh1/L7n+JrmEsyRtqhk2oM5Yu7NC/NfX1a04QeY8l A==;
-X-CSE-ConnectionGUID: +lST5y+UQUi1g/Q4ud1OAA==
-X-CSE-MsgGUID: LM45NlUDQ7SISI6Sw8LGMg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11338"; a="56993524"
-X-IronPort-AV: E=Sophos;i="6.13,267,1732608000"; d="scan'208";a="56993524"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2025 06:11:13 -0800
-X-CSE-ConnectionGUID: +HvVvVtjQj2SGErFsBuUhA==
-X-CSE-MsgGUID: RAxQKGDPQdi+IRSOPzlEww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,267,1732608000"; d="scan'208";a="111358441"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa006.fm.intel.com with ESMTP; 07 Feb 2025 06:11:10 -0800
-Date: Fri, 7 Feb 2025 22:30:40 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Junjie Mao <junjie.mao@hotmail.com>,
- Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
- Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
- Richard Henderson <richard.henderson@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>,
- Daniel P =?iso-8859-1?Q?=2E_Berrang=E9?= <berrange@redhat.com>,
- qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 07/10] rust/timer/hpet: define hpet_cfg
-Message-ID: <Z6YZEGCk0hfHxhl4@intel.com>
-References: <20250125125137.1223277-1-zhao1.liu@intel.com>
- <20250125125137.1223277-8-zhao1.liu@intel.com>
- <f2339eb2-f129-48a7-aed8-9d4ee6bcdf05@redhat.com>
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tgPWQ-0004Yj-4A
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 09:39:59 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1738939197;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=kBAuUoUPVP2WG2hJX+48568E2xfoRBu7145/uvULUPA=;
+ b=jB+wXKCXf+I75KosBHMFiL4colsHq94goSX/Mlspvo5Ehdbe6KHjvhlAdw40DN360GM9E7
+ KHykODevW4C9Iowtx7hzMhrTsh5xIdlz9Iu1z0ihak7Xs+hjefEGJzbBHktxsbmjHdG3XR
+ O99OapJmmTvcJHlThoc9/lwSK98UMmc=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-605-pE0Q5W9gPKG582o_3906sQ-1; Fri, 07 Feb 2025 09:39:55 -0500
+X-MC-Unique: pE0Q5W9gPKG582o_3906sQ-1
+X-Mimecast-MFC-AGG-ID: pE0Q5W9gPKG582o_3906sQ
+Received: by mail-ej1-f70.google.com with SMTP id
+ a640c23a62f3a-ab397fff5a3so240623666b.1
+ for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 06:39:55 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1738939194; x=1739543994;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=kBAuUoUPVP2WG2hJX+48568E2xfoRBu7145/uvULUPA=;
+ b=j3ppn+nGiBE8ZKiOzVyoFlgysQ+GnmD0bzvPAE41ulEP3nPr+8G17Iw1v4gmgUCVZ8
+ HNhMj5Mjj4YKS0XfxVOpVj6VJq6RqtkFbeoQyIrka7sutiXGC8MT2Ndk7PM4iGnCvNMj
+ WUbeQ2aVq4lavrFVPuGnEvmtr/W+C1y9OmufF7vtvApizVb6ZfpRirdwVC8NDw/sRntq
+ rm9OB8elefKrdNhpIMzVGLZnTM5xRNk/MXtlFdWG70DMqzxvvuRcwt7jJD18biSHFMyv
+ TkMjwaI7XhJE9KiJgS6Oup1vXz+h5p86itcnYbEQXauvubO6GRzzCETb3DpvY32WCK11
+ pzVw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUxhpo4y0/8HL7wzQc/QOBmiaF/TEFNpD8tbEz/xqztEou6Z4z4XukkUNZ34sDZXofGzYGKaSyznts=@nongnu.org
+X-Gm-Message-State: AOJu0YwT218NpHjp28jU+wz499szj35YY2YPbR5/XTt/LHUGpID8+XWq
+ 0hwCebrVc9JUfX1LlC0tK3V1bDBY55lEcBA/l/K1h6A7Nye6Wb9+dhMRzMGQnoqwXHsyfiAsefE
+ iQEJ/aBdY70zYkYA/1rwA7kVEtWY5743gMhAlT/dlATt0f5ZmLOY=
+X-Gm-Gg: ASbGncumUXP6gCY+YAMptKYeNKNTLU15gAC/acaIJ5PP0qR1QMsjEfGNeatR1aY5CdK
+ 8Ypj7mkRShEC58QZ7GprlJEBEZDJ3RfZhcsvFOacKC2dCctLuHA6YtiIbpTaQGKDKvnaVhX3YJn
+ arH2ikDA0tQumi/4HzrGV5TpaocXZMKCXN0HaTHQBq+JCiTkW2RFA/ZhxnWb7FSnR8tPdc1wZmR
+ +YPIVQC7Zfc8AZWAP0MPUiX0SqXpXPGjYpUumlBu4sc8DlbWnFB+ztj3u2ksE7c7WQT1R0D1npT
+ +/9+sg==
+X-Received: by 2002:a17:907:2989:b0:ab7:844b:fcf2 with SMTP id
+ a640c23a62f3a-ab7844c0063mr306980366b.6.1738939194063; 
+ Fri, 07 Feb 2025 06:39:54 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEhSCcd3SvV7BrIzTgJaA/OSa0qP3qY8f3hr52KRwrUh+Jh+dw81kUC35ZBcBxblwZQr7lLBA==
+X-Received: by 2002:a17:907:2989:b0:ab7:844b:fcf2 with SMTP id
+ a640c23a62f3a-ab7844c0063mr306978566b.6.1738939193746; 
+ Fri, 07 Feb 2025 06:39:53 -0800 (PST)
+Received: from [192.168.10.3] ([151.62.97.55])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab78e82cc0csm98185666b.12.2025.02.07.06.39.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Feb 2025 06:39:53 -0800 (PST)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: stefanha@redhat.com,
+	qemu-rust@nongnu.org
+Subject: [PATCH] rust: pl011: use default set of lints
+Date: Fri,  7 Feb 2025 15:39:51 +0100
+Message-ID: <20250207143952.2486587-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: aAFnF5x1VcYW00f6r15vmvEWxBxEMVz7MU-2NPmyqmc_1738939194
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f2339eb2-f129-48a7-aed8-9d4ee6bcdf05@redhat.com>
-Received-SPF: pass client-ip=198.175.65.10; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -78,43 +99,52 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Feb 2025 14:11:20 -0000
+X-List-Received-Date: Fri, 07 Feb 2025 14:40:00 -0000
 
-On Wed, Jan 29, 2025 at 11:58:46AM +0100, Paolo Bonzini wrote:
-> Date: Wed, 29 Jan 2025 11:58:46 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: Re: [PATCH 07/10] rust/timer/hpet: define hpet_cfg
-> 
-> 
-> 
-> On Sat, Jan 25, 2025 at 1:32 PM Zhao Liu <zhao1.liu@intel.com> wrote:
-> > @@ -5,6 +5,7 @@ edition = "2021"
-> >  authors = ["Zhao Liu <zhao1.liu@intel.com>"]
-> >  license = "GPL-2.0-or-later"
-> >  description = "IA-PC High Precision Event Timer emulation in Rust"
-> 
-> Please add
-> 
-> rust-version = "1.63.0"
-> 
-> here.
+Being the first crate added to QEMU, pl011 has a rather restrictive
+Clippy setup.  This can be sometimes a bit too heavy on its suggestions,
+for example
 
-Done.
+error: this could be a `const fn`
+   --> hw/char/pl011/src/device.rs:382:5
+    |
+382 | /     fn set_read_trigger(&mut self) {
+383 | |         self.read_trigger = 1;
+384 | |     }
+    | |_____^
 
-> > +        // SAFETY: all accesses go through these methods, which guarantee
-> > +        // that the accesses are protected by the BQL.
-> > +        let fw_cfg = unsafe { &mut hpet_fw_cfg };
-> 
-> Clippy complains about references to static mut; use
-> 
->    let mut fw_cfg = unsafe { *addr_of_mut!(hpet_fw_cfg) };
-> 
-> to make it happy; same below in update_hpet_cfg().
-> 
+Just use the standard set that is present in rust/Cargo.toml, with
+just a small adjustment to allow upper case acronyms which are used
+for register names.
 
-Fixed. Thanks!!
+Reported-by: Stefan Hajnoczi <stefanha@redhat.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ rust/hw/char/pl011/src/lib.rs | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-Regards,
-Zhao
+diff --git a/rust/hw/char/pl011/src/lib.rs b/rust/hw/char/pl011/src/lib.rs
+index 88452dc888c..1bf46c65af2 100644
+--- a/rust/hw/char/pl011/src/lib.rs
++++ b/rust/hw/char/pl011/src/lib.rs
+@@ -12,16 +12,7 @@
+ //! See [`PL011State`](crate::device::PL011State) for the device model type and
+ //! the [`registers`] module for register types.
+ 
+-#![deny(
+-    clippy::correctness,
+-    clippy::suspicious,
+-    clippy::complexity,
+-    clippy::perf,
+-    clippy::nursery,
+-    clippy::style
+-)]
+ #![allow(clippy::upper_case_acronyms)]
+-#![allow(clippy::result_unit_err)]
+ 
+ use qemu_api::c_str;
+ 
+-- 
+2.48.1
 
 
