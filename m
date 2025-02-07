@@ -1,63 +1,64 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tgIDs-0003IV-OC
-	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 01:52:20 -0500
+	id 1tgIkG-0005Wf-FM
+	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 02:25:48 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tgIDl-0003Gd-43; Fri, 07 Feb 2025 01:52:13 -0500
-Received: from mgamail.intel.com ([198.175.65.21])
+ id 1tgIjq-0004x8-FG; Fri, 07 Feb 2025 02:25:23 -0500
+Received: from mgamail.intel.com ([192.198.163.19])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tgIDi-0000ob-Ep; Fri, 07 Feb 2025 01:52:12 -0500
+ id 1tgIjo-0007ni-7o; Fri, 07 Feb 2025 02:25:22 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738911131; x=1770447131;
+ t=1738913120; x=1770449120;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=egq0cYWfPaMnTx9wXuN6RsRl60d8z95BLAdDihuuI2s=;
- b=BCh+FP1RpBuHVd8GHB9Am90dvrmyocEP80/fUsw9GFI4MIrid6Vj/jbf
- 72PUegme/z8r2f9Xs0HAQEt5t0iVKAsOHXYqysWoXKgxO4su5GOs7XEA0
- tkM4IGxbqB38ylJVu67U8tDEZUcOG5Ak4fcjKkTbTzjk40c3jDKrBdNDi
- zuAEj/nl9y9e+uaz3ZYk2hFbNI5EAqG5ISxwvJMRIoqAf5RZfcRyfzPd3
- bTPrv1SKwP+mkxfs3ct+aZIGEu+gbreLM9DVoeC882YqDdgd8ZVg5+Fx7
- 5KbhM0NSRKMjrFuDGJmntAWM3NZSikwG66vDyLARGZSrxwfLzGfCypD5p A==;
-X-CSE-ConnectionGUID: EHX586YqS3+BNwUI28PCdA==
-X-CSE-MsgGUID: a3GDB3qPQiynIaAG5mLxxg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="39451552"
-X-IronPort-AV: E=Sophos;i="6.13,266,1732608000"; d="scan'208";a="39451552"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2025 22:51:27 -0800
-X-CSE-ConnectionGUID: GMOoCvHZTJiGXcznNZfSjQ==
-X-CSE-MsgGUID: EcjCImYFQAmhYL4kRVooeQ==
+ bh=hYxTtbnYvDndJpJUwjiU7VHXzZNkmmW/xe8XNc4Zcpc=;
+ b=ep52DSVPjeVeArRPnFCH/BPrHtePzrmGw+0VZ6l/OkYP+k3aeeoY+4Em
+ mBz4qVyc6JtunwvFJL1kPocTX9XFlpNJMhrKhfSmsfzsAd4q9kjC3tGRK
+ k0rG8JUrQ69bJZ8gwYBykeBhINuVra8BKk05gIWOl427j7EsVK3RQsmvQ
+ pZYvL6lhtoALB0pXLByBpqZnihrnknpJICSHNvw/hm1Tc6uChxPUCNZmB
+ 3DiIx0qnq1YUDwkiBB/HYP4a6phjXV8Mgg+pXrh8O9xpPLx676JwUtA4R
+ HHXll4q7rZQIfFGeCw1rpWKgo/ZB7hWTzaBBmwo/BTQhfOpa3ib/aX8Xq A==;
+X-CSE-ConnectionGUID: A/dvwY/jTyaOAM+uInAkkw==
+X-CSE-MsgGUID: U6+g3cllTOySyGzjRTv4uw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="38749094"
+X-IronPort-AV: E=Sophos;i="6.13,266,1732608000"; d="scan'208";a="38749094"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Feb 2025 23:25:17 -0800
+X-CSE-ConnectionGUID: NMGhLfdaST2jZz4+30a0Yg==
+X-CSE-MsgGUID: IeGjMfwSSr2HBuzB1nAzFw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,266,1732608000"; d="scan'208";a="111639499"
+X-IronPort-AV: E=Sophos;i="6.13,266,1732608000"; d="scan'208";a="111275797"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa008.fm.intel.com with ESMTP; 06 Feb 2025 22:51:24 -0800
-Date: Fri, 7 Feb 2025 15:10:53 +0800
+ by fmviesa006.fm.intel.com with ESMTP; 06 Feb 2025 23:25:11 -0800
+Date: Fri, 7 Feb 2025 15:44:40 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Junjie Mao <junjie.mao@hotmail.com>,
- Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
- Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+ Alex =?utf-8?B?QmVubu+/vWU=?= <alex.bennee@linaro.org>,
+ Philippe =?utf-8?B?TWF0aGlldS1EYXVk77+9?= <philmd@linaro.org>,
  Richard Henderson <richard.henderson@linaro.org>,
  Peter Maydell <peter.maydell@linaro.org>,
- Daniel P =?iso-8859-1?Q?=2E_Berrang=E9?= <berrange@redhat.com>,
+ Daniel P =?utf-8?B?LiBCZXJyYW5n77+9?= <berrange@redhat.com>,
  qemu-devel@nongnu.org, qemu-rust@nongnu.org
 Subject: Re: [PATCH 03/10] rust/irq: Add a helper to convert
  [InterruptSource] to [*mut IRQState]
-Message-ID: <Z6Wx/RGBIElMaeZy@intel.com>
+Message-ID: <Z6W56AH3J1qOx18m@intel.com>
 References: <20250125125137.1223277-1-zhao1.liu@intel.com>
  <20250125125137.1223277-4-zhao1.liu@intel.com>
  <17907481-89d6-457c-bcd3-66a444b1325d@redhat.com>
+ <Z6Wx/RGBIElMaeZy@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <17907481-89d6-457c-bcd3-66a444b1325d@redhat.com>
-Received-SPF: pass client-ip=198.175.65.21; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <Z6Wx/RGBIElMaeZy@intel.com>
+Received-SPF: pass client-ip=192.198.163.19; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -15
 X-Spam_score: -1.6
@@ -79,48 +80,45 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Feb 2025 06:52:18 -0000
+X-List-Received-Date: Fri, 07 Feb 2025 07:25:41 -0000
 
-On Wed, Jan 29, 2025 at 11:51:02AM +0100, Paolo Bonzini wrote:
-> Date: Wed, 29 Jan 2025 11:51:02 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
+On Fri, Feb 07, 2025 at 03:10:53PM +0800, Zhao Liu wrote:
+> Date: Fri, 7 Feb 2025 15:10:53 +0800
+> From: Zhao Liu <zhao1.liu@intel.com>
 > Subject: Re: [PATCH 03/10] rust/irq: Add a helper to convert
 >  [InterruptSource] to [*mut IRQState]
 > 
-> On Sat, Jan 25, 2025 at 1:32 PM Zhao Liu <zhao1.liu@intel.com> wrote:
+> On Wed, Jan 29, 2025 at 11:51:02AM +0100, Paolo Bonzini wrote:
+> > Date: Wed, 29 Jan 2025 11:51:02 +0100
+> > From: Paolo Bonzini <pbonzini@redhat.com>
+> > Subject: Re: [PATCH 03/10] rust/irq: Add a helper to convert
+> >  [InterruptSource] to [*mut IRQState]
 > > 
-> > This is useful to hanlde InterruptSource slice and pass it to C
-> > bindings.
+> > On Sat, Jan 25, 2025 at 1:32 PM Zhao Liu <zhao1.liu@intel.com> wrote:
+> > > 
+> > > This is useful to hanlde InterruptSource slice and pass it to C
+> > > bindings.
+> > > 
+> > > Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
 > > 
-> > Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
-> 
-> This may be a bad suggestion, after all. clippy complains that you're
-> casting &[*mut IRQState] to mutable (https://rust-lang.github.io/rust-
-> clippy/master/#as_ptr_cast_mut).
-> 
-> I can think of two solutions:
-> 
-> 1) add #[allow(clippy::as_ptr_cast_mut)] and explain with a comment
-> 
->     // Casting to *mut *mut IRQState is valid, because
->     // the source slice `pins` uses interior mutability.
-> 
-> 2) drop as_slice_of_qemu_irq() and replace it with something like
-> 
->     pub(crate) const fn slice_as_ptr(slice: &[Self]) -> *mut *mut IRQState {
->         slice[0].as_ptr()
->     }
-> 
-> You choose.
->
+> > This may be a bad suggestion, after all. clippy complains that you're
+> > casting &[*mut IRQState] to mutable (https://rust-lang.github.io/rust-
+> > clippy/master/#as_ptr_cast_mut).
+> > 
+> > I can think of two solutions:
+> > 
+> > 1) add #[allow(clippy::as_ptr_cast_mut)] and explain with a comment
+> > 
+> >     // Casting to *mut *mut IRQState is valid, because
+> >     // the source slice `pins` uses interior mutability.
+> >
 
-:) I choose the second way, which goes back to the initial codes.
+I agree it's the best to use interior mutability.
 
-Though an empty slice w/o any check would cause a runtime error like:
-
-"thread '<unnamed>' panicked at 'index out of bounds: the len is 0 but the index is 0'"
-
-Adding an assert to ensure a non-empty slice is better.
+Just to confirm, I check with `cargo +nightly clippy` but it doesn't
+complain about this case. Should I switch to another version of clippy
+when I do such check? (currently I'm using v0.1.63 clippy as well, to
+match rustc.)
 
 Thanks,
 Zhao
