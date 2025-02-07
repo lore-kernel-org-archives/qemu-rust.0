@@ -1,88 +1,91 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tgLPl-0007MY-EI
-	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 05:16:53 -0500
+	id 1tgLQ1-0007Tb-CT
+	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 05:17:05 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tgLPX-0007Ii-NE
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:16:35 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1tgLPe-0007KV-Ah
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:16:45 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tgLPV-0003fW-0T
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:16:34 -0500
+ id 1tgLPc-0003wM-7A
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:16:41 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738923390;
+ s=mimecast20190719; t=1738923399;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=WfSf2kR+KPzGYZoZgRGQYLCZot2N1LSU/8KPAc59nEg=;
- b=EkzQMjhUvyFnEXkZBF0N1AVWXC9v8GA2El6XgZcW0qoxlvo50AKiTrYMphu2h0yXEPtvTv
- Zu11+gD2hD8CkoL4ZOtiE1GB8iRykxQqeihgNop9DnV3m3ckVf0OuLjr/w99J6o2xukZzq
- 0nBUUwq//iZM8ILbMLmdBLYukyNDGxs=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ybz9Kd3KNqxlJqHHjf3WKawSVTyUpJp4hK0ydPUn82E=;
+ b=MLx7GQ9CxR5iBQDrF00SeKPeaDAfsrbABGiZiC3h3ZUvXKCrx9JE3fnByqGgUeTbVW5EZh
+ xY2kcmw+soO58/TzzXwNxDaTHLDGYVnS6bpJeAmYP1MESTGGfkgLUCqTwvsXzr6FHcB9GZ
+ yN4pzFHPT58Ii13QNhwfOvnUD4u+IQk=
 Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
  [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-447-ESmIx1PIPC6TDkDVEj-vCA-1; Fri, 07 Feb 2025 05:16:29 -0500
-X-MC-Unique: ESmIx1PIPC6TDkDVEj-vCA-1
-X-Mimecast-MFC-AGG-ID: ESmIx1PIPC6TDkDVEj-vCA
+ us-mta-682-T2Ho2AKZORGjx1Y-GdAUCQ-1; Fri, 07 Feb 2025 05:16:38 -0500
+X-MC-Unique: T2Ho2AKZORGjx1Y-GdAUCQ-1
+X-Mimecast-MFC-AGG-ID: T2Ho2AKZORGjx1Y-GdAUCQ
 Received: by mail-ej1-f71.google.com with SMTP id
- a640c23a62f3a-ab7907bb87eso39150466b.3
- for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 02:16:29 -0800 (PST)
+ a640c23a62f3a-ab78f08e32cso42636466b.2
+ for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 02:16:38 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738923388; x=1739528188;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=WfSf2kR+KPzGYZoZgRGQYLCZot2N1LSU/8KPAc59nEg=;
- b=oayQiHZZ+UMJytvj2EfMi9tA3DOwTY72w953mp2zw4MTP28HgtgziUJtbDjlJ2PoH+
- Lk94oaX4dqr9/5yo6peA2bbiT6i2MwrQ9PLVlK0fkpP6mu5W4ZiBAkcRndiCSWoGs84c
- dbDe6pEo4lCuhkMorhpFypm6n7YVxbCqV7ZfKm+T3vmtsmT1WeRyytbcBWClG5CEQ60X
- +mTgKGM+Bex/Q4KZ2tfbXEiYr4GhQ14VLeCe3W+3pO95FFlmHtYVgmiqJYhWu7R2C8c3
- lwzPwzLKyomWv1QvfI4it2lWL5whHd0BJBKpmeJFyVgPiSbjUu1K0Gfobsr3ACQxWymY
- ne7A==
-X-Gm-Message-State: AOJu0YxBBIlyz+XKklRDaWsY29mrPPe413CbWY4sw7wUs4XO1XL2GFp3
- kW4SheATuPPh8XV+NSdaH1WfseR0ghmfT+5Wmf63yoC9gAwNYqGBDs/jaVIIPABec6NFtADCWik
- cdywnAKIiG+tnCJd4EGMAJB0ze+FPiPwF1pGxCEuARiNn66JanYw=
-X-Gm-Gg: ASbGncs3KNI/jSP5KAFwwMNbn4o/4fXDCWT41LuhtwDT0b676epoZXH5vVcIjdbZLuO
- tZv8O9LmzZhddyV1NtDBq7yREuhGOnu7EHT9Nq4c/DB8Vxydk/l6SQmdmhaKDijlyRp3zFw6vNq
- qYIozvmLuHQJBX9h4b984XcraUQxnE60bD3u1I9ALbiIkocJeUAOyTRkzGnx/i7Fr3r+dQSwVxE
- 088CLF6zw9ejgFn2byX00KFNaFkhv+1vQB1X0OEJNG8+LGdqSat4xnAqeF16OverVudVBvzaPlV
- I61yKg==
-X-Received: by 2002:a17:907:7b9c:b0:ab6:dbd2:df78 with SMTP id
- a640c23a62f3a-ab789c62da8mr266969366b.35.1738923386722; 
- Fri, 07 Feb 2025 02:16:26 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFTL9U5CDgnSIv/7MajCE2s3sb7k8RK9tIeNNAZoR/G9cmHnAefxIlgeA+16DiCL+IsNCutuA==
-X-Received: by 2002:a17:907:7b9c:b0:ab6:dbd2:df78 with SMTP id
- a640c23a62f3a-ab789c62da8mr266964366b.35.1738923386303; 
- Fri, 07 Feb 2025 02:16:26 -0800 (PST)
+ d=1e100.net; s=20230601; t=1738923396; x=1739528196;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ybz9Kd3KNqxlJqHHjf3WKawSVTyUpJp4hK0ydPUn82E=;
+ b=dKr2piD4TkBzLktesv6Q+sUsiQMa5D3eLD/HfQw/Cvj8/BtpIdkw9Dh0kL1iuQ8Za7
+ Dnuwya4Rf9Yn1BnnoWIB3MVJHG/hJMJAwSUf/slKlVAd9kaW3dpH4FQerAx/YLll4xF7
+ mXFszE/rn42op1+tY1HqVBPCSQipb/wbHGPbe/UGuRJFOvxlxyfgan/59EvH0wfXPY+k
+ y7dDWYXJgrAJs+WhCv3sEjtRhjBbE0OJYNSFRU7Q4UrnCS4fFGMk2zhak5x5VGGTQaVd
+ I5Tf4K+MP1TtarmtMAPthVInuvRLnNL4WnM2cxojpJ7AVfigndpoiAhq3O4So9mgPK3E
+ IVBA==
+X-Gm-Message-State: AOJu0YzFL0c9ONIFPBc1tgAcu6ZnfrLnWgtEy+35L5p8E/6lEOK9q/ad
+ GP2gXCgKy0MJnfHxi1az8ruwOoWPC3G+O56PSPoPXnS1g8N0FpNrAj1jU23Gr9kS+X5YrPK8zOE
+ uLZox8LnxRXXpwnCT74OoRtAQSoIb//6pi9tk14ux49NZyDQVwN8Jm/dBnpXm2Q==
+X-Gm-Gg: ASbGncvw301JyP14S7y64tatR4yxNBXqqEWGmEhXoCXoF0p0ihubikAggsmN+dYpzHI
+ leIIUWPxYrScwcNn1WgHmtGW9VpXIf4DSaqmCKr77D3pSB8fZS7j8U6Xs5a8BTkOK8lXbu/5Cdp
+ FcueLWTDmXtoBGXRtpfC44OHcoUUa4D2MNr2pkTNnWi7/Y+T0S+H/0k8FLMxafp/jXAiQyRahRG
+ qmBdleY4UPpdWhLSCysdCdTnEdwluZhhbHo9ptboP7sKIoKcORmyx/1+6Rk7m97802jhZryveEQ
+ 0Qh/6Q==
+X-Received: by 2002:a17:906:f585:b0:ab6:b848:2ab with SMTP id
+ a640c23a62f3a-ab789b344a7mr278032166b.16.1738923396234; 
+ Fri, 07 Feb 2025 02:16:36 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFRMwDZp5GoGPo4LhchJ2F/GIOnN4dlM12Yx76gbWciYm/C8FDZEwHLD7KfPm0N5vouH7BKcw==
+X-Received: by 2002:a17:906:f585:b0:ab6:b848:2ab with SMTP id
+ a640c23a62f3a-ab789b344a7mr278026966b.16.1738923395815; 
+ Fri, 07 Feb 2025 02:16:35 -0800 (PST)
 Received: from [192.168.10.3] ([151.62.97.55])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab77365fc7dsm237097866b.182.2025.02.07.02.16.24
+ a640c23a62f3a-ab773339986sm238685766b.156.2025.02.07.02.16.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2025 02:16:25 -0800 (PST)
+ Fri, 07 Feb 2025 02:16:30 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org,
 	zhao1.liu@intel.com
-Subject: [PATCH 00/12] rust: remaining parts of qdev bindings
-Date: Fri,  7 Feb 2025 11:16:11 +0100
-Message-ID: <20250207101623.2443552-1-pbonzini@redhat.com>
+Subject: [PATCH 02/12] rust: qom: add object creation functionality
+Date: Fri,  7 Feb 2025 11:16:13 +0100
+Message-ID: <20250207101623.2443552-3-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250207101623.2443552-1-pbonzini@redhat.com>
+References: <20250207101623.2443552-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: P7FmxiR3Sx9cAJEAcB1Fny912LMmpYEgEuFKeNgwB1A_1738923388
+X-Mimecast-MFC-PROC-ID: JKgRT95x1FDzPxmNbLPuhlRCs1DqO-WurUtapL1QgSQ_1738923397
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -97,74 +100,194 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Feb 2025 10:16:35 -0000
+X-List-Received-Date: Fri, 07 Feb 2025 10:16:52 -0000
 
-This concludes the part of the qdev bindings that is needed to convert
-pl011 to safe Rust, with the exception of chardev bindings and switching
-to the pinned_init crate.
+The basic object lifecycle test can now be implemented using safe code!
 
-It includes reference counting, object creation, clocks, Resettable
-and MemoryRegionOps.  Documentation is at least decent.
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ rust/hw/char/pl011/src/device.rs | 23 +++++++++++++----------
+ rust/qemu-api/src/prelude.rs     |  1 +
+ rust/qemu-api/src/qom.rs         | 23 +++++++++++++++++++++--
+ rust/qemu-api/tests/tests.rs     | 30 +++++++++++-------------------
+ 4 files changed, 46 insertions(+), 31 deletions(-)
 
-The code is getting closer to the synopsis at
-https://lists.nongnu.org/archive/html/qemu-rust/2024-12/msg00006.html,
-except that it works (at least as far as CI is concerned) instead of just
-compiling. :)  And since I'm citing it, a reminder that it may still be
-worth asking your Rust questions as replies to that message.
-
-You can find the code in the rust-next branch of
-https://gitlab.com/bonzini/qemu/.
-
-Paolo
-
-RFC->v1:
-- improvements and fixes for docs and comments
-- fixed Sync/Send declarations for Owned
-- prefer NonNull::cast (could use NonNull<> arguments too in the future)
-- add Send markers too, not just Sync
-- use impl_zeroable! macro
-- add qdev_init_clock_out() too
-- add comments about when to use Owned<>
-- add Owned::clone
-- add conversion of pl011_create to safe Rust for more uses of Owned<>
-
-Paolo Bonzini (12):
-  rust: qom: add reference counting functionality
-  rust: qom: add object creation functionality
-  rust: callbacks: allow passing optional callbacks as ()
-  rust: qdev: add clock creation
-  rust: qom: allow initializing interface vtables
-  rust: qdev: make ObjectImpl a supertrait of DeviceImpl
-  rust: qdev: switch from legacy reset to Resettable
-  rust: bindings: add Send and Sync markers for types that have bindings
-  rust: bindings for MemoryRegionOps
-  rust: irq: define ObjectType for IRQState
-  rust: chardev, qdev: add bindings to qdev_prop_set_chr
-  rust: pl011: convert pl011_create to safe Rust
-
- meson.build                          |   1 +
- rust/hw/char/pl011/src/device.rs     | 121 +++++++-------
- rust/hw/char/pl011/src/lib.rs        |   1 -
- rust/hw/char/pl011/src/memory_ops.rs |  34 ----
- rust/qemu-api/meson.build            |   2 +
- rust/qemu-api/src/bindings.rs        |  46 ++++++
- rust/qemu-api/src/callbacks.rs       |  97 ++++++++++++
- rust/qemu-api/src/chardev.rs         |  19 +++
- rust/qemu-api/src/irq.rs             |  18 ++-
- rust/qemu-api/src/lib.rs             |   2 +
- rust/qemu-api/src/memory.rs          | 191 ++++++++++++++++++++++
- rust/qemu-api/src/prelude.rs         |   4 +
- rust/qemu-api/src/qdev.rs            | 227 ++++++++++++++++++++++++---
- rust/qemu-api/src/qom.rs             | 218 ++++++++++++++++++++++++-
- rust/qemu-api/src/sysbus.rs          |  39 ++++-
- rust/qemu-api/src/vmstate.rs         |  10 +-
- rust/qemu-api/src/zeroable.rs        |   1 +
- rust/qemu-api/tests/tests.rs         |  45 +++---
- 18 files changed, 924 insertions(+), 152 deletions(-)
- delete mode 100644 rust/hw/char/pl011/src/memory_ops.rs
- create mode 100644 rust/qemu-api/src/chardev.rs
- create mode 100644 rust/qemu-api/src/memory.rs
-
+diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
+index 8050ede9c85..f5db114b0c7 100644
+--- a/rust/hw/char/pl011/src/device.rs
++++ b/rust/hw/char/pl011/src/device.rs
+@@ -10,11 +10,11 @@
+ 
+ use qemu_api::{
+     bindings::{
+-        error_fatal, hwaddr, memory_region_init_io, qdev_init_clock_in, qdev_new,
+-        qdev_prop_set_chr, qemu_chr_fe_accept_input, qemu_chr_fe_ioctl, qemu_chr_fe_set_handlers,
+-        qemu_chr_fe_write_all, qemu_irq, sysbus_connect_irq, sysbus_mmio_map,
+-        sysbus_realize_and_unref, CharBackend, Chardev, Clock, ClockEvent, MemoryRegion,
+-        QEMUChrEvent, CHR_IOCTL_SERIAL_SET_BREAK,
++        error_fatal, hwaddr, memory_region_init_io, qdev_init_clock_in, qdev_prop_set_chr,
++        qemu_chr_fe_accept_input, qemu_chr_fe_ioctl, qemu_chr_fe_set_handlers,
++        qemu_chr_fe_write_all, qemu_irq, sysbus_connect_irq, sysbus_mmio_map, sysbus_realize,
++        CharBackend, Chardev, Clock, ClockEvent, MemoryRegion, QEMUChrEvent,
++        CHR_IOCTL_SERIAL_SET_BREAK,
+     },
+     c_str, impl_vmstate_forward,
+     irq::InterruptSource,
+@@ -705,15 +705,18 @@ pub fn post_load(&self, _version_id: u32) -> Result<(), ()> {
+     irq: qemu_irq,
+     chr: *mut Chardev,
+ ) -> *mut DeviceState {
++    let pl011 = PL011State::new();
+     unsafe {
+-        let dev: *mut DeviceState = qdev_new(PL011State::TYPE_NAME.as_ptr());
+-        let sysbus: *mut SysBusDevice = dev.cast::<SysBusDevice>();
+-
++        let dev = pl011.as_mut_ptr::<DeviceState>();
+         qdev_prop_set_chr(dev, c_str!("chardev").as_ptr(), chr);
+-        sysbus_realize_and_unref(sysbus, addr_of_mut!(error_fatal));
++
++        let sysbus = pl011.as_mut_ptr::<SysBusDevice>();
++        sysbus_realize(sysbus, addr_of_mut!(error_fatal));
+         sysbus_mmio_map(sysbus, 0, addr);
+         sysbus_connect_irq(sysbus, 0, irq);
+-        dev
++
++        // return the pointer, which is kept alive by the QOM tree; drop owned ref
++        pl011.as_mut_ptr()
+     }
+ }
+ 
+diff --git a/rust/qemu-api/src/prelude.rs b/rust/qemu-api/src/prelude.rs
+index 2dc86e19b29..3df6a5c21ec 100644
+--- a/rust/qemu-api/src/prelude.rs
++++ b/rust/qemu-api/src/prelude.rs
+@@ -12,6 +12,7 @@
+ pub use crate::qom::ObjectCast;
+ pub use crate::qom::ObjectCastMut;
+ pub use crate::qom::ObjectDeref;
++pub use crate::qom::ObjectClassMethods;
+ pub use crate::qom::ObjectMethods;
+ pub use crate::qom::ObjectType;
+ 
+diff --git a/rust/qemu-api/src/qom.rs b/rust/qemu-api/src/qom.rs
+index 4a2e84c9aed..fad4759d7a6 100644
+--- a/rust/qemu-api/src/qom.rs
++++ b/rust/qemu-api/src/qom.rs
+@@ -66,8 +66,8 @@
+ 
+ use crate::{
+     bindings::{
+-        self, object_dynamic_cast, object_get_class, object_get_typename, object_ref, object_unref,
+-        TypeInfo,
++        self, object_dynamic_cast, object_get_class, object_get_typename, object_new, object_ref,
++        object_unref, TypeInfo,
+     },
+     cell::bql_locked,
+ };
+@@ -759,6 +759,24 @@ fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+     }
+ }
+ 
++/// Trait for class methods exposed by the Object class.  The methods can be
++/// called on all objects that have the trait `IsA<Object>`.
++///
++/// The trait should only be used through the blanket implementation,
++/// which guarantees safety via `IsA`
++pub trait ObjectClassMethods: IsA<Object> {
++    /// Return a new reference counted instance of this class
++    fn new() -> Owned<Self> {
++        assert!(bql_locked());
++        // SAFETY: the object created by object_new is allocated on
++        // the heap and has a reference count of 1
++        unsafe {
++            let obj = &*object_new(Self::TYPE_NAME.as_ptr());
++            Owned::from_raw(obj.unsafe_cast::<Self>())
++        }
++    }
++}
++
+ /// Trait for methods exposed by the Object class.  The methods can be
+ /// called on all objects that have the trait `IsA<Object>`.
+ ///
+@@ -799,4 +817,5 @@ fn debug_fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+     }
+ }
+ 
++impl<T> ObjectClassMethods for T where T: IsA<Object> {}
+ impl<R: ObjectDeref> ObjectMethods for R where R::Target: IsA<Object> {}
+diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
+index 69ddac7f1c5..9986925d71f 100644
+--- a/rust/qemu-api/tests/tests.rs
++++ b/rust/qemu-api/tests/tests.rs
+@@ -3,8 +3,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ 
+ use std::{
+-    ffi::CStr,
+-    os::raw::c_void,
++    ffi::{c_void, CStr},
+     ptr::{addr_of, addr_of_mut},
+ };
+ 
+@@ -132,10 +131,8 @@ fn init_qom() {
+ /// Create and immediately drop an instance.
+ fn test_object_new() {
+     init_qom();
+-    unsafe {
+-        object_unref(object_new(DummyState::TYPE_NAME.as_ptr()).cast());
+-        object_unref(object_new(DummyChildState::TYPE_NAME.as_ptr()).cast());
+-    }
++    drop(DummyState::new());
++    drop(DummyChildState::new());
+ }
+ 
+ #[test]
+@@ -152,12 +149,8 @@ fn test_clone() {
+ /// Try invoking a method on an object.
+ fn test_typename() {
+     init_qom();
+-    let p: *mut DummyState = unsafe { object_new(DummyState::TYPE_NAME.as_ptr()).cast() };
+-    let p_ref: &DummyState = unsafe { &*p };
+-    assert_eq!(p_ref.typename(), "dummy");
+-    unsafe {
+-        object_unref(p_ref.as_object_mut_ptr().cast::<c_void>());
+-    }
++    let p = DummyState::new();
++    assert_eq!(p.typename(), "dummy");
+ }
+ 
+ // a note on all "cast" tests: usually, especially for downcasts the desired
+@@ -172,24 +165,23 @@ fn test_typename() {
+ /// Test casts on shared references.
+ fn test_cast() {
+     init_qom();
+-    let p: *mut DummyState = unsafe { object_new(DummyState::TYPE_NAME.as_ptr()).cast() };
++    let p = DummyState::new();
++    let p_ptr: *mut DummyState = unsafe { p.as_mut_ptr() };
++    let p_ref: &mut DummyState = unsafe { &mut *p_ptr };
+ 
+-    let p_ref: &DummyState = unsafe { &*p };
+     let obj_ref: &Object = p_ref.upcast();
+-    assert_eq!(addr_of!(*obj_ref), p.cast());
++    assert_eq!(addr_of!(*obj_ref), p_ptr.cast());
+ 
+     let sbd_ref: Option<&SysBusDevice> = obj_ref.dynamic_cast();
+     assert!(sbd_ref.is_none());
+ 
+     let dev_ref: Option<&DeviceState> = obj_ref.downcast();
+-    assert_eq!(addr_of!(*dev_ref.unwrap()), p.cast());
++    assert_eq!(addr_of!(*dev_ref.unwrap()), p_ptr.cast());
+ 
+     // SAFETY: the cast is wrong, but the value is only used for comparison
+     unsafe {
+         let sbd_ref: &SysBusDevice = obj_ref.unsafe_cast();
+-        assert_eq!(addr_of!(*sbd_ref), p.cast());
+-
+-        object_unref(p_ref.as_object_mut_ptr().cast::<c_void>());
++        assert_eq!(addr_of!(*sbd_ref), p_ptr.cast());
+     }
+ }
+ 
 -- 
 2.48.1
 
