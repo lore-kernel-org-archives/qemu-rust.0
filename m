@@ -1,93 +1,70 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tgLQj-000095-CJ
-	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 05:17:49 -0500
+	id 1tgOBq-000297-9B
+	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 08:14:38 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tgLQW-0008Er-1u
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:17:36 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tgOBm-00028G-I1; Fri, 07 Feb 2025 08:14:35 -0500
+Received: from mgamail.intel.com ([198.175.65.20])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tgLQU-0004O0-A9
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 05:17:35 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738923453;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oC4sSczyHUPcW1OOZ38NHr8TjI3/9SwgCw7OQNwY7a8=;
- b=QRhvMeGohKgBR9EeKxrLiqX5yR+R4sYm+tsO3vjGgQdhyFUDYlztHCIGKzaDQWn6YL/Ci0
- cP1sMXl1uy/T/RF6A+JpfLV9caSLx1Rl9WCT6iQtdCd1xl8CF2GicvyCr9opWbF/uBpW3M
- Ut8ylBC0Y7byWiS6N6JLm0GHZ6E5fgE=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-483-P4VufljIOy25VhhzNTzqMg-1; Fri, 07 Feb 2025 05:17:32 -0500
-X-MC-Unique: P4VufljIOy25VhhzNTzqMg-1
-X-Mimecast-MFC-AGG-ID: P4VufljIOy25VhhzNTzqMg
-Received: by mail-ej1-f71.google.com with SMTP id
- a640c23a62f3a-ab2e44dc9b8so312132966b.1
- for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 02:17:32 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738923449; x=1739528249;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=oC4sSczyHUPcW1OOZ38NHr8TjI3/9SwgCw7OQNwY7a8=;
- b=kopcNmISwh1aeBv0HeWDCirFPSZxo7ZHxQ/c+ZCYYhGJAsBztfRwCfD4eLC3JwUOPT
- OIwBtArMmvkEL4q2WKc6Z2bcYDMqcqU7sqE4FCMfyNz3FfnhgR70409aGDXoAL5bvQk2
- StM3jHYAz5UfS/E1qmduVraWXcruc1T3RGPxniHPYTdGkgKFcO+fNjF0ycgQPCQkFmcb
- 9I1si57qtn8pVqRafxoSHoLzNaH7dZNxZDHc602l310ywuAdTe+SofrZi9L01Ol939Wg
- rRFBLd4aRUvLZUeqhn1EsGuE/Xi1KCwzHhUr1kuAVd666Yu4hl5hS05cxxQQ0EI4T+F8
- QOmQ==
-X-Gm-Message-State: AOJu0Ywmo5MjD0Q3lqy1VTlUirvFS4Ck1s02jCjXmevY7cMJmy3odxOf
- iQ/uQQPSNx4JwPHzD9z6r9y7gEJTRLBQe9zNIv5CdcO8+P0IRei/8ZWPfAWwyWBCRn3hD7bAEHJ
- 5q4XvhZYkCg9zQdup4mdztSsAXzQ5hRS15cnxeHnzzGpAupX4iv98RkPKzlzCyA==
-X-Gm-Gg: ASbGncsvUFyV8xr3sNxE6DEBILc7m2TEYsNUt3kmzc4GY5KlPeRyQvfUCqyW7r9XY63
- Ea2muAvFK4RHANDHvFtBzgbcCmqZMieHj3j1lq7JchBZHBNjiia28bKStddgz4N2vR71rB3/PxH
- qfnMZDbhWeBHbLnt7XAJtT/62Qp5mRcj5ct/HDrCIq0yVPB/M+eIIjeWlLHyUIMPsecVkx13fU9
- atunaBzFBif2swzjTWgW7OyCuB20UGPTXKRKYdgh9ikJTJGzpXcdI3McrJUy4Z1qY1rfLS4Zb2d
- 2jVjjg==
-X-Received: by 2002:a17:907:d08d:b0:ab7:6d49:2c03 with SMTP id
- a640c23a62f3a-ab789c60410mr215137966b.19.1738923449194; 
- Fri, 07 Feb 2025 02:17:29 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFe0xsu8AxCXKMVsluGB+rII8w3U/NIqVdeJNW6ztpaWVv5HgBhXR4pXND5uDrb6wiZzetH/g==
-X-Received: by 2002:a17:907:d08d:b0:ab7:6d49:2c03 with SMTP id
- a640c23a62f3a-ab789c60410mr215134966b.19.1738923448776; 
- Fri, 07 Feb 2025 02:17:28 -0800 (PST)
-Received: from [192.168.10.3] ([151.62.97.55])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7732e6192sm238995966b.121.2025.02.07.02.17.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2025 02:17:25 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org,
-	zhao1.liu@intel.com
-Subject: [PATCH 12/12] rust: pl011: convert pl011_create to safe Rust
-Date: Fri,  7 Feb 2025 11:16:23 +0100
-Message-ID: <20250207101623.2443552-13-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250207101623.2443552-1-pbonzini@redhat.com>
-References: <20250207101623.2443552-1-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tgOBh-0000xJ-HQ; Fri, 07 Feb 2025 08:14:33 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1738934070; x=1770470070;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=oa5egkzz6wHMDqFUbjxrfEjYAs/qKVk2eEFoeXYlyNI=;
+ b=dmPYr3WZOJP54eBt5tLlyoL8xPTQ99IuabYSILiGYlUmrT8sG2DvyXxI
+ cTjYb5zIKIXl9qqu9hRncMxw+KoWY7NI3bJYaW7qq5rLXpCZ3/OZxT72f
+ 9QM1WoW5Vi9vqlo18nu7FVmW47ybGGD7nJF3Mu0qxlP++U0zhQYKgGjr+
+ 35gDl+0lsOH/qUUUJq6/fUS5gP0c63X+dje3juDUuMX2Rb/UcUSZs2y7B
+ LxpvqgsZNJoPgXE/H6nEjpOICRNmevrfN5R53OL2FQTI1ls56Ap0XHleL
+ pppTH7TeZrqEcEzg5Em0MLLYJcLqNe06ZuxgQx8iOgnQA4VKDe6Ce0xX6 w==;
+X-CSE-ConnectionGUID: 4wvwRyQjSzC4hyW6szv81w==
+X-CSE-MsgGUID: d5SiKoDISgCcVH6X2Go8Ew==
+X-IronPort-AV: E=McAfee;i="6700,10204,11338"; a="39266364"
+X-IronPort-AV: E=Sophos;i="6.13,267,1732608000"; d="scan'208";a="39266364"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Feb 2025 05:14:26 -0800
+X-CSE-ConnectionGUID: W7sB86+dQdCYr9YYBuXP/w==
+X-CSE-MsgGUID: kmh0h/17RRG2vC+S6i74Fw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="112417933"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa008.jf.intel.com with ESMTP; 07 Feb 2025 05:14:23 -0800
+Date: Fri, 7 Feb 2025 21:33:52 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Junjie Mao <junjie.mao@hotmail.com>,
+ Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+ Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Daniel P =?iso-8859-1?Q?=2E_Berrang=E9?= <berrange@redhat.com>,
+ qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH 06/10] rust: add bindings for timer
+Message-ID: <Z6YLwAqDGm+9aiaM@intel.com>
+References: <20250125125137.1223277-1-zhao1.liu@intel.com>
+ <20250125125137.1223277-7-zhao1.liu@intel.com>
+ <a30bfa1c-ddb8-4a5b-9f95-7b000c11cd54@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: TkBtdrzqlpojTatZTMnQQbPN8hWSrIIXKflF1QCGPp8_1738923451
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a30bfa1c-ddb8-4a5b-9f95-7b000c11cd54@redhat.com>
+Received-SPF: pass client-ip=198.175.65.20; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -100,147 +77,162 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Feb 2025 10:17:40 -0000
+X-List-Received-Date: Fri, 07 Feb 2025 13:14:35 -0000
 
-Not a major change but, as a small but significant step in creating
-qdev bindings, show how pl011_create can be written without "unsafe"
-calls (apart from converting pointers to references).
+> > +pub use bindings::QEMUTimer;
+> > +
+> > +use crate::{
+> > +    bindings::{
+> > +        self, qemu_clock_get_ns, timer_del, timer_init_full, timer_mod, QEMUClockType,
+> > +        QEMUTimerListGroup,
+> > +    },
+> > +    callbacks::FnCall,
+> > +};
+> > +
+> > +impl QEMUTimer {
+> > +    pub fn new() -> Self {
+> > +        Default::default()
+> > +    }
+> > +
+> > +    pub fn timer_init_full<'timer, 'opaque: 'timer, T, F>(
+> 
+> General question - should the names:
+> 
+> - include the "timer" part, matching QEMU C code, or exclude it to avoid
+> repetition? I would say remove it, 
 
-This also provides a starting point for creating Error** bindings.
+I agree and I would name it "init()" instead of "init_full()".
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- rust/hw/char/pl011/src/device.rs | 39 ++++++++++++++++----------------
- rust/qemu-api/src/sysbus.rs      | 34 +++++++++++++++++++++++++---
- 2 files changed, 50 insertions(+), 23 deletions(-)
+> but I'm open to suggestions and other
+> opinions
+>
+> - include the "QEMU" part? I'd say remove it, similar to ClockType below
+> that is:
+> 
+> -pub use bindings::QEMUTimer;
+> +pub use bindings::QEMUTimer as Timer;
+> +pub use bindings::QEMUTimerList as TimerList;
+> +pub use bindings::QEMUTimerListGroup as TimerListGroup;
 
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index 22f3ca3b4e8..7e936b50eb0 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -10,14 +10,12 @@
- 
- use qemu_api::{
-     bindings::{
--        error_fatal, qdev_prop_set_chr, qemu_chr_fe_accept_input, qemu_chr_fe_ioctl,
--        qemu_chr_fe_set_handlers, qemu_chr_fe_write_all, qemu_irq, sysbus_connect_irq,
--        sysbus_mmio_map, sysbus_realize, CharBackend, Chardev, QEMUChrEvent,
--        CHR_IOCTL_SERIAL_SET_BREAK,
-+        qemu_chr_fe_accept_input, qemu_chr_fe_ioctl, qemu_chr_fe_set_handlers,
-+        qemu_chr_fe_write_all, CharBackend, QEMUChrEvent, CHR_IOCTL_SERIAL_SET_BREAK,
-     },
-     chardev::Chardev,
--    c_str, impl_vmstate_forward,
--    irq::InterruptSource,
-+    impl_vmstate_forward,
-+    irq::{IRQState, InterruptSource},
-     memory::{hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder},
-     prelude::*,
-     qdev::{Clock, ClockEvent, DeviceImpl, DeviceState, Property, ResetType, ResettablePhasesImpl},
-@@ -698,26 +696,27 @@ pub fn post_load(&self, _version_id: u32) -> Result<(), ()> {
- 
- /// # Safety
- ///
--/// We expect the FFI user of this function to pass a valid pointer for `chr`.
-+/// We expect the FFI user of this function to pass a valid pointer for `chr`
-+/// and `irq`.
- #[no_mangle]
- pub unsafe extern "C" fn pl011_create(
-     addr: u64,
--    irq: qemu_irq,
-+    irq: *mut IRQState,
-     chr: *mut Chardev,
- ) -> *mut DeviceState {
--    let pl011 = PL011State::new();
--    unsafe {
--        let dev = pl011.as_mut_ptr::<DeviceState>();
--        qdev_prop_set_chr(dev, c_str!("chardev").as_ptr(), chr);
-+    // SAFETY: The callers promise that they have owned references.
-+    // They do not gift them to pl011_create, so use `Owned::from`.
-+    let irq = unsafe { Owned::<IRQState>::from(&*irq) };
-+    let chr = unsafe { Owned::<Chardev>::from(&*chr) };
- 
--        let sysbus = pl011.as_mut_ptr::<SysBusDevice>();
--        sysbus_realize(sysbus, addr_of_mut!(error_fatal));
--        sysbus_mmio_map(sysbus, 0, addr);
--        sysbus_connect_irq(sysbus, 0, irq);
--
--        // return the pointer, which is kept alive by the QOM tree; drop owned ref
--        pl011.as_mut_ptr()
--    }
-+    let dev = PL011State::new();
-+    dev.prop_set_chr("chardev", &chr);
-+    dev.realize();
-+    dev.mmio_map(0, addr);
-+    dev.connect_irq(0, &irq);
-+    // SAFETY: return the pointer, which has to be mutable and is kept alive
-+    // by the QOM tree; drop owned ref
-+    unsafe { dev.as_mut_ptr() }
- }
- 
- #[repr(C)]
-diff --git a/rust/qemu-api/src/sysbus.rs b/rust/qemu-api/src/sysbus.rs
-index c27dbf79e43..1f071706ce8 100644
---- a/rust/qemu-api/src/sysbus.rs
-+++ b/rust/qemu-api/src/sysbus.rs
-@@ -2,18 +2,18 @@
- // Author(s): Paolo Bonzini <pbonzini@redhat.com>
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
--use std::ffi::CStr;
-+use std::{ffi::CStr, ptr::addr_of_mut};
- 
- pub use bindings::{SysBusDevice, SysBusDeviceClass};
- 
- use crate::{
-     bindings,
-     cell::bql_locked,
--    irq::InterruptSource,
-+    irq::{IRQState, InterruptSource},
-     memory::MemoryRegion,
-     prelude::*,
-     qdev::{DeviceClass, DeviceState},
--    qom::ClassInitImpl,
-+    qom::{ClassInitImpl, Owned},
- };
- 
- unsafe impl ObjectType for SysBusDevice {
-@@ -60,6 +60,34 @@ fn init_irq(&self, irq: &InterruptSource) {
-             bindings::sysbus_init_irq(self.as_mut_ptr(), irq.as_ptr());
-         }
-     }
-+
-+    // TODO: do we want a type like GuestAddress here?
-+    fn mmio_map(&self, id: u32, addr: u64) {
-+        assert!(bql_locked());
-+        let id: i32 = id.try_into().unwrap();
-+        unsafe {
-+            bindings::sysbus_mmio_map(self.as_mut_ptr(), id, addr);
-+        }
-+    }
-+
-+    // Owned<> is used here because sysbus_connect_irq (via
-+    // object_property_set_link) adds a reference to the IRQState,
-+    // which can prolong its life
-+    fn connect_irq(&self, id: u32, irq: &Owned<IRQState>) {
-+        assert!(bql_locked());
-+        let id: i32 = id.try_into().unwrap();
-+        unsafe {
-+            bindings::sysbus_connect_irq(self.as_mut_ptr(), id, irq.as_mut_ptr());
-+        }
-+    }
-+
-+    fn realize(&self) {
-+        // TODO: return an Error
-+        assert!(bql_locked());
-+        unsafe {
-+            bindings::sysbus_realize(self.as_mut_ptr(), addr_of_mut!(bindings::error_fatal));
-+        }
-+    }
- }
- 
- impl<R: ObjectDeref> SysBusDeviceMethods for R where R::Target: IsA<SysBusDevice> {}
--- 
-2.48.1
+I notice you've picked another way for IRQState, so I could follow that
+like:
+
+pub type Timer = bindings::QEMUTimer;
+
+This style make it easy to add doc (timer binding currently lacks
+doc, but I will add it as much as possible).
+
+Another option may be to wrap QEMUTimer as what MemoryRegionOps did, but
+timer has only 1 callback so I think it's not necessary.
+
+> > +        &'timer mut self,
+> > +        timer_list_group: Option<&QEMUTimerListGroup>,
+> > +        clk_type: QEMUClockType,
+> 
+> Please take a ClockType instead.
+
+Sure.
+
+> > +        scale: u32,
+> > +        attributes: u32,
+> > +        _f: F,
+> > +        opaque: &'opaque T,
+> > +    ) where
+> > +        F: for<'a> FnCall<(&'a T,)>,
+> > +    {
+> > +        /// timer expiration callback
+> > +        unsafe extern "C" fn rust_timer_handler<T, F: for<'a> FnCall<(&'a T,)>>(
+> > +            opaque: *mut c_void,
+> > +        ) {
+> > +            // SAFETY: the opaque was passed as a reference to `T`.
+> > +            F::call((unsafe { &*(opaque.cast::<T>()) },))
+> > +        }
+> 
+> Please add "let _: () = F::ASSERT_IS_SOME;", which is added by the
+> qdev_init_clock_in() patch.
+
+Sure. Added it to the beginning of this function.
+
+> > +        let timer_cb: unsafe extern "C" fn(*mut c_void) = rust_timer_handler::<T, F>;
+> > +
+> > +        // SAFETY: the opaque outlives the timer
+> > +        unsafe {
+> > +            timer_init_full(
+> > +                self,
+> > +                if let Some(g) = timer_list_group {
+> > +                    g as *const QEMUTimerListGroup as *mut QEMUTimerListGroup
+> > +                } else {
+> > +                    ::core::ptr::null_mut()
+> > +                },
+> > +                clk_type,
+> > +                scale as c_int,
+> > +                attributes as c_int,
+> > +                Some(timer_cb),
+> > +                (opaque as *const T).cast::<c_void>() as *mut c_void,
+> > +            )
+> > +        }
+> > +    }
+> > +
+> > +    pub fn timer_mod(&mut self, expire_time: u64) {
+> > +        unsafe { timer_mod(self as *mut QEMUTimer, expire_time as i64) }
+> > +    }
+> 
+> This can take &self, because timers are thread-safe:
+> 
+>     pub fn timer_mod(&self, expire_time: u64) {
+>         unsafe { timer_mod(self.as_mut_ptr(), expire_time as i64) }
+>     }
+
+timer_mod means "modify a timer", so I'd rename this method to "modify"
+
+>     const fn as_mut_ptr(&self) -> *mut Self {
+>         self as *const QEMUTimer as *mut _
+>     }
+
+Thanks!
+
+> > +}
+> > +
+> > +impl Drop for QEMUTimer {
+> > +    fn drop(&mut self) {
+> > +        unsafe { timer_del(self as *mut QEMUTimer) }
+> > +    }
+> 
+> timer_del() can be useful even outside Drop, so
+> 
+>     pub fn timer_del(&self) {
+>         unsafe { timer_del(self.as_mut_ptr()) }
+>     }
+> 
+> and just use self.timer_del() here.
+
+OK, will also rename "timer_del" to "delete".
+
+> > +}
+> > +
+> > +pub fn qemu_clock_get_virtual_ns() -> u64 {
+> > +    // SAFETY:
+> > +    // Valid parameter.
+> > +    (unsafe { qemu_clock_get_ns(QEMUClockType::QEMU_CLOCK_VIRTUAL) }) as u64
+> > +}
+> 
+> Not needed.
+
+Yes!
+
+> > +pub struct ClockType {
+> > +    pub id: QEMUClockType,
+> > +}
+> 
+> The field does not have to be "pub" (maybe "pub(self)", I'm not sure
+> offhand).
+> 
+
+You're right! Making it private is enough, since I should also make
+timer_init_full accept ClockType instead of QEMUClockType.
+
+Thanks,
+Zhao
+
 
 
