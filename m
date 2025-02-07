@@ -1,73 +1,71 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tgIkG-0005Wf-FM
-	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 02:25:48 -0500
+	id 1tgJfE-0003io-LA
+	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 03:24:40 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tgIjq-0004x8-FG; Fri, 07 Feb 2025 02:25:23 -0500
-Received: from mgamail.intel.com ([192.198.163.19])
+ id 1tgJfC-0003i5-Il; Fri, 07 Feb 2025 03:24:38 -0500
+Received: from mgamail.intel.com ([198.175.65.17])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tgIjo-0007ni-7o; Fri, 07 Feb 2025 02:25:22 -0500
+ id 1tgJfA-0001s5-Av; Fri, 07 Feb 2025 03:24:38 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738913120; x=1770449120;
+ t=1738916676; x=1770452676;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=hYxTtbnYvDndJpJUwjiU7VHXzZNkmmW/xe8XNc4Zcpc=;
- b=ep52DSVPjeVeArRPnFCH/BPrHtePzrmGw+0VZ6l/OkYP+k3aeeoY+4Em
- mBz4qVyc6JtunwvFJL1kPocTX9XFlpNJMhrKhfSmsfzsAd4q9kjC3tGRK
- k0rG8JUrQ69bJZ8gwYBykeBhINuVra8BKk05gIWOl427j7EsVK3RQsmvQ
- pZYvL6lhtoALB0pXLByBpqZnihrnknpJICSHNvw/hm1Tc6uChxPUCNZmB
- 3DiIx0qnq1YUDwkiBB/HYP4a6phjXV8Mgg+pXrh8O9xpPLx676JwUtA4R
- HHXll4q7rZQIfFGeCw1rpWKgo/ZB7hWTzaBBmwo/BTQhfOpa3ib/aX8Xq A==;
-X-CSE-ConnectionGUID: A/dvwY/jTyaOAM+uInAkkw==
-X-CSE-MsgGUID: U6+g3cllTOySyGzjRTv4uw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="38749094"
-X-IronPort-AV: E=Sophos;i="6.13,266,1732608000"; d="scan'208";a="38749094"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2025 23:25:17 -0800
-X-CSE-ConnectionGUID: NMGhLfdaST2jZz4+30a0Yg==
-X-CSE-MsgGUID: IeGjMfwSSr2HBuzB1nAzFw==
+ bh=alS5qVhFCCybRfyInaLelXojIz7gLZOiCl97klrBBE8=;
+ b=e54iWr0GsQdBOuPwKsJI4s48VWeQTCvo/7OM2rTX8SBmGYYlF28nNRe+
+ DXo0w+LNrqm9SF0wTdAm12otet7n2z+1lDMJxeeC85hPVC2WFKXZ4nXmI
+ Pum8rH/XWNy22D+AjxPA2/v6YoTVx5CtT/fyXNTmxPV+GXSxbPDY+BQWY
+ hgm5+y5puZexCUkZFzd30QFXsFx1Irs8ac9jSXxhCnUb5KklXmVEO6olv
+ Qowpqp2UuY7gOo92cRgfbuPMRG0tvI7yOF4BRc5u2RmhmQgZSf0ZKqabm
+ tuyovEtqKIAVf1aWPvscr5MRkMzggJ90ucpHlhVH3Bt7DeRvLxHZufEAN A==;
+X-CSE-ConnectionGUID: kBi1SM2KSNmwBlHZXOOUGQ==
+X-CSE-MsgGUID: VVshjRorShKjcUPRbPNRxw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="39579024"
+X-IronPort-AV: E=Sophos;i="6.13,266,1732608000"; d="scan'208";a="39579024"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Feb 2025 00:24:30 -0800
+X-CSE-ConnectionGUID: AzF9DddJT86IrAN5uvi0Bg==
+X-CSE-MsgGUID: 7rtJ+DWuR+yo+0b4rH2SFg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,266,1732608000"; d="scan'208";a="111275797"
+X-IronPort-AV: E=Sophos;i="6.13,266,1732608000"; d="scan'208";a="111388339"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa006.fm.intel.com with ESMTP; 06 Feb 2025 23:25:11 -0800
-Date: Fri, 7 Feb 2025 15:44:40 +0800
+ by fmviesa007.fm.intel.com with ESMTP; 07 Feb 2025 00:24:28 -0800
+Date: Fri, 7 Feb 2025 16:43:57 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Junjie Mao <junjie.mao@hotmail.com>,
- Alex =?utf-8?B?QmVubu+/vWU=?= <alex.bennee@linaro.org>,
- Philippe =?utf-8?B?TWF0aGlldS1EYXVk77+9?= <philmd@linaro.org>,
+ Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+ Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
  Richard Henderson <richard.henderson@linaro.org>,
  Peter Maydell <peter.maydell@linaro.org>,
- Daniel P =?utf-8?B?LiBCZXJyYW5n77+9?= <berrange@redhat.com>,
+ Daniel P =?iso-8859-1?Q?=2E_Berrang=E9?= <berrange@redhat.com>,
  qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 03/10] rust/irq: Add a helper to convert
- [InterruptSource] to [*mut IRQState]
-Message-ID: <Z6W56AH3J1qOx18m@intel.com>
+Subject: Re: [PATCH 04/10] rust: add bindings for gpio_{in|out} initialization
+Message-ID: <Z6XHzXwoIklPZQ/I@intel.com>
 References: <20250125125137.1223277-1-zhao1.liu@intel.com>
- <20250125125137.1223277-4-zhao1.liu@intel.com>
- <17907481-89d6-457c-bcd3-66a444b1325d@redhat.com>
- <Z6Wx/RGBIElMaeZy@intel.com>
+ <20250125125137.1223277-5-zhao1.liu@intel.com>
+ <5a19e7d2-9d69-45fe-812f-84145229876f@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <Z6Wx/RGBIElMaeZy@intel.com>
-Received-SPF: pass client-ip=192.198.163.19; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <5a19e7d2-9d69-45fe-812f-84145229876f@redhat.com>
+Received-SPF: pass client-ip=198.175.65.17; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
-X-Spam_score_int: -15
-X-Spam_score: -1.6
-X-Spam_bar: -
-X-Spam_report: (-1.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RAZOR2_CF_RANGE_51_100=1.886, RAZOR2_CHECK=0.922, RCVD_IN_DNSWL_MED=-2.3,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=no autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -80,47 +78,51 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Feb 2025 07:25:41 -0000
+X-List-Received-Date: Fri, 07 Feb 2025 08:24:39 -0000
 
-On Fri, Feb 07, 2025 at 03:10:53PM +0800, Zhao Liu wrote:
-> Date: Fri, 7 Feb 2025 15:10:53 +0800
-> From: Zhao Liu <zhao1.liu@intel.com>
-> Subject: Re: [PATCH 03/10] rust/irq: Add a helper to convert
->  [InterruptSource] to [*mut IRQState]
+On Wed, Jan 29, 2025 at 11:59:04AM +0100, Paolo Bonzini wrote:
+> Date: Wed, 29 Jan 2025 11:59:04 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: Re: [PATCH 04/10] rust: add bindings for gpio_{in|out}
+>  initialization
 > 
-> On Wed, Jan 29, 2025 at 11:51:02AM +0100, Paolo Bonzini wrote:
-> > Date: Wed, 29 Jan 2025 11:51:02 +0100
-> > From: Paolo Bonzini <pbonzini@redhat.com>
-> > Subject: Re: [PATCH 03/10] rust/irq: Add a helper to convert
-> >  [InterruptSource] to [*mut IRQState]
-> > 
-> > On Sat, Jan 25, 2025 at 1:32 PM Zhao Liu <zhao1.liu@intel.com> wrote:
-> > > 
-> > > This is useful to hanlde InterruptSource slice and pass it to C
-> > > bindings.
-> > > 
-> > > Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
-> > 
-> > This may be a bad suggestion, after all. clippy complains that you're
-> > casting &[*mut IRQState] to mutable (https://rust-lang.github.io/rust-
-> > clippy/master/#as_ptr_cast_mut).
-> > 
-> > I can think of two solutions:
-> > 
-> > 1) add #[allow(clippy::as_ptr_cast_mut)] and explain with a comment
-> > 
-> >     // Casting to *mut *mut IRQState is valid, because
-> >     // the source slice `pins` uses interior mutability.
-> >
+> 
+> 
+> On Sat, Jan 25, 2025 at 1:32 PM Zhao Liu <zhao1.liu@intel.com> wrote:
+> > +    fn init_gpio_in<F: for<'a> FnCall<(&'a Self::Target, u32, u32)>>(&self, num_lines: u32, _f: F) {
+> > +        unsafe extern "C" fn rust_irq_handler<T, F: for<'a> FnCall<(&'a T, u32, u32)>>(
+> > +            opaque: *mut c_void,
+> > +            line: c_int,
+> > +            level: c_int,
+> > +        ) {
+> > +            // SAFETY: the opaque was passed as a reference to `T`
+> > +            F::call((unsafe { &*(opaque.cast::<T>()) }, line as u32, level as u32))
+> > +        }
+> > +
+> > +        let gpio_in_cb: unsafe extern "C" fn(*mut c_void, c_int, c_int) =
+> > +            rust_irq_handler::<Self::Target, F>;
+> 
+> Please add "let _: () = F::ASSERT_IS_SOME;", which is added by the
+> qdev_init_clock_in() patch.
+> 
 
-I agree it's the best to use interior mutability.
+Okay.
 
-Just to confirm, I check with `cargo +nightly clippy` but it doesn't
-complain about this case. Should I switch to another version of clippy
-when I do such check? (currently I'm using v0.1.63 clippy as well, to
-match rustc.)
+I would add `assert!(F::is_some());` at the beginning of init_gpio_in().
 
-Thanks,
-Zhao
+There's a difference with origianl C version:
+
+In C side, qdev_get_gpio_in() family could accept a NULL handler, but
+there's no such case in current QEMU:
+
+* qdev_get_gpio_in
+* qdev_init_gpio_in_named
+* qdev_init_gpio_in_named_with_opaque
+
+And from code logic view, creating an input GPIO line but doing nothing
+on input, sounds also unusual.
+
+So, for simplicity, in the Rust version I make the handler non-optional.
+
 
 
