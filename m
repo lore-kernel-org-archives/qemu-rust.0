@@ -1,62 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tgQKR-0008Bw-7U
-	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 10:31:46 -0500
+	id 1tgQLN-0000cy-Cr
+	for mharc-qemu-rust@gnu.org; Fri, 07 Feb 2025 10:32:37 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tgQKA-000820-Jm
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 10:31:22 -0500
-Received: from mail-ed1-x52c.google.com ([2a00:1450:4864:20::52c])
+ id 1tgQKJ-00087O-Fj
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 10:31:33 -0500
+Received: from mail-ed1-x52a.google.com ([2a00:1450:4864:20::52a])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1tgQK5-0003xQ-Ny
- for qemu-rust@nongnu.org; Fri, 07 Feb 2025 10:31:22 -0500
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5dcea56d6e2so4058659a12.1
- for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 07:31:17 -0800 (PST)
+ id 1tgQKA-0003zz-1Z
+ for qemu-rust@nongnu.org; Fri, 07 Feb 2025 10:31:30 -0500
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5de56ff9851so378803a12.2
+ for <qemu-rust@nongnu.org>; Fri, 07 Feb 2025 07:31:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738942276; x=1739547076; darn=nongnu.org;
+ d=linaro.org; s=google; t=1738942280; x=1739547080; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=og+RgYrNsp8w4PSolTa+WXjkMXBk+YlMNJEeZ+a/6KM=;
- b=LW2owGCptWB0QHH7Z4jBmqbpVe9Dku+G1eo/tIsqnRNao3/4ZtxbWOH+ZG6/O1W+5e
- h2JNFpzDcndMgG4pNbWBmTN6+2JgIBzRQ2bYNKzkKY0gqvbZs1MzRJPaBXNwHixvX54/
- 5ylpnbBltstsaVNSqEo2FlQ5KFpufas7kxKLaqBSF9c4wylWa+LK0JrZNjtRGDZrFgmE
- WPvyrgyCD3uAjLBfaG8vBSfGZKIxeem557/mw6O/d1W8sQIihlUzQsFcdo7QX0tImAo8
- u6clb2DST5/gTFhbEcjWej/dgf03SrhmjbzyJxbfAXS8qXXCkCJ2eee+5fuR96Ej+Kva
- zNgg==
+ bh=XyHIrLgGLhzWXn2IY26JotGt/snZhuH8wc9tGSgEE4k=;
+ b=X1b0NquHt1rIGSgOTDLIwVmnCFmHAru0dQynHnPA9OXEeFUvzxH/8MN1q/kcbfu6Rd
+ vq+WHDNwZ6tma0BAAXb8/wMxh63e2d7jUWKa/CUhZFiV3M3SuZS9bGIuerbpv+NF0/cm
+ NSoXVO1Rfsq/pBCuoTDi64lfncVsCxjFfuF9rjeBD1XzLaGB0SSVPoczjUg/QwRtOKqF
+ JmQDeUClCDC4p5OYYY1rkFmb6Wg8ZSLNFWv/0zSikCjRPmFgokyZN18gqbqV1C1YfdUy
+ VEI//fq99O8Q65RNCqrlTqbwbfZvtlwHcC/35Ww21cTW4HGIvZMsi14UkyPUI4tbMy7F
+ EbFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738942276; x=1739547076;
+ d=1e100.net; s=20230601; t=1738942280; x=1739547080;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=og+RgYrNsp8w4PSolTa+WXjkMXBk+YlMNJEeZ+a/6KM=;
- b=wHMp05G6E9wozjO8c5zA0hAuBrd3yu3MAeFRN20TEUm6EieTHocgvPBnd8HrawgxL/
- Y5aJCHCv1th5zdWzGKY3H0UAXkze9ANGjfZz8LAUmgEngDKGm/G/yBzTXrBbwt2ARUrX
- OoGSpBDbxxL+QmtfUVuCcvwdifxs9csqmSG2iiwWixFVt5JsTnNp/qbSoRTSJN0z+1eM
- 5KJYHNbwLrfPw2xdbMtDxgsVeer72k04paFQTvGzkpMfK0iBBLdgqeQ2VrCDzzrVzOxX
- RTCzQzYZKV6viOw6tCaJKk6kAdTAT1T4qMjeMeVD0iLv4pNhx/EALOCtKH33R4MMizWr
- 19fw==
+ bh=XyHIrLgGLhzWXn2IY26JotGt/snZhuH8wc9tGSgEE4k=;
+ b=TpIRjHed5Jkz4xmXw/yTFRVT7CMS3Jww9Ad79YIoM+XCMP9oWjwjOf17oYzzHy2u0K
+ doVstARLhmUml6VDGHUP1MYG9vb71ue8DtCyBWrJ13jxSSqzq2k+NpjYJDjVDvUbqwto
+ 5FejDONzBf2hne+WZVjBYpEFN/JTNYCVfXLysOjdKu0/QTrHn5LptMs1aw6rRFtu/x0B
+ Z8EBHkGhG/Sf/YQ2WwuuYAGN1gggbMT/EqeDBelhTdsk4A3wwnEPc/PXBiCG0Srv8J4e
+ Ze+mBm4/FmI9al1NlWplMtfi2cxXEcB3XUzfv8wRR4pkcWZVSwRc5iSycAk06iYrwvFi
+ fE0g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVUE/9SRZLR1HdfImxNZ3DcUiu/3lYe2GPzZaqAKnrDVckGiAsqFM4+43xggXGC2+bYG9A30gTKT2Y=@nongnu.org
-X-Gm-Message-State: AOJu0YzVVQ0F//oEhENKbDMGDLKmOxQFVKXlUtXrONtq8s1FXJbzwFgc
- dhQIqpR57Phit83Ro37brY3jsDJjkoeYWT17Ibx5zonBpG9Or9zq8q3ku7NLW7k=
-X-Gm-Gg: ASbGnctJtRxFkzED9MN8MNtWw93gcoBdfpPIuBojxlvBCAwYL42RnnUZTkzpoIzeu80
- twSuEzjoK+k/7UwZT5dqmpQxoFvNTabDzHYdFP9/quMuyeQ6jKSBBrnEqFuL4Z3XntnnopG4Z8/
- CtWOgSarWL1/qQ2Rpo2X5YXINQw2GqfPUjvCpb74XEwulTWfGkSq9C0NUP/56dhLbFSpiNAe+KK
- yUhewsAAVreEFD40/dHFun/c6F1oqQ58TiuO9bnH41x1r10XoVoqjj3htkpKNmRtGMnMdUirJ7G
- DwSjxCGIPykQdRST2g==
-X-Google-Smtp-Source: AGHT+IEFengz12wMmX5bL7dGhLinmhQYyJLidRsR1fp5Fjv9Zz0gylWjYVzoHZBTiwha1zjg3xLfLA==
-X-Received: by 2002:a05:6402:e8a:b0:5dc:d34f:a315 with SMTP id
- 4fb4d7f45d1cf-5de450236a2mr4556163a12.15.1738942275728; 
- Fri, 07 Feb 2025 07:31:15 -0800 (PST)
+ AJvYcCVT1Ly/jrMUl2oPf4hsHdsBJEdwyTQOBCmk4r2aZ9TSo+AbrM3ejXMyxOQDd6J8ICPYKYbZzer7fGs=@nongnu.org
+X-Gm-Message-State: AOJu0YxDxxkLBuB741DQECF8sgryDph/0WmnCsu7bqhDpYLtlZkr2YIG
+ UJPhhKNzQbRLxfrcCgYG/EoxKRzB6LCmYnLtx6NGSC1pJI0kH9Wch2QU2jSG13s=
+X-Gm-Gg: ASbGncsA/SsYIL8bpwND/0UDVfMU+N5qfSveG9+B/b8hx92SsoHCNqzFnelMhEzUccT
+ I2ktsWcf694roryyNWQYDkAaK5+TLbJUoVBP2oKfrej3/coYgdM77hrDiddu4qpcjKDUPjsB7VQ
+ 3AR//+3d9tigqGA2qJ7icHAVl9hwG19aY9+6M04mYJsz5s/M18jYeZFiG+wjnePO2RDRNnmJDgS
+ gn/esUifPOC55Zrf9SIym6fpb22MbyN9vqg4Mjx6kn2wO6iIq/BUsbuWPlrrxGUHoggIS5eIL6T
+ T6gEG5Hy/9pkXFnigQ==
+X-Google-Smtp-Source: AGHT+IEfSV69e8DYUCGC03jbAWedKhxSTpRglbr9TC/MTS1Ma9XcHXuvFhJPnS9wWLWE59msKaO+BA==
+X-Received: by 2002:a05:6402:4588:b0:5db:731d:4456 with SMTP id
+ 4fb4d7f45d1cf-5de45085cc7mr4289105a12.28.1738942280178; 
+ Fri, 07 Feb 2025 07:31:20 -0800 (PST)
 Received: from draig.lan ([185.126.160.109]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5de379cedc6sm2044986a12.44.2025.02.07.07.31.13
+ 4fb4d7f45d1cf-5dcf1b81608sm2621482a12.35.2025.02.07.07.31.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2025 07:31:14 -0800 (PST)
+ Fri, 07 Feb 2025 07:31:17 -0800 (PST)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 7D6705F92A;
+ by draig.lan (Postfix) with ESMTP id E35E65FB2E;
  Fri,  7 Feb 2025 15:31:12 +0000 (GMT)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
@@ -79,26 +79,25 @@ Cc: Peter Xu <peterx@redhat.com>,
  Palmer Dabbelt <palmer@dabbelt.com>,
  Mahmoud Mandour <ma.mandourr@gmail.com>, qemu-ppc@nongnu.org,
  Paolo Bonzini <pbonzini@redhat.com>, qemu-rust@nongnu.org,
- qemu-riscv@nongnu.org
-Subject: [PATCH v2 01/17] tests/docker: replicate the check-rust-tools-nightly
- CI job
-Date: Fri,  7 Feb 2025 15:30:56 +0000
-Message-Id: <20250207153112.3939799-2-alex.bennee@linaro.org>
+ qemu-riscv@nongnu.org, Peter Maydell <peter.maydell@linaro.org>
+Subject: [PATCH v2 06/17] tests/qtest: tighten up the checks on clock_step
+Date: Fri,  7 Feb 2025 15:31:01 +0000
+Message-Id: <20250207153112.3939799-7-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250207153112.3939799-1-alex.bennee@linaro.org>
 References: <20250207153112.3939799-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::52c;
- envelope-from=alex.bennee@linaro.org; helo=mail-ed1-x52c.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::52a;
+ envelope-from=alex.bennee@linaro.org; helo=mail-ed1-x52a.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -111,74 +110,48 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Feb 2025 15:31:23 -0000
+X-List-Received-Date: Fri, 07 Feb 2025 15:31:38 -0000
 
-This allows people to run the test locally:
-
-  make docker-test-rust@fedora-rust-nightly
+It is invalid to call clock_step with an implied time to step forward
+as if no timers are running we won't be able to advance.
 
 Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
 
 ---
-v2
-  - update MAINTAINERS
+v3
+  - used Peter's suggested wording
+  - used plain old if over ternary operator
 ---
- MAINTAINERS                   |  1 +
- tests/docker/Makefile.include |  3 +++
- tests/docker/test-rust        | 21 +++++++++++++++++++++
- 3 files changed, 25 insertions(+)
- create mode 100755 tests/docker/test-rust
+ system/qtest.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0cf37fce7b..efb7d09dea 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3386,6 +3386,7 @@ F: rust/rustfmt.toml
- 
- Rust-related patches CC here
- L: qemu-rust@nongnu.org
-+F: tests/docker/test-rust
- F: rust/
- 
- SLIRP
-diff --git a/tests/docker/Makefile.include b/tests/docker/Makefile.include
-index fead7d3abe..fa1cbb6726 100644
---- a/tests/docker/Makefile.include
-+++ b/tests/docker/Makefile.include
-@@ -236,3 +236,6 @@ docker-image: ${DOCKER_IMAGES:%=docker-image-%}
- 
- docker-clean:
- 	$(call quiet-command, $(DOCKER_SCRIPT) clean)
-+
-+# Overrides
-+docker-test-rust%: NETWORK=1
-diff --git a/tests/docker/test-rust b/tests/docker/test-rust
-new file mode 100755
-index 0000000000..e7e3e94a55
---- /dev/null
-+++ b/tests/docker/test-rust
-@@ -0,0 +1,21 @@
-+#!/bin/bash -e
-+#
-+# Run the rust code checks (a.k.a. check-rust-tools-nightly)
-+#
-+# Copyright (c) 2025 Linaro Ltd
-+#
-+# Authors:
-+#  Alex Bennée <alex.bennee@linaro.org>
-+#
-+# This work is licensed under the terms of the GNU GPL, version 2
-+# or (at your option) any later version. See the COPYING file in
-+# the top-level directory.
-+
-+. common.rc
-+
-+cd "$BUILD_DIR"
-+
-+configure_qemu --disable-user --disable-docs --enable-rust
-+pyvenv/bin/meson devenv -w $QEMU_SRC/rust ${CARGO-cargo} fmt --check
-+make clippy
-+make rustdoc
+diff --git a/system/qtest.c b/system/qtest.c
+index 28b6fac37c..12152efbcd 100644
+--- a/system/qtest.c
++++ b/system/qtest.c
+@@ -708,10 +708,19 @@ static void qtest_process_command(CharBackend *chr, gchar **words)
+         } else {
+             ns = qemu_clock_deadline_ns_all(QEMU_CLOCK_VIRTUAL,
+                                             QEMU_TIMER_ATTR_ALL);
++            if (ns < 0) {
++                qtest_send(chr, "FAIL "
++                           "cannot advance clock to the next deadline "
++                           "because there is no pending deadline\n");
++                return;
++            }
+         }
+         new_ns = qemu_clock_advance_virtual_time(old_ns + ns);
+-        qtest_sendf(chr, "%s %"PRIi64"\n",
+-                    new_ns > old_ns ? "OK" : "FAIL", new_ns);
++        if (new_ns > old_ns) {
++            qtest_sendf(chr, "OK %"PRIi64"\n", new_ns);
++        } else {
++            qtest_sendf(chr, "FAIL could not advance time\n");
++        }
+     } else if (strcmp(words[0], "module_load") == 0) {
+         Error *local_err = NULL;
+         int rv;
 -- 
 2.39.5
 
