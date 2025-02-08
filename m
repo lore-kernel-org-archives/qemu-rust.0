@@ -1,41 +1,41 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tgfnX-0001pI-7w
-	for mharc-qemu-rust@gnu.org; Sat, 08 Feb 2025 03:02:43 -0500
+	id 1tgiCO-0007Ru-Vu
+	for mharc-qemu-rust@gnu.org; Sat, 08 Feb 2025 05:36:32 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tgfnU-0001nB-Sk; Sat, 08 Feb 2025 03:02:40 -0500
-Received: from mgamail.intel.com ([192.198.163.7])
+ id 1tgiCN-0007Rc-Rt; Sat, 08 Feb 2025 05:36:31 -0500
+Received: from mgamail.intel.com ([198.175.65.13])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tgfnR-0002vc-VB; Sat, 08 Feb 2025 03:02:40 -0500
+ id 1tgiCK-0003TO-Fb; Sat, 08 Feb 2025 05:36:31 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739001758; x=1770537758;
+ t=1739010989; x=1770546989;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=PgO8/WqlJ+zgEu78mjjyldEkBb1UJgABH000P/22n3Q=;
- b=TgHmA861RlcbnnCOOJfpbY4KJM/FJIjHVjQxYkfsWYMpXiY2/8D0Tzhv
- Vz0UdMY1UHnhhwOfvRUcMJm1DaPtZRASwkMnvWeUGhP17992ARlYGcrh+
- UyfXUV+ZuWGEtzpnBtCUHLzqxETN8Yacl5wkjFxkQIQ3NwTx1VU8QooB0
- ybzLrqZ5e1Y71wiQWHNgTTJjtBDbN0ZkPiKeZ/y8V5fckPNy58zoRtAF1
- KiSSTaEgvYIE4m7dl4f1Ig0AogvM3Id/7I0Gfb2BOajCBSoTWp8fVLKxQ
- GppCJmnVOAleLX8Nt0FWR8p8FkKd615YAM38eTyT47UxVmIbDlFC1jkQp A==;
-X-CSE-ConnectionGUID: xjSaLEoSSYGy9hkyFddQUw==
-X-CSE-MsgGUID: jImCDJJ9Rsise3E+0gY12w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11338"; a="65002522"
-X-IronPort-AV: E=Sophos;i="6.13,269,1732608000"; d="scan'208";a="65002522"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2025 00:01:33 -0800
-X-CSE-ConnectionGUID: v8BgjGh9QqqlPwAG+H/FRw==
-X-CSE-MsgGUID: s4rTIjvbTMC6AHHK66MMMg==
+ bh=0JTr5C7lCU/zR2Yl75EYqnRVv2KwKeWBGdVg0HXEuF0=;
+ b=KAuxxhQxXN1g9umticgb3ZJAewE/MJf+lj+12U3ik5PpAEgjROmLemoI
+ kD8AWIGy3soema5bcwxswwR1jFubPQfFfjuLSR+Enig1UXDvHkEz8qVd1
+ 8tpqDOdxt3VE6+A5TwiVK3us07Y/GfprA6bilGXSr4wNHmMXyb4upmyMd
+ bOZ30FzLian2SRzFIcxak6yFPkFWr+pmM/dZgrssPWs1wi0m3yfYM56aP
+ eHkP0hkPEFmgWa7jr/3ZlMbcIZwtahVF02pm7735ngVkbHIbxBMJjTLpf
+ Be/2dsvplBYBGLeSD77AEQ83Cg5IC5q0OdfmylUD6VxgFIsRhsAjCzsIA w==;
+X-CSE-ConnectionGUID: s9KNjlqhTBKUwiJpKrjp8A==
+X-CSE-MsgGUID: DtCW/yHPQrC8ugObvBd2ww==
+X-IronPort-AV: E=McAfee;i="6700,10204,11338"; a="50632344"
+X-IronPort-AV: E=Sophos;i="6.13,269,1732608000"; d="scan'208";a="50632344"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2025 02:36:23 -0800
+X-CSE-ConnectionGUID: licO+vvqQASptpgi8CirBg==
+X-CSE-MsgGUID: Cwmlper6Q86A36ZnH0ksfg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,269,1732608000"; d="scan'208";a="111561563"
+X-IronPort-AV: E=Sophos;i="6.13,269,1732608000"; d="scan'208";a="112264621"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa006.fm.intel.com with ESMTP; 08 Feb 2025 00:00:31 -0800
-Date: Sat, 8 Feb 2025 16:19:58 +0800
+ by fmviesa010.fm.intel.com with ESMTP; 08 Feb 2025 02:36:19 -0800
+Date: Sat, 8 Feb 2025 18:55:49 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
@@ -46,26 +46,26 @@ Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Peter Maydell <peter.maydell@linaro.org>,
  Daniel P =?iso-8859-1?Q?=2E_Berrang=E9?= <berrange@redhat.com>,
  qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 08/10] rust/timer/hpet: add basic HPET timer and HPETState
-Message-ID: <Z6cTrkww4n9lPe2X@intel.com>
+Subject: Re: [PATCH 09/10] rust/timer/hpet: add qom and qdev APIs support
+Message-ID: <Z6c4NVX4wteIEIOA@intel.com>
 References: <20250125125137.1223277-1-zhao1.liu@intel.com>
- <20250125125137.1223277-9-zhao1.liu@intel.com>
- <b9ce64fa-b2b8-4f61-8380-9ec582936b26@redhat.com>
+ <20250125125137.1223277-10-zhao1.liu@intel.com>
+ <750f06f3-6326-473f-9d08-ad6bb1f2a54a@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b9ce64fa-b2b8-4f61-8380-9ec582936b26@redhat.com>
-Received-SPF: pass client-ip=192.198.163.7; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <750f06f3-6326-473f-9d08-ad6bb1f2a54a@redhat.com>
+Received-SPF: pass client-ip=198.175.65.13; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
 X-Spam_bar: ----
 X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -78,116 +78,160 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Sat, 08 Feb 2025 08:02:41 -0000
+X-List-Received-Date: Sat, 08 Feb 2025 10:36:32 -0000
 
-On Wed, Jan 29, 2025 at 11:57:18AM +0100, Paolo Bonzini wrote:
-> Date: Wed, 29 Jan 2025 11:57:18 +0100
+On Wed, Jan 29, 2025 at 11:58:14AM +0100, Paolo Bonzini wrote:
+> Date: Wed, 29 Jan 2025 11:58:14 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: Re: [PATCH 08/10] rust/timer/hpet: add basic HPET timer and
->  HPETState
+> Subject: Re: [PATCH 09/10] rust/timer/hpet: add qom and qdev APIs support
 > 
 > 
 > 
 > On Sat, Jan 25, 2025 at 1:32 PM Zhao Liu <zhao1.liu@intel.com> wrote:
-> > +// Register space for each timer block. (HPET_BASE isn't defined here.)
-> > +const HPET_REG_SPACE_LEN: u64 = 0x400; // 1024 bytes
+> >      fn read(&mut self, addr: hwaddr, _size: u32) -> u64 {
 > 
-> Use doc comments "///"...
-
-OK,
-
-> > +// Timer N FSB Interrupt Route Register (masked by 0x18)
-> > +const HPET_TN_FSB_ROUTE_REG: u64 = 0x010;
-> 
-> ... all the way to here.
+> This can be &self.
 
 Done.
 
-> > +/// HPET Timer Abstraction
-> > +#[repr(C)]
-> > +#[derive(Debug, Default, qemu_api_macros::offsets)]
-> > +pub struct HPETTimer {
-> > +    /// timer N index within the timer block (HPETState)
-> > +    #[doc(alias = "tn")]
-> > +    index: usize,
-> > +    qemu_timer: Option<Box<QEMUTimer>>,
-> > +    /// timer block abstraction containing this timer
-> > +    state: Option<NonNull<HPETState>>,
-> > +
-> > +    /// Memory-mapped, software visible timer registers
+> >          let shift: u64 = (addr & 4) * 8;
+> > 
+> > +        match addr {
+> > +            HPET_TN_CFG_REG => self.config >> shift, // including interrupt capabilities
 > 
-> These "headings" cannot be doc comments, because they would be attached
-> to the field after.  Same below:
-> 
-> -    /// Hidden register state
-> +    // Hidden register state
-> 
-> -    /// HPET block Registers: Memory-mapped, software visible registers
-> +    // HPET block Registers: Memory-mapped, software visible registers
-> 
-> -    /// Internal state
-> +    // Internal state
+> This needs to be "match addr & !4".
 
-Fixed. Thanks!
+I understand it's not necessary:
 
-> > +    fn get_state(&self) -> &HPETState {
-> > +        // SAFETY:
-> > +        // the pointer is convertible to a reference
-> > +        unsafe { self.state.unwrap().as_ref() }
-> > +    }
-> 
-> Note for the future: I looked briefly into why a NonNull<> is needed
-> and the reasons are two.  First, the offset_of! replacement does not
-> support lifetime parameters.  Second, it's messy to pass a &HPETState
-> to the &HPETTimer, because the HPETTimer still has to be written into
-> the HPETState.
+In timer_and_addr(), I've masked the address with 0x18. 
 
-Yes, and the second use would be a common case in practice. So maybe we
-need some wrapper on this, to provide someting like HPETTimer::get_state(),
-which returns a reference of the parent structure.
+    fn timer_and_addr(&self, addr: hwaddr) -> Option<(&BqlRefCell<HPETTimer>, hwaddr)> {
+        let timer_id: usize = ((addr - 0x100) / 0x20) as usize;
 
-In addition, for underlying library, NonNull<> is nice thinks to its low
-overhead. But for device implementation, I'm not sure if it's the good
-choice. Rust uses RefCell<Weak<>> (for QEMU, it could be BqlRefCell<Weak<>>)
-to handle this cycle reference case.
-
-As I mentioned in RFC,
-
-	The device instance is not created in Rust side, and there's
-	only init() method to initialize created device instance. This
-	way, it's hard to be compatible with the pattern of creating
-	weak references (at least I failed).
-
-To address this issue, the method `from` or `from_raw` seems necessary,
-like `Owned::from`, but it's tricky... So I don't have a good idea to
-replace NonNull<> yet! 
-
-> This may be worth revisiting when QEMU starts using
-> pinned-init is added, but for now is self-contained.
-> 
-> > +        if let Some(timer) = self.qemu_timer.as_mut() {
-> > +            timer.timer_mod(self.last);
-> > +        }
-> 
-> I think this can be just "timer.unwrap().timer_mod(self.last)" (not
-> sure if it needs an as_ref() too).
-> 
-
-Yes, it needs as_ref(). A direct unwrap() consumes the Some() since
-inter type of qemu_timer (Box<Timer>) is non-`Copy`.
-
-Another example is
-
-    fn get_state(&self) -> &HPETState {
-        // SAFETY:
-        // the pointer is convertible to a reference
-        unsafe { self.state.unwrap().as_ref() }
+        if timer_id > self.num_timers.get() {
+            None
+        } else {
+            Some((&self.timers[timer_id], addr & 0x18))
+        }
     }
 
-Because the state (Option<NonNull<HPETState>>) has `Copy` so that this
-case doesn't need as_ref before unwrap.
+And in HPETState::read(), I pass the masked address to
+HPETTimer::read():
 
-Thanks,
+    fn read(&self, addr: hwaddr, size: u32) -> u64 {
+        let shift: u64 = (addr & 4) * 8;
+
+        if (0x100..=0x3ff).contains(&addr) {
+            match self.timer_and_addr(addr) {
+                None => 0, // Reserved,
+                Some((timer, addr)) => timer.borrow_mut().read(addr, size),
+            }
+        }
+
+Ah, the `addr` variable in Some() is misleading, and I should use
+anothor name like `tn_addr`.
+
+0x18 is a subset of !0x4, so the bitwise & operation with !0x4 can be
+omitted (I understand that this is why you also omitted this in the C
+side in the commit c2366567378dd :-) ).
+
+But `match addr & !4` is also reasonable, which explicitly emphasize
+`& !4` makes the code clearer. I would do this.
+
+> > +            HPET_TN_CMP_REG => self.cmp >> shift,    // comparator register
+> > +            HPET_TN_FSB_ROUTE_REG => self.fsb >> shift,
+> > +            _ => {
+> > +                // TODO: Add trace point - trace_hpet_ram_read_invalid()
+> > +                // Reserved.
+> > +                0
+> > +            }
+> > +        }
+> > +    }
+> > +
+> > +    fn write(&mut self, addr: hwaddr, value: u64, size: u32) {
+> > +        let shift = ((addr & 4) * 8) as u32;
+> > +        let len = std::cmp::min(size * 8, 64 - shift);
+> > +
+> > +        match addr {
+> > +            HPET_TN_CFG_REG => self.set_tn_cfg_reg(shift, len, value),
+> 
+> Likewise.
+
+Done. Thanks!
+
+> > +    fn write(&self, addr: hwaddr, value: u64, size: u32) {
+> > +        let shift = ((addr & 4) * 8) as u32;
+> > +        let len = std::cmp::min(size * 8, 64 - shift);
+> > +
+> > +        // TODO: Add trace point - trace_hpet_ram_write(addr, value)
+> > +        if (0x100..=0x3ff).contains(&addr
+> ) {
+> > +            match self.timer_and_addr(addr) {
+> > +                None => return, // Reserved.
+> 
+> Clippy complains about an unnecessary return, just replace it with "()".
+
+Fixed.
+
+> > +                Some((timer, addr)) => timer.borrow_mut().write(addr, value, size),
+> > +            }
+> 
+> > +
+> > +    fn reset_hold(&self, _type: ResetType) {
+> > +        let sbd = self.upcast::<SysBusDevice>();
+> > +
+> > +        for timer in self.timers.iter().take(self.num_timers.get()) {
+> > +            timer.borrow_mut().reset();
+> > +        }
+> > +
+> > +        self.counter.set(0);
+> > +        self.config.set(0);
+> > +        self.pit_enabled.set(true);
+> > +        self.hpet_offset.set(0);
+> > +
+> > +        HPETFwConfig::update_hpet_cfg(
+> > +            self.hpet_id.get(),
+> > +            Some(self.capability.get() as u32),
+> > +            Some((*sbd).mmio[0].addr),
+> > +        );
+> 
+> This can be simply sbd.mmio[0].addr, without the (*...).
+> 
+> Also, you can change update_hpet_cfg to take arguments without the Option<>
+> around them.
+
+Good idea! Done.
+
+> > +// TODO: add OBJECT_DECLARE_SIMPLE_TYPE.
+> > +#[repr(C)]
+> > +pub struct HPETClass {
+> > +    parent_class: <SysBusDevice as ObjectType>::Class,
+> > +}
+> > +
+> > +unsafe impl ObjectType for HPETState {
+> > +    type Class = HPETClass;
+> > +    const TYPE_NAME: &'static CStr = crate::TYPE_HPET;
+> > +}
+> 
+> No need for HPETClass (and for ClassInitImpl<HPETClass>), just do
+> 
+> unsafe impl ObjectType for HPETState {
+
+Pls let me add a comment here:
+
+// No need for HPETClass. Just like OBJECT_DECLARE_SIMPLE_TYPE in C.
+
+Then this can be "grep", as a reference.
+
+>     type Class = <SysBusDevice as ObjectType>::Class;
+>      const TYPE_NAME: &'static CStr = crate::TYPE_HPET;
+> }
+> 
+> which is indeed more similar to OBJECT_DECLARE_SIMPLE_TYPE().
+
+Awesome! Thanks.
+
+Regards,
 Zhao
 
 
