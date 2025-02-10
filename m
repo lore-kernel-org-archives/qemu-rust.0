@@ -1,58 +1,53 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1thJkD-0000Gy-BZ
-	for mharc-qemu-rust@gnu.org; Sun, 09 Feb 2025 21:41:57 -0500
+	id 1thQGt-0000Jo-QX
+	for mharc-qemu-rust@gnu.org; Mon, 10 Feb 2025 04:40:07 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1thJkB-0000Gc-C4; Sun, 09 Feb 2025 21:41:55 -0500
-Received: from mgamail.intel.com ([192.198.163.11])
+ id 1thQGr-0000BG-J8; Mon, 10 Feb 2025 04:40:05 -0500
+Received: from mgamail.intel.com ([192.198.163.19])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1thJk9-00089w-M0; Sun, 09 Feb 2025 21:41:55 -0500
+ id 1thQGp-0002Ah-7p; Mon, 10 Feb 2025 04:40:05 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739155314; x=1770691314;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=pIZ3Unj7TN3jHMZoZ5QYTyTSJp+DifzMWzG6gsybVVE=;
- b=gkjqxY5kmDEiUhOmd7H8hyEemce/ssF1ha3eaQYCf8yQ9NZTq/9deV+/
- F/YGJ4AatIKU3iy88hQ6jjGGMrOxOTvVysFogh5NP4BizS2rUHGkI70t4
- w8entrEPFiy94kxaDhCrFTe3tD+3bdsfnKrBtW18mSd9axNO25eSmCcV4
- excyQpxvAxf9NZ25Y8TfO96QmVcPizvyrqQCbrXXxnnIjjPB6oo8/jAHs
- Ndfh8B/+/O2Wrl32fdmAbjl+bXke/BY6FE3RbnJbg/4dvaHd1ekRgkwfL
- TCvA9hxwHc6QPOZ4wGvh7rnXZ2g7+0oWAokVKGPjK/VvKH1EtHEsA3hdT A==;
-X-CSE-ConnectionGUID: fFEcetATSySGyeoE7VWsyw==
-X-CSE-MsgGUID: PQjKO4OxQISp96PrNJ6Tcw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11340"; a="50351292"
-X-IronPort-AV: E=Sophos;i="6.13,273,1732608000"; d="scan'208";a="50351292"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2025 18:41:53 -0800
-X-CSE-ConnectionGUID: yv3nxVWkQzi+YYTiKopJRQ==
-X-CSE-MsgGUID: aTSZAACBSOK1GH+2ce/gag==
+ t=1739180403; x=1770716403;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=KEpqM60UEDmVkI4Vct9fFXrYdtydbPC9PXzd0Slxp3A=;
+ b=c3oSE1p/MYiXhzJjHOASP5kv89RaRL5Denw3Cns7aVLBLa47l3KbxADf
+ CsJ76GrRcJNMd5io77MDSu/XHAdl9u8+X1/ehV96PNV9LVUvx5R3tXLAz
+ ByDETRFq+qjjKfB9xo6CNb6jaRaOICWyCN53n4TiLs8rB0/IQ2YxmSRSV
+ fZjdDRH4C6RYQ7U8M8Ir9SIzc35sUOY2Bd97XvpvQFnD+a3His+bGmzoI
+ sWlN8r3tKMLbOOjN0RtqkTuRRs8CoQq7v94nsVVph5ymVTV8E4kqoGWf2
+ 4dX/EtC/VCdgM8QISChuZjRe9GJ+UqsamfZV3U3bfdT/0ToJMCA567dGY Q==;
+X-CSE-ConnectionGUID: UHrIuQOQR0mfd8lkbV99YQ==
+X-CSE-MsgGUID: qqGSdROOS7iY1W5toumTSA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11340"; a="38955839"
+X-IronPort-AV: E=Sophos;i="6.13,274,1732608000"; d="scan'208";a="38955839"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2025 01:39:59 -0800
+X-CSE-ConnectionGUID: CEOD1DQxRgei3iDwY6x1AA==
+X-CSE-MsgGUID: M9pfKFawTsigl+FsBL6ALw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="142938265"
-Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa001.fm.intel.com with ESMTP; 09 Feb 2025 18:41:50 -0800
+X-IronPort-AV: E=Sophos;i="6.13,274,1732608000"; d="scan'208";a="112366544"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa008.fm.intel.com with ESMTP; 10 Feb 2025 01:39:58 -0800
+Date: Mon, 10 Feb 2025 17:59:29 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Junjie Mao <junjie.mao@hotmail.com>,
- =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Richard Henderson <richard.henderson@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>,
- =?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH v2 10/10] i386: enable rust hpet for pc when rust is enabled
-Date: Mon, 10 Feb 2025 11:00:51 +0800
-Message-Id: <20250210030051.2562726-11-zhao1.liu@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250210030051.2562726-1-zhao1.liu@intel.com>
-References: <20250210030051.2562726-1-zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, qemu-stable@nongnu.org
+Subject: Re: [PATCH] rust: pl011: convert pl011_create to safe Rust
+Message-ID: <Z6nOAftJsjQ7KAiS@intel.com>
+References: <20250206111514.2134895-1-pbonzini@redhat.com>
+ <20250206111514.2134895-2-pbonzini@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=192.198.163.11; envelope-from=zhao1.liu@intel.com;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250206111514.2134895-2-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.19; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -57
 X-Spam_score: -5.8
@@ -74,113 +69,50 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Feb 2025 02:41:56 -0000
+X-List-Received-Date: Mon, 10 Feb 2025 09:40:06 -0000
 
-Add HPET configuration in PC's Kconfig options, and select HPET device
-(Rust version) if Rust is supported.
+On Thu, Feb 06, 2025 at 12:15:14PM +0100, Paolo Bonzini wrote:
+> Date: Thu,  6 Feb 2025 12:15:14 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH] rust: pl011: convert pl011_create to safe Rust
+> X-Mailer: git-send-email 2.48.1
+> 
+> Not a major change but, as a small but significant step in creating
+> qdev bindings, show how pl011_create can be written without "unsafe"
+> calls (apart from converting pointers to references).
+> 
+> This also provides a starting point for creating Error** bindings.
+> 
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  rust/hw/char/pl011/src/device.rs | 39 ++++++++++++++++----------------
+>  rust/qemu-api/src/sysbus.rs      | 34 +++++++++++++++++++++++++---
+>  2 files changed, 50 insertions(+), 23 deletions(-)
 
-Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
----
-Changes since RFC:
- * Fix rust hpet not being optional.
- * Fix bios-tables-test missing rust hpet.
----
- configs/devices/i386-softmmu/default.mak | 1 +
- hw/i386/fw_cfg.c                         | 2 +-
- hw/i386/pc.c                             | 2 +-
- hw/timer/Kconfig                         | 6 +++++-
- rust/hw/Kconfig                          | 1 +
- rust/hw/timer/Kconfig                    | 2 ++
- tests/qtest/meson.build                  | 3 ++-
- 7 files changed, 13 insertions(+), 4 deletions(-)
- create mode 100644 rust/hw/timer/Kconfig
+...
 
-diff --git a/configs/devices/i386-softmmu/default.mak b/configs/devices/i386-softmmu/default.mak
-index 4faf2f0315e2..9ef343cace06 100644
---- a/configs/devices/i386-softmmu/default.mak
-+++ b/configs/devices/i386-softmmu/default.mak
-@@ -6,6 +6,7 @@
- #CONFIG_APPLESMC=n
- #CONFIG_FDC=n
- #CONFIG_HPET=n
-+#CONFIG_X_HPET_RUST=n
- #CONFIG_HYPERV=n
- #CONFIG_ISA_DEBUG=n
- #CONFIG_ISA_IPMI_BT=n
-diff --git a/hw/i386/fw_cfg.c b/hw/i386/fw_cfg.c
-index 546de63123e6..a7d69a49edbf 100644
---- a/hw/i386/fw_cfg.c
-+++ b/hw/i386/fw_cfg.c
-@@ -147,7 +147,7 @@ FWCfgState *fw_cfg_arch_create(MachineState *ms,
- #endif
-     fw_cfg_add_i32(fw_cfg, FW_CFG_IRQ0_OVERRIDE, 1);
- 
--#ifdef CONFIG_HPET
-+#if defined(CONFIG_HPET) || defined(CONFIG_X_HPET_RUST)
-     PCMachineState *pcms =
-         (PCMachineState *)object_dynamic_cast(OBJECT(ms), TYPE_PC_MACHINE);
-     if (pcms && pcms->hpet_enabled) {
-diff --git a/hw/i386/pc.c b/hw/i386/pc.c
-index b46975c8a4db..04554817e021 100644
---- a/hw/i386/pc.c
-+++ b/hw/i386/pc.c
-@@ -1701,7 +1701,7 @@ static void pc_machine_initfn(Object *obj)
-     pcms->sata_enabled = true;
-     pcms->i8042_enabled = true;
-     pcms->max_fw_size = 8 * MiB;
--#ifdef CONFIG_HPET
-+#if defined(CONFIG_HPET) || defined(CONFIG_X_HPET_RUST)
-     pcms->hpet_enabled = true;
- #endif
-     pcms->fd_bootchk = true;
-diff --git a/hw/timer/Kconfig b/hw/timer/Kconfig
-index c96fd5d97ae8..c051597180f4 100644
---- a/hw/timer/Kconfig
-+++ b/hw/timer/Kconfig
-@@ -11,7 +11,11 @@ config A9_GTIMER
- 
- config HPET
-     bool
--    default y if PC
-+    default y if PC && !HAVE_RUST
-+
-+config X_HPET_RUST
-+    bool
-+    default y if PC && HAVE_RUST
- 
- config I8254
-     bool
-diff --git a/rust/hw/Kconfig b/rust/hw/Kconfig
-index 4d934f30afe1..36f92ec02874 100644
---- a/rust/hw/Kconfig
-+++ b/rust/hw/Kconfig
-@@ -1,2 +1,3 @@
- # devices Kconfig
- source char/Kconfig
-+source timer/Kconfig
-diff --git a/rust/hw/timer/Kconfig b/rust/hw/timer/Kconfig
-new file mode 100644
-index 000000000000..afd980335037
---- /dev/null
-+++ b/rust/hw/timer/Kconfig
-@@ -0,0 +1,2 @@
-+config X_HPET_RUST
-+    bool
-diff --git a/tests/qtest/meson.build b/tests/qtest/meson.build
-index 5e062c752a7e..34c59107cf4f 100644
---- a/tests/qtest/meson.build
-+++ b/tests/qtest/meson.build
-@@ -103,7 +103,8 @@ qtests_i386 = \
-    config_all_devices.has_key('CONFIG_VIRTIO_PCI') and                                      \
-    slirp.found() ? ['virtio-net-failover'] : []) +                                          \
-   (unpack_edk2_blobs and                                                                    \
--   config_all_devices.has_key('CONFIG_HPET') and                                            \
-+   (config_all_devices.has_key('CONFIG_HPET') or                                            \
-+    config_all_devices.has_key('CONFIG_X_HPET_RUST')) and                                   \
-    config_all_devices.has_key('CONFIG_PARALLEL') ? ['bios-tables-test'] : []) +             \
-   qtests_pci +                                                                              \
-   qtests_cxl +                                                                              \
--- 
-2.34.1
+> +    fn realize(&self) {
+
+What about renaming this as "realize_with_sysbus"?
+
+Elsewhere, the device's own realize method is often used to set
+DeviceImpl::REALIZE.
+
+And this realize here is meant to call the realize() method defined on
+the C side, so to avoid confusion we can avoid the same name? It's up to
+you.
+
+> +        // TODO: return an Error
+> +        assert!(bql_locked());
+> +        unsafe {
+> +            bindings::sysbus_realize(self.as_mut_ptr(), addr_of_mut!(bindings::error_fatal));
+> +        }
+> +    }
+
+This is a nice patch that shows more about how to use Owned<>!
+
+(BTW, I guess this patch is not the stable material. :-) )
+
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
