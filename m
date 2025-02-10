@@ -1,72 +1,61 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1thUQj-0003ZX-Sz
-	for mharc-qemu-rust@gnu.org; Mon, 10 Feb 2025 09:06:33 -0500
+	id 1thUVB-0006V4-7d
+	for mharc-qemu-rust@gnu.org; Mon, 10 Feb 2025 09:11:09 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <stefanha@gmail.com>)
- id 1thUQg-0003Yi-0b; Mon, 10 Feb 2025 09:06:30 -0500
-Received: from mail-ed1-x535.google.com ([2a00:1450:4864:20::535])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <stefanha@gmail.com>)
- id 1thUQe-0003NH-EY; Mon, 10 Feb 2025 09:06:29 -0500
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5de7531434fso2229306a12.0; 
- Mon, 10 Feb 2025 06:06:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739196386; x=1739801186; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pb2xhhq3/7K2yCbO0CUQWdg6iyyhNb9njS7vuQ7ZH7w=;
- b=WkncihD3GEwixN1/nCakRZv4ViaagtqDgAJd2HqVl8f64fcxPc71B1zy5o+UCgEIpn
- Mryctxua+JB2rG9YWCrO6BuN5SSyP4y+uO8uaU2C2RG0radyKMMcJ4MYn03B90Vi9SRr
- dWfhd0aHyJGRkcmAAkJDYRRruX5dzxycV/F2WGvBslaib6/yFj5fBtOocEGoVKuTefPk
- hX9QP3G8JbA9yT2KDxeO240YOC2mlUmaNwnTuvZnQwZkYVEYOqhEpamavT2PjMIB+1e0
- Ly8JX7oG6RtXzi14twJIBvXNI9BI86OCbfHJSYJU9Q1rfzGqVvBj5nd8JZvH6OM0fCdg
- ymXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739196386; x=1739801186;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pb2xhhq3/7K2yCbO0CUQWdg6iyyhNb9njS7vuQ7ZH7w=;
- b=GBcXnX7u/jrD2lsc4YDYA1bn45B6/pv1uNXB1Etkd+x3jVY0wtTefxeFQpGNScycac
- oEj+DmvgwWhMmYtFu4Ze6IgW1GilKD/1okP4643Xj7GRtqjs/o0R5YgkJDz7/JJnjrTL
- rFsui38Sq5OAVmggkQcReNRCJnS+OUy/GuIqj9QxMbai37b7OKM/UctgLhokjgqHtqqW
- KalXqEOKYW5oguYj2wDnIkCYaCP6Lwxu9tYGlNuSqSJpjMkotPFhscWw1JIXSxgR1iWR
- YNM7xQMNTUe/djrXoi09LU1RRjdeck2NArUYqKJxND3cW4SlSRNI55nKgQ8zJSHYPREM
- PAYg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUQq6kqgLeBKKq5pFxikRKTM+CTL3H8yiqtlOeQ9qM5n3OXl+W4HtC1iLoVQ2CR54Km9pUC+GVnWQI=@nongnu.org
-X-Gm-Message-State: AOJu0Yx/x0aYYg4UFzdsxZdC+M6wvq1oqFPwkKmfJ+refFNKMzcnxNQ3
- ohIeV94g+x8awvNylyboJ9wb6WbYf3VTuPt7HzrDThmtIyxDORFzFlFhLuOFaTXRmNRpZCoMlRS
- ybUypztSbeSGU7zW9Hfe8LCGUNyOipg==
-X-Gm-Gg: ASbGncsVAxFQunFa8rWJ1JSIStlkzNwUmlRPdhEVN0fGbZtOJ2D8IyytQYb6mGx8OkS
- mXjBvxLkZa610SD+jl9Nuf116q6bnYCLWio+sbLWkyyPdfb6VcN8NgeA2Tpo/3DXIufgi5R8=
-X-Google-Smtp-Source: AGHT+IFIc5AMgqXpnb0ZE/IWlPWCNgw1zlA/mZAh0YvW/8ZZ7iW5vYImNAGMjLaQhwLHl651Y77Mc+AzIQqZZ/bk6CQ=
-X-Received: by 2002:a05:6402:1e91:b0:5de:39fd:b2ff with SMTP id
- 4fb4d7f45d1cf-5de44e5da3bmr16374436a12.0.1739196384118; Mon, 10 Feb 2025
- 06:06:24 -0800 (PST)
-MIME-Version: 1.0
-References: <20250207143952.2486587-2-pbonzini@redhat.com>
-In-Reply-To: <20250207143952.2486587-2-pbonzini@redhat.com>
-From: Stefan Hajnoczi <stefanha@gmail.com>
-Date: Mon, 10 Feb 2025 09:06:12 -0500
-X-Gm-Features: AWEUYZk-2472gv1IJcA8ntSdkATkHi9p-pwUVgUEn9HCXNummoif23Zic4txkIk
-Message-ID: <CAJSP0QV+wfAFOeC_Jw5PBd5sOgzozPLPeEN=ddWd81Hok6uf4g@mail.gmail.com>
-Subject: Re: [PATCH] rust: restrict missing_const_for_fn to qemu_api crate
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1thUV3-0006Sx-V7; Mon, 10 Feb 2025 09:11:05 -0500
+Received: from mgamail.intel.com ([198.175.65.11])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1thUV1-0004qK-J2; Mon, 10 Feb 2025 09:11:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1739196660; x=1770732660;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Dl0ZWBsR1/HSCOhMTXqjWRBpm2e6iP4RBwyicQrCF/A=;
+ b=OgjzTGcxmc/eTFqJgO6jGZ3q5k9lco293hBoOnVBmytF/cXP5h47IuP7
+ 1GgI0ioHs+WjzqAcaqon7YZZEqrQ11SwTQzcktXzgDEcJL+XUTjatFtAL
+ 20P1bSBpbcQzgj7zYSEH6iq6m5PoDg1IWAezB0aG0Q64zBq7qjJCJR4zz
+ 1DivholO52JbhxwXf8/XcZc+ibsyBNJGQp/dkKMBAhptb6/erQCquPsGG
+ 4PZur8CIxge0HUK1irbOWUiFNn1QR+97F5WbzZ1dZjre3F6FUbEXQm2bf
+ mEvEv3grkUnmCw/8see807Ynlwsq2xbUi2LCW4XSxrigc15BZVYu2YDi6 A==;
+X-CSE-ConnectionGUID: UMfm4CW/RGum0FSYqKlUaw==
+X-CSE-MsgGUID: pMpjtVjDSweyd0Rl9NNsiQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11341"; a="50010018"
+X-IronPort-AV: E=Sophos;i="6.13,274,1732608000"; d="scan'208";a="50010018"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2025 06:10:57 -0800
+X-CSE-ConnectionGUID: EDxs6woCSrKfJxIIHvx4iA==
+X-CSE-MsgGUID: ZgbMYkR0QLOARRgo62pN3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="117128900"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa003.jf.intel.com with ESMTP; 10 Feb 2025 06:10:56 -0800
+Date: Mon, 10 Feb 2025 22:30:26 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, stefanha@redhat.com, qemu-rust@nongnu.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::535;
- envelope-from=stefanha@gmail.com; helo=mail-ed1-x535.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH 02/12] rust: qom: add object creation functionality
+Message-ID: <Z6oNgks2bNDRrIIz@intel.com>
+References: <20250207101623.2443552-1-pbonzini@redhat.com>
+ <20250207101623.2443552-3-pbonzini@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250207101623.2443552-3-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.11; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -57
+X-Spam_score: -5.8
+X-Spam_bar: -----
+X-Spam_report: (-5.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.388,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -80,27 +69,25 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Feb 2025 14:06:31 -0000
+X-List-Received-Date: Mon, 10 Feb 2025 14:11:06 -0000
 
-On Fri, Feb 7, 2025 at 9:40=E2=80=AFAM Paolo Bonzini <pbonzini@redhat.com> =
-wrote:
->
-> missing_const_for_fn is not necessarily useful or good.  For example in
-> a private API you can always add const later, and in a public API
-> it can be unnecessarily restrictive to annotate everything with const
-> (blocking further improvements to the API).
->
-> Nevertheless, QEMU turns it on because qemu_api uses const quite
-> aggressively and therefore it can be handy to have as much as possible
-> annotated with const.  Outside qemu_api though, not so much: devices
-> are self contained consumers and if there is nothing that could use
-> their functions in const contexts that were not anticipated.
->
-> Since missing_const_for_fn can be a bit noisy and trigger on trivial
-> functions that no one would ever call in const context, do not
-> turn it on everywhere and only keep it in qemu_api as a special case.
->
+On Fri, Feb 07, 2025 at 11:16:13AM +0100, Paolo Bonzini wrote:
+> Date: Fri,  7 Feb 2025 11:16:13 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH 02/12] rust: qom: add object creation functionality
+> X-Mailer: git-send-email 2.48.1
+> 
+> The basic object lifecycle test can now be implemented using safe code!
+> 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  rust/hw/char/pl011/src/device.rs | 23 +++++++++++++----------
+>  rust/qemu-api/src/prelude.rs     |  1 +
+>  rust/qemu-api/src/qom.rs         | 23 +++++++++++++++++++++--
+>  rust/qemu-api/tests/tests.rs     | 30 +++++++++++-------------------
+>  4 files changed, 46 insertions(+), 31 deletions(-)
+>
 
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+
 
