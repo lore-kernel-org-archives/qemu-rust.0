@@ -1,89 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1thWRi-0004x4-4O
-	for mharc-qemu-rust@gnu.org; Mon, 10 Feb 2025 11:15:42 -0500
+	id 1thgRl-0003q0-KY
+	for mharc-qemu-rust@gnu.org; Mon, 10 Feb 2025 21:56:26 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1thWR2-00048p-Ly
- for qemu-rust@nongnu.org; Mon, 10 Feb 2025 11:15:02 -0500
-Received: from mail-ej1-x62b.google.com ([2a00:1450:4864:20::62b])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1thWQy-0001UM-TP
- for qemu-rust@nongnu.org; Mon, 10 Feb 2025 11:15:00 -0500
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-ab78bcb4b19so573669566b.2
- for <qemu-rust@nongnu.org>; Mon, 10 Feb 2025 08:14:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739204093; x=1739808893; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=s+bgwk18lKdsHzokGpBgI91DaZBecMvO8llhyl5xsWo=;
- b=YDRaIuP6/zYmQI7dc+3k6pGxtQ+RjHPS81cJoG/oqi2KgPlOMoRHmccsv6PzZeauzK
- 42QgrBLVoa0Xo+IPfhcXltX3qBU+uij1S3I/H/WsUYWInT2jOE8MoJBne4kQ3tv6y9ql
- NI4xUukilOCzIQ7dMjcwIiBGYMbtPsfP1C3G3kRw43lg6uL4O5Ka50/YohL1GUBRByU+
- dD6h6eJrGT3NeOZOYnjgyUpAJq4lY+4RbvlctLXZnqIYVCjf5zGa4Gmz/wI7dFGZ0DmO
- y/N7QwezSlULO/g6mxr109X6H696Reb9lYf5nnymOxPHtaPOw/GPBO9etG50u1CDa+XQ
- JamQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739204093; x=1739808893;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=s+bgwk18lKdsHzokGpBgI91DaZBecMvO8llhyl5xsWo=;
- b=lM1SJKAlGTj8feQEb/36NhBJ0Yfg+Y7TMVVsbELfth4RRwEdTbs56UZF1vk3qs8xxv
- jekxK3nOtAfbevY1HBqio4mTOhJ4LjtBmhxvobgXfEw1bMgklLV+qMnCCl44Y9/JlwIN
- SFWKtRikeCiJpqTsB2IVHTJibg09PQG+caHag5Pj37Cn5AQRkUQUv62ZERtT7Y7GU1mC
- GWR+7+fSPxjQSZw8L4NHiWINU92KbU0epbrGQqKXytiOrWSEZx8Fve42TjgKMNYY6HQ9
- S1lwC8IDTAOML50FM/yEZXooNc2p9wQl3Q3hwNo+KcTEU+9J/iy8R6GIDoliXS4YcOOI
- s9Sw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXdq8AcG0t+DwRB8X2vcrKgoBtHynpHkqK2OslatOmR9QfnVuz/SnF8A09tRT2jWolRQmrPvaRDUgk=@nongnu.org
-X-Gm-Message-State: AOJu0YwcpHFD2wexBTo3DaEB1Ea39oCIzUF+3hu23PKdXvZq8QHbpHfw
- C9+kpY1xzVG2r0GHGcUmqdGK4cur+DNjd/COKmKTe3UN5KWkK+stvF6loREIalk=
-X-Gm-Gg: ASbGncv9FwRhIekiXksajjgpy5CF+XpD5ESd2wBbVdaBRgi4b3EFWbHfE7jwKbNLMTO
- EzL64Y2mSuJk4hjV1snb165VLCKpaDfe63Kq4TmxztYhROsqW7U2PjGxyUfAHdKOsuZplPtahy8
- hmy5mZgU1XQtX45f4SbkdZCc21NYA6u/UQKBC4FD9Tj+J/qu4eVN7528UQjEj/MYtpzpE2VZA1h
- Gx7aJqlOhzVw/Yo7W6s2fXQk43ndk3nHZ4MTwz7FC6VrYTng4J9hxm56w6nMhxXOeEbD4rnDv6e
- j6w8jtU3E3pyqaIjqw==
-X-Google-Smtp-Source: AGHT+IFr2A58jx4kKR8nVUg6w6bivqW1VmnAzxHJV+dJtiq1/zgsS0YfJ7zBCGfSA/4mUNBRtLrTew==
-X-Received: by 2002:a17:906:f59e:b0:ab7:1816:e8a with SMTP id
- a640c23a62f3a-ab789c47d9fmr1843499666b.36.1739204093555; 
- Mon, 10 Feb 2025 08:14:53 -0800 (PST)
-Received: from draig.lan ([185.126.160.109]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab78ec15421sm715275266b.157.2025.02.10.08.14.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Feb 2025 08:14:52 -0800 (PST)
-Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id E05065F91D;
- Mon, 10 Feb 2025 16:14:51 +0000 (GMT)
-From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: qemu-devel@nongnu.org
-Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Richard Henderson <richard.henderson@linaro.org>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Thomas Huth <thuth@redhat.com>,
- qemu-rust@nongnu.org (open list:Rust-related patc...)
-Subject: [PULL 01/17] tests/docker: replicate the check-rust-tools-nightly CI
- job
-Date: Mon, 10 Feb 2025 16:14:35 +0000
-Message-Id: <20250210161451.3273284-2-alex.bennee@linaro.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250210161451.3273284-1-alex.bennee@linaro.org>
-References: <20250210161451.3273284-1-alex.bennee@linaro.org>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1thgRe-0003ov-JV; Mon, 10 Feb 2025 21:56:18 -0500
+Received: from mgamail.intel.com ([192.198.163.17])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1thgRb-00055I-Ia; Mon, 10 Feb 2025 21:56:18 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1739242575; x=1770778575;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=L+d/T0S7rwLh/IUVD8rHMGPWi5hJ6U10Pn/4BlpJ8yg=;
+ b=NnCRAopTrorWPzXuxmV2w0oUYHjdJqyr5ywSZsEeUb7xU1upzjrRNcMv
+ JnhPkx74i0sSOasFnsK2k45K/tiLm9kfsOwkz/pb8Hldhwf3dWiWi3eke
+ l43mE2k7YPKuo24YWVjx/O+kHQZyKdfLLXMhVo20CnSEBY+cIQR1qtuFz
+ A3ZVQGRzpP/6M7+LjtVeJxIyvspVsPCLngMAH4x71T8bU0e5JAhL72bUV
+ xArTBJwk6O/uKRCfFk0rsc0UiunrmIFly+An0d3n1us1va2Jmtt8VOyio
+ R6I8m6FuSp0Tg3RJrFSOxqt2WHasq1GzlPwBP+0HMBo7VoWzMd+xhdr8D w==;
+X-CSE-ConnectionGUID: B651BPXcSeaX3VvtCk4+mQ==
+X-CSE-MsgGUID: mf2/ULZsR3eITZfDm1R6OQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11341"; a="39735503"
+X-IronPort-AV: E=Sophos;i="6.13,276,1732608000"; d="scan'208";a="39735503"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2025 18:56:02 -0800
+X-CSE-ConnectionGUID: DsJdL3LORiaF3Ym5cRusZQ==
+X-CSE-MsgGUID: Bk/a7yPSTJCyyDQw1mNvrw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.13,276,1732608000"; d="scan'208";a="112211456"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa006.fm.intel.com with ESMTP; 10 Feb 2025 18:55:52 -0800
+Date: Tue, 11 Feb 2025 11:15:24 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH 07/12] rust: qdev: switch from legacy reset to Resettable
+Message-ID: <Z6rAzBIRjDw9N3B6@intel.com>
+References: <20250207101623.2443552-1-pbonzini@redhat.com>
+ <20250207101623.2443552-8-pbonzini@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::62b;
- envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x62b.google.com
-X-Spam_score_int: 12
-X-Spam_score: 1.2
-X-Spam_bar: +
-X-Spam_report: (1.2 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
- DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, RCVD_IN_DNSWL_NONE=-0.0001,
- RCVD_IN_SBL_CSS=3.335, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250207101623.2443552-8-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.17; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -57
+X-Spam_score: -5.8
+X-Spam_bar: -----
+X-Spam_report: (-5.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.388,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -96,67 +69,23 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Feb 2025 16:15:06 -0000
+X-List-Received-Date: Tue, 11 Feb 2025 02:56:19 -0000
 
-This allows people to run the test locally:
+On Fri, Feb 07, 2025 at 11:16:18AM +0100, Paolo Bonzini wrote:
+> Date: Fri,  7 Feb 2025 11:16:18 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH 07/12] rust: qdev: switch from legacy reset to Resettable
+> X-Mailer: git-send-email 2.48.1
+> 
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  meson.build                      |   1 +
+>  rust/hw/char/pl011/src/device.rs |  10 ++-
+>  rust/qemu-api/src/qdev.rs        | 111 ++++++++++++++++++++++++-------
+>  rust/qemu-api/tests/tests.rs     |   5 +-
+>  4 files changed, 99 insertions(+), 28 deletions(-)
+>
 
-  make docker-test-rust@fedora-rust-nightly
-
-Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-Message-Id: <20250207153112.3939799-2-alex.bennee@linaro.org>
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0091bd1a90..aac7404473 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3386,6 +3386,7 @@ F: rust/rustfmt.toml
- 
- Rust-related patches CC here
- L: qemu-rust@nongnu.org
-+F: tests/docker/test-rust
- F: rust/
- 
- SLIRP
-diff --git a/tests/docker/Makefile.include b/tests/docker/Makefile.include
-index fead7d3abe..fa1cbb6726 100644
---- a/tests/docker/Makefile.include
-+++ b/tests/docker/Makefile.include
-@@ -236,3 +236,6 @@ docker-image: ${DOCKER_IMAGES:%=docker-image-%}
- 
- docker-clean:
- 	$(call quiet-command, $(DOCKER_SCRIPT) clean)
-+
-+# Overrides
-+docker-test-rust%: NETWORK=1
-diff --git a/tests/docker/test-rust b/tests/docker/test-rust
-new file mode 100755
-index 0000000000..e7e3e94a55
---- /dev/null
-+++ b/tests/docker/test-rust
-@@ -0,0 +1,21 @@
-+#!/bin/bash -e
-+#
-+# Run the rust code checks (a.k.a. check-rust-tools-nightly)
-+#
-+# Copyright (c) 2025 Linaro Ltd
-+#
-+# Authors:
-+#  Alex Bennée <alex.bennee@linaro.org>
-+#
-+# This work is licensed under the terms of the GNU GPL, version 2
-+# or (at your option) any later version. See the COPYING file in
-+# the top-level directory.
-+
-+. common.rc
-+
-+cd "$BUILD_DIR"
-+
-+configure_qemu --disable-user --disable-docs --enable-rust
-+pyvenv/bin/meson devenv -w $QEMU_SRC/rust ${CARGO-cargo} fmt --check
-+make clippy
-+make rustdoc
--- 
-2.39.5
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
