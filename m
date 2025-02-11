@@ -1,50 +1,47 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1thy6M-0002iT-2T
-	for mharc-qemu-rust@gnu.org; Tue, 11 Feb 2025 16:47:30 -0500
+	id 1thy7C-0003W3-OP
+	for mharc-qemu-rust@gnu.org; Tue, 11 Feb 2025 16:48:27 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1thy3U-00081U-Tb
- for qemu-rust@nongnu.org; Tue, 11 Feb 2025 16:44:38 -0500
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1thy3D-0007om-7w
+ for qemu-rust@nongnu.org; Tue, 11 Feb 2025 16:44:15 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1thy3R-0005Lx-NX
- for qemu-rust@nongnu.org; Tue, 11 Feb 2025 16:44:31 -0500
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1thy39-000563-Aq
+ for qemu-rust@nongnu.org; Tue, 11 Feb 2025 16:44:14 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739310269;
+ s=mimecast20190719; t=1739310250;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/OWHn8YVudrVjD30pFiw9gzLSOJXgZ2dezAHaj9jIKU=;
- b=M+p7zfKgqfgZbbaGAKOAMxU36H95jtfcljf3GC3pnc1R3r36RK1eU3AAd9DnGWuX0btAup
- 94QB25l6dncBFjKTBs7nLwDAQJL5PND+yHCyg/YHnQhqy9IZk1iOP/YCgG1yT9bBsWm74i
- uzLgPPBaOc5gScunzUqoiU+QqOrffHQ=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ content-transfer-encoding:content-transfer-encoding;
+ bh=h/ifcYhQ7KkTIGj6O+VZXM2QcwDr9dlJUCrUFlqQsPg=;
+ b=Mov0LworMjtiFt1wzxUki7S3XlRnIvuFzYQZTW8GOhs50r4c3j9x3IkhG4LTry/0X4SYDn
+ hMdnbmHOAUTJd7kqFvhGpWH02ZizKm9nJCcwmi06L7kiBGZt5tTp7UWncjene72vD6DOuc
+ ypIZfwOIexv9tKtFJauhJeqaOxsJtpA=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-232-I6KzDElLPP2cB1iufbH_UQ-1; Tue,
- 11 Feb 2025 16:44:25 -0500
-X-MC-Unique: I6KzDElLPP2cB1iufbH_UQ-1
-X-Mimecast-MFC-AGG-ID: I6KzDElLPP2cB1iufbH_UQ
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-284-YyH2liYOPQuhWdxtwfzIwA-1; Tue,
+ 11 Feb 2025 16:44:06 -0500
+X-MC-Unique: YyH2liYOPQuhWdxtwfzIwA-1
+X-Mimecast-MFC-AGG-ID: YyH2liYOPQuhWdxtwfzIwA
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id C24E8195609F; Tue, 11 Feb 2025 21:44:23 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 6C01A1800876; Tue, 11 Feb 2025 21:44:05 +0000 (UTC)
 Received: from merkur.redhat.com (unknown [10.44.32.210])
  by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 47125195608D; Tue, 11 Feb 2025 21:44:21 +0000 (UTC)
+ id BD30B195608D; Tue, 11 Feb 2025 21:44:02 +0000 (UTC)
 From: Kevin Wolf <kwolf@redhat.com>
 To: qemu-block@nongnu.org
 Cc: kwolf@redhat.com, hreitz@redhat.com, pbonzini@redhat.com,
  manos.pitsidianakis@linaro.org, qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: [PATCH 06/11] rust/block: Add I/O buffer traits
-Date: Tue, 11 Feb 2025 22:43:23 +0100
-Message-ID: <20250211214328.640374-7-kwolf@redhat.com>
-In-Reply-To: <20250211214328.640374-1-kwolf@redhat.com>
-References: <20250211214328.640374-1-kwolf@redhat.com>
+Subject: [PATCH 00/11] rust/block: Add minimal block driver bindings
+Date: Tue, 11 Feb 2025 22:43:17 +0100
+Message-ID: <20250211214328.640374-1-kwolf@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
@@ -57,8 +54,9 @@ X-Spam_report: (-3.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.54,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Tue, 11 Feb 2025 16:46:57 -0500
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,125 +68,76 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Feb 2025 21:44:45 -0000
+X-List-Received-Date: Tue, 11 Feb 2025 21:44:15 -0000
+X-List-Received-Date: Tue, 11 Feb 2025 21:44:15 -0000
 
-Types that implement IoBuffer can be used with safe I/O functions.
+This series adds minimal bindings for writing block drivers in Rust and
+converts the bochs block driver as an example. Some parts (such as the
+open functions) are still essentially C written in Rust syntax, while
+other parts already try to provide somewhat idiomatic abstractions.
 
-Signed-off-by: Kevin Wolf <kwolf@redhat.com>
----
- rust/block/src/iobuffer.rs | 94 ++++++++++++++++++++++++++++++++++++++
- rust/block/src/lib.rs      |  2 +
- 2 files changed, 96 insertions(+)
+The main purpose of this series is just to add a starting point for
+incremental improvements to the bindings; it's clearly not very polished
+yet and ignores some important points like enforcing the graph lock.
+
+Therefore, the main focus in the immediate future after this series
+should be cleaning up the bochs driver and the bindings it uses rather
+than adding more drivers.
+
+Kevin Wolf (11):
+  rust: Build separate qemu_api_tools and qemu_api_system
+  meson: Add rust_block_ss and link tools with it
+  rust: Add some block layer bindings
+  rust/qemu-api: Add wrappers to run futures in QEMU
+  rust/block: Add empty crate
+  rust/block: Add I/O buffer traits
+  block: Add bdrv_open_blockdev_ref_file()
+  rust/block: Add driver module
+  rust/block: Add read support for block drivers
+  bochs-rs: Add bochs block driver reimplementation in Rust
+  rust/block: Add format probing
+
+ include/block/block-global-state.h |   4 +
+ include/qemu/coroutine-rust.h      |  24 +++
+ rust/wrapper-system.h              |  44 ++++
+ rust/wrapper.h                     |  14 +-
+ block.c                            |  30 ++-
+ util/qemu-co-rust-async.c          |  55 +++++
+ meson.build                        |  48 ++++-
+ rust/Cargo.lock                    |   7 +
+ rust/Cargo.toml                    |   1 +
+ rust/block/Cargo.toml              |  15 ++
+ rust/block/README.md               |   3 +
+ rust/block/meson.build             |  19 ++
+ rust/block/src/bochs.rs            | 316 +++++++++++++++++++++++++++++
+ rust/block/src/driver.rs           | 309 ++++++++++++++++++++++++++++
+ rust/block/src/iobuffer.rs         |  94 +++++++++
+ rust/block/src/lib.rs              |   5 +
+ rust/hw/char/pl011/meson.build     |   3 +-
+ rust/meson.build                   |  12 +-
+ rust/qemu-api/Cargo.toml           |   1 +
+ rust/qemu-api/build.rs             |  10 +-
+ rust/qemu-api/meson.build          |  71 ++++---
+ rust/qemu-api/src/bindings.rs      |  16 +-
+ rust/qemu-api/src/futures.rs       |  78 +++++++
+ rust/qemu-api/src/lib.rs           |   5 +
+ rust/qemu-api/src/prelude.rs       |   2 +
+ rust/qemu-api/src/zeroable.rs      |  11 +
+ storage-daemon/meson.build         |   2 +-
+ util/meson.build                   |   3 +
+ 28 files changed, 1146 insertions(+), 56 deletions(-)
+ create mode 100644 include/qemu/coroutine-rust.h
+ create mode 100644 rust/wrapper-system.h
+ create mode 100644 util/qemu-co-rust-async.c
+ create mode 100644 rust/block/Cargo.toml
+ create mode 100644 rust/block/README.md
+ create mode 100644 rust/block/meson.build
+ create mode 100644 rust/block/src/bochs.rs
+ create mode 100644 rust/block/src/driver.rs
  create mode 100644 rust/block/src/iobuffer.rs
+ create mode 100644 rust/block/src/lib.rs
+ create mode 100644 rust/qemu-api/src/futures.rs
 
-diff --git a/rust/block/src/iobuffer.rs b/rust/block/src/iobuffer.rs
-new file mode 100644
-index 0000000000..d61370c961
---- /dev/null
-+++ b/rust/block/src/iobuffer.rs
-@@ -0,0 +1,94 @@
-+// Copyright Red Hat Inc.
-+// Author(s): Kevin Wolf <kwolf@redhat.com>
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+use std::mem::MaybeUninit;
-+
-+/// Types that implement IoBuffer can be used with safe I/O functions.
-+///
-+/// # Safety
-+///
-+/// `buffer_ptr()` and `buffer_mut_ptr()` must return pointers to the address of the same I/O
-+/// buffer with the size returned by `buffer_len()` which remain valid for the lifetime of the
-+/// object. It must be safe for the I/O buffer to contain any byte patterns.
-+pub unsafe trait IoBuffer {
-+    /// Returns a const pointer to be used as a raw I/O buffer
-+    fn buffer_ptr(&self) -> *const u8;
-+
-+    /// Returns a mutable pointer to be used as a raw I/O buffer
-+    fn buffer_mut_ptr(&mut self) -> *mut u8;
-+
-+    /// Returns the length in bytes for the raw I/O buffer returned by [`buffer_ptr`] and
-+    /// [`buffer_mut_ptr`]
-+    ///
-+    /// [`buffer_ptr`]: IoBuffer::buffer_ptr
-+    /// [`buffer_mut_ptr`]: IoBuffer::buffer_mut_ptr
-+    fn buffer_len(&self) -> usize;
-+}
-+
-+/// Implementing `SizedIoBuffer` provides an implementation for [`IoBuffer`] without having to
-+/// implement any functions manually.
-+///
-+/// # Safety
-+///
-+/// Types implementing `SizedIoBuffer` guarantee that the whole object can be accessed as an I/O
-+/// buffer that is safe to contain any byte patterns.
-+pub unsafe trait SizedIoBuffer: Sized {
-+    /// Safely converts a byte slice into a shared reference to the type implementing
-+    /// `SizedIoBuffer`
-+    fn from_byte_slice(buf: &[u8]) -> Option<&Self> {
-+        if buf.len() < std::mem::size_of::<Self>() {
-+            return None;
-+        }
-+
-+        let ptr = buf.as_ptr() as *const Self;
-+
-+        // TODO Use ptr.is_aligned() when MSRV is updated to at least 1.79.0
-+        if (ptr as usize) % std::mem::align_of::<Self>() != 0 {
-+            return None;
-+        }
-+
-+        // SAFETY: This function checked that the byte slice is large enough and aligned.
-+        // Implementing SizedIoBuffer promises that any byte pattern is valid for the type.
-+        Some(unsafe { &*ptr })
-+    }
-+}
-+
-+unsafe impl<T: SizedIoBuffer> IoBuffer for T {
-+    fn buffer_ptr(&self) -> *const u8 {
-+        self as *const Self as *const u8
-+    }
-+
-+    fn buffer_mut_ptr(&mut self) -> *mut u8 {
-+        self as *mut Self as *mut u8
-+    }
-+
-+    fn buffer_len(&self) -> usize {
-+        std::mem::size_of::<Self>()
-+    }
-+}
-+
-+unsafe impl<T: SizedIoBuffer> IoBuffer for [T] {
-+    fn buffer_ptr(&self) -> *const u8 {
-+        self.as_ptr() as *const u8
-+    }
-+
-+    fn buffer_mut_ptr(&mut self) -> *mut u8 {
-+        self.as_mut_ptr() as *mut u8
-+    }
-+
-+    fn buffer_len(&self) -> usize {
-+        std::mem::size_of_val(self)
-+    }
-+}
-+
-+unsafe impl<T: SizedIoBuffer> SizedIoBuffer for MaybeUninit<T> {}
-+
-+unsafe impl SizedIoBuffer for u8 {}
-+unsafe impl SizedIoBuffer for u16 {}
-+unsafe impl SizedIoBuffer for u32 {}
-+unsafe impl SizedIoBuffer for u64 {}
-+unsafe impl SizedIoBuffer for i8 {}
-+unsafe impl SizedIoBuffer for i16 {}
-+unsafe impl SizedIoBuffer for i32 {}
-+unsafe impl SizedIoBuffer for i64 {}
-diff --git a/rust/block/src/lib.rs b/rust/block/src/lib.rs
-index 8b13789179..1c03549821 100644
---- a/rust/block/src/lib.rs
-+++ b/rust/block/src/lib.rs
-@@ -1 +1,3 @@
-+mod iobuffer;
- 
-+pub use iobuffer::{IoBuffer, SizedIoBuffer};
 -- 
 2.48.1
 
