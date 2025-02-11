@@ -1,96 +1,65 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1thpN7-0004QK-GB
-	for mharc-qemu-rust@gnu.org; Tue, 11 Feb 2025 07:28:13 -0500
+	id 1thy6D-0002Kh-MV
+	for mharc-qemu-rust@gnu.org; Tue, 11 Feb 2025 16:47:22 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1thpN5-0004Pt-Ks
- for qemu-rust@nongnu.org; Tue, 11 Feb 2025 07:28:11 -0500
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1thy3H-0007wH-Q2
+ for qemu-rust@nongnu.org; Tue, 11 Feb 2025 16:44:20 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1thpN2-0007Ra-9o
- for qemu-rust@nongnu.org; Tue, 11 Feb 2025 07:28:11 -0500
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1thy3E-00057R-Ps
+ for qemu-rust@nongnu.org; Tue, 11 Feb 2025 16:44:19 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739276885;
+ s=mimecast20190719; t=1739310255;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8eIgIbGsbGweqcbH3ykwx3MSydi/ybpdwPRW6m+E88Y=;
- b=CRwr9Zp+NJV2takYdhlF6eJZ8KNq0DqQkjIt6pKIUOI+qfmZxHuU1VwuoEvGU0ZRefEfdu
- K2nAubKutZe5K+XQhdkRTEZzQIprM+UQYqBOEai4SHFYUP0W1O90bl0rvYeLrGzioU2m8y
- WN61hch4ydduPoBITu8IHt0JuFPYsHY=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-3-HviZT1WJPJCZnzaPwA4gwQ-1; Tue, 11 Feb 2025 07:28:03 -0500
-X-MC-Unique: HviZT1WJPJCZnzaPwA4gwQ-1
-X-Mimecast-MFC-AGG-ID: HviZT1WJPJCZnzaPwA4gwQ_1739276882
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-38dcc9653a7so1705010f8f.0
- for <qemu-rust@nongnu.org>; Tue, 11 Feb 2025 04:28:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739276882; x=1739881682;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8eIgIbGsbGweqcbH3ykwx3MSydi/ybpdwPRW6m+E88Y=;
- b=ieK9RJY83iWjzHMkj5ye2QXiAfG7rZnzjDMB1NQV49bcyVhZBVjkJlAgSBT2lMWV0H
- p0gO40Bqy5W4eCbIiTL9ymIuhUX+Ixxb/rBlUuEPXNm/s5TNZJozRNzlusEkVHT9qKTQ
- LfNSOntX8NZha0IBXahb938qifXprvlqXqZ4s11MkDgOEjCSTBIhrUyxEAtpHi/q48xd
- osZIVLHM+K+9f0HEPXekf/JL74oaT9L8xwLDucZKwHty32rR8dprXAVvjRavxdTWXOdi
- mcV7FHHuw3+yiJXWc+q+HHoPij5dsg06W3INcW+RmliUGpusgfvqC6vJ0ehz7h9MjUYZ
- tQ6g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUTdKXVssaGIHsunvbZrUILkbw3C+/Me9awdWg14GxYwtIgQhopt0WZU+rMyV5P6PdF7npjAPeEr/w=@nongnu.org
-X-Gm-Message-State: AOJu0YywQ5fztxrG7R+a2Mr0UMh01lMb2IYO+RFx1wDGcfe79Xw7N1aE
- 4Ce2lUCUZztdp8poNwuqgDwNWjgLrFb7W2U3ej1Lbz9gIhfIFCOX3WDoxvPZNrEt5WG6sNSxa5w
- Bsex+uLGCWiDWpQnwG77rKdI2WeKHRXO39t0myCXzPKzz3qzwa42Jg29odawfb85uaryJha3VWK
- utsqOUZJYAB8EQWblVcBGWh8gq1g==
-X-Gm-Gg: ASbGncskAKPqPcZq8UZ58FDHqgfkNZkTtc0iuMhBBc3sTpBYD/oWGDnlcysbURH+BzN
- NjAgDelROUfrZypPIb0zGkExoGszDoZ7g6CudQXTRWJWIXNfKurPRvGdjfPdd
-X-Received: by 2002:a05:6000:18a7:b0:38d:d70d:ada5 with SMTP id
- ffacd0b85a97d-38dd70db0ebmr8785002f8f.26.1739276882350; 
- Tue, 11 Feb 2025 04:28:02 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHgIGxQMHvurR8V89j/3+xbfJzCth5rPQ0OvwfpJO5SQqTCMBdJf9wkmZd0WsOZsG8Qf+WeM2FYFqfretIti+c=
-X-Received: by 2002:a05:6000:18a7:b0:38d:d70d:ada5 with SMTP id
- ffacd0b85a97d-38dd70db0ebmr8784976f8f.26.1739276881976; Tue, 11 Feb 2025
- 04:28:01 -0800 (PST)
+ bh=49QZIYrrAS5aS5cSfm2FbcETY+HU9KApwMSA1aqo0yM=;
+ b=iXUnaY+xs5ul72ygFEQ2Cdet1X+k40O+qMETXd6g1rVN6w46TuMT20fB/H83B8f8Na+ElE
+ d/R8+tuOsNJiSG3W3VcyUMFgcjdjKPqAkFPRhwFIBnUktCseievl2pke0fZYuoWnQFcMXf
+ zOtM8f6cCCI2kwbsYHX0mo6FHxMWQR8=
+Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-625-QhrwrscUOe2keRJ8VeJEzg-1; Tue,
+ 11 Feb 2025 16:44:12 -0500
+X-MC-Unique: QhrwrscUOe2keRJ8VeJEzg-1
+X-Mimecast-MFC-AGG-ID: QhrwrscUOe2keRJ8VeJEzg
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 6F0F81955DD0; Tue, 11 Feb 2025 21:44:11 +0000 (UTC)
+Received: from merkur.redhat.com (unknown [10.44.32.210])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 1C6AD1956048; Tue, 11 Feb 2025 21:44:08 +0000 (UTC)
+From: Kevin Wolf <kwolf@redhat.com>
+To: qemu-block@nongnu.org
+Cc: kwolf@redhat.com, hreitz@redhat.com, pbonzini@redhat.com,
+ manos.pitsidianakis@linaro.org, qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: [PATCH 02/11] meson: Add rust_block_ss and link tools with it
+Date: Tue, 11 Feb 2025 22:43:19 +0100
+Message-ID: <20250211214328.640374-3-kwolf@redhat.com>
+In-Reply-To: <20250211214328.640374-1-kwolf@redhat.com>
+References: <20250211214328.640374-1-kwolf@redhat.com>
 MIME-Version: 1.0
-References: <20250206111514.2134895-1-pbonzini@redhat.com>
- <20250206111514.2134895-2-pbonzini@redhat.com>
- <Z6nOAftJsjQ7KAiS@intel.com> <c7685bff-96d1-4e89-ba19-08fbba399d37@redhat.com>
- <SY0P300MB1026B9C81F2EF236BB703F2B95FD2@SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM>
- <CABgObfbTx9DNkkzw8EeMRU0+L6_+P64KHtAJTUwsW40mtwGSOg@mail.gmail.com>
- <SY0P300MB1026E0CE5AFBEA4E713F73F595FD2@SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM>
-In-Reply-To: <SY0P300MB1026E0CE5AFBEA4E713F73F595FD2@SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 11 Feb 2025 13:27:50 +0100
-X-Gm-Features: AWEUYZnw2WlYL0Tn6-OpomHwNVBisPRu_pyZ_14pGooKQ8dl74qI3G4xTJ80Kr0
-Message-ID: <CABgObfaYNZ1JZddOhdGfMhPAVK+trX08B_wBS5MbvrUNdCGebA@mail.gmail.com>
-Subject: Re: vtables and procedural macros (was Re: [PATCH] rust: pl011:
- convert pl011_create to safe Rust)
-To: Junjie Mao <junjie.mao@hotmail.com>
-Cc: Zhao Liu <zhao1.liu@intel.com>, qemu-devel@nongnu.org, qemu-rust@nongnu.org,
- qemu-stable@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 7AeufjJWjIYPRR_uxg9gQsY5GpdkQpVqa0ZX1KWms4w_1739276882
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=kwolf@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -7
-X-Spam_score: -0.8
-X-Spam_bar: /
-X-Spam_report: (-0.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.54,
+X-Spam_score_int: -35
+X-Spam_score: -3.6
+X-Spam_bar: ---
+X-Spam_report: (-3.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.54,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RAZOR2_CF_RANGE_51_100=1.886, RAZOR2_CHECK=0.922, RCVD_IN_DNSWL_NONE=-0.0001,
- RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=no autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Tue, 11 Feb 2025 16:47:01 -0500
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,110 +71,94 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Feb 2025 12:28:12 -0000
+X-List-Received-Date: Tue, 11 Feb 2025 21:44:20 -0000
 
-On Tue, Feb 11, 2025 at 12:34=E2=80=AFPM Junjie Mao <junjie.mao@hotmail.com=
-> wrote:
-> Essentially we want a naming convention that (1) avoids any potential
-> name conflicts, and (2) applies consistently to (ideally) all APIs. For
-> goal (1), we need something at API call sites that can resolve the
-> potential ambiguity.
+Signed-off-by: Kevin Wolf <kwolf@redhat.com>
+---
+ meson.build                | 36 ++++++++++++++++++++++++++++++++----
+ storage-daemon/meson.build |  2 +-
+ 2 files changed, 33 insertions(+), 5 deletions(-)
 
-I now agree that (1) is more important than (2). Adding a function like
-
-    fn realize(&self, bus: *mut BusState) {
-        // TODO: return an Error
-        assert!(bql_locked());
-        unsafe {
-            bindings::qdev_realize(self.as_mut_ptr(),
-                bus, addr_of_mut!(bindings::error_fatal));
-        }
-    }
-
-to DeviceMethods is enough to cause an error:
-
-error[E0034]: multiple applicable items in scope
-   --> hw/char/pl011/src/device.rs:714:9
-    |
-714 |     dev.realize();
-    |         ^^^^^^^ multiple `realize` found
-
-> So instead of dev.realize(), we may write:
->
->   a) dev.sysbus_realize()
->   b) SysBusDeviceMethods::realize(&dev); dev.realize() is still ok if
->      there is no ambiguity
->   c) dev.as_ref::<SysBusDevice>().realize()
->
->   (any more options?)
->
-> None looks perfect, unfortunately. Option (a) introduces inconsistent
-> naming conventions as mentioned earlier; (b) cannot prevent confusions
-> when a device has both a "reset()" method and "dev.reset()" calls; (c)
-> deviates from how wrappers are auto-delegated to child classes today and
-> is the longest to write.
-
-There is one more, which is a variant of (c): use Deref to delegate to
-the superclass, and traits for interfaces only. Then the default would
-always be the closest to the class you're defining, and you could
-override it with SysBusDevice::realize(&dev).
-
-It requires more glue code, but creating it could be delegated to
-#[derive(Object)].
-
-I think we can use (a) as proposed by Zhao and yourself, and document
-this convention
-
-(1) whenever a name is unique in the hierarchy, do not add the prefix
-
-(2) whenever a name is not unique in the hierarchy, always add the
-prefix to the classes that are lower in the hierarchy; for the top
-class, decide on a case by case basis.
-
-For example, you'd have
-
-DeviceMethods::cold_reset()
-PciDeviceMethods::pci_device_reset()
-PciBridgeMethods::pci_bridge_reset()
-
-PciDeviceMethods adds the prefix because the three methods have
-different functionality. Subclasses of PciBridgeMethods may need to
-call either pci_device_reset() or pci_bridge_reset().
-
-And also, because there is a similar name in DeviceMethods,
-PciDeviceMethods::reset() would be confusing.
-
-(As an aside, pci_device_reset() probably should be implemented at the
-Resettable level, e.g. RESET_TYPE_BUS, but that's a different story).
-
-Or perhaps pci_bridge_reset() becomes PciBridgeCap::reset(), which is
-not a trait. That's okay too, and it's not a problem for the naming of
-pci_device_reset().
-
-but:
-
-DeviceMethods::realize()
-SysbusDeviceMethods::sysbus_realize()
-PciDeviceMethods::pci_realize()
-
-Here, DeviceMethods does not add the prefix because generally the
-lower classes only add casts and compile-time typing but not
-functionality. The basic realize() functionality is the same for all
-devices.
-
-What about confusion with the realize function on the struct? It's
-unlikely to be an issue because it has a different signature than
-DeviceMethods::realize(), which takes a BusState too. But if I'm wrong
-and there _is_ confusion, renaming DeviceMethods::realize() is easy.
-
-> Just found the lint: https://rust-lang.github.io/rust-clippy/master/index=
-.html#same_name_method
-
-Almost: "It lints if a struct has two methods with the same name: one
-from a trait, another not from a trait." - it doesn't check two
-traits. Also I think in this case it doesn't fire because the trait is
-implemented for &PL011State, not PL011State.
-
-Paolo
+diff --git a/meson.build b/meson.build
+index 1f26801b69..30aae6b3c3 100644
+--- a/meson.build
++++ b/meson.build
+@@ -3640,6 +3640,7 @@ qom_ss = ss.source_set()
+ system_ss = ss.source_set()
+ specific_fuzz_ss = ss.source_set()
+ specific_ss = ss.source_set()
++rust_block_ss = ss.source_set()
+ rust_devices_ss = ss.source_set()
+ stub_ss = ss.source_set()
+ trace_ss = ss.source_set()
+@@ -4209,7 +4210,11 @@ foreach target : target_dirs
+   arch_deps += target_specific.dependencies()
+ 
+   if have_rust and target_type == 'system'
+-    target_rust = rust_devices_ss.apply(config_target, strict: false)
++    target_rust_ss = ss.source_set()
++    target_rust_ss.add_all(rust_block_ss)
++    target_rust_ss.add_all(rust_devices_ss)
++
++    target_rust = target_rust_ss.apply(config_target, strict: false)
+     crates = []
+     foreach dep : target_rust.dependencies()
+       crates += dep.get_variable('crate')
+@@ -4349,15 +4354,38 @@ if xkbcommon.found()
+ endif
+ 
+ if have_tools
++  tools_deps = []
++  if have_rust
++    tools_rust = rust_block_ss.apply({})
++    crates = []
++    foreach dep : tools_rust.dependencies()
++      crates += dep.get_variable('crate')
++    endforeach
++    if crates.length() > 0
++      rlib_rs = custom_target('rust_tools.rs',
++                              output: 'rust_tools.rs',
++                              command: [rust_root_crate, crates],
++                              capture: true,
++                              build_by_default: true,
++                              build_always_stale: true)
++      rlib = static_library('rust_tools',
++                            rlib_rs,
++                            dependencies: tools_rust.dependencies(),
++                            override_options: ['rust_std=2021', 'build.rust_std=2021'],
++                            rust_abi: 'c')
++      tools_deps += declare_dependency(link_whole: [rlib])
++    endif
++  endif
++
+   qemu_img = executable('qemu-img', [files('qemu-img.c'), hxdep],
+              link_args: '@block.syms', link_depends: block_syms,
+-             dependencies: [authz, block, crypto, io, qom, qemuutil], install: true)
++             dependencies: tools_deps + [authz, block, crypto, io, qom, qemuutil], install: true)
+   qemu_io = executable('qemu-io', files('qemu-io.c'),
+              link_args: '@block.syms', link_depends: block_syms,
+-             dependencies: [block, qemuutil], install: true)
++             dependencies: tools_deps + [block, qemuutil], install: true)
+   qemu_nbd = executable('qemu-nbd', files('qemu-nbd.c'),
+                link_args: '@block.syms', link_depends: block_syms,
+-               dependencies: [blockdev, qemuutil, selinux],
++               dependencies: tools_deps + [blockdev, qemuutil, selinux],
+                install: true)
+ 
+   subdir('storage-daemon')
+diff --git a/storage-daemon/meson.build b/storage-daemon/meson.build
+index 5e61a9d1bd..92bc2e0cba 100644
+--- a/storage-daemon/meson.build
++++ b/storage-daemon/meson.build
+@@ -9,6 +9,6 @@ if have_tools
+   qsd = executable('qemu-storage-daemon',
+                    qsd_ss.sources(),
+                    link_args: '@block.syms', link_depends: block_syms,
+-                   dependencies: qsd_ss.dependencies(),
++                   dependencies: tools_deps + qsd_ss.dependencies(),
+                    install: true)
+ endif
+-- 
+2.48.1
 
 
