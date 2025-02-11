@@ -1,92 +1,143 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1thm8J-00069o-Fj
-	for mharc-qemu-rust@gnu.org; Tue, 11 Feb 2025 04:00:43 -0500
+	id 1thoWs-0007ph-G9
+	for mharc-qemu-rust@gnu.org; Tue, 11 Feb 2025 06:34:14 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1thm8I-00069H-1j
- for qemu-rust@nongnu.org; Tue, 11 Feb 2025 04:00:42 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <junjie.mao@hotmail.com>)
+ id 1thoWo-0007p4-MF; Tue, 11 Feb 2025 06:34:10 -0500
+Received: from mail-sy4aus01olkn20823.outbound.protection.outlook.com
+ ([2a01:111:f403:2819::823]
+ helo=AUS01-SY4-obe.outbound.protection.outlook.com)
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1thm8E-0002R5-OE
- for qemu-rust@nongnu.org; Tue, 11 Feb 2025 04:00:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739264435;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=o5v9t+9/fcL9IGx6vUBnu+RzuqIZpc3aR2eLKlG7hyU=;
- b=AqQTfW7yxhRFcwH2Eq4pmAI+1FeDu8VpTd0/zMwAH3kOR1VI9H5Z432Xr5D9Xmf9lq1laQ
- HLd98SlqR7ayFRMq+alPCGHONYK6VIivQ34R8UnEuRGbJV00gsTymvutErxsYjkcS3S5fg
- OGEvKhrTj8yPhKEfuOnlpAhTsZYNcSQ=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-336-h73Fo3BwO_GzWVWQL_7eVQ-1; Tue, 11 Feb 2025 04:00:33 -0500
-X-MC-Unique: h73Fo3BwO_GzWVWQL_7eVQ-1
-X-Mimecast-MFC-AGG-ID: h73Fo3BwO_GzWVWQL_7eVQ
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-38ddba9814bso948463f8f.3
- for <qemu-rust@nongnu.org>; Tue, 11 Feb 2025 01:00:33 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739264432; x=1739869232;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=o5v9t+9/fcL9IGx6vUBnu+RzuqIZpc3aR2eLKlG7hyU=;
- b=A3pbIQshjeFyhjGfQZilYUXz7P1kZFBGIgRSLqU6GlgHJCPDaD6JxEAmbYUURz8msU
- /rHT0nBgTjarVpkPPyQCnef/xJAiIwqAOJInXqRzveziDtPYo57Vf+gCHvXFkDu3gNI3
- lNWa5ah8KrB8i640j71kcBf5WscwS5ok6zfjFKBVBaa92f2eOAtZ/Unq3Zk69IOl8w5j
- frW52IXZmfxeE50NTICSxWxzcZEBesqvr2/U9h/j59bkmjeRg+B3XGyb6l5sgbSMPKGq
- dOU/ZnPQhPtZ8AxjssCnCKx+mJv+2IBwhtU/5ohh48j00ERHhDAAKWhHaBSYFKfcg+1+
- 6jqw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW86mn8RdNDU1b93HMQFvz4RBM8+n+rwPstLpPvwDpx2fq1Wz/+P1QI5mAd/L9BX1zGVM1zRtBerw4=@nongnu.org
-X-Gm-Message-State: AOJu0YzqLwGoU1c42BYVF5Gi2yDU3TG53oHNdtRco8BPA3C/TK+yAzfd
- 9i2D9eugecs8W59VxxvPZoiGGkrL564s6oNgugTXmeRqALi2u0D3+tRAvmN7PaSxazxdW0Tcfyd
- Q4uD6+9JFYbRP+BXjsloNR8hphD0pfIyFekFqZe75Hr4tOoEUJPPRFperUkrhuA9eOstQIRrzJ5
- idxiqQyTMJ1OBcICf2tNU6vCo95A==
-X-Gm-Gg: ASbGnctfyX7ZS2Bh8jdaTBBordeMqiXO7Z4PmTRwrZ9+HfxT8zw15Ek1uzrwNc/2F3G
- dJTKLw/1cM9Ikey4Avvnp32797fWzzJeuGLQ3DzobLk8KuwnqDpVsKQDQFJ0D
-X-Received: by 2002:a5d:4286:0:b0:38b:da6a:8a02 with SMTP id
- ffacd0b85a97d-38dc94914bemr10012992f8f.47.1739264432081; 
- Tue, 11 Feb 2025 01:00:32 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IF9SnDFOxBawFtRMNNd7IMii8ZyjLGLlWvXhBKendc7FrUTAzok6ZPnfhngKrdbLAaEpbd+7PRuQt2m/d/CcIU=
-X-Received: by 2002:a5d:4286:0:b0:38b:da6a:8a02 with SMTP id
- ffacd0b85a97d-38dc94914bemr10012956f8f.47.1739264431645; Tue, 11 Feb 2025
- 01:00:31 -0800 (PST)
-MIME-Version: 1.0
+ (Exim 4.90_1) (envelope-from <junjie.mao@hotmail.com>)
+ id 1thoWj-0007LB-DA; Tue, 11 Feb 2025 06:34:10 -0500
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I1ebA4o44UMFT1ByQ6M8Fip3K6E3BjBhTFwe3qzY9g+R+Yux4RYbuKN6eNkLGG3PR/v+74FuQtxjBd07bu7JyKRyAi73Wum9GkfyECWm0q/Q7EXTNtonaIqSzNAysVmAe1z7qPCg8iFUhQVLdrrzXQ933ZhUDHpoSOZ5sRnajVygvGs6cQhAoR4oBWeZwX7fmpk2US1aMBmeDlTJY0LW09LekBL67caNjhxSvVWqmIT7ESYPrT6ABo5M/XWaP+XdIjZmubIHCk1A1avxdkrdvgu6XYgSfD7gQOR0D5I0m6J/e4TPSPM55vFmIIkg72YXGQZ/y+Hm6wlALTDO2SM6Bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u//ap+z6PFCc7J4sOgEqmgDd80HbJcbAd/SxH0kl318=;
+ b=nKTDX4IMvXuT65njhKy8ofimn8jF/2VO4tvkL36rH6cE+jbW08rxELKD1Nk1MqgIqCoLyu1ihsRkbfxK6AiL2YBViBK/wvLCtXg+q1Pc9/voJpI/+dEvIOMIRma2UJMyPhdYdzGbPSlWflQmzGGlYIPe1wZImRhnHj7TUHaUqrWnO/kRSqwZJMUPGX/LASafYPASOBmsn13DYhafcmMoZiZaN2V9wur+7ZwpeFCZ/7GzetbzczIY04m2tkoLRKHoi1AUEqGFbkJ9gcDyNuTo1+LruoZEYNcbnpYVr/+NLA88UrQBWNn3/ChOmaxa9Phxcx+6sVW3ENWaVB2iXL/VRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u//ap+z6PFCc7J4sOgEqmgDd80HbJcbAd/SxH0kl318=;
+ b=fEg3n2fZZWBQxnEUXwg029QT7XuVUzdP/lRPcFCBwe8WHgN6SiKVvlkjpCWwsChEV1RAGVYbz052mavn52C2aOgHBTbvcP34eIjQafg1iL1pW3Ab1VtZiVYKBiIulXQUC4xQM+iPi0nd9bqSe19GhBGEKlyx1ZtB163IjZPXLRvMUvwsu0rU7TyQ/LuJr81Xr6HTUgB+5JHwZvKLabSu/UHnMtpy7yItHOoFR0NncJTSVyysKeLNM5u1MEKvz81VKfv0B9mU37hZYLb0I5nAFmjUC91pdIyvPrtQBiKq2cNl46k6vQTMot/tDF5MeW+fqzoFmtksxul+HrRSRifnyA==
+Received: from SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM (2603:10c6:10:282::22)
+ by ME0P300MB0485.AUSP300.PROD.OUTLOOK.COM (2603:10c6:220:22b::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.20; Tue, 11 Feb
+ 2025 11:33:56 +0000
+Received: from SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::aea3:2365:f9e8:5bd]) by SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::aea3:2365:f9e8:5bd%3]) with mapi id 15.20.8422.015; Tue, 11 Feb 2025
+ 11:33:56 +0000
 References: <20250206111514.2134895-1-pbonzini@redhat.com>
  <20250206111514.2134895-2-pbonzini@redhat.com>
- <Z6nOAftJsjQ7KAiS@intel.com> <c7685bff-96d1-4e89-ba19-08fbba399d37@redhat.com>
+ <Z6nOAftJsjQ7KAiS@intel.com>
+ <c7685bff-96d1-4e89-ba19-08fbba399d37@redhat.com>
  <SY0P300MB1026B9C81F2EF236BB703F2B95FD2@SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM>
-In-Reply-To: <SY0P300MB1026B9C81F2EF236BB703F2B95FD2@SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 11 Feb 2025 10:00:19 +0100
-X-Gm-Features: AWEUYZlEd5ovXBUFtA1NaKqmdeWeYQgOpWyQOuDmrpvMZBV1dGFLpqyBnnqffpk
-Message-ID: <CABgObfbTx9DNkkzw8EeMRU0+L6_+P64KHtAJTUwsW40mtwGSOg@mail.gmail.com>
+ <CABgObfbTx9DNkkzw8EeMRU0+L6_+P64KHtAJTUwsW40mtwGSOg@mail.gmail.com>
+User-agent: mu4e 1.6.10; emacs 27.1
+From: Junjie Mao <junjie.mao@hotmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Zhao Liu <zhao1.liu@intel.com>, qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org, qemu-stable@nongnu.org
 Subject: Re: vtables and procedural macros (was Re: [PATCH] rust: pl011:
  convert pl011_create to safe Rust)
-To: Junjie Mao <junjie.mao@hotmail.com>
-Cc: Zhao Liu <zhao1.liu@intel.com>, qemu-devel@nongnu.org, qemu-rust@nongnu.org,
- qemu-stable@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: _g0Y2xuoH902eOo7euUZy3cJOFBZqzYl4gXEnFKKj9o_1739264432
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Date: Tue, 11 Feb 2025 18:31:14 +0800
+In-reply-to: <CABgObfbTx9DNkkzw8EeMRU0+L6_+P64KHtAJTUwsW40mtwGSOg@mail.gmail.com>
+Message-ID: <SY0P300MB1026E0CE5AFBEA4E713F73F595FD2@SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -34
-X-Spam_score: -3.5
-X-Spam_bar: ---
-X-Spam_report: (-3.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.388,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-ClientProxiedBy: KL1PR01CA0052.apcprd01.prod.exchangelabs.com
+ (2603:1096:820:5::16) To SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM
+ (2603:10c6:10:282::22)
+X-Microsoft-Original-Message-ID: <875xlgiulj.fsf@hotmail.com>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SY0P300MB1026:EE_|ME0P300MB0485:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98b7bb46-c4fe-41e4-e138-08dd4a8ff83f
+X-Microsoft-Antispam: BCL:0;
+ ARA:14566002|5072599009|6090799003|19110799003|15080799006|8060799006|7092599003|461199028|3412199025|440099028|10035399004|56899033;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MnZLZUxiSjl3ZnlkRkpKRTR3NTJvNmhmYVh6RVJlZ3VDV09tQWdPYTVyQ1VV?=
+ =?utf-8?B?YTcza3lZTWdQSlBObmFUbSt5S0NEeE1OUHlQRlFFYUgxcGZHckMyUThCT3hR?=
+ =?utf-8?B?c3VaN0EwTGdaNEs2ejBORHFFMjdYUjhvTjRyak1yS2hoVnpQY3BmVGVTZWVP?=
+ =?utf-8?B?UmV0Mk5uTHRsdlRJUzJXNUNoVVlMUnRWUmFpZFVJRVRpWURjY3pBMkJlbXE4?=
+ =?utf-8?B?VVBkZjRHV0Z1RnJpUFNTRkZqY0ZqbTdkaWdvSWNibFFqZDFLYWE5U2RMRGtm?=
+ =?utf-8?B?WHNYaXNqSUN2VU5lZWJXRnNHTk1pYVB4SXpVUDUzUzVvVG9selVVU1o4Q2Y4?=
+ =?utf-8?B?ZFI1VytwSjJvOVVEUXp3ekRtOWx2TjFaVUlETlRRaVRIWW5mRTlTbElLb0lJ?=
+ =?utf-8?B?T1dNLzBPWGs0bTNuQitOcWw1bVhuUHJNV2lPSU9Ka3pGYzFHUktuS1FZY2ZD?=
+ =?utf-8?B?UmJUT3JCTHNyRWZzRStOdHJPRzRQSzJuL2swTjFBREt0OTdUUXNkcXEySmRH?=
+ =?utf-8?B?QTJXanRJNE8wbFp5dDNhWTQ2Y0N2cGg3K1NXcjk2QlVIdVd0TkhzcGYrQ1Jr?=
+ =?utf-8?B?WFdJNHd3c0plb0pHcmhXSnFtNE5uUE1HUmpnN0NBRmhJS1pYVEJnaWMwdzU0?=
+ =?utf-8?B?MHpHMTdQbk8xMWwvSmtjam1ENWxFUGlVaDZPbUxGVUw3NGdXSzR6ZDJyb1dD?=
+ =?utf-8?B?VGs3K0RsSDlrenpud1B1ZzNMNFNkNHMvQnpMK3dvMEY3MEJyQWQrWEh0TXh0?=
+ =?utf-8?B?V1FOaUk5TW5aQitVb2QwMFVZUkp0SEtSb2VjbmhhRkhBOTZhYTR6NExpM2E2?=
+ =?utf-8?B?VlpwVXZ6WnN6NUpuSFR2T1UrUEpiczUrd0p0Y1FURyt6WXpYZGpvVkxmWVFO?=
+ =?utf-8?B?QXl5YVF1ZVhDd3RsQUVWT0FjTThWQkNZejZhTUtWa096b3pZbnNCeFkzcHFn?=
+ =?utf-8?B?MStxcldvbFpJSUkydnVsQXpxdXlydGJZQlBsNkJnRi9ndWJDbm1sZlJEeGNk?=
+ =?utf-8?B?dDVJYkN3TUI5NmpDNnYvSDE2Z2JFamo5K2FQV0l1eE4yRkVncFdmYU5mVjNU?=
+ =?utf-8?B?b1pYNnhnSFpMM0pocUZ1RnQ3dkdud2hDT1JsZTE4bGpUa0xDbURGd09aRzBh?=
+ =?utf-8?B?R0tMRHpJR3E3M1BUOU5iRFhXQ0dyN3pvODI0THJ0VnJaYmJTZmhZWkpYTnNH?=
+ =?utf-8?B?TFhuTFc3bDJ3NlJCV0szbzdNYk5YSTJDMlUrTHg3VWo3WTVQK2lZUG0wY1Fs?=
+ =?utf-8?B?eWdwbTVQdjRoTXVlUlhaN3FPM3R3b2dnTExGWTlMczhvSlAzd1d1NE5qN0kx?=
+ =?utf-8?B?SkdTcUNrY3h6Njk3RDJEVm9WY0ZVQXJzVHQ1Z3FLRXhZWDJEdkh6T2VMUXFz?=
+ =?utf-8?B?c3IzQ0RoYjlBRDd2Vko3SVBqNnRIOHNpQnU1aUoxc2VGb1BqamVnU2ZaYjJk?=
+ =?utf-8?B?RG1CNnFxd3EzMUR2V0pCc2puZWFNenRqRXRBSExaa1BqYmJuaDR0b0Z0Szhy?=
+ =?utf-8?B?WTRaSnIzY3NqRnFVam9zK0R2dnhtb3lhdGE5ZWlpblZFQi9FUzRXVkdLcU12?=
+ =?utf-8?Q?CnnhQkSSZKmq8mFNcp5lJH4f0=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aTYwbVNSL2F2V2JXdEE2R1diSTN6VTd3Mm92WFdEd3RFL2xnNFU2Y21zMS9z?=
+ =?utf-8?B?c2s5VDQvc2szU254aHdBanM4OHBsZWlIUnRERDBsSFRHaGVvZ1ZxZks4Nkth?=
+ =?utf-8?B?WnUrVk5wQVZuWkhJaVozNlBTNmtZeVpqRVY2QnVEbzdDaDQvOGJFR3pPMlFk?=
+ =?utf-8?B?QWRPbEZxaGE3bnFrRC9sZUdpbW1SMVIrNGZSWkx5elhYMC80T0RhZVh0VU1j?=
+ =?utf-8?B?a25JNGJjNmtkREVyT0txK2l5UDJWSlAxY1krTVFFcEdGc0FOT2dxWHFvNzhT?=
+ =?utf-8?B?Rmd2dW9YVnIrdklBQ0ppOEViNEV1WkR3SlN4T3ZVQ3kvMFN6Y3dXOEhibEJ0?=
+ =?utf-8?B?ZUhnU1BWK1hsYnhGOUNsYmpTbldnS05MRktWNCtHU3NKR2RmWDYvdEJlRmtT?=
+ =?utf-8?B?VjFkdlNsVUo2Z3AzK3F4QVVzdFgwbFgzZ0RFS2FUbHBHVUVzYVduZ1VESW96?=
+ =?utf-8?B?YWNybmhLLzhIWDJ3SWN6NUFTOHZiMGhmemgwZG9xYm9WYnIyVEk0cE5hTEpp?=
+ =?utf-8?B?SHB6b0VSc095VllrOUFSNGZlZTlaRlF3WCtoRmVPUG5vaW43eXZKZTF5SmUx?=
+ =?utf-8?B?aGVNbkQ2Z25seFJ0cGNjWDVjYzFKYWVabjJuL1NHMVBkSlNueE9nQ0J0NEg4?=
+ =?utf-8?B?a0JSOXVFUXN0akNPc205b1NoTUJ3bmpraGVrZE4xQUdtbUdGbFB6TjM3WVJt?=
+ =?utf-8?B?aWhqdFFWeXBYN3ZGM2EyUWkvZG5tYXIzTXp2Zzk4Q2NmUWh5c0F2RkdSemRH?=
+ =?utf-8?B?SmxEdWFhTjNOaUxvUnkzekt1cE1YZUdzYm9EWG1UN3lWMjlnRWd1dTNreUQx?=
+ =?utf-8?B?ZldxYThxWFkvbzZURHpKcjVUUjNSemY0VlVDRHRPaThMcGhBdjhPM0RGaldw?=
+ =?utf-8?B?WDRVYlNDdmdKTjdWSmFYU0FwTG1oRFZKWWR6M2lMT285R0hjaEpjWTB1M0Z6?=
+ =?utf-8?B?ZWxleW4wRGNrRm9CazRKa3NUeCtCU0k4WTJTQjh4WUtpREJNNmVuVDBoWDFF?=
+ =?utf-8?B?R0huMjNDWDUreElJVlovSWFkUFNMbXVCK2w0RkNpZUpaMXpjcFZyT1ZBZVNB?=
+ =?utf-8?B?cElDZTQycC9qMFZRcHVmdkRMaFUzM3FsZmViT0dGNHFMVlNOYjAyak5qWU8y?=
+ =?utf-8?B?RkEvV2luU0l5ckFOcUVJd0E2NWZvcVdFY3hpRGR5WCtvdjBpbDRPNXlyU2tS?=
+ =?utf-8?B?VHVZSFYxUUx0NFplUEJLL3o5UStsSjl2QXA3Smc1eDlISjQ2YXdGSTJ2V3py?=
+ =?utf-8?B?bW42UXZrZzd5TmFrWkhHeWhWaU1EV0RMV2F5TEFJUmZzdk1qaEw0RjB5M3B3?=
+ =?utf-8?B?QytZQzdOUXNnanoycWFmb2ZRbzY2RHNzNDE2NlpUVHJwODFnTkJTQ2RzK0Fs?=
+ =?utf-8?B?WkgzNnNsek1xYm9EVUcwbmlLWWNKdTB4cWhOcTVhZWdhcXEyb0tXelpzMFBv?=
+ =?utf-8?B?Q0ZTYzkxSzNpSGJDQmNrb0VwdWZuaGgxRmF3UXhvNG8ycER3MGk4RWhER3FW?=
+ =?utf-8?B?VmVTRXRvbGQvNm1aNHVOZkZSMG5jZlMvMUxYTEQvQ0tKNy91SjlmR29WZGNr?=
+ =?utf-8?B?Sy83QUJyejl6cE1tbFJQd0l3bTNEbUx5bU1ZbjIwL0pzRlhsd3RqRWpLMWpE?=
+ =?utf-8?B?YzlES3dCaVpaS0RZdnR1aVZ1bVpLZUxpb014RjhwcDlQemNIVkJCNzBNUW4x?=
+ =?utf-8?Q?D0PKSX7AJnk9LDeHWgLN?=
+X-OriginatorOrg: sct-15-20-7719-20-msonline-outlook-448bf.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98b7bb46-c4fe-41e4-e138-08dd4a8ff83f
+X-MS-Exchange-CrossTenant-AuthSource: SY0P300MB1026.AUSP300.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2025 11:33:56.5179 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME0P300MB0485
+Received-SPF: pass client-ip=2a01:111:f403:2819::823;
+ envelope-from=junjie.mao@hotmail.com;
+ helo=AUS01-SY4-obe.outbound.protection.outlook.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,39 +150,77 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Feb 2025 09:00:42 -0000
+X-List-Received-Date: Tue, 11 Feb 2025 11:34:11 -0000
 
-On Tue, Feb 11, 2025 at 7:47=E2=80=AFAM Junjie Mao <junjie.mao@hotmail.com>=
- wrote:
-> I would suggest to keep the "sysbus" prefix in the method name, or in
-> general, keep the class prefix in the method names in XXXClassMethods
-> traits. Otherwise APIs from different parent classes may also
-> conflict. As an example, in the following class hierarchy:
+
+Paolo Bonzini <pbonzini@redhat.com> writes:
+
+> On Tue, Feb 11, 2025 at 7:47=E2=80=AFAM Junjie Mao <junjie.mao@hotmail.co=
+m> wrote:
+>> I would suggest to keep the "sysbus" prefix in the method name, or in
+>> general, keep the class prefix in the method names in XXXClassMethods
+>> traits. Otherwise APIs from different parent classes may also
+>> conflict. As an example, in the following class hierarchy:
+>>
+>>   Object -> DeviceState -> PCIDevice -> PCIBridge -> ...
+>>
+>> For PCIDevice instances there is an API pci_device_reset(), and for
+>> PCIBridge ones pci_bridge_reset(). Without class prefixes both will be
+>> wrapped (as blanket impl in two traits) as reset() and a dev.reset()
+>> call will lead to a "multiple applicable items in scope" build error.
 >
->   Object -> DeviceState -> PCIDevice -> PCIBridge -> ...
+> Yes, reset is definitely a problem.
 >
-> For PCIDevice instances there is an API pci_device_reset(), and for
-> PCIBridge ones pci_bridge_reset(). Without class prefixes both will be
-> wrapped (as blanket impl in two traits) as reset() and a dev.reset()
-> call will lead to a "multiple applicable items in scope" build error.
+> I will wrap qdev_realize() in DeviceMethods to check if you get
+> "multiple applicable items" from that as well.
+>
+> I can also go back and add "sysbus_" in front of init_mmio, init_irq,
+> etc.; but on the other hand we have Timer::{modify, delete} and
+> DeviceMethods::init_{clock,qdev}_{in,out}, should they be changed as
+> well? I'm not sure there is a single solution that always works.
+>
 
-Yes, reset is definitely a problem.
+The DeviceMethods::init_* wrappers may need a similar prefix for the
+same reason, though it seems unlikely to suffer from such name
+conflicts. Meanwhile, adding prefixes to timer::* seems redundant.
 
-I will wrap qdev_realize() in DeviceMethods to check if you get
-"multiple applicable items" from that as well.
+Essentially we want a naming convention that (1) avoids any potential
+name conflicts, and (2) applies consistently to (ideally) all APIs. For
+goal (1), we need something at API call sites that can resolve the
+potential ambiguity. So instead of dev.realize(), we may write:
 
-I can also go back and add "sysbus_" in front of init_mmio, init_irq,
-etc.; but on the other hand we have Timer::{modify, delete} and
-DeviceMethods::init_{clock,qdev}_{in,out}, should they be changed as
-well? I'm not sure there is a single solution that always works.
+  a) dev.sysbus_realize()
 
-> I agree that uses of proc macros should be carefully evaluated to see if
-> they really help or hurt. In this specific case, I'm not sure if using
-> attributes solves the root cause, though.
+  b) SysBusDeviceMethods::realize(&dev); dev.realize() is still ok if
+     there is no ambiguity
 
-Yes, it doesn't help if you have multiple similarly-named methods
-across the "superclasses".
+  c) dev.as_ref::<SysBusDevice>().realize()
 
-Paolo
+  (any more options?)
 
+None looks perfect, unfortunately. Option (a) introduces inconsistent
+naming conventions as mentioned earlier; (b) cannot prevent confusions
+when a device has both a "reset()" method and "dev.reset()" calls; (c)
+deviates from how wrappers are auto-delegated to child classes today and
+is the longest to write.
+
+Option (b) + a lint that warns same method names looks a good tradeoff
+to me. I tried to find some clippy lints for that purpose, but have not
+found any yet. A similar issue exists [1], but has been kept open for >6
+years and is not exactly what we want.
+
+[1] https://github.com/rust-lang/rust-clippy/issues/3117
+
+--
+Best Regards
+Junjie Mao
+
+>> I agree that uses of proc macros should be carefully evaluated to see if
+>> they really help or hurt. In this specific case, I'm not sure if using
+>> attributes solves the root cause, though.
+>
+> Yes, it doesn't help if you have multiple similarly-named methods
+> across the "superclasses".
+>
+> Paolo
 
