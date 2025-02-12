@@ -1,80 +1,80 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1ti937-0001pm-AP
-	for mharc-qemu-rust@gnu.org; Wed, 12 Feb 2025 04:28:53 -0500
+	id 1ti93z-0002Lx-HI
+	for mharc-qemu-rust@gnu.org; Wed, 12 Feb 2025 04:29:48 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1ti932-0001oi-UV
- for qemu-rust@nongnu.org; Wed, 12 Feb 2025 04:28:49 -0500
+ id 1ti93v-00028n-7r
+ for qemu-rust@nongnu.org; Wed, 12 Feb 2025 04:29:43 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1ti930-0001P7-CC
- for qemu-rust@nongnu.org; Wed, 12 Feb 2025 04:28:48 -0500
+ id 1ti93t-0001Xd-AH
+ for qemu-rust@nongnu.org; Wed, 12 Feb 2025 04:29:42 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739352524;
+ s=mimecast20190719; t=1739352580;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=n6cDg26mFjpBICZXHQaKgZDwfO0PxFjt59qifV/rayQ=;
- b=U7d5Ugo6PARddBmqWmvEiMzIiFwA6uE1bx3BY4cnCKTBTP4Y4PGzrWD3Mew5CmELlQbYEY
- 082ToOSpIplWIEQIkTuMz0am0uUPd480WTmCCSnBhA6eR/fo5zTR4lc7ZXL0zxDCXxGDgS
- Pd2aEiIZIb3x6x6M7jc5GgaX40csMJ4=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=7nUGeHi1FpuLKQqy/QV1lGxaUaS2V8jslKj+FykpJX0=;
+ b=etpZj3xnBB/02SBu3Q58KBctEBmha8hpUlFPcvFsDXK8SM2l8n3JNrytA3TnRfWq2YfhaH
+ AQKQaiicbkuimVxfsB3NXRkipnLbKtEYE2JPNgM9G+MkJLPQMJMqV3WAJ+KiELgMDrXT3w
+ nHH+Whn4PmXDi44wPlyI6KHmcXFcqWE=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-101-cdVjBfKKMdGV7nfaXedvxg-1; Wed, 12 Feb 2025 04:28:43 -0500
-X-MC-Unique: cdVjBfKKMdGV7nfaXedvxg-1
-X-Mimecast-MFC-AGG-ID: cdVjBfKKMdGV7nfaXedvxg_1739352522
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-43947a0919aso22340955e9.0
- for <qemu-rust@nongnu.org>; Wed, 12 Feb 2025 01:28:42 -0800 (PST)
+ us-mta-297-mt_rCJa0Ml6DkaeuKJsYjg-1; Wed, 12 Feb 2025 04:29:39 -0500
+X-MC-Unique: mt_rCJa0Ml6DkaeuKJsYjg-1
+X-Mimecast-MFC-AGG-ID: mt_rCJa0Ml6DkaeuKJsYjg
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-38dd533dad0so2479391f8f.0
+ for <qemu-rust@nongnu.org>; Wed, 12 Feb 2025 01:29:38 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739352522; x=1739957322;
+ d=1e100.net; s=20230601; t=1739352578; x=1739957378;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=n6cDg26mFjpBICZXHQaKgZDwfO0PxFjt59qifV/rayQ=;
- b=U75dz4Spq9Ct/kDXgeKhBXSsPHsu+v/zvu7AyzCYReQPgM0spRzhxhLWL2pYlYoX2r
- l6lT9CvAdgNQ2YLsXTt4yrobLUXtAEm8dtXsHOb2OQhYYa2UhPiMV/oS1IkiMqPkpeV2
- C1sJ8ugYysI9XV+9dP37MtI4GoncQzuPjot5dGn/82BNsMAV0xG/dHLJcllqUpDS8M36
- kgLLIhC6UI2UNAmYHYZ97SFFwMSBP5RLeStu30OTadElPfdIbVKrYOvWysXa1zU9TYTq
- C8A+XJaAnxd5XKGIE3ZxQJ3XTkQueGw/26qmNHkBqhJesp/vbZOMs3uzZ/Y6kcJokltL
- QrgA==
+ bh=7nUGeHi1FpuLKQqy/QV1lGxaUaS2V8jslKj+FykpJX0=;
+ b=RmAuoQEcAgcMGnPQ7ydtYEmf8UDPjwkbkvIm9Zp2cc9Mn8jaKWcI9bVrnvW92RMqpI
+ pKE42qU20AsARQhB9bM8VqNJGHuutY9LSxGG6YU0taol69CIN7BBEQ+HaLmb8G1U3aNb
+ M7iRjNclMJa+vsIJyEhDzMisiOpS4zmGhgulsixxl+fXgeOvsIIs/oVwNTS5h9TsXOhN
+ 2jnJpzaFQB8HTYaR/LNjQWZQRm6bvl1YMCFXJ5htdNf184ciNaxkKFIpjbYSp05Db98M
+ kX72a/ZOv2RO+WKYNcbN7fE564ZtGIOYmt3C1vKxOn7a78uk21vYkm2FURyqgGXHTxNd
+ hjhA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVRbyHeGGlKgPnI5fnFWdc4O0cRKFw8dbfdhwN5bSzFwCrQotgigqUCejO+Ruvim5PwnxQpRWcpLn4=@nongnu.org
-X-Gm-Message-State: AOJu0Yxego6tJ865TVz7dw0i7WxBGXV+u6jlUkJ/8Vj1n0fdgiPYOUbH
- mOZPFAdhWZqs2FkpDx64PTLg/pMtzjvvA4VePSLf2vb1YVtRb376L36EoLDJteBDw2q3iZMbiDw
- AQ9WqBfh83GrA6fZ6S3ZGmEZ898nhthdjVl4rAdZ+ocNqNCxHk4w=
-X-Gm-Gg: ASbGncttSqbSN/5HZQMbaTIo3gD/3gfR+IGyDrAbnzE2H3x4shdzScFV3ZkRtEdv8p+
- WkvKW+2WgE+LbYl4voy9Iv8yPFsXf1LyFQJMpj2yHNIsQ+LSx5WQBKKqqm/PH/zapvjvHAmHqeT
- CWrVY/exJDvFfNxBdkyeMstcJCxS4NKYCMGgmXcN9Icfvps6vK3szTZ0qsKMBsRSNmBSmDSQ8f2
- IAtbcRiw1te/ldEL0zQUTmy5W1PmTHVB2yruaaSb8mvPc3WryZ1/EuzyfiRTL6eevelxr+d7izo
- H8qjgfg=
-X-Received: by 2002:a05:600c:4e8d:b0:439:554f:f64f with SMTP id
- 5b1f17b1804b1-439580e7b8bmr23927295e9.0.1739352521708; 
- Wed, 12 Feb 2025 01:28:41 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFTkzorP4BAe0HGS1kf4MbmBwnv1+OK3RKrArrwWo0Q0z6JpMmyP2/t0Z24AsbZpLdgSOg4Lg==
-X-Received: by 2002:a05:600c:4e8d:b0:439:554f:f64f with SMTP id
- 5b1f17b1804b1-439580e7b8bmr23926905e9.0.1739352521255; 
- Wed, 12 Feb 2025 01:28:41 -0800 (PST)
+ AJvYcCXAtXq02sLLeN8O5NNwdNrksaZ0G1l0w/6o60NM2hF0GKvc09RORDXxDD6U9wvYEhjui6hK6zsVDPo=@nongnu.org
+X-Gm-Message-State: AOJu0Yw670+HAqSRCX27PxAm1Lu+zZYI7N++1vNylUDhPSBnkO3n3UQV
+ nacT8U5WqKwiHI4I+txE0OvlCshnfnbxfDqxZZCrSVIhXb98zptuh9clQxGEgiFyx6LotHNQ7Wa
+ Xj8OLBDKuglMMtFioXDtyAUQ0JpAbnlX9oGRI+hwTQ+26/LtpvV8=
+X-Gm-Gg: ASbGncvisQhDZGTtcTRWSBZBd8m63Z2gJoPSnfQpFDzcso2ly6IfiP5F6L91A85sHjd
+ 3QVFjRuMEtuyDwLV935RHTz85YjSLPb0LLnzuMMAbDzCtbiv8G91b2Imcl0En/rrpWIY0pPKBzk
+ 3kqHsWvMoSwY7aIZZU9dgWpqSaU0G0bNKF7OrkGU9j4I97f0L12G1iJIXjEYv2al9YQJ7bfk9QY
+ 84pSJyFzeCpBQsUQcFbjPg4uBrB9l/Hg4ktroZH4IN305gXh2Wbd4zNx0V74jmbu8huOzgLKODD
+ lAQf33I=
+X-Received: by 2002:a05:6000:1842:b0:38f:2073:1493 with SMTP id
+ ffacd0b85a97d-38f20731b9dmr554081f8f.15.1739352577976; 
+ Wed, 12 Feb 2025 01:29:37 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFDv1wp06e00Y9hKmamXbY7aaT1zXtbxVkwwpogWH/pRDF2evFNZoBpsAtsnBTUI2PQKZWkgg==
+X-Received: by 2002:a05:6000:1842:b0:38f:2073:1493 with SMTP id
+ ffacd0b85a97d-38f20731b9dmr554054f8f.15.1739352577559; 
+ Wed, 12 Feb 2025 01:29:37 -0800 (PST)
 Received: from [192.168.10.81] ([151.95.148.6])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-38dcd0fac67sm13905279f8f.54.2025.02.12.01.28.40
+ ffacd0b85a97d-38dbf2ed900sm16820179f8f.53.2025.02.12.01.29.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Feb 2025 01:28:40 -0800 (PST)
-Message-ID: <533ac9c1-7486-4b1b-af9a-ed4a864727de@redhat.com>
-Date: Wed, 12 Feb 2025 10:28:39 +0100
+ Wed, 12 Feb 2025 01:29:36 -0800 (PST)
+Message-ID: <b7b2ab97-acd3-4008-abd6-3da874541113@redhat.com>
+Date: Wed, 12 Feb 2025 10:29:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/11] rust/qemu-api: Add wrappers to run futures in QEMU
+Subject: Re: [PATCH 03/11] rust: Add some block layer bindings
 To: Kevin Wolf <kwolf@redhat.com>, qemu-block@nongnu.org
 Cc: hreitz@redhat.com, manos.pitsidianakis@linaro.org, qemu-devel@nongnu.org, 
  qemu-rust@nongnu.org
 References: <20250211214328.640374-1-kwolf@redhat.com>
- <20250211214328.640374-5-kwolf@redhat.com>
+ <20250211214328.640374-4-kwolf@redhat.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -111,9 +111,9 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20250211214328.640374-5-kwolf@redhat.com>
+In-Reply-To: <20250211214328.640374-4-kwolf@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Eq_3MDeuaBOKW2PIHulT1uuP-7_kJKoXW4xcmQ9LlWo_1739352522
+X-Mimecast-MFC-PROC-ID: rG-P9TV-GRoico4vN5woWeVyiNbdQ0W1CpriT93_xw8_1739352578
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -140,69 +140,72 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Feb 2025 09:28:50 -0000
+X-List-Received-Date: Wed, 12 Feb 2025 09:29:43 -0000
 
 On 2/11/25 22:43, Kevin Wolf wrote:
-> +/// Use QEMU's event loops to run a Rust [`Future`] to completion and return its result.
-> +///
-> +/// This function must be called in coroutine context. If the future isn't ready yet, it yields.
-> +pub fn qemu_co_run_future<F: Future>(future: F) -> F::Output {
-> +    let waker = Arc::new(RunFutureWaker {
-> +        co: unsafe { bindings::qemu_coroutine_self() },
-> +    })
-> +    .into();
+> Signed-off-by: Kevin Wolf <kwolf@redhat.com>
+> ---
+>   rust/wrapper.h                | 4 ++++
+>   meson.build                   | 1 +
+>   rust/qemu-api/src/zeroable.rs | 5 +++--
+>   3 files changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/rust/wrapper.h b/rust/wrapper.h
+> index 41be87adcf..c3e1e6f9cf 100644
+> --- a/rust/wrapper.h
+> +++ b/rust/wrapper.h
+> @@ -53,3 +53,7 @@ typedef enum memory_order {
+>   #include "chardev/char-fe.h"
+>   #include "qapi/error.h"
+>   #include "chardev/char-serial.h"
+> +#include "block/block.h"
+> +#include "block/block_int.h"
+> +#include "block/qdict.h"
+> +#include "qapi/qapi-visit-block-core.h"
+> diff --git a/meson.build b/meson.build
+> index 30aae6b3c3..154195bc80 100644
+> --- a/meson.build
+> +++ b/meson.build
+> @@ -4045,6 +4045,7 @@ if have_rust
+>       '--with-derive-default',
+>       '--no-layout-tests',
+>       '--no-prepend-enum-name',
+> +    '--allowlist-item', 'EINVAL|EIO',
 
-into what? :)  Maybe you can add the type to the "let" for clarity.
-
-> +    let mut cx = Context::from_waker(&waker);
-> +
-> +    let mut pinned_future = std::pin::pin!(future);
-> +    loop {
-> +        match pinned_future.as_mut().poll(&mut cx) {
-> +            Poll::Ready(res) => return res,
-
-Alternatively, "break res" (matter of taste).
-
-> +            Poll::Pending => unsafe {
-> +                bindings::qemu_coroutine_yield();
-> +            },
-> +        }
-> +    }
-> +}
-> +/// Wrapper around [`qemu_co_run_future`] that can be called from C.
-> +///
-> +/// # Safety
-> +///
-> +/// `future` must be a valid pointer to an owned `F` (it will be freed in this function).  `output`
-> +/// must be a valid pointer representing a mutable reference to an `F::Output` where the result can
-> +/// be stored.
-> +unsafe extern "C" fn rust_co_run_future<F: Future>(
-> +    future: *mut bindings::RustBoxedFuture,
-> +    output: *mut c_void,
-> +) {
-> +    let future = unsafe { Box::from_raw(future.cast::<F>()) };
-> +    let output = output.cast::<F::Output>();
-> +    let ret = qemu_co_run_future(*future);
-> +    unsafe {
-> +        *output = ret;
-
-This should use output.write(ret), to ensure that the output is written 
-without dropping the previous value.
-
-Also, would qemu_co_run_future() and qemu_run_future() become methods on 
-an Executor later?  Maybe it make sense to have already something like
-
-pub trait QemuExecutor {
-     fn run_until<F: Future>(future: F) -> F::Output;
-}
-
-pub struct Executor;
-pub struct CoExecutor;
-
-and pass an executor to Rust functions (&Executor for no_coroutine_fn, 
-&CoExecutor for coroutine_fn, &dyn QemuExecutor for mixed).  Or would 
-that be premature in your opinion?
+I've got some errno bindings that I wrote for chardev, I'll send them 
+shortly.
 
 Paolo
+
+>       '--allowlist-file', meson.project_source_root() + '/include/.*',
+>       '--allowlist-file', meson.project_source_root() + '/.*',
+>       '--allowlist-file', meson.project_build_root() + '/.*'
+> diff --git a/rust/qemu-api/src/zeroable.rs b/rust/qemu-api/src/zeroable.rs
+> index b454e9e05e..60af681293 100644
+> --- a/rust/qemu-api/src/zeroable.rs
+> +++ b/rust/qemu-api/src/zeroable.rs
+> @@ -56,7 +56,6 @@ pub unsafe trait Zeroable: Default {
+>   /// ## Differences with `core::mem::zeroed`
+>   ///
+>   /// `const_zero` zeroes padding bits, while `core::mem::zeroed` doesn't
+> -#[allow(unused)]
+>   macro_rules! const_zero {
+>       // This macro to produce a type-generic zero constant is taken from the
+>       // const_zero crate (v0.1.1):
+> @@ -78,7 +77,6 @@ union TypeAsBytes {
+>   }
+>   
+>   /// A wrapper to implement the `Zeroable` trait through the `const_zero` macro.
+> -#[allow(unused)]
+>   macro_rules! impl_zeroable {
+>       ($type:ty) => {
+>           unsafe impl Zeroable for $type {
+> @@ -110,3 +108,6 @@ fn default() -> Self {
+>   impl_zeroable!(crate::bindings::MemoryRegionOps__bindgen_ty_1);
+>   #[cfg(feature = "system")]
+>   impl_zeroable!(crate::bindings::MemoryRegionOps__bindgen_ty_2);
+> +
+> +impl_zeroable!(crate::bindings::BlockDriver);
+> +impl_zeroable!(crate::bindings::BlockDriver__bindgen_ty_1);
 
 
