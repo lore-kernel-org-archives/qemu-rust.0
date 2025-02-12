@@ -1,55 +1,55 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tiGSA-00068d-8H
-	for mharc-qemu-rust@gnu.org; Wed, 12 Feb 2025 12:23:14 -0500
+	id 1tiGbS-0000mk-4F
+	for mharc-qemu-rust@gnu.org; Wed, 12 Feb 2025 12:32:50 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tiGS8-000681-GH
- for qemu-rust@nongnu.org; Wed, 12 Feb 2025 12:23:12 -0500
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tiGbN-0000lo-5f
+ for qemu-rust@nongnu.org; Wed, 12 Feb 2025 12:32:46 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tiGS7-0002Vb-5a
- for qemu-rust@nongnu.org; Wed, 12 Feb 2025 12:23:12 -0500
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tiGbJ-0004Za-Nd
+ for qemu-rust@nongnu.org; Wed, 12 Feb 2025 12:32:43 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739380990;
+ s=mimecast20190719; t=1739381560;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=xUFY+xQG14kKPRZxkRZi/i89+NEEMJm+I6+932hnwvI=;
- b=QGImiOBv51oSIFTBEEUtILQi07i2jokjJ6EtTnu4agn34l2Frz7Wa4XyHUSdISkl4cOoXQ
- T8xhwFACuGdkOsZ1oSRXPpaCJgZq9C84BpvJSfUjJGvzb2Yqlm3M0I0HBrkNFX/j/5O3+m
- M7EEVJm12yBmVpA0j5VE0CBcXplFfzE=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=pWyecTaypBns+gpe4qOWDjVM7MDUMdV8SfX1LeARB/U=;
+ b=Of0yP94WKrgOmYlGHklt4tYxf4yqrGoG93XPchnD7hcegJ0LqwXg5tk6B0oPMWOnDm4d0O
+ YPMFb+adhAr5bk3wIqQdbwQQ5hHrKjWELOdfBc3lA/RrAmB/q8K0rrllL0NqprsxfOVfqQ
+ NHEzcwjapeJjdxQwz6e5vMUmdKuulwY=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-50-UmKtBFAePoq-Zp--XWDCKw-1; Wed,
- 12 Feb 2025 12:23:07 -0500
-X-MC-Unique: UmKtBFAePoq-Zp--XWDCKw-1
-X-Mimecast-MFC-AGG-ID: UmKtBFAePoq-Zp--XWDCKw_1739380986
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-202-blJ4CU2pPgiF_2D1c_zhTw-1; Wed,
+ 12 Feb 2025 12:32:37 -0500
+X-MC-Unique: blJ4CU2pPgiF_2D1c_zhTw-1
+X-Mimecast-MFC-AGG-ID: blJ4CU2pPgiF_2D1c_zhTw_1739381556
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 353B81800872; Wed, 12 Feb 2025 17:23:05 +0000 (UTC)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 1D4CE195609D; Wed, 12 Feb 2025 17:32:35 +0000 (UTC)
 Received: from redhat.com (unknown [10.44.33.168])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id F29B11954B02; Wed, 12 Feb 2025 17:23:01 +0000 (UTC)
-Date: Wed, 12 Feb 2025 18:22:59 +0100
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 35DCB1800359; Wed, 12 Feb 2025 17:32:31 +0000 (UTC)
+Date: Wed, 12 Feb 2025 18:32:29 +0100
 From: Kevin Wolf <kwolf@redhat.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-block@nongnu.org, hreitz@redhat.com,
  manos.pitsidianakis@linaro.org, qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 06/11] rust/block: Add I/O buffer traits
-Message-ID: <Z6zY8yZcKtUXoVib@redhat.com>
+Subject: Re: [PATCH 08/11] rust/block: Add driver module
+Message-ID: <Z6zbLVVWu4zxwdVE@redhat.com>
 References: <20250211214328.640374-1-kwolf@redhat.com>
- <20250211214328.640374-7-kwolf@redhat.com>
- <b3241aed-0470-41c8-ae82-e492fd3802ee@redhat.com>
+ <20250211214328.640374-9-kwolf@redhat.com>
+ <7fe0ba58-8d91-49c7-8f93-d17f42c74fbc@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b3241aed-0470-41c8-ae82-e492fd3802ee@redhat.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+In-Reply-To: <7fe0ba58-8d91-49c7-8f93-d17f42c74fbc@redhat.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 Received-SPF: pass client-ip=170.10.133.124; envelope-from=kwolf@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -35
@@ -72,64 +72,39 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Feb 2025 17:23:12 -0000
+X-List-Received-Date: Wed, 12 Feb 2025 17:32:47 -0000
 
-Am 12.02.2025 um 17:48 hat Paolo Bonzini geschrieben:
+Am 12.02.2025 um 17:43 hat Paolo Bonzini geschrieben:
 > On 2/11/25 22:43, Kevin Wolf wrote:
-> > +/// Implementing `SizedIoBuffer` provides an implementation for [`IoBuffer`] without having to
-> > +/// implement any functions manually.
-> > +///
-> > +/// # Safety
-> > +///
-> > +/// Types implementing `SizedIoBuffer` guarantee that the whole object can be accessed as an I/O
-> > +/// buffer that is safe to contain any byte patterns.
-> > +pub unsafe trait SizedIoBuffer: Sized {
-> 
-> This is similar to the ByteValued trait in rust-vmm.  Can you name it
-> the same so that we can later consider replacing it?
-
-I'm not sure if it's the best name, but could be done, of course.
-
-Though the more interesting thing to replace it with eventually might be
-the zerocopy crate which has derive macros that check that the condition
-is actually fulfilled. I just didn't feel like bringing in new external
-dependencies in this first series.
-
-> > +    fn from_byte_slice(buf: &[u8]) -> Option<&Self> {
-> > +        if buf.len() < std::mem::size_of::<Self>() {
-> > +            return None;
+> > +    /// Reads data from the child node into a linear typed buffer.
+> > +    pub async fn read<T: IoBuffer + ?Sized>(&self, offset: u64, buf: &mut T) -> io::Result<()> {
+> > +        unsafe {
+> > +            self.read_raw(offset, buf.buffer_len(), buf.buffer_mut_ptr())
+> > +                .await
 > > +        }
-
-This is a semantic difference compared to ByteValued::from_slice(),
-which requires the sizes to match exactly. For the probe function, I
-actually make use of the relaxed requirement here to access a header
-struct in a larger buffer passed from C.
-
-> > +        let ptr = buf.as_ptr() as *const Self;
+> > +    }
 > > +
-> > +        // TODO Use ptr.is_aligned() when MSRV is updated to at least 1.79.0
-> > +        if (ptr as usize) % std::mem::align_of::<Self>() != 0 {
-> > +            return None;
-> > +        }
-> > +
-> > +        // SAFETY: This function checked that the byte slice is large enough and aligned.
-> > +        // Implementing SizedIoBuffer promises that any byte pattern is valid for the type.
-> > +        Some(unsafe { &*ptr })
+> > +    /// Reads data from the child node into a linear, potentially uninitialised typed buffer.
+> > +    pub async fn read_uninit<T: SizedIoBuffer>(
+> > +        &self,
+> > +        offset: u64,
+> > +        mut buf: MaybeUninit<T>,
 > 
-> If you want, the function can be written also
-> 
->     // SAFETY: implementing SizedIoBuffer promises that any byte pattern
->     // is valid for the type
->     match unsafe { buf.align_to::<Self>() } {
->         ([], mid, _) => mid.get(0),
->         _ => None
->     }
-> 
-> (trick stolen from rust-vmm, in fact).
+> I think Rust doesn't guarantee no copies here, so maybe this could be
 
-Clever way to avoid ptr::is_aligned(), but I feel a bit harder to
-understand than just open-coding it like above? (And probably less
-efficient, but I don't know how relevant that is.)
+Do you think that in practice the compiler won't optimise the copy away?
+Or is this more of a theoretical concern?
+
+>    pub async fn read_uninit<T: SizedIoBuffer>(
+>        &self,
+>        offset: u64,
+>        buf: &mut MaybeUninit<T>,
+>     ) -> io::Result<&mut T>
+> 
+> using assume_init_mut().
+
+Are you sure that callers are ok with only getting a &mut T rather than
+an owned T?
 
 Kevin
 
