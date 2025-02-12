@@ -1,125 +1,56 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tiGLl-0003q8-JX
-	for mharc-qemu-rust@gnu.org; Wed, 12 Feb 2025 12:16:38 -0500
+	id 1tiGSA-00068d-8H
+	for mharc-qemu-rust@gnu.org; Wed, 12 Feb 2025 12:23:14 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tiGLX-0003aL-MS
- for qemu-rust@nongnu.org; Wed, 12 Feb 2025 12:16:26 -0500
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tiGS8-000681-GH
+ for qemu-rust@nongnu.org; Wed, 12 Feb 2025 12:23:12 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tiGLU-0001Rn-J9
- for qemu-rust@nongnu.org; Wed, 12 Feb 2025 12:16:23 -0500
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tiGS7-0002Vb-5a
+ for qemu-rust@nongnu.org; Wed, 12 Feb 2025 12:23:12 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739380579;
+ s=mimecast20190719; t=1739380990;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=lQis9jcSkeWzOSg7oAprKM9b38X501bAc+23d/uUGeg=;
- b=MN2B+3ugx428AUYxiLkuOb9wSX9ORsVwv9/I9adhiskMw4TOeyr1CvMbj6ZtZ9tZCg0vDd
- WW0oeVOlH49UTe0UnZjvDlhpXciTfO7YyLCH8W0gCIWCtQQ/m66Rx6rTUG26bOlsWUVRHE
- 1xADGYT+VHAyRAkIPHc9FhHphZL5Syg=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-140-WDgvbRXVP_uWUa1R08uMvQ-1; Wed, 12 Feb 2025 12:16:13 -0500
-X-MC-Unique: WDgvbRXVP_uWUa1R08uMvQ-1
-X-Mimecast-MFC-AGG-ID: WDgvbRXVP_uWUa1R08uMvQ_1739380572
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-38de0201875so1727252f8f.0
- for <qemu-rust@nongnu.org>; Wed, 12 Feb 2025 09:16:13 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739380572; x=1739985372;
- h=in-reply-to:autocrypt:content-language:from:references:cc:to
- :subject:user-agent:mime-version:date:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=JOsKLPJw0KN0jhEfIQPpALH4Ts5gJcO5JIrY1PFsRCo=;
- b=cOH69NB3aVaENYV4qbSq/wYpgawUXrCneK5D2sqErPfzaf18xj4rky+ebY7/7PTCR0
- ITFlJQvRlDw/Z4FvstUnCMkLc6hlsmw1XyST0gGXF/q1lcjT8I+U5Vwo+ZsY8kxUHh6I
- q5dT1CwC83+0bY12aoCFplv3CKKmizKOtfFVjLzVL3BbKXAcEvnabO/WbYi6e5Plq25x
- GM/i7Ud+589N2RgF8wQzL13VUl2kiwOMcb7wc99gutIbwcRSzKm85VhLx2Wwk55rxCAt
- xDprtx8i44vW8IpWEiIZp0eQEwiIpGn6gRT9dr15kzqAU8mtLJQYj0H1Mj/qffelKuPS
- kTJQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVYcs/NiTUafbjBMrZB7U6glE7+q8LlK/DUO2c1RU6sG5qSiJ6pUVIMZoMyIlP7CMG58ohcKgFiiks=@nongnu.org
-X-Gm-Message-State: AOJu0YyoaFceq4WIGurr0frhrf43aXBmT/DuROvMoWTO7RpaYbEZsDZY
- joMhXpMMXH76iQYs/ODUtvQKXJAXYRpK620Y9+BTVPMZEG3W3BCuMhR8jMMezSYTztgg3UGog5u
- flHDov2URBWSOklomaoKL4mbYphdgGDRteE94KDNgMFzWL4WrMYM=
-X-Gm-Gg: ASbGncu3U9CcZdkBls2rkLGDHe+TUTSlN7pdGI5tpMc0Tspjo7gUKPXKi1HMd8vF4mm
- bqZltEA2d8pHajJ1vp1NmxSO93HpuKFB5s8+bx9OmcI913IScDe01ShKd6zirGIQgQJc4pJhaVT
- 4J+yodXrGtFB8EDmB+Ra6r2t7I3yJLtfuodw2Q4NzK7NktrKd2bPrvv8hK24K7TKSigPWh22YCw
- f2MVygS2CmFEpLKdJkYoXq5ZKbibcPPuY+UW9fo39KYhGWOL3rcBwaa+cxTkHhGVJe5izyVCZJW
- hJX9eRo=
-X-Received: by 2002:a5d:5846:0:b0:38f:2065:3f20 with SMTP id
- ffacd0b85a97d-38f244deeb2mr126309f8f.17.1739380572097; 
- Wed, 12 Feb 2025 09:16:12 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHGG4IonyUCP963rAInfawkDEOp9KZJA9Vx1JyheFZRh6DWoYeSP+7Y00PM8u7NVxeoyYZXMQ==
-X-Received: by 2002:a5d:5846:0:b0:38f:2065:3f20 with SMTP id
- ffacd0b85a97d-38f244deeb2mr126271f8f.17.1739380571611; 
- Wed, 12 Feb 2025 09:16:11 -0800 (PST)
-Received: from [192.168.10.81] ([151.95.148.6])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-38dbdd7f039sm18344463f8f.59.2025.02.12.09.16.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Feb 2025 09:16:10 -0800 (PST)
-Message-ID: <a8e79f73-15d0-486c-99da-ad871a57e4ef@redhat.com>
-Date: Wed, 12 Feb 2025 18:16:09 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/11] rust: Add some block layer bindings
-To: Kevin Wolf <kwolf@redhat.com>
-Cc: qemu-block@nongnu.org, hreitz@redhat.com, manos.pitsidianakis@linaro.org, 
- qemu-devel@nongnu.org, qemu-rust@nongnu.org
+ in-reply-to:in-reply-to:references:references;
+ bh=xUFY+xQG14kKPRZxkRZi/i89+NEEMJm+I6+932hnwvI=;
+ b=QGImiOBv51oSIFTBEEUtILQi07i2jokjJ6EtTnu4agn34l2Frz7Wa4XyHUSdISkl4cOoXQ
+ T8xhwFACuGdkOsZ1oSRXPpaCJgZq9C84BpvJSfUjJGvzb2Yqlm3M0I0HBrkNFX/j/5O3+m
+ M7EEVJm12yBmVpA0j5VE0CBcXplFfzE=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-50-UmKtBFAePoq-Zp--XWDCKw-1; Wed,
+ 12 Feb 2025 12:23:07 -0500
+X-MC-Unique: UmKtBFAePoq-Zp--XWDCKw-1
+X-Mimecast-MFC-AGG-ID: UmKtBFAePoq-Zp--XWDCKw_1739380986
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 353B81800872; Wed, 12 Feb 2025 17:23:05 +0000 (UTC)
+Received: from redhat.com (unknown [10.44.33.168])
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id F29B11954B02; Wed, 12 Feb 2025 17:23:01 +0000 (UTC)
+Date: Wed, 12 Feb 2025 18:22:59 +0100
+From: Kevin Wolf <kwolf@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-block@nongnu.org, hreitz@redhat.com,
+ manos.pitsidianakis@linaro.org, qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH 06/11] rust/block: Add I/O buffer traits
+Message-ID: <Z6zY8yZcKtUXoVib@redhat.com>
 References: <20250211214328.640374-1-kwolf@redhat.com>
- <20250211214328.640374-4-kwolf@redhat.com>
- <b7b2ab97-acd3-4008-abd6-3da874541113@redhat.com>
- <Z6yecuOmtQKYUwLj@redhat.com>
- <CABgObfb-MXHYY4eM5LUbiRdOqWFG_CEcM-Xkv+v_dNWMwThKHA@mail.gmail.com>
- <Z6y6nUo68dIkryOu@redhat.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <Z6y6nUo68dIkryOu@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: YRLNkemey6q_UHURlkuUbgiT8rr4mow14ourjlcHzSM_1739380572
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="------------ZUls8ld0yt6CbQgtrpxArZlS"
-Content-Language: en-US
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ <20250211214328.640374-7-kwolf@redhat.com>
+ <b3241aed-0470-41c8-ae82-e492fd3802ee@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b3241aed-0470-41c8-ae82-e492fd3802ee@redhat.com>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=kwolf@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -35
 X-Spam_score: -3.6
@@ -141,164 +72,65 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Feb 2025 17:16:27 -0000
+X-List-Received-Date: Wed, 12 Feb 2025 17:23:12 -0000
 
-This is a multi-part message in MIME format.
---------------ZUls8ld0yt6CbQgtrpxArZlS
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Am 12.02.2025 um 17:48 hat Paolo Bonzini geschrieben:
+> On 2/11/25 22:43, Kevin Wolf wrote:
+> > +/// Implementing `SizedIoBuffer` provides an implementation for [`IoBuffer`] without having to
+> > +/// implement any functions manually.
+> > +///
+> > +/// # Safety
+> > +///
+> > +/// Types implementing `SizedIoBuffer` guarantee that the whole object can be accessed as an I/O
+> > +/// buffer that is safe to contain any byte patterns.
+> > +pub unsafe trait SizedIoBuffer: Sized {
+> 
+> This is similar to the ByteValued trait in rust-vmm.  Can you name it
+> the same so that we can later consider replacing it?
 
-On 2/12/25 16:13, Kevin Wolf wrote:
-> Or if you have to define the constants anyway - you currently do this
-> only for Windows, but for into_negative_errno() you might need it on
-> Linux, too - and it wouldn't be a problem for the constants to be
-> signed (that they are unsigned is the main reason why it becomes so ugly
-> with the bindgen constants), you could just make it -errno::EINVAL
-> again.
+I'm not sure if it's the best name, but could be done, of course.
 
-Or just include the libc crate, see attachment.
+Though the more interesting thing to replace it with eventually might be
+the zerocopy crate which has derive macros that check that the condition
+is actually fulfilled. I just didn't feel like bringing in new external
+dependencies in this first series.
 
-Paolo
---------------ZUls8ld0yt6CbQgtrpxArZlS
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-rust-subprojects-add-libc-crate.patch"
-Content-Disposition: attachment;
- filename="0001-rust-subprojects-add-libc-crate.patch"
-Content-Transfer-Encoding: base64
+> > +    fn from_byte_slice(buf: &[u8]) -> Option<&Self> {
+> > +        if buf.len() < std::mem::size_of::<Self>() {
+> > +            return None;
+> > +        }
 
-RnJvbSA1MjZhZDc2MDAxZTc4OGViOWFkYjI2MjRlYjRiYmVkYWU1MDMwMWY5IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBQYW9sbyBCb256aW5pIDxwYm9uemluaUByZWRoYXQuY29tPgpE
-YXRlOiBNb24sIDE2IERlYyAyMDI0IDA5OjQyOjM1ICswMTAwClN1YmplY3Q6IFtQQVRDSF0gcnVz
-dDogc3VicHJvamVjdHM6IGFkZCBsaWJjIGNyYXRlCgpUaGlzIGFsbG93cyBhY2Nlc3MgdG8gZXJy
-bm8gdmFsdWVzLgoKU2lnbmVkLW9mZi1ieTogUGFvbG8gQm9uemluaSA8cGJvbnppbmlAcmVkaGF0
-LmNvbT4KLS0tCiBydXN0L0NhcmdvLmxvY2sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-fCAgNyArKysrCiBydXN0L3FlbXUtYXBpL0NhcmdvLnRvbWwgICAgICAgICAgICAgICAgICAgICAg
-fCAgMSArCiBydXN0L3FlbXUtYXBpL3NyYy9lcnJuby5ycyAgICAgICAgICAgICAgICAgICAgfCAz
-MiArKy0tLS0tLS0tLS0tLS0tLQogc2NyaXB0cy9hcmNoaXZlLXNvdXJjZS5zaCAgICAgICAgICAg
-ICAgICAgICAgIHwgIDIgKy0KIHNjcmlwdHMvbWFrZS1yZWxlYXNlICAgICAgICAgICAgICAgICAg
-ICAgICAgICB8ICA0ICstLQogc3VicHJvamVjdHMvbGliYy0wLjItcnMud3JhcCAgICAgICAgICAg
-ICAgICAgIHwgIDcgKysrKwogLi4uL3BhY2thZ2VmaWxlcy9saWJjLTAuMi1ycy9tZXNvbi5idWls
-ZCAgICAgIHwgMzYgKysrKysrKysrKysrKysrKysrKwogNyBmaWxlcyBjaGFuZ2VkLCA1NiBpbnNl
-cnRpb25zKCspLCAzMyBkZWxldGlvbnMoLSkKIGNyZWF0ZSBtb2RlIDEwMDY0NCBzdWJwcm9qZWN0
-cy9saWJjLTAuMi1ycy53cmFwCiBjcmVhdGUgbW9kZSAxMDA2NDQgc3VicHJvamVjdHMvcGFja2Fn
-ZWZpbGVzL2xpYmMtMC4yLXJzL21lc29uLmJ1aWxkCgpkaWZmIC0tZ2l0IGEvcnVzdC9DYXJnby5s
-b2NrIGIvcnVzdC9DYXJnby5sb2NrCmluZGV4IGJkMjJjYzM5YzE2Li5hYzk4MDZhMWI0ZiAxMDA2
-NDQKLS0tIGEvcnVzdC9DYXJnby5sb2NrCisrKyBiL3J1c3QvQ2FyZ28ubG9jawpAQCAtNTYsNCAr
-NTYsMTAgQEAgZGVwZW5kZW5jaWVzID0gWwogICJlaXRoZXIiLAogXQogCitbW3BhY2thZ2VdXQor
-bmFtZSA9ICJsaWJjIgordmVyc2lvbiA9ICIwLjIuMTYyIgorc291cmNlID0gInJlZ2lzdHJ5K2h0
-dHBzOi8vZ2l0aHViLmNvbS9ydXN0LWxhbmcvY3JhdGVzLmlvLWluZGV4IgorY2hlY2tzdW0gPSAi
-MThkMjg3ZGU2N2ZlNTVmZDdlMTU4MWZlOTMzZDk2NWE1YTk0NzdiMzhlOTQ5Y2ZhOWY4NTc0ZWYw
-MTUwNjM5OCIKKwogW1twYWNrYWdlXV0KQEAgLTEyNiw0ICsxMzIsNSBAQCBkZXBlbmRlbmNpZXMg
-PSBbCiBuYW1lID0gInFlbXVfYXBpIgogdmVyc2lvbiA9ICIwLjEuMCIKIGRlcGVuZGVuY2llcyA9
-IFsKKyAibGliYyIsCiAgInFlbXVfYXBpX21hY3JvcyIsCmRpZmYgLS1naXQgYS9ydXN0L3FlbXUt
-YXBpL21lc29uLmJ1aWxkIGIvcnVzdC9xZW11LWFwaS9tZXNvbi5idWlsZAppbmRleCBkMjczZTVk
-OTAzZi4uMzcwOGQ5N2FlNzUgMTAwNjQ0Ci0tLSBhL3J1c3QvcWVtdS1hcGkvbWVzb24uYnVpbGQK
-KysrIGIvcnVzdC9xZW11LWFwaS9tZXNvbi5idWlsZApAQCAtMSw2ICsxLDggQEAKIF9xZW11X2Fw
-aV9jZmcgPSBydW5fY29tbWFuZChydXN0Y19hcmdzLAogICAnLS1jb25maWctaGVhZGVycycsIGNv
-bmZpZ19ob3N0X2gsICctLWZlYXR1cmVzJywgZmlsZXMoJ0NhcmdvLnRvbWwnKSwKICAgY2FwdHVy
-ZTogdHJ1ZSwgY2hlY2s6IHRydWUpLnN0ZG91dCgpLnN0cmlwKCkuc3BsaXRsaW5lcygpCisKK2xp
-YmNfZGVwID0gZGVwZW5kZW5jeSgnbGliYy0wLjItcnMnKQogCiBpZiBnZXRfb3B0aW9uKCdkZWJ1
-Z19tdXRleCcpCiAgIF9xZW11X2FwaV9jZmcgKz0gWyctLWNmZycsICdmZWF0dXJlPSJkZWJ1Z19j
-ZWxsIiddCkBAIC0zOCw2ICszOCw3IEBAIF9xZW11X2FwaV9ycyA9IHN0YXRpY19saWJyYXJ5KAog
-ICBvdmVycmlkZV9vcHRpb25zOiBbJ3J1c3Rfc3RkPTIwMjEnLCAnYnVpbGQucnVzdF9zdGQ9MjAy
-MSddLAogICBydXN0X2FiaTogJ3J1c3QnLAogICBydXN0X2FyZ3M6IF9xZW11X2FwaV9jZmcsCisg
-IGxpbmtfd2l0aDogbGliY19kZXAsCiApCiAKIHJ1c3QudGVzdCgncnVzdC1xZW11LWFwaS10ZXN0
-cycsIF9xZW11X2FwaV9ycywKZGlmZiAtLWdpdCBhL3J1c3QvcWVtdS1hcGkvQ2FyZ28udG9tbCBi
-L3J1c3QvcWVtdS1hcGkvQ2FyZ28udG9tbAppbmRleCBjOTZlODdmNTkyZS4uNzI1NWU5ZWU1OTYg
-MTAwNjQ0Ci0tLSBhL3J1c3QvcWVtdS1hcGkvQ2FyZ28udG9tbAorKysgYi9ydXN0L3FlbXUtYXBp
-L0NhcmdvLnRvbWwKQEAgLTE4LDYgKzE4LDcgQEAgcnVzdC12ZXJzaW9uID0gIjEuNjMuMCIKCiBb
-ZGVwZW5kZW5jaWVzXQogcWVtdV9hcGlfbWFjcm9zID0geyBwYXRoID0gIi4uL3FlbXUtYXBpLW1h
-Y3JvcyIgfQorbGliYyA9ICIwLjIuMTYyIgogCiBbYnVpbGQtZGVwZW5kZW5jaWVzXQogdmVyc2lv
-bl9jaGVjayA9ICJ+MC45IgpkaWZmIC0tZ2l0IGEvcnVzdC9xZW11LWFwaS9zcmMvZXJybm8ucnMg
-Yi9ydXN0L3FlbXUtYXBpL3NyYy9lcnJuby5ycwppbmRleCBjNjk3ZjliZWYwNS4uNThkNDZhYmMy
-MWMgMTAwNjQ0Ci0tLSBhL3J1c3QvcWVtdS1hcGkvc3JjL2Vycm5vLnJzCisrKyBiL3J1c3QvcWVt
-dS1hcGkvc3JjL2Vycm5vLnJzCkBAIC0xNiwzMiArMTYsNiBAQAogLy8gaW50byBpbzo6RXJyb3Ig
-YnkgaGFuZC4gIEZvciBzaW1wbGljaXR5IHVzZSBFcnJvcktpbmQgYW5kIHVzZQogLy8gdGhlIHN0
-YW5kYXJkIGxpYnJhcnkncyBzaW1wbGUtbWluZGVkIG1hcHBpbmcgb2YgRXJyb3JLaW5kIHRvIEVy
-cm9yCiAvLyAoYGltcGwgRnJvbTxFcnJvcktpbmQ+IGZvciBpbzo6RXJyb3JgKS4KLS8vCi0vLyBT
-aW5jZSB0aGlzIGlzIGp1c3QgZm9yIFdpbmRvd3MsIGRvIG5vdCBib3RoZXIgd2l0aCB1c2luZyB0
-aGUgbGliYwotLy8gY3JhdGUgb3IgZ2VuZXJhdGluZyB0aGUgY29uc3RhbnRzIGZyb20gQy4gIEp1
-c3QgbGlzdCBoZXJlIHRoZQotLy8gY29uc3RhbnRzIHRoYXQgbWFwIHRvIHN0YWJsZSBlcnJvciBr
-aW5kcy4KLSNbY2ZnKHdpbmRvd3MpXQotbW9kIGxpYmMgewotICAgIHB1YiBjb25zdCBFUEVSTTog
-dTE2ID0gMTsKLSAgICBwdWIgY29uc3QgRU5PRU5UOiB1MTYgPSAyOwotICAgIHB1YiBjb25zdCBF
-SU5UUjogdTE2ID0gNDsKLSAgICBwdWIgY29uc3QgRUFHQUlOOiB1MTYgPSAxMTsKLSAgICBwdWIg
-Y29uc3QgRU5PTUVNOiB1MTYgPSAxMjsKLSAgICBwdWIgY29uc3QgRUFDQ0VTOiB1MTYgPSAxMzsK
-LSAgICBwdWIgY29uc3QgRUVYSVNUOiB1MTYgPSAxNzsKLSAgICBwdWIgY29uc3QgRUlOVkFMOiB1
-MTYgPSAyMjsKLSAgICBwdWIgY29uc3QgRVBJUEU6IHUxNiA9IDMyOwotICAgIHB1YiBjb25zdCBF
-QUREUklOVVNFOiB1MTYgPSAxMDA7Ci0gICAgcHViIGNvbnN0IEVBRERSTk9UQVZBSUw6IHUxNiA9
-IDEwMTsKLSAgICBwdWIgY29uc3QgRUNPTk5BQk9SVEVEOiB1MTYgPSAxMDY7Ci0gICAgcHViIGNv
-bnN0IEVDT05OUkVGVVNFRDogdTE2ID0gMTA3OwotICAgIHB1YiBjb25zdCBFQ09OTlJFU0VUOiB1
-MTYgPSAxMDg7Ci0gICAgcHViIGNvbnN0IEVOT1RDT05OOiB1MTYgPSAxMjY7Ci0gICAgcHViIGNv
-bnN0IEVOT1RTVVA6IHUxNiA9IDEyOTsKLSAgICBwdWIgY29uc3QgRVRJTUVET1VUOiB1MTYgPSAx
-Mzg7Ci0gICAgcHViIGNvbnN0IEVXT1VMREJMT0NLOiB1MTYgPSAxNDA7Ci19Ci0KIGltcGwgRnJv
-bTxFcnJubz4gZm9yIGlvOjpFcnJvciB7CiAgICAgI1tjZmcodW5peCldCiAgICAgZm4gZnJvbSh2
-YWx1ZTogRXJybm8pIC0+IGlvOjpFcnJvciB7CkBAIC01MiwxMyArMjYsMTEgQEAgZm4gZnJvbSh2
-YWx1ZTogRXJybm8pIC0+IGlvOjpFcnJvciB7CiAgICAgI1tjZmcod2luZG93cyldCiAgICAgZm4g
-ZnJvbSh2YWx1ZTogRXJybm8pIC0+IGlvOjpFcnJvciB7CiAgICAgICAgIGxldCBFcnJubyhlcnJu
-bykgPSB2YWx1ZTsKLSAgICAgICAgbGV0IGVycm9yX2tpbmQgPSBtYXRjaCBlcnJubyB7CisgICAg
-ICAgIGxldCBlcnJvcl9raW5kID0gbWF0Y2ggZXJybm8gYXMgaTMyIHsKICAgICAgICAgICAgIGxp
-YmM6OkVQRVJNIHwgbGliYzo6RUFDQ0VTID0+IEVycm9yS2luZDo6UGVybWlzc2lvbkRlbmllZCwK
-ICAgICAgICAgICAgIGxpYmM6OkVOT0VOVCA9PiBFcnJvcktpbmQ6Ok5vdEZvdW5kLAogICAgICAg
-ICAgICAgbGliYzo6RUlOVFIgPT4gRXJyb3JLaW5kOjpJbnRlcnJ1cHRlZCwKLSAgICAgICAgICAg
-IC8vIE5vdGUgdGhhdCBvbiBXaW5kb3dzIHdlIGtub3cgdGhlc2UgdHdvIGFyZSBkaXN0aW5jdC4g
-IEluIGdlbmVyYWwsCi0gICAgICAgICAgICAvLyBpdCB3b3VsZCBub3QgYmUgcG9zc2libGUgdG8g
-dXNlICJ8Ii4KLSAgICAgICAgICAgIGxpYmM6OkVBR0FJTiB8IGxpYmM6OkVXT1VMREJMT0NLID0+
-IEVycm9yS2luZDo6V291bGRCbG9jaywKKyAgICAgICAgICAgIHggaWYgeCA9PSBsaWJjOjpFQUdB
-SU4gfHwgeCA9PSBsaWJjOjpFV09VTERCTE9DSyA9PiBFcnJvcktpbmQ6OldvdWxkQmxvY2ssCiAg
-ICAgICAgICAgICBsaWJjOjpFTk9NRU0gPT4gRXJyb3JLaW5kOjpPdXRPZk1lbW9yeSwKICAgICAg
-ICAgICAgIGxpYmM6OkVFWElTVCA9PiBFcnJvcktpbmQ6OkFscmVhZHlFeGlzdHMsCiAgICAgICAg
-ICAgICBsaWJjOjpFSU5WQUwgPT4gRXJyb3JLaW5kOjpJbnZhbGlkSW5wdXQsCmRpZmYgLS1naXQg
-YS9zY3JpcHRzL2FyY2hpdmUtc291cmNlLnNoIGIvc2NyaXB0cy9hcmNoaXZlLXNvdXJjZS5zaApp
-bmRleCBlNzJiYzdhYTYxZS4uMDBhMTI1NGNlOGIgMTAwNzU1Ci0tLSBhL3NjcmlwdHMvYXJjaGl2
-ZS1zb3VyY2Uuc2gKKysrIGIvc2NyaXB0cy9hcmNoaXZlLXNvdXJjZS5zaApAQCAtMjksNyArMjks
-NyBAQCBzdWJfZmlsZT0iJHtzdWJfdGRpcn0vc3VibW9kdWxlLnRhciIKICMgZGlmZmVyZW50IHRv
-IHRoZSBob3N0IE9TLgogc3VicHJvamVjdHM9ImtleWNvZGVtYXBkYiBsaWJ2ZmlvLXVzZXIgYmVy
-a2VsZXktc29mdGZsb2F0LTMKICAgYmVya2VsZXktdGVzdGZsb2F0LTMgYXJiaXRyYXJ5LWludC0x
-LXJzIGJpbGdlLTAuMi1ycwotICBiaWxnZS1pbXBsLTAuMi1ycyBlaXRoZXItMS1ycyBpdGVydG9v
-bHMtMC4xMS1ycyBwcm9jLW1hY3JvMi0xLXJzCisgIGJpbGdlLWltcGwtMC4yLXJzIGVpdGhlci0x
-LXJzIGl0ZXJ0b29scy0wLjExLXJzIGxpYmMtMC4yLXJzIHByb2MtbWFjcm8yLTEtcnMKICAgcHJv
-Yy1tYWNyby1lcnJvci0xLXJzIHByb2MtbWFjcm8tZXJyb3ItYXR0ci0xLXJzIHF1b3RlLTEtcnMK
-ICAgc3luLTItcnMgdW5pY29kZS1pZGVudC0xLXJzIgogc3ViX2RlaW5pdD0iIgpkaWZmIC0tZ2l0
-IGEvc2NyaXB0cy9tYWtlLXJlbGVhc2UgYi9zY3JpcHRzL21ha2UtcmVsZWFzZQppbmRleCAyYWNi
-ZmVkOGYyZC4uYTUzYWViZDFmMWUgMTAwNzU1Ci0tLSBhL3NjcmlwdHMvbWFrZS1yZWxlYXNlCisr
-KyBiL3NjcmlwdHMvbWFrZS1yZWxlYXNlCkBAIC00MCw3ICs0MCw3IEBAIGZpCiAjIE9ubHkgaW5j
-bHVkZSB3cmFwcyB0aGF0IGFyZSBpbnZva2VkIHdpdGggc3VicHJvamVjdCgpCiBTVUJQUk9KRUNU
-Uz0ibGlidmZpby11c2VyIGtleWNvZGVtYXBkYiBiZXJrZWxleS1zb2Z0ZmxvYXQtMwogICBiZXJr
-ZWxleS10ZXN0ZmxvYXQtMyBhcmJpdHJhcnktaW50LTEtcnMgYmlsZ2UtMC4yLXJzCi0gIGJpbGdl
-LWltcGwtMC4yLXJzIGVpdGhlci0xLXJzIGl0ZXJ0b29scy0wLjExLXJzCisgIGJpbGdlLWltcGwt
-MC4yLXJzIGVpdGhlci0xLXJzIGl0ZXJ0b29scy0wLjExLXJzIGxpYmMtMC4yLXJzCiAgIHByb2Mt
-bWFjcm8tZXJyb3ItMS1ycyBwcm9jLW1hY3JvLWVycm9yLWF0dHItMS1ycyBxdW90ZS0xLXJzCiAg
-IHN5bi0yLXJzIHVuaWNvZGUtaWRlbnQtMS1ycyIKIApkaWZmIC0tZ2l0IGEvc3VicHJvamVjdHMv
-bGliYy0wLjItcnMud3JhcCBiL3N1YnByb2plY3RzL2xpYmMtMC4yLXJzLndyYXAKbmV3IGZpbGUg
-bW9kZSAxMDA2NDQKaW5kZXggMDAwMDAwMDAwMDAuLjBjZTBlNzUyOTFhCi0tLSAvZGV2L251bGwK
-KysrIGIvc3VicHJvamVjdHMvbGliYy0wLjItcnMud3JhcApAQCAtMCwwICsxLDcgQEAKK1t3cmFw
-LWZpbGVdCitkaXJlY3RvcnkgPSBsaWJjLTAuMgorc291cmNlX3VybCA9IGh0dHBzOi8vY3JhdGVz
-LmlvL2FwaS92MS9jcmF0ZXMvbGliYy8wLjIuMTYyL2Rvd25sb2FkCitzb3VyY2VfZmlsZW5hbWUg
-PSBsaWJjLTAuMi4xNjIudGFyLmd6Citzb3VyY2VfaGFzaCA9IDE4ZDI4N2RlNjdmZTU1ZmQ3ZTE1
-ODFmZTkzM2Q5NjVhNWE5NDc3YjM4ZTk0OWNmYTlmODU3NGVmMDE1MDYzOTgKKyNtZXRob2QgPSBj
-YXJnbworcGF0Y2hfZGlyZWN0b3J5ID0gbGliYy0wLjItcnMKZGlmZiAtLWdpdCBhL3N1YnByb2pl
-Y3RzL3BhY2thZ2VmaWxlcy9saWJjLTAuMi1ycy9tZXNvbi5idWlsZCBiL3N1YnByb2plY3RzL3Bh
-Y2thZ2VmaWxlcy9saWJjLTAuMi1ycy9tZXNvbi5idWlsZApuZXcgZmlsZSBtb2RlIDEwMDY0NApp
-bmRleCAwMDAwMDAwMDAwMC4uMTFjNGFkYTMzYTUKLS0tIC9kZXYvbnVsbAorKysgYi9zdWJwcm9q
-ZWN0cy9wYWNrYWdlZmlsZXMvbGliYy0wLjItcnMvbWVzb24uYnVpbGQKQEAgLTAsMCArMSwzNiBA
-QAorcHJvamVjdCgnbGliYy0wLjItcnMnLCAncnVzdCcsCisgIG1lc29uX3ZlcnNpb246ICc+PTEu
-NS4wJywKKyAgdmVyc2lvbjogJzAuMi4xNjInLAorICBsaWNlbnNlOiAnTUlUIE9SIEFwYWNoZS0y
-LjAnLAorICBkZWZhdWx0X29wdGlvbnM6IFtdKQorCitfbGliY19ycyA9IHN0YXRpY19saWJyYXJ5
-KAorICAnbGliYycsCisgIGZpbGVzKCdzcmMvbGliLnJzJyksCisgIGdudV9zeW1ib2xfdmlzaWJp
-bGl0eTogJ2hpZGRlbicsCisgIG92ZXJyaWRlX29wdGlvbnM6IFsncnVzdF9zdGQ9MjAxNScsICdi
-dWlsZC5ydXN0X3N0ZD0yMDE1J10sCisgIHJ1c3RfYWJpOiAncnVzdCcsCisgIHJ1c3RfYXJnczog
-WworICAgICctLWNmZycsICdmcmVlYnNkMTEnLAorICAgICctLWNmZycsICdsaWJjX3ByaXZfbW9k
-X3VzZScsCisgICAgJy0tY2ZnJywgJ2xpYmNfdW5pb24nLAorICAgICctLWNmZycsICdsaWJjX2Nv
-bnN0X3NpemVfb2YnLAorICAgICctLWNmZycsICdsaWJjX2FsaWduJywKKyAgICAnLS1jZmcnLCAn
-bGliY19pbnQxMjgnLAorICAgICctLWNmZycsICdsaWJjX2NvcmVfY3ZvaWQnLAorICAgICctLWNm
-ZycsICdsaWJjX3BhY2tlZE4nLAorICAgICctLWNmZycsICdsaWJjX2NmZ190YXJnZXRfdmVuZG9y
-JywKKyAgICAnLS1jZmcnLCAnbGliY19ub25fZXhoYXVzdGl2ZScsCisgICAgJy0tY2ZnJywgJ2xp
-YmNfbG9uZ19hcnJheScsCisgICAgJy0tY2ZnJywgJ2xpYmNfcHRyX2FkZHJfb2YnLAorICAgICct
-LWNmZycsICdsaWJjX3VuZGVyc2NvcmVfY29uc3RfbmFtZXMnLAorICAgICctLWNmZycsICdsaWJj
-X2NvbnN0X2V4dGVybl9mbicsCisgIF0sCisgIGRlcGVuZGVuY2llczogW10sCispCisKK2xpYmNf
-ZGVwID0gZGVjbGFyZV9kZXBlbmRlbmN5KAorICBsaW5rX3dpdGg6IF9saWJjX3JzLAorKQorCitt
-ZXNvbi5vdmVycmlkZV9kZXBlbmRlbmN5KCdsaWJjLTAuMi1ycycsIGxpYmNfZGVwKQotLSAKMi40
-OC4xCgo=
---------------ZUls8ld0yt6CbQgtrpxArZlS--
+This is a semantic difference compared to ByteValued::from_slice(),
+which requires the sizes to match exactly. For the probe function, I
+actually make use of the relaxed requirement here to access a header
+struct in a larger buffer passed from C.
+
+> > +        let ptr = buf.as_ptr() as *const Self;
+> > +
+> > +        // TODO Use ptr.is_aligned() when MSRV is updated to at least 1.79.0
+> > +        if (ptr as usize) % std::mem::align_of::<Self>() != 0 {
+> > +            return None;
+> > +        }
+> > +
+> > +        // SAFETY: This function checked that the byte slice is large enough and aligned.
+> > +        // Implementing SizedIoBuffer promises that any byte pattern is valid for the type.
+> > +        Some(unsafe { &*ptr })
+> 
+> If you want, the function can be written also
+> 
+>     // SAFETY: implementing SizedIoBuffer promises that any byte pattern
+>     // is valid for the type
+>     match unsafe { buf.align_to::<Self>() } {
+>         ([], mid, _) => mid.get(0),
+>         _ => None
+>     }
+> 
+> (trick stolen from rust-vmm, in fact).
+
+Clever way to avoid ptr::is_aligned(), but I feel a bit harder to
+understand than just open-coding it like above? (And probably less
+efficient, but I don't know how relevant that is.)
+
+Kevin
 
 
