@@ -1,89 +1,67 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tiHIl-0007SI-4x
-	for mharc-qemu-rust@gnu.org; Wed, 12 Feb 2025 13:17:35 -0500
+	id 1tiInH-0006gF-D5
+	for mharc-qemu-rust@gnu.org; Wed, 12 Feb 2025 14:53:15 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tiHIf-0007Om-NJ
- for qemu-rust@nongnu.org; Wed, 12 Feb 2025 13:17:29 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tiInA-0006ex-It
+ for qemu-rust@nongnu.org; Wed, 12 Feb 2025 14:53:07 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tiHId-0004Hj-8f
- for qemu-rust@nongnu.org; Wed, 12 Feb 2025 13:17:28 -0500
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tiIn8-0002pP-AY
+ for qemu-rust@nongnu.org; Wed, 12 Feb 2025 14:53:03 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739384245;
+ s=mimecast20190719; t=1739389981;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2ppYSiZ49FRAqnOLdMKnSsqVw1O5Bi0/tNqWW8vvucc=;
- b=aOzvbDywTD9SYGUDptt/1/stYKBurGyK7Ms5YUyRP0kjnYACWkhVn7zf5LmPEUYxV33jMx
- iIsnvCwK//4g4K79lHSkgyMoMmD+s88epieQzNf+ZBEQfvySsH5wJ8n3CQ+sM3OmNh23r0
- PnnSQV5j6+giQ3dM8E2bIXCdvOlWwUs=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-610-ASNeQxEIM_CmqEAjl2tsoQ-1; Wed, 12 Feb 2025 13:17:24 -0500
-X-MC-Unique: ASNeQxEIM_CmqEAjl2tsoQ-1
-X-Mimecast-MFC-AGG-ID: ASNeQxEIM_CmqEAjl2tsoQ
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-38dfede57feso505324f8f.2
- for <qemu-rust@nongnu.org>; Wed, 12 Feb 2025 10:17:24 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739384243; x=1739989043;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=2ppYSiZ49FRAqnOLdMKnSsqVw1O5Bi0/tNqWW8vvucc=;
- b=eRKkMigBBHCkRkEIiZQv4NyrJDnUDTcnmTrUU77QpDumSirG04Width5+09XrYwzdx
- ABxCRMEKptAejnjnDA1nJKOOk/iMJ5XVpC4k+PIzr+PQo2GOk1g955Y2RRr44kGERshn
- FdbhzE2Z18g+s7rqIBHByilh/0bpQtQQmU/sXR5bjlER9SiMoCeddh4Ps6/S3rbAGe4U
- /SvgmpviUDqoie9E5y0WDwUs88do2kBUBFmP2CWwHz5B6d6aFSMPudrUfHszgUdAnUgR
- gZd/dMiexwF7Wglny+o7Ckh3Wue5S731F53X2C0FxAFMV21eqQXo5iNDEDdcwiiPF1ga
- Ctgg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUtAswuI94mq01HKGGYNIXgGsyy0AjTm0AXHdb1ufhFFzN0Bq+VKQCIc0xe9qRSNm2EE9J7Fh1b6xw=@nongnu.org
-X-Gm-Message-State: AOJu0YwoZa7q4eLacJj/V1oniIbq5zp0bw1JhVUgJjCok0+NDBeVatUY
- LiQXjwmsRHJF0yJUmykNn8NW+YLgePJQYs6+TT+bP5ATd32qgF5/FRdlQS9R8w1vS1vWakrifkY
- vHVU/IcF5QgOWrtDGzqS6amOk7iiBRd+asHJSN7+t3JOTbmgN+/PI+joZjUCD908r0eGcXmizGr
- 4qINhtWP6I+nIb3OaRQqmXrj6Geg==
-X-Gm-Gg: ASbGncvBMYuHsQI0qPdGcrqsFJ4OLEjheGnKf4/GwC4C2mr8zFzmLEo1fS9B1dsoOur
- u7ZdHVw/iGoYAIyTnNc6C5f2qY8olWvKRKyGZ5kKZNXJQusoWMAxdxgOgnmee
-X-Received: by 2002:a5d:64cf:0:b0:38d:ddf2:afe9 with SMTP id
- ffacd0b85a97d-38dea256d45mr3951794f8f.1.1739384242982; 
- Wed, 12 Feb 2025 10:17:22 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGHZx9qPkbyrT38iyPf1Rj7t2hXNJ3Uea68YaVdq687/zcum0I2GzcAZ0h2qSMVg4jiQ7C17naA2SEUofWT+os=
-X-Received: by 2002:a5d:64cf:0:b0:38d:ddf2:afe9 with SMTP id
- ffacd0b85a97d-38dea256d45mr3951772f8f.1.1739384242680; Wed, 12 Feb 2025
- 10:17:22 -0800 (PST)
-MIME-Version: 1.0
+ bh=tHkL7J/iqzC6LHy96X8WGjjgBXR5shotfZtni/pQZCI=;
+ b=fHRk6ocLLJCB0L255cK3+/vS2tByV5YcRaWPcGQus4inl+nTveu9WcpAf4/BQAkYIAXIf/
+ kyKS/5IDXnFZLG5J86HDeA8yABpQ70Cc1dHZ2W+PhQb0ayoiMRiK6HfQpCHqsSGA0HDPV9
+ gOqMot7UEWMXUXvt3tz9vjy2Kt9cqwE=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-575-Fy7ozvIUNlCjk_9M_y4XBw-1; Wed,
+ 12 Feb 2025 14:52:58 -0500
+X-MC-Unique: Fy7ozvIUNlCjk_9M_y4XBw-1
+X-Mimecast-MFC-AGG-ID: Fy7ozvIUNlCjk_9M_y4XBw
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id B83781800373; Wed, 12 Feb 2025 19:52:56 +0000 (UTC)
+Received: from redhat.com (unknown [10.44.33.168])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 633E31800365; Wed, 12 Feb 2025 19:52:53 +0000 (UTC)
+Date: Wed, 12 Feb 2025 20:52:50 +0100
+From: Kevin Wolf <kwolf@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-block@nongnu.org, hreitz@redhat.com,
+ manos.pitsidianakis@linaro.org, qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH 03/11] rust: Add some block layer bindings
+Message-ID: <Z6z8EuH2Dw0SQfME@redhat.com>
 References: <20250211214328.640374-1-kwolf@redhat.com>
- <20250211214328.640374-9-kwolf@redhat.com>
- <7fe0ba58-8d91-49c7-8f93-d17f42c74fbc@redhat.com>
- <Z6zbLVVWu4zxwdVE@redhat.com>
-In-Reply-To: <Z6zbLVVWu4zxwdVE@redhat.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Wed, 12 Feb 2025 19:17:12 +0100
-X-Gm-Features: AWEUYZk958kicyCMWeAzimEz2qJc0g_4W_3rG6b4JTKBB8CCKkcyrZ3y4pRXZyE
-Message-ID: <CABgObfZ2fgBxwOne0up-y3-beYYf-3yy8JM_wSrHxyxgYR=F7w@mail.gmail.com>
-Subject: Re: [PATCH 08/11] rust/block: Add driver module
-To: Kevin Wolf <kwolf@redhat.com>
-Cc: "open list:Block layer core" <qemu-block@nongnu.org>,
- Hanna Czenczek <hreitz@redhat.com>, 
- Emmanouil Pitsidianakis <manos.pitsidianakis@linaro.org>,
- qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: GUQws4KOpTWOVpZfM_NPVQCPrRV1Bu70x83jg04hZkA_1739384243
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="000000000000e9cf85062df5f310"
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ <20250211214328.640374-4-kwolf@redhat.com>
+ <b7b2ab97-acd3-4008-abd6-3da874541113@redhat.com>
+ <Z6yecuOmtQKYUwLj@redhat.com>
+ <CABgObfb-MXHYY4eM5LUbiRdOqWFG_CEcM-Xkv+v_dNWMwThKHA@mail.gmail.com>
+ <Z6y6nUo68dIkryOu@redhat.com>
+ <a8e79f73-15d0-486c-99da-ad871a57e4ef@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a8e79f73-15d0-486c-99da-ad871a57e4ef@redhat.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=kwolf@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -35
 X-Spam_score: -3.6
 X-Spam_bar: ---
 X-Spam_report: (-3.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.495,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -98,106 +76,26 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Feb 2025 18:17:30 -0000
+X-List-Received-Date: Wed, 12 Feb 2025 19:53:07 -0000
 
---000000000000e9cf85062df5f310
-Content-Type: text/plain; charset="UTF-8"
+Am 12.02.2025 um 18:16 hat Paolo Bonzini geschrieben:
+> On 2/12/25 16:13, Kevin Wolf wrote:
+> > Or if you have to define the constants anyway - you currently do this
+> > only for Windows, but for into_negative_errno() you might need it on
+> > Linux, too - and it wouldn't be a problem for the constants to be
+> > signed (that they are unsigned is the main reason why it becomes so ugly
+> > with the bindgen constants), you could just make it -errno::EINVAL
+> > again.
+> 
+> Or just include the libc crate, see attachment.
 
-Il mer 12 feb 2025, 18:32 Kevin Wolf <kwolf@redhat.com> ha scritto:
+I assume that sooner or later we'll have a reason to include it anyway,
+so that might honestly be the best option.
 
-> > > +        mut buf: MaybeUninit<T>,
-> >
-> > I think Rust doesn't guarantee no copies here, so maybe this could be
->
-> Do you think that in practice the compiler won't optimise the copy away?
->
+Do you want to post it as a proper patch? It seems to depend on your
+errno patch, but that shouldn't be a problem because we still want that
+one, too.
 
-It's possiblr that it does not, because it has to build the io::Result and
-stick the result of assume_init() in there. It all depends on the amount of
-inlining perhaps?
-
-I think Box<MaybeUninit>> is the only way to guarantee no copies
-(assume_init for Box was only stabilized recently but it can be emulated
-with Box::into_raw and Box::from_raw).
-
->    pub async fn read_uninit<T: SizedIoBuffer>(
-> >        &self,
-> >        offset: u64,
-> >        buf: &mut MaybeUninit<T>,
-> >     ) -> io::Result<&mut T>
-> >
-> > using assume_init_mut().
->
-> Are you sure that callers are ok with only getting a &mut T rather than
-> an owned T?
->
-
-The one you have would need to be adjusted but it would work.
-
-Another possibility by the way is to have "pub async fn read_obj<T:
-SizedIoBuffer>(&self, offset: u64) -> io::Result<T>" and hide the usage of
-MaybeUninit inside the function... That one doesn't even try to avoid
-copies though.
-
-Paolo
-
-
-
-> Kevin
->
->
-
---000000000000e9cf85062df5f310
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">Il mer 12 feb 2025, 18:32 Kevin Wolf &lt;<a href=3D"ma=
-ilto:kwolf@redhat.com" target=3D"_blank" rel=3D"noreferrer">kwolf@redhat.co=
-m</a>&gt; ha scritto:</div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
-">
-&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 mut buf: MaybeUninit&lt;T&gt;,<br>
-&gt; <br>
-&gt; I think Rust doesn&#39;t guarantee no copies here, so maybe this could=
- be<br>
-<br>
-Do you think that in practice the compiler won&#39;t optimise the copy away=
-?<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto"=
->It&#39;s possiblr that it does not, because it has to build the io::Result=
- and stick the result of assume_init() in there. It all depends on the amou=
-nt of inlining perhaps?</div><div dir=3D"auto"><br></div><div dir=3D"auto">=
-I think Box&lt;MaybeUninit&gt;&gt; is the only way to guarantee no copies (=
-assume_init for Box was only stabilized recently but it can be emulated wit=
-h Box::into_raw and Box::from_raw).</div><div dir=3D"auto"><br></div><div d=
-ir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padd=
-ing-left:1ex">&gt;=C2=A0 =C2=A0 pub async fn read_uninit&lt;T: SizedIoBuffe=
-r&gt;(<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;self,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 offset: u64,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 buf: &amp;mut MaybeUninit&lt;T&gt;,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0) -&gt; io::Result&lt;&amp;mut T&gt;<br>
-&gt; <br>
-&gt; using assume_init_mut().<br>
-<br>
-Are you sure that callers are ok with only getting a &amp;mut T rather than=
-<br>
-an owned T?<br></blockquote></div></div><div dir=3D"auto"><br></div><div di=
-r=3D"auto">The one you have would need to be adjusted but it would work.</d=
-iv><div dir=3D"auto"><br></div><div dir=3D"auto">Another possibility by the=
- way is to have &quot;pub async fn read_obj&lt;T: SizedIoBuffer&gt;(&amp;se=
-lf, offset: u64) -&gt; io::Result&lt;T&gt;&quot; and hide the usage of Mayb=
-eUninit inside the function... That one doesn&#39;t even try to avoid copie=
-s though.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo</div><di=
-v dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"auto"><div=
- class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-Kevin<br>
-<br>
-</blockquote></div></div></div>
-
---000000000000e9cf85062df5f310--
+Kevin
 
 
