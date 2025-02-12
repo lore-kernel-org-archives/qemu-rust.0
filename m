@@ -1,80 +1,83 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tiFub-0003KM-Nj
-	for mharc-qemu-rust@gnu.org; Wed, 12 Feb 2025 11:48:33 -0500
+	id 1tiG5l-0006SF-Sq
+	for mharc-qemu-rust@gnu.org; Wed, 12 Feb 2025 12:00:09 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tiFua-0003K2-3M
- for qemu-rust@nongnu.org; Wed, 12 Feb 2025 11:48:32 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1tiG5j-0006Rj-7q
+ for qemu-rust@nongnu.org; Wed, 12 Feb 2025 12:00:03 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tiFuY-0004Jj-JR
- for qemu-rust@nongnu.org; Wed, 12 Feb 2025 11:48:31 -0500
+ id 1tiG5g-00064R-Q3
+ for qemu-rust@nongnu.org; Wed, 12 Feb 2025 12:00:02 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739378909;
+ s=mimecast20190719; t=1739379599;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=XLcm+GYuwWup40Gm8eKU9GKMwCAH9+g9RxmfHL3bkfA=;
- b=YVasorpTS+v2RY8ZJhlsOW+3zeJX/nSVuxava9O0uoW8TpwM9Xs4/MBkDUu6WHUY+/Nq+e
- TmFLcT2AxZxFkdYsTvEB7uUFVhNg34UJVO9PXr3/V3uTL5KJ8uLbJvLSuyCwE+Fujqme6B
- XzYo8rYpzYtEcrK+P7EhyXZ5Y79tauc=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=P3rdE6bMKhtKvKG+ss3N+3Q/1bwSp5hZDjlL7n3rqC0=;
+ b=MSt2Wg1A8RVqs20VGqXnD4kqQ9W1QFIFf8L9SEa4rPIbdqrXPmPcCuI67eyIfsQyq4YJpl
+ AUPod9CqGTD8Hs8qxvRPv+dFylG36HcouJlPSxPxV3lUm/uhT05SDmMW6TSR7ldCQE3Frl
+ CmOn8svPEW+vXIcXHJHXK6bYXdn7aSI=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-424-9507i0hSNjyuQsdF1pJe5Q-1; Wed, 12 Feb 2025 11:48:28 -0500
-X-MC-Unique: 9507i0hSNjyuQsdF1pJe5Q-1
-X-Mimecast-MFC-AGG-ID: 9507i0hSNjyuQsdF1pJe5Q
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-38dd1bdf360so2119060f8f.3
- for <qemu-rust@nongnu.org>; Wed, 12 Feb 2025 08:48:27 -0800 (PST)
+ us-mta-237-u5FG2fXwNlutybKPwMUOCQ-1; Wed, 12 Feb 2025 11:59:57 -0500
+X-MC-Unique: u5FG2fXwNlutybKPwMUOCQ-1
+X-Mimecast-MFC-AGG-ID: u5FG2fXwNlutybKPwMUOCQ_1739379597
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-38ddf4fa345so2022972f8f.2
+ for <qemu-rust@nongnu.org>; Wed, 12 Feb 2025 08:59:57 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739378907; x=1739983707;
+ d=1e100.net; s=20230601; t=1739379596; x=1739984396;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=XLcm+GYuwWup40Gm8eKU9GKMwCAH9+g9RxmfHL3bkfA=;
- b=R8y9LEmZfJp99LWuUBqdvXgzwbDpDAoJInnOCyf7SdZXRln6GJmf8U4SNf1zmK0jff
- k7Si4mUreJd/DRRCIjDCym9Vs4m2WV7FIg8YuOxMpX9vrKFc3vCsQfiH/rJDsC478qrw
- DQm1UCyk5TU74ps8uauZgO7ehwNQ5Tf/x9CaxV8T4Do5fN6Ic706lOJ5nprrWDPo8eFI
- RAI/KZbIyPZX4rvvK9g6CNhr659T/1G0aF62hEDvOvNdfQDXyB6ERh0sBnzsT9z9cryF
- 4pd+s3RhsWRJz8kgKC2NiFC0HJVzON9aXFBzCAC21O3Ro49pgQMKRnXXt7rTfYSNptkN
- 794Q==
+ bh=P3rdE6bMKhtKvKG+ss3N+3Q/1bwSp5hZDjlL7n3rqC0=;
+ b=Z7DRDSU2QomVgJmLHQ82sVT6RKQNnZ0+TDVVIxJCPJ65KsQ31DstEU2fI4Pv0gSIoW
+ 5bVFPytNHv6yk0VyzmOX0MPLTrGEvTd2azKADusrkWOkqMhyvH2aMlAe5QKGF8YoqaQ3
+ Om+ibZ4JohZPW9LrVYV8toB710YaPHihvclPuP2NrtY7YRn2rn6dtkd2msR3JGFZfKDM
+ cgsP3Nh80ettKuxJTDCsMOK5i1v6Jgx2JhLksipAhtKQsNDdxydimQpaJjvMJhdP/SG7
+ +Q72tjrej+Uuxy1Lp2Da+b0tHS20zp7rCUFixR+j6yUjjDBtySvPG/ZvpmUQpbE2JHYY
+ b5PQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVl/hLXmIf7u8Ly7O3UIPwa1hb+bJC4MCP+rADtXjY7KipEUfryvHlicK87WU+X1Efpk7qh/yJbXuY=@nongnu.org
-X-Gm-Message-State: AOJu0YzMaQJr+n1cdIsyJO5Ojff0EgUxqHZ0oMYXHQnCj6iXoQutvXG+
- UA2/JohPbuV5egBs/SNq4yQmo+05FEqyZS5DumWQWWsSKZ/+PPCTpaKxRw7jR4ZtWpKNfViwdO5
- CjWoOTo+d6BzY3lRnQIQfeRjNFuz9a0fo+VyJNVHv7f4k0gVJVSM=
-X-Gm-Gg: ASbGnctV0dndbpEjeMH4fz6hthk0vs6iauJ/Hc7/PeVEq6TFUdURihD6HQ8vYg4nDy0
- G3wVkgtQKImf/gOJidGcMQJ8dwnyjRgucIAfufvEWFoTHMkB1RqTcARIkBnrz1qSeP/CDGush/A
- wS3u68VbXAzDea8kxupT9qUGNFFw/C+L6LPOHAhg2rAMaRbtUH7i43l/nSV7C9z5Rxp74Qi1lOz
- fdjIpai3Zi4nNDurd2D5KBMgYwt/7etipwJU2pbKnKbImhDf60V1FEwzvTYXezoCyd+QLGNEOV7
- /OMDcsg=
-X-Received: by 2002:a5d:47a7:0:b0:38d:d946:db15 with SMTP id
- ffacd0b85a97d-38dea256d3amr3421638f8f.5.1739378906683; 
- Wed, 12 Feb 2025 08:48:26 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IF/3IzBLAkl3QS5/HsQIFGtVwPsBq+6HuVhGxay9cGnipnFazPxFwi6E73IAnlwNdF2xDQYOw==
-X-Received: by 2002:a5d:47a7:0:b0:38d:d946:db15 with SMTP id
- ffacd0b85a97d-38dea256d3amr3421615f8f.5.1739378906260; 
- Wed, 12 Feb 2025 08:48:26 -0800 (PST)
+ AJvYcCUnllT+cX8oRWYzIKyXzax81YxL74YGyTcHb1kmTn3bWjKA6fC8AJ4fcxLExTfAKG5fPoMndwuDdJI=@nongnu.org
+X-Gm-Message-State: AOJu0YzUx5bHFwC2rV8cp5BBw3bikExjkp5zBHcIoEQnCYAymKLnqNCk
+ IkxaFyBWiMY0PBvhRpBRcOi3cgeKnaXQI1yksjzq1sErGNhg9gSWEdskGd+eQlzUWeKzmajF4WY
+ aH0caWpJTGH5YbyAfbjp+6Os//QIGRHaeyP685dbpzHBkcdB5G2g=
+X-Gm-Gg: ASbGnctxXYxHYgqNdtMdPciYwQp4vqgM9DQhczLmn2KiyWpgmzq/avBhn+mYqYuiVD4
+ fTKEsq5ht8CZ97zt3rWxclKX9paYTUinOVQpR1fUFo5G3Lf9qta8oipTZbqc1W5GsTdWlgevElQ
+ MH6+PdDBD0wWIchE5uYZB7HYjasYE5kZfDC12E2ft2WfMbRIoIY0sc8aHbDIL+vmLIvR+SVxQcm
+ 66HnSt9JcfPHfzLWEXdWarMUONBIahs0RUw22jpIVGcy5Jab6vF1VBmRpmEzWxsj7dwuP/9An9U
+ 1s2s29E=
+X-Received: by 2002:a05:6000:1f88:b0:38d:dd8c:51db with SMTP id
+ ffacd0b85a97d-38dea2f982dmr3623037f8f.53.1739379596559; 
+ Wed, 12 Feb 2025 08:59:56 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHq5UDzW2TszXvG5sll6tR4UsA9tcrIPCwq+Xq0nckj3iDb5reCujSVTG56Z34M1q2IS79aXQ==
+X-Received: by 2002:a05:6000:1f88:b0:38d:dd8c:51db with SMTP id
+ ffacd0b85a97d-38dea2f982dmr3623015f8f.53.1739379596199; 
+ Wed, 12 Feb 2025 08:59:56 -0800 (PST)
 Received: from [192.168.10.81] ([151.95.148.6])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-38dd44c5e3dsm12558165f8f.62.2025.02.12.08.48.25
+ ffacd0b85a97d-38f1f27e612sm1616072f8f.93.2025.02.12.08.59.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Feb 2025 08:48:25 -0800 (PST)
-Message-ID: <b3241aed-0470-41c8-ae82-e492fd3802ee@redhat.com>
-Date: Wed, 12 Feb 2025 17:48:24 +0100
+ Wed, 12 Feb 2025 08:59:55 -0800 (PST)
+Message-ID: <99cf772e-984f-4b39-841a-522d9191d5e6@redhat.com>
+Date: Wed, 12 Feb 2025 17:59:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/11] rust/block: Add I/O buffer traits
-To: Kevin Wolf <kwolf@redhat.com>, qemu-block@nongnu.org
-Cc: hreitz@redhat.com, manos.pitsidianakis@linaro.org, qemu-devel@nongnu.org, 
- qemu-rust@nongnu.org
+Subject: Re: [PATCH 01/11] rust: Build separate qemu_api_tools and
+ qemu_api_system
+To: Kevin Wolf <kwolf@redhat.com>
+Cc: qemu-block@nongnu.org, hreitz@redhat.com, manos.pitsidianakis@linaro.org, 
+ qemu-devel@nongnu.org, qemu-rust@nongnu.org
 References: <20250211214328.640374-1-kwolf@redhat.com>
- <20250211214328.640374-7-kwolf@redhat.com>
+ <20250211214328.640374-2-kwolf@redhat.com>
+ <1bcb9de2-5932-4c24-958d-7a86cfcea70e@redhat.com>
+ <Z6y-bBK4ZAAcPhFm@redhat.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -111,23 +114,23 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20250211214328.640374-7-kwolf@redhat.com>
+In-Reply-To: <Z6y-bBK4ZAAcPhFm@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 3FfIhyw-prB7ggSsqZo-CIKQc60dF6USyFyzL63tVvU_1739378907
+X-Mimecast-MFC-PROC-ID: K10reqwE1eO9jZyebSkAaIvLsJ6M218Hl9o52vXLrbo_1739379597
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -35
 X-Spam_score: -3.6
 X-Spam_bar: ---
 X-Spam_report: (-3.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.495,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -140,48 +143,65 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Feb 2025 16:48:32 -0000
+X-List-Received-Date: Wed, 12 Feb 2025 17:00:04 -0000
 
-On 2/11/25 22:43, Kevin Wolf wrote:
-> +/// Implementing `SizedIoBuffer` provides an implementation for [`IoBuffer`] without having to
-> +/// implement any functions manually.
-> +///
-> +/// # Safety
-> +///
-> +/// Types implementing `SizedIoBuffer` guarantee that the whole object can be accessed as an I/O
-> +/// buffer that is safe to contain any byte patterns.
-> +pub unsafe trait SizedIoBuffer: Sized {
+On 2/12/25 16:29, Kevin Wolf wrote:
+> Am 12.02.2025 um 11:01 hat Paolo Bonzini geschrieben:
+>> On 2/11/25 22:43, Kevin Wolf wrote:
+>>> The existing qemu_api library can't be linked into tools because it
+>>> contains a few bindings for things that only exist in the system
+>>> emulator.
+>>>
+>>> This adds a new "system" feature to the qemu_api crate that enables the
+>>> system emulator parts in it, and build the crate twice: qemu_api_tools
+>>> is the core library that can be linked into tools, and qemu_api_system
+>>> is the full one for the system emulator.
+>>
+>> As discussed on IRC, the issue here is ClassInitImpl<>, which has to be
+>> defined in the same crate for qemu_api::qom and qemu_api::qdev.
+>>
+>> Right now, the block layer has no use for QOM, but later it will (for secret
+>> management, for example), so splitting QOM into a separate crate does not
+>> work long term.
+>>
+>> I'll try to figure out an alternative way to do the class_init bindings.
+> 
+> There were more problems with splitting the qemu_api crate related to
+> bindgen. Basically, you would want the system emulator bindings to
+> contain only those things that aren't already part of the common
+> bindings. But the system emulator headers will obviously include common
+> headers, too, so this becomes tricky.
+> 
+> If you don't do this, you get two bindings for the same type, but the
+> binding types won't be compatible with each other etc.
 
-This is similar to the ByteValued trait in rust-vmm.  Can you name it 
-the same so that we can later consider replacing it?
+That might be a good reason to move the bindings to their own crate. 
+Then you don't really care if the bindings crate has declarations for 
+things that are only for system emulation, because they're just externs.
 
-> +    fn from_byte_slice(buf: &[u8]) -> Option<&Self> {
-> +        if buf.len() < std::mem::size_of::<Self>() {
-> +            return None;
-> +        }
-> +
-> +        let ptr = buf.as_ptr() as *const Self;
-> +
-> +        // TODO Use ptr.is_aligned() when MSRV is updated to at least 1.79.0
-> +        if (ptr as usize) % std::mem::align_of::<Self>() != 0 {
-> +            return None;
-> +        }
-> +
-> +        // SAFETY: This function checked that the byte slice is large enough and aligned.
-> +        // Implementing SizedIoBuffer promises that any byte pattern is valid for the type.
-> +        Some(unsafe { &*ptr })
+qemu_api is currently doing "impl Foo" directly on structs defined by 
+bindgen, but that can/should be changed.  This way a PhantomPinned field 
+can be added, they can be wrapped with UnsafeCell<>, etc. I need to 
+understand better what Linux does[1] and document it.
 
-If you want, the function can be written also
+Anyhow this is not a blocker, this patch is easily reverted.
 
-     // SAFETY: implementing SizedIoBuffer promises that any byte pattern
-     // is valid for the type
-     match unsafe { buf.align_to::<Self>() } {
-         ([], mid, _) => mid.get(0),
-         _ => None
-     }
+> This approach of just building two separate libraries was a lot easier.
+> Apart from the obvious inefficiency, I just hate the need for
+> rust_dependency_map everywhere to make the library show up with the
+> neutral 'qemu_api' name in both cases. Maybe there is a better approach
+> where this could be defined for the library itself rather than for each
+> user, but I couldn't find one. meson is still black magic to me.
 
-(trick stolen from rust-vmm, in fact).
+Yeah that's ugly.  There's no way to define it for the library indeed.
+
+I'd like to have split crates because for example we're now building the 
+QOM and block layer code twice as well.  Ideally, I'd like to have 
+crates roughly matching the C static_libraries, so for example utils, 
+bindings, block, chardev, hw, etc.
 
 Paolo
+
+[1] https://rust-for-linux.github.io/docs/kernel/struct.Opaque.html
 
 
