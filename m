@@ -1,60 +1,124 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1ti8q0-0007oo-51
-	for mharc-qemu-rust@gnu.org; Wed, 12 Feb 2025 04:15:20 -0500
+	id 1ti937-0001pm-AP
+	for mharc-qemu-rust@gnu.org; Wed, 12 Feb 2025 04:28:53 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1ti8pw-0007no-7Z
- for qemu-rust@nongnu.org; Wed, 12 Feb 2025 04:15:16 -0500
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1ti932-0001oi-UV
+ for qemu-rust@nongnu.org; Wed, 12 Feb 2025 04:28:49 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1ti8pq-00058b-FQ
- for qemu-rust@nongnu.org; Wed, 12 Feb 2025 04:15:15 -0500
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1ti930-0001P7-CC
+ for qemu-rust@nongnu.org; Wed, 12 Feb 2025 04:28:48 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739351709;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:in-reply-to:in-reply-to:  references:references;
- bh=m0BZMlZT23Te3S/Q9txjapM6b3rZEBIlCAVcc4tpnPo=;
- b=IcrA/0kCE7CM7r5UEEMCo85pe/UMADQ/rncwHF64A4iIuLr7D2qwn9pvycSjdQSU6gFq2Z
- +T8Oke0cZp/iXcAuFrnudN2YbfwTVKjIDTUMif5bfy/oF7dMlJ9gSbo+CBY5v5uEYvubH1
- dC7ePHhhfkzOYtnDbVMNGCCsrBop3vQ=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-15-aJVUjrkbP4eQRylX53aSXQ-1; Wed,
- 12 Feb 2025 04:15:06 -0500
-X-MC-Unique: aJVUjrkbP4eQRylX53aSXQ-1
-X-Mimecast-MFC-AGG-ID: aJVUjrkbP4eQRylX53aSXQ_1739351705
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 201521800874; Wed, 12 Feb 2025 09:15:04 +0000 (UTC)
-Received: from redhat.com (unknown [10.45.224.110])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 4314C18004A7; Wed, 12 Feb 2025 09:15:00 +0000 (UTC)
-Date: Wed, 12 Feb 2025 09:14:57 +0000
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Kevin Wolf <kwolf@redhat.com>
-Cc: qemu-block@nongnu.org, hreitz@redhat.com, pbonzini@redhat.com,
- manos.pitsidianakis@linaro.org, qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 10/11] bochs-rs: Add bochs block driver reimplementation
- in Rust
-Message-ID: <Z6xmkfyb37YDBz1o@redhat.com>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-References: <20250211214328.640374-1-kwolf@redhat.com>
- <20250211214328.640374-11-kwolf@redhat.com>
+ s=mimecast20190719; t=1739352524;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=n6cDg26mFjpBICZXHQaKgZDwfO0PxFjt59qifV/rayQ=;
+ b=U7d5Ugo6PARddBmqWmvEiMzIiFwA6uE1bx3BY4cnCKTBTP4Y4PGzrWD3Mew5CmELlQbYEY
+ 082ToOSpIplWIEQIkTuMz0am0uUPd480WTmCCSnBhA6eR/fo5zTR4lc7ZXL0zxDCXxGDgS
+ Pd2aEiIZIb3x6x6M7jc5GgaX40csMJ4=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-101-cdVjBfKKMdGV7nfaXedvxg-1; Wed, 12 Feb 2025 04:28:43 -0500
+X-MC-Unique: cdVjBfKKMdGV7nfaXedvxg-1
+X-Mimecast-MFC-AGG-ID: cdVjBfKKMdGV7nfaXedvxg_1739352522
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-43947a0919aso22340955e9.0
+ for <qemu-rust@nongnu.org>; Wed, 12 Feb 2025 01:28:42 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739352522; x=1739957322;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=n6cDg26mFjpBICZXHQaKgZDwfO0PxFjt59qifV/rayQ=;
+ b=U75dz4Spq9Ct/kDXgeKhBXSsPHsu+v/zvu7AyzCYReQPgM0spRzhxhLWL2pYlYoX2r
+ l6lT9CvAdgNQ2YLsXTt4yrobLUXtAEm8dtXsHOb2OQhYYa2UhPiMV/oS1IkiMqPkpeV2
+ C1sJ8ugYysI9XV+9dP37MtI4GoncQzuPjot5dGn/82BNsMAV0xG/dHLJcllqUpDS8M36
+ kgLLIhC6UI2UNAmYHYZ97SFFwMSBP5RLeStu30OTadElPfdIbVKrYOvWysXa1zU9TYTq
+ C8A+XJaAnxd5XKGIE3ZxQJ3XTkQueGw/26qmNHkBqhJesp/vbZOMs3uzZ/Y6kcJokltL
+ QrgA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVRbyHeGGlKgPnI5fnFWdc4O0cRKFw8dbfdhwN5bSzFwCrQotgigqUCejO+Ruvim5PwnxQpRWcpLn4=@nongnu.org
+X-Gm-Message-State: AOJu0Yxego6tJ865TVz7dw0i7WxBGXV+u6jlUkJ/8Vj1n0fdgiPYOUbH
+ mOZPFAdhWZqs2FkpDx64PTLg/pMtzjvvA4VePSLf2vb1YVtRb376L36EoLDJteBDw2q3iZMbiDw
+ AQ9WqBfh83GrA6fZ6S3ZGmEZ898nhthdjVl4rAdZ+ocNqNCxHk4w=
+X-Gm-Gg: ASbGncttSqbSN/5HZQMbaTIo3gD/3gfR+IGyDrAbnzE2H3x4shdzScFV3ZkRtEdv8p+
+ WkvKW+2WgE+LbYl4voy9Iv8yPFsXf1LyFQJMpj2yHNIsQ+LSx5WQBKKqqm/PH/zapvjvHAmHqeT
+ CWrVY/exJDvFfNxBdkyeMstcJCxS4NKYCMGgmXcN9Icfvps6vK3szTZ0qsKMBsRSNmBSmDSQ8f2
+ IAtbcRiw1te/ldEL0zQUTmy5W1PmTHVB2yruaaSb8mvPc3WryZ1/EuzyfiRTL6eevelxr+d7izo
+ H8qjgfg=
+X-Received: by 2002:a05:600c:4e8d:b0:439:554f:f64f with SMTP id
+ 5b1f17b1804b1-439580e7b8bmr23927295e9.0.1739352521708; 
+ Wed, 12 Feb 2025 01:28:41 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFTkzorP4BAe0HGS1kf4MbmBwnv1+OK3RKrArrwWo0Q0z6JpMmyP2/t0Z24AsbZpLdgSOg4Lg==
+X-Received: by 2002:a05:600c:4e8d:b0:439:554f:f64f with SMTP id
+ 5b1f17b1804b1-439580e7b8bmr23926905e9.0.1739352521255; 
+ Wed, 12 Feb 2025 01:28:41 -0800 (PST)
+Received: from [192.168.10.81] ([151.95.148.6])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-38dcd0fac67sm13905279f8f.54.2025.02.12.01.28.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Feb 2025 01:28:40 -0800 (PST)
+Message-ID: <533ac9c1-7486-4b1b-af9a-ed4a864727de@redhat.com>
+Date: Wed, 12 Feb 2025 10:28:39 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250211214328.640374-11-kwolf@redhat.com>
-User-Agent: Mutt/2.2.13 (2024-03-09)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/11] rust/qemu-api: Add wrappers to run futures in QEMU
+To: Kevin Wolf <kwolf@redhat.com>, qemu-block@nongnu.org
+Cc: hreitz@redhat.com, manos.pitsidianakis@linaro.org, qemu-devel@nongnu.org, 
+ qemu-rust@nongnu.org
+References: <20250211214328.640374-1-kwolf@redhat.com>
+ <20250211214328.640374-5-kwolf@redhat.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+In-Reply-To: <20250211214328.640374-5-kwolf@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Eq_3MDeuaBOKW2PIHulT1uuP-7_kJKoXW4xcmQ9LlWo_1739352522
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -35
 X-Spam_score: -3.6
@@ -63,7 +127,7 @@ X-Spam_report: (-3.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.54,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -76,55 +140,69 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Feb 2025 09:15:17 -0000
+X-List-Received-Date: Wed, 12 Feb 2025 09:28:50 -0000
 
-On Tue, Feb 11, 2025 at 10:43:27PM +0100, Kevin Wolf wrote:
-> This adds a separate block driver for the bochs image format called
-> 'bochs-rs' so that for the moment both the C implementation and the Rust
-> implementation can be present in the same build. The intention is to
-> remove the C implementation eventually and rename this one into 'bochs'.
-> This can only happen once Rust can be a hard build dependency for QEMU.
-> 
-> Signed-off-by: Kevin Wolf <kwolf@redhat.com>
-> ---
->  rust/block/Cargo.toml    |   2 +-
->  rust/block/src/bochs.rs  | 296 +++++++++++++++++++++++++++++++++++++++
->  rust/block/src/driver.rs |   5 -
->  rust/block/src/lib.rs    |   1 +
->  4 files changed, 298 insertions(+), 6 deletions(-)
->  create mode 100644 rust/block/src/bochs.rs
-> 
-> diff --git a/rust/block/Cargo.toml b/rust/block/Cargo.toml
-> index 70ee02f429..1c06f3a00c 100644
-> --- a/rust/block/Cargo.toml
-> +++ b/rust/block/Cargo.toml
-> @@ -3,7 +3,7 @@ name = "block"
->  version = "0.1.0"
->  edition = "2021"
->  authors = ["Kevin Wolf <kwolf@redhat.com>"]
-> -license = "GPL-2.0-or-later"
-> +license = "GPL-2.0-or-later AND MIT"
->  readme = "README.md"
->  description = "Block backends for QEMU"
->  repository = "https://gitlab.com/qemu-project/qemu/"
-> diff --git a/rust/block/src/bochs.rs b/rust/block/src/bochs.rs
-> new file mode 100644
-> index 0000000000..388ac5ef03
-> --- /dev/null
-> +++ b/rust/block/src/bochs.rs
-> @@ -0,0 +1,296 @@
-> +// SPDX-License-Identifier: MIT
+On 2/11/25 22:43, Kevin Wolf wrote:
+> +/// Use QEMU's event loops to run a Rust [`Future`] to completion and return its result.
+> +///
+> +/// This function must be called in coroutine context. If the future isn't ready yet, it yields.
+> +pub fn qemu_co_run_future<F: Future>(future: F) -> F::Output {
+> +    let waker = Arc::new(RunFutureWaker {
+> +        co: unsafe { bindings::qemu_coroutine_self() },
+> +    })
+> +    .into();
 
-Why MIT instead of our normal GPL-2.0-or-later.
+into what? :)  Maybe you can add the type to the "let" for clarity.
 
-Using Rust conversion to eliminate GPL usage for permissive licenses
-like MIT is not something I'd like to see us doing.
+> +    let mut cx = Context::from_waker(&waker);
+> +
+> +    let mut pinned_future = std::pin::pin!(future);
+> +    loop {
+> +        match pinned_future.as_mut().poll(&mut cx) {
+> +            Poll::Ready(res) => return res,
 
-With regards,
-Daniel
--- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
+Alternatively, "break res" (matter of taste).
+
+> +            Poll::Pending => unsafe {
+> +                bindings::qemu_coroutine_yield();
+> +            },
+> +        }
+> +    }
+> +}
+> +/// Wrapper around [`qemu_co_run_future`] that can be called from C.
+> +///
+> +/// # Safety
+> +///
+> +/// `future` must be a valid pointer to an owned `F` (it will be freed in this function).  `output`
+> +/// must be a valid pointer representing a mutable reference to an `F::Output` where the result can
+> +/// be stored.
+> +unsafe extern "C" fn rust_co_run_future<F: Future>(
+> +    future: *mut bindings::RustBoxedFuture,
+> +    output: *mut c_void,
+> +) {
+> +    let future = unsafe { Box::from_raw(future.cast::<F>()) };
+> +    let output = output.cast::<F::Output>();
+> +    let ret = qemu_co_run_future(*future);
+> +    unsafe {
+> +        *output = ret;
+
+This should use output.write(ret), to ensure that the output is written 
+without dropping the previous value.
+
+Also, would qemu_co_run_future() and qemu_run_future() become methods on 
+an Executor later?  Maybe it make sense to have already something like
+
+pub trait QemuExecutor {
+     fn run_until<F: Future>(future: F) -> F::Output;
+}
+
+pub struct Executor;
+pub struct CoExecutor;
+
+and pass an executor to Rust functions (&Executor for no_coroutine_fn, 
+&CoExecutor for coroutine_fn, &dyn QemuExecutor for mixed).  Or would 
+that be premature in your opinion?
+
+Paolo
 
 
