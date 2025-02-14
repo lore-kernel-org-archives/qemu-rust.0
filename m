@@ -1,94 +1,89 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tiaGb-00009j-1M
-	for mharc-qemu-rust@gnu.org; Thu, 13 Feb 2025 09:32:37 -0500
+	id 1tiwDQ-0005xJ-Ia
+	for mharc-qemu-rust@gnu.org; Fri, 14 Feb 2025 08:58:49 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tiaGZ-00008K-Cs
- for qemu-rust@nongnu.org; Thu, 13 Feb 2025 09:32:35 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1tiwDB-0005uh-EJ
+ for qemu-rust@nongnu.org; Fri, 14 Feb 2025 08:58:36 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tiaGV-0007d4-Vy
- for qemu-rust@nongnu.org; Thu, 13 Feb 2025 09:32:35 -0500
+ id 1tiwD8-0001dJ-9s
+ for qemu-rust@nongnu.org; Fri, 14 Feb 2025 08:58:31 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739457151;
+ s=mimecast20190719; t=1739541508;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=9HuabNfmcV5bFyT6ApQ3NSr9ADHRppEqYdaF7SVE1ww=;
- b=jLH1fYznJ94iLG5BlsXLqnx+RYQXZOFiG2lDvlyzlBYM3TR6jmwZ+3O/6aV9PO+tExZS9R
- G9WhSaqwTmurR7Dw5FYEBROO9tKKgZTzuAyBAW/X+AHmwDfxUnWbUTo3gfs5sOSBYP26tA
- gZLbza/3oqFqk1R709wEUYpLq7k3C8c=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding;
+ bh=jtNzr8uYuWTsnD/A8rhDCCpOJ/XgomM+/PA3Y3Q8jKo=;
+ b=AVGB2slCYtXYuBPBOA8FaZi3r0pRcJsRvJLFyOh471os/4WF9KT35qaZ/nLrwCNfWLJBgp
+ CLT5nCdIdzvELmoSseY43zt6x42c1/KpLNL4ZfG9/26u57ohHqG8o4qjq9VnmGzoy0ownP
+ V66cFXhVI2LhHP2tW70ZAyoQnkBNEhw=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-682-ecMulbXwNxuxE9TBrAeVFQ-1; Thu, 13 Feb 2025 09:32:26 -0500
-X-MC-Unique: ecMulbXwNxuxE9TBrAeVFQ-1
-X-Mimecast-MFC-AGG-ID: ecMulbXwNxuxE9TBrAeVFQ
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-43935bcec79so7726655e9.3
- for <qemu-rust@nongnu.org>; Thu, 13 Feb 2025 06:32:25 -0800 (PST)
+ us-mta-595-K9lbFzaaN6OdOTjYPPvCqg-1; Fri, 14 Feb 2025 08:58:27 -0500
+X-MC-Unique: K9lbFzaaN6OdOTjYPPvCqg-1
+X-Mimecast-MFC-AGG-ID: K9lbFzaaN6OdOTjYPPvCqg_1739541506
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-ab397fff5a3so204849766b.1
+ for <qemu-rust@nongnu.org>; Fri, 14 Feb 2025 05:58:27 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739457144; x=1740061944;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9HuabNfmcV5bFyT6ApQ3NSr9ADHRppEqYdaF7SVE1ww=;
- b=rP80HOXpYsC99F5LkLcEcEETNRxDB8g/gADs+XNlFVuWifwr/Qbk+dfAhAJXi7htV3
- M4eOqMq6L92DEGT0M8SJudXNvkH0HclFSar4uA/9tST7KnA6yf8dWRFQ53iSupArIv5n
- XFucwZbfj4oC4MHuNQUGhip5j4UDBbnFg9kXEiR6VGqy3OkaQM+LueEa438SoznR3wx6
- hwObdOTBdAFxZXsAig72KQmN8WqcEM4VAE6jzqgN134QYpPM7oxGsaIwj7J8ttMM6hWp
- 2GCAty6Ag1djFGYaAHY+PVGkH+4DBhzZTHcJtGKkg+JH7CZMZ6NDYMD4pKvqLDS6v9Ku
- ZgNA==
-X-Gm-Message-State: AOJu0YySHwnUh9Fvc40zc8408BqFg7EMxvDdBDA8JNkWBPcOElRWx9OX
- tw8pDtHIQOHMmGtFWcwWpPAM/52FBvQaovLwhryNg1FGgWnyIlIegnnoWmBFlfKTTBkcKKIOMSn
- xaU2wwQ2TclIHHnBOd8dHDTB2JViGIkfZFYN73WrgNLvxZDyz/GU=
-X-Gm-Gg: ASbGncsl/BWEeXTxYmGB9Nx7orI9+8bs9T13zGu69SxLsA+7USc9TUUFz6tNpkZi3no
- gT8bnrfQ17LnDbStgTj/KxEO6BcviSIkOCU0fTwthso21Q/0ff4mxmbpRf39M20AhrFftcjZp2h
- xfr3lqNM9ChvOjhxHw7dT3xoM6167Tj2lKXA/p1/dUX+0OKB2LmT0FVG0pfJaTtZmZkNn/cxbBf
- puLa/2PoB7kNKel9ZhZYrGBhHJBI1m8Z8GTTkkP6svbz3rOTewOu9inW4k/oQXpuM6zMEIqZbx/
- DyjCrI3vmygEdx+cTIryiX1Cr9D1yk18edB0SC+5OiY=
-X-Received: by 2002:a05:600c:1908:b0:439:5016:3867 with SMTP id
- 5b1f17b1804b1-439581be3bdmr72013955e9.23.1739457143797; 
- Thu, 13 Feb 2025 06:32:23 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IG+Q32rslomXhJ4sv6SHntRxewjmNgjJhYlDl1akb8WKRyrzdzdtQHr8PMWqxEMXyKsw6or6g==
-X-Received: by 2002:a05:600c:1908:b0:439:5016:3867 with SMTP id
- 5b1f17b1804b1-439581be3bdmr72013435e9.23.1739457143216; 
- Thu, 13 Feb 2025 06:32:23 -0800 (PST)
-Received: from [192.168.126.123] (93-40-58-165.ip37.fastwebnet.it.
- [93.40.58.165]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439618a9421sm19199865e9.34.2025.02.13.06.32.21
+ d=1e100.net; s=20230601; t=1739541505; x=1740146305;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=jtNzr8uYuWTsnD/A8rhDCCpOJ/XgomM+/PA3Y3Q8jKo=;
+ b=qBDzB69dTb3buNvFm4vi5uyW3n71GPX5e3zx3UOd/qjRyMY2DxKa/j3OcB8ca1bEhg
+ Wo/CGu9NeAEEGmO8WpqQwfokFAJ4MJZrUQQhCkw/Qs+hVkyYec0Sz2XoTQmTyg1o3zN2
+ sa7YyWvhh63r9+qjLjsGIBw+ZQayl2Dxi/ePxRzY18l7epCcgVhipAXHbsOditRPlCaY
+ GLD0XrVWdncvrAXsPdqybhVrcFk8Wf5FpmsDN3fHp6Mm5qtKjpHFK2WuyiCdeoqKshZ0
+ qnZF+lifhS9PkC46nmMTxxwNGIJwe90ezYPjwXq5Mo6m4KmBD8cVgVaOpVEJFKWt70Gh
+ xMXg==
+X-Gm-Message-State: AOJu0YzvFmSj619VbZtiJV76GVP7BE4RdHcI6S4qwGhhHx3bPUWjU0e5
+ /jwSeMkanlUTlPIQmqU/hGvbOztAlrssMqV9OTB86DWGaW+T9uucO4ZO9bGTA8OBDEkPlmn11Ti
+ 6AIyJrHZ5FeYYlmqCcNkUq5k4vH/BK4qdgVgO+jcz/+afuCH2oNRaMu9WgpzxTQ==
+X-Gm-Gg: ASbGncth+OVYkR+oj4/oCMufnm06pJj9ri5q2rUOsw3sdrJRvl1F8jj9ip1J3WVv7N+
+ Cr2bMJIz4qpw9chE7f3j2kP3dWcwDVFZ15nucvoPxAH2mQsOZd8MQM2qPtNCAhRF7cIQlxkWztZ
+ 3HQHymxNqHTzkuirPX83rWEIv/XmFUUzzXbGYvQGt6mb9vMX/yaYk7sPGpeA1Od7lXlAzsZ311D
+ BGf5ty9MNBO1wVZkaMjA1O1nDFrex8lDs9F2vHKYS5Bx8V2l7qIjD5GApe9xN7nNCxOssESGC/P
+ yVPhia7PZYhF
+X-Received: by 2002:a17:906:7151:b0:abb:5b02:9e7 with SMTP id
+ a640c23a62f3a-abb5b020aa8mr2969566b.12.1739541504867; 
+ Fri, 14 Feb 2025 05:58:24 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFnd4L+j5QGaGaudDq+u5OiHlAq07wQAxYnMKf3Q+05rOF+4KgPrZDiR0QtGxX9p2WukgnYuQ==
+X-Received: by 2002:a17:906:7151:b0:abb:5b02:9e7 with SMTP id
+ a640c23a62f3a-abb5b020aa8mr2966866b.12.1739541504471; 
+ Fri, 14 Feb 2025 05:58:24 -0800 (PST)
+Received: from [192.168.126.123] ([151.49.218.237])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aba532580c5sm350436966b.56.2025.02.14.05.58.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Feb 2025 06:32:21 -0800 (PST)
+ Fri, 14 Feb 2025 05:58:23 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org,
-	kwolf@redhat.com,
-	qemu-block@nongnu.org
-Subject: [PATCH 2/2] rust: add module to convert between -errno and io::Error
-Date: Thu, 13 Feb 2025 15:32:16 +0100
-Message-ID: <20250213143216.3910163-3-pbonzini@redhat.com>
+Cc: qemu-rust@nongnu.org
+Subject: [PATCH] rust: tests: do not import bindings::*
+Date: Fri, 14 Feb 2025 14:58:22 +0100
+Message-ID: <20250214135822.4076174-1-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250213143216.3910163-1-pbonzini@redhat.com>
-References: <20250213143216.3910163-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: g6mvbswwvqa1caVnRJJXeF3CtsRUT7jBPHovxflxXLo_1739457144
+X-Mimecast-MFC-PROC-ID: NTO1ve3KucI_5aLgphZjGfSxL6wtokNqiTziGRf4gRI_1739541506
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -35
-X-Spam_score: -3.6
+X-Spam_score_int: -37
+X-Spam_score: -3.8
 X-Spam_bar: ---
-X-Spam_report: (-3.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.495,
+X-Spam_report: (-3.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.732,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -101,465 +96,36 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Feb 2025 14:32:35 -0000
+X-List-Received-Date: Fri, 14 Feb 2025 13:58:40 -0000
 
-It is a common convention in QEMU to return a positive value in case of
-success, and a negated errno value in case of error.  Unfortunately,
-using errno portably in Rust is a bit complicated; on Unix the errno
-values are supported natively by io::Error, but on Windows they are not;
-so, use the libc crate.
-
-This is a set of utility functions that are used by both chardev and
-block layer bindings.
+Similar to the devices, spell the exact set of C functions that are
+called directly.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/qemu-api/meson.build       |   4 +
- rust/qemu-api/src/assertions.rs |  28 +++
- rust/qemu-api/src/errno.rs      | 342 ++++++++++++++++++++++++++++++++
- rust/qemu-api/src/lib.rs        |   1 +
- rust/qemu-api/src/prelude.rs    |   2 +
- 5 files changed, 377 insertions(+)
- create mode 100644 rust/qemu-api/src/errno.rs
+ rust/qemu-api/tests/tests.rs | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
-index 2e9c1078b9b..bcf1cf780f3 100644
---- a/rust/qemu-api/meson.build
-+++ b/rust/qemu-api/meson.build
-@@ -2,6 +2,8 @@ _qemu_api_cfg = run_command(rustc_args,
-   '--config-headers', config_host_h, '--features', files('Cargo.toml'),
-   capture: true, check: true).stdout().strip().splitlines()
+diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
+index 92dbfb8a0c8..03569e4a44c 100644
+--- a/rust/qemu-api/tests/tests.rs
++++ b/rust/qemu-api/tests/tests.rs
+@@ -8,13 +8,14 @@
+ };
  
-+libc_dep = dependency('libc-0.2-rs')
-+
- # _qemu_api_cfg += ['--cfg', 'feature="allocator"']
- if rustc.version().version_compare('>=1.77.0')
-   _qemu_api_cfg += ['--cfg', 'has_offset_of']
-@@ -22,6 +24,7 @@ _qemu_api_rs = static_library(
-       'src/cell.rs',
-       'src/chardev.rs',
-       'src/c_str.rs',
-+      'src/errno.rs',
-       'src/irq.rs',
-       'src/memory.rs',
-       'src/module.rs',
-@@ -39,6 +42,7 @@ _qemu_api_rs = static_library(
-   override_options: ['rust_std=2021', 'build.rust_std=2021'],
-   rust_abi: 'rust',
-   rust_args: _qemu_api_cfg,
-+  dependencies: libc_dep,
- )
- 
- rust.test('rust-qemu-api-tests', _qemu_api_rs,
-diff --git a/rust/qemu-api/src/assertions.rs b/rust/qemu-api/src/assertions.rs
-index fa1a18de6fe..104dec39774 100644
---- a/rust/qemu-api/src/assertions.rs
-+++ b/rust/qemu-api/src/assertions.rs
-@@ -92,3 +92,31 @@ fn types_must_be_equal<T, U>(_: T)
-         };
-     };
- }
-+
-+/// Assert that an expression matches a pattern.  This can also be
-+/// useful to compare enums that do not implement `Eq`.
-+///
-+/// # Examples
-+///
-+/// ```
-+/// # use qemu_api::assert_match;
-+/// // JoinHandle does not implement `Eq`, therefore the result
-+/// // does not either.
-+/// let result: Result<std::thread::JoinHandle<()>, u32> = Err(42);
-+/// assert_match!(result, Err(42));
-+/// ```
-+#[macro_export]
-+macro_rules! assert_match {
-+    ($a:expr, $b:pat) => {
-+        assert!(
-+            match $a {
-+                $b => true,
-+                _ => false,
-+            },
-+            "{} = {:?} does not match {}",
-+            stringify!($a),
-+            $a,
-+            stringify!($b)
-+        );
-+    };
-+}
-diff --git a/rust/qemu-api/src/errno.rs b/rust/qemu-api/src/errno.rs
-new file mode 100644
-index 00000000000..4ef7161a94a
---- /dev/null
-+++ b/rust/qemu-api/src/errno.rs
-@@ -0,0 +1,342 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+//! Utility functions to convert `errno` to and from
-+//! [`io::Error`]/[`io::Result`]
-+//!
-+//! QEMU C functions often have a "positive success/negative `errno`" calling
-+//! convention.  This module provides functions to portably convert an integer
-+//! into an [`io::Result`] and back.
-+
-+use std::{convert::TryFrom, io, io::ErrorKind};
-+
-+/// An `errno` value that can be converted into an [`io::Error`]
-+pub struct Errno(pub u16);
-+
-+// On Unix, from_raw_os_error takes an errno value and OS errors
-+// are printed using strerror.  On Windows however it takes a
-+// GetLastError() value; therefore we need to convert errno values
-+// into io::Error by hand.  This is the same mapping that the
-+// standard library uses to retrieve the kind of OS errors
-+// (`std::sys::pal::unix::decode_error_kind`).
-+impl From<Errno> for ErrorKind {
-+    fn from(value: Errno) -> ErrorKind {
-+        let Errno(errno) = value;
-+        match i32::from(errno) {
-+            libc::EPERM | libc::EACCES => ErrorKind::PermissionDenied,
-+            libc::ENOENT => ErrorKind::NotFound,
-+            libc::EINTR => ErrorKind::Interrupted,
-+            x if x == libc::EAGAIN || x == libc::EWOULDBLOCK => ErrorKind::WouldBlock,
-+            libc::ENOMEM => ErrorKind::OutOfMemory,
-+            libc::EEXIST => ErrorKind::AlreadyExists,
-+            libc::EINVAL => ErrorKind::InvalidInput,
-+            libc::EPIPE => ErrorKind::BrokenPipe,
-+            libc::EADDRINUSE => ErrorKind::AddrInUse,
-+            libc::EADDRNOTAVAIL => ErrorKind::AddrNotAvailable,
-+            libc::ECONNABORTED => ErrorKind::ConnectionAborted,
-+            libc::ECONNREFUSED => ErrorKind::ConnectionRefused,
-+            libc::ECONNRESET => ErrorKind::ConnectionReset,
-+            libc::ENOTCONN => ErrorKind::NotConnected,
-+            libc::ENOTSUP => ErrorKind::Unsupported,
-+            libc::ETIMEDOUT => ErrorKind::TimedOut,
-+            _ => ErrorKind::Other,
-+        }
-+    }
-+}
-+
-+// This is used on Windows for all io::Errors, but also on Unix if the
-+// io::Error does not have a raw OS error.  This is the reversed
-+// mapping of the above.
-+impl From<io::ErrorKind> for Errno {
-+    fn from(value: io::ErrorKind) -> Errno {
-+        let errno = match value {
-+            // can be both EPERM or EACCES :( pick one
-+            ErrorKind::PermissionDenied => libc::EPERM,
-+            ErrorKind::NotFound => libc::ENOENT,
-+            ErrorKind::Interrupted => libc::EINTR,
-+            ErrorKind::WouldBlock => libc::EAGAIN,
-+            ErrorKind::OutOfMemory => libc::ENOMEM,
-+            ErrorKind::AlreadyExists => libc::EEXIST,
-+            ErrorKind::InvalidInput => libc::EINVAL,
-+            ErrorKind::BrokenPipe => libc::EPIPE,
-+            ErrorKind::AddrInUse => libc::EADDRINUSE,
-+            ErrorKind::AddrNotAvailable => libc::EADDRNOTAVAIL,
-+            ErrorKind::ConnectionAborted => libc::ECONNABORTED,
-+            ErrorKind::ConnectionRefused => libc::ECONNREFUSED,
-+            ErrorKind::ConnectionReset => libc::ECONNRESET,
-+            ErrorKind::NotConnected => libc::ENOTCONN,
-+            ErrorKind::Unsupported => libc::ENOTSUP,
-+            ErrorKind::TimedOut => libc::ETIMEDOUT,
-+            _ => libc::EIO,
-+        };
-+        Errno(errno as u16)
-+    }
-+}
-+
-+impl From<Errno> for io::Error {
-+    #[cfg(unix)]
-+    fn from(value: Errno) -> io::Error {
-+        let Errno(errno) = value;
-+        io::Error::from_raw_os_error(errno.into())
-+    }
-+
-+    #[cfg(windows)]
-+    fn from(value: Errno) -> io::Error {
-+        let error_kind: ErrorKind = value.into();
-+        error_kind.into()
-+    }
-+}
-+
-+impl From<io::Error> for Errno {
-+    fn from(value: io::Error) -> Errno {
-+        if cfg!(unix) {
-+            if let Some(errno) = value.raw_os_error() {
-+                return Errno(u16::try_from(errno).unwrap());
-+            }
-+        }
-+        value.kind().into()
-+    }
-+}
-+
-+/// Internal traits; used to enable [`into_io_result`] and [`into_neg_errno`]
-+/// for the "right" set of types.
-+mod traits {
-+    use super::Errno;
-+
-+    /// A signed type that can be converted into an [`io::Result`]
-+    pub trait GetErrno {
-+        /// Unsigned variant of `Self`, used as the type for the `Ok` case.
-+        type Out;
-+
-+        /// Return `Ok(self)` if positive, `Err(Errno(-self))` if negative
-+        fn into_errno_result(self) -> Result<Self::Out, Errno>;
-+    }
-+
-+    /// A type that can be taken out of an [`io::Result`] and converted
-+    /// into "positive success/negative `errno`" convention.
-+    pub trait MergeErrno {
-+        /// Signed variant of `Self`, used as the return type of
-+        /// [`into_neg_errno`].
-+        type Out: From<u16> + std::ops::Neg<Output = Self::Out>;
-+
-+        /// Return `self`, asserting that it is in range
-+        fn map_ok(self) -> Self::Out;
-+    }
-+
-+    macro_rules! get_errno {
-+        ($t:ty, $out:ty) => {
-+            impl GetErrno for $t {
-+                type Out = $out;
-+                fn into_errno_result(self) -> Result<Self::Out, Errno> {
-+                    match self {
-+                        0.. => Ok(self as $out),
-+                        -65535..=-1 => Err(Errno(-self as u16)),
-+                        _ => panic!("{self} is not a negative errno"),
-+                    }
-+                }
-+            }
-+        };
-+    }
-+
-+    get_errno!(i32, u32);
-+    get_errno!(i64, u64);
-+    get_errno!(isize, usize);
-+
-+    macro_rules! merge_errno {
-+        ($t:ty, $out:ty) => {
-+            impl MergeErrno for $t {
-+                type Out = $out;
-+                fn map_ok(self) -> Self::Out {
-+                    self.try_into().unwrap()
-+                }
-+            }
-+        };
-+    }
-+
-+    merge_errno!(u8, i32);
-+    merge_errno!(u16, i32);
-+    merge_errno!(u32, i32);
-+    merge_errno!(u64, i64);
-+
-+    impl MergeErrno for () {
-+        type Out = i32;
-+        fn map_ok(self) -> i32 {
-+            0
-+        }
-+    }
-+}
-+
-+use traits::{GetErrno, MergeErrno};
-+
-+/// Convert an integer value into a [`io::Result`].
-+///
-+/// Positive values are turned into an `Ok` result; negative values
-+/// are interpreted as negated `errno` and turned into an `Err`.
-+///
-+/// ```
-+/// # use qemu_api::errno::into_io_result;
-+/// # use std::io::ErrorKind;
-+/// let ok = into_io_result(1i32).unwrap();
-+/// assert_eq!(ok, 1u32);
-+///
-+/// let err = into_io_result(-1i32).unwrap_err(); // -EPERM
-+/// assert_eq!(err.kind(), ErrorKind::PermissionDenied);
-+/// ```
-+///
-+/// # Panics
-+///
-+/// Since the result is an unsigned integer, negative values must
-+/// be close to 0; values that are too far away are considered
-+/// likely overflows and will panic:
-+///
-+/// ```should_panic
-+/// # use qemu_api::errno::into_io_result;
-+/// # #[allow(dead_code)]
-+/// let err = into_io_result(-0x1234_5678i32); // panic
-+/// ```
-+pub fn into_io_result<T: GetErrno>(value: T) -> io::Result<T::Out> {
-+    value.into_errno_result().map_err(Into::into)
-+}
-+
-+/// Convert a [`Result`] into an integer value, using negative `errno`
-+/// values to report errors.
-+///
-+/// ```
-+/// # use qemu_api::errno::into_neg_errno;
-+/// # use std::io::{self, ErrorKind};
-+/// let ok: io::Result<()> = Ok(());
-+/// assert_eq!(into_neg_errno(ok), 0);
-+///
-+/// let err: io::Result<()> = Err(ErrorKind::InvalidInput.into());
-+/// assert_eq!(into_neg_errno(err), -22); // -EINVAL
-+/// ```
-+///
-+/// Since this module also provides the ability to convert [`io::Error`]
-+/// to an `errno` value, [`io::Result`] is the most commonly used type
-+/// for the argument of this function:
-+///
-+/// # Panics
-+///
-+/// Since the result is a signed integer, integer `Ok` values must remain
-+/// positive:
-+///
-+/// ```should_panic
-+/// # use qemu_api::errno::into_neg_errno;
-+/// # use std::io;
-+/// let err: io::Result<u32> = Ok(0x8899_AABB);
-+/// into_neg_errno(err) // panic
-+/// # ;
-+/// ```
-+pub fn into_neg_errno<T: MergeErrno, E: Into<Errno>>(value: Result<T, E>) -> T::Out {
-+    match value {
-+        Ok(x) => x.map_ok(),
-+        Err(err) => -T::Out::from(err.into().0),
-+    }
-+}
-+
-+#[cfg(test)]
-+mod tests {
-+    use std::io::ErrorKind;
-+
-+    use super::*;
-+    use crate::assert_match;
-+
-+    #[test]
-+    pub fn test_from_u8() {
-+        let ok: io::Result<_> = Ok(42u8);
-+        assert_eq!(into_neg_errno(ok), 42);
-+
-+        let err: io::Result<u8> = Err(io::ErrorKind::PermissionDenied.into());
-+        assert_eq!(into_neg_errno(err), -1);
-+
-+        if cfg!(unix) {
-+            let os_err: io::Result<u8> = Err(io::Error::from_raw_os_error(10));
-+            assert_eq!(into_neg_errno(os_err), -10);
-+        }
-+    }
-+
-+    #[test]
-+    pub fn test_from_u16() {
-+        let ok: io::Result<_> = Ok(1234u16);
-+        assert_eq!(into_neg_errno(ok), 1234);
-+
-+        let err: io::Result<u16> = Err(io::ErrorKind::PermissionDenied.into());
-+        assert_eq!(into_neg_errno(err), -1);
-+
-+        if cfg!(unix) {
-+            let os_err: io::Result<u16> = Err(io::Error::from_raw_os_error(10));
-+            assert_eq!(into_neg_errno(os_err), -10);
-+        }
-+    }
-+
-+    #[test]
-+    pub fn test_i32() {
-+        assert_match!(into_io_result(1234i32), Ok(1234));
-+
-+        let err = into_io_result(-1i32).unwrap_err();
-+        #[cfg(unix)]
-+        assert_match!(err.raw_os_error(), Some(1));
-+        assert_match!(err.kind(), ErrorKind::PermissionDenied);
-+    }
-+
-+    #[test]
-+    pub fn test_from_u32() {
-+        let ok: io::Result<_> = Ok(1234u32);
-+        assert_eq!(into_neg_errno(ok), 1234);
-+
-+        let err: io::Result<u32> = Err(io::ErrorKind::PermissionDenied.into());
-+        assert_eq!(into_neg_errno(err), -1);
-+
-+        if cfg!(unix) {
-+            let os_err: io::Result<u32> = Err(io::Error::from_raw_os_error(10));
-+            assert_eq!(into_neg_errno(os_err), -10);
-+        }
-+    }
-+
-+    #[test]
-+    pub fn test_i64() {
-+        assert_match!(into_io_result(1234i64), Ok(1234));
-+
-+        let err = into_io_result(-22i64).unwrap_err();
-+        #[cfg(unix)]
-+        assert_match!(err.raw_os_error(), Some(22));
-+        assert_match!(err.kind(), ErrorKind::InvalidInput);
-+    }
-+
-+    #[test]
-+    pub fn test_from_u64() {
-+        let ok: io::Result<_> = Ok(1234u64);
-+        assert_eq!(into_neg_errno(ok), 1234);
-+
-+        let err: io::Result<u64> = Err(io::ErrorKind::InvalidInput.into());
-+        assert_eq!(into_neg_errno(err), -22);
-+
-+        if cfg!(unix) {
-+            let os_err: io::Result<u64> = Err(io::Error::from_raw_os_error(6));
-+            assert_eq!(into_neg_errno(os_err), -6);
-+        }
-+    }
-+
-+    #[test]
-+    pub fn test_isize() {
-+        assert_match!(into_io_result(1234isize), Ok(1234));
-+
-+        let err = into_io_result(-4isize).unwrap_err();
-+        #[cfg(unix)]
-+        assert_match!(err.raw_os_error(), Some(4));
-+        assert_match!(err.kind(), ErrorKind::Interrupted);
-+    }
-+
-+    #[test]
-+    pub fn test_from_unit() {
-+        let ok: io::Result<_> = Ok(());
-+        assert_eq!(into_neg_errno(ok), 0);
-+
-+        let err: io::Result<()> = Err(io::ErrorKind::OutOfMemory.into());
-+        assert_eq!(into_neg_errno(err), -12);
-+
-+        if cfg!(unix) {
-+            let os_err: io::Result<()> = Err(io::Error::from_raw_os_error(2));
-+            assert_eq!(into_neg_errno(os_err), -2);
-+        }
-+    }
-+}
-diff --git a/rust/qemu-api/src/lib.rs b/rust/qemu-api/src/lib.rs
-index ed1a8f9a2b4..05f38b51d30 100644
---- a/rust/qemu-api/src/lib.rs
-+++ b/rust/qemu-api/src/lib.rs
-@@ -19,6 +19,7 @@
- pub mod callbacks;
- pub mod cell;
- pub mod chardev;
-+pub mod errno;
- pub mod irq;
- pub mod memory;
- pub mod module;
-diff --git a/rust/qemu-api/src/prelude.rs b/rust/qemu-api/src/prelude.rs
-index fbf0ee23e0b..634acf37a85 100644
---- a/rust/qemu-api/src/prelude.rs
-+++ b/rust/qemu-api/src/prelude.rs
-@@ -9,6 +9,8 @@
- pub use crate::cell::BqlCell;
- pub use crate::cell::BqlRefCell;
- 
-+pub use crate::errno;
-+
- pub use crate::qdev::DeviceMethods;
- 
- pub use crate::qom::InterfaceType;
+ use qemu_api::{
+-    bindings::*,
++    bindings::{module_call_init, module_init_type, object_new, object_unref, qdev_prop_bool},
+     c_str,
+     cell::{self, BqlCell},
+     declare_properties, define_property,
+     prelude::*,
+     qdev::{DeviceClass, DeviceImpl, DeviceState, Property, ResettablePhasesImpl},
+     qom::{ClassInitImpl, ObjectImpl, ParentField},
++    sysbus::SysBusDevice,
+     vmstate::VMStateDescription,
+     zeroable::Zeroable,
+ };
 -- 
 2.48.1
 
