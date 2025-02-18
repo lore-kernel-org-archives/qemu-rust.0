@@ -1,131 +1,58 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tkJRN-0001Ww-U2
-	for mharc-qemu-rust@gnu.org; Tue, 18 Feb 2025 03:58:53 -0500
+	id 1tkJUD-00037i-8X
+	for mharc-qemu-rust@gnu.org; Tue, 18 Feb 2025 04:01:50 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tkJRM-0001Wf-Fk
- for qemu-rust@nongnu.org; Tue, 18 Feb 2025 03:58:52 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tkJU8-00037K-AC; Tue, 18 Feb 2025 04:01:46 -0500
+Received: from mgamail.intel.com ([192.198.163.11])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tkJRK-00053H-Sf
- for qemu-rust@nongnu.org; Tue, 18 Feb 2025 03:58:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739869129;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IFlc6OJjH3+kG9WtL4D6o3dVM6VZ1EV8iFHoyRx4wNU=;
- b=LJYNzcdqeh7RsY0zbyooQGQlIdY6Az4sqGNUG6/DW2a6qnzBsPgXroZgMJO+c/QYTZyM1q
- E997nZY9lnYKW5FYDAF7vSfzQs7hkMyeYjepX5ybQHmE5KWyN/FLW94O1sEYc6awo8mLUK
- 56a9ofuYK4dJZ4DxSdirDJ3SKNUEBZc=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-318-0VvDLik3M3q48HTOuIZXWg-1; Tue, 18 Feb 2025 03:58:47 -0500
-X-MC-Unique: 0VvDLik3M3q48HTOuIZXWg-1
-X-Mimecast-MFC-AGG-ID: 0VvDLik3M3q48HTOuIZXWg_1739869126
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4399304b329so2582005e9.3
- for <qemu-rust@nongnu.org>; Tue, 18 Feb 2025 00:58:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739869125; x=1740473925;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=IFlc6OJjH3+kG9WtL4D6o3dVM6VZ1EV8iFHoyRx4wNU=;
- b=SGsnt85LD06CimDJMAVMNyA0nNxsb795ht5cM8UcYmZTQHqE/wWoV+AQzB1tOkE8KJ
- BmCY+JirEVuuxha/wkCsVv8tZpoBMWPAqhpDqdibxhrfsrpwXrjO5kbFsy74y8HetCJe
- 9rqVolP7Ib+KhtNLQivWd2GCkqyhI/U3HQY3ZTf2npYcw+jcDYeJjhun0MFMISP5HxU3
- MjzEp7FeQ/m/Zho14CIdmeigbT31tbpDEDqcTKDrS6DR8yjjqN2ttjnTbVAjptgr9ejv
- EbySX/xiGSh7B100EttG7i0BQfEYbcctMXjTrijeEOsSLkjdmFkzR+YfdB1OvwSV4/PX
- kQhg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVtaNjZt22O0W/0JvFpGtcpqfr+IoDDEW/px+bGhEEbaTsGvXMTzZ6rgHBLVpcvmTnoLq0/VVvVVNw=@nongnu.org
-X-Gm-Message-State: AOJu0YzvRANpwN7vxfNKhyPHoTO5kRfVeM2Rts5n64ejmFCdP7/5IjIp
- KNBx6FuBSkwBE7RlRyeejSGkUnsul0qsnMaik2HfKj0alOpJwlon6zXJMMDgeIU4IcKm/r8LrgD
- t3DYtCm1GAHOeHvg4B01ar3k7f3yQbxIwHaarOSy1oQdnL5HuYtIw//PsLDbSUA==
-X-Gm-Gg: ASbGncvnTjeaAk4Jn/iR0QncaBrQQweoDLqTwkquwWdaRMhfnEamV05jgcmEee04cjf
- eOOLSpscVr+AmwPu6BKqdQCfZObbdPYNEGbSzUPPK6MlkNXXna4M1qGB2+PjoWZsegJKLTsFrGR
- iaoDePUE4kT5kYlGVTPWKvsNgh5h3YQBPmX65IzPuSvuokq8esCTm03Uu+lAkzQSN0l4q9t/qbb
- jCeif5OMIgjvDk8pJd4JhuNwSTqD/Hh8XKHk1WR4kph7r8/8qUuCrLNQgyZIX0Leb0b3WHxiWac
- 13CWNHiE+I4=
-X-Received: by 2002:a05:600c:1c94:b0:439:685e:d4c8 with SMTP id
- 5b1f17b1804b1-4396e6fa130mr131745895e9.15.1739869125605; 
- Tue, 18 Feb 2025 00:58:45 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEwkeNwGtlVzUmsAU7bKMnD0PNvlUcCs495SebW4ffWzHNeTB/OACbWlufkF9awpu8I9a8YwA==
-X-Received: by 2002:a05:600c:1c94:b0:439:685e:d4c8 with SMTP id
- 5b1f17b1804b1-4396e6fa130mr131745685e9.15.1739869125291; 
- Tue, 18 Feb 2025 00:58:45 -0800 (PST)
-Received: from [192.168.10.81] ([176.206.122.109])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-4399558f8d1sm8697265e9.19.2025.02.18.00.58.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Feb 2025 00:58:44 -0800 (PST)
-Message-ID: <88a20e34-5aa8-4351-a33f-4df110933e35@redhat.com>
-Date: Tue, 18 Feb 2025 09:58:44 +0100
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tkJU5-0005WF-DS; Tue, 18 Feb 2025 04:01:44 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1739869302; x=1771405302;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=qIHNCAX6kyKPE7zvr1dVSW7aT1fzA5e5v+pzLCf8QME=;
+ b=IQkyFaL5s8npnsc+blO0iEHLoZgN/Rb3eJhPtr2KFznTgsOOW10wg4qN
+ DldTiidRdYbmRDdQ7tfuuNaa+MohlxHhq3Zh+rUX67nK1yaLPAQya8vaR
+ I+V5nWxchFYcGEuL566qOu5Xw2VwCmFXgajO0bLNBjr8l6C8RXYaBgMhi
+ gR4CmNTSm0YSRH3iTVKQxqOBl8pi3ohZhZ9uoeDdZgqPxRWR0UjygF7Ro
+ g/oKggVJ5S1I2dOnzqDX2Ptst+D4zIZlPC5ViiFyJP6vvLGysHYoKpA4V
+ rBFs5FL6+Z0BG1vLWcS3xFcJFfXAoeD3q2MBaoDx1f3u4Lf42qewgRZ+m w==;
+X-CSE-ConnectionGUID: EjqdGlEURqKcsg3lJ2a0Sw==
+X-CSE-MsgGUID: bOBQnGiXQueXUKITpNX9zQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11348"; a="51176438"
+X-IronPort-AV: E=Sophos;i="6.13,295,1732608000"; d="scan'208";a="51176438"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2025 01:01:36 -0800
+X-CSE-ConnectionGUID: GeGp+u36RumwEyYKVKywCw==
+X-CSE-MsgGUID: BGd/NjZ/Q06CLpCe5nFYgA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="118973143"
+Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
+ by fmviesa005.fm.intel.com with ESMTP; 18 Feb 2025 01:01:35 -0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
+Subject: [PATCH] rust: Fix the typos in doc
+Date: Tue, 18 Feb 2025 17:21:08 +0800
+Message-Id: <20250218092108.3347963-1-zhao1.liu@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] rust: Prefer link_with over link_whole
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-References: <20250218083734.3345966-1-zhao1.liu@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <20250218083734.3345966-1-zhao1.liu@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: -sgqWkaD7veov8V2w0gRF9LDmkeS8LX6p3GRASWCYc0_1739869126
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=192.198.163.11; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -138,62 +65,60 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Feb 2025 08:58:52 -0000
+X-List-Received-Date: Tue, 18 Feb 2025 09:01:46 -0000
 
-On 2/18/25 09:37, Zhao Liu wrote:
-> The commit fccb744f41c6 ("gdbstub: Try unlinking the unix socket before
-> binding") causes the compilation of rust-qemu-api-integration to fail,
-> because rust-qemu-api-integration uses link_whole which meets the
-> duplicate symbol linker error.
-> 
-> Though it's not the issue of link_whole used by Rust side, there's no
-> need to use link_whole.
-> 
-> Use link_with, which may also bring some benefits, such as faster
-> linking or smaller output files.
+These typos are found by "cargo spellcheck". Though it outputs a lot of
+noise and false positives, there still are some real typos.
 
-link_with, if I remember correctly, drops the constructors.  Using it in 
-rust_devices_ss therefore prevents the devices from being registered 
-with QOM.
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+---
+ rust/hw/char/pl011/src/device.rs | 4 ++--
+ rust/qemu-api/src/qom.rs         | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-The real issue is lack of support for "objects" in Meson for Rust 
-executables.  A patch to fix that is under review, after which it will 
-be possible to build Rust executables using the same "dependency" 
-objects as C code.
-
-Paolo
-
->   rust_devices_ss.add(when: 'CONFIG_X_PL011_RUST', if_true: [declare_dependency(
-> -  link_whole: [_libpl011_rs],
-> +  link_with: [_libpl011_rs],
->     # Putting proc macro crates in `dependencies` is necessary for Meson to find
->     # them when compiling the root per-target static rust lib.
->     dependencies: [bilge_impl_dep, qemu_api_macros],
-> diff --git a/rust/hw/timer/hpet/meson.build b/rust/hw/timer/hpet/meson.build
-> index c2d7c0532ca4..ce90cc4f021a 100644
-> --- a/rust/hw/timer/hpet/meson.build
-> +++ b/rust/hw/timer/hpet/meson.build
-> @@ -10,7 +10,7 @@ _libhpet_rs = static_library(
->   )
->   
->   rust_devices_ss.add(when: 'CONFIG_X_HPET_RUST', if_true: [declare_dependency(
-> -  link_whole: [_libhpet_rs],
-> +  link_with: [_libhpet_rs],
->     # Putting proc macro crates in `dependencies` is necessary for Meson to find
->     # them when compiling the root per-target static rust lib.
->     dependencies: [qemu_api_macros],
-> diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
-> index 2e9c1078b9b2..e825671b694b 100644
-> --- a/rust/qemu-api/meson.build
-> +++ b/rust/qemu-api/meson.build
-> @@ -63,7 +63,7 @@ test('rust-qemu-api-integration',
->           rust_args: ['--test'],
->           install: false,
->           dependencies: [qemu_api, qemu_api_macros],
-> -        link_whole: [rust_qemu_api_objs, libqemuutil]),
-> +        link_with: [rust_qemu_api_objs, libqemuutil]),
->       args: [
->           '--test', '--test-threads', '1',
->           '--format', 'pretty',
+diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
+index fe73771021e7..e064da31be96 100644
+--- a/rust/hw/char/pl011/src/device.rs
++++ b/rust/hw/char/pl011/src/device.rs
+@@ -477,13 +477,13 @@ pub fn post_load(&mut self) -> Result<(), ()> {
+ }
+ 
+ impl PL011State {
+-    /// Initializes a pre-allocated, unitialized instance of `PL011State`.
++    /// Initializes a pre-allocated, uninitialized instance of `PL011State`.
+     ///
+     /// # Safety
+     ///
+     /// `self` must point to a correctly sized and aligned location for the
+     /// `PL011State` type. It must not be called more than once on the same
+-    /// location/instance. All its fields are expected to hold unitialized
++    /// location/instance. All its fields are expected to hold uninitialized
+     /// values with the sole exception of `parent_obj`.
+     unsafe fn init(&mut self) {
+         static PL011_OPS: MemoryRegionOps<PL011State> = MemoryRegionOpsBuilder::<PL011State>::new()
+diff --git a/rust/qemu-api/src/qom.rs b/rust/qemu-api/src/qom.rs
+index 3d5ab2d90186..72e637868a9e 100644
+--- a/rust/qemu-api/src/qom.rs
++++ b/rust/qemu-api/src/qom.rs
+@@ -245,7 +245,7 @@ fn as_object(&self) -> &Object {
+     }
+ 
+     /// Return the receiver as a const raw pointer to Object.
+-    /// This is preferrable to `as_object_mut_ptr()` if a C
++    /// This is preferable to `as_object_mut_ptr()` if a C
+     /// function only needs a `const Object *`.
+     fn as_object_ptr(&self) -> *const Object {
+         self.as_ptr().cast()
+@@ -517,7 +517,7 @@ pub trait ObjectImpl: ObjectType + ClassInitImpl<Self::Class> {
+     /// `INSTANCE_INIT` functions have been called.
+     const INSTANCE_POST_INIT: Option<fn(&Self)> = None;
+ 
+-    /// Called on descendent classes after all parent class initialization
++    /// Called on descendant classes after all parent class initialization
+     /// has occurred, but before the class itself is initialized.  This
+     /// is only useful if a class is not a leaf, and can be used to undo
+     /// the effects of copying the contents of the parent's class struct
+-- 
+2.34.1
 
 
