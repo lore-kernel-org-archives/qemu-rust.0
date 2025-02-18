@@ -1,95 +1,58 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tkIgD-0007MN-PF
-	for mharc-qemu-rust@gnu.org; Tue, 18 Feb 2025 03:10:10 -0500
+	id 1tkIo5-0000GQ-Sg
+	for mharc-qemu-rust@gnu.org; Tue, 18 Feb 2025 03:18:18 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tkIgB-0007LL-Qi
- for qemu-rust@nongnu.org; Tue, 18 Feb 2025 03:10:08 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tkIo4-0000G9-Jy; Tue, 18 Feb 2025 03:18:16 -0500
+Received: from mgamail.intel.com ([198.175.65.12])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tkIgA-0008Q1-2t
- for qemu-rust@nongnu.org; Tue, 18 Feb 2025 03:10:07 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739866205;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
- b=I62z6j4t5NgwyQsJIwgqRn5DI4hoxiWvyWN3O/1WzarN9CMktIC1XKdQwKMVtGu6hpdYC5
- gJ5mWqr9vYCWd6q/gJCULV9ptWlafHQoWYGVlZMBM2mB8IMM7HRyPfWm5s0ymIwKHFFubo
- K48PANOHQ7WZLAYt1dfQjDzYkJkmSlo=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-125-2u7tog1jPOS7qGr9LhGxLw-1; Tue, 18 Feb 2025 03:10:03 -0500
-X-MC-Unique: 2u7tog1jPOS7qGr9LhGxLw-1
-X-Mimecast-MFC-AGG-ID: 2u7tog1jPOS7qGr9LhGxLw_1739866203
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-38f27bddeeeso4078281f8f.3
- for <qemu-rust@nongnu.org>; Tue, 18 Feb 2025 00:10:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739866202; x=1740471002;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
- b=a5HdT5cGzhv1OznfS3jwDnedtCylY6G3uQQF1Hlbl6Udnslf9yHI2j36ZY86A5kf9L
- /ST9W6JURobKQCzni0SlJIrpcuJ29NNk82qWdryHxT1CuLiJki7bbUyXuHLq1D4GOmwY
- Xc5uwhSz5I++NYKVi8PNs05+qM9/KbgBzf51PB1aDlbGrn9DzyLQyncpJ1s/O0pTHpM1
- n3BOB+ZA5k6AeswEEm14uuonvzQR+OSsYBg1QnAaITueQScQsFnXp8/Gl3Ovj202a9cE
- IJrGINMSQuUzkHEUGyvqPCWpK+2cQX96PzF7HcFtICDWqXEZuJgK7a5MeBlcqHL1wOyU
- IVRw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWlWX7xaR2f9w8iibvE4C0tcF7sxhBSG81wSBZ0+p5KR/SkXipjuVWcn5thVgBS4YHtlxbgl/49+Hs=@nongnu.org
-X-Gm-Message-State: AOJu0YxzzW7SQnIRbufdT87JupdxMS2spXzyPW0Q6zBVaLDnRuOB94lD
- Hf9FELaLb1EHi7o1snUskfVHln/X5IBQox1uWVvCsLocfdlnE6k/6H4htILprTg9ZANbEetzpTI
- +ST4wi9+IAq09COzGb0ptGYVEKDbJZCicYYz8S9XHpxjX1n1Ccmu7r+54usesFA==
-X-Gm-Gg: ASbGncuP9LuoGTjnsLjIV6cX/5bYhLnU53Q3rUOmB9aGJChE6FYKQqPjBwmOfqPhsDI
- NQeCy3gPeTSlkFbsPBjYR+WJ4KyN38FZGXgUN9nMGkH7J5n3rjq2V5IxCJyuPfuTyxUPFcuuPMl
- ACX5/NDqI9dPihuNiy5kaDMYLDOQNEgymwECuFEVIaeSDpZAGT25VCWDcWKJo/2GONyD/825bgY
- Vy7mX7SYxT3iSmfmU05VTcfZFqOYgPAHObTlJ6rMq7J/MMSnXV08xXssGFxeHDPjKC528T2sBEb
- S0Vzf45GFfw=
-X-Received: by 2002:a5d:50cd:0:b0:38c:5e03:5bb with SMTP id
- ffacd0b85a97d-38f33f51191mr11134010f8f.41.1739866202364; 
- Tue, 18 Feb 2025 00:10:02 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFdHkGsLvx5BB0pMui/Y6m3zGmUy9i8EvLutO1qkUbx1cmyFKEXR4C0wf+mtetYDNqJCVssmg==
-X-Received: by 2002:a5d:50cd:0:b0:38c:5e03:5bb with SMTP id
- ffacd0b85a97d-38f33f51191mr11133966f8f.41.1739866202031; 
- Tue, 18 Feb 2025 00:10:02 -0800 (PST)
-Received: from [192.168.10.48] ([176.206.122.109])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38f258f5efdsm14101840f8f.43.2025.02.18.00.10.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Feb 2025 00:10:01 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel@nongnu.org,
-	qemu-rust@nongnu.org
-Subject: Re: [PATCH] rust: Prefer std::ptr over core::ptr
-Date: Tue, 18 Feb 2025 09:09:59 +0100
-Message-ID: <20250218080959.430745-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250218080835.3341082-1-zhao1.liu@intel.com>
-References: 
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tkIo1-0000f8-GK; Tue, 18 Feb 2025 03:18:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1739866694; x=1771402694;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ta7ruJQrhzCAITHV7W8qvhvnYjlScHvFo6LkCTQJ5nc=;
+ b=m4yKmxKEhaTAAbcd5oPinfaqdHBBFrO7WOzMWRFgw4IDQnybeABJRHU3
+ ZHP/yFDOZXpsZ7l4xW5xe0WVoVfLdP348+q4qhK6LKnmXTANPiFWKyrRm
+ sZvHKEBE2CKDOYTiHc7nNlmLFfbwDYNqtpmnhwgZ+15I6poUQ+I7JHcAp
+ P+ZSZ7BJktnWoQW/FcjIxoYUqWv7P5o5n1IQP7NsROlQf34B1l28ZkfT0
+ 1BIHgziU88sPgrJ8Q9s82kzO2ICxP7oTZL3RV6dcM5vz7q+FxR/iS2/d5
+ FPnmlpNPjMZJUBcmVRVZEVYixtnV1hW01WO63dQyWV7TmT2QvgdFDh7wA w==;
+X-CSE-ConnectionGUID: 7qri/VGSRMC5ZPjq6K6bfA==
+X-CSE-MsgGUID: pRjQQXMWSlGrr+zEFmFl9Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11348"; a="51957379"
+X-IronPort-AV: E=Sophos;i="6.13,295,1732608000"; d="scan'208";a="51957379"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2025 00:18:09 -0800
+X-CSE-ConnectionGUID: BYDHgN5VQAa930+H1VTMfA==
+X-CSE-MsgGUID: T4DrovEoTvq1QH/+NPKq5Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.13,295,1732608000"; d="scan'208";a="114521691"
+Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
+ by fmviesa008.fm.intel.com with ESMTP; 18 Feb 2025 00:18:07 -0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
+Subject: [PATCH] rust: Prefer link_with over link_whole
+Date: Tue, 18 Feb 2025 16:37:34 +0800
+Message-Id: <20250218083734.3345966-1-zhao1.liu@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: uxbRM0gMu7wGoCmAixa5YcSq7mLuzXrpL5gv83AmByE_1739866203
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+Received-SPF: pass client-ip=198.175.65.12; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -102,10 +65,66 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Feb 2025 08:10:08 -0000
+X-List-Received-Date: Tue, 18 Feb 2025 08:18:16 -0000
 
-Queued, thanks.
+The commit fccb744f41c6 ("gdbstub: Try unlinking the unix socket before
+binding") causes the compilation of rust-qemu-api-integration to fail,
+because rust-qemu-api-integration uses link_whole which meets the
+duplicate symbol linker error.
 
-Paolo
+Though it's not the issue of link_whole used by Rust side, there's no
+need to use link_whole.
+
+Use link_with, which may also bring some benefits, such as faster
+linking or smaller output files.
+
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+---
+ rust/hw/char/pl011/meson.build | 2 +-
+ rust/hw/timer/hpet/meson.build | 2 +-
+ rust/qemu-api/meson.build      | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/rust/hw/char/pl011/meson.build b/rust/hw/char/pl011/meson.build
+index 547cca5a96f7..4ba9089fcf8e 100644
+--- a/rust/hw/char/pl011/meson.build
++++ b/rust/hw/char/pl011/meson.build
+@@ -18,7 +18,7 @@ _libpl011_rs = static_library(
+ )
+ 
+ rust_devices_ss.add(when: 'CONFIG_X_PL011_RUST', if_true: [declare_dependency(
+-  link_whole: [_libpl011_rs],
++  link_with: [_libpl011_rs],
+   # Putting proc macro crates in `dependencies` is necessary for Meson to find
+   # them when compiling the root per-target static rust lib.
+   dependencies: [bilge_impl_dep, qemu_api_macros],
+diff --git a/rust/hw/timer/hpet/meson.build b/rust/hw/timer/hpet/meson.build
+index c2d7c0532ca4..ce90cc4f021a 100644
+--- a/rust/hw/timer/hpet/meson.build
++++ b/rust/hw/timer/hpet/meson.build
+@@ -10,7 +10,7 @@ _libhpet_rs = static_library(
+ )
+ 
+ rust_devices_ss.add(when: 'CONFIG_X_HPET_RUST', if_true: [declare_dependency(
+-  link_whole: [_libhpet_rs],
++  link_with: [_libhpet_rs],
+   # Putting proc macro crates in `dependencies` is necessary for Meson to find
+   # them when compiling the root per-target static rust lib.
+   dependencies: [qemu_api_macros],
+diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
+index 2e9c1078b9b2..e825671b694b 100644
+--- a/rust/qemu-api/meson.build
++++ b/rust/qemu-api/meson.build
+@@ -63,7 +63,7 @@ test('rust-qemu-api-integration',
+         rust_args: ['--test'],
+         install: false,
+         dependencies: [qemu_api, qemu_api_macros],
+-        link_whole: [rust_qemu_api_objs, libqemuutil]),
++        link_with: [rust_qemu_api_objs, libqemuutil]),
+     args: [
+         '--test', '--test-threads', '1',
+         '--format', 'pretty',
+-- 
+2.34.1
 
 
