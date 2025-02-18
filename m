@@ -1,58 +1,89 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tkILy-0000Ld-7T
-	for mharc-qemu-rust@gnu.org; Tue, 18 Feb 2025 02:49:14 -0500
+	id 1tkIbT-0005Mj-7s
+	for mharc-qemu-rust@gnu.org; Tue, 18 Feb 2025 03:05:15 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tkILw-0000LE-B5; Tue, 18 Feb 2025 02:49:12 -0500
-Received: from mgamail.intel.com ([192.198.163.9])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tkIbQ-0005Lp-Er
+ for qemu-rust@nongnu.org; Tue, 18 Feb 2025 03:05:12 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tkILs-0005uX-Oo; Tue, 18 Feb 2025 02:49:12 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739864949; x=1771400949;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=xbrKOGJ3m9gms1trzv21PXPE753tlMOzvuu2KDFvoZk=;
- b=TU6fr4TtpQAYNOso7ntK3cjOrPRPh+rWa4zU/NT3YEcdSDxjb7eJZkc1
- FM3rB2AOeB3RTYRMvYanNVFW77W83aG8vWhwn1iMs/AW3pzQYs9oV0qnm
- dJNA6iNALO10yBwlawpbiLbKKA16VbC7gbTNXbNAkjtIH7a/JjtUBt0LT
- /qw2nk135o/dUdoPSMD0mn8yhsK4O/nt1ciSRDP0FddV5qoHZPkh8soaC
- a9Nru8WJFT3SrOjCl2iSkk2AD2Ra9gSGqw2tERnBPbCZ4SOlX2PTB+Uyj
- 1YhlqqYIMzDPHxle1DufkqotZV5jeg2WwXlphxXpKKAECHofKygFGmp3T w==;
-X-CSE-ConnectionGUID: qS/7g2SkQlKKgXyY7rc2mA==
-X-CSE-MsgGUID: zpnkbZCSSuiNWT5INAkAxw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11348"; a="51190819"
-X-IronPort-AV: E=Sophos;i="6.13,295,1732608000"; d="scan'208";a="51190819"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2025 23:49:05 -0800
-X-CSE-ConnectionGUID: c5vcaEq6QXOozNFMZRIeww==
-X-CSE-MsgGUID: b58VZPcnTGuQ9e9woxbVMg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="119529994"
-Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by orviesa005.jf.intel.com with ESMTP; 17 Feb 2025 23:49:04 -0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH] rust: Prefer std::ptr over core::ptr
-Date: Tue, 18 Feb 2025 16:08:35 +0800
-Message-Id: <20250218080835.3341082-1-zhao1.liu@intel.com>
-X-Mailer: git-send-email 2.34.1
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tkIbI-0007ir-9r
+ for qemu-rust@nongnu.org; Tue, 18 Feb 2025 03:05:07 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1739865902;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=s4rLBdVPxb6okN9/rSullSB3rdps64ovo3v4at/34SA=;
+ b=Krg4oioSe73j2nCQpG/pfBWPrw19BCaaDDgw/Iz+aUIMbM1crTTyOBAp+saYRAcTwtaOdC
+ RUQLEyN3nWLi+9IrCs6fV5pm1thTHoA6JUShUQ0ldDcyGuA1ir18Xt9CrUrIlDsvmOOVuC
+ iJMDxkC0fn0j+te4/NgNlcuzttff3ec=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-384-sPZkfbRoN5aeLwj-nOevYQ-1; Tue, 18 Feb 2025 03:05:00 -0500
+X-MC-Unique: sPZkfbRoN5aeLwj-nOevYQ-1
+X-Mimecast-MFC-AGG-ID: sPZkfbRoN5aeLwj-nOevYQ_1739865899
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-38f2cefb154so3289294f8f.0
+ for <qemu-rust@nongnu.org>; Tue, 18 Feb 2025 00:04:59 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739865897; x=1740470697;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=s4rLBdVPxb6okN9/rSullSB3rdps64ovo3v4at/34SA=;
+ b=VztboWU4mRBuMDFUuxpHi2h5peCwQwneXZ1cg+LigeFN7+/uL432wl6iLalr7TxTJ3
+ goordCN8HiUFah7fP7KD6TpOc1ohsE7hR4y7fyT4zskusPcN6LKRoSlA8QsV2FQ2m/j0
+ QGOg/78+HPuh7q+BkFKVWgV7fgAYN/iCrXbqxR3m21BOCKH4lg8suvalrDYQdYG9ov34
+ brynFETj8h6iPLqYlERzgJZTMvAv8+cufT5KDmitT1wddh+YOh+qX8Atcjc8/UEleN7V
+ sqPZbNQfClbvytLd8uS5pZ3a4rArX6j4CMXmiK/eZnQZe+RYqHjFBq97VItTzvBM2HQ9
+ iUZg==
+X-Gm-Message-State: AOJu0YxnAcBROvl6BzLhXqHxL0k9u2pHJ5jmJduuZP9h7PlVTA1w6OF/
+ Foyy8tO5HSFeZDRnBRz8YUoZM0pegT/GXSLwLcpezZxl/5v4u0FRLTLKQqbubAB2H5+pP1m8c7d
+ PIgWQqIyVQrwH+rNY63M3GY69uz5FBWrHrUM/wmUMscz3HoXQ8nSIRkdu/xAjcQ==
+X-Gm-Gg: ASbGncuajWuQrOyO67k6pUT4fDZrA8Nk8RvX3AffLLIKWcOMaLDuIhJMLyRDteewVvG
+ 1uWjEpXhxaaWJxlIeJmxE9gjB9Cxb48wiY7/6k7dTPJiYTJVefICxXuchbp/ZvTkIo97WWjeiTk
+ U5z5jWN0AjypipomlAJ1Y7t6EGmdVkCJLdmbvs/z2DtxRoerpitqfBj9Am+vjmPhvVMLpAsT4TG
+ nNhgVMzESXA6GRIXzL+m+wtjoVv3e24qjk0ymh6stY5WBIP8N2B23y5pkajJ83xZCDFHIt5vgLP
+ jn4JOPbrl+Q=
+X-Received: by 2002:a5d:64ad:0:b0:38d:d299:709f with SMTP id
+ ffacd0b85a97d-38f33f4e5e9mr14705151f8f.48.1739865897345; 
+ Tue, 18 Feb 2025 00:04:57 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGe6X0H6FoeTpeWkmvS3CDb8HxLFBW0GhixymOR6QnLXgHcuLqgZFzlSwrJSZ301QHTWUMSlw==
+X-Received: by 2002:a5d:64ad:0:b0:38d:d299:709f with SMTP id
+ ffacd0b85a97d-38f33f4e5e9mr14705105f8f.48.1739865896939; 
+ Tue, 18 Feb 2025 00:04:56 -0800 (PST)
+Received: from [192.168.10.48] ([176.206.122.109])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38f258dcc50sm14521234f8f.34.2025.02.18.00.04.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Feb 2025 00:04:56 -0800 (PST)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org
+Subject: [PATCH] docs: rust: update description of crates
+Date: Tue, 18 Feb 2025 09:04:55 +0100
+Message-ID: <20250218080455.426383-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: mfDgfMSU0JazjTYNWKVA-7w9UauDeMN5fEX4967hzrk_1739865899
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=192.198.163.9; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -65,69 +96,45 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Feb 2025 07:49:12 -0000
+X-List-Received-Date: Tue, 18 Feb 2025 08:05:12 -0000
 
-The std::ptr is same as core::ptr, but std has already been used in many
-cases and there's no need to choose non-std library.
-
-So, use std::ptr directly to make the used ptr library as consistent as
-possible.
-
-Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/hw/char/pl011/src/device.rs       | 2 +-
- rust/hw/char/pl011/src/device_class.rs | 6 ++++--
- rust/qemu-api/src/irq.rs               | 3 +--
- 3 files changed, 6 insertions(+), 5 deletions(-)
+ docs/devel/rust.rst | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index fe73771021e7..59a689fdcd77 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -2,10 +2,10 @@
- // Author(s): Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
- // SPDX-License-Identifier: GPL-2.0-or-later
+diff --git a/docs/devel/rust.rst b/docs/devel/rust.rst
+index 7964e1fd327..e3f9e16aacb 100644
+--- a/docs/devel/rust.rst
++++ b/docs/devel/rust.rst
+@@ -139,16 +139,22 @@ anymore.
+ Writing Rust code in QEMU
+ -------------------------
  
--use core::ptr::{addr_of, addr_of_mut, NonNull};
- use std::{
-     ffi::CStr,
-     os::raw::{c_int, c_void},
-+    ptr::{addr_of, addr_of_mut, NonNull},
- };
+-Right now QEMU includes three crates:
++Right now QEMU includes four crates:
  
- use qemu_api::{
-diff --git a/rust/hw/char/pl011/src/device_class.rs b/rust/hw/char/pl011/src/device_class.rs
-index dbef93f6cb3e..0b2076ddaa0f 100644
---- a/rust/hw/char/pl011/src/device_class.rs
-+++ b/rust/hw/char/pl011/src/device_class.rs
-@@ -2,8 +2,10 @@
- // Author(s): Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
- // SPDX-License-Identifier: GPL-2.0-or-later
+ * ``qemu_api`` for bindings to C code and useful functionality
  
--use core::ptr::NonNull;
--use std::os::raw::{c_int, c_void};
-+use std::{
-+    os::raw::{c_int, c_void},
-+    ptr::NonNull,
-+};
+ * ``qemu_api_macros`` defines several procedural macros that are useful when
+   writing C code
  
- use qemu_api::{
-     bindings::*, c_str, prelude::*, vmstate_clock, vmstate_fields, vmstate_of, vmstate_struct,
-diff --git a/rust/qemu-api/src/irq.rs b/rust/qemu-api/src/irq.rs
-index d1c9dc96eff3..34c19263c233 100644
---- a/rust/qemu-api/src/irq.rs
-+++ b/rust/qemu-api/src/irq.rs
-@@ -4,8 +4,7 @@
+-* ``pl011`` (under ``rust/hw/char/pl011``) is the sample device that is being
+-  used to further develop ``qemu_api`` and ``qemu_api_macros``.  It is a functional
+-  replacement for the ``hw/char/pl011.c`` file.
++* ``pl011`` (under ``rust/hw/char/pl011``) and ``hpet`` (under ``rust/hw/timer/hpet``)
++  are sample device that demonstrate ``qemu_api`` and ``qemu_api_macros``, and are
++  used to further develop them.  These two crates are functional\ [#issues]_ replacements
++  for the ``hw/char/pl011.c`` and ``hw/timer/hpet.c`` files.
++
++.. [#issues] The ``pl011`` crate is synchronized with ``hw/char/pl011.c``
++   as of commit 02b1f7f61928.  The ``hpet`` crate is synchronized as of
++   commit f32352ff9e.  Both are lacking tracing functionality; ``hpet``
++   is also lacking support for migration.
  
- //! Bindings for interrupt sources
+ This section explains how to work with them.
  
--use core::ptr;
--use std::{ffi::CStr, marker::PhantomData, os::raw::c_int};
-+use std::{ffi::CStr, marker::PhantomData, os::raw::c_int, ptr};
- 
- use crate::{
-     bindings::{self, qemu_set_irq},
 -- 
-2.34.1
+2.48.1
 
 
