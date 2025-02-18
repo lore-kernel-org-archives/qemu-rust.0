@@ -1,53 +1,52 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tkIr7-0001zk-Rk
-	for mharc-qemu-rust@gnu.org; Tue, 18 Feb 2025 03:21:25 -0500
+	id 1tkJ2X-0004na-1N
+	for mharc-qemu-rust@gnu.org; Tue, 18 Feb 2025 03:33:13 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tkIr6-0001zA-4j; Tue, 18 Feb 2025 03:21:24 -0500
-Received: from mgamail.intel.com ([192.198.163.8])
+ id 1tkJ2U-0004mS-S0; Tue, 18 Feb 2025 03:33:10 -0500
+Received: from mgamail.intel.com ([192.198.163.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tkIr4-00016l-67; Tue, 18 Feb 2025 03:21:23 -0500
+ id 1tkJ2S-0002a2-D4; Tue, 18 Feb 2025 03:33:10 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739866882; x=1771402882;
+ t=1739867588; x=1771403588;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=gtUfZTFBrpSiRhD1YiYX57VNWMSKg8+WuLdttZUdjTQ=;
- b=SPUDHHdf/XGwBRy3RcFnEcSfRFZQn54pvDUcF/abUZhHpYgh6Ac9l3K9
- etS4ymGjj6yd+U9fckYnVtrhuTQHs04/S4PAtncWa1LVUXIej3qS0cTvi
- 9DKrFuZw4JFHUm0nLyHkhXpnBDXd/oKUVywOWXaEcsohoHadT+umFjWR6
- pTWj/gKNGLF8uzZ6bDkxEYKmfJ8J379gCUQBcKcgrByVGvfKmQh7SoJO5
- R7pXde4DdMNHnZp5XzkIDWn3XI0Tl4aGG3MHOVjZWvxe1sGH0qjGz+p5q
- H5EM2mHdrnFJPmPkNvYXNXKLY/ymtM4LBS8SDNWEWQjRjiCs0HfOK2Eul w==;
-X-CSE-ConnectionGUID: uexrVhPaSsKxu5qEE5vSfg==
-X-CSE-MsgGUID: baGylXERR02qvCWdzCX/+w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11348"; a="58087786"
-X-IronPort-AV: E=Sophos;i="6.13,295,1732608000"; d="scan'208";a="58087786"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2025 00:21:20 -0800
-X-CSE-ConnectionGUID: 0rnF1547QgW5g8lWr6grhA==
-X-CSE-MsgGUID: BjqEu0hqQlG6jPItSV/EtQ==
+ bh=Oy4o/5QqzkOOJZntuC8UraATNOghv87gR7WxkdfsV88=;
+ b=SpL7bAmrmnTlolepFwz+Haow/m/9MD9zvLqkQhcdfADYzErTzSkBEMIR
+ UdaSZbgL5A1selVYFsS/uRZrEWPfGd00z5Ho1wnx0/8R7lW9RKfxUwjpY
+ e+w6EaZ9D69z044dL2od2k6l4/+UdwGiTmUUcZwxAhFkXRLnvdTg4gv9B
+ zKjLyCydzydmIEL4BZnzIsVSNh89x3MqXZY4U/uxOZeW53L6yUP67rNN/
+ YHSKhF0pR5wlJDffXDEjwoTa2NtEsGw7J1I9e+dsSed9Yv481TA5fO3yL
+ v1uF/C4z3M9CATIvzLYEHmTpaTYgIq4C6eeLPZl7s3RSSoPkLOXycqJ26 w==;
+X-CSE-ConnectionGUID: mqs6gmaESR2xqkoyhAcKbw==
+X-CSE-MsgGUID: C6ZIdl7FTgaY98NpMTYG6g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11348"; a="28151559"
+X-IronPort-AV: E=Sophos;i="6.13,295,1732608000"; d="scan'208";a="28151559"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2025 00:33:05 -0800
+X-CSE-ConnectionGUID: OFddgGyXSqmrEBKPndL7ww==
+X-CSE-MsgGUID: ghqW2pMNQzKT0kRZA/opXQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,295,1732608000"; d="scan'208";a="114302862"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="119536540"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa007.fm.intel.com with ESMTP; 18 Feb 2025 00:21:19 -0800
-Date: Tue, 18 Feb 2025 16:40:53 +0800
+ by orviesa005.jf.intel.com with ESMTP; 18 Feb 2025 00:33:04 -0800
+Date: Tue, 18 Feb 2025 16:52:38 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH] i386: Fix the missing Rust HPET configuration option
-Message-ID: <Z7RHlbXUQuz1gfj7@intel.com>
-References: <20250217154416.3144571-1-zhao1.liu@intel.com>
- <e43f8169-4017-4a3a-9274-4daf9919c290@redhat.com>
+Subject: Re: [PATCH] docs: rust: fix typos
+Message-ID: <Z7RKVpvgffMeF9CM@intel.com>
+References: <20250218080458.426402-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <e43f8169-4017-4a3a-9274-4daf9919c290@redhat.com>
-Received-SPF: pass client-ip=192.198.163.8; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250218080458.426402-1-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.16; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -69,26 +68,19 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Feb 2025 08:21:24 -0000
+X-List-Received-Date: Tue, 18 Feb 2025 08:33:11 -0000
 
-> The config item is already declared in rust/hw/timer/Kconfig, so it's enough
-> to do
+On Tue, Feb 18, 2025 at 09:04:58AM +0100, Paolo Bonzini wrote:
+> Date: Tue, 18 Feb 2025 09:04:58 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH] docs: rust: fix typos
+> X-Mailer: git-send-email 2.48.1
 > 
-> diff --git b/rust/hw/timer/Kconfig a/rust/hw/timer/Kconfig
-> index afd98033503..42e421317a5 100644
-> --- b/rust/hw/timer/Kconfig
-> +++ a/rust/hw/timer/Kconfig
-> @@ -1,2 +1,3 @@
->  config X_HPET_RUST
->      bool
-> +    default y if PC && HAVE_RUST
-> 
-> I applied it with your commit message.
-> 
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  docs/devel/rust.rst | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Ah, thanks! I misunderstood your comment before...
-
-Regards,
-Zhao
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
