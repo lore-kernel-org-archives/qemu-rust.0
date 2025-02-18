@@ -1,121 +1,85 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tkIfi-0006kv-Ed
-	for mharc-qemu-rust@gnu.org; Tue, 18 Feb 2025 03:09:38 -0500
+	id 1tkIgD-0007MN-PF
+	for mharc-qemu-rust@gnu.org; Tue, 18 Feb 2025 03:10:10 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tkIfg-0006ka-Nf
- for qemu-rust@nongnu.org; Tue, 18 Feb 2025 03:09:36 -0500
+ id 1tkIgB-0007LL-Qi
+ for qemu-rust@nongnu.org; Tue, 18 Feb 2025 03:10:08 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tkIfe-0008CX-KW
- for qemu-rust@nongnu.org; Tue, 18 Feb 2025 03:09:35 -0500
+ id 1tkIgA-0008Q1-2t
+ for qemu-rust@nongnu.org; Tue, 18 Feb 2025 03:10:07 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739866173;
+ s=mimecast20190719; t=1739866205;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ruSUnBPTy2QjqtparPthdvTIbUB9xMxEdQ4Eirr+oj8=;
- b=Zl6ytjD44uSVLqR8zrrd5zQ8nzVycyA/ZxyMAH0el8o+KC/tk1715vhurZSGAmEyW4eZCH
- Gj/MllKpM/fVh0ezVIglnzBTrvnL39Q7/sovgd/eQYif/v+7jKcNTD1rEZL9nHjcoLGO8l
- qzMZN25QpanpnyeKK7sVLCuoGKYws6o=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ in-reply-to:in-reply-to:references:references;
+ bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+ b=I62z6j4t5NgwyQsJIwgqRn5DI4hoxiWvyWN3O/1WzarN9CMktIC1XKdQwKMVtGu6hpdYC5
+ gJ5mWqr9vYCWd6q/gJCULV9ptWlafHQoWYGVlZMBM2mB8IMM7HRyPfWm5s0ymIwKHFFubo
+ K48PANOHQ7WZLAYt1dfQjDzYkJkmSlo=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-539-Aes5Hl5eMw62hTM6AqKY6Q-1; Tue, 18 Feb 2025 03:09:30 -0500
-X-MC-Unique: Aes5Hl5eMw62hTM6AqKY6Q-1
-X-Mimecast-MFC-AGG-ID: Aes5Hl5eMw62hTM6AqKY6Q_1739866170
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-38f4c0c1738so1755338f8f.1
- for <qemu-rust@nongnu.org>; Tue, 18 Feb 2025 00:09:30 -0800 (PST)
+ us-mta-125-2u7tog1jPOS7qGr9LhGxLw-1; Tue, 18 Feb 2025 03:10:03 -0500
+X-MC-Unique: 2u7tog1jPOS7qGr9LhGxLw-1
+X-Mimecast-MFC-AGG-ID: 2u7tog1jPOS7qGr9LhGxLw_1739866203
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-38f27bddeeeso4078281f8f.3
+ for <qemu-rust@nongnu.org>; Tue, 18 Feb 2025 00:10:03 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739866170; x=1740470970;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ruSUnBPTy2QjqtparPthdvTIbUB9xMxEdQ4Eirr+oj8=;
- b=ePLOhUk8+njMc8TKvK39QOePctq67+5tNag1iw9WWNY9T6zFsNs7pKoAG1TzECEiQ/
- HJ14nE1uKgfxNYoVJKP9G/rPY1UWpHRYp/UZH63s5z5/Cj3ejm+z+x+k+pHa/pvaIJHm
- TC1eoIOiGp1E4Usuu2W/acmJSZxSOpTH77Zcwj3ijenzmvktwL2gOcXKJQ6VJt2yZPwy
- 6Z2pEGWlwURnAUpF8aHKPZ7KX/rIDGYSnUsLDSFjM/gzSZrksYa1H46xfDRWFyhYuW2J
- gDdrpeo3jKQ5fZ1J82XFKDA8MVvMAkc4i7wH8VO/FmerftjNZyyMTXXM6+FVl5Xtih6H
- HZyQ==
+ d=1e100.net; s=20230601; t=1739866202; x=1740471002;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+ b=a5HdT5cGzhv1OznfS3jwDnedtCylY6G3uQQF1Hlbl6Udnslf9yHI2j36ZY86A5kf9L
+ /ST9W6JURobKQCzni0SlJIrpcuJ29NNk82qWdryHxT1CuLiJki7bbUyXuHLq1D4GOmwY
+ Xc5uwhSz5I++NYKVi8PNs05+qM9/KbgBzf51PB1aDlbGrn9DzyLQyncpJ1s/O0pTHpM1
+ n3BOB+ZA5k6AeswEEm14uuonvzQR+OSsYBg1QnAaITueQScQsFnXp8/Gl3Ovj202a9cE
+ IJrGINMSQuUzkHEUGyvqPCWpK+2cQX96PzF7HcFtICDWqXEZuJgK7a5MeBlcqHL1wOyU
+ IVRw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX5H+GIP7MU3XqVYNzgp1kg2B41D2a1THuiz9nPohpgq0czedyBhVGkq8GvbZ06FSlMIvsZRjEAh8c=@nongnu.org
-X-Gm-Message-State: AOJu0YzfYD7q9OZyqQA/Ag3R9R27Zb6MpPhW7WiOnZPYEXmBRJjMjZ/j
- ti8FyGiuoUVI/126/nceYpu8UW9D38ywYdvalR+mRXmN+Az57Pzw5JIyy4YrK8/NEfBs5D+D/cu
- DOtnpnAqiEDJmiCvi8zvqrefl4MkT8aYONghKGnCDNWE6qbqd6CU=
-X-Gm-Gg: ASbGncuv5mhwm5TPMvAysewlD9ZaftPipwO8ujicW4QUTFnbYx0JKpkB0DJpCcf9PbN
- 929FJkAtOtT05RT/4R2tzfBfe7rEcnkQ3CdcibttBygeIxe8DrlltZ03+2kEnbvGhYnGCP1O6C0
- f3I0uhJPf6Kteml2YLx0P/7leNrU6/8PC4axEMzvd+Blgm3mOXgo8lMZsYd5QJepLX2e9EOz+RL
- rOV4FM90htWULOyd2f8iHvIEdX+An+qN6rNm0ZVbipwLJHyVgJ9OOY3TkUBTtyaGaDnFOTSOgYI
- rHXG9TSmpgk=
-X-Received: by 2002:a5d:5268:0:b0:38d:dc57:855d with SMTP id
- ffacd0b85a97d-38f33f4388emr12360893f8f.35.1739866169724; 
- Tue, 18 Feb 2025 00:09:29 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFz4GCumN0ygWwAE2ynBvmNef2hCjNdDARPvi6qiaojrmE84MTlKkO+fQj4GIsVX0Rl6gvqDg==
-X-Received: by 2002:a5d:5268:0:b0:38d:dc57:855d with SMTP id
- ffacd0b85a97d-38f33f4388emr12360867f8f.35.1739866169361; 
- Tue, 18 Feb 2025 00:09:29 -0800 (PST)
-Received: from [192.168.10.81] ([176.206.122.109])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-38f259f7b68sm14048295f8f.85.2025.02.18.00.09.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Feb 2025 00:09:28 -0800 (PST)
-Message-ID: <e43f8169-4017-4a3a-9274-4daf9919c290@redhat.com>
-Date: Tue, 18 Feb 2025 09:09:28 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i386: Fix the missing Rust HPET configuration option
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-References: <20250217154416.3144571-1-zhao1.liu@intel.com>
+ AJvYcCWlWX7xaR2f9w8iibvE4C0tcF7sxhBSG81wSBZ0+p5KR/SkXipjuVWcn5thVgBS4YHtlxbgl/49+Hs=@nongnu.org
+X-Gm-Message-State: AOJu0YxzzW7SQnIRbufdT87JupdxMS2spXzyPW0Q6zBVaLDnRuOB94lD
+ Hf9FELaLb1EHi7o1snUskfVHln/X5IBQox1uWVvCsLocfdlnE6k/6H4htILprTg9ZANbEetzpTI
+ +ST4wi9+IAq09COzGb0ptGYVEKDbJZCicYYz8S9XHpxjX1n1Ccmu7r+54usesFA==
+X-Gm-Gg: ASbGncuP9LuoGTjnsLjIV6cX/5bYhLnU53Q3rUOmB9aGJChE6FYKQqPjBwmOfqPhsDI
+ NQeCy3gPeTSlkFbsPBjYR+WJ4KyN38FZGXgUN9nMGkH7J5n3rjq2V5IxCJyuPfuTyxUPFcuuPMl
+ ACX5/NDqI9dPihuNiy5kaDMYLDOQNEgymwECuFEVIaeSDpZAGT25VCWDcWKJo/2GONyD/825bgY
+ Vy7mX7SYxT3iSmfmU05VTcfZFqOYgPAHObTlJ6rMq7J/MMSnXV08xXssGFxeHDPjKC528T2sBEb
+ S0Vzf45GFfw=
+X-Received: by 2002:a5d:50cd:0:b0:38c:5e03:5bb with SMTP id
+ ffacd0b85a97d-38f33f51191mr11134010f8f.41.1739866202364; 
+ Tue, 18 Feb 2025 00:10:02 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFdHkGsLvx5BB0pMui/Y6m3zGmUy9i8EvLutO1qkUbx1cmyFKEXR4C0wf+mtetYDNqJCVssmg==
+X-Received: by 2002:a5d:50cd:0:b0:38c:5e03:5bb with SMTP id
+ ffacd0b85a97d-38f33f51191mr11133966f8f.41.1739866202031; 
+ Tue, 18 Feb 2025 00:10:02 -0800 (PST)
+Received: from [192.168.10.48] ([176.206.122.109])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38f258f5efdsm14101840f8f.43.2025.02.18.00.10.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Feb 2025 00:10:01 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <20250217154416.3144571-1-zhao1.liu@intel.com>
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: qemu-devel@nongnu.org,
+	qemu-rust@nongnu.org
+Subject: Re: [PATCH] rust: Prefer std::ptr over core::ptr
+Date: Tue, 18 Feb 2025 09:09:59 +0100
+Message-ID: <20250218080959.430745-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250218080835.3341082-1-zhao1.liu@intel.com>
+References: 
+MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Y7MZbruPTgjg7OYXZkD1JOCpNgMamJDBEaER0J2GFCk_1739866170
+X-Mimecast-MFC-PROC-ID: uxbRM0gMu7wGoCmAixa5YcSq7mLuzXrpL5gv83AmByE_1739866203
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
@@ -138,49 +102,9 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Feb 2025 08:09:37 -0000
+X-List-Received-Date: Tue, 18 Feb 2025 08:10:08 -0000
 
-On 2/17/25 16:44, Zhao Liu wrote:
-> The configuration option of Rust HPET is missing, so that PC machine
-> can't boot with "hpet=on" when QEMU Rust support is enabled.
-> 
-> Add the Rust HPET configuration option.
-> 
-> Fixes: d128c341a744 ("i386: enable rust hpet for pc when rust is enabled")
-> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
-> ---
->   hw/timer/Kconfig | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/hw/timer/Kconfig b/hw/timer/Kconfig
-> index 9ac008453408..c051597180f4 100644
-> --- a/hw/timer/Kconfig
-> +++ b/hw/timer/Kconfig
-> @@ -13,6 +13,10 @@ config HPET
->       bool
->       default y if PC && !HAVE_RUST
->   
-> +config X_HPET_RUST
-> +    bool
-> +    default y if PC && HAVE_RUST
-> +
->   config I8254
->       bool
->       depends on ISA_BUS
-
-The config item is already declared in rust/hw/timer/Kconfig, so it's 
-enough to do
-
-diff --git b/rust/hw/timer/Kconfig a/rust/hw/timer/Kconfig
-index afd98033503..42e421317a5 100644
---- b/rust/hw/timer/Kconfig
-+++ a/rust/hw/timer/Kconfig
-@@ -1,2 +1,3 @@
-  config X_HPET_RUST
-      bool
-+    default y if PC && HAVE_RUST
-
-I applied it with your commit message.
+Queued, thanks.
 
 Paolo
 
