@@ -1,80 +1,64 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tkJbd-0004xZ-45
-	for mharc-qemu-rust@gnu.org; Tue, 18 Feb 2025 04:09:29 -0500
+	id 1tkO6N-0000Vf-JU
+	for mharc-qemu-rust@gnu.org; Tue, 18 Feb 2025 08:57:31 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tkJbc-0004x7-1O
- for qemu-rust@nongnu.org; Tue, 18 Feb 2025 04:09:28 -0500
-Received: from mail-wm1-x32f.google.com ([2a00:1450:4864:20::32f])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tkJbX-00067H-8u
- for qemu-rust@nongnu.org; Tue, 18 Feb 2025 04:09:27 -0500
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4394a823036so54271305e9.0
- for <qemu-rust@nongnu.org>; Tue, 18 Feb 2025 01:09:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1739869761; x=1740474561; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=XtZ35Q9HXYGYqMuJlD0ubU1N+t7pPICndc/oTot9foY=;
- b=ig7j7Xr7dN6+YeNPqi0jCRSMcb92LraThj9d/k96UkY2xFi+bTZqt4bv8+xpNEux+Q
- 2nwk9NYz3NzO5R6jYUcMQdX4Jmn+7rRell7Fk/Rsi5VB74vhe5uiSmhcSru28rGbx6Lv
- jBJIzmbet/Dtj2zAdQE7UBY2VpihzonPDk9jtUSHL3sWAt2M2hebZ/aDl/RziEEMMcRY
- qXnZJ8YydeQMRFMvzVPZlLdJ7csJYiZlosO+DZHa/cLlES/skXTsdCr7I7vVU0tXpsAe
- IYUlQCAJ6xQ6DAKqA9yONdkLLCX2qp76mEXu4fs52aMz2jJ6boQ7NKkBxkTJceGz6pz9
- R0IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739869761; x=1740474561;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=XtZ35Q9HXYGYqMuJlD0ubU1N+t7pPICndc/oTot9foY=;
- b=X/1WV1NTdUJlsyL7QomnCYyqMihAde8KXxbBcaysKfx2GFutCQaiRnuoLmnoTooxYX
- 7RZofR6PJIqNerALGKDVYYhwOi62ErRcxF0c+ifDdlIlqurlnnGrmsAL7V2b7LNYQAzN
- 44vAVSwi9zE66lDzPtSxC5RXSs4nMp8xUTrcQWiHoc6aiZqzzsS7lgY37YztMw4f8V7F
- jd062G4AAQ5s/7w4zy+hyqNCVjdHEoGb4e9tKnPjzERAA2rknNw1sapz0ldP8IGDWHZV
- 95Eb9gTOF4eSp8jTELQNqcWrBLT2a53Ji7TF+9cGrxlCq1VOhXsX1PZNQfMJO1l4r4aX
- X3xQ==
-X-Gm-Message-State: AOJu0YzTd2QfLo+eWDYrRCsT+pymUzFlnIrv7Lc+E+xJ4qR7vDuFdaj6
- uP6K2WKDBYjOH44t9Vu1QYPwRkpt67m5x2Nsoatls2vcAFtAFgnW/9gsn/Dgih0b9GnDpjxzujM
- ZkIs=
-X-Gm-Gg: ASbGncsFKTJlSVCEwgatfUv4l5qhuKtVVUOlJMD7wxCHYH3RE5AGSB9IpVlqeDZHYEe
- gOOM/wC3c29TopCjBkOJTfLKIAMiluiXg6IMWNm+aZ4f91PAXeM5P0IcbVZOHsqwOPGT8iI9GDK
- TryaT3lCiC4YfDQ0q+KEsuewTF53QbWlDhboluyJBoFrflyQQodELcCuN1mePsgENBsdDNXO44s
- 5VID4qTNxoJiMMkJNBgf1+5N9YhoeG4OlNyOKNS8h2r6LJty4r8u0DkNql7sULh60LTygBHpZEF
- paEOEu5KLHTxxOfo+UZJcXUROgkb0+pTRA9FnSd7L7QGjvwhEkWzyQJpexE=
-X-Google-Smtp-Source: AGHT+IF7KuaKb1OXWfYidgO2vHMFry6rIIvGnkJhqu2/1yEv/lgxypCckJK5zU8Sgi07Lc/t018oaQ==
-X-Received: by 2002:a05:600c:1c9e:b0:439:88bb:d013 with SMTP id
- 5b1f17b1804b1-43988bbd395mr51870515e9.7.1739869761223; 
- Tue, 18 Feb 2025 01:09:21 -0800 (PST)
-Received: from [192.168.69.196] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43986320899sm46802175e9.38.2025.02.18.01.09.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Feb 2025 01:09:20 -0800 (PST)
-Message-ID: <b92a2d72-7cbb-4a70-ad73-0af8150c0a8f@linaro.org>
-Date: Tue, 18 Feb 2025 10:09:20 +0100
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tkO6L-0000VM-OA
+ for qemu-rust@nongnu.org; Tue, 18 Feb 2025 08:57:30 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tkO6J-0001np-Pw
+ for qemu-rust@nongnu.org; Tue, 18 Feb 2025 08:57:29 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1739887045;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+pOSX5NIHHMPhAaq+sG4UYAAQKCwNrzbgBJkeM7u56w=;
+ b=eA4oqKQ+cSfxc/XzmrWUzuguEnCXmv8ELmCSqZqjKD5n/b+xj5lQd97rClpMNTIx0N/8SQ
+ Kj+7DRoIjPyt+4lRjLU0w3ieWrZh2ST5QCettA/LyPqPUW8xM5wxs/vGTKmZSvxyCRYVTZ
+ DuAEEN1STmLG2U56C6mdqrfSDrFu63U=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-192-wQ_QSqnHP2el5GHZEKCSow-1; Tue,
+ 18 Feb 2025 08:57:20 -0500
+X-MC-Unique: wQ_QSqnHP2el5GHZEKCSow-1
+X-Mimecast-MFC-AGG-ID: wQ_QSqnHP2el5GHZEKCSow_1739887039
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id EF0181800264; Tue, 18 Feb 2025 13:57:17 +0000 (UTC)
+Received: from redhat.com (unknown [10.45.226.66])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 27E8A300018D; Tue, 18 Feb 2025 13:57:14 +0000 (UTC)
+Date: Tue, 18 Feb 2025 14:57:12 +0100
+From: Kevin Wolf <kwolf@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, qemu-block@nongnu.org
+Subject: Re: [PATCH 2/2] rust: add module to convert between -errno and
+ io::Error
+Message-ID: <Z7SRuD9Wob8wQK1z@redhat.com>
+References: <20250213143216.3910163-1-pbonzini@redhat.com>
+ <20250213143216.3910163-3-pbonzini@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: rust: fix typos
-To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org
-References: <20250218080458.426402-1-pbonzini@redhat.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20250218080458.426402-1-pbonzini@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::32f;
- envelope-from=philmd@linaro.org; helo=mail-wm1-x32f.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250213143216.3910163-3-pbonzini@redhat.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=kwolf@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -24
+X-Spam_score: -2.5
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.423,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -87,18 +71,52 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Feb 2025 09:09:28 -0000
+X-List-Received-Date: Tue, 18 Feb 2025 13:57:30 -0000
 
-On 18/2/25 09:04, Paolo Bonzini wrote:
+Am 13.02.2025 um 15:32 hat Paolo Bonzini geschrieben:
+> It is a common convention in QEMU to return a positive value in case of
+> success, and a negated errno value in case of error.  Unfortunately,
+> using errno portably in Rust is a bit complicated; on Unix the errno
+> values are supported natively by io::Error, but on Windows they are not;
+> so, use the libc crate.
+> 
+> This is a set of utility functions that are used by both chardev and
+> block layer bindings.
+> 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->   docs/devel/rust.rst | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
 
+In my series, this allows a simplification of sorts:
 
->   By conventions, procedural macros are split in two functions, one
-> -returning ``Result<proc_macro2::TokenStream, MacroError>` with the body of
-> +returning ``Result<proc_macro2::TokenStream, MacroError>`` with the body of
+     let mapping = match qemu_co_run_future(s.map(&req)) {
+         Ok(mapping) => mapping,
+-        Err(e) => {
+-            return -e
+-                .raw_os_error()
+-                .unwrap_or(bindings::EIO as std::os::raw::c_int)
+-        }
++        Err(e) => return -i32::from(Errno::from(e).0),
+     };
 
-Isn't sphinx supposed to warn for such error?
+Not really nice yet, though.
+
+> +pub fn into_neg_errno<T: MergeErrno, E: Into<Errno>>(value: Result<T, E>) -> T::Out {
+> +    match value {
+> +        Ok(x) => x.map_ok(),
+> +        Err(err) => -T::Out::from(err.into().0),
+> +    }
+> +}
+
+How about making this a method of a trait that is implemented for
+Result<T, E> similar to what you already have, but also directly for
+io::Error (or actually E: Into<Errno>)?
+
+Then the above could become:
+
+     let mapping = match qemu_co_run_future(s.map(&req)) {
+         Ok(mapping) => mapping,
+         Err(e) => return e.into_neg_errno(),
+     };
+
+Kevin
+
 
