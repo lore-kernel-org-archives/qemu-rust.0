@@ -1,64 +1,66 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tkdXs-0001KP-1W
-	for mharc-qemu-rust@gnu.org; Wed, 19 Feb 2025 01:26:56 -0500
+	id 1tkjjD-0003jJ-Pt
+	for mharc-qemu-rust@gnu.org; Wed, 19 Feb 2025 08:03:06 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tkdXp-0001Ji-Ql; Wed, 19 Feb 2025 01:26:54 -0500
-Received: from mgamail.intel.com ([198.175.65.19])
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tkjj9-0003iW-R7
+ for qemu-rust@nongnu.org; Wed, 19 Feb 2025 08:02:59 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tkdXj-0006el-PC; Wed, 19 Feb 2025 01:26:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739946407; x=1771482407;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=xk2ZrkVGusRUrEcnU0dHUcdxXlH+QkgE9K1coBzLX9Q=;
- b=CXRZmeazIaMc0iQXriKtPpkiKVQ75JN6PhUGXm6luE2SxDSrcIgPtivp
- GVhshdvLy4sTT4X3f9XtKEbZZAkHx1rUQXoTIeTnbiVBm5Y4udlpGxkMr
- GuzrCHOYAOFUu0dX9vIpwOu2j8tzW2BTmEeAe+BP21FSVWcl0hkZlgp25
- blUhgDG5wKchyDhgzR21l75I30RogeNT9o+dKPQ20/ITeXRKuWnn0sz+c
- BqnZ0uL5y1exRjbOUB8bVwM90acbFYyqPb4R/l9oLmIKwX0bdnCM9GHby
- ZffUeJnR/Rn+W5qSvihQ8vTfxQW+Zr7Y5Mngy0O5GmgQKQakGV5yqnzuR w==;
-X-CSE-ConnectionGUID: dxVOhoD1SPKrX36m2DheyQ==
-X-CSE-MsgGUID: Ybb6FhJ3Q2WzbAbj3hgJ5Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11348"; a="40528228"
-X-IronPort-AV: E=Sophos;i="6.13,298,1732608000"; d="scan'208";a="40528228"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2025 22:26:42 -0800
-X-CSE-ConnectionGUID: M31E44ljRm+zp3vhwI5gbw==
-X-CSE-MsgGUID: +0rudihzRmeoaRm/u/zoWg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="119270260"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa005.fm.intel.com with ESMTP; 18 Feb 2025 22:26:40 -0800
-Date: Wed, 19 Feb 2025 14:46:15 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Kevin Wolf <kwolf@redhat.com>
-Cc: qemu-block@nongnu.org, hreitz@redhat.com, pbonzini@redhat.com,
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tkjj6-0005pW-VK
+ for qemu-rust@nongnu.org; Wed, 19 Feb 2025 08:02:59 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1739970176;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=SV8fB814/6cayJPLhjdSvKElwhX2pesRbTeul1zeAjg=;
+ b=G2UTb7pNcy7SZ47NZ4Oz9FX4QGhX3XUgldesE2f2l3BEmQPuechsiyUbgsGxYb4Eaknf7k
+ auHDA7hYJOebyGi2sOKPHKvwvHet14oqGlsHa9jf7hJnMvQXQ4P4rVw4InMjxRsICtB1Oi
+ EbVrAopr38Ow1snqjNbW7bBg21RM0Us=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-277-jVVNcNf9NWuqdH2yiB336w-1; Wed,
+ 19 Feb 2025 08:02:52 -0500
+X-MC-Unique: jVVNcNf9NWuqdH2yiB336w-1
+X-Mimecast-MFC-AGG-ID: jVVNcNf9NWuqdH2yiB336w_1739970171
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 6ACB718D95DC; Wed, 19 Feb 2025 13:02:51 +0000 (UTC)
+Received: from redhat.com (unknown [10.45.225.30])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id B6A491800359; Wed, 19 Feb 2025 13:02:47 +0000 (UTC)
+Date: Wed, 19 Feb 2025 14:02:44 +0100
+From: Kevin Wolf <kwolf@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-block@nongnu.org, hreitz@redhat.com,
  manos.pitsidianakis@linaro.org, philmd@linaro.org,
  qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH v2 05/11] rust/block: Add empty crate
-Message-ID: <Z7V+N/0AKw7qBQ63@intel.com>
+Subject: Re: [PATCH v2 09/11] rust/block: Add read support for block drivers
+Message-ID: <Z7XWdLOe7dK1eh29@redhat.com>
 References: <20250218182019.111467-1-kwolf@redhat.com>
- <20250218182019.111467-6-kwolf@redhat.com>
+ <20250218182019.111467-10-kwolf@redhat.com>
+ <0ee134e7-02bf-4b9b-9c9a-83c88386cd57@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250218182019.111467-6-kwolf@redhat.com>
-Received-SPF: pass client-ip=198.175.65.19; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -47
-X-Spam_score: -4.8
-X-Spam_bar: ----
-X-Spam_report: (-4.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.423,
+In-Reply-To: <0ee134e7-02bf-4b9b-9c9a-83c88386cd57@redhat.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=kwolf@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -22
+X-Spam_score: -2.3
+X-Spam_bar: --
+X-Spam_report: (-2.3 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.191,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -71,75 +73,164 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Feb 2025 06:26:54 -0000
+X-List-Received-Date: Wed, 19 Feb 2025 13:03:00 -0000
 
-> diff --git a/rust/block/Cargo.toml b/rust/block/Cargo.toml
-> new file mode 100644
-> index 0000000000..fbc2f2d6ef
-> --- /dev/null
-> +++ b/rust/block/Cargo.toml
-> @@ -0,0 +1,16 @@
-> +[package]
-> +name = "block"
-> +version = "0.1.0"
-> +edition = "2021"
-> +authors = ["Kevin Wolf <kwolf@redhat.com>"]
-> +license = "GPL-2.0-or-later"
-> +readme = "README.md"
-> +description = "Block backends for QEMU"
-> +repository = "https://gitlab.com/qemu-project/qemu/"
-> +publish = false
-> +keywords = []
-> +categories = []
+Am 19.02.2025 um 07:11 hat Paolo Bonzini geschrieben:
+> On 2/18/25 19:20, Kevin Wolf wrote:
+> > +    /// The described blocks are stored in a child node.
+> > +    Data {
+> > +        /// Child node in which the data is stored
+> > +        node: Arc<BdrvChild>,
+> 
+> Having Arc<> here shouldn't be necessary, since the BdrvChild is already
+> reference counted.  Since the code is called under the bdrv_graph_rdlock
+> there's no risk of the BdrvChild going away, and you can just make it a
+> &BdrvChild.
 
-Per the commit f26137893b98 ("rust: remove unnecessary Cargo.toml
-metadata"), readme & repository are not necessary. :-)
+That would mean that you need keep the BlockDriver borrowed as long as
+you're using the mapping. It would work today, but as soon as I want to
+cache mappings, it won't any more.
 
-And rust-version is needed (since the commit 669fab6a1f3e).
+> Likewise, even BochsImage should not need a standard Rust Arc<BdrvChild>.
+> However you need to add your own block::Arc<BdrvChild> and map Clone/Drop to
+> bdrv_ref/bdrv_unref.  Then BochsImage can use block::Arc<BdrvChild>; this
+> makes it even clearer that Mapping should not use the Arc<> wrapper, because
+> bdrv_ref is GLOBAL_STATE_CODE() and would abort if run from a non-main
+> thread.
 
-> +[dependencies]
-> +qemu_api = { path = "../qemu-api" }
-> +libc = "0.2.162"
+It's not BdrvChild that is refcounted on the C side, but
+BlockDriverState. We definitely don't bdrv_ref()/unref() for each
+request on the C side and we shouldn't on the Rust side either. The
+refcount only changes when you modify the graph.
 
-I think it's necessary add the lints section to apply workspace's lint
-configurations:
+I'm not entirely sure how your block::Arc<T> is supposed to work. It
+would be tied to one specific type (BlockDriverState), not generic.
+Which probably means that it can't be a separate pointer type, but
+BlockDriverState itself should just implement Clone with bdrv_ref().
 
-[lints]
-workspace = true
+Though that doesn't help here, obviously, because we have a BdrvChild.
 
-> diff --git a/rust/block/README.md b/rust/block/README.md
-> new file mode 100644
-> index 0000000000..debcc9d815
-> --- /dev/null
-> +++ b/rust/block/README.md
-> @@ -0,0 +1,3 @@
-> +# QEMU block backends
-> +
-> +This library implements block drivers for QEMU.
+> That said, I'm not sure how to include "block graph lock must be taken" into
+> the types, yet.  That has to be taken into account too, sooner or later.
+> You probably have a lot of items like this one so it'd be nice to have TODO
+> comments as much as you can.
 
-And doc can be updated in docs/devel/rust.rst, like Paolo's patch:
+Actually, I'm not aware of that many items. But yes, there is a TODO
+item for the graph lock.
 
-https://lore.kernel.org/qemu-devel/20250218080455.426383-1-pbonzini@redhat.com/
+I think I'll have something like:
 
-> diff --git a/rust/block/meson.build b/rust/block/meson.build
-> new file mode 100644
-> index 0000000000..ca93afd939
-> --- /dev/null
-> +++ b/rust/block/meson.build
-> @@ -0,0 +1,20 @@
-> +_block_rs = static_library(
-> +  'block',
-> +  files('src/lib.rs'),
-> +  override_options: ['rust_std=2021', 'build.rust_std=2021'],
-> +  rust_abi: 'rust',
-> +  dependencies: [
-> +    qemu_api_tools,
-> +    qemu_api_macros,
+    pub struct BdrvChild {
+        child: GraphLock<*mut bindings::BdrvChild>,
+    }
 
-I'm unsure without testing, the dependencies here looks different with
-the Cargo.toml?
+where you can access the inner object either by calling a lock function,
+or passing another graph lock guard that you already own. And for the
+FFI boundary unsafe functions like "I promise I already own the lock".
 
-Regards,
-Zhao
+> (This boundary is where you get an unholy mix of C and Rust concepts. It
+> takes a while to get used to, and it teaches you a lot of the parts of Rust
+> that you usually take for granted.  So while it's not hard, it's unusual and
+> it does feel like water and oil in the beginning).
+> 
+> > +) -> std::os::raw::c_int {
+> > +    let s = unsafe { &mut *((*bs).opaque as *mut D) };
+> 
+> &mut is not safe here (don't worry, we went through the same thing for
+> devices :)).  You can only get an & unless you go through an UnsafeCell (or
+> something that contains one).
+
+Right, we can have multiple requests in flight.
+
+The fix is easy here: Even though bindgen gives us a *mut, we only want
+a immutable reference.
+
+> You'll need to split the mutable and immutable parts of BochsImage in
+> separate structs, and embed the former into the latter.  Long term you
+> there should be a qemu_api::coroutine::CoMutex<>, but for the short
+> term you can just use a BqlRefCell<> or a standard Rust RefCell<>.
+> You can see how PL011Registers is included into PL011State in
+> rust/hw/char/pl011/src/device.rs, and a small intro is also present in
+> docs/devel/rust.rst.
+
+There is no mutable part in BochsImage, which makes this easy. The only
+thing is the *mut bindings::BdrvChild, but we never dereference that in
+Rust. It is also essentially interior mutability protected by the graph
+lock, even though this isn't explicit yet.
+
+But if we were to introduce a mutable part (I think we will add write
+support to it sooner or later), then BqlRefCell or RefCell are
+definitely not right. They would only turn the UB into a safe panic when
+you have more than one request in flight. (Or actually, BqlRefCell
+should already panic with just one request from an iothread, because we
+don't actually hold the BQL.)
+
+> Anyway, the BdrvChild needs to remain in BochsImage, so that it is
+> accessible outside the CoMutex critical section and can be placed into
+> the Mapping.
+> 
+> > +    let mut offset = offset as u64;
+> > +    let mut bytes = bytes as u64;
+> > +
+> > +    while bytes > 0 {
+> > +        let req = Request::Read { offset, len: bytes };
+> > +        let mapping = match qemu_co_run_future(s.map(&req)) {
+> > +            Ok(mapping) => mapping,
+> > +            Err(e) => return -i32::from(Errno::from(e).0),
+> 
+> This is indeed not great, but it's partly so because you're doing a
+> lot (for some definition of "a lot") in the function.  While it would
+> be possible to use a trait, I wrote the API thinking of minimal glue
+> code that only does the C<->Rust conversion.
+> 
+> In this case, because you have a lot more code than just a call into
+> the BlockDriver trait, you'd have something like
+> 
+> fn bdrv_co_preadv_part(
+>     bs: &dyn BlockDriver,
+>     offset: i64,
+>     bytes: i64,
+>     qiov: &bindings::QEMUIOVector,
+>     mut qiov_offset: usize,
+>     flags: bindings::BdrvRequestFlags) -> io::Result<()>
+> 
+> and then a wrapper (e.g. rust_co_preadv_part?) that only does
+> 
+>    let s = unsafe { &mut *((*bs).opaque as *mut D) };
+>    let qiov = unsafe { &*qiov };
+>    let result = bdrv_co_preadv_part(s, offset, bytes,
+>          qiov, qiov_offset, flags);
+>    errno::into_negative_errno(result)
+> 
+> This by the way has also code size benefits because &dyn, unlike
+> generics, does not need to result in duplicated code.
+
+I don't really like the aesthetics of having two functions on the
+Rust side for each C function, but I guess ugliness is expected in
+bindings...
+
+For the errno conversion functions, I'm still not sure that they should
+only support trivial wrappers with no early returns. I reluctantly buy
+your &dyn argument (though in C block drivers this is generally
+duplicated code, too), but that's unrelated to error handling.
+
+> For now, I'd rather keep into_negative_errno() this way, to keep an
+> eye on other cases where you have an io::Error<()>.  Since Rust rarely
+> has Error objects that aren't part of a Result, it stands to reason
+> that the same is true of QEMU code, but if I'm wrong then it can be
+> changed.
+
+This one is part of a Result, too. But not a result that is directly
+returned in both success and error cases, but where the error leads to
+an early return. That is, an equivalent for the ubiquitous pattern:
+
+    ret = foo();
+    if (ret < 0) {
+        return ret;
+    }
+
+    /* Do something with the successful result of foo() */
+
+Kevin
 
 
