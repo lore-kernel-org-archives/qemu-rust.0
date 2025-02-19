@@ -1,63 +1,131 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tkSEx-0007jS-70
-	for mharc-qemu-rust@gnu.org; Tue, 18 Feb 2025 13:22:39 -0500
+	id 1tkdIo-0005vQ-3V
+	for mharc-qemu-rust@gnu.org; Wed, 19 Feb 2025 01:11:23 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tkSDT-00061C-4D
- for qemu-rust@nongnu.org; Tue, 18 Feb 2025 13:21:10 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tkdIj-0005uO-EY
+ for qemu-rust@nongnu.org; Wed, 19 Feb 2025 01:11:17 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tkSDP-0007cb-Nr
- for qemu-rust@nongnu.org; Tue, 18 Feb 2025 13:21:06 -0500
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tkdIg-0004XT-CS
+ for qemu-rust@nongnu.org; Wed, 19 Feb 2025 01:11:17 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739902862;
+ s=mimecast20190719; t=1739945472;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=HYDBdvCCLCh/3DzHHIYPWhxjAV2dOJsE37N1HZlYDI4=;
- b=YheawpG0WGkrm5O/fDj+ovUWZg6betU8E7Asq+58iTCql+6GU1P6YVrOiP2QlO2mmft14s
- wH7C2nRAb3+IH5NaXoFwW3DxV2//tcPoGawLsjqFkO/50R0+p9RfUK00eLfgd1PlHMmFU/
- eMzg/8VdFhfy/bWTdu2VxEukeXbnS+w=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-83-RyapdECdMxuCXuX1ca_2mQ-1; Tue,
- 18 Feb 2025 13:21:00 -0500
-X-MC-Unique: RyapdECdMxuCXuX1ca_2mQ-1
-X-Mimecast-MFC-AGG-ID: RyapdECdMxuCXuX1ca_2mQ_1739902859
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 358B81800872; Tue, 18 Feb 2025 18:20:59 +0000 (UTC)
-Received: from merkur.fritz.box (unknown [10.45.226.66])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id AAA0A1800358; Tue, 18 Feb 2025 18:20:56 +0000 (UTC)
-From: Kevin Wolf <kwolf@redhat.com>
-To: qemu-block@nongnu.org
-Cc: kwolf@redhat.com, hreitz@redhat.com, pbonzini@redhat.com,
- manos.pitsidianakis@linaro.org, philmd@linaro.org, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org
-Subject: [PATCH v2 10/11] bochs-rs: Add bochs block driver reimplementation in
- Rust
-Date: Tue, 18 Feb 2025 19:20:18 +0100
-Message-ID: <20250218182019.111467-11-kwolf@redhat.com>
-In-Reply-To: <20250218182019.111467-1-kwolf@redhat.com>
-References: <20250218182019.111467-1-kwolf@redhat.com>
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=y7tYAmg7JV8KAW5CtCPIXq0bWz3a2L3aHzggSoXshUg=;
+ b=ESBBP4IpUXkSWGGS3Q7CVIPZkMMCttmMMQqpyVgWu4XYSrjisr+p55vkOPezIy1uxS01lD
+ AFwC/5XOZAkLMu6GxhiHYx7oipC+3+qhMpvrRKXWBHo+DxILlZH0ThennIH9FCZOWjRe3p
+ EB3nsTlAKUxl+if3hCifrQQNMbmDF1c=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-540-uKSBxHMGOZCxxw2A1M3s8Q-1; Wed, 19 Feb 2025 01:11:11 -0500
+X-MC-Unique: uKSBxHMGOZCxxw2A1M3s8Q-1
+X-Mimecast-MFC-AGG-ID: uKSBxHMGOZCxxw2A1M3s8Q_1739945470
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-38f34b3f9f1so2984869f8f.0
+ for <qemu-rust@nongnu.org>; Tue, 18 Feb 2025 22:11:11 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739945470; x=1740550270;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=y7tYAmg7JV8KAW5CtCPIXq0bWz3a2L3aHzggSoXshUg=;
+ b=iOPP2cBqY28rV73oae4fZnJxpytuarHdRH+mOyiAbMRRBCvHBg7JelsYa1c1U/Yoe0
+ QxznmqmL6VL3kGOOWZFXWfzEefB5SQuhDloyiuzZx+vMD/pjeDTF/9V7bdbIgFFNjP5j
+ llA0yyviaVVMgMKBHE/0snOxPDqV8aet8RLvHJxC05XDeciftIls998cuiuDWsITKFRi
+ aUFujSdgs3QYiBO7lgF1DxvxWfK0MlUVo6tYZYlC49vqT2ONHf1/uUmJirWWwD+T2h7u
+ gNNZTw4MS/U3WGmjmJaJMMT1cJk7lIZo6Fsdf1WD5hdITLmRywERAQGHXgHDW/ODWefl
+ cPQA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWtEWpZGX7nN05Pyk9p6uazH59IaBi2aa98MAQNS3KWPoBCE4jaPCuawXfkKpts02nt96tOZi5G0p4=@nongnu.org
+X-Gm-Message-State: AOJu0YyXHiRreSJ/rt8yTFqFuf73Nn51lphv004P9/7QN99BHE0F/YX2
+ hOWkUMKdrDSq4aO6MwOgSYdnThZEZTkLv5t5HNYVfJjg+qX8sleXSipTCaQU/bwqrl/rptzAMTd
+ ifLZSEBZn4gCqRoS0dnqV37RV0tbu3tZq0vAE8QFJAdbAf2TA2SI=
+X-Gm-Gg: ASbGncsQ08PSn7+iEWBc7gpZvl1bTjpqPfyE2yn3ETyXRT18p4tndhlQEZSM99hsmQT
+ TMx+IWhXMKf+ID35KwP5BpnMqRJNIq0TbNFOi3z2M74JLqI5rbsnDZjRClq1SAJ7r//tyw7LJ5A
+ 050bXdLTZ5bbLGtaR2hp99il3k5Xf1KWtKG9yr84hNM4tgvIOv56e3wi4dGtxYYGo7wNL4ca5Y8
+ 1q5eAI0iUOWCYHPiu+wg3hBW6HC1OX15UAoKSy4gO1csA/FG9Mpm5TCOdh94kphHXLuxAhhETUQ
+ P3OyxaoR96g=
+X-Received: by 2002:adf:eecf:0:b0:38f:4fa6:bb24 with SMTP id
+ ffacd0b85a97d-38f587ca919mr1492984f8f.39.1739945469922; 
+ Tue, 18 Feb 2025 22:11:09 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFXXxA+rmES696gNGsK8pcLepitZ/LMHLF2C8Y9fu5mGLZXYguwVBMUX5lW2oJ/ABTblyACzQ==
+X-Received: by 2002:adf:eecf:0:b0:38f:4fa6:bb24 with SMTP id
+ ffacd0b85a97d-38f587ca919mr1492961f8f.39.1739945469486; 
+ Tue, 18 Feb 2025 22:11:09 -0800 (PST)
+Received: from [192.168.10.81] ([176.206.122.109])
+ by smtp.googlemail.com with ESMTPSA id
+ 5b1f17b1804b1-4399600257asm34908215e9.4.2025.02.18.22.11.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Feb 2025 22:11:08 -0800 (PST)
+Message-ID: <0ee134e7-02bf-4b9b-9c9a-83c88386cd57@redhat.com>
+Date: Wed, 19 Feb 2025 07:11:07 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=kwolf@redhat.com;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/11] rust/block: Add read support for block drivers
+To: Kevin Wolf <kwolf@redhat.com>, qemu-block@nongnu.org
+Cc: hreitz@redhat.com, manos.pitsidianakis@linaro.org, philmd@linaro.org,
+ qemu-devel@nongnu.org, qemu-rust@nongnu.org
+References: <20250218182019.111467-1-kwolf@redhat.com>
+ <20250218182019.111467-10-kwolf@redhat.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+In-Reply-To: <20250218182019.111467-10-kwolf@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: CBxlqBXNQ3SkdcsLqD7TN2hzwjcgif34z2aHPlWDxZo_1739945470
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
 X-Spam_score: -2.5
 X-Spam_bar: --
 X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.423,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
@@ -72,365 +140,95 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Feb 2025 18:21:15 -0000
+X-List-Received-Date: Wed, 19 Feb 2025 06:11:17 -0000
 
-This adds a separate block driver for the bochs image format called
-'bochs-rs' so that for the moment both the C implementation and the Rust
-implementation can be present in the same build. The intention is to
-remove the C implementation eventually and rename this one into 'bochs'.
-This can only happen once Rust can be a hard build dependency for QEMU.
+On 2/18/25 19:20, Kevin Wolf wrote:
+> +    /// The described blocks are stored in a child node.
+> +    Data {
+> +        /// Child node in which the data is stored
+> +        node: Arc<BdrvChild>,
 
-Signed-off-by: Kevin Wolf <kwolf@redhat.com>
----
- rust/block/Cargo.toml    |   2 +-
- rust/block/src/bochs.rs  | 297 +++++++++++++++++++++++++++++++++++++++
- rust/block/src/driver.rs |   5 -
- rust/block/src/lib.rs    |   1 +
- 4 files changed, 299 insertions(+), 6 deletions(-)
- create mode 100644 rust/block/src/bochs.rs
+Having Arc<> here shouldn't be necessary, since the BdrvChild is already 
+reference counted.  Since the code is called under the bdrv_graph_rdlock 
+there's no risk of the BdrvChild going away, and you can just make it a 
+&BdrvChild.
 
-diff --git a/rust/block/Cargo.toml b/rust/block/Cargo.toml
-index fbc2f2d6ef..b91483aed1 100644
---- a/rust/block/Cargo.toml
-+++ b/rust/block/Cargo.toml
-@@ -3,7 +3,7 @@ name = "block"
- version = "0.1.0"
- edition = "2021"
- authors = ["Kevin Wolf <kwolf@redhat.com>"]
--license = "GPL-2.0-or-later"
-+license = "GPL-2.0-or-later AND MIT"
- readme = "README.md"
- description = "Block backends for QEMU"
- repository = "https://gitlab.com/qemu-project/qemu/"
-diff --git a/rust/block/src/bochs.rs b/rust/block/src/bochs.rs
-new file mode 100644
-index 0000000000..9dd84446e1
---- /dev/null
-+++ b/rust/block/src/bochs.rs
-@@ -0,0 +1,297 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Block driver for the various disk image formats used by Bochs
-+ * Currently only for "growing" type in read-only mode
-+ *
-+ * Copyright (c) 2005 Alex Beregszaszi
-+ * Copyright (c) 2024 Red Hat
-+ *
-+ * Authors:
-+ *   Alex Beregszaszi
-+ *   Kevin Wolf <kwolf@redhat.com>
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a copy
-+ * of this software and associated documentation files (the "Software"), to deal
-+ * in the Software without restriction, including without limitation the rights
-+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-+ * copies of the Software, and to permit persons to whom the Software is
-+ * furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-+ * THE SOFTWARE.
-+ */
-+
-+use crate::driver::{block_driver, BdrvChild, BlockDriver, Mapping, MappingTarget, Request};
-+use crate::SizedIoBuffer;
-+use qemu_api::bindings;
-+use qemu_api::errno::Errno;
-+use qemu_api::futures::qemu_run_future;
-+use std::cmp::min;
-+use std::io::{self, Error, ErrorKind};
-+use std::mem::MaybeUninit;
-+use std::ptr;
-+use std::sync::Arc;
-+
-+const BDRV_SECTOR_SIZE: u64 = 512;
-+
-+const HEADER_MAGIC: [u8; 32] = *b"Bochs Virtual HD Image\0\0\0\0\0\0\0\0\0\0";
-+const HEADER_VERSION: u32 = 0x00020000;
-+const HEADER_V1: u32 = 0x00010000;
-+const HEADER_SIZE: usize = 512;
-+
-+const HEADER_TYPE_REDOLOG: [u8; 16] = *b"Redolog\0\0\0\0\0\0\0\0\0";
-+const HEADER_SUBTYPE_GROWING: [u8; 16] = *b"Growing\0\0\0\0\0\0\0\0\0";
-+
-+// TODO Use u64.div_ceil() when MSRV is updated to at least 1.73.0
-+fn div_ceil(a: u64, b: u64) -> u64 {
-+    (a + b - 1) / b
-+}
-+
-+// TODO Use little endian enforcing type for integers
-+
-+#[repr(C, packed)]
-+struct BochsHeader {
-+    pub magic: [u8; 32],
-+    pub imgtype: [u8; 16],
-+    pub subtype: [u8; 16],
-+    pub version: u32,
-+    pub header_size: u32,
-+    pub catalog_entries: u32,
-+    pub bitmap_size: u32,
-+    pub extent_size: u32,
-+    pub extra: BochsHeaderExtra,
-+}
-+unsafe impl SizedIoBuffer for BochsHeader {}
-+
-+#[repr(C, packed)]
-+union BochsHeaderExtra {
-+    v2: BochsHeaderExtraRedolog,
-+    v1: BochsHeaderExtraRedologV1,
-+    padding: [u8; HEADER_SIZE - 84],
-+}
-+
-+#[repr(C, packed)]
-+#[derive(Clone, Copy)]
-+struct BochsHeaderExtraRedolog {
-+    pub timestamp: u32,
-+    pub disk_size: u64,
-+}
-+
-+#[repr(C, packed)]
-+#[derive(Clone, Copy)]
-+struct BochsHeaderExtraRedologV1 {
-+    pub disk_size: u64,
-+}
-+
-+pub struct BochsImage {
-+    file: Arc<BdrvChild>,
-+    size: u64,
-+    data_offset: u64,
-+    bitmap_blocks: u64,
-+    extent_size: u64,
-+    extent_blocks: u64,
-+    catalog_bitmap: Vec<u32>, // TODO Rename
-+}
-+
-+impl BochsImage {
-+    pub async fn new(file: BdrvChild) -> io::Result<Self> {
-+        let header = file
-+            .read_uninit(0, Box::new(MaybeUninit::<BochsHeader>::uninit()))
-+            .await?;
-+
-+        if header.magic != HEADER_MAGIC
-+            || header.imgtype != HEADER_TYPE_REDOLOG
-+            || header.subtype != HEADER_SUBTYPE_GROWING
-+        {
-+            return Err(Error::new(
-+                ErrorKind::InvalidInput,
-+                "Image not in Bochs format",
-+            ));
-+        }
-+
-+        let size = match u32::from_le(header.version) {
-+            HEADER_VERSION => unsafe { header.extra.v2.disk_size.to_le() },
-+            HEADER_V1 => unsafe { header.extra.v1.disk_size.to_le() },
-+            _ => return Err(Error::new(ErrorKind::InvalidInput, "Version not supported")),
-+        };
-+
-+        let header_size: u64 = header.header_size.to_le().into();
-+        let extent_size: u64 = header.extent_size.to_le().into();
-+
-+        if extent_size < BDRV_SECTOR_SIZE {
-+            // bximage actually never creates extents smaller than 4k
-+            return Err(Error::new(
-+                ErrorKind::InvalidInput,
-+                "Extent size must be at least 512",
-+            ));
-+        } else if !extent_size.is_power_of_two() {
-+            return Err(Error::new(
-+                ErrorKind::InvalidInput,
-+                format!("Extent size {extent_size} is not a power of two"),
-+            ));
-+        } else if extent_size > 0x800000 {
-+            return Err(Error::new(
-+                ErrorKind::InvalidInput,
-+                format!("Extent size {extent_size} is too large"),
-+            ));
-+        }
-+
-+        // Limit to 1M entries to avoid unbounded allocation. This is what is
-+        // needed for the largest image that bximage can create (~8 TB).
-+        let catalog_entries: usize = header
-+            .catalog_entries
-+            .to_le()
-+            .try_into()
-+            .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
-+        if catalog_entries > 0x100000 {
-+            return Err(Error::new(ErrorKind::Other, "Catalog size is too large"));
-+        } else if (catalog_entries as u64) < div_ceil(size, extent_size) {
-+            return Err(Error::new(
-+                ErrorKind::InvalidInput,
-+                "Catalog size is too small for this disk size",
-+            ));
-+        }
-+
-+        // FIXME This was g_try_malloc() in C
-+        let mut catalog_bitmap = vec![0u32; catalog_entries];
-+        file.read(header_size, catalog_bitmap.as_mut_slice())
-+            .await?;
-+
-+        for entry in &mut catalog_bitmap {
-+            *entry = entry.to_le();
-+        }
-+
-+        let data_offset = header_size + (catalog_entries as u64 * 4);
-+        let bitmap_blocks = (1 + (header.bitmap_size.to_le() - 1) / 512).into();
-+        let extent_blocks = 1 + (extent_size - 1) / 512;
-+
-+        Ok(Self {
-+            file: Arc::new(file),
-+            size,
-+            data_offset,
-+            bitmap_blocks,
-+            extent_size,
-+            extent_blocks,
-+            catalog_bitmap,
-+        })
-+    }
-+}
-+
-+impl BlockDriver for BochsImage {
-+    type Options = bindings::BlockdevOptionsGenericFormat;
-+
-+    unsafe fn parse_options(
-+        v: &mut bindings::Visitor,
-+        opts: &mut *mut Self::Options,
-+        errp: *mut *mut bindings::Error,
-+    ) {
-+        unsafe {
-+            bindings::visit_type_BlockdevOptionsGenericFormat(v, ptr::null(), opts as *mut _, errp);
-+        }
-+    }
-+
-+    unsafe fn free_options(opts: *mut Self::Options) {
-+        unsafe {
-+            bindings::qapi_free_BlockdevOptionsGenericFormat(opts);
-+        }
-+    }
-+
-+    unsafe fn open(
-+        bs: *mut bindings::BlockDriverState,
-+        opts: &Self::Options,
-+        errp: *mut *mut bindings::Error,
-+    ) -> std::os::raw::c_int {
-+        let file_child;
-+        unsafe {
-+            /* No write support yet */
-+            bindings::bdrv_graph_rdlock_main_loop();
-+            let ret = bindings::bdrv_apply_auto_read_only(bs, ptr::null(), errp);
-+            bindings::bdrv_graph_rdunlock_main_loop();
-+            if ret < 0 {
-+                return ret;
-+            }
-+
-+            file_child = match BdrvChild::new(bs, opts.file, errp) {
-+                Some(c) => c,
-+                None => return -libc::EINVAL,
-+            };
-+        }
-+
-+        qemu_run_future(async {
-+            match BochsImage::new(file_child).await {
-+                Ok(bdrv) => unsafe {
-+                    (*bs).total_sectors =
-+                        div_ceil(bdrv.size(), BDRV_SECTOR_SIZE).try_into().unwrap();
-+                    let state = (*bs).opaque as *mut BochsImage;
-+                    state.write(bdrv);
-+                    0
-+                },
-+                Err(e) => -i32::from(Errno::from(e).0),
-+            }
-+        })
-+    }
-+
-+    fn size(&self) -> u64 {
-+        self.size
-+    }
-+
-+    async fn map(&self, req: &Request) -> io::Result<Mapping> {
-+        let (offset, len) = match *req {
-+            Request::Read { offset, len } => (offset, len),
-+        };
-+
-+        let extent_index: usize = (offset / self.extent_size).try_into().unwrap();
-+        let extent_offset = (offset % self.extent_size) / 512;
-+
-+        if self.catalog_bitmap[extent_index] == 0xffffffff {
-+            return Ok(Mapping {
-+                offset: (extent_index as u64) * self.extent_size,
-+                len: self.extent_size,
-+                target: MappingTarget::Unmapped,
-+            });
-+        }
-+
-+        let bitmap_offset = self.data_offset
-+            + (512
-+                * (self.catalog_bitmap[extent_index] as u64)
-+                * (self.extent_blocks + self.bitmap_blocks));
-+
-+        // Read in bitmap for current extent
-+        // TODO This should be cached
-+        let mut bitmap_entry = 0x8;
-+        self.file
-+            .read(bitmap_offset + (extent_offset / 8), &mut bitmap_entry)
-+            .await?;
-+
-+        // We checked only a single sector
-+        let offset = offset & !511;
-+        let len = min(len, 512);
-+
-+        if (bitmap_entry >> (extent_offset % 8)) & 1 == 0 {
-+            return Ok(Mapping {
-+                offset,
-+                len,
-+                target: MappingTarget::Unmapped,
-+            });
-+        }
-+
-+        Ok(Mapping {
-+            offset,
-+            len,
-+            target: MappingTarget::Data {
-+                node: self.file.clone(),
-+                offset: bitmap_offset + (512 * (self.bitmap_blocks + extent_offset)),
-+            },
-+        })
-+    }
-+}
-+
-+block_driver!("bochs-rs", BochsImage);
-diff --git a/rust/block/src/driver.rs b/rust/block/src/driver.rs
-index 022d50ffbc..baeaf47eda 100644
---- a/rust/block/src/driver.rs
-+++ b/rust/block/src/driver.rs
-@@ -2,11 +2,6 @@
- // Author(s): Kevin Wolf <kwolf@redhat.com>
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
--// All of this is unused until the first block driver is added
--#![allow(dead_code)]
--#![allow(unused_macros)]
--#![allow(unused_imports)]
--
- use crate::{IoBuffer, SizedIoBuffer};
- use qemu_api::bindings;
- use qemu_api::errno::Errno;
-diff --git a/rust/block/src/lib.rs b/rust/block/src/lib.rs
-index 54ebd480ec..ff528609bc 100644
---- a/rust/block/src/lib.rs
-+++ b/rust/block/src/lib.rs
-@@ -1,3 +1,4 @@
-+mod bochs;
- mod driver;
- mod iobuffer;
- 
--- 
-2.48.1
+Likewise, even BochsImage should not need a standard Rust 
+Arc<BdrvChild>.  However you need to add your own block::Arc<BdrvChild> 
+and map Clone/Drop to bdrv_ref/bdrv_unref.  Then BochsImage can use 
+block::Arc<BdrvChild>; this makes it even clearer that Mapping should 
+not use the Arc<> wrapper, because bdrv_ref is GLOBAL_STATE_CODE() and 
+would abort if run from a non-main thread.
+
+That said, I'm not sure how to include "block graph lock must be taken" 
+into the types, yet.  That has to be taken into account too, sooner or 
+later.  You probably have a lot of items like this one so it'd be nice 
+to have TODO comments as much as you can.
+
+(This boundary is where you get an unholy mix of C and Rust concepts. 
+It takes a while to get used to, and it teaches you a lot of the parts 
+of Rust that you usually take for granted.  So while it's not hard, it's 
+unusual and it does feel like water and oil in the beginning).
+
+> +) -> std::os::raw::c_int {
+> +    let s = unsafe { &mut *((*bs).opaque as *mut D) };
+
+&mut is not safe here (don't worry, we went through the same thing for 
+devices :)).  You can only get an & unless you go through an UnsafeCell 
+(or something that contains one).  You'll need to split the mutable and 
+immutable parts of BochsImage in separate structs, and embed the former 
+into the latter.  Long term you there should be a 
+qemu_api::coroutine::CoMutex<>, but for the short term you can just use 
+a BqlRefCell<> or a standard Rust RefCell<>.  You can see how 
+PL011Registers is included into PL011State in 
+rust/hw/char/pl011/src/device.rs, and a small intro is also present in 
+docs/devel/rust.rst.
+
+Anyway, the BdrvChild needs to remain in BochsImage, so that it is 
+accessible outside the CoMutex critical section and can be placed into 
+the Mapping.
+
+> +    let mut offset = offset as u64;
+> +    let mut bytes = bytes as u64;
+> +
+> +    while bytes > 0 {
+> +        let req = Request::Read { offset, len: bytes };
+> +        let mapping = match qemu_co_run_future(s.map(&req)) {
+> +            Ok(mapping) => mapping,
+> +            Err(e) => return -i32::from(Errno::from(e).0),
+
+This is indeed not great, but it's partly so because you're doing a lot 
+(for some definition of "a lot") in the function.  While it would be 
+possible to use a trait, I wrote the API thinking of minimal glue code 
+that only does the C<->Rust conversion.
+
+In this case, because you have a lot more code than just a call into the 
+BlockDriver trait, you'd have something like
+
+fn bdrv_co_preadv_part(
+     bs: &dyn BlockDriver,
+     offset: i64,
+     bytes: i64,
+     qiov: &bindings::QEMUIOVector,
+     mut qiov_offset: usize,
+     flags: bindings::BdrvRequestFlags) -> io::Result<()>
+
+and then a wrapper (e.g. rust_co_preadv_part?) that only does
+
+    let s = unsafe { &mut *((*bs).opaque as *mut D) };
+    let qiov = unsafe { &*qiov };
+    let result = bdrv_co_preadv_part(s, offset, bytes,
+          qiov, qiov_offset, flags);
+    errno::into_negative_errno(result)
+
+This by the way has also code size benefits because &dyn, unlike 
+generics, does not need to result in duplicated code.
+
+For now, I'd rather keep into_negative_errno() this way, to keep an eye 
+on other cases where you have an io::Error<()>.  Since Rust rarely has 
+Error objects that aren't part of a Result, it stands to reason that the 
+same is true of QEMU code, but if I'm wrong then it can be changed.
+
+Paolo
 
 
