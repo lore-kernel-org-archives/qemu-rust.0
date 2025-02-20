@@ -1,65 +1,67 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tl0PB-00053C-5T
-	for mharc-qemu-rust@gnu.org; Thu, 20 Feb 2025 01:51:29 -0500
+	id 1tl80P-0005hJ-1X
+	for mharc-qemu-rust@gnu.org; Thu, 20 Feb 2025 09:58:25 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tl0P8-00051z-4s; Thu, 20 Feb 2025 01:51:26 -0500
-Received: from mgamail.intel.com ([192.198.163.19])
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tl80N-0005gf-KT
+ for qemu-rust@nongnu.org; Thu, 20 Feb 2025 09:58:23 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tl0P2-0008TF-FU; Thu, 20 Feb 2025 01:51:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740034280; x=1771570280;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=bPZyB3UyxsLxPfEp+jE5eBqj7VHmV8DUxAGnLjJ/W20=;
- b=nVWHdgF91NjsmE94/X95MCBBr6SQ2y6oRM476OJGimRGVLjw+7nYJTTk
- /Mru0Wup5WCXYTbyz8vYDf6Ql1khOfNyamV/+ogwPIyPcdpilDE87+Ym2
- TbkwDQysSMH0k2B2Meoi9z8+EWus7xAzR/uKux1AArO6RNEkDO7q9G+mu
- iL65M0FmC5C15Y8pm0UtA1hZ+bfC40zBNdlxHbzE6oietHdqDT0Vy2R4j
- Jt/Jd7SjpkwwBcjiuHTqJVy8SQy8KPs5BXbFyxohNtpBsGKaNhnsLoIWt
- B2WTUEoHV11Q7LXAPAtuyCjZz7PHYJmZotp91UZ/SZApIxd7if3TfP6kF Q==;
-X-CSE-ConnectionGUID: qDO58JZ+S5iq8f+vyNTYiA==
-X-CSE-MsgGUID: b+zsVLGRQWu5C2qocuGhgw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11350"; a="39988455"
-X-IronPort-AV: E=Sophos;i="6.13,300,1732608000"; d="scan'208";a="39988455"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2025 22:51:15 -0800
-X-CSE-ConnectionGUID: IuCU9/SdTs+/WdwPknGB4A==
-X-CSE-MsgGUID: sBeZVXEITo+lQSV24z71Gg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,300,1732608000"; d="scan'208";a="138151695"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa002.fm.intel.com with ESMTP; 19 Feb 2025 22:51:13 -0800
-Date: Thu, 20 Feb 2025 15:10:48 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Kevin Wolf <kwolf@redhat.com>
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1tl80L-0004Nv-68
+ for qemu-rust@nongnu.org; Thu, 20 Feb 2025 09:58:23 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1740063500;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OAR7SM7CRIDmgmkKisEjno8be/T1UYR8J4bbQaCfP8M=;
+ b=J03TRo1R/5S+wHLEJ4aFh9D6mGMP1jveFkYvPaCKUlou/DHXE9D2CS74AKHieqQNEt2rzi
+ NfWx6dvs6jb28igf4t+nT66Nrrzi1VsbZvkSg8SOgw6ZK2QRfg9XmsFTWlPtKqUIbEyr5t
+ wQTKOlR2c8XeZ5SzoxgMrmoqmp97ZdQ=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-136-aBK6toz7MqG-P546AcaBmw-1; Thu,
+ 20 Feb 2025 09:58:16 -0500
+X-MC-Unique: aBK6toz7MqG-P546AcaBmw-1
+X-Mimecast-MFC-AGG-ID: aBK6toz7MqG-P546AcaBmw_1740063495
+Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 51E281800268; Thu, 20 Feb 2025 14:58:15 +0000 (UTC)
+Received: from redhat.com (unknown [10.44.34.34])
+ by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 4BC6219412A3; Thu, 20 Feb 2025 14:58:12 +0000 (UTC)
+Date: Thu, 20 Feb 2025 15:58:09 +0100
+From: Kevin Wolf <kwolf@redhat.com>
+To: Zhao Liu <zhao1.liu@intel.com>
 Cc: qemu-block@nongnu.org, hreitz@redhat.com, pbonzini@redhat.com,
  manos.pitsidianakis@linaro.org, philmd@linaro.org,
  qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH v2 01/11] rust: Build separate qemu_api_tools and
- qemu_api_system
-Message-ID: <Z7bVeEwL2wkjvX5q@intel.com>
+Subject: Re: [PATCH v2 04/11] rust/qemu-api: Add wrappers to run futures in
+ QEMU
+Message-ID: <Z7dDAdWYR82URv9c@redhat.com>
 References: <20250218182019.111467-1-kwolf@redhat.com>
- <20250218182019.111467-2-kwolf@redhat.com>
+ <20250218182019.111467-5-kwolf@redhat.com>
+ <Z7bNTILVp0KFJw57@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250218182019.111467-2-kwolf@redhat.com>
-Received-SPF: pass client-ip=192.198.163.19; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -45
-X-Spam_score: -4.6
-X-Spam_bar: ----
-X-Spam_report: (-4.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.191,
+In-Reply-To: <Z7bNTILVp0KFJw57@intel.com>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=kwolf@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -25
+X-Spam_score: -2.6
+X-Spam_bar: --
+X-Spam_report: (-2.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.457,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -72,46 +74,39 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Feb 2025 06:51:27 -0000
+X-List-Received-Date: Thu, 20 Feb 2025 14:58:23 -0000
 
-> diff --git a/rust/qemu-api/Cargo.toml b/rust/qemu-api/Cargo.toml
-> index 57747bc934..bc0393add4 100644
-> --- a/rust/qemu-api/Cargo.toml
-> +++ b/rust/qemu-api/Cargo.toml
-> @@ -25,6 +25,7 @@ version_check = "~0.9"
->  default = ["debug_cell"]
->  allocator = []
->  debug_cell = []
-> +system= []
+Am 20.02.2025 um 07:35 hat Zhao Liu geschrieben:
+> > +/// Use QEMU's event loops to run a Rust [`Future`] to completion and return its result.
+> > +///
+> > +/// This function must be called in coroutine context. If the future isn't ready yet, it yields.
+> > +pub fn qemu_co_run_future<F: Future>(future: F) -> F::Output {
+> > +    let waker = Waker::from(Arc::new(RunFutureWaker {
+> > +        co: unsafe { bindings::qemu_coroutine_self() },
+> > +    }));
+> > +    let mut cx = Context::from_waker(&waker);
+> > +
+> > +    let mut pinned_future = std::pin::pin!(future);
+> 
+> pin macro stabilized in v1.68.0, but currently the minimum rustc
+> supported by QEMU is v1.63.
 
-With this new feature, we also need to declear the this feature flag to
-pl011 & hpet's Cargo.toml:
+Can we check this automatically somehow? I actually seem to remember
+that I got errors for too new things before. Is the problem here that
+it's a macro?
 
-qemu_api = { path = "../../../qemu-api", features = ["system"] }
+> I found there's a workaround [*], so we can add a temporary pin.rs in
+> qemu_api until QEMU bumps up rustc to >= v1.68?
+> 
+> [*]: https://github.com/rust-lang/rust/issues/93178#issuecomment-1386177439
 
->  [lints]
->  workspace = true
-> diff --git a/rust/qemu-api/build.rs b/rust/qemu-api/build.rs
-> index 471e6c633d..b14f9d4e4a 100644
-> --- a/rust/qemu-api/build.rs
-> +++ b/rust/qemu-api/build.rs
-> @@ -16,7 +16,13 @@ fn main() -> Result<()> {
->      let path = env::var("MESON_BUILD_ROOT")
->          .unwrap_or_else(|_| format!("{}/src", env!("CARGO_MANIFEST_DIR")));
->  
-> -    let file = format!("{}/bindings.inc.rs", path);
-> +    let basename = if cfg!(feature = "system") {
-> +        "bindings_system.inc.rs"
-> +    } else {
-> +        "bindings_tools.inc.rs"
-> +    };
-> +
+I don't think we'll need this anywhere else, so I can just open-code
+what the macro does:
 
-Missing to update rust/qemu-api/.gitignore :-)
+    // TODO Use std::pin::pin! when MSRV is updated to at least 1.68.0
+    // SAFETY: `future` is not used any more after this and dropped at the end of the function.
+    let mut pinned_future = unsafe { std::pin::Pin::new_unchecked(&mut future)};
 
-(I'm still learning your series and currently just trying out the compilation.)
-
-Thanks,
-Zhao
+Kevin
 
 
