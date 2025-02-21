@@ -1,90 +1,90 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tlWRZ-0006rP-9G
-	for mharc-qemu-rust@gnu.org; Fri, 21 Feb 2025 12:04:05 -0500
+	id 1tlWRa-0006s8-7c
+	for mharc-qemu-rust@gnu.org; Fri, 21 Feb 2025 12:04:06 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tlWRQ-0006kM-E4
- for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:03:57 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1tlWRU-0006lA-PP
+ for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:04:01 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tlWRN-0001OU-Ca
- for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:03:56 -0500
+ id 1tlWRS-0001QA-8d
+ for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:04:00 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1740157432;
+ s=mimecast20190719; t=1740157437;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=1nJY4+DKOnRdgOSJbixQgGwalcHO4gTnjYN+sbdUtTI=;
- b=HSXeM2gk2XOpMqStjX/IjTXYcOm4cEv3fPz8svzoLyaWUNq4X+y6FJBIWjQ1sTbdRDpadt
- byk1q5YREpbM8O5Td2bWAzWEDgJbIsp7Q2bDk80TSvdoMssJ9J31LEs1GNfRQPCfHYFQ16
- p4lqpFvFDNVgi28E5ywXwj98pJr7wMk=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=hJleYDBCD4SDSG2l2W+THx3Wzd2iHgM0lXz/mw911rM=;
+ b=R3RDXf+rA+8XuiL5PFmC0HjEJT+NJe+RvV41f/qRMO+h6cN8ZOBheEQHN7Wwr1zMJsiCg+
+ ve3g9TmAGxrueMt6dymgWOeUg2lKZxOi0hUxE+zXbIR3hUC3+geCeELywnCDI1mzQzyAGo
+ XeLUIToRyW1s59kWQ8hR3TXPICgGEwA=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-567-cZKQPOveM5Gmyehnhpf4nw-1; Fri, 21 Feb 2025 12:03:50 -0500
-X-MC-Unique: cZKQPOveM5Gmyehnhpf4nw-1
-X-Mimecast-MFC-AGG-ID: cZKQPOveM5Gmyehnhpf4nw_1740157429
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-38f2ef5f0dbso975247f8f.2
- for <qemu-rust@nongnu.org>; Fri, 21 Feb 2025 09:03:49 -0800 (PST)
+ us-mta-388-L6KPVM7iMWSSCjZMAIRtRQ-1; Fri, 21 Feb 2025 12:03:55 -0500
+X-MC-Unique: L6KPVM7iMWSSCjZMAIRtRQ-1
+X-Mimecast-MFC-AGG-ID: L6KPVM7iMWSSCjZMAIRtRQ_1740157434
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-4394c747c72so10985215e9.1
+ for <qemu-rust@nongnu.org>; Fri, 21 Feb 2025 09:03:54 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740157428; x=1740762228;
+ d=1e100.net; s=20230601; t=1740157433; x=1740762233;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1nJY4+DKOnRdgOSJbixQgGwalcHO4gTnjYN+sbdUtTI=;
- b=An1tDmvpqRD/ZdpAVnUHRREHlddMyubxFMt9d756ezGZiYK2LXttW6qXB7bQUK0rqL
- WAvXU9nEIcp5QBRDEAHnsAoh1rOA64ts1S8GxU+T3C0miQ2R4zLL6ot5WblD62UjU7mq
- zc7hpFTf2HS6Wv7GCvRJddTYwR3I+VLQughVmYGcn2CJCusD8ETNwGFtiwUZVJ7JV8ak
- 3lHxDCNO9kuRsKNeiWYlqMTOo3cjp7fXF6dKrnDh3O2d+I/qRizhck5U6WfPkJhD7Vx/
- NhFa/2BYt6MlGd0z6nZeUVa298wj0mPtIrnbQFpOsAFUBb8uVB2ioVMsVkCWlnakczcw
- ADFQ==
-X-Gm-Message-State: AOJu0YwMm8QHTMEXxEBbRpxsQcjsGzuFaWVkRgipew8/lMsP4c4HqrY1
- HP1Bl9LlRIonlUlpFdGYKzrPyImofIK0WRXtMitUR/u0F8SlySbWt+FkXEu14PywBPf3EbTEofO
- ubeLSmKnczfMm2U6vQDGWflJQOXTHS+47jRyxJVbiYIx6v4xj1mYRJRxUh1D3Kg==
-X-Gm-Gg: ASbGncvrHkzXvmDm8O4YHufkiEh0UD14SvgAsuIQnNbOuC5AkYy49+RynSPz3K6ZFfi
- pSzkN1A92PL63OpxUkC8WhnyXHuUkxAhiYGmoNQyj5fWsyNbMm6+1TNxhEWTVzjosbzY/2APZYz
- vMDyZTaCMzkx2mrPwHGuPv3ENsq4BxfGAGujkapCqBgxYxeon0u9UAUOjX3qwIpOOc4q3ys2V9a
- TumiC+cT8XuGp7D2FMgqMYa2acAdhM4upF65sTXwJSc2WaFAEzMm6vGX6AKvUDTv366VHlYOLbD
- /0pZ13/mPc6gFSlAxhU=
-X-Received: by 2002:a5d:4e87:0:b0:38d:a879:4778 with SMTP id
- ffacd0b85a97d-38f6f0529bbmr3684289f8f.33.1740157428436; 
- Fri, 21 Feb 2025 09:03:48 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGHSCdTAjM6t/EsZj2CvLBtQmF/ZHcMG+AKfYF+Hr94UnN5YaIxc7Z5J3yJYVGY+iuVXnIRcg==
-X-Received: by 2002:a5d:4e87:0:b0:38d:a879:4778 with SMTP id
- ffacd0b85a97d-38f6f0529bbmr3684039f8f.33.1740157426446; 
- Fri, 21 Feb 2025 09:03:46 -0800 (PST)
+ bh=hJleYDBCD4SDSG2l2W+THx3Wzd2iHgM0lXz/mw911rM=;
+ b=HYBXDZKSYSakMYHj1xvmLyXcvE2pK/SB9s5TE+cl7a1xFSrzBCBwX9YUq/G8drrPio
+ yhWc0nrHk36fipN6/PKACJos1sRXHCyVvN+HXx/bvWHe7NWCdhhRhr/lwliwdjtc/7oe
+ /Akj99dhOlcO0AvzR3RxIS77d0ODEHZYy7gtbIqFhWZQldW682LODbaEqt+kOxfdnH+Q
+ ikY0wQr98K3IvN9Q1el1EZIhtuKEQAf6nKW9VZRNSHY+AmrWiI/9vVcrUh24lua6m+Xq
+ GAaP6INftN0f6vmVAo2zTt64ZBx+89mL8LBiKaT0zM0KditYtawLDHLtjlHl7B3cITK6
+ 7eQg==
+X-Gm-Message-State: AOJu0Yz/pUI3OmaG/KUHKWSrSKusTLXQtc3oQEbx8IY6yvvglFkSkmb0
+ DshBgHsTLq2sZLBuJS2UAjSFPZK1b5sd3xMndx57AazcoLtwE1HGcXJrC3kFOFWFULJQ3Yz743q
+ ZS03x6dSYHFGEa0mX+0CycgNtTxBRyFNOVXv/B59kcsaH/G7zAM+kG6ltNHw2Mw==
+X-Gm-Gg: ASbGncs4i/QuJMIhVfe99DAlnWfdkKg6iPkTbJaBLqaOJLsbdMl55Rv6Voz4xpmeaey
+ /wbUTnQ+tKlBN8YCHdtQb3aAt1pk+vsEyzULC+I684pkZI/5Ua3cZOFm0rbnUQnhgim5/LB9k64
+ J0HhTL6P1Nbht/HZMGemW4GXiF8KxMCpxUMmy1i+vaxCcOzrxToSaC1ksvsHM6ZqPIHw0YHcgui
+ vRxUxuzvZNYLU7yrBhhwIHEV/LsfMFVCIYasWlcWBgoZvoR6uZSBWLBYd8RmFlcTy/fmqg2QOFP
+ MS1m9k1RSqi4kybR03A=
+X-Received: by 2002:a05:600c:4ed1:b0:439:a155:549d with SMTP id
+ 5b1f17b1804b1-439ae1eacfdmr37742745e9.12.1740157432516; 
+ Fri, 21 Feb 2025 09:03:52 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHUJMLtPu1H85AOGMMT+HKTiV5g2ktjFALXblz6rsAXfbi9P1WnTKCL9dEoeEYDJBKe4bW0Uw==
+X-Received: by 2002:a05:600c:4ed1:b0:439:a155:549d with SMTP id
+ 5b1f17b1804b1-439ae1eacfdmr37742105e9.12.1740157431971; 
+ Fri, 21 Feb 2025 09:03:51 -0800 (PST)
 Received: from [192.168.10.48] ([151.95.61.185])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439b02f5b38sm22973835e9.24.2025.02.21.09.03.45
+ 5b1f17b1804b1-439b030b347sm23028795e9.26.2025.02.21.09.03.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Feb 2025 09:03:45 -0800 (PST)
+ Fri, 21 Feb 2025 09:03:48 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
-Subject: [PATCH 02/15] rust: add SysBusDeviceImpl
-Date: Fri, 21 Feb 2025 18:03:29 +0100
-Message-ID: <20250221170342.63591-3-pbonzini@redhat.com>
+Subject: [PATCH 04/15] rust: pl011, qemu_api tests: do not use ClassInitImpl
+Date: Fri, 21 Feb 2025 18:03:31 +0100
+Message-ID: <20250221170342.63591-5-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250221170342.63591-1-pbonzini@redhat.com>
 References: <20250221170342.63591-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: m2IALG0cHFjK6dTECOXhcEl-ddENux-xGw0UlR8I2XA_1740157429
+X-Mimecast-MFC-PROC-ID: j6uzsnv48FXO82KudZ31O1KVp-8i4pjDejXIZXcjPpI_1740157434
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
 X-Spam_score: -2.5
 X-Spam_bar: --
 X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.424,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
@@ -101,90 +101,177 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
 X-List-Received-Date: Fri, 21 Feb 2025 17:04:02 -0000
 
-The only function, right now, is to ensure that anything with a
-SysBusDeviceClass class is a SysBusDevice.
+Outside the qemu_api crate, orphan rules make the usage of ClassInitImpl
+unwieldy.  Now that it is optional, do not use it.
+
+For PL011Class, this makes it easier to provide a PL011Impl trait similar
+to the ones in the qemu_api crate.  The device id consts are moved there.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/hw/char/pl011/src/device.rs | 5 ++++-
- rust/hw/timer/hpet/src/hpet.rs   | 4 +++-
- rust/qemu-api/src/sysbus.rs      | 8 +++++---
- 3 files changed, 12 insertions(+), 5 deletions(-)
+ rust/hw/char/pl011/src/device.rs | 38 ++++++++++++++++----------------
+ rust/qemu-api/tests/tests.rs     | 33 ++++++++++-----------------
+ 2 files changed, 31 insertions(+), 40 deletions(-)
 
 diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index fe73771021e..7063b60c0cc 100644
+index a6da9db0bb0..fc1c8ec8d6a 100644
 --- a/rust/hw/char/pl011/src/device.rs
 +++ b/rust/hw/char/pl011/src/device.rs
-@@ -20,7 +20,7 @@
-     prelude::*,
-     qdev::{Clock, ClockEvent, DeviceImpl, DeviceState, Property, ResetType, ResettablePhasesImpl},
-     qom::{ClassInitImpl, ObjectImpl, Owned, ParentField},
--    sysbus::{SysBusDevice, SysBusDeviceClass},
-+    sysbus::{SysBusDevice, SysBusDeviceClass, SysBusDeviceImpl},
-     vmstate::VMStateDescription,
- };
- 
-@@ -176,6 +176,8 @@ impl ResettablePhasesImpl for PL011State {
-     const HOLD: Option<fn(&Self, ResetType)> = Some(Self::reset_hold);
+@@ -50,11 +50,6 @@ fn index(&self, idx: hwaddr) -> &Self::Output {
+     }
  }
  
-+impl SysBusDeviceImpl for PL011State {}
+-impl DeviceId {
+-    const ARM: Self = Self(&[0x11, 0x10, 0x14, 0x00, 0x0d, 0xf0, 0x05, 0xb1]);
+-    const LUMINARY: Self = Self(&[0x11, 0x00, 0x18, 0x01, 0x0d, 0xf0, 0x05, 0xb1]);
+-}
+-
+ // FIFOs use 32-bit indices instead of usize, for compatibility with
+ // the migration stream produced by the C version of this device.
+ #[repr(transparent)]
+@@ -143,16 +138,24 @@ pub struct PL011Class {
+     device_id: DeviceId,
+ }
+ 
++trait PL011Impl: SysBusDeviceImpl + IsA<PL011State> {
++    const DEVICE_ID: DeviceId;
++}
 +
- impl PL011Registers {
-     pub(self) fn read(&mut self, offset: RegisterOffset) -> (bool, u32) {
-         use RegisterOffset::*;
-@@ -746,3 +748,4 @@ impl ObjectImpl for PL011Luminary {
++impl PL011Class {
++    fn class_init<T: PL011Impl>(&mut self) {
++        self.device_id = T::DEVICE_ID;
++        <T as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut self.parent_class);
++    }
++}
++
+ unsafe impl ObjectType for PL011State {
+     type Class = PL011Class;
+     const TYPE_NAME: &'static CStr = crate::TYPE_PL011;
+ }
+ 
+-impl ClassInitImpl<PL011Class> for PL011State {
+-    fn class_init(klass: &mut PL011Class) {
+-        klass.device_id = DeviceId::ARM;
+-        <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut klass.parent_class);
+-    }
++impl PL011Impl for PL011State {
++    const DEVICE_ID: DeviceId = DeviceId(&[0x11, 0x10, 0x14, 0x00, 0x0d, 0xf0, 0x05, 0xb1]);
+ }
+ 
+ impl ObjectImpl for PL011State {
+@@ -160,7 +163,7 @@ impl ObjectImpl for PL011State {
+ 
+     const INSTANCE_INIT: Option<unsafe fn(&mut Self)> = Some(Self::init);
+     const INSTANCE_POST_INIT: Option<fn(&Self)> = Some(Self::post_init);
+-    const CLASS_INIT: fn(&mut Self::Class) = <Self as ClassInitImpl<Self::Class>>::class_init;
++    const CLASS_INIT: fn(&mut Self::Class) = Self::Class::class_init::<Self>;
+ }
+ 
+ impl DeviceImpl for PL011State {
+@@ -729,13 +732,6 @@ pub struct PL011Luminary {
+     parent_obj: ParentField<PL011State>,
+ }
+ 
+-impl ClassInitImpl<PL011Class> for PL011Luminary {
+-    fn class_init(klass: &mut PL011Class) {
+-        klass.device_id = DeviceId::LUMINARY;
+-        <Self as ClassInitImpl<SysBusDeviceClass>>::class_init(&mut klass.parent_class);
+-    }
+-}
+-
+ qom_isa!(PL011Luminary : PL011State, SysBusDevice, DeviceState, Object);
+ 
+ unsafe impl ObjectType for PL011Luminary {
+@@ -746,7 +742,11 @@ unsafe impl ObjectType for PL011Luminary {
+ impl ObjectImpl for PL011Luminary {
+     type ParentType = PL011State;
+ 
+-    const CLASS_INIT: fn(&mut Self::Class) = <Self as ClassInitImpl<Self::Class>>::class_init;
++    const CLASS_INIT: fn(&mut Self::Class) = Self::Class::class_init::<Self>;
++}
++
++impl PL011Impl for PL011Luminary {
++    const DEVICE_ID: DeviceId = DeviceId(&[0x11, 0x00, 0x18, 0x01, 0x0d, 0xf0, 0x05, 0xb1]);
+ }
  
  impl DeviceImpl for PL011Luminary {}
- impl ResettablePhasesImpl for PL011Luminary {}
-+impl SysBusDeviceImpl for PL011Luminary {}
-diff --git a/rust/hw/timer/hpet/src/hpet.rs b/rust/hw/timer/hpet/src/hpet.rs
-index 75ff5b3e8d6..b4ffccf815f 100644
---- a/rust/hw/timer/hpet/src/hpet.rs
-+++ b/rust/hw/timer/hpet/src/hpet.rs
-@@ -23,7 +23,7 @@
-     qdev::{DeviceImpl, DeviceMethods, DeviceState, Property, ResetType, ResettablePhasesImpl},
-     qom::{ObjectImpl, ObjectType, ParentField},
-     qom_isa,
--    sysbus::SysBusDevice,
-+    sysbus::{SysBusDevice, SysBusDeviceImpl},
-     timer::{Timer, CLOCK_VIRTUAL},
- };
- 
-@@ -887,3 +887,5 @@ fn properties() -> &'static [Property] {
- impl ResettablePhasesImpl for HPETState {
-     const HOLD: Option<fn(&Self, ResetType)> = Some(Self::reset_hold);
- }
-+
-+impl SysBusDeviceImpl for HPETState {}
-diff --git a/rust/qemu-api/src/sysbus.rs b/rust/qemu-api/src/sysbus.rs
-index fa36e12178f..fee2e3d478f 100644
---- a/rust/qemu-api/src/sysbus.rs
-+++ b/rust/qemu-api/src/sysbus.rs
-@@ -14,7 +14,7 @@
-     irq::{IRQState, InterruptSource},
-     memory::MemoryRegion,
+diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
+index 9546e9d7963..93c5637bbc3 100644
+--- a/rust/qemu-api/tests/tests.rs
++++ b/rust/qemu-api/tests/tests.rs
+@@ -13,7 +13,7 @@
+     cell::{self, BqlCell},
+     declare_properties, define_property,
      prelude::*,
--    qdev::{DeviceClass, DeviceState},
-+    qdev::{DeviceClass, DeviceImpl, DeviceState},
-     qom::{ClassInitImpl, Owned},
- };
- 
-@@ -25,10 +25,12 @@ unsafe impl ObjectType for SysBusDevice {
+-    qdev::{DeviceClass, DeviceImpl, DeviceState, Property, ResettablePhasesImpl},
++    qdev::{DeviceImpl, DeviceState, Property, ResettablePhasesImpl},
+     qom::{ClassInitImpl, ObjectImpl, ParentField},
+     sysbus::SysBusDevice,
+     vmstate::VMStateDescription,
+@@ -41,6 +41,12 @@ pub struct DummyClass {
+     parent_class: <DeviceState as ObjectType>::Class,
  }
- qom_isa!(SysBusDevice: DeviceState, Object);
  
--// TODO: add SysBusDeviceImpl
-+// TODO: add virtual methods
-+pub trait SysBusDeviceImpl: DeviceImpl + IsA<SysBusDevice> {}
++impl DummyClass {
++    pub fn class_init<T: DeviceImpl>(self: &mut DummyClass) {
++        <T as ClassInitImpl<DeviceClass>>::class_init(&mut self.parent_class);
++    }
++}
 +
- impl<T> ClassInitImpl<SysBusDeviceClass> for T
- where
--    T: ClassInitImpl<DeviceClass>,
-+    T: SysBusDeviceImpl + ClassInitImpl<DeviceClass>,
- {
-     fn class_init(sdc: &mut SysBusDeviceClass) {
-         <T as ClassInitImpl<DeviceClass>>::class_init(&mut sdc.parent_class);
+ declare_properties! {
+     DUMMY_PROPERTIES,
+         define_property!(
+@@ -60,7 +66,7 @@ unsafe impl ObjectType for DummyState {
+ impl ObjectImpl for DummyState {
+     type ParentType = DeviceState;
+     const ABSTRACT: bool = false;
+-    const CLASS_INIT: fn(&mut DummyClass) = <Self as ClassInitImpl<DummyClass>>::class_init;
++    const CLASS_INIT: fn(&mut DummyClass) = DummyClass::class_init::<Self>;
+ }
+ 
+ impl ResettablePhasesImpl for DummyState {}
+@@ -74,14 +80,6 @@ fn vmsd() -> Option<&'static VMStateDescription> {
+     }
+ }
+ 
+-// `impl<T> ClassInitImpl<DummyClass> for T` doesn't work since it violates
+-// orphan rule.
+-impl ClassInitImpl<DummyClass> for DummyState {
+-    fn class_init(klass: &mut DummyClass) {
+-        <Self as ClassInitImpl<DeviceClass>>::class_init(&mut klass.parent_class);
+-    }
+-}
+-
+ #[derive(qemu_api_macros::offsets)]
+ #[repr(C)]
+ #[derive(qemu_api_macros::Object)]
+@@ -103,22 +101,15 @@ unsafe impl ObjectType for DummyChildState {
+ impl ObjectImpl for DummyChildState {
+     type ParentType = DummyState;
+     const ABSTRACT: bool = false;
+-    const CLASS_INIT: fn(&mut DummyChildClass) =
+-        <Self as ClassInitImpl<DummyChildClass>>::class_init;
++    const CLASS_INIT: fn(&mut DummyChildClass) = DummyChildClass::class_init::<Self>;
+ }
+ 
+ impl ResettablePhasesImpl for DummyChildState {}
+ impl DeviceImpl for DummyChildState {}
+ 
+-impl ClassInitImpl<DummyClass> for DummyChildState {
+-    fn class_init(klass: &mut DummyClass) {
+-        <Self as ClassInitImpl<DeviceClass>>::class_init(&mut klass.parent_class);
+-    }
+-}
+-
+-impl ClassInitImpl<DummyChildClass> for DummyChildState {
+-    fn class_init(klass: &mut DummyChildClass) {
+-        <Self as ClassInitImpl<DummyClass>>::class_init(&mut klass.parent_class);
++impl DummyChildClass {
++    pub fn class_init<T: DeviceImpl>(self: &mut DummyChildClass) {
++        self.parent_class.class_init::<T>();
+     }
+ }
+ 
 -- 
 2.48.1
 
