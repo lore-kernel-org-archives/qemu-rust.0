@@ -1,79 +1,79 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tlWS0-0008Ud-Cw
-	for mharc-qemu-rust@gnu.org; Fri, 21 Feb 2025 12:04:32 -0500
+	id 1tlWS2-0000Fv-Fy
+	for mharc-qemu-rust@gnu.org; Fri, 21 Feb 2025 12:04:34 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tlWRv-000880-9m
- for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:04:27 -0500
+ id 1tlWRx-0008Hp-RT
+ for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:04:29 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tlWRt-0001XG-JP
- for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:04:26 -0500
+ id 1tlWRw-0001Y9-4Q
+ for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:04:29 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1740157464;
+ s=mimecast20190719; t=1740157467;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=gITORNAi3idPJ7f7HHnX56O6J1H0hwCpHvwebA0yrfA=;
- b=En5IzO81dJ3vi042USSJ0sxqbHUNly8tCOHs78Fk129YP+oHy23BdVvthrgqZBZox7wI4g
- SuiEzM7kl3A1viPhmgqL6DSg2IP4wd3AyC/elyGgs3KF0Oap3+cJ/x6sYEGN/oVmh3+ERE
- Tx6+wwzYeMrfNQM9siEJyU9pUHFjo0U=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=hGeedFex4hwcA+4WKc4T7rcitnlGc1D0mCRSihvSmdw=;
+ b=JoSp4giLr/OaB+ejSpOZshloHdKIu6iav5+vyHVGNjhhn1u4ufqz2BDgRCniAXfximJYW4
+ uoKIBHiKYeXHgHMcgZO0E5jhX3KCdYiaLx+5Fj1Nfz0TLwTxUDnGyTKcKAMrMSTVx6pjiB
+ aRLjQIFiLn1tjFHglNKS7mYGYEiRlUw=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-99-pNrhUXNVPtuMju6YlpHMbw-1; Fri, 21 Feb 2025 12:04:23 -0500
-X-MC-Unique: pNrhUXNVPtuMju6YlpHMbw-1
-X-Mimecast-MFC-AGG-ID: pNrhUXNVPtuMju6YlpHMbw_1740157462
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-abb7e837a7aso65914666b.3
- for <qemu-rust@nongnu.org>; Fri, 21 Feb 2025 09:04:23 -0800 (PST)
+ us-mta-43-h1BBpudZMKafjXmRmaNKSg-1; Fri, 21 Feb 2025 12:04:25 -0500
+X-MC-Unique: h1BBpudZMKafjXmRmaNKSg-1
+X-Mimecast-MFC-AGG-ID: h1BBpudZMKafjXmRmaNKSg_1740157465
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-abb76bd0feeso223860066b.0
+ for <qemu-rust@nongnu.org>; Fri, 21 Feb 2025 09:04:25 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740157462; x=1740762262;
+ d=1e100.net; s=20230601; t=1740157464; x=1740762264;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=gITORNAi3idPJ7f7HHnX56O6J1H0hwCpHvwebA0yrfA=;
- b=mU48Wm3NocGFvL7mnkXE6Gt1Q4LB0W4nWtt0wVFGHKqRx9PCrsUhyoKlI23+Imy9ZI
- W5uVee6WIRB3641mK4p/hyQNOn0hDEBBIEhpn25XBJvjcZZbMCRLQkWawZ1DwgUbayRH
- NGkB6AlCX1mViSmdNDofAx4gjgze4OK8k7eJLpKlESISmHFiF4Cs3mgdKizr6d+xWLIh
- tOGQ2Zvts9vFzilCABHvQqhIiD7E94uuEDU9T3rcKSadFe0l1g48spA4ktO+2yyX5T7R
- oe4MTd5hQNGR5m7CpRXoyCUVUhduPwLLp0E+4u5ue4QjKJ39S9Z5Z2B5Vu4DUkyFbs3u
- TIPA==
-X-Gm-Message-State: AOJu0YyFf2IR21KXmaHSObp00E9bYkjKp+niNWZpVIuDaA1iiJQD8e5+
- +ZXQTEvCq98GG3y3IDxch0IVq5k1gib7vbHNJGejCfnX1cH3EeMzS/EB5ju7xduC36f4MRtOVeW
- KdPFZuNBudi8X8SF4WS/S8fEdV+tPS0VBUlFFfK2LuqiceyGRpzg=
-X-Gm-Gg: ASbGncu73wD0uqrYqVt7t74pBdK5LeIEY5ds/5AU4YED6roWaQx1+lcAsyZuffQjd/0
- 27VQXRw9JSSGmhgfedHidIUsL5DAYZ32t+yCMv4MLMQIKXW3WCtBtdY0LgxDfb7L5bA2sYj/cAa
- XhmIkqTGB9ATYsqBPsq/X7CvTjDHq5fczX3pndThv7CCib/jL61FnoTtt3NZCKAIVOy/L+50yfh
- GMrvVvosIxcqo+RW235wRbhg8Qw+cGL6EDufvtbXTrrLcEAFY5RvV0VjL52A5fR6ZbRkkwDOQMT
- qEvEqxhgm5FXqFi1ZQg=
-X-Received: by 2002:a17:907:d204:b0:ab9:63bd:91be with SMTP id
- a640c23a62f3a-abc099b3911mr472628266b.3.1740157462198; 
- Fri, 21 Feb 2025 09:04:22 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHh3OiPvtScaPUKA6oR2syBGUS8aeCMOzQAoTZ6jAjPhsuT4a36zKEOsBZELst31y+ZScBTgg==
-X-Received: by 2002:a17:907:d204:b0:ab9:63bd:91be with SMTP id
- a640c23a62f3a-abc099b3911mr472617766b.3.1740157461568; 
- Fri, 21 Feb 2025 09:04:21 -0800 (PST)
+ bh=hGeedFex4hwcA+4WKc4T7rcitnlGc1D0mCRSihvSmdw=;
+ b=hjzAqFpTVnTbfJ88lHprtKywNrJJLa4hzb5B4NoPwbV7Ph+vgWggSCuRIDohiLhhWH
+ VIHolWW44wQ/mft5fquACkunQFcvfhrtVnN7v5JfzvW5v84yIYBLzLdPSku3kyCRIiGI
+ z+g+GwGSPIra6p2okhVOM7UWCHIROr49JaT6sWHPKZFZWjEYGq1zWlF/B5kIvLJnNKUp
+ n+IimNUnY95Bum0S+OqKfN2BRC+d56Ygk4fhAMLu9SRCypLsVFEhlKbZusheDl8KwbIl
+ GU62TsVEL2xSufhaBSwx61S4sMy1EHw1VCEgy0GbK6mPAviT/CR+TN49bLmffdBGnxcs
+ 3tGg==
+X-Gm-Message-State: AOJu0YxPK40pomdz9KB0KZVtxIhvzrQ27zzBrZ15akCvW/kdfiiDHwcM
+ 2FDj58JaU8XKZIvyhjiKMgkaY6kmoK7/K7MdjJi69BFO86cFW13Ems0NVT78jVsYRAhO4jPMYoa
+ yn29Y6AflBSvuIhDA3ssL33cv62X07sdn+rCj8ATTh5pkb2KO060=
+X-Gm-Gg: ASbGncu1iTnAzLdHEGKjVZBoJ2CAh9XG7WsCfIXcQCZGSS/DTh5VNMRI3yrYocKmTrF
+ Wl7VfF4d2aw90ql3ra65roS5lypPUjcxTSJsJnC5oBQZDp2Td5zfABRrWQ6/l494CJ7BUEX7aSe
+ DK/5nrOZJHj/cLL63+giCMmsPdFwMzDSviGaUmsh3xW5KhcfSU5oJnf9TrBToxjTci7gnTUf1m1
+ mXLi+CvQD+sUZkx2DmI0Dzjnq9ZbwCcA/1cseV2RD1byv8oBdGlVmyNoikR6QsbGJ7dyPpb/iRx
+ IKYWlA6Q45yJDm5Nd3A=
+X-Received: by 2002:a17:907:1686:b0:abb:dbc2:bfb6 with SMTP id
+ a640c23a62f3a-abbedd4df55mr796077066b.10.1740157464615; 
+ Fri, 21 Feb 2025 09:04:24 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEECFPHS+8PObVyoFvxy1YQzPxv9V7w9Vt4je3ICUJK7nFtqsY2CGp21/qsO3xZ0JJk5hx44Q==
+X-Received: by 2002:a17:907:1686:b0:abb:dbc2:bfb6 with SMTP id
+ a640c23a62f3a-abbedd4df55mr796070266b.10.1740157464045; 
+ Fri, 21 Feb 2025 09:04:24 -0800 (PST)
 Received: from [192.168.10.48] ([151.95.61.185])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abbda707e3dsm535043666b.106.2025.02.21.09.04.17
+ a640c23a62f3a-aba910e8b11sm1394251366b.21.2025.02.21.09.04.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Feb 2025 09:04:17 -0800 (PST)
+ Fri, 21 Feb 2025 09:04:22 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
-Subject: [PATCH 14/15] rust: chardev: wrap Chardev with Opaque<>
-Date: Fri, 21 Feb 2025 18:03:41 +0100
-Message-ID: <20250221170342.63591-15-pbonzini@redhat.com>
+Subject: [PATCH 15/15] rust: bindings: remove more unnecessary Send/Sync impls
+Date: Fri, 21 Feb 2025 18:03:42 +0100
+Message-ID: <20250221170342.63591-16-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250221170342.63591-1-pbonzini@redhat.com>
 References: <20250221170342.63591-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: M2PXEQKEiHi7klufE4R7aTMw25I08dxw6jW4uIBEZic_1740157462
+X-Mimecast-MFC-PROC-ID: HFT7v2xjWn5CceaYvZoZfFSwLEimllil0dhprIZ7wGw_1740157465
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -99,61 +99,39 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Feb 2025 17:04:27 -0000
+X-List-Received-Date: Fri, 21 Feb 2025 17:04:30 -0000
+
+Send and Sync are now implemented on the opaque wrappers.  Remove them
+from the bindings module, unless the structs are pure data containers
+and/or have no C functions defined on them.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/qemu-api/src/bindings.rs | 3 ---
- rust/qemu-api/src/chardev.rs  | 8 ++++++--
- rust/qemu-api/src/qdev.rs     | 1 +
- 3 files changed, 7 insertions(+), 5 deletions(-)
+ rust/qemu-api/src/bindings.rs | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
 diff --git a/rust/qemu-api/src/bindings.rs b/rust/qemu-api/src/bindings.rs
-index 26cc8de0cf2..c3f36108bd5 100644
+index c3f36108bd5..3c1d297581e 100644
 --- a/rust/qemu-api/src/bindings.rs
 +++ b/rust/qemu-api/src/bindings.rs
-@@ -31,9 +31,6 @@ unsafe impl Sync for BusState {}
+@@ -25,15 +25,11 @@
+ 
+ // SAFETY: these are implemented in C; the bindings need to assert that the
+ // BQL is taken, either directly or via `BqlCell` and `BqlRefCell`.
+-unsafe impl Send for BusState {}
+-unsafe impl Sync for BusState {}
+-
++// When bindings for character devices are introduced, this can be
++// moved to the Opaque<> wrapper in src/chardev.rs.
  unsafe impl Send for CharBackend {}
  unsafe impl Sync for CharBackend {}
  
--unsafe impl Send for Chardev {}
--unsafe impl Sync for Chardev {}
+-unsafe impl Send for ObjectClass {}
+-unsafe impl Sync for ObjectClass {}
 -
- unsafe impl Send for ObjectClass {}
- unsafe impl Sync for ObjectClass {}
- 
-diff --git a/rust/qemu-api/src/chardev.rs b/rust/qemu-api/src/chardev.rs
-index 74cfb634e5f..a35b9217e90 100644
---- a/rust/qemu-api/src/chardev.rs
-+++ b/rust/qemu-api/src/chardev.rs
-@@ -6,9 +6,13 @@
- 
- use std::ffi::CStr;
- 
--use crate::{bindings, prelude::*};
-+use crate::{bindings, cell::Opaque, prelude::*};
-+
-+/// A safe wrapper around [`bindings::Chardev`].
-+#[repr(transparent)]
-+#[derive(qemu_api_macros::Wrapper)]
-+pub struct Chardev(Opaque<bindings::Chardev>);
- 
--pub type Chardev = bindings::Chardev;
- pub type ChardevClass = bindings::ChardevClass;
- 
- unsafe impl ObjectType for Chardev {
-diff --git a/rust/qemu-api/src/qdev.rs b/rust/qemu-api/src/qdev.rs
-index ed5dce08216..1ff6c1ca7c2 100644
---- a/rust/qemu-api/src/qdev.rs
-+++ b/rust/qemu-api/src/qdev.rs
-@@ -334,6 +334,7 @@ fn init_clock_out(&self, name: &str) -> Owned<Clock> {
-     fn prop_set_chr(&self, propname: &str, chr: &Owned<Chardev>) {
-         assert!(bql_locked());
-         let c_propname = CString::new(propname).unwrap();
-+        let chr: &Chardev = chr;
-         unsafe {
-             bindings::qdev_prop_set_chr(
-                 self.upcast().as_mut_ptr(),
+ // SAFETY: this is a pure data struct
+ unsafe impl Send for CoalescedMemoryRange {}
+ unsafe impl Sync for CoalescedMemoryRange {}
 -- 
 2.48.1
 
