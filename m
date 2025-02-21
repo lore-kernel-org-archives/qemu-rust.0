@@ -1,93 +1,45 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tlWS2-0000Fv-Fy
-	for mharc-qemu-rust@gnu.org; Fri, 21 Feb 2025 12:04:34 -0500
+	id 1tlbHG-0000oh-44
+	for mharc-qemu-rust@gnu.org; Fri, 21 Feb 2025 17:13:46 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tlWRx-0008Hp-RT
- for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:04:29 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <mjt@tls.msk.ru>)
+ id 1tlX9u-0000lt-Hw; Fri, 21 Feb 2025 12:49:54 -0500
+Received: from isrv.corpit.ru ([86.62.121.231])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tlWRw-0001Y9-4Q
- for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:04:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1740157467;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=hGeedFex4hwcA+4WKc4T7rcitnlGc1D0mCRSihvSmdw=;
- b=JoSp4giLr/OaB+ejSpOZshloHdKIu6iav5+vyHVGNjhhn1u4ufqz2BDgRCniAXfximJYW4
- uoKIBHiKYeXHgHMcgZO0E5jhX3KCdYiaLx+5Fj1Nfz0TLwTxUDnGyTKcKAMrMSTVx6pjiB
- aRLjQIFiLn1tjFHglNKS7mYGYEiRlUw=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-43-h1BBpudZMKafjXmRmaNKSg-1; Fri, 21 Feb 2025 12:04:25 -0500
-X-MC-Unique: h1BBpudZMKafjXmRmaNKSg-1
-X-Mimecast-MFC-AGG-ID: h1BBpudZMKafjXmRmaNKSg_1740157465
-Received: by mail-ej1-f71.google.com with SMTP id
- a640c23a62f3a-abb76bd0feeso223860066b.0
- for <qemu-rust@nongnu.org>; Fri, 21 Feb 2025 09:04:25 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740157464; x=1740762264;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hGeedFex4hwcA+4WKc4T7rcitnlGc1D0mCRSihvSmdw=;
- b=hjzAqFpTVnTbfJ88lHprtKywNrJJLa4hzb5B4NoPwbV7Ph+vgWggSCuRIDohiLhhWH
- VIHolWW44wQ/mft5fquACkunQFcvfhrtVnN7v5JfzvW5v84yIYBLzLdPSku3kyCRIiGI
- z+g+GwGSPIra6p2okhVOM7UWCHIROr49JaT6sWHPKZFZWjEYGq1zWlF/B5kIvLJnNKUp
- n+IimNUnY95Bum0S+OqKfN2BRC+d56Ygk4fhAMLu9SRCypLsVFEhlKbZusheDl8KwbIl
- GU62TsVEL2xSufhaBSwx61S4sMy1EHw1VCEgy0GbK6mPAviT/CR+TN49bLmffdBGnxcs
- 3tGg==
-X-Gm-Message-State: AOJu0YxPK40pomdz9KB0KZVtxIhvzrQ27zzBrZ15akCvW/kdfiiDHwcM
- 2FDj58JaU8XKZIvyhjiKMgkaY6kmoK7/K7MdjJi69BFO86cFW13Ems0NVT78jVsYRAhO4jPMYoa
- yn29Y6AflBSvuIhDA3ssL33cv62X07sdn+rCj8ATTh5pkb2KO060=
-X-Gm-Gg: ASbGncu1iTnAzLdHEGKjVZBoJ2CAh9XG7WsCfIXcQCZGSS/DTh5VNMRI3yrYocKmTrF
- Wl7VfF4d2aw90ql3ra65roS5lypPUjcxTSJsJnC5oBQZDp2Td5zfABRrWQ6/l494CJ7BUEX7aSe
- DK/5nrOZJHj/cLL63+giCMmsPdFwMzDSviGaUmsh3xW5KhcfSU5oJnf9TrBToxjTci7gnTUf1m1
- mXLi+CvQD+sUZkx2DmI0Dzjnq9ZbwCcA/1cseV2RD1byv8oBdGlVmyNoikR6QsbGJ7dyPpb/iRx
- IKYWlA6Q45yJDm5Nd3A=
-X-Received: by 2002:a17:907:1686:b0:abb:dbc2:bfb6 with SMTP id
- a640c23a62f3a-abbedd4df55mr796077066b.10.1740157464615; 
- Fri, 21 Feb 2025 09:04:24 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEECFPHS+8PObVyoFvxy1YQzPxv9V7w9Vt4je3ICUJK7nFtqsY2CGp21/qsO3xZ0JJk5hx44Q==
-X-Received: by 2002:a17:907:1686:b0:abb:dbc2:bfb6 with SMTP id
- a640c23a62f3a-abbedd4df55mr796070266b.10.1740157464045; 
- Fri, 21 Feb 2025 09:04:24 -0800 (PST)
-Received: from [192.168.10.48] ([151.95.61.185])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba910e8b11sm1394251366b.21.2025.02.21.09.04.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Feb 2025 09:04:22 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <mjt@tls.msk.ru>)
+ id 1tlX9s-0001aQ-Tr; Fri, 21 Feb 2025 12:49:54 -0500
+Received: from tsrv.corpit.ru (tsrv.tls.msk.ru [192.168.177.2])
+ by isrv.corpit.ru (Postfix) with ESMTP id 3A1E7EFB64;
+ Fri, 21 Feb 2025 20:49:30 +0300 (MSK)
+Received: from gandalf.tls.msk.ru (mjt.wg.tls.msk.ru [192.168.177.130])
+ by tsrv.corpit.ru (Postfix) with ESMTP id E6B241BB580;
+ Fri, 21 Feb 2025 20:49:49 +0300 (MSK)
+Received: by gandalf.tls.msk.ru (Postfix, from userid 1000)
+ id E183553F7B; Fri, 21 Feb 2025 20:49:49 +0300 (MSK)
+From: Michael Tokarev <mjt@tls.msk.ru>
 To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org
-Subject: [PATCH 15/15] rust: bindings: remove more unnecessary Send/Sync impls
-Date: Fri, 21 Feb 2025 18:03:42 +0100
-Message-ID: <20250221170342.63591-16-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250221170342.63591-1-pbonzini@redhat.com>
-References: <20250221170342.63591-1-pbonzini@redhat.com>
+Cc: qemu-stable@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+ qemu-rust@nongnu.org, Stefan Hajnoczi <stefanha@redhat.com>,
+ Michael Tokarev <mjt@tls.msk.ru>
+Subject: [Stable-9.2.2 01/14] rust: add --rust-target option for bindgen
+Date: Fri, 21 Feb 2025 20:49:31 +0300
+Message-Id: <20250221174949.836197-1-mjt@tls.msk.ru>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <qemu-stable-9.2.2-20250221204240@cover.tls.msk.ru>
+References: <qemu-stable-9.2.2-20250221204240@cover.tls.msk.ru>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: HFT7v2xjWn5CceaYvZoZfFSwLEimllil0dhprIZ7wGw_1740157465
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -24
-X-Spam_score: -2.5
-X-Spam_bar: --
-X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.424,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+Received-SPF: pass client-ip=86.62.121.231; envelope-from=mjt@tls.msk.ru;
+ helo=isrv.corpit.ru
+X-Spam_score_int: -68
+X-Spam_score: -6.9
+X-Spam_bar: ------
+X-Spam_report: (-6.9 / 5.0 requ) BAYES_00=-1.9, RCVD_IN_DNSWL_HI=-5,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Fri, 21 Feb 2025 17:13:45 -0500
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,40 +51,39 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Feb 2025 17:04:30 -0000
+X-List-Received-Date: Fri, 21 Feb 2025 17:49:55 -0000
 
-Send and Sync are now implemented on the opaque wrappers.  Remove them
-from the bindings module, unless the structs are pure data containers
-and/or have no C functions defined on them.
+From: Paolo Bonzini <pbonzini@redhat.com>
 
+Without it, recent bindgen will give an error
+
+   error: extern block cannot be declared unsafe
+
+if rustc is not new enough to support the "unsafe extern" construct.
+
+Cc: qemu-rust@nongnu.org
+Cc: qemu-stable@nongnu.org
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- rust/qemu-api/src/bindings.rs | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+Message-ID: <20250206111514.2134895-1-pbonzini@redhat.com>
+Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+(cherry picked from commit 131c58469f6fb68c89b38fee6aba8bbb20c7f4bf)
+Signed-off-by: Michael Tokarev <mjt@tls.msk.ru>
 
-diff --git a/rust/qemu-api/src/bindings.rs b/rust/qemu-api/src/bindings.rs
-index c3f36108bd5..3c1d297581e 100644
---- a/rust/qemu-api/src/bindings.rs
-+++ b/rust/qemu-api/src/bindings.rs
-@@ -25,15 +25,11 @@
- 
- // SAFETY: these are implemented in C; the bindings need to assert that the
- // BQL is taken, either directly or via `BqlCell` and `BqlRefCell`.
--unsafe impl Send for BusState {}
--unsafe impl Sync for BusState {}
--
-+// When bindings for character devices are introduced, this can be
-+// moved to the Opaque<> wrapper in src/chardev.rs.
- unsafe impl Send for CharBackend {}
- unsafe impl Sync for CharBackend {}
- 
--unsafe impl Send for ObjectClass {}
--unsafe impl Sync for ObjectClass {}
--
- // SAFETY: this is a pure data struct
- unsafe impl Send for CoalescedMemoryRange {}
- unsafe impl Sync for CoalescedMemoryRange {}
+diff --git a/meson.build b/meson.build
+index 7a3faca61d..7f6f638676 100644
+--- a/meson.build
++++ b/meson.build
+@@ -4050,6 +4050,9 @@ if have_rust
+       bindgen_args += ['--formatter', 'none']
+     endif
+   endif
++  if bindgen.version().version_compare('>=0.66.0')
++    bindgen_args += ['--rust-target', '1.59']
++  endif
+   if bindgen.version().version_compare('<0.61.0')
+     # default in 0.61+
+     bindgen_args += ['--size_t-is-usize']
 -- 
-2.48.1
+2.39.5
 
 
