@@ -1,92 +1,92 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tlWRi-0007Lc-RY
-	for mharc-qemu-rust@gnu.org; Fri, 21 Feb 2025 12:04:15 -0500
+	id 1tlWRn-0007em-Lh
+	for mharc-qemu-rust@gnu.org; Fri, 21 Feb 2025 12:04:20 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tlWRe-0006xP-0f
- for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:04:10 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1tlWRk-0007W8-Fv
+ for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:04:16 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tlWRa-0001Rj-Ra
- for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:04:09 -0500
+ id 1tlWRi-0001U3-Hh
+ for qemu-rust@nongnu.org; Fri, 21 Feb 2025 12:04:16 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1740157446;
+ s=mimecast20190719; t=1740157453;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=IDuooerhK1to1+S4hiPVrqtGgOqxZ0Q0ElNK+Nffz5Y=;
- b=fshODfzLhmtRG2BWiJ6vzjLFBwbLUrenxLKeAzcyso/A7O+i/+XRVtImrV+phPuDmIGli/
- K/nMHb7AQFNWU0JpIXzrv9hZ9Ozxgyi3Jbly975tkP9uPCzrqOXCb3OfCMtQRBSUhEKnVK
- MEbSGiPssbWtxPd2UnBlF+zGQvYztXo=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=ptln7kC4VQ55Kh7p6OYpuJx9dpz1kCK9KqyudGJngSI=;
+ b=WFbVdHcu2RRlp7OO0jQDg6P/RTK7kTMNyk4C99xv9MKg4tpchcph8SLR/Yh1J21CcVo1Zo
+ KX0+5U7Qy97GtZlBMdVQV4uAGmf+RXl+W/mxoWiRmlHdK9hUMyymKu1CTJwblAM22j+wyt
+ ikrXNbZuRm6lqcdYVPH4aorhPMuSRyA=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-448-gVtqm6jJObmtJzbUEcI8Ag-1; Fri, 21 Feb 2025 12:04:04 -0500
-X-MC-Unique: gVtqm6jJObmtJzbUEcI8Ag-1
-X-Mimecast-MFC-AGG-ID: gVtqm6jJObmtJzbUEcI8Ag_1740157443
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-38f2c0aa6d6so1601395f8f.0
- for <qemu-rust@nongnu.org>; Fri, 21 Feb 2025 09:04:03 -0800 (PST)
+ us-mta-501-HiIjQIGvMY6F0PRSr4i2MQ-1; Fri, 21 Feb 2025 12:04:08 -0500
+X-MC-Unique: HiIjQIGvMY6F0PRSr4i2MQ-1
+X-Mimecast-MFC-AGG-ID: HiIjQIGvMY6F0PRSr4i2MQ_1740157448
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-438da39bb69so16014975e9.0
+ for <qemu-rust@nongnu.org>; Fri, 21 Feb 2025 09:04:08 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740157442; x=1740762242;
+ d=1e100.net; s=20230601; t=1740157447; x=1740762247;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IDuooerhK1to1+S4hiPVrqtGgOqxZ0Q0ElNK+Nffz5Y=;
- b=H1KbbXF9ljnZw4gEkV8t+kYYF93m1g+iaJ06rlEzsMWJPVHg8uoUcKl7asNiMQjglg
- MIOCROOy/WXa9lPWUWh1SuPbE7oz32iGDAf81p6voeknseys25nCXkSz3boyq9+LGU0+
- /CqlFajnTpxkhJSqD14DpBW45gbu1ITAyM6pXkUJjljUU/h4zfeEmj7UqRflseaDmMH+
- n07vSrOut29VqWSWbjnklu4kGO55lrXskwjewIQwE+P8YkQgSUYJY41PcLsDHp0hxGyu
- uJz+bdvDaDZxlu1JNDURHfiUFtW8FBLZ3927cAe+LbCORi7Ds0bKctTkeED6fTmRv/Ma
- +PCw==
-X-Gm-Message-State: AOJu0YwvCI5DaCHO/ef1cqIKo4NueGgCFu+iFivwPkxafPRhyoDdq8No
- haYDi/Npjuz6iY8yop6Pnvvqd9OA/DmpWmr6OBk03Yvd2hosALfeiF8lkREbUvjwXTXfGfi8/VR
- N2bh4sYg+Hz6sROp0gKK9MuQteQKf6ZBWc4L92RpzKItk/wOgGkPi5ka2NM3dQw==
-X-Gm-Gg: ASbGncuXOzDuXWjSB+NYb+F+X7s9KWheMeiLC29DIwYjyt0l+C218+rKNf8DJ19dVDz
- 94DtRjU4N/QIKNI8ABBgv2dFhB7yX2Z9EdycpCFVJgxmCe9RimKFUsLGwHEnAE7vDMoKDznFm6r
- JJXQJJ/z06PfeKjYzVge3ylIVLS55apiEvN5vQzorRd/6z5lCmOeVXTWJJ50n6OCkTBdDOViu47
- Bk5KiGq9/W8D4CQL0bAirGw0c/VVjBfq2AGvKrvWDdwSfxc1E+MNIXjf4x3ASNvLmRHfrTceMsv
- RzXG0zO+49BQB/8CUbg=
-X-Received: by 2002:a05:6000:1ac7:b0:38d:ae1e:2f3c with SMTP id
- ffacd0b85a97d-38f6f51db2cmr3652611f8f.25.1740157439969; 
- Fri, 21 Feb 2025 09:03:59 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGjpFHc9uvNj7Nbzsa/WYamQ7zWK2mxWvP3dv2m49lIeaql26yFVY109MkBPpNu0D31mt2JuA==
-X-Received: by 2002:a05:6000:1ac7:b0:38d:ae1e:2f3c with SMTP id
- ffacd0b85a97d-38f6f51db2cmr3652419f8f.25.1740157437844; 
- Fri, 21 Feb 2025 09:03:57 -0800 (PST)
+ bh=ptln7kC4VQ55Kh7p6OYpuJx9dpz1kCK9KqyudGJngSI=;
+ b=WojbSZqMv8qzhSrP+zzWknbVXW8w5ceeer6YTHDmvvo83FFPh+J3IrijBCwpaR2KvP
+ hp/ZS26AoBww6brim9rtoBERrqLzWIA1AKHNfxVxSt1kAJQpbJqbQ/AVDYcqLCl//KvI
+ EW8TNQMosGZAIXspYlJPQyPRAKw5vDEJknbsLXPtJwVhBujzwY7Ru5lkGvMCxgq+Z7+K
+ hnTFZDhi+xrV8EFo2aj0XmkDR95t8E7iVUdMYa2apxcfDR0McRRajzbd+JLKeMfWHrg2
+ wOM4X7QzYtyEJorwJmkzc2SWxfZCL3PXaYsPIFf2YmcxR4KYVCFKv/I1yI66wpFOvVhR
+ HU7g==
+X-Gm-Message-State: AOJu0YzqadRoM4+K3JNbfd/biZacczTrZeQB9YSndpDtwuJBrskqMRG9
+ YU4eRAfZcSwGibm/w1LCCKOwHf641R7p1gdS21eoShx+/KcjpFytijm05GKyhUxHURWs0BRk3IZ
+ UPhSjZwtQrGCQzLMxMpBhNporgc7Q61rc7lc//T8Ht6QUrsKtiDh7GBa9RZRg4g==
+X-Gm-Gg: ASbGncs7XEN+574vnYwo4MdjKSUcprA1nqyEWc8O1370JT9PVzpGv5IhjwOubQENpzI
+ eBW77deNTq+VIT5Xis5OW8D6il2TeQl8n73Ls6wyW/ccKiWYmFYhAAtBJJ41aIf94sNOYZ+r/LA
+ TNvCEsoI0EunYZjot1pzzb61M/tbPCrHj6rrmxvCuSZAYwVeOE0g1HJIWnbqxAs2REnq9dCvMuU
+ WvL7rqolfmNdw/UxG7SBeSonx5gV1DTRBim5rMEtZjfUDnnsgpw3xItUeaRz0Zl5+h517B4+qB4
+ 71X3PL815ol2CLtSFAg=
+X-Received: by 2002:a05:600c:1c9d:b0:439:88bb:d02f with SMTP id
+ 5b1f17b1804b1-439b1b7fdfamr27090205e9.5.1740157446874; 
+ Fri, 21 Feb 2025 09:04:06 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE5lQklDkjGCKQ5dzNMU7dIqrOWUiGmo7zLHwx/J7q+hv1FUD3/VB0Q4LzK4MqDgH6vbWTClQ==
+X-Received: by 2002:a05:600c:1c9d:b0:439:88bb:d02f with SMTP id
+ 5b1f17b1804b1-439b1b7fdfamr27089635e9.5.1740157446414; 
+ Fri, 21 Feb 2025 09:04:06 -0800 (PST)
 Received: from [192.168.10.48] ([151.95.61.185])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38f258b4314sm23666248f8f.9.2025.02.21.09.03.56
+ ffacd0b85a97d-38f258b44b2sm23583763f8f.20.2025.02.21.09.04.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Feb 2025 09:03:56 -0800 (PST)
+ Fri, 21 Feb 2025 09:04:01 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
-Subject: [PATCH 06/15] rust: cell: add wrapper for FFI types
-Date: Fri, 21 Feb 2025 18:03:33 +0100
-Message-ID: <20250221170342.63591-7-pbonzini@redhat.com>
+Subject: [PATCH 09/15] rust: irq: wrap IRQState with Opaque<>
+Date: Fri, 21 Feb 2025 18:03:36 +0100
+Message-ID: <20250221170342.63591-10-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250221170342.63591-1-pbonzini@redhat.com>
 References: <20250221170342.63591-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 73lilT2klnK3ydp2rgBz4x9mD6TH70al_GXFHemMftQ_1740157443
+X-Mimecast-MFC-PROC-ID: Kp_vOaNDunyU6WfPYar4OE2kXkqG40IU1LhJ0AUNQps_1740157448
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
 X-Spam_score: -2.5
 X-Spam_bar: --
 X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.424,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,305 +99,80 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Feb 2025 17:04:10 -0000
-
-Inspired by the same-named type in Linux.  This type provides the compiler
-with a correct view of what goes on with FFI types.  In addition, it
-separates the glue code from the bindgen-generated code, allowing
-traits such as Send, Sync or Zeroable to be specified independently
-for C and Rust structs.
+X-List-Received-Date: Fri, 21 Feb 2025 17:04:17 -0000
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- docs/devel/rust.rst       |  34 +++++--
- rust/qemu-api/src/cell.rs | 191 ++++++++++++++++++++++++++++++++++++--
- 2 files changed, 210 insertions(+), 15 deletions(-)
+ rust/qemu-api/src/irq.rs    | 15 ++++++++++-----
+ rust/qemu-api/src/sysbus.rs |  1 +
+ 2 files changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/docs/devel/rust.rst b/docs/devel/rust.rst
-index e3f9e16aacb..9a621648e72 100644
---- a/docs/devel/rust.rst
-+++ b/docs/devel/rust.rst
-@@ -295,15 +295,33 @@ of ``&mut self``; access to internal fields must use *interior mutability*
- to go from a shared reference to a ``&mut``.
+diff --git a/rust/qemu-api/src/irq.rs b/rust/qemu-api/src/irq.rs
+index d1c9dc96eff..aec2825b2f9 100644
+--- a/rust/qemu-api/src/irq.rs
++++ b/rust/qemu-api/src/irq.rs
+@@ -9,10 +9,16 @@
  
- Whenever C code provides you with an opaque ``void *``, avoid converting it
--to a Rust mutable reference, and use a shared reference instead.  Rust code
--will then have to use QEMU's ``BqlRefCell`` and ``BqlCell`` type, which
--enforce that locking rules for the "Big QEMU Lock" are respected.  These cell
--types are also known to the ``vmstate`` crate, which is able to "look inside"
--them when building an in-memory representation of a ``struct``'s layout.
--Note that the same is not true of a ``RefCell`` or ``Mutex``.
-+to a Rust mutable reference, and use a shared reference instead.  The
-+``qemu_api::cell`` module provides wrappers that can be used to tell the
-+Rust compiler about interior mutability, and optionally to enforce locking
-+rules for the "Big QEMU Lock".  In the future, similar cell types might
-+also be provided for ``AioContext``-based locking as well.
- 
--In the future, similar cell types might also be provided for ``AioContext``-based
--locking as well.
-+In particular, device code will usually rely on the ``BqlRefCell`` and
-+``BqlCell`` type to ensure that data is accessed correctly under the
-+"Big QEMU Lock".  These cell types are also known to the ``vmstate``
-+crate, which is able to "look inside" them when building an in-memory
-+representation of a ``struct``'s layout.  Note that the same is not true
-+of a ``RefCell`` or ``Mutex``.
-+
-+Bindings code instead will usually use the ``Opaque`` type, which hides
-+the contents of the underlying struct and can be easily converted to
-+a raw pointer, for use in calls to C functions.  It can be used for
-+example as follows::
-+
-+    #[repr(transparent)]
-+    #[derive(Debug)]
-+    pub struct Object(Opaque<bindings::Object>);
-+
-+The bindings will then manually check for the big QEMU lock with
-+assertions, which allows the wrapper to be declared thread-safe::
-+
-+    unsafe impl Send for Object {}
-+    unsafe impl Sync for Object {}
- 
- Writing bindings to C code
- ''''''''''''''''''''''''''
-diff --git a/rust/qemu-api/src/cell.rs b/rust/qemu-api/src/cell.rs
-index eae4e2ce786..84b9eb07467 100644
---- a/rust/qemu-api/src/cell.rs
-+++ b/rust/qemu-api/src/cell.rs
-@@ -27,7 +27,7 @@
- // IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- // DEALINGS IN THE SOFTWARE.
- 
--//! BQL-protected mutable containers.
-+//! QEMU-specific mutable containers
- //!
- //! Rust memory safety is based on this rule: Given an object `T`, it is only
- //! possible to have one of the following:
-@@ -43,8 +43,10 @@
- //! usually have their pointer shared with the "outside world very early in
- //! their lifetime", for example when they create their
- //! [`MemoryRegion`s](crate::bindings::MemoryRegion).  Therefore, individual
--//! parts of a  device must be made mutable in a controlled manner through the
--//! use of cell types.
-+//! parts of a  device must be made mutable in a controlled manner; this module
-+//! provides the tools to do so.
-+//!
-+//! ## Cell types
- //!
- //! [`BqlCell<T>`] and [`BqlRefCell<T>`] allow doing this via the Big QEMU Lock.
- //! While they are essentially the same single-threaded primitives that are
-@@ -71,7 +73,7 @@
- //! QEMU device implementations is usually incorrect and can lead to
- //! thread-safety issues.
- //!
--//! ## `BqlCell<T>`
-+//! ### `BqlCell<T>`
- //!
- //! [`BqlCell<T>`] implements interior mutability by moving values in and out of
- //! the cell. That is, an `&mut T` to the inner value can never be obtained as
-@@ -91,7 +93,7 @@
- //!    - [`set`](BqlCell::set): this method replaces the interior value,
- //!      dropping the replaced value.
- //!
--//! ## `BqlRefCell<T>`
-+//! ### `BqlRefCell<T>`
- //!
- //! [`BqlRefCell<T>`] uses Rust's lifetimes to implement "dynamic borrowing", a
- //! process whereby one can claim temporary, exclusive, mutable access to the
-@@ -111,13 +113,82 @@
- //! Multiple immutable borrows are allowed via [`borrow`](BqlRefCell::borrow),
- //! or a single mutable borrow via [`borrow_mut`](BqlRefCell::borrow_mut).  The
- //! thread will panic if these rules are violated or if the BQL is not held.
-+//!
-+//! ## Opaque wrappers
-+//!
-+//! The cell types from the previous section are useful at the boundaries
-+//! of code that requires interior mutability.  When writing glue code that
-+//! interacts directly with C structs, however, it is useful to operate
-+//! at a lower level.
-+//!
-+//! C functions often violate Rust's fundamental assumptions about memory
-+//! safety by modifying memory even if it is shared.  Furthermore, C structs
-+//! often start their life uninitialized and may be populated lazily.
-+//!
-+//! For this reason, this module provides the [`Opaque<T>`] type to opt out
-+//! of Rust's usual guarantees about the wrapped type. Access to the wrapped
-+//! value is always through raw pointers, obtained via methods like
-+//! [`as_mut_ptr()`](Opaque::as_mut_ptr) and [`as_ptr()`](Opaque::as_ptr). These
-+//! pointers can then be passed to C functions or dereferenced; both actions
-+//! require `unsafe` blocks, making it clear where safety guarantees must be
-+//! manually verified. For example
-+//!
-+//! ```ignore
-+//! let state = Opaque::<MyStruct>::uninit();
-+//! unsafe {
-+//!     qemu_struct_init(state.as_mut_ptr());
-+//! }
-+//! ```
-+//!
-+//! [`Opaque<T>`] will usually be wrapped one level further, so that
-+//! bridge methods can be added to the wrapper:
-+//!
-+//! ```ignore
-+//! pub struct MyStruct(Opaque<bindings::MyStruct>);
-+//!
-+//! impl MyStruct {
-+//!     fn new() -> Pin<Box<MyStruct>> {
-+//!         let result = Box::pin(Opaque::uninit());
-+//!         unsafe { qemu_struct_init(result.as_mut_ptr()) };
-+//!         result
-+//!     }
-+//! }
-+//! ```
-+//!
-+//! This pattern of wrapping bindgen-generated types in [`Opaque<T>`] provides
-+//! several advantages:
-+//!
-+//! * The choice of traits to be implemented is not limited by the
-+//!   bindgen-generated code.  For example, [`Drop`] can be added without
-+//!   disabling [`Copy`] on the underlying bindgen type
-+//!
-+//! * [`Send`] and [`Sync`] implementations can be controlled by the wrapper
-+//!   type rather than being automatically derived from the C struct's layout
-+//!
-+//! * Methods can be implemented in a separate crate from the bindgen-generated
-+//!   bindings
-+//!
-+//! * [`Debug`](std::fmt::Debug) and [`Display`](std::fmt::Display)
-+//!   implementations can be customized to be more readable than the raw C
-+//!   struct representation
-+//!
-+//! The [`Opaque<T>`] type does not include BQL validation; it is possible to
-+//! assert in the code that the right lock is taken, to use it together
-+//! with a custom lock guard type, or to let C code take the lock, as
-+//! appropriate.  It is also possible to use it with non-thread-safe
-+//! types, since by default (unlike [`BqlCell`] and [`BqlRefCell`]
-+//! it is neither `Sync` nor `Send`.
-+//!
-+//! While [`Opaque<T>`] is necessary for C interop, it should be used sparingly
-+//! and only at FFI boundaries. For QEMU-specific types that need interior
-+//! mutability, prefer [`BqlCell`] or [`BqlRefCell`].
- 
- use std::{
-     cell::{Cell, UnsafeCell},
-     cmp::Ordering,
-     fmt,
--    marker::PhantomData,
--    mem,
-+    marker::{PhantomData, PhantomPinned},
-+    mem::{self, MaybeUninit},
-     ops::{Deref, DerefMut},
-     ptr::NonNull,
+ use crate::{
+     bindings::{self, qemu_set_irq},
++    cell::Opaque,
+     prelude::*,
+     qom::ObjectClass,
  };
-@@ -840,3 +911,109 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-         (**self).fmt(f)
-     }
- }
-+
-+/// Stores an opaque value that is shared with C code.
-+///
-+/// Often, C structs can changed when calling a C function even if they are
-+/// behind a shared Rust reference, or they can be initialized lazily and have
-+/// invalid bit patterns (e.g. `3` for a [`bool`]).  This goes against Rust's
-+/// strict aliasing rules, which normally prevent mutation through shared
-+/// references.
-+///
-+/// Wrapping the struct with `Opaque<T>` ensures that the Rust compiler does not
-+/// assume the usual constraints that Rust structs require, and allows using
-+/// shared references on the Rust side.
-+///
-+/// `Opaque<T>` is `#[repr(transparent)]`, so that it matches the memory layout
-+/// of `T`.
+ 
++/// An opaque wrapper around [`bindings::IRQState`].
 +#[repr(transparent)]
-+pub struct Opaque<T> {
-+    value: UnsafeCell<MaybeUninit<T>>,
-+    // PhantomPinned also allows multiple references to the `Opaque<T>`, i.e.
-+    // one `&mut Opaque<T>` can coexist with a `&mut T` or any number of `&T`;
-+    // see https://docs.rs/pinned-aliasable/latest/pinned_aliasable/.
-+    _pin: PhantomPinned,
-+}
++#[derive(Debug, qemu_api_macros::Wrapper)]
++pub struct IRQState(Opaque<bindings::IRQState>);
 +
-+impl<T> Opaque<T> {
-+    /// Creates a new shared reference from a C pointer
-+    ///
-+    /// # Safety
-+    ///
-+    /// The pointer must be valid, though it need not point to a valid value.
-+    pub unsafe fn from_raw<'a>(ptr: *mut T) -> &'a Self {
-+        let ptr = NonNull::new(ptr).unwrap().cast::<Self>();
-+        // SAFETY: Self is a transparent wrapper over T
-+        unsafe { ptr.as_ref() }
-+    }
-+
-+    /// Creates a new opaque object with uninitialized contents.
-+    ///
-+    /// # Safety
-+    ///
-+    /// Ultimately the pointer to the returned value will be dereferenced
-+    /// in another unsafe block, for example when passing it to a C function.
-+    /// However, this function is unsafe to "force" documenting who is going
-+    /// to initialize and pin the value.
-+    pub const unsafe fn uninit() -> Self {
-+        Self {
-+            value: UnsafeCell::new(MaybeUninit::uninit()),
-+            _pin: PhantomPinned,
-+        }
-+    }
-+
-+    /// Creates a new opaque object with zeroed contents.
-+    ///
-+    /// # Safety
-+    ///
-+    /// Ultimately the pointer to the returned value will be dereferenced
-+    /// in another unsafe block, for example when passing it to a C function.
-+    /// However, this function is unsafe to "force" documenting whether a
-+    /// zero value is safe.
-+    pub const unsafe fn zeroed() -> Self {
-+        Self {
-+            value: UnsafeCell::new(MaybeUninit::uninit()),
-+            _pin: PhantomPinned,
-+        }
-+    }
-+
-+    /// Returns a raw pointer to the opaque data.
-+    pub const fn as_mut_ptr(&self) -> *mut T {
-+        UnsafeCell::get(&self.value).cast()
-+    }
-+
-+    /// Returns a raw pointer to the opaque data.
-+    pub const fn as_ptr(&self) -> *const T {
-+        self.as_mut_ptr() as *const _
-+    }
-+
-+    /// Returns a raw pointer to the opaque data.
-+    pub const fn as_void_ptr(&self) -> *mut std::ffi::c_void {
-+        UnsafeCell::get(&self.value).cast()
-+    }
-+}
-+
-+impl<T> fmt::Debug for Opaque<T> {
-+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-+        let mut name: String = "Opaque<".to_string();
-+        name += std::any::type_name::<T>();
-+        name += ">";
-+        f.debug_tuple(&name).field(&self.as_ptr()).finish()
-+    }
-+}
-+
-+impl<T: Default> Default for Opaque<T> {
-+    fn default() -> Self {
-+        Self {
-+            value: UnsafeCell::new(MaybeUninit::new(T::default())),
-+            _pin: PhantomPinned,
-+        }
-+    }
-+}
-+
-+impl<T: Default> Opaque<T> {
-+    /// Creates a new opaque object with default contents.
-+    pub fn new() -> Self {
-+        Self::default()
-+    }
-+}
+ /// Interrupt sources are used by devices to pass changes to a value (typically
+ /// a boolean).  The interrupt sink is usually an interrupt controller or
+ /// GPIO controller.
+@@ -22,8 +28,7 @@
+ /// method sends a `true` value to the sink.  If the guest has to see a
+ /// different polarity, that change is performed by the board between the
+ /// device and the interrupt controller.
+-pub type IRQState = bindings::IRQState;
+-
++///
+ /// Interrupts are implemented as a pointer to the interrupt "sink", which has
+ /// type [`IRQState`].  A device exposes its source as a QOM link property using
+ /// a function such as [`SysBusDeviceMethods::init_irq`], and
+@@ -41,7 +46,7 @@ pub struct InterruptSource<T = bool>
+ where
+     c_int: From<T>,
+ {
+-    cell: BqlCell<*mut IRQState>,
++    cell: BqlCell<*mut bindings::IRQState>,
+     _marker: PhantomData<T>,
+ }
+ 
+@@ -80,11 +85,11 @@ pub fn set(&self, level: T) {
+         }
+     }
+ 
+-    pub(crate) const fn as_ptr(&self) -> *mut *mut IRQState {
++    pub(crate) const fn as_ptr(&self) -> *mut *mut bindings::IRQState {
+         self.cell.as_ptr()
+     }
+ 
+-    pub(crate) const fn slice_as_ptr(slice: &[Self]) -> *mut *mut IRQState {
++    pub(crate) const fn slice_as_ptr(slice: &[Self]) -> *mut *mut bindings::IRQState {
+         assert!(!slice.is_empty());
+         slice[0].as_ptr()
+     }
+diff --git a/rust/qemu-api/src/sysbus.rs b/rust/qemu-api/src/sysbus.rs
+index 04821a2b9b3..48803a655f9 100644
+--- a/rust/qemu-api/src/sysbus.rs
++++ b/rust/qemu-api/src/sysbus.rs
+@@ -79,6 +79,7 @@ fn mmio_map(&self, id: u32, addr: u64) {
+     fn connect_irq(&self, id: u32, irq: &Owned<IRQState>) {
+         assert!(bql_locked());
+         let id: i32 = id.try_into().unwrap();
++        let irq: &IRQState = irq;
+         unsafe {
+             bindings::sysbus_connect_irq(self.as_mut_ptr(), id, irq.as_mut_ptr());
+         }
 -- 
 2.48.1
 
