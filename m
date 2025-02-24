@@ -1,45 +1,63 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tlbHG-0000oh-44
-	for mharc-qemu-rust@gnu.org; Fri, 21 Feb 2025 17:13:46 -0500
+	id 1tmZN4-0001qW-Ki
+	for mharc-qemu-rust@gnu.org; Mon, 24 Feb 2025 09:23:46 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <mjt@tls.msk.ru>)
- id 1tlX9u-0000lt-Hw; Fri, 21 Feb 2025 12:49:54 -0500
-Received: from isrv.corpit.ru ([86.62.121.231])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tmZN3-0001q9-4R; Mon, 24 Feb 2025 09:23:45 -0500
+Received: from mgamail.intel.com ([192.198.163.7])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <mjt@tls.msk.ru>)
- id 1tlX9s-0001aQ-Tr; Fri, 21 Feb 2025 12:49:54 -0500
-Received: from tsrv.corpit.ru (tsrv.tls.msk.ru [192.168.177.2])
- by isrv.corpit.ru (Postfix) with ESMTP id 3A1E7EFB64;
- Fri, 21 Feb 2025 20:49:30 +0300 (MSK)
-Received: from gandalf.tls.msk.ru (mjt.wg.tls.msk.ru [192.168.177.130])
- by tsrv.corpit.ru (Postfix) with ESMTP id E6B241BB580;
- Fri, 21 Feb 2025 20:49:49 +0300 (MSK)
-Received: by gandalf.tls.msk.ru (Postfix, from userid 1000)
- id E183553F7B; Fri, 21 Feb 2025 20:49:49 +0300 (MSK)
-From: Michael Tokarev <mjt@tls.msk.ru>
-To: qemu-devel@nongnu.org
-Cc: qemu-stable@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
- qemu-rust@nongnu.org, Stefan Hajnoczi <stefanha@redhat.com>,
- Michael Tokarev <mjt@tls.msk.ru>
-Subject: [Stable-9.2.2 01/14] rust: add --rust-target option for bindgen
-Date: Fri, 21 Feb 2025 20:49:31 +0300
-Message-Id: <20250221174949.836197-1-mjt@tls.msk.ru>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <qemu-stable-9.2.2-20250221204240@cover.tls.msk.ru>
-References: <qemu-stable-9.2.2-20250221204240@cover.tls.msk.ru>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tmZN1-0004h3-3y; Mon, 24 Feb 2025 09:23:44 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1740407023; x=1771943023;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=F63oDHIOkTzajWN5/wlB/GDNtKR4H5i+yJtuQGFW2zI=;
+ b=JfjG8J4vj4r09FXfYpHODF5Fba6vmwx4I5D+BWAmUb+1bVAhQsj0wk+l
+ Viu/sq5qNT74DhF1r9gq5GZIcrmBrZiI4+3cY00L7KEweavdsak9k9OS9
+ nE1QKeA7p5V8rqewsE3VkyqiCQCvy3p0WWxSoBkBNp7O/6U37sxPIBPGa
+ kqTZws9OAF5dtw1nm5c30FtyplJLXdPYJgEnTCxE3xXrvvi+VuSeSxOnZ
+ H/c5CqWFBv8cCTT0SRVTDsBja/uQ86BjAw1h3oawnBODX9LvuYTa5yafW
+ ekj49lt1vRw+X5siGFTrSdiGUYUFzzIXPZPdV6Gfcg8SmoSPtb1hFbMck Q==;
+X-CSE-ConnectionGUID: nFIGPLUORGyxRM8zcwHLlg==
+X-CSE-MsgGUID: TACspP4+RuqcVP67yN7UIw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11355"; a="66533870"
+X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="66533870"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2025 06:23:38 -0800
+X-CSE-ConnectionGUID: e5CMqHvaT/uCSTAATttmvQ==
+X-CSE-MsgGUID: 7t89qivjQ4emw+HVQXg9OA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="121035133"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa004.jf.intel.com with ESMTP; 24 Feb 2025 06:23:35 -0800
+Date: Mon, 24 Feb 2025 22:43:08 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH 01/15] rust: add IsA bounds to QOM implementation traits
+Message-ID: <Z7yFfCZiBzf067m7@intel.com>
+References: <20250221170342.63591-1-pbonzini@redhat.com>
+ <20250221170342.63591-2-pbonzini@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=86.62.121.231; envelope-from=mjt@tls.msk.ru;
- helo=isrv.corpit.ru
-X-Spam_score_int: -68
-X-Spam_score: -6.9
-X-Spam_bar: ------
-X-Spam_report: (-6.9 / 5.0 requ) BAYES_00=-1.9, RCVD_IN_DNSWL_HI=-5,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250221170342.63591-2-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.7; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -47
+X-Spam_score: -4.8
+X-Spam_bar: ----
+X-Spam_report: (-4.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.442,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Fri, 21 Feb 2025 17:13:45 -0500
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,39 +69,25 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Feb 2025 17:49:55 -0000
+X-List-Received-Date: Mon, 24 Feb 2025 14:23:45 -0000
 
-From: Paolo Bonzini <pbonzini@redhat.com>
+On Fri, Feb 21, 2025 at 06:03:28PM +0100, Paolo Bonzini wrote:
+> Date: Fri, 21 Feb 2025 18:03:28 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH 01/15] rust: add IsA bounds to QOM implementation traits
+> X-Mailer: git-send-email 2.48.1
+> 
+> Check that the right bounds are provided to the qom_isa! macro
+> whenever the class is defined to implement a certain class.
+> This removes the need to add IsA<> bounds together with the
+> *Impl trait bounds.
+> 
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  rust/qemu-api/src/qdev.rs | 2 +-
+>  rust/qemu-api/src/qom.rs  | 4 +++-
+>  2 files changed, 4 insertions(+), 2 deletions(-)
 
-Without it, recent bindgen will give an error
-
-   error: extern block cannot be declared unsafe
-
-if rustc is not new enough to support the "unsafe extern" construct.
-
-Cc: qemu-rust@nongnu.org
-Cc: qemu-stable@nongnu.org
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <20250206111514.2134895-1-pbonzini@redhat.com>
-Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-(cherry picked from commit 131c58469f6fb68c89b38fee6aba8bbb20c7f4bf)
-Signed-off-by: Michael Tokarev <mjt@tls.msk.ru>
-
-diff --git a/meson.build b/meson.build
-index 7a3faca61d..7f6f638676 100644
---- a/meson.build
-+++ b/meson.build
-@@ -4050,6 +4050,9 @@ if have_rust
-       bindgen_args += ['--formatter', 'none']
-     endif
-   endif
-+  if bindgen.version().version_compare('>=0.66.0')
-+    bindgen_args += ['--rust-target', '1.59']
-+  endif
-   if bindgen.version().version_compare('<0.61.0')
-     # default in 0.61+
-     bindgen_args += ['--size_t-is-usize']
--- 
-2.39.5
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
