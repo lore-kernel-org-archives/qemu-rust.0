@@ -1,53 +1,53 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tmpUr-0005wI-Pp
-	for mharc-qemu-rust@gnu.org; Tue, 25 Feb 2025 02:36:54 -0500
+	id 1tmpxq-0006Gx-EU
+	for mharc-qemu-rust@gnu.org; Tue, 25 Feb 2025 03:06:50 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tmpUd-0005sj-P1; Tue, 25 Feb 2025 02:36:41 -0500
-Received: from mgamail.intel.com ([198.175.65.14])
+ id 1tmpxo-0006GM-99; Tue, 25 Feb 2025 03:06:48 -0500
+Received: from mgamail.intel.com ([198.175.65.20])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tmpUa-0008DM-UL; Tue, 25 Feb 2025 02:36:39 -0500
+ id 1tmpxm-0003KZ-8L; Tue, 25 Feb 2025 03:06:48 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740468997; x=1772004997;
+ t=1740470807; x=1772006807;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=T34SlHfKaqCquR0uLbmqWZL7AKE9Q9Hxkgq24e4Nj2Q=;
- b=RIm229Mf1ZOvPV/eQwC5uXj0G5+VyzRcrT/04chSfFMZNpFtmINHTxCP
- pYu2UVhSQbLDBpmXxJkgSI3Sf0m5CXIl0kbHssQG0N6UI8bUYPGBgfFPj
- RMzp3AnningWq2H87HTqe7xw/oZK0+nRo3oFyWNgf5l/JnkOmLljqI5Ii
- FuXEyi+RSk0TBgJkZ85DbgHH1vL09LjprVoSnEvJBrtOY91iTCBxTvw/S
- /9fpmOp9bwaGkT2CG+r8UU1xINVMAXhpssbxDuOoIO9F8GDaqlgHpFkX1
- JNc9q9Urxj5Se4FVPpfYBfY5Xwb6cj+qjUVRJy1HAmgYZXitnEtZPoYYh Q==;
-X-CSE-ConnectionGUID: tYL/W3PbRH+BbFhPOCODjg==
-X-CSE-MsgGUID: 8gdNTaAQR4CTOmynK8TNEw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11355"; a="45045974"
-X-IronPort-AV: E=Sophos;i="6.13,313,1732608000"; d="scan'208";a="45045974"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2025 23:36:35 -0800
-X-CSE-ConnectionGUID: 8oOuoD0rRxy6YftZwXbF5Q==
-X-CSE-MsgGUID: yVlb5Z7mTm+WVQXvMmZtrQ==
+ bh=n9RpmYDIFhb5St0ldENbDzfjlYnp7IIS8EXlppT1cGs=;
+ b=mBb37im7JKOZpJkWQuD9XLFz8GQoJp+2LWmXipyMXPyVH8SOVtJAqRcu
+ J3fuN1puQoT72paosYoTp/7zc7xXkd4Ck/xMIYyAs/8x+LiuUh7EImQRX
+ GK9ckk9Djn88ezgfoDRsW8jyfudST9CGwfBHLamI7YLrqN3JqCzw0MZso
+ hXOX8ZYYy3jwrG/5mzWO3tepogq9PEu/Z+BaUaMxRD4EbVolbuNWUC/jC
+ bGoNtLrE0zds7jHYHEE4vyjmQq0SkelbeetM0VKFstAoa1EF9zfzao46K
+ UvCMXQ9bi3eIFgdE9PQNzk14o9oSztJxrTIamX4HtU0QycVx10R9abLui w==;
+X-CSE-ConnectionGUID: JvhB863cSl+wVWe9PfQAGg==
+X-CSE-MsgGUID: HsQGpyRcTPW2Z2PKPj1XNw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11355"; a="40966347"
+X-IronPort-AV: E=Sophos;i="6.13,313,1732608000"; d="scan'208";a="40966347"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2025 00:06:43 -0800
+X-CSE-ConnectionGUID: XOQXjDbETvKnHe+o9FpoIQ==
+X-CSE-MsgGUID: 6cpb9PIATLitp60sfz9UHg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,313,1732608000"; d="scan'208";a="121277453"
+X-IronPort-AV: E=Sophos;i="6.13,313,1732608000"; d="scan'208";a="139556276"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa004.jf.intel.com with ESMTP; 24 Feb 2025 23:36:32 -0800
-Date: Tue, 25 Feb 2025 15:56:10 +0800
+ by fmviesa002.fm.intel.com with ESMTP; 25 Feb 2025 00:06:41 -0800
+Date: Tue, 25 Feb 2025 16:26:18 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 08/15] rust: timer: wrap QEMUTimer with Opaque<>
-Message-ID: <Z713mocA7X+pGnol@intel.com>
+Subject: Re: [PATCH 09/15] rust: irq: wrap IRQState with Opaque<>
+Message-ID: <Z71+qiu+X4BKW2ja@intel.com>
 References: <20250221170342.63591-1-pbonzini@redhat.com>
- <20250221170342.63591-9-pbonzini@redhat.com>
+ <20250221170342.63591-10-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250221170342.63591-9-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.14; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250221170342.63591-10-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.20; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -47
 X-Spam_score: -4.8
@@ -69,22 +69,41 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Feb 2025 07:36:47 -0000
+X-List-Received-Date: Tue, 25 Feb 2025 08:06:48 -0000
 
-On Fri, Feb 21, 2025 at 06:03:35PM +0100, Paolo Bonzini wrote:
-> Date: Fri, 21 Feb 2025 18:03:35 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 08/15] rust: timer: wrap QEMUTimer with Opaque<>
-> X-Mailer: git-send-email 2.48.1
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  meson.build                |  7 -------
->  rust/qemu-api/src/timer.rs | 24 +++++++++++++++++-------
->  2 files changed, 17 insertions(+), 14 deletions(-)
+> +/// An opaque wrapper around [`bindings::IRQState`].
+> +#[repr(transparent)]
+> +#[derive(Debug, qemu_api_macros::Wrapper)]
+> +pub struct IRQState(Opaque<bindings::IRQState>);
+> +
+>  /// Interrupt sources are used by devices to pass changes to a value (typically
+>  /// a boolean).  The interrupt sink is usually an interrupt controller or
+>  /// GPIO controller.
+> @@ -22,8 +28,7 @@
+>  /// method sends a `true` value to the sink.  If the guest has to see a
+>  /// different polarity, that change is performed by the board between the
+>  /// device and the interrupt controller.
+> -pub type IRQState = bindings::IRQState;
+> -
+> +///
+>  /// Interrupts are implemented as a pointer to the interrupt "sink", which has
+>  /// type [`IRQState`].  A device exposes its source as a QOM link property using
+>  /// a function such as [`SysBusDeviceMethods::init_irq`], and
+> @@ -41,7 +46,7 @@ pub struct InterruptSource<T = bool>
+>  where
+>      c_int: From<T>,
+>  {
+> -    cell: BqlCell<*mut IRQState>,
+> +    cell: BqlCell<*mut bindings::IRQState>,
 
-Thanks!
+Once we've already wrapper IRQState in Opaque<>, should we still use
+bindings::IRQState?
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+Although InterruptSource just stores a pointer. However, I think we can
+use wrapped IRQState here instead of the native binding type, since this
+item is also crossing the FFI boundary. What do you think?
 
+>      _marker: PhantomData<T>,
+>  }
+>  
 
