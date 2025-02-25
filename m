@@ -1,53 +1,53 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tmqMu-00034S-Gc
-	for mharc-qemu-rust@gnu.org; Tue, 25 Feb 2025 03:32:44 -0500
+	id 1tmqUI-0004uq-GF
+	for mharc-qemu-rust@gnu.org; Tue, 25 Feb 2025 03:40:22 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tmqMs-00033f-KW; Tue, 25 Feb 2025 03:32:42 -0500
-Received: from mgamail.intel.com ([198.175.65.17])
+ id 1tmqUG-0004uP-RK; Tue, 25 Feb 2025 03:40:20 -0500
+Received: from mgamail.intel.com ([192.198.163.13])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tmqMq-0005pQ-AB; Tue, 25 Feb 2025 03:32:41 -0500
+ id 1tmqUE-0006xA-SL; Tue, 25 Feb 2025 03:40:20 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740472361; x=1772008361;
+ t=1740472819; x=1772008819;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=oXJaA35bR33V9to2KnGqgUZArNmmJdOABbqLVcCkd18=;
- b=YUrE0zzwePAHprY/v/0CrkQCMO5deYNmZAXMHiNBVvVLxD7XMp2T1QaD
- 4lybIozrvOkhxjNquaCBKpmh8IGbgP1YH2IBB4STJY7NmpZuQwpmiUGpt
- SmuyfC4bM8kZ2lYfFKcBIg5azaPfRHAXR3OjQFTIxr2q2W95+7/xyaqvQ
- 5H37JEKohRFwrbIX5z+anjIsQr34VH35tQWJLP3mPg4GT1y3NZuSf+URZ
- I2QSeQ1NFR4p9MNiLO3G4/XqIzNiBwo7EwikupSYV4jch+kCIFjv9rPrH
- HLyYujZWI6ZpLqYKyghL9aCDjdEaaw4Llf5KMQduMnAtxCeKM7xkqbtCR w==;
-X-CSE-ConnectionGUID: aESu0RfRR2ixt7YtlaDSeA==
-X-CSE-MsgGUID: rVtvzi48Rrix3oYH8UjNKQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11355"; a="41285105"
-X-IronPort-AV: E=Sophos;i="6.13,313,1732608000"; d="scan'208";a="41285105"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2025 00:32:38 -0800
-X-CSE-ConnectionGUID: yEPIEPz3RIKu0vFe2H4VHg==
-X-CSE-MsgGUID: TdXaUyQnRFCQ1C5tSmyb4Q==
+ bh=X+6YwobAZHS/ZNCYW6Ko03wPfvvRr317mo0xh0JB3rI=;
+ b=ccFKdEucdox7Dn+EEdZ2D+NAFPt4z2eUoT8t/oTE3R+DsNRZbIvDz+pN
+ zcY8vepYmIKVWUQpxBH5/FXxlWIqFDwxdnSXNFIRJk+Xx4F/iPe1lDdMl
+ hlfd9ekOe83du2Gi9UOm7ajUx6k1/ct4IrmQCZl3ttfDCqFOB7sY4mw7V
+ sxjnVo1trg/nExeqqvFFqhcR098oWk2Wzjk5AQm2kTNvZQDxUHSa742cj
+ ZNOmNfmu/H+G6wbjbccK2VMUq9sGvvQtCsAOOUrkuYpb0MWwg+XW1+USr
+ u2vv5hhroCJnipV3YmQf7RFs8O8MJUoaK7OE2Zyz/wiEoz/7fMs0OR6nP Q==;
+X-CSE-ConnectionGUID: cFWQayPFSEmRKtKVjkFbIw==
+X-CSE-MsgGUID: kDOdLMIyQH2HEUKFq0O0ug==
+X-IronPort-AV: E=McAfee;i="6700,10204,11355"; a="44089747"
+X-IronPort-AV: E=Sophos;i="6.13,313,1732608000"; d="scan'208";a="44089747"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2025 00:40:15 -0800
+X-CSE-ConnectionGUID: Ce37mBdZTa+VwkNKM5PFtQ==
+X-CSE-MsgGUID: ZG044S3hT72T0Y7OGC9+Dw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,313,1732608000"; d="scan'208";a="116095284"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="147211832"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa009.jf.intel.com with ESMTP; 25 Feb 2025 00:32:36 -0800
-Date: Tue, 25 Feb 2025 16:52:13 +0800
+ by fmviesa001.fm.intel.com with ESMTP; 25 Feb 2025 00:40:15 -0800
+Date: Tue, 25 Feb 2025 16:59:52 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 11/15] rust: qdev: wrap Clock and DeviceState with Opaque<>
-Message-ID: <Z72EvUcb2hWxknpw@intel.com>
+Subject: Re: [PATCH 12/15] rust: sysbus: wrap SysBusDevice with Opaque<>
+Message-ID: <Z72GiF11dlzuDQ+i@intel.com>
 References: <20250221170342.63591-1-pbonzini@redhat.com>
- <20250221170342.63591-12-pbonzini@redhat.com>
+ <20250221170342.63591-13-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250221170342.63591-12-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.17; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250221170342.63591-13-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.13; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -47
 X-Spam_score: -4.8
@@ -69,51 +69,40 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Feb 2025 08:32:43 -0000
+X-List-Received-Date: Tue, 25 Feb 2025 08:40:21 -0000
 
-> -unsafe extern "C" fn rust_realize_fn<T: DeviceImpl>(dev: *mut DeviceState, _errp: *mut *mut Error) {
-> +unsafe extern "C" fn rust_realize_fn<T: DeviceImpl>(
-> +    dev: *mut bindings::DeviceState,
-> +    _errp: *mut *mut Error,
-> +) {
->      let state = NonNull::new(dev).unwrap().cast::<T>();
->      T::REALIZE.unwrap()(unsafe { state.as_ref() });
->  }
-> @@ -251,7 +270,7 @@ fn init_clock_in<F: for<'a> FnCall<(&'a Self::Target, ClockEvent)>>(
->          events: ClockEvent,
->      ) -> Owned<Clock> {
->          fn do_init_clock_in(
-> -            dev: *mut DeviceState,
-> +            dev: &DeviceState,
->              name: &str,
->              cb: Option<unsafe extern "C" fn(*mut c_void, ClockEvent)>,
->              events: ClockEvent,
-> @@ -265,14 +284,15 @@ fn do_init_clock_in(
->              unsafe {
->                  let cstr = CString::new(name).unwrap();
->                  let clk = bindings::qdev_init_clock_in(
-> -                    dev,
-> +                    dev.0.as_mut_ptr(),
+On Fri, Feb 21, 2025 at 06:03:39PM +0100, Paolo Bonzini wrote:
+> Date: Fri, 21 Feb 2025 18:03:39 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH 12/15] rust: sysbus: wrap SysBusDevice with Opaque<>
+> X-Mailer: git-send-email 2.48.1
+> 
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  rust/hw/timer/hpet/src/hpet.rs |  2 +-
+>  rust/qemu-api/src/bindings.rs  |  3 ---
+>  rust/qemu-api/src/sysbus.rs    | 25 ++++++++++++++++++-------
+>  3 files changed, 19 insertions(+), 11 deletions(-)
+> 
+> diff --git a/rust/hw/timer/hpet/src/hpet.rs b/rust/hw/timer/hpet/src/hpet.rs
+> index be27eb0eff4..19e63465cff 100644
+> --- a/rust/hw/timer/hpet/src/hpet.rs
+> +++ b/rust/hw/timer/hpet/src/hpet.rs
+> @@ -741,7 +741,7 @@ fn reset_hold(&self, _type: ResetType) {
+>          HPETFwConfig::update_hpet_cfg(
+>              self.hpet_id.get(),
+>              self.capability.get() as u32,
+> -            sbd.mmio[0].addr,
+> +            unsafe { *sbd.as_ptr() }.mmio[0].addr,
 
-This can be simplfied as dev.as_mut_ptr().
+We can wrap this unsafe code into SysBusDeviceMethods...then the device
+won't introduce more unsafe code.
 
->                      cstr.as_ptr(),
->                      cb,
-> -                    dev.cast::<c_void>(),
-> +                    dev.0.as_void_ptr(),
-
-If Wrapper provides as_void_ptr(), then this can also be simplified.
-
->                      events.0,
->                  );
+>          );
 >  
-> -                Owned::from(&*clk)
-> +                let clk: &Clock = Clock::from_raw(clk);
-> +                Owned::from(clk)
->              }
->          }
+>          // to document that the RTC lowers its output on reset as well
 
-LGTM,
+Others, fine for me,
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
