@@ -1,53 +1,53 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tma1K-0007jV-9t
-	for mharc-qemu-rust@gnu.org; Mon, 24 Feb 2025 10:05:22 -0500
+	id 1tmoPB-0007AN-Q1
+	for mharc-qemu-rust@gnu.org; Tue, 25 Feb 2025 01:26:57 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tma1I-0007ik-6g; Mon, 24 Feb 2025 10:05:20 -0500
-Received: from mgamail.intel.com ([192.198.163.15])
+ id 1tmoP2-00079N-Pg; Tue, 25 Feb 2025 01:26:48 -0500
+Received: from mgamail.intel.com ([192.198.163.8])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tma1F-0002o0-TE; Mon, 24 Feb 2025 10:05:19 -0500
+ id 1tmoOy-0001FC-6y; Tue, 25 Feb 2025 01:26:47 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740409518; x=1771945518;
+ t=1740464804; x=1772000804;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=hn+d1SF1sS5LNxK/SwJAWUQQr/kYEgOjic0BVV7zukY=;
- b=YVn8JqW1LMlapQdj4Zh7zW1WF/weON7cof/6SmtmAEbvBJm9E6Do6edj
- Ibd1IPoV0oFe2k8mkr0SoWqru306FVnRLFHxVInyt3Eb3a+Rg/MeFnee6
- BAuCtHzuLy7krW4ho6TlYJBERR/3X/044DaWvUgVx6CoD8wz9+kGsQO3N
- dh/+99bzF29g89cpQwxGYdPvWpuVDuSXNM74KG/GZOTAkNZ/if7bQRVoQ
- EwU3+ZzTImDpkcrZnGACerdQEiy19uQcanNKczatVEcvw5TaThu1xJUqU
- 4BFo0/B6dCa/iYuqMTnaZX+c2Hx27hcg5GBb5ydyPGaU0Bo0cpHHsYQ9F A==;
-X-CSE-ConnectionGUID: prhHQkfeTzeDbrVCMtvfFQ==
-X-CSE-MsgGUID: 1PJWS1BiQQqdR29U0eS4AA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11355"; a="41304032"
-X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="41304032"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2025 07:05:14 -0800
-X-CSE-ConnectionGUID: mkL8r++5S8yarANs7fjT+w==
-X-CSE-MsgGUID: kMxAupz2Qw6ZtjDb9k5LzA==
+ bh=gcnnrlfbep+3n+TB3ISdH1THmG3D+qNZIJZlMekACzU=;
+ b=dewLFsTkOLOjK+Am0leJChEGEQjGBEohQzN0v+sE2MvZbRpTQZo3Kmut
+ H9sev64XT18qgiSYCqLq+SBwInARGkyT5NtNYvjaVHGKK81nxYdqYxWW4
+ l36W5kB8yHEfVdzxZZACmgZNMdFNJHUEe/ImyeXvFg8mQeMUkZOp2z2nL
+ iY4ILw5TD3SA3tDkbRHouYASQjXg0YtHQ+MKEB+NJhCBv6V6nKrywsWTU
+ DVWCIRq/UTkMJer57uWpw5cBptQYJqz8hLEYdTTj3rsgo8Yuwc4qZqqo0
+ q5WLsJK4cdzwP7zK23kbpVlenhMZuhNxfvAlc4d+a0Zzo0DBkBbF7M1ji w==;
+X-CSE-ConnectionGUID: LDM/YHplQ6CAGY0+Dsulsg==
+X-CSE-MsgGUID: pi/tzc8iQT24LKXi/dXZ/A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11355"; a="58796535"
+X-IronPort-AV: E=Sophos;i="6.13,313,1732608000"; d="scan'208";a="58796535"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2025 22:26:35 -0800
+X-CSE-ConnectionGUID: SkpgLxr4QA+0WPx418/9xA==
+X-CSE-MsgGUID: Bk8iHQveTZ67NcWAQK1e+Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,309,1732608000"; d="scan'208";a="120995143"
+X-IronPort-AV: E=Sophos;i="6.13,313,1732608000"; d="scan'208";a="116065015"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa003.jf.intel.com with ESMTP; 24 Feb 2025 07:05:13 -0800
-Date: Mon, 24 Feb 2025 23:24:49 +0800
+ by orviesa009.jf.intel.com with ESMTP; 24 Feb 2025 22:26:33 -0800
+Date: Tue, 25 Feb 2025 14:46:10 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 05/15] rust: qom: get rid of ClassInitImpl
-Message-ID: <Z7yPQcjfJ/nYb9hK@intel.com>
+Subject: Re: [PATCH 06/15] rust: cell: add wrapper for FFI types
+Message-ID: <Z71nMnJ3StEnFx/b@intel.com>
 References: <20250221170342.63591-1-pbonzini@redhat.com>
- <20250221170342.63591-6-pbonzini@redhat.com>
+ <20250221170342.63591-7-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250221170342.63591-6-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.15; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250221170342.63591-7-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.8; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -47
 X-Spam_score: -4.8
@@ -69,26 +69,52 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Feb 2025 15:05:20 -0000
+X-List-Received-Date: Tue, 25 Feb 2025 06:26:53 -0000
 
-On Fri, Feb 21, 2025 at 06:03:32PM +0100, Paolo Bonzini wrote:
-> Date: Fri, 21 Feb 2025 18:03:32 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 05/15] rust: qom: get rid of ClassInitImpl
-> X-Mailer: git-send-email 2.48.1
-> 
-> Complete the conversion from the ClassInitImpl trait to class_init() methods.
-> This will provide more freedom to split the qemu_api crate in separate parts.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/hw/char/pl011/src/device.rs |   6 +-
->  rust/hw/timer/hpet/src/hpet.rs   |   4 +-
->  rust/qemu-api/src/qdev.rs        |  38 ++++---
->  rust/qemu-api/src/qom.rs         | 164 +++++++++++++------------------
->  rust/qemu-api/src/sysbus.rs      |  15 ++-
->  rust/qemu-api/tests/tests.rs     |   4 +-
->  6 files changed, 101 insertions(+), 130 deletions(-)
+> +    /// Creates a new opaque object with zeroed contents.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// Ultimately the pointer to the returned value will be dereferenced
+> +    /// in another unsafe block, for example when passing it to a C function.
+> +    /// However, this function is unsafe to "force" documenting whether a
+> +    /// zero value is safe.
+> +    pub const unsafe fn zeroed() -> Self {
+> +        Self {
+> +            value: UnsafeCell::new(MaybeUninit::uninit()),
+
+typo? MaybeUninit::zeroed()
+
+> +            _pin: PhantomPinned,
+> +        }
+> +    }
+> +
+> +    /// Returns a raw pointer to the opaque data.
+
+Maybe "a raw mutable pointer".
+
+> +    pub const fn as_mut_ptr(&self) -> *mut T {
+> +        UnsafeCell::get(&self.value).cast()
+> +    }
+> +
+> +    /// Returns a raw pointer to the opaque data.
+> +    pub const fn as_ptr(&self) -> *const T {
+> +        self.as_mut_ptr() as *const _
+> +    }
+> +
+> +    /// Returns a raw pointer to the opaque data.
+
+What about "Returns a raw c_void type pointer"?
+
+(Because the descriptions of these three helpers are exactly the same!
+We can make them different.)
+zeroed
+> +    pub const fn as_void_ptr(&self) -> *mut std::ffi::c_void {
+> +        UnsafeCell::get(&self.value).cast()
+> +    }
+> +}
+
+The whole idea is great! With the nit of zeroed fixed,
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
