@@ -1,68 +1,68 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tnhdm-000105-HC
-	for mharc-qemu-rust@gnu.org; Thu, 27 Feb 2025 12:25:42 -0500
+	id 1tnhgV-0003hf-0u
+	for mharc-qemu-rust@gnu.org; Thu, 27 Feb 2025 12:28:31 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tnhdj-0000xq-Ek
- for qemu-rust@nongnu.org; Thu, 27 Feb 2025 12:25:39 -0500
-Received: from mail-yb1-xb2a.google.com ([2607:f8b0:4864:20::b2a])
+ id 1tnhgS-0003Y6-Sa
+ for qemu-rust@nongnu.org; Thu, 27 Feb 2025 12:28:28 -0500
+Received: from mail-yw1-x1136.google.com ([2607:f8b0:4864:20::1136])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tnhdh-00078I-KW
- for qemu-rust@nongnu.org; Thu, 27 Feb 2025 12:25:39 -0500
-Received: by mail-yb1-xb2a.google.com with SMTP id
- 3f1490d57ef6-e60957e0fa6so1700076276.1
- for <qemu-rust@nongnu.org>; Thu, 27 Feb 2025 09:25:37 -0800 (PST)
+ id 1tnhgR-0007Yq-7d
+ for qemu-rust@nongnu.org; Thu, 27 Feb 2025 12:28:28 -0500
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-6fd3b31c860so6713427b3.0
+ for <qemu-rust@nongnu.org>; Thu, 27 Feb 2025 09:28:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740677136; x=1741281936; darn=nongnu.org;
+ d=linaro.org; s=google; t=1740677306; x=1741282106; darn=nongnu.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=umCqtJHNDiaN2Msvs96YELjwtlZ9CI4JgKPBd8MXQpI=;
- b=l9z6xayNxwt3PSE8u42SHkQAycQtbRG5EuSvX744B6W9EI+k9CwlAi7A0GCgHhrjmJ
- 2xpIoFRL+wj22r1jheckA4RsYOi+li/aGiVwdjNdBY1zFvWQVOo90szFtp2jHba9jCCn
- IEeYIMwyHVuKTI5yjsnYQs+okw97AF/gHw6H5gMr3RvdCNt/Dyvh2RLs9eRJKa2brVJU
- Oif3UjbR2zkSoWPPjmDTsljQqJXDtp4VUMaCUp0jQqwM3WXyJnxTX29kNLHIPl+oC3Kj
- YoL5usBW6NeQ4qCWJtBhG1fMl+fuyGTUw4lzaRavYIbJx3bbOdyd6WMOu2vM3P6qiRSz
- s8DQ==
+ bh=gRnxIZxMtrrbRPm4yK9hUiwseHgdagIQ6mDl6/+dzFo=;
+ b=q0/AsQTxIVRPLMtIwkmuKe6euv/Lae9HtSGl1ki6yhCAjxgIkRp/rBv+J7k4bG+/Ca
+ pCg88o1c3UwKWIX1tUHNLFpeL+TcI2Mpo07d8oQ4goBcSoyJrYWi1bOcDBe3J/w79R55
+ SKmG2uA/fRPYohNBqVyIrkI1Fu9nCNdV1/2SilCWFLmQCELf7girhB6ZajNFjltbb4Pt
+ 5VTl1ZkpEFqUP8cjYRA08tTwcZPAWOJypktJWOsqG2Sp6j6LPTrRtU+zZkl8QwJihZ3l
+ wuLrr0cNLMFMnScV+a2MroKnDa6ZLkD2lth4E+aDmfRERmb4nxL94QutnGsW9lL4k1bl
+ DcMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740677136; x=1741281936;
+ d=1e100.net; s=20230601; t=1740677306; x=1741282106;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=umCqtJHNDiaN2Msvs96YELjwtlZ9CI4JgKPBd8MXQpI=;
- b=Idhq0ymW/qN8KhCoHLgNI4Fwor/VvMyhjDcHXJFiWMABPzaA2M8SXNX24h5Z6A+xto
- W4SZdHI+KTf4hxuQSz6R6dU0NfG6A+zVgH0JGkZVWhkslbSJ3yqX3cfZYRt5ld9vk+W9
- qCUPoatO5FewIQufJwlORv/OuqUBhkLuRWuMGD/LHIJb9CgE+57zvB0ZPLVl2/SmUXLn
- 9KJYbXyUmQVFH49icqTy83XIcv5/opM7Qdw4YTMuz8X2IMH8D0p/NnpEKxZITwYjVW4p
- gNt63xHYf4SnHWpbQq7+G4I9U+wfD+UQNFCCGRcUIpNeZYb9D2r9IsCMESb6803zcn/d
- B05w==
+ bh=gRnxIZxMtrrbRPm4yK9hUiwseHgdagIQ6mDl6/+dzFo=;
+ b=BA4lbOkhz6VnBn8atfdq8/svlP8inPnrD+FODxOe3paZqbFzc73jgqSpYlxE5RMU6h
+ gAaq5scaTIWkKdRxREMu32j0qrCChdg+ac2S01GHouO+zGCG93kh8oloi0Rvq8WBlFTJ
+ wMkcpoQMm9n+5b+8lAi85ddnba1GQtMC6qE0FioBJrcW79718VWMSinuD1hwnlX8kx6+
+ 4eqUwiv65O1lGCyZofsQgcFC3ZfGt1GkM3Rz2iXZZM0qaCdiuNu1GvF3PqRD9K09w7Sa
+ HZmM5OifyR+4bQjLmAiTM6lfpn4f+QLOhk0vKl5RopdgGUFMzUGrnrpEkFg12cnS9Fok
+ nUsw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUjBXNyyxmS1b0skkJcTGBE7Ybvu4NxFQr521D/YS8GcIFjCJW7tPAt8ZuuNy6m0PnmwLSGUjNlX/I=@nongnu.org
-X-Gm-Message-State: AOJu0YwS+4P0OgOMlDJIEdrXwGdsrNT+nkfFbyEvl0V1KbhB0oxjIHDM
- 2jFU3fBkxtDvFpSVQBS913RRe6ARvm8bNeURXQFtZfBsc7n06N9L+kms+G0m8j2Qhpn/29kuHUC
- 7uc5eztBV2XJNg3X3nIKN7+v//fL9S2Jey8gUzQ==
-X-Gm-Gg: ASbGncsS3cYX4k8pox4rBoTg1J05khWgFs/qPIKpFkOcnrjxeL9/SMrvsl1guhRcj+R
- Jn22KViogqsgMuO6NlcoBW3J7omxhXBQSf3L5BCdhjGrTyeHtUf9bIbNDxPaAMS6od8WtREiNKw
- ciZ+xdMnnn
-X-Google-Smtp-Source: AGHT+IF0W32cuy7ZDA8CxbceP6kpxGyh33+dQaztyWaRxElC4ocyR767P0NtpU5FdqNgkqpBbMQAs+T2eRyFvLzdHCo=
-X-Received: by 2002:a05:6902:2886:b0:e5b:38df:b44e with SMTP id
- 3f1490d57ef6-e60b235f810mr449858276.2.1740677135953; Thu, 27 Feb 2025
- 09:25:35 -0800 (PST)
+ AJvYcCXmDnPyWYFNG7m/oUaM1ThjH/lXEsHPBaBb/gsllHxt3Ar5aOtEHZtiTAXqGrYEfjFHgo/Cjlm7rag=@nongnu.org
+X-Gm-Message-State: AOJu0YyEpts4+r4H7hoA2AiHf1tfGSbpiH56WxMXG2qw1zVyVl+dTBbK
+ RUjFJT18UzOA8N/uaOUKiU2YV9no5KFvvK3O0FQGUiZKjElsbc2dqgpT1KknA5Pwgki9g2AKiS3
+ GhYgbu1oN3sTdV07vcWs+dhV839hZhvmmDEjrcy/ygCjY7V1S
+X-Gm-Gg: ASbGncs+6MLGmHIfLuhK6R0p3VFs2fv5hMq5u6k+nmY0YFKg1TRcdPPqWT0yAWgZjJQ
+ dy62CZJ9FCNZV/TYJl81IM0Q9GJCaqxatljNC9pazUqPCYLTcxPr6bIh4kp21mH/x3+Llt89iN/
+ uKg8cQBogE
+X-Google-Smtp-Source: AGHT+IFcKWVFmecCBdeWNOMlxRI3/ZGJkWMLBTh5K9DiQ1qDV0qO5YIAaoN0lcZy4GduZGbLmvBSYT5H+5bVLEkZXLk=
+X-Received: by 2002:a05:6902:340c:b0:e60:9d00:ba9d with SMTP id
+ 3f1490d57ef6-e609d00bb66mr6422668276.25.1740677305854; Thu, 27 Feb 2025
+ 09:28:25 -0800 (PST)
 MIME-Version: 1.0
 References: <20250227164538.814576-1-pbonzini@redhat.com>
- <20250227164538.814576-5-pbonzini@redhat.com>
-In-Reply-To: <20250227164538.814576-5-pbonzini@redhat.com>
+ <20250227164538.814576-3-pbonzini@redhat.com>
+In-Reply-To: <20250227164538.814576-3-pbonzini@redhat.com>
 From: Peter Maydell <peter.maydell@linaro.org>
-Date: Thu, 27 Feb 2025 17:25:22 +0000
-X-Gm-Features: AQ5f1JrVGk5CpLqk-fU_y6UXl174Hyz7KS77ROG2TrN2tjBvbJlPvyFos3F9nJ0
-Message-ID: <CAFEAcA_WOxLvWnp8Tp-Q5xj3_cEs2OGhAbVFtymGwXYKxUePYg@mail.gmail.com>
-Subject: Re: [PATCH 4/5] rust: pl011: switch to safe chardev operation
+Date: Thu, 27 Feb 2025 17:28:14 +0000
+X-Gm-Features: AQ5f1JoRLz6cCGGRc4hHVQJWFYy2jGzkf6KFmLrJsvpHk8prp9P9ZnYGOTcFgn8
+Message-ID: <CAFEAcA86CEbeGK6mDju5jyR7JQKB7SfnO4-JoAnyiL2kRNufkg@mail.gmail.com>
+Subject: Re: [PATCH 2/5] rust: pl011: move register definitions out of lib.rs
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 Content-Type: text/plain; charset="UTF-8"
-Received-SPF: pass client-ip=2607:f8b0:4864:20::b2a;
- envelope-from=peter.maydell@linaro.org; helo=mail-yb1-xb2a.google.com
+Received-SPF: pass client-ip=2607:f8b0:4864:20::1136;
+ envelope-from=peter.maydell@linaro.org; helo=mail-yw1-x1136.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -82,65 +82,25 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Feb 2025 17:25:39 -0000
+X-List-Received-Date: Thu, 27 Feb 2025 17:28:29 -0000
 
 On Thu, 27 Feb 2025 at 16:48, Paolo Bonzini <pbonzini@redhat.com> wrote:
 >
-> Switch bindings::CharBackend with chardev::CharBackend.  This removes
-> occurrences of "unsafe" due to FFI and switches the wrappers for receive,
-> can_receive and event callbacks to the common ones implemented by
-> chardev::CharBackend.
->
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  rust/hw/char/pl011/src/device.rs    |   7 +-
+>  rust/hw/char/pl011/src/lib.rs       | 509 +---------------------------
+>  rust/hw/char/pl011/src/registers.rs | 507 +++++++++++++++++++++++++++
+>  3 files changed, 513 insertions(+), 510 deletions(-)
+>  create mode 100644 rust/hw/char/pl011/src/registers.rs
 
-
-> @@ -567,21 +552,16 @@ fn write(&self, offset: hwaddr, value: u64, _size: u32) {
-
-> -            update_irq = self.regs.borrow_mut().write(
-> -                field,
-> -                value as u32,
-> -                addr_of!(self.char_backend) as *mut _,
-> -            );
-> +            update_irq = self
-> +                .regs
-> +                .borrow_mut()
-> +                .write(field, value as u32, &self.char_backend);
->          } else {
->              eprintln!("write bad offset {offset} value {value}");
->          }
-
-Entirely unrelated to this patch, but seeing this go past
-reminded me that I had a question I didn't get round to
-asking in the community call the other day. In this
-PL011State::write function, we delegate the job of
-updating the register state to PL011Registers::write,
-which returns a bool to tell us whether to call update().
-
-I guess the underlying design idea here is "the register
-object updates itself and tells the device object what
-kinds of updates to the outside world it needs to do" ?
-But then, why is the irq output something that PL011State
-needs to handle itself whereas the chardev backend is
-something we can pass into PL011Registers ?
-
-In the C version, we just call pl011_update() where we
-need to; we could validly call it unconditionally for any
-write, we're just being (possibly prematurely) efficient
-by avoiding a call when we happen to know that the register
-write didn't touch any of the state that pl011_update()
-cares about. So it feels a bit odd to me that in the Rust
-version this "we happen to know that sometimes it would be
-unnecessary to call the update function" has been kind of
-promoted to being part of an interface between the two
-different types PL011Registers and PL011State.
-
-Thinking about other devices, presumably for more complex
-devices we might need to pass more than just a single 'bool'
-back from PL011Registers::write. What other kinds of thing
-might we need to do in the FooState function, and (since
-the pl011 code is presumably going to be used as a template
-for those other devices) is it worth having something that
-expresses that better than just a raw 'bool' return ?
+Looking at this patch I'm sorely tempted to suggest significantly
+trimming down the commentary in these comments: it contains
+rather more text cut-n-pasted from the PL011 TRM than I'm
+entirely comfortable with, and much of it is detail that
+is irrelevant to QEMU. I don't think we should be trying to
+make it unnecessary for somebody working on the QEMU device
+models to ever look at the hardware reference manuals.
 
 thanks
 -- PMM
