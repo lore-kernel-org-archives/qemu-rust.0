@@ -1,133 +1,79 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tniTO-0004G7-MR
-	for mharc-qemu-rust@gnu.org; Thu, 27 Feb 2025 13:19:02 -0500
+	id 1tnj1Y-0005DK-Mt
+	for mharc-qemu-rust@gnu.org; Thu, 27 Feb 2025 13:54:21 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tniTM-0004DN-Mx
- for qemu-rust@nongnu.org; Thu, 27 Feb 2025 13:19:00 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tniTJ-0007iq-5n
- for qemu-rust@nongnu.org; Thu, 27 Feb 2025 13:18:58 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1740680333;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=4EePHXPg+ENBH562N4nKUDE93xTZsSNviHB9skXihDU=;
- b=WPoOzEtbH1A4wPLmxszaX5S5Ea0hesljQrG3MDyQLd4msiiwGdiBolVnMPQ5i7GOqZFwWA
- FIfSRtsA+lp12hvNC3yqt+vvC+itLBXEOdGbSW5uPKiLHjY2mYewjrEkwAkGZGZOHzGMPz
- 4gUNkVu7giyY8GO0U6peOLeFIxA8LSA=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-170-Swomjy5qNP250MsVLQfoVA-1; Thu, 27 Feb 2025 13:18:50 -0500
-X-MC-Unique: Swomjy5qNP250MsVLQfoVA-1
-X-Mimecast-MFC-AGG-ID: Swomjy5qNP250MsVLQfoVA_1740680330
-Received: by mail-ej1-f69.google.com with SMTP id
- a640c23a62f3a-abb8f65af3dso128234166b.1
- for <qemu-rust@nongnu.org>; Thu, 27 Feb 2025 10:18:50 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tnj1T-0005BG-Hy
+ for qemu-rust@nongnu.org; Thu, 27 Feb 2025 13:54:17 -0500
+Received: from mail-yb1-xb2b.google.com ([2607:f8b0:4864:20::b2b])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tnj1R-0005mg-J7
+ for qemu-rust@nongnu.org; Thu, 27 Feb 2025 13:54:15 -0500
+Received: by mail-yb1-xb2b.google.com with SMTP id
+ 3f1490d57ef6-e60b01d0e1bso424149276.2
+ for <qemu-rust@nongnu.org>; Thu, 27 Feb 2025 10:54:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1740682445; x=1741287245; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=hVmkhnO1xd6/jMeYQxgCgkhwXVcijlfp5dWT6YBhEkg=;
+ b=kl+HXetgPbeUgkpbjQrgUR6RyPwznA7osdiE8BUUVfVkwOPeUYKw56vOsPN7kVvPej
+ N1mN2dZfmSKAaSjOzsqyK1O6Vaq6fucDSul7nu0+UoN5VNp6FVwXhVsCVPeEFdXtm0XV
+ 6SEAvhnl6skT7nDhpg6pA3MfVKP1vh0Pg/FeixrTnHy/AFHACGBWa90NXkf4oDAlZrjl
+ 9N702ait9WIL8HjjZzheTHHr7Z+bX/otBfwYWDdeHgWi7DtvIEtxMZl41zGyF27pzBny
+ FO5rBO8s7thI61NoxKIDc2DJyYRcT/muFcbZsJkROYCoLx4mIyF5+rtRCVpuQt9xbDAd
+ 0hGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740680329; x=1741285129;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4EePHXPg+ENBH562N4nKUDE93xTZsSNviHB9skXihDU=;
- b=l13LTZcu2m25L+xt2aPHId5jKZsE5THh8Ls/ugNkrzAdHg7ZcBMDSuElbtZLeAgI+n
- RQlWQ+Yh+ysNmNxgj9QElBFUiEHY9RMIUU0WVp8uIysPBzRLTKEnPutExNuLTAQbCCkV
- V4iSu5bEZF4G0nymQwMCVNLxBaP1bfwOkKZ6htypwm3lnXmcIS1d78JfmVkbXpyTFYZr
- x6xW8fyEcldQAS4sGkCr2153cfxikIQr8op3Z/VW+3cGEWOQTbWtC8sypSqfd8vFUzNv
- yWS4oWQFA2EHerHHwD3gt6akJolAJyvg1tQozc+aJrQzsFPIhBxWz4qrldc53MWZE72c
- rKtQ==
+ d=1e100.net; s=20230601; t=1740682445; x=1741287245;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=hVmkhnO1xd6/jMeYQxgCgkhwXVcijlfp5dWT6YBhEkg=;
+ b=XX2i+7FzOlTcWFrK7Ps6lT9Jp2tURJZmuXRGHqvtnsr2+UOFH5FB5to6QYuJOxcaSU
+ rr+HW8lQkB66KTNnzSNcKmUwpyPPqFvN8G1omXe1GL4pWOjk6aqlMNDDNV7NF1ji5CkF
+ c+x/C9GmcjZRmU0QdT9NxEnYGX3pb0JRGE8FRQtWk9hN5UrGQSn5adDqfmBMSc4CHnrc
+ N2LoN+iGlt5YEI/55ohYl+50RK3n+WCzQQ+i92yNLD1ivj8qBuK9fZBJV3WNurpoOFRX
+ gvCVpAJHfrykdprDeFN4PLNcn1KBcyGGH3/jlsZvrOIYpUBaFQj1RCBgkuai13xsXW6D
+ iMBQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUd3hMRTj41+0EKNTF+vCXWXawVM/qVb+szdNnnBtm+7ZkW2LJx2T5WgPVL66DtbaaM9u1MFeVLIiQ=@nongnu.org
-X-Gm-Message-State: AOJu0YzLg/ssby9s2Kr5hbbQk3wZ7P8dc0r2ibXAeYXP/ou8u4pk9IbJ
- lk3C7WxviVAyk021HZ8ojOOK1mEO4hOd7qMuy4qCyAEh5kYO0nsj/htFFVqCuPeuEU79e8/wKCC
- RxMBtDVGNnsOD6k06zy5fqS1w9LWCAU7CXA5+6Wn7dxON0pTyRdA=
-X-Gm-Gg: ASbGnctPewqOIIeScpaNFwqeCXVTTReiOwUfUagU8/SCRPTatJdwSjEpCo5dUGgOAU/
- f+2x4q+m/gAknhMiZaBgWrJuxDn/Cu19K5AdeebS7+A8kAvjrPIquszspBVs8akV/eK1Ybte3pN
- P3iCRWWWtSB3haw+zCLsZuoCGUN172QVMWO88eEbaYCL/VVJJB3W2OpjA6z7Txlk7V/6RzSJ0Ce
- 2msIeVK/tmUqxtxH1eflVSRB/d+pl6oHfuejlTT+qvMD8sJaWTZGq+tXFJqGc1bwQy2IutK3idw
- MQnWI1oAEbysCBCqgA==
-X-Received: by 2002:a17:907:7f88:b0:ab6:cdc2:bf57 with SMTP id
- a640c23a62f3a-abf25d945cfmr55219666b.1.1740680329584; 
- Thu, 27 Feb 2025 10:18:49 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGaXXSZ1V/1d1bwJ83/v1blgFp/hg/tmqIrDFoTCS44e6o4GC5cFGbx2j6+LQN2GWTAsO8vHQ==
-X-Received: by 2002:a17:907:7f88:b0:ab6:cdc2:bf57 with SMTP id
- a640c23a62f3a-abf25d945cfmr55217466b.1.1740680329181; 
- Thu, 27 Feb 2025 10:18:49 -0800 (PST)
-Received: from [192.168.1.84] ([93.56.163.127])
- by smtp.googlemail.com with ESMTPSA id
- a640c23a62f3a-abf1c8b1158sm87292566b.113.2025.02.27.10.18.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Feb 2025 10:18:48 -0800 (PST)
-Message-ID: <db282c29-7422-49f8-a02b-803c42d53173@redhat.com>
-Date: Thu, 27 Feb 2025 19:18:48 +0100
+ AJvYcCXYzuB3FtZr4ybuNTgEeGbdJtwdvX4pHeBCVOYTAjBxRseN+/sYMKrXKS1p7uWrQ6oYcobyRGNp7Qs=@nongnu.org
+X-Gm-Message-State: AOJu0Yw9WfnHbIvH4wq7apkKgGeYWY/YwpQEbkyOErqw0KkXNNd+pAtq
+ j3cxQJkAoFFZ5xs5rw5R45XRznCHGYK9hzCLq9WuNIZXHgyDn7dWp8GVBcNVdonHHCgm8D7KVyP
+ 5eybsbvSET227rM4D/jvgsd4ZrB5h1k1mz9EVGQ==
+X-Gm-Gg: ASbGncvMYjSehrr2s1gJxK+cIexys4aNgHJtHZJffy8tiQDDSMfRm25C6UGD763t4S5
+ p5Gm49WSPgdyfVxE5KQ8OeEdxtfZwZsTxF27fjo/dM1L8/NMrUVDVvF273lhxXx6YYC3wMSyyKW
+ 3WejBF+SD0
+X-Google-Smtp-Source: AGHT+IGklIX64S8vsIsMBjghZBaI0X4+Hw6L66/R8AptvHW7tsXn5hN5u8XxMV79JhEvK+Q9wVMaTZ+lJf7KDvLoTlE=
+X-Received: by 2002:a05:6902:2412:b0:e60:9961:f832 with SMTP id
+ 3f1490d57ef6-e60b2ebfaf7mr312725276.23.1740682445107; Thu, 27 Feb 2025
+ 10:54:05 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] rust: pl011: move register definitions out of lib.rs
-To: Peter Maydell <peter.maydell@linaro.org>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 References: <20250227164538.814576-1-pbonzini@redhat.com>
- <20250227164538.814576-3-pbonzini@redhat.com>
- <CAFEAcA86CEbeGK6mDju5jyR7JQKB7SfnO4-JoAnyiL2kRNufkg@mail.gmail.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <CAFEAcA86CEbeGK6mDju5jyR7JQKB7SfnO4-JoAnyiL2kRNufkg@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: DA7eZj2Eos2ehT-iChpW0tyWSrf5mE3NFaSd7YG7lGA_1740680330
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -24
-X-Spam_score: -2.5
+ <20250227164538.814576-5-pbonzini@redhat.com>
+ <CAFEAcA_WOxLvWnp8Tp-Q5xj3_cEs2OGhAbVFtymGwXYKxUePYg@mail.gmail.com>
+ <CABgObfZVxw2BnVYqbsaoy9W+YUgygOaYGpfW=D+7mfmQe8h+OA@mail.gmail.com>
+In-Reply-To: <CABgObfZVxw2BnVYqbsaoy9W+YUgygOaYGpfW=D+7mfmQe8h+OA@mail.gmail.com>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Thu, 27 Feb 2025 18:53:53 +0000
+X-Gm-Features: AQ5f1JrzqRXmi0GsXXdPW3VhSB0N-CTUhfnwNRxFnEd1eFlUi12ZqArOfk2tIyo
+Message-ID: <CAFEAcA-CgYt2p6JqzU0ttCwDpfp4bbMWM2SAn8xmSE9BmC6xeA@mail.gmail.com>
+Subject: Re: [PATCH 4/5] rust: pl011: switch to safe chardev operation
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2607:f8b0:4864:20::b2b;
+ envelope-from=peter.maydell@linaro.org; helo=mail-yb1-xb2b.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.438,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -140,35 +86,64 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Feb 2025 18:19:01 -0000
+X-List-Received-Date: Thu, 27 Feb 2025 18:54:17 -0000
 
-On 2/27/25 18:28, Peter Maydell wrote:
-> On Thu, 27 Feb 2025 at 16:48, Paolo Bonzini <pbonzini@redhat.com> wrote:
->>
->> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
->> ---
->>   rust/hw/char/pl011/src/device.rs    |   7 +-
->>   rust/hw/char/pl011/src/lib.rs       | 509 +---------------------------
->>   rust/hw/char/pl011/src/registers.rs | 507 +++++++++++++++++++++++++++
->>   3 files changed, 513 insertions(+), 510 deletions(-)
->>   create mode 100644 rust/hw/char/pl011/src/registers.rs
-> 
-> Looking at this patch I'm sorely tempted to suggest significantly
-> trimming down the commentary in these comments: it contains
-> rather more text cut-n-pasted from the PL011 TRM than I'm
-> entirely comfortable with, and much of it is detail that
-> is irrelevant to QEMU.
+On Thu, 27 Feb 2025 at 18:02, Paolo Bonzini <pbonzini@redhat.com> wrote:
+>
+> On Thu, Feb 27, 2025 at 6:25=E2=80=AFPM Peter Maydell <peter.maydell@lina=
+ro.org> wrote:
+> > Thinking about other devices, presumably for more complex
+> > devices we might need to pass more than just a single 'bool'
+> > back from PL011Registers::write. What other kinds of thing
+> > might we need to do in the FooState function, and (since
+> > the pl011 code is presumably going to be used as a template
+> > for those other devices) is it worth having something that
+> > expresses that better than just a raw 'bool' return ?
+>
+> Ideally nothing, especially considering that more modern devices have
+> edge-triggered interrupts like MSIs, instead of level-triggered
+> interrupts that need qemu_set_irq() calls. But if you have something a
+> lot more complex than a bool I would pass down the PL011State and do
+> something like pl011.schedule_update_irq() which updates a BqlCell<>.
+> The device could then use a bottom half or process them after
+> "drop(regs)".
+>
+> HPET has another approach, which is to store a backpointer from
+> HPETTimer to the HPETState, so that it can do
+>
+>     self.get_state().irqs[route].pulse();
+>
+> without passing down anything. The reason for this is that it has
+> multiple timers on the same routine, and it assigns the timers to
+> separate HPETTimers. I would not use it for PL011 because all accesses
+> to the PL011Registers go through the PL011State.
 
-Yeah, that was a point that was made on the call last week, too.  I 
-think I agree, but it wasn't a decision I really wanted to take or 
-suggest myself...
+I think the idea I vaguely have in the back of my mind is that
+maybe it's a nice idea to have a coding structure that enforces
+"you update your own internal state, and only then do things that
+might involve calling out to the outside world, and if there's
+something that you need to do with the result of that callout,
+there's an easy mechanism for 'this is what I will want to do
+next after that' continuations".
 
-That said, some of the stuff does not belong in the structs but could be 
-added to lib.rs, too, with more fair-use justification than in 
-registers.rs.  So perhaps we could delay removing it until more aspects 
-of the FIFO are modeled correctly, so that one does not have to reinvent 
-the wording from scratch.
+The fact that our C device implementations don't do that is
+kind of the underlying cause of all the "recursive entry back
+into the device via DMA" problems that we squashed with the
+big hammer of "just forbid it entirely". It's also in a way
+the problem underlying the race condition segfault here:
+https://lore.kernel.org/qemu-devel/CAFEAcA9odnPo2LPip295Uztri7JfoVnQbkJ=3DW=
+n+k8dQneB_ynQ@mail.gmail.com/T/#u
+(memory_region_snapshot_and_clear_dirty() drops the BKL, no
+callers expect that, segfaults in the calling code in the
+framebuffer device models if something else gets in and
+e.g. resizes the framebuffer in the middle of a display update).
 
-Paolo
+So I was sort of wondering if the pl011 structure was aiming
+at providing that kind of separation of "internal state" and
+"external interactions", such that the compiler would complain
+if you tried to do an externally-interacting thing while your
+internal state was not consistent.
 
+thanks
+-- PMM
 
