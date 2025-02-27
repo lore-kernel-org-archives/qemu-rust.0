@@ -1,89 +1,92 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tnh1N-0008Rj-F5
-	for mharc-qemu-rust@gnu.org; Thu, 27 Feb 2025 11:46:08 -0500
+	id 1tnh1f-00007x-La
+	for mharc-qemu-rust@gnu.org; Thu, 27 Feb 2025 11:46:19 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tnh1B-0008KH-Ki
- for qemu-rust@nongnu.org; Thu, 27 Feb 2025 11:45:49 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1tnh1M-0008Rg-Bq
+ for qemu-rust@nongnu.org; Thu, 27 Feb 2025 11:46:04 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tnh18-0007nD-O8
- for qemu-rust@nongnu.org; Thu, 27 Feb 2025 11:45:49 -0500
+ id 1tnh1I-0007qt-BJ
+ for qemu-rust@nongnu.org; Thu, 27 Feb 2025 11:45:59 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1740674744;
+ s=mimecast20190719; t=1740674754;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=wVAr7MFEIkeCBVn/8Zyjx311WrTsE+8/auwtseqk9Kg=;
- b=FJacyB1fpocCs8zdQ1LMeiSNzBF604fC+uyPnQm4qEXOP8OUoUThb3eH6f+Dwt4QEDbvL+
- bzYzS2RXExEizQPID/9CFmfins7xAqtN2YCWi8yILfWwcLvO9VZpknAtl9RyzOVp9aC5R0
- 6RZxYtvjJoe12bJA8RFkGNtgJ+/lBzw=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jqB9iJokqmluSAsMEShYfyYzEVhrNHlSWPdg3LihApk=;
+ b=bKDMvz1iBnz0WSYYkgRtp6UxwYxnnKYmD7WTCibNl3QQu7g7V03kjsdyrqB2oRR7BSWj9q
+ AkAgzK6kkZqnj6cEtqt1ZYUgaRQKPCGg+Cge2VdhOcjk+CiU1Hbqlw1NYWfLqFb+7EmYTP
+ Faf4sdw6icSHaPwTHgSXjXLHUylz/XE=
 Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
  [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-260-BypWDdQjMFCaKPdED2rBEQ-1; Thu, 27 Feb 2025 11:45:42 -0500
-X-MC-Unique: BypWDdQjMFCaKPdED2rBEQ-1
-X-Mimecast-MFC-AGG-ID: BypWDdQjMFCaKPdED2rBEQ_1740674740
+ us-mta-377-NWFRIOFRN0O_zZ8tWnYhPw-1; Thu, 27 Feb 2025 11:45:51 -0500
+X-MC-Unique: NWFRIOFRN0O_zZ8tWnYhPw-1
+X-Mimecast-MFC-AGG-ID: NWFRIOFRN0O_zZ8tWnYhPw_1740674750
 Received: by mail-ej1-f69.google.com with SMTP id
- a640c23a62f3a-abf2185ecbcso33476766b.3
- for <qemu-rust@nongnu.org>; Thu, 27 Feb 2025 08:45:42 -0800 (PST)
+ a640c23a62f3a-abb87e3a3c9so140346666b.2
+ for <qemu-rust@nongnu.org>; Thu, 27 Feb 2025 08:45:51 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740674740; x=1741279540;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=wVAr7MFEIkeCBVn/8Zyjx311WrTsE+8/auwtseqk9Kg=;
- b=APHD/fR7B3/WRh6fev6TnSEIxLyE+/OvkrbWaJbjUiDDeNywe3F0v0bGIqtlA21Z2P
- vArkhvRK4SVd2k0aopi9+e9JoSl33ccbuRiIPwIkzvFEhqgcX0ybG0y3NMZAIdCdmksf
- kX5GIi+NRSmdjrLDby5qsXVxaCutZ/6L6cRMsZC23CAJPeIfi7mSN8PyDprtjHRujzN9
- OA6YEqM29dtBgjveo+UtyBQQZBeLvbKyJCvsSrvjqoI5vRIxG+xs30jnfGjT/xTEYGi8
- ft0/W1HeIRK2CbuVMVHE7o4HpL0neTfkaeaUMhwQiSl7QPQweroXSaTf5vMNZ5ywcB2N
- zWkw==
-X-Gm-Message-State: AOJu0Yxs+XtdqmmnGvAFTIrkhZuwQJzBiO5JrgRoaE65ab9xOBE+PfRS
- 1pN216dawrrUoYG1VLWQdku6TxnrMN6aJIEBDwb/gjMqSHozhw/uZs4KnhClgfwXzJMlc76bNkK
- MLGWyERly+9Eulnk41zx1IUfJizh6qaFU7mW8HmbL1oaUpe4vJwE=
-X-Gm-Gg: ASbGncvkK8bOLSoQv8h6JF1fTMlpEJ+Etwm2voPQeJeQ5lXHf36ECcpGpTYuruxQDqC
- b6v2kC07I+Sz5Fc5sZ4kkX0UFGTcMGzK63jJAIMSWtIVb2EDzyeCUUNekU2qIzQ3bY5PN8Dw/PF
- YkUdHd3yLMWUzvPpym+Avtk2UvjkF8WIldmjpqBUqhHsuAVap8beTIL26Sl1CFbvwm0YH4q1f2t
- BrPKV7Z0vf5BezLJbC3FeV0s7rBQy0NPyt/6FnWOSANmgXGvINQFBqTAXZLH+TnDXmqHPR3U60U
- K801yGatQPDJQ3KKWg==
-X-Received: by 2002:a17:906:c14c:b0:ab6:dbd2:df78 with SMTP id
- a640c23a62f3a-abf265d5f40mr10042866b.35.1740674740054; 
- Thu, 27 Feb 2025 08:45:40 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFVICs7YosIKdvQcANivRuQITr8x9SCFmOjcIuOagDNwYB2/tynqNs9teU8KdaRali8adqQEg==
-X-Received: by 2002:a17:906:c14c:b0:ab6:dbd2:df78 with SMTP id
- a640c23a62f3a-abf265d5f40mr10040766b.35.1740674739704; 
- Thu, 27 Feb 2025 08:45:39 -0800 (PST)
+ d=1e100.net; s=20230601; t=1740674749; x=1741279549;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=jqB9iJokqmluSAsMEShYfyYzEVhrNHlSWPdg3LihApk=;
+ b=Ib/vcBfetF1aHlLejQsqiw1fT/XoIO2oIPBc+uWc97QGqBuklVzWeV9q6j3H6+vcFg
+ LZyLZeO92BynJP0pHoAzGMWz3i3yBTow7PwI/HDfvXPpztFFIRhhtF1SMBDxhk++EHvO
+ dYwfQ13kJju5JlrEiPfu9tSPzZOGuZG7x7r2n2Q++09OoUUFaFhOYLvA6uh/nJkl3GoJ
+ LbB7LMnIpVB1XucGJwNSnb6+Cw2rj3HrFTvD08Qubp58gRdd+G9Xyu2jTsT/fSEt594Y
+ o7uBgefVz8g5dBe5gHU1ICKT00eEKbnnFhAnzrPulenRLxY8NGKcV2nbek/rqPYVQM2J
+ HLhw==
+X-Gm-Message-State: AOJu0Yw/o1vU0zcdNAwvSbDeLB8Wp8FjNWYkQDsOV9ARsEC+QeU1EoPu
+ LUbYiBCUQ+Fh8j0lTd4h9hPrvApA0SECCeS8N0eb+TkCKvpMjSJXiEUIroMuAvvsZGl88irvdWi
+ vckL4pAkTO/t+M0/nJMfTsD4ULreej/Y5M8H7OSK5N6qxZpZoLlSnj4fEv+hdtA==
+X-Gm-Gg: ASbGncvT0qMeECt6S4jRBRFoko/gCORhdC86EfztoZ2cwGTldgDSyIsinVPPvR4KMbE
+ TtXBV6lDpgUCoZ0rz6V9foyuWxIK1BwT7SQmsbY+Gw5xN+62lZuH4+LwUfrmJENmS/vNce0LhJb
+ hstfTZWlq7NUyupFIPbRAGcHqaNu0YO4MPt2SQKMfhyAANmawqaaTGIev4IhacOXwQOXzsrYG6X
+ mj2OgCxlc+84AMCJk21ATzDuhwKdWI7QeKDDFSPqI+Sa/ogCMuHMcY+KbfrQUP+8nTrO/dhKMct
+ Rs/fsGRfsk83O1h9AA==
+X-Received: by 2002:a17:906:da88:b0:abe:fed3:9eb8 with SMTP id
+ a640c23a62f3a-abf2687fe85mr10583466b.41.1740674748985; 
+ Thu, 27 Feb 2025 08:45:48 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFiUSLoz/5h/sVOIyTG4cZUIUWywZC+7Ocvaw54WV8v2wYGoZqmW6mmP7rrKNmMD+kPyYuPCQ==
+X-Received: by 2002:a17:906:da88:b0:abe:fed3:9eb8 with SMTP id
+ a640c23a62f3a-abf2687fe85mr10580166b.41.1740674748602; 
+ Thu, 27 Feb 2025 08:45:48 -0800 (PST)
 Received: from [192.168.1.84] ([93.56.163.127])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abf0c755d22sm146958166b.129.2025.02.27.08.45.39
+ a640c23a62f3a-abf0c6ed7f1sm147260666b.120.2025.02.27.08.45.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Feb 2025 08:45:39 -0800 (PST)
+ Thu, 27 Feb 2025 08:45:48 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
-Subject: [PATCH 0/5] rust: pl011 cleanups + chardev bindings
-Date: Thu, 27 Feb 2025 17:45:29 +0100
-Message-ID: <20250227164538.814576-1-pbonzini@redhat.com>
+Subject: [PATCH 5/5] rust: pl011: pass around registers::Data
+Date: Thu, 27 Feb 2025 17:45:34 +0100
+Message-ID: <20250227164538.814576-6-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250227164538.814576-1-pbonzini@redhat.com>
+References: <20250227164538.814576-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: RYR2fePRWeKuRSr-3nS8tXAYG72e_dHvDe9PsgyKfkY_1740674740
+X-Mimecast-MFC-PROC-ID: mOAfq0K3nKTB8wT65QpjL-6XUp8nAZazjVVBxvL7i_w_1740674750
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
 X-Spam_score: -2.5
 X-Spam_bar: --
 X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.438,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -96,34 +99,83 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Feb 2025 16:45:52 -0000
+X-List-Received-Date: Thu, 27 Feb 2025 16:46:12 -0000
 
-With this series, the only remaining use of unsafe is for vmstate's post
-load callback, which is small and self contained.  All functionality
-used by pl011 and HPET devices are wrapped in Rust APIs, so they look
-like what a "real" from-scratch Rust device would be.
+The values stored in the Fifo are instances of the bitfield-struct
+registers::Data.  Convert as soon as possible the value written
+into DR, and always refer to the bitfield struct; it's generally
+cleaner other than PL011State::receive having to do a double
+conversion u8=>u32=>registers::Data.
 
-Patch 2 is best reviewed with "git diff -b --color-moved" or similar.
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ rust/hw/char/pl011/src/device.rs | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-Paolo
-
-
-Paolo Bonzini (5):
-  rust: chardev: provide basic bindings to character devices
-  rust: pl011: move register definitions out of lib.rs
-  rust: pl011: clean up visibilities
-  rust: pl011: switch to safe chardev operation
-  rust: pl011: pass around registers::Data
-
- rust/hw/char/pl011/src/device.rs    | 146 +++-----
- rust/hw/char/pl011/src/lib.rs       | 509 +---------------------------
- rust/hw/char/pl011/src/registers.rs | 507 +++++++++++++++++++++++++++
- rust/qemu-api/meson.build           |  17 +-
- rust/qemu-api/src/chardev.rs        | 237 ++++++++++++-
- rust/qemu-api/src/zeroable.rs       |   1 +
- 6 files changed, 800 insertions(+), 617 deletions(-)
- create mode 100644 rust/hw/char/pl011/src/registers.rs
-
+diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
+index 2283bae71eb..a679f6295f5 100644
+--- a/rust/hw/char/pl011/src/device.rs
++++ b/rust/hw/char/pl011/src/device.rs
+@@ -237,7 +237,7 @@ pub(self) fn write(
+         match offset {
+             DR => {
+                 // interrupts always checked
+-                let _ = self.loopback_tx(value);
++                let _ = self.loopback_tx(value.into());
+                 self.int_level |= Interrupt::TX.0;
+                 return true;
+             }
+@@ -304,7 +304,7 @@ pub(self) fn write(
+ 
+     #[inline]
+     #[must_use]
+-    fn loopback_tx(&mut self, value: u32) -> bool {
++    fn loopback_tx(&mut self, value: registers::Data) -> bool {
+         // Caveat:
+         //
+         // In real hardware, TX loopback happens at the serial-bit level
+@@ -373,7 +373,7 @@ fn loopback_mdmctrl(&mut self) -> bool {
+     }
+ 
+     fn loopback_break(&mut self, enable: bool) -> bool {
+-        enable && self.loopback_tx(registers::Data::BREAK.into())
++        enable && self.loopback_tx(registers::Data::BREAK)
+     }
+ 
+     fn set_read_trigger(&mut self) {
+@@ -432,11 +432,11 @@ pub fn fifo_depth(&self) -> u32 {
+     }
+ 
+     #[must_use]
+-    pub fn put_fifo(&mut self, value: u32) -> bool {
++    pub fn put_fifo(&mut self, value: registers::Data) -> bool {
+         let depth = self.fifo_depth();
+         assert!(depth > 0);
+         let slot = (self.read_pos + self.read_count) & (depth - 1);
+-        self.read_fifo[slot] = registers::Data::from(value);
++        self.read_fifo[slot] = value;
+         self.read_count += 1;
+         self.flags.set_receive_fifo_empty(false);
+         if self.read_count == depth {
+@@ -581,7 +581,8 @@ fn receive(&self, buf: &[u8]) {
+             return;
+         }
+         let mut regs = self.regs.borrow_mut();
+-        let update_irq = !regs.loopback_enabled() && regs.put_fifo(buf[0].into());
++        let c: u32 = buf[0].into();
++        let update_irq = !regs.loopback_enabled() && regs.put_fifo(c.into());
+         // Release the BqlRefCell before calling self.update()
+         drop(regs);
+ 
+@@ -594,7 +595,7 @@ fn event(&self, event: Event) {
+         let mut update_irq = false;
+         let mut regs = self.regs.borrow_mut();
+         if event == Event::CHR_EVENT_BREAK && !regs.loopback_enabled() {
+-            update_irq = regs.put_fifo(registers::Data::BREAK.into());
++            update_irq = regs.put_fifo(registers::Data::BREAK);
+         }
+         // Release the BqlRefCell before calling self.update()
+         drop(regs);
 -- 
 2.48.1
 
