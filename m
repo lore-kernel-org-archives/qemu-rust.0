@@ -1,79 +1,89 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tnj1Y-0005DK-Mt
-	for mharc-qemu-rust@gnu.org; Thu, 27 Feb 2025 13:54:21 -0500
+	id 1tnw9N-0002DA-Ca
+	for mharc-qemu-rust@gnu.org; Fri, 28 Feb 2025 03:55:18 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tnj1T-0005BG-Hy
- for qemu-rust@nongnu.org; Thu, 27 Feb 2025 13:54:17 -0500
-Received: from mail-yb1-xb2b.google.com ([2607:f8b0:4864:20::b2b])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tnj1R-0005mg-J7
- for qemu-rust@nongnu.org; Thu, 27 Feb 2025 13:54:15 -0500
-Received: by mail-yb1-xb2b.google.com with SMTP id
- 3f1490d57ef6-e60b01d0e1bso424149276.2
- for <qemu-rust@nongnu.org>; Thu, 27 Feb 2025 10:54:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1740682445; x=1741287245; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hVmkhnO1xd6/jMeYQxgCgkhwXVcijlfp5dWT6YBhEkg=;
- b=kl+HXetgPbeUgkpbjQrgUR6RyPwznA7osdiE8BUUVfVkwOPeUYKw56vOsPN7kVvPej
- N1mN2dZfmSKAaSjOzsqyK1O6Vaq6fucDSul7nu0+UoN5VNp6FVwXhVsCVPeEFdXtm0XV
- 6SEAvhnl6skT7nDhpg6pA3MfVKP1vh0Pg/FeixrTnHy/AFHACGBWa90NXkf4oDAlZrjl
- 9N702ait9WIL8HjjZzheTHHr7Z+bX/otBfwYWDdeHgWi7DtvIEtxMZl41zGyF27pzBny
- FO5rBO8s7thI61NoxKIDc2DJyYRcT/muFcbZsJkROYCoLx4mIyF5+rtRCVpuQt9xbDAd
- 0hGw==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tnw9L-0002Cd-4m
+ for qemu-rust@nongnu.org; Fri, 28 Feb 2025 03:55:15 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tnw9J-0005br-H4
+ for qemu-rust@nongnu.org; Fri, 28 Feb 2025 03:55:14 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1740732912;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=DEtBrYnRD+qhdroznCKgnXQNtSgBwOAltsGPpjAT9y8=;
+ b=OOMQQI2oUvx53NbcaxBsPoR8746Wv4ZV6VQgQvutf902CgreUUXgJIQxKJkfdYACXZNuvu
+ DT5dxdCQUSs4sAAI3c/CCD5SfuhblgKYSca/LSJ45245W6t6mGjEtQ1Ad5O3R+ZPKcRbxh
+ MHclO3Q3O0oSU/QG96dFXzW6IPE+OFI=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-295-bqpvEZOHO5-DZyhOPeUa9A-1; Fri, 28 Feb 2025 03:55:09 -0500
+X-MC-Unique: bqpvEZOHO5-DZyhOPeUa9A-1
+X-Mimecast-MFC-AGG-ID: bqpvEZOHO5-DZyhOPeUa9A_1740732908
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-438da39bb69so13205695e9.0
+ for <qemu-rust@nongnu.org>; Fri, 28 Feb 2025 00:55:09 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740682445; x=1741287245;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hVmkhnO1xd6/jMeYQxgCgkhwXVcijlfp5dWT6YBhEkg=;
- b=XX2i+7FzOlTcWFrK7Ps6lT9Jp2tURJZmuXRGHqvtnsr2+UOFH5FB5to6QYuJOxcaSU
- rr+HW8lQkB66KTNnzSNcKmUwpyPPqFvN8G1omXe1GL4pWOjk6aqlMNDDNV7NF1ji5CkF
- c+x/C9GmcjZRmU0QdT9NxEnYGX3pb0JRGE8FRQtWk9hN5UrGQSn5adDqfmBMSc4CHnrc
- N2LoN+iGlt5YEI/55ohYl+50RK3n+WCzQQ+i92yNLD1ivj8qBuK9fZBJV3WNurpoOFRX
- gvCVpAJHfrykdprDeFN4PLNcn1KBcyGGH3/jlsZvrOIYpUBaFQj1RCBgkuai13xsXW6D
- iMBQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXYzuB3FtZr4ybuNTgEeGbdJtwdvX4pHeBCVOYTAjBxRseN+/sYMKrXKS1p7uWrQ6oYcobyRGNp7Qs=@nongnu.org
-X-Gm-Message-State: AOJu0Yw9WfnHbIvH4wq7apkKgGeYWY/YwpQEbkyOErqw0KkXNNd+pAtq
- j3cxQJkAoFFZ5xs5rw5R45XRznCHGYK9hzCLq9WuNIZXHgyDn7dWp8GVBcNVdonHHCgm8D7KVyP
- 5eybsbvSET227rM4D/jvgsd4ZrB5h1k1mz9EVGQ==
-X-Gm-Gg: ASbGncvMYjSehrr2s1gJxK+cIexys4aNgHJtHZJffy8tiQDDSMfRm25C6UGD763t4S5
- p5Gm49WSPgdyfVxE5KQ8OeEdxtfZwZsTxF27fjo/dM1L8/NMrUVDVvF273lhxXx6YYC3wMSyyKW
- 3WejBF+SD0
-X-Google-Smtp-Source: AGHT+IGklIX64S8vsIsMBjghZBaI0X4+Hw6L66/R8AptvHW7tsXn5hN5u8XxMV79JhEvK+Q9wVMaTZ+lJf7KDvLoTlE=
-X-Received: by 2002:a05:6902:2412:b0:e60:9961:f832 with SMTP id
- 3f1490d57ef6-e60b2ebfaf7mr312725276.23.1740682445107; Thu, 27 Feb 2025
- 10:54:05 -0800 (PST)
+ d=1e100.net; s=20230601; t=1740732908; x=1741337708;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=DEtBrYnRD+qhdroznCKgnXQNtSgBwOAltsGPpjAT9y8=;
+ b=Wr76FNda4BOFT95sAvBa5j4GVt2+CaRUCCkZFAHvVyz/UHihwh1yKrG4j9/F++HX7k
+ K13xIyPHcjhe+62VbV9HDf7gSzIgkuXnRnSR4FMbqvKhouVSpQawA4EEqwFvtgJb8OVh
+ /kbRQe2HIClar7xe/vPM0OQkpO/UD1NRSGmsViUAgL7hdZHCwVferG6lrpomXxRo+CoC
+ n4W3ziF4mhpAmPyHXQk9HyazNxwcLOvtDOjtmX7AWFQZN2tgP3ZKLMJHoWCCQLDasREM
+ gwwe87SP+n2rEezWZbRRVpL8RfSvBvCBKoNEq5WoOEpDOibkKXE/Gc+D5DxWVqSEysjD
+ 9KDQ==
+X-Gm-Message-State: AOJu0Yybp5lhagChc2OPVARKVZpOB180eLmmIYQfqoeLZ6AbF0dTBU+d
+ ZfOjddBjAIC13YlHMzRlkr3e8Td3AG/CRdGOn3pm8slWeoFcy1COHCsAhvscs/O9S3rbmnp7F++
+ pjVC1KJGZeYTIAipNm8BHUlcthZQnASOwl0bWCv5mQdSBp3rn/EY=
+X-Gm-Gg: ASbGnctcEn5VYXl5HdwES6kODPvPWizj37C47l1ETJ65JG9lca3kwSBNt4jloUYnCE7
+ +CmvlJKK1FNUh0TPcGZM0rZ6VaNuS7JxJzB2iY07pgRbQZjkvemCshd9u4MiCr/ueY54v0CgsTl
+ kOvLfqyIdYrf5n/ZKgnntgMXFakisQOU9swN7TsXysz8gfXEpXDlhSNhPweXXULl58I7e+Pb+iS
+ WdNmdVQwf/A8snmFxdtbDJENDsKTLOo1xic1t+pWJbVxpYAPFbnw5MurR7AQXvqFUYtnarnYJmO
+ 7AJzBqh65rJZkzhsZ07l
+X-Received: by 2002:a05:600c:19c7:b0:439:6b57:c68 with SMTP id
+ 5b1f17b1804b1-43ba6710a51mr20982485e9.17.1740732908416; 
+ Fri, 28 Feb 2025 00:55:08 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE1QxGOsl/WH8Cfj/UOdbIGiyjrlJuhFBmYecfclwvc/h17QG+Y7cG0SAUNqgbWVopwIqDy2g==
+X-Received: by 2002:a05:600c:19c7:b0:439:6b57:c68 with SMTP id
+ 5b1f17b1804b1-43ba6710a51mr20982245e9.17.1740732908022; 
+ Fri, 28 Feb 2025 00:55:08 -0800 (PST)
+Received: from [192.168.10.48] ([151.95.152.199])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43aba52b7ecsm80611535e9.3.2025.02.28.00.55.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Feb 2025 00:55:07 -0800 (PST)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org
+Subject: [PATCH] rust: cell: add full example of declaring a SysBusDevice
+Date: Fri, 28 Feb 2025 09:55:06 +0100
+Message-ID: <20250228085506.846381-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-References: <20250227164538.814576-1-pbonzini@redhat.com>
- <20250227164538.814576-5-pbonzini@redhat.com>
- <CAFEAcA_WOxLvWnp8Tp-Q5xj3_cEs2OGhAbVFtymGwXYKxUePYg@mail.gmail.com>
- <CABgObfZVxw2BnVYqbsaoy9W+YUgygOaYGpfW=D+7mfmQe8h+OA@mail.gmail.com>
-In-Reply-To: <CABgObfZVxw2BnVYqbsaoy9W+YUgygOaYGpfW=D+7mfmQe8h+OA@mail.gmail.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Thu, 27 Feb 2025 18:53:53 +0000
-X-Gm-Features: AQ5f1JrzqRXmi0GsXXdPW3VhSB0N-CTUhfnwNRxFnEd1eFlUi12ZqArOfk2tIyo
-Message-ID: <CAFEAcA-CgYt2p6JqzU0ttCwDpfp4bbMWM2SAn8xmSE9BmC6xeA@mail.gmail.com>
-Subject: Re: [PATCH 4/5] rust: pl011: switch to safe chardev operation
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2607:f8b0:4864:20::b2b;
- envelope-from=peter.maydell@linaro.org; helo=mail-yb1-xb2b.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 9rYRdpRkC2Rje8LBtiLqnPSr0SZAnxJZ3Et8_zv-_8c_1740732908
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -24
+X-Spam_score: -2.5
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.438,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -86,64 +96,55 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Feb 2025 18:54:17 -0000
+X-List-Received-Date: Fri, 28 Feb 2025 08:55:15 -0000
 
-On Thu, 27 Feb 2025 at 18:02, Paolo Bonzini <pbonzini@redhat.com> wrote:
->
-> On Thu, Feb 27, 2025 at 6:25=E2=80=AFPM Peter Maydell <peter.maydell@lina=
-ro.org> wrote:
-> > Thinking about other devices, presumably for more complex
-> > devices we might need to pass more than just a single 'bool'
-> > back from PL011Registers::write. What other kinds of thing
-> > might we need to do in the FooState function, and (since
-> > the pl011 code is presumably going to be used as a template
-> > for those other devices) is it worth having something that
-> > expresses that better than just a raw 'bool' return ?
->
-> Ideally nothing, especially considering that more modern devices have
-> edge-triggered interrupts like MSIs, instead of level-triggered
-> interrupts that need qemu_set_irq() calls. But if you have something a
-> lot more complex than a bool I would pass down the PL011State and do
-> something like pl011.schedule_update_irq() which updates a BqlCell<>.
-> The device could then use a bottom half or process them after
-> "drop(regs)".
->
-> HPET has another approach, which is to store a backpointer from
-> HPETTimer to the HPETState, so that it can do
->
->     self.get_state().irqs[route].pulse();
->
-> without passing down anything. The reason for this is that it has
-> multiple timers on the same routine, and it assigns the timers to
-> separate HPETTimers. I would not use it for PL011 because all accesses
-> to the PL011Registers go through the PL011State.
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ rust/qemu-api/src/cell.rs | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-I think the idea I vaguely have in the back of my mind is that
-maybe it's a nice idea to have a coding structure that enforces
-"you update your own internal state, and only then do things that
-might involve calling out to the outside world, and if there's
-something that you need to do with the result of that callout,
-there's an easy mechanism for 'this is what I will want to do
-next after that' continuations".
+diff --git a/rust/qemu-api/src/cell.rs b/rust/qemu-api/src/cell.rs
+index 6db678161ff..13e267ad355 100644
+--- a/rust/qemu-api/src/cell.rs
++++ b/rust/qemu-api/src/cell.rs
+@@ -73,6 +73,36 @@
+ //! QEMU device implementations is usually incorrect and can lead to
+ //! thread-safety issues.
+ //!
++//! ### Example
++//!
++//! ```
++//! # use qemu_api::prelude::*;
++//! # use qemu_api::{c_str, cell::BqlRefCell, irq::InterruptSource, irq::IRQState};
++//! # use qemu_api::{sysbus::SysBusDevice, qom::Owned, qom::ParentField};
++//! # const N_GPIOS: usize = 8;
++//! # struct PL061Registers { /* ... */ }
++//! # unsafe impl ObjectType for PL061Device {
++//! #     type Class = <SysBusDevice as ObjectType>::Class;
++//! #     const TYPE_NAME: &'static std::ffi::CStr = c_str!("pl061");
++//! # }
++//! struct PL061Device {
++//!     parent_obj: ParentField<SysBusDevice>,
++//!
++//!     // Configuration is read-only after initialization
++//!     pullups: u32,
++//!     pulldowns: u32,
++//!
++//!     // Same for sub-objects of the device
++//!     out: [Owned<IRQState>; N_GPIOS],
++//!
++//!     // Single values shared with C code use BqlCell, in this case via InterruptSource
++//!     interrupt: InterruptSource,
++//!
++//!     // Larger state accessed by device methods uses BqlRefCell or Mutex
++//!     registers: BqlRefCell<PL061Registers>,
++//! }
++//! ```
++//!
+ //! ### `BqlCell<T>`
+ //!
+ //! [`BqlCell<T>`] implements interior mutability by moving values in and out of
+-- 
+2.48.1
 
-The fact that our C device implementations don't do that is
-kind of the underlying cause of all the "recursive entry back
-into the device via DMA" problems that we squashed with the
-big hammer of "just forbid it entirely". It's also in a way
-the problem underlying the race condition segfault here:
-https://lore.kernel.org/qemu-devel/CAFEAcA9odnPo2LPip295Uztri7JfoVnQbkJ=3DW=
-n+k8dQneB_ynQ@mail.gmail.com/T/#u
-(memory_region_snapshot_and_clear_dirty() drops the BKL, no
-callers expect that, segfaults in the calling code in the
-framebuffer device models if something else gets in and
-e.g. resizes the framebuffer in the middle of a display update).
-
-So I was sort of wondering if the pl011 structure was aiming
-at providing that kind of separation of "internal state" and
-"external interactions", such that the compiler would complain
-if you tried to do an externally-interacting thing while your
-internal state was not consistent.
-
-thanks
--- PMM
 
