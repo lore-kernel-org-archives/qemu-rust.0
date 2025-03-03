@@ -1,54 +1,56 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tp7N5-0007oY-QX
-	for mharc-qemu-rust@gnu.org; Mon, 03 Mar 2025 10:06:27 -0500
+	id 1tp88H-0002lw-2h
+	for mharc-qemu-rust@gnu.org; Mon, 03 Mar 2025 10:55:05 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tp7MY-0007fP-DZ; Mon, 03 Mar 2025 10:05:48 -0500
-Received: from mgamail.intel.com ([192.198.163.9])
+ id 1tp88D-0002fv-Co; Mon, 03 Mar 2025 10:55:01 -0500
+Received: from mgamail.intel.com ([192.198.163.19])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tp7MV-0000fe-Sl; Mon, 03 Mar 2025 10:05:46 -0500
+ id 1tp88A-0000Y3-FL; Mon, 03 Mar 2025 10:55:01 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741014344; x=1772550344;
+ t=1741017298; x=1772553298;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=YWu7U2ox8C/kS5IwJ4lG/zzSKqj7UhVgFgx8RBptvjE=;
- b=dIfsAlnSUYBehUdQBeOKRMRxnannHPcJVPfDjtRpmtivP8plq3SyKtXs
- PFQv9xVZU87luIEt9dDOvxkhIfX1BtgpI1Ka8bn4Ml+iQt3GH7Mx8kROu
- knAZq57h+6pSFACcMBPF5LHGwyFObpZ6xd2BSqV3QKtACL3J+tkqnBkwv
- XyoH+1lCX/GKDe29oN2AdFozUWVRQmPhfnvG/H4zUW0kDObpOHCiG3sTM
- CVdBES27TM/6iNwbgBQa4b6A+fOXHu7JnsdnYkxKPn0o15bBt2udEXx16
- ho6ImSGqF7h4hDXDlmPADQfNq48agkU0QMwaCSIf+pwTTEc7ibBYKi71M A==;
-X-CSE-ConnectionGUID: 6sFnXdPVRpq9RD6nK5tjZg==
-X-CSE-MsgGUID: viYkFKm/QOqMtwxfi38DeQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11362"; a="52530058"
-X-IronPort-AV: E=Sophos;i="6.13,330,1732608000"; d="scan'208,217";a="52530058"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2025 07:05:40 -0800
-X-CSE-ConnectionGUID: c0r33xX1Q8qv9toIUwi6+A==
-X-CSE-MsgGUID: b1sqFXykQuKLlSQ4e7KDzg==
+ bh=z1UjXqVzct7YFVuffMJy4c7g4hR0HfuRxWzJ/Y2nCX8=;
+ b=CcduDqsyOhkqZ/UOOD8gt5A98VfSftsSLkxkNg/V4uh/3I5okoOOQThK
+ +04UduYwa0BTDjDTdWfTJ5SRiVKJOoHrhW/OLssGmk46ChLrfhAcdgYLh
+ htVa4UNuW4Q5/J9G6L9f9MfB4BlBEczClKVo+k/d3q6Wtvx/1LcXY8DpH
+ N4Yxj8Zi4LE892athbXbUhv5nbtdqDo19VfAsYt9n8bY8VxVQw8vEBahD
+ N52czfPIrbKMznjAfg8c24IBYGVOR29Rks+NYTyLsqsJopEaVa7ekXT8s
+ T3EB8sza5iwOtRFSB2nJAlwu95LIwJ6Uh1/YSb45nNMTKzCSAGdewxxQG A==;
+X-CSE-ConnectionGUID: RFQxZ6FDRJigUDTTIJkxnQ==
+X-CSE-MsgGUID: ywDZx6mlRKu1XYx7dMTMGw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11362"; a="41073319"
+X-IronPort-AV: E=Sophos;i="6.13,330,1732608000"; d="scan'208";a="41073319"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2025 07:54:55 -0800
+X-CSE-ConnectionGUID: BTpT3DXDRuqOUTasSSaPVw==
+X-CSE-MsgGUID: HWaGq3ogT9WqNWYK/CgaBQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; 
- d="scan'208,217";a="122176351"
+X-IronPort-AV: E=Sophos;i="6.13,330,1732608000"; d="scan'208";a="118552939"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa003.fm.intel.com with ESMTP; 03 Mar 2025 07:05:39 -0800
-Date: Mon, 3 Mar 2025 23:25:45 +0800
+ by fmviesa010.fm.intel.com with ESMTP; 03 Mar 2025 07:54:54 -0800
+Date: Tue, 4 Mar 2025 00:15:01 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 10/12] rust: memory: wrap MemoryRegion with Opaque<>
-Message-ID: <Z8XJ+RwBctFJ6FqW@intel.com>
+Subject: Re: [PATCH 04/12] rust: timer: wrap QEMUTimer with Opaque<> and
+ express pinning requirements
+Message-ID: <Z8XVhUu5Sjaus4Hi@intel.com>
 References: <20250227142219.812270-1-pbonzini@redhat.com>
- <20250227142219.812270-11-pbonzini@redhat.com>
+ <20250227142219.812270-5-pbonzini@redhat.com>
+ <Z8W8hzFO9HU3IujQ@intel.com>
+ <4b4ca8d8-662f-409c-96dd-11c5075252e2@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250227142219.812270-11-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.9; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <4b4ca8d8-662f-409c-96dd-11c5075252e2@redhat.com>
+Received-SPF: pass client-ip=192.198.163.19; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -70,46 +72,89 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Mar 2025 15:05:58 -0000
+X-List-Received-Date: Mon, 03 Mar 2025 15:55:02 -0000
 
-On Thu, Feb 27, 2025 at 03:22:17PM +0100, Paolo Bonzini wrote:
-> Date: Thu, 27 Feb 2025 15:22:17 +0100
+On Mon, Mar 03, 2025 at 03:51:25PM +0100, Paolo Bonzini wrote:
+> Date: Mon, 3 Mar 2025 15:51:25 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 10/12] rust: memory: wrap MemoryRegion with Opaque<>
-> X-Mailer: git-send-email 2.48.1
+> Subject: Re: [PATCH 04/12] rust: timer: wrap QEMUTimer with Opaque<> and
+>  express pinning requirements
 > 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/qemu-api/src/bindings.rs |  3 ---
->  rust/qemu-api/src/memory.rs   | 35 +++++++++++++++++++++--------------
->  2 files changed, 21 insertions(+), 17 deletions(-)
+> On 3/3/25 15:28, Zhao Liu wrote:
+> > > -    pub fn init_full<'timer, 'opaque: 'timer, T, F>(
+> > > -        &'timer mut self,
+> > > +    pub fn new_full<'opaque, T, F>(
+> > >           timer_list_group: Option<&TimerListGroup>,
+> > >           clk_type: ClockType,
+> > >           scale: u32,
+> > >           attributes: u32,
+> > >           _cb: F,
+> > >           opaque: &'opaque T,
+> > > -    ) where
+> > > +    ) -> Pin<Box<Self>>
+> > >           F: for<'a> FnCall<(&'a T,)>,
+> > >       {
+> > 
+> > Ah, the lifetime here isn't effectively bound... However, I also
+> > referred to your latest code [1] :), and it seems that this issue
+> > has already been fixed. (Nit: The code still has a complaint from
+> > `cargo fmt`)
+> 
+> I am not sure if the change I have in that commit actually does anything,
+> unfortunately... :( which is why I wanted to use init_full instead of
+> new_full.
 
-...
+EMM, I tried with the below case...
 
->  impl MemoryRegion {
->      // inline to ensure that it is not included in tests, which only
-> @@ -174,13 +174,20 @@ pub fn init_io<T: IsA<Object>>(
->          size: u64,
->      ) {
->          unsafe {
-> -            Self::do_init_io(&mut self.inner, owner.cast::<Object>(), &ops.0, name, size);
-> +            Self::do_init_io(
-> +                // self.0.as_mut_ptr() needed because Rust tries to call
-> +                // ObjectDeref::as_mut_ptr() on "&mut Self", instead of coercing
-> +                // to "&Self" and then calling MemoryRegion::as_mut_ptr().
-> +                // Revisit if/when ObjectCastMut is not needed anymore; it is
-> +                // only used in a couple places for initialization.
-> +                self.0.as_mut_ptr(),
-> +                owner.cast::<Object>(),
-> +                &ops.0,
-> +                name,
-> +                size,
-> +            );
->          }
->      }
+diff --git a/rust/hw/timer/hpet/src/hpet.rs b/rust/hw/timer/hpet/src/hpet.rs
+index a440c9f4cb98..c167d69eef4c 100644
+--- a/rust/hw/timer/hpet/src/hpet.rs
++++ b/rust/hw/timer/hpet/src/hpet.rs
+@@ -190,14 +190,17 @@ fn init(&mut self, index: usize, state_ptr: *mut HPETState) -> &mut Self {
+     }
 
-The extra comment is nice, too. :-)
+     fn init_timer_with_state(&mut self) {
+-        self.qemu_timer = Some(Timer::new_full(
+-            None,
+-            CLOCK_VIRTUAL,
+-            Timer::NS,
+-            0,
+-            timer_handler,
+-            &self.get_state().timers[self.index],
+-        ));
++        {
++            let tmp = &self.get_state().timers[self.index];
++            self.qemu_timer = Some(Timer::new_full(
++                None,
++                CLOCK_VIRTUAL,
++                Timer::NS,
++                0,
++                timer_handler,
++                tmp,
++            ));
++        }
+     }
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+     fn get_state(&self) -> &HPETState {
+
+---
+
+It can compile and seems lifetime doesn't work... I think if we want the
+lifetime check, it would be necessary to store &opaque in Rust's Timer
+wrapper and specify a lifetime for Timer.
+
+Maybe we need something like (similar to MemoryRegionOps):
+
+pub struct Timer<'timer, T> {
+    Opaque<bindings::QEMUTimer>,
+    PhantomData<&'timer T>,
+}
+
+> It's easiest to marked new_full() unsafe for now.
+
+Yes, I agree.
+
+Thanks,
+Zhao
 
 
