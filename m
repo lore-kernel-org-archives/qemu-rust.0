@@ -1,54 +1,54 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tp5Ut-0008VX-64
-	for mharc-qemu-rust@gnu.org; Mon, 03 Mar 2025 08:06:15 -0500
+	id 1tp5r8-0002wO-95
+	for mharc-qemu-rust@gnu.org; Mon, 03 Mar 2025 08:29:16 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tp5UL-0008QV-My; Mon, 03 Mar 2025 08:05:42 -0500
-Received: from mgamail.intel.com ([192.198.163.8])
+ id 1tp5qq-0002u1-KI; Mon, 03 Mar 2025 08:28:59 -0500
+Received: from mgamail.intel.com ([192.198.163.11])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tp5UG-0004Qx-3c; Mon, 03 Mar 2025 08:05:39 -0500
+ id 1tp5qn-000806-Gy; Mon, 03 Mar 2025 08:28:56 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741007136; x=1772543136;
+ t=1741008533; x=1772544533;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=BupHBMcxndG1/34byelERShPD4ASM2wipL/29vh3UNI=;
- b=NlztvbiIR27uqRtrKsWmUnknjc/LoN0DBzGbaiH9NipL81DVgh+QfJ0L
- rZzyAFpCJYA2ayPfS1z5kwbAqJNCRP1JJynlqnYKAgWViTED1Qoq/vwtX
- /3W87duHgu7ro7v41USyqR4YgcjjcX8+vFI4LvlOJd6ZS7PJsOnc3KwAa
- h3DFEMUWTMjz6LFGFltnJ8xlVi8iJ7e/6ylAD/LHM9ALLHS6gAL4uHocu
- UPtR6JkJqb6oKnvcFCSt6TsmsP3l3LqFoctfFOdV5E4yD5vgHmqx/XVl4
- 7ihQbo/1Pdw7Q78JIjanLZYip6bBj5adQy7QUsmd4Bk4OI0uWtksLBSuU A==;
-X-CSE-ConnectionGUID: 5mece1QXT7atyR/fffw0AQ==
-X-CSE-MsgGUID: UdCTgOKfR6SCKxaeRk3ejg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11362"; a="59428050"
-X-IronPort-AV: E=Sophos;i="6.13,329,1732608000"; d="scan'208";a="59428050"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2025 05:05:32 -0800
-X-CSE-ConnectionGUID: fRG56yIMREGGmi8eKvA66w==
-X-CSE-MsgGUID: /FOALo9/TyqRmnm3BJMUcg==
+ bh=0X6HNmOEjPPOHXHgDv4hf5mXi8TwipaxgsoMGSSkWD0=;
+ b=JWjuGN5PQb6lpC47WdTY1z7yDJvQxR2qj95TpSvSrEDIzSFeWE6JS81w
+ svekNecy0IFDzMRfVjPPkIzMW35kwYDjRbY2ygufF/HZLJbp7pc/XU4hg
+ ZX1yMiAKd/kA1O7ZhBc2MSrGerllCY5WKcd61vBYJZYWlbQHnG2pHWbwW
+ ak6PB8nssdwLd7McmxY88Ml0jJUl31AfyvezasP2Y7GvWYRGTbB8Cy3m/
+ 2pn7yLfIQC53spYninMnZ6V/xJnYsWG0/3CJvE784+jZojrnbi47bH6kX
+ gvmz+nZEEGMAUaJWR79Is1BNLIGfVQnoEXSmWQ6Mqu2NNzXcmUvPXQaR8 Q==;
+X-CSE-ConnectionGUID: qRUvJs6VR1CMLBjocbAHVA==
+X-CSE-MsgGUID: 6Kmac9o6TymbTLWJIoJPSA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11362"; a="52526257"
+X-IronPort-AV: E=Sophos;i="6.13,329,1732608000"; d="scan'208";a="52526257"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2025 05:28:49 -0800
+X-CSE-ConnectionGUID: 1ABxd0P7SKq1kmfJygEx8g==
+X-CSE-MsgGUID: AHN0v1Q0QESJ5Tgl2q/ogg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,329,1732608000"; d="scan'208";a="117993308"
+X-IronPort-AV: E=Sophos;i="6.13,329,1732608000"; d="scan'208";a="118039189"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa007.fm.intel.com with ESMTP; 03 Mar 2025 05:05:30 -0800
-Date: Mon, 3 Mar 2025 21:25:37 +0800
+ by orviesa006.jf.intel.com with ESMTP; 03 Mar 2025 05:28:49 -0800
+Date: Mon, 3 Mar 2025 21:48:55 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 03/12] rust: vmstate: add std::pin::Pin as transparent
- wrapper
-Message-ID: <Z8Wt0RW/us8jxEoW@intel.com>
+Subject: Re: [PATCH 04/12] rust: timer: wrap QEMUTimer with Opaque<> and
+ express pinning requirements
+Message-ID: <Z8WzRyPbt6d7CHWM@intel.com>
 References: <20250227142219.812270-1-pbonzini@redhat.com>
- <20250227142219.812270-4-pbonzini@redhat.com>
+ <20250227142219.812270-5-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250227142219.812270-4-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.8; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250227142219.812270-5-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.11; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -70,21 +70,56 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Mar 2025 13:06:10 -0000
+X-List-Received-Date: Mon, 03 Mar 2025 13:29:08 -0000
 
-On Thu, Feb 27, 2025 at 03:22:10PM +0100, Paolo Bonzini wrote:
-> Date: Thu, 27 Feb 2025 15:22:10 +0100
+On Thu, Feb 27, 2025 at 03:22:11PM +0100, Paolo Bonzini wrote:
+> Date: Thu, 27 Feb 2025 15:22:11 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 03/12] rust: vmstate: add std::pin::Pin as transparent
->  wrapper
+> Subject: [PATCH 04/12] rust: timer: wrap QEMUTimer with Opaque<> and
+>  express pinning requirements
 > X-Mailer: git-send-email 2.48.1
+> 
+> Timers must be pinned in memory, because modify() stores a pointer to them
+> in the TimerList.  To ensure this is the case, replace the separate new()
+> and init_full() with a single function that returns a pinned box.  Because
+> the only way to obtain a Timer is through Timer::new_full(), modify()
+> knows that the timer it got is also pinned.  In the future the pinning
+> requirement will be expressed through the pin_init crate instead.
+> 
+> Note that Timer is a bit different from other users of Opaque, in that
+> it is created in Rust code rather than C code.  This is why it has to
+> use the unsafe Opaque::new() function.
 > 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  rust/qemu-api/src/vmstate.rs | 1 +
->  1 file changed, 1 insertion(+)
-> 
+>  meson.build                    |  7 -----
+>  rust/hw/timer/hpet/src/hpet.rs | 23 ++++++++---------
+>  rust/qemu-api/src/timer.rs     | 47 ++++++++++++++++++++++------------
+>  3 files changed, 41 insertions(+), 36 deletions(-)
+
+Great! LGTM,
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+
+(But pls wait, I have a question below...)
+
+> @@ -156,7 +157,7 @@ pub struct HPETTimer {
+>      /// timer N index within the timer block (`HPETState`)
+>      #[doc(alias = "tn")]
+>      index: usize,
+> -    qemu_timer: Option<Box<Timer>>,
+> +    qemu_timer: Option<Pin<Box<Timer>>>,
+
+I'm removing this Option<> wrapper in migration series. This is because
+Option<> can't be treated as pointer as you mentioned in [*].
+
+So for this reason, does this mean that VMStateField cannot accept
+Option<>? I realize that all the current VMStateFlags don't seem
+compatible with Option<> unless a new flag is introduced.
+
+[*]: https://lore.kernel.org/qemu-devel/9a0389fa-765c-443b-ac2f-7c99ed862982@redhat.com/
+
+Thanks,
+Zhao
 
 
