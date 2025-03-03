@@ -1,53 +1,54 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tp7GT-00061g-9k
-	for mharc-qemu-rust@gnu.org; Mon, 03 Mar 2025 09:59:29 -0500
+	id 1tp7N5-0007oY-QX
+	for mharc-qemu-rust@gnu.org; Mon, 03 Mar 2025 10:06:27 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tp7GQ-000617-28; Mon, 03 Mar 2025 09:59:26 -0500
-Received: from mgamail.intel.com ([198.175.65.12])
+ id 1tp7MY-0007fP-DZ; Mon, 03 Mar 2025 10:05:48 -0500
+Received: from mgamail.intel.com ([192.198.163.9])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tp7GM-0007qd-Lo; Mon, 03 Mar 2025 09:59:25 -0500
+ id 1tp7MV-0000fe-Sl; Mon, 03 Mar 2025 10:05:46 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741013962; x=1772549962;
+ t=1741014344; x=1772550344;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=HRPVbfho+LLuUuzc8CR6Jb5tPbOh4MIqnxIb1XWx0mg=;
- b=CsgzjrjhBt9G6n39xB46jCtAd7bmPzJmgdn0o7Gh84NvsukxzNpc6S1j
- zGPD1oF/k4CirVX6TqliPukd84GyAemSuPG10bRFVz5GT34AIjH3c0qKB
- zWubkBeNV8e4eO4Cpp2TKGxPT6ayfqBBdlWp6xehvxORdAPscxa7bjQT8
- X6LRtNxz+PjMua0gjz7kMjSbKehII5wudoXqcGe4uU4Y9e1A2+fzWECK4
- ataS77LbMEaUdVI3zU6I8oobmaHfbUDUz6eL8ajH21pnJnswN3i37Hig2
- s3LjaGgj7rwJMNyi6Y5cF4KyBofdWxpIKVLHsNkPNVEs0PtH9pydhZB8c Q==;
-X-CSE-ConnectionGUID: AEspLUrbSXuQmMqQw0K90g==
-X-CSE-MsgGUID: 2yvS0l0LTPasGt9V1vyMrQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11362"; a="53284418"
-X-IronPort-AV: E=Sophos;i="6.13,330,1732608000"; d="scan'208";a="53284418"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2025 06:59:19 -0800
-X-CSE-ConnectionGUID: nKMNwBAzTz2aalV3eMeTrw==
-X-CSE-MsgGUID: y3QenLH4QEicO9dc+/Eg0g==
+ bh=YWu7U2ox8C/kS5IwJ4lG/zzSKqj7UhVgFgx8RBptvjE=;
+ b=dIfsAlnSUYBehUdQBeOKRMRxnannHPcJVPfDjtRpmtivP8plq3SyKtXs
+ PFQv9xVZU87luIEt9dDOvxkhIfX1BtgpI1Ka8bn4Ml+iQt3GH7Mx8kROu
+ knAZq57h+6pSFACcMBPF5LHGwyFObpZ6xd2BSqV3QKtACL3J+tkqnBkwv
+ XyoH+1lCX/GKDe29oN2AdFozUWVRQmPhfnvG/H4zUW0kDObpOHCiG3sTM
+ CVdBES27TM/6iNwbgBQa4b6A+fOXHu7JnsdnYkxKPn0o15bBt2udEXx16
+ ho6ImSGqF7h4hDXDlmPADQfNq48agkU0QMwaCSIf+pwTTEc7ibBYKi71M A==;
+X-CSE-ConnectionGUID: 6sFnXdPVRpq9RD6nK5tjZg==
+X-CSE-MsgGUID: viYkFKm/QOqMtwxfi38DeQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11362"; a="52530058"
+X-IronPort-AV: E=Sophos;i="6.13,330,1732608000"; d="scan'208,217";a="52530058"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2025 07:05:40 -0800
+X-CSE-ConnectionGUID: c0r33xX1Q8qv9toIUwi6+A==
+X-CSE-MsgGUID: b1sqFXykQuKLlSQ4e7KDzg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,330,1732608000"; d="scan'208";a="148850079"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; 
+ d="scan'208,217";a="122176351"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa002.jf.intel.com with ESMTP; 03 Mar 2025 06:59:19 -0800
-Date: Mon, 3 Mar 2025 23:19:25 +0800
+ by fmviesa003.fm.intel.com with ESMTP; 03 Mar 2025 07:05:39 -0800
+Date: Mon, 3 Mar 2025 23:25:45 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 09/12] rust: sysbus: wrap SysBusDevice with Opaque<>
-Message-ID: <Z8XIfZ6L6I4jKaBJ@intel.com>
+Subject: Re: [PATCH 10/12] rust: memory: wrap MemoryRegion with Opaque<>
+Message-ID: <Z8XJ+RwBctFJ6FqW@intel.com>
 References: <20250227142219.812270-1-pbonzini@redhat.com>
- <20250227142219.812270-10-pbonzini@redhat.com>
+ <20250227142219.812270-11-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250227142219.812270-10-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.12; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250227142219.812270-11-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.9; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -69,19 +70,45 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Mar 2025 14:59:27 -0000
+X-List-Received-Date: Mon, 03 Mar 2025 15:05:58 -0000
 
-On Thu, Feb 27, 2025 at 03:22:16PM +0100, Paolo Bonzini wrote:
-> Date: Thu, 27 Feb 2025 15:22:16 +0100
+On Thu, Feb 27, 2025 at 03:22:17PM +0100, Paolo Bonzini wrote:
+> Date: Thu, 27 Feb 2025 15:22:17 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 09/12] rust: sysbus: wrap SysBusDevice with Opaque<>
+> Subject: [PATCH 10/12] rust: memory: wrap MemoryRegion with Opaque<>
 > X-Mailer: git-send-email 2.48.1
 > 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
 >  rust/qemu-api/src/bindings.rs |  3 ---
->  rust/qemu-api/src/sysbus.rs   | 29 +++++++++++++++++++++--------
->  2 files changed, 21 insertions(+), 11 deletions(-)
+>  rust/qemu-api/src/memory.rs   | 35 +++++++++++++++++++++--------------
+>  2 files changed, 21 insertions(+), 17 deletions(-)
+
+...
+
+>  impl MemoryRegion {
+>      // inline to ensure that it is not included in tests, which only
+> @@ -174,13 +174,20 @@ pub fn init_io<T: IsA<Object>>(
+>          size: u64,
+>      ) {
+>          unsafe {
+> -            Self::do_init_io(&mut self.inner, owner.cast::<Object>(), &ops.0, name, size);
+> +            Self::do_init_io(
+> +                // self.0.as_mut_ptr() needed because Rust tries to call
+> +                // ObjectDeref::as_mut_ptr() on "&mut Self", instead of coercing
+> +                // to "&Self" and then calling MemoryRegion::as_mut_ptr().
+> +                // Revisit if/when ObjectCastMut is not needed anymore; it is
+> +                // only used in a couple places for initialization.
+> +                self.0.as_mut_ptr(),
+> +                owner.cast::<Object>(),
+> +                &ops.0,
+> +                name,
+> +                size,
+> +            );
+>          }
+>      }
+
+The extra comment is nice, too. :-)
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
