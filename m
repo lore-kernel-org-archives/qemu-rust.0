@@ -1,78 +1,77 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tpeIt-0004Pi-HG
-	for mharc-qemu-rust@gnu.org; Tue, 04 Mar 2025 21:16:12 -0500
+	id 1tpeji-0006nP-Me
+	for mharc-qemu-rust@gnu.org; Tue, 04 Mar 2025 21:43:54 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <stefanha@gmail.com>)
- id 1tpeIO-0004M4-L0; Tue, 04 Mar 2025 21:15:42 -0500
-Received: from mail-pj1-x102b.google.com ([2607:f8b0:4864:20::102b])
+ id 1tpejg-0006lx-Ga; Tue, 04 Mar 2025 21:43:52 -0500
+Received: from mail-pl1-x629.google.com ([2607:f8b0:4864:20::629])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <stefanha@gmail.com>)
- id 1tpeIL-0005Dj-Kf; Tue, 04 Mar 2025 21:15:40 -0500
-Received: by mail-pj1-x102b.google.com with SMTP id
- 98e67ed59e1d1-2fe848040b1so12929627a91.3; 
- Tue, 04 Mar 2025 18:15:36 -0800 (PST)
+ id 1tpeje-0005R4-0u; Tue, 04 Mar 2025 21:43:52 -0500
+Received: by mail-pl1-x629.google.com with SMTP id
+ d9443c01a7336-219f8263ae0so118025965ad.0; 
+ Tue, 04 Mar 2025 18:43:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741140935; x=1741745735; darn=nongnu.org;
+ d=gmail.com; s=20230601; t=1741142628; x=1741747428; darn=nongnu.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=l1qeFEEjOAAigLBXucqEKGRjvpQU2PXzgTPoFxOqU9Q=;
- b=QK52i6/m3E/ohKVd/V0PiWywzRHDc50iMfhoGieQwcYXoI7dYjhQblQTBAuE8ySEAP
- yS4hX35Ym4goIrPTfQdQVg3uSvlvhAuysJY6ICCW/HeLLz6RYl2VQYuoM9ORMM8MjEOv
- DfIYB2koaXcfdSx0lkWG9aHK2jR/FMHwlRvJ0ncq3FS2qomxSNBrwzVORxUsjQ0BgrPK
- afNleL4q7EhAd9mjFy8wn3zu7SFHddzk2/FcT8oAzDYyvlYygaKgzy8l9JwcfXSaBefm
- Xopzu1k4Gpoj+piR4gnZxTy+9LfuejfgZq+4gVmbmLZbztMdSphl3hqC/55MZ8n64K4F
- dczg==
+ bh=5sppU0FCF9jDLgCOEFiKj3D933OKeDqndzQMLl816kU=;
+ b=WzC4HYib8BMR7eHP5vTFnDS440mzu5a8Xsn15t4j12GlAVoKpJuK+ubixIEj6P3slz
+ nsas16svN97AAJ0gPHkJMyUzpoCLRi4TP5rRDfZpeRuX5MueNY67Qkk0XK7Io5HVVaef
+ uPMEZbf14u75/ZnTZns4hyrsvSLO31GiampnlbDdGJCDr689Z7XmN4JCsO67DGsSRhSa
+ B4WDQoP3v3STrHtbEnt9kgtwp24vlpMkcKpoE7crlEVbFKf2AYtbADHJpy5cMb61Ywky
+ R91yXQMAddr9a/sk6DtMKPIv6IGMEhLvu9+5uhj2cMaPQ9wNTYeBPpjl0gr9ABkW5R6Y
+ LzDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741140935; x=1741745735;
+ d=1e100.net; s=20230601; t=1741142628; x=1741747428;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=l1qeFEEjOAAigLBXucqEKGRjvpQU2PXzgTPoFxOqU9Q=;
- b=BTq/kooCDdkcTklSbNzFx067lGxc6GyGmnpAlJ9C9mbAZ0h2adcQe4mII9g+M6lc7U
- L8SNRYwlBb3qkeHLjj2SB89rlyqBnMovb4oZOEPs9KvuY9lE1L6GLIEPs/gKS1rIUTP3
- 0Tms0hRUj+b8r0/aVu5bGmBXO1MD6nR3OBnh9llfIWksx4HW0S8z5xIPT63kNYNraAWC
- DO74EjBctBnKvr3v0j2m9Y+seVCEEvrytzVgtMqijBV//87SVqkSU8SqvzJtpNvTmNSq
- RkFLyg16qXEK1vj4uqmei9wRygLT4QScirIEngCTnecZzsk8Il5fWgnYEMAyBj6de9ov
- nk2g==
+ bh=5sppU0FCF9jDLgCOEFiKj3D933OKeDqndzQMLl816kU=;
+ b=a7apjXCvBGflf8ohI729Nv5ZHHjh+bKJfuD0bvLU8NzPeS4Vg0sNW9pV7XA2nCiC/x
+ F2y+gkRvZM049DS1okmBRPzVR6iGh60OZNyl7Ar0qua7RSGygwl9NPeeBne8tJneja8c
+ Mq47cOd6+hJNIInLpQDNe1+Q2++2RuiwMeD3RzKs8W5WEFyi2BFbFrftBLaLzkcWUqHp
+ OtDbLuMElFNjMKXs8psiHXe/l1HYZCX1QbIEm0UtPgXmmvTn8puLMuYRVcflyEKvI1xa
+ 2GtZE855ztTeknI1sfacRYNOFt2yWmNCH9YjvagCBokVqFRPCKunkdS5Yer2s6fuMJ0j
+ 1hHw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWUAg3t26NoD/caY2lIUkPq1gB3H6LqggC2Oy23sUSmK2fTflQDMBDKN99hEsP7gT9HKQmMXqjLOWoe@nongnu.org,
- AJvYcCXfA+WHx2tIxQkJsUeoMiaJwZOcnQx/xr7u9QgH6EzvGqmi9Is1WYEBa2OvMDVjoov1Wpgo5Mb/wPMk@nongnu.org
-X-Gm-Message-State: AOJu0YxEwjDMN6e2yGIwDuM6MalqgdneMmz+KLqUr1BNQeZM7v69R8/h
- 6srZW0Xf+4NTZ30AyPNKiUJ9+Wg6tC0TGc79xL/Fmf0+phBhG74MbK6xuAP1
-X-Gm-Gg: ASbGncsBWHdxzfcy8yLjfZUWzE7tcjsAl6N8PKyFr15QZnRbqhEA7YlXFANSP73IX48
- c7VgxdE1uxiNHlMOc5sFi0x2tUTTr+uUIo3jQxXbdODOc0tbXTMV5cayu+Fop3ZzHFkXEpqISnZ
- d6d3RHlNBhOJuRFq1HCsQeMS7FeMHQOFzJqr7aCS+2fnRmGcxIybMrsJMH6UMmIIEWWFrSjElKn
- O4nN3txpsSWeMXtR0ZGFl5UacgpGnYDW5cR7vwpEudPgQNC0NmAGl2ybjgGYor+GDLKyF+3MeTC
- 4zJNtoiceTMlln1OYrMpAEIS+DU7UE6v+q5j/JlAsknNg/cPdawEn1pV8Eo26cM=
-X-Google-Smtp-Source: AGHT+IEDc4V5klj+zeXy4maEhDvbfCB6WdKK4y01cVkF/mYcK2VnI4YHbh0qThxsLuu+BoPqyUSGZQ==
-X-Received: by 2002:a17:90b:6cb:b0:2fa:17dd:6afa with SMTP id
- 98e67ed59e1d1-2ff49753458mr3003710a91.17.1741140935332; 
- Tue, 04 Mar 2025 18:15:35 -0800 (PST)
+ AJvYcCUcN68KZk37Fhb1oKSzCIQgRv+NDCYLcexQgjSzYFKEsRCm3/YumbowHHWtfdk9PpwvbvRAL2UkO7QF@nongnu.org,
+ AJvYcCWZ5HMWxKumxTocZUziViJ4EosK+XUuA3iIbk05G3vcdRaPaJiylULvu5ZM6HU42KIiNAFjJjuKLEKG@nongnu.org
+X-Gm-Message-State: AOJu0Ywua7hVfeFzY3R7PpUPBzYj7Nvr/yk7cLsS10p+kHZhlvc+cHya
+ pAjSKRCuBnJBCaqHtqNrgj9G75/VKGUF4yJEerKAeVmmrjWsqCnu
+X-Gm-Gg: ASbGnctnLX6gsrm9unBPGsNhandERo5y0ooQ1lDXbhBHhi7o1xDUVUEPoFAU0tArhvp
+ sM1i67yxv3aLpw5GMp1b3bSCnONwOwQXkPYVlV01nIXh7zKVK4k4tiaaNSL+R/xU4GXIdMK3WiA
+ dVtBWDzcur5dYR/MXE+SBudgRSSCwZLVTWMm2XVyaAFDp8g3KzMhKud9QWXIFo/zOhV7r4MGLoK
+ HmpLFBsQBsDrPSUVDJjB31rrNSZRjrMf8DLa25YUJ+0onLGFYGBRy/m9dJ43Bt7RpGV8qsomZeA
+ pcPu1Ch9rs8K58WYPVzeDW44BOp/zCaLb0qwrgq2G20Km5QJ3t7MF4EYExaIVME=
+X-Google-Smtp-Source: AGHT+IEgNIK25Nev1CUtxHsMv0/iUQMVxA1I9lwKZ11r3BddPzgB3PIQP1RXnvALiehWTzmAE9uR1g==
+X-Received: by 2002:a05:6a00:14d1:b0:730:8386:6070 with SMTP id
+ d2e1a72fcca58-736829cd997mr2143414b3a.0.1741142627301; 
+ Tue, 04 Mar 2025 18:43:47 -0800 (PST)
 Received: from localhost (n11648126014.netvigator.com. [116.48.126.14])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2ff4e7a2c3bsm151013a91.39.2025.03.04.18.15.33
+ d2e1a72fcca58-7349fe48849sm11701791b3a.46.2025.03.04.18.43.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Mar 2025 18:15:34 -0800 (PST)
+ Tue, 04 Mar 2025 18:43:46 -0800 (PST)
 From: Stefan Hajnoczi <stefanha@gmail.com>
 X-Google-Original-From: Stefan Hajnoczi <stefanha@fedora>
-Date: Wed, 5 Mar 2025 10:15:30 +0800
+Date: Wed, 5 Mar 2025 10:43:42 +0800
 To: Kevin Wolf <kwolf@redhat.com>
 Cc: qemu-block@nongnu.org, hreitz@redhat.com, pbonzini@redhat.com,
  manos.pitsidianakis@linaro.org, philmd@linaro.org,
  qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH v2 04/11] rust/qemu-api: Add wrappers to run futures in
- QEMU
-Message-ID: <20250305021530.GA247800@fedora>
+Subject: Re: [PATCH v2 08/11] rust/block: Add driver module
+Message-ID: <20250305024342.GB247800@fedora>
 References: <20250218182019.111467-1-kwolf@redhat.com>
- <20250218182019.111467-5-kwolf@redhat.com>
+ <20250218182019.111467-9-kwolf@redhat.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="h5u3hztMFs09Paiw"
+ protocol="application/pgp-signature"; boundary="DnLHf8xUuxM2eJhW"
 Content-Disposition: inline
-In-Reply-To: <20250218182019.111467-5-kwolf@redhat.com>
-Received-SPF: pass client-ip=2607:f8b0:4864:20::102b;
- envelope-from=stefanha@gmail.com; helo=mail-pj1-x102b.google.com
+In-Reply-To: <20250218182019.111467-9-kwolf@redhat.com>
+Received-SPF: pass client-ip=2607:f8b0:4864:20::629;
+ envelope-from=stefanha@gmail.com; helo=mail-pl1-x629.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -92,314 +91,290 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Mar 2025 02:16:09 -0000
+X-List-Received-Date: Wed, 05 Mar 2025 02:43:53 -0000
 
 
---h5u3hztMFs09Paiw
+--DnLHf8xUuxM2eJhW
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Feb 18, 2025 at 07:20:12PM +0100, Kevin Wolf wrote:
-> This adds helper functions that allow running Rust futures to completion
-> using QEMU's event loops.
-
-This commit is a cliff-hanger. I'm intrigued to find out how timer, fd,
-etc event loop integration will work :).
-
+On Tue, Feb 18, 2025 at 07:20:16PM +0100, Kevin Wolf wrote:
+> This adds a barebones module for a block driver interface. Because there
+> is no native QAPI support for Rust yet, opening images takes a few
+> unsafe functions to call into C visitor functions. This should be
+> cleaned up later.
 >=20
 > Signed-off-by: Kevin Wolf <kwolf@redhat.com>
 > ---
->  include/qemu/coroutine-rust.h | 24 +++++++++++
->  rust/wrapper.h                |  1 +
->  util/qemu-co-rust-async.c     | 55 +++++++++++++++++++++++++
->  rust/qemu-api/meson.build     |  1 +
->  rust/qemu-api/src/futures.rs  | 77 +++++++++++++++++++++++++++++++++++
->  rust/qemu-api/src/lib.rs      |  1 +
->  util/meson.build              |  3 ++
->  7 files changed, 162 insertions(+)
->  create mode 100644 include/qemu/coroutine-rust.h
->  create mode 100644 util/qemu-co-rust-async.c
->  create mode 100644 rust/qemu-api/src/futures.rs
+>  rust/block/src/driver.rs | 195 +++++++++++++++++++++++++++++++++++++++
+>  rust/block/src/lib.rs    |   1 +
+>  2 files changed, 196 insertions(+)
+>  create mode 100644 rust/block/src/driver.rs
 >=20
-> diff --git a/include/qemu/coroutine-rust.h b/include/qemu/coroutine-rust.h
+> diff --git a/rust/block/src/driver.rs b/rust/block/src/driver.rs
 > new file mode 100644
-> index 0000000000..0c5cf42a6b
+> index 0000000000..fe19f4b88f
 > --- /dev/null
-> +++ b/include/qemu/coroutine-rust.h
-> @@ -0,0 +1,24 @@
-> +/* SPDX-License-Identifier: LGPL-2.1-or-later */
-> +/*
-> + * Helpers to run Rust futures using QEMU coroutines
-> + *
-> + * Copyright Red Hat
-> + *
-> + * Author:
-> + *   Kevin Wolf <kwolf@redhat.com>
-> + *
-> + * This work is licensed under the terms of the GNU LGPL, version 2.1 or=
- later.
-> + * See the COPYING.LIB file in the top-level directory.
-> + */
+> +++ b/rust/block/src/driver.rs
+> @@ -0,0 +1,195 @@
+> +// Copyright Red Hat Inc.
+> +// Author(s): Kevin Wolf <kwolf@redhat.com>
+> +// SPDX-License-Identifier: GPL-2.0-or-later
 > +
-> +#ifndef QEMU_COROUTINE_RUST_H
-> +#define QEMU_COROUTINE_RUST_H
+> +// All of this is unused until the first block driver is added
+> +#![allow(dead_code)]
+> +#![allow(unused_macros)]
+> +#![allow(unused_imports)]
 > +
-> +typedef struct RustBoxedFuture RustBoxedFuture;
-> +typedef void coroutine_fn RunFuture(RustBoxedFuture *future, void *opaqu=
-e);
-> +
-> +void no_coroutine_fn rust_run_future(RustBoxedFuture *future,
-> +                                     RunFuture *entry,
-> +                                     void *opaque);
-
-This adds a blocking (aio_poll()-style) API. The more blocking APIs we
-add, the more points are created where QEMU hangs when the async
-operation doesn't complete in a reasonable amount of time. It would be
-best to avoid introducing new blocking APIs, but sometimes it is
-unavoidable.
-
-rust_run_future() is very generic and I think the downsides should be
-pointed out to discourage people from using it when not absolutely
-necessary. Can you document when it's appropriate to use this API?
-
-> +
-> +#endif
-> diff --git a/rust/wrapper.h b/rust/wrapper.h
-> index 303d7bba7f..3dc385e256 100644
-> --- a/rust/wrapper.h
-> +++ b/rust/wrapper.h
-> @@ -58,3 +58,4 @@ typedef enum memory_order {
->  #include "block/block_int.h"
->  #include "block/qdict.h"
->  #include "qapi/qapi-visit-block-core.h"
-> +#include "qemu/coroutine-rust.h"
-> diff --git a/util/qemu-co-rust-async.c b/util/qemu-co-rust-async.c
-> new file mode 100644
-> index 0000000000..d893dfb7bd
-> --- /dev/null
-> +++ b/util/qemu-co-rust-async.c
-> @@ -0,0 +1,55 @@
-> +/* SPDX-License-Identifier: LGPL-2.1-or-later */
-> +/*
-> + * Helpers to run Rust futures using QEMU coroutines
-> + *
-> + * Copyright Red Hat
-> + *
-> + * Author:
-> + *   Kevin Wolf <kwolf@redhat.com>
-> + *
-> + * This work is licensed under the terms of the GNU LGPL, version 2.1 or=
- later.
-> + * See the COPYING.LIB file in the top-level directory.
-> + */
-> +
-> +#include "qemu/osdep.h"
-> +
-> +#include "block/aio-wait.h"
-> +#include "qemu/coroutine.h"
-> +#include "qemu/coroutine-rust.h"
-> +#include "qemu/main-loop.h"
-> +
-> +typedef struct FutureCo {
-> +    RustBoxedFuture *future;
-> +    RunFuture *entry;
-> +    void *opaque;
-> +    bool done;
-> +} FutureCo;
-> +
-> +static void coroutine_fn rust_co_run_future_entry(void *opaque)
-> +{
-> +    FutureCo *data =3D opaque;
-> +
-> +    data->entry(data->future, data->opaque);
-> +    data->done =3D true;
-> +    aio_wait_kick();
-> +}
-> +
-> +void no_coroutine_fn rust_run_future(RustBoxedFuture *future,
-> +                                     RunFuture *entry,
-> +                                     void *opaque)
-> +{
-> +    AioContext *ctx =3D qemu_get_current_aio_context();
-> +    Coroutine *co;
-> +    FutureCo data =3D {
-> +        .future =3D future,
-> +        .entry =3D entry,
-> +        .opaque =3D opaque,
-> +        .done =3D false,
-> +    };
-> +
-> +    GLOBAL_STATE_CODE();
-> +
-> +    co =3D qemu_coroutine_create(rust_co_run_future_entry, &data);
-> +    aio_co_enter(ctx, co);
-> +    AIO_WAIT_WHILE(ctx, !data.done);
-> +}
-> diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
-> index e0a3052c79..44fd34e193 100644
-> --- a/rust/qemu-api/meson.build
-> +++ b/rust/qemu-api/meson.build
-> @@ -22,6 +22,7 @@ sources_core =3D [
->    'src/chardev.rs',
->    'src/c_str.rs',
->    'src/errno.rs',
-> +  'src/futures.rs',
->    'src/module.rs',
->    'src/offset_of.rs',
->    'src/prelude.rs',
-> diff --git a/rust/qemu-api/src/futures.rs b/rust/qemu-api/src/futures.rs
-> new file mode 100644
-> index 0000000000..cd307a1d62
-> --- /dev/null
-> +++ b/rust/qemu-api/src/futures.rs
-> @@ -0,0 +1,77 @@
-> +use crate::bindings;
+> +use crate::{IoBuffer, SizedIoBuffer};
+> +use qemu_api::bindings;
 > +use std::ffi::c_void;
-> +use std::future::Future;
+> +use std::io::{self, Error, ErrorKind};
 > +use std::mem::MaybeUninit;
-> +use std::sync::Arc;
-> +use std::task::{Context, Poll, Wake, Waker};
+> +use std::ptr;
 > +
-> +struct RunFutureWaker {
-> +    co: *mut bindings::Coroutine,
+> +/// A trait for writing block drivers.
+> +///
+> +/// Types that implement this trait can be registered as QEMU block driv=
+ers using the
+> +/// [`block_driver`] macro.
+> +pub trait BlockDriver {
+
+> +    /// The type that contains the block driver specific options for ope=
+ning an image
+> +    type Options;
+> +
+> +    // TODO Native support for QAPI types and deserialization
+> +    unsafe fn parse_options(
+> +        v: &mut bindings::Visitor,
+> +        opts: &mut *mut Self::Options,
+> +        errp: *mut *mut bindings::Error,
+> +    );
+> +    unsafe fn free_options(opts: *mut Self::Options);
+> +    unsafe fn open(
+> +        bs: *mut bindings::BlockDriverState,
+> +        opts: &Self::Options,
+> +        errp: *mut *mut bindings::Error,
+> +    ) -> std::os::raw::c_int;
+> +
+> +    /// Returns the size of the image in bytes
+> +    fn size(&self) -> u64;
+
+I wonder if it makes sense to separate different parts of the
+BlockDriver API into multiple traits:
+1. Pre-open APIs (open(), probe()?, etc)
+2. I/O path - Future or async-based and can run in any thread
+3. Control path (size(), close(), reopen()?, etc)
+
+That way the type system guarantees that sub-APIs that are only valid in
+a specific state (e.g. when the BlockDriverState is open) cannot be
+called.
+
+size() is an example of a method that would benefit from more
+fine-grained traits that keep states separated. size() -> u64 doesn't
+make sense before open().
+
+What do you think?
+
 > +}
-> +unsafe impl Send for RunFutureWaker {}
-> +unsafe impl Sync for RunFutureWaker {}
 > +
-> +impl Wake for RunFutureWaker {
-> +    fn wake(self: Arc<Self>) {
+> +/// Represents the connection between a parent and its child node.
+> +///
+> +/// This is a wrapper around the `BdrvChild` type in C.
+> +pub struct BdrvChild {
+> +    child: *mut bindings::BdrvChild,
+> +}
+> +
+> +// TODO Represent the graph lock and let the compiler verify it's held w=
+hen accessing child
+> +unsafe impl Send for BdrvChild {}
+> +unsafe impl Sync for BdrvChild {}
+> +
+> +impl BdrvChild {
+> +    /// Creates a new child reference from a `BlockdevRef`.
+> +    pub unsafe fn new(
+> +        parent: *mut bindings::BlockDriverState,
+> +        bref: *mut bindings::BlockdevRef,
+> +        errp: *mut *mut bindings::Error,
+> +    ) -> Option<Self> {
 > +        unsafe {
-> +            bindings::aio_co_wake(self.co);
+> +            let child_bs =3D bindings::bdrv_open_blockdev_ref_file(bref,=
+ parent, errp);
+> +            if child_bs.is_null() {
+> +                return None;
+> +            }
+> +
+> +            bindings::bdrv_graph_wrlock();
+> +            let child =3D bindings::bdrv_attach_child(
+> +                parent,
+> +                child_bs,
+> +                c"file".as_ptr(),
+> +                &bindings::child_of_bds as *const _,
+> +                bindings::BDRV_CHILD_IMAGE,
+> +                errp,
+> +            );
+> +            bindings::bdrv_graph_wrunlock();
+> +
+> +            if child.is_null() {
+> +                None
+> +            } else {
+> +                Some(BdrvChild { child })
+> +            }
+> +        }
+> +    }
+> +
+> +    /// Reads data from the child node into a linear byte buffer.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// `buf` must be a valid I/O buffer that can store at least `bytes`=
+ bytes.
+> +    pub async unsafe fn read_raw(&self, offset: u64, bytes: usize, buf: =
+*mut u8) -> io::Result<()> {
+> +        let offset: i64 =3D offset
+> +            .try_into()
+> +            .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+> +        let bytes: i64 =3D bytes
+> +            .try_into()
+> +            .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+> +
+> +        let ret =3D unsafe { bindings::bdrv_pread(self.child, offset, by=
+tes, buf as *mut c_void, 0) };
+> +        if ret < 0 {
+> +            Err(Error::from_raw_os_error(-ret))
+> +        } else {
+> +            Ok(())
+> +        }
+> +    }
+> +
+> +    /// Reads data from the child node into a linear typed buffer.
+> +    pub async fn read<T: IoBuffer + ?Sized>(&self, offset: u64, buf: &mu=
+t T) -> io::Result<()> {
+> +        unsafe {
+> +            self.read_raw(offset, buf.buffer_len(), buf.buffer_mut_ptr())
+> +                .await
+> +        }
+> +    }
+> +
+> +    /// Reads data from the child node into a linear, potentially uninit=
+ialised typed buffer.
+> +    pub async fn read_uninit<T: SizedIoBuffer>(
+> +        &self,
+> +        offset: u64,
+> +        mut buf: Box<MaybeUninit<T>>,
+> +    ) -> io::Result<Box<T>> {
+> +        unsafe {
+> +            self.read_raw(offset, buf.buffer_len(), buf.buffer_mut_ptr())
+> +                .await?;
+> +            let ptr =3D Box::into_raw(buf) as *mut T;
+> +            Ok(Box::from_raw(ptr))
 > +        }
 > +    }
 > +}
 > +
-> +/// Use QEMU's event loops to run a Rust [`Future`] to completion and re=
-turn its result.
-> +///
-> +/// This function must be called in coroutine context. If the future isn=
-'t ready yet, it yields.
-> +pub fn qemu_co_run_future<F: Future>(future: F) -> F::Output {
-> +    let waker =3D Waker::from(Arc::new(RunFutureWaker {
-> +        co: unsafe { bindings::qemu_coroutine_self() },
-> +    }));
-> +    let mut cx =3D Context::from_waker(&waker);
+> +#[doc(hidden)]
+> +pub unsafe extern "C" fn bdrv_open<D: BlockDriver>(
+> +    bs: *mut bindings::BlockDriverState,
+> +    options: *mut bindings::QDict,
+> +    _flags: std::os::raw::c_int,
+> +    errp: *mut *mut bindings::Error,
+> +) -> std::os::raw::c_int {
+> +    unsafe {
+> +        let v =3D match bindings::qobject_input_visitor_new_flat_confuse=
+d(options, errp).as_mut() {
+> +            None =3D> return -libc::EINVAL,
+> +            Some(v) =3D> v,
+> +        };
 > +
-> +    let mut pinned_future =3D std::pin::pin!(future);
-> +    loop {
-> +        match pinned_future.as_mut().poll(&mut cx) {
-> +            Poll::Ready(res) =3D> return res,
-> +            Poll::Pending =3D> unsafe {
-> +                bindings::qemu_coroutine_yield();
-> +            },
+> +        let mut opts: *mut D::Options =3D ptr::null_mut();
+> +        D::parse_options(v, &mut opts, errp);
+> +        bindings::visit_free(v);
+> +
+> +        let opts =3D match opts.as_mut() {
+> +            None =3D> return -libc::EINVAL,
+> +            Some(opts) =3D> opts,
+> +        };
+> +
+> +        while let Some(e) =3D bindings::qdict_first(options).as_ref() {
+> +            bindings::qdict_del(options, e.key);
 > +        }
+> +
+> +        let ret =3D D::open(bs, opts, errp);
+> +        D::free_options(opts);
+> +        ret
 > +    }
 > +}
 > +
-> +/// Wrapper around [`qemu_co_run_future`] that can be called from C.
-> +///
-> +/// # Safety
-> +///
-> +/// `future` must be a valid pointer to an owned `F` (it will be freed i=
-n this function).  `output`
-> +/// must be a valid pointer representing a mutable reference to an `F::O=
-utput` where the result can
-> +/// be stored.
-> +unsafe extern "C" fn rust_co_run_future<F: Future>(
-> +    future: *mut bindings::RustBoxedFuture,
-> +    output: *mut c_void,
-> +) {
-> +    let future =3D unsafe { Box::from_raw(future.cast::<F>()) };
-> +    let output =3D output.cast::<F::Output>();
-> +    let ret =3D qemu_co_run_future(*future);
+> +#[doc(hidden)]
+> +pub unsafe extern "C" fn bdrv_close<D: BlockDriver>(bs: *mut bindings::B=
+lockDriverState) {
 > +    unsafe {
-> +        output.write(ret);
+> +        let state =3D (*bs).opaque as *mut D;
+> +        ptr::drop_in_place(state);
 > +    }
 > +}
 > +
-> +/// Use QEMU's event loops to run a Rust [`Future`] to completion and re=
-turn its result.
+> +/// Declare a format block driver. This macro is meant to be used at the=
+ top level.
 > +///
-> +/// This function must be called outside of coroutine context to avoid d=
-eadlocks. It blocks and
-
-rust_run_future() has GLOBAL_STATE_CODE() so qemu_run_future() needs to
-run not just outside coroutine context, but also under the BQL. Should
-this be mentioned?
-
-> +/// runs a nested even loop until the future is ready and returns a resu=
-lt.
-> +pub fn qemu_run_future<F: Future>(future: F) -> F::Output {
-> +    let future_ptr =3D Box::into_raw(Box::new(future));
-> +    let mut output =3D MaybeUninit::<F::Output>::uninit();
-> +    unsafe {
-> +        bindings::rust_run_future(
-> +            future_ptr.cast::<bindings::RustBoxedFuture>(),
-> +            #[allow(clippy::as_underscore)]
-> +            Some(rust_co_run_future::<F> as _),
-
-This line is hard to follow. I think it's casting to the C equivalent
-type:
-
- void coroutine_fn (*)(RustBoxedFuture *future, void *opaque)
-
-I wonder if there's a clearer way of writing this. Maybe being explicit
-rather than implicit here would be helpful.
-
-If not, it's not a big deal, but I spent some time trying to figure out
-what this does and others might too.
-
-> +            output.as_mut_ptr().cast::<c_void>(),
-> +        );
-> +        output.assume_init()
-> +    }
+> +/// `typ` is a type implementing the [`BlockDriver`] trait to handle the=
+ image format with the
+> +/// user-visible name `fmtname`.
+> +macro_rules! block_driver {
+> +    ($fmtname:expr, $typ:ty) =3D> {
+> +        const _: () =3D {
+> +            static mut BLOCK_DRIVER: ::qemu_api::bindings::BlockDriver =
+=3D
+> +                ::qemu_api::bindings::BlockDriver {
+> +                    format_name: ::qemu_api::c_str!($fmtname).as_ptr(),
+> +                    instance_size: ::std::mem::size_of::<$typ>() as i32,
+> +                    bdrv_open: Some($crate::driver::bdrv_open::<$typ>),
+> +                    bdrv_close: Some($crate::driver::bdrv_close::<$typ>),
+> +                    bdrv_child_perm: Some(::qemu_api::bindings::bdrv_def=
+ault_perms),
+> +                    is_format: true,
+> +                    ..::qemu_api::zeroable::Zeroable::ZERO
+> +                };
+> +
+> +            qemu_api::module_init! {
+> +                MODULE_INIT_BLOCK =3D> unsafe {
+> +                    ::qemu_api::bindings::bdrv_register(std::ptr::addr_o=
+f_mut!(BLOCK_DRIVER));
+> +                }
+> +            }
+> +        };
+> +    };
 > +}
-> diff --git a/rust/qemu-api/src/lib.rs b/rust/qemu-api/src/lib.rs
-> index 825443abde..84928905f1 100644
-> --- a/rust/qemu-api/src/lib.rs
-> +++ b/rust/qemu-api/src/lib.rs
-> @@ -20,6 +20,7 @@
->  pub mod cell;
->  pub mod chardev;
->  pub mod errno;
-> +pub mod futures;
->  #[cfg(feature =3D "system")]
->  pub mod irq;
->  #[cfg(feature =3D "system")]
-> diff --git a/util/meson.build b/util/meson.build
-> index 780b5977a8..14a2ae17fd 100644
-> --- a/util/meson.build
-> +++ b/util/meson.build
-> @@ -101,6 +101,9 @@ if have_block
->    util_ss.add(files('qemu-coroutine-sleep.c'))
->    util_ss.add(files('qemu-co-shared-resource.c'))
->    util_ss.add(files('qemu-co-timeout.c'))
-> +  if have_rust
-> +    util_ss.add(files('qemu-co-rust-async.c'))
-> +  endif
->    util_ss.add(files('readline.c'))
->    util_ss.add(files('throttle.c'))
->    util_ss.add(files('timed-average.c'))
+> +pub(crate) use block_driver;
+> diff --git a/rust/block/src/lib.rs b/rust/block/src/lib.rs
+> index 1c03549821..54ebd480ec 100644
+> --- a/rust/block/src/lib.rs
+> +++ b/rust/block/src/lib.rs
+> @@ -1,3 +1,4 @@
+> +mod driver;
+>  mod iobuffer;
+> =20
+>  pub use iobuffer::{IoBuffer, SizedIoBuffer};
 > --=20
 > 2.48.1
 >=20
 >=20
 
---h5u3hztMFs09Paiw
+--DnLHf8xUuxM2eJhW
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmfHs8IACgkQnKSrs4Gr
-c8hGiAf+NOviB8GIuCttSMS6JgpN2D8+11emqUAroVsKv5AjCGjjQidIuvEOgjOY
-XYpYlyIvLfSi3PBzuXujaJweZjnpNtzGlxoxERhRTw5fMpsSeIHPjV/MdUGeQ4x7
-E5qU9NcVHJVeP50PskmGzvguXRJmnDbiaDaVJ/LAgsrWp/ZyOTlZCeCBYHQg/JXI
-IhIbo8TtHsEKEo2nq89SmAQXgh9uZ9UgKalHJB8/n8/UQWK8aMHvKTusLReZeMsJ
-52vMrKYhRNfNxPv3V/21tBSz/7gyM4dC3viYnVCrTKoKsutX5ZNFKZ92/MEv7g+y
-pzKG90KabceSsPrIJgEEVqOlMYsHxQ==
-=r8ZW
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmfHul0ACgkQnKSrs4Gr
+c8jhFwf/fy29pFvGq1Nj+uSHLFtkwzhsD1c7twoeI4pM6gPswG2o8xTvkYPV8ZHw
+k6HFnJbZ0dRiQmqVbuGSy064pPEpKeD485kqo3jLAQWG58jtvYbwjgpJz3+fAmVU
+Ru1w543eAxEGWTzgqfUVQG2sSnzNNNc1sjP2paQIEM7xeS+sXQJX62/jBMKRGm1D
+xUmOpqpPMvFH0kxyMhVs8hREU/YzAH7CdXXGoGg1QXbKOg8WyLgeclzsRG/2hkug
+WJQbgDT7xkRdyojyNWNkSt5JGZzn0L4569w2fXpKjLgfV6deYX9u4FeERg9emrEl
+dWZABdwBJ7BXxgM0IYF5TfKfnSAzSA==
+=5wlD
 -----END PGP SIGNATURE-----
 
---h5u3hztMFs09Paiw--
+--DnLHf8xUuxM2eJhW--
 
