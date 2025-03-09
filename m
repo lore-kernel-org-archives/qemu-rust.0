@@ -1,81 +1,95 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tqfbk-0000hy-C5
-	for mharc-qemu-rust@gnu.org; Fri, 07 Mar 2025 16:51:52 -0500
+	id 1trDtn-0006jr-6H
+	for mharc-qemu-rust@gnu.org; Sun, 09 Mar 2025 06:28:47 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tqfbh-0000hX-D9
- for qemu-rust@nongnu.org; Fri, 07 Mar 2025 16:51:49 -0500
-Received: from mail-wm1-x32e.google.com ([2a00:1450:4864:20::32e])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1tqfbf-0005Bs-0V
- for qemu-rust@nongnu.org; Fri, 07 Mar 2025 16:51:49 -0500
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43bc48ff815so14311765e9.0
- for <qemu-rust@nongnu.org>; Fri, 07 Mar 2025 13:51:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741384304; x=1741989104; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=VcglSgwL9d3YFt+EM1s5ZcGVoRNp/5wHt30Q6WrDCCI=;
- b=qs6Xt5eTn+KnUJPL4JNyWRMnZyHnXEK+7DWw/7NNP2BGwnPD756zIMQPy0JOj04Xvm
- cwia6OA+694n/ACj7kCkRzS7kygrnjJDWg9w38S3IRiIPEtM3BHdg7gfA6ZScU99649m
- DAnnzXjcKoODfeht54FSgwQuvNUchBnsxUwmbc6FgnO8pIiZsK6uNoR+tykHPz2AHiCH
- kHSNtRlN/uMS+4QTJS3jAR09d88TxK6x3U9VZP+zHjXD+hASFmBqxrQjCxR75QBSub+e
- bXBJH1+iYg9zJW0vT2x5yS3lInuQ6lQSZ+dssCRlaG8DiqiSS8+Mxq1v9x3FDr9RgJkI
- DS6Q==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1trDtm-0006gl-1d
+ for qemu-rust@nongnu.org; Sun, 09 Mar 2025 06:28:46 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1trDtk-0002rm-Ar
+ for qemu-rust@nongnu.org; Sun, 09 Mar 2025 06:28:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1741516118;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Y3/T5P2oAUF10DYW7ZiBW/R86qLT70rCJsxPBXNqRHM=;
+ b=P4LxXLV80YubH7OYqN05NDG6DLyGnfZdsZrN4/dVd5kBX58BHO1AkNR4nyhZYzEpFuqF8w
+ NYSNdQpxKkOWkNfhw1NFn9uYHMVjmiABcMysGd/Z+gRXRzgbI5m0IjwGZZH0M89LU2/npY
+ oKo7p+gMUhqFskbsiO/NrpX/U5vjvT4=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-426-cChVGAn8PoeKiS58PqcgBA-1; Sun, 09 Mar 2025 06:28:36 -0400
+X-MC-Unique: cChVGAn8PoeKiS58PqcgBA-1
+X-Mimecast-MFC-AGG-ID: cChVGAn8PoeKiS58PqcgBA_1741516115
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-43935e09897so21918365e9.1
+ for <qemu-rust@nongnu.org>; Sun, 09 Mar 2025 03:28:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741384304; x=1741989104;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VcglSgwL9d3YFt+EM1s5ZcGVoRNp/5wHt30Q6WrDCCI=;
- b=l5gdVaGuzrqAnhcgllV60EUrm/7L8Uuc8j5DY96Rwb76FNvIDaqX+WUJsEHXxLBNOP
- Dr4BbhLLPa5oqKPd0302CXPxcg8Kk+WZ62oT6MJImdtWff6t227dowop6Oa6O8a3IoXk
- /NXMW01eTksUcVq/AGZd8H42Vf6SAfeaqetUdv2sCCm4lQbyLt1bms10CDgaO+ozNAzT
- 5iKfIN45IgiVgzHYe+2CO3ilqE0R26TAZmT6Sq89Yn683GaPncUXTiiFOCJEK3xRN00Y
- mVFPt5c7gZ18XOfwMhR4BcMr5QxTd8eBF0GoH6qdTvUubnC57UJD8UGKEMZEvPrwg34i
- zFkg==
-X-Gm-Message-State: AOJu0Yy5VnYA2CAbxft6RX/QrvZHDI2AZyyI27ogo5TWhoymJO5Limzl
- 2If3V4VCBsWyVPBTJA2EBCMBgJtpt8QkOkwmRfHIPqGOqzhOW0689wcBOrh8YXk=
-X-Gm-Gg: ASbGncvolNuEjv1/mi+2xgrdTjx5sAzCbmzDlaHproFE6Z1OntxtAHP5hoLO5+FkGts
- Nhf/9EkE+VDCCGcWwvQgJYImHYofj6vELtOZWG48/78d7715ZMuYCg71en5ZENjG/IG2HD1Twwj
- w2L8nPZ/4QG+FJXlY6S7vK3DYBKLT9Y+Oy4Gji3jqneiNgqweCIhPHo2hZcFxzLIG+ubuGJVpsq
- /ux1fnVIe/Ohpejzrc5OnUnsEk6dSAsSVkqW0R0L9LiUI7PRO/Yun4+giSPL5S3XhmT1ZBYmgGL
- f4PkfwA9PFF10UND4MdDJroXGIGi9Z+ZUo81ybpkElx67J8oAn6K/F9FQKK2TRsjll0fODzqxv1
- z5I/GrSj86MD1
-X-Google-Smtp-Source: AGHT+IEyUVaXQu4EF0C5b/5aTorUNwP4/tS+13vAPKUeCVjbuqmh+xdlynLFipFwyhLadw1pz+YqZA==
-X-Received: by 2002:a05:600c:1f92:b0:439:5f04:4f8d with SMTP id
- 5b1f17b1804b1-43ce4dcf8e4mr6258045e9.12.1741384303692; 
- Fri, 07 Mar 2025 13:51:43 -0800 (PST)
-Received: from [192.168.69.199] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3912bfdff57sm6719302f8f.37.2025.03.07.13.51.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Mar 2025 13:51:43 -0800 (PST)
-Message-ID: <b45cd704-67e5-4b5d-bf4f-9907693c4b08@linaro.org>
-Date: Fri, 7 Mar 2025 22:51:42 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ d=1e100.net; s=20230601; t=1741516115; x=1742120915;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Y3/T5P2oAUF10DYW7ZiBW/R86qLT70rCJsxPBXNqRHM=;
+ b=TG8vWwRocRCfsvtvrc98+UP3fZzjzGCIqKrhLGMH+tyh2SER/fE6it6YJ/ZL1z4Z3o
+ 57OVtdv0W8/sVPJ3Yss6hMTZ4kcILkVhHiPNMr6Hts8y9vHzpUhJ51uYw92vSfy/8oMm
+ DLk++VjoaFIOGaWvNgxrPC+jY9gdZF+/OjynnWx87J3LzBRTZ1KQxrxV9sJ0LKotRN6w
+ 38d5DfMpZ+LYn2Kn2xScBnH9xQXlMmFLTQyySPgMICnNDwRJTBCAY4U+S+fGpm56hrlm
+ 9XZxdTHHx2bVde8X639oeqR3FKY72G+qUcpw6+ZHHdygyVrLZr0ihQ9wyZkl/MmTE4vo
+ 2dBQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW/ua2Niigt0/eujhBPB1hTWiPJ/f1hEce46/j3cNW0uBntmIG1mW/uxt9jVevsvrieyc6PbFe4NCg=@nongnu.org
+X-Gm-Message-State: AOJu0Yyq4Kz4bETu6DE81YCXoddGpt2PnZroavNGp6r3BolcFnLgPYC+
+ zwUa/igLj3J0vQpQifjNMEtL0Ee+NTQZhafEjnLwcddJtmunimb9dOUm40nKFFPdWjAZ4RdtTt9
+ 9VnlRzs9Kwjqu5twqiuADwcUIN6/hjtPPH/Lfa6+R/lVxG5Bd7XY=
+X-Gm-Gg: ASbGncuuGowUYmt7c3Emif7M2BUR2YvMjb+P3pFjcCwVslAwF17iP+himHR+D0+Ptbt
+ Zd1nZZjVRGeWh8QJTXJj+wRzvQ3MJqJGwOsnuurqcOV6E3nvvZtFLLb8bHgPom+EJc8bylzCtvF
+ IGZQLfn7MIAewam6AmV7vhgsbjynNb12FMJ9uzkULjALsBLzK95VeR+TZOEskJAnUWWd1D6XmEL
+ aFqWPL2QfBpMFtlz7Bjpr5xDj57yVRFx0ingL3bhdn4SFtif8aM+u0NjLlZBYiWatrrN3n+RRWP
+ 14US0QWfMeoIfz0UMrdmPg==
+X-Received: by 2002:a05:600c:3556:b0:43c:ec27:8de1 with SMTP id
+ 5b1f17b1804b1-43cec278ef4mr23694845e9.10.1741516115327; 
+ Sun, 09 Mar 2025 03:28:35 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFJfQbufps26AdeJodkGGedO21xdIzJbZQEfykTBPLsX+8CK4YzvQjFZedo8tZ4vubcxQY9DA==
+X-Received: by 2002:a05:600c:3556:b0:43c:ec27:8de1 with SMTP id
+ 5b1f17b1804b1-43cec278ef4mr23694725e9.10.1741516115043; 
+ Sun, 09 Mar 2025 03:28:35 -0700 (PDT)
+Received: from [192.168.10.48] ([176.206.122.167])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43bdd8b0461sm114433225e9.4.2025.03.09.03.28.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 09 Mar 2025 03:28:34 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: Peter Maydell <peter.maydell@linaro.org>
+Cc: qemu-devel@nongnu.org,
+	qemu-rust@nongnu.org
 Subject: Re: [PATCH] rust: pl011: Allow NULL chardev argument to pl011_create()
-To: Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
- Kevin Wolf <kwolf@redhat.com>, Zhao Liu <zhao1.liu@intel.com>
-References: <20250307190051.3274226-1-peter.maydell@linaro.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+Date: Sun,  9 Mar 2025 11:25:19 +0100
+Message-ID: <20250309102518.1115001-2-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250307190051.3274226-1-peter.maydell@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+References: 
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: NbgT5bRIZ6a0YlvAWNoB858GlsaZRhFLY2_rh6WSfmU_1741516115
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::32e;
- envelope-from=philmd@linaro.org; helo=mail-wm1-x32e.google.com
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -88,46 +102,13 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Mar 2025 21:51:49 -0000
+X-List-Received-Date: Sun, 09 Mar 2025 10:28:46 -0000
 
-On 7/3/25 20:00, Peter Maydell wrote:
-> It's valid for the caller to pass a NULL chardev to pl011_create();
-> this means "don't set the chardev property on the device", which
-> in turn means "act like there's no chardev". All the chardev
-> frontend APIs (in C, at least) accept a NULL pointer to mean
-> "do nothing".
-> 
-> This fixes some failures in 'make check-functional' when Rust support
-> is enabled.
-> 
-> Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
-> ---
 > This is my first Rust related patch for QEMU, so I've
 > probably got something wrong here :-)
-> ---
->   rust/hw/char/pl011/src/device.rs | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-> index d0857b470c9..8098f762f4b 100644
-> --- a/rust/hw/char/pl011/src/device.rs
-> +++ b/rust/hw/char/pl011/src/device.rs
-> @@ -713,10 +713,12 @@ pub fn post_load(&self, _version_id: u32) -> Result<(), ()> {
->       // SAFETY: The callers promise that they have owned references.
->       // They do not gift them to pl011_create, so use `Owned::from`.
->       let irq = unsafe { Owned::<IRQState>::from(&*irq) };
-> -    let chr = unsafe { Owned::<Chardev>::from(&*chr) };
->   
->       let dev = PL011State::new();
-> -    dev.prop_set_chr("chardev", &chr);
-> +    if !chr.is_null() {
-> +        let chr = unsafe { Owned::<Chardev>::from(&*chr) };
-> +        dev.prop_set_chr("chardev", &chr);
-> +    }
->       dev.sysbus_realize();
->       dev.mmio_map(0, addr);
->       dev.connect_irq(0, &irq);
 
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+No no, that was all good!  Applied, thanks.
+
+Paolo
 
 
