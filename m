@@ -1,46 +1,46 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tuBqW-0005AV-P4
+	id 1tuBqW-0005Ao-U4
 	for mharc-qemu-rust@gnu.org; Mon, 17 Mar 2025 10:53:40 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuBpq-0004wo-ND; Mon, 17 Mar 2025 10:53:09 -0400
+ id 1tuBq4-00050w-8D; Mon, 17 Mar 2025 10:53:12 -0400
 Received: from mgamail.intel.com ([192.198.163.10])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuBpd-00061l-5T; Mon, 17 Mar 2025 10:52:56 -0400
+ id 1tuBpw-00061r-Le; Mon, 17 Mar 2025 10:53:11 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742223165; x=1773759165;
+ t=1742223185; x=1773759185;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=4TIyXTGeVfXPKVICs8tufgXSV/mNTG13yPnR3wwuCn8=;
- b=TWoUuZ7TQz9P7HSybMMgT/xPa3aaTPh370U3zYcusWGEIEGmxS/s0ZoF
- GWqQ4CBm7ZZXziy7qomp8RhsfVEe3RD5t0LdeMTs2dmwWblEhoGkToG8B
- v/qA665DbM/nabi+fdbdvDI+nId8hphyuCBmPD5G0dyj+XL8ebMJ1+8M/
- Sf8WTh+jLI7yXLPTlE2a+snOPVjvwbAsufbwlvHlYBM5yaYa328co3xLM
- 6bMytoaygWwPK4gWHLhnIy7J6UcKyDaPbM/EJH6wY3aVQq9PN8hP3hSN1
- 9CkN3nq8k2eeMgQZszUq3g9AVAM0fZZRAEuNwhK7Lsnmjd/8djNUJ7LHU A==;
-X-CSE-ConnectionGUID: NFOrYWv4RF+eoEFNNyQ4YA==
-X-CSE-MsgGUID: fHONNYVfRkqIoMA5NbaAkw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="54694596"
-X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="54694596"
+ bh=ag9bMT3K/Qy/WD0rHV7oCIgQvE2QwKHcCQ18m6lilb8=;
+ b=eJ4eTMjCnWPq9T38+GYAb7e12ZplBOpdjlpKES0wJ/SUfcAsPxhJjX9R
+ pgc4IhsloSW3yxf7jx6NmHu7Rn21eQZfRyHFjysrDyWEmVw5Da1y2uEHC
+ Jy3kIMW1DKXAxflp+F99rJCTJnoIcAbceGe9XWe3WijrV7CJrii97+KYs
+ IvjnrN7xx1f7DCO1NJaIttUnP+svetGi/Jijhu4XAHVbBFnBLSuvFd4IK
+ qiI7RomiT/BRPxl1ov8wgzelJmKJjrlhYV5gLwVA6kz2Bd0vDDgt+nf5E
+ z8Zm5r4TUXO2oy8ZTwkDsySfDoeg6ywoKE1TgAYYKOsLhKMF0U7JS0rsF Q==;
+X-CSE-ConnectionGUID: gK/sZqIpTxuTH5wFvZVyVA==
+X-CSE-MsgGUID: lvowJHRvQrKhxGmgweFCzw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="54694614"
+X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="54694614"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2025 07:52:32 -0700
-X-CSE-ConnectionGUID: zxRuR8LMQzudoOrcMmYy/g==
-X-CSE-MsgGUID: lKB02fK7Q22/VpzaZw2Uvg==
+ 17 Mar 2025 07:52:40 -0700
+X-CSE-ConnectionGUID: khGHXd1dRXKF81RFJ+lVQQ==
+X-CSE-MsgGUID: juGOFoDcSEGJHzmz5LCYiA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="126988504"
+X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="126988531"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by orviesa004.jf.intel.com with ESMTP; 17 Mar 2025 07:52:31 -0700
+ by orviesa004.jf.intel.com with ESMTP; 17 Mar 2025 07:52:39 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 04/17] rust/vmstate: Use ident instead of expr to parse vmsd
- in vmstate_struct macro
-Date: Mon, 17 Mar 2025 23:12:23 +0800
-Message-Id: <20250317151236.536673-5-zhao1.liu@intel.com>
+Subject: [PATCH 10/17] rust/vmstate: Relax array check when build varray in
+ vmstate_struct
+Date: Mon, 17 Mar 2025 23:12:29 +0800
+Message-Id: <20250317151236.536673-11-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250317151236.536673-1-zhao1.liu@intel.com>
 References: <20250317151236.536673-1-zhao1.liu@intel.com>
@@ -68,61 +68,57 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Mar 2025 14:53:18 -0000
+X-List-Received-Date: Mon, 17 Mar 2025 14:53:20 -0000
 
-When specify an array field in vmstate_struct macro, there will be an
-error:
+The varry of structure created by vmstate_struct is different with
+vmstate_of. This is because vmstate_struct uses the `vmsd` to traverse
+the vmstates of structure's fields, rather than treating the structure
+directly as a well-defined vmstate.
 
-> local ambiguity when calling macro `vmstate_struct`: multiple parsing
-> options: built-in NTs expr ('vmsd') or 1 other option.
-
-This is because "expr" can't recognize the "vmsd" field correctly, so
-that it gets confused with the previous array field.
-
-To fix the above issue, use "ident" for "vmsd" field, and explicitly
-refer to it in the macro.
+Therefore, there's no need to check array flag when building varray by
+vmstate_struct.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- rust/hw/char/pl011/src/device_class.rs | 2 +-
- rust/qemu-api/src/vmstate.rs           | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ rust/qemu-api/src/vmstate.rs | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/rust/hw/char/pl011/src/device_class.rs b/rust/hw/char/pl011/src/device_class.rs
-index 0b2076ddaa0f..e43a5d6cd063 100644
---- a/rust/hw/char/pl011/src/device_class.rs
-+++ b/rust/hw/char/pl011/src/device_class.rs
-@@ -72,7 +72,7 @@ extern "C" fn pl011_post_load(opaque: *mut c_void, version_id: c_int) -> c_int {
-     post_load: Some(pl011_post_load),
-     fields: vmstate_fields! {
-         vmstate_unused!(core::mem::size_of::<u32>()),
--        vmstate_struct!(PL011State, regs, &VMSTATE_PL011_REGS, BqlRefCell<PL011Registers>),
-+        vmstate_struct!(PL011State, regs, VMSTATE_PL011_REGS, BqlRefCell<PL011Registers>),
-     },
-     subsections: vmstate_subsections! {
-         VMSTATE_PL011_CLOCK
 diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-index 94efbd8bb735..3f95d4825149 100644
+index 2749e8af2b5a..806d531b0c37 100644
 --- a/rust/qemu-api/src/vmstate.rs
 +++ b/rust/qemu-api/src/vmstate.rs
-@@ -435,7 +435,7 @@ macro_rules! vmstate_unused {
- #[doc(alias = "VMSTATE_STRUCT")]
- #[macro_export]
- macro_rules! vmstate_struct {
--    ($struct_name:ty, $field_name:ident $(, [0 .. $num:ident $(* $factor:expr)?])?, $vmsd:expr, $type:ty $(,)?) => {
-+    ($struct_name:ty, $field_name:ident $(, [0 .. $num:ident $(* $factor:expr)?])?, $vmsd:ident, $type:ty $(,)?) => {
-         $crate::bindings::VMStateField {
-             name: ::core::concat!(::core::stringify!($field_name), "\0")
-                 .as_bytes()
-@@ -447,7 +447,7 @@ macro_rules! vmstate_struct {
-             },
-             size: ::core::mem::size_of::<$type>(),
+@@ -275,14 +275,20 @@ pub const fn with_pointer_flag(mut self) -> Self {
+     }
+ 
+     #[must_use]
+-    pub const fn with_varray_flag(mut self, flag: VMStateFlags) -> VMStateField {
+-        assert!((self.flags.0 & VMStateFlags::VMS_ARRAY.0) != 0);
++    pub const fn with_varray_flag_unchecked(mut self, flag: VMStateFlags) -> VMStateField {
+         self.flags = VMStateFlags(self.flags.0 & !VMStateFlags::VMS_ARRAY.0);
+         self.flags = VMStateFlags(self.flags.0 | flag.0);
+         self.num = 0; // varray uses num_offset instead of num.
+         self
+     }
+ 
++    #[must_use]
++    #[allow(unused_mut)]
++    pub const fn with_varray_flag(mut self, flag: VMStateFlags) -> VMStateField {
++        assert!((self.flags.0 & VMStateFlags::VMS_ARRAY.0) != 0);
++        self.with_varray_flag_unchecked(flag)
++    }
++
+     #[must_use]
+     pub const fn with_varray_multiply(mut self, num: u32) -> VMStateField {
+         assert!(num <= 0x7FFF_FFFFu32);
+@@ -454,7 +460,7 @@ macro_rules! vmstate_struct {
              flags: $crate::bindings::VMStateFlags::VMS_STRUCT,
--            vmsd: $vmsd,
-+            vmsd: &$vmsd,
-             ..$crate::zeroable::Zeroable::ZERO $(
-                 .with_varray_flag($crate::call_func_with_field!(
-                     $crate::vmstate::vmstate_varray_flag,
+             vmsd: &$vmsd,
+             ..$crate::zeroable::Zeroable::ZERO
+-         } $(.with_varray_flag(
++         } $(.with_varray_flag_unchecked(
+                   $crate::call_func_with_field!(
+                       $crate::vmstate::vmstate_varray_flag,
+                       $struct_name,
 -- 
 2.34.1
 
