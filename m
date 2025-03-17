@@ -1,46 +1,46 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tuBqJ-000550-Ev
-	for mharc-qemu-rust@gnu.org; Mon, 17 Mar 2025 10:53:28 -0400
+	id 1tuBqM-00057Q-Tu
+	for mharc-qemu-rust@gnu.org; Mon, 17 Mar 2025 10:53:31 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuBpk-0004uf-69; Mon, 17 Mar 2025 10:52:54 -0400
+ id 1tuBpo-0004wQ-NE; Mon, 17 Mar 2025 10:53:07 -0400
 Received: from mgamail.intel.com ([192.198.163.10])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuBpc-00061r-TM; Mon, 17 Mar 2025 10:52:50 -0400
+ id 1tuBpm-00061x-Iq; Mon, 17 Mar 2025 10:52:56 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742223165; x=1773759165;
+ t=1742223174; x=1773759174;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=VJljKNmjPdcPw2FYw9qRNJPbq/zXEvkClaRKs0KyTKs=;
- b=GxyNWaWURLRITaU+a7Je6ty8a3/MouWCg5kZAhdTExZIYp5PDysHgH27
- YO6kU++1pyQjaE76N41ZQRIQ783u9/1jYKpLVxdDXMKLye7BHZT3r/b++
- yYn8J/pVlN71rwcFeQ3brRTUubcwih+cZZ6xy38srRCTp2Z89xWCGfTAt
- cG3XIoEsXBG6ofOuxxqSNSsTrLayKgpx+CnPMJWL7aUZBGVNJ409PZmuV
- Mu6tDCmTj16xyoVY+WYflUSJ0q7KJi4nEkfk4c2ElhybTLcjAicM7c9qG
- eBUAIe60xz3QvFkl7ttWkZFxL9nfx+6IYgzPAKx++2sOZToHPK7DMHM5G w==;
-X-CSE-ConnectionGUID: lEZI2fZoQW2gEQogiVSJ/Q==
-X-CSE-MsgGUID: EhCXD2UJQcGiC4Zr61Q/Eg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="54694593"
-X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="54694593"
+ bh=4xNzZMqrkPUMpXXsje3tYh71FIsRYIbY7rd9A8W0wUQ=;
+ b=dUFKkPxdlzyCtnsHnwZTNosZixRsoITOIqCYgBb6lp0EJgTDkW2Kukmw
+ EHIIIXzyHtDZOTBUuVt0jRvWvgo24WknsF472+AV/kCv+zuc7mfvlbIdL
+ cJV2JBUV++fDFMUYIPE2Cg3tmcx2rqwP+y6BzbG8J2XUwSUpiFFwouKax
+ aDJLkq34g9nbGDY1SdhIqQ0rCm6HUCWJg1R6ev3ylxUbDmzugh2BKk0nY
+ jBaDQ2qxJ9GPZcpEO/ZD6HgTp9Lrz1r+LHlIjeTojv/XMMZAK0o0mknFW
+ 8NIl3AWRh3zNzbQKcaIEGXUL3o9krKkf/F8vtciyHJ088TLN+B/zSBmTP g==;
+X-CSE-ConnectionGUID: vGjuADkTT02DCGw9p4y/Cg==
+X-CSE-MsgGUID: g+es9NqdRkSQsywMKDpNyg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="54694604"
+X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="54694604"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2025 07:52:31 -0700
-X-CSE-ConnectionGUID: dt74G+7CQzqd2f396YJjdQ==
-X-CSE-MsgGUID: p4VLoG94Rs2X0h895iR0iw==
+ 17 Mar 2025 07:52:36 -0700
+X-CSE-ConnectionGUID: xPYUpggBRlCEzn+qCH0ymA==
+X-CSE-MsgGUID: YOfI+OghS1uxLdWTSPyoJA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="126988499"
+X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="126988517"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by orviesa004.jf.intel.com with ESMTP; 17 Mar 2025 07:52:30 -0700
+ by orviesa004.jf.intel.com with ESMTP; 17 Mar 2025 07:52:35 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 03/17] rust/vmstate: Add a prefix separator ",
- " for the array field in vmstate macros
-Date: Mon, 17 Mar 2025 23:12:22 +0800
-Message-Id: <20250317151236.536673-4-zhao1.liu@intel.com>
+Subject: [PATCH 07/17] rust/vmstate: Fix type check for varray in
+ vmstate_struct
+Date: Mon, 17 Mar 2025 23:12:26 +0800
+Message-Id: <20250317151236.536673-8-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250317151236.536673-1-zhao1.liu@intel.com>
 References: <20250317151236.536673-1-zhao1.liu@intel.com>
@@ -68,38 +68,70 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Mar 2025 14:53:10 -0000
+X-List-Received-Date: Mon, 17 Mar 2025 14:53:18 -0000
 
-The fields are separated by ",", so it's necessary to add ", " in array
-field to avoid matching failure.
+When pass a varray to vmstate_struct, the `type` parameter should be the
+type of the element in the varray, for example:
+
+vmstate_struct!(HPETState, timers, [0 .. num_timers], VMSTATE_HPET_TIMER,
+		BqlRefCell<HPETTimer>, version = 0)
+
+But this breaks current type check, because it checks the type of
+`field`, which is an array type (for the above example, type of timers
+is [BqlRefCell<HPETTimer>; 32], not BqlRefCell<HPETTimer>).
+
+But the current assert_field_type() can no longer be extended to include
+new arguments, so a variant of it (a second macro containing the
+`num = $num:ident` parameter) had to be added to handle array cases.
+
+In this new macro, it not only checks the type of element, but also
+checks whether the `num` (number of elements in varray) is out of range.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- rust/qemu-api/src/vmstate.rs | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ rust/qemu-api/src/assertions.rs | 15 +++++++++++++++
+ rust/qemu-api/src/vmstate.rs    |  2 +-
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
+diff --git a/rust/qemu-api/src/assertions.rs b/rust/qemu-api/src/assertions.rs
+index 104dec39774e..176060e32acd 100644
+--- a/rust/qemu-api/src/assertions.rs
++++ b/rust/qemu-api/src/assertions.rs
+@@ -91,6 +91,21 @@ fn types_must_be_equal<T, U>(_: T)
+             }
+         };
+     };
++
++    ($t:ty, $i:tt, $ti:ty, num = $num:ident) => {
++        const _: () = {
++            #[allow(unused)]
++            fn assert_field_type(v: $t) {
++                fn types_must_be_equal<T, U>(_: T)
++                where
++                    T: $crate::assertions::EqType<Itself = U>,
++                {
++                }
++                let index: usize = v.$num.try_into().unwrap();
++                types_must_be_equal::<_, &$ti>(&v.$i[index]);
++            }
++        };
++    };
+ }
+ 
+ /// Assert that an expression matches a pattern.  This can also be
 diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-index 9533b1250fa5..94efbd8bb735 100644
+index 5af75b4777e9..8adef175634a 100644
 --- a/rust/qemu-api/src/vmstate.rs
 +++ b/rust/qemu-api/src/vmstate.rs
-@@ -202,7 +202,7 @@ pub const fn vmstate_varray_flag<T: VMState>(_: PhantomData<T>) -> VMStateFlags
- /// and [`impl_vmstate_forward!`](crate::impl_vmstate_forward) help with this.
- #[macro_export]
- macro_rules! vmstate_of {
--    ($struct_name:ty, $field_name:ident $([0 .. $num:ident $(* $factor:expr)?])? $(,)?) => {
-+    ($struct_name:ty, $field_name:ident $(, [0 .. $num:ident $(* $factor:expr)?])? $(,)?) => {
-         $crate::bindings::VMStateField {
-             name: ::core::concat!(::core::stringify!($field_name), "\0")
-                 .as_bytes()
-@@ -435,7 +435,7 @@ macro_rules! vmstate_unused {
- #[doc(alias = "VMSTATE_STRUCT")]
- #[macro_export]
- macro_rules! vmstate_struct {
--    ($struct_name:ty, $field_name:ident $([0 .. $num:ident $(* $factor:expr)?])?, $vmsd:expr, $type:ty $(,)?) => {
-+    ($struct_name:ty, $field_name:ident $(, [0 .. $num:ident $(* $factor:expr)?])?, $vmsd:expr, $type:ty $(,)?) => {
-         $crate::bindings::VMStateField {
-             name: ::core::concat!(::core::stringify!($field_name), "\0")
-                 .as_bytes()
+@@ -447,7 +447,7 @@ macro_rules! vmstate_struct {
+                 .as_ptr() as *const ::std::os::raw::c_char,
+             $(num_offset: $crate::offset_of!($struct_name, $num),)?
+             offset: {
+-                $crate::assert_field_type!($struct_name, $field_name, $type);
++                $crate::assert_field_type!($struct_name, $field_name, $type $(, num = $num)?);
+                 $crate::offset_of!($struct_name, $field_name)
+             },
+             size: ::core::mem::size_of::<$type>(),
 -- 
 2.34.1
 
