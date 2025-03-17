@@ -1,60 +1,90 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tuBqp-0005XO-FX
-	for mharc-qemu-rust@gnu.org; Mon, 17 Mar 2025 10:54:00 -0400
+	id 1tuDTI-0008VP-F3
+	for mharc-qemu-rust@gnu.org; Mon, 17 Mar 2025 12:37:55 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuBqh-0005GG-0S; Mon, 17 Mar 2025 10:53:53 -0400
-Received: from mgamail.intel.com ([192.198.163.10])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tuDT1-0008Ne-Je
+ for qemu-rust@nongnu.org; Mon, 17 Mar 2025 12:37:35 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuBqa-00061r-Aq; Mon, 17 Mar 2025 10:53:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742223224; x=1773759224;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ie2lWYTG+k+aexJXT4HCe9WzKE3psArtDx6ehxfHcdw=;
- b=Bex7qm0NRyiZhTRH+TNCY2ZfVIY3W99UFmlXjRzhdrUc4JPoymuVc2yC
- IQXid2WpWgfWL1vue8BFVK6enB6kTtSTJD0kiVg4Whdi3xtLjJtw2mNIW
- 46RSPAXT042X8QfJMbbgiro7ODaPvu+XFkS7dnvWnQKAg3eppeZxR0kpM
- ftD6OHpq146tkYBo58f6mty0ZMEvzR7QZlMgHydyb/7wdmrCPEUurPxml
- ZduOKDnsaqOs9x4ckbUWNhyFHZFnNoh5jTDN0shCKvGVVttDYpKuS+aD9
- O7vsCf3wuYJ5sJxrWJ185lflUiSrsIq4+DlCbcAq1Al5tbRUXz2U/L+FN Q==;
-X-CSE-ConnectionGUID: tu66mgfGR+OcNSS/fmR/yA==
-X-CSE-MsgGUID: Z7Dwvd3bSqelTKaYOaoU6Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="54694636"
-X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="54694636"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2025 07:52:49 -0700
-X-CSE-ConnectionGUID: ex0ePbY7Tf6gSp1O/S41Xg==
-X-CSE-MsgGUID: Toiro5ekQOK3EkGDdXEG0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="126988568"
-Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by orviesa004.jf.intel.com with ESMTP; 17 Mar 2025 07:52:48 -0700
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 16/17] rust/vmstate: Add unit test for pointer case
-Date: Mon, 17 Mar 2025 23:12:35 +0800
-Message-Id: <20250317151236.536673-17-zhao1.liu@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250317151236.536673-1-zhao1.liu@intel.com>
-References: <20250317151236.536673-1-zhao1.liu@intel.com>
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tuDSx-0000Bn-Cw
+ for qemu-rust@nongnu.org; Mon, 17 Mar 2025 12:37:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1742229442;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=MYcG2QNzGLgZ5qOapiCQwiKdaL5WSa5O/uWHhdEsv0s=;
+ b=dWc0SFGK7ce6gKGgJVAneqfUoPQewcXGTauPBrVD8Q30qC9JiH2MbgW4mL87cejjVuBGcZ
+ xcD9J1p/rYoHhJxfMdBhxn8pwK6fSKqIX5F96IXX5tAtkmp6k9k4MyLIzkXMX5UOMbcNWi
+ 1ZKyUO8ku/sBVcP6jJb35qHOPRipBik=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-651-OSdw6yE_OliXSHIO6BxL-g-1; Mon, 17 Mar 2025 12:37:20 -0400
+X-MC-Unique: OSdw6yE_OliXSHIO6BxL-g-1
+X-Mimecast-MFC-AGG-ID: OSdw6yE_OliXSHIO6BxL-g_1742229439
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-43ab5baf62cso21439375e9.0
+ for <qemu-rust@nongnu.org>; Mon, 17 Mar 2025 09:37:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742229438; x=1742834238;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=MYcG2QNzGLgZ5qOapiCQwiKdaL5WSa5O/uWHhdEsv0s=;
+ b=aqvI3qN+SdBXXubUrznV/Nbr0PVD7flF/DuZEh/RKVy/zh60UXlrLzi39OSSJe7deT
+ bGS0b9w3UNFg84vB9DJVC2DuOV1Ua2xhsoLf2dq0nqeG+aUTLFLblEhhZepHqZlgf6cF
+ 0cMR2aCb9g75mnMMFz8yNOItjQ+1CkstG8nBndZSAjAJKiZ1umrlU5Tmk997kQNrd+FW
+ MWeffftjNX2Wu3hV9EP+PGOJJsKATmwyEpiMisRSYY4jBDvWWXOo9Auc0l5EJrUm0BCF
+ 6XYIrZLNfInCrmOy7KOMGPnUBBUlKUQysJYCE9zwSUfwmNhSEPTz39vNhoOrWg/Q7zLe
+ RS4Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWXJJ6sYNToBjOJvny6QNOrl/LexdsiBcGkKHJ+EbpM0+OQW9VLvHCzHLk8q/xm1zll51AOEVu/H84=@nongnu.org
+X-Gm-Message-State: AOJu0YyYup7isOmxtbV9bz42s7e/Z80A9gvE9+4Hf8kIDXstndWaDaf1
+ 8QLWYqKzSTQ1B/HTICZyL2TI4PpewVVr7UGz1B/Mzt6KaHE11L3yKEaaRLnIgS+RqKVaaz9BHKv
+ m2XOl26g+S+a3zkitx7ZLTALlvM6R2eb6tIg631YTnpO0a730bnxL0edS0oQBywtvYpAovl8ZZe
+ jIYHpt95wgGYDXP6uh2plN8cAwuaBKvB5H5w==
+X-Gm-Gg: ASbGncscZSOT5gp1iYjxexCpwQQB3FPb2fC5vdpoO3HsUJ9KcWdeIGzAKut7II+wKll
+ Elc8w8tM6XyQ3BfI7yhXXYDQmbkWglvqPBwLtarfAT89Bq4XLuN2EAPQFdLPcQQxAzIGtep6ZaQ
+ ==
+X-Received: by 2002:a05:600c:3146:b0:43c:ea1a:720c with SMTP id
+ 5b1f17b1804b1-43d1ecb1019mr126759425e9.18.1742229438335; 
+ Mon, 17 Mar 2025 09:37:18 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFWG4Q/ohnbmNVUxrxjBS/NH5I3UPo8Ioxwqxuzt+uGeKI/yIx6nCjidbR4Gb3D5eqs1tl4oZNQ4MGlTYSt/OY=
+X-Received: by 2002:a05:600c:3146:b0:43c:ea1a:720c with SMTP id
+ 5b1f17b1804b1-43d1ecb1019mr126759235e9.18.1742229437984; Mon, 17 Mar 2025
+ 09:37:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=192.198.163.10; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -46
-X-Spam_score: -4.7
-X-Spam_bar: ----
-X-Spam_report: (-4.7 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.335,
+References: <20250317151236.536673-1-zhao1.liu@intel.com>
+ <20250317151236.536673-4-zhao1.liu@intel.com>
+In-Reply-To: <20250317151236.536673-4-zhao1.liu@intel.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Mon, 17 Mar 2025 17:37:06 +0100
+X-Gm-Features: AQ5f1Jo23zt-CpUQ-vUNM8JLpBuZDcSWBhmWsNpWuWyxlwTgTsz0OWMlqEPAc4U
+Message-ID: <CABgObfYrdpkTGFfDKFGK7zkHJVW5Tn2q=tXw6d97m4P_3ZNdrA@mail.gmail.com>
+Subject: Re: [PATCH 03/17] rust/vmstate: Add a prefix separator ", " for the
+ array field in vmstate macros
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: jsq5RDzjMgHoG5WUnQnQxL6_AloyC8rNR9WXm3k80Ao_1742229439
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -23
+X-Spam_score: -2.4
+X-Spam_bar: --
+X-Spam_report: (-2.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.335,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -67,164 +97,54 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Mar 2025 14:53:56 -0000
+X-List-Received-Date: Mon, 17 Mar 2025 16:37:39 -0000
 
-Add a unit test to cover some patterns accepted by vmstate_of macro,
-which correspond to the following C version macros:
- * VMSTATE_POINTER
- * VMSTATE_ARRAY_OF_POINTER
+On Mon, Mar 17, 2025 at 3:52=E2=80=AFPM Zhao Liu <zhao1.liu@intel.com> wrot=
+e:
+>
+> The fields are separated by ",", so it's necessary to add ", " in array
+> field to avoid matching failure.
 
-Note: Currently, vmstate_struct can't handle the pointer to structure
-case. Leave this case as a FIXME and use vmstate_unused as a place
-holder.
+This is not a field though, the only (intended) fields are name and
+field. It's meant to mimic the slice since &a[0..n].
 
-Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
----
- rust/qemu-api/tests/vmstate_tests.rs | 121 ++++++++++++++++++++++++++-
- 1 file changed, 117 insertions(+), 4 deletions(-)
+Paolo
 
-diff --git a/rust/qemu-api/tests/vmstate_tests.rs b/rust/qemu-api/tests/vmstate_tests.rs
-index 27df66b5766e..a8bc00a56494 100644
---- a/rust/qemu-api/tests/vmstate_tests.rs
-+++ b/rust/qemu-api/tests/vmstate_tests.rs
-@@ -2,15 +2,16 @@
- // Author(s): Zhao Liu <zhai1.liu@intel.com>
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
--use std::{ffi::CStr, mem::size_of, slice};
-+use std::{ffi::CStr, mem::size_of, ptr::NonNull, slice};
- 
- use qemu_api::{
-     bindings::{
--        vmstate_info_bool, vmstate_info_int64, vmstate_info_int8, vmstate_info_uint64,
--        vmstate_info_uint8, vmstate_info_unused_buffer,
-+        vmstate_info_bool, vmstate_info_int32, vmstate_info_int64, vmstate_info_int8,
-+        vmstate_info_uint64, vmstate_info_uint8, vmstate_info_unused_buffer,
-     },
-     c_str,
--    cell::BqlCell,
-+    cell::{BqlCell, Opaque},
-+    impl_vmstate_forward,
-     vmstate::{VMStateDescription, VMStateField, VMStateFlags},
-     vmstate_fields, vmstate_of, vmstate_struct, vmstate_unused,
-     zeroable::Zeroable,
-@@ -265,3 +266,115 @@ fn test_vmstate_macro_foob() {
-     // The last VMStateField in VMSTATE_FOOB.
-     assert_eq!(foo_fields[5].flags, VMStateFlags::VMS_END);
- }
-+
-+// =========================== Test VMSTATE_FOOC ===========================
-+// Test the use cases of the vmstate macro, corresponding to the following C
-+// macro variants:
-+//   * VMSTATE_FOOC:
-+//     - VMSTATE_POINTER
-+//     - VMSTATE_ARRAY_OF_POINTER
-+struct FooCWrapper([Opaque<*mut u8>; FOO_ARRAY_MAX]); // Though Opaque<> array is almost impossible.
-+
-+impl_vmstate_forward!(FooCWrapper);
-+
-+#[repr(C)]
-+#[derive(qemu_api_macros::offsets)]
-+struct FooC {
-+    ptr: *const i32,
-+    ptr_a: NonNull<FooA>,
-+    arr_ptr: [Box<u8>; FOO_ARRAY_MAX],
-+    arr_ptr_wrap: FooCWrapper,
-+}
-+
-+static VMSTATE_FOOC: VMStateDescription = VMStateDescription {
-+    name: c_str!("foo_c").as_ptr(),
-+    version_id: 3,
-+    minimum_version_id: 1,
-+    fields: vmstate_fields! {
-+        vmstate_of!(FooC, ptr, version = 2),
-+        // FIXME: Currently vmstate_struct doesn't support the pointer to structure.
-+        // VMSTATE_STRUCT_POINTER: vmstate_struct!(FooC, ptr_a, VMSTATE_FOOA, NonNull<FooA>)
-+        vmstate_unused!(size_of::<NonNull<FooA>>()),
-+        vmstate_of!(FooC, arr_ptr),
-+        vmstate_of!(FooC, arr_ptr_wrap),
-+    },
-+    ..Zeroable::ZERO
-+};
-+
-+#[test]
-+fn test_vmstate_macro_fooc() {
-+    let foo_fields: &[VMStateField] = unsafe { slice::from_raw_parts(VMSTATE_FOOC.fields, 6) };
-+
-+    // 1st VMStateField ("ptr") in VMSTATE_FOOC (corresponding to VMSTATE_POINTER)
-+    assert_eq!(
-+        unsafe { CStr::from_ptr(foo_fields[0].name) }.to_bytes_with_nul(),
-+        b"ptr\0"
-+    );
-+    assert_eq!(foo_fields[0].offset, 0);
-+    assert_eq!(foo_fields[0].num_offset, 0);
-+    assert_eq!(foo_fields[0].info, unsafe {
-+        ::core::ptr::addr_of!(vmstate_info_int32)
-+    });
-+    assert_eq!(foo_fields[0].version_id, 2);
-+    assert_eq!(foo_fields[0].size, 4);
-+    assert_eq!(foo_fields[0].num, 0);
-+    assert_eq!(
-+        foo_fields[0].flags.0,
-+        VMStateFlags::VMS_SINGLE.0 | VMStateFlags::VMS_POINTER.0
-+    );
-+    assert_eq!(foo_fields[0].vmsd.is_null(), true);
-+    assert_eq!(foo_fields[0].field_exists.is_none(), true);
-+
-+    // 2nd VMStateField ("unused") in VMSTATE_FOOC
-+    let mut offset = size_of::<*const i32>();
-+    let size_ptr_a = size_of::<NonNull<FooA>>();
-+
-+    // 3rd VMStateField ("arr_ptr") in VMSTATE_FOOC (corresponding to
-+    // VMSTATE_ARRAY_OF_POINTER)
-+    offset = offset + size_ptr_a;
-+    let size_arr_ptr = size_of::<Box<[FooB; FOO_ARRAY_MAX]>>();
-+    assert_eq!(
-+        unsafe { CStr::from_ptr(foo_fields[2].name) }.to_bytes_with_nul(),
-+        b"arr_ptr\0"
-+    );
-+    assert_eq!(foo_fields[2].offset, offset);
-+    assert_eq!(foo_fields[2].num_offset, 0);
-+    assert_eq!(foo_fields[2].info, unsafe {
-+        ::core::ptr::addr_of!(vmstate_info_uint8)
-+    });
-+    assert_eq!(foo_fields[2].version_id, 0);
-+    assert_eq!(foo_fields[2].size, size_arr_ptr);
-+    assert_eq!(foo_fields[2].num, FOO_ARRAY_MAX as i32);
-+    assert_eq!(
-+        foo_fields[2].flags.0,
-+        VMStateFlags::VMS_ARRAY.0 | VMStateFlags::VMS_ARRAY_OF_POINTER.0
-+    );
-+    assert_eq!(foo_fields[2].vmsd.is_null(), true);
-+    assert_eq!(foo_fields[2].field_exists.is_none(), true);
-+
-+    // 4th VMStateField ("arr_ptr_wrap") in VMSTATE_FOOC (corresponding to
-+    // VMSTATE_ARRAY_OF_POINTER)
-+    offset = offset + size_of::<Box<u8>>() * FOO_ARRAY_MAX;
-+    let size_arr_ptr_wrap = size_of::<Opaque<*mut u8>>();
-+    assert_eq!(
-+        unsafe { CStr::from_ptr(foo_fields[3].name) }.to_bytes_with_nul(),
-+        b"arr_ptr_wrap\0"
-+    );
-+    assert_eq!(foo_fields[3].offset, offset);
-+    assert_eq!(foo_fields[3].num_offset, 0);
-+    assert_eq!(foo_fields[2].info, unsafe {
-+        ::core::ptr::addr_of!(vmstate_info_uint8)
-+    });
-+    assert_eq!(foo_fields[3].version_id, 0);
-+    assert_eq!(foo_fields[3].size, size_arr_ptr_wrap);
-+    assert_eq!(foo_fields[3].num, FOO_ARRAY_MAX as i32);
-+    assert_eq!(
-+        foo_fields[2].flags.0,
-+        VMStateFlags::VMS_ARRAY.0 | VMStateFlags::VMS_ARRAY_OF_POINTER.0
-+    );
-+    assert_eq!(foo_fields[3].vmsd.is_null(), true);
-+    assert_eq!(foo_fields[3].field_exists.is_none(), true);
-+
-+    // The last VMStateField in VMSTATE_FOOC.
-+    assert_eq!(foo_fields[4].flags, VMStateFlags::VMS_END);
-+}
--- 
-2.34.1
+> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+> ---
+>  rust/qemu-api/src/vmstate.rs | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
+> index 9533b1250fa5..94efbd8bb735 100644
+> --- a/rust/qemu-api/src/vmstate.rs
+> +++ b/rust/qemu-api/src/vmstate.rs
+> @@ -202,7 +202,7 @@ pub const fn vmstate_varray_flag<T: VMState>(_: Phant=
+omData<T>) -> VMStateFlags
+>  /// and [`impl_vmstate_forward!`](crate::impl_vmstate_forward) help with=
+ this.
+>  #[macro_export]
+>  macro_rules! vmstate_of {
+> -    ($struct_name:ty, $field_name:ident $([0 .. $num:ident $(* $factor:e=
+xpr)?])? $(,)?) =3D> {
+> +    ($struct_name:ty, $field_name:ident $(, [0 .. $num:ident $(* $factor=
+:expr)?])? $(,)?) =3D> {
+>          $crate::bindings::VMStateField {
+>              name: ::core::concat!(::core::stringify!($field_name), "\0")
+>                  .as_bytes()
+> @@ -435,7 +435,7 @@ macro_rules! vmstate_unused {
+>  #[doc(alias =3D "VMSTATE_STRUCT")]
+>  #[macro_export]
+>  macro_rules! vmstate_struct {
+> -    ($struct_name:ty, $field_name:ident $([0 .. $num:ident $(* $factor:e=
+xpr)?])?, $vmsd:expr, $type:ty $(,)?) =3D> {
+> +    ($struct_name:ty, $field_name:ident $(, [0 .. $num:ident $(* $factor=
+:expr)?])?, $vmsd:expr, $type:ty $(,)?) =3D> {
+>          $crate::bindings::VMStateField {
+>              name: ::core::concat!(::core::stringify!($field_name), "\0")
+>                  .as_bytes()
+> --
+> 2.34.1
+>
 
 
