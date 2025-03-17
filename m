@@ -1,46 +1,46 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tuBqM-00056u-MZ
-	for mharc-qemu-rust@gnu.org; Mon, 17 Mar 2025 10:53:30 -0400
+	id 1tuBql-0005Mm-6L
+	for mharc-qemu-rust@gnu.org; Mon, 17 Mar 2025 10:53:56 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuBpv-0004y4-AG; Mon, 17 Mar 2025 10:53:10 -0400
+ id 1tuBq6-00051x-RD; Mon, 17 Mar 2025 10:53:15 -0400
 Received: from mgamail.intel.com ([192.198.163.10])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuBpm-00061r-VT; Mon, 17 Mar 2025 10:53:01 -0400
+ id 1tuBq3-00061x-C4; Mon, 17 Mar 2025 10:53:13 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742223175; x=1773759175;
+ t=1742223191; x=1773759191;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=w7POmeU7VP6eIrAcsdWPqJZKF2jRdbcjZRS+bIqVuS8=;
- b=nZsAZnyk674/TcTHrAjNpvcaNM47GiZROv9kNj/FqJUtmSYX6IUMcKNJ
- /sa8yb77mjAN4VPhaXuiO5Vshh6Fv09V+HHnlfFGq5t1K07OcY87hI8ym
- RRKyPxnTk2hWa2+XdNXqMqkqcbSYDI7YahFdJoFI92FPE5Wlb/XAEoQaw
- fCHrVnXJjTl+Mk8l8TCIVoh6kkMms9G+ucUEd5cmbDyL397zvO5do75IB
- DBjBcaCYDziUbPjh9zLDEd7Qm5Sn3r4TM7MqDz1UiorbAZH8xDMEuliCf
- UZS/rT8axzGzjUaOD6IFRmPjwWC80yM5WJ6sEk7ENf8UC15J59YD2g+kx g==;
-X-CSE-ConnectionGUID: MIxTDT6TRHOPE2lyeruqUQ==
-X-CSE-MsgGUID: W89MJnHHRWWV/kHJijofxg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="54694602"
-X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="54694602"
+ bh=ww3hkZiQiqJ1KeYMe4dC+I1LJZe0UZlFqW2pOLJh9fY=;
+ b=gHFKA35bBUSa3rVrF+RDG2z2A+URC431fUM5buD5Uao07ujivhWviiW6
+ PBZrpT5OyCQ7ZyRTchL4qePmb08hOkGlp1K2ka0c3TTxJUwmAlC/xyjg3
+ xPF3wF4jxiweucOCLZsQQjj7XzCp8mo/QAkLTcdr5Wgq3YOK5XGZ4ChtM
+ J9ehSkDmF0brXGbXf3EskWNfJ35D81KlfjmnVrT4tIyXubEsnTAFMa/Vc
+ HLvz7yBstfhZ2lCQQwbjMlWG0ec5z0M6pactlj8V4srhY3A5Pg/A8yBAc
+ EWqfZ/QmZbNHpMlHNOjiFaXE/5UmrH7+BLZNneDcNppyHce5+u3Zuj8Jx Q==;
+X-CSE-ConnectionGUID: LhG7ibZZS1CJx7H2BaKfmQ==
+X-CSE-MsgGUID: bh2T7u58QQSB6/3ew9pA+A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="54694622"
+X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="54694622"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2025 07:52:35 -0700
-X-CSE-ConnectionGUID: m4cpMr+JSICYRJyoyWXW0g==
-X-CSE-MsgGUID: RQ7T7ea1R4eoFvJLdnoJxQ==
+ 17 Mar 2025 07:52:42 -0700
+X-CSE-ConnectionGUID: M3vgR3RnRM6+HtKJ3LCEmQ==
+X-CSE-MsgGUID: wCOi86+ETnOs5YoT2nrJqQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="126988512"
+X-IronPort-AV: E=Sophos;i="6.14,254,1736841600"; d="scan'208";a="126988535"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by orviesa004.jf.intel.com with ESMTP; 17 Mar 2025 07:52:34 -0700
+ by orviesa004.jf.intel.com with ESMTP; 17 Mar 2025 07:52:41 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 06/17] rust/vmstate: Fix size field of VMStateField with
- VMS_ARRAY_OF_POINTER flag
-Date: Mon, 17 Mar 2025 23:12:25 +0800
-Message-Id: <20250317151236.536673-7-zhao1.liu@intel.com>
+Subject: [PATCH 11/17] rust/vmstate: Re-implement VMState trait for timer
+ binding
+Date: Mon, 17 Mar 2025 23:12:30 +0800
+Message-Id: <20250317151236.536673-12-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250317151236.536673-1-zhao1.liu@intel.com>
 References: <20250317151236.536673-1-zhao1.liu@intel.com>
@@ -55,7 +55,7 @@ X-Spam_report: (-4.7 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.335,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- T_SPF_TEMPERROR=0.01 autolearn=ham autolearn_force=no
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -68,39 +68,60 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Mar 2025 14:53:15 -0000
+X-List-Received-Date: Mon, 17 Mar 2025 14:53:26 -0000
 
-The `size` field of the VMStateField with VMS_ARRAY_OF_POINTER flag
-should stores the size of pointer, which depends on platform.
+At present, Rust side has a timer binding "timer::Timer", so the vmstate
+for timer should base on that binding instead of the raw
+"binding::QEMUTimer".
 
-Currently, `*const`, `*mut`, `NonNull`, `Box<>` and their wrapper are
-supported, and they have the same size as `usize`.
+It's possible to apply impl_vmstate_transparent for cell::Opaque and
+then impl_vmstate_forward for timer::Timer. But binding::QEMUTimer
+shouldn't be used directly, so that vmstate for such raw timer type is
+useless.
 
-Store the size (of `usize`) when VMS_ARRAY_OF_POINTER flag is set.
-
-The size may be changed when more smart pointers are supported, but now
-the size of "usize" is enough.
+Thus, apply impl_vmstate_scalar for timer::Timer. And since Opaque<> is
+useful, apply impl_vmstate_transparent for cell::Opaque as well.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- rust/qemu-api/src/vmstate.rs | 4 ++++
- 1 file changed, 4 insertions(+)
+ rust/qemu-api/src/vmstate.rs | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-index e877ee5e391d..5af75b4777e9 100644
+index 806d531b0c37..3d4c50ca86f9 100644
 --- a/rust/qemu-api/src/vmstate.rs
 +++ b/rust/qemu-api/src/vmstate.rs
-@@ -256,6 +256,10 @@ pub const fn with_array_flag(mut self, num: usize) -> Self {
-         if (self.flags.0 & VMStateFlags::VMS_POINTER.0) != 0 {
-             self.flags = VMStateFlags(self.flags.0 & !VMStateFlags::VMS_POINTER.0);
-             self.flags = VMStateFlags(self.flags.0 | VMStateFlags::VMS_ARRAY_OF_POINTER.0);
-+            // VMS_ARRAY_OF_POINTER flag stores the size of pointer.
-+            // FIXME: *const, *mut, NonNull and Box<> have the same size as usize.
-+            //        Resize if more smart pointers are supported.
-+            self.size = std::mem::size_of::<usize>();
-         }
-         self.flags = VMStateFlags(self.flags.0 & !VMStateFlags::VMS_SINGLE.0);
-         self.flags = VMStateFlags(self.flags.0 | VMStateFlags::VMS_ARRAY.0);
+@@ -27,12 +27,7 @@
+ use core::{marker::PhantomData, mem, ptr::NonNull};
+ 
+ pub use crate::bindings::{VMStateDescription, VMStateField};
+-use crate::{
+-    bindings::{self, VMStateFlags},
+-    prelude::*,
+-    qom::Owned,
+-    zeroable::Zeroable,
+-};
++use crate::{bindings::VMStateFlags, prelude::*, qom::Owned, zeroable::Zeroable};
+ 
+ /// This macro is used to call a function with a generic argument bound
+ /// to the type of a field.  The function must take a
+@@ -344,6 +339,7 @@ unsafe impl<$base> VMState for $type where $base: VMState $($where)* {
+ impl_vmstate_transparent!(std::pin::Pin<T> where T: VMState);
+ impl_vmstate_transparent!(crate::cell::BqlCell<T> where T: VMState);
+ impl_vmstate_transparent!(crate::cell::BqlRefCell<T> where T: VMState);
++impl_vmstate_transparent!(crate::cell::Opaque<T> where T: VMState);
+ 
+ #[macro_export]
+ macro_rules! impl_vmstate_bitsized {
+@@ -390,7 +386,7 @@ unsafe impl VMState for $type {
+ impl_vmstate_scalar!(vmstate_info_uint16, u16, VMS_VARRAY_UINT16);
+ impl_vmstate_scalar!(vmstate_info_uint32, u32, VMS_VARRAY_UINT32);
+ impl_vmstate_scalar!(vmstate_info_uint64, u64);
+-impl_vmstate_scalar!(vmstate_info_timer, bindings::QEMUTimer);
++impl_vmstate_scalar!(vmstate_info_timer, crate::timer::Timer);
+ 
+ // Pointer types using the underlying type's VMState plus VMS_POINTER
+ // Note that references are not supported, though references to cells
 -- 
 2.34.1
 
