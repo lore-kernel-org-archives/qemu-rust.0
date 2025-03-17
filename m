@@ -1,77 +1,77 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tuDTI-0008VP-F3
-	for mharc-qemu-rust@gnu.org; Mon, 17 Mar 2025 12:37:55 -0400
+	id 1tuDUA-0000ps-3o
+	for mharc-qemu-rust@gnu.org; Mon, 17 Mar 2025 12:38:42 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tuDT1-0008Ne-Je
- for qemu-rust@nongnu.org; Mon, 17 Mar 2025 12:37:35 -0400
+ id 1tuDU9-0000oj-5g
+ for qemu-rust@nongnu.org; Mon, 17 Mar 2025 12:38:41 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tuDSx-0000Bn-Cw
- for qemu-rust@nongnu.org; Mon, 17 Mar 2025 12:37:30 -0400
+ id 1tuDTz-0000JT-MY
+ for qemu-rust@nongnu.org; Mon, 17 Mar 2025 12:38:39 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1742229442;
+ s=mimecast20190719; t=1742229506;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=MYcG2QNzGLgZ5qOapiCQwiKdaL5WSa5O/uWHhdEsv0s=;
- b=dWc0SFGK7ce6gKGgJVAneqfUoPQewcXGTauPBrVD8Q30qC9JiH2MbgW4mL87cejjVuBGcZ
- xcD9J1p/rYoHhJxfMdBhxn8pwK6fSKqIX5F96IXX5tAtkmp6k9k4MyLIzkXMX5UOMbcNWi
- 1ZKyUO8ku/sBVcP6jJb35qHOPRipBik=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=bEmzBwDzV2ARU9KIpCy4vtKofjMO7s2CMmEtnd0Vrg0=;
+ b=RyytO96hjFWllcUpgt1krMotXwFftm67KfGnI7/KkQCvMeFS6KRR0cMr0KHbrvEEpjEOrJ
+ ih/rEcveTjfuzsTEeh9jGRQ6WXMju1ha5QQhQ9qZpS6SBXtp+bwY0N5vhfRsgEpJIdNfdo
+ M6sEkWqo5bKOXdxv7d01oK+R4es8e4o=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-651-OSdw6yE_OliXSHIO6BxL-g-1; Mon, 17 Mar 2025 12:37:20 -0400
-X-MC-Unique: OSdw6yE_OliXSHIO6BxL-g-1
-X-Mimecast-MFC-AGG-ID: OSdw6yE_OliXSHIO6BxL-g_1742229439
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-43ab5baf62cso21439375e9.0
- for <qemu-rust@nongnu.org>; Mon, 17 Mar 2025 09:37:19 -0700 (PDT)
+ us-mta-91-syAXPadINBaWaEvuwZWypA-1; Mon, 17 Mar 2025 12:38:23 -0400
+X-MC-Unique: syAXPadINBaWaEvuwZWypA-1
+X-Mimecast-MFC-AGG-ID: syAXPadINBaWaEvuwZWypA_1742229502
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-3978ef9a284so1116401f8f.3
+ for <qemu-rust@nongnu.org>; Mon, 17 Mar 2025 09:38:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742229438; x=1742834238;
+ d=1e100.net; s=20230601; t=1742229502; x=1742834302;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=MYcG2QNzGLgZ5qOapiCQwiKdaL5WSa5O/uWHhdEsv0s=;
- b=aqvI3qN+SdBXXubUrznV/Nbr0PVD7flF/DuZEh/RKVy/zh60UXlrLzi39OSSJe7deT
- bGS0b9w3UNFg84vB9DJVC2DuOV1Ua2xhsoLf2dq0nqeG+aUTLFLblEhhZepHqZlgf6cF
- 0cMR2aCb9g75mnMMFz8yNOItjQ+1CkstG8nBndZSAjAJKiZ1umrlU5Tmk997kQNrd+FW
- MWeffftjNX2Wu3hV9EP+PGOJJsKATmwyEpiMisRSYY4jBDvWWXOo9Auc0l5EJrUm0BCF
- 6XYIrZLNfInCrmOy7KOMGPnUBBUlKUQysJYCE9zwSUfwmNhSEPTz39vNhoOrWg/Q7zLe
- RS4Q==
+ bh=bEmzBwDzV2ARU9KIpCy4vtKofjMO7s2CMmEtnd0Vrg0=;
+ b=UESloBugiLgF2DLLxpuDxYK091gWhwZZV2pSMZ6Gz/Vsdt5nP3gUNWZ5nNiCHeJdhG
+ iSGdKLJnyyzjgnZHFeLW0iWmkh19dadRw9isiGOCJD1v2BIqFJf1avzXZJCFMQIvlLpI
+ EKIG1UN5JzmTQJfGAhWv9fx1hmanpToh7m2PsoW/k8C8UqF+dq2sCvZyJeCVKOKsc7yC
+ kfTxyuv6dCQX9Xz3VcPsxxudbbEu75BSGOCEcftPDcJos0KYLJIBF23LzEgEMgIA0rS1
+ yMvIaS89xxt6G0oVjJ8+oiEL9l6Bo4wvSDcce+iZb5Q+bFhw4tGt6qmpWDCzNOBPu+Xq
+ jfjg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWXJJ6sYNToBjOJvny6QNOrl/LexdsiBcGkKHJ+EbpM0+OQW9VLvHCzHLk8q/xm1zll51AOEVu/H84=@nongnu.org
-X-Gm-Message-State: AOJu0YyYup7isOmxtbV9bz42s7e/Z80A9gvE9+4Hf8kIDXstndWaDaf1
- 8QLWYqKzSTQ1B/HTICZyL2TI4PpewVVr7UGz1B/Mzt6KaHE11L3yKEaaRLnIgS+RqKVaaz9BHKv
- m2XOl26g+S+a3zkitx7ZLTALlvM6R2eb6tIg631YTnpO0a730bnxL0edS0oQBywtvYpAovl8ZZe
- jIYHpt95wgGYDXP6uh2plN8cAwuaBKvB5H5w==
-X-Gm-Gg: ASbGncscZSOT5gp1iYjxexCpwQQB3FPb2fC5vdpoO3HsUJ9KcWdeIGzAKut7II+wKll
- Elc8w8tM6XyQ3BfI7yhXXYDQmbkWglvqPBwLtarfAT89Bq4XLuN2EAPQFdLPcQQxAzIGtep6ZaQ
+ AJvYcCWs9eTBe8A1e/A7I3W0iUNY7hc/3AHPqKFwH5J+Efi5B0/eKJ2rUa89eFBLpcmVUwEpoV+E7VlQIS8=@nongnu.org
+X-Gm-Message-State: AOJu0YwV2bPWGxaWWQTZY5AEKA19WxSeoUTM5C/Hn/5kUfbgW1lJ2bmg
+ s4h92ZUSaCLvKu4/6voYos6gfy7LV0xVmsN5B9TJ8kB5A1pRSKWgaMg0sLGgHG8sniGAZ8BX9Nu
+ NCiDDEIvu2XSxWIh7CWyVXJzhVuSHbA6fsLFrKumLsoyRv/DkLBV78sm7LGJU72HfqiclAkHLf/
+ BVmMIFUyv0muqNpMJ4nLmNj5hP/Q==
+X-Gm-Gg: ASbGncseAsm10Zpm/XW424tcA5ucjFldu9+EpEbCxhWDM0+9r7NjNfjNkh5KrBA8yt3
+ UoUBwpA+k7tH8300MgYr3dadEHKKxgYUm8jFpJu/Pc7CY9GljUgUZ8ZIvM/EhAy00SQnrKyx7fw
  ==
-X-Received: by 2002:a05:600c:3146:b0:43c:ea1a:720c with SMTP id
- 5b1f17b1804b1-43d1ecb1019mr126759425e9.18.1742229438335; 
- Mon, 17 Mar 2025 09:37:18 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFWG4Q/ohnbmNVUxrxjBS/NH5I3UPo8Ioxwqxuzt+uGeKI/yIx6nCjidbR4Gb3D5eqs1tl4oZNQ4MGlTYSt/OY=
-X-Received: by 2002:a05:600c:3146:b0:43c:ea1a:720c with SMTP id
- 5b1f17b1804b1-43d1ecb1019mr126759235e9.18.1742229437984; Mon, 17 Mar 2025
- 09:37:17 -0700 (PDT)
+X-Received: by 2002:a05:6000:1a87:b0:391:4559:8773 with SMTP id
+ ffacd0b85a97d-397200aff6fmr13337933f8f.51.1742229502529; 
+ Mon, 17 Mar 2025 09:38:22 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGX4Kk0XBAFFDgxsLVqj+1XmlEtot7zd+148M2uOBoT/b4cy5cmxHqz8+TqGTAbuQjCnv/V3KQ96IBJikxMbEw=
+X-Received: by 2002:a05:6000:1a87:b0:391:4559:8773 with SMTP id
+ ffacd0b85a97d-397200aff6fmr13337914f8f.51.1742229502223; Mon, 17 Mar 2025
+ 09:38:22 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250317151236.536673-1-zhao1.liu@intel.com>
- <20250317151236.536673-4-zhao1.liu@intel.com>
-In-Reply-To: <20250317151236.536673-4-zhao1.liu@intel.com>
+ <20250317151236.536673-13-zhao1.liu@intel.com>
+In-Reply-To: <20250317151236.536673-13-zhao1.liu@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Mon, 17 Mar 2025 17:37:06 +0100
-X-Gm-Features: AQ5f1Jo23zt-CpUQ-vUNM8JLpBuZDcSWBhmWsNpWuWyxlwTgTsz0OWMlqEPAc4U
-Message-ID: <CABgObfYrdpkTGFfDKFGK7zkHJVW5Tn2q=tXw6d97m4P_3ZNdrA@mail.gmail.com>
-Subject: Re: [PATCH 03/17] rust/vmstate: Add a prefix separator ", " for the
- array field in vmstate macros
+Date: Mon, 17 Mar 2025 17:38:10 +0100
+X-Gm-Features: AQ5f1Jo7SZaKH_Ysp1az4PA95opN_bD7_hqGIh0kxkC6VCj6NSMp-YzwwEoNC10
+Message-ID: <CABgObfaqFHb8AkHLj8enX3NCSAUUOhP_pPZ6chbBR6rUk6826Q@mail.gmail.com>
+Subject: Re: [PATCH 12/17] rust/vmstate: Support version field in vmstate
+ macros
 To: Zhao Liu <zhao1.liu@intel.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: jsq5RDzjMgHoG5WUnQnQxL6_AloyC8rNR9WXm3k80Ao_1742229439
+X-Mimecast-MFC-PROC-ID: uY0QPtj_3W2CSMQMps5bp6loEzxQyGqXKY8vx3RFkXU_1742229502
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -84,7 +84,7 @@ X-Spam_report: (-2.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.335,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -97,52 +97,68 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Mar 2025 16:37:39 -0000
+X-List-Received-Date: Mon, 17 Mar 2025 16:38:41 -0000
 
 On Mon, Mar 17, 2025 at 3:52=E2=80=AFPM Zhao Liu <zhao1.liu@intel.com> wrot=
 e:
->
-> The fields are separated by ",", so it's necessary to add ", " in array
-> field to avoid matching failure.
+> Add "version =3D *" in vmstate macros to help set version_id in
+> VMStateField.
 
-This is not a field though, the only (intended) fields are name and
-field. It's meant to mimic the slice since &a[0..n].
+Could it use a ".with_min_version(2)" annotation (or something similar) ins=
+tead?
 
 Paolo
 
 > Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 > ---
->  rust/qemu-api/src/vmstate.rs | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  rust/qemu-api/src/vmstate.rs | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 >
 > diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-> index 9533b1250fa5..94efbd8bb735 100644
+> index 3d4c50ca86f9..bb41bfd291c0 100644
 > --- a/rust/qemu-api/src/vmstate.rs
 > +++ b/rust/qemu-api/src/vmstate.rs
-> @@ -202,7 +202,7 @@ pub const fn vmstate_varray_flag<T: VMState>(_: Phant=
+> @@ -197,7 +197,7 @@ pub const fn vmstate_varray_flag<T: VMState>(_: Phant=
 omData<T>) -> VMStateFlags
 >  /// and [`impl_vmstate_forward!`](crate::impl_vmstate_forward) help with=
  this.
 >  #[macro_export]
 >  macro_rules! vmstate_of {
-> -    ($struct_name:ty, $field_name:ident $([0 .. $num:ident $(* $factor:e=
-xpr)?])? $(,)?) =3D> {
-> +    ($struct_name:ty, $field_name:ident $(, [0 .. $num:ident $(* $factor=
+> -    ($struct_name:ty, $field_name:ident $(, [0 .. $num:ident $(* $factor=
 :expr)?])? $(,)?) =3D> {
+> +    ($struct_name:ty, $field_name:ident $(, [0 .. $num:ident $(* $factor=
+:expr)?])? $(, version =3D $version:expr)? $(,)?) =3D> {
 >          $crate::bindings::VMStateField {
 >              name: ::core::concat!(::core::stringify!($field_name), "\0")
 >                  .as_bytes()
-> @@ -435,7 +435,7 @@ macro_rules! vmstate_unused {
+> @@ -211,6 +211,7 @@ macro_rules! vmstate_of {
+>                  $struct_name,
+>                  $field_name
+>              )),
+> +            $(version_id: $version,)?
+>              ..$crate::call_func_with_field!(
+>                  $crate::vmstate::vmstate_base,
+>                  $struct_name,
+> @@ -442,7 +443,7 @@ macro_rules! vmstate_unused {
 >  #[doc(alias =3D "VMSTATE_STRUCT")]
 >  #[macro_export]
 >  macro_rules! vmstate_struct {
-> -    ($struct_name:ty, $field_name:ident $([0 .. $num:ident $(* $factor:e=
-xpr)?])?, $vmsd:expr, $type:ty $(,)?) =3D> {
-> +    ($struct_name:ty, $field_name:ident $(, [0 .. $num:ident $(* $factor=
-:expr)?])?, $vmsd:expr, $type:ty $(,)?) =3D> {
+> -    ($struct_name:ty, $field_name:ident $(, [0 .. $num:ident $(* $factor=
+:expr)?])?, $vmsd:ident, $type:ty $(,)?) =3D> {
+> +    ($struct_name:ty, $field_name:ident $(, [0 .. $num:ident $( * $facto=
+r:expr)? ])?, $vmsd:ident, $type:ty $(, version =3D $version:expr)? $(,)?) =
+=3D> {
 >          $crate::bindings::VMStateField {
 >              name: ::core::concat!(::core::stringify!($field_name), "\0")
 >                  .as_bytes()
+> @@ -455,6 +456,7 @@ macro_rules! vmstate_struct {
+>              size: ::core::mem::size_of::<$type>(),
+>              flags: $crate::bindings::VMStateFlags::VMS_STRUCT,
+>              vmsd: &$vmsd,
+> +            $(version_id: $version,)?
+>              ..$crate::zeroable::Zeroable::ZERO
+>           } $(.with_varray_flag_unchecked(
+>                    $crate::call_func_with_field!(
 > --
 > 2.34.1
 >
