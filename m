@@ -1,46 +1,46 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tuS5B-0002vj-0B
-	for mharc-qemu-rust@gnu.org; Tue, 18 Mar 2025 04:13:53 -0400
+	id 1tuS5D-00030M-32
+	for mharc-qemu-rust@gnu.org; Tue, 18 Mar 2025 04:13:55 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuS4K-0002jS-BW; Tue, 18 Mar 2025 04:13:03 -0400
+ id 1tuS4G-0002it-FF; Tue, 18 Mar 2025 04:13:00 -0400
 Received: from mgamail.intel.com ([198.175.65.11])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuS4I-0001JW-3e; Tue, 18 Mar 2025 04:12:59 -0400
+ id 1tuS4D-0001JW-M2; Tue, 18 Mar 2025 04:12:56 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742285578; x=1773821578;
+ t=1742285574; x=1773821574;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=oNTyY42WX481d5bX9cw8tiiWl2PH6jRFnI6SscTNaEc=;
- b=KOZsO38gU2psifA5Po+RfYLvduLZUocaOXq5uOhPfXIbA/NbH8RuYldX
- MdbO3UGx6bpHJxlF2QjuxRi2mEu52J7k3X3wSOWuBjA3glKoPCPiSMDaD
- 5RKBt2sOo3wC05/u+XU9fuVYlVChUVWZDtT4L441ptk41iXmZBZoUgQ8+
- 0BAUo5eNVuLhQgtGkidkauHw283ger+isf3U0ZkeNSIEZg/01utEz9EEL
- 7Ep223TpQK1GwRGCKxxHW0XEb4mt3JB7hEpvgCaj+PJSq4z9iCJSqwsaL
- M6OsUP2RY0MaRCKIDHWzutsL+ji6HV6JYGYrNe2QLKVW/2dZRVoXfC0+T g==;
-X-CSE-ConnectionGUID: +H1dYXGyRvO+ft+NT7YETA==
-X-CSE-MsgGUID: 8ldR9YbqR2OWcmB6KUIMeQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="53621579"
-X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="53621579"
+ bh=qhOop17qvvDdvVOFBqEwZ6YZDR32LRhdetUWxZsO20Y=;
+ b=Qxtc//rdMgKIWaaA8NGwNneZeE0Bag3VdIsc0TrZJVfJvg+WJFRA1Rkq
+ iwoKGBqIWsFHMX20teYz4QM+OvhBLqr0Dxp5lUeuexPBxe4pOsBo++5nJ
+ 6AloY5wWkyETkwA7TmgW2sudBa9berusbK7vKlvHv2ylxO1BNo1ZNvUfy
+ +IJmhEoIc/qFn5lH8tR4TN+1SYGWYVL6OyKvZxqXmx3bwm8CERc9aeP02
+ o5f4E36079xoJnNopsrRDRB3jYZVki+GRaxHKG+FNe+j/gxagMIltXrud
+ G7P95NBNaHmClVQ99lEeJ3HFKFRG5hiCunOVyOckRU4k95dxPC2AleChy w==;
+X-CSE-ConnectionGUID: QKYCeIUPRFukPSnUWVjYDA==
+X-CSE-MsgGUID: lJbeaS0uRA60wsyAo5WNAA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="53621564"
+X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="53621564"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2025 01:12:54 -0700
-X-CSE-ConnectionGUID: gsj8Hd5YSDuIVWmwK62PLw==
-X-CSE-MsgGUID: GNF1P+x/RQ2+R3yw0i34dw==
+ 18 Mar 2025 01:12:50 -0700
+X-CSE-ConnectionGUID: /KoGosO0QhKRqNcMhDgV7g==
+X-CSE-MsgGUID: kGi+cZyNRqamdRQFp/XD/w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="127363228"
+X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="127363203"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by orviesa005.jf.intel.com with ESMTP; 18 Mar 2025 01:12:52 -0700
+ by orviesa005.jf.intel.com with ESMTP; 18 Mar 2025 01:12:48 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH v2 07/14] rust/vmstate: Fix unnecessary VMState bound of
- with_varray_flag()
-Date: Tue, 18 Mar 2025 16:32:41 +0800
-Message-Id: <20250318083248.1402990-8-zhao1.liu@intel.com>
+Subject: [PATCH v2 04/14] rust/vmstate: Fix size field of VMStateField with
+ VMS_ARRAY_OF_POINTER flag
+Date: Tue, 18 Mar 2025 16:32:38 +0800
+Message-Id: <20250318083248.1402990-5-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250318083248.1402990-1-zhao1.liu@intel.com>
 References: <20250318083248.1402990-1-zhao1.liu@intel.com>
@@ -68,42 +68,39 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Mar 2025 08:13:34 -0000
+X-List-Received-Date: Tue, 18 Mar 2025 08:13:14 -0000
 
-The VMState type bound is not used in with_varray_flag().
+The `size` field of the VMStateField with VMS_ARRAY_OF_POINTER flag
+should stores the size of pointer, which depends on platform.
 
-And for vmstate_struct, Rust cannot infer the type of `num` from the
-call_func_with_field(), so this causes the compiling error because it
-complains "cannot satisfy `_: VMState`" in with_varray_flag().
+Currently, `*const`, `*mut`, `NonNull`, `Box<>` and their wrapper are
+supported, and they have the same size as `usize`.
 
-Note Rust can infer the type in vmstate_of macro so that
-with_varray_flag() can work at there. It is possible that the different
-initialization ways in the two macros cause differences in Rust's
-type inference.
+Store the size (of `usize`) when VMS_ARRAY_OF_POINTER flag is set.
 
-But in fact, the VMState type bound is not used in with_varray_flag()
-and vmstate_varray_flag() has already checked the VMState type, it's
-safe to drop VMState bound of with_varray_flag(), which can fix the
-above compiling error.
+The size may be changed when more smart pointers are supported, but now
+the size of "usize" is enough.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- rust/qemu-api/src/vmstate.rs | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ rust/qemu-api/src/vmstate.rs | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-index 3be3a7260fe9..792a74fdfc08 100644
+index e3233303f204..e2a1f7a97aae 100644
 --- a/rust/qemu-api/src/vmstate.rs
 +++ b/rust/qemu-api/src/vmstate.rs
-@@ -275,7 +275,7 @@ pub const fn with_pointer_flag(mut self) -> Self {
-     }
- 
-     #[must_use]
--    pub const fn with_varray_flag<T: VMState>(mut self, flag: VMStateFlags) -> VMStateField {
-+    pub const fn with_varray_flag(mut self, flag: VMStateFlags) -> VMStateField {
-         assert!((self.flags.0 & VMStateFlags::VMS_ARRAY.0) != 0);
-         self.flags = VMStateFlags(self.flags.0 & !VMStateFlags::VMS_ARRAY.0);
-         self.flags = VMStateFlags(self.flags.0 | flag.0);
+@@ -256,6 +256,10 @@ pub const fn with_array_flag(mut self, num: usize) -> Self {
+         if (self.flags.0 & VMStateFlags::VMS_POINTER.0) != 0 {
+             self.flags = VMStateFlags(self.flags.0 & !VMStateFlags::VMS_POINTER.0);
+             self.flags = VMStateFlags(self.flags.0 | VMStateFlags::VMS_ARRAY_OF_POINTER.0);
++            // VMS_ARRAY_OF_POINTER flag stores the size of pointer.
++            // FIXME: *const, *mut, NonNull and Box<> have the same size as usize.
++            //        Resize if more smart pointers are supported.
++            self.size = std::mem::size_of::<usize>();
+         }
+         self.flags = VMStateFlags(self.flags.0 & !VMStateFlags::VMS_SINGLE.0);
+         self.flags = VMStateFlags(self.flags.0 | VMStateFlags::VMS_ARRAY.0);
 -- 
 2.34.1
 
