@@ -1,46 +1,46 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tuWIB-0000ut-0m
-	for mharc-qemu-rust@gnu.org; Tue, 18 Mar 2025 08:43:35 -0400
+	id 1tuWIB-0000yd-Q1
+	for mharc-qemu-rust@gnu.org; Tue, 18 Mar 2025 08:43:36 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuWH3-0007pX-Hh; Tue, 18 Mar 2025 08:42:26 -0400
+ id 1tuWH6-0007qo-QP; Tue, 18 Mar 2025 08:42:30 -0400
 Received: from mgamail.intel.com ([198.175.65.12])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuWH1-0002wP-8a; Tue, 18 Mar 2025 08:42:25 -0400
+ id 1tuWH4-0002wP-Al; Tue, 18 Mar 2025 08:42:28 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742301744; x=1773837744;
+ t=1742301747; x=1773837747;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qhOop17qvvDdvVOFBqEwZ6YZDR32LRhdetUWxZsO20Y=;
- b=c7f8zoBWOPc3nuiBhF9F9CJQTa7bY5omquDpXgMLlPl1ngS9QLARkY6s
- Ga2mA+egca3aDQ0mFl3NLHJ8Ht00jqN5Tgd4M3oyL70YUVLrLfDbRdYLR
- XR9dhQZGafQbNUf8BRZpJ/c/bWI19j03rz3cmjuMp0xca2TtRNnG4W9nf
- 5/zJ8BdiAoAhK3f64MRmu0U0SYv2UwLaOaQ8H9SFLBqqxPBITwEbMiYas
- GOZSeXqXqMBHgetqfs03wv/Hbwl1HmPEuDfg+5eszpDFI1HKl/I5qSjnJ
- oBfk1D/zAwuM1TONRftGBaZQZbxuvPyrWICQ80RhlK45i0n1M0kY2X/jA w==;
-X-CSE-ConnectionGUID: rX+hcEGyQGiY+VJQ5in0dg==
-X-CSE-MsgGUID: y9gbd896Rk2ugqMBBgP7Ew==
-X-IronPort-AV: E=McAfee;i="6700,10204,11377"; a="54824567"
-X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="54824567"
+ bh=usEhCMOmGCifjwNKm0zeYfxP5suOQmKgiIpvC4cOCps=;
+ b=Z4PRR/Baz9A49tuV9ml9MAS4vwoZayR4VmyMkYGojnA8HzKwlmI3Y1sA
+ YLByXyCMMilCvtysD9O/VS0Td5PaezcqkVRsqr4YVKO2PeKPl3YvvsEYQ
+ DWu0uLQ/sJdlL3B5/mdpeQnK17/O0XXDkyq0/6q9j3v0kILeWHoXicBid
+ fAjoY93z7w3zhOsfbwlzvE2nw/Gx7xzrRU4uFGbHke0sZ3NfHwx0PTcK6
+ yosSTd4ys13rXwY188b4T1nSx42Jq4hZ+eMWuEWJvWLoWAX8qQNq1iPT/
+ Keg6QC2j9a7qSKgVM047hzF0JiXEar2bBOoFZRZOS2UbiCuNouabrDF3g Q==;
+X-CSE-ConnectionGUID: BKu/iHt6Qpqo3J5qffEyjw==
+X-CSE-MsgGUID: d0vXpTg3R0SMXDQzQzjJ7Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11377"; a="54824594"
+X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="54824594"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2025 05:42:14 -0700
-X-CSE-ConnectionGUID: axMfs3gbQPKTQu7sXBbZ5Q==
-X-CSE-MsgGUID: w11beLlZQ6CrTKzq/H1JPQ==
+ 18 Mar 2025 05:42:20 -0700
+X-CSE-ConnectionGUID: OwZfHw0yTfWwmtAbZcwNWQ==
+X-CSE-MsgGUID: lGPUSET9QTuPgtzYX9LRpg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="121980434"
+X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="121980457"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by orviesa009.jf.intel.com with ESMTP; 18 Mar 2025 05:42:13 -0700
+ by orviesa009.jf.intel.com with ESMTP; 18 Mar 2025 05:42:18 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH v3 04/15] rust/vmstate: Fix size field of VMStateField with
- VMS_ARRAY_OF_POINTER flag
-Date: Tue, 18 Mar 2025 21:02:08 +0800
-Message-Id: <20250318130219.1799170-5-zhao1.liu@intel.com>
+Subject: [PATCH v3 08/15] rust/vmstate: Relax array check when build varray in
+ vmstate_struct
+Date: Tue, 18 Mar 2025 21:02:12 +0800
+Message-Id: <20250318130219.1799170-9-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250318130219.1799170-1-zhao1.liu@intel.com>
 References: <20250318130219.1799170-1-zhao1.liu@intel.com>
@@ -70,37 +70,55 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
 X-List-Received-Date: Tue, 18 Mar 2025 12:42:40 -0000
 
-The `size` field of the VMStateField with VMS_ARRAY_OF_POINTER flag
-should stores the size of pointer, which depends on platform.
+The varry of structure created by vmstate_struct is different with
+vmstate_of. This is because vmstate_struct uses the `vmsd` to traverse
+the vmstates of structure's fields, rather than treating the structure
+directly as a well-defined vmstate.
 
-Currently, `*const`, `*mut`, `NonNull`, `Box<>` and their wrapper are
-supported, and they have the same size as `usize`.
-
-Store the size (of `usize`) when VMS_ARRAY_OF_POINTER flag is set.
-
-The size may be changed when more smart pointers are supported, but now
-the size of "usize" is enough.
+Therefore, there's no need to check array flag when building varray by
+vmstate_struct.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- rust/qemu-api/src/vmstate.rs | 4 ++++
- 1 file changed, 4 insertions(+)
+ rust/qemu-api/src/vmstate.rs | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
-index e3233303f204..e2a1f7a97aae 100644
+index 792a74fdfc08..0b5af1c90b11 100644
 --- a/rust/qemu-api/src/vmstate.rs
 +++ b/rust/qemu-api/src/vmstate.rs
-@@ -256,6 +256,10 @@ pub const fn with_array_flag(mut self, num: usize) -> Self {
-         if (self.flags.0 & VMStateFlags::VMS_POINTER.0) != 0 {
-             self.flags = VMStateFlags(self.flags.0 & !VMStateFlags::VMS_POINTER.0);
-             self.flags = VMStateFlags(self.flags.0 | VMStateFlags::VMS_ARRAY_OF_POINTER.0);
-+            // VMS_ARRAY_OF_POINTER flag stores the size of pointer.
-+            // FIXME: *const, *mut, NonNull and Box<> have the same size as usize.
-+            //        Resize if more smart pointers are supported.
-+            self.size = std::mem::size_of::<usize>();
-         }
-         self.flags = VMStateFlags(self.flags.0 & !VMStateFlags::VMS_SINGLE.0);
-         self.flags = VMStateFlags(self.flags.0 | VMStateFlags::VMS_ARRAY.0);
+@@ -275,14 +275,20 @@ pub const fn with_pointer_flag(mut self) -> Self {
+     }
+ 
+     #[must_use]
+-    pub const fn with_varray_flag(mut self, flag: VMStateFlags) -> VMStateField {
+-        assert!((self.flags.0 & VMStateFlags::VMS_ARRAY.0) != 0);
++    pub const fn with_varray_flag_unchecked(mut self, flag: VMStateFlags) -> VMStateField {
+         self.flags = VMStateFlags(self.flags.0 & !VMStateFlags::VMS_ARRAY.0);
+         self.flags = VMStateFlags(self.flags.0 | flag.0);
+         self.num = 0; // varray uses num_offset instead of num.
+         self
+     }
+ 
++    #[must_use]
++    #[allow(unused_mut)]
++    pub const fn with_varray_flag(mut self, flag: VMStateFlags) -> VMStateField {
++        assert!((self.flags.0 & VMStateFlags::VMS_ARRAY.0) != 0);
++        self.with_varray_flag_unchecked(flag)
++    }
++
+     #[must_use]
+     pub const fn with_varray_multiply(mut self, num: u32) -> VMStateField {
+         assert!(num <= 0x7FFF_FFFFu32);
+@@ -454,7 +460,7 @@ macro_rules! vmstate_struct {
+             flags: $crate::bindings::VMStateFlags::VMS_STRUCT,
+             vmsd: $vmsd,
+             ..$crate::zeroable::Zeroable::ZERO
+-         } $(.with_varray_flag(
++         } $(.with_varray_flag_unchecked(
+                   $crate::call_func_with_field!(
+                       $crate::vmstate::vmstate_varray_flag,
+                       $struct_name,
 -- 
 2.34.1
 
