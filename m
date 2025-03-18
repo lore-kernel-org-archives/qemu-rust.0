@@ -1,56 +1,51 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tuQwX-000826-02
-	for mharc-qemu-rust@gnu.org; Tue, 18 Mar 2025 03:00:53 -0400
+	id 1tuS4T-0002mS-HM
+	for mharc-qemu-rust@gnu.org; Tue, 18 Mar 2025 04:13:12 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuQwC-0007wQ-I4; Tue, 18 Mar 2025 03:00:43 -0400
-Received: from mgamail.intel.com ([192.198.163.15])
+ id 1tuS4C-0002hs-Tp; Tue, 18 Mar 2025 04:12:53 -0400
+Received: from mgamail.intel.com ([198.175.65.11])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuQw8-0002ak-TE; Tue, 18 Mar 2025 03:00:31 -0400
+ id 1tuS4A-0001KN-Mp; Tue, 18 Mar 2025 04:12:52 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742281229; x=1773817229;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=AMunR9H9ot49jcjr4NFedITbJrotXvQVxm/6vLlBb0k=;
- b=MLZkEukY1kzKSbzbM3mouuyP20hCZKt5NYpwE7VoBQdn+eeN/o+3JRE8
- loTE7Zc31FE/KdM9QM/e+MGRxDBaD0hI/3ySMFxPXFQoodsc98xoKfQCZ
- sHDqhP8WoLkkuKiByqx9oPio8EUU089VwY6ZSyEtyFX5OACbOI/wMTNuP
- IlPGFrTNoU6LBLcgV1HVjq3+b+sI1K1p7/PtX3D76cUEhb1IUld96jxrN
- Yyhp9GKW0XOQubjRIAAQC6E5Ms0Af2pHwHq9/ScSAj3exVuDM8Q5izog/
- /2ZD14lqcVsdGZBcvVUy2UAq7q1ziYeZJGx6dVzN6U4GrQwKuRUHMWp1J g==;
-X-CSE-ConnectionGUID: w9high/UTeKhRH3hK3HF3w==
-X-CSE-MsgGUID: DgPuujX2They7SuxbuUp/Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="43537001"
-X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="43537001"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2025 00:00:24 -0700
-X-CSE-ConnectionGUID: 43j9xjvsQAand9rmtKINdA==
-X-CSE-MsgGUID: 6je8HWxxStSXA8aO95GLwQ==
+ t=1742285571; x=1773821571;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ZBH+gd9fwHUKnch2bJzVxP0eRmX4fWcxXMkXBj21ULs=;
+ b=bE1IV8MWdpFBO4zdOfkuqKAFw9F8+Fz7Eun4F2Xv5uxUZfoI8zrHNff0
+ 8CrOlkW0qZYNsDjON0CZ8OkGDhfrDiqfVtbVjSupQPv3K6js3+sukQ6HH
+ +dZvMxSlXv1Dr+7wSk6omSmavD5jAh3WPeZup/E42ybz4VJsO6KRirNEV
+ DzcjxW1176BIkFVes9SiwrGlCA5JikJ1ryme+/FS7a56NTUECTmgV4Cn/
+ Paa4hUdnK79lI1tB+ZXlH5TwNxeAi0RSRGt6PfJ/jAp8Xx9TEK7WCp9Ou
+ 9U7lXxV6S6/ZkjM/7vUFNHUDLk62Zb5mRZIJSMX/zr1iIE8X68wi7darl Q==;
+X-CSE-ConnectionGUID: eoaGOtxXTZGC5hQLGVEruA==
+X-CSE-MsgGUID: pyg1/323Szuv60n7t8NbPw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="53621554"
+X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="53621554"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Mar 2025 01:12:47 -0700
+X-CSE-ConnectionGUID: u1jEhanAT6Kd7WGwfFEzjA==
+X-CSE-MsgGUID: 5LNX0gjZQROFmjLQIeTqHg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="121903757"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa009.jf.intel.com with ESMTP; 18 Mar 2025 00:00:23 -0700
-Date: Tue, 18 Mar 2025 15:20:36 +0800
+X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="127363190"
+Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
+ by orviesa005.jf.intel.com with ESMTP; 18 Mar 2025 01:12:45 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
-Subject: Re: [PATCH 13/17] rust/vmstate: Support vmstate_validate
-Message-ID: <Z9kexLFNuyQjCffE@intel.com>
-References: <20250317151236.536673-1-zhao1.liu@intel.com>
- <20250317151236.536673-14-zhao1.liu@intel.com>
- <CABgObfauvyAbmt7GewurAEw9d+HanhjvDa1tT=S_4Oo9Huty0g@mail.gmail.com>
- <Z9kUdJUP0JrkcKMJ@intel.com>
- <CABgObfZgpYa6CohM7t=1mnoJh3mZ++QqzZw9gFCabiHL8wOoBg@mail.gmail.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
+Subject: [PATCH v2 02/14] rust/vmstate: Fix num_offset in vmstate macros
+Date: Tue, 18 Mar 2025 16:32:36 +0800
+Message-Id: <20250318083248.1402990-3-zhao1.liu@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250318083248.1402990-1-zhao1.liu@intel.com>
+References: <20250318083248.1402990-1-zhao1.liu@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CABgObfZgpYa6CohM7t=1mnoJh3mZ++QqzZw9gFCabiHL8wOoBg@mail.gmail.com>
-Received-SPF: pass client-ip=192.198.163.15; envelope-from=zhao1.liu@intel.com;
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=198.175.65.11; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -46
 X-Spam_score: -4.7
@@ -72,18 +67,39 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Mar 2025 07:00:47 -0000
+X-List-Received-Date: Tue, 18 Mar 2025 08:12:53 -0000
 
-> For now I would leave out a generic field-exists check, and keep the
-> implementation of vmstate_validate as you did it in v1.
-> 
-> Once we look more in the builder concept we can think of adding also a
-> VMStateField<T> (with a PhantomData<fn(&T) -> bool> inside) and add
-> with_field_exists().
+`num_offset` is a member of `VMStateField`, and there's no need to use
+"." to access this field in a `VMStateField` instance.
 
-This makes sense!
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+---
+ rust/qemu-api/src/vmstate.rs | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Thanks,
-Zhao
+diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
+index 6698dfe7aeb8..9533b1250fa5 100644
+--- a/rust/qemu-api/src/vmstate.rs
++++ b/rust/qemu-api/src/vmstate.rs
+@@ -208,7 +208,7 @@ macro_rules! vmstate_of {
+                 .as_bytes()
+                 .as_ptr() as *const ::std::os::raw::c_char,
+             offset: $crate::offset_of!($struct_name, $field_name),
+-            $(.num_offset: $crate::offset_of!($struct_name, $num),)?
++            $(num_offset: $crate::offset_of!($struct_name, $num),)?
+             // The calls to `call_func_with_field!` are the magic that
+             // computes most of the VMStateField from the type of the field.
+             info: $crate::info_enum_to_ref!($crate::call_func_with_field!(
+@@ -440,7 +440,7 @@ macro_rules! vmstate_struct {
+             name: ::core::concat!(::core::stringify!($field_name), "\0")
+                 .as_bytes()
+                 .as_ptr() as *const ::std::os::raw::c_char,
+-            $(.num_offset: $crate::offset_of!($struct_name, $num),)?
++            $(num_offset: $crate::offset_of!($struct_name, $num),)?
+             offset: {
+                 $crate::assert_field_type!($struct_name, $field_name, $type);
+                 $crate::offset_of!($struct_name, $field_name)
+-- 
+2.34.1
 
 
