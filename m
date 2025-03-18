@@ -1,87 +1,59 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tuW7S-0007n7-Dp
-	for mharc-qemu-rust@gnu.org; Tue, 18 Mar 2025 08:32:30 -0400
+	id 1tuWHV-0008I9-V9
+	for mharc-qemu-rust@gnu.org; Tue, 18 Mar 2025 08:42:54 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tuW7M-0007ld-Gu
- for qemu-rust@nongnu.org; Tue, 18 Mar 2025 08:32:24 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tuWH9-0007si-Fw; Tue, 18 Mar 2025 08:42:33 -0400
+Received: from mgamail.intel.com ([198.175.65.12])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tuW7I-0005HU-K0
- for qemu-rust@nongnu.org; Tue, 18 Mar 2025 08:32:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1742301138;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=wr+7gBaDG/z6sgTpTjO57+x4a/PzpfCmmpK5TKwcUMc=;
- b=GFgqu3rDXMMW+9uminhV5cImBB3yAqyMbKGiPTn8Ns2Puvn04mdpHNkZFVHsqiUA+RlYB1
- ECQOxH1YJTmjyj2CmlWRY2U/1xn1c7bxHPSukFMNDbXtKIPuG4MSfnVJmHpLeXoEwAovj/
- 3VZOIF+tgjZ9qdYUodGcrlerf3xCif0=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-581-GgWRW6fZPgyVEbJ5JaIgKw-1; Tue, 18 Mar 2025 08:32:17 -0400
-X-MC-Unique: GgWRW6fZPgyVEbJ5JaIgKw-1
-X-Mimecast-MFC-AGG-ID: GgWRW6fZPgyVEbJ5JaIgKw_1742301136
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-43947979ce8so16325655e9.0
- for <qemu-rust@nongnu.org>; Tue, 18 Mar 2025 05:32:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742301136; x=1742905936;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=wr+7gBaDG/z6sgTpTjO57+x4a/PzpfCmmpK5TKwcUMc=;
- b=C0iwMFs8MyHkFsbzMGD9CmZLc11cjLZK2ALo70k/1e7Tw+hEOtTfsDAqzUd2smHa/W
- Gfxbavbvj7z4T/JJRervnQprY6fugRu/44ZTEW/GKyVjZOenqes1KHQFJYxH8NFZT+8+
- ZVzlaakd81bArXafnh5OolOpcXe6d1HTGkQt4Jp9j4N+Kr6GD5HbuITTO3lFp0F4hp+Y
- kOzpA34QlOV9WH4G6S5xhd2IF2QGEnxa/ogtzZVdp4KJ5EvgqvdS+OkQF9zMjzaNZ6xd
- yBZfQDi0eeWC33L6uRbN7Xx5EawHH4l5oZYivJv1sLFxmP+KoYutcIdQBAAUEvlkOP1O
- +dnw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXvGjyxIjwn4L8KIt3Rg+LcfddU6to2AQ2/2hFLvhpM7iAuW/rPmB8+gJEecc7SAxpRxxkq0FMiypw=@nongnu.org
-X-Gm-Message-State: AOJu0Yxs5e/dC8cwLW/vbXWUdEGQwf0n9DJom7iUmQpdBELehyFUw8f+
- PukGORudi7we9ifQe2sVnimMVJv94unIM72cVwFKtlQW9LXOWUaUMxi/jyjlODAOkPqVOsp25vP
- vrerIziXkINp7UZtQILMnpcpauuOU6SCtiSjdmZERq49ces6hOw/Id8PyID5N+HQsGXRC5elnUA
- D2Xx3Vwba6Lv/s4eW1hzTXe+JnDw==
-X-Gm-Gg: ASbGncud643OcTMXGzQQRQ5EaDD9NOUJ3GhCYxmb/caXUGiV5MWJ0gY6rCvpiEOO0B+
- ZV81Am3CK24tNFvw8HJH/2MZ04FDaPejj2gDw1j6+crlyYG0iT8fQD74wKNBAA3NFNbVGvk+sXw
- ==
-X-Received: by 2002:a05:6000:4020:b0:390:f902:f973 with SMTP id
- ffacd0b85a97d-3971d13629bmr16007033f8f.8.1742301136019; 
- Tue, 18 Mar 2025 05:32:16 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE+lt3Xh8xB2MNrwzyaE71GNLRqL3ssF0SNufQeH5RY0P6ebktVJJj1NPyGeHsY7Hf05GAkUk9aKmuTPcqx4bs=
-X-Received: by 2002:a05:6000:4020:b0:390:f902:f973 with SMTP id
- ffacd0b85a97d-3971d13629bmr16007009f8f.8.1742301135714; Tue, 18 Mar 2025
- 05:32:15 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1tuWH7-0002wy-M0; Tue, 18 Mar 2025 08:42:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1742301750; x=1773837750;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ZPd9V5wMjDbpVJyLc2i9uB1eqHqQJo3XlnU3/4VFDfo=;
+ b=L5+s42JjF0ifihbinMFkE6SFA6KtrH6XvBdnowLzKo26XlmMDL6QIHpH
+ b7QXulgdoKNvPkhTAVLT8I01hB3pyPGsaRkksDIXUexnXMW+vGh8V1p+S
+ 5UonpVB6F7ZMxYlkC3C80ZnZy/TqfcpZrNgTbDJdbABqugVqYnEmRP5Pq
+ uN0CehVZobNXnrlf9MJPYFhkG7Bgb1qm3/ZwdYvIG3ZVYvaokdDgl4ePa
+ Yz60/rLZsvdc9FRtVoFaCZkHmvsJJukhBzFgshmes9MDNROrEyF1hae6d
+ 2BK29NpfWlrQaHtKI3FMUNBLE4dcZXaAslnXKEaEY10BKRH/bgFb6U2Ni g==;
+X-CSE-ConnectionGUID: mc3EhWsBQPiXGTr9oeSbbw==
+X-CSE-MsgGUID: 1k+GvBxNQEi/Ahn8tTGb9g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11377"; a="54824599"
+X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="54824599"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Mar 2025 05:42:21 -0700
+X-CSE-ConnectionGUID: ba5oNOA0RIutfaHF3GFSxw==
+X-CSE-MsgGUID: T3Zh2IRPRUCJx6FthVBeSQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="121980463"
+Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
+ by orviesa009.jf.intel.com with ESMTP; 18 Mar 2025 05:42:19 -0700
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
+Subject: [PATCH v3 09/15] rust/vmstate: Re-implement VMState trait for timer
+ binding
+Date: Tue, 18 Mar 2025 21:02:13 +0800
+Message-Id: <20250318130219.1799170-10-zhao1.liu@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250318130219.1799170-1-zhao1.liu@intel.com>
+References: <20250318130219.1799170-1-zhao1.liu@intel.com>
 MIME-Version: 1.0
-References: <20250318083248.1402990-1-zhao1.liu@intel.com>
- <20250318083248.1402990-11-zhao1.liu@intel.com>
- <9e8743b8-99b2-4aab-84de-7630edcc7e10@redhat.com> <Z9llqtHLLTJIju/j@intel.com>
-In-Reply-To: <Z9llqtHLLTJIju/j@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 18 Mar 2025 13:32:03 +0100
-X-Gm-Features: AQ5f1JqHD_LxYAa0Aa1NpQQA_Dm7HePd9y2vbWi0LriGt5pOesEPQmTR0qBI-QQ
-Message-ID: <CABgObfY1x1s_NOmjeNUjNCz5WggARCH_AUzxC81d+smq=jBf=g@mail.gmail.com>
-Subject: Re: [PATCH v2 10/14] rust/vmstate: Support vmstate_validate
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: mg7o8aOWjrzHSaMOENvIWQ3nJ79H1-oCBUj6QcnL8RM_1742301136
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="0000000000004959ba06309d184a"
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -23
-X-Spam_score: -2.4
-X-Spam_bar: --
-X-Spam_report: (-2.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.332,
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=198.175.65.12; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -46
+X-Spam_score: -4.7
+X-Spam_bar: ----
+X-Spam_report: (-4.7 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.332,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
- RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -96,97 +68,61 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Mar 2025 12:32:26 -0000
+X-List-Received-Date: Tue, 18 Mar 2025 12:42:39 -0000
 
---0000000000004959ba06309d184a
-Content-Type: text/plain; charset="UTF-8"
+At present, Rust side has a timer binding "timer::Timer", so the vmstate
+for timer should base on that binding instead of the raw
+"binding::QEMUTimer".
 
-Il mar 18 mar 2025, 13:03 Zhao Liu <zhao1.liu@intel.com> ha scritto:
+It's possible to apply impl_vmstate_transparent for cell::Opaque and
+then impl_vmstate_forward for timer::Timer. But binding::QEMUTimer
+shouldn't be used directly, so that vmstate for such raw timer type is
+useless.
 
-> >  /// This macro can be used (by just passing it a type) to forward the
-> `VMState`
-> > @@ -572,9 +548,9 @@ const fn phantom__<T>(_: &T) ->
-> ::core::marker::PhantomData<T> {
-> >                  }
-> >                  Some(test_cb_builder__::<$struct_name,
-> _>(phantom__(&$test_fn)))
-> >              },
->
-> I want to keep the comment here as C version did, because there's an array
-> flag
->
+Thus, apply impl_vmstate_scalar for timer::Timer. And since Opaque<> is
+useful, apply impl_vmstate_transparent for cell::Opaque as well.
 
-Ok, let's add it. No need to send v3 since it's just a single patch and
-with no changes further down.
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+---
+ rust/qemu-api/src/vmstate.rs | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-Paolo
-
-// Though VMS_ARRAY is set, the num is 0: no data, only run test_fn callback
->
-> > +            flags: VMStateFlags(VMStateFlags::VMS_MUST_EXIST.0 |
-> VMStateFlags::VMS_ARRAY.0),
-> >              ..$crate::zeroable::Zeroable::ZERO
-> >          }
-> > -        .with_validate_flag()
-> >      };
-> >  }
-> >
-> > Otherwise the series looks great, thanks!
->
-> Let me refresh the v3. :-)
->
-> Thanks,
-> Zhao
->
->
-
---0000000000004959ba06309d184a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
-ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mar 18 mar 2025, 13:03 Zhao L=
-iu &lt;<a href=3D"mailto:zhao1.liu@intel.com">zhao1.liu@intel.com</a>&gt; h=
-a scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">&gt;=
-=C2=A0 /// This macro can be used (by just passing it a type) to forward th=
-e `VMState`<br>
-&gt; @@ -572,9 +548,9 @@ const fn phantom__&lt;T&gt;(_: &amp;T) -&gt; ::cor=
-e::marker::PhantomData&lt;T&gt; {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Some(tes=
-t_cb_builder__::&lt;$struct_name, _&gt;(phantom__(&amp;$test_fn)))<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 },<br>
-<br>
-I want to keep the comment here as C version did, because there&#39;s an ar=
-ray flag<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=
-=3D"auto">Ok, let&#39;s add it. No need to send v3 since it&#39;s just a si=
-ngle patch and with no changes further down.</div><div dir=3D"auto"><br></d=
-iv><div dir=3D"auto">Paolo</div><div dir=3D"auto"><br></div><div dir=3D"aut=
-o"><div class=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gm=
-ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
-204,204);padding-left:1ex">
-// Though VMS_ARRAY is set, the num is 0: no data, only run test_fn callbac=
-k<br>
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 flags: VMStateFlags(VMState=
-Flags::VMS_MUST_EXIST.0 | VMStateFlags::VMS_ARRAY.0),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ..$crate::zeroable::Ze=
-roable::ZERO<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 .with_validate_flag()<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 };<br>
-&gt;=C2=A0 }<br>
-&gt; <br>
-&gt; Otherwise the series looks great, thanks!<br>
-<br>
-Let me refresh the v3. :-)<br>
-<br>
-Thanks,<br>
-Zhao<br>
-<br>
-</blockquote></div></div></div>
-
---0000000000004959ba06309d184a--
+diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
+index 0b5af1c90b11..01f06ed7379e 100644
+--- a/rust/qemu-api/src/vmstate.rs
++++ b/rust/qemu-api/src/vmstate.rs
+@@ -27,12 +27,7 @@
+ use core::{marker::PhantomData, mem, ptr::NonNull};
+ 
+ pub use crate::bindings::{VMStateDescription, VMStateField};
+-use crate::{
+-    bindings::{self, VMStateFlags},
+-    prelude::*,
+-    qom::Owned,
+-    zeroable::Zeroable,
+-};
++use crate::{bindings::VMStateFlags, prelude::*, qom::Owned, zeroable::Zeroable};
+ 
+ /// This macro is used to call a function with a generic argument bound
+ /// to the type of a field.  The function must take a
+@@ -344,6 +339,7 @@ unsafe impl<$base> VMState for $type where $base: VMState $($where)* {
+ impl_vmstate_transparent!(std::pin::Pin<T> where T: VMState);
+ impl_vmstate_transparent!(crate::cell::BqlCell<T> where T: VMState);
+ impl_vmstate_transparent!(crate::cell::BqlRefCell<T> where T: VMState);
++impl_vmstate_transparent!(crate::cell::Opaque<T> where T: VMState);
+ 
+ #[macro_export]
+ macro_rules! impl_vmstate_bitsized {
+@@ -390,7 +386,7 @@ unsafe impl VMState for $type {
+ impl_vmstate_scalar!(vmstate_info_uint16, u16, VMS_VARRAY_UINT16);
+ impl_vmstate_scalar!(vmstate_info_uint32, u32, VMS_VARRAY_UINT32);
+ impl_vmstate_scalar!(vmstate_info_uint64, u64);
+-impl_vmstate_scalar!(vmstate_info_timer, bindings::QEMUTimer);
++impl_vmstate_scalar!(vmstate_info_timer, crate::timer::Timer);
+ 
+ // Pointer types using the underlying type's VMState plus VMS_POINTER
+ // Note that references are not supported, though references to cells
+-- 
+2.34.1
 
 
