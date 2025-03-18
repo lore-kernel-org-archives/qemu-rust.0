@@ -1,46 +1,48 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tuS50-0002rL-Is
-	for mharc-qemu-rust@gnu.org; Tue, 18 Mar 2025 04:13:45 -0400
+	id 1tuS56-0002sy-L6
+	for mharc-qemu-rust@gnu.org; Tue, 18 Mar 2025 04:13:48 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuS4C-0002ht-VF; Tue, 18 Mar 2025 04:12:53 -0400
+ id 1tuS4O-0002k8-5p; Tue, 18 Mar 2025 04:13:08 -0400
 Received: from mgamail.intel.com ([198.175.65.11])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuS4A-0001JW-1Z; Tue, 18 Mar 2025 04:12:52 -0400
+ id 1tuS4L-0001JW-54; Tue, 18 Mar 2025 04:13:03 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742285570; x=1773821570;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=vQ22IbeqGqgEuiOA8Ibr+hZ1zuP30vfgWZrjHFcXJGI=;
- b=AswWfbKRiVmhtVJIBR1TOssrnGYek81sfVWpAa0kTAsPyy1O9jGHmHc4
- gr5gU6cTbzS0g/nB7ilec2xmWKel8TP2ThZGlajR4U3AvND0MsZIOt+21
- gArEw3tJzEw8kTdHu8enwlDm7TtMEVLrElpf+E+7Bmu9EUCaKL83tX25Y
- +aYTKQqJ2j3UGgKws8I2lXYnDeBhdO47Kpmz3KgCQynSTDd2fkTupoSyi
- X7Xqii0HML04aaxDQiCTGg8CuODk/1UEOmou/g06wA3zeDHQIEx3mJ9/A
- apqIQya3M9m/TvVrnGk3A/rdaGwrqZJGIkk3ZTqo5/Z27yikcNouW7Wwd g==;
-X-CSE-ConnectionGUID: KQ+enW0XShGZnEEYqqCf/A==
-X-CSE-MsgGUID: rQdVXS6gRv6HQz4n4nOYdA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="53621535"
-X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="53621535"
+ t=1742285581; x=1773821581;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=5aLoNxwxr66nTv5TA6I5qB8VR6n6DBSCTdvqwWluFyM=;
+ b=f9TyujSbqOOKLf0dJBjc8bxuVBO20Ot9RFZqPwzz7dsGlPfFp4TMsZMZ
+ k73ZeAyaBeIj/CrAusj+a3z0bwjjZQISkM6XqRkcpOCHasvXUXqgS3RJG
+ QeK3swH1Xk8RjVVeCn3W0JTDhtrhNCuhgPQd+Z6pMWO6JZHzPAqw+Ivz/
+ CdnAm/WFhQlEiFyZBXNb9lxZsoE+PgnbwqfCNlnnRYjBCJPI0a29nurep
+ ScTTs7RKUUYjI5m8HPVs1KSIDIkJHuF40BNLT3IeSo1JNj35oS2sHEGG3
+ 7j6eTz+8rrXsG/WaLfkLE0KkGPuVIXOjoXpMtt1lSuWw3CIn4MvUJOmKM A==;
+X-CSE-ConnectionGUID: YAa0kLVBSpWM4gTvLL4Sfg==
+X-CSE-MsgGUID: P6CLEjNHR66awk2aVLeLAg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="53621594"
+X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="53621594"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2025 01:12:44 -0700
-X-CSE-ConnectionGUID: 4AqzYwhuQ1+TuPquUja+Ow==
-X-CSE-MsgGUID: Jcr6P0bYR7OJaqoKWta5uQ==
+ 18 Mar 2025 01:12:58 -0700
+X-CSE-ConnectionGUID: gPxZO8JKSZeNmW+borvjCQ==
+X-CSE-MsgGUID: XMnH8at1TxmVKbOaSg7FHw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="127363181"
+X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="127363254"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by orviesa005.jf.intel.com with ESMTP; 18 Mar 2025 01:12:42 -0700
+ by orviesa005.jf.intel.com with ESMTP; 18 Mar 2025 01:12:57 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH v2 00/14] rust/vmstate: Clean up, fix, enhance & test
-Date: Tue, 18 Mar 2025 16:32:34 +0800
-Message-Id: <20250318083248.1402990-1-zhao1.liu@intel.com>
+Subject: [PATCH v2 10/14] rust/vmstate: Support vmstate_validate
+Date: Tue, 18 Mar 2025 16:32:44 +0800
+Message-Id: <20250318083248.1402990-11-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250318083248.1402990-1-zhao1.liu@intel.com>
+References: <20250318083248.1402990-1-zhao1.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=198.175.65.11; envelope-from=zhao1.liu@intel.com;
@@ -65,74 +67,144 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Mar 2025 08:12:54 -0000
+X-List-Received-Date: Tue, 18 Mar 2025 08:13:22 -0000
 
-Hi,
+In C version, VMSTATE_VALIDATE accepts the function pointer, which is
+used to check if some conditions of structure could meet, although the
+C version macro doesn't accept any structure as the opaque type.
 
-This series is in preparation for HPET migration support (in particular,
-to support varray and vmstate_validate), and it also cleans up and fixes
-the current vmstate. 
+But it's hard to integrate VMSTATE_VALIDAE into vmstate_struct, a new
+macro has to be introduced to specifically handle the case corresponding
+to VMSTATE_VALIDATE.
 
+One of the difficulties is inferring the type of a callback by its name
+`test_fn`. We can't directly use `test_fn` as a parameter of
+test_cb_builder__() to get its type "F", because in this way, Rust
+compiler will be too conservative on drop check and complain "the
+destructor for this type cannot be evaluated in constant functions".
 
-Patch Summary
-=============
+Fortunately, PhantomData<T> could help in this case, because it is
+considered to never have a destructor, no matter its field type [*].
 
-Patch 1-9: Clean up & fix for vmstate_of & vmstate_struct, where the
-           issues are catched by unit tests.
+The `phantom__()` in the `call_func_with_field` macro provides a good
+example of using PhantomData to infer type. So copy this idea and apply
+it to the `vmstate_validate` macro.
 
-Patch 10: Add vmstate_validate support, and vmstate_validate can accept
-          safe "test" callback.
+Additionally, add a `with_exist_check()` method to help add callback
+in future.
 
-Patch 11-14: Add unit test to cover as much as possible cases to be
-             compatible with C version macros.
+[*]: https://doc.rust-lang.org/std/ops/trait.Drop.html#drop-check
 
-             * Note while in principle Rust's vmstate pattern doesn't
-               have to match the C version, the C vmstate macros are
-               rich enough to cover as much logic as possible. So
-               checking against the C version is the most effective way
-               to detect the error.
-
-
-Change Log
-==========
-
-Changes since v1:
- * Drop the patch about prefix separator ", " before [0 .. num] in
-   vmstate macros.
- * Drop the pacth which changed "vmsd" to "ident" type in macros.
- * Drop the pacth about adding "version" argument.
- * Add a `with_exist_check()` method to help add callback in future.
- * Drop addr_of & public VMStateFlags API in unit test.
- * Clean up TODO comment.
-
-Best Regards,
-Zhao
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
-Zhao Liu (14):
-  rust/vmstate: Remove unnecessary unsafe
-  rust/vmstate: Fix num_offset in vmstate macros
-  rust/vmstate: Fix num field when varray flags are set
-  rust/vmstate: Fix size field of VMStateField with VMS_ARRAY_OF_POINTER
-    flag
-  rust/vmstate: Fix type check for varray in vmstate_struct
-  rust/vmstate: Fix "cannot infer type" error in vmstate_struct
-  rust/vmstate: Fix unnecessary VMState bound of with_varray_flag()
-  rust/vmstate: Relax array check when build varray in vmstate_struct
-  rust/vmstate: Re-implement VMState trait for timer binding
-  rust/vmstate: Support vmstate_validate
-  rust/vmstate: Add unit test for vmstate_of macro
-  rust/vmstate: Add unit test for vmstate_{of|struct} macro
-  rust/vmstate: Add unit test for pointer case
-  rust/vmstate: Add unit test for vmstate_validate
+Changes since v1:
+ * Rename `with_exist_check()` to `with_validate_flag()`.
+ * Add a `with_exist_check()` method to help add field_exists callback,
+   though it can't be used in static VMStateDescription definition but
+   will be useful for vmstate builder.
+---
+ rust/qemu-api/src/vmstate.rs | 72 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 71 insertions(+), 1 deletion(-)
 
- rust/qemu-api/meson.build            |   5 +-
- rust/qemu-api/src/assertions.rs      |  15 +
- rust/qemu-api/src/vmstate.rs         | 115 +++++--
- rust/qemu-api/tests/tests.rs         |   2 +
- rust/qemu-api/tests/vmstate_tests.rs | 447 +++++++++++++++++++++++++++
- 5 files changed, 564 insertions(+), 20 deletions(-)
- create mode 100644 rust/qemu-api/tests/vmstate_tests.rs
-
+diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
+index 01f06ed7379e..62a0308014e3 100644
+--- a/rust/qemu-api/src/vmstate.rs
++++ b/rust/qemu-api/src/vmstate.rs
+@@ -25,9 +25,12 @@
+ //!   functionality that is missing from `vmstate_of!`.
+ 
+ use core::{marker::PhantomData, mem, ptr::NonNull};
++use std::os::raw::{c_int, c_void};
+ 
+ pub use crate::bindings::{VMStateDescription, VMStateField};
+-use crate::{bindings::VMStateFlags, prelude::*, qom::Owned, zeroable::Zeroable};
++use crate::{
++    bindings::VMStateFlags, callbacks::FnCall, prelude::*, qom::Owned, zeroable::Zeroable,
++};
+ 
+ /// This macro is used to call a function with a generic argument bound
+ /// to the type of a field.  The function must take a
+@@ -291,6 +294,30 @@ pub const fn with_varray_multiply(mut self, num: u32) -> VMStateField {
+         self.num = num as i32;
+         self
+     }
++
++    #[must_use]
++    pub const fn with_validate_flag(mut self) -> Self {
++        assert!(self.flags.0 == 0);
++        self.flags = VMStateFlags(VMStateFlags::VMS_MUST_EXIST.0 | VMStateFlags::VMS_ARRAY.0);
++        self.num = 0; // 0 elements: no data, only run test_fn callback
++        self
++    }
++
++    // FIXME: Unfortunately, this non-const fn cannot currently be called in a
++    // static context. Also, it can't be const because the compiler complains
++    // about "constant functions cannot evaluate destructors" for `F`. Add it
++    // for future vmstate builder.
++    #[must_use]
++    pub fn with_exist_check<T, F>(mut self, _cb: F) -> Self
++    where
++        F: for<'a> FnCall<(&'a T, u8), bool>,
++    {
++        assert!(self.field_exists.is_none());
++        let _: () = F::ASSERT_IS_SOME;
++
++        self.field_exists = Some(rust_vms_test_field_exists::<T, F>);
++        self
++    }
+ }
+ 
+ /// This macro can be used (by just passing it a type) to forward the `VMState`
+@@ -508,6 +535,49 @@ macro_rules! vmstate_fields {
+     }}
+ }
+ 
++pub extern "C" fn rust_vms_test_field_exists<T, F: for<'a> FnCall<(&'a T, u8), bool>>(
++    opaque: *mut c_void,
++    version_id: c_int,
++) -> bool {
++    let owner: &T = unsafe { &*(opaque.cast::<T>()) };
++    let version: u8 = version_id.try_into().unwrap();
++    // SAFETY: the opaque was passed as a reference to `T`.
++    F::call((owner, version))
++}
++
++pub type VMSFieldExistCb = unsafe extern "C" fn(
++    opaque: *mut std::os::raw::c_void,
++    version_id: std::os::raw::c_int,
++) -> bool;
++
++#[doc(alias = "VMSTATE_VALIDATE")]
++#[macro_export]
++macro_rules! vmstate_validate {
++    ($struct_name:ty, $test_name:expr, $test_fn:expr $(,)?) => {
++        $crate::bindings::VMStateField {
++            name: ::std::ffi::CStr::as_ptr($test_name),
++            field_exists: {
++                const fn test_cb_builder__<
++                    T,
++                    F: for<'a> $crate::callbacks::FnCall<(&'a T, u8), bool>,
++                >(
++                    _phantom: ::core::marker::PhantomData<F>,
++                ) -> $crate::vmstate::VMSFieldExistCb {
++                    let _: () = F::ASSERT_IS_SOME;
++                    $crate::vmstate::rust_vms_test_field_exists::<T, F>
++                }
++
++                const fn phantom__<T>(_: &T) -> ::core::marker::PhantomData<T> {
++                    ::core::marker::PhantomData
++                }
++                Some(test_cb_builder__::<$struct_name, _>(phantom__(&$test_fn)))
++            },
++            ..$crate::zeroable::Zeroable::ZERO
++        }
++        .with_validate_flag()
++    };
++}
++
+ /// A transparent wrapper type for the `subsections` field of
+ /// [`VMStateDescription`].
+ ///
 -- 
 2.34.1
 
