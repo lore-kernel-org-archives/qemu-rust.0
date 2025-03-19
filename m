@@ -1,64 +1,76 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tuWM8-0003nQ-8X
-	for mharc-qemu-rust@gnu.org; Tue, 18 Mar 2025 08:47:40 -0400
+	id 1tuz8N-0004V9-93
+	for mharc-qemu-rust@gnu.org; Wed, 19 Mar 2025 15:31:23 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuWLe-0003ON-MZ; Tue, 18 Mar 2025 08:47:15 -0400
-Received: from mgamail.intel.com ([198.175.65.12])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tuWLb-0003e8-Rt; Tue, 18 Mar 2025 08:47:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742302028; x=1773838028;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=0FgR/Vp3UYan5AdfRXukE+t2i1xm+NIn8NwYnqUDtzo=;
- b=Ma/A3mZl6GUrSLkIoC2524f1xk+7W1sFmvZVYbzTwfmPYtsYgE4gKvK+
- yP1eDlkyl4B9PNGA6/0qhS7nRc4VRS0iAfFFDSpzn1Jvag+ZXMDHNFjoL
- 0nZYQ0CvGFzaNwpRY1NOyO4Hwd7UdfDDwhq/KmwdZS4aDpoUAMgyvSmSu
- cwki18IPmAjumP/F4cOdj5YhR4J7z5FF2WIjjkfCKM1y123/zFWBTy2ZL
- vPXMh/yZtCPTsJ3+5BAC0SeYX2X0hWsIbNu8Z7g0J7TPikHxByIfbaeWR
- b6Vs+vT8D2JEAU5/djujl2Q/Dj/DA1jU7iHMMubu243Dc/R10R5FTEq32 A==;
-X-CSE-ConnectionGUID: WLgK/50PSBKi3OydpJKK3g==
-X-CSE-MsgGUID: DvibxuerSC2AWHRwfSak1w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11377"; a="54825031"
-X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="54825031"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2025 05:46:59 -0700
-X-CSE-ConnectionGUID: hmbep/OJQ8KLOXnOGbav4A==
-X-CSE-MsgGUID: +hevjObvTMS3T9UHa7pRWg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; d="scan'208";a="123188662"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa008.jf.intel.com with ESMTP; 18 Mar 2025 05:46:57 -0700
-Date: Tue, 18 Mar 2025 21:07:11 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
-Subject: Re: [PATCH v2 10/14] rust/vmstate: Support vmstate_validate
-Message-ID: <Z9lv/5mj9mp7M9Lx@intel.com>
-References: <20250318083248.1402990-1-zhao1.liu@intel.com>
- <20250318083248.1402990-11-zhao1.liu@intel.com>
- <9e8743b8-99b2-4aab-84de-7630edcc7e10@redhat.com>
- <Z9llqtHLLTJIju/j@intel.com>
- <CABgObfY1x1s_NOmjeNUjNCz5WggARCH_AUzxC81d+smq=jBf=g@mail.gmail.com>
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tuz8L-0004UL-Iq
+ for qemu-rust@nongnu.org; Wed, 19 Mar 2025 15:31:21 -0400
+Received: from mail-wr1-x431.google.com ([2a00:1450:4864:20::431])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tuz8F-0005OW-Oz
+ for qemu-rust@nongnu.org; Wed, 19 Mar 2025 15:31:21 -0400
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3995ff6b066so2897257f8f.3
+ for <qemu-rust@nongnu.org>; Wed, 19 Mar 2025 12:31:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1742412674; x=1743017474; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=S/wfhBIu9lXn5l5lkjHux+TggfIePCVAh+mYui/7+3Q=;
+ b=vCUH6sJwGzqP51+X/rHyBnAGi01mKAm2Ja5u9dmiGIWJU1FwvgPGBHIEUkiw52r1OT
+ BfOnhV2VZUUVc+5rui/p5XCyNZ5WyisF8rjROHARJJmvfN9TvDgZB407VMqNdm/gNwTZ
+ SEltCZMPPXfsmMQCinUDZOd3DkO8dr3EAmLz616zyNdKKXVCTwhFVqO2nnN5ddbtPq0X
+ 6wnzR+l4HqMcH+QsuHlghsNZKblPxGJsg8z8Bqh6/x7EIiJFdiVlgwBvLOCkspOEUsIU
+ 9LWdM5TnFUtu8EbvXF73sH3Z+NyvmrsM8yNPCRkrXzylgYMpC02s2lsYiW9gidY7DtcU
+ Xamg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742412674; x=1743017474;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=S/wfhBIu9lXn5l5lkjHux+TggfIePCVAh+mYui/7+3Q=;
+ b=f77jcpgxGNvKjxXlm/Uw8S0QBDhZNFloEo8DJRsmo5sUMlmI5NG4RtAcQp8AmPgM7l
+ pFjTSiI1MpyuNccmYe5+aUw7+ZLfxjbpgGU43ufa80YJhj/jXKSlpIlmI7mb45/m+KOD
+ budi6gLLAcMXUg9K4u2fSKLHPZQ6kgwQRt1Qw712XWb0pg7C+gmiiI4ammHRetH78j4C
+ jQLy/GHCO8Fby7RwKdiNWrqZ5XLYD4V9WUtXVaXwL+YkvoQ3ecJaAIg01mwwq+mZrvi+
+ sVYfZ+2QTHgDRDEq6I586RTG8uobseRKU/XzVRRV4f7wb5SDRMAR93/79TMOGMnUtn0L
+ idlw==
+X-Gm-Message-State: AOJu0Yx0WiUWx66xjCsqurVw+zexdlkkY2GuZAjcl1sNXcjSxCin2l1V
+ LrcSNv39Hjf33RtiAl7v7ncbKFRUqA45F2TvKcfbyA0kayzRHI2hN+ys9e0S6F8=
+X-Gm-Gg: ASbGncuQdcW0LFWQ9Oli+43U1SLfemMctyPCDHpAlrrfTaSYnb/rD38pBtiWhxAzz3d
+ HIR+vF1nTLF1rXJMzFmtRJOKnDf3G/SmL4SRKdVCdQziEkJNHwTtV4d6HdEDrrWLehcCpnDjeq/
+ 2tIPRVuivDLQr0lA9oQIBvRZm4Oz2njmXRw6In0SBCLZzaKrlUdoaI4eWZInyGF6O7vJ2c4rGR+
+ ikE2lorniXiVQZBCxaNpEcUos2XAhMlszRFvIJugEVocPN3a58iyLpFOYmypyWuQw1Phk2Z0J00
+ PSzuaennNMXpng72bHwILODmGjfLY5ilm2s3foUa7JbXXUIbHmc=
+X-Google-Smtp-Source: AGHT+IG25yxS/Ktv+VOl9w0rYr45RYr9A4ZX2d6JO+jSFn0sEy3dVs5EyaRoWqjKC/rb30R2vkYBVA==
+X-Received: by 2002:a5d:47a8:0:b0:391:43ff:8ca8 with SMTP id
+ ffacd0b85a97d-399739c8e78mr3356984f8f.26.1742412673716; 
+ Wed, 19 Mar 2025 12:31:13 -0700 (PDT)
+Received: from orth.archaic.org.uk (orth.archaic.org.uk. [2001:8b0:1d0::2])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d43f47196sm26790495e9.16.2025.03.19.12.31.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Mar 2025 12:31:12 -0700 (PDT)
+From: Peter Maydell <peter.maydell@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Tanish Desai <tanishdesai37@gmail.com>
+Subject: [PATCH 0/2] rust: Kconfig: factor out Rust vs C impl choice
+Date: Wed, 19 Mar 2025 19:31:08 +0000
+Message-ID: <20250319193110.1565578-1-peter.maydell@linaro.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CABgObfY1x1s_NOmjeNUjNCz5WggARCH_AUzxC81d+smq=jBf=g@mail.gmail.com>
-Received-SPF: pass client-ip=198.175.65.12; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -46
-X-Spam_score: -4.7
-X-Spam_bar: ----
-X-Spam_report: (-4.7 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.332,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=2a00:1450:4864:20::431;
+ envelope-from=peter.maydell@linaro.org; helo=mail-wr1-x431.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -72,40 +84,49 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Mar 2025 12:47:33 -0000
+X-List-Received-Date: Wed, 19 Mar 2025 19:31:21 -0000
 
-On Tue, Mar 18, 2025 at 01:32:03PM +0100, Paolo Bonzini wrote:
-> Date: Tue, 18 Mar 2025 13:32:03 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: Re: [PATCH v2 10/14] rust/vmstate: Support vmstate_validate
-> 
-> Il mar 18 mar 2025, 13:03 Zhao Liu <zhao1.liu@intel.com> ha scritto:
-> 
-> > >  /// This macro can be used (by just passing it a type) to forward the
-> > `VMState`
-> > > @@ -572,9 +548,9 @@ const fn phantom__<T>(_: &T) ->
-> > ::core::marker::PhantomData<T> {
-> > >                  }
-> > >                  Some(test_cb_builder__::<$struct_name,
-> > _>(phantom__(&$test_fn)))
-> > >              },
-> >
-> > I want to keep the comment here as C version did, because there's an array
-> > flag
-> >
-> 
-> Ok, let's add it. No need to send v3 since it's just a single patch and
-> with no changes further down.
-> 
+This patchset fixes a compilation failure if CONFIG_VMAPPLE is
+enabled in a Rust build, which happens because hw/vmapple/Kconfig
+didn't have the "pick the Rust PL011 if Rust is enabled" logic in it.
+Rather than just adding that to yet another PL011-using board
+model, this patchset refactors how we handle devices which have
+both a Rust and C implementation in Kconfig:
+ * CONFIG_PL011 is "do we have/want a PL011 of some kind"
+ * CONFIG_PL011_C is the C impl
+ * CONFIG_X_PL011_RUST is the rust impl
+ * selecting CONFIG_PL011 pulls in one impl or the other
+   depending on whether the build has Rust enabled or not
 
-Thanks and sorry, I missed your notification because I didn't actively
-pull my mutt just now... but, v3 might also be worthwhile.
+For the PL011, this lets us drop a lot of duplicate logic
+in Kconfig files for boards; for HPET this simplifies
+places in code that have ifdefs for "do we have an HPET?".
 
-While setting flags for vmstate_validate, I also took the opportunity to
-do a little cleanup on vmstate_clock. I hope it didn't cause any extra
-burden. :-)
+NB: I think this should be OK but haven't been able to do
+complete testing because currently in head-of-git
+"make check-functional" doesn't pass for arm with Rust
+enabled due to a different issue.
 
-Regards,
-Zhao
+thanks
+-- PMM
+
+Peter Maydell (2):
+  rust: Kconfig: Factor out whether PL011 is Rust or C
+  rust: Kconfig: Factor out whether HPET is Rust or C
+
+ configs/devices/i386-softmmu/default.mak |  1 -
+ hw/i386/fw_cfg.c                         |  2 +-
+ hw/i386/pc.c                             |  2 +-
+ hw/arm/Kconfig                           | 30 ++++++++----------------
+ hw/char/Kconfig                          |  6 +++++
+ hw/char/meson.build                      |  2 +-
+ hw/timer/Kconfig                         |  8 ++++++-
+ hw/timer/meson.build                     |  2 +-
+ rust/hw/timer/Kconfig                    |  1 -
+ tests/qtest/meson.build                  |  3 +--
+ 10 files changed, 28 insertions(+), 29 deletions(-)
+
+-- 
+2.43.0
 
 
