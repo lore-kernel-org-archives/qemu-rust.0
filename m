@@ -1,74 +1,71 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tvG1N-0001Jg-5a
-	for mharc-qemu-rust@gnu.org; Thu, 20 Mar 2025 09:33:17 -0400
+	id 1tvG1S-0001Na-8F
+	for mharc-qemu-rust@gnu.org; Thu, 20 Mar 2025 09:33:22 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tvG1C-0001Fq-JB
- for qemu-rust@nongnu.org; Thu, 20 Mar 2025 09:33:09 -0400
-Received: from mail-wr1-x42e.google.com ([2a00:1450:4864:20::42e])
+ id 1tvG14-0001AV-3Q
+ for qemu-rust@nongnu.org; Thu, 20 Mar 2025 09:32:58 -0400
+Received: from mail-wm1-x32a.google.com ([2a00:1450:4864:20::32a])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tvG14-0003Rc-40
- for qemu-rust@nongnu.org; Thu, 20 Mar 2025 09:33:04 -0400
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-394780e98easo474937f8f.1
- for <qemu-rust@nongnu.org>; Thu, 20 Mar 2025 06:32:57 -0700 (PDT)
+ id 1tvG10-0003Qb-0o
+ for qemu-rust@nongnu.org; Thu, 20 Mar 2025 09:32:56 -0400
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-43ce70f9afbso7922295e9.0
+ for <qemu-rust@nongnu.org>; Thu, 20 Mar 2025 06:32:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1742477575; x=1743082375; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EcxOk5H8Mf+hivpUxneXluEV3ozaYLM9gcAGfs012Is=;
- b=uLGwHfsHBX6vpRpMcVBh5IyII1WY0kglkOaLW3Rlw2vqW/F180laGzhsEkAtKRMXsM
- OXtF0IFqMA+3SuS2O83C/w5wKTXtAx6EIFxWWCMHx/9Ul9MEec/jl5vcKjYX2Uou7lKx
- x+pRF/5UJXP6NscZ7ziysxngbDrUV403fwpaDDiJ2rAasLrBNduRHWpw4m/ljhrQorTr
- MZBdoJgITFTmT8dLZymCcbz6WqlOfyB1kt7rkihxTXAo4u4LPf2+Qon/u/BShBIeb/RS
- k3dEPeJTmvnheOYUJjS4gqKb/7/F9IMnFIBn6lY1WC4edXAlMgHA1QULGAnhm7/5kCpl
- eX+Q==
+ d=linaro.org; s=google; t=1742477571; x=1743082371; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7YBryV/uJw5jCFJ3bAoM5/4/QhhkndLN0POBwK58ocE=;
+ b=jWZmVwtPQEJk4OKnFcy6LkT7Kh6JjMwJKMBTZ6PF3a8kmVTJv4+iqhMAGZtK08r746
+ Y0dwAHAYzo0ixDCXEPjtJs4TZN/VUGv7LfQlCly2lcXscqbbiQWWsb+ciXaMXTQZGNrn
+ w/dKInnZhXVN89tzUhEam81uVKKqn/ghse+hfClHWvJhrtGsoW9QgE/xd9Gf4aC0cOEi
+ LxOvaBGnCRgfDvTC81omwu9wV6Bbvqs64yCajbc/VqI24tsvk08XgE0nrAFmERKtDrHn
+ c3lyDe1O1YWNQ1pfHp51QOeqfcH6QsMThdLHGylFch97Ye3G0XzR9fAFgiCP0dTL5tuJ
+ 08HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742477575; x=1743082375;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EcxOk5H8Mf+hivpUxneXluEV3ozaYLM9gcAGfs012Is=;
- b=ujXYmJEhpZIHVijWAf0saRxtHSJyg6Ryjo3eYjKRG/k5STmK1f/DE+6Gl0+UBS/LJs
- CXR2KnHUlrAQdUvzxB71vFoC3NADUdMOkRNzkl74PbssRaeVMgVLw8CnOPY/zK3ogrOU
- ptNcV29mx/40vMBEzENChRsXxaNVlgmB21J0Oy+ud+h9Od3ji+pjXe69B1gefU4FchVH
- WnMwdEy/W4Z5aYQJnA4pr5Zc4+PVvl0QEfTzsMcuqFxaT7wH32bJhrzmftVapPUfAk3L
- AB9DF9yi0kKBVaaYFkrzhNUCC73NGjlEN16IANZ+71Mfqzs19+NQ90EgQhIUvTWAGUii
- jYVw==
-X-Gm-Message-State: AOJu0Yw2/n/mJkSdD+YE63G+K0zAkUF0sEi+lFAHRrj6LQTLLqtWwfZ7
- Xk7Q3X/6LIBkr+TUpH5bx/iJ9ivTdeDpVRIbRCcB6FwPsIsFC5Udas5icV882vE=
-X-Gm-Gg: ASbGncvF1ULjKuhMgLdjrDLDLk5L8/nYIgh5uQ+V6ShU1IFRGkhN4BaQ/5aP/k3N4I6
- q30CbyqmB5GtdWNF7TfAJUkoorpB8cNo9n0V5cbiIfRDYLt9w/lhmk1tdyHf79bxriaFAjCiYK1
- zdqfyBJJc+OHoGSuQEC0BUdcrfUmlVV3ENLpmbarGcY1x/ECM1eCUYT486QYjglqtujDo+xwL4B
- YArwZ6VJ8Q+QjEj2+AXNt0/RI4IY3ihfUv9YirQVr+7LakDK9JZ23og5FhD8JhJnMBFq9PuVS3p
- xhrqoXmmx51lw3B46Vrqf6dPwFM9AlaCU+HJF3wPnoVsL+ZciIMtiGcrtMBkHQ==
-X-Google-Smtp-Source: AGHT+IFR5oINv+0Crr3f1aQU19UJw0EsirCW2cEBpooXpAcqVMvgxmK0ofGRL9Dwm9Ii1WjbK+8uww==
-X-Received: by 2002:a5d:5f87:0:b0:391:43cb:43e6 with SMTP id
- ffacd0b85a97d-39973b439cemr6758857f8f.51.1742477574964; 
- Thu, 20 Mar 2025 06:32:54 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1742477571; x=1743082371;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7YBryV/uJw5jCFJ3bAoM5/4/QhhkndLN0POBwK58ocE=;
+ b=XlpycGimEOKATQpT2m9HAkAoael8BJ8ejBQIt7rHjC9wMZHoGdRalbKNvz55pHO/mJ
+ TEqambBT34kVS2cWBu2TJSc8ViAJFqaDDsv8UBG1x56kze5d5F6KwKDfhhkkmB2VP9b4
+ h3HjMqBMKVvmzQ06mGaAbASs1BFPqbE71orpKyalQXHxAFl3OJEciTR9KGhf6duEyMQs
+ MaHzxijgpPApoVJ+RGpO74B8VuMotceDIIepvolqof17x/Qvq8MsxIDO2xyCiW7cnUsK
+ yFwOvCUfrNYgwJqs3xNKBPXebOArurJlUU9FBdQ87LBw62Nbipirm59QWICT10KkLrOM
+ Mm6A==
+X-Gm-Message-State: AOJu0Yz8Ghf+Yg8IK4kGITSiu47cejaImEuiYdeOiZKgwefmNsRVykV8
+ ocZWCV2znawyPXGBeb4vSalvPTAbbja29LFMs6CCu5AOfD57SOOGIHg2uU3eQYg=
+X-Gm-Gg: ASbGncsAjmAeJWtkj0xYySpUZSmcv48XCKYiZbJW+p/tDWirRTU8GP2msthTl2cBN5a
+ S3K86fto5Hoe1xx7i8hzU8rcSjlN3x51tDp+7wD2fbO4dxpCs612djaRznw0M5G92XVvEOXJiv+
+ JD4rouBClywz5Tt+Jnp/K4Suc0TCzR+KlEiik79xagfOK6tLk9hz2SNZTeBZFEJysWaX2EnbRqz
+ J0O1dErkMCSFZsLUtF7MbOT8i4cIUQgk4iZDS5UjmlyrpM6afGTweSJY6lrQAR5uYxwK8a3Ck9n
+ yrWDjMHVlVAN436b1IJkq7ONfl+WNFUfKGhMfcQOmSH6Tj0tRbI=
+X-Google-Smtp-Source: AGHT+IGC2i/lrHcEYiHLepYpKi0ZctU+ZKix5VrmHDenXZcdxn25ITspzzM4ZTUoDrZD7ZrxkaRYeA==
+X-Received: by 2002:a05:600c:1546:b0:43c:fb5b:84d8 with SMTP id
+ 5b1f17b1804b1-43d49549405mr28340205e9.16.1742477571247; 
+ Thu, 20 Mar 2025 06:32:51 -0700 (PDT)
 Received: from orth.archaic.org.uk (orth.archaic.org.uk. [2001:8b0:1d0::2])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d43fdeba1sm48804525e9.32.2025.03.20.06.32.54
+ 5b1f17b1804b1-43d43fdeba1sm48804525e9.32.2025.03.20.06.32.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 06:32:54 -0700 (PDT)
+ Thu, 20 Mar 2025 06:32:50 -0700 (PDT)
 From: Peter Maydell <peter.maydell@linaro.org>
 To: qemu-arm@nongnu.org,
 	qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org,
 	Paolo Bonzini <pbonzini@redhat.com>
-Subject: [PATCH 3/3] rust: pl011: Check size of state struct at compile time
-Date: Thu, 20 Mar 2025 13:32:48 +0000
-Message-ID: <20250320133248.1679485-4-peter.maydell@linaro.org>
+Subject: [PATCH 0/3] rust: Fix PL011State size mismatch assert
+Date: Thu, 20 Mar 2025 13:32:45 +0000
+Message-ID: <20250320133248.1679485-1-peter.maydell@linaro.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250320133248.1679485-1-peter.maydell@linaro.org>
-References: <20250320133248.1679485-1-peter.maydell@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::42e;
- envelope-from=peter.maydell@linaro.org; helo=mail-wr1-x42e.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::32a;
+ envelope-from=peter.maydell@linaro.org; helo=mail-wm1-x32a.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -88,69 +85,82 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Mar 2025 13:33:12 -0000
+X-List-Received-Date: Thu, 20 Mar 2025 13:33:00 -0000
 
-The PL011 device's C implementation exposes its PL011State struct to
-users of the device, and one common usage pattern is to embed that
-struct into the user's own state struct.  (The internals of the
-struct are technically visible to the C user of the device, but in
-practice are treated as implementation details.)
+We have some users of the PL011 struct which embed it directly into
+their own state structs. This means that the Rust version of the
+device must have a state struct that is the same size or smaller
+than the C struct.
 
-This means that the Rust version of the state struct must not be
-larger than the C version's struct; otherwise it will trip a runtime
-assertion in object_initialize_type() when the C user attempts to
-in-place initialize the type.
+In commit 9b642097d6b7 ("rust: pl011: switch to safe chardev operation")
+the Rust PL011 state struct changed from having a bindings::CharBackend
+to a chardev::CharBackend, which made it grow larger than the C
+version. This results in an assertion at startup when QEMU was
+built with Rust enabled:
 
-Add a compile-time assertion on the Rust side, so that if we
-accidentally make the Rust device state larger we know immediately
-that we need to expand the padding in the C version of the struct.
+ $ qemu-system-arm -M raspi2b -display none
+ ERROR:../../qom/object.c:562:object_initialize_with_type: assertion
+ failed: (size >= type->instance_size)
 
-Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
----
+This series fixes that by the simple expedient of adding
+a padding field to the end of the C struct to ensure that
+it's big enough to also fit the Rust version of the device.
+
+It also moves the failure from runtime to compiletime,
+by adding a Rust compile-time assert that it hasn't made
+the state bigger than the C one, so if we do this again
+it should be caught before it gets into git. (We don't
+need to do the same thing for the HPET device, because there
+the HPETState is a private implementation detail of the C
+code, not exposed to its users.)
+
+NB: if the Rust version also needed stricter alignment than the
+C struct that would also be bad; I don't attempt to assert on
+that here, assuming that it's unlikely that we'll be trying for
+anything more aligned than the usual pointer-alignment.
+
+Patch 1 is Paolo's static_assert macro that he sent out earlier today.
+
+Having the C struct visible to its users like this is not ideal
+in the longer term; we have had discussions before about shifting
+back to a "users only get an opaque pointer" design style,
+for instance for the benefit of the "create custom machines on
+the commandline" effort. I think this Rust/C issue is further
+weight towards moving that way. But that would be quite a
+lot of reworking of existing C code.
+
+Exposing the C struct to users of the device also means that
+they have direct access to all its fields, which obviously
+will go badly wrong if they try to touch them when the Rust
+version of the device is being used. Those fields are supposed
+to be private, but this is based purely on the honour system,
+and we do actually have a few places in the code that take
+shortcuts and directly access a few fields (not for the PL011).
+I had a proposal a decade ago:
+https://lore.kernel.org/qemu-devel/1399650964-21067-1-git-send-email-peter.maydell@linaro.org/
+for using macros and the compiler 'deprecated' attribute to
+generate compiler warnings/errors for accesses to struct fields
+outside the file implementing the device itself. 
+We could perhaps resurrect that idea as a mechanism for
+detecting places we would need to clean up before conversions
+of future C devices to Rust.
+
+thanks
+-- PMM
+
+Paolo Bonzini (1):
+  rust: assertions: add static_assert
+
+Peter Maydell (2):
+  hw/char/pl011: Pad PL011State struct to same size as Rust impl
+  rust: pl011: Check size of state struct at compile time
+
+ include/hw/char/pl011.h          |  5 +++++
  rust/wrapper.h                   |  1 +
  rust/hw/char/pl011/src/device.rs | 10 +++++++++-
- 2 files changed, 10 insertions(+), 1 deletion(-)
+ rust/qemu-api/src/assertions.rs  | 22 ++++++++++++++++++++++
+ 4 files changed, 37 insertions(+), 1 deletion(-)
 
-diff --git a/rust/wrapper.h b/rust/wrapper.h
-index d927ad6799d..d4fec546571 100644
---- a/rust/wrapper.h
-+++ b/rust/wrapper.h
-@@ -65,3 +65,4 @@ typedef enum memory_order {
- #include "exec/memattrs.h"
- #include "qemu/timer.h"
- #include "exec/address-spaces.h"
-+#include "hw/char/pl011.h"
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index f137b49feaf..f9b1c307289 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -2,10 +2,12 @@
- // Author(s): Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
--use std::{ffi::CStr, ptr::addr_of_mut};
-+use std::{ffi::CStr, mem, ptr::addr_of_mut};
- 
- use qemu_api::{
-+    bindings,
-     chardev::{CharBackend, Chardev, Event},
-+    static_assert,
-     impl_vmstate_forward,
-     irq::{IRQState, InterruptSource},
-     memory::{hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder},
-@@ -124,6 +126,12 @@ pub struct PL011State {
-     pub migrate_clock: bool,
- }
- 
-+// Some C users of this device embed its state struct into their own
-+// structs, so the size of the Rust version must not be any larger
-+// than the size of the C one. If this assert triggers you need to
-+// expand the padding_for_rust[] array in the C PL011State struct.
-+static_assert!(mem::size_of::<PL011State>() <= mem::size_of::<bindings::PL011State>());
-+
- qom_isa!(PL011State : SysBusDevice, DeviceState, Object);
- 
- #[repr(C)]
 -- 
 2.43.0
 
