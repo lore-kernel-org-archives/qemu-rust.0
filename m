@@ -1,55 +1,55 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tvHVP-0007MH-7o
-	for mharc-qemu-rust@gnu.org; Thu, 20 Mar 2025 11:08:24 -0400
+	id 1tvHmR-0005sr-PZ
+	for mharc-qemu-rust@gnu.org; Thu, 20 Mar 2025 11:25:59 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tvHVI-0007LM-K4; Thu, 20 Mar 2025 11:08:16 -0400
-Received: from mgamail.intel.com ([198.175.65.18])
+ id 1tvHlx-0005l1-Ve; Thu, 20 Mar 2025 11:25:33 -0400
+Received: from mgamail.intel.com ([198.175.65.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tvHVA-0003xy-FO; Thu, 20 Mar 2025 11:08:16 -0400
+ id 1tvHlr-0001Gu-RC; Thu, 20 Mar 2025 11:25:26 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742483288; x=1774019288;
+ t=1742484324; x=1774020324;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=RWPlgBik2uYXJARadCDUkKWja/DJTcipTYX3tVIVQM4=;
- b=mDR0kjf5RBQ5P9cKNIOnuCxS45Sow9Y+LkHnLPCoHqmuN0N3Kbd3LELp
- jQIsv7pbzaTQzm0w0SMg1FUqGAsa64Y/KE9rvwsjj/Q5ZQEA1fM2iGKF0
- QKT7rrjvfGMbXfC8Jf8OVAoHBDHo0rxrSZ+T9w1Brl+Y1DmvV2QmZx7R1
- XIGBtmEKDAM7+ExZVXilBB2W7njL8/5UAt/MCUtYfCVBg3FFplu4oX6P0
- psv95UIadbu8OCChBHjldvIWnuB3TgYI0S/mSHONgkBfyQuqsNq4Vh7Gv
- MsBVkpfl6cy1eKvigxlujUeubDoiX1AALE2lCdpj3tmXMV2CWOjrLtw4B w==;
-X-CSE-ConnectionGUID: CsLbEAMsSiylkef+70N7Rg==
-X-CSE-MsgGUID: Qoq0w0GqRpyzrkQoi+eH8A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11379"; a="43890289"
-X-IronPort-AV: E=Sophos;i="6.14,262,1736841600"; d="scan'208";a="43890289"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2025 08:08:04 -0700
-X-CSE-ConnectionGUID: 4DQ3dTgDTOWTrphrA9QZbg==
-X-CSE-MsgGUID: pLWUzIZIS2O4yY+KdxxxHw==
+ bh=dAWOaP+0FbLf9uH4qvwuCLfmXr3QhrjyHbQfnvFQ/wA=;
+ b=gHXgBX/T34Y/WQS+86qGt4JKxyuVp7Kr5IyhZqNk/RUOvyMVKoAMOlnt
+ 2qBHwcHVIBXD/Ikr8bpKCSiiB1CWdAWB9WFy3MHzRC29kBTQ0+LjTJ1j5
+ O0mAav0nYo0qhHu6/tMOgFiEPpcrh/d8ZkF8LdqoWvJV874Jl2ULgS2/j
+ hc11Fb5c0rAsfq3CHqwrQ61/tz7+zvQ4jZpnOq0hGodLRKwnuCLv9MCta
+ 9heN14zybUX+8B46XOW/jZEp8H5RgMPJguM/NWWtgoQEQQi25xn+Akekf
+ l4Tl8NgTvWmfGSH4K3Drw9HhW7FmMr2NbilbiLLN4ujNyhz5mYrXJo+/U w==;
+X-CSE-ConnectionGUID: MQ6rG2G3TaWG++V7HWvIIQ==
+X-CSE-MsgGUID: xYqmbuLlSLmSc6GpURIr4Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11379"; a="43839711"
+X-IronPort-AV: E=Sophos;i="6.14,262,1736841600"; d="scan'208";a="43839711"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Mar 2025 08:25:17 -0700
+X-CSE-ConnectionGUID: W2aHOjWmQR+YpemcmgSlIA==
+X-CSE-MsgGUID: pQ1MAg9VTZ+92rWx8HeCgQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,262,1736841600"; d="scan'208";a="128180140"
+X-IronPort-AV: E=Sophos;i="6.14,262,1736841600"; d="scan'208";a="128226883"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa004.jf.intel.com with ESMTP; 20 Mar 2025 08:08:02 -0700
-Date: Thu, 20 Mar 2025 23:28:16 +0800
+ by fmviesa004.fm.intel.com with ESMTP; 20 Mar 2025 08:25:16 -0700
+Date: Thu, 20 Mar 2025 23:45:30 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Peter Maydell <peter.maydell@linaro.org>
 Cc: qemu-arm@nongnu.org, qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH 2/3] hw/char/pl011: Pad PL011State struct to same size as
- Rust impl
-Message-ID: <Z9w0EIgD6A3oBL33@intel.com>
+Subject: Re: [PATCH 3/3] rust: pl011: Check size of state struct at compile
+ time
+Message-ID: <Z9w4Gttv8QeBRKfZ@intel.com>
 References: <20250320133248.1679485-1-peter.maydell@linaro.org>
- <20250320133248.1679485-3-peter.maydell@linaro.org>
+ <20250320133248.1679485-4-peter.maydell@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250320133248.1679485-3-peter.maydell@linaro.org>
-Received-SPF: pass client-ip=198.175.65.18; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250320133248.1679485-4-peter.maydell@linaro.org>
+Received-SPF: pass client-ip=198.175.65.16; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -46
 X-Spam_score: -4.7
@@ -71,46 +71,43 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Mar 2025 15:08:18 -0000
+X-List-Received-Date: Thu, 20 Mar 2025 15:25:56 -0000
 
-On Thu, Mar 20, 2025 at 01:32:47PM +0000, Peter Maydell wrote:
-> Date: Thu, 20 Mar 2025 13:32:47 +0000
-> From: Peter Maydell <peter.maydell@linaro.org>
-> Subject: [PATCH 2/3] hw/char/pl011: Pad PL011State struct to same size as
->  Rust impl
-> X-Mailer: git-send-email 2.43.0
-> 
-> We have some users of the PL011 struct which embed it directly into
-> their own state structs. This means that the Rust version of the
-> device must have a state struct that is the same size or smaller
-> than the C struct.
-> 
-> In commit 9b642097d6b7 ("rust: pl011: switch to safe chardev operation")
-> the Rust PL011 state struct changed from having a bindings::CharBackend
-> to a chardev::CharBackend, which made it grow larger than the C
-> version. This results in an assertion at startup when QEMU was
-> built with Rust enabled:
-> 
->  $ qemu-system-arm -M raspi2b -display none
->  ERROR:../../qom/object.c:562:object_initialize_with_type: assertion
->  failed: (size >= type->instance_size)
-> 
-> The long-term better approach to this problem would be to move
-> our C device code patterns away from "embed a struct" and (back)
-> to "have a pointer to the device", so we can make the C PL011State
-> struct a private implementation detail rather than exposed to
-> its users.
-> 
-> For the short term, add a padding field at the end of the C struct
-> so it's big enough that the Rust state struct can fit.
-> 
-> Fixes: 9b642097d6b7 ("rust: pl011: switch to safe chardev operation")
-> Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
-> ---
->  include/hw/char/pl011.h | 5 +++++
->  1 file changed, 5 insertions(+)
+> -use std::{ffi::CStr, ptr::addr_of_mut};
+> +use std::{ffi::CStr, mem, ptr::addr_of_mut};
 
-LGTM, BqlRefCell<> has extra fields to make BqlRefCell<T> bigger than T,
+maybe mem::size_of (since there're 2 use cases :-))? 
+
+>  
+>  use qemu_api::{
+> +    bindings,
+>      chardev::{CharBackend, Chardev, Event},
+> +    static_assert,
+
+This one looks like it breaks the alphabetical ordering (this nit can be
+checked and fixed by "cargo +nightly fmt" under rust directory, which is
+like checkpatch.pl).
+
+>      impl_vmstate_forward,
+>      irq::{IRQState, InterruptSource},
+>      memory::{hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder},
+> @@ -124,6 +126,12 @@ pub struct PL011State {
+>      pub migrate_clock: bool,
+>  }
+>  
+> +// Some C users of this device embed its state struct into their own
+> +// structs, so the size of the Rust version must not be any larger
+> +// than the size of the C one. If this assert triggers you need to
+> +// expand the padding_for_rust[] array in the C PL011State struct.
+> +static_assert!(mem::size_of::<PL011State>() <= mem::size_of::<bindings::PL011State>());
+> +
+
+maybe use qemu_api::bindings::PL011State directly? Because bindings
+contains native C structures/functions and their use should not be
+encouraged, I think it's better to 'hide' bindings (not list it at the
+beginning of the file).
+
+Otherwise,
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
