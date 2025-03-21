@@ -1,66 +1,77 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tvTji-0004AI-W6
-	for mharc-qemu-rust@gnu.org; Fri, 21 Mar 2025 00:11:59 -0400
+	id 1tvaVG-0003uV-N4
+	for mharc-qemu-rust@gnu.org; Fri, 21 Mar 2025 07:25:30 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tvTje-00049K-Qo; Fri, 21 Mar 2025 00:11:55 -0400
-Received: from mgamail.intel.com ([192.198.163.13])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1tvTjb-0006kX-3q; Fri, 21 Mar 2025 00:11:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742530311; x=1774066311;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=uKqMiHfxqUU1QswsJ9itCG+7AgcaEQycIrOEAhAxPZk=;
- b=Kd3sYT64WngYnFLpJYDmxCx2CedyYOwY54rTEzUfCfiJ0c1O1cFMwGup
- hIZCPMoJ5Mt4Q/ZgYwEvHxrvOrbeqEDicyR2z4AlryA0202IAsaZwoH5H
- pC0jlk6GMB/S+cr/meJoC1ky0F5QQQfOjSyzE6pca8vT8Td2DB0Xs2AGE
- IIsf1Z4COQh9xeFKfa1Pn6KSI6AXcztQRtjnW1e7ViPs49C1qzKa5cvY0
- VP8KzqTOhyFI7bY68zSYZSsv1efavmjHZfPBpdtOk6LhtSF0cgCM/HNVJ
- X4n+W7Rrl1X4k/NJLB5aDQVvDwqIG/mU78d2hQqwiWf2ToAd6+l+0Cn8g Q==;
-X-CSE-ConnectionGUID: UWV4MoydTpStqlaH5dnbcg==
-X-CSE-MsgGUID: Af/wUMvqTdu5kgV8vnkFOg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11379"; a="46540737"
-X-IronPort-AV: E=Sophos;i="6.14,263,1736841600"; d="scan'208";a="46540737"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2025 21:11:43 -0700
-X-CSE-ConnectionGUID: xerjebGDRV2wYEFT342WjA==
-X-CSE-MsgGUID: 4N5o0sOBR8m4U3UlG84R5A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,263,1736841600"; d="scan'208";a="123741185"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa010.fm.intel.com with ESMTP; 20 Mar 2025 21:11:42 -0700
-Date: Fri, 21 Mar 2025 12:31:56 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Peter Maydell <peter.maydell@linaro.org>
-Cc: qemu-arm@nongnu.org, qemu-devel@nongnu.org, qemu-rust@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH 3/3] rust: pl011: Check size of state struct at compile
- time
-Message-ID: <Z9zrvF7qRoykMupa@intel.com>
-References: <20250320133248.1679485-1-peter.maydell@linaro.org>
- <20250320133248.1679485-4-peter.maydell@linaro.org>
- <Z9w4Gttv8QeBRKfZ@intel.com>
- <CAFEAcA_BQOtzugW31ke=sit1mKnvxieGC_GXLOG4=MK_O2mKqw@mail.gmail.com>
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tvaVF-0003u3-BH
+ for qemu-rust@nongnu.org; Fri, 21 Mar 2025 07:25:29 -0400
+Received: from mail-wm1-x32e.google.com ([2a00:1450:4864:20::32e])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1tvaVD-0004O8-FT
+ for qemu-rust@nongnu.org; Fri, 21 Mar 2025 07:25:29 -0400
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4394a823036so18327255e9.0
+ for <qemu-rust@nongnu.org>; Fri, 21 Mar 2025 04:25:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1742556326; x=1743161126; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4jBi2XfHUS12bu8iuavnXsaJxhHBfQaoWbhQNC0jHPQ=;
+ b=m27iFHDSftRvb4HUH3B89chhhRnI8SVvbEg+DqSjKRC684mGL6+XTJ6FeNgq9a3pMd
+ Jo+2ATJ/6A5pJdsXqaHaeeNN5mfX2VV0t8JLRgG+tNz5WqX3MBfrIKsUdCiXXHdPhZl8
+ 5hA9tAFAaQXpzgoWI/xqLBo3DyTHXPARM/orT9P4/yKWGwl7mwBZUfKSQn1Jc9WzBke+
+ dYnZj7gt4Zmb8bPR40weMRofreeVbS7M4Od55ab9HQBvQzMwoB6QPnjL0sxzZCzCV6Mf
+ o8biueTM9ztUxZzSyPibUUj4qnERJ7yT5hFw8CKziykkxRMVd8VEDXEumyfweVtjMOKz
+ 86EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742556326; x=1743161126;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4jBi2XfHUS12bu8iuavnXsaJxhHBfQaoWbhQNC0jHPQ=;
+ b=YqnmljMo5Nez/YcTWb+GVKqBCfvqgA15ilgCk4Xr5Flqx/ZgOVzzETnVT9Bs8pAjPf
+ IRbdVbAVLxK+FZ8eNZTPFLLXJLhZg797tgjPWF+VEZHefTK9s7zlk4/ou0u32z/vYpxk
+ C0ZwkG4XWbaPjdIUd+In8cWpJI3/KHdIcUQam6ItsRJKpARFSEPXP29gyvEUsfkd2xlu
+ +Mz3tLsK2EKVtq67Y7WJmPt2icVSVqgJEVLxIOV95KvKhJPl2IY23qwEJisXNdFOp3CE
+ D2J9csrUh83ftSTqwZQuY9XhNJl2iMNghIHcNAX+csGyh/LzVTh+N7+ILbpHyANd4Sgm
+ OUDg==
+X-Gm-Message-State: AOJu0Ywf405F4uBz1dRSn5aKu50KSZOVcPtmz8qQWnCn5ktTKEV99jMu
+ ZcgvoDt+QEFLmYp4vXeDHOmfPPpdLzDfXicg3Q8fN3ql2UaqWhPo3qfzlT0XOII=
+X-Gm-Gg: ASbGncuRHtM6piWBHaUD5jKYFB84jTciXnUmLThA5LzQ9WHWK/pnUV4h4mq+qGFPzCz
+ l8thjcZVwsOPKTtiwBTmKqT8nq7+8srPQHc0WLSSQFSXq6rhyCGhfxsx6Hbma/fEZmOwd8VK6hT
+ oclOkwB9YAU6AbTud5Xllz699uDBpuZrkaMkrRz17t0dGRwGrSbQEr3Q+AFlzXKv1vC3TzPCz+0
+ zr4pIiGjlvCxK/Jb0dKQIkuBvGt5PPhm8Qvi0V0IeN63zVr2F9nAsKbX/d9xkF89M3jUNGkuROy
+ BwqRUwKLxHZEeh4CvI86kTRy2/AVEXqhgONC7fczHwQlBPJ2Lkc=
+X-Google-Smtp-Source: AGHT+IEfLLQk0tHm5HjQf+E9C33h5KD8z1CsdQwClauizGriyI2wEVtbUjIavsvXR1hwgt0F/Mrzvg==
+X-Received: by 2002:a05:600c:4f55:b0:439:9b2a:1b2f with SMTP id
+ 5b1f17b1804b1-43d568cdf1bmr3559105e9.3.1742556325692; 
+ Fri, 21 Mar 2025 04:25:25 -0700 (PDT)
+Received: from orth.archaic.org.uk (orth.archaic.org.uk. [2001:8b0:1d0::2])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3997f9e6767sm2132614f8f.66.2025.03.21.04.25.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Mar 2025 04:25:24 -0700 (PDT)
+From: Peter Maydell <peter.maydell@linaro.org>
+To: qemu-arm@nongnu.org,
+	qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Zhao Liu <zhao1.liu@intel.com>
+Subject: [PATCH v2 0/3] rust: Fix PL011State size mismatch assert
+Date: Fri, 21 Mar 2025 11:25:20 +0000
+Message-ID: <20250321112523.1774131-1-peter.maydell@linaro.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=gb2312
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFEAcA_BQOtzugW31ke=sit1mKnvxieGC_GXLOG4=MK_O2mKqw@mail.gmail.com>
-Received-SPF: pass client-ip=192.198.163.13; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -46
-X-Spam_score: -4.7
-X-Spam_bar: ----
-X-Spam_report: (-4.7 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.332,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+Received-SPF: pass client-ip=2a00:1450:4864:20::32e;
+ envelope-from=peter.maydell@linaro.org; helo=mail-wm1-x32e.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -74,50 +85,71 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Mar 2025 04:11:56 -0000
+X-List-Received-Date: Fri, 21 Mar 2025 11:25:29 -0000
 
-> > > +// Some C users of this device embed its state struct into their own
-> > > +// structs, so the size of the Rust version must not be any larger
-> > > +// than the size of the C one. If this assert triggers you need to
-> > > +// expand the padding_for_rust[] array in the C PL011State struct.
-> > > +static_assert!(mem::size_of::<PL011State>() <= mem::size_of::<bindings::PL011State>());
-> > > +
-> >
-> > maybe use qemu_api::bindings::PL011State directly? Because bindings
-> > contains native C structures/functions and their use should not be
-> > encouraged, I think it's better to 'hide' bindings (not list it at the
-> > beginning of the file).
-> 
-> Yeah, I wasn't sure what our preferred style approach is here
-> regarding what we "use" and what we just directly reference
-> (and the same in the other direction for mem::size_of vs
-> size_of). Is there a "normal" pattern to follow here ?
 
-There seems no clear doc on when to list use statements, but it's common
-to list as clearly as possible to make it easier to sort out dependencies.
+Summary: v2 of fixing an assert due to mismatch of the
+PL011 state struct size between the Rust and C impls.
 
-About bindings, I think it's better to clearly point out the specific
-members in bindings, so ¡®use qemu_api::bindings¡¯ looks vague. Alternatively,
-the qemu_api::bindings::PL011State could also be listed at the beginning of
-the file, similar to a previous clean up: 06a1cfb5550a ("rust/pl011: Avoid
-bindings::*") and another patch [1].
+Changes v1->v2:
+ * in patch 3, adjust 'use' statements to maintain alpha order and to
+   prefer 'size_of' and 'qemu_api::bindings::PL011State' over
+   'mem::size_of' and 'bindings::PL011State'.
 
-[1]: https://lore.kernel.org/qemu-devel/20250318130219.1799170-16-zhao1.liu@intel.com/
+All patches are reviewed.
 
-> Speaking of size_of, I noticed that Rust provides both
-> core::mem::size_of and std::mem::size_of, and in rust/ at
-> the moment we have uses of both. What's the difference?
+NOTE: I won't be around to do a v3 of this series next week,
+I'm afraid, so if it needs any further tweaks I'd appreciate
+if somebody else could pick it up and make those, since this is
+a bug we need to fix for 10.0.
 
-They're the same (a simple proof of this is that the "source" option of
-the std::mem page [2] points to the core::mem repo). `core` is
-self-contained without OS dependency, and `std` is the superset of `core`
-with extra OS dependency. And there's a previous cleanup to consolidate
-`std::ptr` (commit c48700e86d, "rust: prefer importing std::ptr over
-core::ptr"). So I think we can prefer std::mem as well.
 
-[2]: https://doc.rust-lang.org/std/mem/index.html
+More detailed info, same as v1 cover letter, below:
 
-Regards,
-Zhao
+We have some users of the PL011 struct which embed it directly into
+their own state structs. This means that the Rust version of the
+device must have a state struct that is the same size or smaller
+than the C struct.
+
+In commit 9b642097d6b7 ("rust: pl011: switch to safe chardev operation")
+the Rust PL011 state struct changed from having a bindings::CharBackend
+to a chardev::CharBackend, which made it grow larger than the C
+version. This results in an assertion at startup when QEMU was
+built with Rust enabled:
+
+ $ qemu-system-arm -M raspi2b -display none
+ ERROR:../../qom/object.c:562:object_initialize_with_type: assertion
+ failed: (size >= type->instance_size)
+
+This series fixes that by the simple expedient of adding
+a padding field to the end of the C struct to ensure that
+it's big enough to also fit the Rust version of the device.
+
+It also moves the failure from runtime to compiletime,
+by adding a Rust compile-time assert that it hasn't made
+the state bigger than the C one, so if we do this again
+it should be caught before it gets into git. (We don't
+need to do the same thing for the HPET device, because there
+the HPETState is a private implementation detail of the C
+code, not exposed to its users.)
+
+thanks
+-- PMM
+
+Paolo Bonzini (1):
+  rust: assertions: add static_assert
+
+Peter Maydell (2):
+  hw/char/pl011: Pad PL011State struct to same size as Rust impl
+  rust: pl011: Check size of state struct at compile time
+
+ include/hw/char/pl011.h          |  5 +++++
+ rust/wrapper.h                   |  1 +
+ rust/hw/char/pl011/src/device.rs |  9 ++++++++-
+ rust/qemu-api/src/assertions.rs  | 22 ++++++++++++++++++++++
+ 4 files changed, 36 insertions(+), 1 deletion(-)
+
+-- 
+2.43.0
 
 
