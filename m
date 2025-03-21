@@ -1,71 +1,75 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tvaVG-0003uV-N4
-	for mharc-qemu-rust@gnu.org; Fri, 21 Mar 2025 07:25:30 -0400
+	id 1tvaVL-0003wg-0X
+	for mharc-qemu-rust@gnu.org; Fri, 21 Mar 2025 07:25:36 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tvaVF-0003u3-BH
- for qemu-rust@nongnu.org; Fri, 21 Mar 2025 07:25:29 -0400
-Received: from mail-wm1-x32e.google.com ([2a00:1450:4864:20::32e])
+ id 1tvaVG-0003uc-T4
+ for qemu-rust@nongnu.org; Fri, 21 Mar 2025 07:25:31 -0400
+Received: from mail-wm1-x329.google.com ([2a00:1450:4864:20::329])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tvaVD-0004O8-FT
- for qemu-rust@nongnu.org; Fri, 21 Mar 2025 07:25:29 -0400
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-4394a823036so18327255e9.0
- for <qemu-rust@nongnu.org>; Fri, 21 Mar 2025 04:25:26 -0700 (PDT)
+ id 1tvaVE-0004ON-BN
+ for qemu-rust@nongnu.org; Fri, 21 Mar 2025 07:25:30 -0400
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43cef035a3bso13390085e9.1
+ for <qemu-rust@nongnu.org>; Fri, 21 Mar 2025 04:25:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1742556326; x=1743161126; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4jBi2XfHUS12bu8iuavnXsaJxhHBfQaoWbhQNC0jHPQ=;
- b=m27iFHDSftRvb4HUH3B89chhhRnI8SVvbEg+DqSjKRC684mGL6+XTJ6FeNgq9a3pMd
- Jo+2ATJ/6A5pJdsXqaHaeeNN5mfX2VV0t8JLRgG+tNz5WqX3MBfrIKsUdCiXXHdPhZl8
- 5hA9tAFAaQXpzgoWI/xqLBo3DyTHXPARM/orT9P4/yKWGwl7mwBZUfKSQn1Jc9WzBke+
- dYnZj7gt4Zmb8bPR40weMRofreeVbS7M4Od55ab9HQBvQzMwoB6QPnjL0sxzZCzCV6Mf
- o8biueTM9ztUxZzSyPibUUj4qnERJ7yT5hFw8CKziykkxRMVd8VEDXEumyfweVtjMOKz
- 86EA==
+ d=linaro.org; s=google; t=1742556327; x=1743161127; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9vH8UmsTVl9pFvTYnHstPZudBd2C6Qn5erg4QfltUDw=;
+ b=PgMx0PEs61XRjPmZ2ULXErS8IL9F08LY1PhBHHvaJAfksmgFE12RCD7PTzu84SMh9a
+ j9LsYRIkxvKcjuhreejmM0otf+J4rjIIliIq5/1RvSMmCG35kCAwskyVWG66GANGF1V4
+ eF2bisBvb7nL+VuyVF5T6WaaUTE+Q58qK88k/7aX7VmQqNmM6RNhiuUY5N1LfKZlzjTR
+ AbLr/5rcG6I37CSFs8nlM7NcHbQXFfcuGMkukZ3Xvq1J2OpjoYIBK7W9NPmr2VjRvgwc
+ VesnX4wyo5LnX3SiuQf8Xg7ys0Cv8ddDVbbyxmNtfaZRRHGTccRHdKyUNkUg2FDGSzhN
+ +Ixw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742556326; x=1743161126;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4jBi2XfHUS12bu8iuavnXsaJxhHBfQaoWbhQNC0jHPQ=;
- b=YqnmljMo5Nez/YcTWb+GVKqBCfvqgA15ilgCk4Xr5Flqx/ZgOVzzETnVT9Bs8pAjPf
- IRbdVbAVLxK+FZ8eNZTPFLLXJLhZg797tgjPWF+VEZHefTK9s7zlk4/ou0u32z/vYpxk
- C0ZwkG4XWbaPjdIUd+In8cWpJI3/KHdIcUQam6ItsRJKpARFSEPXP29gyvEUsfkd2xlu
- +Mz3tLsK2EKVtq67Y7WJmPt2icVSVqgJEVLxIOV95KvKhJPl2IY23qwEJisXNdFOp3CE
- D2J9csrUh83ftSTqwZQuY9XhNJl2iMNghIHcNAX+csGyh/LzVTh+N7+ILbpHyANd4Sgm
- OUDg==
-X-Gm-Message-State: AOJu0Ywf405F4uBz1dRSn5aKu50KSZOVcPtmz8qQWnCn5ktTKEV99jMu
- ZcgvoDt+QEFLmYp4vXeDHOmfPPpdLzDfXicg3Q8fN3ql2UaqWhPo3qfzlT0XOII=
-X-Gm-Gg: ASbGncuRHtM6piWBHaUD5jKYFB84jTciXnUmLThA5LzQ9WHWK/pnUV4h4mq+qGFPzCz
- l8thjcZVwsOPKTtiwBTmKqT8nq7+8srPQHc0WLSSQFSXq6rhyCGhfxsx6Hbma/fEZmOwd8VK6hT
- oclOkwB9YAU6AbTud5Xllz699uDBpuZrkaMkrRz17t0dGRwGrSbQEr3Q+AFlzXKv1vC3TzPCz+0
- zr4pIiGjlvCxK/Jb0dKQIkuBvGt5PPhm8Qvi0V0IeN63zVr2F9nAsKbX/d9xkF89M3jUNGkuROy
- BwqRUwKLxHZEeh4CvI86kTRy2/AVEXqhgONC7fczHwQlBPJ2Lkc=
-X-Google-Smtp-Source: AGHT+IEfLLQk0tHm5HjQf+E9C33h5KD8z1CsdQwClauizGriyI2wEVtbUjIavsvXR1hwgt0F/Mrzvg==
-X-Received: by 2002:a05:600c:4f55:b0:439:9b2a:1b2f with SMTP id
- 5b1f17b1804b1-43d568cdf1bmr3559105e9.3.1742556325692; 
- Fri, 21 Mar 2025 04:25:25 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1742556327; x=1743161127;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=9vH8UmsTVl9pFvTYnHstPZudBd2C6Qn5erg4QfltUDw=;
+ b=Qvg3SLI6KtAkF7MFGAJHLWkFVfhY06yu3778HfBFsty2s2bC1jP0Kft8kvrM/+/+ou
+ E58KH733inzlXMygMv4P1ljaJhoGPeoIgCUUXU2HNJJ3a+OgWm3dImPmd12hZhyiWfsr
+ sLc8ds15D53bt9+e4awz16BKIX9fPoBjWslgdH3lUEWKxw1dVFXIZPMJwFAEiwT5w/sx
+ VR3aDLQ8Jjmhm4n4NRwEzGlS/dibenqeGumEG1YJArbQ+hl+RAWyg/5uCcBTh9FS8OUF
+ zBOvMAWtWqo8Cb/bmR1P+tm68LlPvAPN+nixgIZC1AYDmWu6UA82qVmOd+Wx3dIswjoA
+ hirg==
+X-Gm-Message-State: AOJu0YyLrbYGMxIUhdKzCS6mlUKyRXlvsG1OwWqCwYUY00h0iSlrEfio
+ gh3sQx8mvS5mdnt8KV7O09ys3dB8mv2MeqkbB2rgP15UBgxXBrQp3bLBxK0gRcIduyeqxv3f6C1
+ w
+X-Gm-Gg: ASbGncv92TY69uWJDKyKcVbUNRk3bb8rVO4Z0FUAhpQDW8TIZjP8Pk1r7oWG4nerByH
+ 4fBfkDVkc3Tg4f3ILx1nXXdaCkM4y2hdS5oMtJuZpubPIJSBENILDukckK+J5MuwGhfdWgXFm8l
+ pibIbCPXxUzsqwQl1vhJl7vehLaXHxkNQb3SBekBN++CRHDURIy/n14swr8OWopBHgqnLpf/bME
+ YbuyiorvSeQ/k2Fjwzog7XIssbcREo+P+msc9XHlseMwBxYDz1Avmk5L6tbmgJa9aJxxnRz49QB
+ Ph2ztvpR5r20gKvZ6XGNoHyGv6UIKGts4Ifi5ZBQ+VAqvFlUxxM=
+X-Google-Smtp-Source: AGHT+IGcpodxHAQlFCov7Dw/ip1/zNTc1GmhEQYpiunbDJ0QVNu+GnXexMWVNEIPpKuvrI2QNm5WRg==
+X-Received: by 2002:a05:600c:138a:b0:43d:224:86b5 with SMTP id
+ 5b1f17b1804b1-43d509e38eemr24686085e9.4.1742556326636; 
+ Fri, 21 Mar 2025 04:25:26 -0700 (PDT)
 Received: from orth.archaic.org.uk (orth.archaic.org.uk. [2001:8b0:1d0::2])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9e6767sm2132614f8f.66.2025.03.21.04.25.24
+ ffacd0b85a97d-3997f9e6767sm2132614f8f.66.2025.03.21.04.25.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Mar 2025 04:25:24 -0700 (PDT)
+ Fri, 21 Mar 2025 04:25:26 -0700 (PDT)
 From: Peter Maydell <peter.maydell@linaro.org>
 To: qemu-arm@nongnu.org,
 	qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
  Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH v2 0/3] rust: Fix PL011State size mismatch assert
-Date: Fri, 21 Mar 2025 11:25:20 +0000
-Message-ID: <20250321112523.1774131-1-peter.maydell@linaro.org>
+Subject: [PATCH v2 1/3] rust: assertions: add static_assert
+Date: Fri, 21 Mar 2025 11:25:21 +0000
+Message-ID: <20250321112523.1774131-2-peter.maydell@linaro.org>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250321112523.1774131-1-peter.maydell@linaro.org>
+References: <20250321112523.1774131-1-peter.maydell@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::32e;
- envelope-from=peter.maydell@linaro.org; helo=mail-wm1-x32e.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::329;
+ envelope-from=peter.maydell@linaro.org; helo=mail-wm1-x329.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -85,70 +89,54 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Mar 2025 11:25:29 -0000
+X-List-Received-Date: Fri, 21 Mar 2025 11:25:31 -0000
 
+From: Paolo Bonzini <pbonzini@redhat.com>
 
-Summary: v2 of fixing an assert due to mismatch of the
-PL011 state struct size between the Rust and C impls.
+Add a new assertion that is similar to "const { assert!(...) }" but can be used
+outside functions and with older versions of Rust.  A similar macro is found in
+Linux, whereas the "static_assertions" crate has a const_assert macro that
+produces worse error messages.
 
-Changes v1->v2:
- * in patch 3, adjust 'use' statements to maintain alpha order and to
-   prefer 'size_of' and 'qemu_api::bindings::PL011State' over
-   'mem::size_of' and 'bindings::PL011State'.
+Suggested-by: Peter Maydell <peter.maydell@linaro.org>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
+Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
+---
+ rust/qemu-api/src/assertions.rs | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-All patches are reviewed.
-
-NOTE: I won't be around to do a v3 of this series next week,
-I'm afraid, so if it needs any further tweaks I'd appreciate
-if somebody else could pick it up and make those, since this is
-a bug we need to fix for 10.0.
-
-
-More detailed info, same as v1 cover letter, below:
-
-We have some users of the PL011 struct which embed it directly into
-their own state structs. This means that the Rust version of the
-device must have a state struct that is the same size or smaller
-than the C struct.
-
-In commit 9b642097d6b7 ("rust: pl011: switch to safe chardev operation")
-the Rust PL011 state struct changed from having a bindings::CharBackend
-to a chardev::CharBackend, which made it grow larger than the C
-version. This results in an assertion at startup when QEMU was
-built with Rust enabled:
-
- $ qemu-system-arm -M raspi2b -display none
- ERROR:../../qom/object.c:562:object_initialize_with_type: assertion
- failed: (size >= type->instance_size)
-
-This series fixes that by the simple expedient of adding
-a padding field to the end of the C struct to ensure that
-it's big enough to also fit the Rust version of the device.
-
-It also moves the failure from runtime to compiletime,
-by adding a Rust compile-time assert that it hasn't made
-the state bigger than the C one, so if we do this again
-it should be caught before it gets into git. (We don't
-need to do the same thing for the HPET device, because there
-the HPETState is a private implementation detail of the C
-code, not exposed to its users.)
-
-thanks
--- PMM
-
-Paolo Bonzini (1):
-  rust: assertions: add static_assert
-
-Peter Maydell (2):
-  hw/char/pl011: Pad PL011State struct to same size as Rust impl
-  rust: pl011: Check size of state struct at compile time
-
- include/hw/char/pl011.h          |  5 +++++
- rust/wrapper.h                   |  1 +
- rust/hw/char/pl011/src/device.rs |  9 ++++++++-
- rust/qemu-api/src/assertions.rs  | 22 ++++++++++++++++++++++
- 4 files changed, 36 insertions(+), 1 deletion(-)
-
+diff --git a/rust/qemu-api/src/assertions.rs b/rust/qemu-api/src/assertions.rs
+index 104dec39774..bba38cfda11 100644
+--- a/rust/qemu-api/src/assertions.rs
++++ b/rust/qemu-api/src/assertions.rs
+@@ -120,3 +120,25 @@ macro_rules! assert_match {
+         );
+     };
+ }
++
++/// Assert at compile time that an expression is true.  This is similar
++/// to `const { assert!(...); }` but it works outside functions, as well as
++/// on versions of Rust before 1.79.
++///
++/// # Examples
++///
++/// ```
++/// # use qemu_api::static_assert;
++/// static_assert!("abc".len() == 3);
++/// ```
++///
++/// ```compile_fail
++/// # use qemu_api::static_assert;
++/// static_assert!("abc".len() == 2); // does not compile
++/// ```
++#[macro_export]
++macro_rules! static_assert {
++    ($x:expr) => {
++        const _: () = assert!($x);
++    };
++}
 -- 
 2.43.0
 
