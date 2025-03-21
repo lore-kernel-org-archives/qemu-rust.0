@@ -1,74 +1,89 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tvdKc-000191-PT
-	for mharc-qemu-rust@gnu.org; Fri, 21 Mar 2025 10:26:42 -0400
+	id 1tvhH7-0000RN-ID
+	for mharc-qemu-rust@gnu.org; Fri, 21 Mar 2025 14:39:25 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tvdKV-00017U-Gt
- for qemu-rust@nongnu.org; Fri, 21 Mar 2025 10:26:36 -0400
-Received: from mail-yw1-x1132.google.com ([2607:f8b0:4864:20::1132])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1tvdKT-0002be-Pw
- for qemu-rust@nongnu.org; Fri, 21 Mar 2025 10:26:35 -0400
-Received: by mail-yw1-x1132.google.com with SMTP id
- 00721157ae682-6ff1814102aso24565907b3.1
- for <qemu-rust@nongnu.org>; Fri, 21 Mar 2025 07:26:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1742567192; x=1743171992; darn=nongnu.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=EWojg+r5/UQDRAlld+v2Q3zypIFV3jNoUvRME6g8sFE=;
- b=WUV1Ce6Q5fsrQ0LvfyESHBrkMg7MbHIyrwYT8tFzc4xyYC4uZ7COtYSG1T0/1425Wt
- JZ2JTkxH9e3OB4QxRboIruMN6O42sNwL87o1KPUM1FPPNRwx1Dk+N9N9L0oISXpA3vmk
- Mw5Z3iRpYFZT/U1AYA9K4VGomKe3/UKBK0kXPSyMzrHNZCSyQ6SO6ZM3WIPPDfBkv8ox
- ExJ3bVSxgCU5N0HL54kSWI8CML1z+KB4qR74z+5QY2m89F222UVUP/E6JpFlINXr4WRi
- JvQfUiUcscpTwi+vefZDgGDbkDAOpcd2q+tBJohdCsrFdSJIX9z4xfVcbwRbcXEUhVuQ
- bTpA==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tvhGq-0008Dv-1p
+ for qemu-rust@nongnu.org; Fri, 21 Mar 2025 14:39:06 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tvhGi-0007Rt-U2
+ for qemu-rust@nongnu.org; Fri, 21 Mar 2025 14:38:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1742582333;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=QDALIBM4gMiaNAApgGYrdP8RMIx4DhGMy9icvxj4R64=;
+ b=UHoxbQQAOYmbhnpdpsUU4tUw8XyPGdgpP4Z3Wcnxxq4quFB50c5R+QyqWPTm4U7u5XGlyI
+ pm19CNuLb+YFbzHcS1fqXaESMwJEJG0LfuXcv33ID0QP3jaydn64Vy1LaTqMYhooFX1Yzm
+ LfdxKrGYks6fMPW29lLnich2+F21ka4=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-588-eLw1SBEFMk2U-5IgOPshvQ-1; Fri, 21 Mar 2025 14:38:52 -0400
+X-MC-Unique: eLw1SBEFMk2U-5IgOPshvQ-1
+X-Mimecast-MFC-AGG-ID: eLw1SBEFMk2U-5IgOPshvQ_1742582331
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-3912fe32a30so943924f8f.1
+ for <qemu-rust@nongnu.org>; Fri, 21 Mar 2025 11:38:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742567192; x=1743171992;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=EWojg+r5/UQDRAlld+v2Q3zypIFV3jNoUvRME6g8sFE=;
- b=YonbWZkqdkQZ/hqFMs2i3PsAE7DBw5Jw4jwN24wq04i59ZRbUcjpOLAonD+3ugQ1jw
- UfqUrDa7DmPokQ3xBJ6cZDJX2qdLraIrdHnjmp5/4AU9Q6jasoVLHEPKfYrfCJB8j2Z3
- AA5lYL+IxsaA7bqRz25a+01WLewIjSLIKQa1xStNmFCU9pibBi71tlwk2LgRyAAbCPAl
- 6wDzx8lz7n3RGSmP8IF46oUjilVRvw/qgpS3+JJLoKXI76ubjxDnjcMNVyGa1bRkLKOv
- vl6ftMT25UYKXi6npmAftV0XxoFq1ZdfvLJdaqTjzDhUxixzI8TlwHH7i7eU2N43zjp3
- fsrA==
+ d=1e100.net; s=20230601; t=1742582331; x=1743187131;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=QDALIBM4gMiaNAApgGYrdP8RMIx4DhGMy9icvxj4R64=;
+ b=pVqCoiKzNccqpO2ZATqWOEvQdiWs5EHSrKzb2WQVh2ZiWwKgi7vgUFWhPvkT46RG0I
+ 389NSo3aTx2p5QEki5PLWKveW1kkl1NzTdAMx5JIZk8uciaLjsLURMlbgC82VwTxF2De
+ 6iI111RFignwr81wd/EFZr21rY5x9iuunW9iOCCKwY8xYJOVG54D2pnhqBm++ofI8o+D
+ HFecGscPYLMNenwrcS06kxFfE28rTqZYoPN3Vb5TRzHw1FXcn8IkIpcASq1HAo4n/bCX
+ /ZW+XRlGhJnqqvd1BFwnWRjras7vCQ2GfwmS9kR3D3ob8kn0XtloYF1LHOllgSyjUdZR
+ iJhg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVs/ySue2Hi+WT9CFK+SAck+Q8II1oWX/SsSrMP+skWZxovNrp3kJegvX9IOHs+TkS7qrdjOzF54Yg=@nongnu.org
-X-Gm-Message-State: AOJu0YyFZ4BUxqwTvsue7OFQSsNai+TAuYTW+Y+FBxTC8kwkXnxoxKZ0
- DmAe6LTMCIm8R/VpdXccpShwl45VNG1/8JuVNtZZbbWXUDFGPHGkgtKmVW+b8/2Jj4i2OflJwbJ
- b/GdZYACXdWjJsPBnEc5sdp3A/KL2ywa6BhWhSQ==
-X-Gm-Gg: ASbGncv5s8eg7kketw475s3keWRDLKF3yGqW+C/ZI6bpX0lEKo8+JGRoquuy3ROp7h8
- 2PvuuNsMM1HQJxXVBPa4KC5nvbW/tsyXb1XcYrviE8EEiOAM2rMTAAz4nazpNWyNhfABSambIpq
- bpiQqQHOT6J5EaJysWmKpK+g+8Nmo=
-X-Google-Smtp-Source: AGHT+IFNHf1utZe/MoKT6Y8goCeqROL6oxf8NWYDOZOlSo02DG0yo7ViAeU9Mwc8v18ht2YcOWmd53Jpdpf7FSe6/6c=
-X-Received: by 2002:a05:6902:2808:b0:e58:36ad:a1ba with SMTP id
- 3f1490d57ef6-e66a32a8dbemr4813151276.16.1742567191904; Fri, 21 Mar 2025
- 07:26:31 -0700 (PDT)
+ AJvYcCWruioJteyolXC4sZuySRapcgkFCRw3TOHkkpPd1pqVykyOGyRXyNy8dxsIW0qt+PjBeoc5MvEHnk4=@nongnu.org
+X-Gm-Message-State: AOJu0Yztw0BwE25QpHwdRttbAA7VUjMPiM+8maFcZbiGaN3CAufZsBH2
+ jrttZ5yyCPBnXMYjaJnjtbtvmqDzfKuz/dp1i147CZ03qtEDgmrYf8EhJ3Mvjl0zeo9kj/aGiZo
+ tWLKeN9CcWO6usAvBp+0vkWmCb5xoDeCE5t5AzoMTsv518oxWVQLDG19vymuD+AKtTWYwRrBIIm
+ XZI0Vu/0iSH5ItgoM8SQykHMolwA==
+X-Gm-Gg: ASbGnctGviZUOKzjCeEi3c/rVVotSKEm0q19j3aVIVdUEJc0lgajSTZBJoVx6rWZpL0
+ 1xub0QMx0WcW+MnddJ7nCs0quTxHoyEX5ETfrUPidA41bj2oeDOw4JLhtMSbSXsi8kpWX+3BjFA
+ ==
+X-Received: by 2002:a5d:47c6:0:b0:391:2e31:c7e8 with SMTP id
+ ffacd0b85a97d-3997f8f607emr4457096f8f.2.1742582331200; 
+ Fri, 21 Mar 2025 11:38:51 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFCIlqlX66izdOh82aBOqkftva00zw5ORRhrwFy+i8UHhmqXKIrXVNggEq6yecqGglgLRpzjm9PnSGb9uorCTM=
+X-Received: by 2002:a5d:47c6:0:b0:391:2e31:c7e8 with SMTP id
+ ffacd0b85a97d-3997f8f607emr4457080f8f.2.1742582330845; Fri, 21 Mar 2025
+ 11:38:50 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250321133339.116081-1-pbonzini@redhat.com>
-In-Reply-To: <20250321133339.116081-1-pbonzini@redhat.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Fri, 21 Mar 2025 14:26:19 +0000
-X-Gm-Features: AQ5f1JoKU4GNsKrANCZl6HJ5aOfeS1z8HlaTG2DRFgBUhI40noZok5wKrTFKw0o
-Message-ID: <CAFEAcA_h6VDA6E1=DHN5LyuekhmXcD8JpEUEjsHboPSDK-VdAg@mail.gmail.com>
+ <CAFEAcA_h6VDA6E1=DHN5LyuekhmXcD8JpEUEjsHboPSDK-VdAg@mail.gmail.com>
+In-Reply-To: <CAFEAcA_h6VDA6E1=DHN5LyuekhmXcD8JpEUEjsHboPSDK-VdAg@mail.gmail.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Fri, 21 Mar 2025 19:38:39 +0100
+X-Gm-Features: AQ5f1JomymMNZMaM7aFWmAs-fBOdN18RWYlADRdUPTgJsz79_irnBF8E-K8umhQ
+Message-ID: <CABgObfY3hEAUvUjEZg5cgF+-sNhZdQmBCKpDNyYBdtR3e23Obw@mail.gmail.com>
 Subject: Re: [PATCH] rust: hpet: fix decoding of timer registers
-To: Paolo Bonzini <pbonzini@redhat.com>
+To: Peter Maydell <peter.maydell@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 0c4NgmJm4bQjBnGUUVDLOnvGPirANS1UGgJQPsJbYFg_1742582331
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
-Received-SPF: pass client-ip=2607:f8b0:4864:20::1132;
- envelope-from=peter.maydell@linaro.org; helo=mail-yw1-x1132.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -23
+X-Spam_score: -2.4
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.332,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -81,43 +96,22 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Mar 2025 14:26:37 -0000
+X-List-Received-Date: Fri, 21 Mar 2025 18:39:12 -0000
 
-On Fri, 21 Mar 2025 at 13:33, Paolo Bonzini <pbonzini@redhat.com> wrote:
+On Fri, Mar 21, 2025 at 3:26=E2=80=AFPM Peter Maydell <peter.maydell@linaro=
+.org> wrote:
+> Tested-by: Peter Maydell <peter.maydell@linaro.org>
+> Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
 >
-> Due to a missing "& 0x18", timer registers are not decoded correctly.
-> This breaks the tests/functional/test_x86_64_tuxrun.py functional
-> test.
->
-> Fixes: 519088b7cf6 ("rust: hpet: decode HPET registers into enums", 2025-03-06)
-> Reported-by: Peter Maydell <peter.maydell@linaro.org>
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/hw/timer/hpet/src/hpet.rs | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/rust/hw/timer/hpet/src/hpet.rs b/rust/hw/timer/hpet/src/hpet.rs
-> index 63c1971f0b5..3ae3ec25f17 100644
-> --- a/rust/hw/timer/hpet/src/hpet.rs
-> +++ b/rust/hw/timer/hpet/src/hpet.rs
-> @@ -776,7 +776,7 @@ fn decode(&self, mut addr: hwaddr, size: u32) -> HPETAddrDecode {
->              let timer_id: usize = ((addr - 0x100) / 0x20) as usize;
->              if timer_id <= self.num_timers.get() {
->                  // TODO: Add trace point - trace_hpet_ram_[read|write]_timer_id(timer_id)
-> -                TimerRegister::try_from(addr)
-> +                TimerRegister::try_from(addr & 0x18)
->                      .map(|reg| HPETRegister::Timer(&self.timers[timer_id], reg))
->              } else {
->                  // TODO: Add trace point -  trace_hpet_timer_id_out_of_range(timer_id)
-> --
+> If I understand the code correctly I think you could also
+> write this as "addr & 0x1f" which might be a little nicer
+> as it then lines up with the "/ 0x20".
 
-Tested-by: Peter Maydell <peter.maydell@linaro.org>
-Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
+Yeah, I was undecided between that and 0x18... in the end I went with
+0x18 because bits 0-1 are clear (due to alignment) and bit 2 is
+cleared above, and the TimerRegister enum also has "0x18" in the
+comment.
 
-If I understand the code correctly I think you could also
-write this as "addr & 0x1f" which might be a little nicer
-as it then lines up with the "/ 0x20".
+Paolo
 
-thanks
--- PMM
 
