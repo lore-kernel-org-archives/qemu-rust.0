@@ -1,90 +1,83 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tvhH7-0000RN-ID
-	for mharc-qemu-rust@gnu.org; Fri, 21 Mar 2025 14:39:25 -0400
+	id 1tz0Cd-00042R-0a
+	for mharc-qemu-rust@gnu.org; Sun, 30 Mar 2025 17:28:23 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tvhGq-0008Dv-1p
- for qemu-rust@nongnu.org; Fri, 21 Mar 2025 14:39:06 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tvhGi-0007Rt-U2
- for qemu-rust@nongnu.org; Fri, 21 Mar 2025 14:38:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1742582333;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=QDALIBM4gMiaNAApgGYrdP8RMIx4DhGMy9icvxj4R64=;
- b=UHoxbQQAOYmbhnpdpsUU4tUw8XyPGdgpP4Z3Wcnxxq4quFB50c5R+QyqWPTm4U7u5XGlyI
- pm19CNuLb+YFbzHcS1fqXaESMwJEJG0LfuXcv33ID0QP3jaydn64Vy1LaTqMYhooFX1Yzm
- LfdxKrGYks6fMPW29lLnich2+F21ka4=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-588-eLw1SBEFMk2U-5IgOPshvQ-1; Fri, 21 Mar 2025 14:38:52 -0400
-X-MC-Unique: eLw1SBEFMk2U-5IgOPshvQ-1
-X-Mimecast-MFC-AGG-ID: eLw1SBEFMk2U-5IgOPshvQ_1742582331
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-3912fe32a30so943924f8f.1
- for <qemu-rust@nongnu.org>; Fri, 21 Mar 2025 11:38:52 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
+ id 1tyzkM-0004WI-Is; Sun, 30 Mar 2025 16:59:10 -0400
+Received: from mail-ej1-x632.google.com ([2a00:1450:4864:20::632])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
+ id 1tyzkK-0007SC-KY; Sun, 30 Mar 2025 16:59:10 -0400
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-ac345bd8e13so650836366b.0; 
+ Sun, 30 Mar 2025 13:59:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1743368346; x=1743973146; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=StYftgc5iHlTGp6x4Dv1YFEFA9vPoOzDhm2ng6GqJik=;
+ b=iZy/avF2n58U+X8V6+BTOrLdxuBBLyNbjqwJZtHpyjQLNkR17vKalAmStjlxf/MiWu
+ jSDIvt8zCHmWgeFCl1vFCLRw+U8XLI2xEAAmIWYF74aod8hAWTxcF7sA3SncE1H6vPmK
+ mPXjNgWI0mFUHMF1zwV4tt/rMofYVBNNBaPrDn3xg50pmHa25zPYY08qtdXa4Z/uUb3X
+ wwsg3lmU048TiAOlwN5sWaiWSSFjVmMDm5giONPcObyVEVY1ztrWsXm0EnYbMM0NS3rk
+ +xTW7ty48hPN2c6KdUMjv4tqU1Y5kwbLZfyzMJwldMNIyUHNK+JzlY9xYsfMs2xZY1Rx
+ IGGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742582331; x=1743187131;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=QDALIBM4gMiaNAApgGYrdP8RMIx4DhGMy9icvxj4R64=;
- b=pVqCoiKzNccqpO2ZATqWOEvQdiWs5EHSrKzb2WQVh2ZiWwKgi7vgUFWhPvkT46RG0I
- 389NSo3aTx2p5QEki5PLWKveW1kkl1NzTdAMx5JIZk8uciaLjsLURMlbgC82VwTxF2De
- 6iI111RFignwr81wd/EFZr21rY5x9iuunW9iOCCKwY8xYJOVG54D2pnhqBm++ofI8o+D
- HFecGscPYLMNenwrcS06kxFfE28rTqZYoPN3Vb5TRzHw1FXcn8IkIpcASq1HAo4n/bCX
- /ZW+XRlGhJnqqvd1BFwnWRjras7vCQ2GfwmS9kR3D3ob8kn0XtloYF1LHOllgSyjUdZR
- iJhg==
+ d=1e100.net; s=20230601; t=1743368346; x=1743973146;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=StYftgc5iHlTGp6x4Dv1YFEFA9vPoOzDhm2ng6GqJik=;
+ b=CYxPKKh2EH+PEnN7Zhti09rD6K3vvRftZsNJFLB7AaFMyAX6TF8N1wSdb5HU7oUicQ
+ iC4sPdKcqkNAuuQEbbmKt2ds0UdBd4Jwt3xHJ7xfBbPp1WcNWmaPSEpmzfE7ffwt4yFo
+ p5MxuhFAso+t1fKmrcchiBtymO96cOoBpAXgyl5A/coDL1Hd2UQhRdXAJcYeVOamaGWL
+ 4vOr34qn9QqHNO/3vPcUhvmeva1ub/Td3FSaZ8E1mAsQWKdzJq6e+99VcfQS7X3htI2f
+ BJRBuduorWB+qWnzk+Wf/Iv5P07FDQwE2SGOhF5ZWOw3SeE9rNI51h1tpCkcHm37DEjR
+ ybtQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWruioJteyolXC4sZuySRapcgkFCRw3TOHkkpPd1pqVykyOGyRXyNy8dxsIW0qt+PjBeoc5MvEHnk4=@nongnu.org
-X-Gm-Message-State: AOJu0Yztw0BwE25QpHwdRttbAA7VUjMPiM+8maFcZbiGaN3CAufZsBH2
- jrttZ5yyCPBnXMYjaJnjtbtvmqDzfKuz/dp1i147CZ03qtEDgmrYf8EhJ3Mvjl0zeo9kj/aGiZo
- tWLKeN9CcWO6usAvBp+0vkWmCb5xoDeCE5t5AzoMTsv518oxWVQLDG19vymuD+AKtTWYwRrBIIm
- XZI0Vu/0iSH5ItgoM8SQykHMolwA==
-X-Gm-Gg: ASbGnctGviZUOKzjCeEi3c/rVVotSKEm0q19j3aVIVdUEJc0lgajSTZBJoVx6rWZpL0
- 1xub0QMx0WcW+MnddJ7nCs0quTxHoyEX5ETfrUPidA41bj2oeDOw4JLhtMSbSXsi8kpWX+3BjFA
- ==
-X-Received: by 2002:a5d:47c6:0:b0:391:2e31:c7e8 with SMTP id
- ffacd0b85a97d-3997f8f607emr4457096f8f.2.1742582331200; 
- Fri, 21 Mar 2025 11:38:51 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFCIlqlX66izdOh82aBOqkftva00zw5ORRhrwFy+i8UHhmqXKIrXVNggEq6yecqGglgLRpzjm9PnSGb9uorCTM=
-X-Received: by 2002:a5d:47c6:0:b0:391:2e31:c7e8 with SMTP id
- ffacd0b85a97d-3997f8f607emr4457080f8f.2.1742582330845; Fri, 21 Mar 2025
- 11:38:50 -0700 (PDT)
+ AJvYcCWsr6w4o1fW6HYLC+zh4cp2GXlPGT4wu9TJONKYNboUlb2LhGl7ZqPNQYtBeOt2IUCgC6hNT4VRFQI=@nongnu.org
+X-Gm-Message-State: AOJu0YzpoitS5n7VipXILFKY7Yg160xCr8NftVrRONJkYknVm9Xqlzxg
+ W621/DY/LjznX/WhSiGPhzKu8mbf6Mffcjt26jH4ZWzN6z4qpvV0KU6G7g==
+X-Gm-Gg: ASbGnct7P+rTqeWf8RtD4ekdIdybElD0sp439OZ87zGhwP8qzdzMc0y8SV+/oDKoB1N
+ QyLLnIIAi4CH5qw6X0zjf06ODAjS5VRW/TH31eeZ2MDoE+r6h5Ya0nPblzFgAhc242XgLJRK5QD
+ FoniIFyerrPIVeha8IY8w0CbpnLl4EfE/xsVSUkX/e/WzSKhUFo5AK26f8jEN6w7lX37O+6Xhs0
+ g4Nzpl4iITtyo+u2d7dAT+JR0w4EZIrVHAu6NXZEZJ8K2AnGKsBJ1n6T2Aa56K9+OFrp9485x3n
+ 8Z6rSd3lRqZqfrOG004U7c7KqpM+uUuF0zGnb/4nP9mbxDvvXT/vLKe6lGpi76+YYvPuhQJhNVa
+ +WaF/MMMAohc7flE9T8uDiaatQirS2IE96OEJKvcNKHCKRan2soApaBSYVvM2x2ZqJg==
+X-Google-Smtp-Source: AGHT+IEEfyCCmm1IOl+oCEhENGmsCQw0P2ZLIr4EL/dcHgNLzbyV7NQBbfKoV4ztC7X250+5Ab7gbQ==
+X-Received: by 2002:a17:907:7e96:b0:ac7:37da:cd46 with SMTP id
+ a640c23a62f3a-ac738ba8055mr532992266b.49.1743368345529; 
+ Sun, 30 Mar 2025 13:59:05 -0700 (PDT)
+Received: from localhost.localdomain
+ (dynamic-2a02-3100-2ddd-7900-0219-99ff-feb2-2458.310.pool.telefonica.de.
+ [2a02:3100:2ddd:7900:219:99ff:feb2:2458])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac71967fdbbsm520902466b.135.2025.03.30.13.59.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 30 Mar 2025 13:59:05 -0700 (PDT)
+From: Bernhard Beschow <shentey@gmail.com>
+To: qemu-devel@nongnu.org
+Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Bernhard Beschow <shentey@gmail.com>
+Subject: [PATCH 0/2] Initial logging support for Rust
+Date: Sun, 30 Mar 2025 22:58:55 +0200
+Message-ID: <20250330205857.1615-1-shentey@gmail.com>
+X-Mailer: git-send-email 2.49.0
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-References: <20250321133339.116081-1-pbonzini@redhat.com>
- <CAFEAcA_h6VDA6E1=DHN5LyuekhmXcD8JpEUEjsHboPSDK-VdAg@mail.gmail.com>
-In-Reply-To: <CAFEAcA_h6VDA6E1=DHN5LyuekhmXcD8JpEUEjsHboPSDK-VdAg@mail.gmail.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Fri, 21 Mar 2025 19:38:39 +0100
-X-Gm-Features: AQ5f1JomymMNZMaM7aFWmAs-fBOdN18RWYlADRdUPTgJsz79_irnBF8E-K8umhQ
-Message-ID: <CABgObfY3hEAUvUjEZg5cgF+-sNhZdQmBCKpDNyYBdtR3e23Obw@mail.gmail.com>
-Subject: Re: [PATCH] rust: hpet: fix decoding of timer registers
-To: Peter Maydell <peter.maydell@linaro.org>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 0c4NgmJm4bQjBnGUUVDLOnvGPirANS1UGgJQPsJbYFg_1742582331
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -23
-X-Spam_score: -2.4
+Received-SPF: pass client-ip=2a00:1450:4864:20::632;
+ envelope-from=shentey@gmail.com; helo=mail-ej1-x632.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.332,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Sun, 30 Mar 2025 17:28:21 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,22 +89,35 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Mar 2025 18:39:12 -0000
+X-List-Received-Date: Sun, 30 Mar 2025 20:59:11 -0000
 
-On Fri, Mar 21, 2025 at 3:26=E2=80=AFPM Peter Maydell <peter.maydell@linaro=
-.org> wrote:
-> Tested-by: Peter Maydell <peter.maydell@linaro.org>
-> Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
->
-> If I understand the code correctly I think you could also
-> write this as "addr & 0x1f" which might be a little nicer
-> as it then lines up with the "/ 0x20".
-
-Yeah, I was undecided between that and 0x18... in the end I went with
-0x18 because bits 0-1 are clear (due to alignment) and bit 2 is
-cleared above, and the TimerRegister enum also has "0x18" in the
-comment.
-
-Paolo
-
+This series introduces a qemu_log_mask!() macro which works similar to the =
+C=0D
+version while catering to Rust expectations. It is just a thin wrapper arou=
+nd=0D
+qemu_log(). The macro then gets used in the pl011 device which either had i=
+ts=0D
+logging commented out or relied on eprintln!() which can't be silenced by u=
+sers.=0D
+=0D
+Note that this is my first Rust contribution, so please check if the usage =
+of=0D
+`unsafe` is sound.=0D
+=0D
+Bernhard Beschow (2):=0D
+  rust/qemu-api: Add initial logging support based on C API=0D
+  rust/hw/char/pl011/src/device: Implement logging=0D
+=0D
+ docs/devel/rust.rst              |  1 +=0D
+ rust/wrapper.h                   |  2 ++=0D
+ rust/hw/char/pl011/src/device.rs | 12 ++++---=0D
+ rust/qemu-api/meson.build        |  1 +=0D
+ rust/qemu-api/src/lib.rs         |  1 +=0D
+ rust/qemu-api/src/log.rs         | 55 ++++++++++++++++++++++++++++++++=0D
+ 6 files changed, 68 insertions(+), 4 deletions(-)=0D
+ create mode 100644 rust/qemu-api/src/log.rs=0D
+=0D
+-- =0D
+2.49.0=0D
+=0D
 
