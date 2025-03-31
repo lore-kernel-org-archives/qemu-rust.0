@@ -1,85 +1,70 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tz0Cd-00042j-LH
-	for mharc-qemu-rust@gnu.org; Sun, 30 Mar 2025 17:28:23 -0400
+	id 1tzBNn-0005LV-Qt
+	for mharc-qemu-rust@gnu.org; Mon, 31 Mar 2025 05:24:40 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
- id 1tyzkN-0004WW-K7; Sun, 30 Mar 2025 16:59:13 -0400
-Received: from mail-ej1-x636.google.com ([2a00:1450:4864:20::636])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
- id 1tyzkL-0007SE-BG; Sun, 30 Mar 2025 16:59:11 -0400
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-ac25520a289so642981666b.3; 
- Sun, 30 Mar 2025 13:59:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743368346; x=1743973146; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cek3cJWsvZ6MdwbFA7s2RJwyG7zwaguVw8CQjdNA8Y0=;
- b=Ijdva06Cx4JT+QdUnk4UDNotUiBASXao5CvwbB+Sm2SHG47TnsA/rs1vt9MNwn9KeZ
- qoS8DMUmHlSQleDTET7Ls6BfndJ7hrntLR9Jur3cdKqcrp94yp0ClcrO2E80cH+OOA0O
- +NcKcSYH1RIgxe9fE13sqdPofF0SMbGP4H4MqyMGNGY9KkIXzzxMSz1FvieGu8beKfPL
- XLWFil1itnkKaz3hN+VTbzEArHaqcxS9Q//XWWiKmMQBDo3IFj9JpYr2whCKbX4V2/8E
- RBgoq+FB1UCSePBsLfSJDb3mad22ZZI9wF+vJpF7vapPree1N0ygbhS9rmAI+F9H6RZg
- 2WAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743368346; x=1743973146;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cek3cJWsvZ6MdwbFA7s2RJwyG7zwaguVw8CQjdNA8Y0=;
- b=FulwHHcZS8qRxQdoNgT4DTjXQmQrl9xRRRvsPm/UCHpeA+uy35I+WTkDbOsv+1oGo7
- rx3Op/5ifTWplCxmstGfKLRelGQPc3m7eUUrotN53Yub0hAV+6ayDbJXETCvSOoxP+Qw
- YhV+E6EprzUxzDvoqmTg/XSquBGdZ1K0s+jlp9J/998rttUhUMDDiYwojAE6ppXSLtUU
- 9MR2IkgJL3zYuyQLO8qIhBdaIZUwkETSq+NtsVFWRZPysJKjJhV2gqKOYdJKdhigQEj4
- CBkB1dS8F0+15G++hyLVTuIWO6heUxQbr5a60KyYCpfTztQ6/SntxYOAj19rZNx+h3g3
- h+zA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX/0Cf1HUDXDtSkr50wdl+PUNO0i2BXkWvweThBUIH+DgVT8cczrI3bUiYy7hqevxlHGCknmdRWrzY=@nongnu.org
-X-Gm-Message-State: AOJu0YwGsc3RyDsACXrHvh6Pwus7nJZoI78pgzRvGhOUjNzCrpnaMnIP
- vSg6hQDMxgF8E5SKN2o4KJip7opBOVKxv8SCCQeS66teycDKJEb/va2xkg==
-X-Gm-Gg: ASbGncsDvcK12CdqQP5kAJdjHgVL5otSbBH5+vdcGnM6XZTVpwLiKQcpz+mXpn56as7
- shuwGfgxquwjoSck2VXKzg2g1B+fHhYxkd6MwxcNjUHHV+X30BTEHTgZOP2ecpBtkybr0+OMRT4
- l9e77Zxc+O9Ndrt388uKqWxNlZXto/w6a+cuZsfCahralCMUdF80cfOcQX74Lkque2Oqu5CXBev
- EZLkyEhnoGI5SBk0oQM78llsIObKjMZ4J8PMrUQ3b4fHPx3vsWFtkfSypwN0x+k3hh8Fl8CIOBI
- tRRxHN2PcOyAdtjx9Gv1KiLnRX81wYnZRPE4AWXrWbFIMhRtO97VkpKNGRAuQn7nTleTkMogSEQ
- ZLhEL5+JS7aPHI+X8pV2UueZF4WgGXOd4fSxXWuMbpnC5fF0c9d2aTShLhBsTE1VqxA==
-X-Google-Smtp-Source: AGHT+IGogq+fSsWaZq0sZ9KWsNLWSqa65uXR2a2Dqd28lnZj6BYsfviZpWXUw2WnZQVgKejczoAm0Q==
-X-Received: by 2002:a17:907:981:b0:ac4:4d2:3867 with SMTP id
- a640c23a62f3a-ac738a374fbmr576726266b.23.1743368346330; 
- Sun, 30 Mar 2025 13:59:06 -0700 (PDT)
-Received: from localhost.localdomain
- (dynamic-2a02-3100-2ddd-7900-0219-99ff-feb2-2458.310.pool.telefonica.de.
- [2a02:3100:2ddd:7900:219:99ff:feb2:2458])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac71967fdbbsm520902466b.135.2025.03.30.13.59.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 30 Mar 2025 13:59:05 -0700 (PDT)
-From: Bernhard Beschow <shentey@gmail.com>
-To: qemu-devel@nongnu.org
-Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>, Bernhard Beschow <shentey@gmail.com>
-Subject: [PATCH 1/2] rust/qemu-api: Add initial logging support based on C API
-Date: Sun, 30 Mar 2025 22:58:56 +0200
-Message-ID: <20250330205857.1615-2-shentey@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250330205857.1615-1-shentey@gmail.com>
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1tzBHm-0002JE-MI
+ for qemu-rust@nongnu.org; Mon, 31 Mar 2025 05:18:32 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1tzBHk-0006iV-IJ
+ for qemu-rust@nongnu.org; Mon, 31 Mar 2025 05:18:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1743412698;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:in-reply-to:in-reply-to:  references:references;
+ bh=GkjXET07FjM5bbi5/IeeWcYftau8tEhMTEH0O+5LQ5E=;
+ b=dJXEEW3zpRly+9vOwkbw643Axap4VayWVDDvriRH/5nGmQHxcbB6oIyOi37L1Fq2DNqcPx
+ YczpqkJy3SXHtlDGPAXGkok2sedI+w/KKwtzvDjixRSBraBXM6d0QUPTxl3YxOo9eZlk/9
+ 1z9y4wpGdtv2p2jD5hWTIl3xFF3/Zzw=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-614-9SmyVgdQO9K20lZiZKGpTA-1; Mon,
+ 31 Mar 2025 05:18:14 -0400
+X-MC-Unique: 9SmyVgdQO9K20lZiZKGpTA-1
+X-Mimecast-MFC-AGG-ID: 9SmyVgdQO9K20lZiZKGpTA_1743412693
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id E329F1800265; Mon, 31 Mar 2025 09:18:11 +0000 (UTC)
+Received: from redhat.com (unknown [10.42.28.36])
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 9F20219560AD; Mon, 31 Mar 2025 09:18:09 +0000 (UTC)
+Date: Mon, 31 Mar 2025 10:18:05 +0100
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Bernhard Beschow <shentey@gmail.com>
+Cc: qemu-devel@nongnu.org,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ qemu-rust@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>
+Subject: Re: [PATCH 2/2] rust/hw/char/pl011/src/device: Implement logging
+Message-ID: <Z-pdzUBa4CrBourR@redhat.com>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 References: <20250330205857.1615-1-shentey@gmail.com>
+ <20250330205857.1615-3-shentey@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::636;
- envelope-from=shentey@gmail.com; helo=mail-ej1-x636.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20250330205857.1615-3-shentey@gmail.com>
+User-Agent: Mutt/2.2.13 (2024-03-09)
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -31
+X-Spam_score: -3.2
+X-Spam_bar: ---
+X-Spam_report: (-3.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.077,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Sun, 30 Mar 2025 17:28:21 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,136 +76,78 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Sun, 30 Mar 2025 20:59:13 -0000
+X-List-Received-Date: Mon, 31 Mar 2025 09:18:35 -0000
 
-A qemu_log_mask!() macro is provided which expects similar arguments as the C
-version. However, the formatting works as one would expect from Rust.
+On Sun, Mar 30, 2025 at 10:58:57PM +0200, Bernhard Beschow wrote:
+> Now that there is logging support in Rust for QEMU, use it in the pl011 device.
+> 
+> Signed-off-by: Bernhard Beschow <shentey@gmail.com>
+> ---
+>  rust/hw/char/pl011/src/device.rs | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
+> index bf88e0b00a..d5470fae11 100644
+> --- a/rust/hw/char/pl011/src/device.rs
+> +++ b/rust/hw/char/pl011/src/device.rs
+> @@ -8,9 +8,11 @@
+>      chardev::{CharBackend, Chardev, Event},
+>      impl_vmstate_forward,
+>      irq::{IRQState, InterruptSource},
+> +    log::{LOG_GUEST_ERROR, LOG_UNIMP},
+>      memory::{hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder},
+>      prelude::*,
+>      qdev::{Clock, ClockEvent, DeviceImpl, DeviceState, Property, ResetType, ResettablePhasesImpl},
+> +    qemu_log_mask,
+>      qom::{ObjectImpl, Owned, ParentField},
+>      static_assert,
+>      sysbus::{SysBusDevice, SysBusDeviceImpl},
+> @@ -298,8 +300,7 @@ pub(self) fn write(
+>              DMACR => {
+>                  self.dmacr = value;
+>                  if value & 3 > 0 {
+> -                    // qemu_log_mask(LOG_UNIMP, "pl011: DMA not implemented\n");
+> -                    eprintln!("pl011: DMA not implemented");
+> +                    qemu_log_mask!(LOG_UNIMP, "pl011: DMA not implemented\n");
+>                  }
+>              }
+>          }
+> @@ -535,7 +536,7 @@ fn read(&self, offset: hwaddr, _size: u32) -> u64 {
+>                  u64::from(device_id[(offset - 0xfe0) >> 2])
+>              }
+>              Err(_) => {
+> -                // qemu_log_mask(LOG_GUEST_ERROR, "pl011_read: Bad offset 0x%x\n", (int)offset);
+> +                qemu_log_mask!(LOG_GUEST_ERROR, "pl011_read: Bad offset {offset}\n");
+>                  0
+>              }
+>              Ok(field) => {
+> @@ -567,7 +568,10 @@ fn write(&self, offset: hwaddr, value: u64, _size: u32) {
+>                  .borrow_mut()
+>                  .write(field, value as u32, &self.char_backend);
+>          } else {
+> -            eprintln!("write bad offset {offset} value {value}");
+> +            qemu_log_mask!(
+> +                LOG_GUEST_ERROR,
+> +                "pl011_write: Bad offset {offset} value {value}\n"
+> +            );
+>          }
 
-To maximize code reuse the macro is just a thin wrapper around qemu_log().
-Also, just the bare minimum of logging masks is provided which should suffice
-for the current use case of Rust in QEMU.
+General conceptual question .....  I've never understood what the dividing
+line is between use of 'qemu_log_mask' and trace points. The latter can be
+optionally built to feed into qemu log, as well as the other dynamic trace
+backends.
 
-Signed-off-by: Bernhard Beschow <shentey@gmail.com>
----
- docs/devel/rust.rst       |  1 +
- rust/wrapper.h            |  2 ++
- rust/qemu-api/meson.build |  1 +
- rust/qemu-api/src/lib.rs  |  1 +
- rust/qemu-api/src/log.rs  | 55 +++++++++++++++++++++++++++++++++++++++
- 5 files changed, 60 insertions(+)
- create mode 100644 rust/qemu-api/src/log.rs
+Is there a compelling reason to use 'qemu_log', that isn't acceptable for
+trace probe points ?
 
-diff --git a/docs/devel/rust.rst b/docs/devel/rust.rst
-index 88bdec1eb2..bc50216dc6 100644
---- a/docs/devel/rust.rst
-+++ b/docs/devel/rust.rst
-@@ -187,6 +187,7 @@ module           status
- ``c_str``        complete
- ``errno``        complete
- ``irq``          complete
-+``log``          proof of concept
- ``memory``       stable
- ``module``       complete
- ``offset_of``    stable
-diff --git a/rust/wrapper.h b/rust/wrapper.h
-index d4fec54657..9518face53 100644
---- a/rust/wrapper.h
-+++ b/rust/wrapper.h
-@@ -48,6 +48,8 @@ typedef enum memory_order {
- #endif /* __CLANG_STDATOMIC_H */
- 
- #include "qemu/osdep.h"
-+#include "qemu/log.h"
-+#include "qemu/log-for-trace.h"
- #include "qemu/module.h"
- #include "qemu-io.h"
- #include "system/system.h"
-diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
-index 858685ddd4..112f6735a9 100644
---- a/rust/qemu-api/meson.build
-+++ b/rust/qemu-api/meson.build
-@@ -26,6 +26,7 @@ _qemu_api_rs = static_library(
-       'src/c_str.rs',
-       'src/errno.rs',
-       'src/irq.rs',
-+      'src/log.rs',
-       'src/memory.rs',
-       'src/module.rs',
-       'src/offset_of.rs',
-diff --git a/rust/qemu-api/src/lib.rs b/rust/qemu-api/src/lib.rs
-index 05f38b51d3..b54989a243 100644
---- a/rust/qemu-api/src/lib.rs
-+++ b/rust/qemu-api/src/lib.rs
-@@ -21,6 +21,7 @@
- pub mod chardev;
- pub mod errno;
- pub mod irq;
-+pub mod log;
- pub mod memory;
- pub mod module;
- pub mod offset_of;
-diff --git a/rust/qemu-api/src/log.rs b/rust/qemu-api/src/log.rs
-new file mode 100644
-index 0000000000..3103a86efa
---- /dev/null
-+++ b/rust/qemu-api/src/log.rs
-@@ -0,0 +1,55 @@
-+// Copyright 2025 Bernhard Beschow <shentey@gmail.com>
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+pub use crate::bindings::{LOG_GUEST_ERROR, LOG_INVALID_MEM, LOG_UNIMP};
-+
-+/// A macro to log messages conditionally based on a provided mask.
-+///
-+/// The `qemu_log_mask` macro checks whether the given mask matches the
-+/// current log level and, if so, formats and logs the message.
-+///
-+/// # Parameters
-+///
-+/// - `$mask`: The log mask to check. This should be an integer value
-+///   indicating the log level mask.
-+/// - `$fmt`: A format string following the syntax and rules of the `format!`
-+///   macro. It specifies the structure of the log message.
-+/// - `$args`: Optional arguments to be interpolated into the format string.
-+///
-+/// # Example
-+///
-+/// ```
-+/// use qemu_api::log::LOG_GUEST_ERROR;
-+///
-+/// qemu_log_mask!(
-+///     LOG_GUEST_ERROR,
-+///     "Address 0x{error_address:x} out of range\n"
-+/// );
-+/// ```
-+///
-+/// It is also possible to use printf style:
-+///
-+/// ```
-+/// use qemu_api::log::LOG_GUEST_ERROR;
-+///
-+/// qemu_log_mask!(
-+///     LOG_GUEST_ERROR,
-+///     "Address 0x{:x} out of range\n",
-+///     error_address
-+/// );
-+/// ```
-+#[macro_export]
-+macro_rules! qemu_log_mask {
-+    ($mask:expr, $fmt:expr $(, $args:expr)*) => {{
-+        if unsafe {
-+            (::qemu_api::bindings::qemu_loglevel & ($mask as std::os::raw::c_int)) != 0
-+        } {
-+            let formatted_string = format!($fmt, $($args),*);
-+            let c_string = std::ffi::CString::new(formatted_string).unwrap();
-+
-+            unsafe {
-+                ::qemu_api::bindings::qemu_log(c_string.as_ptr());
-+            }
-+        }
-+    }};
-+}
+This is an indirect way of asking whether qemu_log_mask should be exposed
+to rust, or would exposing tracing be sufficient ?
+
+With regards,
+Daniel
 -- 
-2.49.0
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
 
 
