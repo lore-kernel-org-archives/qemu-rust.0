@@ -1,68 +1,91 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tzWxz-0007hd-Tv
-	for mharc-qemu-rust@gnu.org; Tue, 01 Apr 2025 04:27:27 -0400
+	id 1tzX9z-0005wU-Ox
+	for mharc-qemu-rust@gnu.org; Tue, 01 Apr 2025 04:39:51 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1tzWxy-0007hL-7z
- for qemu-rust@nongnu.org; Tue, 01 Apr 2025 04:27:26 -0400
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tzX9x-0005vo-Hc
+ for qemu-rust@nongnu.org; Tue, 01 Apr 2025 04:39:49 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1tzWxt-0000Lm-Ki
- for qemu-rust@nongnu.org; Tue, 01 Apr 2025 04:27:25 -0400
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1tzX9v-0001jm-O1
+ for qemu-rust@nongnu.org; Tue, 01 Apr 2025 04:39:49 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1743496040;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:in-reply-to:in-reply-to:  references:references;
- bh=3fkN1pYjHsU9EtxFPbRwl9Y3AHoEMyPFV1fhUPfcGF0=;
- b=KJKQ3auuCcMj4+nB223Jyt552Z3RStvRZStm+0tEweWa5RD9lLk6uf4dUMtj7x5JvEs5Xr
- lvo5h+us5gASL30AiqfOQ5Ajxs6pZ4ftgbU43jcuojz+3Qh8F05y0DItGCi3yhXUbkLNbk
- XgC6/THqRcocBfGw737rueXAIsPnqxA=
-Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-688-0bJHg54-O-Gckbp6piClhA-1; Tue,
- 01 Apr 2025 04:27:17 -0400
-X-MC-Unique: 0bJHg54-O-Gckbp6piClhA-1
-X-Mimecast-MFC-AGG-ID: 0bJHg54-O-Gckbp6piClhA_1743496036
-Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 81D351955DC6; Tue,  1 Apr 2025 08:27:15 +0000 (UTC)
-Received: from redhat.com (unknown [10.42.28.51])
- by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id E0A1D1956094; Tue,  1 Apr 2025 08:27:11 +0000 (UTC)
-Date: Tue, 1 Apr 2025 09:27:08 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: saman <saman@enumclass.cc>
-Cc: qemu-devel@nongnu.org, Stefan Hajnoczi <stefanha@redhat.com>,
- qemu-rust@nongnu.org, Mads Ynddal <mads@ynddal.dk>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Subject: Re: [PATCH] Rust: Add tracing and logging support for Rust code
-Message-ID: <Z-ujXI126OC9lZpi@redhat.com>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-References: <20250401002633.738345-1-saman@enumclass.cc>
+ s=mimecast20190719; t=1743496785;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=R5CUnTw7XaT5k94huOQtQ6egMWSK52jbJtE05Bw6TMg=;
+ b=h876r+klp9NPwBsgOyWFOPS0Bizk+XMQ20ghtbzzL/yDCekMpWx3ii/4LU3x8WOkeihXUe
+ FEjjC1yKdU8iZl7yCv1Vr972TOSqR9NYstFdbZUnPlrROsn8DEfFpRgN/j+MLFMsC/8wvN
+ r+1+kNPJlLfT2ZdE5Myk8GH3YIShR1U=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-54-KTI4-YZMOOSvuU0a1f_B_Q-1; Tue, 01 Apr 2025 04:39:43 -0400
+X-MC-Unique: KTI4-YZMOOSvuU0a1f_B_Q-1
+X-Mimecast-MFC-AGG-ID: KTI4-YZMOOSvuU0a1f_B_Q_1743496783
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-43d51bd9b45so34086285e9.1
+ for <qemu-rust@nongnu.org>; Tue, 01 Apr 2025 01:39:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743496782; x=1744101582;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=R5CUnTw7XaT5k94huOQtQ6egMWSK52jbJtE05Bw6TMg=;
+ b=G32Zy44ahyyyYQ4PVdEHF/YBI+y11YdApyArfK0dgnZXKX/UCWJEfnnCl2sSzdzDF+
+ BGms1x+uz3aQK0FIhp8jeNOIDa5ljbUXPV8t3l4KvV4kmwKBqXzjpIZqMtqQuUHjmyZO
+ 7bcO5TDw+LjkBOYuO52cjbYA27eV+VfbylcUrk5+lS0H3Yrsi/4TCdJVjDaFVljUfNaf
+ HZasy4calpTDYCiu26vm7/S5ei5/wOztxbfRbtMu+ZfIO+PdgdfSmObfQYkjiBIotRBa
+ 038ruPik/Jhqa/7ddkdHx4bFhBFQVYXBfWMYqKW7F3kS7ghJgGYhoe1xdl7v9MfISQiJ
+ FToQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVhIfmk5+vANo+DrK/7KKqwoLiwTo+dqqKXXBKQP8Pbha8QrdViTCTmkU9Ef96T2uCgYBllcAmIzu8=@nongnu.org
+X-Gm-Message-State: AOJu0Yz7AdFB5daVRw7zZbuHB3WduhoyqZYHWZII6rm8vGmyqLmHJjt9
+ PNfZfDZNkRcF2yusobvvrlBODZVYkjNPmh04ccy3K+wPfusfuVD4Xujv8wqa0QeNIv+wp59EdhL
+ BTINtas6sF6Q5hXbCG3Ohg3Y0fq9dukR27k6eHaq7sdR3dLZ5aI9p7RJKywHGks7XZRubP4BIIS
+ B6F2cxnhW+imTtjXJMb2XxVumtvw==
+X-Gm-Gg: ASbGncuEqrsH5lm2MZlN57D2nTKhrkdXySbhVDjt2kQ/5sKaSdklerzyoMGVpZZ17Nz
+ fmpwMxC3Lr3OMEd6FTDTwBE/T7nDlIO75gSAt+y7Zvrg1YhR2/+gbVpmruO2yuL1brKGQ2xHhU3
+ o=
+X-Received: by 2002:a05:600c:a087:b0:43c:fe5e:f040 with SMTP id
+ 5b1f17b1804b1-43ea7cc3841mr18843305e9.23.1743496782611; 
+ Tue, 01 Apr 2025 01:39:42 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE0kwY5dhCkHMW9G5dKBr8YPgzHbkoG1f30MbBmjyMJOAnDXikeQGw9fBRU7sId9Emw+vGv3P5g3wE01mk/R6E=
+X-Received: by 2002:a05:600c:a087:b0:43c:fe5e:f040 with SMTP id
+ 5b1f17b1804b1-43ea7cc3841mr18843075e9.23.1743496782268; Tue, 01 Apr 2025
+ 01:39:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250401002633.738345-1-saman@enumclass.cc>
-User-Agent: Mutt/2.2.13 (2024-03-09)
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
+References: <20250401002633.738345-1-saman@enumclass.cc>
+ <Z-ujXI126OC9lZpi@redhat.com>
+In-Reply-To: <Z-ujXI126OC9lZpi@redhat.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Tue, 1 Apr 2025 10:39:31 +0200
+X-Gm-Features: AQ5f1JqsI5Wk-7grYWKZhpRc4wqm-WONUiUiQku6LhaeV6zNKQqFIfJkzJBTEdU
+Message-ID: <CABgObfYNWPfeh67etsjaqeCf-5WvRqiAo3+czPpu37_=3buq-w@mail.gmail.com>
+Subject: Re: [PATCH] Rust: Add tracing and logging support for Rust code
+To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
+Cc: saman <saman@enumclass.cc>, qemu-devel <qemu-devel@nongnu.org>, 
+ Stefan Hajnoczi <stefanha@redhat.com>, qemu-rust@nongnu.org,
+ Mads Ynddal <mads@ynddal.dk>, 
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: VltOiLZt5wHT9hk6Edvwx8pvwFi2Ew9okU8jmstEFrQ_1743496783
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/alternative; boundary="0000000000005ff02e0631b37aa3"
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -32
 X-Spam_score: -3.3
 X-Spam_bar: ---
 X-Spam_report: (-3.3 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.198,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -75,105 +98,107 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Apr 2025 08:27:27 -0000
+X-List-Received-Date: Tue, 01 Apr 2025 08:39:49 -0000
 
-On Mon, Mar 31, 2025 at 07:26:33PM -0500, saman wrote:
-> This change introduces initial support for tracing and logging in Rust-based
-> QEMU code. As an example, tracing and logging have been implemented in the
-> pl011 device, which is written in Rust.
-> 
-> - Updated `rust/wrapper.h` to include the `qemu/log.h` and `hw/char/trace.h` header.
-> - Added log.rs to wrap `qemu_log_mask` and `qemu_log_mask_and_addr`
-> - Modified `tracetool` scripts to move C function implementation from
->   header to .c
-> - Added log and trace in rust version of PL011 device
-> 
-> Future enhancements could include generating idiomatic Rust APIs for tracing
-> using the tracetool scripts
-> 
-> Signed-off-by: saman <saman@enumclass.cc>
-> ---
->  include/qemu/log-for-trace.h        |  5 +--
->  rust/hw/char/pl011/src/device.rs    | 34 +++++++++++++++---
->  rust/hw/char/pl011/src/registers.rs | 20 +++++++++++
->  rust/qemu-api/meson.build           |  1 +
->  rust/qemu-api/src/lib.rs            |  1 +
->  rust/qemu-api/src/log.rs            | 54 +++++++++++++++++++++++++++++
->  rust/wrapper.h                      |  2 ++
->  scripts/tracetool/format/c.py       | 16 +++++++++
->  scripts/tracetool/format/h.py       | 11 ++----
->  util/log.c                          |  5 +++
->  10 files changed, 131 insertions(+), 18 deletions(-)
->  create mode 100644 rust/qemu-api/src/log.rs
-> 
-> diff --git a/scripts/tracetool/format/c.py b/scripts/tracetool/format/c.py
-> index 69edf0d588..f2d383f89c 100644
-> --- a/scripts/tracetool/format/c.py
-> +++ b/scripts/tracetool/format/c.py
-> @@ -43,6 +43,22 @@ def generate(events, backend, group):
->              sstate = "TRACE_%s_ENABLED" % e.name.upper(),
->              dstate = e.api(e.QEMU_DSTATE))
->  
-> +        cond = "true"
-> +
-> +        out('',
-> +            'void %(api)s(%(args)s)',
-> +            '{',
-> +            '    if (%(cond)s) {',
-> +            '        %(api_nocheck)s(%(names)s);',
-> +            '    }',
-> +            '}',
-> +            api=e.api(),
-> +            api_nocheck=e.api(e.QEMU_TRACE_NOCHECK),
-> +            args=e.args,
-> +            names=", ".join(e.args.names()),
-> +            cond=cond
-> +            )
-> +
->      out('TraceEvent *%(group)s_trace_events[] = {',
->          group = group.lower())
->  
-> diff --git a/scripts/tracetool/format/h.py b/scripts/tracetool/format/h.py
-> index ea126b07ea..16b360ae49 100644
-> --- a/scripts/tracetool/format/h.py
-> +++ b/scripts/tracetool/format/h.py
-> @@ -74,17 +74,10 @@ def generate(events, backend, group):
->          cond = "true"
->  
->          out('',
-> -            'static inline void %(api)s(%(args)s)',
-> -            '{',
-> -            '    if (%(cond)s) {',
-> -            '        %(api_nocheck)s(%(names)s);',
-> -            '    }',
-> -            '}',
-> +            'void %(api)s(%(args)s);',
->              api=e.api(),
-> -            api_nocheck=e.api(e.QEMU_TRACE_NOCHECK),
->              args=e.args,
-> -            names=", ".join(e.args.names()),
-> -            cond=cond)
-> +            )
->  
->      backend.generate_end(events, group)
+--0000000000005ff02e0631b37aa3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Il mar 1 apr 2025, 10:27 Daniel P. Berrang=C3=A9 <berrange@redhat.com> ha
+scritto:
+
+> This is a non-trivial degradation for the tracing code. The code is
+> generated in an inline function in the header so that when a probe
+> point is not active, it has as little overhead as possible - with
+> some backends it will just a 'nop' instruction.  With this change
+> every probe is turned into a function call with no possiblity to
+> optimize away this overhead.
+>
+> IMHO tracing in Rust needs to be done by generating native Rust
+> code for the (sub)set of trace  backends that we care about, and
+> not attempt to wrap the C trace code from Rust.
 >
 
-This is a non-trivial degradation for the tracing code. The code is
-generated in an inline function in the header so that when a probe
-point is not active, it has as little overhead as possible - with
-some backends it will just a 'nop' instruction.  With this change
-every probe is turned into a function call with no possiblity to
-optimize away this overhead.
+A little bit of both. Moving the body of the tracing to a C out-of-line
+function is okay: easier than converting printf strings to Rust format
+strings and possibly *more* efficient. The condition must remain inline
+though.
 
-IMHO tracing in Rust needs to be done by generating native Rust
-code for the (sub)set of trace  backends that we care about, and
-not attempt to wrap the C trace code from Rust.
+Also, the focus should be on what the Rust API should look like, not on
+throwing some code on the other side of the fence. Introducing a second
+language has the risk of introducing massive technical debt, and therefore
+requires some design work. Tracing and logging is certainly not a one-patch
+task.
+
+Paolo
 
 With regards,
-Daniel
--- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
+> Daniel
+> --
+> |: https://berrange.com      -o-
+> https://www.flickr.com/photos/dberrange :|
+> |: https://libvirt.org         -o-
+> https://fstop138.berrange.com :|
+> |: https://entangle-photo.org    -o-
+> https://www.instagram.com/dberrange :|
+>
+>
+>
+
+--0000000000005ff02e0631b37aa3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
+ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mar 1 apr 2025, 10:27 Daniel =
+P. Berrang=C3=A9 &lt;<a href=3D"mailto:berrange@redhat.com">berrange@redhat=
+.com</a>&gt; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">This is a non-trivial degradation for the tracing code. The code=
+ is<br>
+generated in an inline function in the header so that when a probe<br>
+point is not active, it has as little overhead as possible - with<br>
+some backends it will just a &#39;nop&#39; instruction.=C2=A0 With this cha=
+nge<br>
+every probe is turned into a function call with no possiblity to<br>
+optimize away this overhead.<br>
+<br>
+IMHO tracing in Rust needs to be done by generating native Rust<br>
+code for the (sub)set of trace=C2=A0 backends that we care about, and<br>
+not attempt to wrap the C trace code from Rust.<br></blockquote></div></div=
+><div dir=3D"auto"><br></div><div dir=3D"auto">A little bit of both. Moving=
+ the body of the tracing to a C out-of-line function is okay: easier than c=
+onverting printf strings to Rust format strings and possibly *more* efficie=
+nt. The condition must remain inline though.</div><div dir=3D"auto"><br></d=
+iv><div dir=3D"auto">Also, the focus should be on what the Rust API should =
+look like, not on throwing some code on the other side of the fence. Introd=
+ucing a second language has the risk of introducing massive technical debt,=
+ and therefore requires some design work. Tracing and logging is certainly =
+not a one-patch task.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Pa=
+olo</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_=
+quote gmail_quote_container"><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex">
+With regards,<br>
+Daniel<br>
+-- <br>
+|: <a href=3D"https://berrange.com" rel=3D"noreferrer noreferrer" target=3D=
+"_blank">https://berrange.com</a>=C2=A0 =C2=A0 =C2=A0 -o-=C2=A0 =C2=A0 <a h=
+ref=3D"https://www.flickr.com/photos/dberrange" rel=3D"noreferrer noreferre=
+r" target=3D"_blank">https://www.flickr.com/photos/dberrange</a> :|<br>
+|: <a href=3D"https://libvirt.org" rel=3D"noreferrer noreferrer" target=3D"=
+_blank">https://libvirt.org</a>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0-o-=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <a href=3D"https://fstop138.berrange.com=
+" rel=3D"noreferrer noreferrer" target=3D"_blank">https://fstop138.berrange=
+.com</a> :|<br>
+|: <a href=3D"https://entangle-photo.org" rel=3D"noreferrer noreferrer" tar=
+get=3D"_blank">https://entangle-photo.org</a>=C2=A0 =C2=A0 -o-=C2=A0 =C2=A0=
+ <a href=3D"https://www.instagram.com/dberrange" rel=3D"noreferrer noreferr=
+er" target=3D"_blank">https://www.instagram.com/dberrange</a> :|<br>
+<br>
+<br>
+</blockquote></div></div></div>
+
+--0000000000005ff02e0631b37aa3--
 
 
