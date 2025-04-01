@@ -1,90 +1,82 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tzX9z-0005wU-Ox
-	for mharc-qemu-rust@gnu.org; Tue, 01 Apr 2025 04:39:51 -0400
+	id 1tza3Q-00036C-9z
+	for mharc-qemu-rust@gnu.org; Tue, 01 Apr 2025 07:45:16 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tzX9x-0005vo-Hc
- for qemu-rust@nongnu.org; Tue, 01 Apr 2025 04:39:49 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1tzX9v-0001jm-O1
- for qemu-rust@nongnu.org; Tue, 01 Apr 2025 04:39:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1743496785;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=R5CUnTw7XaT5k94huOQtQ6egMWSK52jbJtE05Bw6TMg=;
- b=h876r+klp9NPwBsgOyWFOPS0Bizk+XMQ20ghtbzzL/yDCekMpWx3ii/4LU3x8WOkeihXUe
- FEjjC1yKdU8iZl7yCv1Vr972TOSqR9NYstFdbZUnPlrROsn8DEfFpRgN/j+MLFMsC/8wvN
- r+1+kNPJlLfT2ZdE5Myk8GH3YIShR1U=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-54-KTI4-YZMOOSvuU0a1f_B_Q-1; Tue, 01 Apr 2025 04:39:43 -0400
-X-MC-Unique: KTI4-YZMOOSvuU0a1f_B_Q-1
-X-Mimecast-MFC-AGG-ID: KTI4-YZMOOSvuU0a1f_B_Q_1743496783
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-43d51bd9b45so34086285e9.1
- for <qemu-rust@nongnu.org>; Tue, 01 Apr 2025 01:39:43 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
+ id 1tza3H-0002c5-0e; Tue, 01 Apr 2025 07:45:07 -0400
+Received: from mail-ed1-x52d.google.com ([2a00:1450:4864:20::52d])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
+ id 1tza3E-0003kq-MN; Tue, 01 Apr 2025 07:45:06 -0400
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5deb6482cso11575152a12.1; 
+ Tue, 01 Apr 2025 04:45:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1743507901; x=1744112701; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xkjqRIowxFnTqYWsqxNLtB4fGkcNFUW57Tm2wP1HwOA=;
+ b=N+WZwHE9RUYSLzjZzxMSHmEIkViaoWLohO81uBAelc2QF/WMtBYuOBHZV6pXJBEmml
+ R0335FIwOtKY4BAuinNytiiLtfzdHzuAGA2dBdhajS4kAXj2CsArLs6WTWKFmcuNcKCH
+ eaWtPti6/rQKaoAF2/1j/GiVSgDd+23Xdv/Yri0tGDjxgxNZxC9HgZGBPhMy0sOKIduB
+ Av38dZ3M3UnEXdAHWI3nbuV1aoaen9Iux4n5CbQNieu4BXj3B4eEOsiiV8G6ZEgDVPNJ
+ BsKY2MxWJESxrtZr6ooI1d4g7C1LN8LzWy+juNrljl0eKST8pm6FyrDTlRcjfC4B2/xy
+ pn2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743496782; x=1744101582;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=R5CUnTw7XaT5k94huOQtQ6egMWSK52jbJtE05Bw6TMg=;
- b=G32Zy44ahyyyYQ4PVdEHF/YBI+y11YdApyArfK0dgnZXKX/UCWJEfnnCl2sSzdzDF+
- BGms1x+uz3aQK0FIhp8jeNOIDa5ljbUXPV8t3l4KvV4kmwKBqXzjpIZqMtqQuUHjmyZO
- 7bcO5TDw+LjkBOYuO52cjbYA27eV+VfbylcUrk5+lS0H3Yrsi/4TCdJVjDaFVljUfNaf
- HZasy4calpTDYCiu26vm7/S5ei5/wOztxbfRbtMu+ZfIO+PdgdfSmObfQYkjiBIotRBa
- 038ruPik/Jhqa/7ddkdHx4bFhBFQVYXBfWMYqKW7F3kS7ghJgGYhoe1xdl7v9MfISQiJ
- FToQ==
+ d=1e100.net; s=20230601; t=1743507901; x=1744112701;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=xkjqRIowxFnTqYWsqxNLtB4fGkcNFUW57Tm2wP1HwOA=;
+ b=Z1cwKwlQk0vc6HMA641I0grAmwj2S8C8i756XmRjNfOr/OTMVxo7TyihtUAFc39U6W
+ uYM49Awh7ynyU5l60BbPnud/mbFMB51CnYunmoB/wtq+dxLBhXwAEhHivsCvR89nyR+W
+ 05TFp31jTNxB2duQInZlPkENKBkWm0UFd3lKfTWDjw1Ato4WZWKlNKBFxYXrclcDj+8L
+ TAoLaYNVVaJfrmsLFWB1Dlpkhd6C48i4Yd468gaPX5a6O+szB8cDzuR0N8WZpaf317qE
+ dAzX71zSMSA4qi8FE4ytJr3IO4DcrOlmiJWaxRJQODXqDbTfQfxzvEcUA/YU5Cnu1gh9
+ 6Ulg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVhIfmk5+vANo+DrK/7KKqwoLiwTo+dqqKXXBKQP8Pbha8QrdViTCTmkU9Ef96T2uCgYBllcAmIzu8=@nongnu.org
-X-Gm-Message-State: AOJu0Yz7AdFB5daVRw7zZbuHB3WduhoyqZYHWZII6rm8vGmyqLmHJjt9
- PNfZfDZNkRcF2yusobvvrlBODZVYkjNPmh04ccy3K+wPfusfuVD4Xujv8wqa0QeNIv+wp59EdhL
- BTINtas6sF6Q5hXbCG3Ohg3Y0fq9dukR27k6eHaq7sdR3dLZ5aI9p7RJKywHGks7XZRubP4BIIS
- B6F2cxnhW+imTtjXJMb2XxVumtvw==
-X-Gm-Gg: ASbGncuEqrsH5lm2MZlN57D2nTKhrkdXySbhVDjt2kQ/5sKaSdklerzyoMGVpZZ17Nz
- fmpwMxC3Lr3OMEd6FTDTwBE/T7nDlIO75gSAt+y7Zvrg1YhR2/+gbVpmruO2yuL1brKGQ2xHhU3
- o=
-X-Received: by 2002:a05:600c:a087:b0:43c:fe5e:f040 with SMTP id
- 5b1f17b1804b1-43ea7cc3841mr18843305e9.23.1743496782611; 
- Tue, 01 Apr 2025 01:39:42 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE0kwY5dhCkHMW9G5dKBr8YPgzHbkoG1f30MbBmjyMJOAnDXikeQGw9fBRU7sId9Emw+vGv3P5g3wE01mk/R6E=
-X-Received: by 2002:a05:600c:a087:b0:43c:fe5e:f040 with SMTP id
- 5b1f17b1804b1-43ea7cc3841mr18843075e9.23.1743496782268; Tue, 01 Apr 2025
- 01:39:42 -0700 (PDT)
+ AJvYcCVPjam1i5OdwFODxCwH+uHeWr2e/vBH2b8t2AxhaTGLZ8K6f5M7z0I8SWP7ca9ZyWBZieSqLhzqaIpg@nongnu.org,
+ AJvYcCWkJzjW1f2TQTMtavJfkFjJg6a/nrlNZV03c3GvgJQOgbz7D3/gW8ebacFQWXx90j6tsKuXbyLcrkEl@nongnu.org
+X-Gm-Message-State: AOJu0YwoPOV0N7eD2DW08+JwpMnGy/3BW1QNzuNDdSqrUcVetPXMtKbQ
+ IntF/z4B0i/Qj7bc9DOyx2ZpPB461bU1WcZMGnHdpiJDNznAUb3s
+X-Gm-Gg: ASbGncuiAUb1BCX67Kl63poHJkAvavNTaDLFEDGblzXiKWvRl6cBHTwJoGNkLfJRdO/
+ exNMQiBm3zQDFi6u7nqkebiR73TFORZGgdfGdfJVZgb57ZiGtm3M8A9ZzXKkCFIgev+pLteEEPO
+ nvnGFk2Aq1F2eyypVdxgvlNRZJq3cYH2LZS79l/PFd0ytLrd/bqnMRCxhpiwuDwqJDeYE3brRlp
+ ZJ+coquB4z6C1/GwnTra/+LY3fXehOHSY7pIhM3SeoG6OSnG+chrPdUMCxmP/KIU8R5EcR12iAx
+ kk0ZDchiMGlaqv5ErPY6hl1ypzT+X52mXyxDKUkS
+X-Google-Smtp-Source: AGHT+IHiedffj/SqKwpxqtaZ6rV/M49KooBe+OYB0KXRjJ5whYSY3LK9aNzukVhDCtvBzkiixZnsUw==
+X-Received: by 2002:a05:6402:35ca:b0:5ec:cb95:c3ce with SMTP id
+ 4fb4d7f45d1cf-5edf5321d0dmr10770071a12.1.1743507900947; 
+ Tue, 01 Apr 2025 04:45:00 -0700 (PDT)
+Received: from [127.0.0.1] ([90.187.110.129]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5edc16f02bdsm7009754a12.43.2025.04.01.04.45.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 01 Apr 2025 04:45:00 -0700 (PDT)
+Date: Tue, 01 Apr 2025 10:51:06 +0000
+From: Bernhard Beschow <shentey@gmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
+CC: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_1/2=5D_rust/qemu-api=3A_Add_i?=
+ =?US-ASCII?Q?nitial_logging_support_based_on_C_API?=
+In-Reply-To: <340649cf-9348-458d-97e7-aee73c02217c@redhat.com>
+References: <20250330205857.1615-1-shentey@gmail.com>
+ <20250330205857.1615-2-shentey@gmail.com>
+ <340649cf-9348-458d-97e7-aee73c02217c@redhat.com>
+Message-ID: <540905F9-7DF7-436F-905C-A7F225F5E156@gmail.com>
 MIME-Version: 1.0
-References: <20250401002633.738345-1-saman@enumclass.cc>
- <Z-ujXI126OC9lZpi@redhat.com>
-In-Reply-To: <Z-ujXI126OC9lZpi@redhat.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 1 Apr 2025 10:39:31 +0200
-X-Gm-Features: AQ5f1JqsI5Wk-7grYWKZhpRc4wqm-WONUiUiQku6LhaeV6zNKQqFIfJkzJBTEdU
-Message-ID: <CABgObfYNWPfeh67etsjaqeCf-5WvRqiAo3+czPpu37_=3buq-w@mail.gmail.com>
-Subject: Re: [PATCH] Rust: Add tracing and logging support for Rust code
-To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
-Cc: saman <saman@enumclass.cc>, qemu-devel <qemu-devel@nongnu.org>, 
- Stefan Hajnoczi <stefanha@redhat.com>, qemu-rust@nongnu.org,
- Mads Ynddal <mads@ynddal.dk>, 
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: VltOiLZt5wHT9hk6Edvwx8pvwFi2Ew9okU8jmstEFrQ_1743496783
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="0000000000005ff02e0631b37aa3"
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -32
-X-Spam_score: -3.3
-X-Spam_bar: ---
-X-Spam_report: (-3.3 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.198,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
- RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::52d;
+ envelope-from=shentey@gmail.com; helo=mail-ed1-x52d.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -98,107 +90,96 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Apr 2025 08:39:49 -0000
+X-List-Received-Date: Tue, 01 Apr 2025 11:45:13 -0000
 
---0000000000005ff02e0631b37aa3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Il mar 1 apr 2025, 10:27 Daniel P. Berrang=C3=A9 <berrange@redhat.com> ha
-scritto:
 
-> This is a non-trivial degradation for the tracing code. The code is
-> generated in an inline function in the header so that when a probe
-> point is not active, it has as little overhead as possible - with
-> some backends it will just a 'nop' instruction.  With this change
-> every probe is turned into a function call with no possiblity to
-> optimize away this overhead.
+Am 31=2E M=C3=A4rz 2025 09:53:41 UTC schrieb Paolo Bonzini <pbonzini@redha=
+t=2Ecom>:
+>On 3/30/25 22:58, Bernhard Beschow wrote:
+>> A qemu_log_mask!() macro is provided which expects similar arguments as=
+ the C
+>> version=2E However, the formatting works as one would expect from Rust=
+=2E
+>>=20
+>> To maximize code reuse the macro is just a thin wrapper around qemu_log=
+()=2E
+>> Also, just the bare minimum of logging masks is provided which should s=
+uffice
+>> for the current use case of Rust in QEMU=2E
 >
-> IMHO tracing in Rust needs to be done by generating native Rust
-> code for the (sub)set of trace  backends that we care about, and
-> not attempt to wrap the C trace code from Rust.
+>It's probably better to use an enum for this=2E  One possibility is also =
+to change the #defines to a C enum, and see which enum translation of the s=
+everal allowed by bindgen is best=2E
+
+Currently the #defines contain some holes for "private" mask bits=2E Turni=
+ng these into an enum without exposing all publicly, and changing the type =
+of qemu_loglevel for consistency, would result in undefined behavior=2E Or =
+do you suggest to convert just the public #defines into an enum to expose t=
+hem to Rust, and keep the rest of the C API including the type of qemu_logl=
+evel as is?
+
+There are surely several tradeoffs and/or cleanups possible here, but that=
+'s way beyond for what I wanted to achieve -- which is closing a gap betwee=
+n C and Rust=2E My main goal is just to get my feet wet with Rust=2E
+
 >
+>Also, while this is good for now, later on we probably want to reimplemen=
+t logging at a lower level via the std::fmt::Write trait=2E  But that's jus=
+t for efficiency and your macro is indeed good enough to define what the AP=
+I would look like=2E
 
-A little bit of both. Moving the body of the tracing to a C out-of-line
-function is okay: easier than converting printf strings to Rust format
-strings and possibly *more* efficient. The condition must remain inline
-though.
+Can we live with an easy solution then for now? As you suggest below, furt=
+her abstractions like log_guest_error! can be built on top which further in=
+sulates client code from implementation details such as the representation =
+of the mask bits=2E
 
-Also, the focus should be on what the Rust API should look like, not on
-throwing some code on the other side of the fence. Introducing a second
-language has the risk of introducing massive technical debt, and therefore
-requires some design work. Tracing and logging is certainly not a one-patch
-task.
+> Right now I have a project for GSoC that will look at that, and the stud=
+ent can look into it later on=2E
 
-Paolo
+Whoops, I didn't intend to spoil the project=2E
 
-With regards,
-> Daniel
-> --
-> |: https://berrange.com      -o-
-> https://www.flickr.com/photos/dberrange :|
-> |: https://libvirt.org         -o-
-> https://fstop138.berrange.com :|
-> |: https://entangle-photo.org    -o-
-> https://www.instagram.com/dberrange :|
 >
+>This means answering the following two questions:
 >
+>- the mapping the LOG_* constants into Rust
 >
+>- whether to keep the "qemu" prefix for the API (personal opinion: no)
+>
+>- whether it makes sense to add more macros such as log_guest_error! or l=
+og_unimp! for the most common LOG_* values
+>
+>> +#[macro_export]
+>> +macro_rules! qemu_log_mask {
+>> +    ($mask:expr, $fmt:expr $(, $args:expr)*) =3D> {{
+>
+>Looking at https://doc=2Erust-lang=2Eorg/std/macro=2Ewrite=2Ehtml they ju=
+st use $($arg:tt)* for what is passed to format_args! (or in your case form=
+at!), so we can do the same here too=2E The main advantage is that it allow=
+s giving a trailing comma to qemu_log_mask!=2E
 
---0000000000005ff02e0631b37aa3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Easy to fix=2E Before proceeding I'd like to see a solution for the topic =
+above=2E
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
-ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mar 1 apr 2025, 10:27 Daniel =
-P. Berrang=C3=A9 &lt;<a href=3D"mailto:berrange@redhat.com">berrange@redhat=
-.com</a>&gt; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">This is a non-trivial degradation for the tracing code. The code=
- is<br>
-generated in an inline function in the header so that when a probe<br>
-point is not active, it has as little overhead as possible - with<br>
-some backends it will just a &#39;nop&#39; instruction.=C2=A0 With this cha=
-nge<br>
-every probe is turned into a function call with no possiblity to<br>
-optimize away this overhead.<br>
-<br>
-IMHO tracing in Rust needs to be done by generating native Rust<br>
-code for the (sub)set of trace=C2=A0 backends that we care about, and<br>
-not attempt to wrap the C trace code from Rust.<br></blockquote></div></div=
-><div dir=3D"auto"><br></div><div dir=3D"auto">A little bit of both. Moving=
- the body of the tracing to a C out-of-line function is okay: easier than c=
-onverting printf strings to Rust format strings and possibly *more* efficie=
-nt. The condition must remain inline though.</div><div dir=3D"auto"><br></d=
-iv><div dir=3D"auto">Also, the focus should be on what the Rust API should =
-look like, not on throwing some code on the other side of the fence. Introd=
-ucing a second language has the risk of introducing massive technical debt,=
- and therefore requires some design work. Tracing and logging is certainly =
-not a one-patch task.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Pa=
-olo</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_=
-quote gmail_quote_container"><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
-ex">
-With regards,<br>
-Daniel<br>
--- <br>
-|: <a href=3D"https://berrange.com" rel=3D"noreferrer noreferrer" target=3D=
-"_blank">https://berrange.com</a>=C2=A0 =C2=A0 =C2=A0 -o-=C2=A0 =C2=A0 <a h=
-ref=3D"https://www.flickr.com/photos/dberrange" rel=3D"noreferrer noreferre=
-r" target=3D"_blank">https://www.flickr.com/photos/dberrange</a> :|<br>
-|: <a href=3D"https://libvirt.org" rel=3D"noreferrer noreferrer" target=3D"=
-_blank">https://libvirt.org</a>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0-o-=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <a href=3D"https://fstop138.berrange.com=
-" rel=3D"noreferrer noreferrer" target=3D"_blank">https://fstop138.berrange=
-.com</a> :|<br>
-|: <a href=3D"https://entangle-photo.org" rel=3D"noreferrer noreferrer" tar=
-get=3D"_blank">https://entangle-photo.org</a>=C2=A0 =C2=A0 -o-=C2=A0 =C2=A0=
- <a href=3D"https://www.instagram.com/dberrange" rel=3D"noreferrer noreferr=
-er" target=3D"_blank">https://www.instagram.com/dberrange</a> :|<br>
-<br>
-<br>
-</blockquote></div></div></div>
+Best regards,
+Bernhard
 
---0000000000005ff02e0631b37aa3--
-
+>
+>Paolo
+>
+>> +        if unsafe {
+>> +            (::qemu_api::bindings::qemu_loglevel & ($mask as std::os::=
+raw::c_int)) !=3D 0
+>> +        } {
+>> +            let formatted_string =3D format!($fmt, $($args),*);
+>> +            let c_string =3D std::ffi::CString::new(formatted_string)=
+=2Eunwrap();
+>> +
+>> +            unsafe {
+>> +                ::qemu_api::bindings::qemu_log(c_string=2Eas_ptr());
+>> +            }
+>> +        }
+>> +    }};
+>> +}
+>
 
