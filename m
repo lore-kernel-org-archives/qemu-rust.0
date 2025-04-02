@@ -1,75 +1,52 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1tzy8Z-0006Fs-A5
-	for mharc-qemu-rust@gnu.org; Wed, 02 Apr 2025 09:28:11 -0400
+	id 1tzzuU-00026x-FZ
+	for mharc-qemu-rust@gnu.org; Wed, 02 Apr 2025 11:21:46 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1tzy8W-0006FK-2A
- for qemu-rust@nongnu.org; Wed, 02 Apr 2025 09:28:08 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <balaton@eik.bme.hu>)
+ id 1tzyqy-0000OM-Q7; Wed, 02 Apr 2025 10:14:05 -0400
+Received: from zero.eik.bme.hu ([152.66.115.2])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1tzy8U-0003If-1s
- for qemu-rust@nongnu.org; Wed, 02 Apr 2025 09:28:07 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1743600483;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8qfRIeAESGeZFJXAlbOu6CfoBUhErKBTeCV993DaC8w=;
- b=U+nZCJp70YnQ4L1Iboc3mHDHw3Ep1dxzgBIZ5mKw5jGds4EDH+dsA39nhTgRmlUjrI0j3m
- ZoyWi4+9wlJ7wpCbT5ObBhd0t4tntbla/39HANE9McKQWs7TdLtVMgfLaCnntGLz2eX/zS
- B+hjlXURajbBOF8Df3jcygzjYWXRdTA=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-324-NvFedUO8PS2EneiR-0r1NA-1; Wed,
- 02 Apr 2025 09:27:59 -0400
-X-MC-Unique: NvFedUO8PS2EneiR-0r1NA-1
-X-Mimecast-MFC-AGG-ID: NvFedUO8PS2EneiR-0r1NA_1743600478
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 3A898180AF55; Wed,  2 Apr 2025 13:27:58 +0000 (UTC)
-Received: from redhat.com (unknown [10.42.28.12])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id B91B33000701; Wed,  2 Apr 2025 13:27:56 +0000 (UTC)
-Date: Wed, 2 Apr 2025 14:27:53 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+ (Exim 4.90_1) (envelope-from <balaton@eik.bme.hu>)
+ id 1tzyqq-0003mV-Q5; Wed, 02 Apr 2025 10:14:03 -0400
+Received: from zero.eik.bme.hu (localhost [127.0.0.1])
+ by zero.eik.bme.hu (Postfix) with ESMTP id 723494E6069;
+ Wed, 02 Apr 2025 16:13:53 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at eik.bme.hu
+Received: from zero.eik.bme.hu ([127.0.0.1])
+ by zero.eik.bme.hu (zero.eik.bme.hu [127.0.0.1]) (amavisd-new, port 10028)
+ with ESMTP id GNMjZdQ41POn; Wed,  2 Apr 2025 16:13:51 +0200 (CEST)
+Received: by zero.eik.bme.hu (Postfix, from userid 432)
+ id 7879F4E6067; Wed, 02 Apr 2025 16:13:51 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by zero.eik.bme.hu (Postfix) with ESMTP id 763A074577C;
+ Wed, 02 Apr 2025 16:13:51 +0200 (CEST)
+Date: Wed, 2 Apr 2025 16:13:51 +0200 (CEST)
+From: BALATON Zoltan <balaton@eik.bme.hu>
 To: Bernhard Beschow <shentey@gmail.com>
-Cc: qemu-devel@nongnu.org,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- qemu-rust@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>
+cc: =?ISO-8859-15?Q?Daniel_P=2E_Berrang=E9?= <berrange@redhat.com>, 
+ qemu-devel@nongnu.org, 
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org, 
+ Paolo Bonzini <pbonzini@redhat.com>
 Subject: Re: [PATCH 2/2] rust/hw/char/pl011/src/device: Implement logging
-Message-ID: <Z-07WTw4PHHKhfxU@redhat.com>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+In-Reply-To: <318E2A13-A163-434B-B18A-8A260CD3BC27@gmail.com>
+Message-ID: <9296d4f2-c23b-e55e-b8d5-7f14f0eb15c1@eik.bme.hu>
 References: <20250330205857.1615-1-shentey@gmail.com>
- <20250330205857.1615-3-shentey@gmail.com>
- <Z-pdzUBa4CrBourR@redhat.com>
+ <20250330205857.1615-3-shentey@gmail.com> <Z-pdzUBa4CrBourR@redhat.com>
  <318E2A13-A163-434B-B18A-8A260CD3BC27@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <318E2A13-A163-434B-B18A-8A260CD3BC27@gmail.com>
-User-Agent: Mutt/2.2.13 (2024-03-09)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -21
-X-Spam_score: -2.2
-X-Spam_bar: --
-X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.153,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+Content-Type: multipart/mixed;
+ boundary="3866299591-1695914318-1743603231=:8978"
+Received-SPF: pass client-ip=152.66.115.2; envelope-from=balaton@eik.bme.hu;
+ helo=zero.eik.bme.hu
+X-Spam_score_int: -18
+X-Spam_score: -1.9
+X-Spam_bar: -
+X-Spam_report: (-1.9 / 5.0 requ) BAYES_00=-1.9,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Wed, 02 Apr 2025 11:21:44 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,83 +58,59 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Apr 2025 13:28:08 -0000
+X-List-Received-Date: Wed, 02 Apr 2025 14:14:06 -0000
 
-On Wed, Apr 02, 2025 at 09:33:16AM +0000, Bernhard Beschow wrote:
-> 
-> 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--3866299591-1695914318-1743603231=:8978
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8BIT
+
+On Wed, 2 Apr 2025, Bernhard Beschow wrote:
 > Am 31. März 2025 09:18:05 UTC schrieb "Daniel P. Berrangé" <berrange@redhat.com>:
-> >On Sun, Mar 30, 2025 at 10:58:57PM +0200, Bernhard Beschow wrote:
-> >> Now that there is logging support in Rust for QEMU, use it in the pl011 device.
-> >> 
-> >> Signed-off-by: Bernhard Beschow <shentey@gmail.com>
-> >> ---
-> >>  rust/hw/char/pl011/src/device.rs | 12 ++++++++----
-> >>  1 file changed, 8 insertions(+), 4 deletions(-)
-> >> 
-> >> diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-> >> index bf88e0b00a..d5470fae11 100644
-> >> --- a/rust/hw/char/pl011/src/device.rs
-> >> +++ b/rust/hw/char/pl011/src/device.rs
-> >> @@ -8,9 +8,11 @@
-> >>      chardev::{CharBackend, Chardev, Event},
-> >>      impl_vmstate_forward,
-> >>      irq::{IRQState, InterruptSource},
-> >> +    log::{LOG_GUEST_ERROR, LOG_UNIMP},
-> >>      memory::{hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder},
-> >>      prelude::*,
-> >>      qdev::{Clock, ClockEvent, DeviceImpl, DeviceState, Property, ResetType, ResettablePhasesImpl},
-> >> +    qemu_log_mask,
-> >>      qom::{ObjectImpl, Owned, ParentField},
-> >>      static_assert,
-> >>      sysbus::{SysBusDevice, SysBusDeviceImpl},
-> >> @@ -298,8 +300,7 @@ pub(self) fn write(
-> >>              DMACR => {
-> >>                  self.dmacr = value;
-> >>                  if value & 3 > 0 {
-> >> -                    // qemu_log_mask(LOG_UNIMP, "pl011: DMA not implemented\n");
-> >> -                    eprintln!("pl011: DMA not implemented");
-> >> +                    qemu_log_mask!(LOG_UNIMP, "pl011: DMA not implemented\n");
-> >>                  }
-> >>              }
-> >>          }
-> >> @@ -535,7 +536,7 @@ fn read(&self, offset: hwaddr, _size: u32) -> u64 {
-> >>                  u64::from(device_id[(offset - 0xfe0) >> 2])
-> >>              }
-> >>              Err(_) => {
-> >> -                // qemu_log_mask(LOG_GUEST_ERROR, "pl011_read: Bad offset 0x%x\n", (int)offset);
-> >> +                qemu_log_mask!(LOG_GUEST_ERROR, "pl011_read: Bad offset {offset}\n");
-> >>                  0
-> >>              }
-> >>              Ok(field) => {
-> >> @@ -567,7 +568,10 @@ fn write(&self, offset: hwaddr, value: u64, _size: u32) {
-> >>                  .borrow_mut()
-> >>                  .write(field, value as u32, &self.char_backend);
-> >>          } else {
-> >> -            eprintln!("write bad offset {offset} value {value}");
-> >> +            qemu_log_mask!(
-> >> +                LOG_GUEST_ERROR,
-> >> +                "pl011_write: Bad offset {offset} value {value}\n"
-> >> +            );
-> >>          }
-> >
-> >General conceptual question .....  I've never understood what the dividing
-> >line is between use of 'qemu_log_mask' and trace points.
-> 
-> I *think* it's the perspective: If you want to see any issues, regardless
-> of which device, use the -l option, i.e. qemu_log_mask(). If, however,
-> you want to see what a particular device does, use tracepoints.
+>> General conceptual question .....  I've never understood what the dividing
+>> line is between use of 'qemu_log_mask' and trace points.
+>
+> I *think* it's the perspective: If you want to see any issues, 
+> regardless of which device, use the -l option, i.e. qemu_log_mask(). If, 
+> however, you want to see what a particular device does, use tracepoints.
 
-I guess I'd say that the latter ought to be capable of satisfying the
-former use case too, given a suitable trace point selection. If it
-can't, then perhaps that's telling us the way we select trace points
-is insufficiently expressive ?
+I'd say that traces are like debug printfs that you don't normally want to 
+see but may be interesting for developers for debugging a specific device 
+model or QEMU part so you can enable the relevant ones for that device or 
+part. Logs are something you want to notify the user or admin about and is 
+not tracing internal operation of a device. But there may be some overlap 
+as some logs could be converted to traces but they are under log for 
+historical reasons as previously there were debug printfs controlled by 
+defines in devices that were later converted to traces and logs that could 
+be controlled in run time which were used for some traces before trace 
+points existed. Then were probably kept as logs just to not change the 
+command line because it's easier to type -d in_asm then say -trace 
+enable="tcg_in_asm" or something like that.
 
-With regards,
-Daniel
--- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
+Regards,
+BALATON Zoltan
 
+>> The latter can be
+>> optionally built to feed into qemu log, as well as the other dynamic trace
+>> backends.
+>
+> The use of qemu_log() in qemu_log_mask() seems like an implementation detail to me. Theoretically, qemu_log_mask() could use a different backend if this got implemented, and wouldn't require code changes throughout QEMU.
+>
+> Best regards,
+> Bernhard
+>
+>>
+>> Is there a compelling reason to use 'qemu_log', that isn't acceptable for
+>> trace probe points ?
+>>
+>> This is an indirect way of asking whether qemu_log_mask should be exposed
+>> to rust, or would exposing tracing be sufficient ?
+>>
+>> With regards,
+>> Daniel
+>
+>
+--3866299591-1695914318-1743603231=:8978--
 
