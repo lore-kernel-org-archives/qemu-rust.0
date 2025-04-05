@@ -1,83 +1,89 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1u0HbO-0002ri-L5
-	for mharc-qemu-rust@gnu.org; Thu, 03 Apr 2025 06:15:14 -0400
+	id 1u10Pq-00076i-C8
+	for mharc-qemu-rust@gnu.org; Sat, 05 Apr 2025 06:06:18 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
- id 1u0HbM-0002qL-VZ; Thu, 03 Apr 2025 06:15:13 -0400
-Received: from mail-ed1-x530.google.com ([2a00:1450:4864:20::530])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
- id 1u0HbK-0000YU-DQ; Thu, 03 Apr 2025 06:15:12 -0400
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5e5dce099f4so1041375a12.1; 
- Thu, 03 Apr 2025 03:15:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743675306; x=1744280106; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EJL+HVgyFDaHDUBAUM2JzO3ixLihswVz3d4T3C855fk=;
- b=Vj6N7HcBii67YRjkJY0eQK3cxYUFzsa0CyXlEWGpvap1obe3Dc9V0FfG/tK9ZtgCyY
- pwC1lTwPs0RugYYEDO3KuMiz8wU3xxqpTlx19rCHaoPJrvGItENF/BHespTO1k7EYg7y
- oeJ/kzvfB2y7Dk0mqv463oWnTIDCgNFbERJPkaCHTCUGw59mIRvGtYwfknhrOcVFhVJ5
- ctAPN6W0ueicQh2FfYWHFcIWVweHzKW6j6QnWcck5qq6iGZpuApueMwur2Cvfdd8RG5w
- xJOzKBvIMeVr7VfscCcrkZS74sq1krXpM4FEJBdm50vt/aksjUkmOjpYLAVtYxSGSLyw
- gHLA==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1u10Po-00075j-Ga
+ for qemu-rust@nongnu.org; Sat, 05 Apr 2025 06:06:16 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1u10Pl-0005rR-IC
+ for qemu-rust@nongnu.org; Sat, 05 Apr 2025 06:06:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1743847569;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=XoeSoyyJ2F5espFfNi2p9yngvN7wZuvpwxpgTgAMVw8=;
+ b=OS/8Jr2dpJdbhfwcW7HwCiw3dfof/K7UAnniKOw1+0rnWR66VHuc6JsEodfYg8cXIC9sCQ
+ RelFcPn49zaUejO6O8wf+1yOn+Xi1Ii9lkSrRAAQyFdhyVaEo7KWtEhCZQKuKg/1YiIxMo
+ 7WpyP0f0wDqXCALK5x+AqlCSjWby+x0=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-684-47GhOhqrNF-uoEdG-0FhVA-1; Sat, 05 Apr 2025 06:06:07 -0400
+X-MC-Unique: 47GhOhqrNF-uoEdG-0FhVA-1
+X-Mimecast-MFC-AGG-ID: 47GhOhqrNF-uoEdG-0FhVA_1743847566
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-43cf172ffe1so22076365e9.3
+ for <qemu-rust@nongnu.org>; Sat, 05 Apr 2025 03:06:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743675306; x=1744280106;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EJL+HVgyFDaHDUBAUM2JzO3ixLihswVz3d4T3C855fk=;
- b=KksCEEp+8Imwn9iOxXlA3dBsR4QoU1SxCamFirft3i5VssoEHywFSltbkaflmVclDX
- SWJF8OutYOQC+EtqyUpd8ku9678MjRm43//d3Qh8tI1kTsXvvBvOjEoL4nRtxgMYN4FP
- sgbJIRR21u94rl19KjKRDqBTe4gkaSfn43KhXLqLlzb82qZMcCv6CuxHDNWpsn84CROg
- 1M21wYswLCudkBbQckuRJmYtvQRotJapfRKcD0OVpXs+z3RDVIfnPITWd+RpjCf/wo7o
- 8pH0u5T9sqZcxRGnFxncRQvtGEA/rmxNoi1aRRjILERoQPWNNirXECOkmtFa5HVqq6Wm
- zLFQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW0ZegX4EpD9NoLiYfM6no5x2PLgJ36U8ya5SvAHSaOJ+iOh1hWGlbN+3XhEQj4bREpP6zc5QskqFk=@nongnu.org
-X-Gm-Message-State: AOJu0YzueecWgdJqfGrbW9ITbHaJC3BKceAdl/FQMPPjKY0d2Tm6yhwV
- jpBWuZPYt6U4vVXdmLLUWaKcCV/CJ96axufZxKJ0IEIAHncrCrKF
-X-Gm-Gg: ASbGnctVK99Vs7mjBhLmQ5KqaGWDoCIhal6pyAvMX7Cj61atN+kxs9fmUvJD+bkG7Q0
- 1OOsFvx4ZT2LR1ZG3golX5RuaWWJfc3ubjmnwyceIrRxk5FILfmYI3FmpDEO3nAEQcZAE9T0psA
- BxqdJm2y3Mp/Yh77FgyshI84NuVYM9Mttv6qMMJfpNnr/1tMGcH+WvC/urVm18AcVUubW9qwcSB
- 38ayIUZJyQUOnU2AfFLo75VBxdKlslyUsLBnm+yNWoXJqGjqiVkImbtjinb+byF76itr9H3BBVs
- 7fIG+cgcdjHWGAnS7IciOwAOmt35akJQ/Bw2bo78
-X-Google-Smtp-Source: AGHT+IFX/u0cZse001Sc2A3WOH7BdvHFq7ADYhtCae7I0adZm2wpdaPCA5dBcHMi3QjvLMX1DOmWCA==
-X-Received: by 2002:a05:6402:320c:b0:5ee:497:67d7 with SMTP id
- 4fb4d7f45d1cf-5ee049769bcmr16185509a12.34.1743675305857; 
- Thu, 03 Apr 2025 03:15:05 -0700 (PDT)
-Received: from [127.0.0.1] ([90.187.110.129]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f087ed1de4sm710051a12.24.2025.04.03.03.15.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Apr 2025 03:15:05 -0700 (PDT)
-Date: Thu, 03 Apr 2025 09:46:36 +0000
-From: Bernhard Beschow <shentey@gmail.com>
-To: =?ISO-8859-1?Q?Daniel_P=2E_Berrang=E9?= <berrange@redhat.com>
-CC: qemu-devel@nongnu.org, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- qemu-rust@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH 2/2] rust/hw/char/pl011/src/device: Implement logging
-In-Reply-To: <Z-07WTw4PHHKhfxU@redhat.com>
-References: <20250330205857.1615-1-shentey@gmail.com>
- <20250330205857.1615-3-shentey@gmail.com> <Z-pdzUBa4CrBourR@redhat.com>
- <318E2A13-A163-434B-B18A-8A260CD3BC27@gmail.com>
- <Z-07WTw4PHHKhfxU@redhat.com>
-Message-ID: <036F69F7-A83C-469D-82A5-071167CA651E@gmail.com>
+ d=1e100.net; s=20230601; t=1743847566; x=1744452366;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XoeSoyyJ2F5espFfNi2p9yngvN7wZuvpwxpgTgAMVw8=;
+ b=fA8DDGln2kNMmgE1w1LdN7FR/PBFwpYiIpR03j1dybOOcUR7pM2QyBDsup3A5KhYh8
+ 0oTAW0EsYPndJqxvdAHHt5QI3FhJ+iVviKYsu7ql3vIhVEQR2iA9HfMYZrQqwzmFWfKg
+ WlbqBMe5tFOClezJm50hL2H87u0coGG9k7slNQU9rXLelVzxtRmap9JSJJymcb19ZTo0
+ irDpJpm3KPRrMqStZV7gyXU3Zk5K6KdvJFilOCEL74VwN03iFN+ErjDp6nkOu2oM1TFD
+ mqACg8koBzeNYhjXQqLnXbOaPeh3Y/rqaqZiJsw0yJGHGiojVbMTx/KGvQ2qcTAybAM0
+ TjMw==
+X-Gm-Message-State: AOJu0Ywc+cKhGayKycUV3gpuuBoGzA3VoawOWtEyGxMRPVEzqCr9zV1E
+ 0WC+Q1Ch+/BzQMzsjbz9eXkdppgBeWTt7zm6zXeKft7JXoT+CqGuW/hRluZBpPx9zGWqgCvjPdD
+ 8T5r4NzlCFGjopdgrn9LywCKefLEhkRHwHkaJJbOCUg+s0exhJaYlBFembKE=
+X-Gm-Gg: ASbGncs/G4ee2z6XyOeoW4OF/Lsls/xaW+gddBQbJ49Sa9JqIer8SFPI/JX4T2TtL18
+ /zAX0lp6bZobgQQFTscQmOQqgRVVP/GaTU4hS4iAI5LLbzR7jRsNuXlkPCd4uS957A7gr0fv2vN
+ 71qeGQLy4eewymagk/E8AmRMT3JbaJWOEpDunkmttMQcj7RdwnHGdQS3aZx7CVNVRmyoGETg5PP
+ Y4haFssEEk37h3ICdQKkxrk7/z49HnXehfUqUN/GsB+GCk+M3RGkRq7kWSP6KPHl5oHZXc95dSr
+ FrhOkC2frqrfo+svIQ==
+X-Received: by 2002:a05:600c:32a9:b0:43c:fd72:f039 with SMTP id
+ 5b1f17b1804b1-43ee0aa35bbmr14775185e9.11.1743847565955; 
+ Sat, 05 Apr 2025 03:06:05 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE9II0Z7ayPVeNsrJoPPMb6wgkFA4yqB/JtXUHDYD0K3rGBCCc1d/d4p47DNvpxLCQSd/XXhg==
+X-Received: by 2002:a05:600c:32a9:b0:43c:fd72:f039 with SMTP id
+ 5b1f17b1804b1-43ee0aa35bbmr14775065e9.11.1743847565638; 
+ Sat, 05 Apr 2025 03:06:05 -0700 (PDT)
+Received: from [192.168.122.1] ([151.95.96.77])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c30226959sm6321158f8f.82.2025.04.05.03.06.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 05 Apr 2025 03:06:04 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org
+Subject: [PATCH preview 0/3] rust: update build system for Meson 1.8.0
+Date: Sat,  5 Apr 2025 12:06:00 +0200
+Message-ID: <20250405100603.253421-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::530;
- envelope-from=shentey@gmail.com; helo=mail-ed1-x530.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: huYDsg4cLFdkaQMZKMJ5Rncj8yRPNCXzl7oSsm09pG4_1743847566
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -30
+X-Spam_score: -3.1
+X-Spam_bar: ---
+X-Spam_report: (-3.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.028,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -90,110 +96,33 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Apr 2025 10:15:13 -0000
+X-List-Received-Date: Sat, 05 Apr 2025 10:06:16 -0000
 
+Meson 1.7.0 and 1.8.0 include improved support for Rust, namely:
+* support for "objects" in Rust executables
+* support for doctest targets
 
+Use it to remove BQL-related hacks, fix --enable-modules --enable-rust
+and also simplify the Meson logic for building the qemu-api crate
+(which may help splitting the crate, too).
 
-Am 2=2E April 2025 13:27:53 UTC schrieb "Daniel P=2E Berrang=C3=A9" <berra=
-nge@redhat=2Ecom>:
->On Wed, Apr 02, 2025 at 09:33:16AM +0000, Bernhard Beschow wrote:
->>=20
->>=20
->> Am 31=2E M=C3=A4rz 2025 09:18:05 UTC schrieb "Daniel P=2E Berrang=C3=A9=
-" <berrange@redhat=2Ecom>:
->> >On Sun, Mar 30, 2025 at 10:58:57PM +0200, Bernhard Beschow wrote:
->> >> Now that there is logging support in Rust for QEMU, use it in the pl=
-011 device=2E
->> >>=20
->> >> Signed-off-by: Bernhard Beschow <shentey@gmail=2Ecom>
->> >> ---
->> >>  rust/hw/char/pl011/src/device=2Ers | 12 ++++++++----
->> >>  1 file changed, 8 insertions(+), 4 deletions(-)
->> >>=20
->> >> diff --git a/rust/hw/char/pl011/src/device=2Ers b/rust/hw/char/pl011=
-/src/device=2Ers
->> >> index bf88e0b00a=2E=2Ed5470fae11 100644
->> >> --- a/rust/hw/char/pl011/src/device=2Ers
->> >> +++ b/rust/hw/char/pl011/src/device=2Ers
->> >> @@ -8,9 +8,11 @@
->> >>      chardev::{CharBackend, Chardev, Event},
->> >>      impl_vmstate_forward,
->> >>      irq::{IRQState, InterruptSource},
->> >> +    log::{LOG_GUEST_ERROR, LOG_UNIMP},
->> >>      memory::{hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOps=
-Builder},
->> >>      prelude::*,
->> >>      qdev::{Clock, ClockEvent, DeviceImpl, DeviceState, Property, Re=
-setType, ResettablePhasesImpl},
->> >> +    qemu_log_mask,
->> >>      qom::{ObjectImpl, Owned, ParentField},
->> >>      static_assert,
->> >>      sysbus::{SysBusDevice, SysBusDeviceImpl},
->> >> @@ -298,8 +300,7 @@ pub(self) fn write(
->> >>              DMACR =3D> {
->> >>                  self=2Edmacr =3D value;
->> >>                  if value & 3 > 0 {
->> >> -                    // qemu_log_mask(LOG_UNIMP, "pl011: DMA not imp=
-lemented\n");
->> >> -                    eprintln!("pl011: DMA not implemented");
->> >> +                    qemu_log_mask!(LOG_UNIMP, "pl011: DMA not imple=
-mented\n");
->> >>                  }
->> >>              }
->> >>          }
->> >> @@ -535,7 +536,7 @@ fn read(&self, offset: hwaddr, _size: u32) -> u6=
-4 {
->> >>                  u64::from(device_id[(offset - 0xfe0) >> 2])
->> >>              }
->> >>              Err(_) =3D> {
->> >> -                // qemu_log_mask(LOG_GUEST_ERROR, "pl011_read: Bad =
-offset 0x%x\n", (int)offset);
->> >> +                qemu_log_mask!(LOG_GUEST_ERROR, "pl011_read: Bad of=
-fset {offset}\n");
->> >>                  0
->> >>              }
->> >>              Ok(field) =3D> {
->> >> @@ -567,7 +568,10 @@ fn write(&self, offset: hwaddr, value: u64, _si=
-ze: u32) {
->> >>                  =2Eborrow_mut()
->> >>                  =2Ewrite(field, value as u32, &self=2Echar_backend)=
-;
->> >>          } else {
->> >> -            eprintln!("write bad offset {offset} value {value}");
->> >> +            qemu_log_mask!(
->> >> +                LOG_GUEST_ERROR,
->> >> +                "pl011_write: Bad offset {offset} value {value}\n"
->> >> +            );
->> >>          }
->> >
->> >General conceptual question =2E=2E=2E=2E=2E  I've never understood wha=
-t the dividing
->> >line is between use of 'qemu_log_mask' and trace points=2E
->>=20
->> I *think* it's the perspective: If you want to see any issues, regardle=
-ss
->> of which device, use the -l option, i=2Ee=2E qemu_log_mask()=2E If, how=
-ever,
->> you want to see what a particular device does, use tracepoints=2E
->
->I guess I'd say that the latter ought to be capable of satisfying the
->former use case too, given a suitable trace point selection=2E If it
->can't, then perhaps that's telling us the way we select trace points
->is insufficiently expressive ?
+Meson also supports clippy and rustdoc but there are some bugs in the
+prerelease.  I'll try to get them fixed before 1.8.0.
 
-Tracepoints often encode some context in the function name, e=2Eg=2E the d=
-evice name and the operation being performed=2E One could give up this cont=
-ext information in the function names and pass it as arguments to generic t=
-race_unimp() and trace_guest_error() functions=2E The drawback is that this=
- doesn't provide any advantage over the current logging functionality such =
-as device filtering=2E That could be achieved by  trace_$device_$operation_=
-{unimp,guest_error} functions which is a convention that has to be enforced=
- manually=2E
+Paolo
 
-Best regards,
-Bernhard
+Paolo Bonzini (3):
+  rust: use "objects" for Rust executables as well
+  rust: add qemu-api doctests to "meson test"
+  rust: cell: remove support for running doctests with "cargo test --doc"
 
->
->With regards,
->Daniel
+ docs/devel/rust.rst        |  2 --
+ .gitlab-ci.d/buildtest.yml |  5 -----
+ rust/qemu-api/meson.build  | 35 +++++++++++++++--------------------
+ rust/qemu-api/src/cell.rs  | 22 +++++++++-------------
+ 4 files changed, 24 insertions(+), 40 deletions(-)
+
+-- 
+2.49.0
+
 
