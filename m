@@ -1,87 +1,59 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1u2GBZ-0004OR-43
-	for mharc-qemu-rust@gnu.org; Tue, 08 Apr 2025 17:08:45 -0400
+	id 1u4KoF-0003GM-Nt
+	for mharc-qemu-rust@gnu.org; Mon, 14 Apr 2025 10:29:15 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1u2GBY-0004O9-1l
- for qemu-rust@nongnu.org; Tue, 08 Apr 2025 17:08:44 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1u4Ko5-0003Ch-H4; Mon, 14 Apr 2025 10:29:06 -0400
+Received: from mgamail.intel.com ([192.198.163.7])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1u2GBW-0002Wp-0N
- for qemu-rust@nongnu.org; Tue, 08 Apr 2025 17:08:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1744146520;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=DmwEdllYvQZrKPWM82RbtuVK/0oBP4xJWmm+4WZvaSQ=;
- b=as8tZvEE8fPQPxuHpai3Tt8E6nCeRV+f6AGmYVxtjmJf0f3YJtnIQSEgSsmFVZ2UPwKGCo
- bPvovJHLCKqPtnrIZl+zWA9PfrzZLhJBVY1akH60QZ+YgcW/f2loEqoYPxt40YvTC8Yx/7
- j+22ZXMjOFQiWvhJy1wBUcyt58zQuhA=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-393-V9OnivKZPp-pvZMmdkTGMA-1; Tue, 08 Apr 2025 17:08:36 -0400
-X-MC-Unique: V9OnivKZPp-pvZMmdkTGMA-1
-X-Mimecast-MFC-AGG-ID: V9OnivKZPp-pvZMmdkTGMA_1744146515
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-391459c0395so2530298f8f.2
- for <qemu-rust@nongnu.org>; Tue, 08 Apr 2025 14:08:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744146515; x=1744751315;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DmwEdllYvQZrKPWM82RbtuVK/0oBP4xJWmm+4WZvaSQ=;
- b=cgEuglvv6mhn8h+IwNcCkBpdAr1laGYMUOWECXe8/7i3gwlNAXOImgZ5pQZ031QKJp
- gV/TuOI5szPfbr74tCjgsE1mngvKH6hbDGrdSvTv2M6SO6Qm1GA8nvlyPPFMGlooaDAj
- taKLEgIY1YOYcrKBHaTbGWZZlPgVXVCRjQxWX55x//Ztj3796zdAKRkPPIRU9CnDP74V
- zA4jmYfdg55b7zQsIZE/Hi3FNQHM3akVqcE5WaUUz7keZG6qUbgFW/e7+pu+w+leIuEE
- GFHNlPkn0eH9Vc3umwOMEQ2vJopUmcfgHc2okv1Y5E5qhm+5Xcd6b0aUyQfh0QG7/bKv
- P1jw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXx3SuxoEjr3ssVVR/0be0NzAdj7gVCdSBgSyp/AUTtkB4y/2SepB29ZawN9vGb1VP5VzaPl4j3gNs=@nongnu.org
-X-Gm-Message-State: AOJu0YxceTsAAqV43YhSwuCSzuhi5qj6kz27ZT4MlveAqRXrrkn80cly
- 1v/KW/zVE3L/62DdcMAenG7aMtd2dRjd2XN3KhsLDyxmvI+nafqGyYZ6mmc06OkN6GpxLOTqPR1
- NjErFC84/J70qh7wMvce5lhdB0bNg5KLUedDW52psHr5CNDubTKmH5wm7y5H6vuqy957dGASmqZ
- tkUFnSmfG48FF2wQstpU6vrF+PSw==
-X-Gm-Gg: ASbGncsNwuFBm1BN9yqr6ZV8UIkIMGmDm7oSu3stZDQqC7TlHIPKdC4hf1p6zF+8Sd+
- vc0zL1iKlW2UXrrVrsFqHSe65QvruFNt2hOETQi6Bc/V38+hTwLv3oK6TtwhP03AQQWJTMkcsMQ
- ==
-X-Received: by 2002:a05:6000:2a9:b0:391:2ab1:d4b8 with SMTP id
- ffacd0b85a97d-39d88525f29mr132904f8f.1.1744146515035; 
- Tue, 08 Apr 2025 14:08:35 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEGuKIknUMdLmuY0TQgtImt/b6sqKOlpl3gssEhek+HpClMUVf3Ic6HJ9wRHytTR8Qo2SQX3lLewYAs5zcNlok=
-X-Received: by 2002:a05:6000:2a9:b0:391:2ab1:d4b8 with SMTP id
- ffacd0b85a97d-39d88525f29mr132895f8f.1.1744146514624; Tue, 08 Apr 2025
- 14:08:34 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1u4Ko3-00064c-DK; Mon, 14 Apr 2025 10:29:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1744640943; x=1776176943;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Tkq5C7A+TylEhKr7ELqlYoPD6JH68FRFSyOsxjwL5Ak=;
+ b=EBGkphLZYaFrwWl2OqMR3vaE5IM1Y6AX/LjuPJ8+TimhTLKrsU8FSS0N
+ 2ri+hB3ZuwgTO97WYxkA9VP44J03BkQmOyG86xNstJjuNt1hLd1g8MoOZ
+ R68sjTfz2W65hSN6ClayHbMjGI8nriER+Fni+lErLl7yHNSD0x3vYfS8e
+ h4+op06ltlLRaB32HYNTvFS4YVFeVHARkF3fG06tOUcDAOvxqTNgNVptr
+ ZaLIFaUY4VyLopgmzXlO9zxKhqaXqm/Xht2UhnsdsIa/pLkIP4EwttNMY
+ Rv9TyJH4/ITlfYNgL2mHlSc9swIXzvml8lsBoj2CHwC3dqV9z2aAcbnZn g==;
+X-CSE-ConnectionGUID: 7A1R2LjeS4C5T8Fp0STTiQ==
+X-CSE-MsgGUID: gLEzc4EXR56v0mxsbon7qQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11403"; a="71501824"
+X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="71501824"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2025 07:28:57 -0700
+X-CSE-ConnectionGUID: /KE91WqwSdCqk2EbMpfOxg==
+X-CSE-MsgGUID: /x52C4R8Rw6IiGqTM7Pdiw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="134606050"
+Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
+ by fmviesa005.fm.intel.com with ESMTP; 14 Apr 2025 07:28:56 -0700
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
+ Dapeng Mi <dapeng1.mi@intel.com>, Zhao Liu <zhao1.liu@intel.com>
+Subject: [PATCH 0/9] rust/hpet: Initial support for migration
+Date: Mon, 14 Apr 2025 22:49:34 +0800
+Message-Id: <20250414144943.1112885-1-zhao1.liu@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20250405100603.253421-1-pbonzini@redhat.com>
- <0B9AB608-D9FE-4819-87DB-8B00F222F1C7@gmail.com>
-In-Reply-To: <0B9AB608-D9FE-4819-87DB-8B00F222F1C7@gmail.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 8 Apr 2025 23:08:23 +0200
-X-Gm-Features: ATxdqUGESrymUeWKFLWdH3QXEgrYFAgM9-rE1c1geDWDwuD1UT6B6-MKnbBymyU
-Message-ID: <CABgObfZjg8eZdPGY6RPR09oZ5U3n_ASFOLz2EPzT=Zm+vhMNmg@mail.gmail.com>
-Subject: Re: [PATCH preview 0/3] rust: update build system for Meson 1.8.0
-To: Bernhard Beschow <shentey@gmail.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: QxwJVbzaMj28QbcCdSUh6H6bpyqnxqTx2xGfoLdgGfk_1744146515
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="00000000000070e92606324ac1f0"
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -28
-X-Spam_score: -2.9
-X-Spam_bar: --
-X-Spam_report: (-2.9 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.845,
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=192.198.163.7; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -94,128 +66,59 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Apr 2025 21:08:44 -0000
+X-List-Received-Date: Mon, 14 Apr 2025 14:29:09 -0000
 
---00000000000070e92606324ac1f0
-Content-Type: text/plain; charset="UTF-8"
+Hi all,
 
-Il mar 8 apr 2025, 22:34 Bernhard Beschow <shentey@gmail.com> ha scritto:
+This series add the *initial* support for HPET migration.
 
->
->
-> Am 5. April 2025 10:06:00 UTC schrieb Paolo Bonzini <pbonzini@redhat.com>:
-> >Meson 1.7.0 and 1.8.0 include improved support for Rust, namely:
-> >* support for "objects" in Rust executables
-> >* support for doctest targets
->
-> Using Meson 1.7.2 (shipped with my distro) I didn't succeed with either of
-> these. If just applying the first patch with --enable-modules I get linker
-> errors again. With all patches applied, "doctest" isn't recognized. Is this
-> perhaps 1.8-only material?
->
+This is *initial* because the current migration implementation
+introduces multiple *unsafe* callbacks (please refer Patch 8).
 
-Yes, it's 1.8 only. Once it's released I will repost it with an update to
-pythondeps.toml, for now you can uninstall the distro Meson and install
-from their git repository using pip (I think "pip install ." should work).
+Before the vmstate builder, one possible cleanup approach is to wrap
+callbacks in the vmstate binding using a method similar to the
+vmstate_exist_fn macro.
 
-I did test modules a few months ago when you reported it, but I will check
-again before reposting.
+However, this approach would also create a lot of repetitive code (since
+vmstate has so many callbacks: pre_load, post_load, pre_save, post_save,
+needed and dev_unplug_pending). Although it would be cleaner, it would
+somewhat deviate from the path of the vmstate builder.
 
-Paolo
+Therefore, firstly focus on completing the functionality of HPET, and
+those current unsafe callbacks can at least clearly indicate the needed
+functionality of vmstate. The next step is to consider refactoring
+vmstate to move towards the vmstate builder direction.
 
+Test this series with 3 migration cases:
+ * q35 (Rust HPET) -> q35 (Rust HPET)
+ * q35 (Rust HPET) -> q35 (C HPET)
+ * q35 (C HPET) -> q35 (Rust HPET)
 
-> Best regards,
-> Bernhard
->
-> >
-> >Use it to remove BQL-related hacks, fix --enable-modules --enable-rust
-> >and also simplify the Meson logic for building the qemu-api crate
-> >(which may help splitting the crate, too).
-> >
-> >Meson also supports clippy and rustdoc but there are some bugs in the
-> >prerelease.  I'll try to get them fixed before 1.8.0.
-> >
-> >Paolo
-> >
-> >Paolo Bonzini (3):
-> >  rust: use "objects" for Rust executables as well
-> >  rust: add qemu-api doctests to "meson test"
-> >  rust: cell: remove support for running doctests with "cargo test --doc"
-> >
-> > docs/devel/rust.rst        |  2 --
-> > .gitlab-ci.d/buildtest.yml |  5 -----
-> > rust/qemu-api/meson.build  | 35 +++++++++++++++--------------------
-> > rust/qemu-api/src/cell.rs  | 22 +++++++++-------------
-> > 4 files changed, 24 insertions(+), 40 deletions(-)
-> >
->
->
+Thanks and Best Regards,
+Zhao
+---
+Zhao Liu (9):
+  rust/vmstate: Support field_exists check in vmstate_struct macro
+  rust/vmstate: Support varray's num field wrapped in BqlCell
+  rust/vmstate_test: Test varray with num field wrapped in BqlCell
+  rust/vmstate_test: Fix typo in
+    test_vmstate_macro_array_of_pointer_wrapped()
+  rust/timer: Define NANOSECONDS_PER_SECOND binding as u64
+  rust/hpet: convert num_timers to u8 type
+  rust/hpet: convert HPETTimer index to u8 type
+  rust/hpet: Support migration
+  rust/hpet: Fix a clippy error
 
---00000000000070e92606324ac1f0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ docs/devel/rust.rst                  |   3 +-
+ rust/hw/timer/hpet/src/hpet.rs       | 189 ++++++++++++++++++++++++---
+ rust/qemu-api/src/assertions.rs      |  30 ++++-
+ rust/qemu-api/src/cell.rs            |  23 ++++
+ rust/qemu-api/src/timer.rs           |   2 +
+ rust/qemu-api/src/vmstate.rs         |  67 +++++-----
+ rust/qemu-api/tests/vmstate_tests.rs |  45 +++++--
+ 7 files changed, 294 insertions(+), 65 deletions(-)
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
-ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mar 8 apr 2025, 22:34 Bernhar=
-d Beschow &lt;<a href=3D"mailto:shentey@gmail.com">shentey@gmail.com</a>&gt=
-; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><b=
-r>
-<br>
-Am 5. April 2025 10:06:00 UTC schrieb Paolo Bonzini &lt;<a href=3D"mailto:p=
-bonzini@redhat.com" target=3D"_blank" rel=3D"noreferrer">pbonzini@redhat.co=
-m</a>&gt;:<br>
-&gt;Meson 1.7.0 and 1.8.0 include improved support for Rust, namely:<br>
-&gt;* support for &quot;objects&quot; in Rust executables<br>
-&gt;* support for doctest targets<br>
-<br>
-Using Meson 1.7.2 (shipped with my distro) I didn&#39;t succeed with either=
- of these. If just applying the first patch with --enable-modules I get lin=
-ker errors again. With all patches applied, &quot;doctest&quot; isn&#39;t r=
-ecognized. Is this perhaps 1.8-only material?<br></blockquote></div></div><=
-div dir=3D"auto"><br></div><div dir=3D"auto">Yes, it&#39;s 1.8 only. Once i=
-t&#39;s released I will repost it with an update to pythondeps.toml, for no=
-w you can uninstall the distro Meson and install from their git repository =
-using pip (I think &quot;pip install .&quot; should work).</div><div dir=3D=
-"auto"><br></div><div dir=3D"auto">I did test modules a few months ago when=
- you reported it, but I will check again before reposting.</div><div dir=3D=
-"auto"><br></div><div dir=3D"auto">Paolo=C2=A0</div><div dir=3D"auto"><br><=
-/div><div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_container"><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-Best regards,<br>
-Bernhard<br>
-<br>
-&gt;<br>
-&gt;Use it to remove BQL-related hacks, fix --enable-modules --enable-rust<=
-br>
-&gt;and also simplify the Meson logic for building the qemu-api crate<br>
-&gt;(which may help splitting the crate, too).<br>
-&gt;<br>
-&gt;Meson also supports clippy and rustdoc but there are some bugs in the<b=
-r>
-&gt;prerelease.=C2=A0 I&#39;ll try to get them fixed before 1.8.0.<br>
-&gt;<br>
-&gt;Paolo<br>
-&gt;<br>
-&gt;Paolo Bonzini (3):<br>
-&gt;=C2=A0 rust: use &quot;objects&quot; for Rust executables as well<br>
-&gt;=C2=A0 rust: add qemu-api doctests to &quot;meson test&quot;<br>
-&gt;=C2=A0 rust: cell: remove support for running doctests with &quot;cargo=
- test --doc&quot;<br>
-&gt;<br>
-&gt; docs/devel/rust.rst=C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 2 --<br>
-&gt; .gitlab-ci.d/buildtest.yml |=C2=A0 5 -----<br>
-&gt; rust/qemu-api/meson.build=C2=A0 | 35 +++++++++++++++------------------=
---<br>
-&gt; rust/qemu-api/src/<a href=3D"http://cell.rs" rel=3D"noreferrer norefer=
-rer" target=3D"_blank">cell.rs</a>=C2=A0 | 22 +++++++++-------------<br>
-&gt; 4 files changed, 24 insertions(+), 40 deletions(-)<br>
-&gt;<br>
-<br>
-</blockquote></div></div></div>
-
---00000000000070e92606324ac1f0--
+-- 
+2.34.1
 
 
