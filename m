@@ -1,47 +1,50 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1u4KoF-0003GM-Nt
-	for mharc-qemu-rust@gnu.org; Mon, 14 Apr 2025 10:29:15 -0400
+	id 1u4KoG-0003Gz-08
+	for mharc-qemu-rust@gnu.org; Mon, 14 Apr 2025 10:29:16 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1u4Ko5-0003Ch-H4; Mon, 14 Apr 2025 10:29:06 -0400
+ id 1u4Ko7-0003Cy-6S; Mon, 14 Apr 2025 10:29:08 -0400
 Received: from mgamail.intel.com ([192.198.163.7])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1u4Ko3-00064c-DK; Mon, 14 Apr 2025 10:29:05 -0400
+ id 1u4Ko3-00065M-Qh; Mon, 14 Apr 2025 10:29:06 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744640943; x=1776176943;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Tkq5C7A+TylEhKr7ELqlYoPD6JH68FRFSyOsxjwL5Ak=;
- b=EBGkphLZYaFrwWl2OqMR3vaE5IM1Y6AX/LjuPJ8+TimhTLKrsU8FSS0N
- 2ri+hB3ZuwgTO97WYxkA9VP44J03BkQmOyG86xNstJjuNt1hLd1g8MoOZ
- R68sjTfz2W65hSN6ClayHbMjGI8nriER+Fni+lErLl7yHNSD0x3vYfS8e
- h4+op06ltlLRaB32HYNTvFS4YVFeVHARkF3fG06tOUcDAOvxqTNgNVptr
- ZaLIFaUY4VyLopgmzXlO9zxKhqaXqm/Xht2UhnsdsIa/pLkIP4EwttNMY
- Rv9TyJH4/ITlfYNgL2mHlSc9swIXzvml8lsBoj2CHwC3dqV9z2aAcbnZn g==;
-X-CSE-ConnectionGUID: 7A1R2LjeS4C5T8Fp0STTiQ==
-X-CSE-MsgGUID: gLEzc4EXR56v0mxsbon7qQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11403"; a="71501824"
-X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="71501824"
+ t=1744640944; x=1776176944;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=JlwAJVaOBg0frrStuFTBGtDlgJ1sKkSJkiatM13LyxU=;
+ b=PIi4NCBaiuYrsg767ldQ+eOevDtzJSpFI4Q/2Cm9qshI0BIVhsrHCohv
+ ci7asuWClFhNbWbMigznQUk3D+LU4whXuJGp5l4HbWEveOUawEL5PTyVC
+ XbeFYRd+rJNIYuA4a7BZK0Ivjm0XgpC+RshR+CkSmdbKRkgoPgRYgkXxk
+ fXP6xkHRbs4X8rq0Nas3zk1iDHSpGMrvX4lr98zO5KcHxIhswEN0XzfzO
+ JuTlVlFXoI3QUfBNeXZ5p+KN45LqyAqDhKvV0T61G4czWmo0Wzf6XgV60
+ qJNfuFecHIdHX5U0n6lDKDN58Syzy9ig3bcqrUl7+57Fyc/TZJ+1uTGNM w==;
+X-CSE-ConnectionGUID: aVFMbb1VQ2yDZaquUmePcA==
+X-CSE-MsgGUID: 7Csf/RLkTG6mT3wsNZQIRw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11403"; a="71501833"
+X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="71501833"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2025 07:28:57 -0700
-X-CSE-ConnectionGUID: /KE91WqwSdCqk2EbMpfOxg==
-X-CSE-MsgGUID: /x52C4R8Rw6IiGqTM7Pdiw==
+ 14 Apr 2025 07:29:01 -0700
+X-CSE-ConnectionGUID: +STcyIIxSui3pHxv6GV9vQ==
+X-CSE-MsgGUID: VS6LsYITTLCyssDbh4LqcQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="134606050"
+X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="134606059"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa005.fm.intel.com with ESMTP; 14 Apr 2025 07:28:56 -0700
+ by fmviesa005.fm.intel.com with ESMTP; 14 Apr 2025 07:28:59 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Dapeng Mi <dapeng1.mi@intel.com>, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 0/9] rust/hpet: Initial support for migration
-Date: Mon, 14 Apr 2025 22:49:34 +0800
-Message-Id: <20250414144943.1112885-1-zhao1.liu@intel.com>
+Subject: [PATCH 2/9] rust/vmstate: Support varray's num field wrapped in
+ BqlCell
+Date: Mon, 14 Apr 2025 22:49:36 +0800
+Message-Id: <20250414144943.1112885-3-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250414144943.1112885-1-zhao1.liu@intel.com>
+References: <20250414144943.1112885-1-zhao1.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=192.198.163.7; envelope-from=zhao1.liu@intel.com;
@@ -66,58 +69,112 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Apr 2025 14:29:09 -0000
+X-List-Received-Date: Mon, 14 Apr 2025 14:29:11 -0000
 
-Hi all,
+Currently, if the `num` field of a varray is not a numeric type, such as
+being placed in a wrapper, the array variant of assert_field_type will
+fail the check.
 
-This series add the *initial* support for HPET migration.
+HPET currently wraps num_timers in BqlCell<>. Although BqlCell<> is not
+necessary from strictly speaking, it makes sense for vmstate to respect
+BqlCell.
 
-This is *initial* because the current migration implementation
-introduces multiple *unsafe* callbacks (please refer Patch 8).
+The failure of assert_field_type is because it cannot convert BqlCell<T>
+into usize for use as the index.
 
-Before the vmstate builder, one possible cleanup approach is to wrap
-callbacks in the vmstate binding using a method similar to the
-vmstate_exist_fn macro.
+Therefore, first, implement `From` trait for common numeric types on
+BqlCell<>. Then, abstract the wrapper and non-wrapper cases uniformly
+into a `IntoUsize` trait and make assert_field_type to get usize type
+index via `IntoUsize` trait.
 
-However, this approach would also create a lot of repetitive code (since
-vmstate has so many callbacks: pre_load, post_load, pre_save, post_save,
-needed and dev_unplug_pending). Although it would be cleaner, it would
-somewhat deviate from the path of the vmstate builder.
-
-Therefore, firstly focus on completing the functionality of HPET, and
-those current unsafe callbacks can at least clearly indicate the needed
-functionality of vmstate. The next step is to consider refactoring
-vmstate to move towards the vmstate builder direction.
-
-Test this series with 3 migration cases:
- * q35 (Rust HPET) -> q35 (Rust HPET)
- * q35 (Rust HPET) -> q35 (C HPET)
- * q35 (C HPET) -> q35 (Rust HPET)
-
-Thanks and Best Regards,
-Zhao
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
-Zhao Liu (9):
-  rust/vmstate: Support field_exists check in vmstate_struct macro
-  rust/vmstate: Support varray's num field wrapped in BqlCell
-  rust/vmstate_test: Test varray with num field wrapped in BqlCell
-  rust/vmstate_test: Fix typo in
-    test_vmstate_macro_array_of_pointer_wrapped()
-  rust/timer: Define NANOSECONDS_PER_SECOND binding as u64
-  rust/hpet: convert num_timers to u8 type
-  rust/hpet: convert HPETTimer index to u8 type
-  rust/hpet: Support migration
-  rust/hpet: Fix a clippy error
+ rust/qemu-api/src/assertions.rs | 30 +++++++++++++++++++++++++++++-
+ rust/qemu-api/src/cell.rs       | 23 +++++++++++++++++++++++
+ 2 files changed, 52 insertions(+), 1 deletion(-)
 
- docs/devel/rust.rst                  |   3 +-
- rust/hw/timer/hpet/src/hpet.rs       | 189 ++++++++++++++++++++++++---
- rust/qemu-api/src/assertions.rs      |  30 ++++-
- rust/qemu-api/src/cell.rs            |  23 ++++
- rust/qemu-api/src/timer.rs           |   2 +
- rust/qemu-api/src/vmstate.rs         |  67 +++++-----
- rust/qemu-api/tests/vmstate_tests.rs |  45 +++++--
- 7 files changed, 294 insertions(+), 65 deletions(-)
-
+diff --git a/rust/qemu-api/src/assertions.rs b/rust/qemu-api/src/assertions.rs
+index eb12e9499a72..232cac5b8dba 100644
+--- a/rust/qemu-api/src/assertions.rs
++++ b/rust/qemu-api/src/assertions.rs
+@@ -22,6 +22,34 @@ impl<T> EqType for T {
+     type Itself = T;
+ }
+ 
++pub trait IntoUsize {
++    fn into_usize(v: Self) -> usize;
++}
++
++macro_rules! impl_into_usize {
++    ($type:ty) => {
++        impl IntoUsize for $type {
++            fn into_usize(v: Self) -> usize {
++                v.try_into().unwrap()
++            }
++        }
++
++        impl IntoUsize for crate::cell::BqlCell<$type> {
++            fn into_usize(v: Self) -> usize {
++                let tmp: $type = v.try_into().unwrap();
++                tmp.try_into().unwrap()
++            }
++        }
++    };
++}
++
++// vmstate_n_elems() in C side supports such types.
++impl_into_usize!(u8);
++impl_into_usize!(u16);
++impl_into_usize!(i32);
++impl_into_usize!(u32);
++impl_into_usize!(u64);
++
+ /// Assert that two types are the same.
+ ///
+ /// # Examples
+@@ -101,7 +129,7 @@ fn types_must_be_equal<T, U>(_: T)
+                     T: $crate::assertions::EqType<Itself = U>,
+                 {
+                 }
+-                let index: usize = v.$num.try_into().unwrap();
++                let index: usize = $crate::assertions::IntoUsize::into_usize(v.$num);
+                 types_must_be_equal::<_, &$ti>(&v.$i[index]);
+             }
+         };
+diff --git a/rust/qemu-api/src/cell.rs b/rust/qemu-api/src/cell.rs
+index ab0785a26928..d31bff093707 100644
+--- a/rust/qemu-api/src/cell.rs
++++ b/rust/qemu-api/src/cell.rs
+@@ -309,6 +309,29 @@ fn from(t: T) -> BqlCell<T> {
+     }
+ }
+ 
++// Orphan rules don't like something like `impl<T> From<BqlCell<T>> for T`.
++// It's enough to just implement Into for common types.
++macro_rules! impl_into_inner {
++    ($type:ty) => {
++        impl From<BqlCell<$type>> for $type {
++            fn from(c: BqlCell<$type>) -> $type {
++                c.get()
++            }
++        }
++    };
++}
++
++impl_into_inner!(bool);
++impl_into_inner!(i8);
++impl_into_inner!(i16);
++impl_into_inner!(i32);
++impl_into_inner!(i64);
++impl_into_inner!(u8);
++impl_into_inner!(u16);
++impl_into_inner!(u32);
++impl_into_inner!(u64);
++impl_into_inner!(usize);
++
+ impl<T: fmt::Debug + Copy> fmt::Debug for BqlCell<T> {
+     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+         self.get().fmt(f)
 -- 
 2.34.1
 
