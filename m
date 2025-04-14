@@ -1,47 +1,47 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1u4KoG-0003Gz-08
+	id 1u4KoG-0003Hm-Q5
 	for mharc-qemu-rust@gnu.org; Mon, 14 Apr 2025 10:29:16 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1u4Ko7-0003Cy-6S; Mon, 14 Apr 2025 10:29:08 -0400
+ id 1u4KoA-0003Db-Gu; Mon, 14 Apr 2025 10:29:10 -0400
 Received: from mgamail.intel.com ([192.198.163.7])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1u4Ko3-00065M-Qh; Mon, 14 Apr 2025 10:29:06 -0400
+ id 1u4Ko8-00064c-Up; Mon, 14 Apr 2025 10:29:10 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744640944; x=1776176944;
+ t=1744640949; x=1776176949;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=JlwAJVaOBg0frrStuFTBGtDlgJ1sKkSJkiatM13LyxU=;
- b=PIi4NCBaiuYrsg767ldQ+eOevDtzJSpFI4Q/2Cm9qshI0BIVhsrHCohv
- ci7asuWClFhNbWbMigznQUk3D+LU4whXuJGp5l4HbWEveOUawEL5PTyVC
- XbeFYRd+rJNIYuA4a7BZK0Ivjm0XgpC+RshR+CkSmdbKRkgoPgRYgkXxk
- fXP6xkHRbs4X8rq0Nas3zk1iDHSpGMrvX4lr98zO5KcHxIhswEN0XzfzO
- JuTlVlFXoI3QUfBNeXZ5p+KN45LqyAqDhKvV0T61G4czWmo0Wzf6XgV60
- qJNfuFecHIdHX5U0n6lDKDN58Syzy9ig3bcqrUl7+57Fyc/TZJ+1uTGNM w==;
-X-CSE-ConnectionGUID: aVFMbb1VQ2yDZaquUmePcA==
-X-CSE-MsgGUID: 7Csf/RLkTG6mT3wsNZQIRw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11403"; a="71501833"
-X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="71501833"
+ bh=aHKZirzvZLm5HMaaF4zs6cIuJscdkK9KXJGrwuOgCto=;
+ b=doU1NpLFAhNARvzzDp9ySMszwOZLjjpD8GffkRVcHKSoWBwWogqxyNcx
+ PYDzI80jV8cBaE36Cz4cZVC2xVxZs4We/5x6ldGIjKmgOADq2LHx0iIOW
+ Wm/PKNocN1A8ERUOWChqtn3oga5FgWVBfS1WTGvdQlGMGaM+f5ZQ4AXVV
+ pVHmBP37GghsyiQ58rKqjgbopTn3Mex3l2/ml27/RIOodWx6ZkQ1PEUk7
+ 25KidhdPC7Hf06Hm0OeJ2nAqO9isVkegSWzMdTSbJqAVxb/6nf+F6RTSA
+ P7Cw1vU8BHH/AqYJnddJf4JizwxVJmJAFMxhP16A6Tbd5w3L2FFY44zS+ Q==;
+X-CSE-ConnectionGUID: XVUGEOo+T8CmpCXsJhzlHQ==
+X-CSE-MsgGUID: 823HrQg7Ts6Yyx3DEAydqA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11403"; a="71501838"
+X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="71501838"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2025 07:29:01 -0700
-X-CSE-ConnectionGUID: +STcyIIxSui3pHxv6GV9vQ==
-X-CSE-MsgGUID: VS6LsYITTLCyssDbh4LqcQ==
+ 14 Apr 2025 07:29:04 -0700
+X-CSE-ConnectionGUID: WTmntqLIQQiakBGoPxZPuw==
+X-CSE-MsgGUID: u50bFtodSAeeyM81GojwRQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="134606059"
+X-IronPort-AV: E=Sophos;i="6.15,212,1739865600"; d="scan'208";a="134606072"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa005.fm.intel.com with ESMTP; 14 Apr 2025 07:28:59 -0700
+ by fmviesa005.fm.intel.com with ESMTP; 14 Apr 2025 07:29:02 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Dapeng Mi <dapeng1.mi@intel.com>, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 2/9] rust/vmstate: Support varray's num field wrapped in
- BqlCell
-Date: Mon, 14 Apr 2025 22:49:36 +0800
-Message-Id: <20250414144943.1112885-3-zhao1.liu@intel.com>
+Subject: [PATCH 4/9] rust/vmstate_test: Fix typo in
+ test_vmstate_macro_array_of_pointer_wrapped()
+Date: Mon, 14 Apr 2025 22:49:38 +0800
+Message-Id: <20250414144943.1112885-5-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250414144943.1112885-1-zhao1.liu@intel.com>
 References: <20250414144943.1112885-1-zhao1.liu@intel.com>
@@ -69,112 +69,35 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Apr 2025 14:29:11 -0000
+X-List-Received-Date: Mon, 14 Apr 2025 14:29:15 -0000
 
-Currently, if the `num` field of a varray is not a numeric type, such as
-being placed in a wrapper, the array variant of assert_field_type will
-fail the check.
-
-HPET currently wraps num_timers in BqlCell<>. Although BqlCell<> is not
-necessary from strictly speaking, it makes sense for vmstate to respect
-BqlCell.
-
-The failure of assert_field_type is because it cannot convert BqlCell<T>
-into usize for use as the index.
-
-Therefore, first, implement `From` trait for common numeric types on
-BqlCell<>. Then, abstract the wrapper and non-wrapper cases uniformly
-into a `IntoUsize` trait and make assert_field_type to get usize type
-index via `IntoUsize` trait.
+test_vmstate_macro_array_of_pointer_wrapped() tests the 3rd element, so
+fix the index.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- rust/qemu-api/src/assertions.rs | 30 +++++++++++++++++++++++++++++-
- rust/qemu-api/src/cell.rs       | 23 +++++++++++++++++++++++
- 2 files changed, 52 insertions(+), 1 deletion(-)
+ rust/qemu-api/tests/vmstate_tests.rs | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/rust/qemu-api/src/assertions.rs b/rust/qemu-api/src/assertions.rs
-index eb12e9499a72..232cac5b8dba 100644
---- a/rust/qemu-api/src/assertions.rs
-+++ b/rust/qemu-api/src/assertions.rs
-@@ -22,6 +22,34 @@ impl<T> EqType for T {
-     type Itself = T;
- }
- 
-+pub trait IntoUsize {
-+    fn into_usize(v: Self) -> usize;
-+}
-+
-+macro_rules! impl_into_usize {
-+    ($type:ty) => {
-+        impl IntoUsize for $type {
-+            fn into_usize(v: Self) -> usize {
-+                v.try_into().unwrap()
-+            }
-+        }
-+
-+        impl IntoUsize for crate::cell::BqlCell<$type> {
-+            fn into_usize(v: Self) -> usize {
-+                let tmp: $type = v.try_into().unwrap();
-+                tmp.try_into().unwrap()
-+            }
-+        }
-+    };
-+}
-+
-+// vmstate_n_elems() in C side supports such types.
-+impl_into_usize!(u8);
-+impl_into_usize!(u16);
-+impl_into_usize!(i32);
-+impl_into_usize!(u32);
-+impl_into_usize!(u64);
-+
- /// Assert that two types are the same.
- ///
- /// # Examples
-@@ -101,7 +129,7 @@ fn types_must_be_equal<T, U>(_: T)
-                     T: $crate::assertions::EqType<Itself = U>,
-                 {
-                 }
--                let index: usize = v.$num.try_into().unwrap();
-+                let index: usize = $crate::assertions::IntoUsize::into_usize(v.$num);
-                 types_must_be_equal::<_, &$ti>(&v.$i[index]);
-             }
-         };
-diff --git a/rust/qemu-api/src/cell.rs b/rust/qemu-api/src/cell.rs
-index ab0785a26928..d31bff093707 100644
---- a/rust/qemu-api/src/cell.rs
-+++ b/rust/qemu-api/src/cell.rs
-@@ -309,6 +309,29 @@ fn from(t: T) -> BqlCell<T> {
-     }
- }
- 
-+// Orphan rules don't like something like `impl<T> From<BqlCell<T>> for T`.
-+// It's enough to just implement Into for common types.
-+macro_rules! impl_into_inner {
-+    ($type:ty) => {
-+        impl From<BqlCell<$type>> for $type {
-+            fn from(c: BqlCell<$type>) -> $type {
-+                c.get()
-+            }
-+        }
-+    };
-+}
-+
-+impl_into_inner!(bool);
-+impl_into_inner!(i8);
-+impl_into_inner!(i16);
-+impl_into_inner!(i32);
-+impl_into_inner!(i64);
-+impl_into_inner!(u8);
-+impl_into_inner!(u16);
-+impl_into_inner!(u32);
-+impl_into_inner!(u64);
-+impl_into_inner!(usize);
-+
- impl<T: fmt::Debug + Copy> fmt::Debug for BqlCell<T> {
-     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-         self.get().fmt(f)
+diff --git a/rust/qemu-api/tests/vmstate_tests.rs b/rust/qemu-api/tests/vmstate_tests.rs
+index d1e37c45eea4..f7a93117e1a0 100644
+--- a/rust/qemu-api/tests/vmstate_tests.rs
++++ b/rust/qemu-api/tests/vmstate_tests.rs
+@@ -408,12 +408,12 @@ fn test_vmstate_macro_array_of_pointer_wrapped() {
+     );
+     assert_eq!(foo_fields[3].offset, (FOO_ARRAY_MAX + 2) * PTR_SIZE);
+     assert_eq!(foo_fields[3].num_offset, 0);
+-    assert_eq!(foo_fields[2].info, unsafe { &vmstate_info_uint8 });
++    assert_eq!(foo_fields[3].info, unsafe { &vmstate_info_uint8 });
+     assert_eq!(foo_fields[3].version_id, 0);
+     assert_eq!(foo_fields[3].size, PTR_SIZE);
+     assert_eq!(foo_fields[3].num, FOO_ARRAY_MAX as i32);
+     assert_eq!(
+-        foo_fields[2].flags.0,
++        foo_fields[3].flags.0,
+         VMStateFlags::VMS_ARRAY.0 | VMStateFlags::VMS_ARRAY_OF_POINTER.0
+     );
+     assert!(foo_fields[3].vmsd.is_null());
 -- 
 2.34.1
 
