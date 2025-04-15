@@ -1,134 +1,63 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1u4dwd-0000fm-UP
-	for mharc-qemu-rust@gnu.org; Tue, 15 Apr 2025 06:55:12 -0400
+	id 1u4ef2-0006T1-EE
+	for mharc-qemu-rust@gnu.org; Tue, 15 Apr 2025 07:41:04 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1u4dwZ-0000em-5f
- for qemu-rust@nongnu.org; Tue, 15 Apr 2025 06:55:07 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1u4eek-0006KJ-Ac; Tue, 15 Apr 2025 07:40:49 -0400
+Received: from mgamail.intel.com ([198.175.65.15])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1u4dwX-0004nw-9j
- for qemu-rust@nongnu.org; Tue, 15 Apr 2025 06:55:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1744714504;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Kcd4O2VLH3aUEeBKl7Z3MiFTgsJfiyvlDtznnHlAeZ8=;
- b=aZtTyxsy/5CK5UqyMrjjovq5sh4D6i3lYpklPdCxrbLhvs++ViH3om04EC6yHJzIZbAoii
- IM8v0jRWyy9SZQ3+q15HUxTSm6EY8qS6/qAr6qrdpYszWW+PnX/FHthqiNNmFFxbrqXIBf
- U9jExRZCH5LXI3y7bnXSlf2DaiVS29g=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-161-uCdxOg_hNTqK2Ogs1dWfUw-1; Tue, 15 Apr 2025 06:54:55 -0400
-X-MC-Unique: uCdxOg_hNTqK2Ogs1dWfUw-1
-X-Mimecast-MFC-AGG-ID: uCdxOg_hNTqK2Ogs1dWfUw_1744714494
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-43ea256f039so41259955e9.0
- for <qemu-rust@nongnu.org>; Tue, 15 Apr 2025 03:54:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744714493; x=1745319293;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Kcd4O2VLH3aUEeBKl7Z3MiFTgsJfiyvlDtznnHlAeZ8=;
- b=G+ON2UnNQP7aV959DpjDJfvDNH4abXsBbzDjOksXZPSqUst1WGpwTGjIApWfB0kCQV
- 7Y0vUpOpue3Nc4pWE6qpiYiV3/snOlEZs6fbbdNFKcmxSbuKuKOl4psZ/X/YrCKposes
- W1SR1s3RovrX9uEbjHQNmNr6kAEwCHZrcpcVoLgRtqkiHOe0yf6M1k4rxDTSNrDBB1Tg
- 228TCGJN5F1olAsJN6TacnNErM/tNK9xzaTs9yRDKxmDpEyaEh9Xnbr8RXEsudJU+KMP
- 0vz9RdWVBSCkGJR5gTXf//N9fqyiQr+iu+/DZBQICk/GyH0RkDz4RX6rAZDdonUtXw+3
- 2bNg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWVO+QXwPAyXufw2nLK1km6Y4FXqalZWbr0fj60wu4B4OoSMC21hr2gGyEPves9KFP3bIQs5snjii8=@nongnu.org
-X-Gm-Message-State: AOJu0Yxb6XHm6paKXgJYLO5cEpPlPbbJbT3FQ43ZtejeKvDSbbRFgnhK
- u+XhWBniJ920YxhVS+ttQcjdM28snDTONSbChZq8WKtYw3CnPVleGGH16VDlFclwM11DwX9joNu
- dEgji1Jv7Co+My6AuiH+J2K7QmIGaAHwsMzyPfopGh8Ru+tw7qntHiY3giFA=
-X-Gm-Gg: ASbGncsr/CWm9ItJZMEq5HzAunc9t+pJNPeENprv98QXA7c/0C6l0GBffwFCLN0HW4m
- KwBa+JlPqy5U2cu5IvH0XuGvyx9gc3EhH+SQyXtD0Qd/sUAzlfcBsDG6GW7sQm/DtLuRrcG/5wb
- tt+BfN1MeZ3eU4oco0m0vqkBfiAL2j3vm+0s1XSwjDRL1DQnMmgjnNyEfknCzsutMonnnjuBBYU
- GP/Pz5ccRHnd5sS1O81rKwWN/N4aj6v/IP+u7WXCbxauTOdE/+YUQVJ1AnAANV/ndefhACrZTkM
- 3TChnNM5rL2/5Fi5
-X-Received: by 2002:a05:600c:34d3:b0:43c:ee3f:2c3 with SMTP id
- 5b1f17b1804b1-43f3a9290d3mr122988825e9.7.1744714493483; 
- Tue, 15 Apr 2025 03:54:53 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHabibOADBRYDz7P3Lxp3YlpQLWq73n9xmEZZt7E37EPD0uEq7x1FiwXIKYA8+MGPBgcem2Rg==
-X-Received: by 2002:a05:600c:34d3:b0:43c:ee3f:2c3 with SMTP id
- 5b1f17b1804b1-43f3a9290d3mr122988595e9.7.1744714493071; 
- Tue, 15 Apr 2025 03:54:53 -0700 (PDT)
-Received: from [192.168.10.48] ([176.206.109.83])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-43f205ec97csm213187145e9.6.2025.04.15.03.54.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Apr 2025 03:54:52 -0700 (PDT)
-Message-ID: <c44eebb9-1252-447e-9262-e2946f90f01c@redhat.com>
-Date: Tue, 15 Apr 2025 12:54:51 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/9] rust/vmstate: Support varray's num field wrapped in
- BqlCell
-To: Zhao Liu <zhao1.liu@intel.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1u4eee-0001Ec-E5; Tue, 15 Apr 2025 07:40:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1744717241; x=1776253241;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=AWdj9DAw7TzJ84cjaNPRllAeYkqOjTIsOY72njK01/4=;
+ b=cN6I6wogexdb0zpcQDexVG5pBKQAeBwyMQMDs/t7SNYlbR11SEdeJ3wt
+ 5AtIseAmMRejO/tre76s/DOHTEskfwDELTSmRuqP1Otvz89Pte9TZ07bZ
+ X+UOqsldkvhK1/EfGtJkopovGKVdAfsHMh+3tgNK0dfS8Upq1DUI/JvQN
+ zyfjdFdSCx3TSisIMX4BSdGeIg7qkl93QeVJCNql+gGF2xeLHUpxyxmLY
+ RsU4XVNnLSBRSkF+D9iKC1364ouwd++2AtgoujV0Je3OY5GkLAkFHPbVi
+ cw8sJOyGxPuhA+FtikEAg/Z0AatOghu95nNKZ9/oufQiqCknLwQ4NfQDf w==;
+X-CSE-ConnectionGUID: TRhqkxZUSFy7iQaIowmUrg==
+X-CSE-MsgGUID: 0MjLFuYySH2zsma3+AYPFg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11403"; a="49872084"
+X-IronPort-AV: E=Sophos;i="6.15,213,1739865600"; d="scan'208";a="49872084"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2025 04:40:36 -0700
+X-CSE-ConnectionGUID: +YQMN2hPTr2FvSOoWoLECw==
+X-CSE-MsgGUID: ZYG1a2c7SWqsHzSZrk/DVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,213,1739865600"; d="scan'208";a="130057167"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa010.jf.intel.com with ESMTP; 15 Apr 2025 04:40:34 -0700
+Date: Tue, 15 Apr 2025 20:01:25 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Dapeng Mi <dapeng1.mi@intel.com>
+Subject: Re: [PATCH 8/9] rust/hpet: Support migration
+Message-ID: <Z/5KlfQgC65g6Kid@intel.com>
 References: <20250414144943.1112885-1-zhao1.liu@intel.com>
- <20250414144943.1112885-3-zhao1.liu@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <20250414144943.1112885-3-zhao1.liu@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: yPZ0rcR_QDa8QKnvl4suS5TlkFsS95bJgrK-REOO4tY_1744714494
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ <20250414144943.1112885-9-zhao1.liu@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250414144943.1112885-9-zhao1.liu@intel.com>
+Received-SPF: pass client-ip=198.175.65.15; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -141,94 +70,475 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Apr 2025 10:55:07 -0000
+X-List-Received-Date: Tue, 15 Apr 2025 11:41:00 -0000
 
-On 4/14/25 16:49, Zhao Liu wrote:
-> Currently, if the `num` field of a varray is not a numeric type, such as
-> being placed in a wrapper, the array variant of assert_field_type will
-> fail the check.
-> 
-> HPET currently wraps num_timers in BqlCell<>. Although BqlCell<> is not
-> necessary from strictly speaking, it makes sense for vmstate to respect
-> BqlCell.
+Hi Paolo,
 
-Dropping BqlCell<> from num_timers is indeed possible.  But I agree that 
-getting BqlCell<> varrays to work is a good thing anyway; then you can 
-separately decide whether to drop BqlCell<> from num_timers.
+Based on the this patch, I simply copied your MemoryRegionOpsBuilder
+and quickly tried out the vmstate builder over a few cups of tea.
 
-> The failure of assert_field_type is because it cannot convert BqlCell<T>
-> into usize for use as the index.
-> 
-> Therefore, first, implement `From` trait for common numeric types on
-> BqlCell<>. Then, abstract the wrapper and non-wrapper cases uniformly
-> into a `IntoUsize` trait and make assert_field_type to get usize type
-> index via `IntoUsize` trait.
-> 
-> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
-> ---
->   rust/qemu-api/src/assertions.rs | 30 +++++++++++++++++++++++++++++-
->   rust/qemu-api/src/cell.rs       | 23 +++++++++++++++++++++++
->   2 files changed, 52 insertions(+), 1 deletion(-)
+Although it can handle callbacks well, I found that the difficulty still
+lies in the fact that the vmstate_fields and vmstate_subsections macros
+cannot be eliminated, because any dynamic creation of arrays is not
+allowed in a static context! (As I understand it, lazy_static might
+still be needed.)
 
-I think you can drop the "num=" case of assert_field_type!, and use 
-something like this macro:
+An additional difficult case is vmsd(). Passing the raw VMStateDescription
+looks not good, while passing the VMStateDescription<> wrapper requires
+bounding DeviceImpl with 'static. Ultimately, I added an extra
+StaticVMStateDescription trait to successfully compile... In any case,
+it's definitely still rough, but hope it helps and takes a small step
+forward.
 
-/// Drop everything up to the colon, with the intention that
-/// `if_present!` is called inside an optional macro substitution
-/// (such as `$(... $arg ...)?` or `$(... $arg ...)*`).  This allows
-/// expanding `$result` depending on the presence of an argument,
-/// even if the argument itself is not included in `$result`.
-///
-/// # Examples
-///
-/// ```
-/// # use qemu_api::if_present;
-/// macro_rules! is_present {
-///     ($($cond:expr)?) => {
-///         loop {
-///             $(if_present!([$cond]: break true;);)?
-///             #[allow(unreachable_code)]
-///             break false;
-///         }
-///     }
-/// }
-///
-/// assert!(!is_present!());
-/// assert!(is_present!("abc"));
-/// ```
-#[macro_export]
-macro_rules! if_present {
-      ([$($cond:tt)*]: $($result:tt)*) => { $($result)* };
-}
+(Thanks for the patch 2 comment, I'll reply later!)
 
-to expand the array part of the access:
+Thanks,
+Zhao
 
-assert_field_type!(...
-     $($crate::if_present!([$num]: [0]))?;
-);
+---
+diff --git a/rust/hw/timer/hpet/src/hpet.rs b/rust/hw/timer/hpet/src/hpet.rs
+index a3538af14b48..16d495508424 100644
+--- a/rust/hw/timer/hpet/src/hpet.rs
++++ b/rust/hw/timer/hpet/src/hpet.rs
+@@ -4,7 +4,6 @@
 
-With this change, assert_field_type! is nicer and at least the trait 
-you're introducing in assertions.rs goes away...
+ use std::{
+     ffi::CStr,
+-    os::raw::{c_int, c_void},
+     pin::Pin,
+     ptr::{addr_of_mut, null_mut, NonNull},
+     slice::from_ref,
+@@ -27,9 +26,8 @@
+     qom_isa,
+     sysbus::{SysBusDevice, SysBusDeviceImpl},
+     timer::{Timer, CLOCK_VIRTUAL, NANOSECONDS_PER_SECOND},
+-    vmstate::VMStateDescription,
++    vmstate::{StaticVMStateDescription, VMStateDescription, VMStateDescriptionBuilder},
+     vmstate_fields, vmstate_of, vmstate_struct, vmstate_subsections, vmstate_validate,
+-    zeroable::Zeroable,
+ };
 
-> +// Orphan rules don't like something like `impl<T> From<BqlCell<T>> for T`.
-> +// It's enough to just implement Into for common types.
-> +macro_rules! impl_into_inner {
-> +    ($type:ty) => {
-> +        impl From<BqlCell<$type>> for $type {
-> +            fn from(c: BqlCell<$type>) -> $type {
-> +                c.get()
-> +            }
-> +        }
-> +    };
-> +}
+ use crate::fw_cfg::HPETFwConfig;
+@@ -943,104 +941,73 @@ impl ObjectImpl for HPETState {
+     ),
+ }
 
-... and it's not clear to me whether this is needed with the change 
-above?  Would impl_vmstate_transparent!'s definition of VARRAY_FLAG be 
-enough?
+-unsafe extern "C" fn hpet_rtc_irq_level_needed(opaque: *mut c_void) -> bool {
+-    // SAFETY:
+-    // the pointer is convertible to a reference
+-    let state: &HPETState = unsafe { NonNull::new(opaque.cast::<HPETState>()).unwrap().as_ref() };
+-    state.is_rtc_irq_level_needed()
+-}
+-
+-unsafe extern "C" fn hpet_offset_needed(opaque: *mut c_void) -> bool {
+-    // SAFETY:
+-    // the pointer is convertible to a reference
+-    let state: &HPETState = unsafe { NonNull::new(opaque.cast::<HPETState>()).unwrap().as_ref() };
+-    state.is_offset_needed()
+-}
+-unsafe extern "C" fn hpet_pre_save(opaque: *mut c_void) -> c_int {
+-    // SAFETY:
+-    // the pointer is convertible to a reference
+-    let state: &mut HPETState =
+-        unsafe { NonNull::new(opaque.cast::<HPETState>()).unwrap().as_mut() };
+-    state.pre_save() as c_int
+-}
+-
+-unsafe extern "C" fn hpet_post_load(opaque: *mut c_void, version_id: c_int) -> c_int {
+-    // SAFETY:
+-    // the pointer is convertible to a reference
+-    let state: &mut HPETState =
+-        unsafe { NonNull::new(opaque.cast::<HPETState>()).unwrap().as_mut() };
+-    let version: u8 = version_id.try_into().unwrap();
+-    state.post_load(version) as c_int
+-}
+-
+-static VMSTATE_HPET_RTC_IRQ_LEVEL: VMStateDescription = VMStateDescription {
+-    name: c_str!("hpet/rtc_irq_level").as_ptr(),
+-    version_id: 1,
+-    minimum_version_id: 1,
+-    needed: Some(hpet_rtc_irq_level_needed),
+-    fields: vmstate_fields! {
+-        vmstate_of!(HPETState, rtc_irq_level),
+-    },
+-    ..Zeroable::ZERO
+-};
+-
+-static VMSTATE_HPET_OFFSET: VMStateDescription = VMStateDescription {
+-    name: c_str!("hpet/offset").as_ptr(),
+-    version_id: 1,
+-    minimum_version_id: 1,
+-    needed: Some(hpet_offset_needed),
+-    fields: vmstate_fields! {
+-        vmstate_of!(HPETState, hpet_offset),
+-    },
+-    ..Zeroable::ZERO
+-};
+-
+-static VMSTATE_HPET_TIMER: VMStateDescription = VMStateDescription {
+-    name: c_str!("hpet_timer").as_ptr(),
+-    version_id: 1,
+-    minimum_version_id: 1,
+-    fields: vmstate_fields! {
+-        vmstate_of!(HPETTimer, index),
+-        vmstate_of!(HPETTimer, config),
+-        vmstate_of!(HPETTimer, cmp),
+-        vmstate_of!(HPETTimer, fsb),
+-        vmstate_of!(HPETTimer, period),
+-        vmstate_of!(HPETTimer, wrap_flag),
+-        vmstate_of!(HPETTimer, qemu_timer),
+-    },
+-    ..Zeroable::ZERO
+-};
++static VMSTATE_HPET_RTC_IRQ_LEVEL: VMStateDescription<HPETState> =
++    VMStateDescriptionBuilder::<HPETState>::new()
++        .name(c_str!("hpet/rtc_irq_level"))
++        .version_id(1)
++        .minimum_version_id(1)
++        .needed(&HPETState::is_rtc_irq_level_needed)
++        .fields(vmstate_fields! {
++            vmstate_of!(HPETState, rtc_irq_level),
++        })
++        .build();
++
++static VMSTATE_HPET_OFFSET: VMStateDescription<HPETState> =
++    VMStateDescriptionBuilder::<HPETState>::new()
++        .name(c_str!("hpet/offset"))
++        .version_id(1)
++        .minimum_version_id(1)
++        .needed(&HPETState::is_offset_needed)
++        .fields(vmstate_fields! {
++            vmstate_of!(HPETState, hpet_offset),
++        })
++        .build();
++
++static VMSTATE_HPET_TIMER: VMStateDescription<BqlRefCell<HPETTimer>> =
++    VMStateDescriptionBuilder::<BqlRefCell<HPETTimer>>::new()
++        .name(c_str!("hpet_timer"))
++        .version_id(1)
++        .minimum_version_id(1)
++        .fields(vmstate_fields! {
++            vmstate_of!(HPETTimer, index),
++            vmstate_of!(HPETTimer, config),
++            vmstate_of!(HPETTimer, cmp),
++            vmstate_of!(HPETTimer, fsb),
++            vmstate_of!(HPETTimer, period),
++            vmstate_of!(HPETTimer, wrap_flag),
++            vmstate_of!(HPETTimer, qemu_timer),
++        })
++        .build();
 
-If not, I *think* you can do a blanket implementation of Into<T> for 
-BqlCell<T>.  Maybe that's nicer, you can decide.
+ const VALIDATE_TIMERS_NAME: &CStr = c_str!("num_timers must match");
 
-Paolo
+-static VMSTATE_HPET: VMStateDescription = VMStateDescription {
+-    name: c_str!("hpet").as_ptr(),
+-    version_id: 2,
+-    minimum_version_id: 1,
+-    pre_save: Some(hpet_pre_save),
+-    post_load: Some(hpet_post_load),
+-    fields: vmstate_fields! {
+-        vmstate_of!(HPETState, config),
+-        vmstate_of!(HPETState, int_status),
+-        vmstate_of!(HPETState, counter),
+-        vmstate_of!(HPETState, num_timers_save).with_version_id(2),
+-        vmstate_validate!(HPETState, VALIDATE_TIMERS_NAME, HPETState::validate_num_timers),
+-        vmstate_struct!(HPETState, timers[0 .. num_timers], &VMSTATE_HPET_TIMER, BqlRefCell<HPETTimer>, HPETState::validate_num_timers).with_version_id(0),
+-    },
+-    subsections: vmstate_subsections! {
+-        VMSTATE_HPET_RTC_IRQ_LEVEL,
+-        VMSTATE_HPET_OFFSET,
+-    },
+-    ..Zeroable::ZERO
+-};
++static VMSTATE_HPET: VMStateDescription<HPETState> =
++    VMStateDescriptionBuilder::<HPETState>::new()
++        .name(c_str!("hpet"))
++        .version_id(2)
++        .minimum_version_id(1)
++        .pre_save(&HPETState::pre_save)
++        .post_load(&HPETState::post_load)
++        .fields(vmstate_fields! {
++            vmstate_of!(HPETState, config),
++            vmstate_of!(HPETState, int_status),
++            vmstate_of!(HPETState, counter),
++            vmstate_of!(HPETState, num_timers_save).with_version_id(2),
++            vmstate_validate!(HPETState, VALIDATE_TIMERS_NAME, HPETState::validate_num_timers),
++            vmstate_struct!(HPETState, timers[0 .. num_timers], &VMSTATE_HPET_TIMER, BqlRefCell<HPETTimer>, HPETState::validate_num_timers).with_version_id(0),
++        })
++        .subsections(vmstate_subsections!(
++            VMSTATE_HPET_RTC_IRQ_LEVEL,
++            VMSTATE_HPET_OFFSET,
++        ))
++        .build();
+
+ impl DeviceImpl for HPETState {
+     fn properties() -> &'static [Property] {
+         &HPET_PROPERTIES
+     }
+
+-    fn vmsd() -> Option<&'static VMStateDescription> {
++    fn vmsd() -> Option<&'static dyn StaticVMStateDescription> {
+         Some(&VMSTATE_HPET)
+     }
+
+diff --git a/rust/qemu-api/src/qdev.rs b/rust/qemu-api/src/qdev.rs
+index 18b4a9ba687d..3398167d2b4d 100644
+--- a/rust/qemu-api/src/qdev.rs
++++ b/rust/qemu-api/src/qdev.rs
+@@ -20,7 +20,7 @@
+     irq::InterruptSource,
+     prelude::*,
+     qom::{ObjectClass, ObjectImpl, Owned},
+-    vmstate::VMStateDescription,
++    vmstate::{StaticVMStateDescription, VMStateDescription},
+ };
+
+ /// A safe wrapper around [`bindings::Clock`].
+@@ -121,7 +121,7 @@ fn properties() -> &'static [Property] {
+     /// A `VMStateDescription` providing the migration format for the device
+     /// Not a `const` because referencing statics in constants is unstable
+     /// until Rust 1.83.0.
+-    fn vmsd() -> Option<&'static VMStateDescription> {
++    fn vmsd() -> Option<&'static dyn StaticVMStateDescription> {
+         None
+     }
+ }
+@@ -170,7 +170,7 @@ pub fn class_init<T: DeviceImpl>(&mut self) {
+             self.realize = Some(rust_realize_fn::<T>);
+         }
+         if let Some(vmsd) = <T as DeviceImpl>::vmsd() {
+-            self.vmsd = vmsd;
++            self.vmsd = vmsd.get_vmsd_ptr();
+         }
+         let prop = <T as DeviceImpl>::properties();
+         if !prop.is_empty() {
+diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
+index 7d9f3a2ca6f2..35d4d12c8ed6 100644
+--- a/rust/qemu-api/src/vmstate.rs
++++ b/rust/qemu-api/src/vmstate.rs
+@@ -25,11 +25,18 @@
+ //!   functionality that is missing from `vmstate_of!`.
+
+ use core::{marker::PhantomData, mem, ptr::NonNull};
+-use std::os::raw::{c_int, c_void};
++use std::{
++    ffi::CStr,
++    os::raw::{c_int, c_void},
++};
+
+-pub use crate::bindings::{VMStateDescription, VMStateField};
++pub use crate::bindings::{MigrationPriority, VMStateField};
+ use crate::{
+-    bindings::VMStateFlags, callbacks::FnCall, prelude::*, qom::Owned, zeroable::Zeroable,
++    bindings::{VMStateDescription as RawVMStateDescription, VMStateFlags},
++    callbacks::FnCall,
++    prelude::*,
++    qom::Owned,
++    zeroable::Zeroable,
+ };
+
+ /// This macro is used to call a function with a generic argument bound
+@@ -489,7 +496,7 @@ macro_rules! vmstate_struct {
+             },
+             size: ::core::mem::size_of::<$type>(),
+             flags: $crate::bindings::VMStateFlags::VMS_STRUCT,
+-            vmsd: $vmsd,
++            vmsd: $vmsd.get_vmsd_ptr(),
+             $(field_exists: $crate::vmstate_exist_fn!($struct_name, $test_fn),)?
+             ..$crate::zeroable::Zeroable::ZERO
+          } $(.with_varray_flag_unchecked(
+@@ -586,11 +593,188 @@ macro_rules! vmstate_subsections {
+     ($($subsection:expr),*$(,)*) => {{
+         static _SUBSECTIONS: $crate::vmstate::VMStateSubsectionsWrapper = $crate::vmstate::VMStateSubsectionsWrapper(&[
+             $({
+-                static _SUBSECTION: $crate::bindings::VMStateDescription = $subsection;
++                static _SUBSECTION: $crate::bindings::VMStateDescription = $subsection.get_vmsd();
+                 ::core::ptr::addr_of!(_SUBSECTION)
+             }),*,
+             ::core::ptr::null()
+         ]);
+-        _SUBSECTIONS.0.as_ptr()
++        &_SUBSECTIONS
+     }}
+ }
++
++pub struct VMStateDescription<T>(RawVMStateDescription, PhantomData<fn(&T)>);
++
++// SAFETY: When a *const T is passed to the callbacks, the call itself
++// is done in a thread-safe manner.  The invocation is okay as long as
++// T itself is `Sync`.
++unsafe impl<T: Sync> Sync for VMStateDescription<T> {}
++
++#[derive(Clone)]
++pub struct VMStateDescriptionBuilder<T>(RawVMStateDescription, PhantomData<fn(&T)>);
++
++unsafe extern "C" fn vmstate_pre_load_cb<T, F: for<'a> FnCall<(&'a T,), i32>>(
++    opaque: *mut c_void,
++) -> c_int {
++    // SAFETY: the opaque was passed as a reference to `T`.
++    F::call((unsafe { &*(opaque.cast::<T>()) },)) as c_int
++}
++
++unsafe extern "C" fn vmstate_post_load_cb<T, F: for<'a> FnCall<(&'a T, u8), i32>>(
++    opaque: *mut c_void,
++    version_id: c_int,
++) -> c_int {
++    // SAFETY: the opaque was passed as a reference to `T`.
++    let owner: &T = unsafe { &*(opaque.cast::<T>()) };
++    let version: u8 = version_id.try_into().unwrap();
++    F::call((owner, version)) as c_int
++}
++
++unsafe extern "C" fn vmstate_pre_save_cb<T, F: for<'a> FnCall<(&'a T,), i32>>(
++    opaque: *mut c_void,
++) -> c_int {
++    // SAFETY: the opaque was passed as a reference to `T`.
++    F::call((unsafe { &*(opaque.cast::<T>()) },)) as c_int
++}
++
++unsafe extern "C" fn vmstate_post_save_cb<T, F: for<'a> FnCall<(&'a T,), i32>>(
++    opaque: *mut c_void,
++) -> c_int {
++    // SAFETY: the opaque was passed as a reference to `T`.
++    F::call((unsafe { &*(opaque.cast::<T>()) },)) as c_int
++}
++
++unsafe extern "C" fn vmstate_needed_cb<T, F: for<'a> FnCall<(&'a T,), bool>>(
++    opaque: *mut c_void,
++) -> bool {
++    // SAFETY: the opaque was passed as a reference to `T`.
++    F::call((unsafe { &*(opaque.cast::<T>()) },))
++}
++
++unsafe extern "C" fn vmstate_dev_unplug_pending_cb<T, F: for<'a> FnCall<(&'a T,), bool>>(
++    opaque: *mut c_void,
++) -> bool {
++    // SAFETY: the opaque was passed as a reference to `T`.
++    F::call((unsafe { &*(opaque.cast::<T>()) },))
++}
++
++impl<T> VMStateDescriptionBuilder<T> {
++    #[must_use]
++    pub const fn name(mut self, name_str: &CStr) -> Self {
++        self.0.name = ::std::ffi::CStr::as_ptr(name_str);
++        self
++    }
++
++    #[must_use]
++    pub const fn unmigratable(mut self) -> Self {
++        self.0.unmigratable = true;
++        self
++    }
++
++    #[must_use]
++    pub const fn early_setup(mut self) -> Self {
++        self.0.early_setup = true;
++        self
++    }
++
++    #[must_use]
++    pub const fn version_id(mut self, version: u8) -> Self {
++        self.0.version_id = version as c_int;
++        self
++    }
++
++    #[must_use]
++    pub const fn minimum_version_id(mut self, min_version: u8) -> Self {
++        self.0.minimum_version_id = min_version as c_int;
++        self
++    }
++
++    #[must_use]
++    pub const fn priority(mut self, priority: MigrationPriority) -> Self {
++        self.0.priority = priority;
++        self
++    }
++
++    #[must_use]
++    pub const fn pre_load<F: for<'a> FnCall<(&'a T,), i32>>(mut self, _f: &F) -> Self {
++        self.0.pre_load = Some(vmstate_pre_load_cb::<T, F>);
++        self
++    }
++
++    #[must_use]
++    pub const fn post_load<F: for<'a> FnCall<(&'a T, u8), i32>>(mut self, _f: &F) -> Self {
++        self.0.post_load = Some(vmstate_post_load_cb::<T, F>);
++        self
++    }
++
++    #[must_use]
++    pub const fn pre_save<F: for<'a> FnCall<(&'a T,), i32>>(mut self, _f: &F) -> Self {
++        self.0.pre_save = Some(vmstate_pre_save_cb::<T, F>);
++        self
++    }
++
++    #[must_use]
++    pub const fn post_save<F: for<'a> FnCall<(&'a T,), i32>>(mut self, _f: &F) -> Self {
++        self.0.post_save = Some(vmstate_post_save_cb::<T, F>);
++        self
++    }
++
++    #[must_use]
++    pub const fn needed<F: for<'a> FnCall<(&'a T,), bool>>(mut self, _f: &F) -> Self {
++        self.0.needed = Some(vmstate_needed_cb::<T, F>);
++        self
++    }
++
++    #[must_use]
++    pub const fn unplug_pending<F: for<'a> FnCall<(&'a T,), bool>>(mut self, _f: &F) -> Self {
++        self.0.dev_unplug_pending = Some(vmstate_dev_unplug_pending_cb::<T, F>);
++        self
++    }
++
++    #[must_use]
++    pub const fn fields(mut self, fields: *const VMStateField) -> Self {
++        self.0.fields = fields;
++        self
++    }
++
++    #[must_use]
++    pub const fn subsections(mut self, subs: &'static VMStateSubsectionsWrapper) -> Self {
++        self.0.subsections = subs.0.as_ptr();
++        self
++    }
++
++    #[must_use]
++    pub const fn build(self) -> VMStateDescription<T> {
++        VMStateDescription::<T>(self.0, PhantomData)
++    }
++
++    #[must_use]
++    pub const fn new() -> Self {
++        Self(RawVMStateDescription::ZERO, PhantomData)
++    }
++}
++
++impl<T> Default for VMStateDescriptionBuilder<T> {
++    fn default() -> Self {
++        Self::new()
++    }
++}
++
++impl<T> VMStateDescription<T> {
++    pub const fn get_vmsd(&self) -> RawVMStateDescription {
++        self.0
++    }
++
++    pub const fn get_vmsd_ptr(&self) -> *const RawVMStateDescription {
++        &self.0 as *const _ as *const RawVMStateDescription
++    }
++}
++
++pub trait StaticVMStateDescription {
++    fn get_vmsd_ptr(&'static self) -> *const RawVMStateDescription;
++}
++
++impl<T> StaticVMStateDescription for VMStateDescription<T> {
++    fn get_vmsd_ptr(&'static self) -> *const RawVMStateDescription {
++        self.get_vmsd_ptr()
++    }
++}
+
+
 
 
