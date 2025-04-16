@@ -1,56 +1,57 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1u4zlY-0001WD-3d
-	for mharc-qemu-rust@gnu.org; Wed, 16 Apr 2025 06:13:12 -0400
+	id 1u51on-0007X4-JL
+	for mharc-qemu-rust@gnu.org; Wed, 16 Apr 2025 08:24:43 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1u4zlT-0001Ve-U3; Wed, 16 Apr 2025 06:13:08 -0400
-Received: from mgamail.intel.com ([198.175.65.13])
+ id 1u51eO-0001BP-Sy; Wed, 16 Apr 2025 08:13:58 -0400
+Received: from mgamail.intel.com ([192.198.163.9])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1u4zlQ-0004ph-OY; Wed, 16 Apr 2025 06:13:07 -0400
+ id 1u51eI-0002PE-F6; Wed, 16 Apr 2025 08:13:55 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744798384; x=1776334384;
+ t=1744805631; x=1776341631;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=V1tD4762zIW5vFUKrm/TKIOsDhWgGz05D4XIQjZH/0c=;
- b=hUroMVy+dvPuxYJiGRHS9d17aru5cOC2DWJJefLU5MSCScUZeLIp2YaS
- Sdo9V+c/TVTJeK94ayIcK0awTfMnil9J2OOHC9ecIsaxcANn0Od13N0ft
- SmSNftIpa+OJs6HiGjDMpxXapqNIljaIFvXtgSYTqwgayj0tiBndP3BGA
- FnXERwNP35rNWkKQwPAReyNn+QcTd8Prcq6B0s8vcu35ATtfSqoq0F5aL
- fSlB4GESwcICMaBhdPMrAd6y8O+zUbvfpd8YQ5F4oY8Tl+kBSYpgIeqbN
- Vm5U/TUd+nok8QlVVkX1CEYSjx7kqF8gsilKHNFUZlfjrh2b+KUpEemqv w==;
-X-CSE-ConnectionGUID: 28JHLWudScmamrCrazLgvg==
-X-CSE-MsgGUID: 4kOb7LiLT3KIub3S4gBGNQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11404"; a="57331871"
-X-IronPort-AV: E=Sophos;i="6.15,215,1739865600"; d="scan'208";a="57331871"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2025 03:13:01 -0700
-X-CSE-ConnectionGUID: UcsXT1GbTF2S+ZxYC37epw==
-X-CSE-MsgGUID: 1jBxpUaUSoSkimnvpdpfqQ==
+ bh=BCu7uGJI12d9kaGwBw0mVPWM82NUyxixbN4TgRX2RPg=;
+ b=anKSQWkiJ9D/hV3QWVziZmgX5M9F0K5RjgvtaJ/U/F99HthqFoy+k//b
+ l5dKOWeLNPlCG41CiBBDB6uil7RMsbxwEweoWehtY7qJeSivuJuUMMze/
+ 6c7O6zP6qO+vcNt6Wq1G8pkpuKSWbpb+9Up0GsGp0zbB1I3qKyhBQ/cXP
+ 2wV6TDXEClq3E4992yveatXUyUvCzzEi12Ctmr751jEMJjw5MyNA2XR4v
+ Cje7wRQJpbzl06UGiAN6H5dRaZw03Bpw8QCGwDxihFkCVKI9xOV8JQpZZ
+ B5k5xhohmZLtLvYfQIOTBeqr/XPsPw3sRUnu0v/5s+NwbEhcFw/qYEnHe g==;
+X-CSE-ConnectionGUID: ZPKjDVq/Q4GMEKGQuymDbQ==
+X-CSE-MsgGUID: uj3/TbR7S16AHVjUi4glTg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11404"; a="56984908"
+X-IronPort-AV: E=Sophos;i="6.15,216,1739865600"; d="scan'208";a="56984908"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Apr 2025 05:13:47 -0700
+X-CSE-ConnectionGUID: XmmKXVy8SqWwE1vkTlRKig==
+X-CSE-MsgGUID: oS8JfjvrT6qst16OYfIHZw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,215,1739865600"; d="scan'208";a="130372260"
+X-IronPort-AV: E=Sophos;i="6.15,216,1739865600"; d="scan'208";a="167626400"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa006.jf.intel.com with ESMTP; 16 Apr 2025 03:12:59 -0700
-Date: Wed, 16 Apr 2025 18:33:52 +0800
+ by orviesa001.jf.intel.com with ESMTP; 16 Apr 2025 05:13:46 -0700
+Date: Wed, 16 Apr 2025 20:34:37 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Dapeng Mi <dapeng1.mi@intel.com>
-Subject: Re: [PATCH 8/9] rust/hpet: Support migration
-Message-ID: <Z/+HkId2+ORzERJN@intel.com>
+Subject: Re: [PATCH 2/9] rust/vmstate: Support varray's num field wrapped in
+ BqlCell
+Message-ID: <Z/+j3be+ZT7G1ToL@intel.com>
 References: <20250414144943.1112885-1-zhao1.liu@intel.com>
- <20250414144943.1112885-9-zhao1.liu@intel.com>
- <Z/5KlfQgC65g6Kid@intel.com>
- <78fdfdaf-7c94-4d79-be39-8215c033b423@redhat.com>
+ <20250414144943.1112885-3-zhao1.liu@intel.com>
+ <c44eebb9-1252-447e-9262-e2946f90f01c@redhat.com>
+ <Z/97xG5VONqmlK+7@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <78fdfdaf-7c94-4d79-be39-8215c033b423@redhat.com>
-Received-SPF: pass client-ip=198.175.65.13; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <Z/97xG5VONqmlK+7@intel.com>
+Received-SPF: pass client-ip=192.198.163.9; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -72,77 +73,77 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Apr 2025 10:13:09 -0000
+X-List-Received-Date: Wed, 16 Apr 2025 12:14:11 -0000
 
-> > Although it can handle callbacks well, I found that the difficulty still
-> > lies in the fact that the vmstate_fields and vmstate_subsections macros
-> > cannot be eliminated, because any dynamic creation of arrays is not
-> > allowed in a static context!
+> > #[macro_export]
+> > macro_rules! if_present {
+> >      ([$($cond:tt)*]: $($result:tt)*) => { $($result)* };
+> > }
+> > 
+> > to expand the array part of the access:
+> > 
+> > assert_field_type!(...
+> >     $($crate::if_present!([$num]: [0]))?;
 > 
-> Yes, this makes sense.  Array size must be known inside a const function and
-> the extra terminator at the end of fields and subsections cannot be added by
-> the builder itself.  c_str! has the same issue for the name, if I understand
-> correctly.
+> This example remind me that I introduced a bug into array part:
+> 
+>     let index: usize = v.$num.try_into().unwrap();
+>     types_must_be_equal::<_, &$ti>(&v.$i[index]);
+> 
+> In the current code, actually it accesses v[num], but when num
+> stores the length of the whole array, it will cause index out of bounds.
+> 
+> So for current code, at least it should access `v.i[num - 1]`:
+> 
+>     let index: usize = v.$num.try_into().unwrap() - 1; // access the last element.
+>     types_must_be_equal::<_, &$ti>(&v.$i[index]);
 
-Yes, I have to use c_str! in name().
+I realize that my thinking was wrong here! The `v` (with specific type)
+isn't a valid instance, and the variable `num` being passed isn't
+correctly initialized. Therefore, checking `num`'s value here is
+meaningless; it's enough to just check if the type matches!
 
-> > In any case, it's definitely still rough, but hope it helps and
-> > takes a small step forward.
+> > );
+> > 
+> > With this change, assert_field_type! is nicer and at least the trait you're
+> > introducing in assertions.rs goes away...
 > 
-> Yes, of course---this:
+> Yes! Great idea.
 > 
-> +static VMSTATE_HPET_RTC_IRQ_LEVEL: VMStateDescription<HPETState> =
-> +    VMStateDescriptionBuilder::<HPETState>::new()
-> +        .name(c_str!("hpet/rtc_irq_level"))
-> +        .version_id(1)
-> +        .minimum_version_id(1)
-> +        .needed(&HPETState::is_rtc_irq_level_needed)
-> +        .fields(vmstate_fields! {
-> +            vmstate_of!(HPETState, rtc_irq_level),
-> +        })
-> +        .build();
-> +
+> Then with your help, we could integrate the array part like:
 > 
-> is readable, not foreign (it's similar to the MemoryRegionOps) and provides
-> an easy way to insert FFI wrappers.
+> #[macro_export]
+> macro_rules! if_present {
+>     ([$($cond:tt)*]: $($result:tt)*) => { $($result)* };
+> }
 > 
-> Right now it's now fully typesafe, because the VMStateField returned by
-> vmstate_of! (as well as the arrays returned by vmstate_fields! and
-> vmstate_subsections!) does not track that it's for an HPETState; but that's
-> a small thing overall and getting the basic builder right is more important.
+> ...
+> 
+> #[macro_export]
+> macro_rules! assert_field_type {
+>     ($t:ty, $i:tt, $ti:ty $(, $num:ident)?) => {
+>         const _: () = {
+>             #[allow(unused)]
+>             fn assert_field_type(v: $t) {
+>                 fn types_must_be_equal<T, U>(_: T)
+>                 where
+>                     T: $crate::assertions::EqType<Itself = U>,
+>                 {
+>                 }
+> 
+>                 let access = v.$i$($crate::if_present!([$num]: [v.$num - 1])])?;
 
-I agree, additional consideration is needed here. Currently it is
-vmstate_fields! that limits changes to vmstate_of!.
+So, the correct code should just check array[0] as you said:
 
-> I also made a note to check which callbacks could have a Result<> as the
-> return type, possibly reusing the Errno module (Result<(), ()> looks a bit
-> silly); but that is also not needed for this early stage.
-> 
-> Just a couple notes:
-> 
-> > +    bindings::{VMStateDescription as RawVMStateDescription, VMStateFlags},
-> 
-> I would use bindings::VMStateDescription throughout, similar to how
-> it's done in memory.rs.
+let access = v.$i$($crate::if_present!([$num]: [0])])?;
 
-Sure, will fix.
+Based on this, there's no need for anything else such as `Into`.
 
-> > +    pub const fn name(mut self, name_str: &CStr) -> Self {
-> > +        self.0.name = ::std::ffi::CStr::as_ptr(name_str);
-> 
-> 
-> This can use "name_str.as_ptr()" because the type of name_str is known
-> (unlike in macros, such as define_property! or vmstate_validate!).
-
-I see and will fix.
-
-> (By the way, talking about macros, I have just stumbled on the attrs crate,
-> which is something to keep an eye on for when QOM/qdev bindings are extended
-> along the lines of https://lore.kernel.org/qemu-devel/e8e55772-906b-42cb-a744-031e6ae65f16@redhat.com/T/.
-> But I don't think procedural macros are a good match for VMState).
-
-I didn't have a deep understanding of this previously :-(. I'll take a
-closer look at this.
+>                 types_must_be_equal::<_, $ti>(access);
+>             }
+>         };
+>     };
+> }
 
 Thanks,
 Zhao
