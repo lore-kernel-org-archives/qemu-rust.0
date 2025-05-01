@@ -1,60 +1,60 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uAcv1-00007x-Ug
-	for mharc-qemu-rust@gnu.org; Thu, 01 May 2025 19:02:15 -0400
+	id 1uAcvF-0000JK-FV
+	for mharc-qemu-rust@gnu.org; Thu, 01 May 2025 19:02:29 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcuz-00005y-VF
- for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:14 -0400
-Received: from mail-il1-x130.google.com ([2607:f8b0:4864:20::130])
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcv7-0000Bh-NN
+ for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:22 -0400
+Received: from mail-io1-xd2a.google.com ([2607:f8b0:4864:20::d2a])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcux-0002HR-6q
- for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:13 -0400
-Received: by mail-il1-x130.google.com with SMTP id
- e9e14a558f8ab-3d6d6d82633so4995415ab.0
- for <qemu-rust@nongnu.org>; Thu, 01 May 2025 16:02:10 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcv5-0002KG-SD
+ for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:21 -0400
+Received: by mail-io1-xd2a.google.com with SMTP id
+ ca18e2360f4ac-85e1b1f08a5so46047939f.2
+ for <qemu-rust@nongnu.org>; Thu, 01 May 2025 16:02:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1746140530; x=1746745330; darn=nongnu.org;
+ d=linaro.org; s=google; t=1746140539; x=1746745339; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=71cRgUxX/xvkQOIndCsIbPhvcAM9aTUzOonse2qZKrA=;
- b=mgkIZE04GSyocR6PPP6lza7MAKZy3C8ca4U0N5nT6kmMw/gxTeCtv5W1CyyidWGEgJ
- 4bkFS5MByHX2qHVjKy3Li8d9GYkg3ZR/sB/DZAbfBjmAU5X9cvB21p4jZcnq9gwJWYvn
- rhDYutjZLaNdN8D/1wL40kI5JqDIcHT/cP5pEEKGUDsMROW8IOLL5W+dpFOkRgQG1Ovh
- tqALGoJZkFEmikt8k4kUJShDrg9+ZlVBFd3EfA/LzWyI82QN81p4LgFUUH4aQGnTsfdb
- oCI5fuxkAzkFKM5aOCfo64Qcbv4tBTC0pjCv9ionsNYOf9wgY1V4aeb4JxNfZ+g4ABMT
- 6dlg==
+ bh=zUjb2KvGlUZUFz83Ds0AOUfQl+OnRqVo67ED0F/0NGk=;
+ b=DunsNhTouczSu6gQSlPVCZk/sGA54IGhDfwrSBIdZojE6RwAdRN3yrKgl0/NhHi3PF
+ 8SrN514lWzjzr7U7F5yEAwjktuNfTS24iBdxyIYdEW0fxdNuKLve1KANx6+1gDT0MGH+
+ 9TcTdCl4qZyJIyoTPx5mH8E/CniBSKQO1B++FJ8AzwU02aPmMu+CCKgWQDXJI95RrQ+I
+ TUw4DTBk2ehrnqarYXV5Se1Kcq84yvjnABm4HOqQfgQ9o4VfCl2IkXHy1ZoEl3FUveXF
+ 511dSWhk7QVdHLO7fiaapmuHX3lHOZCdBaNgzxzb7PQ02ChSVbE+d17svJm2gtfLx7FK
+ SbIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746140530; x=1746745330;
+ d=1e100.net; s=20230601; t=1746140539; x=1746745339;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=71cRgUxX/xvkQOIndCsIbPhvcAM9aTUzOonse2qZKrA=;
- b=FyFoZafAVke0qCPwQ47D/BRJiRZOyezOml7TQAsv3q0Qms4t0P6BVIkF/Up8zQcLOB
- LJ5MVNvEnS22yZJnlaft3in9Nhr9eJw70cOxwAeH2D9c16YZHA+/hz7AMgfdN/LJ/aF6
- n0vrPoKsha2rClLn7Sh1L9zEfE/V7t6CZyEIXyMGbVrhralKuRhEKS0+yeHLnGU2cE9q
- x07daeGA9PP5wZzir4MRocCIWy/qgvJTjAXoGC1pj4J/Wx9WVMIjjkiXYerL3ez2T72x
- 6gFG+xyQd2941C7WO9nTDnRxbFfFSa0plyi+7hGNtSARjXa0grtHC5mRlrlYeybuJsrG
- M1sg==
+ bh=zUjb2KvGlUZUFz83Ds0AOUfQl+OnRqVo67ED0F/0NGk=;
+ b=PBA/YY2PKKubY4tE8XkVsRnhUHHMnlNgEBsCszFm1oSN41KBEJLI9OrKJqSGa12WAd
+ InOhl1hRxhPBPpPatoeJDQh7ArjVovgP9aCMrDvwmN/Z2dEITCF0iBFoW5flzPngvVcF
+ q+ZJIb9HJKhz/HlcbbO4A5E385np5HJBq3znEMn8FxVn0nmizwAmj39CIAt5mNcuMMw6
+ aFw383tkFpaF8gqo9p+Y1wYKXaUOkThW+Pe5uJoJZcQRIe3+XJmK+d9nPt6bZOItsbAY
+ 6Mj9Myb/2DbRL9zXmT08pnYFHpaiBmN+au/hnz5dtYCnmE4HijcfSRm6jXsACOKRQkAn
+ XRlg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXMRYdxkbLODL3k3IodkNyK1xAANdjkw8lB95bgXFlEi20D1F1aUHtqsnuJWUnXeeNVbkKrfkOVwlY=@nongnu.org
-X-Gm-Message-State: AOJu0YxarPbw1mp4cEwPjBd5jVhYq04o+96ZDDFmPK9mWVsEBbC0tUvs
- 2puBgh2XZ4yI/hK5fb6I3NRNDIPZ21o1Ffqk95AlJ+rImE9esFsbytOwcvxBKV4=
-X-Gm-Gg: ASbGncuu85ZfYybXNd753rw5zbneILUmqydXfw/ViBHssPcSu6skiHXDRDvT2Jq0Fa+
- f7xAIuKhxt+/674EfjVDjsC6eIcVDnC1sGD9bdoDQzbQ8QafhkqIYcnBnH4FK5WFkNbTrMH6L1J
- JJr3xiF3eLDq7mDdi04F2PWMvgAK3+CXqyTX6roIgU7EKn6O4fEsCRfb8BTB0nmMMCBXkwa/9iz
- 09UPPv5l0Tj0oEXZCyjjBmhIM9OlMe6H5c800MmhOEK2uK7FQWsUxCXvDw4RDjxuG+nt9OPxBKv
- mvuZroYv3qDujmB0PSFfzndUslOO9a9YwiRuWdZbpTeANWG7dVhYir/dEhqc3J+SHEBhNMqdg3E
- yPnIb3+/X1GyyS7LBHTWv
-X-Google-Smtp-Source: AGHT+IEksWUSalHmdf1L0lBrQ4kJnb1Zq0e9zprZ1OTx3tRVCreMHfEejwW82x+JiiUe/xwS18W23A==
-X-Received: by 2002:a05:6e02:1f82:b0:3d9:6756:14b4 with SMTP id
- e9e14a558f8ab-3d97c288232mr9587435ab.18.1746140529786; 
- Thu, 01 May 2025 16:02:09 -0700 (PDT)
+ AJvYcCVBUAw8pVRkYDrGhPlZ9HgA83LL08HEjDeXr/XUxW/1qJ6QuR/kBu8IGVxJCVt/OInCoZjVt5IYo1E=@nongnu.org
+X-Gm-Message-State: AOJu0Yw2TSmLC9KroDEkDzfJIrQXIfcEGFMMu2icGoPM70SNMEkFv17z
+ B5NgnWKew0jqtPug5yUzdi2oX+0LkVWFyogToXOfP3gKJkkGuw/eUaDCNrVI81I=
+X-Gm-Gg: ASbGncthMjJ4o3KBfj1iXDig24QMsf6iqlxv9yWF23M9w6RAnmdEeRb3LltRF7Ewbrg
+ ZI1IO2OHxoaA08Y+HnCZc2LgIfEqanhBW3Hk1epuapJkroVDDaNQQd75/L9E7US8zbAaQD4qOmL
+ KCGiyNe5giVUJ/g0f316GwkDDP0xzUk+3DNkHbY1QHAdYowFYT09W6hQC6NZv0dUyU3RVAz4QSd
+ D3oqngFRllykBWK9lvyvhdOSI5LLhU7ww5LK/y766ITU7WkYAYSMV9V3pIJuLNnsrZGsH8EYY12
+ x7mWEBalYgCLDY8ihYA/CsnFhEOHy7qBcfRekA9h6v2pmRPM2SsNzt2OPSI/3R89ca4/Uoazmj6
+ ioNLcZnt2db8Qtdup3CiN
+X-Google-Smtp-Source: AGHT+IGDUDncsBvBWJwDg7BzIa/I82Zpdo8gtA7hcl3jIYbKpZXoLqddwTobgck/GVTy/3rgXIEmzA==
+X-Received: by 2002:a05:6e02:1522:b0:3d9:6cb6:fa52 with SMTP id
+ e9e14a558f8ab-3d97c1cba74mr10472685ab.12.1746140538619; 
+ Thu, 01 May 2025 16:02:18 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- e9e14a558f8ab-3d975e7d0c6sm3679665ab.27.2025.05.01.16.02.06
+ e9e14a558f8ab-3d975e6fbbdsm3386655ab.16.2025.05.01.16.02.15
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 01 May 2025 16:02:09 -0700 (PDT)
+ Thu, 01 May 2025 16:02:18 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Yanan Wang <wangyanan55@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>,
@@ -70,24 +70,24 @@ Cc: Yanan Wang <wangyanan55@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>,
  Richard Henderson <richard.henderson@linaro.org>,
  "Michael S. Tsirkin" <mst@redhat.com>, qemu-s390x@nongnu.org,
  Christian Borntraeger <borntraeger@linux.ibm.com>
-Subject: [PATCH 04/10] hw/core/machine: Remove hw_compat_2_11[] array
-Date: Fri,  2 May 2025 01:01:22 +0200
-Message-ID: <20250501230129.2596-5-philmd@linaro.org>
+Subject: [PATCH 05/10] hw/timer/hpet: Remove HPETState::hpet_offset_saved field
+Date: Fri,  2 May 2025 01:01:23 +0200
+Message-ID: <20250501230129.2596-6-philmd@linaro.org>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250501230129.2596-1-philmd@linaro.org>
 References: <20250501230129.2596-1-philmd@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2607:f8b0:4864:20::130;
- envelope-from=philmd@linaro.org; helo=mail-il1-x130.google.com
+Received-SPF: pass client-ip=2607:f8b0:4864:20::d2a;
+ envelope-from=philmd@linaro.org; helo=mail-io1-xd2a.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -100,49 +100,87 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 May 2025 23:02:14 -0000
+X-List-Received-Date: Thu, 01 May 2025 23:02:27 -0000
 
-The hw_compat_2_11[] array was only used by the pc-q35-2.11,
-pc-i440fx-2.11 and s390-ccw-virtio-2.11 machines, which got
-removed. Remove it.
+The HPETState::hpet_offset_saved boolean was only set in the
+hw_compat_2_11[] array, via the 'hpet-offset-saved=false'
+property. We removed all machines using that array, lets remove
+that property and all the code around it.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- include/hw/boards.h | 3 ---
- hw/core/machine.c   | 8 --------
- 2 files changed, 11 deletions(-)
+ hw/timer/hpet.c                | 9 +--------
+ rust/hw/timer/hpet/src/hpet.rs | 9 ---------
+ 2 files changed, 1 insertion(+), 17 deletions(-)
 
-diff --git a/include/hw/boards.h b/include/hw/boards.h
-index f2f58ec4ed8..16cef33beae 100644
---- a/include/hw/boards.h
-+++ b/include/hw/boards.h
-@@ -826,7 +826,4 @@ extern const size_t hw_compat_3_0_len;
- extern GlobalProperty hw_compat_2_12[];
- extern const size_t hw_compat_2_12_len;
+diff --git a/hw/timer/hpet.c b/hw/timer/hpet.c
+index d1b7bc52b7b..47b8fc0d880 100644
+--- a/hw/timer/hpet.c
++++ b/hw/timer/hpet.c
+@@ -71,7 +71,6 @@ struct HPETState {
  
--extern GlobalProperty hw_compat_2_11[];
--extern const size_t hw_compat_2_11_len;
--
- #endif
-diff --git a/hw/core/machine.c b/hw/core/machine.c
-index 816d503b2a1..8f1b44b70f7 100644
---- a/hw/core/machine.c
-+++ b/hw/core/machine.c
-@@ -230,14 +230,6 @@ GlobalProperty hw_compat_2_12[] = {
+     MemoryRegion iomem;
+     uint64_t hpet_offset;
+-    bool hpet_offset_saved;
+     qemu_irq irqs[HPET_NUM_IRQ_ROUTES];
+     uint32_t flags;
+     uint8_t rtc_irq_level;
+@@ -264,11 +263,6 @@ static int hpet_post_load(void *opaque, int version_id)
+         t->cmp64 = hpet_calculate_cmp64(t, s->hpet_counter, t->cmp);
+         t->last = qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) - NANOSECONDS_PER_SECOND;
+     }
+-    /* Recalculate the offset between the main counter and guest time */
+-    if (!s->hpet_offset_saved) {
+-        s->hpet_offset = ticks_to_ns(s->hpet_counter)
+-                        - qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL);
+-    }
+ 
+     return 0;
+ }
+@@ -277,7 +271,7 @@ static bool hpet_offset_needed(void *opaque)
+ {
+     HPETState *s = opaque;
+ 
+-    return hpet_enabled(s) && s->hpet_offset_saved;
++    return hpet_enabled(s);
+ }
+ 
+ static bool hpet_rtc_irq_level_needed(void *opaque)
+@@ -733,7 +727,6 @@ static const Property hpet_device_properties[] = {
+     DEFINE_PROP_UINT8("timers", HPETState, num_timers, HPET_MIN_TIMERS),
+     DEFINE_PROP_BIT("msi", HPETState, flags, HPET_MSI_SUPPORT, false),
+     DEFINE_PROP_UINT32(HPET_INTCAP, HPETState, intcap, 0),
+-    DEFINE_PROP_BOOL("hpet-offset-saved", HPETState, hpet_offset_saved, true),
  };
- const size_t hw_compat_2_12_len = G_N_ELEMENTS(hw_compat_2_12);
  
--GlobalProperty hw_compat_2_11[] = {
--    { "hpet", "hpet-offset-saved", "false" },
--    { "virtio-blk-pci", "vectors", "2" },
--    { "vhost-user-blk-pci", "vectors", "2" },
--    { "e1000", "migrate_tso_props", "off" },
--};
--const size_t hw_compat_2_11_len = G_N_ELEMENTS(hw_compat_2_11);
--
- MachineState *current_machine;
+ static void hpet_device_class_init(ObjectClass *klass, const void *data)
+diff --git a/rust/hw/timer/hpet/src/hpet.rs b/rust/hw/timer/hpet/src/hpet.rs
+index cbd2ed4f6bf..9e681391176 100644
+--- a/rust/hw/timer/hpet/src/hpet.rs
++++ b/rust/hw/timer/hpet/src/hpet.rs
+@@ -544,7 +544,6 @@ pub struct HPETState {
  
- static char *machine_get_kernel(Object *obj, Error **errp)
+     /// Offset of main counter relative to qemu clock.
+     hpet_offset: BqlCell<u64>,
+-    hpet_offset_saved: bool,
+ 
+     irqs: [InterruptSource; HPET_NUM_IRQ_ROUTES],
+     rtc_irq_level: BqlCell<u32>,
+@@ -885,14 +884,6 @@ impl ObjectImpl for HPETState {
+         u32,
+         default = 0
+     ),
+-    qemu_api::define_property!(
+-        c_str!("hpet-offset-saved"),
+-        HPETState,
+-        hpet_offset_saved,
+-        unsafe { &qdev_prop_bool },
+-        bool,
+-        default = true
+-    ),
+ }
+ 
+ impl DeviceImpl for HPETState {
 -- 
 2.47.1
 
