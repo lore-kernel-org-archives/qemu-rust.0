@@ -1,61 +1,60 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uAcvk-0000dl-JT
-	for mharc-qemu-rust@gnu.org; Thu, 01 May 2025 19:03:00 -0400
+	id 1uAcvq-0000hs-SK
+	for mharc-qemu-rust@gnu.org; Thu, 01 May 2025 19:03:06 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvW-0000Uy-NJ
- for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:47 -0400
-Received: from mail-io1-xd32.google.com ([2607:f8b0:4864:20::d32])
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvk-0000c8-0a
+ for qemu-rust@nongnu.org; Thu, 01 May 2025 19:03:00 -0400
+Received: from mail-io1-xd2e.google.com ([2607:f8b0:4864:20::d2e])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvU-0002Nv-Tp
- for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:46 -0400
-Received: by mail-io1-xd32.google.com with SMTP id
- ca18e2360f4ac-8644aa73dfcso54224939f.0
- for <qemu-rust@nongnu.org>; Thu, 01 May 2025 16:02:44 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvh-0002Qq-CT
+ for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:59 -0400
+Received: by mail-io1-xd2e.google.com with SMTP id
+ ca18e2360f4ac-85d9a87660fso158793639f.1
+ for <qemu-rust@nongnu.org>; Thu, 01 May 2025 16:02:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1746140556; x=1746745356; darn=nongnu.org;
+ d=linaro.org; s=google; t=1746140576; x=1746745376; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1dlMcx3WGtPJYiCrgyeoxnRKpVNt5eyt1XvaZehs/1U=;
- b=gsemxs7N9iAG6j8aEhfg3NtMsyc3G2GOGjVbvsX1DBgih+f+NQQjg6cULWydJHruzk
- eUwmrhqn1ln2JjrZFwY5KdM2TJFxYiLiNw4HMw7ozaZVj15oSxeOZFc7WJ58FoiraDks
- xq2ltZ5XwYYCLjHDQIfFseQFRqHh2bEQzhwXxAxyzJNPsfVB/7QkpuB/KCiru1ZMBoEB
- wmfVSpCK/+uWAhgFqYLFMZXmr9A4xt+PJHM4roXcf1FZUC15JOKtMFOxYC9zJx6PcmyD
- gA+U2L9zftobJVSPd2zUHbltQxHySRxFNZJWl76MpwFplS+p24vPSiglmo1D9iKoNv8c
- bxhQ==
+ bh=WnkKvB1b+3d0EeHxFwXj6FOWV545S5FRjaJFzkqSlRY=;
+ b=Pov7hhVlARMLIOUrLv51J6nfu8MoPQsPlO80Vi3iSxh2gOKwXet/kpk7ZSS1SyNodv
+ JdeJGZC1v6OQ3VfTqdRxBm8f2DPyBHxvqPO9EUZ+JouHp3gy7m5O/3uzQivsUKdVX0jT
+ +Et2TyUE/Qqkqk2NKsMvX9JtMalIjTScbKByzLdRK5jyakCwZhVODZCUpopsklWTjp4x
+ zYErjUW7Sx81fESxZS+FxMgyocfT1VWkEc/tkYriOdZNQCqDgemPM1ryj7ZYifBX7N/f
+ V00ys7Rtqi66bJtJZo5NhkKREzObl/uJN6y+6TUc09GkAxaEEVRXNc5TqHve2zQEhbwq
+ pWbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746140556; x=1746745356;
+ d=1e100.net; s=20230601; t=1746140576; x=1746745376;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1dlMcx3WGtPJYiCrgyeoxnRKpVNt5eyt1XvaZehs/1U=;
- b=DbiedBl++VfmdL2SElQfNRYz0Fxg5eSyOOq9rCfq/PoWF12mUxZ4c19qvyq7yLebO7
- LQbSOjjBcaf3p42nYFlPiOCPH4NDRvgoLCB2axr10C8Z1/Wrms+5y2ibtVytWCHJbMeC
- peNk3dk9Qczj8iN41egzKgr1U84buoCbhFFtz/U7co2h0bKqv+ozqXtXjHPfuKGe/U1V
- Z6R3B2mCWK1sS7i6n2YgmoWQEZ51015v0bbN3r6KaaKZYYLYBa/MMAJGT0mYPO7GXTlk
- e6FyorPfpWVyt2N4yyKEh7fM9qdSQQKT7nfk4REmwlalylV4bsRuHuEH8R/LudFAWBW8
- hP6A==
+ bh=WnkKvB1b+3d0EeHxFwXj6FOWV545S5FRjaJFzkqSlRY=;
+ b=KJostSA5ExHq5sBlkT5nTj4xnNHHXzdraekxKC8qeb7YSc3vaNWl/1+07A+0CfbtmJ
+ ETw9oLA8ni7ZfiqG7c3Mplm+c18TxkMIyj3xpnrJ1iGWtRLHIWYQaEE/YcuLC5QyPJXP
+ 30xaJtZlyVsi6i4CRKuI9wOaiGrGxksDpJL55jPjZLvPuxoOCbT6e+CyaT2zWFZUXkBa
+ sVmEIbNgkEB8U6onqhqhSc8QJ4g4oDsJV1pYQAPFMupMF7LcN++beqY+xv0ggNUuRIjx
+ iHfYfaH1PEslgOAwpxO4f0G1UCPueRtwRZ/D8zm7o582qKOyBNWO2Vjm4eFofGCqnXxB
+ Nrdg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWF9tvI/UPDlQCHeSvpNo6Fezev2tyrPDskaMDC+d8vyrl9wxV8RC4eTV4AvYfk3wCZbbMwVWR5rho=@nongnu.org
-X-Gm-Message-State: AOJu0YwLzwIUuXBBhnwZXY+je8CyhQL6j1YwJ/JRtlP4+5VB+MCVt1eN
- OdrzqHNapwWLg9jDKxQNf+9+EsBfYIL4s5P8A6ayK10jrf5VjHN6EUtpGPZ+uDmOGey/5e0ijYX
- s
-X-Gm-Gg: ASbGncv/nLFQskNYIp2r8JiSRUZug9klnKfWkTbBOvaJJI7dVdJraCL2PT8QauplKyG
- WBDKamKHtYoCuvcHgIjA2v1uy1ZEyqccKrTxjr1jVlfnZNjft6WqEt/HlfUTMl2WxeH5g+PmURs
- GeL9QDyRjePXNyevBQGxOeNJt+rtf8fuHpgPsBXbV9TAh0HJL5tMEJQbyknx6c1trDIUilf6FiM
- /Al00mVi0Git6tge64xIKgYvdPhZv6A4SBdqbT4l7xUeLk0cBG6Uhv2R+DLR1Xlnt6LmV4iGf+p
- eHZ9cM93iwb6qcL9p2CR0M7frOwL3W5oNQbEXiWz2gchTsIEiHPCnx1yK2Wl5pBbDnqzmXlgGuo
- Qjk5yC7sG8BkiBeZyQ9aT
-X-Google-Smtp-Source: AGHT+IG3KJ8tW2veGSL0bNPTMdz4dp4JK0KNaJu7AV8FePfOrcHjR1Vw8E5ZFfIwibr3wznGzO2ljw==
-X-Received: by 2002:a05:6e02:3702:b0:3d3:fbae:3978 with SMTP id
- e9e14a558f8ab-3d97c1a4cb9mr9373195ab.9.1746140555981; 
- Thu, 01 May 2025 16:02:35 -0700 (PDT)
+ AJvYcCVyF3mtJkw34nuKs/1WD/exHRzr2PBIs/cs1QiV0mWLX7bI4wSlvADd+XLof3L4fHqytyplfXQndn8=@nongnu.org
+X-Gm-Message-State: AOJu0Yzy3COxXoi7/IA9NFQJkbOpI4LD5mEHcjxAsJEP0oFGqVL6nLzg
+ a+UoVPVOWhqlX+9BVRns2YEpJ9b6eKpBrJ+rg5xsm+rGult3HZ2Sk8HFJuJM9cI=
+X-Gm-Gg: ASbGncu1bck8sfgONbyPafD6yOQtI6DTMjcKw/bZtIUfuTiHiluVbgMYz1BdBDTwh8z
+ rQnJOFzYvzUxzT+iYb99mvvlIEPmOKOfRuadopj1WzWilDa3+Sr4pVp1qU4vQJNe+sLCEbuOGIV
+ t2aNvDICeJdjd6Kiw9Rl2+IQ9Zm0ChqMN3kwbSP1bYGIE/yxG7hzG9Y148rsEqKoVl8hJ417EpC
+ cOocp5ZtLLwKvIKkIrnUbXSRicXG3r6XRGB5ILnUE1eIDwjSKYMVx2w/+Hhi0NEGvt/hhFrnFho
+ CiYaHtSQeHPtA7POFQOeBsscRheR8bNK373ZSDnod6mkH+9+m1NaB0v5NnoJ7YUlIZlRv+wFt9T
+ n+9+zmEnCReM6FKEKCMOQdIcL3WSDpQU=
+X-Google-Smtp-Source: AGHT+IEiwebta2jjbmeb5yedYFDh3IKB0uoU2Du0UF3wCHzQ38JonuurTlwyuw+/UGzJLdk571OfdA==
+X-Received: by 2002:a05:6602:4743:b0:864:6a74:b56d with SMTP id
+ ca18e2360f4ac-8669f9b6da2mr136803839f.5.1746140574195; 
+ Thu, 01 May 2025 16:02:54 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 8926c6da1cb9f-4f88aac7e27sm87432173.138.2025.05.01.16.02.32
+ ca18e2360f4ac-864aa2f45adsm29354639f.18.2025.05.01.16.02.50
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 01 May 2025 16:02:35 -0700 (PDT)
+ Thu, 01 May 2025 16:02:53 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Yanan Wang <wangyanan55@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>,
@@ -71,18 +70,18 @@ Cc: Yanan Wang <wangyanan55@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>,
  Richard Henderson <richard.henderson@linaro.org>,
  "Michael S. Tsirkin" <mst@redhat.com>, qemu-s390x@nongnu.org,
  Christian Borntraeger <borntraeger@linux.ibm.com>
-Subject: [PATCH 07/10] hw/s390x/s390-virtio-ccw: Remove the deprecated 2.12
- machine type
-Date: Fri,  2 May 2025 01:01:25 +0200
-Message-ID: <20250501230129.2596-8-philmd@linaro.org>
+Subject: [PATCH 09/10] hw/audio/hda-codec: Remove HDAAudioState::use_timer
+ field
+Date: Fri,  2 May 2025 01:01:27 +0200
+Message-ID: <20250501230129.2596-10-philmd@linaro.org>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250501230129.2596-1-philmd@linaro.org>
 References: <20250501230129.2596-1-philmd@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2607:f8b0:4864:20::d32;
- envelope-from=philmd@linaro.org; helo=mail-io1-xd32.google.com
+Received-SPF: pass client-ip=2607:f8b0:4864:20::d2e;
+ envelope-from=philmd@linaro.org; helo=mail-io1-xd2e.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -102,46 +101,166 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 May 2025 23:02:51 -0000
+X-List-Received-Date: Thu, 01 May 2025 23:03:00 -0000
 
-From: Thomas Huth <thuth@redhat.com>
+The HDAAudioState::use_timer boolean was only set in the
+hw_compat_2_12[] array, via the 'use-timer=false' property.
+We removed all machines using that array, lets remove that
+property and all the code around it, like the compatibility
+callbacks.
 
-The s390-ccw-virtio-2.12 machine is older than 6 years, so according to
-our machine support policy, it can be removed now.
-
-Signed-off-by: Thomas Huth <thuth@redhat.com>
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-Message-ID: <20250115073819.15452-9-thuth@redhat.com>
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- hw/s390x/s390-virtio-ccw.c | 14 --------------
- 1 file changed, 14 deletions(-)
+ hw/audio/hda-codec.c | 91 +++++++-------------------------------------
+ 1 file changed, 13 insertions(+), 78 deletions(-)
 
-diff --git a/hw/s390x/s390-virtio-ccw.c b/hw/s390x/s390-virtio-ccw.c
-index 2c90702d834..e612030bc18 100644
---- a/hw/s390x/s390-virtio-ccw.c
-+++ b/hw/s390x/s390-virtio-ccw.c
-@@ -1236,20 +1236,6 @@ static void ccw_machine_3_0_class_options(MachineClass *mc)
- }
- DEFINE_CCW_MACHINE(3, 0);
+diff --git a/hw/audio/hda-codec.c b/hw/audio/hda-codec.c
+index 66edad280f2..92e1fe65827 100644
+--- a/hw/audio/hda-codec.c
++++ b/hw/audio/hda-codec.c
+@@ -187,7 +187,6 @@ struct HDAAudioState {
+     /* properties */
+     uint32_t debug;
+     bool     mixer;
+-    bool     use_timer;
+ };
  
--static void ccw_machine_2_12_instance_options(MachineState *machine)
+ static inline uint32_t hda_bytes_per_second(HDAAudioStream *st)
+@@ -366,58 +365,6 @@ static void hda_audio_output_cb(void *opaque, int avail)
+     hda_timer_sync_adjust(st, (wpos - rpos) - (B_SIZE >> 1));
+ }
+ 
+-static void hda_audio_compat_input_cb(void *opaque, int avail)
 -{
--    ccw_machine_3_0_instance_options(machine);
--    s390_cpudef_featoff_greater(11, 1, S390_FEAT_PPA15);
--    s390_cpudef_featoff_greater(11, 1, S390_FEAT_BPB);
+-    HDAAudioStream *st = opaque;
+-    int recv = 0;
+-    int len;
+-    bool rc;
+-
+-    while (avail - recv >= sizeof(st->compat_buf)) {
+-        if (st->compat_bpos != sizeof(st->compat_buf)) {
+-            len = AUD_read(st->voice.in, st->compat_buf + st->compat_bpos,
+-                           sizeof(st->compat_buf) - st->compat_bpos);
+-            st->compat_bpos += len;
+-            recv += len;
+-            if (st->compat_bpos != sizeof(st->compat_buf)) {
+-                break;
+-            }
+-        }
+-        rc = hda_codec_xfer(&st->state->hda, st->stream, false,
+-                            st->compat_buf, sizeof(st->compat_buf));
+-        if (!rc) {
+-            break;
+-        }
+-        st->compat_bpos = 0;
+-    }
 -}
 -
--static void ccw_machine_2_12_class_options(MachineClass *mc)
+-static void hda_audio_compat_output_cb(void *opaque, int avail)
 -{
--    ccw_machine_3_0_class_options(mc);
--    compat_props_add(mc->compat_props, hw_compat_2_12, hw_compat_2_12_len);
--}
--DEFINE_CCW_MACHINE(2, 12);
+-    HDAAudioStream *st = opaque;
+-    int sent = 0;
+-    int len;
+-    bool rc;
 -
- static void ccw_machine_register_types(void)
+-    while (avail - sent >= sizeof(st->compat_buf)) {
+-        if (st->compat_bpos == sizeof(st->compat_buf)) {
+-            rc = hda_codec_xfer(&st->state->hda, st->stream, true,
+-                                st->compat_buf, sizeof(st->compat_buf));
+-            if (!rc) {
+-                break;
+-            }
+-            st->compat_bpos = 0;
+-        }
+-        len = AUD_write(st->voice.out, st->compat_buf + st->compat_bpos,
+-                        sizeof(st->compat_buf) - st->compat_bpos);
+-        st->compat_bpos += len;
+-        sent += len;
+-        if (st->compat_bpos != sizeof(st->compat_buf)) {
+-            break;
+-        }
+-    }
+-}
+-
+ static void hda_audio_set_running(HDAAudioStream *st, bool running)
  {
-     type_register_static(&ccw_machine_info);
+     if (st->node == NULL) {
+@@ -428,16 +375,14 @@ static void hda_audio_set_running(HDAAudioStream *st, bool running)
+     }
+     st->running = running;
+     trace_hda_audio_running(st->node->name, st->stream, st->running);
+-    if (st->state->use_timer) {
+-        if (running) {
+-            int64_t now = qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL);
+-            st->rpos = 0;
+-            st->wpos = 0;
+-            st->buft_start = now;
+-            timer_mod_anticipate_ns(st->buft, now + HDA_TIMER_TICKS);
+-        } else {
+-            timer_del(st->buft);
+-        }
++    if (running) {
++        int64_t now = qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL);
++        st->rpos = 0;
++        st->wpos = 0;
++        st->buft_start = now;
++        timer_mod_anticipate_ns(st->buft, now + HDA_TIMER_TICKS);
++    } else {
++        timer_del(st->buft);
+     }
+     if (st->output) {
+         AUD_set_active_out(st->voice.out, st->running);
+@@ -474,7 +419,6 @@ static void hda_audio_set_amp(HDAAudioStream *st)
+ 
+ static void hda_audio_setup(HDAAudioStream *st)
+ {
+-    bool use_timer = st->state->use_timer;
+     audio_callback_fn cb;
+ 
+     if (st->node == NULL) {
+@@ -485,21 +429,13 @@ static void hda_audio_setup(HDAAudioStream *st)
+                            fmt2name[st->as.fmt], st->as.freq);
+ 
+     if (st->output) {
+-        if (use_timer) {
+-            cb = hda_audio_output_cb;
+-            timer_del(st->buft);
+-        } else {
+-            cb = hda_audio_compat_output_cb;
+-        }
++        cb = hda_audio_output_cb;
++        timer_del(st->buft);
+         st->voice.out = AUD_open_out(&st->state->card, st->voice.out,
+                                      st->node->name, st, cb, &st->as);
+     } else {
+-        if (use_timer) {
+-            cb = hda_audio_input_cb;
+-            timer_del(st->buft);
+-        } else {
+-            cb = hda_audio_compat_input_cb;
+-        }
++        cb = hda_audio_input_cb;
++        timer_del(st->buft);
+         st->voice.in = AUD_open_in(&st->state->card, st->voice.in,
+                                    st->node->name, st, cb, &st->as);
+     }
+@@ -805,7 +741,7 @@ static void hda_audio_reset(DeviceState *dev)
+ static bool vmstate_hda_audio_stream_buf_needed(void *opaque)
+ {
+     HDAAudioStream *st = opaque;
+-    return st->state && st->state->use_timer;
++    return st->state;
+ }
+ 
+ static const VMStateDescription vmstate_hda_audio_stream_buf = {
+@@ -861,7 +797,6 @@ static const Property hda_audio_properties[] = {
+     DEFINE_AUDIO_PROPERTIES(HDAAudioState, card),
+     DEFINE_PROP_UINT32("debug", HDAAudioState, debug,   0),
+     DEFINE_PROP_BOOL("mixer", HDAAudioState, mixer,  true),
+-    DEFINE_PROP_BOOL("use-timer", HDAAudioState, use_timer,  true),
+ };
+ 
+ static void hda_audio_init_output(HDACodecDevice *hda, Error **errp)
 -- 
 2.47.1
 
