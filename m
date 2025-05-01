@@ -1,60 +1,60 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uAcvs-0000mM-On
-	for mharc-qemu-rust@gnu.org; Thu, 01 May 2025 19:03:09 -0400
+	id 1uAcvt-0000ot-UB
+	for mharc-qemu-rust@gnu.org; Thu, 01 May 2025 19:03:10 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvZ-0000VV-1z
- for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:51 -0400
-Received: from mail-io1-xd36.google.com ([2607:f8b0:4864:20::d36])
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvq-0000hi-Lk
+ for qemu-rust@nongnu.org; Thu, 01 May 2025 19:03:07 -0400
+Received: from mail-il1-x132.google.com ([2607:f8b0:4864:20::132])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvX-0002OZ-7a
- for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:48 -0400
-Received: by mail-io1-xd36.google.com with SMTP id
- ca18e2360f4ac-861b1f04b99so60614439f.0
- for <qemu-rust@nongnu.org>; Thu, 01 May 2025 16:02:46 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvo-0002S8-DC
+ for qemu-rust@nongnu.org; Thu, 01 May 2025 19:03:05 -0400
+Received: by mail-il1-x132.google.com with SMTP id
+ e9e14a558f8ab-3d4436ba324so12125235ab.2
+ for <qemu-rust@nongnu.org>; Thu, 01 May 2025 16:03:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1746140565; x=1746745365; darn=nongnu.org;
+ d=linaro.org; s=google; t=1746140583; x=1746745383; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=gLFAH/NqarXgrsQtC/1/f6gfkvP7AQL3VQJbCki7bDU=;
- b=sU1J6FoOAdwpyd7OLhODtuj+ddzkCojbru6gQF1X/qgCuiGV/lJGvJOef+AT5xQaEd
- tnxfR1p6LGfu+WBRnnYy7Q9MgShkqyi5Q4gDtOmwmBL8M6WO0m2yK9/EQ+uy45eUg5Eu
- zgSPROfW4AmxLfh/HoQ+3Jj4FlG7gvF9Iu63pmBis3L5ygAnr0lx68DhvMwgtuXip8Ba
- rE2IM9Ov0KStJnFCFb8QLffLQNGOwuUl4TwOgx9Y1/oztA16TOWl3JygkHO2tQOvhbZj
- OCC+2sIElkAG8a6UKaD9lh3TyqLx+RDmhHdv1pjipnx811w5uFGocZx3ZFT9xKXWwbhJ
- cXTA==
+ bh=bxbj7/6jpfy/qwZ4ED6zTk/j6/a5zMwR5eVDDNTE+Aw=;
+ b=Lsp1AG9lDLZgHf6eAETrKJR0UGj/z18y6zKyRKj0S6rlJz/WA4zGXLeAOJswN0/Ml5
+ eL5vv2sLoK365D7od33wWYGCfmMc0XqLOLU26/z5tf4zrjW8LZAHHFv4g5XGheTujwjT
+ BDBRtzkXkJqG1Vq2BYo0J0TrlULxSj7re/2JLuafklDdf5gIEfa52PSxP7EcXGPK5YjT
+ atYo9nAM7wwXmrZTWWgp3cvaOEs6t8FLQ23xx79IOnzRNcnsaRGcAEPPdj2Y9pAryZqj
+ 68VqAyXS72CDXURIapSpFj/ZKVTsawGhhS8K7qcSwoyft1YCbOWya4TiX7RFV8UISRBe
+ L1Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746140565; x=1746745365;
+ d=1e100.net; s=20230601; t=1746140583; x=1746745383;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=gLFAH/NqarXgrsQtC/1/f6gfkvP7AQL3VQJbCki7bDU=;
- b=YaK/XNffZVQo8hW0/MHJVri+9EckCoDhyam0ePGmeUK5PRu6mUQsUA9x+6uMw9Bnqj
- aaDiPvNSl++nMak42yheLJvrV1JO5G0vyxeHCavTrO/PB4qGGYDnXdkKEhLhh7VAy3pZ
- +S73Q07unoiSkwVoSzchrFz+dOh7rOoQ3ytJ4zpd+5NOlVDJA1tL0+WPoMVZrdDBTURn
- jQzw7AkUVPXaIONtfv/xcvmXlOlNGKtUn+pxOqOYn4W2ZwdPqZSxy3i6NR0/MQn0A0tG
- /tLlj0t8+v9PA8vjfalGP4RQZ0gq04C/VhArZqGdp9BzU7ep4NuVT2TIORY45Z5noB60
- KU0w==
+ bh=bxbj7/6jpfy/qwZ4ED6zTk/j6/a5zMwR5eVDDNTE+Aw=;
+ b=WJ4pnN0hFv7Z/Fxy34PhMwm8uD6Gi8XNU2kvXfmUyJ9T8n8/z7oMzqEbdhDvHdrTGb
+ hv1Tb9HA4NT3hAws8pOd7B5LACcXDn3jt2WIVNR/8rpJlxntE0ZHZosSMpqoqTmDVWQB
+ FBT1+QwU2lXHwHvDJDwoEJ+8k56LfrrH7I0U2+Q0apQgQC4BEC9+4s+yq6dbbEEd8/D1
+ 57S+lelnoAm8Zh9nwzR1UpA4lpX5Y0eNVzy4zNucN2MrvIemBmG+Rcpsp/4JLMOigsNM
+ oaLcPaNxnhsmJmpfnuhG2CwOAE8gvqrlGNBC1uhVmu8drgUqr52a/sMSbMmRF96gDu6P
+ DrEg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVn7xPXj7jQON6KNlrx0dYbAimREppHkGftCBRiRv6jtQcX4wnVx9mMdduMu5hc7ZPQs/POehZwPPE=@nongnu.org
-X-Gm-Message-State: AOJu0Yyj9bscBZRYzl5xgS+rMKb/a5RnmvemaO2Aahz1jSmWCzmDJo7m
- q6MN+xtEuau+lscKIKyvKVySs2czvIeaC64N0xh8zvo/FsqYMib0xkllBSmKQTQ=
-X-Gm-Gg: ASbGncuvCgO8uQ6IXKe4nnDQ36+2ZDeX3qG+/rpTJVypk6iAsT6r8bs/88U/JVV/fmE
- I7fi/J7nr2x7MuDGs5wzg1MAMdVjIX+NxtGOEmppvmuk6vX3VCzFcTtwXK/O8qcv68/oNsEpxTS
- fx+bAdXRQuAgj61+6USFPhb6DdzVwtV55g9XDOLkARWhpVrpdlXHMq9l29sZSRefkaUQK9AZgzx
- 8vayR/uCeEu6R9xoCUE2izh9PWp95QlZUWRnIXqjjG5C5a5mtIRB4weau7/d6PUr+vf19TCkL6X
- sOK1mAECRbWcbPKHO8kqafAeWziK50isQhuFbVvLMcH4KzwzX51U1P1xJ7T0INPTi5qTkTDVmtJ
- 4B7lTWcikavlMoEjx2kAr
-X-Google-Smtp-Source: AGHT+IGgmmWM99UmpdckW34tyYCcbd+15JXp+EoyTz4gVfJS06+YjsFeNkK+u13num76/hcXoFpoqg==
-X-Received: by 2002:a05:6602:750a:b0:85d:a235:e90e with SMTP id
- ca18e2360f4ac-866b43fb92dmr104507039f.13.1746140565268; 
- Thu, 01 May 2025 16:02:45 -0700 (PDT)
+ AJvYcCXCZ7RSBfE3p8fAgpofPRG0HuEG1/9vXA7XLhf/JAIMjSLRGHdFpTvwApYhIqEI/jlBLTxk4OoVnqI=@nongnu.org
+X-Gm-Message-State: AOJu0YxgXiVEhXzE7pvqQyHvhbfV3vdgWhPGP+Pt6ElLRR/UR6YDQLxO
+ HzWtYAlTJpsKicFmvodDp3slPIssa50TfV+Cfhy0U/5dH0Q2Mgu2H0c7+j6vF58=
+X-Gm-Gg: ASbGncu19NKbaDrmZ4fx4tz1Nq+neY43qPZBUM906DFHqRtXlwEl5vBiFJyKSqXA3JG
+ z8INCag/BzUv5lc6eiaBAKIkm+VyMIZjU09g+1Oerm7BZuo9pC9/C5anW1UScy+WfMWeb/dpByI
+ HWQpXpBDEwKcm1hm8rt/aMvHUIQDxupf+4wwZG0m3pC60GFyU8RH1wYnBxZFz6LADfJNVfSBa2s
+ JKArzCN0QVhAom8eV7kuzN2bQoQO3Nw/twuGTS0ACaPmMB/qZkjWuTKTNEuHrtynAQeGGCUYOue
+ yPmoxYeZDJiOzShl31jj2oGsRH8jHapscsPBqBL7hrRQhTGxl9fy7kNhKVjW5Awjv+BVplU41aR
+ bYiAniMVjW83jciNXoqXPjeEffWGxZbg=
+X-Google-Smtp-Source: AGHT+IEXbuFFne0bt1KlOJySBL/5o8UWkx58G4hGCj6erG2/vT7c9L0SEJFjHFzcVa0/pob8KTwFnw==
+X-Received: by 2002:a05:6e02:16ca:b0:3d6:d145:2ffb with SMTP id
+ e9e14a558f8ab-3d97c2579fbmr10256185ab.21.1746140582938; 
+ Thu, 01 May 2025 16:03:02 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ca18e2360f4ac-864aa584729sm28140539f.45.2025.05.01.16.02.41
+ e9e14a558f8ab-3d975e7d0d3sm3507565ab.28.2025.05.01.16.02.59
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 01 May 2025 16:02:44 -0700 (PDT)
+ Thu, 01 May 2025 16:03:02 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Yanan Wang <wangyanan55@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>,
@@ -70,24 +70,25 @@ Cc: Yanan Wang <wangyanan55@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>,
  Richard Henderson <richard.henderson@linaro.org>,
  "Michael S. Tsirkin" <mst@redhat.com>, qemu-s390x@nongnu.org,
  Christian Borntraeger <borntraeger@linux.ibm.com>
-Subject: [PATCH 08/10] hw/core/machine: Remove hw_compat_2_12[] array
-Date: Fri,  2 May 2025 01:01:26 +0200
-Message-ID: <20250501230129.2596-9-philmd@linaro.org>
+Subject: [PATCH 10/10] hw/display/vga-pci: Do not expose the 'global-vmstate'
+ property
+Date: Fri,  2 May 2025 01:01:28 +0200
+Message-ID: <20250501230129.2596-11-philmd@linaro.org>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250501230129.2596-1-philmd@linaro.org>
 References: <20250501230129.2596-1-philmd@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2607:f8b0:4864:20::d36;
- envelope-from=philmd@linaro.org; helo=mail-io1-xd36.google.com
+Received-SPF: pass client-ip=2607:f8b0:4864:20::132;
+ envelope-from=philmd@linaro.org; helo=mail-il1-x132.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -100,50 +101,70 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 May 2025 23:02:51 -0000
+X-List-Received-Date: Thu, 01 May 2025 23:03:07 -0000
 
-The hw_compat_2_12[] array was only used by the pc-q35-2.12,
-pc-i440fx-2.12 and s390-ccw-virtio-2.12 machines, which got
-removed. Remove it.
+The "global-vmstate" property is 'false' by default, and was only
+set to 'true' in the hw_compat_2_12[] array. We removed all machines
+using that array. Stop exposing that property on the PCI devices.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- include/hw/boards.h | 3 ---
- hw/core/machine.c   | 9 ---------
- 2 files changed, 12 deletions(-)
+ hw/display/cirrus_vga.c | 2 --
+ hw/display/qxl.c        | 1 -
+ hw/display/vga-pci.c    | 1 -
+ hw/display/vmware_vga.c | 2 --
+ 4 files changed, 6 deletions(-)
 
-diff --git a/include/hw/boards.h b/include/hw/boards.h
-index 16cef33beae..7b3f7878625 100644
---- a/include/hw/boards.h
-+++ b/include/hw/boards.h
-@@ -823,7 +823,4 @@ extern const size_t hw_compat_3_1_len;
- extern GlobalProperty hw_compat_3_0[];
- extern const size_t hw_compat_3_0_len;
+diff --git a/hw/display/cirrus_vga.c b/hw/display/cirrus_vga.c
+index ef08694626d..f9f704ab440 100644
+--- a/hw/display/cirrus_vga.c
++++ b/hw/display/cirrus_vga.c
+@@ -2987,8 +2987,6 @@ static const Property pci_vga_cirrus_properties[] = {
+                        cirrus_vga.vga.vram_size_mb, 4),
+     DEFINE_PROP_BOOL("blitter", struct PCICirrusVGAState,
+                      cirrus_vga.enable_blitter, true),
+-    DEFINE_PROP_BOOL("global-vmstate", struct PCICirrusVGAState,
+-                     cirrus_vga.vga.global_vmstate, false),
+ };
  
--extern GlobalProperty hw_compat_2_12[];
--extern const size_t hw_compat_2_12_len;
--
- #endif
-diff --git a/hw/core/machine.c b/hw/core/machine.c
-index 8f1b44b70f7..4ebefaab819 100644
---- a/hw/core/machine.c
-+++ b/hw/core/machine.c
-@@ -221,15 +221,6 @@ const size_t hw_compat_3_1_len = G_N_ELEMENTS(hw_compat_3_1);
- GlobalProperty hw_compat_3_0[] = {};
- const size_t hw_compat_3_0_len = G_N_ELEMENTS(hw_compat_3_0);
+ static void cirrus_vga_class_init(ObjectClass *klass, const void *data)
+diff --git a/hw/display/qxl.c b/hw/display/qxl.c
+index 18f482ca7f7..32329a499d7 100644
+--- a/hw/display/qxl.c
++++ b/hw/display/qxl.c
+@@ -2495,7 +2495,6 @@ static const Property qxl_properties[] = {
+         DEFINE_PROP_UINT16("max_outputs", PCIQXLDevice, max_outputs, 0),
+         DEFINE_PROP_UINT32("xres", PCIQXLDevice, xres, 0),
+         DEFINE_PROP_UINT32("yres", PCIQXLDevice, yres, 0),
+-        DEFINE_PROP_BOOL("global-vmstate", PCIQXLDevice, vga.global_vmstate, false),
+ };
  
--GlobalProperty hw_compat_2_12[] = {
--    { "hda-audio", "use-timer", "false" },
--    { "cirrus-vga", "global-vmstate", "true" },
--    { "VGA", "global-vmstate", "true" },
--    { "vmware-svga", "global-vmstate", "true" },
--    { "qxl-vga", "global-vmstate", "true" },
--};
--const size_t hw_compat_2_12_len = G_N_ELEMENTS(hw_compat_2_12);
--
- MachineState *current_machine;
+ static void qxl_pci_class_init(ObjectClass *klass, const void *data)
+diff --git a/hw/display/vga-pci.c b/hw/display/vga-pci.c
+index b81f7fd2d0f..562cf526db4 100644
+--- a/hw/display/vga-pci.c
++++ b/hw/display/vga-pci.c
+@@ -338,7 +338,6 @@ static const Property vga_pci_properties[] = {
+     DEFINE_PROP_BIT("edid",
+                     PCIVGAState, flags, PCI_VGA_FLAG_ENABLE_EDID, true),
+     DEFINE_EDID_PROPERTIES(PCIVGAState, edid_info),
+-    DEFINE_PROP_BOOL("global-vmstate", PCIVGAState, vga.global_vmstate, false),
+ };
  
- static char *machine_get_kernel(Object *obj, Error **errp)
+ static const Property secondary_pci_properties[] = {
+diff --git a/hw/display/vmware_vga.c b/hw/display/vmware_vga.c
+index 544bb65320b..c43026bd9c5 100644
+--- a/hw/display/vmware_vga.c
++++ b/hw/display/vmware_vga.c
+@@ -1335,8 +1335,6 @@ static void pci_vmsvga_realize(PCIDevice *dev, Error **errp)
+ static const Property vga_vmware_properties[] = {
+     DEFINE_PROP_UINT32("vgamem_mb", struct pci_vmsvga_state_s,
+                        chip.vga.vram_size_mb, 16),
+-    DEFINE_PROP_BOOL("global-vmstate", struct pci_vmsvga_state_s,
+-                     chip.vga.global_vmstate, false),
+ };
+ 
+ static void vmsvga_class_init(ObjectClass *klass, const void *data)
 -- 
 2.47.1
 
