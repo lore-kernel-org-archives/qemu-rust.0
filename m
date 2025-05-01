@@ -1,60 +1,60 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uAcvF-0000JK-FV
-	for mharc-qemu-rust@gnu.org; Thu, 01 May 2025 19:02:29 -0400
+	id 1uAcvN-0000TQ-2f
+	for mharc-qemu-rust@gnu.org; Thu, 01 May 2025 19:02:37 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcv7-0000Bh-NN
- for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:22 -0400
-Received: from mail-io1-xd2a.google.com ([2607:f8b0:4864:20::d2a])
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvH-0000LE-Tl
+ for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:34 -0400
+Received: from mail-il1-x12a.google.com ([2607:f8b0:4864:20::12a])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcv5-0002KG-SD
- for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:21 -0400
-Received: by mail-io1-xd2a.google.com with SMTP id
- ca18e2360f4ac-85e1b1f08a5so46047939f.2
- for <qemu-rust@nongnu.org>; Thu, 01 May 2025 16:02:19 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvF-0002M2-Lh
+ for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:31 -0400
+Received: by mail-il1-x12a.google.com with SMTP id
+ e9e14a558f8ab-3d6d162e516so12192865ab.1
+ for <qemu-rust@nongnu.org>; Thu, 01 May 2025 16:02:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1746140539; x=1746745339; darn=nongnu.org;
+ d=linaro.org; s=google; t=1746140547; x=1746745347; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zUjb2KvGlUZUFz83Ds0AOUfQl+OnRqVo67ED0F/0NGk=;
- b=DunsNhTouczSu6gQSlPVCZk/sGA54IGhDfwrSBIdZojE6RwAdRN3yrKgl0/NhHi3PF
- 8SrN514lWzjzr7U7F5yEAwjktuNfTS24iBdxyIYdEW0fxdNuKLve1KANx6+1gDT0MGH+
- 9TcTdCl4qZyJIyoTPx5mH8E/CniBSKQO1B++FJ8AzwU02aPmMu+CCKgWQDXJI95RrQ+I
- TUw4DTBk2ehrnqarYXV5Se1Kcq84yvjnABm4HOqQfgQ9o4VfCl2IkXHy1ZoEl3FUveXF
- 511dSWhk7QVdHLO7fiaapmuHX3lHOZCdBaNgzxzb7PQ02ChSVbE+d17svJm2gtfLx7FK
- SbIg==
+ bh=MKlAvP/b7bRS8YoXdECBwma4F9omGf4fESvbK1cfcEc=;
+ b=P7r0+NFBdixDD9pJAWHbaEE7RkA5/vScdf4hTS3Vxm8bIpUeAIx1Dks6KTYejWmXwJ
+ 7UkfS4SX9hdSBzEWb9ucddbFbP3UUoqBfXvDHdqLtWWqet2OdsIlRa0yLOxJUZWKW6o/
+ eC4c0+J+kSF/wnHnI09bsyC/DvYWCT1opLM3KbuIOprka6e1bWH9ciFiJ+QxE1ndiP4C
+ Z3Gcb1c4LIPA3TVZFTompAC6rZhgu9xoP0nRP09BizHOH8aHy47rgEAjF3D3npYE0gKh
+ FELKA0f9O53TWit5dd2rPob/ceomgaywGszGwD5XdjAPB1lhvFdgZ9RJNI+j5m/9u8CP
+ XjMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746140539; x=1746745339;
+ d=1e100.net; s=20230601; t=1746140547; x=1746745347;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zUjb2KvGlUZUFz83Ds0AOUfQl+OnRqVo67ED0F/0NGk=;
- b=PBA/YY2PKKubY4tE8XkVsRnhUHHMnlNgEBsCszFm1oSN41KBEJLI9OrKJqSGa12WAd
- InOhl1hRxhPBPpPatoeJDQh7ArjVovgP9aCMrDvwmN/Z2dEITCF0iBFoW5flzPngvVcF
- q+ZJIb9HJKhz/HlcbbO4A5E385np5HJBq3znEMn8FxVn0nmizwAmj39CIAt5mNcuMMw6
- aFw383tkFpaF8gqo9p+Y1wYKXaUOkThW+Pe5uJoJZcQRIe3+XJmK+d9nPt6bZOItsbAY
- 6Mj9Myb/2DbRL9zXmT08pnYFHpaiBmN+au/hnz5dtYCnmE4HijcfSRm6jXsACOKRQkAn
- XRlg==
+ bh=MKlAvP/b7bRS8YoXdECBwma4F9omGf4fESvbK1cfcEc=;
+ b=cqXvaVYNFvfgbDefyWTsVAYiBa2Sjj0YegYBVMR6KqXTX8LoYq+E0fdLeoYTVazq/8
+ Kr+Sf+N89z/IJUbqd4N72GwB0/Sz/rattH41c/s/GoyUnpXr3N5YPDfuJNSZGccfX5Hg
+ 7zjqT1Xc3i3Aei+yAw7i45T15hklNmI0QNW0zWq3wQzmIpVrtSW0FNbyustWx6Tp09ta
+ JyPuGjYh0kAxG8dtvkXT+anLTelZ+VBBfi2x43vEDD9lu8Q1DtJlyhvh81dz5LDNjdz8
+ xhbfvN3F0e9OgQ9tX8lKibTYfCJNqpGhPcawdbiRPFx+f8AtvfKI/mim1ZxQxQD8hYj9
+ LNQQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVBUAw8pVRkYDrGhPlZ9HgA83LL08HEjDeXr/XUxW/1qJ6QuR/kBu8IGVxJCVt/OInCoZjVt5IYo1E=@nongnu.org
-X-Gm-Message-State: AOJu0Yw2TSmLC9KroDEkDzfJIrQXIfcEGFMMu2icGoPM70SNMEkFv17z
- B5NgnWKew0jqtPug5yUzdi2oX+0LkVWFyogToXOfP3gKJkkGuw/eUaDCNrVI81I=
-X-Gm-Gg: ASbGncthMjJ4o3KBfj1iXDig24QMsf6iqlxv9yWF23M9w6RAnmdEeRb3LltRF7Ewbrg
- ZI1IO2OHxoaA08Y+HnCZc2LgIfEqanhBW3Hk1epuapJkroVDDaNQQd75/L9E7US8zbAaQD4qOmL
- KCGiyNe5giVUJ/g0f316GwkDDP0xzUk+3DNkHbY1QHAdYowFYT09W6hQC6NZv0dUyU3RVAz4QSd
- D3oqngFRllykBWK9lvyvhdOSI5LLhU7ww5LK/y766ITU7WkYAYSMV9V3pIJuLNnsrZGsH8EYY12
- x7mWEBalYgCLDY8ihYA/CsnFhEOHy7qBcfRekA9h6v2pmRPM2SsNzt2OPSI/3R89ca4/Uoazmj6
- ioNLcZnt2db8Qtdup3CiN
-X-Google-Smtp-Source: AGHT+IGDUDncsBvBWJwDg7BzIa/I82Zpdo8gtA7hcl3jIYbKpZXoLqddwTobgck/GVTy/3rgXIEmzA==
-X-Received: by 2002:a05:6e02:1522:b0:3d9:6cb6:fa52 with SMTP id
- e9e14a558f8ab-3d97c1cba74mr10472685ab.12.1746140538619; 
- Thu, 01 May 2025 16:02:18 -0700 (PDT)
+ AJvYcCUimgSZS2Opxr8OQ7kAH/nY3yZQ50pYD/az5tq1wDnl9++FdXij32Z3fC2/k9bJGqDxO3Kl1QW270Q=@nongnu.org
+X-Gm-Message-State: AOJu0Yzj8NPxCMdFTj2kWJxaTbOV2OKs3srj+9pT9hUebnnJG9DsTzjJ
+ eanZWWrZDLZVu1AhFS14VcEghOmoMEPkkOBxI9uugrKcHHuh1Z4CUN/bJw6AY98=
+X-Gm-Gg: ASbGncuGynsDbo6r7lw++ZwVIoPDZjg+BD5vo8U8zhqxSuG03DEuXouZOpertjM6mua
+ x7m4b9Yveh/74U5ikt+3yShxD1gMHg/c0vlmb9LMMgTGQf636F512VyzMHZUIbPLZbzCGnqbFR+
+ OQg/FR93rqp112iVu+GzYmr6vAfthZeITJwA9f1ymN6nO4agiWci144lo7xy44wnfUtX+M7sx8Z
+ ilMMM8a7Wmx+X7lD5hJf2yS3LHWIryUaDU1tetdAojuiPCRBcXaBRMlFZeNQ0oOplgag4T4+9/A
+ HSNzIvH1SXKNZG66uESDXoGyLZF3+fJlMn+TSpF3kUQE7g3m4rdzcGrIIZ6VXk0sGEQUVOQtybN
+ UAuktCQZwuW9/k/oJYxcldCaQMcX21x4=
+X-Google-Smtp-Source: AGHT+IHInVtaHMoThBEwz78LYSah4LbqdbEsU5tqkSnQzlF3/xydnsJ0rshcltIpx0QIZNoByYG1Aw==
+X-Received: by 2002:a05:6e02:168d:b0:3d3:f6ee:cc4c with SMTP id
+ e9e14a558f8ab-3d97be919c5mr8853545ab.0.1746140547164; 
+ Thu, 01 May 2025 16:02:27 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- e9e14a558f8ab-3d975e6fbbdsm3386655ab.16.2025.05.01.16.02.15
+ 8926c6da1cb9f-4f88a8d0e77sm91354173.24.2025.05.01.16.02.23
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 01 May 2025 16:02:18 -0700 (PDT)
+ Thu, 01 May 2025 16:02:26 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Yanan Wang <wangyanan55@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>,
@@ -70,24 +70,24 @@ Cc: Yanan Wang <wangyanan55@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>,
  Richard Henderson <richard.henderson@linaro.org>,
  "Michael S. Tsirkin" <mst@redhat.com>, qemu-s390x@nongnu.org,
  Christian Borntraeger <borntraeger@linux.ibm.com>
-Subject: [PATCH 05/10] hw/timer/hpet: Remove HPETState::hpet_offset_saved field
-Date: Fri,  2 May 2025 01:01:23 +0200
-Message-ID: <20250501230129.2596-6-philmd@linaro.org>
+Subject: [PATCH 06/10] hw/net/e1000: Remove unused E1000_FLAG_TSO flag
+Date: Fri,  2 May 2025 01:01:24 +0200
+Message-ID: <20250501230129.2596-7-philmd@linaro.org>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250501230129.2596-1-philmd@linaro.org>
 References: <20250501230129.2596-1-philmd@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2607:f8b0:4864:20::d2a;
- envelope-from=philmd@linaro.org; helo=mail-io1-xd2a.google.com
+Received-SPF: pass client-ip=2607:f8b0:4864:20::12a;
+ envelope-from=philmd@linaro.org; helo=mail-il1-x12a.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -100,87 +100,132 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 May 2025 23:02:27 -0000
+X-List-Received-Date: Thu, 01 May 2025 23:02:34 -0000
 
-The HPETState::hpet_offset_saved boolean was only set in the
-hw_compat_2_11[] array, via the 'hpet-offset-saved=false'
-property. We removed all machines using that array, lets remove
-that property and all the code around it.
+E1000_FLAG_TSO was only used by the hw_compat_2_11[] array,
+via the 'migrate_tso_props=off' property. We removed all
+machines using that array, lets remove all the code around
+E1000_FLAG_TSO, including the vmstate_e1000_tx_tso_state
+subsection.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- hw/timer/hpet.c                | 9 +--------
- rust/hw/timer/hpet/src/hpet.rs | 9 ---------
- 2 files changed, 1 insertion(+), 17 deletions(-)
+Is it OK to remove migration subsection like that?
+---
+ hw/net/e1000.c | 58 +++++++-------------------------------------------
+ 1 file changed, 8 insertions(+), 50 deletions(-)
 
-diff --git a/hw/timer/hpet.c b/hw/timer/hpet.c
-index d1b7bc52b7b..47b8fc0d880 100644
---- a/hw/timer/hpet.c
-+++ b/hw/timer/hpet.c
-@@ -71,7 +71,6 @@ struct HPETState {
+diff --git a/hw/net/e1000.c b/hw/net/e1000.c
+index e0310aef872..c68645684b6 100644
+--- a/hw/net/e1000.c
++++ b/hw/net/e1000.c
+@@ -127,13 +127,10 @@ struct E1000State_st {
+     QEMUTimer *flush_queue_timer;
  
-     MemoryRegion iomem;
-     uint64_t hpet_offset;
--    bool hpet_offset_saved;
-     qemu_irq irqs[HPET_NUM_IRQ_ROUTES];
-     uint32_t flags;
-     uint8_t rtc_irq_level;
-@@ -264,11 +263,6 @@ static int hpet_post_load(void *opaque, int version_id)
-         t->cmp64 = hpet_calculate_cmp64(t, s->hpet_counter, t->cmp);
-         t->last = qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) - NANOSECONDS_PER_SECOND;
+ /* Compatibility flags for migration to/from qemu 1.3.0 and older */
+-#define E1000_FLAG_TSO_BIT 3
+ #define E1000_FLAG_VET_BIT 4
+-#define E1000_FLAG_TSO (1 << E1000_FLAG_TSO_BIT)
+ #define E1000_FLAG_VET (1 << E1000_FLAG_VET_BIT)
+ 
+     uint32_t compat_flags;
+-    bool received_tx_tso;
+     bool use_tso_for_migration;
+     e1000x_txd_props mig_props;
+ };
+@@ -1331,7 +1328,7 @@ static int e1000_pre_save(void *opaque)
      }
--    /* Recalculate the offset between the main counter and guest time */
--    if (!s->hpet_offset_saved) {
--        s->hpet_offset = ticks_to_ns(s->hpet_counter)
--                        - qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL);
--    }
  
+     /* Decide which set of props to migrate in the main structure */
+-    if (chkflag(TSO) || !s->use_tso_for_migration) {
++    if (!s->use_tso_for_migration) {
+         /* Either we're migrating with the extra subsection, in which
+          * case the mig_props is always 'props' OR
+          * we've not got the subsection, but 'props' was the last
+@@ -1368,30 +1365,16 @@ static int e1000_post_load(void *opaque, int version_id)
+     }
+ 
+     s->tx.props = s->mig_props;
+-    if (!s->received_tx_tso) {
+-        /* We received only one set of offload data (tx.props)
+-         * and haven't got tx.tso_props.  The best we can do
+-         * is dupe the data.
+-         */
+-        s->tx.tso_props = s->mig_props;
+-    }
++
++    /* We received only one set of offload data (tx.props)
++     * and haven't got tx.tso_props.  The best we can do
++     * is dupe the data.
++     */
++    s->tx.tso_props = s->mig_props;
++
      return 0;
  }
-@@ -277,7 +271,7 @@ static bool hpet_offset_needed(void *opaque)
- {
-     HPETState *s = opaque;
  
--    return hpet_enabled(s) && s->hpet_offset_saved;
-+    return hpet_enabled(s);
- }
- 
- static bool hpet_rtc_irq_level_needed(void *opaque)
-@@ -733,7 +727,6 @@ static const Property hpet_device_properties[] = {
-     DEFINE_PROP_UINT8("timers", HPETState, num_timers, HPET_MIN_TIMERS),
-     DEFINE_PROP_BIT("msi", HPETState, flags, HPET_MSI_SUPPORT, false),
-     DEFINE_PROP_UINT32(HPET_INTCAP, HPETState, intcap, 0),
--    DEFINE_PROP_BOOL("hpet-offset-saved", HPETState, hpet_offset_saved, true),
+-static int e1000_tx_tso_post_load(void *opaque, int version_id)
+-{
+-    E1000State *s = opaque;
+-    s->received_tx_tso = true;
+-    return 0;
+-}
+-
+-static bool e1000_tso_state_needed(void *opaque)
+-{
+-    E1000State *s = opaque;
+-
+-    return chkflag(TSO);
+-}
+-
+ static const VMStateDescription vmstate_e1000_mit_state = {
+     .name = "e1000/mit_state",
+     .version_id = 1,
+@@ -1416,28 +1399,6 @@ static const VMStateDescription vmstate_e1000_full_mac_state = {
+     }
  };
  
- static void hpet_device_class_init(ObjectClass *klass, const void *data)
-diff --git a/rust/hw/timer/hpet/src/hpet.rs b/rust/hw/timer/hpet/src/hpet.rs
-index cbd2ed4f6bf..9e681391176 100644
---- a/rust/hw/timer/hpet/src/hpet.rs
-+++ b/rust/hw/timer/hpet/src/hpet.rs
-@@ -544,7 +544,6 @@ pub struct HPETState {
+-static const VMStateDescription vmstate_e1000_tx_tso_state = {
+-    .name = "e1000/tx_tso_state",
+-    .version_id = 1,
+-    .minimum_version_id = 1,
+-    .needed = e1000_tso_state_needed,
+-    .post_load = e1000_tx_tso_post_load,
+-    .fields = (const VMStateField[]) {
+-        VMSTATE_UINT8(tx.tso_props.ipcss, E1000State),
+-        VMSTATE_UINT8(tx.tso_props.ipcso, E1000State),
+-        VMSTATE_UINT16(tx.tso_props.ipcse, E1000State),
+-        VMSTATE_UINT8(tx.tso_props.tucss, E1000State),
+-        VMSTATE_UINT8(tx.tso_props.tucso, E1000State),
+-        VMSTATE_UINT16(tx.tso_props.tucse, E1000State),
+-        VMSTATE_UINT32(tx.tso_props.paylen, E1000State),
+-        VMSTATE_UINT8(tx.tso_props.hdr_len, E1000State),
+-        VMSTATE_UINT16(tx.tso_props.mss, E1000State),
+-        VMSTATE_INT8(tx.tso_props.ip, E1000State),
+-        VMSTATE_INT8(tx.tso_props.tcp, E1000State),
+-        VMSTATE_END_OF_LIST()
+-    }
+-};
+-
+ static const VMStateDescription vmstate_e1000 = {
+     .name = "e1000",
+     .version_id = 2,
+@@ -1519,7 +1480,6 @@ static const VMStateDescription vmstate_e1000 = {
+     .subsections = (const VMStateDescription * const []) {
+         &vmstate_e1000_mit_state,
+         &vmstate_e1000_full_mac_state,
+-        &vmstate_e1000_tx_tso_state,
+         NULL
+     }
+ };
+@@ -1637,8 +1597,6 @@ static void pci_e1000_realize(PCIDevice *pci_dev, Error **errp)
  
-     /// Offset of main counter relative to qemu clock.
-     hpet_offset: BqlCell<u64>,
--    hpet_offset_saved: bool,
- 
-     irqs: [InterruptSource; HPET_NUM_IRQ_ROUTES],
-     rtc_irq_level: BqlCell<u32>,
-@@ -885,14 +884,6 @@ impl ObjectImpl for HPETState {
-         u32,
-         default = 0
-     ),
--    qemu_api::define_property!(
--        c_str!("hpet-offset-saved"),
--        HPETState,
--        hpet_offset_saved,
--        unsafe { &qdev_prop_bool },
--        bool,
--        default = true
--    ),
- }
- 
- impl DeviceImpl for HPETState {
+ static const Property e1000_properties[] = {
+     DEFINE_NIC_PROPERTIES(E1000State, conf),
+-    DEFINE_PROP_BIT("migrate_tso_props", E1000State,
+-                    compat_flags, E1000_FLAG_TSO_BIT, true),
+     DEFINE_PROP_BIT("init-vet", E1000State,
+                     compat_flags, E1000_FLAG_VET_BIT, true),
+ };
 -- 
 2.47.1
 
