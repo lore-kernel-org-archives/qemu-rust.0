@@ -1,90 +1,91 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1u54Ab-0003rt-9C
-	for mharc-qemu-rust@gnu.org; Wed, 16 Apr 2025 10:55:21 -0400
+	id 1uAcuV-0008Kw-3E
+	for mharc-qemu-rust@gnu.org; Thu, 01 May 2025 19:01:44 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1u54AZ-0003rT-19
- for qemu-rust@nongnu.org; Wed, 16 Apr 2025 10:55:19 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1u54AW-0002UR-LP
- for qemu-rust@nongnu.org; Wed, 16 Apr 2025 10:55:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1744815314;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8k4hbvnVBE5NT46pE/eA216fxOP0iSRwhvbt2nPxxSA=;
- b=XHXNS7Dff7Uu2civ3rkWNlcmj7obs9YbadM0e7IqzybwQvbBXpBuaEL0nr7rYJjEO48iSP
- 0iKNG1Xftd3U1783UkoeEbb0YV0inUmnAt1tzbxp20/W4g+Tyjj+qstiuyP+a0iFm9Jxa9
- NLZ3W0TUnNRMhoceVbgiMFiO5kDTX0E=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-451-lc8eakuoMaynm9IjNCvxxA-1; Wed, 16 Apr 2025 10:55:13 -0400
-X-MC-Unique: lc8eakuoMaynm9IjNCvxxA-1
-X-Mimecast-MFC-AGG-ID: lc8eakuoMaynm9IjNCvxxA_1744815312
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-43d08915f61so40677465e9.2
- for <qemu-rust@nongnu.org>; Wed, 16 Apr 2025 07:55:13 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcuR-0008Jy-Bm
+ for qemu-rust@nongnu.org; Thu, 01 May 2025 19:01:39 -0400
+Received: from mail-io1-xd34.google.com ([2607:f8b0:4864:20::d34])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcuP-00026z-HL
+ for qemu-rust@nongnu.org; Thu, 01 May 2025 19:01:39 -0400
+Received: by mail-io1-xd34.google.com with SMTP id
+ ca18e2360f4ac-85e15dc8035so52106639f.0
+ for <qemu-rust@nongnu.org>; Thu, 01 May 2025 16:01:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1746140494; x=1746745294; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=MH6wU6NDwqP76l8625bC5nY7u3bJflZcJnDNoiM4n48=;
+ b=Nh6bHRLYWLNwWb2x52CE1PmvRHGS7QWtThANOzT0E0uyDrKU0/IxBb2MBqLCfSKbnO
+ SNED8Wm5+Ns+SoDv57aiRh+b2Gp6DZg7SIEMVJJbhOS8rJw86KAGA4dAolyP6mWVQs8V
+ QZeu1fZ2WyfS6ukzAtkpX40UwdkpUQFOCUVScnujZGLLHkyz0FkxwkB3KeAh0CriyKlM
+ M/k5Ac1arAsAP3yf/iXpJfu6pJEqGmHzXQ1nUX6f+Fe5c4pKVOcldBA7w7AD6dmPS3h7
+ vwxwmYG3zarmnXtM2YFGsIeJ0zGDf5ElPd4qz6i4pNb8vQZ47/2Wc4GAiXymTviuMNJ6
+ Ppag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744815312; x=1745420112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8k4hbvnVBE5NT46pE/eA216fxOP0iSRwhvbt2nPxxSA=;
- b=W3sDp7PQhqWwoDlD7bCgWRbJ+htIS7Ikyc1NFHriTMK3COM1wM/M9OSxR9TL0hWRO1
- R2smad2ZSHvn1f2nto7/m/qtbkx9l65GnPOn5SYXjMiLJaziQC64e240Me2josVnMJ72
- XnKxvvoyP4WsFXeMeLXP7rTVcEzcZqQ+sWzeYOIpbwGMhBzJ9/VG+zwnSpTGb49xGsVZ
- 55GMTAV4C320NFZmhjvEXhSmBkVUy7qVtxMPkcwJRd5nBPfiaR8nGHdV4nAGrdTSAo9p
- K2kAwO7nGJUR0iBRXmHN7fFnSsdd9pQryzyuBQJitH71iXJ+dKlQkkEVxq+b49iWWIw0
- Mnew==
+ d=1e100.net; s=20230601; t=1746140494; x=1746745294;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MH6wU6NDwqP76l8625bC5nY7u3bJflZcJnDNoiM4n48=;
+ b=oEIZrhCgeE/WVSipkAMipsoq/aLwTTCWE8PF2C3ndKRzOn/SkMF4tKPGrGu24HoHRe
+ rvvP33aPXc39L7SkYZkNSx9gQX8zCBX1qQFJI8u4OdN7SRIMqNbTkmws3+orBuJKgnAN
+ ydimf9FGxDv5Zv+ZPnY3h9ZTIguVAf7XK0ZXevtzyyy0GPe4i0P9UJuEJpKvUFq4mOkC
+ p+Veip8nYhnj/oFgLt/yWhrz7vGc8LBNvmsFmtKzDP2AK1sjScTT3oInN3nADX7XBqo4
+ 4bNQt+Ps17fhCtMffSWanSj3xCHRFhsMNxTnhlA6XMctE46Ji0R3gUjwqoO4lctYh+JW
+ dlMQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUgA2bMNgAtnG7dR6yNtT90P6u56YI0JJu4iYA+bIzBuOx9/IvqIyW+RKbevCMmHXelsz9zbeeQYlc=@nongnu.org
-X-Gm-Message-State: AOJu0YzhRrn1l2xV+g64lvyVN6fch+W8xD6fbp00MWakbORZ49xlxj9y
- VUD9Tse15l943DWVTjLukkul7vGAjG0mnq70dtkdj5OsCv2vdFM7r/RxVG4qA6Hz1ghrdNqY07w
- +6aRhpJ5/eT6kakIkmCujf1Zmy8CHBoJ/uCOGz6gKCka0hbsJy85HE6H55Lo5OO3rv66jonw/Nx
- x1DH815ew8y6UP7wN89ntaSdsCJQ==
-X-Gm-Gg: ASbGnctvsgWBlg5Mch+izPg5FFRYzW5RUfN2JeRCeky9WBnFUirYLucT1ikUJ+INjpE
- APHMzWBAuPlmPvC3xSGcLqCSj7vjQuuJXG8uW0sWO3PKcGaHsO7P7sTMzsvwxIMuWlXc6Ew==
-X-Received: by 2002:a05:6000:2403:b0:39e:cbca:7156 with SMTP id
- ffacd0b85a97d-39ee5b13b8amr2330426f8f.1.1744815312222; 
- Wed, 16 Apr 2025 07:55:12 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFVS6kT7x/9sfaEfRsEirgQyobPpFesppbcThOD6gcb1m5d4F3BLdw1KKLu5RUcPvvCyxijsL8Qg+awn9nPSSw=
-X-Received: by 2002:a05:6000:2403:b0:39e:cbca:7156 with SMTP id
- ffacd0b85a97d-39ee5b13b8amr2330411f8f.1.1744815311844; Wed, 16 Apr 2025
- 07:55:11 -0700 (PDT)
+ AJvYcCWj1lIcIytHgAkAHf5SeqBibMcCx5nBIGHo/1Bx9ITA+2lR6RUjpcDMS3vorMgWEGKcC+/KDPEa7+8=@nongnu.org
+X-Gm-Message-State: AOJu0Ywhg6hjZ04HCG+avIDn3EHKJ1m0CG6LGTG3+khkYisnzzQvKcjz
+ tY7ao5nL0rpoSMVIzfvq7eXEI7uIKQHkBZfSnLC2gYEHXoEomNJgE3jsMig6toU=
+X-Gm-Gg: ASbGncvN/bOAyTK3946RDIg3QtHpCpAks6Se/znZJjXOPNDSeT9Sd27Uk5dpUSa4M+p
+ dpK/ksC28QhmwHzT5gZOcbhuckH8+Wa0bEjEO8NeeW/JJgA1TxlxawnIFZK5GlRax8Xn8r6bXRx
+ y3qQ5CtPtioTCa0L5NDr1Rg5eDJuuVFGOVV3PzzpU4B2dA+/tIl/9FWO0jM4t3GMUsZetr9VmFD
+ XGfv45DMGanV6cI3F+vXDwbP6PviNsOdELA0sxmsvnad3c0pkjDDQuJHpksvrShmc7isQzqDK0Y
+ ucVs8jvBHNUvwtmN3qA6yEfg++GXQPDN/y3vj9YsyYPe+0eqr6UKY1KefvsP+0CjSEh0LYbBtp3
+ maPkO6Dq/cByRS5d34GN3
+X-Google-Smtp-Source: AGHT+IElcqZnjy9X7fU7YX7JcC3rrkJVuqh0P3WHhdtFzTwT4E+3FjjlKsShTYuamRWgvqGQOHzLPg==
+X-Received: by 2002:a05:6602:3a10:b0:85a:eecd:37b with SMTP id
+ ca18e2360f4ac-866b3490246mr125452639f.11.1746140494636; 
+ Thu, 01 May 2025 16:01:34 -0700 (PDT)
+Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ 8926c6da1cb9f-4f88a9416edsm87510173.64.2025.05.01.16.01.30
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 01 May 2025 16:01:34 -0700 (PDT)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: Yanan Wang <wangyanan55@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Thomas Huth <thuth@redhat.com>,
+ Halil Pasic <pasic@linux.ibm.com>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, qemu-rust@nongnu.org,
+ Zhao Liu <zhao1.liu@intel.com>, Eric Farman <farman@linux.ibm.com>,
+ Ilya Leoshkevich <iii@linux.ibm.com>,
+ Eduardo Habkost <eduardo@habkost.net>, Jason Wang <jasowang@redhat.com>,
+ David Hildenbrand <david@redhat.com>,
+ Dmitry Fleytman <dmitry.fleytman@gmail.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>, qemu-s390x@nongnu.org,
+ Christian Borntraeger <borntraeger@linux.ibm.com>
+Subject: [PATCH 00/10] hw/core: Remove hw_compat[] array for 2.10,
+ 2.11 and 2.12 machines
+Date: Fri,  2 May 2025 01:01:18 +0200
+Message-ID: <20250501230129.2596-1-philmd@linaro.org>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-References: <20250414144943.1112885-1-zhao1.liu@intel.com>
- <20250414144943.1112885-2-zhao1.liu@intel.com>
-In-Reply-To: <20250414144943.1112885-2-zhao1.liu@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Wed, 16 Apr 2025 16:54:59 +0200
-X-Gm-Features: ATxdqUFv8219Hv1r0jg_CXUGgNLFkj4kgOR8-kXLqbOIkNEdVzAyBECRRYXQqLw
-Message-ID: <CABgObfY8GfLZ5WJwRKTKGTb=qs4-QxsXb9=L9E4z8d9D8AoCJg@mail.gmail.com>
-Subject: Re: [PATCH 1/9] rust/vmstate: Support field_exists check in
- vmstate_struct macro
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, 
- Dapeng Mi <dapeng1.mi@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: l9mTcoPFyJdGhruvsidzaD07CutGmlpjWotAsy2_LXE_1744815312
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=2607:f8b0:4864:20::d34;
+ envelope-from=philmd@linaro.org; helo=mail-io1-xd34.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -97,29 +98,48 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Apr 2025 14:55:19 -0000
+X-List-Received-Date: Thu, 01 May 2025 23:01:39 -0000
 
-On Mon, Apr 14, 2025 at 4:29=E2=80=AFPM Zhao Liu <zhao1.liu@intel.com> wrot=
-e:
->
-> Unfortunately, at present it's not possible to have a const
-> "with_exist_check" method to append test_fn after vmstate_struct (due
-> to error on "constant functions cannot evaluate destructors" for `F`).
+Include Thomas s390x patches from [1], with the other x86 machines
+removal in [2], 3 hw_compat[] arrays end unused. Remove them,
+including unused properties.
 
-Nothing that std::mem::forget() can't fix. ;) We know that the
-destructor is a no-op because FnCall is only implemented on zero-sized
-functions.
+[1] https://lore.kernel.org/qemu-devel/20250115073819.15452-1-thuth@redhat.com/
+[2] https://lore.kernel.org/qemu-devel/20250501223522.99772-1-philmd@linaro.org/
 
-Another problem with such a method, however, is that you need
-VMStateField<T> for it to be type-safe. Implementing it on
-bindings::VMStateField gives no guarantee that the type of the
-argument to the function is the correct one. So this patch is okay
-too, but perhaps add a comment (not necessarily a doc comment)
-mentioning that VMStateField<T> is planned in order to remove the
-extra argument?
+Based-on: <20250501223522.99772-1-philmd@linaro.org>
 
-Thanks,
+Philippe Mathieu-Daudé (8):
+  hw/core/machine: Remove hw_compat_2_10[] array
+  hw/input/virtio-input: Remove VirtIOInputHID::wheel_axis field
+  hw/core/machine: Remove hw_compat_2_11[] array
+  hw/timer/hpet: Remove HPETState::hpet_offset_saved field
+  hw/net/e1000: Remove unused E1000_FLAG_TSO flag
+  hw/core/machine: Remove hw_compat_2_12[] array
+  hw/audio/hda-codec: Remove HDAAudioState::use_timer field
+  hw/display/vga-pci: Do not expose the 'global-vmstate' property
 
-Paolo
+Thomas Huth (2):
+  hw/s390x/s390-virtio-ccw: Remove the deprecated 2.10 and 2.11 machine
+    types
+  hw/s390x/s390-virtio-ccw: Remove the deprecated 2.12 machine type
+
+ include/hw/boards.h              |   9 ---
+ include/hw/virtio/virtio-input.h |   1 -
+ hw/audio/hda-codec.c             |  91 ++++-----------------------
+ hw/core/machine.c                |  23 -------
+ hw/display/cirrus_vga.c          |   2 -
+ hw/display/qxl.c                 |   1 -
+ hw/display/vga-pci.c             |   1 -
+ hw/display/vmware_vga.c          |   2 -
+ hw/input/virtio-input-hid.c      | 102 ++-----------------------------
+ hw/net/e1000.c                   |  58 +++---------------
+ hw/s390x/s390-virtio-ccw.c       |  51 ----------------
+ hw/timer/hpet.c                  |   9 +--
+ rust/hw/timer/hpet/src/hpet.rs   |   9 ---
+ 13 files changed, 27 insertions(+), 332 deletions(-)
+
+-- 
+2.47.1
 
 
