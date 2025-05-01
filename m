@@ -1,60 +1,61 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uAcvN-0000TQ-2f
-	for mharc-qemu-rust@gnu.org; Thu, 01 May 2025 19:02:37 -0400
+	id 1uAcvk-0000dl-JT
+	for mharc-qemu-rust@gnu.org; Thu, 01 May 2025 19:03:00 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvH-0000LE-Tl
- for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:34 -0400
-Received: from mail-il1-x12a.google.com ([2607:f8b0:4864:20::12a])
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvW-0000Uy-NJ
+ for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:47 -0400
+Received: from mail-io1-xd32.google.com ([2607:f8b0:4864:20::d32])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvF-0002M2-Lh
- for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:31 -0400
-Received: by mail-il1-x12a.google.com with SMTP id
- e9e14a558f8ab-3d6d162e516so12192865ab.1
- for <qemu-rust@nongnu.org>; Thu, 01 May 2025 16:02:28 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uAcvU-0002Nv-Tp
+ for qemu-rust@nongnu.org; Thu, 01 May 2025 19:02:46 -0400
+Received: by mail-io1-xd32.google.com with SMTP id
+ ca18e2360f4ac-8644aa73dfcso54224939f.0
+ for <qemu-rust@nongnu.org>; Thu, 01 May 2025 16:02:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1746140547; x=1746745347; darn=nongnu.org;
+ d=linaro.org; s=google; t=1746140556; x=1746745356; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=MKlAvP/b7bRS8YoXdECBwma4F9omGf4fESvbK1cfcEc=;
- b=P7r0+NFBdixDD9pJAWHbaEE7RkA5/vScdf4hTS3Vxm8bIpUeAIx1Dks6KTYejWmXwJ
- 7UkfS4SX9hdSBzEWb9ucddbFbP3UUoqBfXvDHdqLtWWqet2OdsIlRa0yLOxJUZWKW6o/
- eC4c0+J+kSF/wnHnI09bsyC/DvYWCT1opLM3KbuIOprka6e1bWH9ciFiJ+QxE1ndiP4C
- Z3Gcb1c4LIPA3TVZFTompAC6rZhgu9xoP0nRP09BizHOH8aHy47rgEAjF3D3npYE0gKh
- FELKA0f9O53TWit5dd2rPob/ceomgaywGszGwD5XdjAPB1lhvFdgZ9RJNI+j5m/9u8CP
- XjMA==
+ bh=1dlMcx3WGtPJYiCrgyeoxnRKpVNt5eyt1XvaZehs/1U=;
+ b=gsemxs7N9iAG6j8aEhfg3NtMsyc3G2GOGjVbvsX1DBgih+f+NQQjg6cULWydJHruzk
+ eUwmrhqn1ln2JjrZFwY5KdM2TJFxYiLiNw4HMw7ozaZVj15oSxeOZFc7WJ58FoiraDks
+ xq2ltZ5XwYYCLjHDQIfFseQFRqHh2bEQzhwXxAxyzJNPsfVB/7QkpuB/KCiru1ZMBoEB
+ wmfVSpCK/+uWAhgFqYLFMZXmr9A4xt+PJHM4roXcf1FZUC15JOKtMFOxYC9zJx6PcmyD
+ gA+U2L9zftobJVSPd2zUHbltQxHySRxFNZJWl76MpwFplS+p24vPSiglmo1D9iKoNv8c
+ bxhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746140547; x=1746745347;
+ d=1e100.net; s=20230601; t=1746140556; x=1746745356;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=MKlAvP/b7bRS8YoXdECBwma4F9omGf4fESvbK1cfcEc=;
- b=cqXvaVYNFvfgbDefyWTsVAYiBa2Sjj0YegYBVMR6KqXTX8LoYq+E0fdLeoYTVazq/8
- Kr+Sf+N89z/IJUbqd4N72GwB0/Sz/rattH41c/s/GoyUnpXr3N5YPDfuJNSZGccfX5Hg
- 7zjqT1Xc3i3Aei+yAw7i45T15hklNmI0QNW0zWq3wQzmIpVrtSW0FNbyustWx6Tp09ta
- JyPuGjYh0kAxG8dtvkXT+anLTelZ+VBBfi2x43vEDD9lu8Q1DtJlyhvh81dz5LDNjdz8
- xhbfvN3F0e9OgQ9tX8lKibTYfCJNqpGhPcawdbiRPFx+f8AtvfKI/mim1ZxQxQD8hYj9
- LNQQ==
+ bh=1dlMcx3WGtPJYiCrgyeoxnRKpVNt5eyt1XvaZehs/1U=;
+ b=DbiedBl++VfmdL2SElQfNRYz0Fxg5eSyOOq9rCfq/PoWF12mUxZ4c19qvyq7yLebO7
+ LQbSOjjBcaf3p42nYFlPiOCPH4NDRvgoLCB2axr10C8Z1/Wrms+5y2ibtVytWCHJbMeC
+ peNk3dk9Qczj8iN41egzKgr1U84buoCbhFFtz/U7co2h0bKqv+ozqXtXjHPfuKGe/U1V
+ Z6R3B2mCWK1sS7i6n2YgmoWQEZ51015v0bbN3r6KaaKZYYLYBa/MMAJGT0mYPO7GXTlk
+ e6FyorPfpWVyt2N4yyKEh7fM9qdSQQKT7nfk4REmwlalylV4bsRuHuEH8R/LudFAWBW8
+ hP6A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUimgSZS2Opxr8OQ7kAH/nY3yZQ50pYD/az5tq1wDnl9++FdXij32Z3fC2/k9bJGqDxO3Kl1QW270Q=@nongnu.org
-X-Gm-Message-State: AOJu0Yzj8NPxCMdFTj2kWJxaTbOV2OKs3srj+9pT9hUebnnJG9DsTzjJ
- eanZWWrZDLZVu1AhFS14VcEghOmoMEPkkOBxI9uugrKcHHuh1Z4CUN/bJw6AY98=
-X-Gm-Gg: ASbGncuGynsDbo6r7lw++ZwVIoPDZjg+BD5vo8U8zhqxSuG03DEuXouZOpertjM6mua
- x7m4b9Yveh/74U5ikt+3yShxD1gMHg/c0vlmb9LMMgTGQf636F512VyzMHZUIbPLZbzCGnqbFR+
- OQg/FR93rqp112iVu+GzYmr6vAfthZeITJwA9f1ymN6nO4agiWci144lo7xy44wnfUtX+M7sx8Z
- ilMMM8a7Wmx+X7lD5hJf2yS3LHWIryUaDU1tetdAojuiPCRBcXaBRMlFZeNQ0oOplgag4T4+9/A
- HSNzIvH1SXKNZG66uESDXoGyLZF3+fJlMn+TSpF3kUQE7g3m4rdzcGrIIZ6VXk0sGEQUVOQtybN
- UAuktCQZwuW9/k/oJYxcldCaQMcX21x4=
-X-Google-Smtp-Source: AGHT+IHInVtaHMoThBEwz78LYSah4LbqdbEsU5tqkSnQzlF3/xydnsJ0rshcltIpx0QIZNoByYG1Aw==
-X-Received: by 2002:a05:6e02:168d:b0:3d3:f6ee:cc4c with SMTP id
- e9e14a558f8ab-3d97be919c5mr8853545ab.0.1746140547164; 
- Thu, 01 May 2025 16:02:27 -0700 (PDT)
+ AJvYcCWF9tvI/UPDlQCHeSvpNo6Fezev2tyrPDskaMDC+d8vyrl9wxV8RC4eTV4AvYfk3wCZbbMwVWR5rho=@nongnu.org
+X-Gm-Message-State: AOJu0YwLzwIUuXBBhnwZXY+je8CyhQL6j1YwJ/JRtlP4+5VB+MCVt1eN
+ OdrzqHNapwWLg9jDKxQNf+9+EsBfYIL4s5P8A6ayK10jrf5VjHN6EUtpGPZ+uDmOGey/5e0ijYX
+ s
+X-Gm-Gg: ASbGncv/nLFQskNYIp2r8JiSRUZug9klnKfWkTbBOvaJJI7dVdJraCL2PT8QauplKyG
+ WBDKamKHtYoCuvcHgIjA2v1uy1ZEyqccKrTxjr1jVlfnZNjft6WqEt/HlfUTMl2WxeH5g+PmURs
+ GeL9QDyRjePXNyevBQGxOeNJt+rtf8fuHpgPsBXbV9TAh0HJL5tMEJQbyknx6c1trDIUilf6FiM
+ /Al00mVi0Git6tge64xIKgYvdPhZv6A4SBdqbT4l7xUeLk0cBG6Uhv2R+DLR1Xlnt6LmV4iGf+p
+ eHZ9cM93iwb6qcL9p2CR0M7frOwL3W5oNQbEXiWz2gchTsIEiHPCnx1yK2Wl5pBbDnqzmXlgGuo
+ Qjk5yC7sG8BkiBeZyQ9aT
+X-Google-Smtp-Source: AGHT+IG3KJ8tW2veGSL0bNPTMdz4dp4JK0KNaJu7AV8FePfOrcHjR1Vw8E5ZFfIwibr3wznGzO2ljw==
+X-Received: by 2002:a05:6e02:3702:b0:3d3:fbae:3978 with SMTP id
+ e9e14a558f8ab-3d97c1a4cb9mr9373195ab.9.1746140555981; 
+ Thu, 01 May 2025 16:02:35 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 8926c6da1cb9f-4f88a8d0e77sm91354173.24.2025.05.01.16.02.23
+ 8926c6da1cb9f-4f88aac7e27sm87432173.138.2025.05.01.16.02.32
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 01 May 2025 16:02:26 -0700 (PDT)
+ Thu, 01 May 2025 16:02:35 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Yanan Wang <wangyanan55@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>,
@@ -70,17 +71,18 @@ Cc: Yanan Wang <wangyanan55@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>,
  Richard Henderson <richard.henderson@linaro.org>,
  "Michael S. Tsirkin" <mst@redhat.com>, qemu-s390x@nongnu.org,
  Christian Borntraeger <borntraeger@linux.ibm.com>
-Subject: [PATCH 06/10] hw/net/e1000: Remove unused E1000_FLAG_TSO flag
-Date: Fri,  2 May 2025 01:01:24 +0200
-Message-ID: <20250501230129.2596-7-philmd@linaro.org>
+Subject: [PATCH 07/10] hw/s390x/s390-virtio-ccw: Remove the deprecated 2.12
+ machine type
+Date: Fri,  2 May 2025 01:01:25 +0200
+Message-ID: <20250501230129.2596-8-philmd@linaro.org>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250501230129.2596-1-philmd@linaro.org>
 References: <20250501230129.2596-1-philmd@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2607:f8b0:4864:20::12a;
- envelope-from=philmd@linaro.org; helo=mail-il1-x12a.google.com
+Received-SPF: pass client-ip=2607:f8b0:4864:20::d32;
+ envelope-from=philmd@linaro.org; helo=mail-io1-xd32.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -100,132 +102,46 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 May 2025 23:02:34 -0000
+X-List-Received-Date: Thu, 01 May 2025 23:02:51 -0000
 
-E1000_FLAG_TSO was only used by the hw_compat_2_11[] array,
-via the 'migrate_tso_props=off' property. We removed all
-machines using that array, lets remove all the code around
-E1000_FLAG_TSO, including the vmstate_e1000_tx_tso_state
-subsection.
+From: Thomas Huth <thuth@redhat.com>
 
+The s390-ccw-virtio-2.12 machine is older than 6 years, so according to
+our machine support policy, it can be removed now.
+
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Message-ID: <20250115073819.15452-9-thuth@redhat.com>
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
-Is it OK to remove migration subsection like that?
----
- hw/net/e1000.c | 58 +++++++-------------------------------------------
- 1 file changed, 8 insertions(+), 50 deletions(-)
+ hw/s390x/s390-virtio-ccw.c | 14 --------------
+ 1 file changed, 14 deletions(-)
 
-diff --git a/hw/net/e1000.c b/hw/net/e1000.c
-index e0310aef872..c68645684b6 100644
---- a/hw/net/e1000.c
-+++ b/hw/net/e1000.c
-@@ -127,13 +127,10 @@ struct E1000State_st {
-     QEMUTimer *flush_queue_timer;
- 
- /* Compatibility flags for migration to/from qemu 1.3.0 and older */
--#define E1000_FLAG_TSO_BIT 3
- #define E1000_FLAG_VET_BIT 4
--#define E1000_FLAG_TSO (1 << E1000_FLAG_TSO_BIT)
- #define E1000_FLAG_VET (1 << E1000_FLAG_VET_BIT)
- 
-     uint32_t compat_flags;
--    bool received_tx_tso;
-     bool use_tso_for_migration;
-     e1000x_txd_props mig_props;
- };
-@@ -1331,7 +1328,7 @@ static int e1000_pre_save(void *opaque)
-     }
- 
-     /* Decide which set of props to migrate in the main structure */
--    if (chkflag(TSO) || !s->use_tso_for_migration) {
-+    if (!s->use_tso_for_migration) {
-         /* Either we're migrating with the extra subsection, in which
-          * case the mig_props is always 'props' OR
-          * we've not got the subsection, but 'props' was the last
-@@ -1368,30 +1365,16 @@ static int e1000_post_load(void *opaque, int version_id)
-     }
- 
-     s->tx.props = s->mig_props;
--    if (!s->received_tx_tso) {
--        /* We received only one set of offload data (tx.props)
--         * and haven't got tx.tso_props.  The best we can do
--         * is dupe the data.
--         */
--        s->tx.tso_props = s->mig_props;
--    }
-+
-+    /* We received only one set of offload data (tx.props)
-+     * and haven't got tx.tso_props.  The best we can do
-+     * is dupe the data.
-+     */
-+    s->tx.tso_props = s->mig_props;
-+
-     return 0;
+diff --git a/hw/s390x/s390-virtio-ccw.c b/hw/s390x/s390-virtio-ccw.c
+index 2c90702d834..e612030bc18 100644
+--- a/hw/s390x/s390-virtio-ccw.c
++++ b/hw/s390x/s390-virtio-ccw.c
+@@ -1236,20 +1236,6 @@ static void ccw_machine_3_0_class_options(MachineClass *mc)
  }
+ DEFINE_CCW_MACHINE(3, 0);
  
--static int e1000_tx_tso_post_load(void *opaque, int version_id)
+-static void ccw_machine_2_12_instance_options(MachineState *machine)
 -{
--    E1000State *s = opaque;
--    s->received_tx_tso = true;
--    return 0;
+-    ccw_machine_3_0_instance_options(machine);
+-    s390_cpudef_featoff_greater(11, 1, S390_FEAT_PPA15);
+-    s390_cpudef_featoff_greater(11, 1, S390_FEAT_BPB);
 -}
 -
--static bool e1000_tso_state_needed(void *opaque)
+-static void ccw_machine_2_12_class_options(MachineClass *mc)
 -{
--    E1000State *s = opaque;
--
--    return chkflag(TSO);
+-    ccw_machine_3_0_class_options(mc);
+-    compat_props_add(mc->compat_props, hw_compat_2_12, hw_compat_2_12_len);
 -}
+-DEFINE_CCW_MACHINE(2, 12);
 -
- static const VMStateDescription vmstate_e1000_mit_state = {
-     .name = "e1000/mit_state",
-     .version_id = 1,
-@@ -1416,28 +1399,6 @@ static const VMStateDescription vmstate_e1000_full_mac_state = {
-     }
- };
- 
--static const VMStateDescription vmstate_e1000_tx_tso_state = {
--    .name = "e1000/tx_tso_state",
--    .version_id = 1,
--    .minimum_version_id = 1,
--    .needed = e1000_tso_state_needed,
--    .post_load = e1000_tx_tso_post_load,
--    .fields = (const VMStateField[]) {
--        VMSTATE_UINT8(tx.tso_props.ipcss, E1000State),
--        VMSTATE_UINT8(tx.tso_props.ipcso, E1000State),
--        VMSTATE_UINT16(tx.tso_props.ipcse, E1000State),
--        VMSTATE_UINT8(tx.tso_props.tucss, E1000State),
--        VMSTATE_UINT8(tx.tso_props.tucso, E1000State),
--        VMSTATE_UINT16(tx.tso_props.tucse, E1000State),
--        VMSTATE_UINT32(tx.tso_props.paylen, E1000State),
--        VMSTATE_UINT8(tx.tso_props.hdr_len, E1000State),
--        VMSTATE_UINT16(tx.tso_props.mss, E1000State),
--        VMSTATE_INT8(tx.tso_props.ip, E1000State),
--        VMSTATE_INT8(tx.tso_props.tcp, E1000State),
--        VMSTATE_END_OF_LIST()
--    }
--};
--
- static const VMStateDescription vmstate_e1000 = {
-     .name = "e1000",
-     .version_id = 2,
-@@ -1519,7 +1480,6 @@ static const VMStateDescription vmstate_e1000 = {
-     .subsections = (const VMStateDescription * const []) {
-         &vmstate_e1000_mit_state,
-         &vmstate_e1000_full_mac_state,
--        &vmstate_e1000_tx_tso_state,
-         NULL
-     }
- };
-@@ -1637,8 +1597,6 @@ static void pci_e1000_realize(PCIDevice *pci_dev, Error **errp)
- 
- static const Property e1000_properties[] = {
-     DEFINE_NIC_PROPERTIES(E1000State, conf),
--    DEFINE_PROP_BIT("migrate_tso_props", E1000State,
--                    compat_flags, E1000_FLAG_TSO_BIT, true),
-     DEFINE_PROP_BIT("init-vet", E1000State,
-                     compat_flags, E1000_FLAG_VET_BIT, true),
- };
+ static void ccw_machine_register_types(void)
+ {
+     type_register_static(&ccw_machine_info);
 -- 
 2.47.1
 
