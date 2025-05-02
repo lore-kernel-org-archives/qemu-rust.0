@@ -1,73 +1,74 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uAqFk-0003kQ-DP
-	for mharc-qemu-rust@gnu.org; Fri, 02 May 2025 09:16:52 -0400
+	id 1uAqG5-0003nH-FM
+	for mharc-qemu-rust@gnu.org; Fri, 02 May 2025 09:16:53 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uAo4o-0003Mf-8r
- for qemu-rust@nongnu.org; Fri, 02 May 2025 06:57:06 -0400
-Received: from mail-wm1-x334.google.com ([2a00:1450:4864:20::334])
+ id 1uAoFX-00070k-6N
+ for qemu-rust@nongnu.org; Fri, 02 May 2025 07:08:15 -0400
+Received: from mail-wm1-x32d.google.com ([2a00:1450:4864:20::32d])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uAo4m-0007Q2-9h
- for qemu-rust@nongnu.org; Fri, 02 May 2025 06:57:05 -0400
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43d04ea9d9aso8111465e9.3
- for <qemu-rust@nongnu.org>; Fri, 02 May 2025 03:57:03 -0700 (PDT)
+ id 1uAoFV-0003lK-2r
+ for qemu-rust@nongnu.org; Fri, 02 May 2025 07:08:10 -0400
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4394a823036so17872615e9.0
+ for <qemu-rust@nongnu.org>; Fri, 02 May 2025 04:08:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1746183423; x=1746788223; darn=nongnu.org;
+ d=linaro.org; s=google; t=1746184087; x=1746788887; darn=nongnu.org;
  h=mime-version:message-id:in-reply-to:references:user-agent:subject
  :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=vj5HuKv9glVT8gzdZRhVYIHfs8SfQJDKua/Qa0b7zos=;
- b=cZFAphMMeaS8jPpEEi/9WA8ROpSVnkZN6bpX/svpD1MsHpsumIAnwWhZsszL3QoWJ6
- dxlbMydhpDSD+TcWqjEQvM13YhNOTWj/j0GCwSXAxoYa+CN1hUm/OrNnrJyJJ60UR8wy
- J3EEiUIwCCh55ehJq5hsnV2iHEZuddV6XH4vjH14VPG0zL6JOxUF1S+UVeiY5EoBRfdV
- qHf5BbPUQdVYnwcXRLMyyYdRN6JSFPvItmuv4F70cdmAeMZRqllZmWAu0szKEP6bN4Bo
- 98BmBSRjdbxVxDSSernkluomouRU2bNEGNwCU/9YQroG9Ritd8MTgvE+pBGSrvD8/RZm
- 6tPQ==
+ bh=Rpc911MSRyybCnIO826qwe1uZefKxahvBxjSAOaVQ2U=;
+ b=GFujG4gDxligj6IP9EZlkVT8x7lXFCFiOiTa6c4IffRyjiG16fjFFZA3DDGkpYvzU5
+ 8mKi+SQ9l8k4va+fhQfXBwFzv2mJ5Ktg5cbueDVgPqhX234nUS7pGcpnDJR43dPPJKCM
+ 3dJ/eRext+yhXTTqWB8VFuNZi//2z6O0+6RfU/sVmQQtXN+yy3A3ooEjEzSd/vgk5CpT
+ vmPhtb6hGgiopfIDPkZmhYiI8DJo/tssH19wtABlzb+1NqRlotsAx8RlDIK1EAS4HViK
+ 2Yxz4KwvEtQM8y+9DQsfccfTFbiGs7KXPffZZdwIjyWMEEz3eaYaAaZobnI2jznnQ2Sa
+ 1ZIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746183423; x=1746788223;
+ d=1e100.net; s=20230601; t=1746184087; x=1746788887;
  h=mime-version:message-id:in-reply-to:references:user-agent:subject
  :cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vj5HuKv9glVT8gzdZRhVYIHfs8SfQJDKua/Qa0b7zos=;
- b=PyjFJMkW/hOKmd2JJGIH6Ipv0ltr5CmRvJ6R1kVfifpsgCpxeoK2FV8MDjAQ1uZ9zc
- 1yvikoRBySrk58kNXWTcISZVYgwqvCMcfJtnHKdUWxujcv4MHVdFjrV82HQwwxZ6TOs5
- muGSGfTIKVqzqeb4ZJVDr6A/E69UQB0+1ltRA57yikW7mkHUK/e84RlVABxSuBqOzCIl
- vMr9yW+mItFQv3KmCLO1qkkvXbudgDKkAcFlcnomT9vpc/0EKH45arkgX5TYxzUc4r4a
- AnBymak3iEmNVmjRUdW+RzmxFKBtEpkdOvoMK8Ys+c+f7uz8iSrmyBOc6PYhXDXWTTCC
- ryUg==
-X-Gm-Message-State: AOJu0YxyvvLXY1MmEPvE1ZaEl9a2SiFE7dmqCPo/EpGwkdiOcg21w8Bq
- Q7t95C+G1nRoCfdLsxB3DMM/fGPCc/Yu6OIjxPQfd18Y4tBUAaPxtA4td17liac=
-X-Gm-Gg: ASbGncuZDz4/VDzY8CYTBPhP2ZYb3tS48zlJ1XFFNXxDNPxEZc8VuccFKYPglIPLOjJ
- JVvfjovnM9GJ/B0lXdlwl1tMEQnRJXGaH59YNwnjvztP8gX/rM6gVFtA6s90SAVYzvvXkK2vcJD
- mNMBiKmMb5/rOEhzmwurhdKz2FQlO3W23HCBL1pyRosGqmF9tB+KZnL9rNHEVErbdYOH3BDwWLK
- HhnHsD/Bq+tCgMFegLkvZEEydp+/a/3hb77nDqc48BeAeE/4cO2arWAigGdhqfn88J7aFfM8dUS
- HBLuhFJjbTb0zpT4OL4bFtUn0dmswsAr4jfeYiJkHwMhIOSWgg+x+U6L+Z+0sPfD9zkFB6POI8M
- OnZZ2JQ==
-X-Google-Smtp-Source: AGHT+IHGNTBBOgX82T5ORi3HjaUolZAwYOXAL04GOhkaDD5BCgmTQRERhnqDM+cnpKptc27ZxKtu6A==
-X-Received: by 2002:a05:600d:10:b0:441:bf4e:89c8 with SMTP id
- 5b1f17b1804b1-441bf4e8b11mr10844085e9.3.1746183422702; 
- Fri, 02 May 2025 03:57:02 -0700 (PDT)
+ bh=Rpc911MSRyybCnIO826qwe1uZefKxahvBxjSAOaVQ2U=;
+ b=t8bOd6J+1/xfacsghEN7/GSbBtiNXGpwCkm+x2vn/csDKgI2baAfZlrRgJFsBH6a/e
+ oiHhHWw9uPNVkGuRjRadg1cht7OfZvfYbJjop0kjwsViwNVUMMottO4GutnxyvS7DmCL
+ gmVrHsRhd+U3CkWr+4OajqIXfQ9/Wt5jRTTwaSkYjEoyBFo5EbYeO1w22aJ+fFY9OsFI
+ 5hL/DHL8cy0l9EWOB1q0VMu1CBac5gHcAzoVjUEStGydneMzSCMCFK/aLcCUM2sV46is
+ XbhVb36MBjFNkZ2wu6i1XHl50Eds9eMDDc2Zm1G0Z4VkEBMVOVN/xTfjt58QgpHvf0tR
+ roQA==
+X-Gm-Message-State: AOJu0Yy8Ca3Tyf3jfjbplcimJF/RDJ5JZxLF6sCkD29m1m5RAzIWfBhs
+ JvWISVZyvBis9pJiMhiBNOJgYMs0gKvKV9s3kVHUYixqWSHAl64fcXu+b7vnF90=
+X-Gm-Gg: ASbGncvX4/E/CeG8NZomBGMP38xn15TAZw3cM6GnFZJVtM7kUj4/aTSfga9b3zHlOCp
+ hjtnRijZNn9SRuYpXBaSlmCMuO0m1bEn6+Xg2rvssGvCFPntxvU3EjU0nJ12fBGh80sQCHfatoA
+ Y8P3BhGFtVViORb1YaGaEDsgF9tUhZkYI7fDl6xAuLw7lesLQtTxIx15OeHUkkRJzjogc5J4a6G
+ HmqM44PNqmbnDree9IqVjfkykxo77/E7UzI9Dvvk3B8HSp3L5M6T/wRV6NvQe8dPEz/BC8zvtnI
+ 3w52BKjCN+L8WFnMB7PNIlFP1nLYwMYYPgLQ41HK73R+Phnsk4+s727mIfC4aCqtKyupKEgpPSs
+ E/rVrAg==
+X-Google-Smtp-Source: AGHT+IHoZ7i2elVk+YwaAr62pmR6X6acZLybsbDLi/4nMXa1ztqTtwjcIbzyH4O+CBNyyIODC/vKKw==
+X-Received: by 2002:a05:600c:cca:b0:43d:7bfa:2739 with SMTP id
+ 5b1f17b1804b1-441bbf34750mr17915975e9.23.1746184087371; 
+ Fri, 02 May 2025 04:08:07 -0700 (PDT)
 Received: from meli-email.org (adsl-37.37.6.161.tellas.gr. [37.6.161.37])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-441b2b20a65sm85968975e9.32.2025.05.02.03.57.02
+ 5b1f17b1804b1-441b8a315fdsm40686455e9.34.2025.05.02.04.08.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 May 2025 03:57:02 -0700 (PDT)
-Date: Fri, 02 May 2025 13:54:13 +0300
+ Fri, 02 May 2025 04:08:07 -0700 (PDT)
+Date: Fri, 02 May 2025 14:01:42 +0300
 From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 To: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-rust@nongnu.org
 Bcc: 
-Subject: Re: [PATCH 0/9] rust: allow minimum version of 1.77
+Subject: Re: [PATCH 5/9] rust: use MaybeUninit::zeroed() in const context
 User-Agent: meli/0.8.12
 References: <20250502102323.104815-1-pbonzini@redhat.com>
-In-Reply-To: <20250502102323.104815-1-pbonzini@redhat.com>
-Message-ID: <svmrr1.1reefsjrvnmr2@linaro.org>
+ <20250502102323.104815-6-pbonzini@redhat.com>
+In-Reply-To: <20250502102323.104815-6-pbonzini@redhat.com>
+Message-ID: <svms9i.274a4or3m08g3@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Received-SPF: pass client-ip=2a00:1450:4864:20::334;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-wm1-x334.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::32d;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-wm1-x32d.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -88,23 +89,23 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 May 2025 10:57:06 -0000
+X-List-Received-Date: Fri, 02 May 2025 11:08:18 -0000
 
-Hey Paolo,
+On Fri, 02 May 2025 13:23, Paolo Bonzini <pbonzini@redhat.com> wrote:
+>Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+>---
+> docs/devel/rust.rst              |   4 --
+> rust/hw/timer/hpet/src/fw_cfg.rs |   6 +-
+> rust/qemu-api/src/zeroable.rs    | 104 +++++--------------------------
+> 3 files changed, 18 insertions(+), 96 deletions(-)
 
-We should update the version check in the root meson.build in the first 
-patch of this series:
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
-> if have_rust
->   rustc = meson.get_compiler('rust')
->   if rustc.version().version_compare('<1.63.0')
->     if get_option('rust').enabled()
->       error('rustc version ' + rustc.version() + ' is unsupported. Please upgrade to at least 1.63.0')
->     else
->       warning('rustc version ' + rustc.version() + ' is unsupported, disabling Rust compilation.')
->       message('Please upgrade to at least 1.63.0 to use Rust.')
->       have_rust = false
->     endif
->   endif
-> endif
+BTW There's this TODO in qom.rs, ObjectImpl trait
+
+>   /// `&mut T`.  TODO: add a bound of 
+>   //[`Zeroable`](crate::zeroable::Zeroable)
+>   /// to T; this is more easily done once Zeroable does not require a manual
+>   /// implementation (Rust 1.75.0).
+>   const CLASS_INIT: fn(&mut Self::Class);
 
