@@ -1,95 +1,77 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uBrm2-0004Zn-Ar
-	for mharc-qemu-rust@gnu.org; Mon, 05 May 2025 05:06:06 -0400
+	id 1uBs9P-000525-19
+	for mharc-qemu-rust@gnu.org; Mon, 05 May 2025 05:30:18 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uBrlE-0003lF-Dy
- for qemu-rust@nongnu.org; Mon, 05 May 2025 05:05:22 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uBrlA-0005zW-6L
- for qemu-rust@nongnu.org; Mon, 05 May 2025 05:05:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1746435910;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0MCBJ5xtAP2sEtwZTxecdsarRiNYOTzsPMvNmsHN5qM=;
- b=cdBd974Bz/hO1oAPhdCz4qt6850wRuDtpOnqLMtfcpChefdhfVKpNtpsIptjVeTbwnLbbx
- aAfCLFTmh1QyfWxw6hlCsx1GR5pgY9QfY/3Njkd4bIMlPalRcybkf3MZ8Kt9vf0gWbuyjd
- lI0NO3vYHnALlzqq0TyNxlxbmmWPKQQ=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-94-fIgmoVmdMtqF9JV_mAjtdg-1; Mon, 05 May 2025 05:05:09 -0400
-X-MC-Unique: fIgmoVmdMtqF9JV_mAjtdg-1
-X-Mimecast-MFC-AGG-ID: fIgmoVmdMtqF9JV_mAjtdg_1746435908
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-43ea256f039so31669395e9.0
- for <qemu-rust@nongnu.org>; Mon, 05 May 2025 02:05:08 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uBs9J-0004xZ-Uq
+ for qemu-rust@nongnu.org; Mon, 05 May 2025 05:30:10 -0400
+Received: from mail-ed1-x52c.google.com ([2a00:1450:4864:20::52c])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uBs9G-0001lq-VG
+ for qemu-rust@nongnu.org; Mon, 05 May 2025 05:30:09 -0400
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5f4b7211badso6019069a12.2
+ for <qemu-rust@nongnu.org>; Mon, 05 May 2025 02:30:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1746437403; x=1747042203; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TnQzmi1Xy7uDy5QqPZ5mjja3cTUskZY+1A3H4oT6BXU=;
+ b=eb4nWWzqTFqdtDMz0HiXA7w1QNkOgttA+pzS/tSu9gkrUA9l8tBYWEK5Why2qa0gQ9
+ R8iprvI279qQg2+3x7sOWOskicrgbE9RkCan5Grq7nVtVR6mP2z431vbh9omoCt+sUw5
+ k1f8Eb/7fjZj2cUdQ3/evCeBkFaxEApOoGQepIWt4nDwVnL5wWvxZzBdItpUF9fo32/Y
+ TgGmKSchRPPTsSaCWqwW+73i0qwNx6G1lNteRhfjhcV7TrDc3OVEbV+Udxhjax08c1jf
+ Hue3idt5JBhgpxtW4b9nXT7u7oMr/TeeAtQ8oeBJLmWmBtX02MnSXgDmoty10M8bh3aD
+ aLYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746435907; x=1747040707;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1746437403; x=1747042203;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0MCBJ5xtAP2sEtwZTxecdsarRiNYOTzsPMvNmsHN5qM=;
- b=WBfsazmuc8A0zGOsYbe9+if3y0jOP4+1X8mv2icnfiwxHYP+o9SiHSQ7jo4+UAht8h
- UuZlF+E5LNltRHWHiXFdyE3yKkwy+InmTzHrOBp+LjT1JB4b+Np3eV/uppoeWYSuOweV
- 5ckvIeD5KcKeBfj8oGFc4IM+/ZCgHLOYmxq0eKDlhwkqaK9I1A1AVrTZLxhR3E2YMgFp
- rB1yNUm58jiu4/345/hn8edAoDQIPDTvhveKc6pNNMnhZbnrx4HlBhWS7jw4LIgMReIY
- gMOTVpgLKZ0K4FuFJ2T2tpX1Fk3GwaAYqoBOUFPBk+2CY546KpEgPV2FbwbtBDDc64bI
- i0fw==
+ bh=TnQzmi1Xy7uDy5QqPZ5mjja3cTUskZY+1A3H4oT6BXU=;
+ b=U4zzFUcNBlg0Z6jwkr3FI7NtaQ5byO1r1BQpIQoylidgqUl0hfyxUbWorWNFMoY8h6
+ ZipiHfdVDQ6wEgHLpJ0sBic6sfY+5wmHr2jSXIrdwr0D+8G/GEd6wBWOdO4Z3E779ryG
+ TenekorBcfuQdnGQW/gRF4v8UteQBu3qRcW2tkbVhotWLQPCKQmrdJtXu6Ay88kGOgNI
+ Hpnib6VOv1ihxQse7KZGuckV9pe/FDjG9zIZoKn3g1KLafgVra/yrawcDuAguQmpNDS3
+ 0m4NfxND4DRh/W/NErzjpAxHgqWe9ZzlitfXvwJiDLFBn1ewREgQ7uxST7i6ahGsLZgS
+ vyWA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU/UurxdJKVcUFw4sMbINGMnmwxbpSGfdgHF0SNjSr8xOLbNmdx9glzXlWRqYsU2eAOyWkvkvRjgbk=@nongnu.org
-X-Gm-Message-State: AOJu0Ywf39bQ4PX1iZKgjNewYf2fERQRnnhR/2a7tHCJIFCVrG7KJsuU
- dLRKhtH7rVOvofP7p0lkFwsh1w1wD2mbyhbfwzAlA7kVYfXWBm4hVtg2VwWKYpriJqJBk+KWX73
- 8JassIziaCF/j8boExnuXH9FS63DGr7rppvZPNWIgdJ/cKB+0wHA=
-X-Gm-Gg: ASbGncvqbbZA0wtI/VSpR+3q4sZfq0YqU4BlwWKpKTzyUJHfzqBm6JQ761BiL4rkNPf
- Y4gVXH4OCDTyYsiGmKbEpszjgZtgTlkROmVept0SeUH2lPzUk8PWSYGeFq1xiWyKko5iOL/D+YV
- hQtZEZOPAWETetmB//qikhOGZ11ROZsr4DhSV0qweN9oujU7u+v0FwHkDc1dwxPJBYa/BNzGMhJ
- lQBjzAomfpUceXF8vxpxp0mfiM01GgZkz+h0J4cs37Y562CtoeE0xcpljYjWiF3HHZpOozRlAx0
- wWMsRtSnpAPm1E8=
-X-Received: by 2002:a5d:5f4c:0:b0:39c:2688:6edf with SMTP id
- ffacd0b85a97d-3a09fd879f5mr4757518f8f.14.1746435907663; 
- Mon, 05 May 2025 02:05:07 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFPfOM+qiJU7HatBpa2hM+iVm4GQzW/ZoZETd4upzkhvkbf8z/Wgti0K0h0gtlBbNcQ2zL3Sg==
-X-Received: by 2002:a5d:5f4c:0:b0:39c:2688:6edf with SMTP id
- ffacd0b85a97d-3a09fd879f5mr4757497f8f.14.1746435907318; 
- Mon, 05 May 2025 02:05:07 -0700 (PDT)
-Received: from [192.168.10.48] ([151.95.54.106])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a099ae8117sm9871638f8f.56.2025.05.05.02.05.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 May 2025 02:05:04 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: manos.pitsidianakis@linaro.org,
-	qemu-rust@nongnu.org
-Subject: [PATCH 11/11] docs: rust: update for newer minimum supported version
-Date: Mon,  5 May 2025 11:04:36 +0200
-Message-ID: <20250505090438.24992-12-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250505090438.24992-1-pbonzini@redhat.com>
-References: <20250505090438.24992-1-pbonzini@redhat.com>
+ AJvYcCXQA3tcSrU4Rjtz4qdRxFUYpEBNLWZSD4apK3Oflr19eiCZ4mmmAXGDlFgp+kwXBalSfJuRi+VQ/3U=@nongnu.org
+X-Gm-Message-State: AOJu0Yxoc0j79BZyNjYPKnLOA9DJcV3COCt1KL7V89/JqWEJ8GJqX/vn
+ eztn14n/RdIq0pQVI8jRU8kNe9U92h0yTK2yQ6Xk+tqbUNFMP267nl8UrkaehqWP4C3/fd4Obed
+ nM6BQCklYzJ6Yc8cL0bqX+d7QEHd4eNcHJTGHWg==
+X-Gm-Gg: ASbGncvrVCfLM2NkZKgu1rXEEMWF4TnDKcCCsJ1RoGxBc7q7l9jPLNHv0pXnsZTlS+8
+ 9yss7/9pa5gWTWHp7g3oACsWAZIVlmGHkGMAOCxtPSL8lBZ4BsgQPsBFYA8ESes4VNPXQrtesCn
+ BIIQi5pEMZM8Csknk/0FzVCBJYxmeEwP4=
+X-Google-Smtp-Source: AGHT+IHNaAsVgBa0jQgcIiXmicHpOCw28Zcz1LPA7CJ4QgxBuLEMzioanb9lohE4TrkfBh5J4oaqWyHl5XmJRQRQxGU=
+X-Received: by 2002:a05:6402:354e:b0:5f4:5dfa:995f with SMTP id
+ 4fb4d7f45d1cf-5faa7f478e1mr6763309a12.13.1746437403277; Mon, 05 May 2025
+ 02:30:03 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 11xSRSBX1D-Uo_ASqKzw2wnIpELcQUIb1U6Xl70i4sA_1746435908
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -44
-X-Spam_score: -4.5
-X-Spam_bar: ----
-X-Spam_report: (-4.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.411,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=-1, RCVD_IN_MSPIKE_WL=-0.01,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+References: <20250505090438.24992-1-pbonzini@redhat.com>
+ <20250505090438.24992-3-pbonzini@redhat.com>
+In-Reply-To: <20250505090438.24992-3-pbonzini@redhat.com>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Mon, 5 May 2025 12:29:37 +0300
+X-Gm-Features: ATxdqUGdO9dCWT8h3WNuNL-aPqxiTvfwXUVaBdQrbDyqZq8PPkK_941xQUsq0Tg
+Message-ID: <CAAjaMXZovuEzZpenUbFpy3QtFnE5NR-KgXthAgGvQRs3ae-Tew@mail.gmail.com>
+Subject: Re: [PATCH 02/11] meson, cargo: require Rust 1.77.0
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::52c;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x52c.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -102,51 +84,66 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 May 2025 09:05:27 -0000
+X-List-Received-Date: Mon, 05 May 2025 09:30:11 -0000
 
-Remove leftover notes for Rust changes between 1.63.0 and 1.77.0.
+On Mon, May 5, 2025 at 12:04=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com>=
+ wrote:
+>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  meson.build      | 6 +++---
+>  rust/Cargo.toml  | 2 +-
+>  rust/clippy.toml | 2 +-
+>  3 files changed, 5 insertions(+), 5 deletions(-)
+>
+> diff --git a/meson.build b/meson.build
+> index 8ae70dbe45a..e77da3f9b75 100644
+> --- a/meson.build
+> +++ b/meson.build
+> @@ -94,12 +94,12 @@ have_rust =3D have_rust and add_languages('rust', nat=
+ive: true,
+>      required: get_option('rust').disable_auto_if(not have_system))
+>  if have_rust
+>    rustc =3D meson.get_compiler('rust')
+> -  if rustc.version().version_compare('<1.63.0')
+> +  if rustc.version().version_compare('<1.77.0')
+>      if get_option('rust').enabled()
+> -      error('rustc version ' + rustc.version() + ' is unsupported. Pleas=
+e upgrade to at least 1.63.0')
+> +      error('rustc version ' + rustc.version() + ' is unsupported. Pleas=
+e upgrade to at least 1.77.0')
+>      else
+>        warning('rustc version ' + rustc.version() + ' is unsupported, dis=
+abling Rust compilation.')
+> -      message('Please upgrade to at least 1.63.0 to use Rust.')
+> +      message('Please upgrade to at least 1.77.0 to use Rust.')
+>        have_rust =3D false
+>      endif
+>    endif
+> diff --git a/rust/Cargo.toml b/rust/Cargo.toml
+> index 5ace47c69be..eda7980b31a 100644
+> --- a/rust/Cargo.toml
+> +++ b/rust/Cargo.toml
+> @@ -12,7 +12,7 @@ edition =3D "2021"
+>  homepage =3D "https://www.qemu.org"
+>  license =3D "GPL-2.0-or-later"
+>  repository =3D "https://gitlab.com/qemu-project/qemu/"
+> -rust-version =3D "1.63.0"
+> +rust-version =3D "1.77.0"
+>
+>  [workspace.lints.rust]
+>  unexpected_cfgs =3D { level =3D "deny", check-cfg =3D [
+> diff --git a/rust/clippy.toml b/rust/clippy.toml
+> index 5d190f91dec..933e46a2ffb 100644
+> --- a/rust/clippy.toml
+> +++ b/rust/clippy.toml
+> @@ -1,2 +1,2 @@
+>  doc-valid-idents =3D ["PrimeCell", ".."]
+> -msrv =3D "1.63.0"
+> +msrv =3D "1.77.0"
+> --
+> 2.49.0
+>
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- docs/devel/rust.rst | 15 +--------------
- 1 file changed, 1 insertion(+), 14 deletions(-)
-
-diff --git a/docs/devel/rust.rst b/docs/devel/rust.rst
-index 557cee72f39..4de86375021 100644
---- a/docs/devel/rust.rst
-+++ b/docs/devel/rust.rst
-@@ -71,16 +71,9 @@ Building Rust code with ``--enable-modules`` is not supported yet.
- Supported tools
- '''''''''''''''
- 
--QEMU supports rustc version 1.63.0 and newer.  Notably, the following features
-+QEMU supports rustc version 1.77.0 and newer.  Notably, the following features
- are missing:
- 
--* Generic Associated Types (1.65.0)
--
--* ``CStr::from_bytes_with_nul()`` as a ``const`` function (1.72.0).
--
--* "Return position ``impl Trait`` in Traits" (1.75.0, blocker for including
--  the pinned-init create).
--
- * inline const expression (stable in 1.79.0), currently worked around with
-   associated constants in the ``FnCall`` trait.
- 
-@@ -105,12 +98,6 @@ are missing:
- 
- __ https://github.com/rust-lang/rust/pull/125258
- 
--It is expected that QEMU will advance its minimum supported version of
--rustc to 1.77.0 as soon as possible; as of January 2025, blockers
--for that right now are Debian bookworm and 32-bit MIPS processors.
--This unfortunately means that references to statics in constants will
--remain an issue.
--
- QEMU also supports version 0.60.x of bindgen, which is missing option
- ``--generate-cstr``.  This option requires version 0.66.x and will
- be adopted as soon as supporting these older versions is not necessary
--- 
-2.49.0
-
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
