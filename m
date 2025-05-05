@@ -1,87 +1,86 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uBrl0-0003ZL-MF
-	for mharc-qemu-rust@gnu.org; Mon, 05 May 2025 05:05:03 -0400
+	id 1uBrlO-0003rI-GI
+	for mharc-qemu-rust@gnu.org; Mon, 05 May 2025 05:05:30 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uBrkw-0003Xs-RN
- for qemu-rust@nongnu.org; Mon, 05 May 2025 05:04:59 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1uBrku-0003X5-4R
+ for qemu-rust@nongnu.org; Mon, 05 May 2025 05:04:56 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uBrkt-0005ko-T0
- for qemu-rust@nongnu.org; Mon, 05 May 2025 05:04:57 -0400
+ id 1uBrko-0005jY-El
+ for qemu-rust@nongnu.org; Mon, 05 May 2025 05:04:53 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1746435894;
+ s=mimecast20190719; t=1746435889;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Ya2k66L69MguUJ7e/92cimrey+KKi+WpqMAX7zuo+gA=;
- b=IwiBgE+Jbr3emFGH+/zBFuP3VffhpdvwcJDRn1PajRn2A99E2YTDV65pl2y2Mr80DMtHKh
- 9CWS5T50XTYnOvnyIqAIw61PFltRWyaAfxPof1/3g9B/bNP4dWDcMSLVt7Nlyd2xMs5996
- NKBDQ1mA0kD8XUkzzi4xIp71gTAkTm8=
+ bh=eJwgErAmU4ckPuc9++qP9v1e1akMhw0OVt15JuOFrhQ=;
+ b=enxbEyoMVEXo3iGNwCpK6k82Eo2/i1hkP0G86FDGihEceoal/uLlHRq/qtgsbgHb8UO7YS
+ neTdMwt256n077hT3X8zedXJcZB7xyT7YPpIjdQabwaOq2Z78Yje5Qu+Hct7HV6sjlkDl/
+ 3ETDAqwvVKg2lhbaPH8LstKPsAKzdN0=
 Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
  [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-449-nGGYIcZOO1Ofs4eXND7zww-1; Mon, 05 May 2025 05:04:53 -0400
-X-MC-Unique: nGGYIcZOO1Ofs4eXND7zww-1
-X-Mimecast-MFC-AGG-ID: nGGYIcZOO1Ofs4eXND7zww_1746435892
+ us-mta-634-VLfuqTIrMA-kDu_UpvUV9g-1; Mon, 05 May 2025 05:04:48 -0400
+X-MC-Unique: VLfuqTIrMA-kDu_UpvUV9g-1
+X-Mimecast-MFC-AGG-ID: VLfuqTIrMA-kDu_UpvUV9g_1746435887
 Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-43ceeaf1524so16959305e9.1
- for <qemu-rust@nongnu.org>; Mon, 05 May 2025 02:04:53 -0700 (PDT)
+ 5b1f17b1804b1-43cf446681cso24326775e9.1
+ for <qemu-rust@nongnu.org>; Mon, 05 May 2025 02:04:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746435892; x=1747040692;
+ d=1e100.net; s=20230601; t=1746435887; x=1747040687;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Ya2k66L69MguUJ7e/92cimrey+KKi+WpqMAX7zuo+gA=;
- b=gxzh95WN2DwsnXks/5ZOSHamd/57yje3CamETrMaflgrC0GT3VVmEMUDYOPPrcFWNV
- Zu1BHK98sITpEDpp9buAzV6y5UrTAzd1U36r7Ye2KX+JlPaonnRSD1UjlkekBr/xxh3G
- rYjNm3dyo4XfwjXhSpKnSw5Iwhf2kb72RXiHByfxZJdSFinPx9fzLYy6Yp5S77/GCRY/
- yUYNEgVQynUjrz03KhinGHAvOeXTi0PoOtHzcthvlbC9EtYnx+m0ZVhytf9W66GRqfmM
- +BjjhfMrC60PrK5mv9TWuWlc2h9KzVukp7dOSkAuC+FFBxpsSCK35mRz+V7B29ZlSdfu
- jjiA==
+ bh=eJwgErAmU4ckPuc9++qP9v1e1akMhw0OVt15JuOFrhQ=;
+ b=h34/tuoLSUK7Ud++qJgHx5nHUBoBa6SJExnOIb7Fuwk9OBtZqITZK4Wo8aytABeAAF
+ 6cC/cUGQx1JAx8gSlQq6bHniJv/lh1SnyeEoDASnGOt8wRkstkVgp0UMMkx4PZOYNV3e
+ lUn+NeKc72f7uutXi1mtvu0W2KUOReGmnnLC5nRiwUgpdORrXzlilgsyQGXA/whygE3Z
+ r9lauZy0uXWAKEF1aAwcn0XtbCIkXm8Qx0Ogpy95a3RZx6WSZl72w73Xnphn/PKJcSgY
+ Bl45YyHECuFwGR+PN33UVFRF0JmP35BPdzq56+MDVyViVjK1Anaed6kQCZRlHnB15Ugq
+ MKbw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW6yKq4QKSWPyUhb+WMFrsPW1sbc5ElO8m5TxZN2oLWP+kZWtRwGCbxGppPMHh94kyWItKfB2PBhVA=@nongnu.org
-X-Gm-Message-State: AOJu0Yx+oPqjvrYxYvr7O3pq2tEDy/8+3CRFX6Ozv2r1A6LGAJ0RU6pU
- 71VtLe6ItO91SWK5qOmWu3jdM5KRdxT6r5eu3tEqEUOL1ABYfud3uL6uEgZ3LOuOU/LbW8iynVI
- GSNX1XguUa9fA/yRWwGWFAbpEr6l0l3zhgHjF/0j4Bg9R1H7YflWBAuE+OCc=
-X-Gm-Gg: ASbGncusEQvxHJqeBQMEkHzATmO+NBSk61DY41lRR3eK7XX5IWl9/s0gNHCv549T+rf
- ht0gnZGVqJHYa6hUwcTFhGJVb+zvvRYPWwKadsaSxN87NeiBmnBEHQlOxIvWpveCKJ0SoECjMob
- ZqvTAgdeQ9zVi4OXNRmcMrsuv8Au0j+Rwor/oVcdj0gth8fTRsn1inWhNrxb7uZGrzVuV1bOBHS
- 1uH2nXi8b5pM4F9w8sxnsjtGU/rgxcox7L+0m/SgInGDkkFj0fNFQl+OCAjFjO9+0LlaUYKGhWP
- TxWqWOMI6oBxKxg=
-X-Received: by 2002:a05:600c:3acd:b0:43b:c6a7:ac60 with SMTP id
- 5b1f17b1804b1-441bb88c9f1mr92244395e9.10.1746435891939; 
- Mon, 05 May 2025 02:04:51 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFVe8c/SXPKpUkmPyijE1jDB1zNxdbJ/AaUB37n6Rffwj3hvKuLJVKKEiaOAleaEtbv4n76JQ==
-X-Received: by 2002:a05:600c:3acd:b0:43b:c6a7:ac60 with SMTP id
- 5b1f17b1804b1-441bb88c9f1mr92244075e9.10.1746435891520; 
- Mon, 05 May 2025 02:04:51 -0700 (PDT)
+ AJvYcCV4bqSZQjvGO42Ho+v/z7q8Q5VaOIXAx0+8HCGYmMu7neOnwqEwFYxcEfi8ek4kyJ/rONPdpE2jMH8=@nongnu.org
+X-Gm-Message-State: AOJu0Yw1OlpioI5vZ1Cm78NKQrGIlPu16+j0G1y0B6/jmPgw48ybzGe2
+ xEYA+jlbQQ4zmmBCvvHI4w8F5rVEheXOZjn4lCJUYFPPb/OqJ0+jzRy6XjuNNa3O8XW/zIOWVGz
+ 9xgWb/fR7Ha3vqmfHFrIO1R/DGBnvDjhIqofj7q21zb/ur+UXKS0=
+X-Gm-Gg: ASbGncuNx7Xmq+rkf69+NhvOdp/qK2kz/pO7JTDH3nC3kOSKuIbrS0a/X+QEmn/mVO5
+ DP3xLMjAtH+l1sE4RxGafJbCyOC00ouCen5BgMPQmu68MFycGLDRLv5kDk7x6ZrWNq51GYxuvop
+ 1NT+FJ2L7oxbsIjV/r1hzM3Q7gSm5dGQeiFU45816WquNI57RbNc6V6Suo312JQpaV6l4ofk8JO
+ m3+5AeaVC5baE8plmzXubhYGt646c52v4LSlIqjheVMU3OguczqtfsDeG3SivkIVedy6khmfea8
+ 30JqXPKrRGiSBmw=
+X-Received: by 2002:adf:a1c6:0:b0:3a0:a19f:2f47 with SMTP id
+ ffacd0b85a97d-3a0a19f2f70mr2518216f8f.42.1746435886743; 
+ Mon, 05 May 2025 02:04:46 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHVsD4q3UAKkWSSg6doa0lAIb5qdD0GX3AiRrVmSOI8zmOfmTtQFX90jdzC+B8Bswws+5dlzQ==
+X-Received: by 2002:adf:a1c6:0:b0:3a0:a19f:2f47 with SMTP id
+ ffacd0b85a97d-3a0a19f2f70mr2518198f8f.42.1746435886368; 
+ Mon, 05 May 2025 02:04:46 -0700 (PDT)
 Received: from [192.168.10.48] ([151.95.54.106])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-441b89d150fsm125522215e9.15.2025.05.05.02.04.49
+ ffacd0b85a97d-3a099b16f9dsm9909520f8f.93.2025.05.05.02.04.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 May 2025 02:04:49 -0700 (PDT)
+ Mon, 05 May 2025 02:04:45 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: manos.pitsidianakis@linaro.org,
 	qemu-rust@nongnu.org
-Subject: [PATCH 05/11] rust: qemu_api_macros: make pattern matching more
- readable and efficient
-Date: Mon,  5 May 2025 11:04:30 +0200
-Message-ID: <20250505090438.24992-6-pbonzini@redhat.com>
+Subject: [PATCH 03/11] rust: use std::ffi instead of std::os::raw
+Date: Mon,  5 May 2025 11:04:28 +0200
+Message-ID: <20250505090438.24992-4-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250505090438.24992-1-pbonzini@redhat.com>
 References: <20250505090438.24992-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: TvwDPynH7qWPH-OodVGp999s2xix0BYxyRcFVT6X0yI_1746435892
+X-Mimecast-MFC-PROC-ID: Wv769_qGfFi564zGpx5lhnCUZar7xSX_GilUrl635Nc_1746435887
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -44
 X-Spam_score: -4.5
@@ -103,131 +102,204 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 May 2025 09:04:59 -0000
+X-List-Received-Date: Mon, 05 May 2025 09:04:56 -0000
 
-"let ... else" is useful when visiting syntax trees; it avoids multiple
-levels of indentation and places the error close to the pattern.
+This is allowed since Rust 1.64.0.
 
-While at it, use "ref" to avoid moving the syntax tree objects.
-
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/qemu-api-macros/src/lib.rs | 84 +++++++++++++++------------------
- 1 file changed, 37 insertions(+), 47 deletions(-)
+ docs/devel/rust.rst                    | 2 --
+ rust/hw/char/pl011/src/device_class.rs | 2 +-
+ rust/hw/timer/hpet/src/hpet.rs         | 3 +--
+ rust/qemu-api/src/chardev.rs           | 3 +--
+ rust/qemu-api/src/irq.rs               | 6 +++++-
+ rust/qemu-api/src/lib.rs               | 2 +-
+ rust/qemu-api/src/memory.rs            | 3 +--
+ rust/qemu-api/src/qdev.rs              | 3 +--
+ rust/qemu-api/src/qom.rs               | 3 +--
+ rust/qemu-api/src/timer.rs             | 2 +-
+ rust/qemu-api/src/vmstate.rs           | 2 +-
+ rust/qemu-api/tests/vmstate_tests.rs   | 7 ++++++-
+ 12 files changed, 20 insertions(+), 18 deletions(-)
 
-diff --git a/rust/qemu-api-macros/src/lib.rs b/rust/qemu-api-macros/src/lib.rs
-index eda0d46d122..0bffd2691b4 100644
---- a/rust/qemu-api-macros/src/lib.rs
-+++ b/rust/qemu-api-macros/src/lib.rs
-@@ -16,50 +16,41 @@ fn get_fields<'a>(
-     input: &'a DeriveInput,
-     msg: &str,
- ) -> Result<&'a Punctuated<Field, Comma>, MacroError> {
--    if let Data::Struct(s) = &input.data {
--        if let Fields::Named(fs) = &s.fields {
--            Ok(&fs.named)
--        } else {
--            Err(MacroError::Message(
--                format!("Named fields required for {}", msg),
--                input.ident.span(),
--            ))
--        }
--    } else {
--        Err(MacroError::Message(
-+    let Data::Struct(ref s) = &input.data else {
-+        return Err(MacroError::Message(
-             format!("Struct required for {}", msg),
-             input.ident.span(),
--        ))
--    }
-+        ));
-+    };
-+    let Fields::Named(ref fs) = &s.fields else {
-+        return Err(MacroError::Message(
-+            format!("Named fields required for {}", msg),
-+            input.ident.span(),
-+        ));
-+    };
-+    Ok(&fs.named)
- }
+diff --git a/docs/devel/rust.rst b/docs/devel/rust.rst
+index 3cc2841d4d1..c7dfba98de1 100644
+--- a/docs/devel/rust.rst
++++ b/docs/devel/rust.rst
+@@ -74,8 +74,6 @@ Supported tools
+ QEMU supports rustc version 1.63.0 and newer.  Notably, the following features
+ are missing:
  
- fn get_unnamed_field<'a>(input: &'a DeriveInput, msg: &str) -> Result<&'a Field, MacroError> {
--    if let Data::Struct(s) = &input.data {
--        let unnamed = match &s.fields {
--            Fields::Unnamed(FieldsUnnamed {
--                unnamed: ref fields,
--                ..
--            }) => fields,
--            _ => {
--                return Err(MacroError::Message(
--                    format!("Tuple struct required for {}", msg),
--                    s.fields.span(),
--                ))
--            }
--        };
--        if unnamed.len() != 1 {
--            return Err(MacroError::Message(
--                format!("A single field is required for {}", msg),
--                s.fields.span(),
--            ));
--        }
--        Ok(&unnamed[0])
--    } else {
--        Err(MacroError::Message(
-+    let Data::Struct(ref s) = &input.data else {
-+        return Err(MacroError::Message(
-             format!("Struct required for {}", msg),
-             input.ident.span(),
--        ))
-+        ));
-+    };
-+    let Fields::Unnamed(FieldsUnnamed { ref unnamed, .. }) = &s.fields else {
-+        return Err(MacroError::Message(
-+            format!("Tuple struct required for {}", msg),
-+            s.fields.span(),
-+        ));
-+    };
-+    if unnamed.len() != 1 {
-+        return Err(MacroError::Message(
-+            format!("A single field is required for {}", msg),
-+            s.fields.span(),
-+        ));
-     }
-+    Ok(&unnamed[0])
- }
+-* ``core::ffi`` (1.64.0).  Use ``std::os::raw`` and ``std::ffi`` instead.
+-
+ * ``cast_mut()``/``cast_const()`` (1.65.0).  Use ``as`` instead.
  
- fn is_c_repr(input: &DeriveInput, msg: &str) -> Result<(), MacroError> {
-@@ -210,20 +201,19 @@ fn get_repr_uN(input: &DeriveInput, msg: &str) -> Result<Path, MacroError> {
- }
+ * "let ... else" (1.65.0).  Use ``if let`` instead.  This is currently patched
+diff --git a/rust/hw/char/pl011/src/device_class.rs b/rust/hw/char/pl011/src/device_class.rs
+index b4d4a7eb432..cd2dc33c207 100644
+--- a/rust/hw/char/pl011/src/device_class.rs
++++ b/rust/hw/char/pl011/src/device_class.rs
+@@ -3,7 +3,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
  
- fn get_variants(input: &DeriveInput) -> Result<&Punctuated<Variant, Comma>, MacroError> {
--    if let Data::Enum(e) = &input.data {
--        if let Some(v) = e.variants.iter().find(|v| v.fields != Fields::Unit) {
--            return Err(MacroError::Message(
--                "Cannot derive TryInto for enum with non-unit variants.".to_string(),
--                v.fields.span(),
--            ));
--        }
--        Ok(&e.variants)
--    } else {
--        Err(MacroError::Message(
-+    let Data::Enum(ref e) = &input.data else {
-+        return Err(MacroError::Message(
-             "Cannot derive TryInto for union or struct.".to_string(),
-             input.ident.span(),
--        ))
-+        ));
-+    };
-+    if let Some(v) = e.variants.iter().find(|v| v.fields != Fields::Unit) {
-+        return Err(MacroError::Message(
-+            "Cannot derive TryInto for enum with non-unit variants.".to_string(),
-+            v.fields.span(),
-+        ));
-     }
-+    Ok(&e.variants)
- }
+ use std::{
+-    os::raw::{c_int, c_void},
++    ffi::{c_int, c_void},
+     ptr::NonNull,
+ };
  
- #[rustfmt::skip::macros(quote)]
+diff --git a/rust/hw/timer/hpet/src/hpet.rs b/rust/hw/timer/hpet/src/hpet.rs
+index 12de2ba59a1..d4364f2f2f7 100644
+--- a/rust/hw/timer/hpet/src/hpet.rs
++++ b/rust/hw/timer/hpet/src/hpet.rs
+@@ -3,8 +3,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ 
+ use std::{
+-    ffi::CStr,
+-    os::raw::{c_int, c_void},
++    ffi::{c_int, c_void, CStr},
+     pin::Pin,
+     ptr::{addr_of_mut, null_mut, NonNull},
+     slice::from_ref,
+diff --git a/rust/qemu-api/src/chardev.rs b/rust/qemu-api/src/chardev.rs
+index 11e6c45afaf..146a4852da3 100644
+--- a/rust/qemu-api/src/chardev.rs
++++ b/rust/qemu-api/src/chardev.rs
+@@ -10,11 +10,10 @@
+ //! called.
+ 
+ use std::{
+-    ffi::CStr,
++    ffi::{c_int, c_void, CStr},
+     fmt::{self, Debug},
+     io::{self, ErrorKind, Write},
+     marker::PhantomPinned,
+-    os::raw::{c_int, c_void},
+     ptr::addr_of_mut,
+     slice,
+ };
+diff --git a/rust/qemu-api/src/irq.rs b/rust/qemu-api/src/irq.rs
+index 1222d4fde30..1526e6f63a1 100644
+--- a/rust/qemu-api/src/irq.rs
++++ b/rust/qemu-api/src/irq.rs
+@@ -4,7 +4,11 @@
+ 
+ //! Bindings for interrupt sources
+ 
+-use std::{ffi::CStr, marker::PhantomData, os::raw::c_int, ptr};
++use std::{
++    ffi::{c_int, CStr},
++    marker::PhantomData,
++    ptr,
++};
+ 
+ use crate::{
+     bindings::{self, qemu_set_irq},
+diff --git a/rust/qemu-api/src/lib.rs b/rust/qemu-api/src/lib.rs
+index 05f38b51d30..c3641e893b7 100644
+--- a/rust/qemu-api/src/lib.rs
++++ b/rust/qemu-api/src/lib.rs
+@@ -33,7 +33,7 @@
+ 
+ use std::{
+     alloc::{GlobalAlloc, Layout},
+-    os::raw::c_void,
++    ffi::c_void,
+ };
+ 
+ #[cfg(HAVE_GLIB_WITH_ALIGNED_ALLOC)]
+diff --git a/rust/qemu-api/src/memory.rs b/rust/qemu-api/src/memory.rs
+index fdb1ea11fcf..9ef2694bd62 100644
+--- a/rust/qemu-api/src/memory.rs
++++ b/rust/qemu-api/src/memory.rs
+@@ -5,9 +5,8 @@
+ //! Bindings for `MemoryRegion`, `MemoryRegionOps` and `MemTxAttrs`
+ 
+ use std::{
+-    ffi::{CStr, CString},
++    ffi::{c_uint, c_void, CStr, CString},
+     marker::PhantomData,
+-    os::raw::{c_uint, c_void},
+ };
+ 
+ pub use bindings::{hwaddr, MemTxAttrs};
+diff --git a/rust/qemu-api/src/qdev.rs b/rust/qemu-api/src/qdev.rs
+index 18b4a9ba687..17c7fecabeb 100644
+--- a/rust/qemu-api/src/qdev.rs
++++ b/rust/qemu-api/src/qdev.rs
+@@ -5,8 +5,7 @@
+ //! Bindings to create devices and access device functionality from Rust.
+ 
+ use std::{
+-    ffi::{CStr, CString},
+-    os::raw::{c_int, c_void},
++    ffi::{c_int, c_void, CStr, CString},
+     ptr::NonNull,
+ };
+ 
+diff --git a/rust/qemu-api/src/qom.rs b/rust/qemu-api/src/qom.rs
+index f1b4022157b..6929e4d33ae 100644
+--- a/rust/qemu-api/src/qom.rs
++++ b/rust/qemu-api/src/qom.rs
+@@ -93,11 +93,10 @@
+ //! without incurring into violations of orphan rules for traits.
+ 
+ use std::{
+-    ffi::CStr,
++    ffi::{c_void, CStr},
+     fmt,
+     mem::ManuallyDrop,
+     ops::{Deref, DerefMut},
+-    os::raw::c_void,
+     ptr::NonNull,
+ };
+ 
+diff --git a/rust/qemu-api/src/timer.rs b/rust/qemu-api/src/timer.rs
+index e769f8bc910..d697fd742bc 100644
+--- a/rust/qemu-api/src/timer.rs
++++ b/rust/qemu-api/src/timer.rs
+@@ -3,7 +3,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ 
+ use std::{
+-    os::raw::{c_int, c_void},
++    ffi::{c_int, c_void},
+     pin::Pin,
+ };
+ 
+diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/vmstate.rs
+index 9ae97c389c1..c0f29f74188 100644
+--- a/rust/qemu-api/src/vmstate.rs
++++ b/rust/qemu-api/src/vmstate.rs
+@@ -25,7 +25,7 @@
+ //!   functionality that is missing from `vmstate_of!`.
+ 
+ use core::{marker::PhantomData, mem, ptr::NonNull};
+-use std::os::raw::{c_int, c_void};
++use std::ffi::{c_int, c_void};
+ 
+ pub use crate::bindings::{VMStateDescription, VMStateField};
+ use crate::{
+diff --git a/rust/qemu-api/tests/vmstate_tests.rs b/rust/qemu-api/tests/vmstate_tests.rs
+index f7a93117e1a..9a56ffd2385 100644
+--- a/rust/qemu-api/tests/vmstate_tests.rs
++++ b/rust/qemu-api/tests/vmstate_tests.rs
+@@ -2,7 +2,12 @@
+ // Author(s): Zhao Liu <zhai1.liu@intel.com>
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ 
+-use std::{ffi::CStr, mem::size_of, os::raw::c_void, ptr::NonNull, slice};
++use std::{
++    ffi::{c_void, CStr},
++    mem::size_of,
++    ptr::NonNull,
++    slice,
++};
+ 
+ use qemu_api::{
+     bindings::{
 -- 
 2.49.0
 
