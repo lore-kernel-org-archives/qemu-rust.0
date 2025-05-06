@@ -1,53 +1,53 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uCCxu-0000UQ-Uf
-	for mharc-qemu-rust@gnu.org; Tue, 06 May 2025 03:43:46 -0400
+	id 1uCDPN-00031A-0k
+	for mharc-qemu-rust@gnu.org; Tue, 06 May 2025 04:12:09 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uCCxs-0000Tv-DH; Tue, 06 May 2025 03:43:44 -0400
-Received: from mgamail.intel.com ([192.198.163.11])
+ id 1uCDPL-0002xV-Fg; Tue, 06 May 2025 04:12:07 -0400
+Received: from mgamail.intel.com ([192.198.163.7])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uCCxq-0007T0-N7; Tue, 06 May 2025 03:43:44 -0400
+ id 1uCDPG-0002NI-Q4; Tue, 06 May 2025 04:12:07 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1746517423; x=1778053423;
+ t=1746519123; x=1778055123;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=jpjnSiPmjZ/LCNkcolpzLGv0GSb4SYL6LR8xnEQEcXM=;
- b=ZIkUOiRT1toiF2uTJ2hD1gtE75k2wT8GX/TbnwKaSwDd4OrEW42DD4cP
- POQLvdRqcXoljhyVLaIgTZQAPH+2Jpr8xhRWkXvPxiLCG8A5nnvyiOynY
- hU+WRHhMiBoWYHBuqQBaQkFV0oMdi0Q5nGBlo9k5EWMDmp5hFxyLn20TR
- 0RBYjNry1hcbqQUwGiu2xdSed2axKGeGEuUHITYnBK6Atss0manWUI4rP
- 1W09Tj/j4h+G77+UH9lL4Ng37tBsVQPVXG7o+/HvU6go8FUr7fl5DVcHp
- pFQaiZSc23cqVJ+qemMR99hujDyClmsTXo/bbrMvcgRQvHA3G+xRvJ+9a Q==;
-X-CSE-ConnectionGUID: +FcQqjpQTk6lEawRaGsVlQ==
-X-CSE-MsgGUID: yOYNtGB8TzSh6byekea5NA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11424"; a="58795710"
-X-IronPort-AV: E=Sophos;i="6.15,265,1739865600"; d="scan'208";a="58795710"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2025 00:43:40 -0700
-X-CSE-ConnectionGUID: fGu+FcXLTnCt5iINkuxm7Q==
-X-CSE-MsgGUID: NLPjb+mYT+ScKWUxdlCCPg==
+ bh=Yd1/abJpO3rjSefg7BT4LMzLo4Y1N46ZWXlD7sWCN9Y=;
+ b=lfxHnuxN3dTuYoWZEnyq9gDqd8/3PH0eYd4MbmKh4g/w7v5Mo+q0UPD3
+ dpNskWKRYLcs06K/YfPDT3Cq3MC7GEDjgoojW8aFu53iobdlfNiH/Vxpz
+ YF8IaF8fk966b3ya+kITtI6bLM0iaWTpF9AKj1uRai7UwngTCkAKDHBdJ
+ 72zEy/VX41HMoxnsNXg3cb2PR2Kum7QR4odkV3SmDiaeugkyk3eh38C5b
+ FtVU9Db0adKBV/nO41amJBpITTu9bdH29OHVM/6D8vO0Z/DSRwgOTrUPE
+ bqRRQMmPoCalKPPGvB0QkNtcfbJPMRz2OWN7q9n4uKH3mVj7c6R2Weysr w==;
+X-CSE-ConnectionGUID: lZZSCY2WT+KwoT067E8dWQ==
+X-CSE-MsgGUID: qpKVUMUtR1CJcq+Xlcsyzw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11424"; a="73571275"
+X-IronPort-AV: E=Sophos;i="6.15,265,1739865600"; d="scan'208";a="73571275"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2025 01:11:58 -0700
+X-CSE-ConnectionGUID: s+6Cp41rQRiBLEvB85E8vA==
+X-CSE-MsgGUID: X2DUpjw+Q2Ka3bUyXwqjkw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,265,1739865600"; d="scan'208";a="135916824"
+X-IronPort-AV: E=Sophos;i="6.15,265,1739865600"; d="scan'208";a="158794703"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa008.fm.intel.com with ESMTP; 06 May 2025 00:43:39 -0700
-Date: Tue, 6 May 2025 16:04:40 +0800
+ by fmviesa002.fm.intel.com with ESMTP; 06 May 2025 01:11:57 -0700
+Date: Tue, 6 May 2025 16:32:58 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, manos.pitsidianakis@linaro.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 08/11] rust: enable clippy::ptr_cast_constness
-Message-ID: <aBnCmJpnf6xzm4/I@intel.com>
+Subject: Re: [PATCH 09/11] rust: remove offset_of replacement
+Message-ID: <aBnJOiX5o6Cl0KNB@intel.com>
 References: <20250505090438.24992-1-pbonzini@redhat.com>
- <20250505090438.24992-9-pbonzini@redhat.com>
+ <20250505090438.24992-10-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250505090438.24992-9-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.11; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250505090438.24992-10-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.7; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -57
 X-Spam_score: -5.8
@@ -69,25 +69,32 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 May 2025 07:43:45 -0000
+X-List-Received-Date: Tue, 06 May 2025 08:12:08 -0000
 
-On Mon, May 05, 2025 at 11:04:33AM +0200, Paolo Bonzini wrote:
-> Date: Mon,  5 May 2025 11:04:33 +0200
+On Mon, May 05, 2025 at 11:04:34AM +0200, Paolo Bonzini wrote:
+> Date: Mon,  5 May 2025 11:04:34 +0200
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 08/11] rust: enable clippy::ptr_cast_constness
+> Subject: [PATCH 09/11] rust: remove offset_of replacement
 > X-Mailer: git-send-email 2.49.0
 > 
-> Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  docs/devel/rust.rst            | 2 --
->  rust/Cargo.toml                | 2 +-
->  rust/hw/timer/hpet/src/hpet.rs | 2 +-
->  rust/qemu-api/src/cell.rs      | 2 +-
->  rust/qemu-api/src/chardev.rs   | 2 +-
->  rust/qemu-api/src/qom.rs       | 4 ++--
->  rust/qemu-api/src/timer.rs     | 2 +-
->  7 files changed, 7 insertions(+), 9 deletions(-)
+>  docs/devel/rust.rst                  |   6 -
+>  rust/Cargo.lock                      |   1 -
+>  rust/Cargo.toml                      |   2 +-
+>  rust/hw/char/pl011/src/device.rs     |   4 +-
+>  rust/hw/timer/hpet/src/hpet.rs       |   4 +-
+>  rust/qemu-api-macros/src/lib.rs      |  29 +----
+>  rust/qemu-api/Cargo.toml             |   3 -
+>  rust/qemu-api/build.rs               |   7 --
+>  rust/qemu-api/meson.build            |   4 -
+>  rust/qemu-api/src/lib.rs             |   4 -
+>  rust/qemu-api/src/offset_of.rs       | 168 ---------------------------
+>  rust/qemu-api/src/qdev.rs            |   6 +-
+>  rust/qemu-api/src/vmstate.rs         |  10 +-
+>  rust/qemu-api/tests/tests.rs         |   2 -
+>  rust/qemu-api/tests/vmstate_tests.rs |   5 +-
+>  15 files changed, 16 insertions(+), 239 deletions(-)
+>  delete mode 100644 rust/qemu-api/src/offset_of.rs
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
