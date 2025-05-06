@@ -1,88 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uCDtg-0003Pe-7Z
-	for mharc-qemu-rust@gnu.org; Tue, 06 May 2025 04:43:28 -0400
+	id 1uCE1I-0000zS-27
+	for mharc-qemu-rust@gnu.org; Tue, 06 May 2025 04:51:20 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uCDte-0003Kf-Eb
- for qemu-rust@nongnu.org; Tue, 06 May 2025 04:43:26 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uCE1G-0000xj-4b; Tue, 06 May 2025 04:51:18 -0400
+Received: from mgamail.intel.com ([198.175.65.18])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uCDtc-0006FF-OW
- for qemu-rust@nongnu.org; Tue, 06 May 2025 04:43:26 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1746521003;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ekfWPmlcRu20I0INlQzkZcjFSIniyMODgHXybySRZ6w=;
- b=NBSJLpSd5OFABvznKx/efTq6iR84klBifdLErYzUp/w89PNBaUtGRRDt4Js7WYkJFJng+4
- Su25GcMGA9Gu80SE2djaJH/UlMcWurJZLvL3KrVOmRijR19pB+mtPZ4biWk/V6S7ucMIq+
- ZUW4btu9+1OB8Qpr/lVpYNNmvLN4CEg=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-505-XJu47cIaMUGkKm47tOLf0w-1; Tue, 06 May 2025 04:43:22 -0400
-X-MC-Unique: XJu47cIaMUGkKm47tOLf0w-1
-X-Mimecast-MFC-AGG-ID: XJu47cIaMUGkKm47tOLf0w_1746521001
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-39d9243b1c2so1496950f8f.2
- for <qemu-rust@nongnu.org>; Tue, 06 May 2025 01:43:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746521001; x=1747125801;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ekfWPmlcRu20I0INlQzkZcjFSIniyMODgHXybySRZ6w=;
- b=lkZwQ8aDsbTO3gVyEJzDaRcDZPFwJpe7FjtST5C3OvZ+gqLyLQeYIwmHl4ldrEGP/K
- Goymn6y/tg2M98KjYBUwCzi4spRyrxYTygo599OiZfvjsmkGDesSDJpTZGQgvfrDhEip
- 7oiqDjsPLPTqK2b63IT1aLZl8j3l4Xgl8kgprx7UHqeYlsbn/SlYIiC5UWFG3xFHN5Iv
- tUgPF2CXGPMP7CjqdS19oho5Yis+mtJg7OXJCTSMqPVs6Wc7497ivq/wnPgOhskTTj1V
- J/jxdb6WTfibX/KzOnvYiXLTbFgsK8m/NPJuYaTEU7JI4F36SU7jngdx+reBsjyCoHXy
- j5Tg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVkD2qtejI6nYAzi/ORk0cTb+iyfu1Of2CVbREtQAaSzoJWv/YzT+TSBpeahnd8IT/96D3Dr6S4i30=@nongnu.org
-X-Gm-Message-State: AOJu0YylRXiH/7v9bVF7VcPTlw8F9IdCx7xjq7LzEwGlrfFsJt6cVakH
- 5v9OQo5SO89dp6sS0bl2crVeqbrwYhhg5iLTKhGvI8YJM15aulRUXIIK07PUasdNbJQWa2azrBB
- hzGpJ2HLlvuAsbuGj4X1w7j39pH9AyEiQKNXkOuBcKaMEmOaXmGVRujRssR0fa7oKKxGNEYATQu
- XFj3ImQtIWshhC7z5f45XXfmRh+A==
-X-Gm-Gg: ASbGncttvz9gpmb7UrRo0TbjCnITBDDl6og/6wM+zSPAaR0yRGyHL6Zk6khFQg3+SR7
- s2/rqv1Hf6EwuqhEHc7MzvV6kBF2jHNJ6b+YdmbMjwrKUK0zuVUAmWkNTjbI6OL4chpfr
-X-Received: by 2002:a05:6000:40e1:b0:3a0:8330:3377 with SMTP id
- ffacd0b85a97d-3a09fdd4a1dmr9155922f8f.44.1746521001127; 
- Tue, 06 May 2025 01:43:21 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEiDMhadnXlOYaJ5xEfuavJo8vw7nZEiHjwTv+Tq5UxC56UVZ3eLALrt3JtU9sjydUF3V+WLW9y290yBpIHtYY=
-X-Received: by 2002:a05:6000:40e1:b0:3a0:8330:3377 with SMTP id
- ffacd0b85a97d-3a09fdd4a1dmr9155901f8f.44.1746521000760; Tue, 06 May 2025
- 01:43:20 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250505100854.73936-1-pbonzini@redhat.com>
- <aBnOyhMawDaY9yyR@intel.com>
-In-Reply-To: <aBnOyhMawDaY9yyR@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 6 May 2025 10:43:07 +0200
-X-Gm-Features: ATxdqUHO5kpqk7uzEPi6cWB3B3K-nU0GrrJIxIolqd-_gn_BqIv_jzcaTStcGG4
-Message-ID: <CABgObfYDOAGKdRNO91bfXQ4MPjbc0wNZSrDfpDiQZsOkrL53RQ@mail.gmail.com>
-Subject: Re: [PATCH preview 0/5] rust: allow minimum version of 1.83
-To: Zhao Liu <zhao1.liu@intel.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uCE1D-00077t-59; Tue, 06 May 2025 04:51:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1746521476; x=1778057476;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Djs4jVAOPrcwAvadisn9NVIjusJaYuoQTEmuwm3eE7Q=;
+ b=Wrf6BaZIRFJM5UqhHINPWPPPAvDmIgFd+z+8SHMmVQVyFJaI4MVANQ4u
+ YwlCzGEQ72CRYkHjYhNR9iFh96CFwrqyh4B9eVUeBm20P512lQnm5b1ej
+ HtgJp3+qffplh6l6vT3o9sBJ1xY18c4oMr/oRMYRUJeGY33kFLNecFORK
+ 8JJ6CSCM/sjYcggdQ++BchUMG2zGUL0dFeEzrU85N6uIZEJcIq90WWS/p
+ 8Ro6yvPGerRfPb3qnLg/vzP7si66+j5RiHswEggiiECSshRyFkv8nhfhG
+ ehhccGjgHRJ1bkpIyxeTvGrl3SQmq+VOGoziLnCiVEpUK5cH95gmtH/Ax g==;
+X-CSE-ConnectionGUID: FLdQN27QRFKB0GPkdhDj3g==
+X-CSE-MsgGUID: F8jAnlKtSJ6tfw6HPmTs5g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11424"; a="48323340"
+X-IronPort-AV: E=Sophos;i="6.15,265,1739865600"; d="scan'208";a="48323340"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2025 01:50:49 -0700
+X-CSE-ConnectionGUID: xnEAyIVETry4hwAlwe13yQ==
+X-CSE-MsgGUID: 9Ko7F7stQP6gj1kuuvVgRA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,265,1739865600"; d="scan'208";a="136495547"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa008.jf.intel.com with ESMTP; 06 May 2025 01:50:47 -0700
+Date: Tue, 6 May 2025 17:11:47 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 6NHGvGfmfCUqWC2vt6tvpDXsUquo39d3xRzPEJqy6wI_1746521001
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -34
-X-Spam_score: -3.5
-X-Spam_bar: ---
-X-Spam_report: (-3.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.414,
+Subject: Re: [PATCH 2/5] rust: use inline const expressions
+Message-ID: <aBnSUzH1RuYp123b@intel.com>
+References: <20250505100854.73936-1-pbonzini@redhat.com>
+ <20250505100854.73936-3-pbonzini@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250505100854.73936-3-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.18; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -57
+X-Spam_score: -5.8
+X-Spam_bar: -----
+X-Spam_report: (-5.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.414,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -95,41 +69,47 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 May 2025 08:43:26 -0000
+X-List-Received-Date: Tue, 06 May 2025 08:51:18 -0000
 
-On Tue, May 6, 2025 at 10:35=E2=80=AFAM Zhao Liu <zhao1.liu@intel.com> wrot=
-e:
->
-> > This series does not cover enabling the newer compiler in CI because,
-> > while both Debian and Ubuntu have a new-enough Rust compiler to support
-> > 1.77, they pose problems for this further bump.  For Debian, the bookwo=
-rm
-> > release probably will not have new compilers and is supported by QEMU
-> > for roughly two more years.  For Ubuntu, the situation is a bit weird
-> > because while Ubuntu 22.04 had new Rust compilers added until the summe=
-r
-> > of 2024, Ubuntu 24.04 is not adding packages for new versions.
-> >
-> > A possible plan here is to split the configuration between "enable Rust=
-"
-> > and "enable all devices written in Rust" as soon as new devices are
-> > contributed that are written in Rust.  This way, the C versions of
-> > the pl011 and HPET devices can be used but the new boards/devices would
-> > only be available on Debian or Ubuntu by using rustup.
->
-> "enable Rust" supports v1.77 and "enable all devices written in Rust"
-> supports v1.83, correct?
+On Mon, May 05, 2025 at 12:08:51PM +0200, Paolo Bonzini wrote:
+> Date: Mon,  5 May 2025 12:08:51 +0200
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH 2/5] rust: use inline const expressions
+> X-Mailer: git-send-email 2.49.0
+> 
+> They were stabilized in Rust 1.79.0.
+> 
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  docs/devel/rust.rst            |  9 +++------
+>  rust/qemu-api/src/callbacks.rs | 27 +--------------------------
+>  rust/qemu-api/src/chardev.rs   |  2 +-
+>  rust/qemu-api/src/qdev.rs      |  2 +-
+>  rust/qemu-api/src/timer.rs     |  2 +-
+>  rust/qemu-api/src/vmstate.rs   |  2 +-
+>  6 files changed, 8 insertions(+), 36 deletions(-)
 
-Both support v1.83 only.  However, if Rust is missing or old, "enable
-all devices written in Rust" will fail compilation (e.g. Kconfig would
-fail for ARM/x86 targets due to unsatisfiable CONFIG_PL011); "enable
-Rust" will simply pick the C version of the PL011 and HPET devices.
+...
 
-> The current vmstate builder is excellent, but I'm concerned it might not
-> land soon. Can we find a compromise?
+> diff --git a/rust/qemu-api/src/chardev.rs b/rust/qemu-api/src/chardev.rs
+> index 6e0590d758e..cb27be52569 100644
+> --- a/rust/qemu-api/src/chardev.rs
+> +++ b/rust/qemu-api/src/chardev.rs
+> @@ -138,7 +138,7 @@ pub fn enable_handlers<
+>              F::call((owner, event))
+>          }
+>  
+> -        let _: () = CanReceiveFn::ASSERT_IS_SOME;
+> +        const { assert!(CanReceiveFn::IS_SOME) };
 
-Do you think the above would be a good compromise?
+Do you think it's a good idea to warp this as a helper for easy
+callback calls?
 
-Paolo
+>          let receive_cb: Option<unsafe extern "C" fn(*mut c_void, *const u8, c_int)> =
+>              if ReceiveFn::is_some() {
+>                  Some(rust_receive_cb::<T, ReceiveFn>)
+
+Thanks,
+Zhao
 
 
