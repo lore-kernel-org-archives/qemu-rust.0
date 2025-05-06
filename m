@@ -1,81 +1,88 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uCDrd-0001iy-6E
-	for mharc-qemu-rust@gnu.org; Tue, 06 May 2025 04:41:21 -0400
+	id 1uCDtg-0003Pe-7Z
+	for mharc-qemu-rust@gnu.org; Tue, 06 May 2025 04:43:28 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uCDrY-0001iC-99
- for qemu-rust@nongnu.org; Tue, 06 May 2025 04:41:16 -0400
-Received: from mail-ed1-x52d.google.com ([2a00:1450:4864:20::52d])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uCDrV-000651-V4
- for qemu-rust@nongnu.org; Tue, 06 May 2025 04:41:16 -0400
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5e8be1bdb7bso8136039a12.0
- for <qemu-rust@nongnu.org>; Tue, 06 May 2025 01:41:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1746520871; x=1747125671; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=V/0cjWunnrGrhtWlE6dY566h4QS4Hb4N2QIVLHUo47Y=;
- b=BYr2a/uhUs4PT57U/EB/EzobHLTi4bhLAYX6/Fc+71j3xaWm7eU7kaV1kr9TqTdH0R
- 9SzlGmU/CeLGFWpDyJmU8P3K3tPE0e5GOplifk4WbiSI1LQKpy6eR0sOl2GWyffdvvj2
- HD2WjORv6Su7UGhwcDDh8L0lLCSJ5NaEqsFwfvrXNXckFvz7tsC1aVqxFSe/NWoS9g2j
- 3eM5G2L5Qc1Q0TEMlqCHhBUP0XeoyVgpF4RRZR7m2LwteMzLCDBy+SdX951apPRtrhW/
- hyY+q5WDuSwdpJHOwEo9KSFmkcCKnN2uwpFZYq/KlbE9UfL2uWs+ijGXJ+WYrEHQZDZT
- 1CMw==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uCDte-0003Kf-Eb
+ for qemu-rust@nongnu.org; Tue, 06 May 2025 04:43:26 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uCDtc-0006FF-OW
+ for qemu-rust@nongnu.org; Tue, 06 May 2025 04:43:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1746521003;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ekfWPmlcRu20I0INlQzkZcjFSIniyMODgHXybySRZ6w=;
+ b=NBSJLpSd5OFABvznKx/efTq6iR84klBifdLErYzUp/w89PNBaUtGRRDt4Js7WYkJFJng+4
+ Su25GcMGA9Gu80SE2djaJH/UlMcWurJZLvL3KrVOmRijR19pB+mtPZ4biWk/V6S7ucMIq+
+ ZUW4btu9+1OB8Qpr/lVpYNNmvLN4CEg=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-505-XJu47cIaMUGkKm47tOLf0w-1; Tue, 06 May 2025 04:43:22 -0400
+X-MC-Unique: XJu47cIaMUGkKm47tOLf0w-1
+X-Mimecast-MFC-AGG-ID: XJu47cIaMUGkKm47tOLf0w_1746521001
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-39d9243b1c2so1496950f8f.2
+ for <qemu-rust@nongnu.org>; Tue, 06 May 2025 01:43:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746520871; x=1747125671;
+ d=1e100.net; s=20230601; t=1746521001; x=1747125801;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=V/0cjWunnrGrhtWlE6dY566h4QS4Hb4N2QIVLHUo47Y=;
- b=EbJSQVVVmikc4r4W83qdsbNJ/bSM4pFH/2lywdi/koEE3ta9RNeyJHVLn0i3w/28iD
- PGF5H7PGd2fJFzxbwSfsM9lj4dg8kjKV082QjMt6QCOYr6QaoCSW63RWxTYAG7BT8n3P
- lh8YJfVsL5d6k6e3SLo6z3gzcrzjYYX+Ok6UMeH4tEZ6j55B43F1sX7mEBXDAB/n08Q3
- ojijzUJcx5kMqV2vKYSvjRb6rRjDKgVdAdzdz0KnM1bOAZoC5KJs458DvIESBGCLvnyW
- I/YfhLewQN5tMUFVsEMEvKb24GvDjL2KK1XDG10E5jNS2fpWfER7sQcbqheLpLGiZEwc
- Cyhg==
+ bh=ekfWPmlcRu20I0INlQzkZcjFSIniyMODgHXybySRZ6w=;
+ b=lkZwQ8aDsbTO3gVyEJzDaRcDZPFwJpe7FjtST5C3OvZ+gqLyLQeYIwmHl4ldrEGP/K
+ Goymn6y/tg2M98KjYBUwCzi4spRyrxYTygo599OiZfvjsmkGDesSDJpTZGQgvfrDhEip
+ 7oiqDjsPLPTqK2b63IT1aLZl8j3l4Xgl8kgprx7UHqeYlsbn/SlYIiC5UWFG3xFHN5Iv
+ tUgPF2CXGPMP7CjqdS19oho5Yis+mtJg7OXJCTSMqPVs6Wc7497ivq/wnPgOhskTTj1V
+ J/jxdb6WTfibX/KzOnvYiXLTbFgsK8m/NPJuYaTEU7JI4F36SU7jngdx+reBsjyCoHXy
+ j5Tg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVBYqW4pFQxTzb/LwHmBRdClWHCn0As8kfqIomvcQTFoRwVqU3/bcypNDOIgCiqZZuBC1WSjEUMKbo=@nongnu.org
-X-Gm-Message-State: AOJu0YyekR83+sBxMj3FLsGJGygzgzaYDTVfg3sf4z1SPgfLr/Lwl2xW
- zbKt8j1CSCDnx6CvTNwE61NdPeDuIxvQ+1LE4VSsBbJsyU0qv8iDf3Rv96u6j8QngDRdtUR2hCe
- Im7TqlzOwgsfyt3eFElcpqv0/6ua5mWxi5E6kgA==
-X-Gm-Gg: ASbGncvokgX5j0B33hx5jijOIG4yd4ZR9AL2mTCPu0DQW4hmTRlnHu9RgLfGcaXAMoO
- WXuVfqYyaEvf6CTULHhhOdrEH993Pdu4ArV78rF0VTO1vwedRGxEarlVvm11dk/rkjlCxMQqBWB
- N8RgT1pe8SRt1xM8vJePj3rTJB
-X-Google-Smtp-Source: AGHT+IHs7ForXW1FBanjKlpJdX8Vlr8GQR7Cym32B5dhkzgbrzYP5EgfbEoPTcORqLMfDsUq1JJEra9Ql3HSwr5casE=
-X-Received: by 2002:a05:6402:3581:b0:5ee:486:9d4a with SMTP id
- 4fb4d7f45d1cf-5fb70d52f80mr1970716a12.33.1746520871358; Tue, 06 May 2025
- 01:41:11 -0700 (PDT)
+ AJvYcCVkD2qtejI6nYAzi/ORk0cTb+iyfu1Of2CVbREtQAaSzoJWv/YzT+TSBpeahnd8IT/96D3Dr6S4i30=@nongnu.org
+X-Gm-Message-State: AOJu0YylRXiH/7v9bVF7VcPTlw8F9IdCx7xjq7LzEwGlrfFsJt6cVakH
+ 5v9OQo5SO89dp6sS0bl2crVeqbrwYhhg5iLTKhGvI8YJM15aulRUXIIK07PUasdNbJQWa2azrBB
+ hzGpJ2HLlvuAsbuGj4X1w7j39pH9AyEiQKNXkOuBcKaMEmOaXmGVRujRssR0fa7oKKxGNEYATQu
+ XFj3ImQtIWshhC7z5f45XXfmRh+A==
+X-Gm-Gg: ASbGncttvz9gpmb7UrRo0TbjCnITBDDl6og/6wM+zSPAaR0yRGyHL6Zk6khFQg3+SR7
+ s2/rqv1Hf6EwuqhEHc7MzvV6kBF2jHNJ6b+YdmbMjwrKUK0zuVUAmWkNTjbI6OL4chpfr
+X-Received: by 2002:a05:6000:40e1:b0:3a0:8330:3377 with SMTP id
+ ffacd0b85a97d-3a09fdd4a1dmr9155922f8f.44.1746521001127; 
+ Tue, 06 May 2025 01:43:21 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEiDMhadnXlOYaJ5xEfuavJo8vw7nZEiHjwTv+Tq5UxC56UVZ3eLALrt3JtU9sjydUF3V+WLW9y290yBpIHtYY=
+X-Received: by 2002:a05:6000:40e1:b0:3a0:8330:3377 with SMTP id
+ ffacd0b85a97d-3a09fdd4a1dmr9155901f8f.44.1746521000760; Tue, 06 May 2025
+ 01:43:20 -0700 (PDT)
 MIME-Version: 1.0
-References: <d3d1944e-2482-4aa7-b621-596246a08107@gnu.org>
- <CAAjaMXZhq_uv-w_9TT3++HAcO7r_OhriJA0RKWs8YqY_ryjK4w@mail.gmail.com>
- <7101782c-f642-41e6-8f3a-7061ca722c99@gnu.org>
-In-Reply-To: <7101782c-f642-41e6-8f3a-7061ca722c99@gnu.org>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Tue, 6 May 2025 11:40:45 +0300
-X-Gm-Features: ATxdqUHe3krC8YsQKLDnKhz9DHVmCbYu-CfX_huZ_XOgicSVG0CgqCrK82tszCk
-Message-ID: <CAAjaMXbLUG1jsDZVcwKQV5+UfaCZUWTi4o5KFNJRowLbQ67yqQ@mail.gmail.com>
-Subject: Re: Rust in QEMU update, April 2025
-To: Paolo Bonzini <bonzini@gnu.org>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org, 
- =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
- Daniel Berrange <berrange@redhat.com>, Kevin Wolf <kwolf@redhat.com>, 
- Peter Maydell <peter.maydell@linaro.org>
+References: <20250505100854.73936-1-pbonzini@redhat.com>
+ <aBnOyhMawDaY9yyR@intel.com>
+In-Reply-To: <aBnOyhMawDaY9yyR@intel.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Tue, 6 May 2025 10:43:07 +0200
+X-Gm-Features: ATxdqUHO5kpqk7uzEPi6cWB3B3K-nU0GrrJIxIolqd-_gn_BqIv_jzcaTStcGG4
+Message-ID: <CABgObfYDOAGKdRNO91bfXQ4MPjbc0wNZSrDfpDiQZsOkrL53RQ@mail.gmail.com>
+Subject: Re: [PATCH preview 0/5] rust: allow minimum version of 1.83
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 6NHGvGfmfCUqWC2vt6tvpDXsUquo39d3xRzPEJqy6wI_1746521001
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::52d;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x52d.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -34
+X-Spam_score: -3.5
+X-Spam_bar: ---
+X-Spam_report: (-3.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.414,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -88,169 +95,41 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 May 2025 08:41:16 -0000
+X-List-Received-Date: Tue, 06 May 2025 08:43:26 -0000
 
-On Mon, May 5, 2025 at 4:45=E2=80=AFPM Paolo Bonzini <bonzini@gnu.org> wrot=
+On Tue, May 6, 2025 at 10:35=E2=80=AFAM Zhao Liu <zhao1.liu@intel.com> wrot=
 e:
 >
-> On 5/5/25 14:26, Manos Pitsidianakis wrote:
-> >>     Something I do notice is that there's some inconsistency in
-> >>     how we've structured things between the two devices, e.g.:
-> >>
-> >>     * the pl011 main source file is device.rs, but the hpet one
-> >>       is hpet.rs
-> >>
-> >>     * some places we use the actual names of bits in registers
-> >>       (eg Interrupt's OE, BE, etc consts), and some places we
-> >>       seem to have renamed them (e.g. pl011 Flags has clear_to_send
-> >>       not CTS, etc)
-> >>
-> >>     * pl011 has defined named fields for its registers, but hpet does
-> >>       things like::
-> >>
-> >>          self.config.get() & (1 << HPET_CFG_LEG_RT_SHIFT) !=3D 0
-> >>
-> >>     * pl011 has a split between PL011State and PL011Registers,
-> >>       but HPET does not. As I mentioned in an email thread a
-> >>       little while back, I feel like the State/Registers split
-> >>       is something we should either make a more clear deliberate
-> >>       formalised separation that's part of how we recommend
-> >>       device models should be designed
-> >>
-> >>     [...]
-> >>
-> >>     I think it would be good to figure out what we think is the
-> >>     right, best style, for writing this kind of thing, and be
-> >>     consistent. We have long standing problems in the C device
-> >>     models where there are multiple different styles for how
-> >>     we write them, and it would be good to try to aim for
-> >>     more uniformity on the Rust side.
+> > This series does not cover enabling the newer compiler in CI because,
+> > while both Debian and Ubuntu have a new-enough Rust compiler to support
+> > 1.77, they pose problems for this further bump.  For Debian, the bookwo=
+rm
+> > release probably will not have new compilers and is supported by QEMU
+> > for roughly two more years.  For Ubuntu, the situation is a bit weird
+> > because while Ubuntu 22.04 had new Rust compilers added until the summe=
+r
+> > of 2024, Ubuntu 24.04 is not adding packages for new versions.
 > >
-> > The pl011 stuff was deliberate decisions:
-> >
-> > - device.rs vs pl011.rs: the device was written as a crate, so it's
-> > essentially its own library, plus pl011/src/pl011.rs would be
-> > redundant :)
+> > A possible plan here is to split the configuration between "enable Rust=
+"
+> > and "enable all devices written in Rust" as soon as new devices are
+> > contributed that are written in Rust.  This way, the C versions of
+> > the pl011 and HPET devices can be used but the new boards/devices would
+> > only be available on Debian or Ubuntu by using rustup.
 >
-> Right, I think Peter's comment was more about moving hpet.rs to
-> device.rs, and merging PL011's device_class.rs into its device.rs.
->
-> >    That said, it's not important, we can choose either convention. I
-> > like the less redundancy and separation of concerns: if pl011 gets
-> > converted into a module in a future refactor, it could keep its
-> > functionality split into different submodules and `pl011.rs` or
-> > `pl011/mod.rs` would be the device module.
->
-> I think it's okay to decide that Rust devices will have mini
-> directories: it's just the style of the language and Cargo more or less
-> relies on having lib.rs.
->
-> In a vacuum I would prefer to have hw/char/pl011.rs for what is now
-> rust/hw/char/pl011/lib.rs, and place the other files in hw/char/pl011;
-> IIRC rustc accepts that style.  However we still rely on Cargo for some
-> things(*), and as long as we do there's not much we can do about it.
->
->      (*) notably "cargo fmt".  Everything else is more or less handled
->          by Meson starting with 1.8.0.
->
-> > - Using typed registers instead of constants: yes coming from C I can
-> > understand it can feel unfamiliar. I specifically wanted to make the
-> > register fields typed to avoid making the implementation a "C port",
-> > and I think it's worthwhile to use the type system as much as
-> > possible.
->
-> Peter's comments (especially the second and third) were about two kinds
-> of inconsistencies:
->
-> 1) HPET not using bilge.  This was because Zhao looked at HPET from the
-> opposite direction compared to what you did on pl011, namely avoiding
-> unsafe and modeling the BQL properly, and sacrificed a bit the usage of
-> idiomatic code like what bilge provides.
->
-> I think that you made the right choice for the first device and he made
-> the right choice for the second device.  But now someone should look at
-> HPET and do the work that you did to adopt bilge.
->
-> 2) The choice between bilge on one side, and bitflags or integers on the
-> other.  For pl011 you kept interrupt bits as integers for example, and
-> this is related to the topic of (non-)availability of const in traits...
+> "enable Rust" supports v1.77 and "enable all devices written in Rust"
+> supports v1.83, correct?
 
-Oh right.
+Both support v1.83 only.  However, if Rust is missing or old, "enable
+all devices written in Rust" will fail compilation (e.g. Kconfig would
+fail for ARM/x86 targets due to unsatisfiable CONFIG_PL011); "enable
+Rust" will simply pick the C version of the PL011 and HPET devices.
 
->
-> >    A straight C port would result into integer constants with integer
-> > typed fields everywhere for registers/flags.
-> >    Yes, From/Into aren't const, at least yet, but it's not really a
-> > hotpath performance wise. I think non-dynamically dispatched trait
-> > methods can be inlined by annotating the `fn from(..)` impl with a
-> > `#[inline(always)]` hint but I haven't confirmed this, just
-> > speculation.
->
-> It's not about hot paths, it's more that 1) you cannot use From/Into in
-> a "static"'s initializer 2) bilge relies a lot on non-const methods in
-> its internal implementation, which makes it quite messy to use it in
-> some places.  See for example this thing for which I take all the blame:
+> The current vmstate builder is excellent, but I'm concerned it might not
+> land soon. Can we find a compromise?
 
-Yeah it's not nice that we can't use it in static/const initializers.
+Do you think the above would be a good compromise?
 
->
->      impl Data {
->          // bilge is not very const-friendly, unfortunately
->          pub const BREAK: Self =3D Self { value: 1 << 10 };
->      }
->
-> and the same would be true of interrupt constants and the IRQMASK array.
->
-> The separate bilge and bitflags worlds are what bothers me the most in
-> the experimental devices.  I can see why they would be very confusing
-> for someone who's not had much experience with Rust, and therefore
-> doesn't know *why* they are separate.
->
-> >    Again, no strong opinions here. I like the "everything is typed"
-> > approach and I think it's worth it to explore it because it allows us
-> > to "make invalid/illegal states unrepresentable" as one sage article
-> > goes.
->
-> I agree, and it's why I think you made the right choice using it for
-> pl011.  With all the unsafe code that you had to use, strong-typing at
-> least showed *something* that Rust could provide compared to C(*).  And
-> I like the strong typing too, even if I'm not sure I like bilge's
-> *implementation* that much anymore.
+Paolo
 
-It has its pros and cons that's for sure... there are many crates that
-let you define typed bitfields, I haven't looked into the current
-state of the art lately. We should definitely move on to something
-better if it exists now or in the future.
-
-> I'm not really up for rewriting it, but then I've also done more stupid
-> rewrites in the past. :)
->
->     (*) when we were discussing safety vs. unsafety last summer, I may
->         have sounded dismissive of this kind of benefit.  My point at the
->         time was that unsafe code was so much more complex than C, that
->         the benefit of strong-typing wasn't enough to *offset* the
->         complexity of unsafe code.  But it is absolutely present.
->
-> >> Related to this I have found recently the `attrs crate
-> >> <https://docs.rs/attrs/>`__, which provides an easy way to parse the
-> >> contents of attributes in a procedural macro.
-> >
-> > I actually have some WIP patches for this I put a pause on and can
-> > continue e.g. https://gitlab.com/epilys/rust-for-qemu/-/commit/c2c97caa=
-af03273fabc14aee5a4d1499668ddbe3
->
-> The repository is private, but I look forward to seeing it!  If you want
-> to post an RFC without even any code, just to show what the device code
-> looks like, that would be helpful as it will catch stuff like lack of
-> type safety.
-
-Oops, I forgot I had archived it because I moved development to
-https://gitlab.com/epilys/qemu . I made it public again. Bear in mind
-this was a WIP, basically my git stash but committed.
-
->
-> BTW, if you need it to model reflection better I think it is acceptable
-> to assume const_refs_to_static is present.
->
-> Paolo
 
