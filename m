@@ -1,57 +1,53 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uCKKz-0007CL-GL
-	for mharc-qemu-rust@gnu.org; Tue, 06 May 2025 11:36:05 -0400
+	id 1uCZMx-0007Tk-FR
+	for mharc-qemu-rust@gnu.org; Wed, 07 May 2025 03:39:09 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uCKKx-00073X-1D; Tue, 06 May 2025 11:36:03 -0400
-Received: from mgamail.intel.com ([192.198.163.8])
+ id 1uCZMo-0007Sr-QY; Wed, 07 May 2025 03:38:59 -0400
+Received: from mgamail.intel.com ([198.175.65.10])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uCKKu-00035P-3n; Tue, 06 May 2025 11:36:02 -0400
+ id 1uCZMm-00088O-1z; Wed, 07 May 2025 03:38:58 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1746545760; x=1778081760;
+ t=1746603536; x=1778139536;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=mkJbEeRb1ENEByJ2b2sfLaOckdBgjLYuUO8APjrIq+8=;
- b=mRxdK/6vwYB9/+XkLT4vVavjL9YrYANUw874zMFt8kE97SAHr+kScGws
- PNXCYpIDUQ6IIkX/ZQDjFv1boPDcZU0cikG7g/ZQKy5zysgoEhimu0m9r
- pcgjqNx5NMuIwv+kGuKsuBrMl2ldyyiDGy2MR/MLDsBdDElpBkDGV6FAK
- 5rzeO0UKYYKxEZBU+lmnNsTyZGSOieg38aBhJATqiwbzHjDDKQfI2jp1t
- raQyP9S0WKvo9LtGOS/iL5tzF10EnoZ5z4HDhMNcX+4rIHkoj+RLdY6bf
- tLOKe7kmoxxs/N1AwzfhocASajnyO4mdDB16R48H6FKFRltDqN/ivu+r5 Q==;
-X-CSE-ConnectionGUID: C0oNv97NRPmSB1eXeC6n2w==
-X-CSE-MsgGUID: x0xMebhnRvW+WcoaNxm3tg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11425"; a="65756130"
-X-IronPort-AV: E=Sophos;i="6.15,266,1739865600"; d="scan'208";a="65756130"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2025 08:35:55 -0700
-X-CSE-ConnectionGUID: QxeGqo/cSNmWUph0tfhNsw==
-X-CSE-MsgGUID: KxiJiujIRl66Nuy3vNfHEg==
+ bh=eSdAWIL9QwmGd2sJcWiQDIS/aNUqKJGlmNZtHMw8g5g=;
+ b=PjFvk4CKgUyJkT6eqcoy+kfMOBc7RoxGWQ3ypEAOQJkODpQsd3AAk0Cv
+ FLoxWI1NsuAX4eA7kpPy9KT3AzuZegPgwlSwj0w8Q0ebRXIqNBJIEM6VZ
+ wwi9Thyq6Cxm0FKSAiaVaQ/tjbKbwL5aU4cPCoofIWt0zJBoDFmMdgita
+ Urjl+5GzoXFf52U4gjUZ1UPv8FGuQdC3nDbeA+rrFL6Yhqf+9qopy52rR
+ asHRSDbwIbY2lFt09BEaa7I59bJ1Bje5EVelSx6wwoTJlx/ocRi5S93AA
+ L5S+ysV/3yLRpyjlh6wYCRBGzIzsuXwfUMn0gOslqfDGgJg/ASB94mBC5 g==;
+X-CSE-ConnectionGUID: PrrHvwzsT6uKSjKHjlmtgw==
+X-CSE-MsgGUID: p0Vb9M46QV+EyHXV43bHpg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11425"; a="65724608"
+X-IronPort-AV: E=Sophos;i="6.15,268,1739865600"; d="scan'208";a="65724608"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 May 2025 00:38:51 -0700
+X-CSE-ConnectionGUID: 5xgkbUMWSYuibA6qZJP28Q==
+X-CSE-MsgGUID: 26B2PJQ8SJW4mYmpQm993A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,266,1739865600"; d="scan'208";a="140499994"
+X-IronPort-AV: E=Sophos;i="6.15,268,1739865600"; d="scan'208";a="136880282"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa005.fm.intel.com with ESMTP; 06 May 2025 08:35:54 -0700
-Date: Tue, 6 May 2025 23:56:55 +0800
+ by fmviesa009.fm.intel.com with ESMTP; 07 May 2025 00:38:48 -0700
+Date: Wed, 7 May 2025 15:59:50 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
- qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH preview 0/5] rust: allow minimum version of 1.83
-Message-ID: <aBoxR2PXsaeNe1sF@intel.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH 4/5] rust: vmstate: use const_refs_to_static
+Message-ID: <aBsS9tmqold+tMMu@intel.com>
 References: <20250505100854.73936-1-pbonzini@redhat.com>
- <aBnOyhMawDaY9yyR@intel.com>
- <CABgObfYDOAGKdRNO91bfXQ4MPjbc0wNZSrDfpDiQZsOkrL53RQ@mail.gmail.com>
- <aBnVtNgdjQ9DlugK@intel.com> <aBnbC4-hov9gY3MF@redhat.com>
- <CABgObfbzWDnntjLcshsBPfdEdbx-6iqxd6FxUDbQa--VOqan=A@mail.gmail.com>
+ <20250505100854.73936-5-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CABgObfbzWDnntjLcshsBPfdEdbx-6iqxd6FxUDbQa--VOqan=A@mail.gmail.com>
-Received-SPF: pass client-ip=192.198.163.8; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250505100854.73936-5-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.10; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -57
 X-Spam_score: -5.8
@@ -73,25 +69,17 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 May 2025 15:36:04 -0000
+X-List-Received-Date: Wed, 07 May 2025 07:39:03 -0000
 
-> > If we're re-writing C devices in Rust, we need to be able to promptly
-> > drop the C impl once the Rust impl is feature complete. Keeping 2 impls
-> > is a general maint burden, as well as an ongoing vmstate compatibility
-> > danger if a change in one impl is not matched by an identical change
-> > in the other impl.
-> 
-> I agree. One more reason why "Let's Rewrite It In Rust" is more of a
-> necessary evil to bootstrap the creation of bindings, and not a good
-> idea in general.
+> @@ -998,7 +1000,7 @@ impl ObjectImpl for HPETState {
+>              vmstate_of!(HPETState, counter),
+>              vmstate_of!(HPETState, num_timers_save).with_version_id(2),
+>              vmstate_validate!(HPETState, VALIDATE_TIMERS_NAME, HPETState::validate_num_timers),
+> -            vmstate_struct!(HPETState, timers[0 .. num_timers], &VMSTATE_HPET_TIMER, BqlRefCell<HPETTimer>, HPETState::validate_num_timers).with_version_id(0),
+> +            vmstate_of!(HPETState, timers[0 .. num_timers], HPETState::validate_num_timers).with_version_id(0),
+>          })
 
-Hi Paolo and Daniel, about this point, what things can be done to help
-the community move towards dropping duplicate impl?
-
-For example, about HPET, add test cases (similar to tests/qtest/m48t59-test.c)
-to check register read/write to prove that the two impls are consistent?
-
-Thanks,
-Zhao
+The unified vmstate_of is indeed clean... it's more concise and easier
+to use than the C version.
 
 
