@@ -1,82 +1,76 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uCzEO-0000aI-7r
-	for mharc-qemu-rust@gnu.org; Thu, 08 May 2025 07:16:00 -0400
+	id 1uD4pk-0007Eq-Sk
+	for mharc-qemu-rust@gnu.org; Thu, 08 May 2025 13:14:56 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uCzEK-0000YI-Em
- for qemu-rust@nongnu.org; Thu, 08 May 2025 07:15:57 -0400
-Received: from mail-pf1-x434.google.com ([2607:f8b0:4864:20::434])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uCzEI-0003Kl-Sa
- for qemu-rust@nongnu.org; Thu, 08 May 2025 07:15:56 -0400
-Received: by mail-pf1-x434.google.com with SMTP id
- d2e1a72fcca58-7399838db7fso887069b3a.0
- for <qemu-rust@nongnu.org>; Thu, 08 May 2025 04:15:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1746702953; x=1747307753; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=bxvXFK6wyH800bbxULSduBDyAO1im3t1VVcC9kc1l+0=;
- b=TnXEcabEnVOnLABB2QUCm3NdrsIKZzQn3lu3ZDgku8kv0QywapGunBg2A4Rvo/nBlu
- tjElQjnraZkJoLy2bB1eTGzWevTg1wxeO+5r79/uUornFJ/n7gZE1sL5SiBq4FVHKSf8
- a/tpBa+lEhWilLkBU5EySwYKNtpUwSM1NwXucKxY1IFKO5VKPME1/buNdWbKc1vZ0vUY
- XS8qPJyRkBNRVRekVXWmTmsTPbeUbUadX40In3ecqCSyh5w95A1o4mNIb5mcgGwhbWm8
- VfS3qreggnxT7U8eT1venm09T7JENQiMq0YUl9UPeamo3d54hWV7jp2ltc6wv3UcFn6Y
- jgQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746702953; x=1747307753;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=bxvXFK6wyH800bbxULSduBDyAO1im3t1VVcC9kc1l+0=;
- b=COe1YBm3xxUrWy5yD6jm+VQB7ePpiFUS4TLbhj+twb2GPB/XrRRSFeA8k2PxekO8db
- 0uDQAMwVk5SCgwkm2iTA/oB6swYzKoJgjJKBm6wsD6MKvPbvE7lwLpNptSKPZ/7hiMI1
- RbCzG2qf9y02bnOX2xbSSYMCw5UyuUrnFrG0/wAEOfP3wIRJYvb0zRPyv3Ue75uX04lo
- 1b79cXwhC4H8/telTqKoP8T8TPgkOBaUf2WYpd21YCWlRYbH7PDKfY2EOuCrQtgspmUM
- lpNMoSx2kyFtAH1jrB5wtKu14VX4q5tPEAvb1T18x7crPDlWEqI9A5qqQDhTyKr8VYMB
- Dkvg==
-X-Gm-Message-State: AOJu0Yz5lVcHXrrMmuIuUMex9k5eQJKSzsKYHy3CncOp41DDeT7MdAyt
- OchX/tImLTzTD+miyY8WYTI/gnxBeBOnu11ujQvrTDTzq1R8hiPn7C86++knPSHOHnaukSKAmYl
- ShXywIw==
-X-Gm-Gg: ASbGncvULEiTvfOp35ElUiFBVISZh1QeSWOvIjpLNegfMPOPVEaDB+171NaVmxnc0v4
- FZVnOWNOb3qMXv+NBOxgaZXvXPuOlqLFSKCYidBICkXIQMfhP9qqWWthAwHigNAWKZnvD0Gn63g
- W8UCRKX4fsQX29PCOa6iRXVTtSvmZQDAa6KTBkqGh7/dfP/FD9+PYHIvtVZlRM96I5uoe1EWYwF
- 5iZFjNBUAWkqaEnzakUqnejeWv4PWV/YuFX/HR3fTBot995mxkUsX2HcdfRx26gkEsqdrtgGd1r
- nFfpbKZBG+9L/qfxgxDcmFLUMnXznPecJ/I4FdHJN1BqA1UXMzcFdgy4oIL607X44DPtZjg7oGn
- MyMlxaS7DPqkD4KAdgow=
-X-Google-Smtp-Source: AGHT+IFawoyvGUHhnXP+m8rwiZuJFX+G7XNa+3Yms592k8ITLyMfvseOoFC8KzPpFvrhHD1tRLW9Ig==
-X-Received: by 2002:a05:6a00:2c86:b0:73d:f9d2:9c64 with SMTP id
- d2e1a72fcca58-740a947b507mr4637639b3a.10.1746702953214; 
- Thu, 08 May 2025 04:15:53 -0700 (PDT)
-Received: from [192.168.69.244] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b1fb3b5113csm11119773a12.18.2025.05.08.04.15.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 May 2025 04:15:52 -0700 (PDT)
-Message-ID: <90356173-31a1-48f7-9eb8-7a9068b167bf@linaro.org>
-Date: Thu, 8 May 2025 13:15:48 +0200
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1uD4pg-0007E4-Qf
+ for qemu-rust@nongnu.org; Thu, 08 May 2025 13:14:52 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1uD4pe-0005if-Ja
+ for qemu-rust@nongnu.org; Thu, 08 May 2025 13:14:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1746724487;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=DWIHfTcLjcIVt7v5zyNWu9nIkSiypL/0G0qbY8bnJ3k=;
+ b=M/ws49jDTKF/rZ5GSzSkAc8iaG7otHtYbwilfd50bRoO+hntaKDorL6vqdQ1IwwBuGrRlw
+ l5yKA8tS5uIp1XjrY66bFmzXsnTfhLrbDXRN95qAFtE00IdmHOGvTG6uJyJEzFlcSqPbwF
+ uKUnhGILvD4CwX867G1HZAGjqcxj5j8=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-589-G6isdmPBPweSqqm6yO2mqQ-1; Thu,
+ 08 May 2025 13:14:43 -0400
+X-MC-Unique: G6isdmPBPweSqqm6yO2mqQ-1
+X-Mimecast-MFC-AGG-ID: G6isdmPBPweSqqm6yO2mqQ_1746724482
+Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 6111119560AE; Thu,  8 May 2025 17:14:42 +0000 (UTC)
+Received: from redhat.com (unknown [10.42.28.138])
+ by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 0B6CE1955F24; Thu,  8 May 2025 17:14:39 +0000 (UTC)
+Date: Thu, 8 May 2025 18:14:36 +0100
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Peter Maydell <peter.maydell@linaro.org>
+Cc: Bernhard Beschow <shentey@gmail.com>, qemu-devel@nongnu.org,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ qemu-rust@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>
+Subject: Re: [PATCH 2/2] rust/hw/char/pl011/src/device: Implement logging
+Message-ID: <aBzmfKzxIfdtzdGI@redhat.com>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+References: <20250330205857.1615-1-shentey@gmail.com>
+ <20250330205857.1615-3-shentey@gmail.com>
+ <Z-pdzUBa4CrBourR@redhat.com>
+ <318E2A13-A163-434B-B18A-8A260CD3BC27@gmail.com>
+ <Z-07WTw4PHHKhfxU@redhat.com>
+ <CAFEAcA-_eaPF16f5rBhPar_kHpW49JZ4fQNPGUtd3qbNs+ktJA@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] rust: pl011: Really use RX FIFO depth
-To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org
-References: <20250508082943.446512-1-pbonzini@redhat.com>
- <20250508082943.446512-3-pbonzini@redhat.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20250508082943.446512-3-pbonzini@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2607:f8b0:4864:20::434;
- envelope-from=philmd@linaro.org; helo=mail-pf1-x434.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+In-Reply-To: <CAFEAcA-_eaPF16f5rBhPar_kHpW49JZ4fQNPGUtd3qbNs+ktJA@mail.gmail.com>
+User-Agent: Mutt/2.2.14 (2025-02-20)
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -34
+X-Spam_score: -3.5
+X-Spam_bar: ---
+X-Spam_report: (-3.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.416,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -89,28 +83,100 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 May 2025 11:15:58 -0000
+X-List-Received-Date: Thu, 08 May 2025 17:14:54 -0000
 
-On 8/5/25 10:29, Paolo Bonzini wrote:
-> While we model a 16-elements RX FIFO since the PL011 model was
-> introduced in commit cdbdb648b7c ("ARM Versatile Platform Baseboard
-> emulation"), we only read 1 char at a time!
+On Fri, May 02, 2025 at 05:48:02PM +0100, Peter Maydell wrote:
+> On Wed, 2 Apr 2025 at 14:28, Daniel P. Berrangé <berrange@redhat.com> wrote:
+> > On Wed, Apr 02, 2025 at 09:33:16AM +0000, Bernhard Beschow wrote:
+> > > Am 31. März 2025 09:18:05 UTC schrieb "Daniel P. Berrangé" <berrange@redhat.com>:
+> > > >General conceptual question .....  I've never understood what the dividing
+> > > >line is between use of 'qemu_log_mask' and trace points.
+> > >
+> > > I *think* it's the perspective: If you want to see any issues, regardless
+> > > of which device, use the -l option, i.e. qemu_log_mask(). If, however,
+> > > you want to see what a particular device does, use tracepoints.
+> >
+> > I guess I'd say that the latter ought to be capable of satisfying the
+> > former use case too, given a suitable trace point selection. If it
+> > can't, then perhaps that's telling us the way we select trace points
+> > is insufficiently expressive ?
 > 
+> Yeah; you can turn on and off a tracepoint, and you can select
+> them by wildcard, but there's no categorization of them
+> (into eg "this is basically the equivalent of a debug printf"
+> vs "this is something that is a guest error you probably
+> want to know about").
 
-This comment ...
+I wonder if there's any value in enhancing the trace support to
+let us tag certain probes with some kind of "severity"/"level"
+concept, such that when the 'log' trace backend is enabled we
+can wire them through to the logging backend with useful
+categorization ?
 
-> Have the IOCanReadHandler handler return how many elements are
-> available, and use that in the IOReadHandler handler.
+>                        There's also no way to say "turn on
+> this logging with one switch, and it will print multiple lines
+> or more than one thing" (at least not in the spirit of what
+> the tracepoint API expects; you could have a trace_in_asm
+> tracepoint that took a "%s" and output whatever you liked as
+> the string, of course). And debug-logging is more documented:
+> '-d help' shows what you can turn on and off and has at least
+> a brief description of what it is you're getting.
 
-... is not relevant, otherwise:
+IMHO the documentation benefit of '-d help' is somewhat
+inconsistent.
 
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+I tried a crude grep for different usage of logging
 
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->   docs/devel/rust.rst              |  2 +-
->   rust/hw/char/pl011/src/device.rs | 14 +++++++-------
->   2 files changed, 8 insertions(+), 8 deletions(-)
+      2 CPU_LOG_EXEC
+    122 CPU_LOG_INT
+    103 CPU_LOG_MMU
+      6 CPU_LOG_PAGE
+      1 CPU_LOG_PLUGIN
+      8 CPU_LOG_RESET
+     10 CPU_LOG_TB_IN_ASM
+      4 CPU_LOG_TB_OP
+   1715 LOG_GUEST_ERROR
+      4 LOG_INVALID_MEM
+    753 LOG_UNIMP
+
+So the overwhealming majority of usage is accumulated under
+two "catch all" categories - "guest error" and "unimplemented"
+with no ability to filter - its all or nothing.
+
+We ought to be able to do a better job at documentation the
+trace events than we do today, given we have them in an
+easily extractable format and can associate them with
+particular files easily.
+
+The 'qemu-trace-stap list' command can list all available
+probes in a binary, but it only works for the systemtap
+backend. We ought to do better with other backends.
+
+>                                                   For tracepoints
+> you're hoping that the name is vaguely descriptive and also
+> hoping that the device/subsystem/etc named its tracepoints in
+> a way that lets you usefully wildcard them.
+
+Yep, we're somewhat inconsistent in our prefix naming
+conventions. It would be nice to try to enforce some
+greater standard there, but its hard to do programmatically.
+
+> Also, the qemu_log() logging assumes "we're sending text to
+> a logfile, we can format e.g. register dumps and disassembly
+> as arbitrary laid out plaintext". That's fine if your tracepoint
+> backend is also "we just send the text to a logfile/etc", but
+> I don't know if all of the tracepoint backends would be so happy
+> with that.
+
+I think emitting multi-line blocks of text probably ought to be
+considered out of scope for tracing. The 'log' backend is the
+only one where that would be a reasonable semantic match.
+
+With regards,
+Daniel
+-- 
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
 
 
