@@ -1,89 +1,82 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uCwdu-0001VD-5s
-	for mharc-qemu-rust@gnu.org; Thu, 08 May 2025 04:30:10 -0400
+	id 1uCzDm-00004q-9m
+	for mharc-qemu-rust@gnu.org; Thu, 08 May 2025 07:15:22 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uCwdg-0001Pr-Mt
- for qemu-rust@nongnu.org; Thu, 08 May 2025 04:29:58 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uCwde-0008DV-Qr
- for qemu-rust@nongnu.org; Thu, 08 May 2025 04:29:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1746692992;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=KM1SQb3E2Vsp14fCIyp5AKJJoRWd570avF7cZiuylIE=;
- b=hNjtDFShcT7QNTMfUW79X3Oe4UwM8sseoqU7DOoTBG7Z7mKPtwY18T36yY4PlpBz6f9inz
- fk0PN20jVkkiYLSCXzlc+L0gDNZhyhP7hVhjM2WKsSo7KdZc7eA8ti5KqwdJ3BbGKVSGWL
- zz1maUUxT/lhoHQRCGlNypZmC0NRVUc=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-155-bA1_xapdOemGdT5MExCuEA-1; Thu, 08 May 2025 04:29:48 -0400
-X-MC-Unique: bA1_xapdOemGdT5MExCuEA-1
-X-Mimecast-MFC-AGG-ID: bA1_xapdOemGdT5MExCuEA_1746692985
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-43efa869b19so4392165e9.2
- for <qemu-rust@nongnu.org>; Thu, 08 May 2025 01:29:47 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uCzDk-0008Vu-Rj
+ for qemu-rust@nongnu.org; Thu, 08 May 2025 07:15:20 -0400
+Received: from mail-pl1-x633.google.com ([2607:f8b0:4864:20::633])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1uCzDj-0003ET-9A
+ for qemu-rust@nongnu.org; Thu, 08 May 2025 07:15:20 -0400
+Received: by mail-pl1-x633.google.com with SMTP id
+ d9443c01a7336-22fa414c565so3209815ad.2
+ for <qemu-rust@nongnu.org>; Thu, 08 May 2025 04:15:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1746702918; x=1747307718; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ZoygyoQ6JaTgf0lGZ8kSEymwPxAeuA1Rm+7OQNYgvT4=;
+ b=laalllsPU8jvu3dTU37T5085byyn3xKuI3jORBGfowrGFMcvFPNWYfV87TRueFYO6j
+ WfHrEoVi+nELq0gcaNF0sQ566kVpsdNwZzfzUyMI0QoOr5wAqzs2jRpk1QgtMOnW6Mzz
+ zevka2S0TJq60f3E3pRckMW17+I/q5nWocRpWD5WMopceFX/5PqaR4/QpXaSGKvfG42J
+ ejtX8ZWUOYjQpy2bALnGkb3Qp4L/flkaDME9b7DHeHPDry5MQJRddJRh5zEoHeWSlSUG
+ sEAF8P3aZ4m/S/5bm6QjGHMEo4o/4YhDc9lE4qYwsQ3Zo5GsXSUljRaGap3eCfyAs4mF
+ JTvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746692985; x=1747297785;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=KM1SQb3E2Vsp14fCIyp5AKJJoRWd570avF7cZiuylIE=;
- b=MVbI/vRwYGUEH2UYvhsan8jb/1eJCY8Oe/4rEF9i0QgTFm2yl7MvHiFl28z7l/qgjz
- Ruu6gXC+VDapNqV2SR0i+m8+Ozez7R3PHga8gSEWNQFuyprw6NSIrLXnRTKJcvoJNy/B
- kOVtNuC0T4uf6st3Tfdguhr6Xg1DmON3tUfoAsXEkCbQiebwzG6DbULLWHcG7sRwwF6f
- 5AdiNJmDAqnr7O2tysmpC1Ay2Oof5eENtgNpPTpt18buGJmhM+iV7zot251mNlmRMqLY
- ntpGy69yn22j92g6eQEe25CX1Y5MJ0u/f2H4/UcRX9xxnLZONJ+itcDN5twDZhwv+Dd3
- oAoA==
-X-Gm-Message-State: AOJu0YxPMnMg8mHSeFOzVhJxtAeOrHzrqsoLG9V+QrPoC71Qd1fKl+ig
- hIRdxVyF1DDvb0I+MlmzyGOHXEMidCTYuiI+e063GOoCiR/zhEyMUFbmNPRQiSdUxytCPrOzoHd
- kuGzOhx7smaEhdAFxlKq2WotG9qW8mUKxJ+jEcC20/ZVlp3IVzj4=
-X-Gm-Gg: ASbGncsZ2eO9NqZBwSa/tKyReMAFCta2beidv+rp9nJW8xAz8girH/nP/xBGKRaUtsC
- oaAW8uCJXLYm0Gi8C8JjugmwtmJPJMCiTphdVqYdfkUv3K4i+3tNn4Kn0xGATbv/bc2gb7llB4i
- llPsFLfjwP51eFRD81m2YOZIgyF59XaUdP1HRpGBvnFcBjKUG733+oBdpfMWWz0MI+f8RnHSZxU
- yF9TY2+C4AepDkth55tec61jxbYKcc0YoRb61/9qsetkdIAM7IIkMMfMr9w7l2VzO0SguD9HKf7
- lIl8xN6Ray4Kn04=
-X-Received: by 2002:a05:600c:4688:b0:43d:fa59:be38 with SMTP id
- 5b1f17b1804b1-441d44e58b2mr49827835e9.32.1746692984923; 
- Thu, 08 May 2025 01:29:44 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHM1V7x0XCOwlJ1KWQ5SVitAW0DJD6hkdnamlLcSdXdp1dpU0BjEYxl8hQTxqajmbwU43UBMw==
-X-Received: by 2002:a05:600c:4688:b0:43d:fa59:be38 with SMTP id
- 5b1f17b1804b1-441d44e58b2mr49827645e9.32.1746692984601; 
- Thu, 08 May 2025 01:29:44 -0700 (PDT)
-Received: from [192.168.122.1] ([151.95.54.106])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442cd351315sm28692405e9.19.2025.05.08.01.29.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 May 2025 01:29:44 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org
-Subject: [PATCH 0/2] rust: pl011: really use RX FIFO depth
-Date: Thu,  8 May 2025 10:29:41 +0200
-Message-ID: <20250508082943.446512-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.49.0
+ d=1e100.net; s=20230601; t=1746702918; x=1747307718;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZoygyoQ6JaTgf0lGZ8kSEymwPxAeuA1Rm+7OQNYgvT4=;
+ b=kDcUDMa0uCVOxoeVnCrJBBHw7RK6evq97m2uj9xEFoppykK/qCb6/0RAcJ8UJQFnQH
+ whUDoJfne/fKWhy4iSf+Y4lNVTTdgZIUqPcP9y3P6AFYUd1FH/Rhy6q9xPnY/bJRxdyX
+ 8PjmTik7llsjrnKyYdnJzTr8HJhQkP9I7St22bnnW50DuHNO5oyL4i6y8hRJjyKLNaJE
+ /xl2j+WURtUvN1WtT0YbutPVHcnasGunkeXA75B8Evl+aRB2OAuj8w1/gcFK7KQ++FHt
+ vY3SKCgZRH/1HWmcbRIZaCT4KNtDlcuk0dkF5z0y9NBp67888fvf43wUcG+DGXlTY/NV
+ EmRA==
+X-Gm-Message-State: AOJu0YwFuBcs8safiX5i26iNb+IWX4amJR535pf6cLQ9d2Pd6keXeou8
+ M67aTdCtOmnK9cUQ1CiUPJKdYTAuuTFMd+AqVqZ9npSlKx8ZXhvra0ISsqmpcl4NFGpg052+mdC
+ JLt5YyA==
+X-Gm-Gg: ASbGncvid8+MQJp7MedEx/t3pD3TKszDakSY8MnFyhvOkGnfd/8cysyE5tpz0Xi3XC3
+ WLB/HmDDE2NttIOx5qD7/lzl2O/r6Kv8oQT6UN2HBlDkELKfuSgpWD+msqFhRa/5PDl/hJ18Fte
+ X24/FBBaqh0pIjsWVqNrK6Pva4mkmKtPPONrYIKwPzj5f43zWEywqJROHAxuXB6rYYQaVlPX43B
+ HIvl+aMWdabQHvgKCT8csbqtxWmrvboGdjr9pE6Pa0fkjbmXmZF8/v2Mxp0JpM16bXgxDwa6esa
+ KrdQoie6NoR4WEtF+XGqo16czZjV/Wp2MwjDPlkWL5zRExUIi6GGZygPeEaZHLqAJYnLNHAiM1j
+ 9iZGeYaB2
+X-Google-Smtp-Source: AGHT+IGONAW+hD2eF+8A3Hp0VPo6ruT0PGfiiKdyY5H+/DFGDqcszwpqDqttfrsKL4TrKy4xfZKuEQ==
+X-Received: by 2002:a17:903:22ca:b0:21c:fb6:7c3c with SMTP id
+ d9443c01a7336-22e5ea78834mr99727305ad.17.1746702917752; 
+ Thu, 08 May 2025 04:15:17 -0700 (PDT)
+Received: from [192.168.69.244] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-22e150eb6e8sm109920955ad.26.2025.05.08.04.15.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 08 May 2025 04:15:17 -0700 (PDT)
+Message-ID: <c2432666-bb9e-431c-b1ce-50360046be71@linaro.org>
+Date: Thu, 8 May 2025 13:15:13 +0200
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ny5zekZAP7hn_3ty-J7JCQX3Do0YhDRCSqFxDcQ6EIU_1746692985
-X-Mimecast-Originator: redhat.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] rust: pl011: Rename RX FIFO methods
+To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org
+References: <20250508082943.446512-1-pbonzini@redhat.com>
+ <20250508082943.446512-2-pbonzini@redhat.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20250508082943.446512-2-pbonzini@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -34
-X-Spam_score: -3.5
-X-Spam_bar: ---
-X-Spam_report: (-3.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.414,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+Received-SPF: pass client-ip=2607:f8b0:4864:20::633;
+ envelope-from=philmd@linaro.org; helo=mail-pl1-x633.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -96,21 +89,16 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 May 2025 08:30:05 -0000
+X-List-Received-Date: Thu, 08 May 2025 11:15:21 -0000
 
-Forward port a couple more commits from the C version.
+On 8/5/25 10:29, Paolo Bonzini wrote:
+> In preparation of having a TX FIFO, rename the RX FIFO methods.
+> 
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>   rust/hw/char/pl011/src/device.rs | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
 
-Paolo
-
-Paolo Bonzini (2):
-  rust: pl011: Rename RX FIFO methods
-  rust: pl011: Really use RX FIFO depth
-
- docs/devel/rust.rst              |  2 +-
- rust/hw/char/pl011/src/device.rs | 20 ++++++++++----------
- 2 files changed, 11 insertions(+), 11 deletions(-)
-
--- 
-2.49.0
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
 
