@@ -1,75 +1,93 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uES3u-0007wy-7T
-	for mharc-qemu-rust@gnu.org; Mon, 12 May 2025 08:15:20 -0400
+	id 1uEV93-0003ZM-VK
+	for mharc-qemu-rust@gnu.org; Mon, 12 May 2025 11:32:46 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1uES3r-0007vD-Si
- for qemu-rust@nongnu.org; Mon, 12 May 2025 08:15:12 -0400
-Received: from mail-yw1-x112f.google.com ([2607:f8b0:4864:20::112f])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1uES3p-0001rB-43
- for qemu-rust@nongnu.org; Mon, 12 May 2025 08:15:11 -0400
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-70825de932bso53266507b3.0
- for <qemu-rust@nongnu.org>; Mon, 12 May 2025 05:15:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1747052106; x=1747656906; darn=nongnu.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=w3LoDMsjztJQ5/cbBs5QguRFNkq3R16LRxLV5XHiXu0=;
- b=R0em0pD0XMvWNcfkkopHCN3+FwTeqEQ+0VJPTdFpbKT6jo2tGHWVlVIH0ZIpZfVG9L
- iI2q8/42LWboxDLDqYSSj6czWYB1hyzYbDTkql21fCFVAOtJWodoZ5A/f0zXlREJbFy+
- dD8V9EewDnTagaHHSYlgNCwBAUxAmf3K0G6/9FCPr1FMvJde18CNyhAuXlPlPtQGy80C
- lCEqbc9Qqg5OIXfxuaG9eIuR+yry1Z519FPdd4O/NJr4ksXHYJLQ+WPwhQWm3IU7LcG0
- hlBuQoaVYh3cgFfiY4me/oDVvNPDYX4Kx6hlE2qkEkxviSIjDImkt9Uo2l3iJtgQ+gN5
- dn2g==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uEV8y-0003Wm-RU
+ for qemu-rust@nongnu.org; Mon, 12 May 2025 11:32:43 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uEV8w-0006bz-Bc
+ for qemu-rust@nongnu.org; Mon, 12 May 2025 11:32:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1747063956;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=TV73wcNQFlOn9H+VGZko9zPxOzSyXvcFGEr4s16QJzM=;
+ b=Tsl5gtiQqTdrSoi5W9Wo8uAArBnT98OL/jh92fiM9IaUQVuVC9yqm9LpBsfko1mL+tFmdQ
+ DvNFzgBF0C+EQTo2uxJO8yo3zymZGTmaw5nEkHL4+SdfdMRLjpZwp6XelQf3srFRrErkiV
+ 16saYRefcHDTH01M5pRXx9FRUEISU6s=
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
+ [209.85.160.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-674-_nopXHBDNcSkS57SRnf7wA-1; Mon, 12 May 2025 11:32:35 -0400
+X-MC-Unique: _nopXHBDNcSkS57SRnf7wA-1
+X-Mimecast-MFC-AGG-ID: _nopXHBDNcSkS57SRnf7wA_1747063954
+Received: by mail-oa1-f71.google.com with SMTP id
+ 586e51a60fabf-2c6eb3e0b2aso1553756fac.0
+ for <qemu-rust@nongnu.org>; Mon, 12 May 2025 08:32:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747052106; x=1747656906;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=w3LoDMsjztJQ5/cbBs5QguRFNkq3R16LRxLV5XHiXu0=;
- b=lvr9JUmcVVdryQa468/6mi47Ze/5/ZCCBImUZ8pNUWPF1IpbKbBQ1v4sFRuslBI7FI
- midQRJvlEGU7odcdYX6KIZ5yT98b5Am1VnDQ2FDhzM0QbHDhi9L9F5UdvnmJ224m+amG
- 6s4CPD79NwKO7Flth41L5DPp4XwDiOh/ZySGxj0VmsZM+4TxZvydcyp5k9/KKJ8Pj3t+
- tP+efg89RJKo+Q/z2ykG/7a3RjbEcGWA4pYARiPCzbBCov+KT9ro4XW5G4I+c2kMbVg9
- De04hK965u7Vr9pOfaY2H6A5BLDVScQSY7Xi/EsewDnXcdEynHlvTzNgH+7EV7BXBzZd
- hK/A==
+ d=1e100.net; s=20230601; t=1747063952; x=1747668752;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TV73wcNQFlOn9H+VGZko9zPxOzSyXvcFGEr4s16QJzM=;
+ b=IPqRdvY1w9Ym0+nQVYcaa9ONYgcwADqZ9GPXWdCId3vBEn3iAmU6wb48cIRPCTqtxw
+ Te+6cpIjL+kqBHDSJxHvcldq3ydcNJkPno+gRjbcC/tgU/WGpeA8g53dXDsugStc1qB2
+ 05Hv85QzfUXgXY0P1xM3F0mxm1rKhXAAy8UFanacVrCNI+Zv5MFVkz7zxHQJXs7SXWE0
+ flpOLIFq/9z+0TCxfQ1WfQrPY3KQQUxvJ+Exvct18YLZ8XtDeGRcsj+O8Z8HvGacfeFR
+ q0Ti5oLPKddgVbU6drig08volJ0H4hzJBbRpzdeMp4sCOgsXlRfVCAEbiC+3zpN64Dr8
+ AgZg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWKLbQx6aZDuQRF+5+JtiuxcZucR5s6I3n2E5b+w0w4lGoY3DdR24+zzTtgrmmiRK5fZsGe+JbBDUU=@nongnu.org
-X-Gm-Message-State: AOJu0Yy0TOLDfOOUpj7SZbFAovXa88n51xyT8RqhjfIwy2+ny/eOFlSS
- ZHGF/Wpu/GnM1iUCbdllN1n8h5tAZkmzOONIE/Y3W6weR5USx1pzIoOJrjhlu5Wvzyr9eVFHLTn
- KuATRVgBYIj/azIIA6LITUVeHn2Dld067OKLjFSbrlPlpCM9r
-X-Gm-Gg: ASbGncsMws+TJNQwX2XD+3c52zC+235o8ZH4BM9XDrk2eRTT7GSrf/tk6G0ywCy30KJ
- jhA39ME8SzFLwd9COK/ViWpaN5DQQi/gteVKeI3i7y9JeVNvBkSSjpxLD4+lhyBVEshtilLdrC2
- mfT81/CktG/1FcheExXRQy5COgNkR4eZICJQ==
-X-Google-Smtp-Source: AGHT+IFT5YufhK9NvbvclRGW1kP3mN9hKIW0OQgkXvM+XjnFaedA9AEn31BsIZOxXRYEHOIr1MDlOisth9WnKTegI3E=
-X-Received: by 2002:a05:690c:9:b0:70b:6734:9f1 with SMTP id
- 00721157ae682-70b67340a61mr28481487b3.15.1747052106557; Mon, 12 May 2025
- 05:15:06 -0700 (PDT)
+ AJvYcCXK4/OXLISVyVo/FG4YlyHboZN4iMTXa6iZqTj5IV+6400FVsAODqyFJRekdzjT6uDgqzuUSGlyioE=@nongnu.org
+X-Gm-Message-State: AOJu0Yz5Uiusri7Df/wcixfR4gr7dPLyK4ALm8BGiv1EaNM+R7lweXSO
+ kMR0T3bCcPcNLIIBwCcq6MBnbbu/cqqIcnKdVYCEa1PBkwLm769zuX4iBCFDj/wLbS3fOKCCi+n
+ jZEXBvZNjJrOHdJNJQwIm6JEoadnysk8iTXanKMLm/uf4g+f8MtM3Wsr3edJCOqhyByiGt+6JHr
+ ARO5DfMOGIm5qVhWSuC3c9Y3owEBi/4aOxJPR6
+X-Gm-Gg: ASbGncvoeyv5/enuOA2+q+ELMqDRIZyK8Nr6tvFYLOpw0Vlrsuotu+VybDrsqpI8OWy
+ GrC5seUWLUiLG9BGMawUVotvlWdmy4Npq2I5WpS37QvrpDv7tJWuCtJsU0KxWhXngVDG5
+X-Received: by 2002:a05:6870:e2cf:b0:2bc:7007:5145 with SMTP id
+ 586e51a60fabf-2dba42a0a61mr8388560fac.9.1747063952159; 
+ Mon, 12 May 2025 08:32:32 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFUne/1srv24pUyqTUsq1t4n9Ymxk5oJ+OrDmlVNSdtiO/2Ad704sGNZSZ7QOmbpmrqjw4Nj7Pqnr03eyNL5Cg=
+X-Received: by 2002:a17:90b:4fd2:b0:30a:3e8e:492c with SMTP id
+ 98e67ed59e1d1-30c3d650661mr19906857a91.32.1747063941182; Mon, 12 May 2025
+ 08:32:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250508082943.446512-1-pbonzini@redhat.com>
- <20250508082943.446512-3-pbonzini@redhat.com>
-In-Reply-To: <20250508082943.446512-3-pbonzini@redhat.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Mon, 12 May 2025 13:14:54 +0100
-X-Gm-Features: AX0GCFsRyecOZsmq92ahjQNhYnMRo0Po9kU14W4tCW1108R2BG8v5cg_C4xpC6c
-Message-ID: <CAFEAcA9JEC6+v79HJD9D10my-L7U+pfp-LwQEQM6ar9t-onsXg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] rust: pl011: Really use RX FIFO depth
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+References: <20250330205857.1615-1-shentey@gmail.com>
+ <20250330205857.1615-2-shentey@gmail.com>
+ <340649cf-9348-458d-97e7-aee73c02217c@redhat.com>
+ <540905F9-7DF7-436F-905C-A7F225F5E156@gmail.com>
+ <CABC6E67-C4C7-481F-BB96-BF60957D7A84@gmail.com>
+In-Reply-To: <CABC6E67-C4C7-481F-BB96-BF60957D7A84@gmail.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Mon, 12 May 2025 17:32:08 +0200
+X-Gm-Features: AX0GCFtdPQrLMnjbXmXY9PO9w_MYLjuvu-yvzQ4zP88fiRLBQeslotB6kcCsMEU
+Message-ID: <CABgObfbD-yHee4TXKqQ2gw7N8dtuB1wKqPLD5jLKXtJ8hx2xSw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] rust/qemu-api: Add initial logging support based on C
+ API
+To: Bernhard Beschow <shentey@gmail.com>
+Cc: qemu-devel@nongnu.org, 
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: JnwODxmU6HgNK0DLgEF3IvdWM2wyCif6cqp1odku0gU_1747063954
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
-Received-SPF: pass client-ip=2607:f8b0:4864:20::112f;
- envelope-from=peter.maydell@linaro.org; helo=mail-yw1-x112f.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -35
+X-Spam_score: -3.6
+X-Spam_bar: ---
+X-Spam_report: (-3.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.551,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -82,99 +100,58 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 May 2025 12:15:13 -0000
+X-List-Received-Date: Mon, 12 May 2025 15:32:44 -0000
 
-On Thu, 8 May 2025 at 09:31, Paolo Bonzini <pbonzini@redhat.com> wrote:
->
-> While we model a 16-elements RX FIFO since the PL011 model was
-> introduced in commit cdbdb648b7c ("ARM Versatile Platform Baseboard
-> emulation"), we only read 1 char at a time!
+Hi, now that GSoC selection is over I'm back. Sorry for the delay;
+Tanish Desai will work mostly on tracing, so logging can remain yours.
 
-We could say that this is the Rust version of the C implementation's
-commit 3e0f118f8259 ("hw/char/pl011: Really use RX FIFO depth").
+On Tue, Apr 8, 2025 at 10:59=E2=80=AFPM Bernhard Beschow <shentey@gmail.com=
+> wrote:
+> >Currently the #defines contain some holes for "private" mask bits. Turni=
+ng these into an
+> >enum without exposing all publicly, and changing the type of qemu_loglev=
+el for
+> >consistency, would result in undefined behavior. Or do you suggest to co=
+nvert just
+> >the public #defines into an enum to expose them to Rust, and keep the re=
+st of
+> >the C API including the type of qemu_loglevel as is?
 
-> Have the IOCanReadHandler handler return how many elements are
-> available, and use that in the IOReadHandler handler.
->
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  docs/devel/rust.rst              |  2 +-
->  rust/hw/char/pl011/src/device.rs | 14 +++++++-------
->  2 files changed, 8 insertions(+), 8 deletions(-)
->
-> diff --git a/docs/devel/rust.rst b/docs/devel/rust.rst
-> index 4de86375021..171d908e0b0 100644
-> --- a/docs/devel/rust.rst
-> +++ b/docs/devel/rust.rst
-> @@ -119,7 +119,7 @@ QEMU includes four crates:
->    for the ``hw/char/pl011.c`` and ``hw/timer/hpet.c`` files.
->
->  .. [#issues] The ``pl011`` crate is synchronized with ``hw/char/pl011.c``
-> -   as of commit 02b1f7f61928.  The ``hpet`` crate is synchronized as of
-> +   as of commit 3e0f118f82.  The ``hpet`` crate is synchronized as of
->     commit 1433e38cc8.  Both are lacking tracing functionality.
->
->  This section explains how to work with them.
-> diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-> index 94b31659849..7f28bb25a9b 100644
-> --- a/rust/hw/char/pl011/src/device.rs
-> +++ b/rust/hw/char/pl011/src/device.rs
-> @@ -580,19 +580,19 @@ fn write(&self, offset: hwaddr, value: u64, _size: u32) {
->      fn can_receive(&self) -> u32 {
->          let regs = self.regs.borrow();
->          // trace_pl011_can_receive(s->lcr, s->read_count, r);
+Yes, only in Rust.
 
-This commented out tracepoint needs adjusting: the C version
-is now
-  trace_pl011_can_receive(s->lcr, s->read_count, fifo_depth, fifo_available)
-where fifo_available is what we here open-code as
-"regs.fifo_depth() - regs.read_count" in the return value.
+> >There are surely several tradeoffs and/or cleanups possible here, but th=
+at's way beyond for
+> >what I wanted to achieve -- which is closing a gap between C and Rust. M=
+y main goal is just
+> >to get my feet wet with Rust.
 
-I mention this because it affects whether you want to write
-this open-coded or with a local variable.
+I understand, however there is no point in defining an API and then changin=
+g it.
 
-> -        u32::from(regs.read_count < regs.fifo_depth())
-> +        regs.fifo_depth() - regs.read_count
->      }
->
->      fn receive(&self, buf: &[u8]) {
-> -        if buf.is_empty() {
-> -            return;
-> -        }
->          let mut regs = self.regs.borrow_mut();
-> -        let c: u32 = buf[0].into();
-> -        let update_irq = !regs.loopback_enabled() && regs.fifo_rx_put(c.into());
-> +        let mut update_irq = false;
-> +        for &c in buf {
-> +            let c: u32 = c.into();
-> +            update_irq |= !regs.loopback_enabled() && regs.fifo_rx_put(c.into());
-> +        }
+So we need to answer the questions I wrote a few messages ago, namely:
 
-We're now checking loopback_enabled() on every iteration
-(admittedly we previously also checked it for every character
-but with the extra overhead of calling receive() too ;-))
+- the mapping the LOG_* constants into Rust (e.g. whether to keep the
+uppercase SNAKE_CASE or switch to something like Log::GuestError).
 
-Could we write this the same way the C code does with an
-early-return before the for loop?
+- whether to keep the "qemu" prefix for the API (personal opinion: no)
 
-Also, the C version has a helpful comment about that:
-    /*
-     * In loopback mode, the RX input signal is internally disconnected
-     * from the entire receiving logics; thus, all inputs are ignored,
-     * and BREAK detection on RX input signal is also not performed.
-     */
+I agree with not having macros such as log_guest_error! for now, or
+not wrapping functions like qemu_log_trylock/qemu_log_unlock that
+would be implemented as RAII (i.e. returning a "guard" object) in
+Rust.
 
-that it would be good to have in the Rust implementation so
-we don't lose it as and when we drop the C impl.
+> >>Also, while this is good for now, later on we probably want to reimplem=
+ent logging at a lower level via the std::fmt::Write trait.  But that's jus=
+t for efficiency and your macro is indeed good enough to define what the AP=
+I would look like.
+> >
+> >Can we live with an easy solution then for now? As you suggest below, fu=
+rther abstractions like log_guest_error! can be built on top which further =
+insulates client code from implementation details such as the representatio=
+n of the mask bits.
 
-> +
->          // Release the BqlRefCell before calling self.update()
->          drop(regs);
-> -
->          if update_irq {
->              self.update();
->          }
+Yes, of course.
 
-thanks
--- PMM
+Paolo
+
 
