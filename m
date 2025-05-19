@@ -1,41 +1,40 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uH6Gc-0002mp-04
-	for mharc-qemu-rust@gnu.org; Mon, 19 May 2025 15:35:18 -0400
+	id 1uH6Gc-0002oV-RG
+	for mharc-qemu-rust@gnu.org; Mon, 19 May 2025 15:35:19 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uH58Z-0002s3-1c
- for qemu-rust@nongnu.org; Mon, 19 May 2025 14:22:55 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uH57q-0002cP-1p
+ for qemu-rust@nongnu.org; Mon, 19 May 2025 14:22:11 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uH58U-0000gr-Dk
- for qemu-rust@nongnu.org; Mon, 19 May 2025 14:22:54 -0400
+ (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uH57n-0000b1-RF
+ for qemu-rust@nongnu.org; Mon, 19 May 2025 14:22:09 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1747678965;
+ s=mimecast20190719; t=1747678925;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=FLbLFiqORFw8cWiPNerRB88Dx75W953eXT2REMP2iHs=;
- b=IcHpuF0eDFq52SJfvSFfqlAKOisFQ6HwwNeOCPI6KT7wxDY+72rmqtuvJoVb7CG3gyJUAB
- I+oO3V+h4xjgpmxj7d9RRRV5j1VHaJxL9wzvWfYwQlu+S4W73LkYhntIQPSEctnGo+9xtM
- G1FcNnqQhlNgndLCkDqTOpyEMj5ZHJ4=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=BAGH4CxVLLSUE6S1VDaCj0K1vQrrmGMF/XKOGp3qEOc=;
+ b=X4coAAKJUxf6uGfZiJfWuEIkD4jgUdizIipRn/dlIrdg4X3yBw421Lviv5Sve5r4Vvf8qC
+ ahOC6IzSFGUnVNVuO52QAhZWCEkvwEVXmhzhxiG+m0KRWr1uotKVmuelyMlIavBkTYujFj
+ 0iLl3rJm4OXqbPMKSS7PSUPvt8XGCv0=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-44-qh2hhjZNMH-Lt8rDbFnifw-1; Mon,
- 19 May 2025 14:22:41 -0400
-X-MC-Unique: qh2hhjZNMH-Lt8rDbFnifw-1
-X-Mimecast-MFC-AGG-ID: qh2hhjZNMH-Lt8rDbFnifw_1747678959
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-679-8tyCc0b6OtygnO8OeolZUQ-1; Mon,
+ 19 May 2025 14:22:02 -0400
+X-MC-Unique: 8tyCc0b6OtygnO8OeolZUQ-1
+X-Mimecast-MFC-AGG-ID: 8tyCc0b6OtygnO8OeolZUQ_1747678921
 Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 8FD4C195608C; Mon, 19 May 2025 18:22:39 +0000 (UTC)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 7C0B31956086; Mon, 19 May 2025 18:22:00 +0000 (UTC)
 Received: from jsnow-thinkpadp16vgen1.westford.csb (unknown [10.22.89.235])
  by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 759E519560A3; Mon, 19 May 2025 18:22:33 +0000 (UTC)
+ id 73FCA19560A3; Mon, 19 May 2025 18:21:55 +0000 (UTC)
 From: John Snow <jsnow@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
@@ -51,16 +50,14 @@ Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  Michael Roth <michael.roth@amd.com>,
  =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
  Kevin Wolf <kwolf@redhat.com>
-Subject: [PATCH 7/8] python: update mkvenv to type-check under different
- python versions
-Date: Mon, 19 May 2025 14:21:51 -0400
-Message-ID: <20250519182153.3835722-8-jsnow@redhat.com>
-In-Reply-To: <20250519182153.3835722-1-jsnow@redhat.com>
-References: <20250519182153.3835722-1-jsnow@redhat.com>
+Subject: [PATCH 0/8] Python: Fix 'make check-dev' and modernize to 3.9+
+Date: Mon, 19 May 2025 14:21:44 -0400
+Message-ID: <20250519182153.3835722-1-jsnow@redhat.com>
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=jsnow@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=jsnow@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -31
 X-Spam_score: -3.2
@@ -69,9 +66,9 @@ X-Spam_report: (-3.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.13,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=-1, RCVD_IN_MSPIKE_WL=-0.01,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Mon, 19 May 2025 15:35:14 -0400
+X-Mailman-Approved-At: Mon, 19 May 2025 15:35:13 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,75 +80,120 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 May 2025 18:22:57 -0000
+X-List-Received-Date: Mon, 19 May 2025 18:22:11 -0000
 
-Currently, we instruct mypy to pretend it is type checking under a
-specific version of python. For our case, where our scripts may in fact
-actually be executing under a number of different environments in the
-build system, we want mypy to remove this restriction.
-
-This patch adjusts some of the import logic in mkvenv.py to make it type
-check under a wider range of python versions.
-
-Signed-off-by: John Snow <jsnow@redhat.com>
----
- python/scripts/mkvenv.py | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
-
-diff --git a/python/scripts/mkvenv.py b/python/scripts/mkvenv.py
-index b626903fa8d..1e86c0ffa9e 100644
---- a/python/scripts/mkvenv.py
-+++ b/python/scripts/mkvenv.py
-@@ -99,16 +99,18 @@
-         HAVE_DISTLIB = False
- 
- # Try to load tomllib, with a fallback to tomli.
--# HAVE_TOMLLIB is checked below, just-in-time, so that mkvenv does not fail
-+# TOML is checked below, just-in-time, so that mkvenv does not fail
- # outside the venv or before a potential call to ensurepip in checkpip().
--HAVE_TOMLLIB = True
-+TOML = None
- try:
-     import tomllib
-+    TOML = tomllib
- except ImportError:
-     try:
--        import tomli as tomllib
-+        import tomli
-+        TOML = tomli
-     except ImportError:
--        HAVE_TOMLLIB = False
-+        pass
- 
- # Do not add any mandatory dependencies from outside the stdlib:
- # This script *must* be usable standalone!
-@@ -194,6 +196,7 @@ def compute_venv_libpath(context: SimpleNamespace) -> str:
-         # Python 3.12+, not strictly necessary because it's documented
-         # to be the same as 3.10 code below:
-         if sys.version_info >= (3, 12):
-+            assert isinstance(context.lib_path, str)
-             return context.lib_path
- 
-         # Python 3.10+
-@@ -710,7 +713,7 @@ def _do_ensure(
- 
- 
- def _parse_groups(file: str) -> dict[str, dict[str, Any]]:
--    if not HAVE_TOMLLIB:
-+    if not TOML:
-         if sys.version_info < (3, 11):
-             raise Ouch("found no usable tomli, please install it")
- 
-@@ -722,7 +725,7 @@ def _parse_groups(file: str) -> dict[str, dict[str, Any]]:
-     # Debian bullseye-backports) and v2.0.x
-     with open(file, "r", encoding="ascii") as depfile:
-         contents = depfile.read()
--        return tomllib.loads(contents)  # type: ignore
-+        return TOML.loads(contents)  # type: ignore
- 
- 
- def ensure_group(
--- 
-2.48.1
+This series does a couple things that I'll probably end up splitting out=0D
+into smaller series if history is any guide, but either way, here it=0D
+goes:=0D
+=0D
+A) Convert qemu.git/python/ to a PEP517/pyproject.toml=0D
+package. Ultimately this means deleting setup.py and fully migrating to=0D
+newer python infrastructure. I think this should be safe to do by now,=0D
+but admittedly I am not *confident* as it relies on setuptools versions=0D
+in the wild, not python versions. My motivation for trying it is to fix=0D
+"make check-dev", which has been broken for the last two Fedora releases=0D
+under newer setuptools which have started removing support for the=0D
+pre-PEP517 packaging formats, which will only continue to get worse from=0D
+here on out.=0D
+=0D
+B) Sync changes from the qemu.qmp package back over to qemu.git. I know=0D
+I need to decouple this badly, but in order to do so, I need to make=0D
+sure they're synchronized to be assured that the switch to the=0D
+standalone version won't break anything, so this is a necessary=0D
+step. It's happening here because of the 3.6+ compat crud we are still=0D
+carrying in qemu.git that has since been removed from the standalone=0D
+library.=0D
+=0D
+C) Move us to 3.9+ style type hints. I know it feels like we just got=0D
+the type hints settled and we're already changing them. Sorry about=0D
+that. They are deprecated in 3.9, and *could* be removed at any time. I=0D
+figured now was a good time as any to get rid of them before they become=0D
+a problem randomly some day in the future.=0D
+=0D
+D) Update the mypy configuration to check under multiple Python versions=0D
+more effectively and thoroughly.=0D
+=0D
+Whew.=0D
+--js=0D
+=0D
+John Snow (8):=0D
+  python: convert packages to PEP517/pyproject.toml=0D
+  python: update pylint ignores=0D
+  python: sync changes from external qemu.qmp package=0D
+  python: use 3.9+ builtin type hints=0D
+  python: convert remaining deprecated type hints for 3.9+=0D
+  python: clean up requirements for 3.9+=0D
+  python: update mkvenv to type-check under different python versions=0D
+  python: remove version restriction for mypy=0D
+=0D
+ docs/sphinx/compat.py                         |  11 +-=0D
+ docs/sphinx/dbusdoc.py                        |  13 +-=0D
+ docs/sphinx/dbusdomain.py                     |  32 ++--=0D
+ docs/sphinx/fakedbusdoc.py                    |   4 +-=0D
+ docs/sphinx/qapi_domain.py                    |  77 ++++----=0D
+ docs/sphinx/qapidoc.py                        |  16 +-=0D
+ python/README.rst                             |  33 ++--=0D
+ python/Makefile                               |  18 +-=0D
+ python/pyproject.toml                         |   8 +=0D
+ python/qemu/machine/console_socket.py         |   4 +-=0D
+ python/qemu/machine/machine.py                |  32 ++--=0D
+ python/qemu/machine/qtest.py                  |  13 +-=0D
+ python/qemu/qmp/error.py                      |   7 +-=0D
+ python/qemu/qmp/events.py                     |  72 +++++--=0D
+ python/qemu/qmp/legacy.py                     |  31 +--=0D
+ python/qemu/qmp/message.py                    |  38 ++--=0D
+ python/qemu/qmp/models.py                     |  26 ++-=0D
+ python/qemu/qmp/protocol.py                   | 179 ++++++++++-------=0D
+ python/qemu/qmp/qmp_client.py                 | 147 +++++++++-----=0D
+ python/qemu/qmp/qmp_shell.py                  | 180 ++++++++++++------=0D
+ python/qemu/qmp/qmp_tui.py                    |  55 +++---=0D
+ python/qemu/qmp/util.py                       | 116 +----------=0D
+ python/qemu/utils/accel.py                    |   4 +-=0D
+ python/qemu/utils/qemu_ga_client.py           |  11 +-=0D
+ python/qemu/utils/qom_common.py               |  17 +-=0D
+ python/qemu/utils/qom_fuse.py                 |  12 +-=0D
+ python/scripts/mkvenv.py                      |  38 ++--=0D
+ python/setup.cfg                              |   7 +-=0D
+ python/setup.py                               |  40 ----=0D
+ python/tests/minreqs.txt                      |   4 +-=0D
+ python/tests/protocol.py                      |  10 +-=0D
+ scripts/block-coroutine-wrapper.py            |   2 +-=0D
+ .../codeconverter/codeconverter/patching.py   |  50 ++---=0D
+ .../codeconverter/codeconverter/qom_macros.py |  36 ++--=0D
+ .../codeconverter/qom_type_info.py            |  16 +-=0D
+ scripts/compare-machine-types.py              |  41 ++--=0D
+ scripts/qapi/commands.py                      |  13 +-=0D
+ scripts/qapi/common.py                        |  20 +-=0D
+ scripts/qapi/events.py                        |   8 +-=0D
+ scripts/qapi/expr.py                          |  28 ++-=0D
+ scripts/qapi/features.py                      |   2 +-=0D
+ scripts/qapi/gen.py                           |  13 +-=0D
+ scripts/qapi/introspect.py                    |  44 ++---=0D
+ scripts/qapi/parser.py                        |  42 ++--=0D
+ scripts/qapi/schema.py                        | 117 ++++++------=0D
+ scripts/qapi/source.py                        |  10 +-=0D
+ scripts/qapi/types.py                         |  20 +-=0D
+ scripts/qapi/visit.py                         |  14 +-=0D
+ scripts/rust/rustc_args.py                    |   7 +-=0D
+ scripts/u2f-setup-gen.py                      |   3 +-=0D
+ tests/functional/qemu_test/ports.py           |   3 +-=0D
+ tests/functional/test_acpi_bits.py            |   9 +-=0D
+ tests/qemu-iotests/151                        |   4 +-=0D
+ tests/qemu-iotests/297                        |   5 +-=0D
+ tests/qemu-iotests/300                        |   4 +-=0D
+ tests/qemu-iotests/fat16.py                   |  11 +-=0D
+ tests/qemu-iotests/findtests.py               |  13 +-=0D
+ tests/qemu-iotests/iotests.py                 |  38 ++--=0D
+ tests/qemu-iotests/linters.py                 |   7 +-=0D
+ tests/qemu-iotests/testenv.py                 |  11 +-=0D
+ tests/qemu-iotests/testrunner.py              |  19 +-=0D
+ .../qemu-iotests/tests/stream-under-throttle  |   3 +-=0D
+ 62 files changed, 925 insertions(+), 943 deletions(-)=0D
+ create mode 100644 python/pyproject.toml=0D
+ delete mode 100755 python/setup.py=0D
+=0D
+-- =0D
+2.48.1=0D
+=0D
 
 
