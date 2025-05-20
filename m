@@ -1,64 +1,123 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uHPQ4-0007Xy-7N
-	for mharc-qemu-rust@gnu.org; Tue, 20 May 2025 12:02:20 -0400
+	id 1uHR4e-0003Ll-Ov
+	for mharc-qemu-rust@gnu.org; Tue, 20 May 2025 13:48:21 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uHPQ1-0007Vf-2Z; Tue, 20 May 2025 12:02:17 -0400
-Received: from mgamail.intel.com ([192.198.163.13])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uHPPx-0005JI-9h; Tue, 20 May 2025 12:02:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1747756933; x=1779292933;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=rXyivNAP7GuLXxMV2DCwcIAVUgLC5pLZeZ/iwDqxFl8=;
- b=C0esmcE13wm6ESt25hU4xVA7ulFNLFUtGnqfyA66QSAL654IiPrd3bzf
- /LDGYF/jeZg6AJoah8/1ZcZcSiSv0G+nLu8KT5yUsTdeBenJZReP+pvNp
- G7TWW0Erml+Ns+MUhhN9lLq6bCkYjQXnW/x1uPAld2jsViQWTkWL8F3HM
- 2tDJcMuJwPrSAG2gxIv+Ld3bt/hccSiIIF+tYDmWP/al1KA6NsE7zrWPW
- s1Uxp3Trv4wkJoaxFCemF0f1c6VuTOK8voQQwjbqbYEugr7cE9LXkZDxG
- GqgvFcSuZLnfp6zOFbrS0oFBTJMIwZDgbwuEaagP4WlsCHj9BqUM8ImZ+ A==;
-X-CSE-ConnectionGUID: XelY7rLySmW5TpjrPGRniw==
-X-CSE-MsgGUID: qkx2ctIlRpyzdOb9+VDTNg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11439"; a="52325502"
-X-IronPort-AV: E=Sophos;i="6.15,302,1739865600"; d="scan'208";a="52325502"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2025 09:02:09 -0700
-X-CSE-ConnectionGUID: oiWHrhykQyKyeuBwDjMolA==
-X-CSE-MsgGUID: 0xwU7rueQN2x/53GFlg3VQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,302,1739865600"; d="scan'208";a="140261931"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa010.fm.intel.com with ESMTP; 20 May 2025 09:02:08 -0700
-Date: Wed, 21 May 2025 00:23:14 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <bonzini@gnu.org>
+ (Exim 4.90_1) (envelope-from <paolo.bonzini@gmail.com>)
+ id 1uHR4d-0003LT-Ny; Tue, 20 May 2025 13:48:19 -0400
+Received: from mail-wr1-x42a.google.com ([2a00:1450:4864:20::42a])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <paolo.bonzini@gmail.com>)
+ id 1uHR4b-0001cd-Nm; Tue, 20 May 2025 13:48:19 -0400
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a376da332aso1453591f8f.3; 
+ Tue, 20 May 2025 10:48:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747763293; x=1748368093; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+ bh=qW9c+b+OrOEpHvGGv9lhdKGDzpzGTiljEXgJF63Hta8=;
+ b=CQZj8jSJFyn7nwRLd1j8J/WIdlsmCaWb9VqgXyo9DiwiRa33/l1FGgekoAsqea745S
+ vpQfNidBxAZymRD4ifAvJi4ctjv908jR49Y+jacoAm7+9/hqbP7llYWGeQ5mWjkjI8XR
+ tBS51HoEKOfSu+wHPD/JtIZsLz+uZQj6MuBXrcy9uQZyXzimeErabV6AIf6tsOetxF4U
+ n/yGS10WdbEjqXX2Stv6cuZ7qP1e7d07dHefP107FxHVnzcPLgKeiET9Hj9VnIxqarY+
+ iu3yiaIHGTzTlXA8rwoNZipiLKfSn9yeZ1gpK9YyvLWv0RAHQCA9k0abD5U8MHdWGAMl
+ o9nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747763293; x=1748368093;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:sender:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qW9c+b+OrOEpHvGGv9lhdKGDzpzGTiljEXgJF63Hta8=;
+ b=uO7Z28fxkvi5+2su2WzPTpn0gT41nH7HSx4CgmDt1mGK0IGVUCTDI41rKO5RNL3U3T
+ XhmS5vTGaj3iNLHUxCAPUw2WS2L8wjDjGxoPBWgkqaeh1R4lBO9hqGx+1IBj3hHMEXsh
+ k/vkrEX8r8IfMcIM6uEzH6Nb6OMmfRam1ITIR/zOp2jP/WdQO5GwC1PcYpB/uinjzfZL
+ /sqK0Qm8+6m4pbyif0uFFhxdDiqhAxBSGzVBX0JV9Yc4qUERMtoxxp7qxwA/MzeDPy85
+ jFNgxgJJ0CX/BDxOEL0LszTaSvmupl3PiUTLOA8+APoon+4bYi8VV5fgH9FSTokjB7T5
+ txXA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWIORKLOPogRUkHoT1slIb6BGQ4BLIY8O1MdmalKgmsbQosxDdZSQhPgcKkW7frvQ9nqY9Ubo5U+Jw=@nongnu.org
+X-Gm-Message-State: AOJu0YyRsz14hLyW0ndrLjSHbVEVm2uR/U0JTubgGkW3EC7pdDSS5UXg
+ jK/lMDc/3T30x2icsdVC5u+LH3DGosadIPAhCXcvjjO256yYxGEkxw0a
+X-Gm-Gg: ASbGncu67RFa6MV2uOMGyj/2Kvq0eMbFFhA3NdGdGpQXmm6u9WyXUJwTP2X+dvwms+D
+ tn+dGReV8U/xfxB2jmt0EhIsyAKmaoajFExYr9gaco8d9J8xY5QB7Zd2qY1+gMvk/GrtZHXapv1
+ wnBh5CV3rVoP0h/gbloasbTuH3LeJ3ZbNBzuXmYCH6ZS3QQk5bRQR/S9QxQM32D0hc6nGs0DpM1
+ oGUxdy8mTHf6alYsqrOXMuC6iDtFJaArGLY2BNXtq8wEtcybordxMZpLdnRKoA6AEyoGDvIGZ5u
+ NO/BpjpwUBN60/BghfYxgymi0zfb8AJH5njaeA8JwRfOiIUO
+X-Google-Smtp-Source: AGHT+IG0/X4Yg3WxaECijxJHiuWhchwbgduzC6f0Lf4V4/1UcEsDtlKc0RwCDrfzvZuvRV24dfBRvw==
+X-Received: by 2002:a5d:5848:0:b0:3a1:4343:f834 with SMTP id
+ ffacd0b85a97d-3a35fe5c5e9mr16600800f8f.2.1747763293104; 
+ Tue, 20 May 2025 10:48:13 -0700 (PDT)
+Received: from [192.168.10.81] ([151.95.46.79])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-3a36835ef41sm12916814f8f.94.2025.05.20.10.48.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 May 2025 10:48:12 -0700 (PDT)
+Sender: Paolo Bonzini <paolo.bonzini@gmail.com>
+Message-ID: <abe683f2-e679-4579-b68a-38a11d41e00b@gnu.org>
+Date: Tue, 20 May 2025 19:48:11 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Rust in QEMU update, April 2025
+To: Zhao Liu <zhao1.liu@intel.com>
 Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
  Daniel Berrange <berrange@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
  Peter Maydell <peter.maydell@linaro.org>
-Subject: Re: Rust in QEMU update, April 2025
-Message-ID: <aCysct2L8Bosqy0N@intel.com>
 References: <d3d1944e-2482-4aa7-b621-596246a08107@gnu.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d3d1944e-2482-4aa7-b621-596246a08107@gnu.org>
-Received-SPF: pass client-ip=192.198.163.13; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -48
-X-Spam_score: -4.9
-X-Spam_bar: ----
-X-Spam_report: (-4.9 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.487,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ <aCysct2L8Bosqy0N@intel.com>
+From: Paolo Bonzini <bonzini@gnu.org>
+Content-Language: en-US
+Autocrypt: addr=bonzini@gnu.org; keydata=
+ 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
+In-Reply-To: <aCysct2L8Bosqy0N@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=2a00:1450:4864:20::42a;
+ envelope-from=paolo.bonzini@gmail.com; helo=mail-wr1-x42a.google.com
+X-Spam_score_int: -19
+X-Spam_score: -2.0
+X-Spam_bar: --
+X-Spam_report: (-2.0 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FORGED_FROMDOMAIN=0.001,
+ FREEMAIL_FROM=0.001, HEADER_FROM_DIFFERENT_DOMAINS=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -72,108 +131,74 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 May 2025 16:02:17 -0000
+X-List-Received-Date: Tue, 20 May 2025 17:48:20 -0000
 
-(Resend as the previous email may have failed.)
+On 5/20/25 18:23, Zhao Liu wrote:
+>> HPET does some very simple memory accesses; a good safe solution
+>> for this may be the ``vm-memory`` crate.  While I have not looked into
+>> using it, ``vm-memory`` and ``vm-virtio`` were written with QEMU's
+>> use cases in mind.
+> I'm working on this and trying to wrap simple memory access by
+> vm-memory.
 
-> Remaining unsafe code
-> '''''''''''''''''''''
-> 
-> qdev bindings cover basic classes and interfaces, including
-> GPIO pins, timers, clocks and MemoryRegionOps.  VMState
-> still needs unsafe callbacks for pre_save/post_load, with
-> the final version waiting for a bump of the minimum supported
-> Rust version to 1.83.0.
-> 
-> Apart from VMState, the remaining instances of `unsafe` blocks in the
-> pl011 and HPET code can all be removed without bumping the language
-> version.
-> 
-> HPET does some very simple memory accesses; a good safe solution
-> for this may be the ``vm-memory`` crate.  While I have not looked into
-> using it, ``vm-memory`` and ``vm-virtio`` were written with QEMU's
-> use cases in mind.
-
-I'm working on this and trying to wrap simple memory access by
-vm-memory.
- 
-> A coding style for devices
-> ''''''''''''''''''''''''''
-> 
-> pl011 and HPET were developed independently and sometimes have different
-> idioms that could be unified.  Peter Maydell made several observations:
-> 
->   Something I do notice is that there's some inconsistency in
->   how we've structured things between the two devices, e.g.:
-
-...
- 
->   * pl011 has defined named fields for its registers, but hpet does
->     things like::
-> 
->        self.config.get() & (1 << HPET_CFG_LEG_RT_SHIFT) != 0
-
-On the one hand, this way is more friendly and easy to review for C
-developers (comparing with the C version), and on the other hand,
-there are similar writeups in other projects (crosvm/firecracker). So,
-HPET also shows a clumsy and conservative approach :-).
-
->   * pl011 has a split between PL011State and PL011Registers,
->     but HPET does not. As I mentioned in an email thread a
->     little while back, I feel like the State/Registers split
->     is something we should either make a more clear deliberate
->     formalised separation that's part of how we recommend
->     device models should be designed
-
-Sorry, I just noticed this point.
-
-I tried to abstract a HPETRegisters but found out it didn't work well in
-HPET case...So I didn't insist.
-
-The following is the lesson I learned when I wrote HPET in Rust in the
-first time (copied from my HPET v2 cover letter [*]):
-
-Additional Experience
-=====================
-
-PL011 provides a pattern to group all registers in one BqlRefCell
-instead of multiple BqlCells.
-
-I also tried to leverage this design to HPET, but it didn't fit very
-well with this issue:
- * HPETState abstracts many helpers to check register bit and tell
-   caller about the state, e.g., is_legacy_mode(),
-   is_timer_int_active(), etc.
-   
-   But this also means these helpers can't be used in BqlRefCell::
-   borrow_mut() context again, otherwise, they would cause the runtime
-   bql check panic.
-
- - Some cases are easy to fix, i.e, use borrow_mut to modify the
-   registers after the helpers' call.
-
- - Some cases would by tricky, like memory write callback, since it has
-   complex logic and it's hard to decouple register changes from the
-   reset logic as clearly as PL011 does. 
-
-   The fix for this case is either to avoid using register helpers
-   again in the borrow_mut context of write(), or to use BqlCell
-   instead of BqlRefCell to get finer-grained access control to avoid
-   refactoring code logic.
-
-   I chose the latter.
+Ok.  Note that while the GuestAddressSpace corresponds QEMU's 
+AddressSpace (so far so good :)), QEMU's MemoryRegion is completely 
+unrelated to vm-memory's GuestMemoryRegion.  That's because vm-memory 
+only operates on an array of non-overlapping regions, like QEMU's 
+FlatRange or MemoryRegionSection structs.
 
 
-So I think this might be a practical lesson that the choice of BqlCell
-and BqlRefCell is also indeed related to code logic: If the code logic
-is too complex to decouple borrow() and borrow_mut() (and the compiler
-doesn't check this, only the runtime's panic_already_borrowed() will
-complains!) , then BqlCell should be chosen. Because fine-grained access
-is easier to control and avoid errors. :-)
+The GuestMemory (GuestAddressSpace::M) corresponds to QEMU's FlatView. 
+Indeed the functions in the trait match with what you expect of a FlatView:
 
-[*]: https://lore.kernel.org/qemu-devel/20250125125137.1223277-1-zhao1.liu@intel.com/
+     fn num_regions(&self) -> usize;
+     fn find_region(&self, addr: GuestAddress) -> Option<&Self::R>;
+     fn iter(&self) -> impl Iterator<Item = &Self::R>;
 
-Thanks,
-Zhao
+If the GuestMemory is a FlatView, the GuestAddressSpace::T, implements 
+Clone + Deref<Target = FlatView>.  It's not too hard to see that 
+GuestAddressSpace's memory() method must call 
+address_space_get_flatview() and the GuestAddressSpace::T's drop method 
+must call flatview_unref().  Let's call this (Rust-specific) struct 
+FlatViewRefGuard, or something like that.
 
+
+Going back to the GuestMemoryRegion (<FlatView as GuestMemory>::R), it 
+could be either a QEMU FlatRange or a MemoryRegionSection.  Neither are 
+good options.  Without a MemoryRegionSection you can't support IOMMU 
+regions; but flatview_do_translate() returns the MemoryRegionSection by 
+value, and GuestMemory's
+
+     fn find_region(&self, addr: GuestAddress) -> Option<&Self::R>;
+
+wants a reference instead!
+
+Anyhow, all three types (AddressSpace, FlatView, FlatRange) are better 
+wrapped with Opaque.
+
+Looking more at FlatRange, these are easy:
+
+     // Required methods
+     fn len(&self) -> GuestUsize;
+     fn start_addr(&self) -> GuestAddress;
+
+But this one is another problem:
+
+     fn bitmap(&self) -> &Self::B;
+
+because it returns the "Bitmap" by reference.  QEMU's bitmap is a global 
+variable indexed by ram_addr_t.  It would be better if this was declared 
+like this:
+
+    fn bitmap(&'a self) ->
+       <Self::B as WithBitmapSlice<'a>>::S
+
+I have no idea if this can be changed in upstream vm-virtio.  For now 
+maybe you can leave it as ().  That's buggy but it's ok for a proof of 
+concept.
+
+So... not sure what to do there.  It seems like vm-memory is very close 
+to being usable by QEMU, but maybe not completely. :(
+
+Paolo
 
