@@ -1,104 +1,76 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uHPGk-0002UV-VF
-	for mharc-qemu-rust@gnu.org; Tue, 20 May 2025 11:52:43 -0400
+	id 1uHPM8-0005ep-CS
+	for mharc-qemu-rust@gnu.org; Tue, 20 May 2025 11:58:16 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uHPGg-0002TO-AQ
- for qemu-rust@nongnu.org; Tue, 20 May 2025 11:52:39 -0400
-Received: from mail-ed1-x536.google.com ([2a00:1450:4864:20::536])
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1uHPM3-0005eF-Sx
+ for qemu-rust@nongnu.org; Tue, 20 May 2025 11:58:11 -0400
+Received: from mail-yw1-x1132.google.com ([2607:f8b0:4864:20::1132])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uHPGb-0003Gn-09
- for qemu-rust@nongnu.org; Tue, 20 May 2025 11:52:36 -0400
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-601dbd75b74so3910190a12.1
- for <qemu-rust@nongnu.org>; Tue, 20 May 2025 08:52:28 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1uHPM1-0004RE-SR
+ for qemu-rust@nongnu.org; Tue, 20 May 2025 11:58:11 -0400
+Received: by mail-yw1-x1132.google.com with SMTP id
+ 00721157ae682-70ccf9a4ab3so26243137b3.1
+ for <qemu-rust@nongnu.org>; Tue, 20 May 2025 08:58:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1747756347; x=1748361147; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:message-id:date:user-agent
- :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2Asp1ERP/PB/8bsjkzlfIt4A92qanv6neIKuBkn4aAM=;
- b=KtaM+6+eZ5ARnr+wSyJg1cp1BHm+eyZhexichkn2B2O/2DA5IIKO7/12/7A30dHmJM
- uPlU1s+kifiwTHqCYySRPNkRSOc9jS9poZjI8sxkGho/sOK8axN6PoSADhSQ2x5l6tnb
- ehsg4Kb0CSYWkFJl4f7U1Y3DgbDMwZqVHozdpe4kyB8gx0WCkLny7ZFwyjxdLBJa95RM
- wPCVCTV+AcbAFantW0pgZ/NUhcmRz7EMidYoQKVDembN+PkCDhFMgCJOYL64NU+f1Aad
- dkf5J298w2Fpe7+GcuYUUa/OFD8saYapCC4aMGLAiAW21MbuAE1gyxFZk012Oxw544Wv
- 6mUg==
+ d=linaro.org; s=google; t=1747756687; x=1748361487; darn=nongnu.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Zq/GEVJhhDgOVQYKrZa039iqFHl3+Fylcx95s374NQk=;
+ b=PO3jxe30quBHo0k5BwFkkuffwGjitGT7cwSK9SOAHKi/lBSbqNPxzc32Akml2pueVe
+ hoXeAByHTJ2Tk6sOEvsWDsjz6ocEr4/Blews1u6jzyPFyU93z7pAZNhwDSg5JGkYZFop
+ gSlJdRye9HTlQtYXWA1iCTyOC++ucsSRZdhg/NrBFKMSjf6Vr5s8OFtMzy0qLcOtA5Ue
+ MyBDWt3wgqwFbXckqzoEJoZwC73rICPkbbEvqLtwK2MmRoPbbx7rkZuAlPtBRrEcyexi
+ vueXN8/Ij1xF9U9Sv3bfPWlDWYhMJREfFErHNPQAMEZuK9S72vpTfNDlUox2L6wLg3x+
+ kuyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747756347; x=1748361147;
- h=content-transfer-encoding:mime-version:message-id:date:user-agent
- :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=2Asp1ERP/PB/8bsjkzlfIt4A92qanv6neIKuBkn4aAM=;
- b=hKXcHPyqeyVfcMLW3HH/GXVylztaHarA7mwWbxfv0QGIviYLcdggZxXEe53tojZ1Iz
- kUQagP5WAzR7z91lKTMc2YSg/cNMW3wCe0vVzsl05o7BuIMUWsNFBcSWrTgKxLthtlIn
- MIb9JeGVihNncpNTkMl1hrzA/caFNB4nPrBBFs1pKH6swnv6az7TEopDYHAM89V0allX
- oHHQIbF+sx2Vl0/GXur46S+oetdVpND1p8zTONRZvnJdn6yK2YinYppFYAM43JCSokqj
- 2VmLVxMzLvZxUpzwQ4WanKA8t6wydn7BeQx4Xcs40VYGp0GKLjqAUSndjkWrHlNZ9ZT8
- omuQ==
+ d=1e100.net; s=20230601; t=1747756687; x=1748361487;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Zq/GEVJhhDgOVQYKrZa039iqFHl3+Fylcx95s374NQk=;
+ b=GzDl30fkEcMIrWJq6DVcfAtjqImr44wrP2mBmPdGFhMT2D5Bmptvzy3uAowC0Ag61o
+ usbPE5Y+mG2w8QP3CnKbLpqXQ1tpI0wpZ0jvgytfvUnhjMDTyeiAbNAa5nuBRp5Cmo44
+ vBMssajgcxVFZJM5enBXxo/6tYdvGhDQ1Xoo6y5K77DjECleD0/sCXxH1FU4ciDI1iHi
+ Xx401Pr4BBliWukeggRdlhojzSZtYVEF/pX+dMtyDUUpgW43MGi5BOmAHUh2e0Nl1XNV
+ p1MrlXBUowcq6Hp0uIqj1ADhav1ux3vBLbjQhLdQhqJUv+mGY8KxyLfYCakIN0t9wcQ1
+ UJ5g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV6d2anU60fIrxnfgm1olQLvMBuIrIBU8sE9O9Zw9i9i38duxl6sk64HuvsUhV17WUpljz6GU7TP/U=@nongnu.org
-X-Gm-Message-State: AOJu0YxzwEmLd9dkti2iBZrzFbNMQ8aY2fRx1VxJ0HRfpc0xRKNe9OGc
- qGMMqlOZl2ZlQL2GJ+QrAcgE5nMFCf/m27CtfiXpetooQaLuQTO7ptJ7QzjE9eBNSfM=
-X-Gm-Gg: ASbGncsJMub1vbZ7eBcZd179JghM8Hiq4fjXBfr78qKTBNBbHGi+HKHh5LxFmxejFyi
- wCzjT0hATuHMNTWRB6mg0X50axkRYOgRzAM8ec+TJmuXNGUTRbRkn+JeWBdAa9lrTfhfgLe6W0s
- 85RY3w7CP7yb178JDugK4pqK1OYefI4tantoi1B1misR7Vkg6dQuzHr6KYwVxb4BJrXQTDSfRAJ
- +TGr1RqAWOz798MB8f1ifmKN+AsEOVNh6DvI/vOAgTdLXFukgPsq+77glpFqYhXNZviiwpidBro
- BXI50SqT+GdqBYUmBeB5iuqSI/cwLNux55RF/rFAH8DVVWWEeiCS
-X-Google-Smtp-Source: AGHT+IFMJsTTt9GyhLBXfxSt2K1nj8Z164pt0qlGGn6IdcAr4IDt3HZ1NjeBponr/2txHeM77OBenQ==
-X-Received: by 2002:a17:907:c24:b0:ad4:fd7f:a4 with SMTP id
- a640c23a62f3a-ad536f9d85fmr1302979566b.47.1747756347309; 
- Tue, 20 May 2025 08:52:27 -0700 (PDT)
-Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d4ca731sm737835166b.166.2025.05.20.08.52.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 May 2025 08:52:26 -0700 (PDT)
-Received: from draig (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id A95CF5F7A5;
- Tue, 20 May 2025 16:52:25 +0100 (BST)
-From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Michael Tokarev <mjt@tls.msk.ru>
-Cc: qemu-devel@nongnu.org,  Peter Xu <peterx@redhat.com>,  Thomas Huth
- <thuth@redhat.com>,  Weiwei Li <liwei1518@gmail.com>,
- qemu-arm@nongnu.org,  Nicholas Piggin <npiggin@gmail.com>,  Liu Zhiwei
- <zhiwei_liu@linux.alibaba.com>,  Bin Meng <bmeng.cn@gmail.com>,  Tyrone
- Ting <kfting@nuvoton.com>,  Hao Wu <wuhaotsh@google.com>,  Kyle Evans
- <kevans@freebsd.org>,  Alistair Francis <alistair.francis@wdc.com>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,  Laurent
- Vivier
- <laurent@vivier.eu>,  Riku Voipio <riku.voipio@iki.fi>,  Harsh Prateek
- Bora <harshpb@linux.ibm.com>,  Fabiano Rosas <farosas@suse.de>,  Alexandre
- Iooss <erdnaxe@crans.org>,  Laurent Vivier <lvivier@redhat.com>,  Daniel
- Henrique Barboza <danielhb413@gmail.com>,  Warner Losh <imp@bsdimp.com>,
- Pierrick Bouvier <pierrick.bouvier@linaro.org>,  Palmer Dabbelt
- <palmer@dabbelt.com>,  Mahmoud Mandour <ma.mandourr@gmail.com>,
- qemu-ppc@nongnu.org,  Paolo Bonzini <pbonzini@redhat.com>,
- qemu-rust@nongnu.org,  qemu-riscv@nongnu.org,  Ilya Leoshkevich
- <iii@linux.ibm.com>
-Subject: Re: [PATCH v2 11/17] gdbstub: Try unlinking the unix socket before
- binding
-In-Reply-To: <ee091002-a552-49fe-ae5e-8916937dba15@tls.msk.ru> (Michael
- Tokarev's message of "Tue, 20 May 2025 17:50:10 +0300")
-References: <20250207153112.3939799-1-alex.bennee@linaro.org>
- <20250207153112.3939799-12-alex.bennee@linaro.org>
- <ee091002-a552-49fe-ae5e-8916937dba15@tls.msk.ru>
-User-Agent: mu4e 1.12.11; emacs 30.1
-Date: Tue, 20 May 2025 16:52:25 +0100
-Message-ID: <87cyc39t52.fsf@draig.linaro.org>
+ AJvYcCWUpS3vaVR5nBgHZBEbEmc+fUQl8CewQjKGqrMZKBMJJNJ3aNDayu78f2DyTwt/euDXWTXXLTXqFvE=@nongnu.org
+X-Gm-Message-State: AOJu0YzBxQtGC2F+t37RxdB1+O5i9lVvB/zEOQnePTIkX5TyNi486jDR
+ wxyVcbrY7zgHrtbmmiOTqFJEqu1hNTXWjpBaeQc1R8a6PO5dEZs0Ux1oDcTAZrg62pvXHybylF1
+ XzY13RQPKo3vHmpMIy/3XxmgZmOf+vKam42+mlrO68A==
+X-Gm-Gg: ASbGnctNxitXUKIzF0E6rlPsP50Hgb6pzPC/cOt9EmkUrPUEvDLaepeZBopUcOgl5vI
+ Ncz6YUaNIEdUppp5fHcKF5cD0E+YmSlperCI+jtQdpOeNd/t9TkA/ZVFtkevmnYlSN9i5FMZPYE
+ 6aXnt/8XJz18l/CXUa18Wd6A5BqowIMKQBNA==
+X-Google-Smtp-Source: AGHT+IHgq2qpX/TKV0lQVJIt395ndFq9Sm2qq4ctb47b0K302eCK4QAEgKKL1C8Jzb2GqD8ubrjmYRDaVMp3Qbvm1gQ=
+X-Received: by 2002:a05:690c:6c02:b0:702:d85:5347 with SMTP id
+ 00721157ae682-70cab109857mr221045177b3.36.1747756686992; Tue, 20 May 2025
+ 08:58:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::536;
- envelope-from=alex.bennee@linaro.org; helo=mail-ed1-x536.google.com
-X-Spam_score_int: 12
-X-Spam_score: 1.2
-X-Spam_bar: +
-X-Spam_report: (1.2 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
- DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, RCVD_IN_DNSWL_NONE=-0.0001,
- RCVD_IN_SBL_CSS=3.335, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+References: <20250520152750.2542612-1-zhao1.liu@intel.com>
+ <20250520152750.2542612-5-zhao1.liu@intel.com>
+In-Reply-To: <20250520152750.2542612-5-zhao1.liu@intel.com>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Tue, 20 May 2025 16:57:54 +0100
+X-Gm-Features: AX0GCFtmTkT8uefvGoOGOfVedfpMhoQWrVuKYA_aa0BwK7pxY3kcMsQ8MruaeNI
+Message-ID: <CAFEAcA9y-WRTGo5um1iwNi5FJOwuayeNLiOw88s=1vssqncRSQ@mail.gmail.com>
+Subject: Re: [PATCH 4/5] rust: Fix Zhao's email address
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org, Dapeng Mi <dapeng1.mi@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Received-SPF: pass client-ip=2607:f8b0:4864:20::1132;
+ envelope-from=peter.maydell@linaro.org; helo=mail-yw1-x1132.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -111,47 +83,16 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 May 2025 15:52:40 -0000
+X-List-Received-Date: Tue, 20 May 2025 15:58:12 -0000
 
-Michael Tokarev <mjt@tls.msk.ru> writes:
-
-> 07.02.2025 18:31, Alex Benn=C3=A9e wrote:
->> From: Ilya Leoshkevich <iii@linux.ibm.com>
->> In case an emulated process execve()s another emulated process,
->> bind()
->> will fail, because the socket already exists. So try deleting it. Use
->> the existing unix_listen() function which does this. Link qemu-user
->> with qemu-sockets.c and add the monitor_get_fd() stub.
->> Note that it is not possible to handle this in do_execv(): deleting
->> gdbserver_user_state.socket_path before safe_execve() is not correct,
->> because the latter may fail, and afterwards we may lose control.
+On Tue, 20 May 2025 at 16:09, Zhao Liu <zhao1.liu@intel.com> wrote:
 >
-> Please note: this is linux-user stuff, which is usually linked statically.
-> By linking it with qemu-sockets, we basically broke static linking, becau=
-se
-> qemu-sockets uses getaddrinfo() &Co.  The previous code, I think, was the=
-re
-> for a reason, - to avoid this linkage.
-
-Oops, how come we didn't notice? We do have a bunch of --static targets
-in the CI.
-
-> How do you think about reverting this one and addressing the original
-> problem without using qemu-sockets?
+> No one could find Zhao Liu via zhai1.liu@intel.com.
 >
-> Alternatively, it might be possible to split qemu-sockets.c into unix-rel=
-ated
-> stuff and generic stuff.
+> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 
-You mean move all the unix_XXX() functions into a new unit that ensures
-we don't need getaddrinfo()?
+Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
 
->
-> Thanks,
->
-> /mjt
-
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+thanks
+-- PMM
 
