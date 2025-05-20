@@ -1,125 +1,127 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uHR4e-0003Ll-Ov
-	for mharc-qemu-rust@gnu.org; Tue, 20 May 2025 13:48:21 -0400
+	id 1uHVlH-00045m-0e
+	for mharc-qemu-rust@gnu.org; Tue, 20 May 2025 18:48:39 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <paolo.bonzini@gmail.com>)
- id 1uHR4d-0003LT-Ny; Tue, 20 May 2025 13:48:19 -0400
-Received: from mail-wr1-x42a.google.com ([2a00:1450:4864:20::42a])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <paolo.bonzini@gmail.com>)
- id 1uHR4b-0001cd-Nm; Tue, 20 May 2025 13:48:19 -0400
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a376da332aso1453591f8f.3; 
- Tue, 20 May 2025 10:48:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747763293; x=1748368093; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
- bh=qW9c+b+OrOEpHvGGv9lhdKGDzpzGTiljEXgJF63Hta8=;
- b=CQZj8jSJFyn7nwRLd1j8J/WIdlsmCaWb9VqgXyo9DiwiRa33/l1FGgekoAsqea745S
- vpQfNidBxAZymRD4ifAvJi4ctjv908jR49Y+jacoAm7+9/hqbP7llYWGeQ5mWjkjI8XR
- tBS51HoEKOfSu+wHPD/JtIZsLz+uZQj6MuBXrcy9uQZyXzimeErabV6AIf6tsOetxF4U
- n/yGS10WdbEjqXX2Stv6cuZ7qP1e7d07dHefP107FxHVnzcPLgKeiET9Hj9VnIxqarY+
- iu3yiaIHGTzTlXA8rwoNZipiLKfSn9yeZ1gpK9YyvLWv0RAHQCA9k0abD5U8MHdWGAMl
- o9nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747763293; x=1748368093;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:sender:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qW9c+b+OrOEpHvGGv9lhdKGDzpzGTiljEXgJF63Hta8=;
- b=uO7Z28fxkvi5+2su2WzPTpn0gT41nH7HSx4CgmDt1mGK0IGVUCTDI41rKO5RNL3U3T
- XhmS5vTGaj3iNLHUxCAPUw2WS2L8wjDjGxoPBWgkqaeh1R4lBO9hqGx+1IBj3hHMEXsh
- k/vkrEX8r8IfMcIM6uEzH6Nb6OMmfRam1ITIR/zOp2jP/WdQO5GwC1PcYpB/uinjzfZL
- /sqK0Qm8+6m4pbyif0uFFhxdDiqhAxBSGzVBX0JV9Yc4qUERMtoxxp7qxwA/MzeDPy85
- jFNgxgJJ0CX/BDxOEL0LszTaSvmupl3PiUTLOA8+APoon+4bYi8VV5fgH9FSTokjB7T5
- txXA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWIORKLOPogRUkHoT1slIb6BGQ4BLIY8O1MdmalKgmsbQosxDdZSQhPgcKkW7frvQ9nqY9Ubo5U+Jw=@nongnu.org
-X-Gm-Message-State: AOJu0YyRsz14hLyW0ndrLjSHbVEVm2uR/U0JTubgGkW3EC7pdDSS5UXg
- jK/lMDc/3T30x2icsdVC5u+LH3DGosadIPAhCXcvjjO256yYxGEkxw0a
-X-Gm-Gg: ASbGncu67RFa6MV2uOMGyj/2Kvq0eMbFFhA3NdGdGpQXmm6u9WyXUJwTP2X+dvwms+D
- tn+dGReV8U/xfxB2jmt0EhIsyAKmaoajFExYr9gaco8d9J8xY5QB7Zd2qY1+gMvk/GrtZHXapv1
- wnBh5CV3rVoP0h/gbloasbTuH3LeJ3ZbNBzuXmYCH6ZS3QQk5bRQR/S9QxQM32D0hc6nGs0DpM1
- oGUxdy8mTHf6alYsqrOXMuC6iDtFJaArGLY2BNXtq8wEtcybordxMZpLdnRKoA6AEyoGDvIGZ5u
- NO/BpjpwUBN60/BghfYxgymi0zfb8AJH5njaeA8JwRfOiIUO
-X-Google-Smtp-Source: AGHT+IG0/X4Yg3WxaECijxJHiuWhchwbgduzC6f0Lf4V4/1UcEsDtlKc0RwCDrfzvZuvRV24dfBRvw==
-X-Received: by 2002:a5d:5848:0:b0:3a1:4343:f834 with SMTP id
- ffacd0b85a97d-3a35fe5c5e9mr16600800f8f.2.1747763293104; 
- Tue, 20 May 2025 10:48:13 -0700 (PDT)
-Received: from [192.168.10.81] ([151.95.46.79])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-3a36835ef41sm12916814f8f.94.2025.05.20.10.48.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 May 2025 10:48:12 -0700 (PDT)
-Sender: Paolo Bonzini <paolo.bonzini@gmail.com>
-Message-ID: <abe683f2-e679-4579-b68a-38a11d41e00b@gnu.org>
-Date: Tue, 20 May 2025 19:48:11 +0200
+ (Exim 4.90_1) (envelope-from <iii@linux.ibm.com>)
+ id 1uHVLk-00058E-SQ; Tue, 20 May 2025 18:22:18 -0400
+Received: from mx0a-001b2d01.pphosted.com ([148.163.156.1])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <iii@linux.ibm.com>)
+ id 1uHVLh-00042n-2C; Tue, 20 May 2025 18:22:16 -0400
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54KIoiCc023106;
+ Tue, 20 May 2025 22:21:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=9p09lx
+ +xxbHsNO/bXtu8ToIhAFds31gXqfLJZrp+Zys=; b=clcib5BzFCwRIG9wOrbQ8d
+ TRGdg9JgaCPrXjOKZuI/CIVl1JTuitNpvGhd4suFFZW9F2/HJ4fgw8aH3mYY6BQB
+ ERk+jD5/btw91Tb/9q9cZndvO27ARrJwq5S5Xeije78Zmg+gf9QC3k5fA/3F2sLc
+ aG4jhx+Dv0w8E1Q3D6+4RMmTYU+a8yP9OUeqbrlaLmgWtV36LD3VJYXaE/46iFsW
+ ICLf4Q3TD/pPrimtQFtrxloweEeFtnutCsukHVaV1s+YKE55s/2btNKy/VYxsyIh
+ xfqifwAQtAD8ljriMgQEM8WGPLMzSV3txwaNnL3uiJtoyXO2WSe3UW1XmYntQ4uQ
+ ==
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 46ryc88un0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 20 May 2025 22:21:43 +0000 (GMT)
+Received: from m0356517.ppops.net (m0356517.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.0.8/8.18.0.8) with ESMTP id 54KMLgQu007504;
+ Tue, 20 May 2025 22:21:42 GMT
+Received: from ppma23.wdc07v.mail.ibm.com
+ (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 46ryc88umv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 20 May 2025 22:21:42 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 54KKOXi3031996;
+ Tue, 20 May 2025 22:21:41 GMT
+Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
+ by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 46rwmq192u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 20 May 2025 22:21:40 +0000
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com
+ [10.39.53.229])
+ by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 54KMLepL29754034
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 20 May 2025 22:21:40 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DBC0B58058;
+ Tue, 20 May 2025 22:21:39 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E22B458059;
+ Tue, 20 May 2025 22:21:37 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
+ by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Tue, 20 May 2025 22:21:37 +0000 (GMT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Rust in QEMU update, April 2025
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Daniel Berrange <berrange@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>
-References: <d3d1944e-2482-4aa7-b621-596246a08107@gnu.org>
- <aCysct2L8Bosqy0N@intel.com>
-From: Paolo Bonzini <bonzini@gnu.org>
-Content-Language: en-US
-Autocrypt: addr=bonzini@gnu.org; keydata=
- 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
-In-Reply-To: <aCysct2L8Bosqy0N@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::42a;
- envelope-from=paolo.bonzini@gmail.com; helo=mail-wr1-x42a.google.com
-X-Spam_score_int: -19
-X-Spam_score: -2.0
+Date: Tue, 20 May 2025 23:21:37 +0100
+From: Ilya Leoshkevich <iii@linux.ibm.com>
+To: Michael Tokarev <mjt@tls.msk.ru>
+Cc: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ qemu-devel@nongnu.org, Peter Xu <peterx@redhat.com>, Thomas Huth
+ <thuth@redhat.com>, Weiwei Li <liwei1518@gmail.com>,
+ qemu-arm@nongnu.org, Nicholas Piggin <npiggin@gmail.com>, Liu Zhiwei
+ <zhiwei_liu@linux.alibaba.com>, Bin Meng <bmeng.cn@gmail.com>, Tyrone Ting
+ <kfting@nuvoton.com>, Hao Wu <wuhaotsh@google.com>, Kyle Evans
+ <kevans@freebsd.org>, Alistair Francis <alistair.francis@wdc.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>, Laurent Vivier
+ <laurent@vivier.eu>, Riku Voipio <riku.voipio@iki.fi>, Harsh Prateek Bora
+ <harshpb@linux.ibm.com>, Fabiano Rosas <farosas@suse.de>, Alexandre Iooss
+ <erdnaxe@crans.org>, Laurent Vivier <lvivier@redhat.com>, Daniel Henrique
+ Barboza <danielhb413@gmail.com>, Warner Losh <imp@bsdimp.com>, Pierrick
+ Bouvier <pierrick.bouvier@linaro.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Mahmoud Mandour <ma.mandourr@gmail.com>, qemu-ppc@nongnu.org, Paolo Bonzini
+ <pbonzini@redhat.com>, qemu-rust@nongnu.org, qemu-riscv@nongnu.org
+Subject: Re: [PATCH v2 11/17] gdbstub: Try unlinking the unix socket before
+ binding
+In-Reply-To: <ee091002-a552-49fe-ae5e-8916937dba15@tls.msk.ru>
+References: <20250207153112.3939799-1-alex.bennee@linaro.org>
+ <20250207153112.3939799-12-alex.bennee@linaro.org>
+ <ee091002-a552-49fe-ae5e-8916937dba15@tls.msk.ru>
+Message-ID: <56e0a35b5c53b416db130c414cd0f3d6@linux.ibm.com>
+X-Sender: iii@linux.ibm.com
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=XaCJzJ55 c=1 sm=1 tr=0 ts=682d0077 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=VnNF1IyMAAAA:8 a=dwixPFO5EDRWQakTH6kA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: QJsZVEz1xESpOME9ciwkwrUVa51ecEg8
+X-Proofpoint-ORIG-GUID: vjLgG9uT6KzjuiWAx3FmejLsrItBt8S7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTIwMDE3OSBTYWx0ZWRfX8YoPQ28a7zAS
+ CbItkAD0cvQsjLQmlffpmzla3j+JN2Vn2028nFIMAQT0COKRNgoAWu/ju0BZnDZFxWDqAfu8Iaj
+ cP3KlFb/TlArfEx2uVH93g8aS1g68STHinNeGAGvz3ky+3p78REG9tf6//EjMJVBwF1+N+FAJ07
+ 6DnkDviEHi7beZ9kVxfUv5OasyzWm3wg4+Fpi+6d8YQMPQJvBPgzuKwXtGefeFgmUUVmHP+pdp7
+ DMabT8ty6Xvbou658amxDMjxhKLDR05eKq1D4+xMexhQUXPOWiKaN8AfRLtwEVDmZmyfQYCnygC
+ /rZeZxpOndKHOJDhIT0D5lCos8KEhJwgD8CrZNhNbhIgNP8f2OwpXAnfTFRiua6etaVbQ7cw2Q8
+ 2HbLgjwbPhkjIQ1/1Jq7Whwqvj2+KNgZjxqYKBzClbAXBTsASQC/G05mZ2ar7EhnLSLl5GS2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-20_10,2025-05-20_03,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0
+ impostorscore=0 spamscore=0 clxscore=1011 mlxscore=0 lowpriorityscore=0
+ phishscore=0 malwarescore=0 bulkscore=0 priorityscore=1501 mlxlogscore=999
+ classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2505160000
+ definitions=main-2505200179
+Received-SPF: pass client-ip=148.163.156.1; envelope-from=iii@linux.ibm.com;
+ helo=mx0a-001b2d01.pphosted.com
+X-Spam_score_int: -26
+X-Spam_score: -2.7
 X-Spam_bar: --
-X-Spam_report: (-2.0 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FORGED_FROMDOMAIN=0.001,
- FREEMAIL_FROM=0.001, HEADER_FROM_DIFFERENT_DOMAINS=0.001,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.7 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_EF=-0.1, RCVD_IN_DNSWL_LOW=-0.7,
+ RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Tue, 20 May 2025 18:48:38 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,74 +133,64 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 May 2025 17:48:20 -0000
+X-List-Received-Date: Tue, 20 May 2025 22:22:27 -0000
 
-On 5/20/25 18:23, Zhao Liu wrote:
->> HPET does some very simple memory accesses; a good safe solution
->> for this may be the ``vm-memory`` crate.  While I have not looked into
->> using it, ``vm-memory`` and ``vm-virtio`` were written with QEMU's
->> use cases in mind.
-> I'm working on this and trying to wrap simple memory access by
-> vm-memory.
+On 2025-05-20 15:50, Michael Tokarev wrote:
+> 07.02.2025 18:31, Alex Bennée wrote:
+>> From: Ilya Leoshkevich <iii@linux.ibm.com>
+>> 
+>> In case an emulated process execve()s another emulated process, bind()
+>> will fail, because the socket already exists. So try deleting it. Use
+>> the existing unix_listen() function which does this. Link qemu-user
+>> with qemu-sockets.c and add the monitor_get_fd() stub.
+>> 
+>> Note that it is not possible to handle this in do_execv(): deleting
+>> gdbserver_user_state.socket_path before safe_execve() is not correct,
+>> because the latter may fail, and afterwards we may lose control.
+> 
+> Please note: this is linux-user stuff, which is usually linked 
+> statically.
+> By linking it with qemu-sockets, we basically broke static linking, 
+> because
+> qemu-sockets uses getaddrinfo() &Co.  The previous code, I think, was 
+> there
+> for a reason, - to avoid this linkage.
+> 
+> How do you think about reverting this one and addressing the original
+> problem without using qemu-sockets?
+> 
+> Alternatively, it might be possible to split qemu-sockets.c into 
+> unix-related
+> stuff and generic stuff.
+> 
+> Thanks,
+> 
+> /mjt
 
-Ok.  Note that while the GuestAddressSpace corresponds QEMU's 
-AddressSpace (so far so good :)), QEMU's MemoryRegion is completely 
-unrelated to vm-memory's GuestMemoryRegion.  That's because vm-memory 
-only operates on an array of non-overlapping regions, like QEMU's 
-FlatRange or MemoryRegionSection structs.
+I can split it.
 
+However, wasn't it already broken in this regard?
+With fccb744f41c69fec6fd92225fe907c6e69de5d44^ I get:
 
-The GuestMemory (GuestAddressSpace::M) corresponds to QEMU's FlatView. 
-Indeed the functions in the trait match with what you expect of a FlatView:
+[2/2] Linking target qemu-s390x
+/usr/bin/ld: /usr/lib64/libglib-2.0.a(gutils.c.o): in function 
+`g_get_user_database_entry':
+(.text+0xeb): warning: Using 'getpwnam_r' in statically linked 
+applications requires at runtime the shared libraries from the glibc 
+version used for linking
+/usr/bin/ld: (.text+0x2be): warning: Using 'getpwuid' in statically 
+linked applications requires at runtime the shared libraries from the 
+glibc version used for linking
+/usr/bin/ld: (.text+0x134): warning: Using 'getpwuid_r' in statically 
+linked applications requires at runtime the shared libraries from the 
+glibc version used for linking
 
-     fn num_regions(&self) -> usize;
-     fn find_region(&self, addr: GuestAddress) -> Option<&Self::R>;
-     fn iter(&self) -> impl Iterator<Item = &Self::R>;
+This comes from glib, but the ultimate result is still the same.
 
-If the GuestMemory is a FlatView, the GuestAddressSpace::T, implements 
-Clone + Deref<Target = FlatView>.  It's not too hard to see that 
-GuestAddressSpace's memory() method must call 
-address_space_get_flatview() and the GuestAddressSpace::T's drop method 
-must call flatview_unref().  Let's call this (Rust-specific) struct 
-FlatViewRefGuard, or something like that.
+Also, what are the symptoms of the breakage? IIUC as long as execution
+does not reach getaddrinfo(), which it in this case should not, because
+it is used only on inet paths, there should not be any issues, right?
 
-
-Going back to the GuestMemoryRegion (<FlatView as GuestMemory>::R), it 
-could be either a QEMU FlatRange or a MemoryRegionSection.  Neither are 
-good options.  Without a MemoryRegionSection you can't support IOMMU 
-regions; but flatview_do_translate() returns the MemoryRegionSection by 
-value, and GuestMemory's
-
-     fn find_region(&self, addr: GuestAddress) -> Option<&Self::R>;
-
-wants a reference instead!
-
-Anyhow, all three types (AddressSpace, FlatView, FlatRange) are better 
-wrapped with Opaque.
-
-Looking more at FlatRange, these are easy:
-
-     // Required methods
-     fn len(&self) -> GuestUsize;
-     fn start_addr(&self) -> GuestAddress;
-
-But this one is another problem:
-
-     fn bitmap(&self) -> &Self::B;
-
-because it returns the "Bitmap" by reference.  QEMU's bitmap is a global 
-variable indexed by ram_addr_t.  It would be better if this was declared 
-like this:
-
-    fn bitmap(&'a self) ->
-       <Self::B as WithBitmapSlice<'a>>::S
-
-I have no idea if this can be changed in upstream vm-virtio.  For now 
-maybe you can leave it as ().  That's buggy but it's ok for a proof of 
-concept.
-
-So... not sure what to do there.  It seems like vm-memory is very close 
-to being usable by QEMU, but maybe not completely. :(
-
-Paolo
+In any case, the new warning is annoying and I better fix it for this
+reason alone.
 
