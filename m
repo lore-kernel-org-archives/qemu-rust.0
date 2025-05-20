@@ -1,42 +1,42 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uHJF3-0000wf-LN
-	for mharc-qemu-rust@gnu.org; Tue, 20 May 2025 05:26:33 -0400
+	id 1uHJJq-0002jW-GX
+	for mharc-qemu-rust@gnu.org; Tue, 20 May 2025 05:31:30 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uHJF1-0000w6-KD
- for qemu-rust@nongnu.org; Tue, 20 May 2025 05:26:31 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uHJJe-0002hP-33
+ for qemu-rust@nongnu.org; Tue, 20 May 2025 05:31:20 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uHJEz-0002Yj-Uw
- for qemu-rust@nongnu.org; Tue, 20 May 2025 05:26:31 -0400
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uHJJb-0003El-Of
+ for qemu-rust@nongnu.org; Tue, 20 May 2025 05:31:17 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1747733188;
+ s=mimecast20190719; t=1747733473;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=zdom4s2g68/2aUxlGAaVlfbhcGOpCsqCpRq5HVJ8dXY=;
- b=K5j93DgNH/WO/iAlOo9DDcs03rEAOskxIxNW8yA+F0H3ktnEDYxhwoaqpVhCvRd4gLjwjB
- rH0g1FGZt6axQzguhI0H0fzBU0N3lmwX5WSHu+HWa73ni5tnrCbvPLI/kUagGAFA9Me/Z8
- 2IuL7sa7/KRfOKSOEe5qV9XwU9oDg6g=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=bGzFT3OLvc55OwY+/GhsrDYMFu7IhjNcL0bfWAqcI9M=;
+ b=hJ/Eg9Wh+/IRtcSW8AF8TpthAAuR3JR/23KL7KXHylH6l+Uuk4R7lMrL57rgH9KQ3atReJ
+ MSwwta45JIHw36deYyyVYX52T16PGfYjXBr5mt90J8JiC8ls/lxvXAPBpi7o189hCg+zH8
+ YZzCFkdBRVUwOn9Lvb1TwxRuNgFCo+4=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-1-07UJJnyrOQu4hR6Kwn4mIA-1; Tue,
- 20 May 2025 05:26:23 -0400
-X-MC-Unique: 07UJJnyrOQu4hR6Kwn4mIA-1
-X-Mimecast-MFC-AGG-ID: 07UJJnyrOQu4hR6Kwn4mIA_1747733181
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-274-Ww8UicxxPPe6KLQ3V64ycw-1; Tue,
+ 20 May 2025 05:31:09 -0400
+X-MC-Unique: Ww8UicxxPPe6KLQ3V64ycw-1
+X-Mimecast-MFC-AGG-ID: Ww8UicxxPPe6KLQ3V64ycw_1747733467
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id C824C19560AF; Tue, 20 May 2025 09:26:20 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 205741800570; Tue, 20 May 2025 09:31:07 +0000 (UTC)
 Received: from blackfin.pond.sub.org (unknown [10.45.242.27])
  by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id E521C1956096; Tue, 20 May 2025 09:26:19 +0000 (UTC)
+ id 5F57D1956096; Tue, 20 May 2025 09:31:06 +0000 (UTC)
 Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 570BE21E66C3; Tue, 20 May 2025 11:26:17 +0200 (CEST)
+ id C559A21E6757; Tue, 20 May 2025 11:31:03 +0200 (CEST)
 From: Markus Armbruster <armbru@redhat.com>
 To: John Snow <jsnow@redhat.com>
 Cc: qemu-devel@nongnu.org,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
@@ -50,18 +50,19 @@ Cc: qemu-devel@nongnu.org,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
  <marcandre.lureau@redhat.com>,
  Michael Roth <michael.roth@amd.com>,  Daniel P. =?utf-8?Q?Berrang=C3=A9?=
  <berrange@redhat.com>,  Kevin Wolf <kwolf@redhat.com>
-Subject: Re: [PATCH 4/8] python: use 3.9+ builtin type hints
-In-Reply-To: <20250519182153.3835722-5-jsnow@redhat.com> (John Snow's message
- of "Mon, 19 May 2025 14:21:48 -0400")
+Subject: Re: [PATCH 5/8] python: convert remaining deprecated type hints for
+ 3.9+
+In-Reply-To: <20250519182153.3835722-6-jsnow@redhat.com> (John Snow's message
+ of "Mon, 19 May 2025 14:21:49 -0400")
 References: <20250519182153.3835722-1-jsnow@redhat.com>
- <20250519182153.3835722-5-jsnow@redhat.com>
-Date: Tue, 20 May 2025 11:26:16 +0200
-Message-ID: <87wmabab0n.fsf@pond.sub.org>
+ <20250519182153.3835722-6-jsnow@redhat.com>
+Date: Tue, 20 May 2025 11:31:03 +0200
+Message-ID: <87r00jaaso.fsf@pond.sub.org>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -31
 X-Spam_score: -3.2
@@ -83,37 +84,39 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 May 2025 09:26:31 -0000
+X-List-Received-Date: Tue, 20 May 2025 09:31:24 -0000
 
 John Snow <jsnow@redhat.com> writes:
 
-> This patch changes type hints that have built-in equivalents as of
-> Python 3.9. The versions we currently use, imported from the typing
-> module, have been deprecated since 3.9 and may be removed at any time -
-> though to my knowledge, they are not scheduled for removal in 3.14.
+> In this patch, we don't have a builtin type to use for a type hint, but
+> we do have collections.abc and other standard library types. Replace
+> deprecated type hints with their standard library equivalents:
 >
-> The type hints to update are:
+> typing.Awaitable      => collections.abc.Awaitable
+> typing.AbstractSet    => collections.abc.AbstractSet
+> typing.AsyncIterator  => collections.abc.AsyncIterator
+> typing.Callable       => collections.abc.Callable
+> typing.Coroutine      => collections.abc.Coroutine
+> typing.Deque          => collections.deque
+> typing.Generator      => collections.abc.Generator
+> typing.Iterable       => collections.abc.Iterable
+> typing.Iterator       => collections.abc.Iterator
+> typing.Mapping        => collections.abc.Mapping
+> typing.Match          => re.Match
+> typing.MutableMapping => collections.abc.MutableMapping
+> typing.Sequence       => collections.abc.Sequence
+> typing.ValuesView     => collections.abc.ValuesView
 >
-> typing.Dict  => dict
-> typing.List  => list
-> typing.Tuple => tuple
-> typing.Set   => set
-> typing.Type  => type
+> The primary benefit of this is, of course, that the standard type can
+> now be used directly as the type hint. In general, this means far fewer
+> imports from `typing`. The reason we *have* to do this is because the
+> old type hints have been deprecated and will be dropped from a Python
+> release in the future, so I am just getting ahead of it before it causes
+> a problem.
 >
-> I performed this change the dumb way (I couldn't work out for the life
-> of me how to beg ls-files to exclude subprojects and empty directories,
-> desipte it having an option which claims to do precisely that. Suggest a
-> nicer way to do this if you'd like.)
->
-> git ls-files | grep -v 'roms/' | grep -v 'subprojects/' | grep -v 'tests/lcitool/libvirt-ci' | xargs sed -i -e 's/Dict\[/dict\[/g'
-> git ls-files | grep -v 'roms/' | grep -v 'subprojects/' | grep -v 'tests/lcitool/libvirt-ci' | xargs sed -i -e 's/List\[/list\[/g'
-> git ls-files | grep -v 'roms/' | grep -v 'subprojects/' | grep -v 'tests/lcitool/libvirt-ci' | xargs sed -i -e 's/Tuple\[/tuple\[/g'
-> git ls-files | grep -v 'roms/' | grep -v 'subprojects/' | grep -v 'tests/lcitool/libvirt-ci' | xargs sed -i -e 's/Set\[/set\[/g'
-> git ls-files | grep -v 'roms/' | grep -v 'subprojects/' | grep -v 'tests/lcitool/libvirt-ci' | xargs sed -i -e 's/Type\[/type\[/g'
->
-> I then used "git add -p" and excluded changes by hand that weren't
-> appropriate. I then reviewed all of the changed files by hand to review
-> the imports and update them accordingly.
+> (Granted, yes, in practice this just means we're usually importing from
+> collections.abc instead of typing, but... ah well. What are you gonna
+> do.)
 >
 > Signed-off-by: John Snow <jsnow@redhat.com>
 
@@ -121,5 +124,29 @@ I'd expect to catch mistakes in the manual parts.  I gave scripts/qapi/
 an eye-over anyway, and it looks good to me.
 
 Acked-by: Markus Armbruster <armbru@redhat.com>
+
+Typing imports left at the end of the series:
+
+    *
+    Any
+    BinaryIO
+    Generic
+    IO
+    Literal
+    NamedTuple
+    NewType
+    NoReturn
+    Optional
+    Protocol
+    TYPE_CHECKING
+    TextIO
+    TypeVar
+    Union
+    cast
+
+The * are in scripts/codeconverter/.  You might want to double-check
+nothing deprecated hides behind the *.
+
+The others are all still good, I presume.
 
 
