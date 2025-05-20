@@ -1,95 +1,103 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uHJjl-0006Ve-2Z
-	for mharc-qemu-rust@gnu.org; Tue, 20 May 2025 05:58:17 -0400
+	id 1uHOIQ-0007Lg-4f
+	for mharc-qemu-rust@gnu.org; Tue, 20 May 2025 10:50:23 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uHJjj-0006VO-BZ
- for qemu-rust@nongnu.org; Tue, 20 May 2025 05:58:15 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <mjt@tls.msk.ru>)
+ id 1uHOIM-0007Ka-OH; Tue, 20 May 2025 10:50:18 -0400
+Received: from isrv.corpit.ru ([86.62.121.231])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uHJjg-0007kq-TQ
- for qemu-rust@nongnu.org; Tue, 20 May 2025 05:58:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1747735090;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ceUj7NohcwPuRcEJq3YphgLsVLmuYSeM5JaLNINpgUM=;
- b=cly62LqucEtXgd34OM/UeT5cLOSWFuAHwpLCqxGv9yZ2583sEF0X+ferUO8NZDAw51FIp+
- XaEFdmCvu39TCjtw/fSg/fJg6eQV+1jPw1UqbgftgPmRZ79O4kXYBLNwOJAvb4BxswWXdY
- o8I62ZDqkpPqmZQeUnaIXnexXmdZsVE=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-339-6ItCYLpxO8mHBLZe_9u4aQ-1; Tue, 20 May 2025 05:58:09 -0400
-X-MC-Unique: 6ItCYLpxO8mHBLZe_9u4aQ-1
-X-Mimecast-MFC-AGG-ID: 6ItCYLpxO8mHBLZe_9u4aQ_1747735088
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-3a379218f6cso331457f8f.0
- for <qemu-rust@nongnu.org>; Tue, 20 May 2025 02:58:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747735088; x=1748339888;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ceUj7NohcwPuRcEJq3YphgLsVLmuYSeM5JaLNINpgUM=;
- b=vXQ8jGZ3BnJJlcwv8uTYro0dX0acm2JVF89mCU8bxm0+g9YEF7eRV0shWCMvskRCcU
- v6dc/y88f4F0KkvlsjQ4TPh43KAX9gbcXuifceNRGVqS2yp4VarxvLotlN1t4Ucaal6Z
- lgkNH8TQRmpFrnT0rIb78xLbWhhAWE+X3ePAO+c7FXJnV7kYCyYBmGuswdGowE7QpoAr
- +UgSJ4ebKdNHVxT6Dnu1XJXjvGLi5RAl8pEEU9UFPEPCWe/ZN199+hs0foH6jNKb5pEB
- 2tE04Z6a79JSgvgf4Y7cndsQx+c2w5kS6mYixvCu6+uoYH9LsHyslQm4VOloaL6+heCH
- kgZw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW0rTuqklDzO/9K7Ma62VRJmMGNYAo4B5IvOaSwPrC/hozkkt3MR/Ymjyax5po4Rat8fI/BVaHNa88=@nongnu.org
-X-Gm-Message-State: AOJu0YyeOXTj5A0DrMfDjVkwiIiO8WPoPsDqskTcF2MYurpbIg4mipiV
- sS2rv3xGz+udaLvpgdgD9tSuFBR0zlmRKrZACgYfoUjY4n0vv5wRuphBWOHpD/TVuWxqxPaWQwr
- zXLQEJ3tUomKDfPJJd2jD/vqFnwFNYCR5jOg+rt0hTim/2ZAamdNcWCS86XzmFLHUj/fNQsI28v
- K/SD0XYVeIfYdGiX3ze5rsTGMuWYRb4g==
-X-Gm-Gg: ASbGncvYlxE3OxXvPVDhBzdIB8cUxP/dIUeDjtsy3vNGrGmO4jDTcm2oNbSEdYJ+agU
- 5yW0On4+kDpLQKQpuRkP478Vcieiv6cSjT7YBR5xnbt+hCS4fYkTod0fT+BuS+P2mvFE=
-X-Received: by 2002:a05:6000:2912:b0:3a3:7cbd:39b1 with SMTP id
- ffacd0b85a97d-3a37cbd3a4amr369904f8f.24.1747735087784; 
- Tue, 20 May 2025 02:58:07 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGO55mrXXsOfP0kIppOkKfntLa3RW7DgdoF+8rqOhOgpd8IbnIPqTWaU8BLWAF3TJRsFqDye2CHVwLB54j/WpA=
-X-Received: by 2002:a05:6000:2912:b0:3a3:7cbd:39b1 with SMTP id
- ffacd0b85a97d-3a37cbd3a4amr369878f8f.24.1747735087341; Tue, 20 May 2025
- 02:58:07 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <mjt@tls.msk.ru>)
+ id 1uHOIK-0007pN-SY; Tue, 20 May 2025 10:50:18 -0400
+Received: from tsrv.corpit.ru (tsrv.tls.msk.ru [192.168.177.2])
+ by isrv.corpit.ru (Postfix) with ESMTP id 5402512396B;
+ Tue, 20 May 2025 17:50:07 +0300 (MSK)
+Received: from [192.168.177.130] (mjt.wg.tls.msk.ru [192.168.177.130])
+ by tsrv.corpit.ru (Postfix) with ESMTP id EC0BC2117D1;
+ Tue, 20 May 2025 17:50:10 +0300 (MSK)
+Message-ID: <ee091002-a552-49fe-ae5e-8916937dba15@tls.msk.ru>
+Date: Tue, 20 May 2025 17:50:10 +0300
 MIME-Version: 1.0
-References: <20250330205857.1615-1-shentey@gmail.com>
- <20250330205857.1615-2-shentey@gmail.com>
- <340649cf-9348-458d-97e7-aee73c02217c@redhat.com>
- <540905F9-7DF7-436F-905C-A7F225F5E156@gmail.com>
- <CABC6E67-C4C7-481F-BB96-BF60957D7A84@gmail.com>
- <CABgObfbD-yHee4TXKqQ2gw7N8dtuB1wKqPLD5jLKXtJ8hx2xSw@mail.gmail.com>
- <CAAjaMXadSaKKAk6Vo-AM8RfkH3kQey9LamjC=nEDkYF0d=v47w@mail.gmail.com>
-In-Reply-To: <CAAjaMXadSaKKAk6Vo-AM8RfkH3kQey9LamjC=nEDkYF0d=v47w@mail.gmail.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 20 May 2025 11:57:55 +0200
-X-Gm-Features: AX0GCFvgEfSNrUc0UMVgSAvjorMVsU5D_ePX2ucQPo6cwhJWHsiWtqYdj00rbEI
-Message-ID: <CABgObfbbuPoQZPYxE+ZQYd=WpLX=zkXiWYOqoAN6MFaX1dx7wg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] rust/qemu-api: Add initial logging support based on C
- API
-To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: Bernhard Beschow <shentey@gmail.com>, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: VQu0wR7n1RcGB_THjSogsFvZc5l7MaBohFPF19U5KPs_1747735088
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -31
-X-Spam_score: -3.2
-X-Spam_bar: ---
-X-Spam_report: (-3.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.13,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=-1, RCVD_IN_MSPIKE_WL=-0.01,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/17] gdbstub: Try unlinking the unix socket before
+ binding
+To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ qemu-devel@nongnu.org
+Cc: Peter Xu <peterx@redhat.com>, Thomas Huth <thuth@redhat.com>,
+ Weiwei Li <liwei1518@gmail.com>, qemu-arm@nongnu.org,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Bin Meng <bmeng.cn@gmail.com>,
+ Tyrone Ting <kfting@nuvoton.com>, Hao Wu <wuhaotsh@google.com>,
+ Kyle Evans <kevans@freebsd.org>, Alistair Francis
+ <alistair.francis@wdc.com>, =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?=
+ <philmd@linaro.org>, Laurent Vivier <laurent@vivier.eu>,
+ Riku Voipio <riku.voipio@iki.fi>, Harsh Prateek Bora
+ <harshpb@linux.ibm.com>, Fabiano Rosas <farosas@suse.de>,
+ Alexandre Iooss <erdnaxe@crans.org>, Laurent Vivier <lvivier@redhat.com>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>, Warner Losh
+ <imp@bsdimp.com>, Pierrick Bouvier <pierrick.bouvier@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Mahmoud Mandour
+ <ma.mandourr@gmail.com>, qemu-ppc@nongnu.org,
+ Paolo Bonzini <pbonzini@redhat.com>, qemu-rust@nongnu.org,
+ qemu-riscv@nongnu.org, Ilya Leoshkevich <iii@linux.ibm.com>
+References: <20250207153112.3939799-1-alex.bennee@linaro.org>
+ <20250207153112.3939799-12-alex.bennee@linaro.org>
+Content-Language: en-US, ru-RU
+From: Michael Tokarev <mjt@tls.msk.ru>
+Autocrypt: addr=mjt@tls.msk.ru; keydata=
+ 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
+In-Reply-To: <20250207153112.3939799-12-alex.bennee@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=86.62.121.231; envelope-from=mjt@tls.msk.ru;
+ helo=isrv.corpit.ru
+X-Spam_score_int: -68
+X-Spam_score: -6.9
+X-Spam_bar: ------
+X-Spam_report: (-6.9 / 5.0 requ) BAYES_00=-1.9, RCVD_IN_DNSWL_HI=-5,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -102,80 +110,32 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 May 2025 09:58:15 -0000
+X-List-Received-Date: Tue, 20 May 2025 14:50:20 -0000
 
-On Mon, May 19, 2025 at 10:14=E2=80=AFAM Manos Pitsidianakis
-<manos.pitsidianakis@linaro.org> wrote:
-> There's also the `tracing` framework
-> https://docs.rs/tracing/latest/tracing/ that is quite nice for
-> defining tracing events **and** spans for logs. I find it confusing
-> that it still ties tracing events with log level filters though
-> (info/warn/error/debug/trace).
+07.02.2025 18:31, Alex Bennée wrote:
+> From: Ilya Leoshkevich <iii@linux.ibm.com>
+> 
+> In case an emulated process execve()s another emulated process, bind()
+> will fail, because the socket already exists. So try deleting it. Use
+> the existing unix_listen() function which does this. Link qemu-user
+> with qemu-sockets.c and add the monitor_get_fd() stub.
+> 
+> Note that it is not possible to handle this in do_execv(): deleting
+> gdbserver_user_state.socket_path before safe_execve() is not correct,
+> because the latter may fail, and afterwards we may lose control.
 
-I like the overall look of the tracing crate API a lot. One thing that
-I don't like is that it's very string-heavy. In general it seems to
-have more overhead than tracetool if you use `Interest::Sometimes`; it
-uses Strings for event names and targets but not ids (the default
-event name is even "event FILE:LINE" which is not really usable except
-for development), making matches (especially "enabled()" checks) slow.
-Secondarily, built-in support for fmt::Debug/fmt::Display lets you get
-away with not thinking of *which* fields you want to record. But it's
-powerful, easy to use and it also has very few dependencies, which is
-nice.
+Please note: this is linux-user stuff, which is usually linked statically.
+By linking it with qemu-sockets, we basically broke static linking, because
+qemu-sockets uses getaddrinfo() &Co.  The previous code, I think, was there
+for a reason, - to avoid this linkage.
 
-> Perhaps this is also a good opportunity to restructure QEMU's logging
-> in general. [...]
-> If we align QEMU's general logging to use log levels, we can convert
-> guest error logs to "Error" level logs of type: "guest", and unimp
-> logs to "Error" logs of type "unimplemented". Or, "Warn" instead of
-> "Error". Then, all trace_* items become straightforwardly Trace level
-> log items.
+How do you think about reverting this one and addressing the original
+problem without using qemu-sockets?
 
-Focusing for a second on guest and unimp items, do you think that
-there would be macros like `guest_error!` and `unimp!` (similar to how
-`tracing` has shortcuts `error!` or `warn!`)? If so, we could add them
-even now, so that any future changes to the implementation would be
-transparent.
+Alternatively, it might be possible to split qemu-sockets.c into unix-related
+stuff and generic stuff.
 
-> Then, all we have to do in the Rust side is implement a `tracing`
-> subscriber that consumes these traces and pushes them into QEMU's C
-> implementation.
+Thanks,
 
-As I said above, I am a bit worried about performance implications of
-having Strings for event names and targets but yes, using the tracing
-crate is definitely something to think about! As you say, it provides
-an opportunity to add structure to QEMU's logging and maybe we can get
-the best of both worlds from both `tracing` and tracetool. Do you
-think util/log.c could become a wrapper around event!() and
-tracing_subscriber::FmtSubscriber (with log levels based on LOG_*
-constants, as you mentioned)? Then the `log` backend for tracetool
-could generate Rust code that calls trace!() instead of C code that
-calls qemu_log().
-
-Or you could do the same thing to the error_vprintf/error_printf
-implementations, and then Rust code could use error! and warn! where C
-code uses error_report() and warn_report(). It's a common complaint
-that error_report() and warn_report() get lost in logs for example,
-and `tracing` could add some structure there.
-
-It could also be a very good starting point for thinking about C->Rust
-FFI (i.e. implementing in Rust functionality that is used by C code).
-
-In the meanwhile, another thing that could be done is take inspiration
-from the `tracing` API, for example adding an #[instrument] macro to
-qemu_api_macros:
-
-impl PL011Registers {
-    #[instrument(target =3D "hw_char", name =3D "pl011_write",
-        fields(offset =3D offset as u32, value))
-    pub(self) fn write(...) { }
-}
-
-This way, even if tracetool and trace-events file remain part of the
-architecture, the API is more familiar to Rust developers. It'd be a
-nice addition to Tanish's work (he's my student that's working on Rust
-tracepoints.
-
-Paolo
-
+/mjt
 
