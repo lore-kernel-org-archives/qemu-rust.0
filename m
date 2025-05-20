@@ -1,103 +1,61 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uHOIQ-0007Lg-4f
-	for mharc-qemu-rust@gnu.org; Tue, 20 May 2025 10:50:23 -0400
+	id 1uHOYb-0008F1-MW
+	for mharc-qemu-rust@gnu.org; Tue, 20 May 2025 11:07:06 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <mjt@tls.msk.ru>)
- id 1uHOIM-0007Ka-OH; Tue, 20 May 2025 10:50:18 -0400
-Received: from isrv.corpit.ru ([86.62.121.231])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uHOYO-0007c4-AA; Tue, 20 May 2025 11:06:53 -0400
+Received: from mgamail.intel.com ([198.175.65.11])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <mjt@tls.msk.ru>)
- id 1uHOIK-0007pN-SY; Tue, 20 May 2025 10:50:18 -0400
-Received: from tsrv.corpit.ru (tsrv.tls.msk.ru [192.168.177.2])
- by isrv.corpit.ru (Postfix) with ESMTP id 5402512396B;
- Tue, 20 May 2025 17:50:07 +0300 (MSK)
-Received: from [192.168.177.130] (mjt.wg.tls.msk.ru [192.168.177.130])
- by tsrv.corpit.ru (Postfix) with ESMTP id EC0BC2117D1;
- Tue, 20 May 2025 17:50:10 +0300 (MSK)
-Message-ID: <ee091002-a552-49fe-ae5e-8916937dba15@tls.msk.ru>
-Date: Tue, 20 May 2025 17:50:10 +0300
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uHOYM-0002y8-GK; Tue, 20 May 2025 11:06:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1747753611; x=1779289611;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Mt5jKbsCQSp5uvoXWGR63XStLO+hUKDByG/gsMDB3KI=;
+ b=PjQKLURn2zEkVi/gbDa1KS4oERA4BGni5cXHslh6B0JGf/PuvyZijriJ
+ cjDjII1hKk50avlAAGhDV7kEBpfB+ekoVuUjMtz7XrmI1D3U7GFamVf+7
+ 4kfTE6wDNH2+N5MuBUiatWd9iFvHNUBp9of2GTcjzE87Cdbs7Fk/LeJ0/
+ 33I04njzrLS2kzg/TCZsToIvbjrFw5udqoysAX2RftzX1NVxz5NvEo28x
+ t+sztxZX9hqlc9jbfaB1WIGwrTxdmFvuDvZMioc334QRa31WuZqNVQ1PS
+ V7x5lpivh+OIOpVjEp7f2rLrJ/G0j9/IrRMesCV9n9I6BChCYSGg4Deef Q==;
+X-CSE-ConnectionGUID: iV/cZjaWTEahtef3ZwSAiw==
+X-CSE-MsgGUID: 8PZCsXP/SlmUD6M6e48qsw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11439"; a="59922475"
+X-IronPort-AV: E=Sophos;i="6.15,302,1739865600"; d="scan'208";a="59922475"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2025 08:06:48 -0700
+X-CSE-ConnectionGUID: 4Ei2nWrPRN68Q280ZuH9+g==
+X-CSE-MsgGUID: SW3bvSy7QHCtpYttXQAOPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,302,1739865600"; d="scan'208";a="144461860"
+Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
+ by orviesa003.jf.intel.com with ESMTP; 20 May 2025 08:06:46 -0700
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
+ Dapeng Mi <dapeng1.mi@intel.com>, Zhao Liu <zhao1.liu@intel.com>
+Subject: [PATCH 2/5] hw/timer/hpet: Adjust num_timers in hpet_init()
+Date: Tue, 20 May 2025 23:27:47 +0800
+Message-Id: <20250520152750.2542612-3-zhao1.liu@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250520152750.2542612-1-zhao1.liu@intel.com>
+References: <20250520152750.2542612-1-zhao1.liu@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/17] gdbstub: Try unlinking the unix socket before
- binding
-To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
- qemu-devel@nongnu.org
-Cc: Peter Xu <peterx@redhat.com>, Thomas Huth <thuth@redhat.com>,
- Weiwei Li <liwei1518@gmail.com>, qemu-arm@nongnu.org,
- Nicholas Piggin <npiggin@gmail.com>,
- Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Bin Meng <bmeng.cn@gmail.com>,
- Tyrone Ting <kfting@nuvoton.com>, Hao Wu <wuhaotsh@google.com>,
- Kyle Evans <kevans@freebsd.org>, Alistair Francis
- <alistair.francis@wdc.com>, =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?=
- <philmd@linaro.org>, Laurent Vivier <laurent@vivier.eu>,
- Riku Voipio <riku.voipio@iki.fi>, Harsh Prateek Bora
- <harshpb@linux.ibm.com>, Fabiano Rosas <farosas@suse.de>,
- Alexandre Iooss <erdnaxe@crans.org>, Laurent Vivier <lvivier@redhat.com>,
- Daniel Henrique Barboza <danielhb413@gmail.com>, Warner Losh
- <imp@bsdimp.com>, Pierrick Bouvier <pierrick.bouvier@linaro.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Mahmoud Mandour
- <ma.mandourr@gmail.com>, qemu-ppc@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>, qemu-rust@nongnu.org,
- qemu-riscv@nongnu.org, Ilya Leoshkevich <iii@linux.ibm.com>
-References: <20250207153112.3939799-1-alex.bennee@linaro.org>
- <20250207153112.3939799-12-alex.bennee@linaro.org>
-Content-Language: en-US, ru-RU
-From: Michael Tokarev <mjt@tls.msk.ru>
-Autocrypt: addr=mjt@tls.msk.ru; keydata=
- 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
-In-Reply-To: <20250207153112.3939799-12-alex.bennee@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=86.62.121.231; envelope-from=mjt@tls.msk.ru;
- helo=isrv.corpit.ru
-X-Spam_score_int: -68
-X-Spam_score: -6.9
-X-Spam_bar: ------
-X-Spam_report: (-6.9 / 5.0 requ) BAYES_00=-1.9, RCVD_IN_DNSWL_HI=-5,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Received-SPF: pass client-ip=198.175.65.11; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -48
+X-Spam_score: -4.9
+X-Spam_bar: ----
+X-Spam_report: (-4.9 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.487,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -110,32 +68,51 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 May 2025 14:50:20 -0000
+X-List-Received-Date: Tue, 20 May 2025 15:06:58 -0000
 
-07.02.2025 18:31, Alex Bennée wrote:
-> From: Ilya Leoshkevich <iii@linux.ibm.com>
-> 
-> In case an emulated process execve()s another emulated process, bind()
-> will fail, because the socket already exists. So try deleting it. Use
-> the existing unix_listen() function which does this. Link qemu-user
-> with qemu-sockets.c and add the monitor_get_fd() stub.
-> 
-> Note that it is not possible to handle this in do_execv(): deleting
-> gdbserver_user_state.socket_path before safe_execve() is not correct,
-> because the latter may fail, and afterwards we may lose control.
+Currently, HPET adjusts num_timers in hpet_realize(), and doesn't change
+it in any other place. And this field is initialized as a property.
 
-Please note: this is linux-user stuff, which is usually linked statically.
-By linking it with qemu-sockets, we basically broke static linking, because
-qemu-sockets uses getaddrinfo() &Co.  The previous code, I think, was there
-for a reason, - to avoid this linkage.
+Therefore, it's possible to move such adjustments to hept_init(), so
+that Rust side can synchronize this change.
 
-How do you think about reverting this one and addressing the original
-problem without using qemu-sockets?
+Adjust num_timers in hpet_init().
 
-Alternatively, it might be possible to split qemu-sockets.c into unix-related
-stuff and generic stuff.
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+---
+ hw/timer/hpet.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-Thanks,
+diff --git a/hw/timer/hpet.c b/hw/timer/hpet.c
+index 0fd1337a1564..48b1a9289f83 100644
+--- a/hw/timer/hpet.c
++++ b/hw/timer/hpet.c
+@@ -682,6 +682,12 @@ static void hpet_init(Object *obj)
+     /* HPET Area */
+     memory_region_init_io(&s->iomem, obj, &hpet_ram_ops, s, "hpet", HPET_LEN);
+     sysbus_init_mmio(sbd, &s->iomem);
++
++    if (s->num_timers < HPET_MIN_TIMERS) {
++        s->num_timers = HPET_MIN_TIMERS;
++    } else if (s->num_timers > HPET_MAX_TIMERS) {
++        s->num_timers = HPET_MAX_TIMERS;
++    }
+ }
+ 
+ static void hpet_realize(DeviceState *dev, Error **errp)
+@@ -710,11 +716,6 @@ static void hpet_realize(DeviceState *dev, Error **errp)
+         sysbus_init_irq(sbd, &s->irqs[i]);
+     }
+ 
+-    if (s->num_timers < HPET_MIN_TIMERS) {
+-        s->num_timers = HPET_MIN_TIMERS;
+-    } else if (s->num_timers > HPET_MAX_TIMERS) {
+-        s->num_timers = HPET_MAX_TIMERS;
+-    }
+     for (i = 0; i < HPET_MAX_TIMERS; i++) {
+         timer = &s->timer[i];
+         timer->qemu_timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, hpet_timer, timer);
+-- 
+2.34.1
 
-/mjt
 
