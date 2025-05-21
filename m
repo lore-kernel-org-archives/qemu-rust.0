@@ -1,64 +1,53 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uI3bi-0005ix-03
-	for mharc-qemu-rust@gnu.org; Thu, 22 May 2025 06:57:02 -0400
+	id 1uI5S3-0002h7-JW
+	for mharc-qemu-rust@gnu.org; Thu, 22 May 2025 08:55:12 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uI3bf-0005iY-Os; Thu, 22 May 2025 06:56:59 -0400
-Received: from mgamail.intel.com ([192.198.163.7])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.comg>)
+ id 1uI0bg-0005m7-1Z; Thu, 22 May 2025 03:44:48 -0400
+Received: from mgamail.intel.com ([198.175.65.19])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uI3bc-0001Wi-Bk; Thu, 22 May 2025 06:56:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1747911416; x=1779447416;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=t8sr7c7hiIP7wZ66gzMBP9SBHFOuVLDvQZo4Bab0+QQ=;
- b=MaZyTFpSn9/vkdY/FtEDSav8XQCF1mtfKrc8TSy+iXCjRDf0CmtQssWY
- XRRav+oO+fuQHqKo2UjuAah6gFqwF+97jGmewtHta1HWXtQTZHWmnR2gk
- /wzbhH/Ck//3BXUL9afqYjbxbQAntcwXQeDyuVpH1VAVyzRk83EqzEpex
- WE2dm5wUdMA/e7VaJ/cuzxuuiEq6qufOOrbJG9LpOeCTnuJGS5YEE3wuY
- 1shMChs4AtlI1nbhSynN0cm+mA8XWWBNC96Gau6zz6zBJZq/9NagMaZT3
- hcz9xL72KMRon65FI0Vv59UYk0TQoHLXlGT2a3s5uAgaiPmP3cPvWNb4m g==;
-X-CSE-ConnectionGUID: fUL4EdGcQUqF8WTpHsdvCQ==
-X-CSE-MsgGUID: rp+K4JsQQQuU43NPT5MEbg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11440"; a="75326304"
-X-IronPort-AV: E=Sophos;i="6.15,305,1739865600"; d="scan'208";a="75326304"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2025 03:56:51 -0700
-X-CSE-ConnectionGUID: pdwsIGsGSHSKqv9Ok/t8lQ==
-X-CSE-MsgGUID: BdQhrkHcQiqcNhHMtNWh2Q==
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.comg>)
+ id 1uI0bc-0000II-GU; Thu, 22 May 2025 03:44:46 -0400
+X-CSE-ConnectionGUID: byn5qMoPR6GQLy+Pvv6M7A==
+X-CSE-MsgGUID: DdP8dZ9VRRW0vCr89p39vg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11439"; a="49648576"
+X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="49648576"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 May 2025 00:13:49 -0700
+X-CSE-ConnectionGUID: 6wiW2drYR/6IzEoiq/Go2g==
+X-CSE-MsgGUID: FeWAS7M9Q3iN2VY90+lShg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,305,1739865600"; d="scan'208";a="145691366"
+X-IronPort-AV: E=Sophos;i="6.15,303,1739865600"; d="scan'208";a="140997796"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa005.jf.intel.com with ESMTP; 22 May 2025 03:56:49 -0700
-Date: Thu, 22 May 2025 19:17:56 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
- Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
- Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH WIP RFC] rust: add qdev DeviceProperties derive macro
-Message-ID: <aC8H5LOQSac7mdaE@intel.com>
-References: <20250522-rust-qdev-properties-v1-1-5b18b218bad1@linaro.org>
+ by fmviesa009.fm.intel.com with ESMTP; 21 May 2025 00:13:47 -0700
+Date: Wed, 21 May 2025 15:34:54 +0800
+From: Zhao Liu <zhao1.liu@intel.comg>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Zhao Liu <zhao1.liu@intel.com>, qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org, Dapeng Mi <dapeng1.mi@intel.com>
+Subject: Re: [PATCH 2/5] hw/timer/hpet: Adjust num_timers in hpet_init()
+Message-ID: <aC2CHrteHfhQDzOh@intel.com>
+References: <20250520152750.2542612-1-zhao1.liu@intel.com>
+ <20250520152750.2542612-3-zhao1.liu@intel.com>
+ <20486914-1752-4710-b000-52ee04d4106d@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250522-rust-qdev-properties-v1-1-5b18b218bad1@linaro.org>
-Received-SPF: pass client-ip=192.198.163.7; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20486914-1752-4710-b000-52ee04d4106d@redhat.com>
+Received-SPF: none client-ip=198.175.65.19; envelope-from=zhao1.liu@intel.comg;
  helo=mgamail.intel.com
-X-Spam_score_int: -46
-X-Spam_score: -4.7
-X-Spam_bar: ----
-X-Spam_report: (-4.7 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.275,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_score_int: -32
+X-Spam_score: -3.3
+X-Spam_bar: ---
+X-Spam_report: (-3.3 / 5.0 requ) BAYES_00=-1.9, DKIM_ADSP_NXDOMAIN=0.9,
+ NO_DNS_FOR_FROM=0.001, RCVD_IN_DNSWL_MED=-2.3,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_NONE=0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Thu, 22 May 2025 08:55:08 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,185 +59,32 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 May 2025 10:57:00 -0000
+X-List-Received-Date: Thu, 22 May 2025 07:44:49 -0000
 
-On Thu, May 22, 2025 at 11:12:30AM +0300, Manos Pitsidianakis wrote:
-> Date: Thu, 22 May 2025 11:12:30 +0300
-> From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-> Subject: [PATCH WIP RFC] rust: add qdev DeviceProperties derive macro
-> X-Mailer: b4 0.14.2
+On Tue, May 20, 2025 at 05:16:22PM +0200, Paolo Bonzini wrote:
+> Date: Tue, 20 May 2025 17:16:22 +0200
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: Re: [PATCH 2/5] hw/timer/hpet: Adjust num_timers in hpet_init()
 > 
-> Add derive macro for declaring qdev properties directly above the field
-> definitions. To do this, we split DeviceImpl::properties method on a
-> separate trait so we can implement only that part in the derive macro
-> expansion (we cannot partially implement the DeviceImpl trait).
+> On 5/20/25 17:27, Zhao Liu wrote:
+> > Currently, HPET adjusts num_timers in hpet_realize(), and doesn't change
+> > it in any other place. And this field is initialized as a property.
 > 
-> Adding a `property` attribute above the field declaration will generate
-> a `qemu_api::bindings::Property` array member in the device's property
-> list.
-> 
-> As a proof of concept, I added a typed alias for booleans,
-> `bool_property` that allows you to skip specifying qdev_prop_bool.
-> 
-> This is unnecessary though, because once we have the
-> const_refs_to_static feature we can introduce a QdevProp trait that
-> returns a reference to a type's qdev_prop_* global variable. We cannot
-> do this now because for our minimum Rust version we cannot refer to
-> statics from const values.
-> 
-> It'd look like this:
-> 
->   pub trait QDevProp {
->     const VALUE: &'static bindings::PropertyInfo;
->   }
-> 
->   impl QDevProp for bool {
->     const VALUE: &'static bindings::PropertyInfo = unsafe {
->       &bindings::qdev_prop_bool };
->   }
-> 
->   impl QDevProp for u64 {
->     const VALUE: &'static bindings::PropertyInfo = unsafe {
->       &bindings::qdev_prop_uint64 };
->   }
-> 
->   // etc.. for all basic types
+> Properties are initialized *after* hpet_init.  For hw/timer/hpet you can
+> check s->num_timers and return an error if it's out of bounds, but for the
+> Rust version we don't have Error** support yet. :(
 
-Good idea! We can have something like current impl_vmstate_scalar.
+Oops, yes.
 
-> So, this patch is not for merging yet, I will wait until we upgrade the
-> Rust version and re-spin it with a proper trait-based implementation (and
-> also split it into individual steps/patches).
+(Note for myself,) the default property value is set before hpet_init(),
+but the subsequent adjustments to property (via object_property_set_uint8())
+need to take boundaries into account, which is why the num_timers adjustment
+is placed in realize().
 
-I think this can be aligned with Paolo's optimization for vmstate [*]
+> Queued 1-4-5 for now.
 
-[*]: https://lore.kernel.org/qemu-devel/20250505100854.73936-5-pbonzini@redhat.com/
+Thanks!
 
-> Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-> ---
->  rust/hw/char/pl011/src/device.rs       |  13 +--
->  rust/hw/char/pl011/src/device_class.rs |  26 +-----
->  rust/hw/timer/hpet/src/hpet.rs         |   4 +-
->  rust/qemu-api-macros/src/lib.rs        | 157 ++++++++++++++++++++++++++++++++-
->  rust/qemu-api/src/qdev.rs              |  22 +++--
->  rust/qemu-api/tests/tests.rs           |   9 +-
->  6 files changed, 187 insertions(+), 44 deletions(-)
-
-...
-
->  #[repr(C)]
-> -#[derive(qemu_api_macros::Object)]
-> +#[derive(qemu_api_macros::Object, qemu_api_macros::DeviceProperties)]
->  /// PL011 Device Model in QEMU
->  pub struct PL011State {
->      pub parent_obj: ParentField<SysBusDevice>,
->      pub iomem: MemoryRegion,
->      #[doc(alias = "chr")]
-> +    #[property(name = c"chardev", qdev_prop = qemu_api::bindings::qdev_prop_chr)]
-
-This macro pattern looks good!
-
-As you mentioned above, with QDevProp, this could be nicer so that user
-wouldn't have to bind type and PropertyInfo manually.
-
->      pub char_backend: CharBackend,
->      pub regs: BqlRefCell<PL011Registers>,
->      /// QEMU interrupts
-> @@ -122,6 +126,7 @@ pub struct PL011State {
->      #[doc(alias = "clk")]
->      pub clock: Owned<Clock>,
->      #[doc(alias = "migrate_clk")]
-> +    #[bool_property(name = c"migrate-clk", default = true)]
->      pub migrate_clock: bool,
->  }
->  
-> @@ -169,9 +174,6 @@ impl ObjectImpl for PL011State {
->  }
->  
->  impl DeviceImpl for PL011State {
-> -    fn properties() -> &'static [Property] {
-> -        &device_class::PL011_PROPERTIES
-> -    }
->      fn vmsd() -> Option<&'static VMStateDescription> {
->          Some(&device_class::VMSTATE_PL011)
->      }
-> @@ -703,6 +705,7 @@ impl PL011Impl for PL011Luminary {
->      const DEVICE_ID: DeviceId = DeviceId(&[0x11, 0x00, 0x18, 0x01, 0x0d, 0xf0, 0x05, 0xb1]);
->  }
->  
-> +impl DevicePropertiesImpl for PL011Luminary {}
->  impl DeviceImpl for PL011Luminary {}
->  impl ResettablePhasesImpl for PL011Luminary {}
->  impl SysBusDeviceImpl for PL011Luminary {}
-
-...
-
-> diff --git a/rust/qemu-api/src/qdev.rs b/rust/qemu-api/src/qdev.rs
-> index 1279d7a58d50e1bf6c8d2e6f00d7229bbb19e003..2fd8b2750ffabcaa1065558d38a700e35fbc9136 100644
-> --- a/rust/qemu-api/src/qdev.rs
-> +++ b/rust/qemu-api/src/qdev.rs
-> @@ -100,8 +100,19 @@ pub trait ResettablePhasesImpl {
->      T::EXIT.unwrap()(unsafe { state.as_ref() }, typ);
->  }
->  
-> +pub trait DevicePropertiesImpl {
-> +    /// An array providing the properties that the user can set on the
-> +    /// device.  Not a `const` because referencing statics in constants
-> +    /// is unstable until Rust 1.83.0.
-> +    fn properties() -> &'static [Property] {
-> +        &[]
-> +    }
-> +}
-> +
->  /// Trait providing the contents of [`DeviceClass`].
-> -pub trait DeviceImpl: ObjectImpl + ResettablePhasesImpl + IsA<DeviceState> {
-> +pub trait DeviceImpl:
-> +    ObjectImpl + ResettablePhasesImpl + DevicePropertiesImpl + IsA<DeviceState>
-> +{
-
-DeviceImpl has a new bound: DevicePropertiesImpl, which means that
-devices that don't need properties also need to implement the empty
-DevicePropertiesImpl.
-
-We now have ResettablePhasesImpl that needs to do this, but I'm not sure
-if we should continue to add more examples?
-
->      /// _Realization_ is the second stage of device creation. It contains
->      /// all operations that depend on device properties and can fail (note:
->      /// this is not yet supported for Rust devices).
-> @@ -110,13 +121,6 @@ pub trait DeviceImpl: ObjectImpl + ResettablePhasesImpl + IsA<DeviceState> {
->      /// with the function pointed to by `REALIZE`.
->      const REALIZE: Option<fn(&Self)> = None;
->  
-> -    /// An array providing the properties that the user can set on the
-> -    /// device.  Not a `const` because referencing statics in constants
-> -    /// is unstable until Rust 1.83.0.
-> -    fn properties() -> &'static [Property] {
-> -        &[]
-> -    }
-> -
-
-This default empty Property array looks more convenient than this:
-
-impl DevicePropertiesImpl for DummyChildState {}
-
-However, if there's no way to avoid adding DevicePropertiesImpl, the
-cost of an empty trait could be acceptable relative to the benefit of
-this more friendly macro, I think!
-
-Thanks,
 Zhao
 
->      /// A `VMStateDescription` providing the migration format for the device
->      /// Not a `const` because referencing statics in constants is unstable
->      /// until Rust 1.83.0.
-> @@ -171,7 +175,7 @@ pub fn class_init<T: DeviceImpl>(&mut self) {
->          if let Some(vmsd) = <T as DeviceImpl>::vmsd() {
->              self.vmsd = vmsd;
->          }
-> -        let prop = <T as DeviceImpl>::properties();
-> +        let prop = <T as DevicePropertiesImpl>::properties();
->          if !prop.is_empty() {
->              unsafe {
->                  bindings::device_class_set_props_n(self, prop.as_ptr(), prop.len());
 
