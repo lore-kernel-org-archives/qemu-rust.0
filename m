@@ -1,86 +1,87 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uHefM-0004oC-Dn
-	for mharc-qemu-rust@gnu.org; Wed, 21 May 2025 04:19:08 -0400
+	id 1uHefS-0004q4-QL
+	for mharc-qemu-rust@gnu.org; Wed, 21 May 2025 04:19:15 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uHefI-0004n1-LA
- for qemu-rust@nongnu.org; Wed, 21 May 2025 04:19:04 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1uHefK-0004nT-HN
+ for qemu-rust@nongnu.org; Wed, 21 May 2025 04:19:06 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uHefC-0000AM-Ce
- for qemu-rust@nongnu.org; Wed, 21 May 2025 04:19:03 -0400
+ id 1uHefD-0000Aq-G0
+ for qemu-rust@nongnu.org; Wed, 21 May 2025 04:19:05 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1747815535;
+ s=mimecast20190719; t=1747815538;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TvUeya4TNcUwgoPZj33+aR4D24x0qlLX7SAj8FdNXBQ=;
- b=ChxKu31s9Blgvy/3NX/914Mxg9JuSP4iAvgCZ5Y/Kk8MZ3vdwddQijgK7E7ptI54q/E20q
- dIlUiLYwPcyh9dsHkTvUjgKFWcbrJqrhi+jOsT30wJWDHr025UTDMfrsPTjotSBLgdzjY1
- c2y5TuOVmGw0vZgf7fJa5ven0wK6DvQ=
+ bh=sm4FDV9XcvaUoJSoDVM8BTJfAISob2kgbvzU5BLD5+0=;
+ b=ZKizF9JAYI5NR+87sYB3F9x6sparKI34baePqRJ+7lwzP12n7ZFplmiqwqQE3YnirH/FAa
+ 8/2Moqy8patVCKA5oXocJ+FG87TFYp3UPcTI9yJheAWD53A3eVzow8h73YtjjuxuvYm1Sd
+ Olq8rMLJyyXC0OgnwPj0hiskJ5mr13c=
 Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
  [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-645-7DT5LpKIPM-TFYPcMedTjg-1; Wed, 21 May 2025 04:18:54 -0400
-X-MC-Unique: 7DT5LpKIPM-TFYPcMedTjg-1
-X-Mimecast-MFC-AGG-ID: 7DT5LpKIPM-TFYPcMedTjg_1747815533
+ us-mta-78-s7-vz18gNJCLK0OlKsfD_Q-1; Wed, 21 May 2025 04:18:56 -0400
+X-MC-Unique: s7-vz18gNJCLK0OlKsfD_Q-1
+X-Mimecast-MFC-AGG-ID: s7-vz18gNJCLK0OlKsfD_Q_1747815535
 Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-43eed325461so38487535e9.3
- for <qemu-rust@nongnu.org>; Wed, 21 May 2025 01:18:54 -0700 (PDT)
+ 5b1f17b1804b1-43e9b0fd00cso33186265e9.0
+ for <qemu-rust@nongnu.org>; Wed, 21 May 2025 01:18:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747815532; x=1748420332;
+ d=1e100.net; s=20230601; t=1747815535; x=1748420335;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=TvUeya4TNcUwgoPZj33+aR4D24x0qlLX7SAj8FdNXBQ=;
- b=f9uCAwuSkHeq1fxSYahEvozFXVXKVK63AfKevzvllyfh8ATNT1EOJqnfVv9r0htogx
- Kmd1YecBrCJFTw3AWPKG72SmL1BnwPkYFnCLf0+hg+RVCrS2qpylE/Mt0WiBHfQ7Jy5r
- 0mrfeO9x6FTw9qsqYJSCbatCVdbDhvrvr3FQPDIQXZttmObM7Y96C5rYJ7v1o1iBJAe9
- VbElZmsTo7bzluv1nOanQIw6I2k2wxBZtYjuVCnquqfJt3JulYwKvOlRKy6NIm47IafM
- qYLbQjA4Shdk8jumOtUPG5wroejf3MOPOHQv9VjgZCaFCwRY9Bo1pLmgyE2z5vSIZCcO
- q+eA==
+ bh=sm4FDV9XcvaUoJSoDVM8BTJfAISob2kgbvzU5BLD5+0=;
+ b=RSgyypUrr53+Zqc7+BpqiFabO/1WGazOObnzsdNothaNAA8mnCbi7V2w9va5018lTO
+ JDt2vRJuh2G8rmm63OHTfkLfYnd+GC2ZCoSrENE2NNpCDc4LJAdDUx5W6VaDNtpeYJOf
+ +4fdImS6gFwlv6VJ9bs3ikr6NzFNZLC16DStJZpHpzZUWTdbLbW0OdVgPgCYf45zCs2K
+ e18neRsNkLq04A08Y+5+4XZeAvt60yos9RjHEpqOKgsP+y3x6Y2R67jcnJd09bsSyNCx
+ TxycjIO31kYMMSIdDk4DD1FkzeeYImFYjWqOCP8WXEF4K1/zmL+7BGuIfzBi9aOcOk1r
+ oUXw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUkSe9M86xFLNh5Hp5LJeci0EDwwb4VMw/lzk4VeEtwCeGnfXfUIjjv2HqNYabqYA78sLch70ddfoE=@nongnu.org
-X-Gm-Message-State: AOJu0YwkM6L6/j0Sk8OaqsqD577c4l4cu8Vh7Gv9TiwSkRQx+jP6tv5q
- tbFtqSIBWexGQP2K9D2mEBEJi5zx5bfTOw5rOj/1DZl7IxZDiQLVkZhKGStt20lsQP3IkE7U6st
- bVjr7vkq7u19uFfsmUKYSbEBw/njavZUnyQYfyLjAKETUDTa/wx4btmQLj83+Kf0=
-X-Gm-Gg: ASbGncsAS47pwVUKnPrbk74Oj+k9C/qPwKsuki8BFGwa3EAOT5B+/k/lBbxjKyLt5gb
- wsoMUs8zZsSMY40YqMFQCbi0VabwiAP0/2cSPKcpLyAzzGarT+QYclfe2OHhrjOyvOIztDfxFJs
- QXDcda82YcozsjaiSG7gxIbQKRadumDOi1F1wrCFRr/I7dQlFaE33GNsfZf0SmzFcIfwja4yxYN
- w87FUFT5t//TY1V9tsaer0+QF/K65A0WjAt+MlDe1CgiInmGmexi8yJZJPXZ76ZVMomfopNOCY0
- 9nuRi2zVB74LIw==
-X-Received: by 2002:a05:600c:154b:b0:43d:fa58:8378 with SMTP id
- 5b1f17b1804b1-442ff03c7ebmr141772945e9.33.1747815532509; 
- Wed, 21 May 2025 01:18:52 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGSr4pzBy1XX8sKmCUrnbGxilzDfjYAPy6Afug8+TDre3jOzHh8kifNTVey5Nhkjy82ilnouw==
-X-Received: by 2002:a05:600c:154b:b0:43d:fa58:8378 with SMTP id
- 5b1f17b1804b1-442ff03c7ebmr141772735e9.33.1747815532098; 
- Wed, 21 May 2025 01:18:52 -0700 (PDT)
+ AJvYcCWa/rY/6qLugD1uI3F5qWIFu4vfObrA4+0rwGoWXXgazRCaE1ohI7BxNLpZ3wvBL160AsvzcgN34Uk=@nongnu.org
+X-Gm-Message-State: AOJu0YyJSaERn44IW4pTVDWRNWVn5pwnG0mFfhEDzXaDVu2se0X02VWX
+ Bt6ZREax2b/dZxbBwWuDowieTx1D7gMOlzMMtaBFILw4aQ8J1deZTBT4wXUcH/6oyUZQDl0OvT/
+ 2eMDcJdm5QqZtQurE+ahK/Dv/iaRFO6v4CH4iYAxeioAsg429u9bDM+U=
+X-Gm-Gg: ASbGncvNKbfovb4bh9yF8xqd38qDBgy8Ya3iE2r3jYpY4c/Mp5aFBAa+u0K5bo2xepy
+ 7d6dSZWJcUYGaI8C13ZKYGSIKIdGkl7vIGYm2slUUQQ3mQqBsiZpB5mSHaW9NiToDgr2gHJbOFp
+ rdz8NFu8pJ7a9g89YZ/Fgp85g/QowfOScKMjwLSa4G9SVvPsgSHAa29B6BFGMRd0TnbACnliTUY
+ 08flmprOlLdKtHoUoojigcwXrDj6HgCst/KTPa+X2mfHFzypeMImQ77bTQIMv4ifybSfdS+etm7
+ NU572MSGJ0JaDA==
+X-Received: by 2002:a05:600c:3e8d:b0:43d:174:2668 with SMTP id
+ 5b1f17b1804b1-442f844e5d4mr208403995e9.0.1747815535269; 
+ Wed, 21 May 2025 01:18:55 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFcK8YTwPUKcO65rs2si2DQU9nhEw3TQ5CTI6CUM2IeHnAm8wcOmtgnkQnf+sn8QKK4TIOxHw==
+X-Received: by 2002:a05:600c:3e8d:b0:43d:174:2668 with SMTP id
+ 5b1f17b1804b1-442f844e5d4mr208403745e9.0.1747815534893; 
+ Wed, 21 May 2025 01:18:54 -0700 (PDT)
 Received: from [192.168.122.1] ([151.95.46.79])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-447f73d4aa2sm61404105e9.21.2025.05.21.01.18.51
+ ffacd0b85a97d-3a35ca5a87fsm18560962f8f.29.2025.05.21.01.18.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 May 2025 01:18:51 -0700 (PDT)
+ Wed, 21 May 2025 01:18:52 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: peter.maydell@linaro.org, qemu-rust@nongnu.org,
  manos.pitsidianakis@linaro.org
-Subject: [RFC PATCH 2/6] rust: pl011: use the bits macro
-Date: Wed, 21 May 2025 10:18:41 +0200
-Message-ID: <20250521081845.496442-3-pbonzini@redhat.com>
+Subject: [RFC PATCH 3/6] rust: qemu-api-macros: add from_bits and into_bits to
+ #[derive(TryInto)]
+Date: Wed, 21 May 2025 10:18:42 +0200
+Message-ID: <20250521081845.496442-4-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250521081845.496442-1-pbonzini@redhat.com>
 References: <20250521081845.496442-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 8ST9Yhq3EgheSuKCBxYx6o3HMb3-DWS4Rgi3jpqOor8_1747815533
+X-Mimecast-MFC-PROC-ID: xseTCS4F7WPoXqQBMcW_52TsoLtz1OZYEIGQdbCY2dA_1747815535
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -25
 X-Spam_score: -2.6
@@ -102,249 +103,82 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 May 2025 08:19:05 -0000
+X-List-Received-Date: Wed, 21 May 2025 08:19:06 -0000
 
-This avoids the repeated ".0" when using the Interrupt struct.
+These const functions make it possible to use enums easily together
+with the bitfield-struct crate.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/Cargo.lock                     |  1 +
- rust/hw/char/pl011/Cargo.toml       |  1 +
- rust/hw/char/pl011/meson.build      |  1 +
- rust/hw/char/pl011/src/device.rs    | 51 ++++++++++++++---------------
- rust/hw/char/pl011/src/registers.rs | 39 ++++++++++++----------
- 5 files changed, 49 insertions(+), 44 deletions(-)
+ rust/qemu-api-macros/src/lib.rs | 48 ++++++++++++++++++++++++++-------
+ 1 file changed, 38 insertions(+), 10 deletions(-)
 
-diff --git a/rust/Cargo.lock b/rust/Cargo.lock
-index 0dfe0fb6ced..bccfe855a70 100644
---- a/rust/Cargo.lock
-+++ b/rust/Cargo.lock
-@@ -73,6 +73,7 @@ version = "0.1.0"
- dependencies = [
-  "bilge",
-  "bilge-impl",
-+ "bits",
-  "qemu_api",
-  "qemu_api_macros",
- ]
-diff --git a/rust/hw/char/pl011/Cargo.toml b/rust/hw/char/pl011/Cargo.toml
-index a1f431ab4a3..003ef9613d4 100644
---- a/rust/hw/char/pl011/Cargo.toml
-+++ b/rust/hw/char/pl011/Cargo.toml
-@@ -18,6 +18,7 @@ crate-type = ["staticlib"]
- [dependencies]
- bilge = { version = "0.2.0" }
- bilge-impl = { version = "0.2.0" }
-+bits = { path = "../../../bits" }
- qemu_api = { path = "../../../qemu-api" }
- qemu_api_macros = { path = "../../../qemu-api-macros" }
- 
-diff --git a/rust/hw/char/pl011/meson.build b/rust/hw/char/pl011/meson.build
-index 547cca5a96f..f134a6cdc6b 100644
---- a/rust/hw/char/pl011/meson.build
-+++ b/rust/hw/char/pl011/meson.build
-@@ -12,6 +12,7 @@ _libpl011_rs = static_library(
-   dependencies: [
-     bilge_dep,
-     bilge_impl_dep,
-+    bits_rs,
-     qemu_api,
-     qemu_api_macros,
-   ],
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index bde3be65c5b..8d89c2448dc 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -85,8 +85,8 @@ pub struct PL011Registers {
-     #[doc(alias = "cr")]
-     pub control: registers::Control,
-     pub dmacr: u32,
--    pub int_enabled: u32,
--    pub int_level: u32,
-+    pub int_enabled: Interrupt,
-+    pub int_level: Interrupt,
-     pub read_fifo: Fifo,
-     pub ilpr: u32,
-     pub ibrd: u32,
-@@ -199,9 +199,9 @@ pub(self) fn read(&mut self, offset: RegisterOffset) -> (bool, u32) {
-             LCR_H => u32::from(self.line_control),
-             CR => u32::from(self.control),
-             FLS => self.ifl,
--            IMSC => self.int_enabled,
--            RIS => self.int_level,
--            MIS => self.int_level & self.int_enabled,
-+            IMSC => u32::from(self.int_enabled),
-+            RIS => u32::from(self.int_level),
-+            MIS => u32::from(self.int_level & self.int_enabled),
-             ICR => {
-                 // "The UARTICR Register is the interrupt clear register and is write-only"
-                 // Source: ARM DDI 0183G 3.3.13 Interrupt Clear Register, UARTICR
-@@ -263,13 +263,13 @@ pub(self) fn write(
-                 self.set_read_trigger();
-             }
-             IMSC => {
--                self.int_enabled = value;
-+                self.int_enabled = Interrupt::from(value);
-                 return true;
-             }
-             RIS => {}
-             MIS => {}
-             ICR => {
--                self.int_level &= !value;
-+                self.int_level &= !Interrupt::from(value);
-                 return true;
-             }
-             DMACR => {
-@@ -295,7 +295,7 @@ fn read_data_register(&mut self, update: &mut bool) -> u32 {
-             self.flags.set_receive_fifo_empty(true);
-         }
-         if self.read_count + 1 == self.read_trigger {
--            self.int_level &= !Interrupt::RX.0;
-+            self.int_level &= !Interrupt::RX;
-         }
-         self.receive_status_error_clear.set_from_data(c);
-         *update = true;
-@@ -305,7 +305,7 @@ fn read_data_register(&mut self, update: &mut bool) -> u32 {
-     fn write_data_register(&mut self, value: u32) -> bool {
-         // interrupts always checked
-         let _ = self.loopback_tx(value.into());
--        self.int_level |= Interrupt::TX.0;
-+        self.int_level |= Interrupt::TX;
-         true
-     }
- 
-@@ -361,19 +361,19 @@ fn loopback_mdmctrl(&mut self) -> bool {
-         // Change interrupts based on updated FR
-         let mut il = self.int_level;
- 
--        il &= !Interrupt::MS.0;
-+        il &= !Interrupt::MS;
- 
-         if self.flags.data_set_ready() {
--            il |= Interrupt::DSR.0;
-+            il |= Interrupt::DSR;
-         }
-         if self.flags.data_carrier_detect() {
--            il |= Interrupt::DCD.0;
-+            il |= Interrupt::DCD;
-         }
-         if self.flags.clear_to_send() {
--            il |= Interrupt::CTS.0;
-+            il |= Interrupt::CTS;
-         }
-         if self.flags.ring_indicator() {
--            il |= Interrupt::RI.0;
-+            il |= Interrupt::RI;
-         }
-         self.int_level = il;
-         true
-@@ -391,8 +391,8 @@ pub fn reset(&mut self) {
-         self.line_control.reset();
-         self.receive_status_error_clear.reset();
-         self.dmacr = 0;
--        self.int_enabled = 0;
--        self.int_level = 0;
-+        self.int_enabled = 0.into();
-+        self.int_level = 0.into();
-         self.ilpr = 0;
-         self.ibrd = 0;
-         self.fbrd = 0;
-@@ -451,7 +451,7 @@ pub fn fifo_rx_put(&mut self, value: registers::Data) -> bool {
-         }
- 
-         if self.read_count == self.read_trigger {
--            self.int_level |= Interrupt::RX.0;
-+            self.int_level |= Interrupt::RX;
-             return true;
-         }
-         false
-@@ -632,7 +632,7 @@ fn update(&self) {
-         let regs = self.regs.borrow();
-         let flags = regs.int_level & regs.int_enabled;
-         for (irq, i) in self.interrupts.iter().zip(IRQMASK) {
--            irq.set(flags & i != 0);
-+            irq.set(flags.any_set(i));
-         }
-     }
- 
-@@ -642,14 +642,13 @@ pub fn post_load(&self, _version_id: u32) -> Result<(), ()> {
+diff --git a/rust/qemu-api-macros/src/lib.rs b/rust/qemu-api-macros/src/lib.rs
+index ceb79f09f97..103470785e3 100644
+--- a/rust/qemu-api-macros/src/lib.rs
++++ b/rust/qemu-api-macros/src/lib.rs
+@@ -193,23 +193,51 @@ fn get_variants(input: &DeriveInput) -> Result<&Punctuated<Variant, Comma>, Macr
  }
  
- /// Which bits in the interrupt status matter for each outbound IRQ line ?
--const IRQMASK: [u32; 6] = [
--    /* combined IRQ */
--    Interrupt::E.0 | Interrupt::MS.0 | Interrupt::RT.0 | Interrupt::TX.0 | Interrupt::RX.0,
--    Interrupt::RX.0,
--    Interrupt::TX.0,
--    Interrupt::RT.0,
--    Interrupt::MS.0,
--    Interrupt::E.0,
-+const IRQMASK: [Interrupt; 6] = [
-+    Interrupt::all(),
-+    Interrupt::RX,
-+    Interrupt::TX,
-+    Interrupt::RT,
-+    Interrupt::MS,
-+    Interrupt::E,
- ];
- 
- /// # Safety
-diff --git a/rust/hw/char/pl011/src/registers.rs b/rust/hw/char/pl011/src/registers.rs
-index 690feb63785..7ececd39f86 100644
---- a/rust/hw/char/pl011/src/registers.rs
-+++ b/rust/hw/char/pl011/src/registers.rs
-@@ -9,7 +9,8 @@
- // https://developer.arm.com/documentation/ddi0183/latest/
- 
- use bilge::prelude::*;
--use qemu_api::impl_vmstate_bitsized;
-+use bits::bits;
-+use qemu_api::{impl_vmstate_bitsized, impl_vmstate_forward};
- 
- /// Offset of each register from the base memory address of the device.
- #[doc(alias = "offset")]
-@@ -326,22 +327,24 @@ fn default() -> Self {
-     }
- }
- 
--/// Interrupt status bits in UARTRIS, UARTMIS, UARTIMSC
--pub struct Interrupt(pub u32);
-+bits! {
-+    /// Interrupt status bits in UARTRIS, UARTMIS, UARTIMSC
-+    #[derive(Default)]
-+    pub struct Interrupt(u32) {
-+        OE = 1 << 10,
-+        BE = 1 << 9,
-+        PE = 1 << 8,
-+        FE = 1 << 7,
-+        RT = 1 << 6,
-+        TX = 1 << 5,
-+        RX = 1 << 4,
-+        DSR = 1 << 3,
-+        DCD = 1 << 2,
-+        CTS = 1 << 1,
-+        RI = 1 << 0,
- 
--impl Interrupt {
--    pub const OE: Self = Self(1 << 10);
--    pub const BE: Self = Self(1 << 9);
--    pub const PE: Self = Self(1 << 8);
--    pub const FE: Self = Self(1 << 7);
--    pub const RT: Self = Self(1 << 6);
--    pub const TX: Self = Self(1 << 5);
--    pub const RX: Self = Self(1 << 4);
--    pub const DSR: Self = Self(1 << 3);
--    pub const DCD: Self = Self(1 << 2);
--    pub const CTS: Self = Self(1 << 1);
--    pub const RI: Self = Self(1 << 0);
+ #[rustfmt::skip::macros(quote)]
+-fn derive_tryinto_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream, MacroError> {
+-    let repr = get_repr_uN(&input, "#[derive(TryInto)]")?;
 -
--    pub const E: Self = Self(Self::OE.0 | Self::BE.0 | Self::PE.0 | Self::FE.0);
--    pub const MS: Self = Self(Self::RI.0 | Self::DSR.0 | Self::DCD.0 | Self::CTS.0);
-+        E = bits!(Self as u32: OE | BE | PE | FE),
-+        MS = bits!(Self as u32: RI | DSR | DCD | CTS),
-+    }
- }
-+impl_vmstate_forward!(Interrupt);
+-    let name = &input.ident;
+-    let variants = get_variants(&input)?;
++fn derive_tryinto_body(
++    name: &Ident,
++    variants: &Punctuated<Variant, Comma>,
++    repr: &Path,
++) -> Result<proc_macro2::TokenStream, MacroError> {
+     let discriminants: Vec<&Ident> = variants.iter().map(|f| &f.ident).collect();
+ 
+     Ok(quote! {
++        #(const #discriminants: #repr = #name::#discriminants as #repr;)*;
++        match value {
++            #(#discriminants => Ok(#name::#discriminants),)*
++            _ => Err(value),
++        }
++    })
++}
++
++#[rustfmt::skip::macros(quote)]
++fn derive_tryinto_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream, MacroError> {
++    let repr = get_repr_uN(&input, "#[derive(TryInto)]")?;
++    let name = &input.ident;
++    let body = derive_tryinto_body(name, get_variants(&input)?, &repr)?;
++    let errmsg = format!("invalid value for {name}");
++
++    Ok(quote! {
++        impl #name {
++            #[allow(dead_code)]
++            pub const fn into_bits(self) -> #repr {
++                self as #repr
++            }
++
++            #[allow(dead_code)]
++            pub const fn from_bits(value: #repr) -> Self {
++                match ({
++                    #body
++                }) {
++                    Ok(x) => x,
++                    Err(_) => panic!(#errmsg)
++                }
++            }
++        }
+         impl core::convert::TryFrom<#repr> for #name {
+             type Error = #repr;
+ 
+             fn try_from(value: #repr) -> Result<Self, Self::Error> {
+-                #(const #discriminants: #repr = #name::#discriminants as #repr;)*;
+-                match value {
+-                    #(#discriminants => Ok(Self::#discriminants),)*
+-                    _ => Err(value),
+-                }
++                #body
+             }
+         }
+     })
 -- 
 2.49.0
 
