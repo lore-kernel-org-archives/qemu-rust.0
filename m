@@ -1,72 +1,79 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uHh36-0005Tn-PS
-	for mharc-qemu-rust@gnu.org; Wed, 21 May 2025 06:51:48 -0400
+	id 1uHhNU-0003wo-Jx
+	for mharc-qemu-rust@gnu.org; Wed, 21 May 2025 07:12:52 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <paolo.bonzini@gmail.com>)
- id 1uHh33-0005TM-Pp; Wed, 21 May 2025 06:51:45 -0400
-Received: from mail-pl1-f173.google.com ([209.85.214.173])
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uHhNS-0003wL-Et
+ for qemu-rust@nongnu.org; Wed, 21 May 2025 07:12:50 -0400
+Received: from mail-ed1-x52a.google.com ([2a00:1450:4864:20::52a])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <paolo.bonzini@gmail.com>)
- id 1uHh31-0001C7-Ah; Wed, 21 May 2025 06:51:44 -0400
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-2320d2a7852so32791635ad.3; 
- Wed, 21 May 2025 03:51:42 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uHhNP-0005H8-Oq
+ for qemu-rust@nongnu.org; Wed, 21 May 2025 07:12:50 -0400
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-601ed5e97e9so5785451a12.2
+ for <qemu-rust@nongnu.org>; Wed, 21 May 2025 04:12:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1747825965; x=1748430765; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0P3vKaBJuJzdP+aFCfryV42rGOV/6FNNWhPqYLFM9fQ=;
+ b=j5XmiB3GpN0jga7NrEO8PliNQhchvTAYk2jci1oWqqXWPWH4ioci8GXBdgnqgf5ys+
+ KtpnzWvUlbn40dlp6XaNqmYGPG/8CNcYREdG9JkHFLiTAvrf/01T06cqjZYtl7f8ImxS
+ vTFoV5h77cuT/9ccNlcMoek1/yaBEe91uBSp1xW+bbmunf1ub6il9uaXYtmwoSBG9BEW
+ J6RXYZYvY1qPB5xtP88ZI+CoRsKw7IGaMjnMV0vJ4sxeiOzJBwAGmkzXkX5ECxNpk+Tv
+ RWwOmvLEJ1gZqBHv6ANz9uuIpYFL/Lg0UB7JAU3HdfIBapWW86gwAReMa3wgWx61MEUh
+ yifA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747824701; x=1748429501;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=7u3vq12xPqLYJQwIRDmY+7+d2kzYw2mYVkVHCOH6CFk=;
- b=flTS2gsOjklhLKMJ0Rm7Gj7tJ0UE+J1Bj5vN3RsfdBvh+RHnXykjFze7exULXc0s24
- dmtJqwM80BzdpD689o6Vwu6oyGNwU2XrVzXQDLy6BLnciV87H3w1DjJDMUWUchXe85SZ
- +eS49G+n8oM/lXNn1psK5ZxD4XUD2ge/ut1WIbKXvPykUUB/vRkjFC7zI/MQNu6g3Nd6
- 2Rl949jv1DpOh/DRe001K2QizRitLJctKgGzAWoWndTHXKLec7RFH25RnvgAsYT7VYW2
- 5YQUjYZ2YMxYSqSFaaznBB2eSWog1rBv5seFvaiOqA7S4DTiqAJMI+L8+o2H9jPn2DYW
- v3qw==
+ d=1e100.net; s=20230601; t=1747825965; x=1748430765;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=0P3vKaBJuJzdP+aFCfryV42rGOV/6FNNWhPqYLFM9fQ=;
+ b=lqJ7VJe89TuLurA/vFYsUWgTvq/DkNxGo73MfmlnMQUit4f4ab/O6ooYRU6dmnBQhT
+ XGr5sdkyyrel4JR9znq3WvBJejbOXz7IkSk/XJnK/+Gviv1UriJ4ETJGDCbVRKf+pKKO
+ 9HDrHMhqE4kviX0gvDuOAcH5wGrQww/Db1hWX97YLtclpz6P4FZiBepUToe7v4JmlnAg
+ QkQ4qZL1Z4r8WiROjLWZLn+f5XCKu3XCaLDHKmpf3NmmnInK8pgy137FvNgSZPB6M63H
+ SQpTC+i1iMqH5rvo/zbkwxZCsGAHOTSIspKvLsWV1d+WuhDprT+B0HmLsQrAh13f27Eb
+ /6Fg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWUElojpG1Jvhgu6U7LZJjDNJiSxkmuaJrslnxuwZ2ad6R47MSUleFyNkt+tdgT+zWcKsK+nFafZOl6@nongnu.org,
- AJvYcCWW0glywAnbLc+4U26ANXKvwYfaifr+R6O9NDXscpjcXLnP9Th2kiaM2/nFHVZ2wMZV/3vv68HZhTp1@nongnu.org
-X-Gm-Message-State: AOJu0Ywn27ofgQXdi/RtfVRgTduEbTwKJWO5LwtbjcekYcgEWIMP1qdk
- b+O4PWvtTy/meV1Y1NGAq6Btox9D+GblV2fErCa7xWxEy9nxBJb18qEq5cE4tdm6383rdnDe/yh
- F6DrkYi6zvKMU014ogtw4hJ2OXJ8HJEfCVA==
-X-Gm-Gg: ASbGncvQ7p//W59OikhVpGVGNSxrhsHuHhC2jmzrBnRc2wM9d04Y9X0sw4XPpIHBA7Y
- 0N0H8nKjb3JiL9DSYAZURR58VyljOUtBE6y40VJDFAcB12LHdRiSjZGoLfHprsR6/LO8RRhT/um
- wmqY7uxyFByH91C6XvtZMfJlnHxrnTiBNi0Zav96kjOA==
-X-Google-Smtp-Source: AGHT+IGxE+tmWeNjk45cirtDv18oIYWB7/f3Gw+xHBb8NjxEscy1c51ljT7jiJgztVLADsWDBKqcRpZgsrNFImDLimg=
-X-Received: by 2002:a17:902:e808:b0:22f:c19c:810c with SMTP id
- d9443c01a7336-231de3bad0dmr229376635ad.51.1747824701488; Wed, 21 May 2025
- 03:51:41 -0700 (PDT)
+ AJvYcCW4JcuA2N1lgRZFjH2M2E1V7lKQWC49P1JJCjwdSbv/V7Y+VyrBsF6eCINCgh9Fcbi8zd9AujoVq/g=@nongnu.org
+X-Gm-Message-State: AOJu0YxJby6ujVF9thP8X3V06n+ej9and54lXETcWaQSGB4R17TtRfQg
+ x/JY6TBJb3LgTzKSO0+r1bWMI5+DTpVEV01IDDzogs5rQ1w+2DdkrQbHfzILZWtl7evZ3UjQYgM
+ MvA8i4OLKrbG9hOdfJMpCZk1Nx8djJ3pILtieNIchnw==
+X-Gm-Gg: ASbGncvDS/7zmCkz7sPlS0n7JIdnSOv7q2+h77focHGJZAff4qob3eg4LQm6SaAhXtj
+ XmRSy/qiTArPeuCcNdsKzU3YwmRWhTpI36fuTOYB0oI3NG5VKW7ifT1HtBxXgx7uO7drbDVjaZP
+ l6VuIOtmM+kBDhz3WnouWQN+KUpn0=
+X-Google-Smtp-Source: AGHT+IGhkwvUMlS4wFZIoTJLutdcOyqBIR7tbuHC3B/zO5dqo6GLtIUNOBoEDLuFLa961n99/+9c05M6f0mslB3PZs4=
+X-Received: by 2002:a17:907:2d8c:b0:ad2:3d34:e2ad with SMTP id
+ a640c23a62f3a-ad536bde522mr1770278466b.26.1747825964630; Wed, 21 May 2025
+ 04:12:44 -0700 (PDT)
 MIME-Version: 1.0
-References: <d3d1944e-2482-4aa7-b621-596246a08107@gnu.org>
- <aCysct2L8Bosqy0N@intel.com>
- <abe683f2-e679-4579-b68a-38a11d41e00b@gnu.org> <aC2R4BOR2tsYgEFI@intel.com>
- <CAHFMJ7vsgPtfkpBkjvh_-NqKszEDj5UpWThU3rPjN9N4X5s0tA@mail.gmail.com>
- <CAAjaMXb01Y3qoH56j4GsfJLQMRkA067mHjiWS86cr95akh4ckg@mail.gmail.com>
-In-Reply-To: <CAAjaMXb01Y3qoH56j4GsfJLQMRkA067mHjiWS86cr95akh4ckg@mail.gmail.com>
-From: Paolo Bonzini <bonzini@gnu.org>
-Date: Wed, 21 May 2025 12:51:30 +0200
-X-Gm-Features: AX0GCFuf4rW2M-iP9zuSVgao0rp8moxHJ08ytRDBjQIeVKNsV7GUngVqlT3Tu5s
-Message-ID: <CAHFMJ7v9a+85OtFCoW4bKYXACGQ_yqR8rKxRbNS9jjELMONdbg@mail.gmail.com>
-Subject: Re: Rust in QEMU update, April 2025
-To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: Zhao Liu <zhao1.liu@intel.com>, qemu-devel <qemu-devel@nongnu.org>,
- qemu-rust@nongnu.org, 
- =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
- Daniel Berrange <berrange@redhat.com>, Kevin Wolf <kwolf@redhat.com>, 
- Peter Maydell <peter.maydell@linaro.org>
-Content-Type: multipart/alternative; boundary="00000000000076438c0635a32664"
-Received-SPF: pass client-ip=209.85.214.173;
- envelope-from=paolo.bonzini@gmail.com; helo=mail-pl1-f173.google.com
-X-Spam_score_int: -18
-X-Spam_score: -1.9
-X-Spam_bar: -
-X-Spam_report: (-1.9 / 5.0 requ) BAYES_00=-1.9,
- FREEMAIL_FORGED_FROMDOMAIN=0.001, FREEMAIL_FROM=0.001,
- HEADER_FROM_DIFFERENT_DOMAINS=0.001, HTML_MESSAGE=0.001,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+References: <20250521081845.496442-1-pbonzini@redhat.com>
+ <20250521081845.496442-6-pbonzini@redhat.com>
+ <871psi9tsw.fsf@draig.linaro.org>
+In-Reply-To: <871psi9tsw.fsf@draig.linaro.org>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Wed, 21 May 2025 14:12:17 +0300
+X-Gm-Features: AX0GCFsFFMtzS5sjhWe7odpXckOqnB3kRbgy_2cBjS6yzvGXHjbVGbsk1WPyZ5o
+Message-ID: <CAAjaMXbVCfXBqmNYH3Up1n+N9VCgRamg9msURwE-x1KxcKOi4Q@mail.gmail.com>
+Subject: Re: [RFC PATCH 5/6] rust: pl011: switch from bilge to bitfield-struct
+To: =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org,
+ peter.maydell@linaro.org, qemu-rust@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::52a;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x52a.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -79,91 +86,380 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 May 2025 10:51:46 -0000
+X-List-Received-Date: Wed, 21 May 2025 11:12:50 -0000
 
---00000000000076438c0635a32664
-Content-Type: text/plain; charset="UTF-8"
-
-Il mer 21 mag 2025, 11:35 Manos Pitsidianakis <
-manos.pitsidianakis@linaro.org> ha scritto:
-
-> vm-memory is a very rigid API unfortunately. It's excellent for
-> rust-vmm purposes. I presume it's possible to figure out a clever
-> solution to satisfy both rust-vmm and QEMU use needs but I'm not sure
-> it's worth it. It's really hard to retrofit other projects into
-> vm-memory if they don't use rust-vmm crates API design and it might
-> make both rust-vmm code and QEMU code more complex. QEMU would depend
-> on rust-vmm architectural decisions and vice-versa. The thing I'm
-> fearing most is needing to refactor memory APIs in QEMU in the future
-> and turn the vm-memory dependency into technical debt.
-
-
-I agree that changing the memory API for the sake of Rust code is a bad
-idea.
-
-That said, I have some hope. vm-memory's GuestAddressSpace was designed for
-cloud-hypervisor but with QEMU in mind and I was really happy about it. Of
-course it's easy to screw up and miss details elsewhere (like the
-difference between FlatRange * and MemoryRegionSection, and consequently
-the type of the GuestMemory iterator); I am not even sure what QEMU code
-for IOMMUs looked like in 2018. But it might be salvageable if the rust-vmm
-guys accept a couple of small API breaks.
-
-Perhaps it's more sensible to not use external dependencies to wrap
-> over our APIs but we can surely design our Rust bindings inspired by
-> them.
+On Wed, May 21, 2025 at 12:50=E2=80=AFPM Alex Benn=C3=A9e <alex.bennee@lina=
+ro.org> wrote:
 >
+> Paolo Bonzini <pbonzini@redhat.com> writes:
+>
+> > The bilge crate, while very nice and espressive, is heavily reliant on
+> > traits; because trait functions are never const, bilge and const mix
+> > about as well as water and oil.
+> >
+> > Try using the bitfield-struct crate instead.  It is built to support
+> > const very well and the only downside is that more manual annotations
+> > are needed (for enums and non-full-byte members).  Otherwise, the use
+> > is pretty much the same and in fact device code does not change at all,
+> > only register declarations.
+> >
+> > Recent versions want to use Rust 1.83, so this uses a slightly older
+> > version with basically no lost functionality; but anyway, I want to swi=
+tch
+> > to 1.83 for QEMU as well due to improved "const" support in the compile=
+r.
+> >
+> > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> > ---
+> >  rust/Cargo.toml                     |   1 +
+> >  rust/hw/char/pl011/Cargo.toml       |   3 +-
+> >  rust/hw/char/pl011/meson.build      |  11 +--
+> >  rust/hw/char/pl011/src/registers.rs | 108 ++++++++++++++--------------
+> >  4 files changed, 56 insertions(+), 67 deletions(-)
+> >
+> > diff --git a/rust/Cargo.toml b/rust/Cargo.toml
+> > index 165328b6d01..3345858b5b4 100644
+> > --- a/rust/Cargo.toml
+> > +++ b/rust/Cargo.toml
+> > @@ -97,5 +97,6 @@ used_underscore_binding =3D "deny"
+> >  #wildcard_imports =3D "deny"   # still have many bindings::* imports
+> >
+> >  # these may have false positives
+> > +enum_variant_names =3D "allow"
+> >  #option_if_let_else =3D "deny"
+> >  cognitive_complexity =3D "deny"
+> > diff --git a/rust/hw/char/pl011/Cargo.toml b/rust/hw/char/pl011/Cargo.t=
+oml
+> > index 003ef9613d4..97e3dd00c35 100644
+> > --- a/rust/hw/char/pl011/Cargo.toml
+> > +++ b/rust/hw/char/pl011/Cargo.toml
+> > @@ -16,8 +16,7 @@ rust-version.workspace =3D true
+> >  crate-type =3D ["staticlib"]
+> >
+> >  [dependencies]
+> > -bilge =3D { version =3D "0.2.0" }
+> > -bilge-impl =3D { version =3D "0.2.0" }
+> > +bitfield-struct =3D { version =3D "0.9" }
+> >  bits =3D { path =3D "../../../bits" }
+> >  qemu_api =3D { path =3D "../../../qemu-api" }
+> >  qemu_api_macros =3D { path =3D "../../../qemu-api-macros" }
+> > diff --git a/rust/hw/char/pl011/meson.build b/rust/hw/char/pl011/meson.=
+build
+> > index f134a6cdc6b..1bae5a03310 100644
+> > --- a/rust/hw/char/pl011/meson.build
+> > +++ b/rust/hw/char/pl011/meson.build
+> > @@ -1,17 +1,10 @@
+> > -subproject('bilge-0.2-rs', required: true)
+> > -subproject('bilge-impl-0.2-rs', required: true)
+> > -
+> > -bilge_dep =3D dependency('bilge-0.2-rs')
+> > -bilge_impl_dep =3D dependency('bilge-impl-0.2-rs')
+> > -
+> >  _libpl011_rs =3D static_library(
+> >    'pl011',
+> >    files('src/lib.rs'),
+> >    override_options: ['rust_std=3D2021', 'build.rust_std=3D2021'],
+> >    rust_abi: 'rust',
+> >    dependencies: [
+> > -    bilge_dep,
+> > -    bilge_impl_dep,
+> > +    bitfield_struct_dep,
+> >      bits_rs,
+> >      qemu_api,
+> >      qemu_api_macros,
+> > @@ -22,6 +15,6 @@ rust_devices_ss.add(when: 'CONFIG_X_PL011_RUST', if_t=
+rue: [declare_dependency(
+> >    link_whole: [_libpl011_rs],
+> >    # Putting proc macro crates in `dependencies` is necessary for Meson=
+ to find
+> >    # them when compiling the root per-target static rust lib.
+> > -  dependencies: [bilge_impl_dep, qemu_api_macros],
+> > +  dependencies: [bitfield_struct_dep, qemu_api_macros],
+> >    variables: {'crate': 'pl011'},
+> >  )])
+> > diff --git a/rust/hw/char/pl011/src/registers.rs b/rust/hw/char/pl011/s=
+rc/registers.rs
+> > index 7ececd39f86..f2138c637c5 100644
+> > --- a/rust/hw/char/pl011/src/registers.rs
+> > +++ b/rust/hw/char/pl011/src/registers.rs
+> > @@ -5,12 +5,16 @@
+> >  //! Device registers exposed as typed structs which are backed by arbi=
+trary
+> >  //! integer bitmaps. [`Data`], [`Control`], [`LineControl`], etc.
+> >
+> > +// rustc prefers "constant-like" enums to use upper case names, but th=
+at
+> > +// is inconsistent in its own way.
+> > +#![allow(non_upper_case_globals)]
+> > +
+> >  // For more detail see the PL011 Technical Reference Manual DDI0183:
+> >  // https://developer.arm.com/documentation/ddi0183/latest/
+> >
+> > -use bilge::prelude::*;
+> > +use bitfield_struct::bitfield;
+> >  use bits::bits;
+> > -use qemu_api::{impl_vmstate_bitsized, impl_vmstate_forward};
+> > +use qemu_api::impl_vmstate_forward;
+> >
+> >  /// Offset of each register from the base memory address of the device=
+.
+> >  #[doc(alias =3D "offset")]
+> > @@ -78,14 +82,18 @@ pub enum RegisterOffset {
+> >  /// The `UARTRSR` register is updated only when a read occurs
+> >  /// from the `UARTDR` register with the same status information
+> >  /// that can also be obtained by reading the `UARTDR` register
+> > -#[bitsize(8)]
+> > -#[derive(Clone, Copy, Default, DebugBits, FromBits)]
+> > +#[bitfield(u8)]
+> >  pub struct Errors {
+> >      pub framing_error: bool,
+> >      pub parity_error: bool,
+> >      pub break_error: bool,
+> >      pub overrun_error: bool,
+> > -    _reserved_unpredictable: u4,
+> > +    #[bits(4)]
+> > +    _reserved_unpredictable: u8,
+>
+> This does come off as a little janky - effectively casting the u8 to
+> only cover 4 bits. Is this not something we can derive from the type? I
+> see lower down...
 
-It would be nice to have crates like linux-loader or vm-virtio available.
-But even then, even if we can fork the basic vm-memory traits, we can get
-by with it as long as those handy crates still compile. :)
+Also, I wonder, does bitfield_struct also use 1 bit to represent bool?
 
-Paolo
 
 >
+> > +}
+> > +
+> > +impl Errors {
+> > +    pub const BREAK: Self =3D Errors::new().with_break_error(true);
+> >  }
+> >
+> >  /// Data Register, `UARTDR`
+> > @@ -93,19 +101,18 @@ pub struct Errors {
+> >  /// The `UARTDR` register is the data register; write for TX and
+> >  /// read for RX. It is a 12-bit register, where bits 7..0 are the
+> >  /// character and bits 11..8 are error bits.
+> > -#[bitsize(32)]
+> > -#[derive(Clone, Copy, Default, DebugBits, FromBits)]
+> > +#[bitfield(u32)]
+> >  #[doc(alias =3D "UARTDR")]
+> >  pub struct Data {
+> >      pub data: u8,
+> > +    #[bits(8)]
+> >      pub errors: Errors,
+>
+> We should be able to derive that Errors fits into 8 bits as defined above=
+.
+>
+> >      _reserved: u16,
+> >  }
+> > -impl_vmstate_bitsized!(Data);
+> > +impl_vmstate_forward!(Data);
+> >
+> >  impl Data {
+> > -    // bilge is not very const-friendly, unfortunately
+> > -    pub const BREAK: Self =3D Self { value: 1 << 10 };
+> > +    pub const BREAK: Self =3D Self::new().with_errors(Errors::BREAK);
+> >  }
+>
+> I guess this flys a little over my head, is the effect only seen in the
+> generated code?
 
---00000000000076438c0635a32664
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Because these functions are const, they can be evaluated at compile
+time, so this would be replaced with a constant value when compiled.
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
-ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mer 21 mag 2025, 11:35 Manos =
-Pitsidianakis &lt;<a href=3D"mailto:manos.pitsidianakis@linaro.org">manos.p=
-itsidianakis@linaro.org</a>&gt; ha scritto:</div><blockquote class=3D"gmail=
-_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:=
-1ex">
-vm-memory is a very rigid API unfortunately. It&#39;s excellent for<br>
-rust-vmm purposes. I presume it&#39;s possible to figure out a clever<br>
-solution to satisfy both rust-vmm and QEMU use needs but I&#39;m not sure<b=
-r>
-it&#39;s worth it. It&#39;s really hard to retrofit other projects into<br>
-vm-memory if they don&#39;t use rust-vmm crates API design and it might<br>
-make both rust-vmm code and QEMU code more complex. QEMU would depend<br>
-on rust-vmm architectural decisions and vice-versa. The thing I&#39;m<br>
-fearing most is needing to refactor memory APIs in QEMU in the future<br>
-and turn the vm-memory dependency into technical debt.</blockquote></div></=
-div><div dir=3D"auto"><br></div><div dir=3D"auto">I agree that changing the=
- memory API for the sake of Rust code is a bad idea.</div><div dir=3D"auto"=
-><br></div><div dir=3D"auto">That said, I have some hope. vm-memory&#39;s G=
-uestAddressSpace was designed for cloud-hypervisor but with QEMU in mind an=
-d I was really happy about it. Of course it&#39;s easy to screw up and miss=
- details elsewhere (like the difference between FlatRange * and MemoryRegio=
-nSection, and consequently the type of the GuestMemory iterator); I am not =
-even sure what QEMU code for IOMMUs looked like in 2018. But it might be sa=
-lvageable if the rust-vmm guys accept a couple of small API breaks.</div><d=
-iv dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote gmail=
-_quote_container"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
-8ex;border-left:1px #ccc solid;padding-left:1ex">Perhaps it&#39;s more sens=
-ible to not use external dependencies to wrap<br>
-over our APIs but we can surely design our Rust bindings inspired by<br>
-them.<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"a=
-uto">It would be nice to have crates like linux-loader or vm-virtio availab=
-le. But even then, even if we can fork the basic vm-memory traits, we can g=
-et by with it as long as those handy crates still compile. :)</div><div dir=
-=3D"auto"><br></div><div dir=3D"auto">Paolo</div><div dir=3D"auto"><div cla=
-ss=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gmail_quote" =
-style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-</blockquote></div></div></div>
+>
+> >
+> >  /// Receive Status Register / Error Clear Register, `UARTRSR/UARTECR`
+> > @@ -119,13 +126,14 @@ impl Data {
+> >  /// and UARTECR for writes, but really it's a single error status
+> >  /// register where writing anything to the register clears the error
+> >  /// bits.
+> > -#[bitsize(32)]
+> > -#[derive(Clone, Copy, DebugBits, FromBits)]
+> > +#[bitfield(u32)]
+> >  pub struct ReceiveStatusErrorClear {
+> > +    #[bits(8)]
+> >      pub errors: Errors,
+> > -    _reserved_unpredictable: u24,
+> > +    #[bits(24)]
+> > +    _reserved_unpredictable: u32,
+> >  }
+> > -impl_vmstate_bitsized!(ReceiveStatusErrorClear);
+> > +impl_vmstate_forward!(ReceiveStatusErrorClear);
+> >
+> >  impl ReceiveStatusErrorClear {
+> >      pub fn set_from_data(&mut self, data: Data) {
+> > @@ -138,14 +146,7 @@ pub fn reset(&mut self) {
+> >      }
+> >  }
+> >
+> > -impl Default for ReceiveStatusErrorClear {
+> > -    fn default() -> Self {
+> > -        0.into()
+> > -    }
+> > -}
+> > -
+> > -#[bitsize(32)]
+> > -#[derive(Clone, Copy, DebugBits, FromBits)]
+> > +#[bitfield(u32, default =3D false)]
+> >  /// Flag Register, `UARTFR`
+> >  ///
+> >  /// This has the usual inbound RS232 modem-control signals, plus flags
+> > @@ -171,9 +172,10 @@ pub struct Flags {
+> >      pub transmit_fifo_empty: bool,
+> >      /// RI: Ring indicator
+> >      pub ring_indicator: bool,
+> > -    _reserved_zero_no_modify: u23,
+> > +    #[bits(23)]
+> > +    _reserved_zero_no_modify: u32,
+> >  }
+> > -impl_vmstate_bitsized!(Flags);
+> > +impl_vmstate_forward!(Flags);
+> >
+> >  impl Flags {
+> >      pub fn reset(&mut self) {
+> > @@ -183,16 +185,14 @@ pub fn reset(&mut self) {
+> >
+> >  impl Default for Flags {
+> >      fn default() -> Self {
+> > -        let mut ret: Self =3D 0.into();
+> >          // After reset TXFF, RXFF, and BUSY are 0, and TXFE and RXFE a=
+re 1
+> > -        ret.set_receive_fifo_empty(true);
+> > -        ret.set_transmit_fifo_empty(true);
+> > -        ret
+> > +        Self::from(0)
+> > +            .with_receive_fifo_empty(true)
+> > +            .with_transmit_fifo_empty(true)
+>
+> I guess skipping the mut is the advantage of being able to const eval.
 
---00000000000076438c0635a32664--
+No you can actually have mut in const-eval. What you can't have is
+heap allocations and calling non-const functions, and some other
+things. But in this case it doesn't matter, because this is the
+Default trait and it's not const, because it's a trait method.
+
+>
+> >      }
+> >  }
+> >
+> > -#[bitsize(32)]
+> > -#[derive(Clone, Copy, DebugBits, FromBits)]
+> > +#[bitfield(u32)]
+> >  /// Line Control Register, `UARTLCR_H`
+> >  #[doc(alias =3D "UARTLCR_H")]
+> >  pub struct LineControl {
+> > @@ -201,48 +201,46 @@ pub struct LineControl {
+> >      /// PEN: Parity enable
+> >      pub parity_enabled: bool,
+> >      /// EPS: Even parity select
+> > +    #[bits(1)]
+> >      pub parity: Parity,
+> >      /// STP2: Two stop bits select
+> >      pub two_stops_bits: bool,
+> >      /// FEN: Enable FIFOs
+> > +    #[bits(1)]
+> >      pub fifos_enabled: Mode,
+> >      /// WLEN: Word length in bits
+> >      /// b11 =3D 8 bits
+> >      /// b10 =3D 7 bits
+> >      /// b01 =3D 6 bits
+> >      /// b00 =3D 5 bits.
+> > +    #[bits(2)]
+> >      pub word_length: WordLength,
+> >      /// SPS Stick parity select
+> >      pub sticky_parity: bool,
+> >      /// 31:8 - Reserved, do not modify, read as zero.
+> > -    _reserved_zero_no_modify: u24,
+> > +    #[bits(24)]
+> > +    _reserved_zero_no_modify: u32,
+> >  }
+> > -impl_vmstate_bitsized!(LineControl);
+> > +impl_vmstate_forward!(LineControl);
+> >
+> >  impl LineControl {
+> >      pub fn reset(&mut self) {
+> >          // All the bits are cleared to 0 when reset.
+> > -        *self =3D 0.into();
+> > +        *self =3D Self::default();
+> >      }
+> >  }
+> >
+> > -impl Default for LineControl {
+> > -    fn default() -> Self {
+> > -        0.into()
+> > -    }
+> > -}
+> > -
+> > -#[bitsize(1)]
+> > -#[derive(Clone, Copy, Debug, Eq, FromBits, PartialEq)]
+> >  /// `EPS` "Even parity select", field of [Line Control
+> >  /// register](LineControl).
+> > +#[repr(u8)]
+> > +#[derive(Clone, Copy, Debug, Eq, PartialEq, qemu_api_macros::TryInto)]
+> >  pub enum Parity {
+> >      Odd =3D 0,
+> >      Even =3D 1,
+> >  }
+> >
+> > -#[bitsize(1)]
+> > -#[derive(Clone, Copy, Debug, Eq, FromBits, PartialEq)]
+> > +#[repr(u8)]
+> > +#[derive(Clone, Copy, Debug, Eq, PartialEq, qemu_api_macros::TryInto)]
+> >  /// `FEN` "Enable FIFOs" or Device mode, field of [Line Control
+> >  /// register](LineControl).
+> >  pub enum Mode {
+> > @@ -253,8 +251,8 @@ pub enum Mode {
+> >      FIFO =3D 1,
+> >  }
+> >
+> > -#[bitsize(2)]
+> > -#[derive(Clone, Copy, Debug, Eq, FromBits, PartialEq)]
+> > +#[repr(u8)]
+> > +#[derive(Clone, Copy, Debug, Eq, PartialEq, qemu_api_macros::TryInto)]
+> >  /// `WLEN` Word length, field of [Line Control register](LineControl).
+> >  ///
+> >  /// These bits indicate the number of data bits transmitted or receive=
+d in a
+> > @@ -275,9 +273,8 @@ pub enum WordLength {
+> >  /// The `UARTCR` register is the control register. It contains various
+> >  /// enable bits, and the bits to write to set the usual outbound RS232
+> >  /// modem control signals. All bits reset to 0 except TXE and RXE.
+> > -#[bitsize(32)]
+> > +#[bitfield(u32, default =3D false)]
+> >  #[doc(alias =3D "UARTCR")]
+> > -#[derive(Clone, Copy, DebugBits, FromBits)]
+> >  pub struct Control {
+> >      /// `UARTEN` UART enable: 0 =3D UART is disabled.
+> >      pub enable_uart: bool,
+> > @@ -285,9 +282,10 @@ pub struct Control {
+> >      /// QEMU does not model this.
+> >      pub enable_sir: bool,
+> >      /// `SIRLP` SIR low-power IrDA mode. QEMU does not model this.
+> > -    pub sir_lowpower_irda_mode: u1,
+> > +    pub sir_lowpower_irda_mode: bool,
+> >      /// Reserved, do not modify, read as zero.
+> > -    _reserved_zero_no_modify: u4,
+> > +    #[bits(4)]
+> > +    _reserved_zero_no_modify: u8,
+> >      /// `LBE` Loopback enable: feed UART output back to the input
+> >      pub enable_loopback: bool,
+> >      /// `TXE` Transmit enable
+> <snip>
+>
+> I guess I'm not seeing a massive difference here. I guess the const eval
+> is nice but there is cognitive dissonance having annotations not match
+> types. It would be nice to have the best of both worlds.
+>
+> For now I don't see a compelling reason to change from a standard crate
+> (which I guess is the reason this is an RFC ;-)
+>
+> --
+> Alex Benn=C3=A9e
+> Virtualisation Tech Lead @ Linaro
+
+--=20
+Manos Pitsidianakis
+Emulation and Virtualization Engineer at Linaro Ltd
 
