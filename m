@@ -1,127 +1,105 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uHVlH-00045m-0e
-	for mharc-qemu-rust@gnu.org; Tue, 20 May 2025 18:48:39 -0400
+	id 1uHcqz-0002ak-Nl
+	for mharc-qemu-rust@gnu.org; Wed, 21 May 2025 02:23:01 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <iii@linux.ibm.com>)
- id 1uHVLk-00058E-SQ; Tue, 20 May 2025 18:22:18 -0400
-Received: from mx0a-001b2d01.pphosted.com ([148.163.156.1])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <iii@linux.ibm.com>)
- id 1uHVLh-00042n-2C; Tue, 20 May 2025 18:22:16 -0400
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54KIoiCc023106;
- Tue, 20 May 2025 22:21:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pp1; bh=9p09lx
- +xxbHsNO/bXtu8ToIhAFds31gXqfLJZrp+Zys=; b=clcib5BzFCwRIG9wOrbQ8d
- TRGdg9JgaCPrXjOKZuI/CIVl1JTuitNpvGhd4suFFZW9F2/HJ4fgw8aH3mYY6BQB
- ERk+jD5/btw91Tb/9q9cZndvO27ARrJwq5S5Xeije78Zmg+gf9QC3k5fA/3F2sLc
- aG4jhx+Dv0w8E1Q3D6+4RMmTYU+a8yP9OUeqbrlaLmgWtV36LD3VJYXaE/46iFsW
- ICLf4Q3TD/pPrimtQFtrxloweEeFtnutCsukHVaV1s+YKE55s/2btNKy/VYxsyIh
- xfqifwAQtAD8ljriMgQEM8WGPLMzSV3txwaNnL3uiJtoyXO2WSe3UW1XmYntQ4uQ
- ==
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 46ryc88un0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 20 May 2025 22:21:43 +0000 (GMT)
-Received: from m0356517.ppops.net (m0356517.ppops.net [127.0.0.1])
- by pps.reinject (8.18.0.8/8.18.0.8) with ESMTP id 54KMLgQu007504;
- Tue, 20 May 2025 22:21:42 GMT
-Received: from ppma23.wdc07v.mail.ibm.com
- (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 46ryc88umv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 20 May 2025 22:21:42 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 54KKOXi3031996;
- Tue, 20 May 2025 22:21:41 GMT
-Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
- by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 46rwmq192u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 20 May 2025 22:21:40 +0000
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com
- [10.39.53.229])
- by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 54KMLepL29754034
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 20 May 2025 22:21:40 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DBC0B58058;
- Tue, 20 May 2025 22:21:39 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E22B458059;
- Tue, 20 May 2025 22:21:37 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
- by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
- Tue, 20 May 2025 22:21:37 +0000 (GMT)
-MIME-Version: 1.0
-Date: Tue, 20 May 2025 23:21:37 +0100
-From: Ilya Leoshkevich <iii@linux.ibm.com>
-To: Michael Tokarev <mjt@tls.msk.ru>
-Cc: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
- qemu-devel@nongnu.org, Peter Xu <peterx@redhat.com>, Thomas Huth
- <thuth@redhat.com>, Weiwei Li <liwei1518@gmail.com>,
- qemu-arm@nongnu.org, Nicholas Piggin <npiggin@gmail.com>, Liu Zhiwei
- <zhiwei_liu@linux.alibaba.com>, Bin Meng <bmeng.cn@gmail.com>, Tyrone Ting
- <kfting@nuvoton.com>, Hao Wu <wuhaotsh@google.com>, Kyle Evans
- <kevans@freebsd.org>, Alistair Francis <alistair.francis@wdc.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>, Laurent Vivier
- <laurent@vivier.eu>, Riku Voipio <riku.voipio@iki.fi>, Harsh Prateek Bora
- <harshpb@linux.ibm.com>, Fabiano Rosas <farosas@suse.de>, Alexandre Iooss
- <erdnaxe@crans.org>, Laurent Vivier <lvivier@redhat.com>, Daniel Henrique
- Barboza <danielhb413@gmail.com>, Warner Losh <imp@bsdimp.com>, Pierrick
- Bouvier <pierrick.bouvier@linaro.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Mahmoud Mandour <ma.mandourr@gmail.com>, qemu-ppc@nongnu.org, Paolo Bonzini
- <pbonzini@redhat.com>, qemu-rust@nongnu.org, qemu-riscv@nongnu.org
+ (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
+ id 1uHcqw-0002Zt-Na
+ for qemu-rust@nongnu.org; Wed, 21 May 2025 02:22:58 -0400
+Received: from mail-ej1-x62f.google.com ([2a00:1450:4864:20::62f])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
+ id 1uHcqr-00080d-LQ
+ for qemu-rust@nongnu.org; Wed, 21 May 2025 02:22:56 -0400
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-ad572ba1347so400317366b.1
+ for <qemu-rust@nongnu.org>; Tue, 20 May 2025 23:22:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1747808571; x=1748413371; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PmjMaExr94xpqZ6RskD0B1uI5hCJx3jJ3vRdFWdXEik=;
+ b=yUKTrdO0QnFg1yPYMCxl1w6YQIqUcMn5tNn/BvcLl2husW4iHoaVka3S/ElOJ8MZDx
+ ZCOLDChsugDwrRGvPsZ464ONtHRXbneu6v4JgbhdcIcZbO1su9p6mqP8/3tsODwngrc/
+ 8AEY0rxVEiojhdB+PnIBduvZnFmq8TV3gbybWg1Cgge9dS+Vv6LcXinBBIpTXsWikAZt
+ itoINjKV3h0H+FZC6ub00lZL97GFHAJPfTB8Qa3MZlabmw9HIFR1APHEmr5wC2wTCWAa
+ vlvS10twM4Tnw1HTDqccGkIJg7cEQ5EDlBmUVoA+SLF6Lj5bcHwWN/N4BVyEBpMO16k1
+ snlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747808571; x=1748413371;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=PmjMaExr94xpqZ6RskD0B1uI5hCJx3jJ3vRdFWdXEik=;
+ b=etZbfIN0DnZbCWguEzQyodm2F6MbGZfyoXMC7rxr610bxnUkXpgg4nME97dt336LNM
+ J0gIpJDDDRsgahQP9lnDYOOt/MHXW5Hu9Im14g6bTu684SEMQTm4dr0pyxkggDsWKtIU
+ l8072zHC8mHGIIy/+ut3lWefTDgGe2m117ZjbgHYSYmi7urtuTlM2aZzdwwHmFG4ezGk
+ bX2bfeevVgpKRchCvYXDxZ/zWpDytikBhP0ZA9FptIhet66ehqhcqfjbt9DYWtT8OMTR
+ 1vdyiwc5biGV1Pw+apjWyWI92YRmuChbS2wkm2Y/8YUA/5MAf6bx5ypkKMyeEpQXvVWF
+ rXtw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVLGvyADh1EKmzznG6/jUHeQnhArso+6L8s1Uz9K/kZJ3aNzLhU5DLvMbt+dH5r/4MGt8RIRYdHOEk=@nongnu.org
+X-Gm-Message-State: AOJu0YzM/oQawm1dk1Rj/A4mxCrC8wqY/8/DIyKV5p69nxj+dX3oJPRB
+ Bn/9A+p8UB9vvte7EV1XnxzaHx1oHjtX0FDRCd9uhX5au8FRAfdx6J95bHnhquX8a/0=
+X-Gm-Gg: ASbGnct5kW3XY1A/CCu73GrujzHj78wZ8dhG9E4lRmun32+QAMdohT5/mNw1K8oD51/
+ AGYnVFs4KDlCajejiwRTQ/i2AGQCWGA4BNd0i9cW5kTFMcd8XfUvqbO0GpxgiuYVAMNzUZIGZkr
+ F78AhVHYrFXFemM/RGUbzl+cww47xRyLh4U3vjRZlJsgbLlQfuuKPq+RJrkQUCyWNeyWAsXC7+q
+ ioN7eo5nN8ODGAAncyIj9LeYVIxRMYJ+0BXPjknDiH6lusjaYWpqGnCFpOdwQCAWhKUevW83qsy
+ zLzaN3BVMXhE86stYS5LGJnhm+IQ7rl2XTJOByLV2z8M1oAiC3Gx
+X-Google-Smtp-Source: AGHT+IH1/gQhfVRuvcL1z1r0r1JLSqn5JrfMp3cb4sB+s0qyXM84NTy8sluQLk3OJDJpqAP1+dqV4Q==
+X-Received: by 2002:a17:907:7f08:b0:ac7:3817:d8da with SMTP id
+ a640c23a62f3a-ad52d609170mr1523651866b.52.1747808570802; 
+ Tue, 20 May 2025 23:22:50 -0700 (PDT)
+Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad5572f6436sm598125566b.182.2025.05.20.23.22.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 May 2025 23:22:50 -0700 (PDT)
+Received: from draig (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id 62DD65F9CB;
+ Wed, 21 May 2025 07:22:49 +0100 (BST)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Ilya Leoshkevich <iii@linux.ibm.com>
+Cc: Michael Tokarev <mjt@tls.msk.ru>,  qemu-devel@nongnu.org,  Peter Xu
+ <peterx@redhat.com>,  Thomas Huth <thuth@redhat.com>,  Weiwei Li
+ <liwei1518@gmail.com>,  qemu-arm@nongnu.org,  Nicholas Piggin
+ <npiggin@gmail.com>,  Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,  Bin Meng
+ <bmeng.cn@gmail.com>,  Tyrone Ting <kfting@nuvoton.com>,  Hao Wu
+ <wuhaotsh@google.com>,  Kyle Evans <kevans@freebsd.org>,  Alistair Francis
+ <alistair.francis@wdc.com>,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
+ <philmd@linaro.org>,
+ Laurent Vivier <laurent@vivier.eu>,  Riku Voipio <riku.voipio@iki.fi>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,  Fabiano Rosas
+ <farosas@suse.de>,  Alexandre Iooss <erdnaxe@crans.org>,  Laurent Vivier
+ <lvivier@redhat.com>,  Daniel Henrique Barboza <danielhb413@gmail.com>,
+ Warner Losh <imp@bsdimp.com>,  Pierrick Bouvier
+ <pierrick.bouvier@linaro.org>,  Palmer Dabbelt <palmer@dabbelt.com>,
+ Mahmoud Mandour <ma.mandourr@gmail.com>,  qemu-ppc@nongnu.org,  Paolo
+ Bonzini <pbonzini@redhat.com>,  qemu-rust@nongnu.org, qemu-riscv@nongnu.org
 Subject: Re: [PATCH v2 11/17] gdbstub: Try unlinking the unix socket before
  binding
-In-Reply-To: <ee091002-a552-49fe-ae5e-8916937dba15@tls.msk.ru>
+In-Reply-To: <56e0a35b5c53b416db130c414cd0f3d6@linux.ibm.com> (Ilya
+ Leoshkevich's message of "Tue, 20 May 2025 23:21:37 +0100")
 References: <20250207153112.3939799-1-alex.bennee@linaro.org>
  <20250207153112.3939799-12-alex.bennee@linaro.org>
  <ee091002-a552-49fe-ae5e-8916937dba15@tls.msk.ru>
-Message-ID: <56e0a35b5c53b416db130c414cd0f3d6@linux.ibm.com>
-X-Sender: iii@linux.ibm.com
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=XaCJzJ55 c=1 sm=1 tr=0 ts=682d0077 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=VnNF1IyMAAAA:8 a=dwixPFO5EDRWQakTH6kA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: QJsZVEz1xESpOME9ciwkwrUVa51ecEg8
-X-Proofpoint-ORIG-GUID: vjLgG9uT6KzjuiWAx3FmejLsrItBt8S7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTIwMDE3OSBTYWx0ZWRfX8YoPQ28a7zAS
- CbItkAD0cvQsjLQmlffpmzla3j+JN2Vn2028nFIMAQT0COKRNgoAWu/ju0BZnDZFxWDqAfu8Iaj
- cP3KlFb/TlArfEx2uVH93g8aS1g68STHinNeGAGvz3ky+3p78REG9tf6//EjMJVBwF1+N+FAJ07
- 6DnkDviEHi7beZ9kVxfUv5OasyzWm3wg4+Fpi+6d8YQMPQJvBPgzuKwXtGefeFgmUUVmHP+pdp7
- DMabT8ty6Xvbou658amxDMjxhKLDR05eKq1D4+xMexhQUXPOWiKaN8AfRLtwEVDmZmyfQYCnygC
- /rZeZxpOndKHOJDhIT0D5lCos8KEhJwgD8CrZNhNbhIgNP8f2OwpXAnfTFRiua6etaVbQ7cw2Q8
- 2HbLgjwbPhkjIQ1/1Jq7Whwqvj2+KNgZjxqYKBzClbAXBTsASQC/G05mZ2ar7EhnLSLl5GS2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-20_10,2025-05-20_03,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0
- impostorscore=0 spamscore=0 clxscore=1011 mlxscore=0 lowpriorityscore=0
- phishscore=0 malwarescore=0 bulkscore=0 priorityscore=1501 mlxlogscore=999
- classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2505160000
- definitions=main-2505200179
-Received-SPF: pass client-ip=148.163.156.1; envelope-from=iii@linux.ibm.com;
- helo=mx0a-001b2d01.pphosted.com
-X-Spam_score_int: -26
-X-Spam_score: -2.7
-X-Spam_bar: --
-X-Spam_report: (-2.7 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_EF=-0.1, RCVD_IN_DNSWL_LOW=-0.7,
- RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ <56e0a35b5c53b416db130c414cd0f3d6@linux.ibm.com>
+User-Agent: mu4e 1.12.11; emacs 30.1
+Date: Wed, 21 May 2025 07:22:49 +0100
+Message-ID: <877c2aa3eu.fsf@draig.linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::62f;
+ envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x62f.google.com
+X-Spam_score_int: 12
+X-Spam_score: 1.2
+X-Spam_bar: +
+X-Spam_report: (1.2 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
+ DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, RCVD_IN_DNSWL_NONE=-0.0001,
+ RCVD_IN_SBL_CSS=3.335, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Tue, 20 May 2025 18:48:38 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,64 +111,94 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 May 2025 22:22:27 -0000
+X-List-Received-Date: Wed, 21 May 2025 06:22:59 -0000
 
-On 2025-05-20 15:50, Michael Tokarev wrote:
-> 07.02.2025 18:31, Alex Bennée wrote:
->> From: Ilya Leoshkevich <iii@linux.ibm.com>
->> 
->> In case an emulated process execve()s another emulated process, bind()
->> will fail, because the socket already exists. So try deleting it. Use
->> the existing unix_listen() function which does this. Link qemu-user
->> with qemu-sockets.c and add the monitor_get_fd() stub.
->> 
->> Note that it is not possible to handle this in do_execv(): deleting
->> gdbserver_user_state.socket_path before safe_execve() is not correct,
->> because the latter may fail, and afterwards we may lose control.
-> 
-> Please note: this is linux-user stuff, which is usually linked 
-> statically.
-> By linking it with qemu-sockets, we basically broke static linking, 
-> because
-> qemu-sockets uses getaddrinfo() &Co.  The previous code, I think, was 
-> there
-> for a reason, - to avoid this linkage.
-> 
-> How do you think about reverting this one and addressing the original
-> problem without using qemu-sockets?
-> 
-> Alternatively, it might be possible to split qemu-sockets.c into 
-> unix-related
-> stuff and generic stuff.
-> 
-> Thanks,
-> 
-> /mjt
+Ilya Leoshkevich <iii@linux.ibm.com> writes:
 
-I can split it.
+> On 2025-05-20 15:50, Michael Tokarev wrote:
+>> 07.02.2025 18:31, Alex Benn=C3=A9e wrote:
+>>> From: Ilya Leoshkevich <iii@linux.ibm.com>
+>>> In case an emulated process execve()s another emulated process,
+>>> bind()
+>>> will fail, because the socket already exists. So try deleting it. Use
+>>> the existing unix_listen() function which does this. Link qemu-user
+>>> with qemu-sockets.c and add the monitor_get_fd() stub.
+>>> Note that it is not possible to handle this in do_execv(): deleting
+>>> gdbserver_user_state.socket_path before safe_execve() is not correct,
+>>> because the latter may fail, and afterwards we may lose control.
+>> Please note: this is linux-user stuff, which is usually linked
+>> statically.
+>> By linking it with qemu-sockets, we basically broke static linking,
+>> because
+>> qemu-sockets uses getaddrinfo() &Co.  The previous code, I think,
+>> was there
+>> for a reason, - to avoid this linkage.
+>> How do you think about reverting this one and addressing the
+>> original
+>> problem without using qemu-sockets?
+>> Alternatively, it might be possible to split qemu-sockets.c into
+>> unix-related
+>> stuff and generic stuff.
+>> Thanks,
+>> /mjt
+>
+> I can split it.
+>
+> However, wasn't it already broken in this regard?
+> With fccb744f41c69fec6fd92225fe907c6e69de5d44^ I get:
+>
+> [2/2] Linking target qemu-s390x
+> /usr/bin/ld: /usr/lib64/libglib-2.0.a(gutils.c.o): in function
+> `g_get_user_database_entry':
+> (.text+0xeb): warning: Using 'getpwnam_r' in statically linked
+> applications requires at runtime the shared libraries from the glibc
+> version used for linking
+> /usr/bin/ld: (.text+0x2be): warning: Using 'getpwuid' in statically
+> linked applications requires at runtime the shared libraries from the
+> glibc version used for linking
+> /usr/bin/ld: (.text+0x134): warning: Using 'getpwuid_r' in statically
+> linked applications requires at runtime the shared libraries from the
+> glibc version used for linking
+>
+> This comes from glib, but the ultimate result is still the same.
+>
+> Also, what are the symptoms of the breakage? IIUC as long as execution
+> does not reach getaddrinfo(), which it in this case should not, because
+> it is used only on inet paths, there should not be any issues, right?
+>
+> In any case, the new warning is annoying and I better fix it for this
+> reason alone.
 
-However, wasn't it already broken in this regard?
-With fccb744f41c69fec6fd92225fe907c6e69de5d44^ I get:
+I sent:
 
-[2/2] Linking target qemu-s390x
-/usr/bin/ld: /usr/lib64/libglib-2.0.a(gutils.c.o): in function 
-`g_get_user_database_entry':
-(.text+0xeb): warning: Using 'getpwnam_r' in statically linked 
-applications requires at runtime the shared libraries from the glibc 
-version used for linking
-/usr/bin/ld: (.text+0x2be): warning: Using 'getpwuid' in statically 
-linked applications requires at runtime the shared libraries from the 
-glibc version used for linking
-/usr/bin/ld: (.text+0x134): warning: Using 'getpwuid_r' in statically 
-linked applications requires at runtime the shared libraries from the 
-glibc version used for linking
+  Message-Id: <20250520165706.3976971-1-alex.bennee@linaro.org>
+  Date: Tue, 20 May 2025 17:57:06 +0100
+  Subject: [RFC PATCH] util: split unix socket functions out of qemu-sockets
+  From: =3D?UTF-8?q?Alex=3D20Benn=3DC3=3DA9e?=3D <alex.bennee@linaro.org>
 
-This comes from glib, but the ultimate result is still the same.
+Although I'm still seeing some warnings on my build:
 
-Also, what are the symptoms of the breakage? IIUC as long as execution
-does not reach getaddrinfo(), which it in this case should not, because
-it is used only on inet paths, there should not be any issues, right?
+  # QEMU configure log Tue 20 May 18:14:18 BST 2025
+  # Configured with: '../../configure' '--disable-docs' '--disable-tools' '=
+--disable-system' '--disable-vhost-kernel' '--disable-vhost-user' '--disabl=
+e-vhost-net' '--static'
 
-In any case, the new warning is annoying and I better fix it for this
-reason alone.
+Gives:
+
+  [142/142] Linking target qemu-xtensaeb
+  /usr/bin/ld: /usr/lib/x86_64-linux-gnu/libglib-2.0.a(gutils.c.o): in func=
+tion `g_get_user_database_entry':
+  (.text+0x287): warning: Using 'getpwuid' in statically linked application=
+s requires at runtime the shared libraries from the glibc version used for =
+linking
+  /usr/bin/ld: (.text+0xe0): warning: Using 'getpwnam_r' in statically link=
+ed applications requires at runtime the shared libraries from the glibc ver=
+sion used for linking
+  /usr/bin/ld: (.text+0x11e): warning: Using 'getpwuid_r' in statically lin=
+ked applications requires at runtime the shared libraries from the glibc ve=
+rsion used for linking
+
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
 
