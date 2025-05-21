@@ -1,104 +1,92 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uHcqz-0002ak-Nl
-	for mharc-qemu-rust@gnu.org; Wed, 21 May 2025 02:23:01 -0400
+	id 1uHefI-0004mm-1z
+	for mharc-qemu-rust@gnu.org; Wed, 21 May 2025 04:19:04 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uHcqw-0002Zt-Na
- for qemu-rust@nongnu.org; Wed, 21 May 2025 02:22:58 -0400
-Received: from mail-ej1-x62f.google.com ([2a00:1450:4864:20::62f])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uHcqr-00080d-LQ
- for qemu-rust@nongnu.org; Wed, 21 May 2025 02:22:56 -0400
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-ad572ba1347so400317366b.1
- for <qemu-rust@nongnu.org>; Tue, 20 May 2025 23:22:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1747808571; x=1748413371; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:message-id:date:user-agent
- :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PmjMaExr94xpqZ6RskD0B1uI5hCJx3jJ3vRdFWdXEik=;
- b=yUKTrdO0QnFg1yPYMCxl1w6YQIqUcMn5tNn/BvcLl2husW4iHoaVka3S/ElOJ8MZDx
- ZCOLDChsugDwrRGvPsZ464ONtHRXbneu6v4JgbhdcIcZbO1su9p6mqP8/3tsODwngrc/
- 8AEY0rxVEiojhdB+PnIBduvZnFmq8TV3gbybWg1Cgge9dS+Vv6LcXinBBIpTXsWikAZt
- itoINjKV3h0H+FZC6ub00lZL97GFHAJPfTB8Qa3MZlabmw9HIFR1APHEmr5wC2wTCWAa
- vlvS10twM4Tnw1HTDqccGkIJg7cEQ5EDlBmUVoA+SLF6Lj5bcHwWN/N4BVyEBpMO16k1
- snlw==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uHefE-0004lr-Mb
+ for qemu-rust@nongnu.org; Wed, 21 May 2025 04:19:00 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uHefA-00009q-V6
+ for qemu-rust@nongnu.org; Wed, 21 May 2025 04:19:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1747815531;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=oBjkbO7ab/Bs8vweaRnYdvEsyUdC25nLwFE9KdD0if0=;
+ b=HIvOEQcPMv2e+XggUGygBEwwHOZWZJJ4TFR+XXY4+WqWDI8pWv6Y8po1kftxY75iq6pba/
+ FlDXWchElmkMhXzEnLn1PffawqGtWmC/spfPZQCNaGKemiagvv3cZYs0ow9XikmlJrPRo3
+ 0JKn/Mx2/aNsGaJnf7DSM9kTo2ooMPs=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-132-wtWUjZgtOdKr88MIKBfhzw-1; Wed, 21 May 2025 04:18:50 -0400
+X-MC-Unique: wtWUjZgtOdKr88MIKBfhzw-1
+X-Mimecast-MFC-AGG-ID: wtWUjZgtOdKr88MIKBfhzw_1747815529
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-3a370309e5cso2126321f8f.3
+ for <qemu-rust@nongnu.org>; Wed, 21 May 2025 01:18:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747808571; x=1748413371;
- h=content-transfer-encoding:mime-version:message-id:date:user-agent
- :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=PmjMaExr94xpqZ6RskD0B1uI5hCJx3jJ3vRdFWdXEik=;
- b=etZbfIN0DnZbCWguEzQyodm2F6MbGZfyoXMC7rxr610bxnUkXpgg4nME97dt336LNM
- J0gIpJDDDRsgahQP9lnDYOOt/MHXW5Hu9Im14g6bTu684SEMQTm4dr0pyxkggDsWKtIU
- l8072zHC8mHGIIy/+ut3lWefTDgGe2m117ZjbgHYSYmi7urtuTlM2aZzdwwHmFG4ezGk
- bX2bfeevVgpKRchCvYXDxZ/zWpDytikBhP0ZA9FptIhet66ehqhcqfjbt9DYWtT8OMTR
- 1vdyiwc5biGV1Pw+apjWyWI92YRmuChbS2wkm2Y/8YUA/5MAf6bx5ypkKMyeEpQXvVWF
- rXtw==
+ d=1e100.net; s=20230601; t=1747815528; x=1748420328;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=oBjkbO7ab/Bs8vweaRnYdvEsyUdC25nLwFE9KdD0if0=;
+ b=iqLU6pmB3U0ypoQYsKR23vWu2IRaC1JZ+KrjcsYTXzNiEtKUzWg07vla5oPyHvPsaY
+ 0ZEHoFRQCSgMxZw2ebX28oNWvLCr22SQNMY9FxcRr3sj7V8IbexI0HMqerbuXZ+0UkgI
+ K1ArrUK1GYKxLU5LpNjgE1oKAugHy5OkVTP7fIwhNOtjy6D4XKI+s6y59f/X+geMI31R
+ Bv2hoLo3lpQIiEzWnmRLmmzLawYBkoCcqerQwZttrjesMsxhTwej2Svi6Yui1C7QkiJT
+ gdVzj1GRb1d1zPKCew0VMZhwZKaOmGIipEBVrr9CwrEvgapfmbvK4exnxYB0EhxYvmzP
+ ldfA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVLGvyADh1EKmzznG6/jUHeQnhArso+6L8s1Uz9K/kZJ3aNzLhU5DLvMbt+dH5r/4MGt8RIRYdHOEk=@nongnu.org
-X-Gm-Message-State: AOJu0YzM/oQawm1dk1Rj/A4mxCrC8wqY/8/DIyKV5p69nxj+dX3oJPRB
- Bn/9A+p8UB9vvte7EV1XnxzaHx1oHjtX0FDRCd9uhX5au8FRAfdx6J95bHnhquX8a/0=
-X-Gm-Gg: ASbGnct5kW3XY1A/CCu73GrujzHj78wZ8dhG9E4lRmun32+QAMdohT5/mNw1K8oD51/
- AGYnVFs4KDlCajejiwRTQ/i2AGQCWGA4BNd0i9cW5kTFMcd8XfUvqbO0GpxgiuYVAMNzUZIGZkr
- F78AhVHYrFXFemM/RGUbzl+cww47xRyLh4U3vjRZlJsgbLlQfuuKPq+RJrkQUCyWNeyWAsXC7+q
- ioN7eo5nN8ODGAAncyIj9LeYVIxRMYJ+0BXPjknDiH6lusjaYWpqGnCFpOdwQCAWhKUevW83qsy
- zLzaN3BVMXhE86stYS5LGJnhm+IQ7rl2XTJOByLV2z8M1oAiC3Gx
-X-Google-Smtp-Source: AGHT+IH1/gQhfVRuvcL1z1r0r1JLSqn5JrfMp3cb4sB+s0qyXM84NTy8sluQLk3OJDJpqAP1+dqV4Q==
-X-Received: by 2002:a17:907:7f08:b0:ac7:3817:d8da with SMTP id
- a640c23a62f3a-ad52d609170mr1523651866b.52.1747808570802; 
- Tue, 20 May 2025 23:22:50 -0700 (PDT)
-Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad5572f6436sm598125566b.182.2025.05.20.23.22.50
+ AJvYcCWDtfopg0hP0axnAWv6bAm5zXCw6dJXAg2obB4Ik/pGteTG+l+tlFestFrAvBOcx0U2E51sIFWx06I=@nongnu.org
+X-Gm-Message-State: AOJu0Yyqd17wpDr9CQWyJZTbeXWaoZw5MUne6XXiGTxUUuTYgoSFhD7s
+ AcuUDzhXEzx9j32q7V06t6SudZjqndqxNLrbKMHF7pZ5Ugm5L/cmgoGTNO4lp8aftke00o9pAgW
+ FZ3xp59PtJNbt+5TrsR89a3KSKcwTqyrJgspaH3lZZog9bJl4mKLsIJMuyvqzQQ8=
+X-Gm-Gg: ASbGnct4/RCLPrfpWUyBBJB5mrkduUloC1pswJJKsMMvVqWRj7nnKJZlpgOlJ3aNnPK
+ 9A33HvFnA6K8MakfZxnAD88+lzdz3AlDb5Rvp+ap/bUwk4nOlglog6Xcd6/PuAiHo/cn3rzOjhI
+ fWqh6Lvaxj9xUxclwlERWVvjnoV5mbTJfp3C6ZYwpjh7VKDvfOJ6mX7TArLJMdzjU1aN7Uc95Cw
+ kHRClfnksQ32IHY+m59mKayl1ZWodo95G/oKJ8ijRLn/e0h/ExTWq5Q2fuclXW0mIyfeUwFWw8z
+ egl3Tx6AqxYX7g==
+X-Received: by 2002:a05:6000:e4e:b0:3a3:6273:802f with SMTP id
+ ffacd0b85a97d-3a36273835emr15122789f8f.14.1747815527957; 
+ Wed, 21 May 2025 01:18:47 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGsg/GqmklxmQ7sz4QFR1LXhEFG9K6O4Ar6IkiF6h+ieSZuCuV56zTQtlu5fzkXbeXsXhXonA==
+X-Received: by 2002:a05:6000:e4e:b0:3a3:6273:802f with SMTP id
+ ffacd0b85a97d-3a36273835emr15122764f8f.14.1747815527546; 
+ Wed, 21 May 2025 01:18:47 -0700 (PDT)
+Received: from [192.168.122.1] ([151.95.46.79])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-447f78b2f19sm58652665e9.32.2025.05.21.01.18.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 May 2025 23:22:50 -0700 (PDT)
-Received: from draig (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 62DD65F9CB;
- Wed, 21 May 2025 07:22:49 +0100 (BST)
-From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Ilya Leoshkevich <iii@linux.ibm.com>
-Cc: Michael Tokarev <mjt@tls.msk.ru>,  qemu-devel@nongnu.org,  Peter Xu
- <peterx@redhat.com>,  Thomas Huth <thuth@redhat.com>,  Weiwei Li
- <liwei1518@gmail.com>,  qemu-arm@nongnu.org,  Nicholas Piggin
- <npiggin@gmail.com>,  Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,  Bin Meng
- <bmeng.cn@gmail.com>,  Tyrone Ting <kfting@nuvoton.com>,  Hao Wu
- <wuhaotsh@google.com>,  Kyle Evans <kevans@freebsd.org>,  Alistair Francis
- <alistair.francis@wdc.com>,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
- <philmd@linaro.org>,
- Laurent Vivier <laurent@vivier.eu>,  Riku Voipio <riku.voipio@iki.fi>,
- Harsh Prateek Bora <harshpb@linux.ibm.com>,  Fabiano Rosas
- <farosas@suse.de>,  Alexandre Iooss <erdnaxe@crans.org>,  Laurent Vivier
- <lvivier@redhat.com>,  Daniel Henrique Barboza <danielhb413@gmail.com>,
- Warner Losh <imp@bsdimp.com>,  Pierrick Bouvier
- <pierrick.bouvier@linaro.org>,  Palmer Dabbelt <palmer@dabbelt.com>,
- Mahmoud Mandour <ma.mandourr@gmail.com>,  qemu-ppc@nongnu.org,  Paolo
- Bonzini <pbonzini@redhat.com>,  qemu-rust@nongnu.org, qemu-riscv@nongnu.org
-Subject: Re: [PATCH v2 11/17] gdbstub: Try unlinking the unix socket before
- binding
-In-Reply-To: <56e0a35b5c53b416db130c414cd0f3d6@linux.ibm.com> (Ilya
- Leoshkevich's message of "Tue, 20 May 2025 23:21:37 +0100")
-References: <20250207153112.3939799-1-alex.bennee@linaro.org>
- <20250207153112.3939799-12-alex.bennee@linaro.org>
- <ee091002-a552-49fe-ae5e-8916937dba15@tls.msk.ru>
- <56e0a35b5c53b416db130c414cd0f3d6@linux.ibm.com>
-User-Agent: mu4e 1.12.11; emacs 30.1
-Date: Wed, 21 May 2025 07:22:49 +0100
-Message-ID: <877c2aa3eu.fsf@draig.linaro.org>
+ Wed, 21 May 2025 01:18:47 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: peter.maydell@linaro.org, qemu-rust@nongnu.org,
+ manos.pitsidianakis@linaro.org
+Subject: [RFC PATCH 0/6] rust: make usage of bitmasks and bitfields nicer
+Date: Wed, 21 May 2025 10:18:39 +0200
+Message-ID: <20250521081845.496442-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::62f;
- envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x62f.google.com
-X-Spam_score_int: 12
-X-Spam_score: 1.2
-X-Spam_bar: +
-X-Spam_report: (1.2 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
- DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, RCVD_IN_DNSWL_NONE=-0.0001,
- RCVD_IN_SBL_CSS=3.335, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: QihfNFukSRa422ygODC1T7kkuHi0bdzH91Ta5JzJWdI_1747815529
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -25
+X-Spam_score: -2.6
+X-Spam_bar: --
+X-Spam_report: (-2.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.487,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -111,94 +99,129 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 May 2025 06:22:59 -0000
+X-List-Received-Date: Wed, 21 May 2025 08:19:01 -0000
 
-Ilya Leoshkevich <iii@linux.ibm.com> writes:
+This adds or modifies some of the early choices that were done when
+writing the pl011 crate.  Now that the implementation is safe and
+readable, it's possible to look at the code as a whole, see what
+looks ugly and fix it.
 
-> On 2025-05-20 15:50, Michael Tokarev wrote:
->> 07.02.2025 18:31, Alex Benn=C3=A9e wrote:
->>> From: Ilya Leoshkevich <iii@linux.ibm.com>
->>> In case an emulated process execve()s another emulated process,
->>> bind()
->>> will fail, because the socket already exists. So try deleting it. Use
->>> the existing unix_listen() function which does this. Link qemu-user
->>> with qemu-sockets.c and add the monitor_get_fd() stub.
->>> Note that it is not possible to handle this in do_execv(): deleting
->>> gdbserver_user_state.socket_path before safe_execve() is not correct,
->>> because the latter may fail, and afterwards we may lose control.
->> Please note: this is linux-user stuff, which is usually linked
->> statically.
->> By linking it with qemu-sockets, we basically broke static linking,
->> because
->> qemu-sockets uses getaddrinfo() &Co.  The previous code, I think,
->> was there
->> for a reason, - to avoid this linkage.
->> How do you think about reverting this one and addressing the
->> original
->> problem without using qemu-sockets?
->> Alternatively, it might be possible to split qemu-sockets.c into
->> unix-related
->> stuff and generic stuff.
->> Thanks,
->> /mjt
->
-> I can split it.
->
-> However, wasn't it already broken in this regard?
-> With fccb744f41c69fec6fd92225fe907c6e69de5d44^ I get:
->
-> [2/2] Linking target qemu-s390x
-> /usr/bin/ld: /usr/lib64/libglib-2.0.a(gutils.c.o): in function
-> `g_get_user_database_entry':
-> (.text+0xeb): warning: Using 'getpwnam_r' in statically linked
-> applications requires at runtime the shared libraries from the glibc
-> version used for linking
-> /usr/bin/ld: (.text+0x2be): warning: Using 'getpwuid' in statically
-> linked applications requires at runtime the shared libraries from the
-> glibc version used for linking
-> /usr/bin/ld: (.text+0x134): warning: Using 'getpwuid_r' in statically
-> linked applications requires at runtime the shared libraries from the
-> glibc version used for linking
->
-> This comes from glib, but the ultimate result is still the same.
->
-> Also, what are the symptoms of the breakage? IIUC as long as execution
-> does not reach getaddrinfo(), which it in this case should not, because
-> it is used only on inet paths, there should not be any issues, right?
->
-> In any case, the new warning is annoying and I better fix it for this
-> reason alone.
+To see the effect on the pl011 code, jump at patches 2 and 4.  But
+overall the focus is on "ugly" constant declarations of two kinds.
 
-I sent:
+First, bitmasks.  These are currently written like this:
 
-  Message-Id: <20250520165706.3976971-1-alex.bennee@linaro.org>
-  Date: Tue, 20 May 2025 17:57:06 +0100
-  Subject: [RFC PATCH] util: split unix socket functions out of qemu-sockets
-  From: =3D?UTF-8?q?Alex=3D20Benn=3DC3=3DA9e?=3D <alex.bennee@linaro.org>
+    const IRQMASK: [u32; 6] = [                
+      Interrupt::E.0 | Interrupt::MS.0 | Interrupt::RT.0 | Interrupt::TX.0 | Interrupt::RX.0,
+      ...
+    }
 
-Although I'm still seeing some warnings on my build:
+Here the issue is threefold: 1) the repeated "Interrupt::"; 2) the
+ugly ".0" and 3) the type of IRQMASK is not "Interrupt" to avoid further
+".0"s elsewhere.
 
-  # QEMU configure log Tue 20 May 18:14:18 BST 2025
-  # Configured with: '../../configure' '--disable-docs' '--disable-tools' '=
---disable-system' '--disable-vhost-kernel' '--disable-vhost-user' '--disabl=
-e-vhost-net' '--static'
+All this can be fixed by abstracting this kind of bitmasks, and the go-to
+solution for Rust is called "bitflags".  However, it does not solve the
+constant declaration part so I'm rolling my own here, while keeping it
+similar to bitflags so it's not completely foreign to Rust developers.
+It's a bit simpler and it has the extra expression parsing functionality,
+so that the above becomes:
 
-Gives:
+    const IRQMASK: [Interrupt; 6] = [                
+      bits!(Interrupt: E | MS | RT | TX | RX)
+      ...
+    }
 
-  [142/142] Linking target qemu-xtensaeb
-  /usr/bin/ld: /usr/lib/x86_64-linux-gnu/libglib-2.0.a(gutils.c.o): in func=
-tion `g_get_user_database_entry':
-  (.text+0x287): warning: Using 'getpwuid' in statically linked application=
-s requires at runtime the shared libraries from the glibc version used for =
-linking
-  /usr/bin/ld: (.text+0xe0): warning: Using 'getpwnam_r' in statically link=
-ed applications requires at runtime the shared libraries from the glibc ver=
-sion used for linking
-  /usr/bin/ld: (.text+0x11e): warning: Using 'getpwuid_r' in statically lin=
-ked applications requires at runtime the shared libraries from the glibc ve=
-rsion used for linking
+(this specific case can also be written simply as "Interrupt::all()",
+because all bits are set, but still).
 
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+
+Second, while the "bilge" crate is very nice it was written with the
+expectation that const traits would be stable Real Soon.  They didn't
+and we're left with stuff like
+
+    pub const BREAK: Self = Self { value: 1 << 10 };
+
+So this series replaces "bilge" with an alternative implementation of
+bitfields called (less cryptically) "bitfield-struct".  Now, there is a
+trade-off here.  It is described more in detail in patch 4, but roughly
+speaking:
+
+++ bitfield-struct supports "const" well
+
++ bitfield-struct is much smaller than bilge, so that it is possible
+  to remove a bunch of subprojects
+
+- bitfield-struct requires manual size annotations for anything that is
+  not a primitive type (bool, iNN or uNN); this is especially annoying
+  for enums
+
+It's important that the disadvantages affect only the definition of
+the type.  Code that *uses* the type is the same or better, for example
+the above const declaration becomes:
+
+    pub const BREAK: Self = Self::new().with_errors(Errors::BREAK);
+
+This "with_*()" convention is in fact the same that it's used for
+VMState declarations, such as in ".with_version_id(N)", so there is some
+consistency too.
+
+Again, I do like "bilge" and I think it's usage of arbitrary-width
+types like "u4" is very nice and readable.  If it ever grows "const"
+capabilities it's certainly possible to come back to it, but right
+now I feel that the trade-off leans towards the switch.
+
+Paolo
+
+
+Paolo Bonzini (6):
+  rust: add "bits", a custom bitflags implementation
+  rust: pl011: use the bits macro
+  rust: qemu-api-macros: add from_bits and into_bits to
+    #[derive(TryInto)]
+  rust: subprojects: add bitfield-struct
+  rust: pl011: switch from bilge to bitfield-struct
+  rust: remove bilge crate
+
+ rust/Cargo.lock                               |  75 +--
+ rust/Cargo.toml                               |   2 +
+ rust/bits/Cargo.toml                          |  19 +
+ rust/bits/meson.build                         |  12 +
+ rust/bits/src/lib.rs                          | 441 ++++++++++++++++++
+ rust/hw/char/pl011/Cargo.toml                 |   4 +-
+ rust/hw/char/pl011/meson.build                |  12 +-
+ rust/hw/char/pl011/src/device.rs              |  51 +-
+ rust/hw/char/pl011/src/registers.rs           | 145 +++---
+ rust/meson.build                              |   4 +
+ rust/qemu-api-macros/src/bits.rs              | 227 +++++++++
+ rust/qemu-api-macros/src/lib.rs               |  60 ++-
+ rust/qemu-api/src/vmstate.rs                  |  34 +-
+ subprojects/.gitignore                        |   8 +-
+ subprojects/arbitrary-int-1-rs.wrap           |  10 -
+ subprojects/bilge-0.2-rs.wrap                 |  10 -
+ subprojects/bilge-impl-0.2-rs.wrap            |  10 -
+ subprojects/bitfield-struct-0.9-rs.wrap       |   7 +
+ subprojects/either-1-rs.wrap                  |  10 -
+ subprojects/itertools-0.11-rs.wrap            |  10 -
+ .../bitfield-struct-0.9-rs/meson.build        |  36 ++
+ subprojects/proc-macro-error-1-rs.wrap        |  10 -
+ subprojects/proc-macro-error-attr-1-rs.wrap   |  10 -
+ 23 files changed, 917 insertions(+), 290 deletions(-)
+ create mode 100644 rust/bits/Cargo.toml
+ create mode 100644 rust/bits/meson.build
+ create mode 100644 rust/bits/src/lib.rs
+ create mode 100644 rust/qemu-api-macros/src/bits.rs
+ delete mode 100644 subprojects/arbitrary-int-1-rs.wrap
+ delete mode 100644 subprojects/bilge-0.2-rs.wrap
+ delete mode 100644 subprojects/bilge-impl-0.2-rs.wrap
+ create mode 100644 subprojects/bitfield-struct-0.9-rs.wrap
+ delete mode 100644 subprojects/either-1-rs.wrap
+ delete mode 100644 subprojects/itertools-0.11-rs.wrap
+ create mode 100644 subprojects/packagefiles/bitfield-struct-0.9-rs/meson.build
+ delete mode 100644 subprojects/proc-macro-error-1-rs.wrap
+ delete mode 100644 subprojects/proc-macro-error-attr-1-rs.wrap
+
+-- 
+2.49.0
+
 
