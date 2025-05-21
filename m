@@ -1,66 +1,67 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uHepJ-00059K-Te
-	for mharc-qemu-rust@gnu.org; Wed, 21 May 2025 04:29:25 -0400
+	id 1uHewS-00009s-9y
+	for mharc-qemu-rust@gnu.org; Wed, 21 May 2025 04:36:48 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1uHepH-00058d-T8
- for qemu-rust@nongnu.org; Wed, 21 May 2025 04:29:24 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1uHepD-0001bZ-Tn
- for qemu-rust@nongnu.org; Wed, 21 May 2025 04:29:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1747816157;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:in-reply-to:in-reply-to:  references:references;
- bh=FhvykXFPvvgEfMw/sjGDnGIygDSlUWEC8uXa4DZFFMw=;
- b=OnZdvr18UzinUPdpWLWYgXhhDOVDXwCYKFLSOfzM5ynjfh9rPYz9in4/37//sQ372hq3Jm
- od18Sa5AdoorlhbgueO5hqMyeq8TGZFzkOhj9zCILgZMTsFB5tuuGE6DEc7SD9mx0xjPsO
- 9DzQGYia+ruIkq0t2TX4XDVfKRyfBGo=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-21-GHoTgSDENoeV-s89SJ48tQ-1; Wed,
- 21 May 2025 04:29:13 -0400
-X-MC-Unique: GHoTgSDENoeV-s89SJ48tQ-1
-X-Mimecast-MFC-AGG-ID: GHoTgSDENoeV-s89SJ48tQ_1747816153
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id A85221956088; Wed, 21 May 2025 08:29:12 +0000 (UTC)
-Received: from redhat.com (unknown [10.42.28.129])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 96C40180045B; Wed, 21 May 2025 08:29:10 +0000 (UTC)
-Date: Wed, 21 May 2025 09:29:06 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, peter.maydell@linaro.org, qemu-rust@nongnu.org,
- manos.pitsidianakis@linaro.org
-Subject: Re: [RFC PATCH 1/6] rust: add "bits", a custom bitflags implementation
-Message-ID: <aC2O0iNVZZMQUpjQ@redhat.com>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-References: <20250521081845.496442-1-pbonzini@redhat.com>
- <20250521081845.496442-2-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <paolo.bonzini@gmail.com>)
+ id 1uHewN-00009B-DO; Wed, 21 May 2025 04:36:43 -0400
+Received: from mail-pl1-f175.google.com ([209.85.214.175])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <paolo.bonzini@gmail.com>)
+ id 1uHewK-0002ef-Pw; Wed, 21 May 2025 04:36:42 -0400
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-22e033a3a07so66542165ad.0; 
+ Wed, 21 May 2025 01:36:39 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747816597; x=1748421397;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=zhM6HwJw8T5AoaPZdLrn4eXNCke3sEFS3fuQCBPDh1I=;
+ b=TdJ1ec9V/W3LSStcGNEUVPvQhBVSzS/JrYCSDlVP3qzpEaNxrNmLqvpUcEaFcm57t0
+ D6uM8YxIfwGTPnSjuTh8JplzyEIoEVluXpbFgIb4skH48N5FvAzJGiK727t7FkaMA9E4
+ BcguLQEhQ4r/DpTfVkO3QOeEwGGADEVlVyYMP7rgYjNxEeYQH8GIxN33JEZoAWW6/9s2
+ kj5TSXZf/oG0ppKkU/i49xw+0+ltKDjyPUaBTqtnIODjrTX6UHE+bd+YkylCuxrJ5o2k
+ FKjdZByOEp/2aRyg3hTytEBElKRUdHsWO/sDHHKbQL8WA0Cx0fq+JC1tNlGgZgd9fmvD
+ 7ysg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVgPASmdiWjUVvWbwAFYrNucJfiNnG7ZDmX6BqOO/hoNQB+bTE2hz2qPXuH5R8nYqpURcn0WYOF9BA=@nongnu.org
+X-Gm-Message-State: AOJu0YxvFiZMA1H9cYi7TGYZlwZKPPc0xSy3FGTfRNOAdb+hIgob9VtK
+ sUCLjXJJHY529WrybgfSZ0XcIw5/1jlzXQf0JuvISTQMfLClLXyhNXLBNf3uQcSVSnWheB7aQuK
+ sMp0M0JS1NEpfD2iE4dCbfDJ4G49JHF8=
+X-Gm-Gg: ASbGncsp67gnuytVygZnCjIAXIRhjN2QhA6dvCf+V82ieSTlgGXITTkgs+lRqWI/TaO
+ c8EipLkomzJv+jQvp+L2ktA9mYRlAZWMEmv3P1yWxVr09Z8tk/eDhrpPQLKUQnsUgU95v5h5TX1
+ QZToVowfPHgQwi2Lu4lzOM76RNOCsQHfI=
+X-Google-Smtp-Source: AGHT+IGJjLrXcnS1zXceeJTmu2+GPz0yQnSqHUmmiiGT+bLpXqZq4/l5a0S2IqNcTI0DS+rgb/8F0WndXA9DtQFJF80=
+X-Received: by 2002:a17:902:c951:b0:220:c4e8:3b9f with SMTP id
+ d9443c01a7336-231d3536065mr264584425ad.0.1747816597194; Wed, 21 May 2025
+ 01:36:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250521081845.496442-2-pbonzini@redhat.com>
-User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -25
-X-Spam_score: -2.6
-X-Spam_bar: --
-X-Spam_report: (-2.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.487,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+References: <d3d1944e-2482-4aa7-b621-596246a08107@gnu.org>
+ <aCysct2L8Bosqy0N@intel.com>
+ <abe683f2-e679-4579-b68a-38a11d41e00b@gnu.org> <aC2R4BOR2tsYgEFI@intel.com>
+In-Reply-To: <aC2R4BOR2tsYgEFI@intel.com>
+From: Paolo Bonzini <bonzini@gnu.org>
+Date: Wed, 21 May 2025 10:36:26 +0200
+X-Gm-Features: AX0GCFuLYcGrEu1DgI1RAfj-T_0HOFQrvSsd2lqp3vdHgRUMLLzGwsCBHG-T7Kk
+Message-ID: <CAHFMJ7vsgPtfkpBkjvh_-NqKszEDj5UpWThU3rPjN9N4X5s0tA@mail.gmail.com>
+Subject: Re: Rust in QEMU update, April 2025
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org, 
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+ Daniel Berrange <berrange@redhat.com>, Kevin Wolf <kwolf@redhat.com>, 
+ Peter Maydell <peter.maydell@linaro.org>
+Content-Type: multipart/alternative; boundary="000000000000688f3a0635a143bb"
+Received-SPF: pass client-ip=209.85.214.175;
+ envelope-from=paolo.bonzini@gmail.com; helo=mail-pl1-f175.google.com
+X-Spam_score_int: -18
+X-Spam_score: -1.9
+X-Spam_bar: -
+X-Spam_report: (-1.9 / 5.0 requ) BAYES_00=-1.9,
+ FREEMAIL_FORGED_FROMDOMAIN=0.001, FREEMAIL_FROM=0.001,
+ HEADER_FROM_DIFFERENT_DOMAINS=0.001, HTML_MESSAGE=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -75,119 +76,115 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 May 2025 08:29:24 -0000
+X-List-Received-Date: Wed, 21 May 2025 08:36:44 -0000
 
-On Wed, May 21, 2025 at 10:18:40AM +0200, Paolo Bonzini wrote:
-> One common thing that device emulation does is manipulate bitmasks, for example
-> to check whether two bitmaps have common bits.  One example in the pl011 crate
-> is the checks for pending interrupts, where an interrupt cause corresponds to
-> at least one interrupt source from a fixed set.
-> 
-> Unfortunately, this is one case where Rust *can* provide some kind of
-> abstraction but it does so with a rather Perl-ish There Is More Way To
-> Do It.  It is not something where a crate like "bilge" helps, because
-> it only covers the packing of bits in a structure; operations like "are
-> all bits of Y set in X" almost never make sense for bit-packed structs;
-> you need something else, there are several crates that do it and of course
-> we're going to roll our own.
-> 
-> In particular I examined three:
-> 
-> - bitmask (https://docs.rs/bitmask/0.5.0/bitmask/) does not support const
->   at all.  This is a showstopper because one of the ugly things in the
->   current pl011 code is the ugliness of code that defines interrupt masks
->   at compile time:
-> 
->     pub const E: Self = Self(Self::OE.0 | Self::BE.0 | Self::PE.0 | Self::FE.0);
-> 
->   or even worse:
-> 
->     const IRQMASK: [u32; 6] = [
->       Interrupt::E.0 | Interrupt::MS.0 | Interrupt::RT.0 | Interrupt::TX.0 | Interrupt::RX.0,
->       ...
->     }
-> 
->   You would have to use roughly the same code---"bitmask" only helps with
->   defining the struct.
-> 
-> - bitmask_enum (https://docs.rs/bitmask-enum/2.2.5/bitmask_enum/) does not
->   have a good separation of "valid" and "invalid" bits, so for example "!x"
->   will invert all 16 bits if you choose u16 as the representation -- even if
->   you only defined 10 bits.  This makes it easier to introduce subtle bugs
->   in comparisons.
-> 
-> - bitflags (https://docs.rs/bitflags/2.6.0/bitflags/) is generally the most
->   used such crate and is the one that I took most inspiration from with
->   respect to the syntax.  It's a pretty sophisticated implementation,
->   with a lot of bells and whistles such as an implementation of "Iter"
->   that returns the bits one at a time.
-> 
-> The main thing that all of them lack, however, is a way to simplify the
-> ugly definitions like the above.  "bitflags" includes const methods that
-> perform AND/OR/XOR of masks (these are necessary because Rust operator
-> overloading does not support const yet, and therefore overloaded operators
-> cannot be used in the definition of a "static" variable), but they become
-> even more verbose and unmanageable, like
-> 
->   Interrupt::E.union(Interrupt::MS).union(Interrupt::RT).union(Interrupt::TX).union(Interrupt::RX)
-> 
-> This was the main reason to create "bits", which allows something like
-> 
->   bits!(Interrupt: E | MS | RT | TX | RX)
-> 
-> and expands it 1) add "Interrupt::" in front of all identifiers 2) convert
-> operators to the wordy const functions like "union".  It supports boolean
-> operators "&", "|", "^", "!" and parentheses, with a relatively simple
-> recursive descent parser that's implemented in qemu_api_macros.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/Cargo.lock                  |   7 +
->  rust/Cargo.toml                  |   1 +
->  rust/bits/Cargo.toml             |  19 ++
->  rust/bits/meson.build            |  12 +
->  rust/bits/src/lib.rs             | 441 +++++++++++++++++++++++++++++++
->  rust/meson.build                 |   1 +
->  rust/qemu-api-macros/src/bits.rs | 227 ++++++++++++++++
->  rust/qemu-api-macros/src/lib.rs  |  12 +
->  8 files changed, 720 insertions(+)
->  create mode 100644 rust/bits/Cargo.toml
->  create mode 100644 rust/bits/meson.build
->  create mode 100644 rust/bits/src/lib.rs
->  create mode 100644 rust/qemu-api-macros/src/bits.rs
+--000000000000688f3a0635a143bb
+Content-Type: text/plain; charset="UTF-8"
 
-> diff --git a/rust/bits/src/lib.rs b/rust/bits/src/lib.rs
-> new file mode 100644
-> index 00000000000..d80a6263f1e
-> --- /dev/null
-> +++ b/rust/bits/src/lib.rs
-> @@ -0,0 +1,441 @@
+Il mer 21 mag 2025, 10:21 Zhao Liu <zhao1.liu@intel.com> ha scritto:
 
-This (and other new .rs files) needs SPDX-License-Identifier
+> I also realize that once FlatRange/FlatView is associated with
+> GuestMemoryRegion/
+> GuestMemory, it changes the usual practice in QEMU, where most memory
+> operations
+> are built around MemoryRegion/AddressSpace.
+>
 
-> +/// # Definition entry point
-> +///
-> +/// Define a struct with a single field of type $type.  Include public constants
-> +/// for each element listed in braces.
-> +///
-> +/// The unnamed element at the end, if present, can be used to enlarge the set
-> +/// of valid bits.  Bits that are valid but not listed are treated normally for
-> +/// the purpose of arithmetic operations, and are printed with their hexadecimal
-> +/// value.
-> +///
-> +/// The struct implements the following traits: [`BitAnd`](std::ops::BitAnd),
-> +/// [`BitOr`](std::ops::BitOr), [`BitXor`](std::ops::BitXor),
-> +/// [`Not`](std::ops::Not), [`Sub`](std::ops::Sub); [`Debug`](std::fmt::Debug),
-> +/// [`Display`](std::fmt::Display), [`Binary`](std::fmt::Binary),
-> +/// [`Octal`](std::fmt::Octal), [`LowerHex`](std::fmt::LowerHex),
-> +/// [`UpperHex`](std::fmt::UpperHex); [`From`]`<type>`/[`Into`]`<type>` where
-> +/// type is the type specified in the definition.
+That shouldn't be a problem. In QEMU and vm-memory DMA always starts from
+Address space/GuestAddressSpace, not from MemoryRegion, so if QEMU
+implements GuestAddressSpace in qemu_api::AddressSpace everything matches
+well. The only difference is that Rust code will do something like
 
-With regards,
-Daniel
--- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
+  AddressSpace::MEMORY::memory().read(...)
 
+(which retrieves the FlatView) instead of
+
+  address_space_read(&address_space_memory, ...)
+
+But that's just how the API is defined. It seems good to me. The mismatch
+between MemoryRegion and GuestMemoryRegion is confusing, but will be mostly
+hidden behind the prelude because Guest* are traits not structs.
+
+> So... not sure what to do there.  It seems like vm-memory is very close to
+> > being usable by QEMU, but maybe not completely. :(
+>
+> Is it possible or necessary for vm-memory to support overlap? Because I
+> feel that if it is possible, the problem might be simplified. (As a
+> beginner, I have yet to understand exactly how difficult it is.)
+>
+
+I don't think that's necessary. Just like in QEMU C code we have
+AddressSpace for DMA and MemoryRegion for hierarchy, in Rust code you have
+qemu_api::{AddressSpace,MemoryRegion}. FlatView, FlatRange,
+MemoryRegionSection are hidden in both cases, and users don't care much
+about which type implements GuestMemoryRegion because all they see is
+AddressSpace. Again, it's all hidden behind the prelude.
+
+The real problem is how hard it is to remove the references from the
+vm-memory API... Maybe not much.
+
+Paolo
+
+
+> Thanks,
+> Zhao
+>
+>
+>
+
+--000000000000688f3a0635a143bb
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
+ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mer 21 mag 2025, 10:21 Zhao L=
+iu &lt;<a href=3D"mailto:zhao1.liu@intel.com">zhao1.liu@intel.com</a>&gt; h=
+a scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0=
+ .8ex;border-left:1px #ccc solid;padding-left:1ex">I also realize that once=
+ FlatRange/FlatView is associated with GuestMemoryRegion/<br>
+GuestMemory, it changes the usual practice in QEMU, where most memory opera=
+tions<br>
+are built around MemoryRegion/AddressSpace.<br></blockquote></div></div><di=
+v dir=3D"auto"><br></div><div dir=3D"auto">That shouldn&#39;t be a problem.=
+ In QEMU and vm-memory DMA always starts from Address space/GuestAddressSpa=
+ce, not from MemoryRegion, so if QEMU implements GuestAddressSpace in qemu_=
+api::AddressSpace everything matches well. The only difference is that Rust=
+ code will do something like</div><div dir=3D"auto"><br></div><div dir=3D"a=
+uto">=C2=A0 AddressSpace::MEMORY::memory().read(...)</div><div dir=3D"auto"=
+><br></div><div dir=3D"auto">(which retrieves the FlatView) instead of</div=
+><div dir=3D"auto"><br></div><div dir=3D"auto">=C2=A0 address_space_read(&a=
+mp;address_space_memory, ...)</div><div dir=3D"auto"><br></div><div dir=3D"=
+auto">But that&#39;s just how the API is defined. It seems good to me. The =
+mismatch between MemoryRegion and GuestMemoryRegion is confusing, but will =
+be mostly hidden behind the prelude because Guest* are traits not structs.<=
+/div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quot=
+e gmail_quote_container"><blockquote class=3D"gmail_quote" style=3D"margin:=
+0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+&gt; So... not sure what to do there.=C2=A0 It seems like vm-memory is very=
+ close to<br>
+&gt; being usable by QEMU, but maybe not completely. :(<br>
+<br>
+Is it possible or necessary for vm-memory to support overlap? Because I<br>
+feel that if it is possible, the problem might be simplified. (As a<br>
+beginner, I have yet to understand exactly how difficult it is.)<br></block=
+quote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">I don&#39;t=
+ think that&#39;s necessary. Just like in QEMU C code we have AddressSpace =
+for DMA and MemoryRegion for hierarchy, in Rust code you have qemu_api::{Ad=
+dressSpace,MemoryRegion}. FlatView, FlatRange, MemoryRegionSection are hidd=
+en in both cases, and users don&#39;t care much about which type implements=
+ GuestMemoryRegion because all they see is AddressSpace. Again, it&#39;s al=
+l hidden behind the prelude.</div><div dir=3D"auto"><br></div><div dir=3D"a=
+uto">The real problem is how hard it is to remove the references from the v=
+m-memory API... Maybe not much.</div><div dir=3D"auto"><br></div><div dir=
+=3D"auto">Paolo</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div cla=
+ss=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gmail_quote" =
+style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+Thanks,<br>
+Zhao<br>
+<br>
+<br>
+</blockquote></div></div></div>
+
+--000000000000688f3a0635a143bb--
 
