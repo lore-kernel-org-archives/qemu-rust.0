@@ -1,73 +1,96 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uHl0u-0001ql-M1
-	for mharc-qemu-rust@gnu.org; Wed, 21 May 2025 11:05:49 -0400
+	id 1uHlSw-0006Zt-2G
+	for mharc-qemu-rust@gnu.org; Wed, 21 May 2025 11:34:46 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1uHl0q-0001pU-VU
- for qemu-rust@nongnu.org; Wed, 21 May 2025 11:05:44 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1uHl0l-0000qH-FR
- for qemu-rust@nongnu.org; Wed, 21 May 2025 11:05:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1747839933;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=egWAzlnUVNgyj13j7Ode8U1MPwVQBsuabG3iGPxaGWA=;
- b=eVjG0ytZFMmInhEYnZwNKhA8krslTnQe9oPwh1k4DbYN855opaWjwN97ynmcyAGBcFRY/H
- 67OBJYcAcMNfqi1WwjjPUff9YVTBZYQfeW75UcZzcNKIF1iEn7lBOwgGMDcLdOWtSEsjdB
- za5w1TqBwcHEwjbANvrCAP7ux8le5YY=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-683-Xu5UPlK5NHOFuIq3g_gQ1Q-1; Wed,
- 21 May 2025 11:05:27 -0400
-X-MC-Unique: Xu5UPlK5NHOFuIq3g_gQ1Q-1
-X-Mimecast-MFC-AGG-ID: Xu5UPlK5NHOFuIq3g_gQ1Q_1747839926
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 2F7E1180045C; Wed, 21 May 2025 15:05:26 +0000 (UTC)
-Received: from redhat.com (unknown [10.42.28.129])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 4D4B719560AD; Wed, 21 May 2025 15:05:24 +0000 (UTC)
-Date: Wed, 21 May 2025 16:05:20 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org,
- peter.maydell@linaro.org, qemu-rust@nongnu.org
-Subject: Re: [RFC PATCH 1/6] rust: add "bits", a custom bitflags implementation
-Message-ID: <aC3rsAFcJgHtQw9-@redhat.com>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-References: <20250521081845.496442-1-pbonzini@redhat.com>
- <20250521081845.496442-2-pbonzini@redhat.com>
- <aC2O0iNVZZMQUpjQ@redhat.com>
- <CAAjaMXbuCFh3pY+Q=u1r5vGVf_a1kveyoeVgSOEPa8zwRicj_A@mail.gmail.com>
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1uHlSt-0006YY-Sp
+ for qemu-rust@nongnu.org; Wed, 21 May 2025 11:34:44 -0400
+Received: from mail-yw1-x1130.google.com ([2607:f8b0:4864:20::1130])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1uHlSp-0005GZ-8m
+ for qemu-rust@nongnu.org; Wed, 21 May 2025 11:34:42 -0400
+Received: by mail-yw1-x1130.google.com with SMTP id
+ 00721157ae682-7086dcab64bso64997227b3.1
+ for <qemu-rust@nongnu.org>; Wed, 21 May 2025 08:34:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1747841677; x=1748446477; darn=nongnu.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=+gdPfSv/iUEZ0iV22CDF8Ccyp/t9XL8qu/hu9upFM3c=;
+ b=ABRNvDZDVlKXsIIre65d5wDd71lHLjyEji9g+QIfothitvr1p1c8h0oO+j0HfNQpHP
+ 6WU9gYp3PuOzPF3KeNuRi8X1h0G+tRp8UeZgAPmXNFE4QgkwURSD1zhRmM8E96spHKj7
+ M5uhylLkiD0TsCQCJ+Hs2Ly+1D7NzW8ag2ryngIKygLka+aLMINNPnedIUf8yCGUp2Qq
+ vRWaiCaCRhEK42khM9WqUwIbuUcDOldqewobYJLzIOwepehQE+rvXuv5Zyqc/WbW8q2Y
+ 4sfqGc3OCk8II90INAy2wSAbbwrD71aE1UlFtT3LMlS89exQ62twNjlw7H2AX6zrLZ3l
+ Qs8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747841677; x=1748446477;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=+gdPfSv/iUEZ0iV22CDF8Ccyp/t9XL8qu/hu9upFM3c=;
+ b=kQNdPEslji2mUHCqLIGghPlcZ3tBvryTWsx9cJNZT6OXysfVRpgPuk2ycvotub+B9E
+ 7luDfGqmsUm1lOikYSobKoVP9xq2rDBoDgfJU6VGT4bkFj710AYXWn2TIkGBRLeJF13d
+ +W4G6GQTNnWrrqMJ4G2mVJhn3uqrp/i8tRdP7RSdOqMDSegmhZc6CX83HhJJlmCiKCM3
+ sObRZaRP4QHsxdk3wL/93MxX3LWtBc30A9l7cu+hvhq4R20tp72dQdjnszMurJ2lmn7C
+ yl+Gk7Q6zvO3Yw4v4k8tg8tmrfBv4Oydj3+VioHjUE0z6rm+ey1yWRQ0UjygAQoQpoOH
+ f4Ew==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUJ9PmmvmWLwxo843YAzS34aIsfy/odO/2AQ2pD3uaa9HaF2GhGyay7vJMNyRdBtifO3pf7phI3mVo=@nongnu.org
+X-Gm-Message-State: AOJu0YwifqsWBpDNh0UbBQgESdYfaI0BuxJ6/4VZfYil4Ss6zU1B6S5G
+ CL1ucL86CfXQqdUge6UFnUsX5WZ2urx1NoHhMX59T3ldvJDTbjRYXnX9NaFwFl1DrIeUXSXvh7L
+ m8cAYnjxYMyYz+5ePR9aH38OHn8saQdguNMHWKBcQQA==
+X-Gm-Gg: ASbGncv9SYzXI5GMgykw7wOKgALgZSF3VDznQFVCKdOZ3R8QcX2jEMTYgkS1eZBha4H
+ 3rwrxx2UbtrrOz/+f784+C8jVLb2v4nXMDuUJH/R4rmc93IqzuOnL1aKmJQ7lJbMUsUD9BO85uK
+ UXoiTDqn5LPnZz+YkOrjMj+Ty/z9MRZNrme91R6C8Hi7Uo
+X-Google-Smtp-Source: AGHT+IEqiXL6sJmJknJBdAC1ULYcGaNnm5HYbGP1pXy1iaNzcNYUc1xLSSbp7Nqah/VoVnRRgBYH7kqq4fF1v6YW5uo=
+X-Received: by 2002:a05:690c:3686:b0:708:39f9:ae49 with SMTP id
+ 00721157ae682-70ca7b8b963mr288387497b3.29.1747841676875; Wed, 21 May 2025
+ 08:34:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAjaMXbuCFh3pY+Q=u1r5vGVf_a1kveyoeVgSOEPa8zwRicj_A@mail.gmail.com>
-User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -22
-X-Spam_score: -2.3
+References: <20250207153112.3939799-1-alex.bennee@linaro.org>
+ <20250207153112.3939799-12-alex.bennee@linaro.org>
+ <ee091002-a552-49fe-ae5e-8916937dba15@tls.msk.ru>
+ <56e0a35b5c53b416db130c414cd0f3d6@linux.ibm.com>
+In-Reply-To: <56e0a35b5c53b416db130c414cd0f3d6@linux.ibm.com>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Wed, 21 May 2025 16:34:24 +0100
+X-Gm-Features: AX0GCFtQTqAUvcQ2co9hZjymHoBFnNlqTY5AGz0B7rNw7UAqe6lSJQfx9Cc154E
+Message-ID: <CAFEAcA8Mzo-Ne48=uFBTcy+CXNcnxGOaW941p=CRkD6gmC=JfA@mail.gmail.com>
+Subject: Re: [PATCH v2 11/17] gdbstub: Try unlinking the unix socket before
+ binding
+To: Ilya Leoshkevich <iii@linux.ibm.com>
+Cc: Michael Tokarev <mjt@tls.msk.ru>,
+ =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+ qemu-devel@nongnu.org, Peter Xu <peterx@redhat.com>,
+ Thomas Huth <thuth@redhat.com>, 
+ Weiwei Li <liwei1518@gmail.com>, qemu-arm@nongnu.org, 
+ Nicholas Piggin <npiggin@gmail.com>, Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+ Bin Meng <bmeng.cn@gmail.com>, Tyrone Ting <kfting@nuvoton.com>,
+ Hao Wu <wuhaotsh@google.com>, 
+ Kyle Evans <kevans@freebsd.org>, Alistair Francis <alistair.francis@wdc.com>, 
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+ Laurent Vivier <laurent@vivier.eu>, Riku Voipio <riku.voipio@iki.fi>, 
+ Harsh Prateek Bora <harshpb@linux.ibm.com>, Fabiano Rosas <farosas@suse.de>, 
+ Alexandre Iooss <erdnaxe@crans.org>, Laurent Vivier <lvivier@redhat.com>, 
+ Daniel Henrique Barboza <danielhb413@gmail.com>, Warner Losh <imp@bsdimp.com>, 
+ Pierrick Bouvier <pierrick.bouvier@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, 
+ Mahmoud Mandour <ma.mandourr@gmail.com>, qemu-ppc@nongnu.org, 
+ Paolo Bonzini <pbonzini@redhat.com>, qemu-rust@nongnu.org,
+ qemu-riscv@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
+Received-SPF: pass client-ip=2607:f8b0:4864:20::1130;
+ envelope-from=peter.maydell@linaro.org; helo=mail-yw1-x1130.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.3 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.184,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -80,111 +103,48 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 May 2025 15:05:45 -0000
+X-List-Received-Date: Wed, 21 May 2025 15:34:44 -0000
 
-On Wed, May 21, 2025 at 12:23:02PM +0300, Manos Pitsidianakis wrote:
-> On Wed, May 21, 2025 at 11:29 AM Daniel P. Berrangé <berrange@redhat.com> wrote:
-> >
-> > On Wed, May 21, 2025 at 10:18:40AM +0200, Paolo Bonzini wrote:
-> > > One common thing that device emulation does is manipulate bitmasks, for example
-> > > to check whether two bitmaps have common bits.  One example in the pl011 crate
-> > > is the checks for pending interrupts, where an interrupt cause corresponds to
-> > > at least one interrupt source from a fixed set.
-> > >
-> > > Unfortunately, this is one case where Rust *can* provide some kind of
-> > > abstraction but it does so with a rather Perl-ish There Is More Way To
-> > > Do It.  It is not something where a crate like "bilge" helps, because
-> > > it only covers the packing of bits in a structure; operations like "are
-> > > all bits of Y set in X" almost never make sense for bit-packed structs;
-> > > you need something else, there are several crates that do it and of course
-> > > we're going to roll our own.
-> > >
-> > > In particular I examined three:
-> > >
-> > > - bitmask (https://docs.rs/bitmask/0.5.0/bitmask/) does not support const
-> > >   at all.  This is a showstopper because one of the ugly things in the
-> > >   current pl011 code is the ugliness of code that defines interrupt masks
-> > >   at compile time:
-> > >
-> > >     pub const E: Self = Self(Self::OE.0 | Self::BE.0 | Self::PE.0 | Self::FE.0);
-> > >
-> > >   or even worse:
-> > >
-> > >     const IRQMASK: [u32; 6] = [
-> > >       Interrupt::E.0 | Interrupt::MS.0 | Interrupt::RT.0 | Interrupt::TX.0 | Interrupt::RX.0,
-> > >       ...
-> > >     }
-> > >
-> > >   You would have to use roughly the same code---"bitmask" only helps with
-> > >   defining the struct.
-> > >
-> > > - bitmask_enum (https://docs.rs/bitmask-enum/2.2.5/bitmask_enum/) does not
-> > >   have a good separation of "valid" and "invalid" bits, so for example "!x"
-> > >   will invert all 16 bits if you choose u16 as the representation -- even if
-> > >   you only defined 10 bits.  This makes it easier to introduce subtle bugs
-> > >   in comparisons.
-> > >
-> > > - bitflags (https://docs.rs/bitflags/2.6.0/bitflags/) is generally the most
-> > >   used such crate and is the one that I took most inspiration from with
-> > >   respect to the syntax.  It's a pretty sophisticated implementation,
-> > >   with a lot of bells and whistles such as an implementation of "Iter"
-> > >   that returns the bits one at a time.
-> > >
-> > > The main thing that all of them lack, however, is a way to simplify the
-> > > ugly definitions like the above.  "bitflags" includes const methods that
-> > > perform AND/OR/XOR of masks (these are necessary because Rust operator
-> > > overloading does not support const yet, and therefore overloaded operators
-> > > cannot be used in the definition of a "static" variable), but they become
-> > > even more verbose and unmanageable, like
-> > >
-> > >   Interrupt::E.union(Interrupt::MS).union(Interrupt::RT).union(Interrupt::TX).union(Interrupt::RX)
-> > >
-> > > This was the main reason to create "bits", which allows something like
-> > >
-> > >   bits!(Interrupt: E | MS | RT | TX | RX)
-> > >
-> > > and expands it 1) add "Interrupt::" in front of all identifiers 2) convert
-> > > operators to the wordy const functions like "union".  It supports boolean
-> > > operators "&", "|", "^", "!" and parentheses, with a relatively simple
-> > > recursive descent parser that's implemented in qemu_api_macros.
-> > >
-> > > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> > > ---
-> > >  rust/Cargo.lock                  |   7 +
-> > >  rust/Cargo.toml                  |   1 +
-> > >  rust/bits/Cargo.toml             |  19 ++
-> > >  rust/bits/meson.build            |  12 +
-> > >  rust/bits/src/lib.rs             | 441 +++++++++++++++++++++++++++++++
-> > >  rust/meson.build                 |   1 +
-> > >  rust/qemu-api-macros/src/bits.rs | 227 ++++++++++++++++
-> > >  rust/qemu-api-macros/src/lib.rs  |  12 +
-> > >  8 files changed, 720 insertions(+)
-> > >  create mode 100644 rust/bits/Cargo.toml
-> > >  create mode 100644 rust/bits/meson.build
-> > >  create mode 100644 rust/bits/src/lib.rs
-> > >  create mode 100644 rust/qemu-api-macros/src/bits.rs
-> >
-> > > diff --git a/rust/bits/src/lib.rs b/rust/bits/src/lib.rs
-> > > new file mode 100644
-> > > index 00000000000..d80a6263f1e
-> > > --- /dev/null
-> > > +++ b/rust/bits/src/lib.rs
-> > > @@ -0,0 +1,441 @@
-> >
-> > This (and other new .rs files) needs SPDX-License-Identifier
-> 
-> We should probably lint for this in .rs files.
+On Tue, 20 May 2025 at 23:22, Ilya Leoshkevich <iii@linux.ibm.com> wrote:
+> However, wasn't it already broken in this regard?
+> With fccb744f41c69fec6fd92225fe907c6e69de5d44^ I get:
+>
+> [2/2] Linking target qemu-s390x
+> /usr/bin/ld: /usr/lib64/libglib-2.0.a(gutils.c.o): in function
+> `g_get_user_database_entry':
+> (.text+0xeb): warning: Using 'getpwnam_r' in statically linked
+> applications requires at runtime the shared libraries from the glibc
+> version used for linking
+> /usr/bin/ld: (.text+0x2be): warning: Using 'getpwuid' in statically
+> linked applications requires at runtime the shared libraries from the
+> glibc version used for linking
+> /usr/bin/ld: (.text+0x134): warning: Using 'getpwuid_r' in statically
+> linked applications requires at runtime the shared libraries from the
+> glibc version used for linking
+>
+> This comes from glib, but the ultimate result is still the same.
 
-Strengthened from a recommendation to a mandate in:
+Those are in upstream glib, as you note. We can't fix those (unless we
+have the enthusiasm to write patches for upstream glib: last time
+we asked, they were not against the idea, but nobody on either side
+had the time available to try to write the necessary patches).
+But we can and should fix the cases in our own code.
 
-https://lists.nongnu.org/archive/html/qemu-devel/2025-05/msg04968.html
+> Also, what are the symptoms of the breakage? IIUC as long as execution
+> does not reach getaddrinfo(), which it in this case should not, because
+> it is used only on inet paths, there should not be any issues, right?
 
+Correct -- if we don't call the function it's fine. But the easiest
+way to be sure we don't call the function is to not link it in :-)
+Otherwise future code changes could result in a call without our
+realizing it.
 
-With regards,
-Daniel
--- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
+Also, mjt's packaging for Debian puts in some stubs for the
+offending getwpuid etc functions, which suppress the glib warnings
+(this is why he noticed this whereas none of the rest of us did):
 
+https://sources.debian.org/patches/qemu/1:10.0.0%2Bds-2/static-linux-user-stubs.diff/
+
+thanks
+-- PMM
 
