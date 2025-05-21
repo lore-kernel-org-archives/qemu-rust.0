@@ -1,87 +1,86 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uHefS-0004q4-QL
-	for mharc-qemu-rust@gnu.org; Wed, 21 May 2025 04:19:15 -0400
+	id 1uHefU-0004qR-63
+	for mharc-qemu-rust@gnu.org; Wed, 21 May 2025 04:19:16 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uHefK-0004nT-HN
- for qemu-rust@nongnu.org; Wed, 21 May 2025 04:19:06 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1uHefN-0004oT-J2
+ for qemu-rust@nongnu.org; Wed, 21 May 2025 04:19:11 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uHefD-0000Aq-G0
- for qemu-rust@nongnu.org; Wed, 21 May 2025 04:19:05 -0400
+ id 1uHefG-0000BY-4S
+ for qemu-rust@nongnu.org; Wed, 21 May 2025 04:19:07 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1747815538;
+ s=mimecast20190719; t=1747815541;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=sm4FDV9XcvaUoJSoDVM8BTJfAISob2kgbvzU5BLD5+0=;
- b=ZKizF9JAYI5NR+87sYB3F9x6sparKI34baePqRJ+7lwzP12n7ZFplmiqwqQE3YnirH/FAa
- 8/2Moqy8patVCKA5oXocJ+FG87TFYp3UPcTI9yJheAWD53A3eVzow8h73YtjjuxuvYm1Sd
- Olq8rMLJyyXC0OgnwPj0hiskJ5mr13c=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=vi+4q+DuQzXZ0fGkhLusAtF/e0P3HvxStkXaBrSnrE4=;
+ b=jJN4PVt05rti9lCOhLO323KJW26NgseIHz/THm64Wu6pdCixMsaIL1mQc1kvc4a9BDpZtA
+ ze8os2mqAyQ7DU3e1yYOWyoDnrwCLxpJT0QCkRR72fim63F8WSFISprW2catZHIrv7t+C7
+ J5xH/fySy4gDQjtNaCFeBzGNrcDEbSI=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-78-s7-vz18gNJCLK0OlKsfD_Q-1; Wed, 21 May 2025 04:18:56 -0400
-X-MC-Unique: s7-vz18gNJCLK0OlKsfD_Q-1
-X-Mimecast-MFC-AGG-ID: s7-vz18gNJCLK0OlKsfD_Q_1747815535
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-43e9b0fd00cso33186265e9.0
- for <qemu-rust@nongnu.org>; Wed, 21 May 2025 01:18:56 -0700 (PDT)
+ us-mta-681-pO5uH03gO7CGXDMB8IcCKw-1; Wed, 21 May 2025 04:18:59 -0400
+X-MC-Unique: pO5uH03gO7CGXDMB8IcCKw-1
+X-Mimecast-MFC-AGG-ID: pO5uH03gO7CGXDMB8IcCKw_1747815538
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-3a3684a5655so2081067f8f.0
+ for <qemu-rust@nongnu.org>; Wed, 21 May 2025 01:18:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747815535; x=1748420335;
+ d=1e100.net; s=20230601; t=1747815538; x=1748420338;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=sm4FDV9XcvaUoJSoDVM8BTJfAISob2kgbvzU5BLD5+0=;
- b=RSgyypUrr53+Zqc7+BpqiFabO/1WGazOObnzsdNothaNAA8mnCbi7V2w9va5018lTO
- JDt2vRJuh2G8rmm63OHTfkLfYnd+GC2ZCoSrENE2NNpCDc4LJAdDUx5W6VaDNtpeYJOf
- +4fdImS6gFwlv6VJ9bs3ikr6NzFNZLC16DStJZpHpzZUWTdbLbW0OdVgPgCYf45zCs2K
- e18neRsNkLq04A08Y+5+4XZeAvt60yos9RjHEpqOKgsP+y3x6Y2R67jcnJd09bsSyNCx
- TxycjIO31kYMMSIdDk4DD1FkzeeYImFYjWqOCP8WXEF4K1/zmL+7BGuIfzBi9aOcOk1r
- oUXw==
+ bh=vi+4q+DuQzXZ0fGkhLusAtF/e0P3HvxStkXaBrSnrE4=;
+ b=r0lIYepVj1zAzw87O1b4cxPfZOVb+RQrrUt0/14zOB+nxgiluquJ/sYEGQT1AIP8fI
+ d4NqE5HrO0+wtFm1pEysrI867bH6jkYalCiF7kjXoVjYrbGpCSocZCzI3u6iFjH73g4z
+ HJxt3CUHi2rjeLQt+5SEs9Q4QQ1qGqWkFfp6johY8v4DSSJAoDtmnjbec7rxsaXiknNY
+ Poxy0AvT52AgkkPlNGJMQQQwbkHlrcoZFWO1E8h+QX2/kO+WsMLmBOvaISijITVmurLA
+ zOEiaXM0ivXhWPuYVbLl663p45AHfRyRAOCJ1ptHozZgb/HHpxvxSDlrgITDtKM77JpZ
+ A/Sw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWa/rY/6qLugD1uI3F5qWIFu4vfObrA4+0rwGoWXXgazRCaE1ohI7BxNLpZ3wvBL160AsvzcgN34Uk=@nongnu.org
-X-Gm-Message-State: AOJu0YyJSaERn44IW4pTVDWRNWVn5pwnG0mFfhEDzXaDVu2se0X02VWX
- Bt6ZREax2b/dZxbBwWuDowieTx1D7gMOlzMMtaBFILw4aQ8J1deZTBT4wXUcH/6oyUZQDl0OvT/
- 2eMDcJdm5QqZtQurE+ahK/Dv/iaRFO6v4CH4iYAxeioAsg429u9bDM+U=
-X-Gm-Gg: ASbGncvNKbfovb4bh9yF8xqd38qDBgy8Ya3iE2r3jYpY4c/Mp5aFBAa+u0K5bo2xepy
- 7d6dSZWJcUYGaI8C13ZKYGSIKIdGkl7vIGYm2slUUQQ3mQqBsiZpB5mSHaW9NiToDgr2gHJbOFp
- rdz8NFu8pJ7a9g89YZ/Fgp85g/QowfOScKMjwLSa4G9SVvPsgSHAa29B6BFGMRd0TnbACnliTUY
- 08flmprOlLdKtHoUoojigcwXrDj6HgCst/KTPa+X2mfHFzypeMImQ77bTQIMv4ifybSfdS+etm7
- NU572MSGJ0JaDA==
-X-Received: by 2002:a05:600c:3e8d:b0:43d:174:2668 with SMTP id
- 5b1f17b1804b1-442f844e5d4mr208403995e9.0.1747815535269; 
- Wed, 21 May 2025 01:18:55 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFcK8YTwPUKcO65rs2si2DQU9nhEw3TQ5CTI6CUM2IeHnAm8wcOmtgnkQnf+sn8QKK4TIOxHw==
-X-Received: by 2002:a05:600c:3e8d:b0:43d:174:2668 with SMTP id
- 5b1f17b1804b1-442f844e5d4mr208403745e9.0.1747815534893; 
- Wed, 21 May 2025 01:18:54 -0700 (PDT)
+ AJvYcCWjPIqzKKbNgoNxolJfvOPp3m3/lgGlHyidG0C/zA/h330tuTRmkQHAyenLJAPjkUM1rPQK2LzM8cQ=@nongnu.org
+X-Gm-Message-State: AOJu0Yy23PYV28+q1VubnBfg0jLHAzSSUJwk3fzYSWs5oQjAMjv8O6T8
+ naFum9MWRWU+PR4xrXGakvVY0pKRjmQmKA2lFvAVxF1hBhDlTzcsBKnXsBVWljWRbFvZ4+zH9Ik
+ M/qWe8dNdhhoEtng/gAYxswSfSeEowvuMv1z+W6c8PiNuubfTAPTpbI0=
+X-Gm-Gg: ASbGncuFlNhghB63gELKJvv4++1OY7QlKAQ3NfmkuGPIPrqKjfzQ/hBIw9czHYEfrPB
+ b4CTBqNovEkfh4VuaXoEsSRMFKXOkEgrpf9tWlZ6W04X4gZnXaKZDsshyoAMM8guwfJdGkknc3S
+ 9SbikOO36M+JE13yws22tZyXEhroDxiKZQuz4J+tBEcufYrC9UfO+zxgT8SKvz6GlHVcbVW7pS/
+ hHYxsmvTJcJoVkTMH3zSGMeYzmQg0vcpLQcKNgExOs9SfZgK9eVSIWgMf1wUZTn1oxyT6L9yfW0
+ zsckZ7Q7jIebaA==
+X-Received: by 2002:a05:6000:178c:b0:3a3:671e:3b7c with SMTP id
+ ffacd0b85a97d-3a3671e3c09mr13633133f8f.48.1747815537845; 
+ Wed, 21 May 2025 01:18:57 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE5/Qifu/phEJO+eeNN2LYJDlQEQdW78L1t3/lI3cccD9T9g03PDze6s8YhzFAFetysJ0VAnQ==
+X-Received: by 2002:a05:6000:178c:b0:3a3:671e:3b7c with SMTP id
+ ffacd0b85a97d-3a3671e3c09mr13633102f8f.48.1747815537417; 
+ Wed, 21 May 2025 01:18:57 -0700 (PDT)
 Received: from [192.168.122.1] ([151.95.46.79])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a35ca5a87fsm18560962f8f.29.2025.05.21.01.18.52
+ ffacd0b85a97d-3a35ca5aba3sm18586266f8f.40.2025.05.21.01.18.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 May 2025 01:18:52 -0700 (PDT)
+ Wed, 21 May 2025 01:18:55 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: peter.maydell@linaro.org, qemu-rust@nongnu.org,
  manos.pitsidianakis@linaro.org
-Subject: [RFC PATCH 3/6] rust: qemu-api-macros: add from_bits and into_bits to
- #[derive(TryInto)]
-Date: Wed, 21 May 2025 10:18:42 +0200
-Message-ID: <20250521081845.496442-4-pbonzini@redhat.com>
+Subject: [RFC PATCH 4/6] rust: subprojects: add bitfield-struct
+Date: Wed, 21 May 2025 10:18:43 +0200
+Message-ID: <20250521081845.496442-5-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250521081845.496442-1-pbonzini@redhat.com>
 References: <20250521081845.496442-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: xseTCS4F7WPoXqQBMcW_52TsoLtz1OZYEIGQdbCY2dA_1747815535
+X-Mimecast-MFC-PROC-ID: 1Y52ztGsSu1REGrj-pSeNl5XYpoD4y4DUrOmWwuzXOs_1747815538
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -25
 X-Spam_score: -2.6
@@ -103,82 +102,108 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 May 2025 08:19:06 -0000
+X-List-Received-Date: Wed, 21 May 2025 08:19:12 -0000
 
-These const functions make it possible to use enums easily together
-with the bitfield-struct crate.
+The bitfield-struct is much smaller than "bilge" and supports "const"
+expressions better.  The main disadvantage is that it does not let you
+annotate enums as bitfields and does not integrate with arbitrary-int,
+thus requiring manual size annotations for anything that is not a bool,
+iNN or uNN.
+
+Lack of support for arbitrary-int is a very minor change; enums are a
+bit more annoying because they require manual implementation of two
+functions from_bits() and into_bits(); however, that is already handled
+by QEMU's bits! and #[derive(qemu_api_macros::TryInto)] utilities.
+Together, these basically make the manual work go away.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/qemu-api-macros/src/lib.rs | 48 ++++++++++++++++++++++++++-------
- 1 file changed, 38 insertions(+), 10 deletions(-)
+ rust/meson.build                              |  3 ++
+ subprojects/.gitignore                        |  1 +
+ subprojects/bitfield-struct-0.9-rs.wrap       |  7 ++++
+ .../bitfield-struct-0.9-rs/meson.build        | 36 +++++++++++++++++++
+ 4 files changed, 47 insertions(+)
+ create mode 100644 subprojects/bitfield-struct-0.9-rs.wrap
+ create mode 100644 subprojects/packagefiles/bitfield-struct-0.9-rs/meson.build
 
-diff --git a/rust/qemu-api-macros/src/lib.rs b/rust/qemu-api-macros/src/lib.rs
-index ceb79f09f97..103470785e3 100644
---- a/rust/qemu-api-macros/src/lib.rs
-+++ b/rust/qemu-api-macros/src/lib.rs
-@@ -193,23 +193,51 @@ fn get_variants(input: &DeriveInput) -> Result<&Punctuated<Variant, Comma>, Macr
- }
- 
- #[rustfmt::skip::macros(quote)]
--fn derive_tryinto_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream, MacroError> {
--    let repr = get_repr_uN(&input, "#[derive(TryInto)]")?;
--
--    let name = &input.ident;
--    let variants = get_variants(&input)?;
-+fn derive_tryinto_body(
-+    name: &Ident,
-+    variants: &Punctuated<Variant, Comma>,
-+    repr: &Path,
-+) -> Result<proc_macro2::TokenStream, MacroError> {
-     let discriminants: Vec<&Ident> = variants.iter().map(|f| &f.ident).collect();
- 
-     Ok(quote! {
-+        #(const #discriminants: #repr = #name::#discriminants as #repr;)*;
-+        match value {
-+            #(#discriminants => Ok(#name::#discriminants),)*
-+            _ => Err(value),
-+        }
-+    })
-+}
+diff --git a/rust/meson.build b/rust/meson.build
+index f370b0ec939..58f14a70d6d 100644
+--- a/rust/meson.build
++++ b/rust/meson.build
+@@ -1,3 +1,6 @@
++subproject('bitfield-struct-0.9-rs', required: true)
++bitfield_struct_dep = dependency('bitfield-struct-0.9-rs')
 +
-+#[rustfmt::skip::macros(quote)]
-+fn derive_tryinto_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream, MacroError> {
-+    let repr = get_repr_uN(&input, "#[derive(TryInto)]")?;
-+    let name = &input.ident;
-+    let body = derive_tryinto_body(name, get_variants(&input)?, &repr)?;
-+    let errmsg = format!("invalid value for {name}");
+ subdir('qemu-api-macros')
+ subdir('bits')
+ subdir('qemu-api')
+diff --git a/subprojects/.gitignore b/subprojects/.gitignore
+index d12d34618cc..180c3134864 100644
+--- a/subprojects/.gitignore
++++ b/subprojects/.gitignore
+@@ -9,6 +9,7 @@
+ /arbitrary-int-1.2.7
+ /bilge-0.2.0
+ /bilge-impl-0.2.0
++/bitfield-struct-0.9.5
+ /either-1.12.0
+ /itertools-0.11.0
+ /libc-0.2.162
+diff --git a/subprojects/bitfield-struct-0.9-rs.wrap b/subprojects/bitfield-struct-0.9-rs.wrap
+new file mode 100644
+index 00000000000..dfdbbc853af
+--- /dev/null
++++ b/subprojects/bitfield-struct-0.9-rs.wrap
+@@ -0,0 +1,7 @@
++[wrap-file]
++directory = bitfield-struct-0.9.5
++source_url = https://crates.io/api/v1/crates/bitfield-struct/0.9.5/download
++source_filename = bitfield-struct-0.9.5.tar.gz
++source_hash = b2869c63ccf4f8bf0d485070b880e60e097fb7aeea80ee82a0a94a957e372a0b
++#method = cargo
++patch_directory = bitfield-struct-0.9-rs
+diff --git a/subprojects/packagefiles/bitfield-struct-0.9-rs/meson.build b/subprojects/packagefiles/bitfield-struct-0.9-rs/meson.build
+new file mode 100644
+index 00000000000..e8badb7da18
+--- /dev/null
++++ b/subprojects/packagefiles/bitfield-struct-0.9-rs/meson.build
+@@ -0,0 +1,36 @@
++project('bitfield-struct-0.9-rs', 'rust',
++  meson_version: '>=1.5.0',
++  version: '0.9.5',
++  license: 'MIT',
++  default_options: [])
 +
-+    Ok(quote! {
-+        impl #name {
-+            #[allow(dead_code)]
-+            pub const fn into_bits(self) -> #repr {
-+                self as #repr
-+            }
++subproject('quote-1-rs', required: true)
++subproject('syn-2-rs', required: true)
++subproject('proc-macro2-1-rs', required: true)
 +
-+            #[allow(dead_code)]
-+            pub const fn from_bits(value: #repr) -> Self {
-+                match ({
-+                    #body
-+                }) {
-+                    Ok(x) => x,
-+                    Err(_) => panic!(#errmsg)
-+                }
-+            }
-+        }
-         impl core::convert::TryFrom<#repr> for #name {
-             type Error = #repr;
- 
-             fn try_from(value: #repr) -> Result<Self, Self::Error> {
--                #(const #discriminants: #repr = #name::#discriminants as #repr;)*;
--                match value {
--                    #(#discriminants => Ok(Self::#discriminants),)*
--                    _ => Err(value),
--                }
-+                #body
-             }
-         }
-     })
++quote_dep = dependency('quote-1-rs', native: true)
++syn_dep = dependency('syn-2-rs', native: true)
++proc_macro2_dep = dependency('proc-macro2-1-rs', native: true)
++
++rust = import('rust')
++
++_bitfield_struct_rs = rust.proc_macro(
++  'bitfield_struct',
++  files('src/lib.rs'),
++  override_options: ['rust_std=2021', 'build.rust_std=2021'],
++  rust_args: [
++    '--cap-lints', 'allow',
++    '--cfg', 'use_fallback',
++  ],
++  dependencies: [
++    quote_dep,
++    syn_dep,
++    proc_macro2_dep,
++  ],
++)
++
++bitfield_struct_dep = declare_dependency(
++  link_with: _bitfield_struct_rs,
++)
++
++meson.override_dependency('bitfield-struct-0.9-rs', bitfield_struct_dep)
 -- 
 2.49.0
 
