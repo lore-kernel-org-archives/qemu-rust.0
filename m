@@ -1,70 +1,70 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uIBJD-0002iQ-JL
-	for mharc-qemu-rust@gnu.org; Thu, 22 May 2025 15:10:27 -0400
+	id 1uIBKx-0003Qa-9h
+	for mharc-qemu-rust@gnu.org; Thu, 22 May 2025 15:12:15 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uIBJC-0002i9-0E
- for qemu-rust@nongnu.org; Thu, 22 May 2025 15:10:26 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uIBKq-0003Pp-Im
+ for qemu-rust@nongnu.org; Thu, 22 May 2025 15:12:10 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uIBJA-0007IF-7C
- for qemu-rust@nongnu.org; Thu, 22 May 2025 15:10:25 -0400
+ (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uIBKm-0007WR-JW
+ for qemu-rust@nongnu.org; Thu, 22 May 2025 15:12:08 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1747941021;
+ s=mimecast20190719; t=1747941123;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=7jrCVBNIMsxlyvEWtUS8CwjTNirrbtIxIjRxS5h//O4=;
- b=f8DgugOZueEkKyFqhwCwxjar0euWG9wjkf0VkI5Gdxk0+ZvMa6Stpr0AcC5lSnH+aQYNm3
- V8uwNHkqNgh21m0Y2nB9xkyLcg3pp4L+A8JC3nKTf0XkgvYisLMdodIthFKN6r6GpPNKdt
- DiyYoWo3yAo3StBtIpGJWu7Q+/FZ3ZI=
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=Pko78+Uk6F70uJ2LWHD9NqI2yujQ83ekpm+7PZ61Yn4=;
+ b=Qsp4787VSso9DaZVdpVsF5+gVr2n1o7iVzlpTmu4n2KqUKFj7CLmAH5fZXTuE/5YfxVJhI
+ 9J4NzVzm9VG4rKPKPUd4NLLuYgb7DhbzLh8nYHS0Rlhs0gBsWwc/ynAz6g5Qgd/lk8MMNP
+ 259XMSHjDRX850MPTnrVNyWoX3YjFFU=
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-580-MAwGwcHrOFyTQte5w1sd7A-1; Thu, 22 May 2025 15:10:19 -0400
-X-MC-Unique: MAwGwcHrOFyTQte5w1sd7A-1
-X-Mimecast-MFC-AGG-ID: MAwGwcHrOFyTQte5w1sd7A_1747941019
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-23205cb56c0so48601235ad.3
- for <qemu-rust@nongnu.org>; Thu, 22 May 2025 12:10:19 -0700 (PDT)
+ us-mta-271-liyd0wH0NdKj0xHHD_0Eww-1; Thu, 22 May 2025 15:12:01 -0400
+X-MC-Unique: liyd0wH0NdKj0xHHD_0Eww-1
+X-Mimecast-MFC-AGG-ID: liyd0wH0NdKj0xHHD_0Eww_1747941120
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2322e8c4dc5so49576305ad.3
+ for <qemu-rust@nongnu.org>; Thu, 22 May 2025 12:12:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747941019; x=1748545819;
+ d=1e100.net; s=20230601; t=1747941120; x=1748545920;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=7jrCVBNIMsxlyvEWtUS8CwjTNirrbtIxIjRxS5h//O4=;
- b=sbZHjVJm0N8dN+8SDVS7PmKPRlp0c6qdrFhyTpKr5TBUwXgcHylQXmiIzO8RqsPYII
- i/kW/f8mcpa1u4gvX0CkPBprBM1KOHyFoWYHtBIB8gjXCaOk5T0MMSYVMl17Ja5+lmbF
- kiJJ6Ond7QcPh0bmeOr90J7MXMtKhzDO8izoIvkkG+d/e71FwimIoS/IfQ6u+xtRA8ma
- fBL82t46VVgevTeyx84EP1M7s7Tl5U1KSjDa18w2mexyzPzVrwtwaEG9Y/ZPo6kPZ7cI
- G0W554DB5TT0u7S3hwKliPzIURbiARdU4JD8c+gBLCz/FTXg9w4Lo/kgjbyU5EWXl907
- S3eg==
+ bh=Pko78+Uk6F70uJ2LWHD9NqI2yujQ83ekpm+7PZ61Yn4=;
+ b=g929Kp3NMgPnfYhyATxW+y2InGKRFMEjYzmBpC8+VZeg9uSJUs89ttM+EpSoP9Scgv
+ rzXnXcU3oQo9X5qD7wL6dyl/Hbc+H9LpNsT6NLyVm9IZN7d5E1lM/GnBtYuhYjH1lyFW
+ vPNB2HXW4Xu9jqyX/sV/JM1FSdkhAYzqS/caw4isUU6xQhbM1RLpm7X64Yc7Hot+qA0B
+ QD5cgw3ifkMMrfqTixgSaXfWtQs9Xrpj0lfOEF9olFQQoR7oOxrU09CtH+2oRLsMrBqU
+ vjIWWHpYT3AZMZBI+LXIwVqlIPNIH6QazXJs5131A6NJXdgEtRTZooJ3qqihlALckcmD
+ vdjw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW7A/H2YgKq8T7nmllBptgmZ+DHPAs/TbFAgIJYxYvluZAhtGUo7GKfPbdil/slycYyouvz5VWWYb4=@nongnu.org
-X-Gm-Message-State: AOJu0Yy0ehh7UjhQF3ygvr4F1z+gbBp/pFHGTunB9PHupDpVReIgr4sU
- Z3fdUvQwNH3L74ge3JAdw65T2egqkbD7rGGrY+HcThMCkTtx8VyxV0HI+13Baukf8m9JveUOFmJ
- 28K0U63teMKo2xd3MYFrctoNkHEBNSraKjTgg+BVfMlg2/iDla3oXm2GcjoP42L8lCgD0EbABqO
- MTv6hCKa+re95Nm24SOxG3u7YYbWbjgw==
-X-Gm-Gg: ASbGncubfq2mNmN9B2wT/bePGV0Qfbb+Ydui4uud5oFGLrqJup3P4LTwLfH0nwJ41qX
- //E8XY8Gy/kLyrHZkgFxt/FMC2N9Lrf12P2pw8CpphL9iOKvC9N5NAp/62WWn3e9nmQkiH0/k2Q
- rS+LXa1vGLsH/QRPDLQVLSKiYa
-X-Received: by 2002:a17:903:4b2b:b0:223:f9a4:3f99 with SMTP id
- d9443c01a7336-233f23c5f97mr2168555ad.29.1747941018697; 
- Thu, 22 May 2025 12:10:18 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH1UzYnR5db1NYBaiEsNjkJno06sN5V3LsqShVMV1fnumY8Hg3Xf+6ZlDnmQ0o5GSx5bZPxZSHu+ydMvMb+ovU=
-X-Received: by 2002:a17:903:4b2b:b0:223:f9a4:3f99 with SMTP id
- d9443c01a7336-233f23c5f97mr2168155ad.29.1747941018371; Thu, 22 May 2025
- 12:10:18 -0700 (PDT)
+ AJvYcCUceA+VglZCpI7ZjeJ7Il/yDMvp9cjX0a8P1F1TWf1bSOgqqevG/81qn6Cru6fVFssBksWCpjtH1dU=@nongnu.org
+X-Gm-Message-State: AOJu0YzFH3zs6muk+hIWvKT4G5t7ZkV3Ksss8rmm8OeajB4YLIss64Vk
+ IBevdzYUhh7Qvo8oY5bW38aGsS0kNUv8fh3jqzH9ggSfZYFr/Blvwr5GEALgGxOZdGh6evaVyUW
+ a4+SV5hGb7UVbvX0gwNZq8ug+FEdOgwUm5wjfOztofsQD8SxLIkYmty8noT1TdwV8+trYYjlnpr
+ lCW4AhbFc7sc6XHgZleHtFDXuYX0jBGg==
+X-Gm-Gg: ASbGncvpE4uzpoEiIJNHtQloymnuXYa0siWeZ1v6QT5FpNOpXMwRCeKexV5Ifsr7XwA
+ qI3sunmLwMHG2uDSetMrkyCbwEtSoTl1023j/jvw9AUEPMeY6z1Zt9UILyZvq9odneIPhbGS9he
+ 0iwBRmLmuYs1ABchEZd4Ix3kqj
+X-Received: by 2002:a17:902:ea01:b0:223:5c77:7ef1 with SMTP id
+ d9443c01a7336-231d43bb574mr376387785ad.21.1747941120408; 
+ Thu, 22 May 2025 12:12:00 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFgEOLvmOyI+P6ndjI7COgmCAgOASIgPO3ZxZGmzpXBaxnPArDvafMYn4ufS6qD26/CSKHojBlWHStqCz4Nr/s=
+X-Received: by 2002:a17:902:ea01:b0:223:5c77:7ef1 with SMTP id
+ d9443c01a7336-231d43bb574mr376387475ad.21.1747941120116; Thu, 22 May 2025
+ 12:12:00 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250519182153.3835722-1-jsnow@redhat.com>
- <20250519182153.3835722-3-jsnow@redhat.com>
- <875xhvd8zh.fsf@pond.sub.org>
-In-Reply-To: <875xhvd8zh.fsf@pond.sub.org>
+ <20250519182153.3835722-5-jsnow@redhat.com>
+ <87wmabab0n.fsf@pond.sub.org>
+In-Reply-To: <87wmabab0n.fsf@pond.sub.org>
 From: John Snow <jsnow@redhat.com>
-Date: Thu, 22 May 2025 15:10:05 -0400
-X-Gm-Features: AX0GCFt6IjzYhpMWMo1PyURxrAEJDRNO2M-fHSozQcD3aRJFEdJ4HrJneuQWi38
-Message-ID: <CAFn=p-ZaG3F_aBOoMEk2x8X9nCUFjL=CkjMAynUbwyAaJHNSwA@mail.gmail.com>
-Subject: Re: [PATCH 2/8] python: update pylint ignores
+Date: Thu, 22 May 2025 15:11:48 -0400
+X-Gm-Features: AX0GCFtaMg8peqAtun1naFei8vDjv42SiPOkcB8p-DW0QwrxMIpSbdGylFs3Lzc
+Message-ID: <CAFn=p-b899jvLSfr0q3ZLo3EsChzbM6OnJS1YWoOjSnjVqRipw@mail.gmail.com>
+Subject: Re: [PATCH 4/8] python: use 3.9+ builtin type hints
 To: Markus Armbruster <armbru@redhat.com>
 Cc: qemu-devel@nongnu.org,
  =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
@@ -79,10 +79,10 @@ Cc: qemu-devel@nongnu.org,
  =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
  Kevin Wolf <kwolf@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: loeCPstOpDyB_mwyBbN-JkoBGpVpqx3JNbG97blMQKU_1747941019
+X-Mimecast-MFC-PROC-ID: OnIFlFzxEzFumEZN1HtSoWw_x6sA1jiXeK_T1ORcX_s_1747941120
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="0000000000007d2d180635be3b94"
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=jsnow@redhat.com;
+Content-Type: multipart/alternative; boundary="0000000000008db3590635be41ce"
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=jsnow@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -23
 X-Spam_score: -2.4
@@ -105,125 +105,144 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 May 2025 19:10:26 -0000
+X-List-Received-Date: Thu, 22 May 2025 19:12:13 -0000
 
---0000000000007d2d180635be3b94
+--0000000000008db3590635be41ce
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 20, 2025 at 3:42=E2=80=AFAM Markus Armbruster <armbru@redhat.co=
+On Tue, May 20, 2025 at 5:26=E2=80=AFAM Markus Armbruster <armbru@redhat.co=
 m> wrote:
 
 > John Snow <jsnow@redhat.com> writes:
 >
-> > The next patch will synchronize the qemu.qmp library with the external,
-> > standalone version. That synchronization will require a few extra
-> > ignores for pylint, so do that now.
->
-> Just one, unless I'm cross-eyed again.
->
-
-Nope. changed the commit message. Just doing things in weird orders as is
-my usual...
-
-
->
+> > This patch changes type hints that have built-in equivalents as of
+> > Python 3.9. The versions we currently use, imported from the typing
+> > module, have been deprecated since 3.9 and may be removed at any time -
+> > though to my knowledge, they are not scheduled for removal in 3.14.
+> >
+> > The type hints to update are:
+> >
+> > typing.Dict  =3D> dict
+> > typing.List  =3D> list
+> > typing.Tuple =3D> tuple
+> > typing.Set   =3D> set
+> > typing.Type  =3D> type
+> >
+> > I performed this change the dumb way (I couldn't work out for the life
+> > of me how to beg ls-files to exclude subprojects and empty directories,
+> > desipte it having an option which claims to do precisely that. Suggest =
+a
+> > nicer way to do this if you'd like.)
+> >
+> > git ls-files | grep -v 'roms/' | grep -v 'subprojects/' | grep -v
+> 'tests/lcitool/libvirt-ci' | xargs sed -i -e 's/Dict\[/dict\[/g'
+> > git ls-files | grep -v 'roms/' | grep -v 'subprojects/' | grep -v
+> 'tests/lcitool/libvirt-ci' | xargs sed -i -e 's/List\[/list\[/g'
+> > git ls-files | grep -v 'roms/' | grep -v 'subprojects/' | grep -v
+> 'tests/lcitool/libvirt-ci' | xargs sed -i -e 's/Tuple\[/tuple\[/g'
+> > git ls-files | grep -v 'roms/' | grep -v 'subprojects/' | grep -v
+> 'tests/lcitool/libvirt-ci' | xargs sed -i -e 's/Set\[/set\[/g'
+> > git ls-files | grep -v 'roms/' | grep -v 'subprojects/' | grep -v
+> 'tests/lcitool/libvirt-ci' | xargs sed -i -e 's/Type\[/type\[/g'
+> >
+> > I then used "git add -p" and excluded changes by hand that weren't
+> > appropriate. I then reviewed all of the changed files by hand to review
+> > the imports and update them accordingly.
+> >
 > > Signed-off-by: John Snow <jsnow@redhat.com>
-> > ---
-> >  python/setup.cfg | 5 +++--
-> >  1 file changed, 3 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/python/setup.cfg b/python/setup.cfg
-> > index d7f5dc7bafe..02cc076eaea 100644
-> > --- a/python/setup.cfg
-> > +++ b/python/setup.cfg
-> > @@ -140,11 +140,12 @@ ignore_missing_imports =3D True
-> >  # --disable=3DW".
-> >  disable=3Dconsider-using-f-string,
-> >          consider-using-with,
-> > +        no-member,  # mypy also handles this better.
-> >          too-many-arguments,
-> > -        too-many-positional-arguments,
-> >          too-many-function-args,  # mypy handles this with less false
-> positives.
-> >          too-many-instance-attributes,
-> > -        no-member,  # mypy also handles this better.
-> > +        too-many-positional-arguments,
 >
-> Up to here, just a reorder, which I appreciate.
+> I'd expect to catch mistakes in the manual parts.  I gave scripts/qapi/
+> an eye-over anyway, and it looks good to me.
 >
-> > +        unknown-option-value,
+
+I've prepared an alternate series that's vastly more automated, using
+"pyupgrade", "autoflake", and isort. As a downside it touches a lot more
+than just the type hints, removing other outdated pythonisms. As an upside
+it's way, way less manual.
+
+
 >
-> This is the new one.
->
-> >
-> >  [pylint.basic]
-> >  # Good variable names which should always be accepted, separated by a
-> comma.
+> Acked-by: Markus Armbruster <armbru@redhat.com>
 >
 >
 
---0000000000007d2d180635be3b94
+--0000000000008db3590635be41ce
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
 mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, May 20,=
- 2025 at 3:42=E2=80=AFAM Markus Armbruster &lt;<a href=3D"mailto:armbru@red=
+ 2025 at 5:26=E2=80=AFAM Markus Armbruster &lt;<a href=3D"mailto:armbru@red=
 hat.com">armbru@redhat.com</a>&gt; wrote:<br></div><blockquote class=3D"gma=
 il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,2=
 04,204);padding-left:1ex">John Snow &lt;<a href=3D"mailto:jsnow@redhat.com"=
  target=3D"_blank">jsnow@redhat.com</a>&gt; writes:<br>
 <br>
-&gt; The next patch will synchronize the qemu.qmp library with the external=
+&gt; This patch changes type hints that have built-in equivalents as of<br>
+&gt; Python 3.9. The versions we currently use, imported from the typing<br=
+>
+&gt; module, have been deprecated since 3.9 and may be removed at any time =
+-<br>
+&gt; though to my knowledge, they are not scheduled for removal in 3.14.<br=
+>
+&gt;<br>
+&gt; The type hints to update are:<br>
+&gt;<br>
+&gt; typing.Dict=C2=A0 =3D&gt; dict<br>
+&gt; typing.List=C2=A0 =3D&gt; list<br>
+&gt; typing.Tuple =3D&gt; tuple<br>
+&gt; typing.Set=C2=A0 =C2=A0=3D&gt; set<br>
+&gt; typing.Type=C2=A0 =3D&gt; type<br>
+&gt;<br>
+&gt; I performed this change the dumb way (I couldn&#39;t work out for the =
+life<br>
+&gt; of me how to beg ls-files to exclude subprojects and empty directories=
 ,<br>
-&gt; standalone version. That synchronization will require a few extra<br>
-&gt; ignores for pylint, so do that now.<br>
-<br>
-Just one, unless I&#39;m cross-eyed again.<br></blockquote><div><br></div><=
-div>Nope. changed the commit message. Just doing things in weird orders as =
-is my usual...</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">
-<br>
+&gt; desipte it having an option which claims to do precisely that. Suggest=
+ a<br>
+&gt; nicer way to do this if you&#39;d like.)<br>
+&gt;<br>
+&gt; git ls-files | grep -v &#39;roms/&#39; | grep -v &#39;subprojects/&#39=
+; | grep -v &#39;tests/lcitool/libvirt-ci&#39; | xargs sed -i -e &#39;s/Dic=
+t\[/dict\[/g&#39;<br>
+&gt; git ls-files | grep -v &#39;roms/&#39; | grep -v &#39;subprojects/&#39=
+; | grep -v &#39;tests/lcitool/libvirt-ci&#39; | xargs sed -i -e &#39;s/Lis=
+t\[/list\[/g&#39;<br>
+&gt; git ls-files | grep -v &#39;roms/&#39; | grep -v &#39;subprojects/&#39=
+; | grep -v &#39;tests/lcitool/libvirt-ci&#39; | xargs sed -i -e &#39;s/Tup=
+le\[/tuple\[/g&#39;<br>
+&gt; git ls-files | grep -v &#39;roms/&#39; | grep -v &#39;subprojects/&#39=
+; | grep -v &#39;tests/lcitool/libvirt-ci&#39; | xargs sed -i -e &#39;s/Set=
+\[/set\[/g&#39;<br>
+&gt; git ls-files | grep -v &#39;roms/&#39; | grep -v &#39;subprojects/&#39=
+; | grep -v &#39;tests/lcitool/libvirt-ci&#39; | xargs sed -i -e &#39;s/Typ=
+e\[/type\[/g&#39;<br>
+&gt;<br>
+&gt; I then used &quot;git add -p&quot; and excluded changes by hand that w=
+eren&#39;t<br>
+&gt; appropriate. I then reviewed all of the changed files by hand to revie=
+w<br>
+&gt; the imports and update them accordingly.<br>
+&gt;<br>
 &gt; Signed-off-by: John Snow &lt;<a href=3D"mailto:jsnow@redhat.com" targe=
 t=3D"_blank">jsnow@redhat.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 python/setup.cfg | 5 +++--<br>
-&gt;=C2=A0 1 file changed, 3 insertions(+), 2 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/python/setup.cfg b/python/setup.cfg<br>
-&gt; index d7f5dc7bafe..02cc076eaea 100644<br>
-&gt; --- a/python/setup.cfg<br>
-&gt; +++ b/python/setup.cfg<br>
-&gt; @@ -140,11 +140,12 @@ ignore_missing_imports =3D True<br>
-&gt;=C2=A0 # --disable=3DW&quot;.<br>
-&gt;=C2=A0 disable=3Dconsider-using-f-string,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 consider-using-with,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 no-member,=C2=A0 # mypy also handles this=
- better.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 too-many-arguments,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 too-many-positional-arguments,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 too-many-function-args,=C2=A0 # mypy=
- handles this with less false positives.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 too-many-instance-attributes,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 no-member,=C2=A0 # mypy also handles this=
- better.<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 too-many-positional-arguments,<br>
 <br>
-Up to here, just a reorder, which I appreciate.<br>
+I&#39;d expect to catch mistakes in the manual parts.=C2=A0 I gave scripts/=
+qapi/<br>
+an eye-over anyway, and it looks good to me.<br></blockquote><div><br></div=
+><div>I&#39;ve prepared an alternate series that&#39;s vastly more automate=
+d, using &quot;pyupgrade&quot;, &quot;autoflake&quot;, and isort. As a down=
+side it touches a lot more than just the type hints, removing other outdate=
+d pythonisms. As an upside it&#39;s way, way less manual.</div><div>=C2=A0<=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left:1px solid rgb(204,204,204);padding-left:1ex">
 <br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 unknown-option-value,<br>
-<br>
-This is the new one.<br>
-<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 [pylint.basic]<br>
-&gt;=C2=A0 # Good variable names which should always be accepted, separated=
- by a comma.<br>
+Acked-by: Markus Armbruster &lt;<a href=3D"mailto:armbru@redhat.com" target=
+=3D"_blank">armbru@redhat.com</a>&gt;<br>
 <br>
 </blockquote></div></div>
 
---0000000000007d2d180635be3b94--
+--0000000000008db3590635be41ce--
 
 
