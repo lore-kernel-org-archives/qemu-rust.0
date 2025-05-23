@@ -1,98 +1,87 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uIBMg-0005Qn-IM
-	for mharc-qemu-rust@gnu.org; Thu, 22 May 2025 15:14:02 -0400
+	id 1uIS6P-0002e5-Hw
+	for mharc-qemu-rust@gnu.org; Fri, 23 May 2025 09:06:22 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uIBMe-0005Ps-2T
- for qemu-rust@nongnu.org; Thu, 22 May 2025 15:14:00 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uIS6J-0002ch-Ou
+ for qemu-rust@nongnu.org; Fri, 23 May 2025 09:06:16 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uIBMc-0007rM-5m
- for qemu-rust@nongnu.org; Thu, 22 May 2025 15:13:59 -0400
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uIS6F-000698-Lr
+ for qemu-rust@nongnu.org; Fri, 23 May 2025 09:06:15 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1747941236;
+ s=mimecast20190719; t=1748005569;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HSSnnoEK2d+vdgFQbD5XNON7KKR4YZRVpFajvpeRFFM=;
- b=Hd9eAwl5c3LQDU8hb4uXGpaCYQd5YcYVE3G897taipeO8gtIyAe6slbyJ9z2tGa38TiJ3o
- RHQw5fTEdbs++yILeDc7zNnBaIp8IpVMOffX8+koYrom4upKqqWJMfLXRWhKM2xPNTMOdb
- +wgBEanAGMQtje1G0mTaKhAA9cRsByc=
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=mc3mS5uLX/j3zhb1Qv7HdED6ZMFgmSc2h7kiupw2rr8=;
+ b=FRdgy1FeRjURtWRWMlBSLVZDG4wF7bWoP4VGBN+l3bhI/UtLR6SgmvFAkFmM1w6nd4iJio
+ 4rxx4Fvg3xZ5Qb0GiIcijrgMk9xS05fi/ipVAHo9+8XQvXdbw/UHfoKKMtsO9oNuSCLRjY
+ +C0wDeyQkMj/BYe8MMxgvivHKlI7Kx8=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-84-icI1dE_rNl-PDFyPbVi97Q-1; Thu, 22 May 2025 15:13:54 -0400
-X-MC-Unique: icI1dE_rNl-PDFyPbVi97Q-1
-X-Mimecast-MFC-AGG-ID: icI1dE_rNl-PDFyPbVi97Q_1747941233
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-22de54b0b97so79906215ad.2
- for <qemu-rust@nongnu.org>; Thu, 22 May 2025 12:13:53 -0700 (PDT)
+ us-mta-101-3cxBdy6fMweVa_IIKR_pKA-1; Fri, 23 May 2025 09:06:07 -0400
+X-MC-Unique: 3cxBdy6fMweVa_IIKR_pKA-1
+X-Mimecast-MFC-AGG-ID: 3cxBdy6fMweVa_IIKR_pKA_1748005565
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-43cec217977so48956875e9.0
+ for <qemu-rust@nongnu.org>; Fri, 23 May 2025 06:06:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747941233; x=1748546033;
+ d=1e100.net; s=20230601; t=1748005565; x=1748610365;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=HSSnnoEK2d+vdgFQbD5XNON7KKR4YZRVpFajvpeRFFM=;
- b=tmzExMw5yXJmopok3COTaM284Vg1/HWGA0FiDXpG/a1+89cQfKo5OkWM2tN+AkR7K6
- srQ5CnVOwouvLTpxCA9ojl3cPEZe7jJrd5vCHDEFFraZilYeenHHNraqofEL4NTLaawZ
- jEui7irujbLigCNrbw5O8PYwuLzZ2teeRvhptuRXDKhQfVioqzbHNzGTFPj0hMX1FMRq
- HxIasoy2vy6+aZAgqKSMIrcxzhcxP017yBXGW5KIb90XXrlQ0AWGoaTJSsfRTtMNQcpE
- KgL8XT4ruE9JEb5WnExokjOI3YJFhlnWLsqAs/THoC4z7ISomde/mZMu7JLjyYnfhZcM
- TVXA==
+ bh=mc3mS5uLX/j3zhb1Qv7HdED6ZMFgmSc2h7kiupw2rr8=;
+ b=XTslmEoBlIUkMvFOyIrMSKz5uW7P2FauedHxMKdIwBDd4BaoG2HDCXBMhyuKkJ6tS8
+ rmY5SN6oJrhto2N5CK8m+YSVS4+8qS7RgMiTrwkaiuhpnfKK9sJ6p8bhm9VwvdyHObmw
+ otG31mPk9ZekXCz4eIN02dMTU9GwrtcCNEjYN0df67lXXXNKdoahbVx++XdkoEJtg/Ob
+ z6Mde55FK0yNdXaxu3Wn4yEdiawNha/ulQVxohfkXd1YaRNW3esJL0YpHf7EBYrz0TK4
+ aNsacb0+a87BMVQSVTdU+u2wR8o9NrPgJf5DFUUMMZdAqPMDoGUhLkOdC631gprnxJlZ
+ dHaw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVut1nyCaYY0vYqrA7rhY8rBnob6hSwl+mGPBdQBxJqgYEKUtaXd6w87n2pV2epbOsS00o+pWSyb1w=@nongnu.org
-X-Gm-Message-State: AOJu0YwMluFFutP4W+veWyjoKqzsJDg0m1g+a3Wv1I4l8bfYCHfYfn0W
- v6DhKfD6H+9qpwbzmpHtrCR2B579WKVZUU9ED+9DYi6E78+cjeAw1OJAUAM2hnHoPHWFHT/JBHB
- usdA6v5kjzP2RiaCrAz00XtQltBHUlQv9dbmHovmb0b86/mjo5LGq02A1eYB3kc3zvoaBmHWJU9
- Vl9vtE/6Y3Sg8FsWALsjuKn3uJ3x6Ccg==
-X-Gm-Gg: ASbGncu1WIgYcxA3F+4l7JpNdN3P++n4cbVZoM2IQ6rDQxA6kswJSOBTULwZ8NMBXeS
- mHlbSt9v2Sdv2ZxtqIkkQbXWrYqsqgPAe3mSmTopsWdQG/bj1iuTzCJIqANvIkdS93aq00CvYiV
- GhX8MikYv/q/n7rzO7q74+cSHL
-X-Received: by 2002:a17:902:f551:b0:227:eb61:34b8 with SMTP id
- d9443c01a7336-231de31b3e6mr374006925ad.25.1747941233063; 
- Thu, 22 May 2025 12:13:53 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGYgXmi1Jtqf68xRCZo1FeaIysHc2TICFE2Sh78xVzHAbM/Pnw2Te2JHy4qK2DZKsns8N4x+ngM/YqYzulkKyA=
-X-Received: by 2002:a17:902:f551:b0:227:eb61:34b8 with SMTP id
- d9443c01a7336-231de31b3e6mr374006555ad.25.1747941232747; Thu, 22 May 2025
- 12:13:52 -0700 (PDT)
+ AJvYcCU+Mc4TuPXC0h7dxW4MiC0tCs7nsE3CYKODRCOWjyjlf6oubMRAcgRRZSO+cUR54MvI0TtYeSQDx3w=@nongnu.org
+X-Gm-Message-State: AOJu0YyVMba8e2G0M4Vq2Ir+LDNMe6Ys4lOf8X/1w6wPC3gjcDRrSoar
+ F/2JealLavcjPG2j/FI0JOnlfP8l+GnWRd7DO2C3IL3aQcHGCy4lP44bu7dCr27bM+vlVpx7xNt
+ P6DiGth4bJzMkt95prmLcMtIQ8LgAMykz59nhuSS9poPAdjYW5fnR0AINWJb9t0HHmhBBwq27us
+ zDbsCq9uEjEJsIhgCpCLMAmjFzWXwAhA==
+X-Gm-Gg: ASbGncuOXsEUyeSagzdPVZi35aV4tA+RgPNruXRlTtQXhFXFoXdDBa9NdNPHM+liMh3
+ J+i5mRzAmM0KDvyQ30V+YJcaj3g3zJPgeBjYMjC75Lakhf1B+g0lpCcRh94iPBnqqcr4=
+X-Received: by 2002:a05:6000:2012:b0:3a3:7bed:cc2d with SMTP id
+ ffacd0b85a97d-3a37bedcc56mr14042084f8f.39.1748005563350; 
+ Fri, 23 May 2025 06:06:03 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHaw4UNQsnpw2LEiZ/H9P0SOxbWGjFKK74VUhkv1044Oax/7C3KlOxDgpPjO/NbVs2ZCtuMqnMVaPre6QCooS0=
+X-Received: by 2002:a05:6000:2012:b0:3a3:7bed:cc2d with SMTP id
+ ffacd0b85a97d-3a37bedcc56mr14041926f8f.39.1748005561894; Fri, 23 May 2025
+ 06:06:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250519182153.3835722-1-jsnow@redhat.com>
- <20250519182153.3835722-6-jsnow@redhat.com>
- <87r00jaaso.fsf@pond.sub.org>
-In-Reply-To: <87r00jaaso.fsf@pond.sub.org>
-From: John Snow <jsnow@redhat.com>
-Date: Thu, 22 May 2025 15:13:40 -0400
-X-Gm-Features: AX0GCFsxPYV6IherBtyKwNjC8zyT-T273S-VqY808FMMfnkktY9Afhx0sSkaob4
-Message-ID: <CAFn=p-Zo5urERRMzLWpa9mQCsv8Sa5ujmO1OkVRrr2TRRMWLEA@mail.gmail.com>
-Subject: Re: [PATCH 5/8] python: convert remaining deprecated type hints for
- 3.9+
-To: Markus Armbruster <armbru@redhat.com>
-Cc: qemu-devel@nongnu.org,
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
- Peter Maydell <peter.maydell@linaro.org>, Hanna Reitz <hreitz@redhat.com>, 
- Ani Sinha <anisinha@redhat.com>, Thomas Huth <thuth@redhat.com>, 
- Eduardo Habkost <eduardo@habkost.net>, qemu-block@nongnu.org, 
- "Michael S. Tsirkin" <mst@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org, 
- Maksim Davydov <davydov-max@yandex-team.ru>, Cleber Rosa <crosa@redhat.com>, 
- =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>, 
- Michael Roth <michael.roth@amd.com>,
- =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
- Kevin Wolf <kwolf@redhat.com>
+References: <20250522-rust-qdev-properties-v1-1-5b18b218bad1@linaro.org>
+In-Reply-To: <20250522-rust-qdev-properties-v1-1-5b18b218bad1@linaro.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Fri, 23 May 2025 15:05:48 +0200
+X-Gm-Features: AX0GCFsnDuWc5mO6BLbwysmLgbjjJtjZqJRofjA9PrvoehgUdR3xkRR2VvN8yRI
+Message-ID: <CABgObfbVSZ9MNzjXBu1mr8bzX9F-AoKVRQzCJj6c+SUpsoUQNw@mail.gmail.com>
+Subject: Re: [PATCH WIP RFC] rust: add qdev DeviceProperties derive macro
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org, 
+ =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+ Zhao Liu <zhao1.liu@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: A_Qz8QIGprN8FsZWWaijoZ9lI1EahANt2pT3QADyg9Y_1747941233
+X-Mimecast-MFC-PROC-ID: 9VJXhnDIiau4AgpybkAEEGJ3HeSCNJ4bSfkCEJQ69Cw_1748005565
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="0000000000004448530635be4832"
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=jsnow@redhat.com;
+Content-Type: multipart/alternative; boundary="0000000000009526fe0635cd42fd"
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -23
 X-Spam_score: -2.4
 X-Spam_bar: --
-X-Spam_report: (-2.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.275,
+X-Spam_report: (-2.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.287,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
- RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -106,200 +95,573 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 May 2025 19:14:00 -0000
+X-List-Received-Date: Fri, 23 May 2025 13:06:17 -0000
 
---0000000000004448530635be4832
+--0000000000009526fe0635cd42fd
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 20, 2025 at 5:31=E2=80=AFAM Markus Armbruster <armbru@redhat.co=
-m> wrote:
+Il gio 22 mag 2025, 10:12 Manos Pitsidianakis <
+manos.pitsidianakis@linaro.org> ha scritto:
 
-> John Snow <jsnow@redhat.com> writes:
+> This is unnecessary though, because once we have the
+> const_refs_to_static feature we can introduce a QdevProp trait that
+> returns a reference to a type's qdev_prop_* global variable. We cannot
+> do this now because for our minimum Rust version we cannot refer to
+> statics from const values.
 >
-> > In this patch, we don't have a builtin type to use for a type hint, but
-> > we do have collections.abc and other standard library types. Replace
-> > deprecated type hints with their standard library equivalents:
-> >
-> > typing.Awaitable      =3D> collections.abc.Awaitable
-> > typing.AbstractSet    =3D> collections.abc.AbstractSet
-> > typing.AsyncIterator  =3D> collections.abc.AsyncIterator
-> > typing.Callable       =3D> collections.abc.Callable
-> > typing.Coroutine      =3D> collections.abc.Coroutine
-> > typing.Deque          =3D> collections.deque
-> > typing.Generator      =3D> collections.abc.Generator
-> > typing.Iterable       =3D> collections.abc.Iterable
-> > typing.Iterator       =3D> collections.abc.Iterator
-> > typing.Mapping        =3D> collections.abc.Mapping
-> > typing.Match          =3D> re.Match
-> > typing.MutableMapping =3D> collections.abc.MutableMapping
-> > typing.Sequence       =3D> collections.abc.Sequence
-> > typing.ValuesView     =3D> collections.abc.ValuesView
-> >
-> > The primary benefit of this is, of course, that the standard type can
-> > now be used directly as the type hint. In general, this means far fewer
-> > imports from `typing`. The reason we *have* to do this is because the
-> > old type hints have been deprecated and will be dropped from a Python
-> > release in the future, so I am just getting ahead of it before it cause=
+
+Why don't you already write it assuming const_refs_to_static? If needed we
+can add a hack to make the VALUE an enum, similar to what is already in
+vmstate.rs.
+
+So, this patch is not for merging yet, I will wait until we upgrade the
+> Rust version and re-spin it with a proper trait-based implementation (and
+> also split it into individual steps/patches).
+>
+
+It's not too large, overall.
+
+ #[repr(C)]
+> -#[derive(qemu_api_macros::Object)]
+> +#[derive(qemu_api_macros::Object, qemu_api_macros::DeviceProperties)]
+>
+
+Is there more to be derived that is useful for Devices? Maybe the macro can
+be DeviceState or Device.
+
+ +    #[property(name =3D c"chardev", qdev_prop =3D
+> qemu_api::bindings::qdev_prop_chr)]
+>
+
+Can you change the name to be a "normal" string and change it to a C
+literal in the macro?
+
+diff --git a/rust/hw/char/pl011/src/device_class.rs
+> b/rust/hw/char/pl011/src/device_class.rs
+> index
+> d328d846323f6080a9573053767e51481eb32941..83d70d7d82aac4a3252a0b4cb24af70=
+5b01d3635
+> 100644
+> --- a/rust/hw/char/pl011/src/device_class.rs
+> +++ b/rust/hw/char/pl011/src/device_class.rs
+> @@ -8,11 +8,8 @@
+>  };
+>
+>  use qemu_api::{
+> -    bindings::{qdev_prop_bool, qdev_prop_chr},
+> -    prelude::*,
+> -    vmstate::VMStateDescription,
+> -    vmstate_clock, vmstate_fields, vmstate_of, vmstate_struct,
+> vmstate_subsections, vmstate_unused,
+> -    zeroable::Zeroable,
+> +    prelude::*, vmstate::VMStateDescription, vmstate_clock,
+> vmstate_fields, vmstate_of,
+> +    vmstate_struct, vmstate_subsections, vmstate_unused,
+> zeroable::Zeroable,
+>  };
+>
+
+I would also merge the files at this point, but no hurry.
+
++#[derive(Debug)]
+> +struct DeviceProperty {
+> +    name: Option<syn::LitCStr>,
+> +    qdev_prop: Option<syn::Path>,
+> +    assert_type: Option<proc_macro2::TokenStream>,
+> +    bitnr: Option<syn::Expr>,
+> +    defval: Option<syn::Expr>,
+> +}
+> +
+> +impl Parse for DeviceProperty {
+>
+
+Can you look into using https://docs.rs/crate/attrs/latest for parsing?
+
+(attrs doesn't support LitCStr btw)
+
++#[proc_macro_derive(DeviceProperties, attributes(property, bool_property))=
+]
+> +pub fn derive_device_properties(input: TokenStream) -> TokenStream {
+>
+
+Do you need to handle errors in the parsing of attributes?...
+
++        _other =3D> unreachable!(),
+>
+
+... Yes, you do=E2=80=94there is code already in qemu_macros, used by
+derive_object_or_error(), to get the fields of a struct with proper error
+handling.
+
+let prop_name =3D prop.name.as_ref().unwrap();
+
++ let field_name =3D field.ident.as_ref().unwrap();
+
++ let qdev_prop =3D prop.qdev_prop.as_ref().unwrap();
+
++ let bitnr =3D prop.bitnr.as_ref().unwrap_or(&zero);
+
++ let set_default =3D prop.defval.is_some();
+
++ let defval =3D prop.defval.as_ref().unwrap_or(&zero);+
+> bitnr: #bitnr,
+> +
+
+
+You also need to use let...else here instead of unwrap(), since panicking
+provides worse error messages.
+
+              set_default: #set_default,
+> +                defval: ::qemu_api::bindings::Property__bindgen_ty_1 { u=
+:
+> #defval as u64 },
+>
+
+If you like it, you can write this also as
+
+  #(bitnr: #bitnr,)?
+  #(set_default: true, defval: ...)?
+
+and keep bitnr and defval as Options, since the None case is handled by the
+default below.
+
+Paolo
+
+
++                ..::qemu_api::zeroable::Zeroable::ZERO
+> +            }
+> +        });
+> +    }
+> +    let properties_expanded =3D quote_spanned! {span.into()=3D>
+> +        #(#assertions)*
+> +
+> +        impl ::qemu_api::qdev::DevicePropertiesImpl for #name {
+> +            fn properties() -> &'static [::qemu_api::bindings::Property]=
+ {
+> +                static PROPERTIES: &'static
+> [::qemu_api::bindings::Property] =3D &[#(#properties_expanded),*];
+> +
+> +                PROPERTIES
+> +            }
+> +        }
+> +    };
+> +
+> +    TokenStream::from(properties_expanded)
+> +}
+> +
+>  #[proc_macro_derive(Wrapper)]
+>  pub fn derive_opaque(input: TokenStream) -> TokenStream {
+>      let input =3D parse_macro_input!(input as DeriveInput);
+> diff --git a/rust/qemu-api/src/qdev.rs b/rust/qemu-api/src/qdev.rs
+> index
+> 1279d7a58d50e1bf6c8d2e6f00d7229bbb19e003..2fd8b2750ffabcaa1065558d38a700e=
+35fbc9136
+> 100644
+> --- a/rust/qemu-api/src/qdev.rs
+> +++ b/rust/qemu-api/src/qdev.rs
+> @@ -100,8 +100,19 @@ pub trait ResettablePhasesImpl {
+>      T::EXIT.unwrap()(unsafe { state.as_ref() }, typ);
+>  }
+>
+> +pub trait DevicePropertiesImpl {
+> +    /// An array providing the properties that the user can set on the
+> +    /// device.  Not a `const` because referencing statics in constants
+> +    /// is unstable until Rust 1.83.0.
+> +    fn properties() -> &'static [Property] {
+> +        &[]
+> +    }
+> +}
+> +
+>  /// Trait providing the contents of [`DeviceClass`].
+> -pub trait DeviceImpl: ObjectImpl + ResettablePhasesImpl +
+> IsA<DeviceState> {
+> +pub trait DeviceImpl:
+> +    ObjectImpl + ResettablePhasesImpl + DevicePropertiesImpl +
+> IsA<DeviceState>
+> +{
+>      /// _Realization_ is the second stage of device creation. It contain=
 s
-> > a problem.
-> >
-> > (Granted, yes, in practice this just means we're usually importing from
-> > collections.abc instead of typing, but... ah well. What are you gonna
-> > do.)
-> >
-> > Signed-off-by: John Snow <jsnow@redhat.com>
+>      /// all operations that depend on device properties and can fail
+> (note:
+>      /// this is not yet supported for Rust devices).
+> @@ -110,13 +121,6 @@ pub trait DeviceImpl: ObjectImpl +
+> ResettablePhasesImpl + IsA<DeviceState> {
+>      /// with the function pointed to by `REALIZE`.
+>      const REALIZE: Option<fn(&Self)> =3D None;
 >
-> I'd expect to catch mistakes in the manual parts.  I gave scripts/qapi/
-> an eye-over anyway, and it looks good to me.
+> -    /// An array providing the properties that the user can set on the
+> -    /// device.  Not a `const` because referencing statics in constants
+> -    /// is unstable until Rust 1.83.0.
+> -    fn properties() -> &'static [Property] {
+> -        &[]
+> -    }
+> -
+>      /// A `VMStateDescription` providing the migration format for the
+> device
+>      /// Not a `const` because referencing statics in constants is unstab=
+le
+>      /// until Rust 1.83.0.
+> @@ -171,7 +175,7 @@ pub fn class_init<T: DeviceImpl>(&mut self) {
+>          if let Some(vmsd) =3D <T as DeviceImpl>::vmsd() {
+>              self.vmsd =3D vmsd;
+>          }
+> -        let prop =3D <T as DeviceImpl>::properties();
+> +        let prop =3D <T as DevicePropertiesImpl>::properties();
+>          if !prop.is_empty() {
+>              unsafe {
+>                  bindings::device_class_set_props_n(self, prop.as_ptr(),
+> prop.len());
+> diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
+> index
+> a658a49fcfdda8fa4b9d139c10afb6ff3243790b..e8eadfd6e9add385ffc97de015b84aa=
+e825c18ee
+> 100644
+> --- a/rust/qemu-api/tests/tests.rs
+> +++ b/rust/qemu-api/tests/tests.rs
+> @@ -9,7 +9,7 @@
+>      cell::{self, BqlCell},
+>      declare_properties, define_property,
+>      prelude::*,
+> -    qdev::{DeviceImpl, DeviceState, Property, ResettablePhasesImpl},
+> +    qdev::{DeviceImpl, DevicePropertiesImpl, DeviceState, Property,
+> ResettablePhasesImpl},
+>      qom::{ObjectImpl, ParentField},
+>      sysbus::SysBusDevice,
+>      vmstate::VMStateDescription,
+> @@ -68,10 +68,13 @@ impl ObjectImpl for DummyState {
 >
-> Acked-by: Markus Armbruster <armbru@redhat.com>
+>  impl ResettablePhasesImpl for DummyState {}
 >
-> Typing imports left at the end of the series:
+> -impl DeviceImpl for DummyState {
+> +impl DevicePropertiesImpl for DummyState {
+>      fn properties() -> &'static [Property] {
+>          &DUMMY_PROPERTIES
+>      }
+> +}
+> +
+> +impl DeviceImpl for DummyState {
+>      fn vmsd() -> Option<&'static VMStateDescription> {
+>          Some(&VMSTATE)
+>      }
+> @@ -85,6 +88,8 @@ pub struct DummyChildState {
 >
->     *
->     Any
->     BinaryIO
->     Generic
->     IO
->     Literal
->     NamedTuple
->     NewType
->     NoReturn
->     Optional
->     Protocol
->     TYPE_CHECKING
->     TextIO
->     TypeVar
->     Union
->     cast
+>  qom_isa!(DummyChildState: Object, DeviceState, DummyState);
+>
+> +impl DevicePropertiesImpl for DummyChildState {}
+> +
+>  pub struct DummyChildClass {
+>      parent_class: <DummyState as ObjectType>::Class,
+>  }
+>
+> ---
+> base-commit: 2af4a82ab2cce3412ffc92cd4c96bd870e33bc8e
+> change-id: 20250522-rust-qdev-properties-728e8f6a468e
+>
+> --
+> =CE=B3=CE=B1=E1=BF=96=CE=B1 =CF=80=CF=85=CF=81=CE=AF =CE=BC=CE=B9=CF=87=
+=CE=B8=CE=AE=CF=84=CF=89
+>
 >
 
-Yep, all of these are good. Except the *.
-
-
->
-> The * are in scripts/codeconverter/.  You might want to double-check
-> nothing deprecated hides behind the *.
->
-
-Yep. Meant to, forgot. O:-) Thanks for the callout.
-
-
->
-> The others are all still good, I presume.
-
-
-Yep! I double-checked the list and none of the remaining ones here are
-deprecated.
-
---js
-
---0000000000004448530635be4832
+--0000000000009526fe0635cd42fd
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
-mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, May 20,=
- 2025 at 5:31=E2=80=AFAM Markus Armbruster &lt;<a href=3D"mailto:armbru@red=
-hat.com">armbru@redhat.com</a>&gt; wrote:<br></div><blockquote class=3D"gma=
-il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,2=
-04,204);padding-left:1ex">John Snow &lt;<a href=3D"mailto:jsnow@redhat.com"=
- target=3D"_blank">jsnow@redhat.com</a>&gt; writes:<br>
-<br>
-&gt; In this patch, we don&#39;t have a builtin type to use for a type hint=
-, but<br>
-&gt; we do have collections.abc and other standard library types. Replace<b=
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">Il gio 22 mag 2025, 10:12 Manos Pitsidianakis &lt;<a h=
+ref=3D"mailto:manos.pitsidianakis@linaro.org" target=3D"_blank" rel=3D"nore=
+ferrer">manos.pitsidianakis@linaro.org</a>&gt; ha scritto:<br></div><blockq=
+uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
+x solid rgb(204,204,204);padding-left:1ex">This is unnecessary though, beca=
+use once we have the<br>
+const_refs_to_static feature we can introduce a QdevProp trait that<br>
+returns a reference to a type&#39;s qdev_prop_* global variable. We cannot<=
+br>
+do this now because for our minimum Rust version we cannot refer to<br>
+statics from const values.<br></blockquote></div></div><div dir=3D"auto"><b=
+r></div><div dir=3D"auto">Why don&#39;t you already write it assuming const=
+_refs_to_static? If needed we can add a hack to make the VALUE an enum, sim=
+ilar to what is already in <a href=3D"http://vmstate.rs" target=3D"_blank" =
+rel=3D"noreferrer">vmstate.rs</a>.</div><div dir=3D"auto"><br></div><div di=
+r=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" sty=
+le=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddi=
+ng-left:1ex">So, this patch is not for merging yet, I will wait until we up=
+grade the<br>
+Rust version and re-spin it with a proper trait-based implementation (and<b=
 r>
-&gt; deprecated type hints with their standard library equivalents:<br>
-&gt;<br>
-&gt; typing.Awaitable=C2=A0 =C2=A0 =C2=A0 =3D&gt; collections.abc.Awaitable=
-<br>
-&gt; typing.AbstractSet=C2=A0 =C2=A0 =3D&gt; collections.abc.AbstractSet<br=
+also split it into individual steps/patches).<br></blockquote></div></div><=
+div dir=3D"auto"><br></div><div dir=3D"auto">It&#39;s not too large, overal=
+l.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_q=
+uote"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left:1px solid rgb(204,204,204);padding-left:1ex">=C2=A0#[repr(C)]<br=
 >
-&gt; typing.AsyncIterator=C2=A0 =3D&gt; collections.abc.AsyncIterator<br>
-&gt; typing.Callable=C2=A0 =C2=A0 =C2=A0 =C2=A0=3D&gt; collections.abc.Call=
-able<br>
-&gt; typing.Coroutine=C2=A0 =C2=A0 =C2=A0 =3D&gt; collections.abc.Coroutine=
+-#[derive(qemu_api_macros::Object)]<br>
++#[derive(qemu_api_macros::Object, qemu_api_macros::DeviceProperties)]<br><=
+/blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Is th=
+ere more to be derived that is useful for Devices? Maybe the macro can be D=
+eviceState or Device.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><d=
+iv class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
+=C2=A0+=C2=A0 =C2=A0 #[property(name =3D c&quot;chardev&quot;, qdev_prop =
+=3D qemu_api::bindings::qdev_prop_chr)]<br></blockquote></div></div><div di=
+r=3D"auto"><br></div><div dir=3D"auto">Can you change the name to be a &quo=
+t;normal&quot; string and change it to a C literal in the macro?</div><div =
+dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockq=
+uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
+x solid rgb(204,204,204);padding-left:1ex">
+diff --git a/rust/hw/char/pl011/src/<a href=3D"http://device_class.rs" rel=
+=3D"noreferrer noreferrer noreferrer" target=3D"_blank">device_class.rs</a>=
+ b/rust/hw/char/pl011/src/<a href=3D"http://device_class.rs" rel=3D"norefer=
+rer noreferrer noreferrer" target=3D"_blank">device_class.rs</a><br>
+index d328d846323f6080a9573053767e51481eb32941..83d70d7d82aac4a3252a0b4cb24=
+af705b01d3635 100644<br>
+--- a/rust/hw/char/pl011/src/<a href=3D"http://device_class.rs" rel=3D"nore=
+ferrer noreferrer noreferrer" target=3D"_blank">device_class.rs</a><br>
++++ b/rust/hw/char/pl011/src/<a href=3D"http://device_class.rs" rel=3D"nore=
+ferrer noreferrer noreferrer" target=3D"_blank">device_class.rs</a><br>
+@@ -8,11 +8,8 @@<br>
+=C2=A0};<br>
 <br>
-&gt; typing.Deque=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D&gt; collections.deq=
-ue<br>
-&gt; typing.Generator=C2=A0 =C2=A0 =C2=A0 =3D&gt; collections.abc.Generator=
+=C2=A0use qemu_api::{<br>
+-=C2=A0 =C2=A0 bindings::{qdev_prop_bool, qdev_prop_chr},<br>
+-=C2=A0 =C2=A0 prelude::*,<br>
+-=C2=A0 =C2=A0 vmstate::VMStateDescription,<br>
+-=C2=A0 =C2=A0 vmstate_clock, vmstate_fields, vmstate_of, vmstate_struct, v=
+mstate_subsections, vmstate_unused,<br>
+-=C2=A0 =C2=A0 zeroable::Zeroable,<br>
++=C2=A0 =C2=A0 prelude::*, vmstate::VMStateDescription, vmstate_clock, vmst=
+ate_fields, vmstate_of,<br>
++=C2=A0 =C2=A0 vmstate_struct, vmstate_subsections, vmstate_unused, zeroabl=
+e::Zeroable,<br>
+=C2=A0};<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=
+=3D"auto">I would also merge the files at this point, but no hurry.</div><d=
+iv dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blo=
+ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
+:1px solid rgb(204,204,204);padding-left:1ex">
++#[derive(Debug)]<br>
++struct DeviceProperty {<br>
++=C2=A0 =C2=A0 name: Option&lt;syn::LitCStr&gt;,<br>
++=C2=A0 =C2=A0 qdev_prop: Option&lt;syn::Path&gt;,<br>
++=C2=A0 =C2=A0 assert_type: Option&lt;proc_macro2::TokenStream&gt;,<br>
++=C2=A0 =C2=A0 bitnr: Option&lt;syn::Expr&gt;,<br>
++=C2=A0 =C2=A0 defval: Option&lt;syn::Expr&gt;,<br>
++}<br>
++<br>
++impl Parse for DeviceProperty {<br></blockquote></div></div><div dir=3D"au=
+to"><br></div><div dir=3D"auto">Can you look into using <a href=3D"https://=
+docs.rs/crate/attrs/latest" target=3D"_blank" rel=3D"noreferrer">https://do=
+cs.rs/crate/attrs/latest</a> for parsing?</div><div dir=3D"auto"><br></div>=
+<div dir=3D"auto">(attrs doesn&#39;t support LitCStr btw)</div><div dir=3D"=
+auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote cl=
+ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
+ rgb(204,204,204);padding-left:1ex">
++#[proc_macro_derive(DeviceProperties, attributes(property, bool_property))=
+]<br>
++pub fn derive_device_properties(input: TokenStream) -&gt; TokenStream {<br=
+></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Do =
+you need to handle errors in the parsing of attributes?...</div><div dir=3D=
+"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote c=
+lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
+d rgb(204,204,204);padding-left:1ex">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 _other =
+=3D&gt; unreachable!(),<br></blockquote></div></div><div dir=3D"auto"><br><=
+/div><div dir=3D"auto">... Yes, you do=E2=80=94there is code already in qem=
+u_macros, used by derive_object_or_error(), to get the fields of a struct w=
+ith proper error handling.</div><div dir=3D"auto"><br></div><div dir=3D"aut=
+o"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
+1ex">let prop_name =3D prop.name.as_ref().unwrap();</blockquote><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
+lid rgb(204,204,204);padding-left:1ex">+        let field_name =3D field.id=
+ent.as_ref().unwrap();</blockquote><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">+        let qdev_prop =3D prop.qdev_prop.as_ref().unwrap();</bl=
+ockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
+x;border-left:1px solid rgb(204,204,204);padding-left:1ex">+        let bit=
+nr =3D prop.bitnr.as_ref().unwrap_or(&amp;zero);</blockquote><blockquote cl=
+ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
+ rgb(204,204,204);padding-left:1ex">+        let set_default =3D prop.defva=
+l.is_some();</blockquote><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
++        let defval =3D prop.defval.as_ref().unwrap_or(&amp;zero);+=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bitnr: #bitnr,<br>
++=C2=A0 </blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"au=
+to">You also need to use let...else here instead of unwrap(), since panicki=
+ng provides worse error messages.</div><div dir=3D"auto"><br></div><div dir=
+=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 set_default: #=
+set_default,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 defval: ::qemu_api=
+::bindings::Property__bindgen_ty_1 { u: #defval as u64 },<br></blockquote><=
+/div></div><div dir=3D"auto"><br></div><div dir=3D"auto">If you like it, yo=
+u can write this also as</div><div dir=3D"auto"><br></div><div dir=3D"auto"=
+>=C2=A0 #(bitnr: #bitnr,)?</div><div dir=3D"auto">=C2=A0 #(set_default: tru=
+e, defval: ...)?</div><div dir=3D"auto"><br></div><div dir=3D"auto">and kee=
+p bitnr and defval as Options, since the None case is handled by the defaul=
+t below.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo=C2=A0</di=
+v><div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"auto"=
+><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
+x">
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ..::qemu_api::zero=
+able::Zeroable::ZERO<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 });<br>
++=C2=A0 =C2=A0 }<br>
++=C2=A0 =C2=A0 let properties_expanded =3D quote_spanned! {span.into()=3D&g=
+t;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 #(#assertions)*<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 impl ::qemu_api::qdev::DevicePropertiesImpl fo=
+r #name {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 fn properties() -&gt; &amp;&#39;=
+static [::qemu_api::bindings::Property] {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 static PROPERTIES:=
+ &amp;&#39;static [::qemu_api::bindings::Property] =3D &amp;[#(#properties_=
+expanded),*];<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PROPERTIES<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
++=C2=A0 =C2=A0 };<br>
++<br>
++=C2=A0 =C2=A0 TokenStream::from(properties_expanded)<br>
++}<br>
++<br>
+=C2=A0#[proc_macro_derive(Wrapper)]<br>
+=C2=A0pub fn derive_opaque(input: TokenStream) -&gt; TokenStream {<br>
+=C2=A0 =C2=A0 =C2=A0let input =3D parse_macro_input!(input as DeriveInput);=
 <br>
-&gt; typing.Iterable=C2=A0 =C2=A0 =C2=A0 =C2=A0=3D&gt; collections.abc.Iter=
-able<br>
-&gt; typing.Iterator=C2=A0 =C2=A0 =C2=A0 =C2=A0=3D&gt; collections.abc.Iter=
-ator<br>
-&gt; typing.Mapping=C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D&gt; collections.abc.Mapp=
-ing<br>
-&gt; typing.Match=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D&gt; re.Match<br>
-&gt; typing.MutableMapping =3D&gt; collections.abc.MutableMapping<br>
-&gt; typing.Sequence=C2=A0 =C2=A0 =C2=A0 =C2=A0=3D&gt; collections.abc.Sequ=
-ence<br>
-&gt; typing.ValuesView=C2=A0 =C2=A0 =C2=A0=3D&gt; collections.abc.ValuesVie=
-w<br>
-&gt;<br>
-&gt; The primary benefit of this is, of course, that the standard type can<=
+diff --git a/rust/qemu-api/src/<a href=3D"http://qdev.rs" rel=3D"noreferrer=
+ noreferrer noreferrer" target=3D"_blank">qdev.rs</a> b/rust/qemu-api/src/<=
+a href=3D"http://qdev.rs" rel=3D"noreferrer noreferrer noreferrer" target=
+=3D"_blank">qdev.rs</a><br>
+index 1279d7a58d50e1bf6c8d2e6f00d7229bbb19e003..2fd8b2750ffabcaa1065558d38a=
+700e35fbc9136 100644<br>
+--- a/rust/qemu-api/src/<a href=3D"http://qdev.rs" rel=3D"noreferrer norefe=
+rrer noreferrer" target=3D"_blank">qdev.rs</a><br>
++++ b/rust/qemu-api/src/<a href=3D"http://qdev.rs" rel=3D"noreferrer norefe=
+rrer noreferrer" target=3D"_blank">qdev.rs</a><br>
+@@ -100,8 +100,19 @@ pub trait ResettablePhasesImpl {<br>
+=C2=A0 =C2=A0 =C2=A0T::EXIT.unwrap()(unsafe { state.as_ref() }, typ);<br>
+=C2=A0}<br>
+<br>
++pub trait DevicePropertiesImpl {<br>
++=C2=A0 =C2=A0 /// An array providing the properties that the user can set =
+on the<br>
++=C2=A0 =C2=A0 /// device.=C2=A0 Not a `const` because referencing statics =
+in constants<br>
++=C2=A0 =C2=A0 /// is unstable until Rust 1.83.0.<br>
++=C2=A0 =C2=A0 fn properties() -&gt; &amp;&#39;static [Property] {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;[]<br>
++=C2=A0 =C2=A0 }<br>
++}<br>
++<br>
+=C2=A0/// Trait providing the contents of [`DeviceClass`].<br>
+-pub trait DeviceImpl: ObjectImpl + ResettablePhasesImpl + IsA&lt;DeviceSta=
+te&gt; {<br>
++pub trait DeviceImpl:<br>
++=C2=A0 =C2=A0 ObjectImpl + ResettablePhasesImpl + DevicePropertiesImpl + I=
+sA&lt;DeviceState&gt;<br>
++{<br>
+=C2=A0 =C2=A0 =C2=A0/// _Realization_ is the second stage of device creatio=
+n. It contains<br>
+=C2=A0 =C2=A0 =C2=A0/// all operations that depend on device properties and=
+ can fail (note:<br>
+=C2=A0 =C2=A0 =C2=A0/// this is not yet supported for Rust devices).<br>
+@@ -110,13 +121,6 @@ pub trait DeviceImpl: ObjectImpl + ResettablePhasesImp=
+l + IsA&lt;DeviceState&gt; {<br>
+=C2=A0 =C2=A0 =C2=A0/// with the function pointed to by `REALIZE`.<br>
+=C2=A0 =C2=A0 =C2=A0const REALIZE: Option&lt;fn(&amp;Self)&gt; =3D None;<br=
+>
+<br>
+-=C2=A0 =C2=A0 /// An array providing the properties that the user can set =
+on the<br>
+-=C2=A0 =C2=A0 /// device.=C2=A0 Not a `const` because referencing statics =
+in constants<br>
+-=C2=A0 =C2=A0 /// is unstable until Rust 1.83.0.<br>
+-=C2=A0 =C2=A0 fn properties() -&gt; &amp;&#39;static [Property] {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;[]<br>
+-=C2=A0 =C2=A0 }<br>
+-<br>
+=C2=A0 =C2=A0 =C2=A0/// A `VMStateDescription` providing the migration form=
+at for the device<br>
+=C2=A0 =C2=A0 =C2=A0/// Not a `const` because referencing statics in consta=
+nts is unstable<br>
+=C2=A0 =C2=A0 =C2=A0/// until Rust 1.83.0.<br>
+@@ -171,7 +175,7 @@ pub fn class_init&lt;T: DeviceImpl&gt;(&amp;mut self) {=
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if let Some(vmsd) =3D &lt;T as DeviceImpl=
+&gt;::vmsd() {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0self.vmsd =3D vmsd;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 let prop =3D &lt;T as DeviceImpl&gt;::properti=
+es();<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 let prop =3D &lt;T as DevicePropertiesImpl&gt;=
+::properties();<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if !prop.is_empty() {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsafe {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bindings::dev=
+ice_class_set_props_n(self, prop.as_ptr(), prop.len());<br>
+diff --git a/rust/qemu-api/tests/<a href=3D"http://tests.rs" rel=3D"norefer=
+rer noreferrer noreferrer" target=3D"_blank">tests.rs</a> b/rust/qemu-api/t=
+ests/<a href=3D"http://tests.rs" rel=3D"noreferrer noreferrer noreferrer" t=
+arget=3D"_blank">tests.rs</a><br>
+index a658a49fcfdda8fa4b9d139c10afb6ff3243790b..e8eadfd6e9add385ffc97de015b=
+84aae825c18ee 100644<br>
+--- a/rust/qemu-api/tests/<a href=3D"http://tests.rs" rel=3D"noreferrer nor=
+eferrer noreferrer" target=3D"_blank">tests.rs</a><br>
++++ b/rust/qemu-api/tests/<a href=3D"http://tests.rs" rel=3D"noreferrer nor=
+eferrer noreferrer" target=3D"_blank">tests.rs</a><br>
+@@ -9,7 +9,7 @@<br>
+=C2=A0 =C2=A0 =C2=A0cell::{self, BqlCell},<br>
+=C2=A0 =C2=A0 =C2=A0declare_properties, define_property,<br>
+=C2=A0 =C2=A0 =C2=A0prelude::*,<br>
+-=C2=A0 =C2=A0 qdev::{DeviceImpl, DeviceState, Property, ResettablePhasesIm=
+pl},<br>
++=C2=A0 =C2=A0 qdev::{DeviceImpl, DevicePropertiesImpl, DeviceState, Proper=
+ty, ResettablePhasesImpl},<br>
+=C2=A0 =C2=A0 =C2=A0qom::{ObjectImpl, ParentField},<br>
+=C2=A0 =C2=A0 =C2=A0sysbus::SysBusDevice,<br>
+=C2=A0 =C2=A0 =C2=A0vmstate::VMStateDescription,<br>
+@@ -68,10 +68,13 @@ impl ObjectImpl for DummyState {<br>
+<br>
+=C2=A0impl ResettablePhasesImpl for DummyState {}<br>
+<br>
+-impl DeviceImpl for DummyState {<br>
++impl DevicePropertiesImpl for DummyState {<br>
+=C2=A0 =C2=A0 =C2=A0fn properties() -&gt; &amp;&#39;static [Property] {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;DUMMY_PROPERTIES<br>
+=C2=A0 =C2=A0 =C2=A0}<br>
++}<br>
++<br>
++impl DeviceImpl for DummyState {<br>
+=C2=A0 =C2=A0 =C2=A0fn vmsd() -&gt; Option&lt;&amp;&#39;static VMStateDescr=
+iption&gt; {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Some(&amp;VMSTATE)<br>
+=C2=A0 =C2=A0 =C2=A0}<br>
+@@ -85,6 +88,8 @@ pub struct DummyChildState {<br>
+<br>
+=C2=A0qom_isa!(DummyChildState: Object, DeviceState, DummyState);<br>
+<br>
++impl DevicePropertiesImpl for DummyChildState {}<br>
++<br>
+=C2=A0pub struct DummyChildClass {<br>
+=C2=A0 =C2=A0 =C2=A0parent_class: &lt;DummyState as ObjectType&gt;::Class,<=
 br>
-&gt; now be used directly as the type hint. In general, this means far fewe=
-r<br>
-&gt; imports from `typing`. The reason we *have* to do this is because the<=
-br>
-&gt; old type hints have been deprecated and will be dropped from a Python<=
-br>
-&gt; release in the future, so I am just getting ahead of it before it caus=
-es<br>
-&gt; a problem.<br>
-&gt;<br>
-&gt; (Granted, yes, in practice this just means we&#39;re usually importing=
- from<br>
-&gt; collections.abc instead of typing, but... ah well. What are you gonna<=
-br>
-&gt; do.)<br>
-&gt;<br>
-&gt; Signed-off-by: John Snow &lt;<a href=3D"mailto:jsnow@redhat.com" targe=
-t=3D"_blank">jsnow@redhat.com</a>&gt;<br>
+=C2=A0}<br>
 <br>
-I&#39;d expect to catch mistakes in the manual parts.=C2=A0 I gave scripts/=
-qapi/<br>
-an eye-over anyway, and it looks good to me.<br>
+---<br>
+base-commit: 2af4a82ab2cce3412ffc92cd4c96bd870e33bc8e<br>
+change-id: 20250522-rust-qdev-properties-728e8f6a468e<br>
 <br>
-Acked-by: Markus Armbruster &lt;<a href=3D"mailto:armbru@redhat.com" target=
-=3D"_blank">armbru@redhat.com</a>&gt;<br>
+--<br>
+=CE=B3=CE=B1=E1=BF=96=CE=B1 =CF=80=CF=85=CF=81=CE=AF =CE=BC=CE=B9=CF=87=CE=
+=B8=CE=AE=CF=84=CF=89<br>
 <br>
-Typing imports left at the end of the series:<br>
-<br>
-=C2=A0 =C2=A0 *<br>
-=C2=A0 =C2=A0 Any<br>
-=C2=A0 =C2=A0 BinaryIO<br>
-=C2=A0 =C2=A0 Generic<br>
-=C2=A0 =C2=A0 IO<br>
-=C2=A0 =C2=A0 Literal<br>
-=C2=A0 =C2=A0 NamedTuple<br>
-=C2=A0 =C2=A0 NewType<br>
-=C2=A0 =C2=A0 NoReturn<br>
-=C2=A0 =C2=A0 Optional<br>
-=C2=A0 =C2=A0 Protocol<br>
-=C2=A0 =C2=A0 TYPE_CHECKING<br>
-=C2=A0 =C2=A0 TextIO<br>
-=C2=A0 =C2=A0 TypeVar<br>
-=C2=A0 =C2=A0 Union<br>
-=C2=A0 =C2=A0 cast<br></blockquote><div><br></div><div>Yep, all of these ar=
-e good. Except the *.</div><div>=C2=A0</div><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex">
-<br>
-The * are in scripts/codeconverter/.=C2=A0 You might want to double-check<b=
-r>
-nothing deprecated hides behind the *.<br></blockquote><div><br></div><div>=
-Yep. Meant to, forgot. O:-) Thanks for the callout.</div><div>=C2=A0</div><=
-blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
-eft:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-The others are all still good, I presume.</blockquote><div><br></div><div>Y=
-ep! I double-checked the list and none of the remaining ones here are depre=
-cated.</div><div><br></div><div>--js <br></div></div></div>
+</blockquote></div></div></div>
 
---0000000000004448530635be4832--
+--0000000000009526fe0635cd42fd--
 
 
