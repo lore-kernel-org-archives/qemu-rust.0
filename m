@@ -1,82 +1,83 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uJYlx-0003KH-8n
-	for mharc-qemu-rust@gnu.org; Mon, 26 May 2025 10:25:49 -0400
+	id 1uJYly-0003PM-Qp
+	for mharc-qemu-rust@gnu.org; Mon, 26 May 2025 10:25:50 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uJYlW-0002ze-5J
- for qemu-rust@nongnu.org; Mon, 26 May 2025 10:25:29 -0400
+ id 1uJYlf-00032B-Us
+ for qemu-rust@nongnu.org; Mon, 26 May 2025 10:25:35 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uJYlT-0007rY-2i
- for qemu-rust@nongnu.org; Mon, 26 May 2025 10:25:20 -0400
+ id 1uJYlZ-0007sV-VE
+ for qemu-rust@nongnu.org; Mon, 26 May 2025 10:25:30 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1748269518;
+ s=mimecast20190719; t=1748269522;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=yEirfICDV2iUFGeoHG7Gn3nAmnYWGEW5yhNDMIdDw0M=;
- b=TKiHN/0RasyI4ekDZmbPz7lfoI+gESpAewACLZaZ8/UcmZp4ICD5sAfJ1mFjBmx5SJr+01
- 6PZ707ELool/5oFDzM5m/iEeU6n+3knnIKTDeMMj96htPaDBgQqslfyuVZjvlBXpTYCTWN
- VubhoSeOkTz4yZ9rPHZ79XtYibH+pr4=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=QvZyFdDkuLWp6FY5Epn837HgIKSyXbzfGWIif8TNWJE=;
+ b=NB0PI2joxlGAH/jDE6Q4IkCd//paj0bGACRAUY8lJKINjreJS+/OIHYpUhXPzlRd5KwTHc
+ TeYX9E5aQgnS5nYythIQ3jp1wpvswU6CsrpKsW/eh/gN0pSs1zJRc24ogAordUe87heJXX
+ fwVX/p9INSYL5Hfq42eAGnOXh1Y/mIA=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-638-c_pi6aijP5q5Cc5py80Z1A-1; Mon, 26 May 2025 10:25:17 -0400
-X-MC-Unique: c_pi6aijP5q5Cc5py80Z1A-1
-X-Mimecast-MFC-AGG-ID: c_pi6aijP5q5Cc5py80Z1A_1748269516
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-442f90418b0so12594535e9.2
- for <qemu-rust@nongnu.org>; Mon, 26 May 2025 07:25:17 -0700 (PDT)
+ us-mta-84-2QKPz9NTNQOF8Y8RPedm4A-1; Mon, 26 May 2025 10:25:20 -0400
+X-MC-Unique: 2QKPz9NTNQOF8Y8RPedm4A-1
+X-Mimecast-MFC-AGG-ID: 2QKPz9NTNQOF8Y8RPedm4A_1748269519
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-3a4d863ac97so463255f8f.2
+ for <qemu-rust@nongnu.org>; Mon, 26 May 2025 07:25:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748269515; x=1748874315;
+ d=1e100.net; s=20230601; t=1748269519; x=1748874319;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=yEirfICDV2iUFGeoHG7Gn3nAmnYWGEW5yhNDMIdDw0M=;
- b=V4LQAJu3QhYclOVZJ39Ny9KKpATVPWzfNklChcK/r+vdvYt/CnM1/S4km3huSuSq7S
- ELh881MJQZYbbZFudVX6ESu+TCsSURV+IhCoLoa9SzwVMl1DWqSRqxBqj3XkZSQdQXb7
- +FMRCGS/AkYbTe7bjb0Q2aldSVyUJJWd+Bn6of/H6+EmfkYLt5qPDJYEXOwlpVWBG1Vp
- Fs6GXkVdiugFoJu2sHMN8GjyB271jlG4b7pFZ1vdvZdB4zxT98MXT9PmCP74Uk35UbHu
- FLitDVJsEMqzEP5ulbJn/utPIULDUu54tzi3F+PVNqbUOeqiUw7vyXs/UVa4tQfJe9k5
- DgwQ==
+ bh=QvZyFdDkuLWp6FY5Epn837HgIKSyXbzfGWIif8TNWJE=;
+ b=b8capRXhTApJlvaPD8qVtZdAhV+rnIRpvFS6llS2Fozumk5rtQIQ7gpsC556l2mpkq
+ Lna8tk/+1fuJXl4RZoFRIIniT9XWZJkHNyLm3GhodlrWegr1SgHewVhDY7ZX0HpatQdN
+ kXqyzyVKf9ianjlgKgAHpm5r/qEV36ggoyaEit94Z9o3VUc/ynVCgP6D7bf5imj5itt0
+ CUgGUnAzVKgcgoL/2tPCnjIeGBVQJA9cyanU0OYWDyv1Dd4q+cx7GwxWUzk/9hTVQjA9
+ +nqtonPUVfH97jP3xOmTVFMZINueeVD11mg13329b616cmzAg2RGw1vW0bG5pz6I9I6n
+ wvjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUWq9Q8CVD+xWiQAgPuEfJY3B3aOgcwIaUMEgnyY07HJWAqem7l69SVRyW3Nm3ONWqOQxgMPwaJKFE=@nongnu.org
-X-Gm-Message-State: AOJu0YyVRqSpoe4PXGA1L3edHjkazqllAm7WOE/9LUgWevcsl3Z9SHah
- WryB8HRg7OT6edYOpODtT58VKXsK7lxylYfagCNjQCkbdj0na2kzFROnVyBxiVfZcNZ4x6g7d5P
- p4+qlU8tmG9OnLtaxfw+ohp3ntyol7Y5878TiJGn0RyTkPXr9BesaT+qkrTxSAkk=
-X-Gm-Gg: ASbGnctGc0N7p1VbzOAXZDbSQOhLHMKHaLqi7Gram0phEtTtk+4Q2M2OvsMkKhxNlCs
- wEqGemeihmyhlwTWpuyIGle5D02vD4AL+jvr6Q/HUeahGLMTgq+lAbbMGnZS5oG3XVrn/QwfSLt
- 1i9+Plo3U0H4549kMOr/ge0+24KcD0/VKqSk3q5PcTyMEA5birrxHwcsOof8e5KUr/oE3iNjaAs
- egmCxhauLQF6TUJIr7+E+dP4RbkU8Vn0UPPHy5Kl3EN4315QRBEtb+yeJwIKdHn+zpLPUbMqyfC
- /+aTtVR28th18g==
-X-Received: by 2002:a05:600c:1da6:b0:44a:4874:bdde with SMTP id
- 5b1f17b1804b1-44c8ed8f474mr89520805e9.0.1748269514815; 
- Mon, 26 May 2025 07:25:14 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEvFQhU736uPEHz30h8XKYQwp60N+KklBTccvOgW4W5S3cXm93i6WcOt9PK66MdDozUqztwEQ==
-X-Received: by 2002:a05:600c:1da6:b0:44a:4874:bdde with SMTP id
- 5b1f17b1804b1-44c8ed8f474mr89520605e9.0.1748269514409; 
- Mon, 26 May 2025 07:25:14 -0700 (PDT)
+ AJvYcCUCiUVGk9ZI8ti3aZtRO112cQlG+m2PX5buE5jOSf2nKhRCehcYjRs/B+J7m4qXepASO6eeCJI8UAA=@nongnu.org
+X-Gm-Message-State: AOJu0YxLkfax7F/y/lojDM/RPwboHVIZzraSwCtk5fS0vbkkb3/d/eKO
+ /OR9vrasOo7QKjCIy1LyvFI9oiY0CKOh5swBI0YcdeN1u/TZdnE1VDFvSRFCleZx0fO0SrIIOn4
+ XKvxk5R2gsaXX71PLr8eNBEZmB4kF26KjdPheaSfOioy8h8DtUcEpxqg=
+X-Gm-Gg: ASbGncshGF+24hRempQmXGYx9gS42gp1rON5V4TcSfoVXGmfn+Q24EIkQfOcIziyu8J
+ 532Gx49rGeEf0fNh8BMPdVXBXomO2Q7cDAxWJ+qBw9VFfdcOM9l4i5Py/GJ8mi7mSBNLJjcc9bQ
+ B1euxWejBlWJQkgmFdwxybom+5JLFLGDWUzYBymeNZBcmDjTKEohhx/wDteO8m9o7E4MpncMAaQ
+ 7vfSXyN3KTxiYXfcKOrB6fymuEhtzgRMvqBkq0tbMFsNovmXz8Hz2+g/YdZzOcK97i50XaAI6jQ
+ 2JBJp08A1fcnpw==
+X-Received: by 2002:a5d:4b0a:0:b0:3a4:d0c7:3129 with SMTP id
+ ffacd0b85a97d-3a4d0c73965mr5407724f8f.14.1748269519317; 
+ Mon, 26 May 2025 07:25:19 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFDeFahvOPqy2waJ/Pycb38J675xYr5da0aKZ9K1bKkU48AJTjv4Abz7rBZUhS7IgDqU9MYrg==
+X-Received: by 2002:a5d:4b0a:0:b0:3a4:d0c7:3129 with SMTP id
+ ffacd0b85a97d-3a4d0c73965mr5407699f8f.14.1748269518921; 
+ Mon, 26 May 2025 07:25:18 -0700 (PDT)
 Received: from [192.168.122.1] ([151.95.46.79])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-447f18251basm235241585e9.4.2025.05.26.07.25.13
+ 5b1f17b1804b1-442ebd6fe86sm321161945e9.0.2025.05.26.07.25.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 May 2025 07:25:13 -0700 (PDT)
+ Mon, 26 May 2025 07:25:18 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: armbru@redhat.com,
 	qemu-rust@nongnu.org
-Subject: [PATCH 08/12] rust: qdev: support returning errors from realize
-Date: Mon, 26 May 2025 16:24:51 +0200
-Message-ID: <20250526142455.1061519-8-pbonzini@redhat.com>
+Subject: [PATCH 10/12] hpet: return errors from realize if properties are
+ incorrect
+Date: Mon, 26 May 2025 16:24:53 +0200
+Message-ID: <20250526142455.1061519-10-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250526142254.1061009-1-pbonzini@redhat.com>
 References: <20250526142254.1061009-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: RlhJW0zL4Ib31gyDs0ppNpwW7DmOBByiUhxq00Sz57A_1748269516
+X-Mimecast-MFC-PROC-ID: XZsMVO_AWnnXz_k0QlsxJ8rGondHEUyeRkaUptotYLc_1748269519
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -102,110 +103,56 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 May 2025 14:25:35 -0000
+X-List-Received-Date: Mon, 26 May 2025 14:25:36 -0000
+
+Do not silently adjust num_timers, and fail if intcap is 0.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/hw/char/pl011/src/device.rs |  5 +++--
- rust/hw/timer/hpet/src/hpet.rs   |  5 +++--
- rust/qemu-api/src/qdev.rs        | 10 ++++++----
- 3 files changed, 12 insertions(+), 8 deletions(-)
+ hw/timer/hpet.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index bde3be65c5b..95fe9a34cd2 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -175,7 +175,7 @@ fn properties() -> &'static [Property] {
-     fn vmsd() -> Option<&'static VMStateDescription> {
-         Some(&device_class::VMSTATE_PL011)
-     }
--    const REALIZE: Option<fn(&Self)> = Some(Self::realize);
-+    const REALIZE: Option<fn(&Self) -> qemu_api::Result<()>> = Some(Self::realize);
- }
+diff --git a/hw/timer/hpet.c b/hw/timer/hpet.c
+index d1b7bc52b7b..d78aba04bcd 100644
+--- a/hw/timer/hpet.c
++++ b/hw/timer/hpet.c
+@@ -689,8 +689,14 @@ static void hpet_realize(DeviceState *dev, Error **errp)
+     int i;
+     HPETTimer *timer;
  
- impl ResettablePhasesImpl for PL011State {
-@@ -619,9 +619,10 @@ fn event(&self, event: Event) {
-         }
++    if (s->num_timers < HPET_MIN_TIMERS || s->num_timers > HPET_MAX_TIMERS) {
++        error_setg(errp, "hpet.num_timers must be between %d and %d",
++                   HPET_MIN_TIMERS, HPET_MAX_TIMERS);
++        return;
++    }
+     if (!s->intcap) {
+-        warn_report("Hpet's intcap not initialized");
++        error_setg(errp, "hpet.hpet-intcap not initialized");
++        return;
      }
- 
--    fn realize(&self) {
-+    fn realize(&self) -> qemu_api::Result<()> {
-         self.char_backend
-             .enable_handlers(self, Self::can_receive, Self::receive, Self::event);
-+        Ok(())
-     }
- 
-     fn reset_hold(&self, _type: ResetType) {
-diff --git a/rust/hw/timer/hpet/src/hpet.rs b/rust/hw/timer/hpet/src/hpet.rs
-index 779681d6509..55eef669a9d 100644
---- a/rust/hw/timer/hpet/src/hpet.rs
-+++ b/rust/hw/timer/hpet/src/hpet.rs
-@@ -724,7 +724,7 @@ fn post_init(&self) {
-         }
+     if (hpet_fw_cfg.count == UINT8_MAX) {
+         /* first instance */
+@@ -698,7 +704,7 @@ static void hpet_realize(DeviceState *dev, Error **errp)
      }
  
--    fn realize(&self) {
-+    fn realize(&self) -> qemu_api::Result<()> {
-         if self.int_route_cap == 0 {
-             // TODO: Add error binding: warn_report()
-             println!("Hpet's hpet-intcap property not initialized");
-@@ -751,6 +751,7 @@ fn realize(&self) {
- 
-         self.init_gpio_in(2, HPETState::handle_legacy_irq);
-         self.init_gpio_out(from_ref(&self.pit_enabled));
-+        Ok(())
+     if (hpet_fw_cfg.count == 8) {
+-        error_setg(errp, "Only 8 instances of HPET is allowed");
++        error_setg(errp, "Only 8 instances of HPET are allowed");
+         return;
      }
  
-     fn reset_hold(&self, _type: ResetType) {
-@@ -1042,7 +1043,7 @@ fn vmsd() -> Option<&'static VMStateDescription> {
-         Some(&VMSTATE_HPET)
+@@ -708,11 +714,6 @@ static void hpet_realize(DeviceState *dev, Error **errp)
+         sysbus_init_irq(sbd, &s->irqs[i]);
      }
  
--    const REALIZE: Option<fn(&Self)> = Some(Self::realize);
-+    const REALIZE: Option<fn(&Self) -> qemu_api::Result<()>> = Some(Self::realize);
- }
- 
- impl ResettablePhasesImpl for HPETState {
-diff --git a/rust/qemu-api/src/qdev.rs b/rust/qemu-api/src/qdev.rs
-index 1279d7a58d5..81052097071 100644
---- a/rust/qemu-api/src/qdev.rs
-+++ b/rust/qemu-api/src/qdev.rs
-@@ -12,10 +12,11 @@
- pub use bindings::{ClockEvent, DeviceClass, Property, ResetType};
- 
- use crate::{
--    bindings::{self, qdev_init_gpio_in, qdev_init_gpio_out, Error, ResettableClass},
-+    bindings::{self, qdev_init_gpio_in, qdev_init_gpio_out, ResettableClass},
-     callbacks::FnCall,
-     cell::{bql_locked, Opaque},
-     chardev::Chardev,
-+    error::{Error, Result},
-     irq::InterruptSource,
-     prelude::*,
-     qom::{ObjectClass, ObjectImpl, Owned},
-@@ -108,7 +109,7 @@ pub trait DeviceImpl: ObjectImpl + ResettablePhasesImpl + IsA<DeviceState> {
-     ///
-     /// If not `None`, the parent class's `realize` method is overridden
-     /// with the function pointed to by `REALIZE`.
--    const REALIZE: Option<fn(&Self)> = None;
-+    const REALIZE: Option<fn(&Self) -> Result<()>> = None;
- 
-     /// An array providing the properties that the user can set on the
-     /// device.  Not a `const` because referencing statics in constants
-@@ -134,10 +135,11 @@ fn vmsd() -> Option<&'static VMStateDescription> {
- /// readable/writeable from one thread at any time.
- unsafe extern "C" fn rust_realize_fn<T: DeviceImpl>(
-     dev: *mut bindings::DeviceState,
--    _errp: *mut *mut Error,
-+    errp: *mut *mut bindings::Error,
- ) {
-     let state = NonNull::new(dev).unwrap().cast::<T>();
--    T::REALIZE.unwrap()(unsafe { state.as_ref() });
-+    let result = T::REALIZE.unwrap()(unsafe { state.as_ref() });
-+    unsafe { Error::ok_or_propagate(result, errp); }
- }
- 
- unsafe impl InterfaceType for ResettableClass {
+-    if (s->num_timers < HPET_MIN_TIMERS) {
+-        s->num_timers = HPET_MIN_TIMERS;
+-    } else if (s->num_timers > HPET_MAX_TIMERS) {
+-        s->num_timers = HPET_MAX_TIMERS;
+-    }
+     for (i = 0; i < HPET_MAX_TIMERS; i++) {
+         timer = &s->timer[i];
+         timer->qemu_timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, hpet_timer, timer);
 -- 
 2.49.0
 
