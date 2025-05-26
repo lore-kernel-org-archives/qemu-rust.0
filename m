@@ -1,88 +1,96 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uIS6P-0002e5-Hw
-	for mharc-qemu-rust@gnu.org; Fri, 23 May 2025 09:06:22 -0400
+	id 1uJYlG-0002sP-QF
+	for mharc-qemu-rust@gnu.org; Mon, 26 May 2025 10:25:07 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uIS6J-0002ch-Ou
- for qemu-rust@nongnu.org; Fri, 23 May 2025 09:06:16 -0400
+ id 1uJYlE-0002re-1I
+ for qemu-rust@nongnu.org; Mon, 26 May 2025 10:25:04 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uIS6F-000698-Lr
- for qemu-rust@nongnu.org; Fri, 23 May 2025 09:06:15 -0400
+ id 1uJYlB-0007dL-W2
+ for qemu-rust@nongnu.org; Mon, 26 May 2025 10:25:03 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1748005569;
+ s=mimecast20190719; t=1748269500;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=mc3mS5uLX/j3zhb1Qv7HdED6ZMFgmSc2h7kiupw2rr8=;
- b=FRdgy1FeRjURtWRWMlBSLVZDG4wF7bWoP4VGBN+l3bhI/UtLR6SgmvFAkFmM1w6nd4iJio
- 4rxx4Fvg3xZ5Qb0GiIcijrgMk9xS05fi/ipVAHo9+8XQvXdbw/UHfoKKMtsO9oNuSCLRjY
- +C0wDeyQkMj/BYe8MMxgvivHKlI7Kx8=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=utt74FEHUZ6lFbnGNCeLg5d8BeYlcHDkUK83oW1XuqU=;
+ b=UXDcVwvGLFOyACAecoMjHdetDx0VoQSvj/U8L7ui5XEYQgqU9x0M2uODSOMQrtXsUB/LY3
+ H+GZfppIkTPIwed507Ensqe3Bi7zQSDohtN+sT/vC2W3JrGhMFVPdLFukybxsbWAL0OPo6
+ twcGMumNHHBTKwlqP13TPL5VliNmGFI=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-101-3cxBdy6fMweVa_IIKR_pKA-1; Fri, 23 May 2025 09:06:07 -0400
-X-MC-Unique: 3cxBdy6fMweVa_IIKR_pKA-1
-X-Mimecast-MFC-AGG-ID: 3cxBdy6fMweVa_IIKR_pKA_1748005565
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-43cec217977so48956875e9.0
- for <qemu-rust@nongnu.org>; Fri, 23 May 2025 06:06:06 -0700 (PDT)
+ us-mta-119-ve87oNxBN6iMBSrAN11R2A-1; Mon, 26 May 2025 10:24:59 -0400
+X-MC-Unique: ve87oNxBN6iMBSrAN11R2A-1
+X-Mimecast-MFC-AGG-ID: ve87oNxBN6iMBSrAN11R2A_1748269498
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-39ee4b91d1cso1527557f8f.0
+ for <qemu-rust@nongnu.org>; Mon, 26 May 2025 07:24:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748005565; x=1748610365;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=mc3mS5uLX/j3zhb1Qv7HdED6ZMFgmSc2h7kiupw2rr8=;
- b=XTslmEoBlIUkMvFOyIrMSKz5uW7P2FauedHxMKdIwBDd4BaoG2HDCXBMhyuKkJ6tS8
- rmY5SN6oJrhto2N5CK8m+YSVS4+8qS7RgMiTrwkaiuhpnfKK9sJ6p8bhm9VwvdyHObmw
- otG31mPk9ZekXCz4eIN02dMTU9GwrtcCNEjYN0df67lXXXNKdoahbVx++XdkoEJtg/Ob
- z6Mde55FK0yNdXaxu3Wn4yEdiawNha/ulQVxohfkXd1YaRNW3esJL0YpHf7EBYrz0TK4
- aNsacb0+a87BMVQSVTdU+u2wR8o9NrPgJf5DFUUMMZdAqPMDoGUhLkOdC631gprnxJlZ
- dHaw==
+ d=1e100.net; s=20230601; t=1748269497; x=1748874297;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=utt74FEHUZ6lFbnGNCeLg5d8BeYlcHDkUK83oW1XuqU=;
+ b=qyslXdsP/oZs+u4S9Rq6DqNTX8E8mp22blOCuzUS9quDg+tTDYRPU5+aXXxSccKGE5
+ M3y4AIjqzTSAuhRHuCKfnGKFFUeNO9JGftYeZ55HSDC3vK736sOKyM87aSb8vig+Wwq5
+ tvxlly9U7Gci8YbfT6mwIXUsXmr5woGhWuUcVPDZvvxrXNP5CFThSmCHSfo8uL7SuOCK
+ 9goepq0/vWgamIC7QZIxuCa44fZdzTF/1sC+A66OwkUyO9CSE6tfOLBXJsD24nJfZYd+
+ mvDyaISLmHFoRY3+vXNld+oLWSNjoqRD8uMoIe+1Ou1M9d7uKwj94UWn1kGZ7//3jysW
+ W0mw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU+Mc4TuPXC0h7dxW4MiC0tCs7nsE3CYKODRCOWjyjlf6oubMRAcgRRZSO+cUR54MvI0TtYeSQDx3w=@nongnu.org
-X-Gm-Message-State: AOJu0YyVMba8e2G0M4Vq2Ir+LDNMe6Ys4lOf8X/1w6wPC3gjcDRrSoar
- F/2JealLavcjPG2j/FI0JOnlfP8l+GnWRd7DO2C3IL3aQcHGCy4lP44bu7dCr27bM+vlVpx7xNt
- P6DiGth4bJzMkt95prmLcMtIQ8LgAMykz59nhuSS9poPAdjYW5fnR0AINWJb9t0HHmhBBwq27us
- zDbsCq9uEjEJsIhgCpCLMAmjFzWXwAhA==
-X-Gm-Gg: ASbGncuOXsEUyeSagzdPVZi35aV4tA+RgPNruXRlTtQXhFXFoXdDBa9NdNPHM+liMh3
- J+i5mRzAmM0KDvyQ30V+YJcaj3g3zJPgeBjYMjC75Lakhf1B+g0lpCcRh94iPBnqqcr4=
-X-Received: by 2002:a05:6000:2012:b0:3a3:7bed:cc2d with SMTP id
- ffacd0b85a97d-3a37bedcc56mr14042084f8f.39.1748005563350; 
- Fri, 23 May 2025 06:06:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHaw4UNQsnpw2LEiZ/H9P0SOxbWGjFKK74VUhkv1044Oax/7C3KlOxDgpPjO/NbVs2ZCtuMqnMVaPre6QCooS0=
-X-Received: by 2002:a05:6000:2012:b0:3a3:7bed:cc2d with SMTP id
- ffacd0b85a97d-3a37bedcc56mr14041926f8f.39.1748005561894; Fri, 23 May 2025
- 06:06:01 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250522-rust-qdev-properties-v1-1-5b18b218bad1@linaro.org>
-In-Reply-To: <20250522-rust-qdev-properties-v1-1-5b18b218bad1@linaro.org>
+ AJvYcCVy8sI77H0kB4reGdujOqV+Lv7DhzYgStxjmV3krM4neVdsCE2+s2sh+MBDxf6AhXr7TT62kKbB8og=@nongnu.org
+X-Gm-Message-State: AOJu0YwPJ6fWJyoMOCP4tNSjJt0eXT5RDiOKqjdKahhApODnoppBCHka
+ hCRwEtSsMgbj/iNX5WI0lrMqwKBIRibZ077nV6pU88VgQuOgl4QMPsobxEhJJs5R9jQrLKCkDej
+ 07ZihHt5qFrhpPFnWO74wxFw+3Le/7cnUxNRm47KiUAjv3gUgl3hpkvWT9Br98F0=
+X-Gm-Gg: ASbGnct7kMco/32geD2vBqeqHL49nG/AVUshhuNyy0NxNn65smgDp7x+kHjKajzRiIS
+ V83RhOYG8RVvNiTdP/d5ZiJO/2cJWh2B5PW3WbEyKxrDm9u+dwWBmMzC/iOghN5cgEmrI9ptRIE
+ xxtz3SHYbUfGHe4CYZ6GJBAMJVHaz3DoyVnoj1fizIDoIzo3e7HTcOVDtsaCHQN+GNptzovjXsF
+ HPTZoiTshrABoHjFIG/NM1yCP2+Dz/mcfXAm/93+tHTpTnkJq7vh/3ON907W+BQQuHgwPkCa/p2
+ MhBRlz2PNm9+gw==
+X-Received: by 2002:a5d:64c6:0:b0:3a1:f724:eb15 with SMTP id
+ ffacd0b85a97d-3a4ca123bf1mr8629109f8f.2.1748269497056; 
+ Mon, 26 May 2025 07:24:57 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGpyKmq/vMA252LfD05Ppt1m+ZziqiFpHTleVgk+do5+ZJxWzz0YA1GzozXYYRsfq57BlsAug==
+X-Received: by 2002:a5d:64c6:0:b0:3a1:f724:eb15 with SMTP id
+ ffacd0b85a97d-3a4ca123bf1mr8629088f8f.2.1748269496702; 
+ Mon, 26 May 2025 07:24:56 -0700 (PDT)
+Received: from [192.168.122.1] ([151.95.46.79])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a35ca88957sm35291467f8f.75.2025.05.26.07.24.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 May 2025 07:24:56 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Fri, 23 May 2025 15:05:48 +0200
-X-Gm-Features: AX0GCFsnDuWc5mO6BLbwysmLgbjjJtjZqJRofjA9PrvoehgUdR3xkRR2VvN8yRI
-Message-ID: <CABgObfbVSZ9MNzjXBu1mr8bzX9F-AoKVRQzCJj6c+SUpsoUQNw@mail.gmail.com>
-Subject: Re: [PATCH WIP RFC] rust: add qdev DeviceProperties derive macro
-To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org, 
- =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
- Zhao Liu <zhao1.liu@intel.com>
+To: qemu-devel@nongnu.org
+Cc: armbru@redhat.com,
+	qemu-rust@nongnu.org
+Subject: [PATCH 01/12] rust: make declaration of dependent crates more
+ consistent
+Date: Mon, 26 May 2025 16:24:44 +0200
+Message-ID: <20250526142455.1061519-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250526142254.1061009-1-pbonzini@redhat.com>
+References: <20250526142254.1061009-1-pbonzini@redhat.com>
+MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 9VJXhnDIiau4AgpybkAEEGJ3HeSCNJ4bSfkCEJQ69Cw_1748005565
+X-Mimecast-MFC-PROC-ID: ZICPaTkUwjaM5S1N6L5qeYhi9ICSnMq5ml8tzficz2s_1748269498
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="0000000000009526fe0635cd42fd"
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -23
-X-Spam_score: -2.4
-X-Spam_bar: --
-X-Spam_report: (-2.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.287,
+X-Spam_score_int: -49
+X-Spam_score: -5.0
+X-Spam_bar: -----
+X-Spam_report: (-5.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.903,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
- RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -95,573 +103,130 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 May 2025 13:06:17 -0000
+X-List-Received-Date: Mon, 26 May 2025 14:25:04 -0000
 
---0000000000009526fe0635cd42fd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Crates like "bilge" and "libc" can be shared by more than one directory,
+so declare them directly in rust/meson.build.  While at it, make their
+variable names end with "_rs" and always add a subproject() statement
+(as that pinpoints the error better if the subproject is missing and
+cannot be downloaded).
 
-Il gio 22 mag 2025, 10:12 Manos Pitsidianakis <
-manos.pitsidianakis@linaro.org> ha scritto:
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ rust/hw/char/pl011/meson.build   | 12 +++---------
+ rust/meson.build                 | 16 ++++++++++++++++
+ rust/qemu-api-macros/meson.build | 14 +++-----------
+ rust/qemu-api/meson.build        |  4 +---
+ 4 files changed, 23 insertions(+), 23 deletions(-)
 
-> This is unnecessary though, because once we have the
-> const_refs_to_static feature we can introduce a QdevProp trait that
-> returns a reference to a type's qdev_prop_* global variable. We cannot
-> do this now because for our minimum Rust version we cannot refer to
-> statics from const values.
->
-
-Why don't you already write it assuming const_refs_to_static? If needed we
-can add a hack to make the VALUE an enum, similar to what is already in
-vmstate.rs.
-
-So, this patch is not for merging yet, I will wait until we upgrade the
-> Rust version and re-spin it with a proper trait-based implementation (and
-> also split it into individual steps/patches).
->
-
-It's not too large, overall.
-
- #[repr(C)]
-> -#[derive(qemu_api_macros::Object)]
-> +#[derive(qemu_api_macros::Object, qemu_api_macros::DeviceProperties)]
->
-
-Is there more to be derived that is useful for Devices? Maybe the macro can
-be DeviceState or Device.
-
- +    #[property(name =3D c"chardev", qdev_prop =3D
-> qemu_api::bindings::qdev_prop_chr)]
->
-
-Can you change the name to be a "normal" string and change it to a C
-literal in the macro?
-
-diff --git a/rust/hw/char/pl011/src/device_class.rs
-> b/rust/hw/char/pl011/src/device_class.rs
-> index
-> d328d846323f6080a9573053767e51481eb32941..83d70d7d82aac4a3252a0b4cb24af70=
-5b01d3635
-> 100644
-> --- a/rust/hw/char/pl011/src/device_class.rs
-> +++ b/rust/hw/char/pl011/src/device_class.rs
-> @@ -8,11 +8,8 @@
->  };
->
->  use qemu_api::{
-> -    bindings::{qdev_prop_bool, qdev_prop_chr},
-> -    prelude::*,
-> -    vmstate::VMStateDescription,
-> -    vmstate_clock, vmstate_fields, vmstate_of, vmstate_struct,
-> vmstate_subsections, vmstate_unused,
-> -    zeroable::Zeroable,
-> +    prelude::*, vmstate::VMStateDescription, vmstate_clock,
-> vmstate_fields, vmstate_of,
-> +    vmstate_struct, vmstate_subsections, vmstate_unused,
-> zeroable::Zeroable,
->  };
->
-
-I would also merge the files at this point, but no hurry.
-
-+#[derive(Debug)]
-> +struct DeviceProperty {
-> +    name: Option<syn::LitCStr>,
-> +    qdev_prop: Option<syn::Path>,
-> +    assert_type: Option<proc_macro2::TokenStream>,
-> +    bitnr: Option<syn::Expr>,
-> +    defval: Option<syn::Expr>,
-> +}
-> +
-> +impl Parse for DeviceProperty {
->
-
-Can you look into using https://docs.rs/crate/attrs/latest for parsing?
-
-(attrs doesn't support LitCStr btw)
-
-+#[proc_macro_derive(DeviceProperties, attributes(property, bool_property))=
-]
-> +pub fn derive_device_properties(input: TokenStream) -> TokenStream {
->
-
-Do you need to handle errors in the parsing of attributes?...
-
-+        _other =3D> unreachable!(),
->
-
-... Yes, you do=E2=80=94there is code already in qemu_macros, used by
-derive_object_or_error(), to get the fields of a struct with proper error
-handling.
-
-let prop_name =3D prop.name.as_ref().unwrap();
-
-+ let field_name =3D field.ident.as_ref().unwrap();
-
-+ let qdev_prop =3D prop.qdev_prop.as_ref().unwrap();
-
-+ let bitnr =3D prop.bitnr.as_ref().unwrap_or(&zero);
-
-+ let set_default =3D prop.defval.is_some();
-
-+ let defval =3D prop.defval.as_ref().unwrap_or(&zero);+
-> bitnr: #bitnr,
-> +
-
-
-You also need to use let...else here instead of unwrap(), since panicking
-provides worse error messages.
-
-              set_default: #set_default,
-> +                defval: ::qemu_api::bindings::Property__bindgen_ty_1 { u=
-:
-> #defval as u64 },
->
-
-If you like it, you can write this also as
-
-  #(bitnr: #bitnr,)?
-  #(set_default: true, defval: ...)?
-
-and keep bitnr and defval as Options, since the None case is handled by the
-default below.
-
-Paolo
-
-
-+                ..::qemu_api::zeroable::Zeroable::ZERO
-> +            }
-> +        });
-> +    }
-> +    let properties_expanded =3D quote_spanned! {span.into()=3D>
-> +        #(#assertions)*
-> +
-> +        impl ::qemu_api::qdev::DevicePropertiesImpl for #name {
-> +            fn properties() -> &'static [::qemu_api::bindings::Property]=
- {
-> +                static PROPERTIES: &'static
-> [::qemu_api::bindings::Property] =3D &[#(#properties_expanded),*];
-> +
-> +                PROPERTIES
-> +            }
-> +        }
-> +    };
-> +
-> +    TokenStream::from(properties_expanded)
-> +}
-> +
->  #[proc_macro_derive(Wrapper)]
->  pub fn derive_opaque(input: TokenStream) -> TokenStream {
->      let input =3D parse_macro_input!(input as DeriveInput);
-> diff --git a/rust/qemu-api/src/qdev.rs b/rust/qemu-api/src/qdev.rs
-> index
-> 1279d7a58d50e1bf6c8d2e6f00d7229bbb19e003..2fd8b2750ffabcaa1065558d38a700e=
-35fbc9136
-> 100644
-> --- a/rust/qemu-api/src/qdev.rs
-> +++ b/rust/qemu-api/src/qdev.rs
-> @@ -100,8 +100,19 @@ pub trait ResettablePhasesImpl {
->      T::EXIT.unwrap()(unsafe { state.as_ref() }, typ);
->  }
->
-> +pub trait DevicePropertiesImpl {
-> +    /// An array providing the properties that the user can set on the
-> +    /// device.  Not a `const` because referencing statics in constants
-> +    /// is unstable until Rust 1.83.0.
-> +    fn properties() -> &'static [Property] {
-> +        &[]
-> +    }
-> +}
-> +
->  /// Trait providing the contents of [`DeviceClass`].
-> -pub trait DeviceImpl: ObjectImpl + ResettablePhasesImpl +
-> IsA<DeviceState> {
-> +pub trait DeviceImpl:
-> +    ObjectImpl + ResettablePhasesImpl + DevicePropertiesImpl +
-> IsA<DeviceState>
-> +{
->      /// _Realization_ is the second stage of device creation. It contain=
-s
->      /// all operations that depend on device properties and can fail
-> (note:
->      /// this is not yet supported for Rust devices).
-> @@ -110,13 +121,6 @@ pub trait DeviceImpl: ObjectImpl +
-> ResettablePhasesImpl + IsA<DeviceState> {
->      /// with the function pointed to by `REALIZE`.
->      const REALIZE: Option<fn(&Self)> =3D None;
->
-> -    /// An array providing the properties that the user can set on the
-> -    /// device.  Not a `const` because referencing statics in constants
-> -    /// is unstable until Rust 1.83.0.
-> -    fn properties() -> &'static [Property] {
-> -        &[]
-> -    }
-> -
->      /// A `VMStateDescription` providing the migration format for the
-> device
->      /// Not a `const` because referencing statics in constants is unstab=
-le
->      /// until Rust 1.83.0.
-> @@ -171,7 +175,7 @@ pub fn class_init<T: DeviceImpl>(&mut self) {
->          if let Some(vmsd) =3D <T as DeviceImpl>::vmsd() {
->              self.vmsd =3D vmsd;
->          }
-> -        let prop =3D <T as DeviceImpl>::properties();
-> +        let prop =3D <T as DevicePropertiesImpl>::properties();
->          if !prop.is_empty() {
->              unsafe {
->                  bindings::device_class_set_props_n(self, prop.as_ptr(),
-> prop.len());
-> diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
-> index
-> a658a49fcfdda8fa4b9d139c10afb6ff3243790b..e8eadfd6e9add385ffc97de015b84aa=
-e825c18ee
-> 100644
-> --- a/rust/qemu-api/tests/tests.rs
-> +++ b/rust/qemu-api/tests/tests.rs
-> @@ -9,7 +9,7 @@
->      cell::{self, BqlCell},
->      declare_properties, define_property,
->      prelude::*,
-> -    qdev::{DeviceImpl, DeviceState, Property, ResettablePhasesImpl},
-> +    qdev::{DeviceImpl, DevicePropertiesImpl, DeviceState, Property,
-> ResettablePhasesImpl},
->      qom::{ObjectImpl, ParentField},
->      sysbus::SysBusDevice,
->      vmstate::VMStateDescription,
-> @@ -68,10 +68,13 @@ impl ObjectImpl for DummyState {
->
->  impl ResettablePhasesImpl for DummyState {}
->
-> -impl DeviceImpl for DummyState {
-> +impl DevicePropertiesImpl for DummyState {
->      fn properties() -> &'static [Property] {
->          &DUMMY_PROPERTIES
->      }
-> +}
-> +
-> +impl DeviceImpl for DummyState {
->      fn vmsd() -> Option<&'static VMStateDescription> {
->          Some(&VMSTATE)
->      }
-> @@ -85,6 +88,8 @@ pub struct DummyChildState {
->
->  qom_isa!(DummyChildState: Object, DeviceState, DummyState);
->
-> +impl DevicePropertiesImpl for DummyChildState {}
-> +
->  pub struct DummyChildClass {
->      parent_class: <DummyState as ObjectType>::Class,
->  }
->
-> ---
-> base-commit: 2af4a82ab2cce3412ffc92cd4c96bd870e33bc8e
-> change-id: 20250522-rust-qdev-properties-728e8f6a468e
->
-> --
-> =CE=B3=CE=B1=E1=BF=96=CE=B1 =CF=80=CF=85=CF=81=CE=AF =CE=BC=CE=B9=CF=87=
-=CE=B8=CE=AE=CF=84=CF=89
->
->
-
---0000000000009526fe0635cd42fd
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">Il gio 22 mag 2025, 10:12 Manos Pitsidianakis &lt;<a h=
-ref=3D"mailto:manos.pitsidianakis@linaro.org" target=3D"_blank" rel=3D"nore=
-ferrer">manos.pitsidianakis@linaro.org</a>&gt; ha scritto:<br></div><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
-x solid rgb(204,204,204);padding-left:1ex">This is unnecessary though, beca=
-use once we have the<br>
-const_refs_to_static feature we can introduce a QdevProp trait that<br>
-returns a reference to a type&#39;s qdev_prop_* global variable. We cannot<=
-br>
-do this now because for our minimum Rust version we cannot refer to<br>
-statics from const values.<br></blockquote></div></div><div dir=3D"auto"><b=
-r></div><div dir=3D"auto">Why don&#39;t you already write it assuming const=
-_refs_to_static? If needed we can add a hack to make the VALUE an enum, sim=
-ilar to what is already in <a href=3D"http://vmstate.rs" target=3D"_blank" =
-rel=3D"noreferrer">vmstate.rs</a>.</div><div dir=3D"auto"><br></div><div di=
-r=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" sty=
-le=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddi=
-ng-left:1ex">So, this patch is not for merging yet, I will wait until we up=
-grade the<br>
-Rust version and re-spin it with a proper trait-based implementation (and<b=
-r>
-also split it into individual steps/patches).<br></blockquote></div></div><=
-div dir=3D"auto"><br></div><div dir=3D"auto">It&#39;s not too large, overal=
-l.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_q=
-uote"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
-order-left:1px solid rgb(204,204,204);padding-left:1ex">=C2=A0#[repr(C)]<br=
->
--#[derive(qemu_api_macros::Object)]<br>
-+#[derive(qemu_api_macros::Object, qemu_api_macros::DeviceProperties)]<br><=
-/blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Is th=
-ere more to be derived that is useful for Devices? Maybe the macro can be D=
-eviceState or Device.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><d=
-iv class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-=C2=A0+=C2=A0 =C2=A0 #[property(name =3D c&quot;chardev&quot;, qdev_prop =
-=3D qemu_api::bindings::qdev_prop_chr)]<br></blockquote></div></div><div di=
-r=3D"auto"><br></div><div dir=3D"auto">Can you change the name to be a &quo=
-t;normal&quot; string and change it to a C literal in the macro?</div><div =
-dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
-x solid rgb(204,204,204);padding-left:1ex">
-diff --git a/rust/hw/char/pl011/src/<a href=3D"http://device_class.rs" rel=
-=3D"noreferrer noreferrer noreferrer" target=3D"_blank">device_class.rs</a>=
- b/rust/hw/char/pl011/src/<a href=3D"http://device_class.rs" rel=3D"norefer=
-rer noreferrer noreferrer" target=3D"_blank">device_class.rs</a><br>
-index d328d846323f6080a9573053767e51481eb32941..83d70d7d82aac4a3252a0b4cb24=
-af705b01d3635 100644<br>
---- a/rust/hw/char/pl011/src/<a href=3D"http://device_class.rs" rel=3D"nore=
-ferrer noreferrer noreferrer" target=3D"_blank">device_class.rs</a><br>
-+++ b/rust/hw/char/pl011/src/<a href=3D"http://device_class.rs" rel=3D"nore=
-ferrer noreferrer noreferrer" target=3D"_blank">device_class.rs</a><br>
-@@ -8,11 +8,8 @@<br>
-=C2=A0};<br>
-<br>
-=C2=A0use qemu_api::{<br>
--=C2=A0 =C2=A0 bindings::{qdev_prop_bool, qdev_prop_chr},<br>
--=C2=A0 =C2=A0 prelude::*,<br>
--=C2=A0 =C2=A0 vmstate::VMStateDescription,<br>
--=C2=A0 =C2=A0 vmstate_clock, vmstate_fields, vmstate_of, vmstate_struct, v=
-mstate_subsections, vmstate_unused,<br>
--=C2=A0 =C2=A0 zeroable::Zeroable,<br>
-+=C2=A0 =C2=A0 prelude::*, vmstate::VMStateDescription, vmstate_clock, vmst=
-ate_fields, vmstate_of,<br>
-+=C2=A0 =C2=A0 vmstate_struct, vmstate_subsections, vmstate_unused, zeroabl=
-e::Zeroable,<br>
-=C2=A0};<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=
-=3D"auto">I would also merge the files at this point, but no hurry.</div><d=
-iv dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
-:1px solid rgb(204,204,204);padding-left:1ex">
-+#[derive(Debug)]<br>
-+struct DeviceProperty {<br>
-+=C2=A0 =C2=A0 name: Option&lt;syn::LitCStr&gt;,<br>
-+=C2=A0 =C2=A0 qdev_prop: Option&lt;syn::Path&gt;,<br>
-+=C2=A0 =C2=A0 assert_type: Option&lt;proc_macro2::TokenStream&gt;,<br>
-+=C2=A0 =C2=A0 bitnr: Option&lt;syn::Expr&gt;,<br>
-+=C2=A0 =C2=A0 defval: Option&lt;syn::Expr&gt;,<br>
-+}<br>
-+<br>
-+impl Parse for DeviceProperty {<br></blockquote></div></div><div dir=3D"au=
-to"><br></div><div dir=3D"auto">Can you look into using <a href=3D"https://=
-docs.rs/crate/attrs/latest" target=3D"_blank" rel=3D"noreferrer">https://do=
-cs.rs/crate/attrs/latest</a> for parsing?</div><div dir=3D"auto"><br></div>=
-<div dir=3D"auto">(attrs doesn&#39;t support LitCStr btw)</div><div dir=3D"=
-auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote cl=
-ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
- rgb(204,204,204);padding-left:1ex">
-+#[proc_macro_derive(DeviceProperties, attributes(property, bool_property))=
-]<br>
-+pub fn derive_device_properties(input: TokenStream) -&gt; TokenStream {<br=
-></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Do =
-you need to handle errors in the parsing of attributes?...</div><div dir=3D=
-"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote c=
-lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
-d rgb(204,204,204);padding-left:1ex">+=C2=A0 =C2=A0 =C2=A0 =C2=A0 _other =
-=3D&gt; unreachable!(),<br></blockquote></div></div><div dir=3D"auto"><br><=
-/div><div dir=3D"auto">... Yes, you do=E2=80=94there is code already in qem=
-u_macros, used by derive_object_or_error(), to get the fields of a struct w=
-ith proper error handling.</div><div dir=3D"auto"><br></div><div dir=3D"aut=
-o"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
-1ex">let prop_name =3D prop.name.as_ref().unwrap();</blockquote><blockquote=
- class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
-lid rgb(204,204,204);padding-left:1ex">+        let field_name =3D field.id=
-ent.as_ref().unwrap();</blockquote><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">+        let qdev_prop =3D prop.qdev_prop.as_ref().unwrap();</bl=
-ockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex">+        let bit=
-nr =3D prop.bitnr.as_ref().unwrap_or(&amp;zero);</blockquote><blockquote cl=
-ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
- rgb(204,204,204);padding-left:1ex">+        let set_default =3D prop.defva=
-l.is_some();</blockquote><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-+        let defval =3D prop.defval.as_ref().unwrap_or(&amp;zero);+=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bitnr: #bitnr,<br>
-+=C2=A0 </blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"au=
-to">You also need to use let...else here instead of unwrap(), since panicki=
-ng provides worse error messages.</div><div dir=3D"auto"><br></div><div dir=
-=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 set_default: #=
-set_default,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 defval: ::qemu_api=
-::bindings::Property__bindgen_ty_1 { u: #defval as u64 },<br></blockquote><=
-/div></div><div dir=3D"auto"><br></div><div dir=3D"auto">If you like it, yo=
-u can write this also as</div><div dir=3D"auto"><br></div><div dir=3D"auto"=
->=C2=A0 #(bitnr: #bitnr,)?</div><div dir=3D"auto">=C2=A0 #(set_default: tru=
-e, defval: ...)?</div><div dir=3D"auto"><br></div><div dir=3D"auto">and kee=
-p bitnr and defval as Options, since the None case is handled by the defaul=
-t below.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo=C2=A0</di=
-v><div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"auto"=
-><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x">
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ..::qemu_api::zero=
-able::Zeroable::ZERO<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 });<br>
-+=C2=A0 =C2=A0 }<br>
-+=C2=A0 =C2=A0 let properties_expanded =3D quote_spanned! {span.into()=3D&g=
-t;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 #(#assertions)*<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 impl ::qemu_api::qdev::DevicePropertiesImpl fo=
-r #name {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 fn properties() -&gt; &amp;&#39;=
-static [::qemu_api::bindings::Property] {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 static PROPERTIES:=
- &amp;&#39;static [::qemu_api::bindings::Property] =3D &amp;[#(#properties_=
-expanded),*];<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PROPERTIES<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-+=C2=A0 =C2=A0 };<br>
-+<br>
-+=C2=A0 =C2=A0 TokenStream::from(properties_expanded)<br>
-+}<br>
-+<br>
-=C2=A0#[proc_macro_derive(Wrapper)]<br>
-=C2=A0pub fn derive_opaque(input: TokenStream) -&gt; TokenStream {<br>
-=C2=A0 =C2=A0 =C2=A0let input =3D parse_macro_input!(input as DeriveInput);=
-<br>
-diff --git a/rust/qemu-api/src/<a href=3D"http://qdev.rs" rel=3D"noreferrer=
- noreferrer noreferrer" target=3D"_blank">qdev.rs</a> b/rust/qemu-api/src/<=
-a href=3D"http://qdev.rs" rel=3D"noreferrer noreferrer noreferrer" target=
-=3D"_blank">qdev.rs</a><br>
-index 1279d7a58d50e1bf6c8d2e6f00d7229bbb19e003..2fd8b2750ffabcaa1065558d38a=
-700e35fbc9136 100644<br>
---- a/rust/qemu-api/src/<a href=3D"http://qdev.rs" rel=3D"noreferrer norefe=
-rrer noreferrer" target=3D"_blank">qdev.rs</a><br>
-+++ b/rust/qemu-api/src/<a href=3D"http://qdev.rs" rel=3D"noreferrer norefe=
-rrer noreferrer" target=3D"_blank">qdev.rs</a><br>
-@@ -100,8 +100,19 @@ pub trait ResettablePhasesImpl {<br>
-=C2=A0 =C2=A0 =C2=A0T::EXIT.unwrap()(unsafe { state.as_ref() }, typ);<br>
-=C2=A0}<br>
-<br>
-+pub trait DevicePropertiesImpl {<br>
-+=C2=A0 =C2=A0 /// An array providing the properties that the user can set =
-on the<br>
-+=C2=A0 =C2=A0 /// device.=C2=A0 Not a `const` because referencing statics =
-in constants<br>
-+=C2=A0 =C2=A0 /// is unstable until Rust 1.83.0.<br>
-+=C2=A0 =C2=A0 fn properties() -&gt; &amp;&#39;static [Property] {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;[]<br>
-+=C2=A0 =C2=A0 }<br>
-+}<br>
-+<br>
-=C2=A0/// Trait providing the contents of [`DeviceClass`].<br>
--pub trait DeviceImpl: ObjectImpl + ResettablePhasesImpl + IsA&lt;DeviceSta=
-te&gt; {<br>
-+pub trait DeviceImpl:<br>
-+=C2=A0 =C2=A0 ObjectImpl + ResettablePhasesImpl + DevicePropertiesImpl + I=
-sA&lt;DeviceState&gt;<br>
-+{<br>
-=C2=A0 =C2=A0 =C2=A0/// _Realization_ is the second stage of device creatio=
-n. It contains<br>
-=C2=A0 =C2=A0 =C2=A0/// all operations that depend on device properties and=
- can fail (note:<br>
-=C2=A0 =C2=A0 =C2=A0/// this is not yet supported for Rust devices).<br>
-@@ -110,13 +121,6 @@ pub trait DeviceImpl: ObjectImpl + ResettablePhasesImp=
-l + IsA&lt;DeviceState&gt; {<br>
-=C2=A0 =C2=A0 =C2=A0/// with the function pointed to by `REALIZE`.<br>
-=C2=A0 =C2=A0 =C2=A0const REALIZE: Option&lt;fn(&amp;Self)&gt; =3D None;<br=
->
-<br>
--=C2=A0 =C2=A0 /// An array providing the properties that the user can set =
-on the<br>
--=C2=A0 =C2=A0 /// device.=C2=A0 Not a `const` because referencing statics =
-in constants<br>
--=C2=A0 =C2=A0 /// is unstable until Rust 1.83.0.<br>
--=C2=A0 =C2=A0 fn properties() -&gt; &amp;&#39;static [Property] {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;[]<br>
--=C2=A0 =C2=A0 }<br>
--<br>
-=C2=A0 =C2=A0 =C2=A0/// A `VMStateDescription` providing the migration form=
-at for the device<br>
-=C2=A0 =C2=A0 =C2=A0/// Not a `const` because referencing statics in consta=
-nts is unstable<br>
-=C2=A0 =C2=A0 =C2=A0/// until Rust 1.83.0.<br>
-@@ -171,7 +175,7 @@ pub fn class_init&lt;T: DeviceImpl&gt;(&amp;mut self) {=
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if let Some(vmsd) =3D &lt;T as DeviceImpl=
-&gt;::vmsd() {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0self.vmsd =3D vmsd;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 let prop =3D &lt;T as DeviceImpl&gt;::properti=
-es();<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 let prop =3D &lt;T as DevicePropertiesImpl&gt;=
-::properties();<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if !prop.is_empty() {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsafe {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bindings::dev=
-ice_class_set_props_n(self, prop.as_ptr(), prop.len());<br>
-diff --git a/rust/qemu-api/tests/<a href=3D"http://tests.rs" rel=3D"norefer=
-rer noreferrer noreferrer" target=3D"_blank">tests.rs</a> b/rust/qemu-api/t=
-ests/<a href=3D"http://tests.rs" rel=3D"noreferrer noreferrer noreferrer" t=
-arget=3D"_blank">tests.rs</a><br>
-index a658a49fcfdda8fa4b9d139c10afb6ff3243790b..e8eadfd6e9add385ffc97de015b=
-84aae825c18ee 100644<br>
---- a/rust/qemu-api/tests/<a href=3D"http://tests.rs" rel=3D"noreferrer nor=
-eferrer noreferrer" target=3D"_blank">tests.rs</a><br>
-+++ b/rust/qemu-api/tests/<a href=3D"http://tests.rs" rel=3D"noreferrer nor=
-eferrer noreferrer" target=3D"_blank">tests.rs</a><br>
-@@ -9,7 +9,7 @@<br>
-=C2=A0 =C2=A0 =C2=A0cell::{self, BqlCell},<br>
-=C2=A0 =C2=A0 =C2=A0declare_properties, define_property,<br>
-=C2=A0 =C2=A0 =C2=A0prelude::*,<br>
--=C2=A0 =C2=A0 qdev::{DeviceImpl, DeviceState, Property, ResettablePhasesIm=
-pl},<br>
-+=C2=A0 =C2=A0 qdev::{DeviceImpl, DevicePropertiesImpl, DeviceState, Proper=
-ty, ResettablePhasesImpl},<br>
-=C2=A0 =C2=A0 =C2=A0qom::{ObjectImpl, ParentField},<br>
-=C2=A0 =C2=A0 =C2=A0sysbus::SysBusDevice,<br>
-=C2=A0 =C2=A0 =C2=A0vmstate::VMStateDescription,<br>
-@@ -68,10 +68,13 @@ impl ObjectImpl for DummyState {<br>
-<br>
-=C2=A0impl ResettablePhasesImpl for DummyState {}<br>
-<br>
--impl DeviceImpl for DummyState {<br>
-+impl DevicePropertiesImpl for DummyState {<br>
-=C2=A0 =C2=A0 =C2=A0fn properties() -&gt; &amp;&#39;static [Property] {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;DUMMY_PROPERTIES<br>
-=C2=A0 =C2=A0 =C2=A0}<br>
-+}<br>
-+<br>
-+impl DeviceImpl for DummyState {<br>
-=C2=A0 =C2=A0 =C2=A0fn vmsd() -&gt; Option&lt;&amp;&#39;static VMStateDescr=
-iption&gt; {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Some(&amp;VMSTATE)<br>
-=C2=A0 =C2=A0 =C2=A0}<br>
-@@ -85,6 +88,8 @@ pub struct DummyChildState {<br>
-<br>
-=C2=A0qom_isa!(DummyChildState: Object, DeviceState, DummyState);<br>
-<br>
-+impl DevicePropertiesImpl for DummyChildState {}<br>
-+<br>
-=C2=A0pub struct DummyChildClass {<br>
-=C2=A0 =C2=A0 =C2=A0parent_class: &lt;DummyState as ObjectType&gt;::Class,<=
-br>
-=C2=A0}<br>
-<br>
----<br>
-base-commit: 2af4a82ab2cce3412ffc92cd4c96bd870e33bc8e<br>
-change-id: 20250522-rust-qdev-properties-728e8f6a468e<br>
-<br>
---<br>
-=CE=B3=CE=B1=E1=BF=96=CE=B1 =CF=80=CF=85=CF=81=CE=AF =CE=BC=CE=B9=CF=87=CE=
-=B8=CE=AE=CF=84=CF=89<br>
-<br>
-</blockquote></div></div></div>
-
---0000000000009526fe0635cd42fd--
+diff --git a/rust/hw/char/pl011/meson.build b/rust/hw/char/pl011/meson.build
+index 547cca5a96f..494b6c123cc 100644
+--- a/rust/hw/char/pl011/meson.build
++++ b/rust/hw/char/pl011/meson.build
+@@ -1,17 +1,11 @@
+-subproject('bilge-0.2-rs', required: true)
+-subproject('bilge-impl-0.2-rs', required: true)
+-
+-bilge_dep = dependency('bilge-0.2-rs')
+-bilge_impl_dep = dependency('bilge-impl-0.2-rs')
+-
+ _libpl011_rs = static_library(
+   'pl011',
+   files('src/lib.rs'),
+   override_options: ['rust_std=2021', 'build.rust_std=2021'],
+   rust_abi: 'rust',
+   dependencies: [
+-    bilge_dep,
+-    bilge_impl_dep,
++    bilge_rs,
++    bilge_impl_rs,
+     qemu_api,
+     qemu_api_macros,
+   ],
+@@ -21,6 +15,6 @@ rust_devices_ss.add(when: 'CONFIG_X_PL011_RUST', if_true: [declare_dependency(
+   link_whole: [_libpl011_rs],
+   # Putting proc macro crates in `dependencies` is necessary for Meson to find
+   # them when compiling the root per-target static rust lib.
+-  dependencies: [bilge_impl_dep, qemu_api_macros],
++  dependencies: [bilge_impl_rs, qemu_api_macros],
+   variables: {'crate': 'pl011'},
+ )])
+diff --git a/rust/meson.build b/rust/meson.build
+index 91e52b8fb8e..1f0dcce7d04 100644
+--- a/rust/meson.build
++++ b/rust/meson.build
+@@ -1,3 +1,19 @@
++subproject('bilge-0.2-rs', required: true)
++subproject('bilge-impl-0.2-rs', required: true)
++subproject('libc-0.2-rs', required: true)
++
++bilge_rs = dependency('bilge-0.2-rs')
++bilge_impl_rs = dependency('bilge-impl-0.2-rs')
++libc_rs = dependency('libc-0.2-rs')
++
++subproject('proc-macro2-1-rs', required: true)
++subproject('quote-1-rs', required: true)
++subproject('syn-2-rs', required: true)
++
++quote_rs_native = dependency('quote-1-rs', native: true)
++syn_rs_native = dependency('syn-2-rs', native: true)
++proc_macro2_rs_native = dependency('proc-macro2-1-rs', native: true)
++
+ subdir('qemu-api-macros')
+ subdir('qemu-api')
+ 
+diff --git a/rust/qemu-api-macros/meson.build b/rust/qemu-api-macros/meson.build
+index 6f94a4bb3c2..8610ce1c844 100644
+--- a/rust/qemu-api-macros/meson.build
++++ b/rust/qemu-api-macros/meson.build
+@@ -1,11 +1,3 @@
+-subproject('proc-macro2-1-rs', required: true)
+-subproject('quote-1-rs', required: true)
+-subproject('syn-2-rs', required: true)
+-
+-quote_dep = dependency('quote-1-rs', native: true)
+-syn_dep = dependency('syn-2-rs', native: true)
+-proc_macro2_dep = dependency('proc-macro2-1-rs', native: true)
+-
+ _qemu_api_macros_rs = rust.proc_macro(
+   'qemu_api_macros',
+   files('src/lib.rs'),
+@@ -16,9 +8,9 @@ _qemu_api_macros_rs = rust.proc_macro(
+     '--cfg', 'feature="proc-macro"',
+   ],
+   dependencies: [
+-    proc_macro2_dep,
+-    quote_dep,
+-    syn_dep,
++    proc_macro2_rs_native,
++    quote_rs_native,
++    syn_rs_native,
+   ],
+ )
+ 
+diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
+index 1696df705bf..1ea86b8bbf1 100644
+--- a/rust/qemu-api/meson.build
++++ b/rust/qemu-api/meson.build
+@@ -2,8 +2,6 @@ _qemu_api_cfg = run_command(rustc_args,
+   '--config-headers', config_host_h, '--features', files('Cargo.toml'),
+   capture: true, check: true).stdout().strip().splitlines()
+ 
+-libc_dep = dependency('libc-0.2-rs')
+-
+ # _qemu_api_cfg += ['--cfg', 'feature="allocator"']
+ if get_option('debug_mutex')
+   _qemu_api_cfg += ['--cfg', 'feature="debug_cell"']
+@@ -37,7 +35,7 @@ _qemu_api_rs = static_library(
+   override_options: ['rust_std=2021', 'build.rust_std=2021'],
+   rust_abi: 'rust',
+   rust_args: _qemu_api_cfg,
+-  dependencies: [libc_dep, qemu_api_macros],
++  dependencies: [libc_rs, qemu_api_macros],
+ )
+ 
+ rust.test('rust-qemu-api-tests', _qemu_api_rs,
+-- 
+2.49.0
 
 
