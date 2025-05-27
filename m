@@ -1,60 +1,60 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uJqOH-0006Zj-Fq
-	for mharc-qemu-rust@gnu.org; Tue, 27 May 2025 05:14:33 -0400
+	id 1uJqXh-0002m4-Dx
+	for mharc-qemu-rust@gnu.org; Tue, 27 May 2025 05:24:17 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uJqO1-0006XT-EN; Tue, 27 May 2025 05:14:21 -0400
-Received: from mgamail.intel.com ([192.198.163.9])
+ id 1uJqXd-0002lO-PX; Tue, 27 May 2025 05:24:13 -0400
+Received: from mgamail.intel.com ([192.198.163.17])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uJqNv-0004ov-I0; Tue, 27 May 2025 05:14:16 -0400
+ id 1uJqXb-0006gr-Ce; Tue, 27 May 2025 05:24:13 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1748337251; x=1779873251;
+ t=1748337851; x=1779873851;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=T5UwtNUBKcwK1Jkr9/vKENNPQT6sU8TGX0kZZdkcxpg=;
- b=aZ/tKdt4+nPq0YKoFh0E8Np1zRLzFt1xBFpSV2YfVwGEeVHAiM3Tjvfb
- lWPN4i6oFIxjfeXpZMGj2P7x+aQUTv271DwqjFkfZejnOtC+zlRJQoaz5
- 4Ue+R1BbKtzlV2P06rMmqdlGj+x8M8FRQkA8mdCOtgkf1bMQDHFwT4bce
- vJv0c5DS1iTzxxDzSba75f9a4zrGPVAmqZ0r00bS1OKsiKO+YQfEbjiY+
- MgPg2kaO7AV7Y05em5oAtyo21b6e9DPAubW6fvqCKnV14Lj0tvn9Wyixn
- DZvGj727AJWpYZ4zxVCMyLz1Oa5rXvIB3y5Fy3U+0RgwzY8s+12vrkfBo A==;
-X-CSE-ConnectionGUID: bmIdbVL2SL+zOnjUIAtwbg==
-X-CSE-MsgGUID: QYT4qnpmS1+iCSTl9JY71A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11445"; a="60977384"
-X-IronPort-AV: E=Sophos;i="6.15,318,1739865600"; d="scan'208";a="60977384"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2025 02:14:08 -0700
-X-CSE-ConnectionGUID: vOD7OekPQP+bf5Mdc/4n8w==
-X-CSE-MsgGUID: hQvHU+aIToyA1Zq5wJthtg==
+ bh=8tqq70JQmth4Z77RNwe+VcagyPIJn7PSC/MTcSISgwk=;
+ b=Y6IdOgsSs1i4YgzvoWghfprGyohjpJJYMT/FZREJg/8FUS/l2nR4Hi9Z
+ 5WWYlbU7ec9aKZ/V6grl6kzA6PH05mvlXy6ZYYvu17lxtO2L662xmnxNh
+ 7+n5d4JaoBOwmO4vrvHErtk1iUENuW1TUUYHofnubmv7CiovdAzH9T451
+ QIQa6XH0QnIwSa2/sbjY6Kw1Wn9snnfL3NnNJ7p4qdkvNd96RoLhBxJ1T
+ JG2IKsu6PKD/UvR44I5YU/EJbeMB4mKmq9/QFar8mrhvQNGCjfVMChBSh
+ PODuwOqYkkr7xylLKJsYnUwCTsKvBSpriDFpkIcPMKRD3H1nHWzcoPWab Q==;
+X-CSE-ConnectionGUID: xn0k0sImQZaaMqQeESeisw==
+X-CSE-MsgGUID: 37yxC4swRsORu15xSnTYNA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11445"; a="50244901"
+X-IronPort-AV: E=Sophos;i="6.15,318,1739865600"; d="scan'208";a="50244901"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 May 2025 02:24:08 -0700
+X-CSE-ConnectionGUID: Fj9Cj8DcTTmbMmR1GpC0HA==
+X-CSE-MsgGUID: KMkqA91mSZulNdLetA40HA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,318,1739865600"; d="scan'208";a="142717785"
+X-IronPort-AV: E=Sophos;i="6.15,318,1739865600"; d="scan'208";a="146616792"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa007.fm.intel.com with ESMTP; 27 May 2025 02:14:07 -0700
-Date: Tue, 27 May 2025 17:35:16 +0800
+ by fmviesa003.fm.intel.com with ESMTP; 27 May 2025 02:24:06 -0700
+Date: Tue, 27 May 2025 17:45:16 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, armbru@redhat.com, qemu-rust@nongnu.org
-Subject: Re: [PATCH 01/12] rust: make declaration of dependent crates more
- consistent
-Message-ID: <aDWHVNBecjWierTI@intel.com>
+Subject: Re: [PATCH 02/12] subprojects: add the anyhow crate
+Message-ID: <aDWJrNpRbKjpKqOi@intel.com>
 References: <20250526142254.1061009-1-pbonzini@redhat.com>
- <20250526142455.1061519-1-pbonzini@redhat.com>
+ <20250526142455.1061519-2-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250526142455.1061519-1-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.9; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250526142455.1061519-2-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.17; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
-X-Spam_score_int: -39
-X-Spam_score: -4.0
-X-Spam_bar: ----
-X-Spam_report: (-4.0 / 5.0 requ) BAYES_00=-1.9, DKIM_INVALID=0.1,
- DKIM_SIGNED=0.1, RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+X-Spam_score_int: -72
+X-Spam_score: -7.3
+X-Spam_bar: -------
+X-Spam_report: (-7.3 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.903,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -69,28 +69,31 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 May 2025 09:14:28 -0000
+X-List-Received-Date: Tue, 27 May 2025 09:24:14 -0000
 
-On Mon, May 26, 2025 at 04:24:44PM +0200, Paolo Bonzini wrote:
-> Date: Mon, 26 May 2025 16:24:44 +0200
+On Mon, May 26, 2025 at 04:24:45PM +0200, Paolo Bonzini wrote:
+> Date: Mon, 26 May 2025 16:24:45 +0200
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 01/12] rust: make declaration of dependent crates more
->  consistent
+> Subject: [PATCH 02/12] subprojects: add the anyhow crate
 > X-Mailer: git-send-email 2.49.0
 > 
-> Crates like "bilge" and "libc" can be shared by more than one directory,
-> so declare them directly in rust/meson.build.  While at it, make their
-> variable names end with "_rs" and always add a subproject() statement
-> (as that pinpoints the error better if the subproject is missing and
-> cannot be downloaded).
+> This is a standard replacement for Box<dyn Error> which is more efficient (it only
+> occcupies one word) and provides a backtrace of the error.  This could be plumbed
+> into &error_abort in the future.
 > 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  rust/hw/char/pl011/meson.build   | 12 +++---------
->  rust/meson.build                 | 16 ++++++++++++++++
->  rust/qemu-api-macros/meson.build | 14 +++-----------
->  rust/qemu-api/meson.build        |  4 +---
->  4 files changed, 23 insertions(+), 23 deletions(-)
+>  rust/meson.build                              |  2 ++
+>  subprojects/.gitignore                        |  1 +
+>  subprojects/anyhow-1.0-rs.wrap                |  7 ++++
+>  .../packagefiles/anyhow-1.0-rs/meson.build    | 33 +++++++++++++++++++
+>  4 files changed, 43 insertions(+)
+>  create mode 100644 subprojects/anyhow-1.0-rs.wrap
+>  create mode 100644 subprojects/packagefiles/anyhow-1.0-rs/meson.build
+
+Missed to change scripts/archive-source.sh & scripts/make-release?
+
+Otherwise,
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
