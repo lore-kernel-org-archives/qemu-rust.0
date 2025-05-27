@@ -1,52 +1,52 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uJuR4-00087d-H3
-	for mharc-qemu-rust@gnu.org; Tue, 27 May 2025 09:33:42 -0400
+	id 1uJuZa-0002ST-RX
+	for mharc-qemu-rust@gnu.org; Tue, 27 May 2025 09:42:30 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uJuR3-00087U-69
- for qemu-rust@nongnu.org; Tue, 27 May 2025 09:33:41 -0400
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uJuZZ-0002SE-CW
+ for qemu-rust@nongnu.org; Tue, 27 May 2025 09:42:29 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uJuQz-0001sp-32
- for qemu-rust@nongnu.org; Tue, 27 May 2025 09:33:40 -0400
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uJuZV-0003aW-8z
+ for qemu-rust@nongnu.org; Tue, 27 May 2025 09:42:27 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1748352812;
+ s=mimecast20190719; t=1748353343;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vud3oGLcPRjsQnvbfOwquNv1Y3rH0EY+1UcE3ep9Mzo=;
- b=DX+ZKrPVouy/Ci9eeauKccwWLW1dJuzV+FwIVkWaTL5mRcPUarN2Hucw9Qw7ZSaRmbNBjx
- ZdkGCguXalwpUbkob4+/gNBou+bKsix/fS/MSvLeNU9zWOQUmTkMQ46K82dfnRMxKJ2GKr
- eaQexoqCFMv0QCxwOW+hYXyS3GRtIsk=
+ bh=CumUhn7aR01x5Sy9sVxBT484Uq17U2NwR2iWgSwKD1s=;
+ b=MYVzh8tNFliCed8KmYKIwTCOEKfdrxmxEf3plv3A94fLzcCAjGaZZQELrBYCoA1X8dDiCJ
+ 2xizj90qQ1scVkyMq9dmDDntjSgIWNZwDVtxKuX0Sc6nKDXHDpfxi1HoR9pZsDUeMTrSi2
+ RdCo2Tc09v9umLabIbm57u6EvGklli4=
 Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-32-qKJ2LCOnOtii_R_EGWQTOg-1; Tue,
- 27 May 2025 09:33:31 -0400
-X-MC-Unique: qKJ2LCOnOtii_R_EGWQTOg-1
-X-Mimecast-MFC-AGG-ID: qKJ2LCOnOtii_R_EGWQTOg_1748352805
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-42-j9DZ2DrgMGG3rspjKISiqQ-1; Tue,
+ 27 May 2025 09:42:21 -0400
+X-MC-Unique: j9DZ2DrgMGG3rspjKISiqQ-1
+X-Mimecast-MFC-AGG-ID: j9DZ2DrgMGG3rspjKISiqQ_1748353341
 Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 1AE061800258; Tue, 27 May 2025 13:33:25 +0000 (UTC)
+ id D51DB18003FC; Tue, 27 May 2025 13:42:20 +0000 (UTC)
 Received: from blackfin.pond.sub.org (unknown [10.45.242.2])
  by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id C33E91956095; Tue, 27 May 2025 13:33:24 +0000 (UTC)
+ id 71C631956095; Tue, 27 May 2025 13:42:20 +0000 (UTC)
 Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 1228A21E66C3; Tue, 27 May 2025 15:33:22 +0200 (CEST)
+ id 95FE921E66C3; Tue, 27 May 2025 15:42:17 +0200 (CEST)
 From: Markus Armbruster <armbru@redhat.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org,  qemu-rust@nongnu.org
-Subject: Re: [PATCH 04/12] util/error: expose Error definition to Rust code
-In-Reply-To: <20250526142455.1061519-4-pbonzini@redhat.com> (Paolo Bonzini's
- message of "Mon, 26 May 2025 16:24:47 +0200")
+Subject: Re: [PATCH 05/12] util/error: allow non-NUL-terminated err->src
+In-Reply-To: <20250526142455.1061519-5-pbonzini@redhat.com> (Paolo Bonzini's
+ message of "Mon, 26 May 2025 16:24:48 +0200")
 References: <20250526142254.1061009-1-pbonzini@redhat.com>
- <20250526142455.1061519-4-pbonzini@redhat.com>
-Date: Tue, 27 May 2025 15:33:22 +0200
-Message-ID: <871psanpp9.fsf@pond.sub.org>
+ <20250526142455.1061519-5-pbonzini@redhat.com>
+Date: Tue, 27 May 2025 15:42:17 +0200
+Message-ID: <87sekqmapy.fsf@pond.sub.org>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
 Content-Type: text/plain
@@ -73,92 +73,73 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 May 2025 13:33:41 -0000
+X-List-Received-Date: Tue, 27 May 2025 13:42:29 -0000
 
 Paolo Bonzini <pbonzini@redhat.com> writes:
 
-> This is used to preserve the file and line in a roundtrip from
-> C Error to Rust and back to C.
+> Rust makes the current file available as a statically-allocated string,
+> but without a NUL terminator.  Allow this by storing an optional maximum
+> length in the Error.
 >
+> Note that for portability I am not relying on fprintf's precision
+> specifier not accessing memory beyond what will be printed.
+
+Can you elaborate on the portability problem?  I figure ...
+
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  include/qapi/error-internal.h | 26 ++++++++++++++++++++++++++
->  rust/wrapper.h                |  1 +
->  util/error.c                  | 10 +---------
->  3 files changed, 28 insertions(+), 9 deletions(-)
->  create mode 100644 include/qapi/error-internal.h
+>  include/qapi/error-internal.h | 1 +
+>  util/error.c                  | 8 +++++++-
+>  2 files changed, 8 insertions(+), 1 deletion(-)
 >
 > diff --git a/include/qapi/error-internal.h b/include/qapi/error-internal.h
-> new file mode 100644
-> index 00000000000..d5c3904adec
-> --- /dev/null
+> index d5c3904adec..6178ce4a63d 100644
+> --- a/include/qapi/error-internal.h
 > +++ b/include/qapi/error-internal.h
-> @@ -0,0 +1,26 @@
-> +/*
-> + * QEMU Error Objects - struct definition
-> + *
-> + * Copyright IBM, Corp. 2011
-> + * Copyright (C) 2011-2015 Red Hat, Inc.
-> + *
-> + * Authors:
-> + *  Anthony Liguori   <aliguori@us.ibm.com>
-> + *  Markus Armbruster <armbru@redhat.com>,
-> + *
-> + * This work is licensed under the terms of the GNU LGPL, version 2.  See
-> + * the COPYING.LIB file in the top-level directory.
-> + */
-> +
-> +#ifndef QAPI_ERROR_INTERNAL_H
-> +
-> +struct Error
-> +{
-> +    char *msg;
-> +    ErrorClass err_class;
-> +    const char *src, *func;
-> +    int line;
-> +    GString *hint;
-> +};
-> +
-> +#endif
-> diff --git a/rust/wrapper.h b/rust/wrapper.h
-> index beddd9aab2f..6060d3ba1ab 100644
-> --- a/rust/wrapper.h
-> +++ b/rust/wrapper.h
-> @@ -60,6 +60,7 @@ typedef enum memory_order {
->  #include "hw/qdev-properties-system.h"
->  #include "hw/irq.h"
->  #include "qapi/error.h"
-> +#include "qapi/error-internal.h"
->  #include "migration/vmstate.h"
->  #include "chardev/char-serial.h"
->  #include "exec/memattrs.h"
+> @@ -19,6 +19,7 @@ struct Error
+>      char *msg;
+>      ErrorClass err_class;
+>      const char *src, *func;
+> +    ssize_t src_len;
+>      int line;
+>      GString *hint;
+>  };
 > diff --git a/util/error.c b/util/error.c
-> index 673011b89e9..e5bcb7c0225 100644
+> index e5bcb7c0225..6c1033eaba5 100644
 > --- a/util/error.c
 > +++ b/util/error.c
-> @@ -15,15 +15,7 @@
->  #include "qemu/osdep.h"
->  #include "qapi/error.h"
->  #include "qemu/error-report.h"
-> -
-> -struct Error
-> -{
-> -    char *msg;
-> -    ErrorClass err_class;
-> -    const char *src, *func;
-> -    int line;
-> -    GString *hint;
-> -};
-> +#include "qapi/error-internal.h"
+> @@ -24,8 +24,13 @@ Error *error_warn;
+>  static void error_handle(Error **errp, Error *err)
+>  {
+>      if (errp == &error_abort) {
+> +        const char *src = err->src;
+> +        if (err->src_len >= 0) {
+> +            /* No need to free it, the program will abort very soon...  */
+> +            src = g_strndup(err->src, err->src_len);
+> +        }
+>          fprintf(stderr, "Unexpected error in %s() at %s:%d:\n",
+> -                err->func, err->src, err->line);
+> +                err->func, src, err->line);
 
-Please move this up to keep the #include sorted (except for
-qemu/osdep.h, which is special).
+... you're avoiding the simpler
 
->  
->  Error *error_abort;
->  Error *error_fatal;
+           fprintf(stderr, "Unexpected error in %s() at %.*s:%d:\n",
+                   err->func, err->src_len, err->src, err->line);
 
-Since error.h is always included when error-internal.h is, we could make
-error-internal.h include error.h.  Matter of taste, up to you.
+because of it.
+
+(@src_len needs to be int then, and its default value below INT_MAX)
+
+>          error_report("%s", error_get_pretty(err));
+>          if (err->hint) {
+>              error_printf("%s", err->hint->str);
+> @@ -67,6 +72,7 @@ static void error_setv(Error **errp,
+>          g_free(msg);
+>      }
+>      err->err_class = err_class;
+> +    err->src_len = -1;
+>      err->src = src;
+>      err->line = line;
+>      err->func = func;
 
 
