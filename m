@@ -1,66 +1,67 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uJuZa-0002ST-RX
-	for mharc-qemu-rust@gnu.org; Tue, 27 May 2025 09:42:30 -0400
+	id 1uJusn-00040l-BB
+	for mharc-qemu-rust@gnu.org; Tue, 27 May 2025 10:02:21 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uJuZZ-0002SE-CW
- for qemu-rust@nongnu.org; Tue, 27 May 2025 09:42:29 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uJusd-0003tN-Io
+ for qemu-rust@nongnu.org; Tue, 27 May 2025 10:02:14 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uJuZV-0003aW-8z
- for qemu-rust@nongnu.org; Tue, 27 May 2025 09:42:27 -0400
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uJusU-00062l-Ii
+ for qemu-rust@nongnu.org; Tue, 27 May 2025 10:02:11 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1748353343;
+ s=mimecast20190719; t=1748354520;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=CumUhn7aR01x5Sy9sVxBT484Uq17U2NwR2iWgSwKD1s=;
- b=MYVzh8tNFliCed8KmYKIwTCOEKfdrxmxEf3plv3A94fLzcCAjGaZZQELrBYCoA1X8dDiCJ
- 2xizj90qQ1scVkyMq9dmDDntjSgIWNZwDVtxKuX0Sc6nKDXHDpfxi1HoR9pZsDUeMTrSi2
- RdCo2Tc09v9umLabIbm57u6EvGklli4=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ bh=UMLt0iBLOcZ3s3HGfxUPxWVzJ2FA0e8cqpdjXUzXq9o=;
+ b=WTvncHXMFJZSvpxb6kadmK1kIHeDKQAfyupNbfiOlOoHrXO9GBaQGWJiZi40OBkfF3clMh
+ 9B/11KdGUP2o1ry/XwBQca8K/4FSLQURQT7ZOeg0rDzi4IyISH4CScyQVSJlHEmDXC15mb
+ LYoJXZi9QR2q/MmpDzdYF9GGqX6OMJU=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-42-j9DZ2DrgMGG3rspjKISiqQ-1; Tue,
- 27 May 2025 09:42:21 -0400
-X-MC-Unique: j9DZ2DrgMGG3rspjKISiqQ-1
-X-Mimecast-MFC-AGG-ID: j9DZ2DrgMGG3rspjKISiqQ_1748353341
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-175-GrAHP19kMaa-ZQ498M-lng-1; Tue,
+ 27 May 2025 10:01:55 -0400
+X-MC-Unique: GrAHP19kMaa-ZQ498M-lng-1
+X-Mimecast-MFC-AGG-ID: GrAHP19kMaa-ZQ498M-lng_1748354514
 Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id D51DB18003FC; Tue, 27 May 2025 13:42:20 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 7CE07180087A; Tue, 27 May 2025 14:01:54 +0000 (UTC)
 Received: from blackfin.pond.sub.org (unknown [10.45.242.2])
  by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 71C631956095; Tue, 27 May 2025 13:42:20 +0000 (UTC)
+ id 1A1FD19560AB; Tue, 27 May 2025 14:01:53 +0000 (UTC)
 Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 95FE921E66C3; Tue, 27 May 2025 15:42:17 +0200 (CEST)
+ id 4BAB621E66C3; Tue, 27 May 2025 16:01:51 +0200 (CEST)
 From: Markus Armbruster <armbru@redhat.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org,  qemu-rust@nongnu.org
-Subject: Re: [PATCH 05/12] util/error: allow non-NUL-terminated err->src
-In-Reply-To: <20250526142455.1061519-5-pbonzini@redhat.com> (Paolo Bonzini's
- message of "Mon, 26 May 2025 16:24:48 +0200")
+Subject: Re: [PATCH 10/12] hpet: return errors from realize if properties
+ are incorrect
+In-Reply-To: <20250526142455.1061519-10-pbonzini@redhat.com> (Paolo Bonzini's
+ message of "Mon, 26 May 2025 16:24:53 +0200")
 References: <20250526142254.1061009-1-pbonzini@redhat.com>
- <20250526142455.1061519-5-pbonzini@redhat.com>
-Date: Tue, 27 May 2025 15:42:17 +0200
-Message-ID: <87sekqmapy.fsf@pond.sub.org>
+ <20250526142455.1061519-10-pbonzini@redhat.com>
+Date: Tue, 27 May 2025 16:01:51 +0200
+Message-ID: <87ldqim9tc.fsf@pond.sub.org>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -49
-X-Spam_score: -5.0
-X-Spam_bar: -----
-X-Spam_report: (-5.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.907,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_score_int: -16
+X-Spam_score: -1.7
+X-Spam_bar: -
+X-Spam_report: (-1.7 / 5.0 requ) BAYES_00=-1.9, DKIM_INVALID=0.1,
+ DKIM_SIGNED=0.1, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -73,73 +74,100 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 May 2025 13:42:29 -0000
+X-List-Received-Date: Tue, 27 May 2025 14:02:18 -0000
 
 Paolo Bonzini <pbonzini@redhat.com> writes:
 
-> Rust makes the current file available as a statically-allocated string,
-> but without a NUL terminator.  Allow this by storing an optional maximum
-> length in the Error.
->
-> Note that for portability I am not relying on fprintf's precision
-> specifier not accessing memory beyond what will be printed.
+> Do not silently adjust num_timers, and fail if intcap is 0.
 
-Can you elaborate on the portability problem?  I figure ...
+A bad habit of ours.
 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  include/qapi/error-internal.h | 1 +
->  util/error.c                  | 8 +++++++-
->  2 files changed, 8 insertions(+), 1 deletion(-)
+>  hw/timer/hpet.c | 15 ++++++++-------
+>  1 file changed, 8 insertions(+), 7 deletions(-)
 >
-> diff --git a/include/qapi/error-internal.h b/include/qapi/error-internal.h
-> index d5c3904adec..6178ce4a63d 100644
-> --- a/include/qapi/error-internal.h
-> +++ b/include/qapi/error-internal.h
-> @@ -19,6 +19,7 @@ struct Error
->      char *msg;
->      ErrorClass err_class;
->      const char *src, *func;
-> +    ssize_t src_len;
->      int line;
->      GString *hint;
->  };
-> diff --git a/util/error.c b/util/error.c
-> index e5bcb7c0225..6c1033eaba5 100644
-> --- a/util/error.c
-> +++ b/util/error.c
-> @@ -24,8 +24,13 @@ Error *error_warn;
->  static void error_handle(Error **errp, Error *err)
->  {
->      if (errp == &error_abort) {
-> +        const char *src = err->src;
-> +        if (err->src_len >= 0) {
-> +            /* No need to free it, the program will abort very soon...  */
-> +            src = g_strndup(err->src, err->src_len);
-> +        }
->          fprintf(stderr, "Unexpected error in %s() at %s:%d:\n",
-> -                err->func, err->src, err->line);
-> +                err->func, src, err->line);
-
-... you're avoiding the simpler
-
-           fprintf(stderr, "Unexpected error in %s() at %.*s:%d:\n",
-                   err->func, err->src_len, err->src, err->line);
-
-because of it.
-
-(@src_len needs to be int then, and its default value below INT_MAX)
-
->          error_report("%s", error_get_pretty(err));
->          if (err->hint) {
->              error_printf("%s", err->hint->str);
-> @@ -67,6 +72,7 @@ static void error_setv(Error **errp,
->          g_free(msg);
+> diff --git a/hw/timer/hpet.c b/hw/timer/hpet.c
+> index d1b7bc52b7b..d78aba04bcd 100644
+> --- a/hw/timer/hpet.c
+> +++ b/hw/timer/hpet.c
+> @@ -689,8 +689,14 @@ static void hpet_realize(DeviceState *dev, Error **errp)
+>      int i;
+>      HPETTimer *timer;
+>  
+> +    if (s->num_timers < HPET_MIN_TIMERS || s->num_timers > HPET_MAX_TIMERS) {
+> +        error_setg(errp, "hpet.num_timers must be between %d and %d",
+> +                   HPET_MIN_TIMERS, HPET_MAX_TIMERS);
+> +        return;
+> +    }
+>      if (!s->intcap) {
+> -        warn_report("Hpet's intcap not initialized");
+> +        error_setg(errp, "hpet.hpet-intcap not initialized");
+> +        return;
 >      }
->      err->err_class = err_class;
-> +    err->src_len = -1;
->      err->src = src;
->      err->line = line;
->      err->func = func;
+>      if (hpet_fw_cfg.count == UINT8_MAX) {
+>          /* first instance */
+> @@ -698,7 +704,7 @@ static void hpet_realize(DeviceState *dev, Error **errp)
+>      }
+>  
+>      if (hpet_fw_cfg.count == 8) {
+> -        error_setg(errp, "Only 8 instances of HPET is allowed");
+> +        error_setg(errp, "Only 8 instances of HPET are allowed");
+>          return;
+>      }
+>  
+> @@ -708,11 +714,6 @@ static void hpet_realize(DeviceState *dev, Error **errp)
+>          sysbus_init_irq(sbd, &s->irqs[i]);
+>      }
+>  
+> -    if (s->num_timers < HPET_MIN_TIMERS) {
+> -        s->num_timers = HPET_MIN_TIMERS;
+> -    } else if (s->num_timers > HPET_MAX_TIMERS) {
+> -        s->num_timers = HPET_MAX_TIMERS;
+> -    }
+>      for (i = 0; i < HPET_MAX_TIMERS; i++) {
+>          timer = &s->timer[i];
+>          timer->qemu_timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, hpet_timer, timer);
+
+This device is not user-creatable.  It is only ever created (and
+realized) by board code.  Errors should not happen.  If they happen
+anyway, it's a board code bug.
+
+The code creating it is pc_basic_device_init():
+
+    if (pcms->hpet_enabled) {
+        qemu_irq rtc_irq;
+
+        hpet = qdev_try_new(TYPE_HPET);
+        if (!hpet) {
+            error_report("couldn't create HPET device");
+            exit(1);
+        }
+
+Could just as well use qdev_new().  Differently confusing error message,
+though.
+
+        /*
+         * For pc-piix-*, hpet's intcap is always IRQ2. For pc-q35-*,
+         * use IRQ16~23, IRQ8 and IRQ2.  If the user has already set
+         * the property, use whatever mask they specified.
+         */
+        uint8_t compat = object_property_get_uint(OBJECT(hpet),
+                HPET_INTCAP, NULL);
+        if (!compat) {
+            qdev_prop_set_uint32(hpet, HPET_INTCAP, hpet_irqs);
+        }
+        sysbus_realize_and_unref(SYS_BUS_DEVICE(hpet), &error_fatal);
+
+If this fails, it's a programming error, i.e. &error_abort is more
+appropriate.  Hmm, can the user mess with property values via -global?
+If yes, it could be a user error.
+
+        [...]
+    }
+
+I'm rambling.  The patch is fine.
+
+Reviewed-by: Markus Armbruster <armbru@redhat.com>
 
 
