@@ -1,79 +1,135 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uKEMe-00034R-PW
-	for mharc-qemu-rust@gnu.org; Wed, 28 May 2025 06:50:28 -0400
+	id 1uKF81-0005dK-32
+	for mharc-qemu-rust@gnu.org; Wed, 28 May 2025 07:39:25 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uKEMc-0002xH-MQ
- for qemu-rust@nongnu.org; Wed, 28 May 2025 06:50:26 -0400
-Received: from mail-ed1-x52c.google.com ([2a00:1450:4864:20::52c])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uKEMY-0006vE-GB
- for qemu-rust@nongnu.org; Wed, 28 May 2025 06:50:26 -0400
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-6046ecc3e43so5353503a12.3
- for <qemu-rust@nongnu.org>; Wed, 28 May 2025 03:50:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1748429419; x=1749034219; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mIQ6TBpW2Mybpcelh0KGyJ/cob5bnIl3jOBnBPqRWhs=;
- b=UPxF8CYKyZfBgO/cYEw66HAG5k17nA9ej9S84xc2RnMjxiZOcqcYRjuGkaQzLZJxti
- C6fgZp1jdd/6iTpUEKOoFq8dYB+1iFUmtebdLHmA4/aQaQJCydrhfBnWinf8Ob0A5Q36
- C7easBybl2Aeg4Ntk3JqaYKv/VYhBkdI3o9IZfJAkwbXI20DMYsYRmhCcjWRnzb/GQmR
- pzdVVf70ZnoWW3ejm3eXJSDkF5mHwX4mvLi6eduOwuuiMH6A5nXgymgUhkEmifJuJBNx
- uNK7Jg5PaVW1tWWdAJnkGgyIXTsmmhEdfKGTv4BAjIJM8BccOOpm8/3BQarV5PXNg3DW
- lESA==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uKF7h-0005aL-JA
+ for qemu-rust@nongnu.org; Wed, 28 May 2025 07:39:08 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uKF7e-000654-QC
+ for qemu-rust@nongnu.org; Wed, 28 May 2025 07:39:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1748432340;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5UlRWtxLGJx/TX+OrJuXUEzFWoVMQDNFtOeubM3y86c=;
+ b=PvG/mnePVD7/oB+I3UIiwLe6WjLQMkPv5RWg0qLBIfH/2+BdGJUMi3lHpf0ivYcN+lm0rZ
+ pzpEa4IXb956R+mzyqdgwUzgn12YGU8f2Rs0vdH+z+7aLfZOQFEJoDtO8u6cqxxKaAXVmY
+ zFqABNEYU5igR4BColoj0Js8uUu9J1w=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-468-u6qehWG8NVyB7-sS086jgg-1; Wed, 28 May 2025 07:38:58 -0400
+X-MC-Unique: u6qehWG8NVyB7-sS086jgg-1
+X-Mimecast-MFC-AGG-ID: u6qehWG8NVyB7-sS086jgg_1748432338
+Received: by mail-ed1-f72.google.com with SMTP id
+ 4fb4d7f45d1cf-6047edc5cebso3751865a12.1
+ for <qemu-rust@nongnu.org>; Wed, 28 May 2025 04:38:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748429419; x=1749034219;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mIQ6TBpW2Mybpcelh0KGyJ/cob5bnIl3jOBnBPqRWhs=;
- b=tzyZeS0BVeuqzLdkilSHsHMY7xviuuClc2IokWoj575gOt1/5Erf1K4hysgYericEh
- sNB8keIPixgYz5p9HLyO6jkA5iDzBF2T0zH+OBFWEq3XAp2ABdf5fJ/3D2WPOUeOGKgh
- ijTlYaDwHYRz79x11RcXRW/uaYHnvfr54mX5p6sEPdNdhYwDYFENqS5AlsPbw+oGXcMZ
- vtS1rqOfyN4FrjHxI2fPY+cMGkxRmVRw6/qyAxiBabmOhkw4vQHMW2weWdTIvQziFpw7
- 3U7AEhQSIjIVGb8uZdHFacw5IEiYd7YkbkzCm/vJvctdczvbsuAq130BWMtI0WSGpf9j
- Lbrw==
+ d=1e100.net; s=20230601; t=1748432338; x=1749037138;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5UlRWtxLGJx/TX+OrJuXUEzFWoVMQDNFtOeubM3y86c=;
+ b=lhM/ZxxWcMEzkFwN4aIKuAGl4xof1Ta4d/3/QSJ3ssl34BmoaWbAnUc4pMRPlFPESs
+ 2cpTSq7MxY81+uqBB4ZwWL7oCE4IhdQ4LlyxqaKmW9mhf0jwCxFgybpE3N2HyXEyBLpO
+ GAjm8hmrvw5LlYXeyUWrcdwvknt8qgWUx4t6Oqmv7m/GVcJsY7eo3G6XVroCvBbBOJuL
+ jo36nM87X7CsqdRwevcQzHzJTYiFB1J9gBbC+XSUt7u5Z7yT8V9Nkv9m0GkrQ4MrUO0D
+ LrLP/d9SB4XtIeEBqhXwBCEmT2BmK9X/BUL9m+S4vlK1AoGzdY4nqL40RoJ8Cp1Sm0vr
+ SDdA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUEgH0qAPF1HtBXQ/ikIugGQQMEtiJtWoQAqj4A9fpeGMWDymPK4wohvdCoMAYOL7CLEzT1lCqOw/A=@nongnu.org
-X-Gm-Message-State: AOJu0Yz5898/PaLWCMLQ41XzmAZRfaZlSuUfdB+2XM3GbQexkGIUdFX1
- ndmC2Suw0h0oHEmdfGd5Yyh7COs7xvGCmtuzN4L+G9iIlQvlKu9Yw0Iqnkelq3FNaY7IudJ3gPR
- gzf1PefIefjNOvFmuAvcALyJ7W6HHjFg7nTyVCyEUXA==
-X-Gm-Gg: ASbGncv0LVgzE7DGEb5XU9fT3pBX3fv3ZU9xvEJQpw4qpvgLRPOB//lLO2IRgScxQsp
- at+PxVkXX36SoLVceeqpgJWnZzLM4m+9JoOIcYXVDj4pNEhnjin3DliUA8qT4yJ1bEC5bm6/Lor
- 1+e6xvs1FCqo1VrMqfnppro9uNKBoa
-X-Google-Smtp-Source: AGHT+IFDw4Ju7EGVUyeg36asPxjGdegtiKj6AuvFzPWoAP2po1c86+vtar85uI99wMCpaNNWjV6lxt3lA2foKDo4Cmc=
-X-Received: by 2002:a05:6402:35d3:b0:5f8:afab:9e14 with SMTP id
- 4fb4d7f45d1cf-6051c5076bamr1339111a12.28.1748429419002; Wed, 28 May 2025
- 03:50:19 -0700 (PDT)
+ AJvYcCWv5rhMCu+FWv6fPejG/08JWf/Umx8g+6vmgcdl9IP9FyWg+5HWrre8QhufwoLZ3MCJaxC84qiMtoI=@nongnu.org
+X-Gm-Message-State: AOJu0YzcHBJStTrAQUTmW+K3eQWZiPPjqpbEAPS1mYytDPbNErsQgzDJ
+ AXcMVABgaXtJj4fUmdDLyyF2mtW5w5wSeuPKMd892RoGbUqOHep+7Ht1yGCGHb6pyeke6MgYw2G
+ /apssoUuILiDpQ7O7j0gYGlpQid/bV6Ta5pxjQUKiykgiuY+RETkotic=
+X-Gm-Gg: ASbGncuhmWkNgs+OfZFK86ydTBl4dbfD2J55ZjB+G2UfXHpXqnkuzrxgHh0KF+Ky6Ct
+ Ene81in8FUlZoGP6cDRdirREQZslffovK0NIbwdhNSmXvfaovFwLPbpLLFSI0S04jlwGoWvuxsR
+ V7TY06HN3pnX17J6RZkUNZEw6nZQxIvPM2GbOjB+TM2yTARPi54URQ3JGnmkAY6J6ofWlG5IZva
+ ZDnBZc4vSo8dYTxCTJc7IyXpygBIPJMuoLAAQVUVqQ/pCTWQ/dcKsKVSmvsojvL68sV+/0UVSGr
+ au++IuH50lm5UA==
+X-Received: by 2002:a05:6402:26c4:b0:5f3:f04b:5663 with SMTP id
+ 4fb4d7f45d1cf-6051c4ef709mr1483210a12.24.1748432337726; 
+ Wed, 28 May 2025 04:38:57 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IESJvlpBRArNWYINsAp1wlOil5rxUtaO4UWcnPmvgfi0cr6ppM8gUtHlEo/di4OT/4clqnXOg==
+X-Received: by 2002:a05:6402:26c4:b0:5f3:f04b:5663 with SMTP id
+ 4fb4d7f45d1cf-6051c4ef709mr1483188a12.24.1748432337317; 
+ Wed, 28 May 2025 04:38:57 -0700 (PDT)
+Received: from [192.168.10.48] ([151.95.46.79])
+ by smtp.googlemail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6051d7a0013sm659319a12.80.2025.05.28.04.38.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 28 May 2025 04:38:56 -0700 (PDT)
+Message-ID: <0c5f3e95-3aab-448d-9713-97413cb5c2df@redhat.com>
+Date: Wed, 28 May 2025 13:38:55 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH WIP RFC] rust: add qdev DeviceProperties derive macro
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Zhao Liu <zhao1.liu@intel.com>
 References: <20250522-rust-qdev-properties-v1-1-5b18b218bad1@linaro.org>
  <CABgObfbVSZ9MNzjXBu1mr8bzX9F-AoKVRQzCJj6c+SUpsoUQNw@mail.gmail.com>
-In-Reply-To: <CABgObfbVSZ9MNzjXBu1mr8bzX9F-AoKVRQzCJj6c+SUpsoUQNw@mail.gmail.com>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Wed, 28 May 2025 13:49:52 +0300
-X-Gm-Features: AX0GCFsGUOQtCUjnuZtHIfF-nd5_WexCBtOJqCWNIobN4XRF_MGaccUxl2brApQ
-Message-ID: <CAAjaMXbEB_c7NpBVen29Tgtmki4+nADnXysawK+oSbWDBWPR2w@mail.gmail.com>
-Subject: Re: [PATCH WIP RFC] rust: add qdev DeviceProperties derive macro
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org, 
- =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
- Zhao Liu <zhao1.liu@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::52c;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x52c.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ <CAAjaMXbEB_c7NpBVen29Tgtmki4+nADnXysawK+oSbWDBWPR2w@mail.gmail.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+In-Reply-To: <CAAjaMXbEB_c7NpBVen29Tgtmki4+nADnXysawK+oSbWDBWPR2w@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: lINcBrKE-d-aiD71145xZnLJf41DyMoZdOU2nhmih4M_1748432338
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -49
+X-Spam_score: -5.0
+X-Spam_bar: -----
+X-Spam_report: (-5.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.904,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -86,291 +142,80 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 May 2025 10:50:27 -0000
+X-List-Received-Date: Wed, 28 May 2025 11:39:14 -0000
 
-On Fri, May 23, 2025 at 4:06=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com>=
- wrote:
->
->
->
-> Il gio 22 mag 2025, 10:12 Manos Pitsidianakis <manos.pitsidianakis@linaro=
-.org> ha scritto:
+On 5/28/25 12:49, Manos Pitsidianakis wrote:
+>> It's not too large, overall.
 >>
->> This is unnecessary though, because once we have the
->> const_refs_to_static feature we can introduce a QdevProp trait that
->> returns a reference to a type's qdev_prop_* global variable. We cannot
->> do this now because for our minimum Rust version we cannot refer to
->> statics from const values.
->
->
-> Why don't you already write it assuming const_refs_to_static? If needed w=
-e can add a hack to make the VALUE an enum, similar to what is already in v=
-mstate.rs.
->
->> So, this patch is not for merging yet, I will wait until we upgrade the
->> Rust version and re-spin it with a proper trait-based implementation (an=
-d
->> also split it into individual steps/patches).
->
->
-> It's not too large, overall.
->
->>  #[repr(C)]
->> -#[derive(qemu_api_macros::Object)]
->> +#[derive(qemu_api_macros::Object, qemu_api_macros::DeviceProperties)]
->
->
-> Is there more to be derived that is useful for Devices? Maybe the macro c=
-an be DeviceState or Device.
+>>>  #[repr(C)]
+>>> -#[derive(qemu_api_macros::Object)]
+>>> +#[derive(qemu_api_macros::Object, qemu_api_macros::DeviceProperties)]
+>>
+>>
+>> Is there more to be derived that is useful for Devices? Maybe the
+>> macro can be DeviceState or Device.
+> 
+> VMStateDescription and the realize callback, I think.
 
-VMStateDescription and the realize callback, I think.
+Ok, pick the name that you prefer.
 
->
->>  +    #[property(name =3D c"chardev", qdev_prop =3D qemu_api::bindings::=
-qdev_prop_chr)]
->
->
-> Can you change the name to be a "normal" string and change it to a C lite=
-ral in the macro?
+>> Can you change the name to be a "normal" string and change it to a C literal in the macro?
+> 
+> That'd be neat, it should be possible to create a cstr literal token
+> and error out if the input str literal cannot be represented as a
+> cstr.
 
-That'd be neat, it should be possible to create a cstr literal token
-and error out if the input str literal cannot be represented as a
-cstr.
+Yes, shouldn't be hard.  If it is hard, you could resurrect the c_str module
+and use ::qemu_api::c_str!(#string).
 
->
->> diff --git a/rust/hw/char/pl011/src/device_class.rs b/rust/hw/char/pl011=
-/src/device_class.rs
->> index d328d846323f6080a9573053767e51481eb32941..83d70d7d82aac4a3252a0b4c=
-b24af705b01d3635 100644
->> --- a/rust/hw/char/pl011/src/device_class.rs
->> +++ b/rust/hw/char/pl011/src/device_class.rs
->> @@ -8,11 +8,8 @@
->>  };
+>> I would also merge the files at this point, but no hurry.
 >>
->>  use qemu_api::{
->> -    bindings::{qdev_prop_bool, qdev_prop_chr},
->> -    prelude::*,
->> -    vmstate::VMStateDescription,
->> -    vmstate_clock, vmstate_fields, vmstate_of, vmstate_struct, vmstate_=
-subsections, vmstate_unused,
->> -    zeroable::Zeroable,
->> +    prelude::*, vmstate::VMStateDescription, vmstate_clock, vmstate_fie=
-lds, vmstate_of,
->> +    vmstate_struct, vmstate_subsections, vmstate_unused, zeroable::Zero=
-able,
->>  };
->
->
-> I would also merge the files at this point, but no hurry.
->
->> +#[derive(Debug)]
->> +struct DeviceProperty {
->> +    name: Option<syn::LitCStr>,
->> +    qdev_prop: Option<syn::Path>,
->> +    assert_type: Option<proc_macro2::TokenStream>,
->> +    bitnr: Option<syn::Expr>,
->> +    defval: Option<syn::Expr>,
->> +}
->> +
->> +impl Parse for DeviceProperty {
->
->
-> Can you look into using https://docs.rs/crate/attrs/latest for parsing?
->
-> (attrs doesn't support LitCStr btw)
+>>> +#[derive(Debug)]
+>>> +struct DeviceProperty {
+>>> +    name: Option<syn::LitCStr>,
+>>> +    qdev_prop: Option<syn::Path>,
+>>> +    assert_type: Option<proc_macro2::TokenStream>,
+>>> +    bitnr: Option<syn::Expr>,
+>>> +    defval: Option<syn::Expr>,
+>>> +}
+>>> +
+>>> +impl Parse for DeviceProperty {
+>>
+>> Can you look into using https://docs.rs/crate/attrs/latest for parsing?
+>>
+>> (attrs doesn't support LitCStr btw)
+> 
+> I think we can do without it for now, even if this patch is not
+> cleaned up (for example it has unwraps instead of proper panic
+> messages or error handling) it does not end up very complex as far as
+> attribute parsing is concerned.
+> 
+> I'm fine with either approach though.
 
-I think we can do without it for now, even if this patch is not
-cleaned up (for example it has unwraps instead of proper panic
-messages or error handling) it does not end up very complex as far as
-attribute parsing is concerned.
+Ok, I'm fine with the manual parsing as well; just use Result<>
+instead of panicking.
 
-I'm fine with either approach though.
+>>> +#[proc_macro_derive(DeviceProperties, attributes(property, bool_property))]
+>>> +pub fn derive_device_properties(input: TokenStream) -> TokenStream {
+>>
+>>
+>> Do you need to handle errors in the parsing of attributes?...
+>>
+>>> +        _other => unreachable!(),
+> 
+> This should be literally unreachable IIUC, because only property names
+> declared in the attributes part of `#[proc_macro_derive(...
+> attributes(__))]` would get accepted by the compiler and passed to the
+> derive macro.
 
->
->> +#[proc_macro_derive(DeviceProperties, attributes(property, bool_propert=
-y))]
->> +pub fn derive_device_properties(input: TokenStream) -> TokenStream {
->
->
-> Do you need to handle errors in the parsing of attributes?...
->
->> +        _other =3D> unreachable!(),
->
+You're referring to
 
-This should be literally unreachable IIUC, because only property names
-declared in the attributes part of `#[proc_macro_derive(...
-attributes(__))]` would get accepted by the compiler and passed to the
-derive macro.
++            other => unreachable!("Got unexpected DeviceProperty attribute `{}`", other),
 
->
-> ... Yes, you do=E2=80=94there is code already in qemu_macros, used by der=
-ive_object_or_error(), to get the fields of a struct with proper error hand=
-ling.
->
->> let prop_name =3D prop.name.as_ref().unwrap();
->>
->> + let field_name =3D field.ident.as_ref().unwrap();
->>
->> + let qdev_prop =3D prop.qdev_prop.as_ref().unwrap();
->>
->> + let bitnr =3D prop.bitnr.as_ref().unwrap_or(&zero);
->>
->> + let set_default =3D prop.defval.is_some();
->>
->> + let defval =3D prop.defval.as_ref().unwrap_or(&zero);+                =
-bitnr: #bitnr,
->> +
->
->
-> You also need to use let...else here instead of unwrap(), since panicking=
- provides worse error messages.
->
->>               set_default: #set_default,
->> +                defval: ::qemu_api::bindings::Property__bindgen_ty_1 { =
-u: #defval as u64 },
->
->
-> If you like it, you can write this also as
->
->   #(bitnr: #bitnr,)?
->   #(set_default: true, defval: ...)?
->
-> and keep bitnr and defval as Options, since the None case is handled by t=
-he default below.
->
-> Paolo
+and indeed this one is good as is.  The "_other => unreachable!()"
+line above, instead, comes from matching on input.data and it can
+be replaced with the existing function get_fields().
 
-Thanks I will take another look!
+Paolo
 
->
->
->> +                ..::qemu_api::zeroable::Zeroable::ZERO
->> +            }
->> +        });
->> +    }
->> +    let properties_expanded =3D quote_spanned! {span.into()=3D>
->> +        #(#assertions)*
->> +
->> +        impl ::qemu_api::qdev::DevicePropertiesImpl for #name {
->> +            fn properties() -> &'static [::qemu_api::bindings::Property=
-] {
->> +                static PROPERTIES: &'static [::qemu_api::bindings::Prop=
-erty] =3D &[#(#properties_expanded),*];
->> +
->> +                PROPERTIES
->> +            }
->> +        }
->> +    };
->> +
->> +    TokenStream::from(properties_expanded)
->> +}
->> +
->>  #[proc_macro_derive(Wrapper)]
->>  pub fn derive_opaque(input: TokenStream) -> TokenStream {
->>      let input =3D parse_macro_input!(input as DeriveInput);
->> diff --git a/rust/qemu-api/src/qdev.rs b/rust/qemu-api/src/qdev.rs
->> index 1279d7a58d50e1bf6c8d2e6f00d7229bbb19e003..2fd8b2750ffabcaa1065558d=
-38a700e35fbc9136 100644
->> --- a/rust/qemu-api/src/qdev.rs
->> +++ b/rust/qemu-api/src/qdev.rs
->> @@ -100,8 +100,19 @@ pub trait ResettablePhasesImpl {
->>      T::EXIT.unwrap()(unsafe { state.as_ref() }, typ);
->>  }
->>
->> +pub trait DevicePropertiesImpl {
->> +    /// An array providing the properties that the user can set on the
->> +    /// device.  Not a `const` because referencing statics in constants
->> +    /// is unstable until Rust 1.83.0.
->> +    fn properties() -> &'static [Property] {
->> +        &[]
->> +    }
->> +}
->> +
->>  /// Trait providing the contents of [`DeviceClass`].
->> -pub trait DeviceImpl: ObjectImpl + ResettablePhasesImpl + IsA<DeviceSta=
-te> {
->> +pub trait DeviceImpl:
->> +    ObjectImpl + ResettablePhasesImpl + DevicePropertiesImpl + IsA<Devi=
-ceState>
->> +{
->>      /// _Realization_ is the second stage of device creation. It contai=
-ns
->>      /// all operations that depend on device properties and can fail (n=
-ote:
->>      /// this is not yet supported for Rust devices).
->> @@ -110,13 +121,6 @@ pub trait DeviceImpl: ObjectImpl + ResettablePhases=
-Impl + IsA<DeviceState> {
->>      /// with the function pointed to by `REALIZE`.
->>      const REALIZE: Option<fn(&Self)> =3D None;
->>
->> -    /// An array providing the properties that the user can set on the
->> -    /// device.  Not a `const` because referencing statics in constants
->> -    /// is unstable until Rust 1.83.0.
->> -    fn properties() -> &'static [Property] {
->> -        &[]
->> -    }
->> -
->>      /// A `VMStateDescription` providing the migration format for the d=
-evice
->>      /// Not a `const` because referencing statics in constants is unsta=
-ble
->>      /// until Rust 1.83.0.
->> @@ -171,7 +175,7 @@ pub fn class_init<T: DeviceImpl>(&mut self) {
->>          if let Some(vmsd) =3D <T as DeviceImpl>::vmsd() {
->>              self.vmsd =3D vmsd;
->>          }
->> -        let prop =3D <T as DeviceImpl>::properties();
->> +        let prop =3D <T as DevicePropertiesImpl>::properties();
->>          if !prop.is_empty() {
->>              unsafe {
->>                  bindings::device_class_set_props_n(self, prop.as_ptr(),=
- prop.len());
->> diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
->> index a658a49fcfdda8fa4b9d139c10afb6ff3243790b..e8eadfd6e9add385ffc97de0=
-15b84aae825c18ee 100644
->> --- a/rust/qemu-api/tests/tests.rs
->> +++ b/rust/qemu-api/tests/tests.rs
->> @@ -9,7 +9,7 @@
->>      cell::{self, BqlCell},
->>      declare_properties, define_property,
->>      prelude::*,
->> -    qdev::{DeviceImpl, DeviceState, Property, ResettablePhasesImpl},
->> +    qdev::{DeviceImpl, DevicePropertiesImpl, DeviceState, Property, Res=
-ettablePhasesImpl},
->>      qom::{ObjectImpl, ParentField},
->>      sysbus::SysBusDevice,
->>      vmstate::VMStateDescription,
->> @@ -68,10 +68,13 @@ impl ObjectImpl for DummyState {
->>
->>  impl ResettablePhasesImpl for DummyState {}
->>
->> -impl DeviceImpl for DummyState {
->> +impl DevicePropertiesImpl for DummyState {
->>      fn properties() -> &'static [Property] {
->>          &DUMMY_PROPERTIES
->>      }
->> +}
->> +
->> +impl DeviceImpl for DummyState {
->>      fn vmsd() -> Option<&'static VMStateDescription> {
->>          Some(&VMSTATE)
->>      }
->> @@ -85,6 +88,8 @@ pub struct DummyChildState {
->>
->>  qom_isa!(DummyChildState: Object, DeviceState, DummyState);
->>
->> +impl DevicePropertiesImpl for DummyChildState {}
->> +
->>  pub struct DummyChildClass {
->>      parent_class: <DummyState as ObjectType>::Class,
->>  }
->>
->> ---
->> base-commit: 2af4a82ab2cce3412ffc92cd4c96bd870e33bc8e
->> change-id: 20250522-rust-qdev-properties-728e8f6a468e
->>
->> --
->> =CE=B3=CE=B1=E1=BF=96=CE=B1 =CF=80=CF=85=CF=81=CE=AF =CE=BC=CE=B9=CF=87=
-=CE=B8=CE=AE=CF=84=CF=89
->>
 
