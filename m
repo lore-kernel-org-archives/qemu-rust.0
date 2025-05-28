@@ -1,92 +1,62 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uJxj0-0005iL-Ny
-	for mharc-qemu-rust@gnu.org; Tue, 27 May 2025 13:04:26 -0400
+	id 1uKBgq-0001fd-QA
+	for mharc-qemu-rust@gnu.org; Wed, 28 May 2025 03:59:08 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uJxiz-0005hv-QN
- for qemu-rust@nongnu.org; Tue, 27 May 2025 13:04:25 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uKBgo-0001et-Rg; Wed, 28 May 2025 03:59:06 -0400
+Received: from mgamail.intel.com ([198.175.65.19])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uJxix-0006hr-Eg
- for qemu-rust@nongnu.org; Tue, 27 May 2025 13:04:25 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1748365462;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=P6BB7ST9HP5gqI17reXXLVec4z+t3iB9vyB2FO/CtT0=;
- b=KQ6CiRejKfS8MyEGfAMOCFhaa3o7s4m7TRCVzb6sk61imBGH9aqPRZCH7RR+S2WYlOS0GM
- tFOuM9NVTvWiwzra9R8PYrDEptEbFqKv48B3FtJ1WQHxhX5toueNV10SUu1hvsdA681Ecy
- 1dDWHE44i/BlvtwS4VD9TDknrwLT8K4=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-464-uzsEvDB6PYK18w5AeGUzbw-1; Tue, 27 May 2025 13:04:21 -0400
-X-MC-Unique: uzsEvDB6PYK18w5AeGUzbw-1
-X-Mimecast-MFC-AGG-ID: uzsEvDB6PYK18w5AeGUzbw_1748365460
-Received: by mail-ed1-f71.google.com with SMTP id
- 4fb4d7f45d1cf-604e837c1deso1218571a12.1
- for <qemu-rust@nongnu.org>; Tue, 27 May 2025 10:04:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748365460; x=1748970260;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=P6BB7ST9HP5gqI17reXXLVec4z+t3iB9vyB2FO/CtT0=;
- b=JLOCzhxtyO1/GWxBPIns1yURxqffdbmEAjxi0AgqUUZViz6nv7U7KbS4/kNG3c4kvV
- Juozv256mGi2Bn7IU0CeHzhyDANzV6+s0t5eHztKfIdkMNk7HrgRmotEdsw7Gl3fY3VV
- +GqO5HCXS7dI+N16ZEI/o4jtIu3H0RYBsHctMsHsWFXUzfC2WdZILpLKaOG4mCSOdUW3
- pfjL6vLI+D9S+sYGn7k+oovezoGOCS5aIUAVqifF2Y2kgF40AOQrL0oV4PxLWZzGywZD
- KmRqLbUtDQOPblvwWzeRPWMCBhG3sZg49vaO8I3x03G+wgu+2AHdsDHLOW5VoMtV/4ej
- oReg==
-X-Gm-Message-State: AOJu0YwGcZ7D9uXoZoecrrKYNDO3KMc4qehQRNvvGkVadYRAB2/fBUpp
- a+VMhNUGo8cqGp//NVRgnmgJOZazYrcVt7ipILMXa9Jzsw1Q8QlDAqfgiXC7wjjxz+J3HnfcVF5
- jNBCJWfAjshOREsSg9+OQviHeicS7mK2rod8UUpzEPEPCZS3kHMDrRPU=
-X-Gm-Gg: ASbGncvTVNJcug7I07bTfSrzkibST83S7zYjyi9QWfabEzqD4HIybmNZ9zlM/pqEYsL
- bXzLuckV4fEv7EmxtUyx//t7orMYUfo80WyvMv392BCt/zCGpdJQIspDk2nm92TV9yMRwtFt3BB
- Z5WHAPsV8cUwHju6VOFOn0Mi9olDBQEzyiT68sDIQuBCKiQRcWJhF+TciQ8hbrBBgtYoz8WSI3u
- KIS39KhQzfiat/vWaEYt3+04oKRslj0LvOu5xqglnAnmVe4y3bC3s9uuxHKGlEKaA33fkLG58RN
- 3cLBhE1hDls4PA==
-X-Received: by 2002:a05:6402:2354:b0:601:8481:3268 with SMTP id
- 4fb4d7f45d1cf-602da2ff018mr12008977a12.25.1748365459515; 
- Tue, 27 May 2025 10:04:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH78Hl6IYFrs5GnznkMwRL8X4s61IWZCk1B6DoLZVPiV6jiEuIZ0pwQaCHPyaxafUmu0i2cNw==
-X-Received: by 2002:a05:6402:2354:b0:601:8481:3268 with SMTP id
- 4fb4d7f45d1cf-602da2ff018mr12008924a12.25.1748365458908; 
- Tue, 27 May 2025 10:04:18 -0700 (PDT)
-Received: from [192.168.122.1] ([151.95.46.79])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6035a134d4bsm5154717a12.20.2025.05.27.10.04.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 May 2025 10:04:16 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org
-Subject: [PATCH 6/6] rust: use native Meson support for clippy and rustdoc
-Date: Tue, 27 May 2025 19:04:04 +0200
-Message-ID: <20250527170404.1580482-7-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250527170404.1580482-1-pbonzini@redhat.com>
-References: <20250527170404.1580482-1-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uKBgm-0002i7-F0; Wed, 28 May 2025 03:59:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1748419144; x=1779955144;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=9rDHtWPUg/MosXmpkGkMSUu6rsT8SpDCjTYfvSpiacw=;
+ b=MdW+d1r+dVh83MPcUxJXl9KI1nMHCmRcn7uQ3mLtCfxTF+DVtrOHwYAy
+ spkBoZDd1MpdJT5IPSnhNvd9w7SaHl+q3pyspt62hiKdCYAfWFgq8o2fw
+ v9/rViMccIXPQrOpnuGvbiZrBDaWi3lcbOUpxiFe9aG7QWXIwP0FGKA+K
+ /ZwOD/eBZZ9RVWnNmjH5pEzLaO4WVNoKTglpHO4bS3W20ZDk9TNsKT1yV
+ MRSCNhV/utc99OKO+97ZvjNTpyK0wYSwHgPftD8rtE6TzpNUG+MdG/iAq
+ DRZ58DYd/kjn4CWIa/htwMj/XamNh5IpIwpaimFj2kDE8OGy/qc6dudhA g==;
+X-CSE-ConnectionGUID: bWn8YiQETkKrkwdqKptYAw==
+X-CSE-MsgGUID: 1OTpE1N6T4KurqEHmbUP5g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11446"; a="50319262"
+X-IronPort-AV: E=Sophos;i="6.15,320,1739865600"; d="scan'208";a="50319262"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2025 00:59:00 -0700
+X-CSE-ConnectionGUID: bN7RlZ/9Q6SETWDrzc0SCg==
+X-CSE-MsgGUID: SBqhHIFOQqaluconM7yFFw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,320,1739865600"; d="scan'208";a="143146571"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa007.fm.intel.com with ESMTP; 28 May 2025 00:58:58 -0700
+Date: Wed, 28 May 2025 16:20:08 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, armbru@redhat.com, qemu-rust@nongnu.org
+Subject: Re: [PATCH 06/12] util/error: make func optional
+Message-ID: <aDbHONQNGrXBxmuL@intel.com>
+References: <20250526142254.1061009-1-pbonzini@redhat.com>
+ <20250526142455.1061519-6-pbonzini@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: UmzkwIY9FLMYh1-wt-JbPMbr7gwZpXq0JnhZe4Ih7VY_1748365460
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -49
-X-Spam_score: -5.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250526142455.1061519-6-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.19; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -53
+X-Spam_score: -5.4
 X-Spam_bar: -----
-X-Spam_report: (-5.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.907,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-5.4 / 5.0 requ) DKIMWL_WL_HIGH=-2.907, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,131 +69,31 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 May 2025 17:04:26 -0000
+X-List-Received-Date: Wed, 28 May 2025 07:59:07 -0000
 
-Meson has support for invoking clippy and rustdoc on all crates (1.7.0 for
-clippy, 1.8.0 for rustdoc).  Use it instead of the homegrown version; this
-requires disabling the multiple_crate_versions lint (the only one that was
-enabled from the "cargo" group)---which was not particularly useful anyway
-because all dependencies are converted by hand into Meson subprojects.
+On Mon, May 26, 2025 at 04:24:49PM +0200, Paolo Bonzini wrote:
+> Date: Mon, 26 May 2025 16:24:49 +0200
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH 06/12] util/error: make func optional
+> X-Mailer: git-send-email 2.49.0
+> 
+> The function name is not available in Rust, so make it optional.
+> 
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  util/error.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
 
-rustfmt is still not supported.
+panic::Location does not provide function name information. Although
+there are macros that could print function names [*] (as I'm sure you've
+noticed :) ), that way - printing the information based on some macros -
+would definitely require some wrapping or modification of Err().
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- docs/devel/rust.rst             | 10 +++++++---
- meson.build                     |  2 +-
- rust/clippy.toml => clippy.toml |  0
- rust/Cargo.toml                 |  1 -
- rust/meson.build                | 12 ------------
- scripts/rust/rustc_args.py      |  5 +----
- 6 files changed, 9 insertions(+), 21 deletions(-)
- rename rust/clippy.toml => clippy.toml (100%)
+Comparing with that, current implementation looks better in general.
 
-diff --git a/docs/devel/rust.rst b/docs/devel/rust.rst
-index f66f2bef60b..34d9c7945b7 100644
---- a/docs/devel/rust.rst
-+++ b/docs/devel/rust.rst
-@@ -37,12 +37,16 @@ output directory (typically ``rust/target/``).  A vanilla invocation
- of Cargo will complain that it cannot find the generated sources,
- which can be fixed in different ways:
- 
--* by using special shorthand targets in the QEMU build directory::
-+* by using Makefile targets, provided by Meson, that run ``clippy`` or
-+  ``rustdoc``:
- 
-     make clippy
--    make rustfmt
-     make rustdoc
- 
-+A target for ``rustfmt`` is also declared in ``rust/meson.build``:
-+
-+    make rustfmt
-+
- * by invoking ``cargo`` through the Meson `development environment`__
-   feature::
- 
-@@ -50,7 +54,7 @@ which can be fixed in different ways:
-     pyvenv/bin/meson devenv -w ../rust cargo fmt
- 
-   If you are going to use ``cargo`` repeatedly, ``pyvenv/bin/meson devenv``
--  will enter a shell where commands like ``cargo clippy`` just work.
-+  will enter a shell where commands like ``cargo fmt`` just work.
- 
- __ https://mesonbuild.com/Commands.html#devenv
- 
-diff --git a/meson.build b/meson.build
-index eebd74b1fce..6f6d743a7d8 100644
---- a/meson.build
-+++ b/meson.build
-@@ -4376,7 +4376,7 @@ foreach target : target_dirs
-                               build_by_default: true,
-                               build_always_stale: true)
-       rlib = static_library('rust_' + target.underscorify(),
--                            rlib_rs,
-+                            structured_sources([], {'.': rlib_rs}),
-                             dependencies: target_rust.dependencies(),
-                             override_options: ['rust_std=2021', 'build.rust_std=2021'],
-                             rust_abi: 'c')
-diff --git a/rust/clippy.toml b/clippy.toml
-similarity index 100%
-rename from rust/clippy.toml
-rename to clippy.toml
-diff --git a/rust/Cargo.toml b/rust/Cargo.toml
-index d9faeecb10b..a00b8ad0bcd 100644
---- a/rust/Cargo.toml
-+++ b/rust/Cargo.toml
-@@ -63,7 +63,6 @@ ignored_unit_patterns = "deny"
- implicit_clone = "deny"
- macro_use_imports = "deny"
- missing_safety_doc = "deny"
--multiple_crate_versions = "deny"
- mut_mut = "deny"
- needless_bitwise_bool = "deny"
- needless_pass_by_ref_mut = "deny"
-diff --git a/rust/meson.build b/rust/meson.build
-index 801f4374dfa..afce62f4772 100644
---- a/rust/meson.build
-+++ b/rust/meson.build
-@@ -24,21 +24,9 @@ subdir('hw')
- cargo = find_program('cargo', required: false)
- 
- if cargo.found()
--  run_target('clippy',
--    command: [config_host['MESON'], 'devenv',
--              '--workdir', '@CURRENT_SOURCE_DIR@',
--              cargo, 'clippy', '--tests'],
--    depends: bindings_rs)
--
-   run_target('rustfmt',
-     command: [config_host['MESON'], 'devenv',
-               '--workdir', '@CURRENT_SOURCE_DIR@',
-               cargo, 'fmt'],
-     depends: bindings_rs)
--
--  run_target('rustdoc',
--    command: [config_host['MESON'], 'devenv',
--              '--workdir', '@CURRENT_SOURCE_DIR@',
--              cargo, 'doc', '--no-deps', '--document-private-items'],
--    depends: bindings_rs)
- endif
-diff --git a/scripts/rust/rustc_args.py b/scripts/rust/rustc_args.py
-index 2633157df2a..63b0748e0d3 100644
---- a/scripts/rust/rustc_args.py
-+++ b/scripts/rust/rustc_args.py
-@@ -104,10 +104,7 @@ def generate_lint_flags(cargo_toml: CargoTOML, strict_lints: bool) -> Iterable[s
-             else:
-                 raise Exception(f"invalid level {level} for {prefix}{lint}")
- 
--            # This may change if QEMU ever invokes clippy-driver or rustdoc by
--            # hand.  For now, check the syntax but do not add non-rustc lints to
--            # the command line.
--            if k == "rust" and not (strict_lints and lint in STRICT_LINTS):
-+            if not (strict_lints and lint in STRICT_LINTS):
-                 lint_list.append(LintFlag(flags=[flag, prefix + lint], priority=priority))
- 
-     if strict_lints:
--- 
-2.49.0
+[*]: https://stackoverflow.com/a/63904992/24336517
+
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+
 
 
