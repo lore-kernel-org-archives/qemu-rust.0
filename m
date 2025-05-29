@@ -1,53 +1,54 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uKYAG-0005LG-48
-	for mharc-qemu-rust@gnu.org; Thu, 29 May 2025 03:59:00 -0400
+	id 1uKYTa-00049X-1R
+	for mharc-qemu-rust@gnu.org; Thu, 29 May 2025 04:18:59 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uKYA9-0005FH-KF; Thu, 29 May 2025 03:58:54 -0400
-Received: from mgamail.intel.com ([192.198.163.11])
+ id 1uKYTU-00048x-Vf; Thu, 29 May 2025 04:18:53 -0400
+Received: from mgamail.intel.com ([192.198.163.9])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uKYA2-0000F6-Kj; Thu, 29 May 2025 03:58:53 -0400
+ id 1uKYTT-0003LG-0a; Thu, 29 May 2025 04:18:52 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1748505527; x=1780041527;
+ t=1748506731; x=1780042731;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=DGGoseyG1muW2Pj2PQZN4Acck6K2Ob22b9R4grP7w6c=;
- b=aGPNdHwUbmdfpVW2YQlr2eUbH9u/aAPbfx4aChs2nUDgoC6D1H1DHfxz
- CqzwIfQHpQkkijEX63IkawrgP6rB/FeqCSuh0Sn17FEDZ8jDlvo4g2QSe
- vFzefmR4PW2LI+Cre4tVgcAoe8ORmbq0qz/WetFgLncntkMyg5tsaDYzD
- jdQd40K4tI42oCccp0qFsYs8Ep1GeHLO3apEe3S/iXH5fNnbEGXtZxG5N
- Kpr+gCmPNkEsZQcbyG/9YdV55TidVo+O9F/IF8fcw5/p2UqydLywNAgST
- H5WrBfWjHsVF48orQlJsIcyC9JNKMoop+VL7YMzOn+r75JKNzjBi+bSZI w==;
-X-CSE-ConnectionGUID: NkWiLABDRpeSl/yw8m58TQ==
-X-CSE-MsgGUID: jtIuvCGeT/6QA/6C48VZNg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11447"; a="61188322"
-X-IronPort-AV: E=Sophos;i="6.15,323,1739865600"; d="scan'208";a="61188322"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2025 00:52:33 -0700
-X-CSE-ConnectionGUID: 3Be/HnOJQmCBwmnZntQYcg==
-X-CSE-MsgGUID: 0L1BrizuTpSkbvv2OMBb0g==
+ bh=C/nexojcTe7uHbvjxWgehErvKjWU1QW8iPN7loyIIcw=;
+ b=nUHMxDzfGgmGSyWb2lNn0F0RtHZcUJZv5HMqEQiME+nqaEsH0Q6Mjouj
+ C+YCrih5kxylsFynW5IAHLNOyvfkHbC3JI3yAm24h6yRIkUU0d3rQH0kK
+ uoqgWBMBnOv03XnOGo+V1jlQuXmtBxj+XuoDIroES5BCW6D0uvUcbjdDE
+ YpGDvEqcvcWbuCVw1I3JmFkwsmwRxXILoUkacJOk7YzfO5PABWXBu0nM8
+ PljkKu7hl/R3Xu1LP50YacL+WPwaJpR33NQ3akXiLarACQiRKw1PL3GVl
+ MTe/7pgH6QKf5xiwadFBt8ymFhvscWHFifbxmIALuwpKTsN1fv6TzGgyD g==;
+X-CSE-ConnectionGUID: CMomnTPnQuSP/unh347uoQ==
+X-CSE-MsgGUID: iryhsolhTU+7t/fbgbFfEA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11447"; a="61218309"
+X-IronPort-AV: E=Sophos;i="6.15,323,1739865600"; d="scan'208";a="61218309"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 May 2025 01:18:47 -0700
+X-CSE-ConnectionGUID: 922KB3qYSrGaxbTxUhkf8Q==
+X-CSE-MsgGUID: MBOMIGy7RM2vT9nzYfv/Yw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,323,1739865600"; d="scan'208";a="144125229"
+X-IronPort-AV: E=Sophos;i="6.15,323,1739865600"; d="scan'208";a="166654277"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa007.jf.intel.com with ESMTP; 29 May 2025 00:52:31 -0700
-Date: Thu, 29 May 2025 16:13:41 +0800
+ by fmviesa002.fm.intel.com with ESMTP; 29 May 2025 01:18:46 -0700
+Date: Thu, 29 May 2025 16:39:56 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, armbru@redhat.com, qemu-rust@nongnu.org
-Subject: Re: [PATCH 03/12] subprojects: add the foreign crate
-Message-ID: <aDgXNWvh9xCI653S@intel.com>
+Subject: Re: [PATCH 10/12] hpet: return errors from realize if properties are
+ incorrect
+Message-ID: <aDgdXLrpOqGN3ZPo@intel.com>
 References: <20250526142254.1061009-1-pbonzini@redhat.com>
- <20250526142455.1061519-3-pbonzini@redhat.com>
+ <20250526142455.1061519-10-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250526142455.1061519-3-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.11; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250526142455.1061519-10-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.9; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -72
 X-Spam_score: -7.3
@@ -69,46 +70,22 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 May 2025 07:58:58 -0000
+X-List-Received-Date: Thu, 29 May 2025 08:18:53 -0000
 
-On Mon, May 26, 2025 at 04:24:46PM +0200, Paolo Bonzini wrote:
-> Date: Mon, 26 May 2025 16:24:46 +0200
+On Mon, May 26, 2025 at 04:24:53PM +0200, Paolo Bonzini wrote:
+> Date: Mon, 26 May 2025 16:24:53 +0200
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 03/12] subprojects: add the foreign crate
+> Subject: [PATCH 10/12] hpet: return errors from realize if properties are
+>  incorrect
 > X-Mailer: git-send-email 2.49.0
 > 
-> This is a cleaned up and separated version of the patches at
-> https://lore.kernel.org/all/20240701145853.1394967-4-pbonzini@redhat.com/
-> https://lore.kernel.org/all/20240701145853.1394967-5-pbonzini@redhat.com/
->
-> Its first user will be the Error bindings; for example a QEMU Error ** can be
-> converted to a Rust Option using
-> 
->      unsafe { Option::<Error>::from_foreign(c_error) }
+> Do not silently adjust num_timers, and fail if intcap is 0.
 > 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  subprojects/.gitignore                        |  1 +
->  subprojects/foreign-0.2-rs.wrap               |  7 +++++
-
-It seems you've already released v0.3.0.
-
->  .../packagefiles/foreign-0.2-rs/meson.build   | 26 +++++++++++++++++++
->  3 files changed, 34 insertions(+)
->  create mode 100644 subprojects/foreign-0.2-rs.wrap
->  create mode 100644 subprojects/packagefiles/foreign-0.2-rs/meson.build
-
-I went through foreign crate and it was really helpful (and there are also
-missing changes as anyhow crate patch). With nits fixed,
+>  hw/timer/hpet.c | 15 ++++++++-------
+>  1 file changed, 8 insertions(+), 7 deletions(-)
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
-
-
-Maybe off topic, it seems the Owned<T> wrapper is very similar to
-OwnedPointer<T>. Is it possible to integrate the two? i.e., build
-Owned<T: ObjectType> based on OwnedPointer<T: FreeForeign>?
-
-Thanks,
-Zhao
 
 
