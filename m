@@ -1,82 +1,82 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uKuiJ-0002Xv-Ls
-	for mharc-qemu-rust@gnu.org; Fri, 30 May 2025 04:03:40 -0400
+	id 1uKuiM-0002YP-L0
+	for mharc-qemu-rust@gnu.org; Fri, 30 May 2025 04:03:44 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uKuiA-0002Vy-W7
+ id 1uKuiB-0002WC-9Y
  for qemu-rust@nongnu.org; Fri, 30 May 2025 04:03:31 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uKui9-0004bM-4D
- for qemu-rust@nongnu.org; Fri, 30 May 2025 04:03:30 -0400
+ id 1uKui8-0004b8-OF
+ for qemu-rust@nongnu.org; Fri, 30 May 2025 04:03:31 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1748592208;
+ s=mimecast20190719; t=1748592207;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=1iO/8dhA6WpfMpyaQHb2m/rin5HTfnhVCocpzfrKwgI=;
- b=cbt0PueF+yibUcx21LLe7lVnuSp/BrMcDDZbKLszsBju80F2yFP8oCP0k6KBIl2ijOIW+h
- /e/lWEvILVVDbT1kliYhWmOAW+CuqcHpKpO8aGDVNABTiC2b37LGi6ttVX0DpFDFNaIIGK
- vV5CZy0MUD2FLMPwQ+PALh9qyl+9VgE=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=1azCmbJZuAfWQgPSVyPr6AsyjXwV0of9HtRemDDmemU=;
+ b=K66iP36CR/UW4vjAKuKRpZ8e6BVM5LIcumhTyzfjB1nCSMm/tgjJTe4y0gowqPVYAL/Oaj
+ 3ZUI1ZsygxX+k0y481rjdnBblV+5VOKCy25UGPe8uTK1kfCNJR5UHymPTTKvkv3BCPhRX/
+ tnFdFhP0S2s052IikpozRQi0E685+h0=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-475-h8ZIVwb7Py-caByftxjM-Q-1; Fri, 30 May 2025 04:03:27 -0400
-X-MC-Unique: h8ZIVwb7Py-caByftxjM-Q-1
-X-Mimecast-MFC-AGG-ID: h8ZIVwb7Py-caByftxjM-Q_1748592206
-Received: by mail-ej1-f70.google.com with SMTP id
- a640c23a62f3a-ad8a0eef39bso114925966b.3
+ us-mta-397-8xPR9CqINlOK2Do_buFYQw-1; Fri, 30 May 2025 04:03:26 -0400
+X-MC-Unique: 8xPR9CqINlOK2Do_buFYQw-1
+X-Mimecast-MFC-AGG-ID: 8xPR9CqINlOK2Do_buFYQw_1748592205
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-adb32dbf60bso67173966b.1
  for <qemu-rust@nongnu.org>; Fri, 30 May 2025 01:03:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748592206; x=1749197006;
+ d=1e100.net; s=20230601; t=1748592204; x=1749197004;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1iO/8dhA6WpfMpyaQHb2m/rin5HTfnhVCocpzfrKwgI=;
- b=jj7QpuXufTHkRyd9ui4tq2PxGxpgBbBYbjEj8yrCdqW1MkaqEMDJLyHRIGF9XjFZCS
- 7P7BU3txmkQ7dVfPGm0SooMZuXZFazsliTBAVS6TpPfM5jauhiVViSJnNj5nFe5wSsmo
- MuMZ/kGLWcFB2UHeGF1t3fntIdXNba34C87VTt9EM6Isr0GvOPjzxV89XSIV9cmMgNl6
- ZaA6SsCZ5RxEW1C+jZOaodaZqy/toVMr0XsvZP+HNYOEL1I88l9ZtChu3ae/a0peEhRs
- EttrtW+53L4VuS918FLcVecTIY9zBtRf51T5do7V2fUhdd5dnKqQoPBVW26+N5yBUrQs
- 4D1g==
-X-Gm-Message-State: AOJu0Yz8I52r5CMIr8mU3Y3UPHEnD7rGzajTegGbsjVMi+l629jf4WRv
- pLGzaMTh8CRLEhI4ykOCnP8KsO4qecDVI2McVkDCD43cvs1xNCaWxLEvM/oPbL0kYAwc2YasFDN
- zQWRBz+HBkY7ugfL5f6k0Gpj9cXVQQbBxrJRgH1GoxUS49jGNSHMTnYo=
-X-Gm-Gg: ASbGncv3M2aaNXwhi5gTBknX4i+u1Y4t8aihhskA+fojukecV02K/Y4Yey/Q9wXSstf
- nh3nweZUQUblXLVjKBE0xLipZo+EB9X+UcHYl3YXWOOfdHcTO6GrTexXGWSTiNaUU84DRXu+oCZ
- mk9XqWWdURbqo9UD2HG3rAIz+XAbmP9dR260p8sf07yTFIuLKjDiRAtV2FcIhNTg4Yw/lpdZIn5
- 1mmCrYANvK9GXDdMUSE/lchKs+0YVhPux7pihKRRiKaYK/Xw1JsoSqWumAqZbYwiT8Q+5ilocsn
- 7JiEJLJgLKkNtg==
-X-Received: by 2002:a17:907:971e:b0:ad8:81c2:64e9 with SMTP id
- a640c23a62f3a-adb322b3326mr182221366b.8.1748592205659; 
- Fri, 30 May 2025 01:03:25 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHPxF5qdEz3NKmDsuaFYI9b4VZqJVJYtzQtdLrNKwmuV5jFnsqnu8IIE1GfTQcpkdq3mSSH/g==
-X-Received: by 2002:a17:907:971e:b0:ad8:81c2:64e9 with SMTP id
- a640c23a62f3a-adb322b3326mr182218966b.8.1748592205171; 
- Fri, 30 May 2025 01:03:25 -0700 (PDT)
+ bh=1azCmbJZuAfWQgPSVyPr6AsyjXwV0of9HtRemDDmemU=;
+ b=X7/6Fb0w8vQvbUR9QFOAGOegCWaDJZ+rHTkjzZM4gMM/lfExBccXPfwtUlDkKqs3KE
+ 1B/ZHZzAqbhwDrQd6mEcn6v+P5SCYspZAl+YxWJFe2IlZgilDjxNQsRsSAnbFFbGrPWL
+ 8WcKl3vcmPkeCFreHCTkOejUvj/KBwq6MfB036wzt2lWD5Wpwca7PUPEED39usJTfqPe
+ 6Pt8jeyZZylKfq3lGQi9uYLf7f7hbYjO96OA8PDflQdHA0PXu+mee8L0uGBTDGpNw8k2
+ RRy2ww1C9mHAook/Jtut8Q5YF2wIWXZqa5hvuHlppoUsEnQd8yzg++Sk7KBWvZGzY78t
+ MnIA==
+X-Gm-Message-State: AOJu0YwpP4rK5WEOGWOc0uhl5IeuR2GVqSX5l1z8fng/dHUNNxK68ivK
+ cdclIpSLEpq/PXIFdcwHEWJhPrr8gQJgzY+UTR1oy2iqM31SqBpxC9kd56QoQk5JE8Ytb6AzyBy
+ QT0QnKE2FrsRJt012ZecNA2Fj0GbmHIFMnf8y8QlT+4ljYPSy9Nd3ROuMD13JHr8=
+X-Gm-Gg: ASbGncuY/UiD9IW7+zud4WhEbPl2a1a0n1HYJI2CtELjcty3RTkikPIvFsD7L9E03Mh
+ jX6TvIfGx+AomHzGoqWnnNYflVWFvEnH0X+BakNh19ZMUmhPMwSpk2PZvL57neAkEnIf2R54Vbb
+ uIxDiwKn5PbdbW6VxSniM62QlXdlxFpGdYOcqCD3NEBm66DCbhkZjUAFseqizu+wU1Cd5T9CVYj
+ dijrBXdrjqAeGVJFHC5PXsadmV8c9Askfh1hjTyUARq12YEf8OoJmcmTEZd4sCIvnSAgfOweuME
+ bRrypOojWnXGGm+XCNtOZTAh
+X-Received: by 2002:a17:907:1c8c:b0:ad5:2d77:7ca7 with SMTP id
+ a640c23a62f3a-adb3230513fmr221918766b.43.1748592204129; 
+ Fri, 30 May 2025 01:03:24 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFEObLGVlMkxoHvdK//Zs9TBV2/VXjAaS4OCBscamgFKTe2ucV1UnEPBC0YVEAf3+nrdgH5OA==
+X-Received: by 2002:a17:907:1c8c:b0:ad5:2d77:7ca7 with SMTP id
+ a640c23a62f3a-adb3230513fmr221916066b.43.1748592203646; 
+ Fri, 30 May 2025 01:03:23 -0700 (PDT)
 Received: from [192.168.122.1] ([151.49.64.79])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-adb2fb63cdasm140343566b.120.2025.05.30.01.03.24
+ a640c23a62f3a-ada6ad395dfsm281759766b.127.2025.05.30.01.03.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 May 2025 01:03:24 -0700 (PDT)
+ Fri, 30 May 2025 01:03:22 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
-Subject: [PATCH 07/14] rust: qemu-api: add tests for Error bindings
-Date: Fri, 30 May 2025 10:02:59 +0200
-Message-ID: <20250530080307.2055502-8-pbonzini@redhat.com>
+Subject: [PATCH 06/14] rust: qemu-api: add bindings to Error
+Date: Fri, 30 May 2025 10:02:58 +0200
+Message-ID: <20250530080307.2055502-7-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250530080307.2055502-1-pbonzini@redhat.com>
 References: <20250530080307.2055502-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: XoWe7hx316y-4zgzkUsl66Pn7Tnt3y4sKmxoLiFw5J4_1748592206
+X-Mimecast-MFC-PROC-ID: vqgLDKCXAk_Gtu0E2SZQJXLkiz4LMtC_u1vI7Eb1wQM_1748592205
 X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
 Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -49
@@ -86,7 +86,8 @@ X-Spam_report: (-5.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.902,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
+ T_FILL_THIS_FORM_SHORT=0.01 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,125 +100,430 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 May 2025 08:03:31 -0000
+X-List-Received-Date: Fri, 30 May 2025 08:03:33 -0000
+
+Provide an implementation of std::error::Error that bridges the Rust
+anyhow::Error and std::panic::Location types with QEMU's Error*.
+It also has several utility methods, analogous to error_propagate(),
+that convert a Result into a return value + Error** pair.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/qemu-api/src/error.rs | 104 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 104 insertions(+)
+ rust/Cargo.lock            |  17 +++
+ rust/Cargo.toml            |   1 +
+ rust/qemu-api/Cargo.toml   |   2 +
+ rust/qemu-api/meson.build  |   1 +
+ rust/qemu-api/src/error.rs | 299 +++++++++++++++++++++++++++++++++++++
+ rust/qemu-api/src/lib.rs   |   3 +
+ 6 files changed, 323 insertions(+)
+ create mode 100644 rust/qemu-api/src/error.rs
 
+diff --git a/rust/Cargo.lock b/rust/Cargo.lock
+index 13d580c693b..961005bb513 100644
+--- a/rust/Cargo.lock
++++ b/rust/Cargo.lock
+@@ -2,6 +2,12 @@
+ # It is not intended for manual editing.
+ version = 3
+ 
++[[package]]
++name = "anyhow"
++version = "1.0.98"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "e16d2d3311acee920a9eb8d33b8cbc1787ce4a264e85f964c2404b969bdcd487"
++
+ [[package]]
+ name = "arbitrary-int"
+ version = "1.2.7"
+@@ -37,6 +43,15 @@ version = "1.12.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "3dca9240753cf90908d7e4aac30f630662b02aebaa1b58a3cadabdb23385b58b"
+ 
++[[package]]
++name = "foreign"
++version = "0.3.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "17ca1b5be8c9d320daf386f1809c7acc0cb09accbae795c2001953fa50585846"
++dependencies = [
++ "libc",
++]
++
+ [[package]]
+ name = "hpet"
+ version = "0.1.0"
+@@ -106,6 +121,8 @@ dependencies = [
+ name = "qemu_api"
+ version = "0.1.0"
+ dependencies = [
++ "anyhow",
++ "foreign",
+  "libc",
+  "qemu_api_macros",
+ ]
+diff --git a/rust/Cargo.toml b/rust/Cargo.toml
+index a00b8ad0bcd..26f3ec09d3d 100644
+--- a/rust/Cargo.toml
++++ b/rust/Cargo.toml
+@@ -66,6 +66,7 @@ missing_safety_doc = "deny"
+ mut_mut = "deny"
+ needless_bitwise_bool = "deny"
+ needless_pass_by_ref_mut = "deny"
++needless_update = "deny"
+ no_effect_underscore_binding = "deny"
+ option_option = "deny"
+ or_fun_call = "deny"
+diff --git a/rust/qemu-api/Cargo.toml b/rust/qemu-api/Cargo.toml
+index c96cf50e7a1..db7000dee44 100644
+--- a/rust/qemu-api/Cargo.toml
++++ b/rust/qemu-api/Cargo.toml
+@@ -15,7 +15,9 @@ rust-version.workspace = true
+ 
+ [dependencies]
+ qemu_api_macros = { path = "../qemu-api-macros" }
++anyhow = "~1.0"
+ libc = "0.2.162"
++foreign = "~0.3.1"
+ 
+ [features]
+ default = ["debug_cell"]
+diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
+index aa22252866d..ef0de51266b 100644
+--- a/rust/qemu-api/meson.build
++++ b/rust/qemu-api/meson.build
+@@ -19,6 +19,7 @@ _qemu_api_rs = static_library(
+       'src/cell.rs',
+       'src/chardev.rs',
+       'src/errno.rs',
++      'src/error.rs',
+       'src/irq.rs',
+       'src/memory.rs',
+       'src/module.rs',
 diff --git a/rust/qemu-api/src/error.rs b/rust/qemu-api/src/error.rs
-index 0bdd413a0a2..a91ce6fefaf 100644
---- a/rust/qemu-api/src/error.rs
+new file mode 100644
+index 00000000000..0bdd413a0a2
+--- /dev/null
 +++ b/rust/qemu-api/src/error.rs
-@@ -297,3 +297,107 @@ unsafe fn cloned_from_foreign(c_error: *const bindings::Error) -> Self {
-         }
-     }
- }
+@@ -0,0 +1,299 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
 +
-+#[cfg(test)]
-+mod tests {
-+    use std::ffi::CStr;
++//! Error propagation for QEMU Rust code
++//!
++//! In QEMU, an `Error` usually consists of a message and an errno value.
++//! In this wrapper, the errno value is replaced by an [`anyhow::Error`]
++//! so that it is easy to pass any other Rust error type up to C code.
++//! Note that the backtrace that is provided by `anyhow` is not used yet,
++//! only the message ends up in the QEMU `Error*`.
++//!
++//! The message part can be used to clarify the inner error, similar to
++//! `error_prepend`, and of course to describe an erroneous condition that
++//! does not come from another [`Error`](std::error::Error) (for example an
++//! invalid argument).
++//!
++//! On top of implementing [`std::error::Error`], [`Error`] provides functions
++//! to simplify conversion between [`Result<>`](std::result::Result) and
++//! C `Error**` conventions.  In particular:
++//!
++//! * [`ok_or_propagate`](qemu_api::Error::ok_or_propagate),
++//!   [`bool_or_propagate`](qemu_api::Error::bool_or_propagate),
++//!   [`ptr_or_propagate`](qemu_api::Error::ptr_or_propagate) can be used to
++//!   build a C return value while also propagating an error condition
++//!
++//! * [`err_or_else`](qemu_api::Error::err_or_else) and
++//!   [`err_or_unit`](qemu_api::Error::err_or_unit) can be used to build a
++//!   `Result`
++//!
++//! While these facilities are useful at the boundary between C and Rust code,
++//! other Rust code need not care about the existence of this module; it can
++//! just use the [`qemu_api::Result`] type alias and rely on the `?` operator as
++//! usual.
++//!
++//! @author Paolo Bonzini
 +
-+    use anyhow::anyhow;
-+    use foreign::OwnedPointer;
++use std::{
++    borrow::Cow,
++    ffi::{c_char, c_int, c_void, CStr},
++    fmt::{self, Display},
++    panic, ptr,
++};
 +
-+    use super::*;
-+    use crate::{assert_match, bindings};
++use foreign::{prelude::*, OwnedPointer};
 +
++use crate::bindings;
++
++pub type Result<T> = std::result::Result<T, Error>;
++
++#[derive(Debug)]
++pub struct Error {
++    msg: Option<Cow<'static, str>>,
++    /// Appends the print string of the error to the msg if not None
++    cause: Option<anyhow::Error>,
++    file: &'static str,
++    line: u32,
++}
++
++impl std::error::Error for Error {
++    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
++        self.cause.as_ref().map(AsRef::as_ref)
++    }
++
++    #[allow(deprecated)]
++    fn description(&self) -> &str {
++        self.msg
++            .as_deref()
++            .or_else(|| self.cause.as_deref().map(std::error::Error::description))
++            .unwrap_or("unknown error")
++    }
++}
++
++impl Display for Error {
++    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
++        let mut prefix = "";
++        if let Some(ref msg) = self.msg {
++            write!(f, "{msg}")?;
++            prefix = ": ";
++        }
++        if let Some(ref cause) = self.cause {
++            write!(f, "{prefix}{cause}")?;
++        } else if prefix.is_empty() {
++            f.write_str("unknown error")?;
++        }
++        Ok(())
++    }
++}
++
++impl From<String> for Error {
 +    #[track_caller]
-+    fn error_for_test(msg: &CStr) -> OwnedPointer<Error> {
-+        // SAFETY: all arguments are controlled by this function
++    fn from(msg: String) -> Self {
 +        let location = panic::Location::caller();
++        Error {
++            msg: Some(Cow::Owned(msg)),
++            cause: None,
++            file: location.file(),
++            line: location.line(),
++        }
++    }
++}
++
++impl From<&'static str> for Error {
++    #[track_caller]
++    fn from(msg: &'static str) -> Self {
++        let location = panic::Location::caller();
++        Error {
++            msg: Some(Cow::Borrowed(msg)),
++            cause: None,
++            file: location.file(),
++            line: location.line(),
++        }
++    }
++}
++
++impl From<anyhow::Error> for Error {
++    #[track_caller]
++    fn from(error: anyhow::Error) -> Self {
++        let location = panic::Location::caller();
++        Error {
++            msg: None,
++            cause: Some(error),
++            file: location.file(),
++            line: location.line(),
++        }
++    }
++}
++
++impl Error {
++    /// Create a new error, prepending `msg` to the
++    /// description of `cause`
++    #[track_caller]
++    pub fn with_error(msg: impl Into<Cow<'static, str>>, cause: impl Into<anyhow::Error>) -> Self {
++        let location = panic::Location::caller();
++        Error {
++            msg: Some(msg.into()),
++            cause: Some(cause.into()),
++            file: location.file(),
++            line: location.line(),
++        }
++    }
++
++    /// Consume a result, returning `false` if it is an error and
++    /// `true` if it is successful.  The error is propagated into
++    /// `errp` like the C API `error_propagate` would do.
++    ///
++    /// # Safety
++    ///
++    /// `errp` must be a valid argument to `error_propagate`;
++    /// typically it is received from C code and need not be
++    /// checked further at the Rust↔C boundary.
++    pub unsafe fn bool_or_propagate(result: Result<()>, errp: *mut *mut bindings::Error) -> bool {
++        // SAFETY: caller guarantees errp is valid
++        unsafe { Self::ok_or_propagate(result, errp) }.is_some()
++    }
++
++    /// Consume a result, returning a `NULL` pointer if it is an
++    /// error and a C representation of the contents if it is
++    /// successful.  The error is propagated into `errp` like
++    /// the C API `error_propagate` would do.
++    ///
++    /// # Safety
++    ///
++    /// `errp` must be a valid argument to `error_propagate`;
++    /// typically it is received from C code and need not be
++    /// checked further at the Rust↔C boundary.
++    #[must_use]
++    pub unsafe fn ptr_or_propagate<T: CloneToForeign>(
++        result: Result<T>,
++        errp: *mut *mut bindings::Error,
++    ) -> *mut T::Foreign {
++        // SAFETY: caller guarantees errp is valid
++        unsafe { Self::ok_or_propagate(result, errp) }.clone_to_foreign_ptr()
++    }
++
++    /// Consume a result in the same way as `self.ok()`, but also propagate
++    /// a possible error into `errp`, like the C API `error_propagate`
++    /// would do.
++    ///
++    /// # Safety
++    ///
++    /// `errp` must be a valid argument to `error_propagate`;
++    /// typically it is received from C code and need not be
++    /// checked further at the Rust↔C boundary.
++    pub unsafe fn ok_or_propagate<T>(
++        result: Result<T>,
++        errp: *mut *mut bindings::Error,
++    ) -> Option<T> {
++        result.map_err(|err| unsafe { err.propagate(errp) }).ok()
++    }
++
++    /// Equivalent of the C function `error_propagate`.  Fill `*errp`
++    /// with the information container in `self` if `errp` is not NULL;
++    /// then consume it.
++    ///
++    /// # Safety
++    ///
++    /// `errp` must be a valid argument to `error_propagate`;
++    /// typically it is received from C code and need not be
++    /// checked further at the Rust↔C boundary.
++    pub unsafe fn propagate(self, errp: *mut *mut bindings::Error) {
++        if errp.is_null() {
++            return;
++        }
++
++        let err = self.clone_to_foreign_ptr();
++
++        // SAFETY: caller guarantees errp is valid
++        unsafe {
++            errp.write(err);
++        }
++    }
++
++    /// Convert a C `Error*` into a Rust `Result`, using
++    /// `Ok(())` if `c_error` is NULL.  Free the `Error*`.
++    ///
++    /// # Safety
++    ///
++    /// `c_error` must be `NULL` or valid; typically it was initialized
++    /// with `ptr::null_mut()` and passed by reference to a C function.
++    pub unsafe fn err_or_unit(c_error: *mut bindings::Error) -> Result<()> {
++        // SAFETY: caller guarantees c_error is valid
++        unsafe { Self::err_or_else(c_error, || ()) }
++    }
++
++    /// Convert a C `Error*` into a Rust `Result`, calling `f()` to
++    /// obtain an `Ok` value if `c_error` is NULL.  Free the `Error*`.
++    ///
++    /// # Safety
++    ///
++    /// `c_error` must be `NULL` or valid; typically it was initialized
++    /// with `ptr::null_mut()` and passed by reference to a C function.
++    pub unsafe fn err_or_else<T, F: FnOnce() -> T>(
++        c_error: *mut bindings::Error,
++        f: F,
++    ) -> Result<T> {
++        // SAFETY: caller guarantees c_error is valid
++        let err = unsafe { Option::<Self>::from_foreign(c_error) };
++        match err {
++            None => Ok(f()),
++            Some(err) => Err(err),
++        }
++    }
++}
++
++impl FreeForeign for Error {
++    type Foreign = bindings::Error;
++
++    unsafe fn free_foreign(p: *mut bindings::Error) {
++        // SAFETY: caller guarantees p is valid
++        unsafe {
++            bindings::error_free(p);
++        }
++    }
++}
++
++impl CloneToForeign for Error {
++    fn clone_to_foreign(&self) -> OwnedPointer<Self> {
++        // SAFETY: all arguments are controlled by this function
 +        unsafe {
 +            let err: *mut c_void = libc::malloc(std::mem::size_of::<bindings::Error>());
 +            let err: &mut bindings::Error = &mut *err.cast();
 +            *err = bindings::Error {
-+                msg: msg.clone_to_foreign_ptr(),
++                msg: format!("{self}").clone_to_foreign_ptr(),
 +                err_class: bindings::ERROR_CLASS_GENERIC_ERROR,
-+                src_len: location.file().len() as c_int,
-+                src: location.file().as_ptr().cast::<c_char>(),
-+                line: location.line() as c_int,
++                src_len: self.file.len() as c_int,
++                src: self.file.as_ptr().cast::<c_char>(),
++                line: self.line as c_int,
 +                func: ptr::null_mut(),
 +                hint: ptr::null_mut(),
 +            };
 +            OwnedPointer::new(err)
 +        }
 +    }
++}
 +
-+    unsafe fn error_get_pretty<'a>(local_err: *mut bindings::Error) -> &'a CStr {
-+        unsafe { CStr::from_ptr(bindings::error_get_pretty(local_err)) }
-+    }
-+
-+    #[test]
-+    #[allow(deprecated)]
-+    fn test_description() {
-+        use std::error::Error;
-+
-+        assert_eq!(super::Error::from("msg").description(), "msg");
-+        assert_eq!(super::Error::from("msg".to_owned()).description(), "msg");
-+    }
-+
-+    #[test]
-+    fn test_display() {
-+        assert_eq!(&*format!("{}", Error::from("msg")), "msg");
-+        assert_eq!(&*format!("{}", Error::from("msg".to_owned())), "msg");
-+        assert_eq!(&*format!("{}", Error::from(anyhow!("msg"))), "msg");
-+
-+        assert_eq!(
-+            &*format!("{}", Error::with_error("msg", anyhow!("cause"))),
-+            "msg: cause"
-+        );
-+    }
-+
-+    #[test]
-+    fn test_bool_or_propagate() {
++impl FromForeign for Error {
++    unsafe fn cloned_from_foreign(c_error: *const bindings::Error) -> Self {
++        // SAFETY: caller guarantees c_error is valid
 +        unsafe {
-+            let mut local_err: *mut bindings::Error = ptr::null_mut();
++            let error = &*c_error;
++            let file = if error.src_len < 0 {
++                // NUL-terminated
++                CStr::from_ptr(error.src).to_str()
++            } else {
++                // Can become str::from_utf8 with Rust 1.87.0
++                std::str::from_utf8(std::slice::from_raw_parts(
++                    &*error.src.cast::<u8>(),
++                    error.src_len as usize,
++                ))
++            };
 +
-+            assert!(Error::bool_or_propagate(Ok(()), &mut local_err));
-+            assert_eq!(local_err, ptr::null_mut());
-+
-+            let my_err = Error::from("msg");
-+            assert!(!Error::bool_or_propagate(Err(my_err), &mut local_err));
-+            assert_ne!(local_err, ptr::null_mut());
-+            assert_eq!(error_get_pretty(local_err), c"msg");
-+            bindings::error_free(local_err);
-+        }
-+    }
-+
-+    #[test]
-+    fn test_ptr_or_propagate() {
-+        unsafe {
-+            let mut local_err: *mut bindings::Error = ptr::null_mut();
-+
-+            let ret = Error::ptr_or_propagate(Ok("abc".to_owned()), &mut local_err);
-+            assert_eq!(String::from_foreign(ret), "abc");
-+            assert_eq!(local_err, ptr::null_mut());
-+
-+            let my_err = Error::from("msg");
-+            assert_eq!(
-+                Error::ptr_or_propagate(Err::<String, _>(my_err), &mut local_err),
-+                ptr::null_mut()
-+            );
-+            assert_ne!(local_err, ptr::null_mut());
-+            assert_eq!(error_get_pretty(local_err), c"msg");
-+            bindings::error_free(local_err);
-+        }
-+    }
-+
-+    #[test]
-+    fn test_err_or_unit() {
-+        unsafe {
-+            let result = Error::err_or_unit(ptr::null_mut());
-+            assert_match!(result, Ok(()));
-+
-+            let err = error_for_test(c"msg");
-+            let err = Error::err_or_unit(err.into_inner()).unwrap_err();
-+            assert_eq!(&*format!("{err}"), "msg");
++            Error {
++                msg: FromForeign::cloned_from_foreign(error.msg),
++                cause: None,
++                file: file.unwrap(),
++                line: error.line as u32,
++            }
 +        }
 +    }
 +}
+diff --git a/rust/qemu-api/src/lib.rs b/rust/qemu-api/src/lib.rs
+index 234a94e3c29..93902fc94bc 100644
+--- a/rust/qemu-api/src/lib.rs
++++ b/rust/qemu-api/src/lib.rs
+@@ -19,6 +19,7 @@
+ pub mod cell;
+ pub mod chardev;
+ pub mod errno;
++pub mod error;
+ pub mod irq;
+ pub mod memory;
+ pub mod module;
+@@ -34,6 +35,8 @@
+     ffi::c_void,
+ };
+ 
++pub use error::{Error, Result};
++
+ #[cfg(HAVE_GLIB_WITH_ALIGNED_ALLOC)]
+ extern "C" {
+     fn g_aligned_alloc0(
 -- 
 2.49.0
 
