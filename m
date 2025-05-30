@@ -1,62 +1,93 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uKZ5D-0005ie-Gy
-	for mharc-qemu-rust@gnu.org; Thu, 29 May 2025 04:57:51 -0400
+	id 1uKui1-0002NK-0j
+	for mharc-qemu-rust@gnu.org; Fri, 30 May 2025 04:03:21 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uKZ5B-0005ge-F8; Thu, 29 May 2025 04:57:49 -0400
-Received: from mgamail.intel.com ([198.175.65.20])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uKuhy-0002MT-OD
+ for qemu-rust@nongnu.org; Fri, 30 May 2025 04:03:18 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uKZ58-0007Md-UR; Thu, 29 May 2025 04:57:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1748509067; x=1780045067;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=9B8J58l7V57FlpKuN5IzOc9MBLik5oRzVmUMTCD2JpU=;
- b=UOh12rHQk/xz3eIWg9zkw2NzkF+tkvi8PCAhGlVjGj3G3JXhAAxw/AdK
- boWLMybJBLcKQrZV+FpoEByE92blaYUPVBIl+HIlfoyR7PstrU0p3EXh3
- W0yxfX9l/Wh/jFHmeXVdHZrrjqi8ZubaVInJRgKK+y7DyuRo+icXQ5pFh
- 8TFAeimj+X6YIkotGERuM7sMlrF+CHDp4FN5qaKgHTVHrgJskAZ3J1S0i
- +1o/ngOle9A8DbOaUhy24UVuaRbXmWAnJjcDyF5YJ/BLIqUsBnMv53l2Q
- T9T9HotwKsasxyBPXlKKkcrCLs4ILCCI8YNcrM+1/ZLYMg7E3eU8G+aPw g==;
-X-CSE-ConnectionGUID: XS/ekoJGQ5euhMYSytrCtA==
-X-CSE-MsgGUID: YqK/13OYSIWa+cwDubFpFw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11447"; a="50259039"
-X-IronPort-AV: E=Sophos;i="6.15,323,1739865600"; d="scan'208";a="50259039"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2025 01:57:44 -0700
-X-CSE-ConnectionGUID: qFDC97o2RjOnD3iwBi9T8g==
-X-CSE-MsgGUID: 2pJTPAHoRBSKOhI9toH+mw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,323,1739865600"; d="scan'208";a="143485944"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa007.fm.intel.com with ESMTP; 29 May 2025 01:57:43 -0700
-Date: Thu, 29 May 2025 17:18:53 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, armbru@redhat.com, qemu-rust@nongnu.org
-Subject: Re: [PATCH 08/12] rust: qdev: support returning errors from realize
-Message-ID: <aDgmfYwKVk9zG2BY@intel.com>
-References: <20250526142254.1061009-1-pbonzini@redhat.com>
- <20250526142455.1061519-8-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uKuhv-0004XE-VT
+ for qemu-rust@nongnu.org; Fri, 30 May 2025 04:03:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1748592194;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=M6QoYP5WCSbSMFCMhfRa9ReIhHpAzUDchEI+NzMVEms=;
+ b=B7axh9mSnKcoH5s1WngjvxvTotrrf7P9RciF0Xu90iRQMCCzMPSSIJqirWqAmwJ3FHlxad
+ T636rx7zYmXOE+b9GaazhR4bdGTdJE1UmTkCbY+inSbbYgO3t3oNXXs95SL/KgLEDeF4+5
+ DP1DKpv0HBvis593iZMIwdQAQAkz2MY=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-265-sDXkp5eyPp2M4SzUen4pOw-1; Fri, 30 May 2025 04:03:13 -0400
+X-MC-Unique: sDXkp5eyPp2M4SzUen4pOw-1
+X-Mimecast-MFC-AGG-ID: sDXkp5eyPp2M4SzUen4pOw_1748592192
+Received: by mail-ed1-f72.google.com with SMTP id
+ 4fb4d7f45d1cf-600afe38ad3so1417645a12.3
+ for <qemu-rust@nongnu.org>; Fri, 30 May 2025 01:03:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1748592192; x=1749196992;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=M6QoYP5WCSbSMFCMhfRa9ReIhHpAzUDchEI+NzMVEms=;
+ b=ipavqgxugQYke2NzKAAshBcy2gJ97MaN9dVaaLRJkY5vxvjt0AhtseEfmwAXUQNhl2
+ w7b4rpRVzam5fsQo2fbPGGHY/t4FmPlbUATffBsZKP527qE1BH7b5cR3OAuqakitEomu
+ s6eHVCZtKrYPKesuaw4OWiMKpEGiNwIbcgUVYlJiYYY9+MLxAIWbc+MLUrvpELou7aVg
+ 88PJPbB9KW54WDLz4pFLdrw/URiQsee7YFqNg5aCBWCJogEiSaaMg5lu8j5mBi/Ykh6M
+ MkOq+0u8ODfLoyIotYDeo01FSvLaGTM5esPjMdbMQDUriQyn0B/ZjbLqEKfjHP9JZvaz
+ 26zA==
+X-Gm-Message-State: AOJu0YzYSyqeDA1CBP5MWNcyAElddos3UZ3q/0RD5LsgyGQpJIzOMvrX
+ iUVefnGjbGg4L9h83bz9LtFoY87udHw4o1j/5/NSRS+5wu5WdwFHQmSxDReSSueU/xrqgoCVH4O
+ hpFe7lA2wC+gwmLtexWgwrMUOlLLiDG0U1H3sZeB5C9zX1wPZCfMUzEo2+oGEwY8=
+X-Gm-Gg: ASbGncs2gNHuWdTz8trDPbjuPFSoZzi05ImJRvMj1FTI8Tld31HSXW5FGl1h46JBqjW
+ x0FmDmrPncyOwLITGxKmPk9kh0F5LBXy90Lzd5ltBmYPcpz5PVHN4sZ54WhiLqeyz4rl9JSExW2
+ 6wco6jmbG7EhOJt3V2VCYzohJin6oj9Pl1qMXwQdFe0PaiB3l2O0K8hRckh29ydxvxlggeclF6/
+ qbAxe1xhWRMi1indJqiWTvHlorJE55TGitEXwxW2YGeZnCFPPP+ls9RUAwoQv4wjUuzVZvUsuGA
+ M0W2C7FmrAD56g==
+X-Received: by 2002:a05:6402:34d0:b0:602:3e4:54de with SMTP id
+ 4fb4d7f45d1cf-6056db31fdfmr2252483a12.10.1748592191612; 
+ Fri, 30 May 2025 01:03:11 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGTV+NBOEZUNPTidm/yHYmvPTkjQLR5Zjaf7PHW0R7WQSmI2kZJjbN4co+1imMPkaADl0Nnew==
+X-Received: by 2002:a05:6402:34d0:b0:602:3e4:54de with SMTP id
+ 4fb4d7f45d1cf-6056db31fdfmr2252451a12.10.1748592191179; 
+ Fri, 30 May 2025 01:03:11 -0700 (PDT)
+Received: from [192.168.122.1] ([151.49.64.79])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-60566c59f81sm1252212a12.18.2025.05.30.01.03.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 May 2025 01:03:10 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org,
+	Zhao Liu <zhao1.liu@intel.com>
+Subject: [PATCH 01/14] subprojects: add the anyhow crate
+Date: Fri, 30 May 2025 10:02:53 +0200
+Message-ID: <20250530080307.2055502-2-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250530080307.2055502-1-pbonzini@redhat.com>
+References: <20250530080307.2055502-1-pbonzini@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250526142455.1061519-8-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.20; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -72
-X-Spam_score: -7.3
-X-Spam_bar: -------
-X-Spam_report: (-7.3 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.904,
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: OzQS0QLUKM1QxKkJ0KxB6jncdL43ffl_uYN3rrAgRyk_1748592192
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -49
+X-Spam_score: -5.0
+X-Spam_bar: -----
+X-Spam_report: (-5.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-2.902,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -69,21 +100,144 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 May 2025 08:57:50 -0000
+X-List-Received-Date: Fri, 30 May 2025 08:03:19 -0000
 
-On Mon, May 26, 2025 at 04:24:51PM +0200, Paolo Bonzini wrote:
-> Date: Mon, 26 May 2025 16:24:51 +0200
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 08/12] rust: qdev: support returning errors from realize
-> X-Mailer: git-send-email 2.49.0
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/hw/char/pl011/src/device.rs |  5 +++--
->  rust/hw/timer/hpet/src/hpet.rs   |  5 +++--
->  rust/qemu-api/src/qdev.rs        | 10 ++++++----
->  3 files changed, 12 insertions(+), 8 deletions(-)
+This is a standard replacement for Box<dyn Error> which is more efficient (it only
+occcupies one word) and provides a backtrace of the error.  This could be plumbed
+into &error_abort in the future.
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ rust/meson.build                              |  2 ++
+ rust/qemu-api/meson.build                     |  2 +-
+ scripts/archive-source.sh                     |  2 +-
+ scripts/make-release                          |  2 +-
+ subprojects/.gitignore                        |  1 +
+ subprojects/anyhow-1-rs.wrap                  |  7 ++++
+ .../packagefiles/anyhow-1.0-rs/meson.build    | 33 +++++++++++++++++++
+ 7 files changed, 46 insertions(+), 3 deletions(-)
+ create mode 100644 subprojects/anyhow-1-rs.wrap
+ create mode 100644 subprojects/packagefiles/anyhow-1.0-rs/meson.build
+
+diff --git a/rust/meson.build b/rust/meson.build
+index afce62f4772..6227e01f32a 100644
+--- a/rust/meson.build
++++ b/rust/meson.build
+@@ -1,7 +1,9 @@
++subproject('anyhow-1-rs', required: true)
+ subproject('bilge-0.2-rs', required: true)
+ subproject('bilge-impl-0.2-rs', required: true)
+ subproject('libc-0.2-rs', required: true)
+ 
++anyhow_rs = dependency('anyhow-1-rs')
+ bilge_rs = dependency('bilge-0.2-rs')
+ bilge_impl_rs = dependency('bilge-impl-0.2-rs')
+ libc_rs = dependency('libc-0.2-rs')
+diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
+index d19f52af4da..181ceca9536 100644
+--- a/rust/qemu-api/meson.build
++++ b/rust/qemu-api/meson.build
+@@ -35,7 +35,7 @@ _qemu_api_rs = static_library(
+   override_options: ['rust_std=2021', 'build.rust_std=2021'],
+   rust_abi: 'rust',
+   rust_args: _qemu_api_cfg,
+-  dependencies: [libc_rs, qemu_api_macros, qemuutil_rs,
++  dependencies: [anyhow_rs, libc_rs, qemu_api_macros, qemuutil_rs,
+                  qom, hwcore, chardev, migration],
+ )
+ 
+diff --git a/scripts/archive-source.sh b/scripts/archive-source.sh
+index e461c1531ed..816062fee94 100755
+--- a/scripts/archive-source.sh
++++ b/scripts/archive-source.sh
+@@ -27,7 +27,7 @@ sub_file="${sub_tdir}/submodule.tar"
+ # in their checkout, because the build environment is completely
+ # different to the host OS.
+ subprojects="keycodemapdb libvfio-user berkeley-softfloat-3
+-  berkeley-testfloat-3 arbitrary-int-1-rs bilge-0.2-rs
++  berkeley-testfloat-3 anyhow-1-rs arbitrary-int-1-rs bilge-0.2-rs
+   bilge-impl-0.2-rs either-1-rs itertools-0.11-rs libc-0.2-rs proc-macro2-1-rs
+   proc-macro-error-1-rs proc-macro-error-attr-1-rs quote-1-rs
+   syn-2-rs unicode-ident-1-rs"
+diff --git a/scripts/make-release b/scripts/make-release
+index 8c3594a1a47..ea65bdcc0cf 100755
+--- a/scripts/make-release
++++ b/scripts/make-release
+@@ -40,7 +40,7 @@ fi
+ 
+ # Only include wraps that are invoked with subproject()
+ SUBPROJECTS="libvfio-user keycodemapdb berkeley-softfloat-3
+-  berkeley-testfloat-3 arbitrary-int-1-rs bilge-0.2-rs
++  berkeley-testfloat-3 anyhow-1-rs arbitrary-int-1-rs bilge-0.2-rs
+   bilge-impl-0.2-rs either-1-rs itertools-0.11-rs libc-0.2-rs proc-macro2-1-rs
+   proc-macro-error-1-rs proc-macro-error-attr-1-rs quote-1-rs
+   syn-2-rs unicode-ident-1-rs"
+diff --git a/subprojects/.gitignore b/subprojects/.gitignore
+index d12d34618cc..b9ae507b85a 100644
+--- a/subprojects/.gitignore
++++ b/subprojects/.gitignore
+@@ -6,6 +6,7 @@
+ /keycodemapdb
+ /libvfio-user
+ /slirp
++/anyhow-1.0.98
+ /arbitrary-int-1.2.7
+ /bilge-0.2.0
+ /bilge-impl-0.2.0
+diff --git a/subprojects/anyhow-1-rs.wrap b/subprojects/anyhow-1-rs.wrap
+new file mode 100644
+index 00000000000..a69a3645b49
+--- /dev/null
++++ b/subprojects/anyhow-1-rs.wrap
+@@ -0,0 +1,7 @@
++[wrap-file]
++directory = anyhow-1.0.98
++source_url = https://crates.io/api/v1/crates/anyhow/1.0.98/download
++source_filename = anyhow-1.0.98.tar.gz
++source_hash = e16d2d3311acee920a9eb8d33b8cbc1787ce4a264e85f964c2404b969bdcd487
++#method = cargo
++patch_directory = anyhow-1-rs
+diff --git a/subprojects/packagefiles/anyhow-1.0-rs/meson.build b/subprojects/packagefiles/anyhow-1.0-rs/meson.build
+new file mode 100644
+index 00000000000..348bab98b9f
+--- /dev/null
++++ b/subprojects/packagefiles/anyhow-1.0-rs/meson.build
+@@ -0,0 +1,33 @@
++project('anyhow-1-rs', 'rust',
++  meson_version: '>=1.5.0',
++  version: '1.0.98',
++  license: 'MIT OR Apache-2.0',
++  default_options: [])
++
++rustc = meson.get_compiler('rust')
++
++rust_args = ['--cap-lints', 'allow']
++rust_args += ['--cfg', 'feature="std"']
++if rustc.version().version_compare('<1.65.0')
++  error('rustc version ' + rustc.version() + ' is unsupported. Please upgrade to at least 1.65.0')
++endif
++rust_args += [ '--cfg', 'std_backtrace' ] # >= 1.65.0
++if rustc.version().version_compare('<1.81.0')
++  rust_args += [ '--cfg', 'anyhow_no_core_error' ]
++endif
++
++_anyhow_rs = static_library(
++  'anyhow',
++  files('src/lib.rs'),
++  gnu_symbol_visibility: 'hidden',
++  override_options: ['rust_std=2018', 'build.rust_std=2018'],
++  rust_abi: 'rust',
++  rust_args: rust_args,
++  dependencies: [],
++)
++
++anyhow_dep = declare_dependency(
++  link_with: _anyhow_rs,
++)
++
++meson.override_dependency('anyhow-1-rs', anyhow_dep)
+-- 
+2.49.0
 
 
