@@ -1,61 +1,68 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uMNil-0006HW-SZ
-	for mharc-qemu-rust@gnu.org; Tue, 03 Jun 2025 05:14:11 -0400
+	id 1uMOwa-00080C-W7
+	for mharc-qemu-rust@gnu.org; Tue, 03 Jun 2025 06:32:33 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uMNij-0006H4-Q0; Tue, 03 Jun 2025 05:14:09 -0400
-Received: from mgamail.intel.com ([192.198.163.7])
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uMOwY-0007zh-R9
+ for qemu-rust@nongnu.org; Tue, 03 Jun 2025 06:32:31 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uMNig-0005pF-V6; Tue, 03 Jun 2025 05:14:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1748942047; x=1780478047;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=zvg6L018Ewov4eURmDaD8O4hsuuTb8Ic6w9dXXAN2f0=;
- b=nLv1Py+vvTxt+qqQLRchG0EvpHtkRu48M31w8e95wGSmimn5saA5QTwq
- +CkizfP6lATgQKuIQVHHy0EGrybWXIZweWhTBOxmM1P3cUCckpP4kiRvV
- Ne+TvXe/MWTja/xJ41R/N0xYVFsvgcHN7W+26srk1bOXLMjDooxWOK5mP
- 5CnvLXACPlpgKLrVvOLQcKPgfVEtkv//Hqk/gNsaIBgmPy0wJxgtk+07w
- Uo20JPLlnfIOtLNGs0qa6AnJvCtfaRoG4OF6SUdUaYoIE8v0xLO2NDtgg
- f9GbzTTqCWjlKapZ2xpHfhYMun16hq8T2hO2Ya8nGoGUd+5TeEeqWEeh+ g==;
-X-CSE-ConnectionGUID: DTm52iuoQ3KVSTU6FZvkKQ==
-X-CSE-MsgGUID: 8DnTxf5sQumYe9gQSRnp1g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11451"; a="76365490"
-X-IronPort-AV: E=Sophos;i="6.16,205,1744095600"; d="scan'208";a="76365490"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2025 02:14:04 -0700
-X-CSE-ConnectionGUID: Ls0kT20JRwabESDUa6YxMA==
-X-CSE-MsgGUID: tBbSOFXIS3aa6VB8pRwOQQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,205,1744095600"; d="scan'208";a="144775548"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa007.fm.intel.com with ESMTP; 03 Jun 2025 02:14:03 -0700
-Date: Tue, 3 Jun 2025 17:35:15 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH v2 00/14] rust: bindings for Error
-Message-ID: <aD7B02b1EOedrtUq@intel.com>
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uMOwT-0007TN-G6
+ for qemu-rust@nongnu.org; Tue, 03 Jun 2025 06:32:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1748946742;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=fhSZSAV/6vQipzUtXID/HCzKaZL8NDiReASoJHPQeqo=;
+ b=hpLLna93oQjRx/pYuXCdp341ebWXb8BIARDUHMxMXIFG+RzXCOiHU1csgY27rjqx4H2oUO
+ 2uXG26gTxyFQW7RKDTCy4sCg9eERSQSHQRQmNxtHTnTYpQVTmQHFafh4wfnTPgXs5TPtZD
+ TNqLXvD7QxfmjbyQLD5xrBM7kslDokU=
+Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-497-SB_n5QQqM-yJsLpzK3n53A-1; Tue,
+ 03 Jun 2025 06:32:19 -0400
+X-MC-Unique: SB_n5QQqM-yJsLpzK3n53A-1
+X-Mimecast-MFC-AGG-ID: SB_n5QQqM-yJsLpzK3n53A_1748946738
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 11E921956095; Tue,  3 Jun 2025 10:32:18 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.38])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 7BB8B1800359; Tue,  3 Jun 2025 10:32:17 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 232D521E6766; Tue, 03 Jun 2025 12:32:15 +0200 (CEST)
+From: Markus Armbruster <armbru@redhat.com>
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,  qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org
+Subject: Re: [PATCH 06/14] rust: qemu-api: add bindings to Error
+In-Reply-To: <aD7AbxghCc5VYDhu@intel.com> (Zhao Liu's message of "Tue, 3 Jun
+ 2025 17:29:19 +0800")
 References: <20250530080307.2055502-1-pbonzini@redhat.com>
+ <20250530080307.2055502-7-pbonzini@redhat.com>
+ <877c1uffj3.fsf@pond.sub.org> <aD7AbxghCc5VYDhu@intel.com>
+Date: Tue, 03 Jun 2025 12:32:15 +0200
+Message-ID: <8734ch5d5c.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250530080307.2055502-1-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.7; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.015,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -16
+X-Spam_score: -1.7
+X-Spam_bar: -
+X-Spam_report: (-1.7 / 5.0 requ) BAYES_00=-1.9, DKIM_INVALID=0.1,
+ DKIM_SIGNED=0.1, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -68,31 +75,84 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Jun 2025 09:14:10 -0000
+X-List-Received-Date: Tue, 03 Jun 2025 10:32:32 -0000
 
-On Fri, May 30, 2025 at 10:02:52AM +0200, Paolo Bonzini wrote:
-> Date: Fri, 30 May 2025 10:02:52 +0200
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH v2 00/14] rust: bindings for Error
-> X-Mailer: git-send-email 2.49.0
-> 
-> As explained for v1, the impetus for this series is to remove BqlCell<>
-> from HPETState::num_timers.  However, it's also an important step for QAPI:
-> error propagation is pretty central for example to QMP, and the series
-> is also a first example of two-way conversion between C and native-Rust
-> structs (i.e. not using bindgen-generated structs or their opaque wrappers).
-> 
-> As an aside, support for NUL-terminated file is now scheduled for
-> inclusion in Rust as "panic::Location::file_with_nul()", but it will be
-> quite a while before QEMU can use it.  For more information, see
-> https://github.com/rust-lang/rust/issues/141727.
+Zhao Liu <zhao1.liu@intel.com> writes:
+> Markus Armbruster <armbru@redhat.com> writes:
 
-Apart from Markus's comments, the rest of the code (the specific
-implementation of error binding) looks great to me. The interaction with
-Foreign crate is quite insightful. I'll go through other patches on the
-rust-next branch.
+[...]
 
-Thanks,
-Zhao
+>> Let's examine the other aspect: how exactly "storing" behaves.
+>> 
+>> error_setg() according to its contract:
+>> 
+>>     If @errp is NULL, the error is ignored.  [...]
+>> 
+>>     If @errp is &error_abort, print a suitable message and abort().
+>> 
+>>     If @errp is &error_fatal, print a suitable message and exit(1).
+>> 
+>>     If @errp is anything else, *@errp must be NULL.
+>> 
+>> error_propagate() according to its contract:
+>> 
+>>     [...] if @dst_errp is NULL, errors are being ignored.  Free the
+>>     error object.
+>> 
+>>     Else, if @dst_errp is &error_abort, print a suitable message and
+>>     abort().
+>> 
+>>     Else, if @dst_errp is &error_fatal, print a suitable message and
+>>     exit(1).
+>> 
+>>     Else, if @dst_errp already contains an error, ignore this one: free
+>>     the error object.
+>> 
+>>     Else, move the error object from @local_err to *@dst_errp.
+>> 
+>> The second to last clause is where its storing differs from
+>> error_setg().
+>> 
+>> What does errp.write(err) do?  I *guess* it simply stores @err in @errp.
+>> Matches neither behavior.
+>> 
+>> If that's true, then passing &error_abort or &error_fatal to Rust does
+>> not work, and neither does error accumulation.  Not equivalent of C
+>> error_propagate().
+>
+> I did some simple tests. yes, &error_abort or &error_fatal doesn't work.
+> Current @errp of realize() can work because @errp points to @local_err
+> in device_set_realized().
+
+Thank you!
+
+>> Is "propagate" semantics what you want here?
+>> 
+>> If not, use another name.
+>
+> I guess here we should call C version's error_propagate() instead of
+> write():
+>
+> diff --git a/rust/qemu-api/src/error.rs b/rust/qemu-api/src/error.rs
+> index a91ce6fefaf4..56622065ad22 100644
+> --- a/rust/qemu-api/src/error.rs
+> +++ b/rust/qemu-api/src/error.rs
+> @@ -205,7 +205,7 @@ pub unsafe fn propagate(self, errp: *mut *mut bindings::Error) {
+>
+>          // SAFETY: caller guarantees errp is valid
+>          unsafe {
+> -            errp.write(err);
+> +            bindings::error_propagate(errp, err);
+>          }
+>      }
+>
+> ---
+>
+> Then Rust's propagate has the same behavior as C (Of course, here Rust
+> is actually using C's error_propagate, so the two are equivalent.)
+
+*If* we want propagate semantics.  I'm not sure we do.
+
+If we don't: use error_handle()?
 
 
