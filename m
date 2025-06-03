@@ -1,80 +1,79 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uMTDQ-0002v6-Dv
-	for mharc-qemu-rust@gnu.org; Tue, 03 Jun 2025 11:06:12 -0400
+	id 1uMThm-0004OJ-7f
+	for mharc-qemu-rust@gnu.org; Tue, 03 Jun 2025 11:37:34 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uMTDO-0002uo-A9
- for qemu-rust@nongnu.org; Tue, 03 Jun 2025 11:06:11 -0400
+ id 1uMThl-0004O5-6P
+ for qemu-rust@nongnu.org; Tue, 03 Jun 2025 11:37:33 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uMTDL-0005Cw-Lm
- for qemu-rust@nongnu.org; Tue, 03 Jun 2025 11:06:10 -0400
+ id 1uMThi-0000rd-Js
+ for qemu-rust@nongnu.org; Tue, 03 Jun 2025 11:37:32 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1748963164;
+ s=mimecast20190719; t=1748965049;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=1IZ/LMxFnOz6iL4qEKoCw0elTKgAlsmAe4sD2ue5a60=;
- b=bUbHs7duAapejnPf1aOPC0YmgE+SRYKAK8FF67jwELRFx7EuNz8Nrfh4OUZheCFMgP6rvg
- fYhMTQiDtsH+6XEMp4sf8IwgkU4sSbLGXXfwqQ7UCm4hMExXVy34b0V4Dj5I2TuamozlyZ
- v+zm9amuksPjKJ7ghN36vn1n8aQEsfI=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=ORDKkRLt5CXYKAw38kXIYLObiqPZ4wLvJo6OY1BWUGQ=;
+ b=aToXkJWrQkaBydIeVIv/ShD4Mn78/ofwhQBXYgtSgHOHhYZB0OscSbCfgqH3dYwelP3i4h
+ NwecodzZgoOrpbbXeGRPOe1N15cCqzn9PfwSLQqOYQh+5agroNn7OsAWiblG9DXNgwYujD
+ a6IXzDEXBCVaLqFrZEIIfv5RJMgfjbo=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-569-JFcyox1NOY2MmAJjRZ2EOw-1; Tue, 03 Jun 2025 11:06:03 -0400
-X-MC-Unique: JFcyox1NOY2MmAJjRZ2EOw-1
-X-Mimecast-MFC-AGG-ID: JFcyox1NOY2MmAJjRZ2EOw_1748963162
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-3a4eec544c6so2590262f8f.0
- for <qemu-rust@nongnu.org>; Tue, 03 Jun 2025 08:06:02 -0700 (PDT)
+ us-mta-221-dwT9Keq9PbakjVWLGViqew-1; Tue, 03 Jun 2025 11:37:27 -0400
+X-MC-Unique: dwT9Keq9PbakjVWLGViqew-1
+X-Mimecast-MFC-AGG-ID: dwT9Keq9PbakjVWLGViqew_1748965047
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-3a4ea7e46dfso1809243f8f.3
+ for <qemu-rust@nongnu.org>; Tue, 03 Jun 2025 08:37:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748963161; x=1749567961;
+ d=1e100.net; s=20230601; t=1748965045; x=1749569845;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=1IZ/LMxFnOz6iL4qEKoCw0elTKgAlsmAe4sD2ue5a60=;
- b=aymxAQYY3gQBuv0tzgmddcRsY66EvHCHQoWAgD+R/d95nEWvvENC990jCcZ2cPlcWK
- gkZJQlUcrGFN0gzBJDIHK2uu7ctDpbnM+3aLDiTVw4QQ6yv05AvoiUTx2JaKJASkal6j
- oZhfdQGjuobVMkLSfr0qkoDWDeAsRXh/KqjP6Ufb8Xdr+TNVxt0qcjkEWHGDCpNABHu8
- ee55nq4S7K7Beyr0JPNGZ5GNy6ZSQ32ALoNCTi+q5H0MdESb5UKlXzHkiIFuU5E5kxHC
- +MxuEGOaUyNSbqP3TjnGnM+vz5OjzDxROEdutdjAMZGrgdBIUx1NwiVFtdjLINsw4bNH
- Xtew==
+ bh=ORDKkRLt5CXYKAw38kXIYLObiqPZ4wLvJo6OY1BWUGQ=;
+ b=QNX+nqEHW1oG97BWOTtnFYA99PI+XdxA1jD/pJdUVeauwKGYA1yTXiY+8vQHn6b/me
+ G/+fMl8cRLBf31gNxxBTsVA4f3TrybJBMIW/5Lg+jZuXAz8P4EW6GA2Dz3XOlXFiJt3Z
+ 1fmsxD84Yuz094iBr/fqTRSvLq8EfiTYuv8QSamz8e37ZwPpDpizzh6TKnIfjK6odFVT
+ VOUhDVvNC4rLa9hviBMZQMCXxQgDW1LCZmMA46sEaUHUQvaF5losvmD98nOLw8YUUZwW
+ Qk8rt1iTx8hDPZZ4J7+AtWAHczMacTfHoPVyI6MNKkqMb35oBo52pr7QDkw8MR2TX1Kq
+ RU2g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWMJKMuvkhUntsl5nx7OIZvPW6zFYhFReLjIoTzgIeazaFdTsTy4ksQzPA0FfIAj9yGZg25p4trGug=@nongnu.org
-X-Gm-Message-State: AOJu0YxVwGQNg1y28zcLUItR7/uUkTuThD7zhyBdnCv8SHpLzdK6f1kt
- mqKp0jyzGFh7f5CeLr+yjfyjHhdoOojbWfv6katt2g3XJ6KY3aFCvdSYvAuRc0aC+knfTL0PMU3
- jhPK/4gt4erIfaL5jH+31yR+D9iO0pAT/kccTYflg27mR43dTH7blHZNEmkuo2q0=
-X-Gm-Gg: ASbGncuiiNY3791v8Bx0CMxnxS3zMq2U2RHSuK1C3CvwDOnSlZdCU8O3EsEroJeRYcx
- l1DFvCmpeb0F6EXpS682Hcfu+slxyWkmg85IuLP490+azZxqH1/IyyAhi9flgx++8dzOxKzLBBo
- 90TQ1MI0iCenReBL6OCQOKzUUhPKpHZeUqlUTHfpSqpfEm1EwAgDrEpVr2MkK0ZyXz1ZhgJ3Wa+
- E6weliQcOCXwnBj8WIdlLL2NsrqcTSEZTwMJWwtEHUbWrtNfUeABGhM1jh0gNxpEc2nEDKQ7EOy
- kLzr3CcC9IrgGRlSjRtfEwT0
-X-Received: by 2002:a05:6000:25ca:b0:3a3:581f:9af9 with SMTP id
- ffacd0b85a97d-3a4f7a3dab5mr14036733f8f.7.1748963160929; 
- Tue, 03 Jun 2025 08:06:00 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHq0XXSGu7SiGJd+x3FANEdqgdSaZCVP7iZvyozqB2WqrK3BQvVvX7C2oMIKPBeWO1vSq/4oQ==
-X-Received: by 2002:a05:6000:25ca:b0:3a3:581f:9af9 with SMTP id
- ffacd0b85a97d-3a4f7a3dab5mr14036676f8f.7.1748963160406; 
- Tue, 03 Jun 2025 08:06:00 -0700 (PDT)
+ AJvYcCUQpQ6T2ZwxG7FwGipXgc0DnWi3rUYfp9oCSoiiG1Z1LrwtZ2zFfSCqPKeWTyxrhzyONyKO/YcFyNM=@nongnu.org
+X-Gm-Message-State: AOJu0Yy+g6liDSwLeVF7ypAPke9cniHW5IVqNDS1ulcV0oCswLGWp0L+
+ BSiCW1HNBxUw5NhKcao964F6NzGyLwcUbM6bnz9gBnoCWb+O83ncf8O5B8Y3TD9JP0479Px8YAs
+ jnnqomX7ZV4VexbmVib8b/g94itntZqzlNvtFWRhzLwXUogSWwc5TM6DtV9PowpI=
+X-Gm-Gg: ASbGnctbszM/e4LaQBoc+9Zkz5Tg0KRpZ982ix+GBsd/yIfp8+M3kQvzo71I+uG9x33
+ XW4f73sarZlaeaZXcmBXoU6Fg+AyLfDkwj1npgZU8Y/5YGqv3iUCHR3lYvDrpAfdOxATzAcVaxe
+ nHvt8t49roxYd7oEGAmWobDEWl1GiWZReG9ei/EuhP7NmWhvS1XzbbIqjt16I/rZXwGZpIU34ha
+ Cn4iL5UzTXZ+HaGuCXhioosVy7UeByCvWzYhf2mN35lyJ1C7O2TjDQlbfwur86YXMU1WGbdtokr
+ DJrlt5YOUc744g==
+X-Received: by 2002:a05:6000:381:b0:3a4:eb0c:4087 with SMTP id
+ ffacd0b85a97d-3a4f89c006dmr13626253f8f.25.1748965045406; 
+ Tue, 03 Jun 2025 08:37:25 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHs1SLQ4Hvy/PvqhV7UqJ02Pw75SKke3J7AbV1AKR414oYaPQszxykUQZMQl7LrDF50TfDS8A==
+X-Received: by 2002:a05:6000:381:b0:3a4:eb0c:4087 with SMTP id
+ ffacd0b85a97d-3a4f89c006dmr13626227f8f.25.1748965044995; 
+ Tue, 03 Jun 2025 08:37:24 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.64.79])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-3a4efe5b7bbsm18351391f8f.4.2025.06.03.08.05.59
+ ffacd0b85a97d-3a4efe6c4f2sm18405413f8f.22.2025.06.03.08.37.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Jun 2025 08:05:59 -0700 (PDT)
-Message-ID: <2b7be73c-d91f-4820-a8ad-6964a8331150@redhat.com>
-Date: Tue, 3 Jun 2025 17:05:59 +0200
+ Tue, 03 Jun 2025 08:37:24 -0700 (PDT)
+Message-ID: <dcfbbfbf-84d9-4970-95db-86e27efc9477@redhat.com>
+Date: Tue, 3 Jun 2025 17:37:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 06/14] rust: qemu-api: add bindings to Error
-To: Markus Armbruster <armbru@redhat.com>, Zhao Liu <zhao1.liu@intel.com>
+To: Markus Armbruster <armbru@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 References: <20250530080307.2055502-1-pbonzini@redhat.com>
  <20250530080307.2055502-7-pbonzini@redhat.com> <877c1uffj3.fsf@pond.sub.org>
- <aD7AbxghCc5VYDhu@intel.com> <8734ch5d5c.fsf@pond.sub.org>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -111,9 +110,9 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <8734ch5d5c.fsf@pond.sub.org>
+In-Reply-To: <877c1uffj3.fsf@pond.sub.org>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: -KvFusAbk02tfwiI_xBvdqNM0hkwTlZ7SVAqrJoRH7Q_1748963162
+X-Mimecast-MFC-PROC-ID: M2fi3vdURcL-6Qb1ICXBAzUK4q_x6vxj6yJsrouCbrA_1748965047
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -140,20 +139,137 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Jun 2025 15:06:11 -0000
+X-List-Received-Date: Tue, 03 Jun 2025 15:37:33 -0000
 
-On 6/3/25 12:32, Markus Armbruster wrote:
->> Then Rust's propagate has the same behavior as C (Of course, here Rust
->> is actually using C's error_propagate, so the two are equivalent.)
+On 6/2/25 15:18, Markus Armbruster wrote:
+> Paolo Bonzini <pbonzini@redhat.com> writes:
 > 
-> *If* we want propagate semantics.  I'm not sure we do.
+>> Provide an implementation of std::error::Error that bridges the Rust
+>> anyhow::Error and std::panic::Location types with QEMU's Error*.
+>> It also has several utility methods, analogous to error_propagate(),
+>> that convert a Result into a return value + Error** pair.
+>>
+>> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> 
+> [...]
+> 
+>> diff --git a/rust/qemu-api/src/error.rs b/rust/qemu-api/src/error.rs
+>> new file mode 100644
+>> index 00000000000..0bdd413a0a2
+>> --- /dev/null
+>> +++ b/rust/qemu-api/src/error.rs
+>> @@ -0,0 +1,299 @@
+>> +// SPDX-License-Identifier: GPL-2.0-or-later
+>> +
+>> +//! Error propagation for QEMU Rust code
+>> +//!
+>> +//! In QEMU, an `Error` usually consists of a message and an errno value.
+> 
+> Uh, it actually consists of a message and an ErrorClass value.  
+> You completely ignore ErrorClass in your Rust interface.  I approve.
+> There are convenience functions that accept an errno, but they don't
+> store the errno in the Error struct, they append ": " and
+> strerror(errno) to the message.  Same for Windows GetLastError() values.
 
-Yes, we do.  This function is used at the Rust-to-C boundary and should 
-behave exactly like C functions would: it will get an Error ** from the 
-callers and needs to propagate the just-created Error* into it.
+Good point - bad wording choice on my part.
 
-In fact, I had found this issue already last Friday, but then didn't 
-inform you because of the (long) weekend.  Apologies for that.
+I was referring exactly to the construction: whereas C constructs an 
+Error (for convenience) from a message and an errno, Rust replaces the 
+errno with an anyhow::Error.  The function however is the same, namely 
+to include the description of the error when it comes from code that 
+doesn't speak Error*.
+
+>> +//! In this wrapper, the errno value is replaced by an [`anyhow::Error`]
+> 
+> I'm not sure the anyhow::Error replaces anything.  It's simply the
+> bridge to idiomatic Rust errors.
+
+And errno is the bridge to "idiomatic" C errors. :)  But I agree that it 
+should not be mentioned in the first sentence.
+
+>> +//! Note that the backtrace that is provided by `anyhow` is not used yet,
+>> +//! only the message ends up in the QEMU `Error*`.
+>> +//!
+>> +//! The message part can be used to clarify the inner error, similar to
+>> +//! `error_prepend`, and of course to describe an erroneous condition that
+> 
+> Clarify you're talking about C error_prepend() here?
+
+Yes.  But I'll rephrase to eliminate this reference.
+
+>> +impl std::error::Error for Error {
+>> +    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+>> +        self.cause.as_ref().map(AsRef::as_ref)
+>> +    }
+>> +
+>> +    #[allow(deprecated)]
+>> +    fn description(&self) -> &str {
+>> +        self.msg
+>> +            .as_deref()
+>> +            .or_else(|| self.cause.as_deref().map(std::error::Error::description))
+>> +            .unwrap_or("unknown error")
+> 
+> Can "unknown error" still happen now you dropped the Default trait?
+
+No, but I prefer to limit undocumented unwrap() to the bare minimum. 
+I'll use .expect() which also panics on the unexpected case, but 
+includes an error.
+
+>> +    }
+>> +}
+>> +
+>> +impl Display for Error {
+>> +    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+>> +        let mut prefix = "";
+>> +        if let Some(ref msg) = self.msg {
+>> +            write!(f, "{msg}")?;
+>> +            prefix = ": ";
+>> +        }
+>> +        if let Some(ref cause) = self.cause {
+>> +            write!(f, "{prefix}{cause}")?;
+>> +        } else if prefix.is_empty() {
+>> +            f.write_str("unknown error")?;
+> 
+> Can we still get here now you dropped the Default trait?
+
+Same as above.
+
+> Uh, is it?  Let's see...
+> 
+>> +    /// with the information container in `self` if `errp` is not NULL;
+>> +    /// then consume it.
+>> +    ///
+>> +    /// # Safety
+>> +    ///
+>> +    /// `errp` must be a valid argument to `error_propagate`;
+> 
+> Reminder for later: the valid @errp arguments for C error_propagate()
+> are
+> 
+> * NULL
+> 
+> * &error_abort
+> 
+> * &error_fatal
+> 
+> * Address of some Error * variable containing NULL
+> 
+> * Address of some Error * variable containing non-NULL
+
+I will add this note.
+
+> What does errp.write(err) do?  I *guess* it simply stores @err in @errp.
+> Matches neither behavior.
+> 
+> If that's true, then passing &error_abort or &error_fatal to Rust does
+> not work, and neither does error accumulation.  Not equivalent of C
+> error_propagate().
+> 
+> Is "propagate" semantics what you want here?
+> 
+> If not, use another name.
+
+As replied elsewhere, yes.
 
 Paolo
 
