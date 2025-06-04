@@ -1,123 +1,63 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uMThm-0004OJ-7f
-	for mharc-qemu-rust@gnu.org; Tue, 03 Jun 2025 11:37:34 -0400
+	id 1uMgFa-0002Cv-QE
+	for mharc-qemu-rust@gnu.org; Wed, 04 Jun 2025 01:01:18 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uMThl-0004O5-6P
- for qemu-rust@nongnu.org; Tue, 03 Jun 2025 11:37:33 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uMgFZ-0002CV-Dq
+ for qemu-rust@nongnu.org; Wed, 04 Jun 2025 01:01:17 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uMThi-0000rd-Js
- for qemu-rust@nongnu.org; Tue, 03 Jun 2025 11:37:32 -0400
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uMgFX-0006xF-Ea
+ for qemu-rust@nongnu.org; Wed, 04 Jun 2025 01:01:16 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1748965049;
+ s=mimecast20190719; t=1749013273;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ORDKkRLt5CXYKAw38kXIYLObiqPZ4wLvJo6OY1BWUGQ=;
- b=aToXkJWrQkaBydIeVIv/ShD4Mn78/ofwhQBXYgtSgHOHhYZB0OscSbCfgqH3dYwelP3i4h
- NwecodzZgoOrpbbXeGRPOe1N15cCqzn9PfwSLQqOYQh+5agroNn7OsAWiblG9DXNgwYujD
- a6IXzDEXBCVaLqFrZEIIfv5RJMgfjbo=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-221-dwT9Keq9PbakjVWLGViqew-1; Tue, 03 Jun 2025 11:37:27 -0400
-X-MC-Unique: dwT9Keq9PbakjVWLGViqew-1
-X-Mimecast-MFC-AGG-ID: dwT9Keq9PbakjVWLGViqew_1748965047
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-3a4ea7e46dfso1809243f8f.3
- for <qemu-rust@nongnu.org>; Tue, 03 Jun 2025 08:37:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748965045; x=1749569845;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ORDKkRLt5CXYKAw38kXIYLObiqPZ4wLvJo6OY1BWUGQ=;
- b=QNX+nqEHW1oG97BWOTtnFYA99PI+XdxA1jD/pJdUVeauwKGYA1yTXiY+8vQHn6b/me
- G/+fMl8cRLBf31gNxxBTsVA4f3TrybJBMIW/5Lg+jZuXAz8P4EW6GA2Dz3XOlXFiJt3Z
- 1fmsxD84Yuz094iBr/fqTRSvLq8EfiTYuv8QSamz8e37ZwPpDpizzh6TKnIfjK6odFVT
- VOUhDVvNC4rLa9hviBMZQMCXxQgDW1LCZmMA46sEaUHUQvaF5losvmD98nOLw8YUUZwW
- Qk8rt1iTx8hDPZZ4J7+AtWAHczMacTfHoPVyI6MNKkqMb35oBo52pr7QDkw8MR2TX1Kq
- RU2g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUQpQ6T2ZwxG7FwGipXgc0DnWi3rUYfp9oCSoiiG1Z1LrwtZ2zFfSCqPKeWTyxrhzyONyKO/YcFyNM=@nongnu.org
-X-Gm-Message-State: AOJu0Yy+g6liDSwLeVF7ypAPke9cniHW5IVqNDS1ulcV0oCswLGWp0L+
- BSiCW1HNBxUw5NhKcao964F6NzGyLwcUbM6bnz9gBnoCWb+O83ncf8O5B8Y3TD9JP0479Px8YAs
- jnnqomX7ZV4VexbmVib8b/g94itntZqzlNvtFWRhzLwXUogSWwc5TM6DtV9PowpI=
-X-Gm-Gg: ASbGnctbszM/e4LaQBoc+9Zkz5Tg0KRpZ982ix+GBsd/yIfp8+M3kQvzo71I+uG9x33
- XW4f73sarZlaeaZXcmBXoU6Fg+AyLfDkwj1npgZU8Y/5YGqv3iUCHR3lYvDrpAfdOxATzAcVaxe
- nHvt8t49roxYd7oEGAmWobDEWl1GiWZReG9ei/EuhP7NmWhvS1XzbbIqjt16I/rZXwGZpIU34ha
- Cn4iL5UzTXZ+HaGuCXhioosVy7UeByCvWzYhf2mN35lyJ1C7O2TjDQlbfwur86YXMU1WGbdtokr
- DJrlt5YOUc744g==
-X-Received: by 2002:a05:6000:381:b0:3a4:eb0c:4087 with SMTP id
- ffacd0b85a97d-3a4f89c006dmr13626253f8f.25.1748965045406; 
- Tue, 03 Jun 2025 08:37:25 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHs1SLQ4Hvy/PvqhV7UqJ02Pw75SKke3J7AbV1AKR414oYaPQszxykUQZMQl7LrDF50TfDS8A==
-X-Received: by 2002:a05:6000:381:b0:3a4:eb0c:4087 with SMTP id
- ffacd0b85a97d-3a4f89c006dmr13626227f8f.25.1748965044995; 
- Tue, 03 Jun 2025 08:37:24 -0700 (PDT)
-Received: from [192.168.10.48] ([151.49.64.79])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-3a4efe6c4f2sm18405413f8f.22.2025.06.03.08.37.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Jun 2025 08:37:24 -0700 (PDT)
-Message-ID: <dcfbbfbf-84d9-4970-95db-86e27efc9477@redhat.com>
-Date: Tue, 3 Jun 2025 17:37:23 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ in-reply-to:in-reply-to:references:references;
+ bh=9U7DFJXfWf/vKvMUHBf190NKh4qVaL+xxhXe/H3kfL0=;
+ b=DKioXuJOy40zp7gJyWk75i9TIm5uMd8Q7HnFRr78xxNaSctpESJFi2cL40TlEktpyzDY9j
+ R9wmKPzLTkz68XxLJUto0naUDfbbHbb6NDJdulYUWT4LeNWyvZjlSjP9sXUZLZ3okcGX2E
+ jOMwE9jMdU9m+GLcPv0d42as9FQqwYY=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-622-2mnGsU4qMv-7wbpkYTm56g-1; Wed,
+ 04 Jun 2025 01:01:09 -0400
+X-MC-Unique: 2mnGsU4qMv-7wbpkYTm56g-1
+X-Mimecast-MFC-AGG-ID: 2mnGsU4qMv-7wbpkYTm56g_1749013268
+Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 6D41B19560B7; Wed,  4 Jun 2025 05:01:08 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.38])
+ by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id E2BFA19560A3; Wed,  4 Jun 2025 05:01:07 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 5E79921E66C3; Wed, 04 Jun 2025 07:01:05 +0200 (CEST)
+From: Markus Armbruster <armbru@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Zhao Liu <zhao1.liu@intel.com>,  qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org
 Subject: Re: [PATCH 06/14] rust: qemu-api: add bindings to Error
-To: Markus Armbruster <armbru@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+In-Reply-To: <2b7be73c-d91f-4820-a8ad-6964a8331150@redhat.com> (Paolo
+ Bonzini's message of "Tue, 3 Jun 2025 17:05:59 +0200")
 References: <20250530080307.2055502-1-pbonzini@redhat.com>
- <20250530080307.2055502-7-pbonzini@redhat.com> <877c1uffj3.fsf@pond.sub.org>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <877c1uffj3.fsf@pond.sub.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: M2fi3vdURcL-6Qb1ICXBAzUK4q_x6vxj6yJsrouCbrA_1748965047
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ <20250530080307.2055502-7-pbonzini@redhat.com>
+ <877c1uffj3.fsf@pond.sub.org> <aD7AbxghCc5VYDhu@intel.com>
+ <8734ch5d5c.fsf@pond.sub.org>
+ <2b7be73c-d91f-4820-a8ad-6964a8331150@redhat.com>
+Date: Wed, 04 Jun 2025 07:01:05 +0200
+Message-ID: <871ps02j8u.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -21
 X-Spam_score: -2.2
@@ -139,138 +79,95 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Jun 2025 15:37:33 -0000
+X-List-Received-Date: Wed, 04 Jun 2025 05:01:17 -0000
 
-On 6/2/25 15:18, Markus Armbruster wrote:
-> Paolo Bonzini <pbonzini@redhat.com> writes:
-> 
->> Provide an implementation of std::error::Error that bridges the Rust
->> anyhow::Error and std::panic::Location types with QEMU's Error*.
->> It also has several utility methods, analogous to error_propagate(),
->> that convert a Result into a return value + Error** pair.
->>
->> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> 
-> [...]
-> 
->> diff --git a/rust/qemu-api/src/error.rs b/rust/qemu-api/src/error.rs
->> new file mode 100644
->> index 00000000000..0bdd413a0a2
->> --- /dev/null
->> +++ b/rust/qemu-api/src/error.rs
->> @@ -0,0 +1,299 @@
->> +// SPDX-License-Identifier: GPL-2.0-or-later
->> +
->> +//! Error propagation for QEMU Rust code
->> +//!
->> +//! In QEMU, an `Error` usually consists of a message and an errno value.
-> 
-> Uh, it actually consists of a message and an ErrorClass value.  
-> You completely ignore ErrorClass in your Rust interface.  I approve.
-> There are convenience functions that accept an errno, but they don't
-> store the errno in the Error struct, they append ": " and
-> strerror(errno) to the message.  Same for Windows GetLastError() values.
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-Good point - bad wording choice on my part.
+> On 6/3/25 12:32, Markus Armbruster wrote:
+>>> Then Rust's propagate has the same behavior as C (Of course, here Rust
+>>> is actually using C's error_propagate, so the two are equivalent.)
+>>=20
+>> *If* we want propagate semantics.  I'm not sure we do.
+>
+> Yes, we do.  This function is used at the Rust-to-C boundary and should=20
+> behave exactly like C functions would: it will get an Error ** from the=20
+> callers and needs to propagate the just-created Error* into it.
 
-I was referring exactly to the construction: whereas C constructs an 
-Error (for convenience) from a message and an errno, Rust replaces the 
-errno with an anyhow::Error.  The function however is the same, namely 
-to include the description of the error when it comes from code that 
-doesn't speak Error*.
+Well, how *do* C functions behave?
 
->> +//! In this wrapper, the errno value is replaced by an [`anyhow::Error`]
-> 
-> I'm not sure the anyhow::Error replaces anything.  It's simply the
-> bridge to idiomatic Rust errors.
+ * =3D Rules =3D
+ *
+ * - Functions that use Error to report errors have an Error **errp
+ *   parameter.  It should be the last parameter, except for functions
+ *   taking variable arguments.
+ *
+ * - You may pass NULL to not receive the error, &error_abort to abort
+ *   on error, &error_fatal to exit(1) on error, or a pointer to a
+ *   variable containing NULL to receive the error.
 
-And errno is the bridge to "idiomatic" C errors. :)  But I agree that it 
-should not be mentioned in the first sentence.
+For later...  This is a precondition.  passing a pointer to a variable
+containing anything but NULL violates the precondition.
 
->> +//! Note that the backtrace that is provided by `anyhow` is not used yet,
->> +//! only the message ends up in the QEMU `Error*`.
->> +//!
->> +//! The message part can be used to clarify the inner error, similar to
->> +//! `error_prepend`, and of course to describe an erroneous condition that
-> 
-> Clarify you're talking about C error_prepend() here?
+ *
+ * - Separation of concerns: the function is responsible for detecting
+ *   errors and failing cleanly; handling the error is its caller's
+ *   job.  Since the value of @errp is about handling the error, the
+ *   function should not examine it.
+ *
+ * - The function may pass @errp to functions it calls to pass on
+ *   their errors to its caller.  If it dereferences @errp to check
+ *   for errors, it must use ERRP_GUARD().
+ *
+ * - On success, the function should not touch *errp.  On failure, it
+ *   should set a new error, e.g. with error_setg(errp, ...), or
+ *   propagate an existing one, e.g. with error_propagate(errp, ...).
 
-Yes.  But I'll rephrase to eliminate this reference.
+This is what your FOO_or_propagate() functions are for.
 
->> +impl std::error::Error for Error {
->> +    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
->> +        self.cause.as_ref().map(AsRef::as_ref)
->> +    }
->> +
->> +    #[allow(deprecated)]
->> +    fn description(&self) -> &str {
->> +        self.msg
->> +            .as_deref()
->> +            .or_else(|| self.cause.as_deref().map(std::error::Error::description))
->> +            .unwrap_or("unknown error")
-> 
-> Can "unknown error" still happen now you dropped the Default trait?
+The rule glosses over a subtle detail: the difference between
+error_setg() and error_propagate() isn't just create a new error vs. use
+an existing one, namely error_setg() makes the precondition violation
+mentioned above a programming error, whereas error_propagate() does not,
+it instead *ignores* the error it's supposed to propagate.
 
-No, but I prefer to limit undocumented unwrap() to the bare minimum. 
-I'll use .expect() which also panics on the unexpected case, but 
-includes an error.
+I consider this difference a design mistake.  Note that GError avoids
+this mistake: g_error_propagate() requieres the destination to NULL or
+point to NULL.  We deviated from GError, because we thought we were
+smarter.  We weren't.
 
->> +    }
->> +}
->> +
->> +impl Display for Error {
->> +    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
->> +        let mut prefix = "";
->> +        if let Some(ref msg) = self.msg {
->> +            write!(f, "{msg}")?;
->> +            prefix = ": ";
->> +        }
->> +        if let Some(ref cause) = self.cause {
->> +            write!(f, "{prefix}{cause}")?;
->> +        } else if prefix.is_empty() {
->> +            f.write_str("unknown error")?;
-> 
-> Can we still get here now you dropped the Default trait?
+Mostly harmless in practice, as behavior is identical for callers that
+satisfy the preconditions.
 
-Same as above.
+ *
+ * - Whenever practical, also return a value that indicates success /
+ *   failure.  This can make the error checking more concise, and can
+ *   avoid useless error object creation and destruction.  Note that
+ *   we still have many functions returning void.  We recommend
+ *   =E2=80=A2 bool-valued functions return true on success / false on fail=
+ure,
+ *   =E2=80=A2 pointer-valued functions return non-null / null pointer, and
+ *   =E2=80=A2 integer-valued functions return non-negative / negative.
 
-> Uh, is it?  Let's see...
-> 
->> +    /// with the information container in `self` if `errp` is not NULL;
->> +    /// then consume it.
->> +    ///
->> +    /// # Safety
->> +    ///
->> +    /// `errp` must be a valid argument to `error_propagate`;
-> 
-> Reminder for later: the valid @errp arguments for C error_propagate()
-> are
-> 
-> * NULL
-> 
-> * &error_abort
-> 
-> * &error_fatal
-> 
-> * Address of some Error * variable containing NULL
-> 
-> * Address of some Error * variable containing non-NULL
+So here's the bottom line.  We want a Rust function to use C Error
+according to its written rules.  Due to a design mistake, C functions
+can behave in two different ways when their caller violates a certain
+precondition, depending on how the function transmits the error to the
+caller.  For Rust functions, we can
 
-I will add this note.
+* Always behave the more common way, i.e. like a C function using
+  error_setg() to transmit.
 
-> What does errp.write(err) do?  I *guess* it simply stores @err in @errp.
-> Matches neither behavior.
-> 
-> If that's true, then passing &error_abort or &error_fatal to Rust does
-> not work, and neither does error accumulation.  Not equivalent of C
-> error_propagate().
-> 
-> Is "propagate" semantics what you want here?
-> 
-> If not, use another name.
+* Always behave the less common way, i.e. like a C function using
+  error_propagate() to transmit.
 
-As replied elsewhere, yes.
+* Sometimes one way, sometimes the other way.
 
-Paolo
+This is actually in order of decreasing personal preference.  But what
+do *you* think?
+
+> In fact, I had found this issue already last Friday, but then didn't=20
+> inform you because of the (long) weekend.  Apologies for that.
+
+No harm, no foul :)
 
 
