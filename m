@@ -1,58 +1,59 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uN9ET-0003JT-6Q
-	for mharc-qemu-rust@gnu.org; Thu, 05 Jun 2025 07:58:05 -0400
+	id 1uN9N3-0001RP-R0
+	for mharc-qemu-rust@gnu.org; Thu, 05 Jun 2025 08:06:59 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uN9E5-00033s-RU
- for qemu-rust@nongnu.org; Thu, 05 Jun 2025 07:57:43 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uN9Mw-0001N3-4p
+ for qemu-rust@nongnu.org; Thu, 05 Jun 2025 08:06:51 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uN9E3-0003YL-UM
- for qemu-rust@nongnu.org; Thu, 05 Jun 2025 07:57:41 -0400
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uN9Mu-0000Qq-92
+ for qemu-rust@nongnu.org; Thu, 05 Jun 2025 08:06:49 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1749124659;
+ s=mimecast20190719; t=1749125205;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6xLSUeX3C/n0OOHE25CQag4ejHHjWwZZeQ0+vCV1SNY=;
- b=VpaZHgGYKkVmFlySOTBsPHjSYmj3KBD2xzTgfitVL/4umzB34wL51pp8OUpoKIC27JXbVo
- KOxeu94CqZ3cTJc82Wg0RdnnYMMCEEkA83K1d6tVKWKDjdWy/wr7UmF2mCaDuhI2xKXBLr
- vmQShyAUGwg7leq9j6/AF7ISBf8wsIs=
-Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
+ bh=Hjq7PRBrGKH+pUaHF5VWFOYtWfvMXQv7b8Sj1cP1SmM=;
+ b=BO0dlKJkcPmu1alXYrPG9MaBC3fciQ2rVP/NmsG1IZH7VspaODPJpuZ32a1lrzuA6tS3Mz
+ VpL9oUIgChpTx5TgLhqeB0gGAbmX5ROwh670iYlkJfY1n1WqFNrn1AChOr47fBDSuiPv2V
+ j1KkcYGsD2HAX+63Qw6LXbkRz7yoMjw=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-183-RO5l07GPONyI8AkUZLeAvA-1; Thu,
- 05 Jun 2025 07:57:37 -0400
-X-MC-Unique: RO5l07GPONyI8AkUZLeAvA-1
-X-Mimecast-MFC-AGG-ID: RO5l07GPONyI8AkUZLeAvA_1749124656
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-92-w5_cI8MwPt2Hr2GZb7HWqA-1; Thu,
+ 05 Jun 2025 08:06:42 -0400
+X-MC-Unique: w5_cI8MwPt2Hr2GZb7HWqA-1
+X-Mimecast-MFC-AGG-ID: w5_cI8MwPt2Hr2GZb7HWqA_1749125201
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 14C6219560B2; Thu,  5 Jun 2025 11:57:36 +0000 (UTC)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id A89691956095; Thu,  5 Jun 2025 12:06:41 +0000 (UTC)
 Received: from blackfin.pond.sub.org (unknown [10.45.242.38])
  by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id C648318003FD; Thu,  5 Jun 2025 11:57:35 +0000 (UTC)
+ id 602BE18002A5; Thu,  5 Jun 2025 12:06:41 +0000 (UTC)
 Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 2F9F721E6757; Thu, 05 Jun 2025 13:57:33 +0200 (CEST)
+ id BD6B321E6766; Thu, 05 Jun 2025 14:06:38 +0200 (CEST)
 From: Markus Armbruster <armbru@redhat.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org,  armbru@redhat.com,  zhao1.liu@intel.com,
- qemu-rust@nongnu.org
-Subject: Re: [PATCH 05/14] util/error: make func optional
-In-Reply-To: <20250605101544.368953-6-pbonzini@redhat.com> (Paolo Bonzini's
- message of "Thu, 5 Jun 2025 12:15:34 +0200")
+Cc: qemu-devel@nongnu.org,  zhao1.liu@intel.com,  qemu-rust@nongnu.org
+Subject: Re: [PATCH 06/14] rust: qemu-api: add bindings to Error
+In-Reply-To: <20250605101544.368953-7-pbonzini@redhat.com> (Paolo Bonzini's
+ message of "Thu, 5 Jun 2025 12:15:35 +0200")
 References: <20250605101544.368953-1-pbonzini@redhat.com>
- <20250605101544.368953-6-pbonzini@redhat.com>
-Date: Thu, 05 Jun 2025 13:57:33 +0200
-Message-ID: <87tt4ufljm.fsf@pond.sub.org>
+ <20250605101544.368953-7-pbonzini@redhat.com>
+Date: Thu, 05 Jun 2025 14:06:38 +0200
+Message-ID: <87o6v2fl4h.fsf@pond.sub.org>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -21
 X-Spam_score: -2.2
@@ -74,15 +75,79 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Jun 2025 11:57:45 -0000
+X-List-Received-Date: Thu, 05 Jun 2025 12:06:51 -0000
 
 Paolo Bonzini <pbonzini@redhat.com> writes:
 
-> The function name is not available in Rust, so make it optional.
+> Provide an implementation of std::error::Error that bridges the Rust
+> anyhow::Error and std::panic::Location types with QEMU's Error*.
 >
-> Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+> It also has several utility methods, analogous to error_propagate(),
+> that convert a Result into a return value + Error** pair.  One important
+> difference is that these propagation methods *panic* if *errp is NULL,
+> unlike error_propagate() which eats subsequent errors[1].  The reason
+> for this is that in C you have an error_set*() call at the site where
+> the error is created, and calls to error_propagate() are relatively rare.
+>
+> In Rust instead, even though these functions do "propagate" a
+> qemu_api::Error into a C Error**, there is no error_setg() anywhere that
+> could check for non-NULL errp and call abort().  error_propagate()'s
+> behavior of ignoring subsequent errors is generally considered weird,
+> and there would be a bigger risk of triggering it from Rust code.
+>
+> [1] This is actually a violation of the preconditions of error_propagate(=
+),
+>     so it should not happen.  But you never know...
+>
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
+[...]
+
+> diff --git a/rust/qemu-api/src/error.rs b/rust/qemu-api/src/error.rs
+> new file mode 100644
+> index 00000000000..80157f6ea1b
+> --- /dev/null
+> +++ b/rust/qemu-api/src/error.rs
+
+[...]
+
+> +    /// Equivalent of the C function `error_propagate`.  Fill `*errp`
+> +    /// with the information container in `self` if `errp` is not NULL;
+> +    /// then consume it.
+> +    ///
+> +    /// This is similar to the C API `error_propagate`, but it panics if
+> +    /// `*errp` is not `NULL`.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// `errp` must be a valid argument to `error_propagate`; it can be
+> +    /// `NULL` or it can point to any of:
+> +    /// * `error_abort`
+> +    /// * `error_fatal`
+> +    /// * a local variable of (C) type `Error *`
+
+This local variable must contain NULL.
+
+> +    ///
+> +    /// Typically `errp` is received from C code and need not be
+> +    /// checked further at the Rust=E2=86=94C boundary.
+> +    pub unsafe fn propagate(self, errp: *mut *mut bindings::Error) {
+> +        if errp.is_null() {
+> +            return;
+> +        }
+> +
+> +        // SAFETY: caller guarantees that errp and *errp are valid
+> +        unsafe {
+> +            assert_eq!(*errp, ptr::null_mut());
+> +            bindings::error_propagate(errp, self.clone_to_foreign_ptr());
+> +        }
+> +    }
+
+[...]
+
+With the comment tightened:
 Reviewed-by: Markus Armbruster <armbru@redhat.com>
+
+The commit message and comment improvements are lovely!
 
 
