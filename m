@@ -1,93 +1,63 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uN7eX-0000Cr-KD
-	for mharc-qemu-rust@gnu.org; Thu, 05 Jun 2025 06:16:53 -0400
+	id 1uN9BP-0001EF-OF
+	for mharc-qemu-rust@gnu.org; Thu, 05 Jun 2025 07:54:55 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uN7e3-0007UN-7x
- for qemu-rust@nongnu.org; Thu, 05 Jun 2025 06:16:23 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uN9BK-0001DA-UA
+ for qemu-rust@nongnu.org; Thu, 05 Jun 2025 07:54:51 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uN7e1-0001MJ-LC
- for qemu-rust@nongnu.org; Thu, 05 Jun 2025 06:16:22 -0400
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uN9BH-0002Xc-N3
+ for qemu-rust@nongnu.org; Thu, 05 Jun 2025 07:54:48 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1749118581;
+ s=mimecast20190719; t=1749124486;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=GD5j4iIBSM/wWOplLwp2FFPFSX88IRGEIBS2r4z9frY=;
- b=KxNCwO02D0KUMLAC/rdY7py17vMxsMe3OBnc1lP1UTwaMAK7YHLVt+ZnnnfqQTvsc5UXIz
- AvFIvinbQthYNqK6eMh1cvnSbkBbzO7cptwBrmVKLTkG21H7zTyiF6Vh/Rz1/yz1Xocr8n
- rNmkLNevRBWl8ONsOW8WWmhRQtm7H2k=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-657-ubl7pB6wPiaUJ-_SEYEOOQ-1; Thu, 05 Jun 2025 06:16:18 -0400
-X-MC-Unique: ubl7pB6wPiaUJ-_SEYEOOQ-1
-X-Mimecast-MFC-AGG-ID: ubl7pB6wPiaUJ-_SEYEOOQ_1749118577
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-450cb8f8b1bso1994375e9.3
- for <qemu-rust@nongnu.org>; Thu, 05 Jun 2025 03:16:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749118577; x=1749723377;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=GD5j4iIBSM/wWOplLwp2FFPFSX88IRGEIBS2r4z9frY=;
- b=D798sfD+670EwFzqgOPKQ/ItwVWxt01mQMBLeeiQMWoncA3UbKzP7NvbsyrKpuk4+/
- 6R3jyhGcTUmjKUDpRPXzFVvbFnIicYIenCTtCH2mwS0nbx3EP34Nwnq94X0vIDD/wVRF
- U8umVdS1SOQQKFoKEMO7ewIzDmCOVgTVSImT3GfQN96pi2wn8HTjVQghBDZ72SOoSiZt
- niLKm+JnZtUnnq2Q6gX5kWv+uOq7/Tso2WrngFEjMLPfGVnxjqL1On3SKQlVscS3tECR
- ByqlD/2q/rz9X3cPN/EK2OrpzkXiD2YNGEyo81HeaVIkaR972xwwE3q7QZzOjVdG5yVg
- Ky9w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXej54lfY8cg4xdP9/eq78YsN8qVGVJgUudQD+0cBY+lQBwHpoxFViawjUzWpt6YrlryxibnF5IsSM=@nongnu.org
-X-Gm-Message-State: AOJu0YwjssBCVYtTpiRFsa6W2DdN70UXxBfU4fVy9ehKfM1L/SFl7dF3
- 7HuQfMlymNWwL4XflTALO20dlcjYVbOfLYcECN1LGNrf1w0KD9dOlFlRjKCW/sd6wudptQvn4Tt
- 2twsnxmQerRYlYCPagnPxW03M+D/qJxqNl2Mmd+fIDAr0YUffNSfvjpQ=
-X-Gm-Gg: ASbGncsttph7tY6tcr4hXCzNG7HfOjg+/pPxS5t78bSb1TgSyInE/Gm+oIPKpIJr4FP
- ulmBwSqPLLSKndIBzlnEX3cATktJUrFbRedPTUCGT2zq5CzaltPfTM7xdbBdFiRqgZ2JBmT0Dgh
- 2mBG9dfT8IGGf9s9y1qXgo1+dL594n/mRFdc4EFsxuNA9XLZh6exMGNIRwD+U/R/D6MJd2nX9wP
- 3jPYOai2l6RpoAVNI+cXVya6dhF+FjbSXobcqZEt6LsWO68FH6AUkmqaV6W2kqZ0fhKLpvJKZxi
- 0YzGi7cP7rbpQxumgcfvFPSm
-X-Received: by 2002:a05:600c:8b6d:b0:450:cf46:5510 with SMTP id
- 5b1f17b1804b1-451f0b22e23mr56626845e9.29.1749118576821; 
- Thu, 05 Jun 2025 03:16:16 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHM0OyOQR1+NRguq1XOtcjnPQIF9Gr40UgvMJqdEGVs+VneypJ8IWVhahKwCGWB3BdJbkU2fA==
-X-Received: by 2002:a05:600c:8b6d:b0:450:cf46:5510 with SMTP id
- 5b1f17b1804b1-451f0b22e23mr56626545e9.29.1749118576346; 
- Thu, 05 Jun 2025 03:16:16 -0700 (PDT)
-Received: from [192.168.10.48] ([151.49.64.79])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a4f00972c1sm24452174f8f.68.2025.06.05.03.16.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Jun 2025 03:16:14 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: armbru@redhat.com,
-	zhao1.liu@intel.com,
-	qemu-rust@nongnu.org
-Subject: [PATCH 12/14] rust/hpet: return errors from realize if properties are
- incorrect
-Date: Thu,  5 Jun 2025 12:15:41 +0200
-Message-ID: <20250605101544.368953-13-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250605101544.368953-1-pbonzini@redhat.com>
+ bh=XbTwA2XDwQCmpFRnsp1i9Gg2vM+jgWyISIwW68MnhHU=;
+ b=RUdvOle+qggi+cm7ejdpucW8c9Uid5HkvR+Xjcc/bTLq8WpcUhLzaWgGZefmJNFb0FOQkC
+ 7gJjfNpPWndaTlSUyonnV643RJJ8jbHZhJIXgWdNdJjxIVD3cXr02r/RtBw/7WR9Ut/TDQ
+ zxdVPHLn7ZI9Z2BeEo+sDU7KIdh1ty4=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-302-5i3hnXjQOaCuEMR1AxiZQA-1; Thu,
+ 05 Jun 2025 07:54:44 -0400
+X-MC-Unique: 5i3hnXjQOaCuEMR1AxiZQA-1
+X-Mimecast-MFC-AGG-ID: 5i3hnXjQOaCuEMR1AxiZQA_1749124483
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 21AA018002B3; Thu,  5 Jun 2025 11:54:43 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.38])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 80C4B1956094; Thu,  5 Jun 2025 11:54:42 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id DC4E521E6757; Thu, 05 Jun 2025 13:54:39 +0200 (CEST)
+From: Markus Armbruster <armbru@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org,  armbru@redhat.com,  zhao1.liu@intel.com,
+ qemu-rust@nongnu.org
+Subject: Re: [PATCH 04/14] util/error: allow non-NUL-terminated err->src
+In-Reply-To: <20250605101544.368953-5-pbonzini@redhat.com> (Paolo Bonzini's
+ message of "Thu, 5 Jun 2025 12:15:33 +0200")
 References: <20250605101544.368953-1-pbonzini@redhat.com>
+ <20250605101544.368953-5-pbonzini@redhat.com>
+Date: Thu, 05 Jun 2025 13:54:39 +0200
+Message-ID: <87a56mh08w.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: PeIJseNSPsNjGj_ymatEzi4T2v1AWMAon2rz6oJynts_1749118577
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -21
 X-Spam_score: -2.2
 X-Spam_bar: --
-X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.128,
+X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.132,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
@@ -104,78 +74,74 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Jun 2025 10:16:23 -0000
+X-List-Received-Date: Thu, 05 Jun 2025 11:54:51 -0000
 
-Match the code in hpet.c; this also allows removing the
-BqlCell from the num_timers field.
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- rust/hw/timer/hpet/src/device.rs | 16 +++++++---------
- rust/hw/timer/hpet/src/fw_cfg.rs |  7 +++----
- 2 files changed, 10 insertions(+), 13 deletions(-)
+> Rust makes the current file available as a statically-allocated string,
+> but without a NUL terminator.  Allow this by storing an optional maximum
+> length in the Error.
+>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  include/qapi/error-internal.h | 9 ++++++++-
+>  util/error.c                  | 5 +++--
+>  2 files changed, 11 insertions(+), 3 deletions(-)
+>
+> diff --git a/include/qapi/error-internal.h b/include/qapi/error-internal.h
+> index d5c3904adec..1ec3ceb40f0 100644
+> --- a/include/qapi/error-internal.h
+> +++ b/include/qapi/error-internal.h
+> @@ -18,7 +18,14 @@ struct Error
+>  {
+>      char *msg;
+>      ErrorClass err_class;
+> -    const char *src, *func;
+> +    const char *func;
+> +
+> +    /*
+> +     * src might be NUL-terminated or not.  If it is, src_len is negative.
+> +     * If it is not, src_len is the length.
+> +     */
 
-diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
-index a957de1e767..cd439f90b7e 100644
---- a/rust/hw/timer/hpet/src/device.rs
-+++ b/rust/hw/timer/hpet/src/device.rs
-@@ -725,18 +725,16 @@ fn post_init(&self) {
-     }
- 
-     fn realize(&self) -> qemu_api::Result<()> {
-+        if self.num_timers.get() < HPET_MIN_TIMERS || self.num_timers.get() > HPET_MAX_TIMERS {
-+            Err(format!(
-+                "hpet.num_timers must be between {HPET_MIN_TIMERS} and {HPET_MAX_TIMERS}"
-+            ))?;
-+        }
-         if self.int_route_cap == 0 {
--            // TODO: Add error binding: warn_report()
--            println!("Hpet's hpet-intcap property not initialized");
-+            Err("hpet.hpet-intcap property not initialized")?;
-         }
- 
--        self.hpet_id.set(HPETFwConfig::assign_hpet_id());
--
--        if self.num_timers.get() < HPET_MIN_TIMERS {
--            self.num_timers.set(HPET_MIN_TIMERS);
--        } else if self.num_timers.get() > HPET_MAX_TIMERS {
--            self.num_timers.set(HPET_MAX_TIMERS);
--        }
-+        self.hpet_id.set(HPETFwConfig::assign_hpet_id()?);
- 
-         self.init_timer();
-         // 64-bit General Capabilities and ID Register; LegacyReplacementRoute.
-diff --git a/rust/hw/timer/hpet/src/fw_cfg.rs b/rust/hw/timer/hpet/src/fw_cfg.rs
-index 6c10316104c..619d662ee1e 100644
---- a/rust/hw/timer/hpet/src/fw_cfg.rs
-+++ b/rust/hw/timer/hpet/src/fw_cfg.rs
-@@ -36,7 +36,7 @@ unsafe impl Zeroable for HPETFwConfig {}
- };
- 
- impl HPETFwConfig {
--    pub(crate) fn assign_hpet_id() -> usize {
-+    pub(crate) fn assign_hpet_id() -> Result<usize, &'static str> {
-         assert!(bql_locked());
-         // SAFETY: all accesses go through these methods, which guarantee
-         // that the accesses are protected by the BQL.
-@@ -48,13 +48,12 @@ pub(crate) fn assign_hpet_id() -> usize {
-         }
- 
-         if fw_cfg.count == 8 {
--            // TODO: Add error binding: error_setg()
--            panic!("Only 8 instances of HPET is allowed");
-+            Err("Only 8 instances of HPET are allowed")?;
-         }
- 
-         let id: usize = fw_cfg.count.into();
-         fw_cfg.count += 1;
--        id
-+        Ok(id)
-     }
- 
-     pub(crate) fn update_hpet_cfg(hpet_id: usize, timer_block_id: u32, address: u64) {
--- 
-2.49.0
+I habitually prefix identifiers with @ in comments, like this:
+
+       /*
+        * @src might be NUL-terminated or not.  If it is, @src_len is
+        * negative.  If it is not, @src_len is the length.
+        */
+
+Can really help readability when identifiers are also common English
+words.  Not much of a difference here.  Still nice for consistency with
+error.h.
+
+> +    const char *src;
+> +    int src_len;
+>      int line;
+>      GString *hint;
+>  };
+> diff --git a/util/error.c b/util/error.c
+> index e5bcb7c0225..3449ecc0b92 100644
+> --- a/util/error.c
+> +++ b/util/error.c
+> @@ -24,8 +24,8 @@ Error *error_warn;
+>  static void error_handle(Error **errp, Error *err)
+>  {
+>      if (errp == &error_abort) {
+> -        fprintf(stderr, "Unexpected error in %s() at %s:%d:\n",
+> -                err->func, err->src, err->line);
+> +        fprintf(stderr, "Unexpected error in %s() at %.*s:%d:\n",
+> +                err->func, err->src_len, err->src, err->line);
+>          error_report("%s", error_get_pretty(err));
+>          if (err->hint) {
+>              error_printf("%s", err->hint->str);
+> @@ -67,6 +67,7 @@ static void error_setv(Error **errp,
+>          g_free(msg);
+>      }
+>      err->err_class = err_class;
+> +    err->src_len = -1;
+>      err->src = src;
+>      err->line = line;
+>      err->func = func;
 
 
