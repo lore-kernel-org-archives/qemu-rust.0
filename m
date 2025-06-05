@@ -1,87 +1,87 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uN7eK-0007wG-4K
+	id 1uN7eK-0007x9-BJ
 	for mharc-qemu-rust@gnu.org; Thu, 05 Jun 2025 06:16:40 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uN7dp-0007Nv-TV
- for qemu-rust@nongnu.org; Thu, 05 Jun 2025 06:16:11 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1uN7dv-0007RC-Fo
+ for qemu-rust@nongnu.org; Thu, 05 Jun 2025 06:16:19 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uN7dn-0001Hk-TA
- for qemu-rust@nongnu.org; Thu, 05 Jun 2025 06:16:09 -0400
+ id 1uN7dt-0001Ju-Sh
+ for qemu-rust@nongnu.org; Thu, 05 Jun 2025 06:16:15 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1749118566;
+ s=mimecast20190719; t=1749118572;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZQCdWoOTSdYbeAQWQkf295VeDuJikO78V09umKPWQl8=;
- b=XNjr1W+BrxCwTGygAxJHi5FZb54uXFmpQhXHZuNciBkNZIv1gSJzm6G8dUIaiJxijPI8NA
- ViSHKGPg5Wnv2qdUEO6EUs59R3mgYKDTXuJit7shLqo8UJwldewgJa7/GPKxrQBB8Hi7/8
- BuNILdTGzH7O08W+QoXvQtG+ONvGzyQ=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=ElGaxLGiSIb6e5dqiWIlm8oesZYBfD74a0jBFqGIj5Q=;
+ b=gSAq4b+e+p11zFQQFu6QYrOPWZNED7yrprKifbA32dOefn1tz4BloIjb9YPxHTI0cCKKmD
+ sm+AC8H9LxKPRVO2Qu7UB1CvYOCfs/Yp+yTlwZMu2zvE8sztxHtrfB/UxR8EjFWfJMCkui
+ bI3Lx4Y4ugnzYeQdlWiby2PAB32IC/I=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-107-XKwcnDKPNAC8QO1-rYw7jQ-1; Thu, 05 Jun 2025 06:16:04 -0400
-X-MC-Unique: XKwcnDKPNAC8QO1-rYw7jQ-1
-X-Mimecast-MFC-AGG-ID: XKwcnDKPNAC8QO1-rYw7jQ_1749118564
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-3a4f85f31d9so462660f8f.1
- for <qemu-rust@nongnu.org>; Thu, 05 Jun 2025 03:16:04 -0700 (PDT)
+ us-mta-98-rnxCEQPnOLmtzsF6-0jR5A-1; Thu, 05 Jun 2025 06:16:11 -0400
+X-MC-Unique: rnxCEQPnOLmtzsF6-0jR5A-1
+X-Mimecast-MFC-AGG-ID: rnxCEQPnOLmtzsF6-0jR5A_1749118569
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-450de98b28eso9529475e9.0
+ for <qemu-rust@nongnu.org>; Thu, 05 Jun 2025 03:16:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749118564; x=1749723364;
+ d=1e100.net; s=20230601; t=1749118569; x=1749723369;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ZQCdWoOTSdYbeAQWQkf295VeDuJikO78V09umKPWQl8=;
- b=kqZ+JFcDdceLoQs8yss8IYNrSda9Uu4PYB4AffdDDUmt45rHqYRqQzoi4VTZqoAYNl
- f7qrjGuaYj05ywfcUaFUrw/Gd9B2tNtMhBuJKuVvIk7wB/2+t4dm3/IcP72DAAqKT2QY
- gxgZF+xV0UkFmQoKP/AemzfoATa+q+KCuWMKfM4TyHoi62PxQwQZb6c88mQDwqwY/7mK
- JF+HNK7rLM0RHiFW7tea+crPVJfUxOCjOZOE5rYyh6fsYJAtMnlYwnncuncGKMNHoZnM
- xO0DzL+kliGuVvPnwZ5qyyMTs9yAQhBTwpCVjLxd+tGdfAfbcS/ISB/VccD7SV6fVfc9
- CosA==
+ bh=ElGaxLGiSIb6e5dqiWIlm8oesZYBfD74a0jBFqGIj5Q=;
+ b=rq3MI5oQVEnUpKU1TVvn9fyIWIFiKgfmFdQy7MyEaGxLBmfvxOjY6fJt2O3hyDiUsn
+ TCWrke0N2df10ozJLM9sz95BvqRfLsrANkvyXMMktbBYaNGShgicQvWQXEc1HGW8Jrkw
+ VBLN/1Hj91Mea9Ep4KiaGnoo9VxfPCb0juIIt07r42h4IMD+LQiIfXHDUsa5JQku9mAI
+ KPrsvKyWB+VjAgfo3sU992XqGUbjS1A+YnZLueTpPwHoH0YrSthukYB3lx8GJ11S5R1z
+ P547agSQYLTbB9kzlW7TZebYlyG9RdiqOzdOsBQRPRA3MxQUwoREvkBW38ajGpymJzJ7
+ ktXg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXYwjhmufRrNT6Bc9xwIhVU2pzaR1OHm/bciHgocmxMoCab+OVhmB6VWXr8ue/GyD1ATAHlsT2s9F4=@nongnu.org
-X-Gm-Message-State: AOJu0Yzhm+gCPjJDqOJeRxy1KQGbdy8todmDOYO1y0BkKt8RrjRqf+si
- ueDc3K3jPxK4FMYxqM7ehHQPcvdiZ6oZAD4ENf9k7OvgtXQMO/Mqv9Ri6UzSblVeKmy2tLcMdWi
- A4S44Ltm93wtg7/r5dBkOeaUIpPRGtSVxt3fJ5D64eYR37QQMlj/TB7Y=
-X-Gm-Gg: ASbGnctAR9ggLwig/vzh6XLk3ZrO6QGt7lq3ENn8OIqsam+1HBrR8j6GBgQWRSGzO9H
- 9+ZoxKsJ92Og5GS3XXjdO/zqQsthg8fp2OfQGaLF4wy+cA3vx3FACIp2n3XPcnRsL65AWdjReTu
- GvVhGTe/NacRkSyLkSAWeo4JT1rSDTq38c8X3WERiqOrATZqSnY5NzvSiawCNnrX0kQsdxoCIOh
- THpdfxdOPilanAal4WFcEF5/aApnl9N4Yi2y5rw4/Aqu5aHL1724ibRgC9+ndfj4FPs9BB+CgYg
- XsPHdpOd1EJHSg==
-X-Received: by 2002:a05:6000:18ab:b0:3a4:f41d:6973 with SMTP id
- ffacd0b85a97d-3a51d91b9d8mr5302327f8f.13.1749118563684; 
- Thu, 05 Jun 2025 03:16:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEYyS7WrHOeCCeB0Qo+ibeY6lTTD3JU6vd6Kvi6h9sha9RCdOGUQEkIMrCdKb9ndf3nH1THzA==
-X-Received: by 2002:a05:6000:18ab:b0:3a4:f41d:6973 with SMTP id
- ffacd0b85a97d-3a51d91b9d8mr5302308f8f.13.1749118563292; 
- Thu, 05 Jun 2025 03:16:03 -0700 (PDT)
+ AJvYcCX7LSyjCo+kbesrafrDDNzahTQJEZj/5jDpuzEHyZzlS5pKmqGml+aShrLjJaI2opdKLc77NutLMpo=@nongnu.org
+X-Gm-Message-State: AOJu0Yxcc0RjP9qKnGsHGkC8W2L28CDXfTfW+EKC/dzUVfMLdmKZll1A
+ hKm7um7WxW6LUlipXXdWV/S9sKI6chPVlZhlfBMLMJk8RPuLNzljCoUaJ8zJFtjUkh407QZImAQ
+ r2iE9LFduHUkevXZpOIckN3x4nkDLoQTgNwuVYSjCLrZnYqspNg1zV8w=
+X-Gm-Gg: ASbGncv36GXNjVt6j+1miBmcIFL2D6xaJv3wLYc+sZqHhAX6U74+XwcR4F6uabTh+oi
+ Vlm1q1F3zpjf5MKm7kJx31qUDyItaCATTOK1RHA3PX/yGOjM9rRy5cB4BgNi+hEQ2ZWQACU+VdF
+ BIflGXQK4IZ1dyiHRmCUVrHBXg8xMGHm1EuSirt5hXBj6Z+P3Hr0hgBYZ+abONTOrKv5ipFDOTB
+ 77CMpTCtpgUgmgmcpUosP1bKWj+++98GF2YRxH8VJAgHQ+UqIfIxrsBCH2k9VQyyw3CpLetDs4G
+ pDQggxlQyapXIg==
+X-Received: by 2002:a05:6000:18a5:b0:3a4:c71a:8119 with SMTP id
+ ffacd0b85a97d-3a526e177e2mr2653815f8f.25.1749118569498; 
+ Thu, 05 Jun 2025 03:16:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFexuyaMbmm442Va0w1BVBm9wRa4lrks6P9WJvlUyrZBJQKvIBXc7IZmgqSmfuQ4DHPDyU76w==
+X-Received: by 2002:a05:6000:18a5:b0:3a4:c71a:8119 with SMTP id
+ ffacd0b85a97d-3a526e177e2mr2653783f8f.25.1749118569080; 
+ Thu, 05 Jun 2025 03:16:09 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.64.79])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-451f98138c0sm19782395e9.9.2025.06.05.03.16.02
+ ffacd0b85a97d-3a525da8e66sm2431935f8f.38.2025.06.05.03.16.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Jun 2025 03:16:02 -0700 (PDT)
+ Thu, 05 Jun 2025 03:16:07 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: armbru@redhat.com,
 	zhao1.liu@intel.com,
 	qemu-rust@nongnu.org
-Subject: [PATCH 07/14] rust: qemu-api: add tests for Error bindings
-Date: Thu,  5 Jun 2025 12:15:36 +0200
-Message-ID: <20250605101544.368953-8-pbonzini@redhat.com>
+Subject: [PATCH 09/14] rust/hpet: change type of num_timers to usize
+Date: Thu,  5 Jun 2025 12:15:38 +0200
+Message-ID: <20250605101544.368953-10-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250605101544.368953-1-pbonzini@redhat.com>
 References: <20250605101544.368953-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 4UCgcD5croPz8z1hTwIXG3YAcHHf_5RXVTjIKMO_Gxg_1749118564
+X-Mimecast-MFC-PROC-ID: lRLsn-ZnsnwRbK7cO1CIofpzg32FYAWB0thPqKbb5d0_1749118569
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -21
 X-Spam_score: -2.2
@@ -90,7 +90,7 @@ X-Spam_report: (-2.2 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.128,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -103,125 +103,113 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Jun 2025 10:16:11 -0000
+X-List-Received-Date: Thu, 05 Jun 2025 10:16:19 -0000
 
+Remove the need to convert after every read of the BqlCell.  Because the
+vmstate uses a u8 as the size of the VARRAY, this requires switching
+the VARRAY to use num_timers_save; which in turn requires ensuring that
+the num_timers_save is always there.  For simplicity do this by
+removing support for version 1, which QEMU has not been producing for
+~15 years.
+
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/qemu-api/src/error.rs | 104 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 104 insertions(+)
+ rust/hw/timer/hpet/src/device.rs | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/rust/qemu-api/src/error.rs b/rust/qemu-api/src/error.rs
-index 80157f6ea1b..e114fc4178b 100644
---- a/rust/qemu-api/src/error.rs
-+++ b/rust/qemu-api/src/error.rs
-@@ -310,3 +310,107 @@ unsafe fn cloned_from_foreign(c_error: *const bindings::Error) -> Self {
-         }
+diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
+index 68c82b09b60..a957de1e767 100644
+--- a/rust/hw/timer/hpet/src/device.rs
++++ b/rust/hw/timer/hpet/src/device.rs
+@@ -12,7 +12,7 @@
+ use qemu_api::{
+     bindings::{
+         address_space_memory, address_space_stl_le, qdev_prop_bit, qdev_prop_bool,
+-        qdev_prop_uint32, qdev_prop_uint8,
++        qdev_prop_uint32, qdev_prop_usize,
+     },
+     cell::{BqlCell, BqlRefCell},
+     irq::InterruptSource,
+@@ -36,9 +36,9 @@
+ const HPET_REG_SPACE_LEN: u64 = 0x400; // 1024 bytes
+ 
+ /// Minimum recommended hardware implementation.
+-const HPET_MIN_TIMERS: u8 = 3;
++const HPET_MIN_TIMERS: usize = 3;
+ /// Maximum timers in each timer block.
+-const HPET_MAX_TIMERS: u8 = 32;
++const HPET_MAX_TIMERS: usize = 32;
+ 
+ /// Flags that HPETState.flags supports.
+ const HPET_FLAG_MSI_SUPPORT_SHIFT: usize = 0;
+@@ -561,8 +561,8 @@ pub struct HPETState {
+ 
+     /// HPET timer array managed by this timer block.
+     #[doc(alias = "timer")]
+-    timers: [BqlRefCell<HPETTimer>; HPET_MAX_TIMERS as usize],
+-    num_timers: BqlCell<u8>,
++    timers: [BqlRefCell<HPETTimer>; HPET_MAX_TIMERS],
++    num_timers: BqlCell<usize>,
+     num_timers_save: BqlCell<u8>,
+ 
+     /// Instance id (HPET timer block ID).
+@@ -572,7 +572,7 @@ pub struct HPETState {
+ impl HPETState {
+     // Get num_timers with `usize` type, which is useful to play with array index.
+     fn get_num_timers(&self) -> usize {
+-        self.num_timers.get().into()
++        self.num_timers.get()
+     }
+ 
+     const fn has_msi_flag(&self) -> bool {
+@@ -854,7 +854,7 @@ fn pre_save(&self) -> i32 {
+          * also added to the migration stream.  Check that it matches the value
+          * that was configured.
+          */
+-        self.num_timers_save.set(self.num_timers.get());
++        self.num_timers_save.set(self.num_timers.get() as u8);
+         0
+     }
+ 
+@@ -884,7 +884,7 @@ fn is_offset_needed(&self) -> bool {
+     }
+ 
+     fn validate_num_timers(&self, _version_id: u8) -> bool {
+-        self.num_timers.get() == self.num_timers_save.get()
++        self.num_timers.get() == self.num_timers_save.get().into()
      }
  }
-+
-+#[cfg(test)]
-+mod tests {
-+    use std::ffi::CStr;
-+
-+    use anyhow::anyhow;
-+    use foreign::OwnedPointer;
-+
-+    use super::*;
-+    use crate::{assert_match, bindings};
-+
-+    #[track_caller]
-+    fn error_for_test(msg: &CStr) -> OwnedPointer<Error> {
-+        // SAFETY: all arguments are controlled by this function
-+        let location = panic::Location::caller();
-+        unsafe {
-+            let err: *mut c_void = libc::malloc(std::mem::size_of::<bindings::Error>());
-+            let err: &mut bindings::Error = &mut *err.cast();
-+            *err = bindings::Error {
-+                msg: msg.clone_to_foreign_ptr(),
-+                err_class: bindings::ERROR_CLASS_GENERIC_ERROR,
-+                src_len: location.file().len() as c_int,
-+                src: location.file().as_ptr().cast::<c_char>(),
-+                line: location.line() as c_int,
-+                func: ptr::null_mut(),
-+                hint: ptr::null_mut(),
-+            };
-+            OwnedPointer::new(err)
-+        }
-+    }
-+
-+    unsafe fn error_get_pretty<'a>(local_err: *mut bindings::Error) -> &'a CStr {
-+        unsafe { CStr::from_ptr(bindings::error_get_pretty(local_err)) }
-+    }
-+
-+    #[test]
-+    #[allow(deprecated)]
-+    fn test_description() {
-+        use std::error::Error;
-+
-+        assert_eq!(super::Error::from("msg").description(), "msg");
-+        assert_eq!(super::Error::from("msg".to_owned()).description(), "msg");
-+    }
-+
-+    #[test]
-+    fn test_display() {
-+        assert_eq!(&*format!("{}", Error::from("msg")), "msg");
-+        assert_eq!(&*format!("{}", Error::from("msg".to_owned())), "msg");
-+        assert_eq!(&*format!("{}", Error::from(anyhow!("msg"))), "msg");
-+
-+        assert_eq!(
-+            &*format!("{}", Error::with_error("msg", anyhow!("cause"))),
-+            "msg: cause"
-+        );
-+    }
-+
-+    #[test]
-+    fn test_bool_or_propagate() {
-+        unsafe {
-+            let mut local_err: *mut bindings::Error = ptr::null_mut();
-+
-+            assert!(Error::bool_or_propagate(Ok(()), &mut local_err));
-+            assert_eq!(local_err, ptr::null_mut());
-+
-+            let my_err = Error::from("msg");
-+            assert!(!Error::bool_or_propagate(Err(my_err), &mut local_err));
-+            assert_ne!(local_err, ptr::null_mut());
-+            assert_eq!(error_get_pretty(local_err), c"msg");
-+            bindings::error_free(local_err);
-+        }
-+    }
-+
-+    #[test]
-+    fn test_ptr_or_propagate() {
-+        unsafe {
-+            let mut local_err: *mut bindings::Error = ptr::null_mut();
-+
-+            let ret = Error::ptr_or_propagate(Ok("abc".to_owned()), &mut local_err);
-+            assert_eq!(String::from_foreign(ret), "abc");
-+            assert_eq!(local_err, ptr::null_mut());
-+
-+            let my_err = Error::from("msg");
-+            assert_eq!(
-+                Error::ptr_or_propagate(Err::<String, _>(my_err), &mut local_err),
-+                ptr::null_mut()
-+            );
-+            assert_ne!(local_err, ptr::null_mut());
-+            assert_eq!(error_get_pretty(local_err), c"msg");
-+            bindings::error_free(local_err);
-+        }
-+    }
-+
-+    #[test]
-+    fn test_err_or_unit() {
-+        unsafe {
-+            let result = Error::err_or_unit(ptr::null_mut());
-+            assert_match!(result, Ok(()));
-+
-+            let err = error_for_test(c"msg");
-+            let err = Error::err_or_unit(err.into_inner()).unwrap_err();
-+            assert_eq!(&*format!("{err}"), "msg");
-+        }
-+    }
-+}
+ 
+@@ -911,7 +911,7 @@ impl ObjectImpl for HPETState {
+         c"timers",
+         HPETState,
+         num_timers,
+-        unsafe { &qdev_prop_uint8 },
++        unsafe { &qdev_prop_usize },
+         u8,
+         default = HPET_MIN_TIMERS
+     ),
+@@ -1016,16 +1016,16 @@ impl ObjectImpl for HPETState {
+ static VMSTATE_HPET: VMStateDescription = VMStateDescription {
+     name: c"hpet".as_ptr(),
+     version_id: 2,
+-    minimum_version_id: 1,
++    minimum_version_id: 2,
+     pre_save: Some(hpet_pre_save),
+     post_load: Some(hpet_post_load),
+     fields: vmstate_fields! {
+         vmstate_of!(HPETState, config),
+         vmstate_of!(HPETState, int_status),
+         vmstate_of!(HPETState, counter),
+-        vmstate_of!(HPETState, num_timers_save).with_version_id(2),
++        vmstate_of!(HPETState, num_timers_save),
+         vmstate_validate!(HPETState, VALIDATE_TIMERS_NAME, HPETState::validate_num_timers),
+-        vmstate_struct!(HPETState, timers[0 .. num_timers], &VMSTATE_HPET_TIMER, BqlRefCell<HPETTimer>, HPETState::validate_num_timers).with_version_id(0),
++        vmstate_struct!(HPETState, timers[0 .. num_timers_save], &VMSTATE_HPET_TIMER, BqlRefCell<HPETTimer>, HPETState::validate_num_timers).with_version_id(0),
+     },
+     subsections: vmstate_subsections! {
+         VMSTATE_HPET_RTC_IRQ_LEVEL,
 -- 
 2.49.0
 
