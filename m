@@ -1,91 +1,90 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uP1em-0003nC-CU
-	for mharc-qemu-rust@gnu.org; Tue, 10 Jun 2025 12:17:02 -0400
+	id 1uP23u-00016q-VN
+	for mharc-qemu-rust@gnu.org; Tue, 10 Jun 2025 12:42:58 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uP1ZD-00033f-Vg
- for qemu-rust@nongnu.org; Tue, 10 Jun 2025 12:11:16 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <mlureau@redhat.com>)
+ id 1uOyzt-000792-Iz
+ for qemu-rust@nongnu.org; Tue, 10 Jun 2025 09:26:37 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uP1Z6-0001es-V0
- for qemu-rust@nongnu.org; Tue, 10 Jun 2025 12:11:15 -0400
+ (Exim 4.90_1) (envelope-from <mlureau@redhat.com>)
+ id 1uOyzm-0006g5-KU
+ for qemu-rust@nongnu.org; Tue, 10 Jun 2025 09:26:37 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1749571862;
+ s=mimecast20190719; t=1749561986;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Lw4KCgn5AuZvkE6iDhSORyprWcfTe4OMDLQGuKVdJ68=;
- b=K/JPED1DWreLh6dNLi1Ky/KwB86/2PlF5N0I/zKkUZNOTtwG1XKB7dyZRuRLrMMu5K1qCR
- DRFNjaXSrONTHGbIDzuMovjEkYku4/oljRmjNzSjqnijojmdGNndqDjY2KKYpjdN+IAzBa
- cxXIlfdRmP2xYnN8JBUTpxUac1MTvlM=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=TZ8YbzTFpdhd6WiOhudM2Tuhugtqn6d4bA9UVq6kugI=;
+ b=Xic7H4WyBdpaaW+ofGBtzxXTa+S5IOJGSprv7FxG/5UThp+znMRlOLowny0jIG2MBLAab3
+ BcZpIj4WUcB5X8AjPPKSMUrB8SMCxDoWHk1p/7pK/PQc7oNpAcetLH9LqkB2Nroo5s8oKD
+ kub6uGWqW8J9r+4xpKAUCtg3nimAN2E=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-596-wGkEtXhbPbOWaMlVZ9xsdQ-1; Tue, 10 Jun 2025 12:11:00 -0400
-X-MC-Unique: wGkEtXhbPbOWaMlVZ9xsdQ-1
-X-Mimecast-MFC-AGG-ID: wGkEtXhbPbOWaMlVZ9xsdQ_1749571859
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-3a54a8a0122so1046415f8f.2
- for <qemu-rust@nongnu.org>; Tue, 10 Jun 2025 09:11:00 -0700 (PDT)
+ us-mta-349-YyI7w9-pMti7c0IGKhmO5w-1; Tue, 10 Jun 2025 09:26:25 -0400
+X-MC-Unique: YyI7w9-pMti7c0IGKhmO5w-1
+X-Mimecast-MFC-AGG-ID: YyI7w9-pMti7c0IGKhmO5w_1749561984
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-6fb1f84a448so18116276d6.0
+ for <qemu-rust@nongnu.org>; Tue, 10 Jun 2025 06:26:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749571859; x=1750176659;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Lw4KCgn5AuZvkE6iDhSORyprWcfTe4OMDLQGuKVdJ68=;
- b=oRVhOhdIuFuBUiW75PkJDgK9IuVEDFJyx/o4Z7SSVM2Y6tLW+vmvyo+2v5hfZ+m7qT
- xVVPh+yV+nXvIZvwW9AFRQTlEYnsBoDKhaz5nEsUDwR7UhrxCGfb3Ez3o1ajJMXdI33L
- Z+ForolzyjC7jAC/V63PmL6zeVS7Fd988j6BclBQl8MVKvRTf3EdUkQxL+AvZwdApRcS
- kx6kB45wODEHrYhtA5KlZRC7iozmfxkzietgD4/UuLlOi/wwveS/UwN5Q5Wpxxd8t1MD
- /4DxDrLJ/qQmwF5+ZoKz1/A1xTB9OIpHR0NrqKPXSlIV7ZB2mnaMfyXWzAu7kj2WQZFC
- i+WA==
+ d=1e100.net; s=20230601; t=1749561984; x=1750166784;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TZ8YbzTFpdhd6WiOhudM2Tuhugtqn6d4bA9UVq6kugI=;
+ b=KRFCXxFmoR6X0XUWyZAK6Nel7Kn3vY1jL9UzyFq1+yJKRzNSHlsD5Uv8m0IirVALAW
+ FVF/2KvwcLA/aCsVoqOOBNov7TnTmaBie68ki3915CGiyqns70aKDaYlXk7DanWMLUEQ
+ 33dhpA5b15Gcm9YZ6vv6FUGUJXZnYID9yho+0f+YlNsmXjSApOspMz6XRi19atcY+Zr2
+ BhXaS8gtk/w2hY0U339FRb6e28ZYkzoUprgItlyjDFlTdChlJDm6DGxEJ7Cqpuftz7QD
+ /zkInnIa6ndAQXg0ETu0oiWkcSHJrlOEHwxlr1qaMCmkPBUXg2c7PPaNr8qNqJXnDEMP
+ dvzw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW6mIPUzKwsZwaFGjIbQ8x/QNFwVAMlB3ZPuwEfH3snTJmVad8WKwyBTy/2LYI08fYJbqbDRKeUbhY=@nongnu.org
-X-Gm-Message-State: AOJu0Yxp2V3ec8jfFRA60H5kL66U39zb5ZHSwrwcbyIYIAYXp6f3y6Gw
- pvE0Mn7Dg1dq/qLVd6AS6WX0/S1Z2Vf1jdoDWIyphFA1pmqsKeDft4A1OROa1rmOnOtFJClRy7b
- cv1q+ivyoqFWBQOHGHg8e40LtolqAVWKEVvsQApjQ13y3azrKHbJaQaZrmEGmVsPoRlEWFosm41
- 5au9D64QP+UVhdP+8Be001SIrDSb/HAg==
-X-Gm-Gg: ASbGncsSLpDMbEumZjbCq1KLZS+htiyG8VjwWyDS6GcrI0KKpNXL4IBMOStTRsGbY8m
- l7+VBHyzg+DmtnxRU22yOHs08Xo/jz06q2i184JSEINiNf/BM71shNMxUZA25VPTELvngRHatUp
- 5+QQ==
-X-Received: by 2002:adf:f58c:0:b0:3a5:39d7:3f17 with SMTP id
- ffacd0b85a97d-3a539d73f90mr9784000f8f.47.1749571859471; 
- Tue, 10 Jun 2025 09:10:59 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF8rvEMsKyQJ+gIF14zjTJ0VBycm1tLlvb9Fi2AQvxcIw7deQAd1I27kyWkq0ZOiMcEThd5tumYH8vB1D0U1VQ=
-X-Received: by 2002:adf:f58c:0:b0:3a5:39d7:3f17 with SMTP id
- ffacd0b85a97d-3a539d73f90mr9783966f8f.47.1749571859026; Tue, 10 Jun 2025
- 09:10:59 -0700 (PDT)
+ AJvYcCWtgI9Egwaae/kDuy8AXhgMUxM5gDjwFDOtHIPXgDscdgesVbx6vGy+ChyeHHWcxpJXA6TqQbSqtVY=@nongnu.org
+X-Gm-Message-State: AOJu0YzXkOLUjGkfMzDzWoIelKYsQV30lc1Kr268/9jmhIsj4/IbcIr5
+ k8HCxCpKn4gf5iBVCcVFU+6iw+z5G4f9fT/L9Re3uTJmKeGAET2KRLOegHujrJ15XhV1RbQh0ac
+ ux0KlrvFdKiys0MFfNwJKfXPaMCyAXY6TCAaEzHeC/Um3yTzsyMVXbya1M5DqqfXeNujKsDDv1g
+ UkjJv2hWSr8gQh7jjpBT07tQz419uy1A==
+X-Gm-Gg: ASbGncu7GoV+/5Wpdow90sWG9qWT04FuotV5z3rM+EaBxr4FGGRKVuax7WEqYn4Bs3/
+ cHjxDxjuzo9vCBURg3eUM6sVFjhQcseU7+8aVdaHpPTC3t+U+Fta7kYD6q2DvO5eZ0uBKopavEG
+ 0LvevA86LMPh067DC0Uapy01WpZXIgOO72BNjD
+X-Received: by 2002:a05:6214:242e:b0:6fa:cb05:b44c with SMTP id
+ 6a1803df08f44-6fb08f4314fmr266826806d6.3.1749561984292; 
+ Tue, 10 Jun 2025 06:26:24 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGG33ocxkZEMglLzN5LY6ffp83zf1HHmc9QPJ1W61gb+CYFBfzhOluCj4vzs9SClPZByqDMfkiWzoQkPajiv1Q=
+X-Received: by 2002:a05:6214:242e:b0:6fa:cb05:b44c with SMTP id
+ 6a1803df08f44-6fb08f4314fmr266826216d6.3.1749561983816; Tue, 10 Jun 2025
+ 06:26:23 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250605101124.367270-1-pbonzini@redhat.com>
- <CAMxuvazN2OMc1VANJVMgj0nQ1KCCop46A151uAUe0mdATrQjCg@mail.gmail.com>
-In-Reply-To: <CAMxuvazN2OMc1VANJVMgj0nQ1KCCop46A151uAUe0mdATrQjCg@mail.gmail.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 10 Jun 2025 18:10:47 +0200
-X-Gm-Features: AX0GCFsdiMxgV9drCac9melcjaVIHtck4Y6vTQFlL7mrYgE6AYChETUHOZm5-z8
-Message-ID: <CABgObfYt=Gg=R6cekCTbYhmF+2P-9DoOCSeaaWHHGbMmew2ZyQ@mail.gmail.com>
-Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from 2021
-To: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
+ <20250605101124.367270-2-pbonzini@redhat.com>
+In-Reply-To: <20250605101124.367270-2-pbonzini@redhat.com>
+From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
+Date: Tue, 10 Jun 2025 17:26:12 +0400
+X-Gm-Features: AX0GCFvE64xeikhVCZx9sJM6BU5Q1IMeiXm2InfyBL5Zwgr9Ien68vArHYlPu24
+Message-ID: <CAMxuvayD+KvQTVWv+MyU8gmxLgwDF3p1ahiY+6WLvHJndJTXxg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] rust: make TryFrom macro more resilient
+To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, armbru@redhat.com, 
  mkletzan@redhat.com
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: pkwiWmDc6IP7CNsrGreVdiGmzcHaKCrOLeXJy-ESmbM_1749571859
+X-Mimecast-MFC-PROC-ID: rRALKPTBQmV803lWus6iHiC7GJW1SUiaFux396WUtJ4_1749561984
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Content-Type: multipart/alternative; boundary="0000000000008ee651063737a4da"
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=mlureau@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, HTML_MESSAGE=0.001,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Tue, 10 Jun 2025 12:42:39 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,71 +96,133 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Jun 2025 16:11:16 -0000
+X-List-Received-Date: Tue, 10 Jun 2025 13:26:38 -0000
 
-On Tue, Jun 10, 2025 at 3:53=E2=80=AFPM Marc-Andr=C3=A9 Lureau
-<marcandre.lureau@redhat.com> wrote:
-> On Thu, Jun 5, 2025 at 2:11=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com=
-> wrote:
->> This is just an extremely minimal extraction from the patches at
->> https://patchew.org/QEMU/20210907121943.3498701-1-marcandre.lureau@redha=
-t.com/,
->> limited to generating structs and enums from the QAPI schema.
->> It does not include them in any crate and does not compile them.
+--0000000000008ee651063737a4da
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Jun 5, 2025 at 2:11=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com> =
+wrote:
+
+> If the enum includes values such as "Ok", "Err", or "Error", the TryInto
+> macro can cause errors.  Be careful and qualify identifiers with the full
+> path, or in the case of TryFrom<>::Error do not use the associated type
+> at all.
 >
-> Do you keep an up to date branch for those patches?
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+>
 
-I can add them to my rust-next branch but they can in theory just be
-applied to upstream/master.
+Reviewed-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
 
-> I fail to understand the advantage of going through Serde to deserialize/=
-serialize from C when you can have C types in Rust - having less generated =
-code?
 
-It's indeed trading generated Rust code for generic serializers and
-deserializers + #[derive(Serializer, Deserializer)]. It's not the
-primary reason but the size of your code generator patches was a bit
-scary indeed and I don't want to inflict too much review effort on
-QAPI maintainers.
+> ---
+>  rust/qemu-api-macros/src/lib.rs | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>
+> diff --git a/rust/qemu-api-macros/src/lib.rs b/rust/qemu-api-macros/src/
+> lib.rs
+> index 103470785e3..c18bb4e036f 100644
+> --- a/rust/qemu-api-macros/src/lib.rs
+> +++ b/rust/qemu-api-macros/src/lib.rs
+> @@ -203,8 +203,8 @@ fn derive_tryinto_body(
+>      Ok(quote! {
+>          #(const #discriminants: #repr =3D #name::#discriminants as #repr=
+;)*;
+>          match value {
+> -            #(#discriminants =3D> Ok(#name::#discriminants),)*
+> -            _ =3D> Err(value),
+> +            #(#discriminants =3D>
+> core::result::Result::Ok(#name::#discriminants),)*
+> +            _ =3D> core::result::Result::Err(value),
+>          }
+>      })
+>  }
+> @@ -236,7 +236,8 @@ pub const fn from_bits(value: #repr) -> Self {
+>          impl core::convert::TryFrom<#repr> for #name {
+>              type Error =3D #repr;
+>
+> -            fn try_from(value: #repr) -> Result<Self, Self::Error> {
+> +            #[allow(ambiguous_associated_items)]
+> +            fn try_from(value: #repr) -> Result<Self, #repr> {
+>                  #body
+>              }
+>          }
+> --
+> 2.49.0
+>
+>
 
-But also, I'm not sure that the C types are needed at all for
-implementing QAPI commands. The QAPI command generator could have a
-directive like 'rust': 'qga::qmp'" directive (or maybe just
-'language': 'rust', I don't know) that would generate Rust
-marshaling/unmarshaling functions:
+--0000000000008ee651063737a4da
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-pub extern "C" fn qmp_guest_get_host_name(
-        args: *mut QDict,
-        ret: *mut *mut QObject,
-        errp: *mut *mut bindings::Error) {
-    let args =3D unsafe { from_qobject::<()>(args) };
-    match ::qga::qmp::guest_get_host_name(args) {
-        Ok(ref v) =3D> unsafe { *ret =3D to_qobject::<GuestHostName>(v); },
-        Err(err) =3D> unsafe { err.propagate(errp); }
-    }
-}
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Jun 5, =
+2025 at 2:11=E2=80=AFPM Paolo Bonzini &lt;<a href=3D"mailto:pbonzini@redhat=
+.com">pbonzini@redhat.com</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex">If the enum includes values such as &quot;Ok&quot;=
+, &quot;Err&quot;, or &quot;Error&quot;, the TryInto<br>
+macro can cause errors.=C2=A0 Be careful and qualify identifiers with the f=
+ull<br>
+path, or in the case of TryFrom&lt;&gt;::Error do not use the associated ty=
+pe<br>
+at all.<br>
+<br>
+Signed-off-by: Paolo Bonzini &lt;<a href=3D"mailto:pbonzini@redhat.com" tar=
+get=3D"_blank">pbonzini@redhat.com</a>&gt;<br></blockquote><div><br></div><=
+div>Reviewed-by: Marc-Andr=C3=A9 Lureau &lt;<a href=3D"mailto:marcandre.lur=
+eau@redhat.com">marcandre.lureau@redhat.com</a>&gt;</div><div>=C2=A0</div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft:1px solid rgb(204,204,204);padding-left:1ex">
+---<br>
+=C2=A0rust/qemu-api-macros/src/<a href=3D"http://lib.rs" rel=3D"noreferrer"=
+ target=3D"_blank">lib.rs</a> | 7 ++++---<br>
+=C2=A01 file changed, 4 insertions(+), 3 deletions(-)<br>
+<br>
+diff --git a/rust/qemu-api-macros/src/<a href=3D"http://lib.rs" rel=3D"nore=
+ferrer" target=3D"_blank">lib.rs</a> b/rust/qemu-api-macros/src/<a href=3D"=
+http://lib.rs" rel=3D"noreferrer" target=3D"_blank">lib.rs</a><br>
+index 103470785e3..c18bb4e036f 100644<br>
+--- a/rust/qemu-api-macros/src/<a href=3D"http://lib.rs" rel=3D"noreferrer"=
+ target=3D"_blank">lib.rs</a><br>
++++ b/rust/qemu-api-macros/src/<a href=3D"http://lib.rs" rel=3D"noreferrer"=
+ target=3D"_blank">lib.rs</a><br>
+@@ -203,8 +203,8 @@ fn derive_tryinto_body(<br>
+=C2=A0 =C2=A0 =C2=A0Ok(quote! {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#(const #discriminants: #repr =3D #name::=
+#discriminants as #repr;)*;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0match value {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 #(#discriminants =3D&gt; Ok(#nam=
+e::#discriminants),)*<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 _ =3D&gt; Err(value),<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 #(#discriminants =3D&gt; core::r=
+esult::Result::Ok(#name::#discriminants),)*<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 _ =3D&gt; core::result::Result::=
+Err(value),<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+=C2=A0 =C2=A0 =C2=A0})<br>
+=C2=A0}<br>
+@@ -236,7 +236,8 @@ pub const fn from_bits(value: #repr) -&gt; Self {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0impl core::convert::TryFrom&lt;#repr&gt; =
+for #name {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0type Error =3D #repr;<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 fn try_from(value: #repr) -&gt; =
+Result&lt;Self, Self::Error&gt; {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 #[allow(ambiguous_associated_ite=
+ms)]<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 fn try_from(value: #repr) -&gt; =
+Result&lt;Self, #repr&gt; {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#body<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+-- <br>
+2.49.0<br>
+<br>
+</blockquote></div></div>
 
-and this (more specifically from_qobject/to_qobject) could also use
-serde, this time to go directly from QObject to Rust and back. A
-QObject serializer/deserializer should be easier to write (and very
-similar to existing code in serde_json for
-https://docs.rs/serde_json/latest/serde_json/enum.Value.html), so you
-could reach the stage of your old posting with qapi-gen changes that
-are little more than these two patches.
-
-> I also do not fully understand how that would work.
-
-To be honest neither do I entirely. But what I understood is that
-Serde is based on a visitor API that is very similar to what we have
-in QEMU. See the above serde_json link where it implements Serializer
-and Deserializer, and the blog post at
-https://ohadravid.github.io/posts/2025-05-serde-reflect/ should be a
-good introduction too.
-
-That said: the *possibility* of using Serde is why I started from the
-native structs. I'm not wed to it and generating/converting the C
-types remains a possibility as well.
-
-Paolo
+--0000000000008ee651063737a4da--
 
 
