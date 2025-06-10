@@ -1,77 +1,78 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uP24F-0001A8-Kf
-	for mharc-qemu-rust@gnu.org; Tue, 10 Jun 2025 12:43:19 -0400
+	id 1uP25L-0001Ny-PJ
+	for mharc-qemu-rust@gnu.org; Tue, 10 Jun 2025 12:44:27 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <mlureau@redhat.com>)
- id 1uOzQK-0002PF-Po
- for qemu-rust@nongnu.org; Tue, 10 Jun 2025 09:53:56 -0400
+ id 1uOz6j-0007yK-Ow
+ for qemu-rust@nongnu.org; Tue, 10 Jun 2025 09:33:41 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <mlureau@redhat.com>)
- id 1uOzQG-0000y0-Ey
- for qemu-rust@nongnu.org; Tue, 10 Jun 2025 09:53:56 -0400
+ id 1uOz6e-0007TE-5W
+ for qemu-rust@nongnu.org; Tue, 10 Jun 2025 09:33:41 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1749563629;
+ s=mimecast20190719; t=1749562412;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HrcERBKu0LK7yGDwJNleV5BJiHaPJruqqU1wR1bk1Tg=;
- b=RzUL1hjbGn86j36nAr4TTBgP1OUhoq0DRsEmWdykjowT0yNHk8VHbAmX7m6FmjxVMCispf
- V2ap8fZSLW+3hTSQRj8pgCTHZyq9mBkl5aSjjK4vmio0kUeCdfBoOlXparOw67VxHOhJYV
- n6WeSgq3Tw6WnxNQfZgm0yRE6hThayE=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=RSXqtXBWmabqZNaGhAVEch3+5fzLdlsgiXpUhNnshS0=;
+ b=fIr7ChoDsojO+cBu8Wn43Le8VsiXySRGDmSOz4AYnE0q1hZHHDieqkVzEAFLIbTjblljDN
+ pN82IHSDYTIO6ePfhPBSYuO3pMNlMRtgFeIFB/vZCwI8GAr04RialVc7rgLnrl4+TQ+mVA
+ TehFmQEtkp1bbobWR72PybRwKuTVpqQ=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-5-6vVX84AwPsaVgHDOdxHg1A-1; Tue, 10 Jun 2025 09:53:48 -0400
-X-MC-Unique: 6vVX84AwPsaVgHDOdxHg1A-1
-X-Mimecast-MFC-AGG-ID: 6vVX84AwPsaVgHDOdxHg1A_1749563627
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7c5e2872e57so979584285a.0
- for <qemu-rust@nongnu.org>; Tue, 10 Jun 2025 06:53:48 -0700 (PDT)
+ us-mta-643-NKMBUAMaP2WxTvwwMb0sEw-1; Tue, 10 Jun 2025 09:33:31 -0400
+X-MC-Unique: NKMBUAMaP2WxTvwwMb0sEw-1
+X-Mimecast-MFC-AGG-ID: NKMBUAMaP2WxTvwwMb0sEw_1749562411
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-6fab979413fso111499136d6.2
+ for <qemu-rust@nongnu.org>; Tue, 10 Jun 2025 06:33:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749563627; x=1750168427;
+ d=1e100.net; s=20230601; t=1749562411; x=1750167211;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=HrcERBKu0LK7yGDwJNleV5BJiHaPJruqqU1wR1bk1Tg=;
- b=uR5c3C1VjLau5lDy4wL2LJsexlf3gZDfVielETGLgukt1j/ese8k7Et/tQNur5F26m
- //T44xydJ1zqzT2lzY4gNz7M+UTSbn5LYTKm3wbIGYU/R+AD55Ies8JTO1Zj87Ui6A2v
- LRgBdr9qsLR3JJsxcwxcNkXMi8PeFc3sTC0rwL+YuBjnKL6ziqB2j0CJaIGRSfet8nVN
- k/qJBEvWlUz7SnYaoKHfbtH548FcgHrpD0bJAICD+QTYecqihanURDio+KmVTzr+Ts3z
- TmpR4dFiYQ3utfu/3WQ3ugBn3CRulqSXb6RLV6xrRC9u3AkcaqmjhP/g8xDMPjDtONEi
- zn3Q==
+ bh=RSXqtXBWmabqZNaGhAVEch3+5fzLdlsgiXpUhNnshS0=;
+ b=CCkns+tHsxv1nAikzL92EVlFT01UiHex2C8gwQt/Vw/Yky4LTLY3Qo/Ox8JoNmbPR/
+ o92xkhcS0rqFA/UHEZZhQmvdupEs8GfZvz0O9qtsdKzSwXC3i4lDljOlHOY2SPzTPX46
+ k9dpvXkS/tyqpjCuPZZ04TrNSPhvEeq8T6NFlgmE00Kjcr70P8oxKJyopWcARW3q8V/K
+ 92rZq/G3gqd7ShA9B5Vl9mXtLItC9jLh13vP/bQOcDqt610d1POI7fiRBto74utWenKV
+ 7J9/gNKuLxhnLPF4uZNHZJlI2wv4/uZmVIhAikMCeBBusNCVj3p+iWpnr+EWNyQHi4vL
+ a1Jw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXVhwM6j0TRG7huLVo8kK0uW2V06lfntvG91qVmuLWIdglPfVV4RKyK46EDYEzzRcJrioIdwbLzFnA=@nongnu.org
-X-Gm-Message-State: AOJu0YwIpEpqpbK78sUF0ROAizrjepyLj3PsL69cJMJYKNvxWWkqopm+
- WJLEkL6IqkBKftBOA1V/r07WnJICYd832Wos7Ux/vpLMkZTtV5Sm7EySgbBBxaMB0965HgXOJEp
- +UPpWaRwpGP/gRaUvGfp3olYAPDGtwEYg0Emv+50j7oL4UpRJAm7ksNH7mBRB/K+wB581lPQgZK
- jaY8zKCmQC8fKwIWjI3SXmV4GX/jXw7Q==
-X-Gm-Gg: ASbGncvQC2z69e7ycDxWawxjf14ap+vIacus/BvhZH/zUhdwQ3iDmdPkj5KwaqlS5gd
- xunOgpIHqZ6LgPs4iiZkC1cKQluTQPbzd1jzMa+GR/ASjD3r5G9m9x5qkBst+VygHo0jg4eT/DN
- eUHiqjUNgQUz+aOHMslCbyxSswFXonhmphXR6P
-X-Received: by 2002:a05:620a:17a9:b0:7cf:518:755a with SMTP id
- af79cd13be357-7d22993392cmr2514902685a.53.1749563627408; 
- Tue, 10 Jun 2025 06:53:47 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFkXXNH4z7h0JvPdDcTJFjDeeRilzF8YzT9W1pgAdxxP6LcZgp+d/3WpbY7+2Gzp9I4gKoPfibZW6ArbMa0kzI=
-X-Received: by 2002:a05:620a:17a9:b0:7cf:518:755a with SMTP id
- af79cd13be357-7d22993392cmr2514897685a.53.1749563626853; Tue, 10 Jun 2025
- 06:53:46 -0700 (PDT)
+ AJvYcCUY3DaIn90LPFiwidiHnAG9qr86E9pyYYlEIneZaGgd4b3Oq1Khi/EJMaYGHDd9j8Kgmx7NTKZgzBs=@nongnu.org
+X-Gm-Message-State: AOJu0YzCauGU2ppCCr0XPpvi6+bfwYdxlS5YTt4i1OYDRi9OQMDigZz8
+ I6dafwx4CwosaYvsR9YxBxdWGFDyTcttc/rczk+n1nIxjMTAHpLvgkXFTbR69HYzexDZvO4SxGH
+ UupKcKc3xXY9FccYcGZE7PfAIXdGfStxvp6D2BKxfNQmLfXo61pvzhl6d4nPf/ocExvh/7stJqn
+ ytEAcMLGfYxTdyPtxDJya/k8ivDoypeW66bTY/wnKAPuJP7w==
+X-Gm-Gg: ASbGncs7DTZz6xqSE2tUGQWpvsmpVx9soQrQLrQm4cuf7tmUSKwAdVUMPglTissEygZ
+ TXJhy8asllCexJo+liWmMLhbDH2ilC+pvL6ddRbCIhP/9xrvM4b+XGtUfdxYKG8Cig/iX1mTB5z
+ ohQtNr0sxPyGUj1jnKT3BLqO/fZmTcgUqMh0df
+X-Received: by 2002:ad4:5c4c:0:b0:6fa:c5be:dac3 with SMTP id
+ 6a1803df08f44-6fb08f4f61fmr254505966d6.3.1749562410683; 
+ Tue, 10 Jun 2025 06:33:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGYSLTPJ+7/qxAZBKn8MlMuwFnIje6aEXcdxvTRWyHrbuwuignJ7x5Qn2xqlGIIAejOrttK+Pxa/2QoIOzwIsw=
+X-Received: by 2002:ad4:5c4c:0:b0:6fa:c5be:dac3 with SMTP id
+ 6a1803df08f44-6fb08f4f61fmr254505626d6.3.1749562410186; Tue, 10 Jun 2025
+ 06:33:30 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250605101124.367270-1-pbonzini@redhat.com>
-In-Reply-To: <20250605101124.367270-1-pbonzini@redhat.com>
+ <20250605101124.367270-3-pbonzini@redhat.com>
+In-Reply-To: <20250605101124.367270-3-pbonzini@redhat.com>
 From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
-Date: Tue, 10 Jun 2025 17:53:35 +0400
-X-Gm-Features: AX0GCFuuvewsOLiD1BRS3CxgKBS78VWJf192fMrYBoTK-vriSF0rIsivVmpSR5M
-Message-ID: <CAMxuvazN2OMc1VANJVMgj0nQ1KCCop46A151uAUe0mdATrQjCg@mail.gmail.com>
-Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from 2021
+Date: Tue, 10 Jun 2025 17:33:19 +0400
+X-Gm-Features: AX0GCFsKoXLKD-1URwHVR9ssAlxpgjXHiZxOR8vklkrbfa4q0CZNuTkT_9wDuvI
+Message-ID: <CAMxuvawr=a1RsKXxijZby=1=ru8rNUui7T+Db2P+n5jAeckn3Q@mail.gmail.com>
+Subject: Re: [PATCH 2/3] scripts/qapi: add QAPISchemaIfCond.rsgen()
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, armbru@redhat.com, 
  mkletzan@redhat.com
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: lB98N8ib7ovHuLmS1uothfxzMQ6ND6xxPnqvELEyjYY_1749563627
+X-Mimecast-MFC-PROC-ID: rY2hXdlpyTPJDqhmAVqZgRArsWGX1QhfujNTBI0_SrM_1749562411
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="0000000000007dad2306373806ac"
+Content-Type: multipart/alternative; boundary="000000000000f8ed6f063737bd6c"
 Received-SPF: pass client-ip=170.10.129.124; envelope-from=mlureau@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
@@ -79,9 +80,10 @@ X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-Mailman-Approved-At: Tue, 10 Jun 2025 12:42:40 -0400
 X-BeenThere: qemu-rust@nongnu.org
@@ -95,270 +97,182 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Jun 2025 13:53:57 -0000
+X-List-Received-Date: Tue, 10 Jun 2025 13:33:42 -0000
 
---0000000000007dad2306373806ac
+--000000000000f8ed6f063737bd6c
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Paolo,
+Hi
 
 On Thu, Jun 5, 2025 at 2:11=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com> =
 wrote:
 
-> This is just an extremely minimal extraction from the patches at
+> From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
 >
-> https://patchew.org/QEMU/20210907121943.3498701-1-marcandre.lureau@redhat=
-.com/
-> ,
-> limited to generating structs and enums from the QAPI schema.
-> It does not include them in any crate and does not compile them.
+> Generate Rust #[cfg(...)] guards from QAPI 'if' conditions.
+>
+> Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+> Link:
+> https://lore.kernel.org/r/20210907121943.3498701-15-marcandre.lureau@redh=
+at.com
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  scripts/qapi/common.py | 16 ++++++++++++++++
+>  scripts/qapi/schema.py |  4 ++++
+>  2 files changed, 20 insertions(+)
+>
+> diff --git a/scripts/qapi/common.py b/scripts/qapi/common.py
+> index d7c8aa3365c..a8ea5792c11 100644
+> --- a/scripts/qapi/common.py
+> +++ b/scripts/qapi/common.py
+> @@ -199,6 +199,22 @@ def guardend(name: str) -> str:
+>                   name=3Dc_fname(name).upper())
 >
 >
-Do you keep an up to date branch for those patches?
-
-I fail to understand the advantage of going through Serde to
-deserialize/serialize from C when you can have C types in Rust - having
-less generated code? I also do not fully understand how that would work.
-
-While I'm not going to work on this, I was curious how much work it
-> was to produce *some* kind of Rust QAPI struct, which could be a first
-> step towards using serde as an interface to C visitors, like this:
->
-> trait QapiType: FreeForeign {
->     unsafe fn visit(v: bindings::Visitor, name: *const c_char, obj: *mut
-> <Self as FreeForeign>::Foreign, errp: *mut *mut bindings::Error);
-> }
->
-> fn to_c<T: QAPIType>(obj: &T) -> *mut <T as FreeForeign>::Foreign {
->     let mut ptr =3D libc::calloc(...);
->     let mut ser =3D QapiSerializer::<T>::new(ptr);
->     obj.serialize(&mut ser).unwrap();
->     ptr.cast()
-> }
->
-> unsafe fn from_c<T: QAPIType>(obj: *const <T as FreeForeign>::Foreign) ->
-> T {
->     let mut de =3D QapiDeserializer::new(T::visit, obj as *const c_void);
->     let value =3D de::Deserialize::deserialize(&mut de).unwrap();
->     de.end().unwrap();
->     value
-> }
->
-> /* Generated code below: */
->
-> impl QapiType for UefiVariable {
->     unsafe fn visit(v: bindings::Visitor, name: *const c_char, obj: *mut
-> bindings::UefiVariable, errp: *mut *mut bindings::Error) {
->         unsafe extern "C" visit_type_DumpGuestMemoryFormat(v:
-> bindings::Visitor, name: *const c_char, obj: *mut bindings::UefiVariable,
-> errp: *mut *mut bindings::Error) {
->         unsafe { visit_type_DumpGuestMemoryFormat(v, name, obj, errp); }
+> +def rsgen_ifcond(ifcond: Union[str, Dict[str, Any]]) -> str:
 >
 
-I guess  .._UefiVariable.
+def rsgen_ifcond(ifcond: Optional[Union[str, Dict[str, Any]]]) -> str:
 
+to make type checking happy.
 
->     }
-> }
++
+> +    def cfg(ifcond: Union[str, Dict[str, Any]]):
+> +        if isinstance(ifcond, str):
+> +            return ifcond
+> +        if isinstance(ifcond, list):
+> +            return ', '.join([cfg(c) for c in ifcond])
+> +        oper, operands =3D next(iter(ifcond.items()))
+> +        operands =3D cfg(operands)
+> +        return f'{oper}({operands})'
+> +
+> +    if not ifcond:
+> +        return ''
+> +    return '#[cfg(%s)]' % cfg(ifcond)
+> +
+> +
+>  def gen_ifcond(ifcond: Optional[Union[str, Dict[str, Any]]],
+>                 cond_fmt: str, not_fmt: str,
+>                 all_operator: str, any_operator: str) -> str:
+> diff --git a/scripts/qapi/schema.py b/scripts/qapi/schema.py
+> index cbe3b5aa91e..0fb151b5d89 100644
+> --- a/scripts/qapi/schema.py
+> +++ b/scripts/qapi/schema.py
+> @@ -39,6 +39,7 @@
+>      docgen_ifcond,
+>      gen_endif,
+>      gen_if,
+> +    rsgen_ifcond,
+>  )
+>  from .error import QAPIError, QAPISemError, QAPISourceError
+>  from .expr import check_exprs
+> @@ -65,6 +66,9 @@ def gen_endif(self) -> str:
+>      def docgen(self) -> str:
+>          return docgen_ifcond(self.ifcond)
 >
-> impl FreeForeign for UefiVariable {
->     type Foreign =3D bindings::UefiVariable;
->
->     unsafe fn free_foreign(p: *mut bindings::UefiVariable) {
->         unsafe extern "C" qapi_free_UefiVariable(p: *mut
-> bindings::UefiVariable);
->         unsafe { qapi_free_UefiVariable(p); }
->     }
-> }
->
-> impl CloneToForeign for UefiVariable {
->     fn clone_to_foreign(&self) -> OwnedPointer<Self> {
->         OwnedPointer::new(qapi::to_c(self))
->     }
-> }
->
-> impl FromForeign for UefiVariable {
->     unsafe fn cloned_from_foreign(obj: *const bindings::UefiVariable) ->
-> Self {
->         qapi::from_c(obj)
->     }
-> }
->
-> The FFI types could be generated by qapi-gen, as in Marc-Andr=C3=A9's
-> proposal, or from bindgen.
->
-> I am not sure what approach is better---whether to use serde or to
-> automatically generate the marshaling and unmarshaling code; and whether
-> to use bindgen or generate C-compatible FFI types---but it made sense,
-> from the point of view of extracting "some" code from Marc-Andr=C3=A9's
-> proof of concept and enticing other people, :) to start from high-level
-> types.
->
-> Paolo
->
-> Marc-Andr=C3=A9 Lureau (2):
->   scripts/qapi: add QAPISchemaIfCond.rsgen()
->   scripts/qapi: generate high-level Rust bindings
->
-> Paolo Bonzini (1):
->   rust: make TryFrom macro more resilient
->
->  meson.build                     |   4 +-
->  rust/qemu-api-macros/src/lib.rs |   7 +-
->  scripts/qapi/backend.py         |   4 +-
->  scripts/qapi/common.py          |  16 ++
->  scripts/qapi/main.py            |   4 +-
->  scripts/qapi/rs.py              | 183 ++++++++++++++++++
->  scripts/qapi/rs_types.py        | 320 ++++++++++++++++++++++++++++++++
->  scripts/qapi/schema.py          |   4 +
->  8 files changed, 535 insertions(+), 7 deletions(-)
->  create mode 100644 scripts/qapi/rs.py
->  create mode 100644 scripts/qapi/rs_types.py
+> +    def rsgen(self) -> str:
+> +        return rsgen_ifcond(self.ifcond)
+> +
+>      def is_present(self) -> bool:
+>          return bool(self.ifcond)
 >
 > --
 > 2.49.0
 >
 >
 
---0000000000007dad2306373806ac
+--000000000000f8ed6f063737bd6c
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div>Hi Paolo,</div></div><br><div class=
-=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr=
-">On Thu, Jun 5, 2025 at 2:11=E2=80=AFPM Paolo Bonzini &lt;<a href=3D"mailt=
-o:pbonzini@redhat.com">pbonzini@redhat.com</a>&gt; wrote:<br></div><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
- solid rgb(204,204,204);padding-left:1ex">This is just an extremely minimal=
- extraction from the patches at<br>
-<a href=3D"https://patchew.org/QEMU/20210907121943.3498701-1-marcandre.lure=
-au@redhat.com/" rel=3D"noreferrer" target=3D"_blank">https://patchew.org/QE=
-MU/20210907121943.3498701-1-marcandre.lureau@redhat.com/</a>,<br>
-limited to generating structs and enums from the QAPI schema.<br>
-It does not include them in any crate and does not compile them.<br>
-<br></blockquote><div><br></div><div>Do you keep an up to date branch for t=
-hose patches?</div><div><br></div><div>I fail to understand the advantage o=
-f going through Serde to deserialize/serialize from C when you can have C t=
-ypes in Rust - having less generated code? I also do not fully understand h=
-ow that would work.</div><div><br></div><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
-ding-left:1ex">
-While I&#39;m not going to work on this, I was curious how much work it<br>
-was to produce *some* kind of Rust QAPI struct, which could be a first<br>
-step towards using serde as an interface to C visitors, like this:<br>
+<div dir=3D"ltr"><div dir=3D"ltr">Hi</div><br><div class=3D"gmail_quote gma=
+il_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Jun 5, 20=
+25 at 2:11=E2=80=AFPM Paolo Bonzini &lt;<a href=3D"mailto:pbonzini@redhat.c=
+om">pbonzini@redhat.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
+204);padding-left:1ex">From: Marc-Andr=C3=A9 Lureau &lt;<a href=3D"mailto:m=
+arcandre.lureau@redhat.com" target=3D"_blank">marcandre.lureau@redhat.com</=
+a>&gt;<br>
 <br>
-trait QapiType: FreeForeign {<br>
-=C2=A0 =C2=A0 unsafe fn visit(v: bindings::Visitor, name: *const c_char, ob=
-j: *mut &lt;Self as FreeForeign&gt;::Foreign, errp: *mut *mut bindings::Err=
-or);<br>
-}<br>
+Generate Rust #[cfg(...)] guards from QAPI &#39;if&#39; conditions.<br>
 <br>
-fn to_c&lt;T: QAPIType&gt;(obj: &amp;T) -&gt; *mut &lt;T as FreeForeign&gt;=
-::Foreign {<br>
-=C2=A0 =C2=A0 let mut ptr =3D libc::calloc(...);<br>
-=C2=A0 =C2=A0 let mut ser =3D QapiSerializer::&lt;T&gt;::new(ptr);<br>
-=C2=A0 =C2=A0 obj.serialize(&amp;mut ser).unwrap();<br>
-=C2=A0 =C2=A0 ptr.cast()<br>
-}<br>
+Signed-off-by: Marc-Andr=C3=A9 Lureau &lt;<a href=3D"mailto:marcandre.lurea=
+u@redhat.com" target=3D"_blank">marcandre.lureau@redhat.com</a>&gt;<br>
+Link: <a href=3D"https://lore.kernel.org/r/20210907121943.3498701-15-marcan=
+dre.lureau@redhat.com" rel=3D"noreferrer" target=3D"_blank">https://lore.ke=
+rnel.org/r/20210907121943.3498701-15-marcandre.lureau@redhat.com</a><br>
+Signed-off-by: Paolo Bonzini &lt;<a href=3D"mailto:pbonzini@redhat.com" tar=
+get=3D"_blank">pbonzini@redhat.com</a>&gt;<br>
+---<br>
+=C2=A0scripts/qapi/common.py | 16 ++++++++++++++++<br>
+=C2=A0scripts/qapi/schema.py |=C2=A0 4 ++++<br>
+=C2=A02 files changed, 20 insertions(+)<br>
 <br>
-unsafe fn from_c&lt;T: QAPIType&gt;(obj: *const &lt;T as FreeForeign&gt;::F=
-oreign) -&gt; T {<br>
-=C2=A0 =C2=A0 let mut de =3D QapiDeserializer::new(T::visit, obj as *const =
-c_void);<br>
-=C2=A0 =C2=A0 let value =3D de::Deserialize::deserialize(&amp;mut de).unwra=
-p();<br>
-=C2=A0 =C2=A0 de.end().unwrap();<br>
-=C2=A0 =C2=A0 value<br>
-}<br>
+diff --git a/scripts/qapi/common.py b/scripts/qapi/common.py<br>
+index d7c8aa3365c..a8ea5792c11 100644<br>
+--- a/scripts/qapi/common.py<br>
++++ b/scripts/qapi/common.py<br>
+@@ -199,6 +199,22 @@ def guardend(name: str) -&gt; str:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 name=3Dc_fna=
+me(name).upper())<br>
 <br>
-/* Generated code below: */<br>
 <br>
-impl QapiType for UefiVariable {<br>
-=C2=A0 =C2=A0 unsafe fn visit(v: bindings::Visitor, name: *const c_char, ob=
-j: *mut bindings::UefiVariable, errp: *mut *mut bindings::Error) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsafe extern &quot;C&quot; visit_type_DumpGues=
-tMemoryFormat(v: bindings::Visitor, name: *const c_char, obj: *mut bindings=
-::UefiVariable, errp: *mut *mut bindings::Error) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsafe { visit_type_DumpGuestMemoryFormat(v, na=
-me, obj, errp); }<br></blockquote><div><br></div><div><div>I guess=C2=A0 ..=
-_UefiVariable.</div><div>=C2=A0</div></div><blockquote class=3D"gmail_quote=
-" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);=
-padding-left:1ex">
-=C2=A0 =C2=A0 }<br>
-}<br>
-<br>
-impl FreeForeign for UefiVariable {<br>
-=C2=A0 =C2=A0 type Foreign =3D bindings::UefiVariable;<br>
-<br>
-=C2=A0 =C2=A0 unsafe fn free_foreign(p: *mut bindings::UefiVariable) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsafe extern &quot;C&quot; qapi_free_UefiVaria=
-ble(p: *mut bindings::UefiVariable);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsafe { qapi_free_UefiVariable(p); }<br>
-=C2=A0 =C2=A0 }<br>
-}<br>
-<br>
-impl CloneToForeign for UefiVariable {<br>
-=C2=A0 =C2=A0 fn clone_to_foreign(&amp;self) -&gt; OwnedPointer&lt;Self&gt;=
- {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 OwnedPointer::new(qapi::to_c(self))<br>
-=C2=A0 =C2=A0 }<br>
-}<br>
-<br>
-impl FromForeign for UefiVariable {<br>
-=C2=A0 =C2=A0 unsafe fn cloned_from_foreign(obj: *const bindings::UefiVaria=
-ble) -&gt; Self {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 qapi::from_c(obj)<br>
-=C2=A0 =C2=A0 }<br>
-}<br>
-<br>
-The FFI types could be generated by qapi-gen, as in Marc-Andr=C3=A9&#39;s<b=
-r>
-proposal, or from bindgen.<br>
-<br>
-I am not sure what approach is better---whether to use serde or to<br>
-automatically generate the marshaling and unmarshaling code; and whether<br=
->
-to use bindgen or generate C-compatible FFI types---but it made sense,<br>
-from the point of view of extracting &quot;some&quot; code from Marc-Andr=
-=C3=A9&#39;s<br>
-proof of concept and enticing other people, :) to start from high-level<br>
-types.<br>
-<br>
-Paolo<br>
-<br>
-Marc-Andr=C3=A9 Lureau (2):<br>
-=C2=A0 scripts/qapi: add QAPISchemaIfCond.rsgen()<br>
-=C2=A0 scripts/qapi: generate high-level Rust bindings<br>
-<br>
-Paolo Bonzini (1):<br>
-=C2=A0 rust: make TryFrom macro more resilient<br>
-<br>
-=C2=A0meson.build=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A04 +-<br>
-=C2=A0rust/qemu-api-macros/src/<a href=3D"http://lib.rs" rel=3D"noreferrer"=
- target=3D"_blank">lib.rs</a> |=C2=A0 =C2=A07 +-<br>
-=C2=A0scripts/qapi/backend.py=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=
-=A04 +-<br>
-=C2=A0scripts/qapi/common.py=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 16 +=
++def rsgen_ifcond(ifcond: Union[str, Dict[str, Any]]) -&gt; str:<br></block=
+quote><div><br></div><div>def rsgen_ifcond(ifcond: Optional[Union[str, Dict=
+[str, Any]]]) -&gt; str:</div><div><br></div><div>to make type checking=C2=
+=A0happy.</div><div><br></div><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
+1ex">
 +<br>
-=C2=A0scripts/qapi/main.py=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0=
- =C2=A04 +-<br>
-=C2=A0scripts/qapi/rs.py=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | =
-183 ++++++++++++++++++<br>
-=C2=A0scripts/qapi/rs_types.py=C2=A0 =C2=A0 =C2=A0 =C2=A0 | 320 +++++++++++=
-+++++++++++++++++++++<br>
-=C2=A0scripts/qapi/schema.py=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=
-=A04 +<br>
-=C2=A08 files changed, 535 insertions(+), 7 deletions(-)<br>
-=C2=A0create mode 100644 scripts/qapi/rs.py<br>
-=C2=A0create mode 100644 scripts/qapi/rs_types.py<br>
++=C2=A0 =C2=A0 def cfg(ifcond: Union[str, Dict[str, Any]]):<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 if isinstance(ifcond, str):<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return ifcond<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 if isinstance(ifcond, list):<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return &#39;, &#39;.join([cfg(c)=
+ for c in ifcond])<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 oper, operands =3D next(iter(ifcond.items()))<=
+br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 operands =3D cfg(operands)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 return f&#39;{oper}({operands})&#39;<br>
++<br>
++=C2=A0 =C2=A0 if not ifcond:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 return &#39;&#39;<br>
++=C2=A0 =C2=A0 return &#39;#[cfg(%s)]&#39; % cfg(ifcond)<br>
++<br>
++<br>
+=C2=A0def gen_ifcond(ifcond: Optional[Union[str, Dict[str, Any]]],<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 cond_fmt: str, not_=
+fmt: str,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 all_operator: str, =
+any_operator: str) -&gt; str:<br>
+diff --git a/scripts/qapi/schema.py b/scripts/qapi/schema.py<br>
+index cbe3b5aa91e..0fb151b5d89 100644<br>
+--- a/scripts/qapi/schema.py<br>
++++ b/scripts/qapi/schema.py<br>
+@@ -39,6 +39,7 @@<br>
+=C2=A0 =C2=A0 =C2=A0docgen_ifcond,<br>
+=C2=A0 =C2=A0 =C2=A0gen_endif,<br>
+=C2=A0 =C2=A0 =C2=A0gen_if,<br>
++=C2=A0 =C2=A0 rsgen_ifcond,<br>
+=C2=A0)<br>
+=C2=A0from .error import QAPIError, QAPISemError, QAPISourceError<br>
+=C2=A0from .expr import check_exprs<br>
+@@ -65,6 +66,9 @@ def gen_endif(self) -&gt; str:<br>
+=C2=A0 =C2=A0 =C2=A0def docgen(self) -&gt; str:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return docgen_ifcond(self.ifcond)<br>
+<br>
++=C2=A0 =C2=A0 def rsgen(self) -&gt; str:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 return rsgen_ifcond(self.ifcond)<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0def is_present(self) -&gt; bool:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return bool(self.ifcond)<br>
 <br>
 -- <br>
 2.49.0<br>
 <br>
 </blockquote></div></div>
 
---0000000000007dad2306373806ac--
+--000000000000f8ed6f063737bd6c--
 
 
