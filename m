@@ -1,83 +1,92 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uPIa5-0002E8-Ms
-	for mharc-qemu-rust@gnu.org; Wed, 11 Jun 2025 06:21:17 -0400
+	id 1uPIwi-0001SG-T6
+	for mharc-qemu-rust@gnu.org; Wed, 11 Jun 2025 06:44:40 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
- id 1uPIZq-0002CU-Ob; Wed, 11 Jun 2025 06:21:04 -0400
-Received: from mail-wm1-x32a.google.com ([2a00:1450:4864:20::32a])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
- id 1uPIZp-0007ka-3g; Wed, 11 Jun 2025 06:21:02 -0400
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-450cfb6a794so42201305e9.1; 
- Wed, 11 Jun 2025 03:20:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1749637257; x=1750242057; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6PguoYRi/zm6aQwoeuHPDJ7Go6qcy1ydlAPoya6GXcc=;
- b=dAbdCxm06jkFMt58gZU/YUv5KvBpWRSpYGmvmq6T7cM8Vxr9srH1sggcBEwldN9g0B
- 3WKx+rpfBaF36puoVIOgU38JGElOhtEjYgXknFq0jvvI0cfUHIBg1yu3+AgphYI0Mb8O
- cV6Fg4XEL+r20keRCyYzDtBA5JXrr3cukGndcXWBHZ/H5luSn+F0DcJ+oDonQyHotqDf
- N89MPDRT8CSBftK2z8uEjNnP/wXG4h2FspwbacYXTsgFaO0NACe2HzgGqZU7zTfrh+r2
- lcYjnyfJDPe94BNR8eDDhTX5+KWMiiComYCF6mMIzpO6jejiKgqVVMCT4WutuTwoJDqC
- 7XqQ==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uPIwh-0001Ry-LR
+ for qemu-rust@nongnu.org; Wed, 11 Jun 2025 06:44:39 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uPIwg-0001qR-6P
+ for qemu-rust@nongnu.org; Wed, 11 Jun 2025 06:44:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1749638677;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=a3biw5Hv7V/UqjmZl5nf7Vojns2ZYwZifrL781Rftxk=;
+ b=SZDNWV1zZJA7230YC4ucRtXfYmPw3QAkTy5B8aYbLXAcdgzhBxu/3/rj4qk3XPqxBUy0tl
+ MTloaVGNamyi3RLQi02A7GqdXa5VlocF7BmDmxzHwHDKwMP2t1j9G3/vA4YEqs1WZl/6T9
+ 5eLbLQWwIKtRCizImwAVlg0KnvBI5sI=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-520-8syzIik2NiKrFRFqyZTH4A-1; Wed, 11 Jun 2025 06:44:35 -0400
+X-MC-Unique: 8syzIik2NiKrFRFqyZTH4A-1
+X-Mimecast-MFC-AGG-ID: 8syzIik2NiKrFRFqyZTH4A_1749638674
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-450df53d461so56378035e9.1
+ for <qemu-rust@nongnu.org>; Wed, 11 Jun 2025 03:44:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749637257; x=1750242057;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6PguoYRi/zm6aQwoeuHPDJ7Go6qcy1ydlAPoya6GXcc=;
- b=rXOsqQLrHvYaZH9Js1QigJDU79aW/8xhC+0RUIDOcRcHqPgYPdAlAMj/Y2HDiEoLTR
- 6URPDJIyPAbdl3xviSQDCYQKo/fS7FleNZ4v17LxddgcmKoRZbgrSq6cAdkNXxwOFz+m
- 076Zv0vnPnJ4541WViKFcsTRCTogxw37atju/Glc0KvVFevZTyFvNKT9PVch7PfvXFDq
- BEcG2iLIVgMe1dFRHbWXRtEsQdEBf8rt1g0J7zQbhLxIV3moqnZ8tyAjHbVukPWZyiiG
- ZdtDmBkIZzvEdnoKmaaVfct5GaBvnbJlu5KLX3cBNIQ1S8JspmpGpET/ZtC0OOfKQ05P
- pCHg==
+ d=1e100.net; s=20230601; t=1749638674; x=1750243474;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=a3biw5Hv7V/UqjmZl5nf7Vojns2ZYwZifrL781Rftxk=;
+ b=cUpfQLfHeFXpQWh23GGxtE/52UNd8Paqq4MSkJUjLgzFP2Ul2IOa+2opPxkOA6ZyA/
+ PSVpOF3+W5tpRAQt2UfDjdug4T9HYwcJVt3d2lLIvEXDs4uVhb3fTurdZKaW5Q5MFVwF
+ Eyy7HcDA6ZEXL4lci93hHQ+JgCgpicUC8WICnTc2wu+rg0Yap7hbFNEmhox9CCmryaK9
+ khms3+6MesH50WUtlEnGcAo+zhJKuX+e1BTXVyzxVz47ULAcbTSrPXx2brehwG9qlHP3
+ j6KPd3xQ+3jWSCVeR/0yelz+eViR5xXRM7B7tJG7hnrxtKCbw6+Szzc/tSn5Y8czgPKT
+ RZoA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUTp5b9Z/C53JCBJnK3uLTulZDWZfEH/tYcgXC5eW2L7BVq1Egp+bdaMsgxL9cwhIDPVB5SztI83Ar/@nongnu.org,
- AJvYcCWwfR1olOUO/mFXxQVcw7RxLNH74eCNZZHtyGj/Phdw/GD6W33DNh/Ac08M1oIOI9MMtrMrE6/c0ZOp@nongnu.org
-X-Gm-Message-State: AOJu0Yzy8TVm/MZEwFZsfC1t1d1z9twERAMBpgJULE0dM7KGHWY8Q28F
- EPHXB/UW3laxhOngPzGq7MW2eQi1dk8OX63wecnmX2gkDyhQLITIT4jQ
-X-Gm-Gg: ASbGncsg9lP2+M+lDQGfXJE+iA610Djw00jBop6O/SvQWk+GGJKhy8VJgSAsL51+AAR
- 72yw+m5U88L4dIZ9ha69vz2PAqn0e+ixh7CmEp6ADz2QVr/3YcQ94wzmc6BZUE2NoFca97NlKcM
- YJ3E4J+ejkHDcloTWuxjMDyTDDtpzguGYE4vcDsiO7sSu6KdUS2CAxBqGOqPvw4L4YxN9CDvd49
- XcnQX9y9AUZbCd/Ulqqt6FUDbgiauGBs0d3ISsHZ+HcyU9Jz/ZAqLSmEuRjA4UJT7Eas9mJf1SZ
- 6S5JkDbMp+LG2KYUTD3K4z3Y8T+qH2ieJoP4a/04PDvXVK4NYrPDnVMV
-X-Google-Smtp-Source: AGHT+IE51emv01IyrLJQu101dgfyeDKe+yRICJoRi31tP7yiWZcxDrc/Jc8iT30GB55AMjQEB9tK8A==
-X-Received: by 2002:a05:600c:a377:b0:442:ffa6:d07e with SMTP id
- 5b1f17b1804b1-4532486b9b0mr20759385e9.1.1749637257164; 
- Wed, 11 Jun 2025 03:20:57 -0700 (PDT)
-Received: from [127.0.0.1] ([62.214.191.67]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4532518d714sm16566755e9.28.2025.06.11.03.20.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jun 2025 03:20:56 -0700 (PDT)
-Date: Wed, 11 Jun 2025 10:19:35 +0000
-From: Bernhard Beschow <shentey@gmail.com>
-To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
-CC: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_1/2=5D_rust/qemu-api=3A_Add_?=
- =?US-ASCII?Q?initial_logging_support_based_on_C_API?=
-In-Reply-To: <e14ce991-7cd5-4875-bd99-5dc27a22be78@redhat.com>
+ AJvYcCWk07LjX2+NynR3QZd6mTVB4KczXU77wiikkqQaw8S4RbqedZKDA6rwB6rX7ZCF+TuA21fpo7E31Lc=@nongnu.org
+X-Gm-Message-State: AOJu0YyGUMafUVFO+hRxnhty//i1Yftw+ktvpT2IlUfNBSjLmYOx8Wke
+ 9c+PQDho/4k7S7obguwho3Gb9BkHKBWU21bkmtFefcx8TAymzwSge0/OQKQvEBCPW06R8dsMHSk
+ PVHUngrDf+B6mgQqvAw0aYn0PDJS0Ic+XDT8PMYAA3RYfvwwvbx6Xr6gAqdaDhqjwh79qes/tDt
+ EqIa6ejVcP0zfkciMUb4YUyt3n3MjQDg==
+X-Gm-Gg: ASbGncsl01ecc1EEpM6ESd8qTljCd5nLoYPHLeZ0iq6+wtesPX7ZQz2or170yIaMQQD
+ pCZZGQgR7/vwKmheU7b/ycYZ/kihUj35cj49inZFzHiMn7zoE0iiHc0NepMCBRI+A+k8tuznKce
+ naiQ==
+X-Received: by 2002:a05:600c:3496:b0:453:8a6:d8de with SMTP id
+ 5b1f17b1804b1-4532907de44mr3803535e9.1.1749638674201; 
+ Wed, 11 Jun 2025 03:44:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHm7zHOvxzgU6boxcJBHAn2mBU78PB1FfApLX+OCzVkf+COwbw2uOhBZvk1Klh1SbutU9WBOJEhnS0PO/QupQ0=
+X-Received: by 2002:a05:600c:3496:b0:453:8a6:d8de with SMTP id
+ 5b1f17b1804b1-4532907de44mr3803355e9.1.1749638673876; Wed, 11 Jun 2025
+ 03:44:33 -0700 (PDT)
+MIME-Version: 1.0
 References: <20250610202110.2243-1-shentey@gmail.com>
  <20250610202110.2243-2-shentey@gmail.com>
  <e14ce991-7cd5-4875-bd99-5dc27a22be78@redhat.com>
-Message-ID: <03F26AC2-B53A-458E-9343-0254516F26DF@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::32a;
- envelope-from=shentey@gmail.com; helo=mail-wm1-x32a.google.com
+ <03F26AC2-B53A-458E-9343-0254516F26DF@gmail.com>
+In-Reply-To: <03F26AC2-B53A-458E-9343-0254516F26DF@gmail.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Wed, 11 Jun 2025 12:44:22 +0200
+X-Gm-Features: AX0GCFshyBONw3RhKthSKMlZckvCXg496Y-Nh35230zX3gtZ3_6Y7i-sgVNcvtc
+Message-ID: <CABgObfZgPh1VnJR9BrpFn322sO8_S0+tUGznj7soohOVjLqpkQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] rust/qemu-api: Add initial logging support based
+ on C API
+To: Bernhard Beschow <shentey@gmail.com>
+Cc: qemu-devel <qemu-devel@nongnu.org>, 
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: _4O8lVGIphzExjbDrnGrLW2JCE1jlG_7p7E_odZCHXQ_1749638674
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/alternative; boundary="000000000000a45dfb0637497f0a"
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -90,26 +99,68 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Jun 2025 10:21:14 -0000
+X-List-Received-Date: Wed, 11 Jun 2025 10:44:39 -0000
 
+--000000000000a45dfb0637497f0a
+Content-Type: text/plain; charset="UTF-8"
 
+Il mer 11 giu 2025, 12:21 Bernhard Beschow <shentey@gmail.com> ha scritto:
 
-Am 11=2E Juni 2025 07:56:23 UTC schrieb Paolo Bonzini <pbonzini@redhat=2Ec=
-om>:
->On 6/10/25 22:21, Bernhard Beschow wrote:
->> +/// A macro to log messages conditionally based on a provided mask=2E
->> +///
->> +/// The `log_mask` macro checks whether the given mask matches the cur=
-rent log
->> +/// level and, if so, formats and logs the message=2E It is the Rust c=
-ounterpart
->> +/// of the qemu_log_mask() macro in the C implementation=2E
+> Am 11. Juni 2025 07:56:23 UTC schrieb Paolo Bonzini <pbonzini@redhat.com>:
+> >Clippy complains that it wants `` around the function name.
 >
->Clippy complains that it wants `` around the function name=2E
-
-Will fix in v3=2E
-
+> Will fix in v3.
 >
->Paolo
+
+While at it, please run it through rustfmt and add a "//!" comment at the
+top, such as "Bindings for QEMU's logging infrastructure".
+
+You can build the documentation with "ninja rustdoc" so you can check the
+result of the doc comments.
+
+Thanks,
+
+Paolo
+
+
+> >
+> >Paolo
+> >
 >
+>
+
+--000000000000a45dfb0637497f0a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
+ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mer 11 giu 2025, 12:21 Bernha=
+rd Beschow &lt;<a href=3D"mailto:shentey@gmail.com">shentey@gmail.com</a>&g=
+t; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">A=
+m 11. Juni 2025 07:56:23 UTC schrieb Paolo Bonzini &lt;<a href=3D"mailto:pb=
+onzini@redhat.com" target=3D"_blank" rel=3D"noreferrer">pbonzini@redhat.com=
+</a>&gt;:<br>
+&gt;Clippy complains that it wants `` around the function name.<br>
+<br>
+Will fix in v3.<br></blockquote></div></div><div dir=3D"auto"><br></div><di=
+v dir=3D"auto">While at it, please run it through rustfmt and add a &quot;/=
+/!&quot; comment at the top, such as &quot;Bindings for QEMU&#39;s logging =
+infrastructure&quot;.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Yo=
+u can build the documentation with &quot;ninja rustdoc&quot; so you can che=
+ck the result of the doc comments.</div><div dir=3D"auto"><br></div><div di=
+r=3D"auto">Thanks,</div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo=
+</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quo=
+te gmail_quote_container"><blockquote class=3D"gmail_quote" style=3D"margin=
+:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
+>
+<br>
+&gt;<br>
+&gt;Paolo<br>
+&gt;<br>
+<br>
+</blockquote></div></div></div>
+
+--000000000000a45dfb0637497f0a--
+
 
