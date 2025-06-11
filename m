@@ -1,61 +1,78 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uPIzo-0002mg-95
-	for mharc-qemu-rust@gnu.org; Wed, 11 Jun 2025 06:47:52 -0400
+	id 1uPJ9D-0004sW-Lr
+	for mharc-qemu-rust@gnu.org; Wed, 11 Jun 2025 06:57:36 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uPIzl-0002Yp-C9; Wed, 11 Jun 2025 06:47:49 -0400
-Received: from mgamail.intel.com ([198.175.65.11])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uPIzj-0002Gv-Ij; Wed, 11 Jun 2025 06:47:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1749638868; x=1781174868;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=8D0GGfYU0Tw4972vz+bqe7kJGRZlLX5oEJ2OBkzYpEw=;
- b=EDkSictbse7cvdQlYTvl/jXauzhrMtzRKRhJz4ZHhrSEsCMAKoR3lpEr
- WFxkek7QhMUz0Q/Skh5o14HDcxy6/+w4zuAUQvCEuPexShMZoQDosn+O8
- O2Ucm9TgRKQX+xPTfeyAa6JcorKkGtw5qIfRvACVAKixfyrF/o4rJCQ2J
- Q7z4BBkMOIn5z8LErUckZlDVYbOLvYz0Pkr0wpkySRo5SST0WC5fWgY/p
- 11is8puZhQSxk/al9E89pSfZG0p8BpEal62OtFnRVbqfuymAlsvxrJfAQ
- kndutzr9SOM+Snhg/7JNzdTlzfVuZTD9+qmqqndZclKL0bZRZG4Z7pmKw Q==;
-X-CSE-ConnectionGUID: kPypbl0RRP+kPpR8pflSVQ==
-X-CSE-MsgGUID: Q0/603npQmGfJw9v/98Cag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11460"; a="62055948"
-X-IronPort-AV: E=Sophos;i="6.16,227,1744095600"; d="scan'208";a="62055948"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2025 03:47:46 -0700
-X-CSE-ConnectionGUID: G0aowGx1RnuhUMg8pf/o+Q==
-X-CSE-MsgGUID: HqMm7XP3T+GWFW7tHsqdeA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,227,1744095600"; d="scan'208";a="170337623"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa002.fm.intel.com with ESMTP; 11 Jun 2025 03:47:44 -0700
-Date: Wed, 11 Jun 2025 19:09:00 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 1/5] rust: qemu_api: introduce MaybeUninit field projection
-Message-ID: <aEljzPOf/76W25iC@intel.com>
-References: <20250609154423.706056-1-pbonzini@redhat.com>
- <20250609154423.706056-2-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uPJ9A-0004sF-E5
+ for qemu-rust@nongnu.org; Wed, 11 Jun 2025 06:57:32 -0400
+Received: from mail-ed1-x52b.google.com ([2a00:1450:4864:20::52b])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uPJ98-0003gu-Dy
+ for qemu-rust@nongnu.org; Wed, 11 Jun 2025 06:57:32 -0400
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-60700a745e5so10241249a12.3
+ for <qemu-rust@nongnu.org>; Wed, 11 Jun 2025 03:57:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1749639447; x=1750244247; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TephkakpXOKkZja43JYV7fzw/Bf9/74knzYT3p3IV/I=;
+ b=ZBISPhEc/5o4F9YxkMAsm0U0gpiRHAw260YfRRDU9usZvSajgqCFmooomnjKJLBq8j
+ Aull0b+MyGt3MReE/xoZE4QN59cRALHW59Zu6g/55v13186qTPxH5qqBq+KEo+AulNLb
+ 3PKN0yAMvnemfNFnRakHpE6vtDFwWX5Jgjxkj5G1VHnJb5MJoP0iImULu0ZkpUyG/YS6
+ +2M6H+Fw57sDMQ/Uy4YHLl2Ow3CR78PmULCSl233M83c2AisBQljaSfBUaU5zE48VJXZ
+ sCYdTb28CNIhheJeQXr0lwaOEowQhDCqchGfr4L1qa8efgGwdwjsAkvdo4iBDWhrsl8L
+ lKRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749639447; x=1750244247;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TephkakpXOKkZja43JYV7fzw/Bf9/74knzYT3p3IV/I=;
+ b=NBVa0HptlZUEVHBNVSUijVUW5Jb9g8wB4lEMdC/Jiye+M+eGFxlNtbfLwXGIUxDAYV
+ fARlS5EnEu5NVk32oIJMUNUbKwapgY3tRUZluWvRhKjQVmtcpUf1JOpimtAxTe28ZOFf
+ PXKcZ0Do3yWBskR4CRs4tVjwSGjDtjCqgNEDtOG+LYPeW0AlSG4vc3ORIqnT5Y+nsJ/r
+ UCBWYjNof6/B6KsRwH6HRAQCZmS4gUtSeoWW0T5il/LRbMJVmBe23xYKzgu+qsXkBBcb
+ efI63DPfKP/x5APkYTcTPY3xpJTzGr9yIYr4dr7VOnNh+/be+uhMwPnDpmERfmTngRBH
+ JSJg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXFSyUZa9JMv9TKCiIeFq8n5PrapOQ6J5pXaT6becbcWFmOJRPPH0tkWlAFRJN1ZAn9at/xQTECKng=@nongnu.org
+X-Gm-Message-State: AOJu0YzLZAygYD/yoKW0PH6ULzTdYI1V/OoqYKbSuR0UEJLCdnPOvpcf
+ u3SgUuD6QtTRhPB3AG6JbCGWEO9+ioMDwYf3/PwgYdVwLtN/0CGOliGEMa0nNpse6KekG341Ly4
+ pTrQh1nqIJnnrmoNzg8VfZTXeCb2hZpEcd8lDf9K0Bw==
+X-Gm-Gg: ASbGncvM63HfQdEW+T+izeiAXzqEW9D0zefKP8wTJfIIJwaGzU/WPVXDPQ6zkz1Xwx4
+ dhLtVA6Fs1qmQP8ntcGwovxU091qPkh1Jm7s+9o8lMQf36S/YdKXtLS1Gs2FsCjA7R54BPLLPK5
+ MdwVQQzk0GotBgOZm9q2nbr9CChdxfRK1ZJ39sl/try+Bd
+X-Google-Smtp-Source: AGHT+IG9MkPJYu6vzWS21PFBiCmWmRZJOQPZ9b6637ExDONViHZ8MF+k95ArrR7IoPfO/bEP2mv8cjKUNwIzbcq4VNY=
+X-Received: by 2002:a05:6402:84d:b0:601:dc49:a99f with SMTP id
+ 4fb4d7f45d1cf-60846c4d8bemr2342367a12.18.1749639447259; Wed, 11 Jun 2025
+ 03:57:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250609154423.706056-2-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.11; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+References: <20250610202110.2243-1-shentey@gmail.com>
+ <20250610202110.2243-2-shentey@gmail.com>
+In-Reply-To: <20250610202110.2243-2-shentey@gmail.com>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Wed, 11 Jun 2025 13:57:00 +0300
+X-Gm-Features: AX0GCFs4WbWvamt5AfO_ND4wzfJ-ZEA6AimiMP8deSGNRZ60-yqof-eZhiwdcqw
+Message-ID: <CAAjaMXbtcyB3J3AvGh8ZW3MSi41uMaE+TkZwipCs5pg6wvYJ=w@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] rust/qemu-api: Add initial logging support based
+ on C API
+To: Bernhard Beschow <shentey@gmail.com>
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+ qemu-rust@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::52b;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x52b.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -69,54 +86,182 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Jun 2025 10:47:50 -0000
+X-List-Received-Date: Wed, 11 Jun 2025 10:57:33 -0000
 
-On Mon, Jun 09, 2025 at 05:44:19PM +0200, Paolo Bonzini wrote:
-> Date: Mon,  9 Jun 2025 17:44:19 +0200
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 1/5] rust: qemu_api: introduce MaybeUninit field projection
-> X-Mailer: git-send-email 2.49.0
-> 
-> Add a macro that makes it possible to convert a MaybeUninit<> into
-> another MaybeUninit<> for a single field within it.  Furthermore, it is
-> possible to use the resulting MaybeUninitField<> in APIs that take the
-> parent object, such as memory_region_init_io().
-> 
-> This allows removing some of the undefined behavior from instance_init()
-> functions, though this may not be the definitive implementation.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+On Tue, Jun 10, 2025 at 11:21=E2=80=AFPM Bernhard Beschow <shentey@gmail.co=
+m> wrote:
+>
+> A log_mask!() macro is provided which expects similar arguments as the
+> C version. However, the formatting works as one would expect from Rust.
+>
+> To maximize code reuse the macro is just a thin wrapper around
+> qemu_log(). Also, just the bare minimum of logging masks is provided
+> which should suffice for the current use case of Rust in QEMU.
+>
+> Signed-off-by: Bernhard Beschow <shentey@gmail.com>
 > ---
->  rust/qemu-api/meson.build   |  1 +
->  rust/qemu-api/src/lib.rs    |  1 +
->  rust/qemu-api/src/uninit.rs | 85 +++++++++++++++++++++++++++++++++++++
->  3 files changed, 87 insertions(+)
->  create mode 100644 rust/qemu-api/src/uninit.rs
-
-...
-
-> +impl<'a, T, U> Deref for MaybeUninitField<'a, T, U> {
-> +    type Target = MaybeUninit<U>;
+>  docs/devel/rust.rst       |  1 +
+>  rust/wrapper.h            |  2 ++
+>  rust/qemu-api/meson.build |  1 +
+>  rust/qemu-api/src/lib.rs  |  1 +
+>  rust/qemu-api/src/log.rs  | 76 +++++++++++++++++++++++++++++++++++++++
+>  5 files changed, 81 insertions(+)
+>  create mode 100644 rust/qemu-api/src/log.rs
+>
+> diff --git a/docs/devel/rust.rst b/docs/devel/rust.rst
+> index 47e9677fcb..dc8c44109e 100644
+> --- a/docs/devel/rust.rst
+> +++ b/docs/devel/rust.rst
+> @@ -162,6 +162,7 @@ module           status
+>  ``errno``        complete
+>  ``error``        stable
+>  ``irq``          complete
+> +``log``          proof of concept
+>  ``memory``       stable
+>  ``module``       complete
+>  ``qdev``         stable
+> diff --git a/rust/wrapper.h b/rust/wrapper.h
+> index 6060d3ba1a..15a1b19847 100644
+> --- a/rust/wrapper.h
+> +++ b/rust/wrapper.h
+> @@ -48,6 +48,8 @@ typedef enum memory_order {
+>  #endif /* __CLANG_STDATOMIC_H */
+>
+>  #include "qemu/osdep.h"
+> +#include "qemu/log.h"
+> +#include "qemu/log-for-trace.h"
+>  #include "qemu/module.h"
+>  #include "qemu-io.h"
+>  #include "system/system.h"
+> diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
+> index cac8595a14..33caee3c4f 100644
+> --- a/rust/qemu-api/meson.build
+> +++ b/rust/qemu-api/meson.build
+> @@ -21,6 +21,7 @@ _qemu_api_rs =3D static_library(
+>        'src/errno.rs',
+>        'src/error.rs',
+>        'src/irq.rs',
+> +      'src/log.rs',
+>        'src/memory.rs',
+>        'src/module.rs',
+>        'src/prelude.rs',
+> diff --git a/rust/qemu-api/src/lib.rs b/rust/qemu-api/src/lib.rs
+> index 93902fc94b..e20be35460 100644
+> --- a/rust/qemu-api/src/lib.rs
+> +++ b/rust/qemu-api/src/lib.rs
+> @@ -21,6 +21,7 @@
+>  pub mod errno;
+>  pub mod error;
+>  pub mod irq;
+> +pub mod log;
+>  pub mod memory;
+>  pub mod module;
+>  pub mod qdev;
+> diff --git a/rust/qemu-api/src/log.rs b/rust/qemu-api/src/log.rs
+> new file mode 100644
+> index 0000000000..9e3c61b8b7
+> --- /dev/null
+> +++ b/rust/qemu-api/src/log.rs
+> @@ -0,0 +1,76 @@
+> +// Copyright 2025 Bernhard Beschow <shentey@gmail.com>
+> +// SPDX-License-Identifier: GPL-2.0-or-later
 > +
-> +    fn deref(&self) -> &MaybeUninit<U> {
-> +        // SAFETY: self.child was obtained by dereferencing a valid mutable
-> +        // reference; the content of the memory may be invalid or uninitialized
-> +        // but MaybeUninit<_> makes no assumption on it
-> +        unsafe { &*(self.child.cast()) }
-> +    }
+> +#[repr(u32)]
+> +/// Represents specific error categories within QEMU's logging system.
+> +///
+> +/// The `Log` enum provides a Rust abstraction for logging errors, corre=
+sponding
+> +/// to a subset of the error categories defined in the C implementation.
+> +pub enum Log {
+> +    /// Log an invalid access caused by the guest.
+> +    /// Corresponds to `LOG_GUEST_ERROR` in the C implementation.
+> +    GuestError =3D crate::bindings::LOG_GUEST_ERROR,
+> +
+> +    /// Log guest access of unimplemented functionality.
+> +    /// Corresponds to `LOG_UNIMP` in the C implementation.
+> +    Unimp =3D crate::bindings::LOG_UNIMP,
 > +}
 > +
-> +impl<'a, T, U> DerefMut for MaybeUninitField<'a, T, U> {
-> +    fn deref_mut(&mut self) -> &mut MaybeUninit<U> {
-> +        // SAFETY: self.child was obtained by dereferencing a valid mutable
-> +        // reference; the content of the memory may be invalid or uninitialized
-> +        // but MaybeUninit<_> makes no assumption on it
-> +        unsafe { &mut *(self.child.cast()) }
-> +    }
+> +/// A macro to log messages conditionally based on a provided mask.
+> +///
+> +/// The `log_mask` macro checks whether the given mask matches the curre=
+nt log
+> +/// level and, if so, formats and logs the message. It is the Rust count=
+erpart
+> +/// of the qemu_log_mask() macro in the C implementation.
+> +///
+> +/// # Parameters
+> +///
+> +/// - `$mask`: A log level mask. This should be a variant of the `Log` e=
+num.
+> +/// - `$fmt`: A format string following the syntax and rules of the `for=
+mat!`
+> +///   macro. It specifies the structure of the log message.
+> +/// - `$args`: Optional arguments to be interpolated into the format str=
+ing.
+> +///
+> +/// # Example
+> +///
+> +/// ```
+> +/// use qemu_api::log::Log;
+> +/// use qemu_api::log_mask;
+> +///
+> +/// let error_address =3D 0xbad;
+> +/// log_mask!(
+> +///     Log::GuestError,
+> +///     "Address 0x{error_address:x} out of range\n"
+> +/// );
+> +/// ```
+> +///
+> +/// It is also possible to use printf-style formatting, as well as havin=
+g a
+> +/// trailing `,`:
+> +///
+> +/// ```
+> +/// use qemu_api::log::Log;
+> +/// use qemu_api::log_mask;
+> +///
+> +/// let error_address =3D 0xbad;
+> +/// log_mask!(
+> +///     Log::GuestError,
+> +///     "Address 0x{:x} out of range\n",
+> +///     error_address,
+> +/// );
+> +/// ```
+> +#[macro_export]
+> +macro_rules! log_mask {
+> +    ($mask:expr, $fmt:tt $($args:tt)*) =3D> {{
+> +        // Type assertion to enforce type `Log` for $mask
+> +        let _: Log =3D $mask;
+> +
+> +        if unsafe {
+> +            (::qemu_api::bindings::qemu_loglevel & ($mask as std::os::ra=
+w::c_int)) !=3D 0
+> +        } {
+> +            let formatted_string =3D format!($fmt $($args)*);
+> +            let c_string =3D std::ffi::CString::new(formatted_string).un=
+wrap();
+> +
+> +            unsafe {
+> +                ::qemu_api::bindings::qemu_log(c_string.as_ptr());
+> +            }
+> +        }
+> +    }};
 > +}
+> --
+> 2.49.0
+>
 
-Nice trick.
+Maybe we could take this chance to remove the requirement for trailing
+newline? Not urgent, and also something we could change afterwards
+anyway. We could also introduce log_mask_ln! macro but now I'm just
+bikeshedding.
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+Besides that, I think it'd be useful to have the macro re-exported in
+rust/qemu-api/src/prelude.rs as well. Please add it for the next
+version.
 
+--=20
+Manos Pitsidianakis
+Emulation and Virtualization Engineer at Linaro Ltd
 
