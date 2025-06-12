@@ -1,92 +1,63 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uPeFe-00017K-QX
-	for mharc-qemu-rust@gnu.org; Thu, 12 Jun 2025 05:29:38 -0400
+	id 1uPesu-0002j7-5L
+	for mharc-qemu-rust@gnu.org; Thu, 12 Jun 2025 06:10:12 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uPeAf-00032a-63
- for qemu-rust@nongnu.org; Thu, 12 Jun 2025 05:24:30 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uPesq-0002e3-Ei; Thu, 12 Jun 2025 06:10:09 -0400
+Received: from mgamail.intel.com ([192.198.163.17])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uPeAc-0006jL-Bn
- for qemu-rust@nongnu.org; Thu, 12 Jun 2025 05:24:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1749720262;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=4EaVDFQRyFhrvUbX6GFcTmrBkopzxt0kndnCrWdyEUk=;
- b=jHYwlJ3k6e5DLz2N2s0d1+1/YjJJUgMVHP5hNV1DK8pG5SxA0WgCCYqa+PRLw8zQ24rhA/
- 4bKweSCREzYpsERgRLTAorZG4ouvGPm7DMg2DFW4/NInOoCQ9/Rpk57Vu1z8NSQ5mGXZA2
- DSInSKR/A8KdqOI3X3amhETEIrdzszo=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-583-U4PDLSbVNZyLp8_3flSgiw-1; Thu, 12 Jun 2025 05:24:21 -0400
-X-MC-Unique: U4PDLSbVNZyLp8_3flSgiw-1
-X-Mimecast-MFC-AGG-ID: U4PDLSbVNZyLp8_3flSgiw_1749720260
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-451d3f03b74so3831475e9.3
- for <qemu-rust@nongnu.org>; Thu, 12 Jun 2025 02:24:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749720260; x=1750325060;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4EaVDFQRyFhrvUbX6GFcTmrBkopzxt0kndnCrWdyEUk=;
- b=jUtiE4cgm6fExGAd69UCZD+skrmgzeO8WS92AMrQsIWNcuvahe3evFkTcarQEJQ65d
- lgXWZ4FqALMvPnKjuClKSqsWfQuNBL0iQVv+JRlZhH6Gs8aNrF/6N2qiVxRuHafJg1j7
- 08acBmBer5bT5sboax8AEXxzYPgcesAvKll5cgyd6k1EbMxkicrkgzQZMFP582t2lelV
- D4m4eLOteaBZFDN88V7FIAbVgpdYiylja11uatFg5dkHINS/6RpyguiBcnU3+5elFtwG
- 6pSJL8wG1+NiHW9P7vdaPyGTL0u7oTC8eW9N7Nz269y/G71Vj+Y7gg4g/DdZi2hMWio0
- JRhA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXdcYwl33SL/Xl3+8M25sMfTsNLbpBlgPJURojQPTSruWSX0J+2gqimHYF5UKMCDEEPktrJNUpzpDc=@nongnu.org
-X-Gm-Message-State: AOJu0YxFGsr082XYprszydDB3cRE52uXEp1bTILUSGq20KgE+uMpmmva
- zGkx74Mw+vyHwX4n58hfudpF0xDzVxmwqJZ1ttdAITHDTRJyGRGQA3iahS2KkFbenaF0wmkhz3O
- iBza8NPSY3sbw7rXIRSeox6AL6k56l+clnxPVBojN2ySp7lBHcbWFP628WtgtDdsAAPO7jqmH8I
- 9FuqUYIErm/J2rnfCEZGmeN8F70v0FuA==
-X-Gm-Gg: ASbGncv4TdkWkyU5g+nlRy4bBdbVwyv0zLHvuOlcB03aDcsqEP7+zJNnemBy9ysTCNw
- YyZLHSYfvOpa0MSrSnABA2n9ozYmifYxWtkl/RBwNuZha+u4nrfby9mTT5SAjjrF+M8+D35ozeA
- wUcd8=
-X-Received: by 2002:a05:600c:a105:b0:442:e9eb:cb9e with SMTP id
- 5b1f17b1804b1-453248ca563mr41291325e9.26.1749720260148; 
- Thu, 12 Jun 2025 02:24:20 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEsi+ghfKbHvwKS6frnq48KsB0a+dyRT63N7gr3cGBDuVtHuDrC7Ht5xKdTwfCfsaNsNt9od26XYs2BBGGaTNQ=
-X-Received: by 2002:a05:600c:a105:b0:442:e9eb:cb9e with SMTP id
- 5b1f17b1804b1-453248ca563mr41291195e9.26.1749720259856; Thu, 12 Jun 2025
- 02:24:19 -0700 (PDT)
-MIME-Version: 1.0
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uPeso-00056I-9X; Thu, 12 Jun 2025 06:10:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1749723006; x=1781259006;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=fHYaDxdXliQaiVrsmIZ+1J1h37qR2uhP4a8EVXYux28=;
+ b=fq4RB4KboT0GL4YIjeZ8ny6lmT2c+y0Df1+OW9yTz7lPfSW8eG+NA86Y
+ cPFJCYLI6ACnwCwTGLwLfK3BnViXdvb4BSBTXC6S781YZLBIImkwB2rio
+ KnBxCCxaLdkb790dFmWhEVjuBicl/ZtxzAtFOWwT9HFLQ1TLVDm4cMLdW
+ w8IXkCoB8zP8zWBRjtbjlwdluntkbpnXvu4Mmf4aqxqb14/GqpT/25oX+
+ NkAfqf9rYRMAfzJ25hqsKEbIEK80xPkOC0HTXEWSDkPPl4eTUtxIItiIB
+ D3Gvjr3/2YBJ9FYw3/ozZIzQVoWr5k5BTdtgEX+zauGx6EiB3IkTs1yV5 g==;
+X-CSE-ConnectionGUID: 6dW5vWkWQWKS1VV3vqyGsQ==
+X-CSE-MsgGUID: 2ki6bZWbQYqbiu/dScO3RQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11461"; a="51809717"
+X-IronPort-AV: E=Sophos;i="6.16,230,1744095600"; d="scan'208";a="51809717"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2025 03:10:02 -0700
+X-CSE-ConnectionGUID: 6BOsLbt+TS+G283zqcXeoA==
+X-CSE-MsgGUID: yLpA4M7vQrOiBXP/nDRdFg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,230,1744095600"; d="scan'208";a="152239947"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa003.jf.intel.com with ESMTP; 12 Jun 2025 03:10:00 -0700
+Date: Thu, 12 Jun 2025 18:31:16 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH 4/5] rust: qom: make ParentInit lifetime-invariant
+Message-ID: <aEqsdKNmS3+NSSGm@intel.com>
 References: <20250609154423.706056-1-pbonzini@redhat.com>
  <20250609154423.706056-5-pbonzini@redhat.com>
  <aEqcGiGmZiMoIhY5@intel.com>
- <CABgObfb8CWy5zthqHRJrKqjP4xmBC=Zh3FrDjcK2Z6wsZJu-ew@mail.gmail.com>
- <aEqg5j9LFgszQzAv@intel.com>
-In-Reply-To: <aEqg5j9LFgszQzAv@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Thu, 12 Jun 2025 11:24:05 +0200
-X-Gm-Features: AX0GCFu0JGsIvZatRLCpgDOa2tn-ZgT4FfAm4yXQorvDkrs183gfNujoXhCL_aw
-Message-ID: <CABgObfYJx8SQjqi8-wnm_MJPuUEzfW7gsA2bdmpTSV4kCB7Yqg@mail.gmail.com>
-Subject: Re: [PATCH 4/5] rust: qom: make ParentInit lifetime-invariant
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: XkM6gTnPe9gqEUECupXOZtBoqTUfLMEVbckHgAQPBKE_1749720260
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aEqcGiGmZiMoIhY5@intel.com>
+Received-SPF: pass client-ip=192.198.163.17; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,21 +70,22 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jun 2025 09:24:30 -0000
+X-List-Received-Date: Thu, 12 Jun 2025 10:10:10 -0000
 
-On Thu, Jun 12, 2025 at 11:20=E2=80=AFAM Zhao Liu <zhao1.liu@intel.com> wro=
-te:
-> > Right, I put it there because '2 lives until the second println!. The
-> > problem is not so much that it's returning token1, it's that the
-> > println uses it.
->
-> Even after I comment out the last intln line, the compiler still
-> complains about returning token1. It seems the compiler's checking is
-> stricter.
+> > -impl<'a, T> ParentInit<'a, T> {
+> > +impl<'init, T> ParentInit<'init, T> {
+> >      #[inline]
+> > -    pub fn with(obj: &'a mut MaybeUninit<T>, f: impl FnOnce(ParentInit<'a, T>)) {
+> > -        let parent_init = ParentInit(obj);
+> > +    pub fn with(obj: &'init mut MaybeUninit<T>, f: impl for<'id> FnOnce(ParentInit<'id, T>)) {
+> > +        let parent_init = ParentInit(obj, PhantomData);
+> 
+> I think it's also valuable to add the similar comment as GhostToken did,
+> mentioning this `f` can't reture ParentInit itself.
 
-Oh, you're right. Anything that the closure returns must have a longer
-lifetime than the closure itself!
+My bad, I forgot there's no returned value...
 
-Paolo
-
+> >          f(parent_init)
+> >      }
+> >  }
 
