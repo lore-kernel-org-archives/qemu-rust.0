@@ -1,65 +1,92 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uPeDT-0005Ls-CE
-	for mharc-qemu-rust@gnu.org; Thu, 12 Jun 2025 05:27:23 -0400
+	id 1uPeFe-00017K-QX
+	for mharc-qemu-rust@gnu.org; Thu, 12 Jun 2025 05:29:38 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uPe7B-0007Et-DX; Thu, 12 Jun 2025 05:21:25 -0400
-Received: from mgamail.intel.com ([198.175.65.16])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uPeAf-00032a-63
+ for qemu-rust@nongnu.org; Thu, 12 Jun 2025 05:24:30 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uPe75-0004oq-IM; Thu, 12 Jun 2025 05:20:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1749720048; x=1781256048;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=+a3YUpdp7BYCX4nn8bMckAZORE+ZM3CNCghwwusOxvo=;
- b=O2lsE4n8Ow26czjtjlVU/TqVM44eoi0X1qchVM476kdlxAksdL4B5GWL
- gyThRz0F26y6FAFfSfb8uOrTu1MBUJkfGmKTBuCSVuMOUKSCHfIAyT+P/
- zMl7xlqJYy0XMHh38uFoCPLXCdnFOFQXtUDR1mtegfS5ADRO/4ruPwsTq
- lMx42QZuF1KgHPhioeE78oKJXAdSKx/xkzt6WDpyeZVz296xs514+ZuHZ
- 3s3PNKz+DJTvhFnKFW7FHNn7HSkDlks5GgiEHFLN6ROQasdVXjRxkCVQn
- +SGyY5z2n15GKokMyv/H1rJIDPFSwZmbEnutwBi+GsZroPTK8L/bEUr6p g==;
-X-CSE-ConnectionGUID: t4IGMQDMTRC8A7ExbMATAw==
-X-CSE-MsgGUID: cerdrT5eRH+wY0ayBDk9zg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11461"; a="51974152"
-X-IronPort-AV: E=Sophos;i="6.16,230,1744095600"; d="scan'208";a="51974152"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2025 02:20:43 -0700
-X-CSE-ConnectionGUID: vtdjdNUfT7WHiv+E/ERgVQ==
-X-CSE-MsgGUID: dJ1v64K8Qy6TVSXUfdnsXA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,230,1744095600"; d="scan'208";a="148362129"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa009.fm.intel.com with ESMTP; 12 Jun 2025 02:20:41 -0700
-Date: Thu, 12 Jun 2025 17:41:58 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 4/5] rust: qom: make ParentInit lifetime-invariant
-Message-ID: <aEqg5j9LFgszQzAv@intel.com>
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uPeAc-0006jL-Bn
+ for qemu-rust@nongnu.org; Thu, 12 Jun 2025 05:24:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1749720262;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=4EaVDFQRyFhrvUbX6GFcTmrBkopzxt0kndnCrWdyEUk=;
+ b=jHYwlJ3k6e5DLz2N2s0d1+1/YjJJUgMVHP5hNV1DK8pG5SxA0WgCCYqa+PRLw8zQ24rhA/
+ 4bKweSCREzYpsERgRLTAorZG4ouvGPm7DMg2DFW4/NInOoCQ9/Rpk57Vu1z8NSQ5mGXZA2
+ DSInSKR/A8KdqOI3X3amhETEIrdzszo=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-583-U4PDLSbVNZyLp8_3flSgiw-1; Thu, 12 Jun 2025 05:24:21 -0400
+X-MC-Unique: U4PDLSbVNZyLp8_3flSgiw-1
+X-Mimecast-MFC-AGG-ID: U4PDLSbVNZyLp8_3flSgiw_1749720260
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-451d3f03b74so3831475e9.3
+ for <qemu-rust@nongnu.org>; Thu, 12 Jun 2025 02:24:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749720260; x=1750325060;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4EaVDFQRyFhrvUbX6GFcTmrBkopzxt0kndnCrWdyEUk=;
+ b=jUtiE4cgm6fExGAd69UCZD+skrmgzeO8WS92AMrQsIWNcuvahe3evFkTcarQEJQ65d
+ lgXWZ4FqALMvPnKjuClKSqsWfQuNBL0iQVv+JRlZhH6Gs8aNrF/6N2qiVxRuHafJg1j7
+ 08acBmBer5bT5sboax8AEXxzYPgcesAvKll5cgyd6k1EbMxkicrkgzQZMFP582t2lelV
+ D4m4eLOteaBZFDN88V7FIAbVgpdYiylja11uatFg5dkHINS/6RpyguiBcnU3+5elFtwG
+ 6pSJL8wG1+NiHW9P7vdaPyGTL0u7oTC8eW9N7Nz269y/G71Vj+Y7gg4g/DdZi2hMWio0
+ JRhA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXdcYwl33SL/Xl3+8M25sMfTsNLbpBlgPJURojQPTSruWSX0J+2gqimHYF5UKMCDEEPktrJNUpzpDc=@nongnu.org
+X-Gm-Message-State: AOJu0YxFGsr082XYprszydDB3cRE52uXEp1bTILUSGq20KgE+uMpmmva
+ zGkx74Mw+vyHwX4n58hfudpF0xDzVxmwqJZ1ttdAITHDTRJyGRGQA3iahS2KkFbenaF0wmkhz3O
+ iBza8NPSY3sbw7rXIRSeox6AL6k56l+clnxPVBojN2ySp7lBHcbWFP628WtgtDdsAAPO7jqmH8I
+ 9FuqUYIErm/J2rnfCEZGmeN8F70v0FuA==
+X-Gm-Gg: ASbGncv4TdkWkyU5g+nlRy4bBdbVwyv0zLHvuOlcB03aDcsqEP7+zJNnemBy9ysTCNw
+ YyZLHSYfvOpa0MSrSnABA2n9ozYmifYxWtkl/RBwNuZha+u4nrfby9mTT5SAjjrF+M8+D35ozeA
+ wUcd8=
+X-Received: by 2002:a05:600c:a105:b0:442:e9eb:cb9e with SMTP id
+ 5b1f17b1804b1-453248ca563mr41291325e9.26.1749720260148; 
+ Thu, 12 Jun 2025 02:24:20 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEsi+ghfKbHvwKS6frnq48KsB0a+dyRT63N7gr3cGBDuVtHuDrC7Ht5xKdTwfCfsaNsNt9od26XYs2BBGGaTNQ=
+X-Received: by 2002:a05:600c:a105:b0:442:e9eb:cb9e with SMTP id
+ 5b1f17b1804b1-453248ca563mr41291195e9.26.1749720259856; Thu, 12 Jun 2025
+ 02:24:19 -0700 (PDT)
+MIME-Version: 1.0
 References: <20250609154423.706056-1-pbonzini@redhat.com>
  <20250609154423.706056-5-pbonzini@redhat.com>
  <aEqcGiGmZiMoIhY5@intel.com>
  <CABgObfb8CWy5zthqHRJrKqjP4xmBC=Zh3FrDjcK2Z6wsZJu-ew@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABgObfb8CWy5zthqHRJrKqjP4xmBC=Zh3FrDjcK2Z6wsZJu-ew@mail.gmail.com>
-Received-SPF: pass client-ip=198.175.65.16; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ <aEqg5j9LFgszQzAv@intel.com>
+In-Reply-To: <aEqg5j9LFgszQzAv@intel.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Thu, 12 Jun 2025 11:24:05 +0200
+X-Gm-Features: AX0GCFu0JGsIvZatRLCpgDOa2tn-ZgT4FfAm4yXQorvDkrs183gfNujoXhCL_aw
+Message-ID: <CABgObfYJx8SQjqi8-wnm_MJPuUEzfW7gsA2bdmpTSV4kCB7Yqg@mail.gmail.com>
+Subject: Re: [PATCH 4/5] rust: qom: make ParentInit lifetime-invariant
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: XkM6gTnPe9gqEUECupXOZtBoqTUfLMEVbckHgAQPBKE_1749720260
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -72,57 +99,21 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jun 2025 09:22:08 -0000
+X-List-Received-Date: Thu, 12 Jun 2025 09:24:30 -0000
 
-On Thu, Jun 12, 2025 at 11:07:51AM +0200, Paolo Bonzini wrote:
-> Date: Thu, 12 Jun 2025 11:07:51 +0200
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: Re: [PATCH 4/5] rust: qom: make ParentInit lifetime-invariant
-> 
-> On Thu, Jun 12, 2025 at 11:00 AM Zhao Liu <zhao1.liu@intel.com> wrote:
-> > > +/// It's impossible to escape the `Jail`; `token1` cannot be moved out of the
-> > > +/// closure:
-> > > +///
-> > > +/// ```ignore
-> > > +/// let x = 42;
-> > > +/// let escape = Jail::with(&x, |token1| {
-> > > +///     println!("{}", token1.get());
-> > > +///     token1
-> >
-> > This line will fail to compile (the below comment "// fails to compile" seems
-> > to indicate that println! will fail):
-> >
-> > error: lifetime may not live long enough
-> >   --> src/main.rs:22:9
-> >    |
-> > 20 |     let escape = Jail::with(x, |token1| {
-> >    |                                 ------- return type of closure is Jail<'2, i32>
-> >    |                                 |
-> >    |                                 has type `Jail<'1, i32>`
-> > 21 |         println!("{}", token1.get());
-> > 22 |         token1
-> >    |         ^^^^^^ returning this value requires that `'1` must outlive `'2`
-> 
-> Right, I put it there because '2 lives until the second println!. The
-> problem is not so much that it's returning token1, it's that the
-> println uses it.
+On Thu, Jun 12, 2025 at 11:20=E2=80=AFAM Zhao Liu <zhao1.liu@intel.com> wro=
+te:
+> > Right, I put it there because '2 lives until the second println!. The
+> > problem is not so much that it's returning token1, it's that the
+> > println uses it.
+>
+> Even after I comment out the last intln line, the compiler still
+> complains about returning token1. It seems the compiler's checking is
+> stricter.
 
-Even after I comment out the last intln line, the compiler still
-complains about returning token1. It seems the compiler's checking is
-stricter.
+Oh, you're right. Anything that the closure returns must have a longer
+lifetime than the closure itself!
 
-I tried at there:
+Paolo
 
-https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=1a9232532250b4a275638b926d7e65e5
-
-Thanks,
-Zhao
-
-> I can see that it's confusing, maybe:
-> 
->     // Because "escape" is used after the closure has returned, the
->     // compiler cannot find a type for the "let escape" assignment.
-> 
-> Paolo
-> 
 
