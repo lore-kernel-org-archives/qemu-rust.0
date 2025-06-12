@@ -1,92 +1,60 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uPcXZ-00071I-3A
-	for mharc-qemu-rust@gnu.org; Thu, 12 Jun 2025 03:40:01 -0400
+	id 1uPdnP-00013o-PT
+	for mharc-qemu-rust@gnu.org; Thu, 12 Jun 2025 05:00:27 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uPcXX-00070o-61
- for qemu-rust@nongnu.org; Thu, 12 Jun 2025 03:39:59 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uPdnN-00011Y-Mu; Thu, 12 Jun 2025 05:00:25 -0400
+Received: from mgamail.intel.com ([192.198.163.19])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uPcXV-0006PA-TQ
- for qemu-rust@nongnu.org; Thu, 12 Jun 2025 03:39:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1749713996;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Jyfclqkv9g5I5cSR+ECGEHSp27JRi/Dx2MjH1UDDGhQ=;
- b=WWS5zd0ob1PCukDWXlFD6L6MqH0JcS3YF8XNXAIe/7uiZ6DjfffFgltXrs9S7eiM2dBW8J
- gXcnKNBjFw1jlhit4VgPkLM1V6ZM88K6cT3NPMRAQ11wiie3L3pIOOuyNnocUDNALcwhza
- bCS3JK9hU3o4EFa9MO4eDE8gWqa/4GA=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-132-QMX10YinOjSr5xFhFpHrQw-1; Thu, 12 Jun 2025 03:39:55 -0400
-X-MC-Unique: QMX10YinOjSr5xFhFpHrQw-1
-X-Mimecast-MFC-AGG-ID: QMX10YinOjSr5xFhFpHrQw_1749713994
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-3a4edf5bb4dso368416f8f.0
- for <qemu-rust@nongnu.org>; Thu, 12 Jun 2025 00:39:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749713993; x=1750318793;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Jyfclqkv9g5I5cSR+ECGEHSp27JRi/Dx2MjH1UDDGhQ=;
- b=PhbggRzZmtiARudjONu2ttKfZHYKqKkQSvdoEqziObqHUDIL0emm0dZzQM6y3GAMCX
- eXasQbZ4CFjgKrV/Ct2ROXNVjTgY1WTw8UgDVLLqHbqo5UVHS4HUlu6ebKGl6seoUVq8
- LZ/ihFu3KLR8SR8p6ve7pBbvzvq4G/sjOaT7y35xkOlCtjd4nua+dmqXB98TNGQgS3Qi
- pse4ACj20p4ysxjCnTqcNPFq6sVqOMosGRmgd6nV6K2295zTmm8fnbBCHmsnzFsWON63
- 21NUuBxtuNVwYNITfooeA/AvSvJYF/M00IlrlmMXr5FkqDDZ7pK9n5ucT/mnmLo/QWZq
- ksZw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU2GzsovBNBYreyI/P78r/ZJrteCw6AOOtvP9IdrJJF9m9RjcYYAuwD0iZ2lLkackrGlr3WCsFOHhQ=@nongnu.org
-X-Gm-Message-State: AOJu0YxgqhrTFGr2hOUXO4NTe0ZCkZkxEYcYDOJtJ3tZTQVo6OBKu8P2
- +pwVx239deGkuGf60HBjAH8uBtKT3U6R2RqC1OZO4pHhUhILXReyFHqy7hTDRvpBEKjIDLawEwi
- DchQcWtIpd5hzaleUkvwWiETAkoHm7Fq2qdlNDV7zDwSEEOBgOf5xxN7QH6dfg8a7Ask+da0Zli
- ZhakbD2kAYuYmIlKsQjjBBNgZRKocQkKh5P3NFeA==
-X-Gm-Gg: ASbGncuBMZvVKSqczdfNqxchdMuXcoLNh2F5dkGN1UrRmyR5Xs4DH8/2D7bJj8Vz7gP
- gdu7KHil/Zqtxv/kcST1OI1Nhq9gxWOajszx4rtrdg7IeFqTwOLx6goJC7UbvAia+gzMBqqaAJF
- KwFg==
-X-Received: by 2002:a5d:64e9:0:b0:3a4:f7af:db9c with SMTP id
- ffacd0b85a97d-3a558a43b5emr4944225f8f.59.1749713992767; 
- Thu, 12 Jun 2025 00:39:52 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF2IVnGMJCnwsL7wsPIX3aIGjP6OxrKIOmkgg6ZR2+08XS10UasBnXgVNDDmescJyDhnaK13nwxXAPAQ2LqLJ4=
-X-Received: by 2002:a5d:64e9:0:b0:3a4:f7af:db9c with SMTP id
- ffacd0b85a97d-3a558a43b5emr4944208f8f.59.1749713992446; Thu, 12 Jun 2025
- 00:39:52 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uPdnK-00005L-3p; Thu, 12 Jun 2025 05:00:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1749718822; x=1781254822;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=uunrVqsDwUhwOpEvjWu0C+dxLc3o7sRI7x+svKoU9QM=;
+ b=J+QFeoaERH4HoSAikZouppLvmTOEHl1Cq8YxA/fd94FND5eXH9M31eUk
+ RYs7D+9qUzaaATBCiq7lYIdC2vVfv9b+NJk+z1QLK9uUeaku29QeVVfZQ
+ F5IA5hyAElWBg8T8Nh5pY4L44MFw0ppP5RK1sfgUPhzc9kLX8e67OhMCx
+ FN9QosTQuPO1jBS7GMsQsCXuzKE+TxRseKjt8h6AXAW4SQQZwN1VBxt6R
+ 0czGyXN5KMUXvEwef+8atQuIo3ajCK8o0sZMdonqa0rluZGcVkbOWkEgb
+ U12ZO/IJPcv9yKous66Vlqf0uce4536a5eEKnv/BFRuaRpZUybCml17y0 w==;
+X-CSE-ConnectionGUID: YiGsrBobSM+LqDBJXFIB5g==
+X-CSE-MsgGUID: wIpsrb5CR4axzcNW3/M2cw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11461"; a="50996953"
+X-IronPort-AV: E=Sophos;i="6.16,230,1744095600"; d="scan'208";a="50996953"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2025 02:00:15 -0700
+X-CSE-ConnectionGUID: ddP/SHrNQz2kh+pnVshG8g==
+X-CSE-MsgGUID: TbezF1vPQvSJBrvMHBLRgQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,230,1744095600"; d="scan'208";a="148007715"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa007.jf.intel.com with ESMTP; 12 Jun 2025 02:00:14 -0700
+Date: Thu, 12 Jun 2025 17:21:30 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH 4/5] rust: qom: make ParentInit lifetime-invariant
+Message-ID: <aEqcGiGmZiMoIhY5@intel.com>
+References: <20250609154423.706056-1-pbonzini@redhat.com>
+ <20250609154423.706056-5-pbonzini@redhat.com>
 MIME-Version: 1.0
-References: <20250610202110.2243-1-shentey@gmail.com>
- <20250610202110.2243-2-shentey@gmail.com>
- <CAAjaMXbtcyB3J3AvGh8ZW3MSi41uMaE+TkZwipCs5pg6wvYJ=w@mail.gmail.com>
- <CABgObfYgoYBJmZjin_Wj8JeEviFMM+vFa_QX_8Np+1n9apq4kw@mail.gmail.com>
- <CAAjaMXZ5S7GUPmhwxsyuVmF4tvUh3vgjnK8OLKv-A+h7JCPqBA@mail.gmail.com>
- <9C43F9B8-6A5A-40EA-88B4-C5B8B17B9F5A@gmail.com>
-In-Reply-To: <9C43F9B8-6A5A-40EA-88B4-C5B8B17B9F5A@gmail.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Thu, 12 Jun 2025 09:39:41 +0200
-X-Gm-Features: AX0GCFu8W0jpAtL1sa6todOY1hM005Tk7scgUnuFa-eYsDT31POjL87RPcqTo3I
-Message-ID: <CABgObfbJbAg=tJ5CzUntexKFnfQzBKteh2jK4pebQfWY86B-Yw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] rust/qemu-api: Add initial logging support based
- on C API
-To: Bernhard Beschow <shentey@gmail.com>
-Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: WO7HYt0ND_3i1tFXH0QyO6H4apkbmUainuhAmqvbrew_1749713994
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="000000000000fa914b06375b08fc"
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250609154423.706056-5-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.19; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
- RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -101,41 +69,173 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jun 2025 07:39:59 -0000
+X-List-Received-Date: Thu, 12 Jun 2025 09:00:26 -0000
 
---000000000000fa914b06375b08fc
-Content-Type: text/plain; charset="UTF-8"
+On Mon, Jun 09, 2025 at 05:44:22PM +0200, Paolo Bonzini wrote:
+> Date: Mon,  9 Jun 2025 17:44:22 +0200
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH 4/5] rust: qom: make ParentInit lifetime-invariant
+> X-Mailer: git-send-email 2.49.0
+> 
+> This is the trick that allows the parent-field initializer to be used
+> only for the object that it's meant to be initialized.  This way,
+> the owner of a MemoryRegion must be the object that embeds it.
+> 
+> More information is in the comments; it's best explained with a simplified
+> example.
+> 
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  rust/qemu-api/src/qom.rs | 88 ++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 84 insertions(+), 4 deletions(-)
+> 
+> diff --git a/rust/qemu-api/src/qom.rs b/rust/qemu-api/src/qom.rs
+> index 21c271cd2f9..1481ef20f0c 100644
+> --- a/rust/qemu-api/src/qom.rs
+> +++ b/rust/qemu-api/src/qom.rs
+> @@ -95,6 +95,7 @@
+>  use std::{
+>      ffi::{c_void, CStr},
+>      fmt,
+> +    marker::PhantomData,
+>      mem::{ManuallyDrop, MaybeUninit},
+>      ops::{Deref, DerefMut},
+>      ptr::NonNull,
+> @@ -208,12 +209,91 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
+>  
+>  /// This struct knows that the superclasses of the object have already been
+>  /// initialized.
+> -pub struct ParentInit<'a, T>(&'a mut MaybeUninit<T>);
+> +///
+> +/// The declaration of `ParentInit` is.. *"a kind of magic"*.  It uses a
+> +/// technique that is found in several crates, the main ones probably being
+> +/// `ghost-cell` (in fact it was introduced by the [`GhostCell` paper](https://plv.mpi-sws.org/rustbelt/ghostcell/))
+> +/// and `generativity`.
 
-Il gio 12 giu 2025, 09:37 Bernhard Beschow <shentey@gmail.com> ha scritto:
+From the paper, I understand this technique should be "branded type". :-)
 
-> So the idea is to have a log_mask_ln! macro instead, since there isn't
-> really a point for a macro that doesn't add `\n` at the end. Correct?
->
+> +/// The `PhantomData` makes the `ParentInit` type *invariant* with respect to
+> +/// the lifetime argument `'init`.  This, together with the `for<'...>` in
+> +/// `[ParentInit::with]`, block any attempt of the compiler to be creative when
+> +/// operating on types of type `ParentInit` and to extend their lifetimes.  In
+> +/// particular, it ensures that the `ParentInit` cannot be made to outlive the
+> +/// `rust_instance_init()` function that creates it, and therefore that the
+> +/// `&'init T` reference is valid.
+> +///
+> +/// This implementation of the same concept, without the QOM baggage, can help
+> +/// understanding the effect:
+> +///
+> +/// ```
+> +/// use std::marker::PhantomData;
+> +///
+> +/// #[derive(PartialEq, Eq)]
+> +/// pub struct Jail<'closure, T: Copy>(&'closure T, PhantomData<fn(&'closure ()) -> &'closure ()>);
+> +///
+> +/// impl<'closure, T: Copy> Jail<'closure, T> {
+> +///     fn get(&self) -> T {
+> +///         *self.0
+> +///     }
+> +///
+> +///     #[inline]
+> +///     fn with<U>(v: T, f: impl for<'id> FnOnce(Jail<'id, T>) -> U) -> U {
+> +///         let parent_init = Jail(&v, PhantomData);
+> +///         f(parent_init)
+> +///     }
+> +/// }
+> +/// ```
+> +///
+> +/// It's impossible to escape the `Jail`; `token1` cannot be moved out of the
+> +/// closure:
+> +///
+> +/// ```ignore
+> +/// let x = 42;
+> +/// let escape = Jail::with(&x, |token1| {
+> +///     println!("{}", token1.get());
+> +///     token1
 
-Yes, or both.
+This line will fail to compile (the below comment "// fails to compile" seems
+to indicate that println! will fail):
 
-Paolo
+error: lifetime may not live long enough
+  --> src/main.rs:22:9
+   |
+20 |     let escape = Jail::with(x, |token1| {
+   |                                 ------- return type of closure is Jail<'2, i32>
+   |                                 |
+   |                                 has type `Jail<'1, i32>`
+21 |         println!("{}", token1.get());
+22 |         token1
+   |         ^^^^^^ returning this value requires that `'1` must outlive `'2`
 
->
 
---000000000000fa914b06375b08fc
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Referring to GhostToken::new() [*], it said:
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
-ner"><div dir=3D"ltr" class=3D"gmail_attr">Il gio 12 giu 2025, 09:37 Bernha=
-rd Beschow &lt;<a href=3D"mailto:shentey@gmail.com">shentey@gmail.com</a>&g=
-t; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">S=
-o the idea is to have a log_mask_ln! macro instead, since there isn&#39;t r=
-eally a point for a macro that doesn&#39;t add `\n` at the end. Correct?<br=
-></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Yes=
-, or both.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo</div><d=
-iv dir=3D"auto"><div class=3D"gmail_quote gmail_quote_container"><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
-olid rgb(204,204,204);padding-left:1ex">
-</blockquote></div></div></div>
+        // Return the result of running `f`.  Note that the `GhostToken` itself
+        // cannot be returned, because `R` cannot mention the lifetime `'id`, so
+        // the `GhostToken` only exists within its scope.
 
---000000000000fa914b06375b08fc--
+So this example is good, I think just need to optimize the location of the error hint.
+
+[*]: https://gitlab.mpi-sws.org/FP/ghostcell/-/blob/master/ghostcell/src/lib.rs#L128
+
+> +/// });
+> +/// // fails to compile:
+> +/// println!("{}", escape.get());
+> +/// ```
+> +///
+> +/// Likewise, in the QOM case the `ParentInit` cannot be moved out of
+> +/// `instance_init()`. Without this trick it would be possible to stash a
+> +/// `ParentInit` and use it later to access uninitialized memory.
+> +///
+> +/// Here is another example, showing how separately-created "identities" stay
+> +/// isolated:
+> +///
+> +/// ```ignore
+> +/// impl<'closure, T: Copy> Clone for Jail<'closure, T> {
+> +///     fn clone(&self) -> Jail<'closure, T> {
+> +///         Jail(self.0, PhantomData)
+> +///     }
+> +/// }
+> +///
+> +/// fn main() {
+> +///     Jail::with(42, |token1| {
+> +///         // this works and returns true: the clone has the same "identity"
+> +///         println!("{}", token1 == token1.clone());
+> +///         Jail::with(42, |token2| {
+> +///             // here the outer token remains accessible...
+> +///             println!("{}", token1.get());
+> +///             // ... but the two are separate: this fails to compile:
+> +///             println!("{}", token1 == token2);
+> +///         });
+> +///     });
+> +/// }
+> +/// ```
+> +pub struct ParentInit<'init, T>(
+> +    &'init mut MaybeUninit<T>,
+> +    PhantomData<fn(&'init ()) -> &'init ()>,
+> +);
+>  
+> -impl<'a, T> ParentInit<'a, T> {
+> +impl<'init, T> ParentInit<'init, T> {
+>      #[inline]
+> -    pub fn with(obj: &'a mut MaybeUninit<T>, f: impl FnOnce(ParentInit<'a, T>)) {
+> -        let parent_init = ParentInit(obj);
+> +    pub fn with(obj: &'init mut MaybeUninit<T>, f: impl for<'id> FnOnce(ParentInit<'id, T>)) {
+> +        let parent_init = ParentInit(obj, PhantomData);
+
+I think it's also valuable to add the similar comment as GhostToken did,
+mentioning this `f` can't reture ParentInit itself.
+
+>          f(parent_init)
+>      }
+>  }
+> -- 
+> 2.49.0
+> 
+
+Nice comment and nice reference (learned a lot).
+
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+
 
 
