@@ -1,61 +1,84 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uPMzb-00038q-9d
-	for mharc-qemu-rust@gnu.org; Wed, 11 Jun 2025 11:03:55 -0400
+	id 1uPcO5-0003uV-IX
+	for mharc-qemu-rust@gnu.org; Thu, 12 Jun 2025 03:30:13 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uPMzY-00038N-RI; Wed, 11 Jun 2025 11:03:52 -0400
-Received: from mgamail.intel.com ([198.175.65.11])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uPMzW-0006PM-S8; Wed, 11 Jun 2025 11:03:52 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1749654231; x=1781190231;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=DfzGUjwb+a4TDpGYGcU/G2ITlow1Fg8h03KOgk9GmwI=;
- b=Y8E6bXAU5lpv1hZpEnM8ybygouMMe24g8yxb5pKesar2O/sQlchDXFr3
- JCE0TQDClQnFOlxTBrNzS6xwtENvt1QqsKthY6k36mhv0PLq03fqUdlid
- d8Qq0f4rXo1PFYdtkpWvM1f+AxMDjZsyBt4bQlwrvzMQ7Gp9EG0AQbxNF
- kOJcREDYZxK67w4d547Qg2rDNoEjEriBfbr/cW4KLFwB1l+3hCUO2S3i+
- xvRDSY1TjYS9I05jcjKNLkJ9+KNXae1E+7pg6yRcoQXpZ7kd114DEScd/
- mVg//1AcnvuERgkUvpIOGWOmycxlEMPs6aXF9VkIcq79XSDRH8yX44SQV Q==;
-X-CSE-ConnectionGUID: XTdnpMdeSXaTQGRvBPGtTw==
-X-CSE-MsgGUID: /XZ/0PluS7SChLFG/5WNxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11461"; a="62081722"
-X-IronPort-AV: E=Sophos;i="6.16,228,1744095600"; d="scan'208";a="62081722"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2025 08:03:48 -0700
-X-CSE-ConnectionGUID: zC2q91qXQPye49Irs+YFDw==
-X-CSE-MsgGUID: N+f5b9JrRTeDji7F2RuNZg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,228,1744095600"; d="scan'208";a="178171883"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa001.fm.intel.com with ESMTP; 11 Jun 2025 08:03:47 -0700
-Date: Wed, 11 Jun 2025 23:25:02 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 3/5] rust: qom: introduce ParentInit
-Message-ID: <aEmfzssEUlYIP9MR@intel.com>
-References: <20250609154423.706056-1-pbonzini@redhat.com>
- <20250609154423.706056-4-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
+ id 1uPcO0-0003r7-54; Thu, 12 Jun 2025 03:30:08 -0400
+Received: from mail-wm1-x331.google.com ([2a00:1450:4864:20::331])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
+ id 1uPcNx-000505-W9; Thu, 12 Jun 2025 03:30:07 -0400
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-451d54214adso4589325e9.3; 
+ Thu, 12 Jun 2025 00:30:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1749713402; x=1750318202; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SZ6sPcipkdgCHZUrlXXsBzdJ/gVBOKP0mf97qysVYPc=;
+ b=FYpff/5ckEgccfCzTMtJp6gcoOKbrq8GFhaTixHqpDKzzGd2GVDY9hLLj2PjHpsHfO
+ pNjFBiPYJCbm/c7M7sE1FEwAD4pnSXKPcM0swyvloyOSl9BaoNDmO2zoNhwOZ2JClvyZ
+ SdUmoD6ZrAWokAjRnTwjNulqDljWPGG/L9LkyYtHaUQa14Q1DxH6V3K7qQRLKLIVaqmG
+ agpyG2m0/ewUAzaSsGVEbxhD7UwgD/rlfiGabbhmWpvloO91FrYy6qfGr2slo4Vlh2Pv
+ bwsT7NIjQaUo6cc8YAKHXhnSOQRnH6JADA0OCmIr/mzX1MCk2UB3diI2BXg/0sYtAuvw
+ 0NKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749713402; x=1750318202;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=SZ6sPcipkdgCHZUrlXXsBzdJ/gVBOKP0mf97qysVYPc=;
+ b=TEjT8vTWy6/krPgIrQyEtVKH4Hy5r4dBjq5qISkgP+Gls3+T7tqFG4/pqcsPr7Y6o2
+ Z3oHUn39iSwfm0dtQ+x4WdBI1KaCDEsSIBr1MLhI0gCbjP6grkYu526t+GNiHi46qO/N
+ +gp+fNJ6L89YNFBNkzrVZPM33kplOw6S3RYbyF9duWYRaDfOuGUE9MWEVPN80A9OeItE
+ M81IGCA/Pj5R2FX18jOirtNKfrX8jr25pa4Ba/BWKvarpmopKQDX+XhYfQbgnZMGaCNH
+ Gn1EZ5p4PoiyPMnR0oYX+W5ekvNg2OSoiGGf5RgyJKCfWGv5MdWxeS22fuyoRUcBOUPZ
+ +PJw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU4hd8OGbOlQmOBc/gT3Wgnxnzv7bEi+9Yr9CJaYttL5yLW/qr+lVFKPS7KbeLkN06qapGq/7LMgUY=@nongnu.org
+X-Gm-Message-State: AOJu0YxvfD92e3RdWggPUUS1Hmzw+4wBfIs56Vzv5NlSmiVj4Zn31We8
+ r+U+tpMoa0JtNAQX7rmDkNRKbDPnMTkI8Zi/7wzGJuoAVpHPi8vVZXDA
+X-Gm-Gg: ASbGncvzA6JyTZabMjbA4+lCjI2ox4GHrLr+oj/p8HjXQO6ZMoFLCOIwmeShIlwDOoO
+ Qte42o4mOCi63pY6c+VLeBAAV0WZqHULz0QrM0siZq2cr+GDDCsneHdz6H5Q84P1aLLBZ8IxsWu
+ 4hSdXu5AoHQCLwToXJDGolvr60RnhQoly1gTFyi5c0cd59wzE134sQdasiOxOxw2YJ9UqlmwjVf
+ 2eN0wNZdh8fwCJKbxzMqVCHs4+vQ3Y1faISUp+BY3mdFQM488jbW2PiHr6Hbjh3T4vOGcY1jVql
+ C3H9VW0R/bux6n3wXdRD4m21CUWf55yPgIKj7t+rRWi5X0DqshWA1KylYfvYTzvHi6k=
+X-Google-Smtp-Source: AGHT+IH7Y0ttH5M3AHT2bU36eXJweMGldXIecU3i/W05D7llHYNUWysbP2+tFItsc0H+TNU/xW/67Q==
+X-Received: by 2002:a5d:64e6:0:b0:3a4:fc52:f5d4 with SMTP id
+ ffacd0b85a97d-3a5586e983bmr4896646f8f.47.1749713401877; 
+ Thu, 12 Jun 2025 00:30:01 -0700 (PDT)
+Received: from [127.0.0.1] ([62.214.191.67]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4532e151c3csm11760555e9.30.2025.06.12.00.30.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Jun 2025 00:30:01 -0700 (PDT)
+Date: Thu, 12 Jun 2025 07:29:49 +0000
+From: Bernhard Beschow <shentey@gmail.com>
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Paolo Bonzini <pbonzini@redhat.com>
+CC: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_1/2=5D_rust/qemu-api=3A_Add_?=
+ =?US-ASCII?Q?initial_logging_support_based_on_C_API?=
+In-Reply-To: <CAAjaMXZ5S7GUPmhwxsyuVmF4tvUh3vgjnK8OLKv-A+h7JCPqBA@mail.gmail.com>
+References: <20250610202110.2243-1-shentey@gmail.com>
+ <20250610202110.2243-2-shentey@gmail.com>
+ <CAAjaMXbtcyB3J3AvGh8ZW3MSi41uMaE+TkZwipCs5pg6wvYJ=w@mail.gmail.com>
+ <CABgObfYgoYBJmZjin_Wj8JeEviFMM+vFa_QX_8Np+1n9apq4kw@mail.gmail.com>
+ <CAAjaMXZ5S7GUPmhwxsyuVmF4tvUh3vgjnK8OLKv-A+h7JCPqBA@mail.gmail.com>
+Message-ID: <07B116B0-6D08-446A-9BD1-C8020D8EE86F@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250609154423.706056-4-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.11; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::331;
+ envelope-from=shentey@gmail.com; helo=mail-wm1-x331.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -69,23 +92,31 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Jun 2025 15:03:53 -0000
+X-List-Received-Date: Thu, 12 Jun 2025 07:30:11 -0000
 
-On Mon, Jun 09, 2025 at 05:44:21PM +0200, Paolo Bonzini wrote:
-> Date: Mon,  9 Jun 2025 17:44:21 +0200
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 3/5] rust: qom: introduce ParentInit
-> X-Mailer: git-send-email 2.49.0
-> 
-> This is a smart pointer for MaybeUninit; it can be upcasted to the
-> already-initialized parent classes, or dereferenced to a MaybeUninit
-> for the class that is being initialized.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/qemu-api/src/qom.rs | 86 +++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 85 insertions(+), 1 deletion(-)
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
+Am 11=2E Juni 2025 12:17:57 UTC schrieb Manos Pitsidianakis <manos=2Epitsi=
+dianakis@linaro=2Eorg>:
+>On Wed, Jun 11, 2025 at 2:05=E2=80=AFPM Paolo Bonzini <pbonzini@redhat=2E=
+com> wrote:
+>>
+>> On Wed, Jun 11, 2025 at 12:57=E2=80=AFPM Manos Pitsidianakis
+>> <manos=2Epitsidianakis@linaro=2Eorg> wrote:
+>>
+>> > Maybe we could take this chance to remove the requirement for trailin=
+g
+>> > newline? Not urgent, and also something we could change afterwards
+>> > anyway=2E We could also introduce log_mask_ln! macro but now I'm just
+>> > bikeshedding=2E
+>>
+>> Good idea; there is no "formatln!" but I think you could use concat ins=
+tead=2E
+>
+>I think `let formatted_string =3D format!("{}\n", format_args!($fmt
+>$($args)*));` might be sufficient, but I haven't checked it myself
+>
+
+So the idea is to have a log_mask_ln! macro instead, since there isn't rea=
+lly a point for a macro that doesn't add `\n` at the end=2E Correct?
 
