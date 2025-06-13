@@ -1,66 +1,201 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uPx5b-00023s-G6
-	for mharc-qemu-rust@gnu.org; Fri, 13 Jun 2025 01:36:31 -0400
+	id 1uPztr-0004PT-Vn
+	for mharc-qemu-rust@gnu.org; Fri, 13 Jun 2025 04:36:36 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uPx5X-00021v-NU; Fri, 13 Jun 2025 01:36:28 -0400
-Received: from mgamail.intel.com ([198.175.65.18])
+ (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1uPztq-0004Ma-5p
+ for qemu-rust@nongnu.org; Fri, 13 Jun 2025 04:36:34 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uPx5T-0004D9-VU; Fri, 13 Jun 2025 01:36:26 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1749792985; x=1781328985;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=F58yUyairb8+CMgREp6Coq/wzpd2FVi+30joS8mftl8=;
- b=XK1xwbiAEWd6nZlA4nsrD0iEJQ9kIuqseuVQRlZGiMGTGaiopMNcyG5e
- RSvY1enkCLfYpN5mIXDHaiYguwA3oCuuJvZvcerQ7v2bBFWqq0Whmx9Wt
- CURVFBJhV/T2IgaVf6tU0pibd0eqHws+XEdn+EcIvfnJRPXRKnDwfZ4Yy
- jwqsbDrhmIFeXs3MvGjFvbluwwHF7CJB5avApjmQbNTK/k78QIF/BpVKN
- LMLKiznoO2H+NssWvFw7G4QS6lUBU7CK9gcMHgpdTID6JWE2Hc9MtbgrW
- W0Pbu7snQPOg5SWUFYpdeFs5L2KGqGXbrx9YfOf68dj5Th4zJLy0prjOh w==;
-X-CSE-ConnectionGUID: h8qKNIvBQjGFCjDB7FE1dA==
-X-CSE-MsgGUID: 3tf8Cp0CQFu/AIor0Qz5kw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11462"; a="52133994"
-X-IronPort-AV: E=Sophos;i="6.16,232,1744095600"; d="scan'208";a="52133994"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2025 22:36:21 -0700
-X-CSE-ConnectionGUID: 2GSdNUF/SquKEbRE23F0og==
-X-CSE-MsgGUID: lXSyYJiMSwyjsIgYxkytjw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,232,1744095600"; d="scan'208";a="147639452"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa010.jf.intel.com with ESMTP; 12 Jun 2025 22:36:19 -0700
-Date: Fri, 13 Jun 2025 13:57:36 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, marcandre.lureau@redhat.com,
- qemu-rust@nongnu.org, armbru@redhat.com, mkletzan@redhat.com
-Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from 2021
-Message-ID: <aEu90HVJsySBHJKz@intel.com>
-References: <20250605101124.367270-1-pbonzini@redhat.com>
- <aEk6vdosWZgyQGXD@intel.com>
- <CABgObfaK8h3GE4GWbPrn22JshYcCFdXsxWHWuAPVC4pRb7GZ0A@mail.gmail.com>
- <CABgObfa+w3pcYhFnO6ETxSfoNiNU=+_8WcW6dE8dkUrbt6darw@mail.gmail.com>
+ (Exim 4.90_1) (envelope-from <thuth@redhat.com>) id 1uPztn-00069C-LS
+ for qemu-rust@nongnu.org; Fri, 13 Jun 2025 04:36:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1749803790;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=/I6+d9Yd3eLTkCHtR7fFtt05vaPNjoHu7+WkpC52NnU=;
+ b=Af2vhC48IleSqrYRVmmsGzq1BB/cYMHLsuv0sqHTIEBo7kYxbFrrxK1a5sIvEBN9YC1DKi
+ cUke+MTVktAi482B71B0OokhN4nN/rNquJav+O9rPTxgUoLKRGZqZFm3HuvItNgbgIUFUh
+ CXtFpCRyGmofSW8FOVrjjpAAwNrNekY=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-605-Jo7pTUf_MX-25x79XR4jNQ-1; Fri, 13 Jun 2025 04:36:28 -0400
+X-MC-Unique: Jo7pTUf_MX-25x79XR4jNQ-1
+X-Mimecast-MFC-AGG-ID: Jo7pTUf_MX-25x79XR4jNQ_1749803787
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-3a4f858bc5eso1308326f8f.0
+ for <qemu-rust@nongnu.org>; Fri, 13 Jun 2025 01:36:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749803787; x=1750408587;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/I6+d9Yd3eLTkCHtR7fFtt05vaPNjoHu7+WkpC52NnU=;
+ b=PygCKrTuWBoN/XA+4BTbJBHq2ev07AvGVjmYLe1zY5CAvoHpJwaNSLZGAYbiTufow4
+ /LFsK/rHs6xbCrOY4m9Wr5XIwZ33APXUX31ifH8d1p5kRZVRWaZ8spc0RsyHVSuJboSF
+ 41KlbhLn8DLX9XqGZgYMJPjU0+TrQ5saRwWYcOg6UsUPP6TzmjShce2z5x6AKFPImjqu
+ tso5aKTMXkfC1JZTo6oZIBeuPgdvjQGxed9/mQMvb35a+dMqrT1DQZ5Wrv49Y3JrpHxK
+ nDDLsp5cRs41LAiiW9eystqVsa4NoTqSunDz1+tvNpTXILD6z5PiCe6S4v4IYlZFOICf
+ e5cQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXcsIs8x2ThdBLuqLrwZTYD/lJILvCH495IlV84WDQJ/G5qYbOJiyNhv9slJ7by1jLZdH70sIKGStU=@nongnu.org
+X-Gm-Message-State: AOJu0YzrBDPBvx4LG+jx2badG8cMSPivFt7YsPXY+AsIf3YPafDaplyQ
+ kZS+2WdJ2r/LQPrNJsVUWG0k0niarJ0d+HcKq2APbikTznEM644g+BXrnJLlTiqUYl5Wz86kri1
+ V+Y3I0TXTSAunbAcMw5gongRlVYrJQJ9aJIgyYmdfcl4yJVKTIHFupjk=
+X-Gm-Gg: ASbGncuQAeOS0FVRXu5KwAJQmRAMrX9VuNq62aHjwhTM+8FFxpi1EP26EIUOsrUts/D
+ ECIuJx/Nyg/0fBzfQni/+uAomVhKqst/8FS9PBw3xbfQ9ASa08TV8xFPJ7+KQCxEFCCNbA5yTSI
+ Y2zDmM+kF0RrRsg6v8BZ2Wa7co9U28ewS30gjK5ZZ1l9vkkrkDOmYXYTGS+7bIt2mvXQ3ZltIt4
+ 8A+EkSteR2X8naXI08vbIIoUMZmjsP6MDja9OGecE2hyjlZ1/4g8LLOZeiroyBswUpBToIqFzuv
+ erjfQ7EUfYM7HcfPFZXKoCUBvuyKKy0l72Wp2VREFY5Miy68rq2Y8/484LT8XQ==
+X-Received: by 2002:a05:6000:1a88:b0:3a4:ec32:e4f3 with SMTP id
+ ffacd0b85a97d-3a5686bca97mr2034741f8f.17.1749803786976; 
+ Fri, 13 Jun 2025 01:36:26 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF7B45WXjbfZeSZHgqn1bgfNkrp3GCDXtD8bbtUbwmAb1jIo70JpQtuBxS5Aq1Xw+zIc42s3g==
+X-Received: by 2002:a05:6000:1a88:b0:3a4:ec32:e4f3 with SMTP id
+ ffacd0b85a97d-3a5686bca97mr2034642f8f.17.1749803786353; 
+ Fri, 13 Jun 2025 01:36:26 -0700 (PDT)
+Received: from [192.168.0.4] (ltea-047-064-114-027.pools.arcor-ip.net.
+ [47.64.114.27]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a568a72cd3sm1675721f8f.32.2025.06.13.01.36.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Jun 2025 01:36:25 -0700 (PDT)
+Message-ID: <7e66e758-da47-47eb-9114-22f07e1ffdc9@redhat.com>
+Date: Fri, 13 Jun 2025 10:36:21 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABgObfa+w3pcYhFnO6ETxSfoNiNU=+_8WcW6dE8dkUrbt6darw@mail.gmail.com>
-Received-SPF: pass client-ip=198.175.65.18; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/12] python: convert packages to PEP517/pyproject.toml
+To: John Snow <jsnow@redhat.com>, qemu-devel@nongnu.org
+Cc: Joel Stanley <joel@jms.id.au>, Yi Liu <yi.l.liu@intel.com>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Helge Deller <deller@gmx.de>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Fabiano Rosas <farosas@suse.de>, Alexander Bulekov <alxndr@bu.edu>,
+ Darren Kenny <darren.kenny@oracle.com>,
+ Leif Lindholm <leif.lindholm@oss.qualcomm.com>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>,
+ Ed Maste <emaste@freebsd.org>, Gerd Hoffmann <kraxel@redhat.com>,
+ Warner Losh <imp@bsdimp.com>, Tyrone Ting <kfting@nuvoton.com>,
+ Eric Blake <eblake@redhat.com>, Troy Lee <leetroy@gmail.com>,
+ Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+ Michael Roth <michael.roth@amd.com>, Laurent Vivier <laurent@vivier.eu>,
+ Ani Sinha <anisinha@redhat.com>, Weiwei Li <liwei1518@gmail.com>,
+ Eric Farman <farman@linux.ibm.com>, Steven Lee <steven_lee@aspeedtech.com>,
+ Brian Cain <brian.cain@oss.qualcomm.com>, Li-Wen Hsu <lwhsu@freebsd.org>,
+ Jamin Lin <jamin_lin@aspeedtech.com>,
+ Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
+ qemu-block@nongnu.org, Bernhard Beschow <shentey@gmail.com>,
+ =?UTF-8?Q?Cl=C3=A9ment_Mathieu--Drif?= <clement.mathieu--drif@eviden.com>,
+ Maksim Davydov <davydov-max@yandex-team.ru>,
+ Niek Linnenbank <nieklinnenbank@gmail.com>,
+ =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Paul Durrant <paul@xen.org>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Jagannathan Raman <jag.raman@oracle.com>,
+ Igor Mitsyanko <i.mitsyanko@gmail.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Markus Armbruster <armbru@redhat.com>,
+ Pierrick Bouvier <pierrick.bouvier@linaro.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Anton Johansson <anjo@rev.ng>,
+ Peter Maydell <peter.maydell@linaro.org>, Eric Auger
+ <eric.auger@redhat.com>, Yanan Wang <wangyanan55@huawei.com>,
+ qemu-arm@nongnu.org, Hao Wu <wuhaotsh@google.com>,
+ Mads Ynddal <mads@ynddal.dk>,
+ Sriram Yagnaraman <sriram.yagnaraman@ericsson.com>, qemu-riscv@nongnu.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Michael Rolnik <mrolnik@gmail.com>,
+ Zhao Liu <zhao1.liu@intel.com>, Alessandro Di Federico <ale@rev.ng>,
+ Antony Pavlov <antonynpavlov@gmail.com>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, Hanna Reitz <hreitz@redhat.com>,
+ Ilya Leoshkevich <iii@linux.ibm.com>, Marcelo Tosatti <mtosatti@redhat.com>,
+ Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ Qiuhao Li <Qiuhao.Li@outlook.com>, Hyman Huang <yong.huang@smartx.com>,
+ =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
+ qemu-rust@nongnu.org, Bandan Das <bsd@redhat.com>,
+ Strahinja Jankovic <strahinja.p.jankovic@gmail.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ kvm@vger.kernel.org, Fam Zheng <fam@euphon.net>, Jia Liu <proljc@gmail.com>,
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
+ Alistair Francis <alistair@alistair23.me>, Kyle Evans <kevans@freebsd.org>,
+ Alexandre Iooss <erdnaxe@crans.org>,
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Peter Xu <peterx@redhat.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>,
+ Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ =?UTF-8?B?RnLDqWTDqXJpYyBCYXJyYXQ=?= <fbarrat@linux.ibm.com>,
+ qemu-ppc@nongnu.org, Radoslaw Biernacki <rad@semihalf.com>,
+ Beniamino Galvani <b.galvani@gmail.com>, David Hildenbrand
+ <david@redhat.com>, Richard Henderson <richard.henderson@linaro.org>,
+ David Woodhouse <dwmw2@infradead.org>, Eduardo Habkost
+ <eduardo@habkost.net>, Ahmed Karaman <ahmedkhaledkaraman@gmail.com>,
+ Huacai Chen <chenhuacai@kernel.org>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>
+References: <20250612205451.1177751-1-jsnow@redhat.com>
+ <20250612205451.1177751-2-jsnow@redhat.com>
+From: Thomas Huth <thuth@redhat.com>
+Autocrypt: addr=thuth@redhat.com; keydata=
+ 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
+In-Reply-To: <20250612205451.1177751-2-jsnow@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Xkn7YCYROZi5XddcP-dTOURedfwGln9bJHvV_vZQ1R4_1749803787
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=thuth@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -73,112 +208,31 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Jun 2025 05:36:29 -0000
+X-List-Received-Date: Fri, 13 Jun 2025 08:36:34 -0000
 
-On Thu, Jun 12, 2025 at 12:24:44PM +0200, Paolo Bonzini wrote:
-> Date: Thu, 12 Jun 2025 12:24:44 +0200
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from 2021
+On 12/06/2025 22.54, John Snow wrote:
+> Newer versions of setuptools increasingly expect that packages are
+> defined using the pyproject.toml/PEP517 packaging layout format. With
+> 3.9 as our minimum, I believe it's finally appropriate to make the shift
+> away from the legacy packaging format.
 > 
-> On Wed, Jun 11, 2025 at 10:57 AM Paolo Bonzini <pbonzini@redhat.com> wrote:
-> > Yes. If using serde the implementation of the traits is very small,
-> > and basically the same for all types. If not using serde, it would
-> > need some (or most) of the infrastructure in Marc-André's original
-> > series.
+> Update documentation and dependencies that change as a result of the
+> different build/packaging/installation pathways.
 > 
-> Looking more at it, the Rust->QObject and QObject->Rust parts *can* be
-> done with serde (following the model of serde_json's Value
-> (de)serializer) but the Rust<->C part has a problem.
+> This change has the effect of fixing "make check-dev", which has been
+> broken on newer versions of Fedora for a while, now.
 > 
-> To recap, Rust->C is the serialization and corresponds to output
-> visitors. C->Rust is the deserialization and corresponds to input
-> visitors.
-> 
-> For serialization, serde has a push model where the generated code
-> looks like this:
-> 
->       let mut state =
->           Serializer::serialize_struct(serializer, "S", 2);
->       SerializeStruct::serialize_field(&mut state, "a", &self.a)?;
->       SerializeStruct::serialize_field(&mut state, "b", &self.b)?;
->       SerializeStruct::end(state)
-> 
-> whereas QAPI has a pull model where visit_type_* drives the process
-> and requests the fields one by one.
-> 
-> For deserialization, serde has a pull model where the generated code
-> asks for the field names one by one:
-> 
->     fn visit_map<__A>(self, mut __map: __A)
->         while let Some(key) =
->             MapAccess::next_key::<__Field>(&mut __map)? {
->                 match __key { ... }
->         }
->     }
-> 
-> whereas QAPI has a push model where visit_type_* again drives the
-> process and sends fields one by one.
-> 
-> For commands this is not a problem because the real underlying
-> transformation is QObject->QObject and the intermediate steps (to and
-> from QObject) can use serde.
-> 
-> However, QOM property getters/setters (especially, but not
-> exclusively, for properties with compound types) remain a problem
-> since these use callbacks with a Visitor* argument. I see three
-> possibilities:
-> 
-> 1) everything is done through an intermediate QObject step (e.g. for a
-> setter: Visitor->QObject with an input visitor, and QObject->Rust with
-> serde deserialization).
->     + easy, Rust only sees serde
->     + QMP commands use a single conversion step
->     - inefficient
+> Signed-off-by: John Snow <jsnow@redhat.com>
+> ---
+>   python/README.rst        | 33 ++++++++++++++++-----------------
+>   python/Makefile          | 18 +++++++++---------
+>   python/pyproject.toml    | 10 ++++++++++
+>   python/setup.py          | 40 ----------------------------------------
+>   python/tests/minreqs.txt |  2 +-
+>   5 files changed, 36 insertions(+), 67 deletions(-)
+>   create mode 100644 python/pyproject.toml
+>   delete mode 100755 python/setup.py
 
-This sounds like a natural approach.
-
-> 2) everything is done through an intermediate C step (e.g. for a
-> setter: Visitor->C with a visit_type_* function, and C->Rust with
-> generated code that does not need to use serde).
-
-I understand this step indicates to use bindgen to generate visit_type_*
-bindings...
-
-> There is still a
-> double conversion step, but it's more efficient than option 1
->     + one framework (visitor)
->     - double conversion for the QMP commands
->     - lots of generated code
-
-...if so, then yes, there would be too much generated and "unsafe"
-codes, and further abstraction may be needed to ensure safety, similar
-to the lots of work currently done in the qemu-api.
-
-> 3) generating a Rust visit_type_* implementation as well, either in
-> qapi-gen (3a) or through a procedural macro (3b).> This should not be
-> hard to write but it would remove a lot of the advantages from using
-> serde.
->     + efficient
->     + preserves single conversion for QMP commands
->     - two frameworks
-
-The difference between the two frameworks is that one is for C and the
-other is for Rust, which increases the maintenance burden.
-
-> I am leaning towards option 1, i.e. keep using serde but only cover
-> conversions to and from QObject.
-
-Based on my understanding of the three options above, I also think that
-option 1 is the more appropriate approach.
-
-> The reason is that one future usecase
-> for Rust in QEMU is the UEFI variable store; that one also has some
-> Rust<->JSON conversions and could be served by either QObject or
-> serde_json. Either way, it'd be nice for the UEFI variable store to
-> remain within the Rust serde ecosystem and allow sharing code between
-> QEMU and Coconut SVSM. But I'm not so sure...
-
-Thanks,
-Zhao
+Reviewed-by: Thomas Huth <thuth@redhat.com>
 
 
