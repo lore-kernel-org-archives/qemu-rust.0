@@ -1,140 +1,66 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uPp45-0007FM-7y
-	for mharc-qemu-rust@gnu.org; Thu, 12 Jun 2025 17:02:26 -0400
+	id 1uPx5b-00023s-G6
+	for mharc-qemu-rust@gnu.org; Fri, 13 Jun 2025 01:36:31 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uPp3r-0006xy-Gb
- for qemu-rust@nongnu.org; Thu, 12 Jun 2025 17:02:12 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uPx5X-00021v-NU; Fri, 13 Jun 2025 01:36:28 -0400
+Received: from mgamail.intel.com ([198.175.65.18])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uPp3o-0001Mn-CD
- for qemu-rust@nongnu.org; Thu, 12 Jun 2025 17:02:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1749762127;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=JJA305OgYfWdFpeBb895vZC1w+JpOwGtBxhuAxXTPBY=;
- b=bLjAPBohdJMXX0W5W4gTq93Lx4ihPNUgv8D6UprE0NLKAXUe3eB29BC1GpQbl/0NffJ1nZ
- jEw/t/7A13qfPGVF4EYagbnci+fInBr3eOZlRveGkYVNnEk2R5sESnMtHqmCckjk99RbpS
- +qdeZTFaNQ8r1UcwR8ews3q1SoHwKMA=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-510-906kJsTJPgW6XmaniTmVEQ-1; Thu,
- 12 Jun 2025 17:02:04 -0400
-X-MC-Unique: 906kJsTJPgW6XmaniTmVEQ-1
-X-Mimecast-MFC-AGG-ID: 906kJsTJPgW6XmaniTmVEQ_1749762119
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id DED151956096; Thu, 12 Jun 2025 21:01:58 +0000 (UTC)
-Received: from jsnow-thinkpadp16vgen1.westford.csb (unknown [10.22.80.54])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id A929F1956050; Thu, 12 Jun 2025 21:01:29 +0000 (UTC)
-From: John Snow <jsnow@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: Joel Stanley <joel@jms.id.au>, Yi Liu <yi.l.liu@intel.com>,
- =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Helge Deller <deller@gmx.de>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Fabiano Rosas <farosas@suse.de>, Alexander Bulekov <alxndr@bu.edu>,
- Darren Kenny <darren.kenny@oracle.com>,
- Leif Lindholm <leif.lindholm@oss.qualcomm.com>,
- =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
- Ed Maste <emaste@freebsd.org>, Gerd Hoffmann <kraxel@redhat.com>,
- Warner Losh <imp@bsdimp.com>, Kevin Wolf <kwolf@redhat.com>,
- Tyrone Ting <kfting@nuvoton.com>, Eric Blake <eblake@redhat.com>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Troy Lee <leetroy@gmail.com>,
- Halil Pasic <pasic@linux.ibm.com>,
- Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
- Michael Roth <michael.roth@amd.com>, Laurent Vivier <laurent@vivier.eu>,
- Ani Sinha <anisinha@redhat.com>, Weiwei Li <liwei1518@gmail.com>,
- John Snow <jsnow@redhat.com>, Eric Farman <farman@linux.ibm.com>,
- Steven Lee <steven_lee@aspeedtech.com>,
- Brian Cain <brian.cain@oss.qualcomm.com>, Li-Wen Hsu <lwhsu@freebsd.org>,
- Jamin Lin <jamin_lin@aspeedtech.com>, qemu-s390x@nongnu.org,
- Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
- qemu-block@nongnu.org, Bernhard Beschow <shentey@gmail.com>,
- =?UTF-8?q?Cl=C3=A9ment=20Mathieu--Drif?= <clement.mathieu--drif@eviden.com>,
- Maksim Davydov <davydov-max@yandex-team.ru>,
- Niek Linnenbank <nieklinnenbank@gmail.com>,
- =?UTF-8?q?Herv=C3=A9=20Poussineau?= <hpoussin@reactos.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Paul Durrant <paul@xen.org>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Jagannathan Raman <jag.raman@oracle.com>,
- Igor Mitsyanko <i.mitsyanko@gmail.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Markus Armbruster <armbru@redhat.com>,
- Pierrick Bouvier <pierrick.bouvier@linaro.org>,
- "Michael S. Tsirkin" <mst@redhat.com>, Anton Johansson <anjo@rev.ng>,
- Peter Maydell <peter.maydell@linaro.org>, Cleber Rosa <crosa@redhat.com>,
- Eric Auger <eric.auger@redhat.com>, Yanan Wang <wangyanan55@huawei.com>,
- qemu-arm@nongnu.org, Hao Wu <wuhaotsh@google.com>,
- Mads Ynddal <mads@ynddal.dk>,
- Sriram Yagnaraman <sriram.yagnaraman@ericsson.com>, qemu-riscv@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>, Jason Wang <jasowang@redhat.com>,
- Nicholas Piggin <npiggin@gmail.com>, Michael Rolnik <mrolnik@gmail.com>,
- Zhao Liu <zhao1.liu@intel.com>, Alessandro Di Federico <ale@rev.ng>,
- Thomas Huth <thuth@redhat.com>, Antony Pavlov <antonynpavlov@gmail.com>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>, Hanna Reitz <hreitz@redhat.com>,
- Ilya Leoshkevich <iii@linux.ibm.com>,
- Marcelo Tosatti <mtosatti@redhat.com>,
- Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
- Daniel Henrique Barboza <danielhb413@gmail.com>,
- Qiuhao Li <Qiuhao.Li@outlook.com>, Hyman Huang <yong.huang@smartx.com>,
- =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
- Magnus Damm <magnus.damm@gmail.com>, qemu-rust@nongnu.org,
- Bandan Das <bsd@redhat.com>,
- Strahinja Jankovic <strahinja.p.jankovic@gmail.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- kvm@vger.kernel.org, Fam Zheng <fam@euphon.net>,
- Jia Liu <proljc@gmail.com>,
- =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
- Alistair Francis <alistair@alistair23.me>,
- Subbaraya Sundeep <sundeep.lkml@gmail.com>,
- Kyle Evans <kevans@freebsd.org>, Song Gao <gaosong@loongson.cn>,
- Alexandre Iooss <erdnaxe@crans.org>, Aurelien Jarno <aurelien@aurel32.net>,
- Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Peter Xu <peterx@redhat.com>,
- Stefan Hajnoczi <stefanha@redhat.com>, BALATON Zoltan <balaton@eik.bme.hu>,
- Elena Ufimtseva <elena.ufimtseva@oracle.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Barrat?= <fbarrat@linux.ibm.com>,
- qemu-ppc@nongnu.org, Radoslaw Biernacki <rad@semihalf.com>,
- Beniamino Galvani <b.galvani@gmail.com>,
- David Hildenbrand <david@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- David Woodhouse <dwmw2@infradead.org>,
- Eduardo Habkost <eduardo@habkost.net>,
- Ahmed Karaman <ahmedkhaledkaraman@gmail.com>,
- Huacai Chen <chenhuacai@kernel.org>,
- Mahmoud Mandour <ma.mandourr@gmail.com>,
- Harsh Prateek Bora <harshpb@linux.ibm.com>
-Subject: [PATCH v2 12/12] scripts/codeconverter: remove * imports
-Date: Thu, 12 Jun 2025 16:54:50 -0400
-Message-ID: <20250612205451.1177751-13-jsnow@redhat.com>
-In-Reply-To: <20250612205451.1177751-1-jsnow@redhat.com>
-References: <20250612205451.1177751-1-jsnow@redhat.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uPx5T-0004D9-VU; Fri, 13 Jun 2025 01:36:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1749792985; x=1781328985;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=F58yUyairb8+CMgREp6Coq/wzpd2FVi+30joS8mftl8=;
+ b=XK1xwbiAEWd6nZlA4nsrD0iEJQ9kIuqseuVQRlZGiMGTGaiopMNcyG5e
+ RSvY1enkCLfYpN5mIXDHaiYguwA3oCuuJvZvcerQ7v2bBFWqq0Whmx9Wt
+ CURVFBJhV/T2IgaVf6tU0pibd0eqHws+XEdn+EcIvfnJRPXRKnDwfZ4Yy
+ jwqsbDrhmIFeXs3MvGjFvbluwwHF7CJB5avApjmQbNTK/k78QIF/BpVKN
+ LMLKiznoO2H+NssWvFw7G4QS6lUBU7CK9gcMHgpdTID6JWE2Hc9MtbgrW
+ W0Pbu7snQPOg5SWUFYpdeFs5L2KGqGXbrx9YfOf68dj5Th4zJLy0prjOh w==;
+X-CSE-ConnectionGUID: h8qKNIvBQjGFCjDB7FE1dA==
+X-CSE-MsgGUID: 3tf8Cp0CQFu/AIor0Qz5kw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11462"; a="52133994"
+X-IronPort-AV: E=Sophos;i="6.16,232,1744095600"; d="scan'208";a="52133994"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2025 22:36:21 -0700
+X-CSE-ConnectionGUID: 2GSdNUF/SquKEbRE23F0og==
+X-CSE-MsgGUID: lXSyYJiMSwyjsIgYxkytjw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,232,1744095600"; d="scan'208";a="147639452"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa010.jf.intel.com with ESMTP; 12 Jun 2025 22:36:19 -0700
+Date: Fri, 13 Jun 2025 13:57:36 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, marcandre.lureau@redhat.com,
+ qemu-rust@nongnu.org, armbru@redhat.com, mkletzan@redhat.com
+Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from 2021
+Message-ID: <aEu90HVJsySBHJKz@intel.com>
+References: <20250605101124.367270-1-pbonzini@redhat.com>
+ <aEk6vdosWZgyQGXD@intel.com>
+ <CABgObfaK8h3GE4GWbPrn22JshYcCFdXsxWHWuAPVC4pRb7GZ0A@mail.gmail.com>
+ <CABgObfa+w3pcYhFnO6ETxSfoNiNU=+_8WcW6dE8dkUrbt6darw@mail.gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=jsnow@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+In-Reply-To: <CABgObfa+w3pcYhFnO6ETxSfoNiNU=+_8WcW6dE8dkUrbt6darw@mail.gmail.com>
+Received-SPF: pass client-ip=198.175.65.18; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -147,466 +73,112 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jun 2025 21:02:14 -0000
+X-List-Received-Date: Fri, 13 Jun 2025 05:36:29 -0000
 
-Python static analysis tools generally don't like dealing with asterisk
-imports as it's tough to deduce what's actually getting used and from
-where. Replace these imports with explicit imports.
+On Thu, Jun 12, 2025 at 12:24:44PM +0200, Paolo Bonzini wrote:
+> Date: Thu, 12 Jun 2025 12:24:44 +0200
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from 2021
+> 
+> On Wed, Jun 11, 2025 at 10:57 AM Paolo Bonzini <pbonzini@redhat.com> wrote:
+> > Yes. If using serde the implementation of the traits is very small,
+> > and basically the same for all types. If not using serde, it would
+> > need some (or most) of the infrastructure in Marc-André's original
+> > series.
+> 
+> Looking more at it, the Rust->QObject and QObject->Rust parts *can* be
+> done with serde (following the model of serde_json's Value
+> (de)serializer) but the Rust<->C part has a problem.
+> 
+> To recap, Rust->C is the serialization and corresponds to output
+> visitors. C->Rust is the deserialization and corresponds to input
+> visitors.
+> 
+> For serialization, serde has a push model where the generated code
+> looks like this:
+> 
+>       let mut state =
+>           Serializer::serialize_struct(serializer, "S", 2);
+>       SerializeStruct::serialize_field(&mut state, "a", &self.a)?;
+>       SerializeStruct::serialize_field(&mut state, "b", &self.b)?;
+>       SerializeStruct::end(state)
+> 
+> whereas QAPI has a pull model where visit_type_* drives the process
+> and requests the fields one by one.
+> 
+> For deserialization, serde has a pull model where the generated code
+> asks for the field names one by one:
+> 
+>     fn visit_map<__A>(self, mut __map: __A)
+>         while let Some(key) =
+>             MapAccess::next_key::<__Field>(&mut __map)? {
+>                 match __key { ... }
+>         }
+>     }
+> 
+> whereas QAPI has a push model where visit_type_* again drives the
+> process and sends fields one by one.
+> 
+> For commands this is not a problem because the real underlying
+> transformation is QObject->QObject and the intermediate steps (to and
+> from QObject) can use serde.
+> 
+> However, QOM property getters/setters (especially, but not
+> exclusively, for properties with compound types) remain a problem
+> since these use callbacks with a Visitor* argument. I see three
+> possibilities:
+> 
+> 1) everything is done through an intermediate QObject step (e.g. for a
+> setter: Visitor->QObject with an input visitor, and QObject->Rust with
+> serde deserialization).
+>     + easy, Rust only sees serde
+>     + QMP commands use a single conversion step
+>     - inefficient
 
-This also helps eliminate deprecated imports from the typing module.
+This sounds like a natural approach.
 
-These files have more style issues that are not addressed by this patch,
-so the command-line I am using to ensure I am not creating new
-identifier problems is a flake8 command set to squelch most style
-issues:
+> 2) everything is done through an intermediate C step (e.g. for a
+> setter: Visitor->C with a visit_type_* function, and C->Rust with
+> generated code that does not need to use serde).
 
-flake8 --ignore=E111,E114,E117,E127,E128,E129,E201,E221,E222,\
-                E225,E226,E252,E231,E261,E265,E301,E302,E303,\
-                E305,E306,E501,E502,E703,E712,E731,E741,F841,\
-                W292,W391,W503,W504 \
-                *.py
+I understand this step indicates to use bindgen to generate visit_type_*
+bindings...
 
-I am also using pylint's errors-only mode:
+> There is still a
+> double conversion step, but it's more efficient than option 1
+>     + one framework (visitor)
+>     - double conversion for the QMP commands
+>     - lots of generated code
 
-pylint -E *.py
+...if so, then yes, there would be too much generated and "unsafe"
+codes, and further abstraction may be needed to ensure safety, similar
+to the lots of work currently done in the qemu-api.
 
-Signed-off-by: John Snow <jsnow@redhat.com>
----
- .../codeconverter/codeconverter/patching.py   |  4 +-
- .../codeconverter/codeconverter/qom_macros.py | 83 +++++++++++++------
- .../codeconverter/qom_type_info.py            | 76 ++++++++++++++---
- .../codeconverter/test_patching.py            |  9 +-
- .../codeconverter/test_regexps.py             | 32 ++++++-
- scripts/codeconverter/codeconverter/utils.py  |  7 +-
- 6 files changed, 161 insertions(+), 50 deletions(-)
+> 3) generating a Rust visit_type_* implementation as well, either in
+> qapi-gen (3a) or through a procedural macro (3b).> This should not be
+> hard to write but it would remove a lot of the advantages from using
+> serde.
+>     + efficient
+>     + preserves single conversion for QMP commands
+>     - two frameworks
 
-diff --git a/scripts/codeconverter/codeconverter/patching.py b/scripts/codeconverter/codeconverter/patching.py
-index 0165085caed..f336377972e 100644
---- a/scripts/codeconverter/codeconverter/patching.py
-+++ b/scripts/codeconverter/codeconverter/patching.py
-@@ -25,6 +25,8 @@
-     Union,
- )
- 
-+from .utils import LineAndColumn, line_col
-+
- 
- logger = logging.getLogger(__name__)
- DBG = logger.debug
-@@ -32,8 +34,6 @@
- WARN = logger.warning
- ERROR = logger.error
- 
--from .utils import *
--
- 
- T = TypeVar('T')
- 
-diff --git a/scripts/codeconverter/codeconverter/qom_macros.py b/scripts/codeconverter/codeconverter/qom_macros.py
-index 04512bfffdd..f28d91ae90c 100644
---- a/scripts/codeconverter/codeconverter/qom_macros.py
-+++ b/scripts/codeconverter/codeconverter/qom_macros.py
-@@ -5,14 +5,47 @@
- #
- # This work is licensed under the terms of the GNU GPL, version 2.  See
- # the COPYING file in the top-level directory.
-+from collections.abc import Iterable, Iterator
- from itertools import chain
- import logging
- import re
--from typing import *
-+from typing import (
-+    Literal,
-+    NamedTuple,
-+    Optional,
-+    cast,
-+)
- 
--from .patching import *
--from .regexps import *
--from .utils import *
-+from .patching import (
-+    FileInfo,
-+    FileList,
-+    FileMatch,
-+    Patch,
-+    RequiredIdentifier,
-+)
-+from .regexps import (
-+    CPP_SPACE,
-+    NAMED,
-+    OPTIONAL_PARS,
-+    OR,
-+    RE_COMMENT,
-+    RE_COMMENTS,
-+    RE_EXPRESSION,
-+    RE_FILE_BEGIN,
-+    RE_FUN_CALL,
-+    RE_IDENTIFIER,
-+    RE_INCLUDE,
-+    RE_MACRO_CONCAT,
-+    RE_NUMBER,
-+    RE_SIMPLEDEFINE,
-+    RE_STRING,
-+    RE_STRUCT_TYPE,
-+    RE_TYPE,
-+    SP,
-+    M,
-+    S,
-+)
-+from .utils import merge, opt_compare
- 
- 
- logger = logging.getLogger(__name__)
-@@ -69,7 +102,7 @@ def __str__(self) -> str:
-         s = ', '.join('%s=%s' % (f,v) for f,v in values if v is not None)
-         return f'{s}'
- 
--    def check_consistency(self) -> List[str]:
-+    def check_consistency(self) -> list[str]:
-         """Check if identifiers are consistent with each other,
-         return list of problems (or empty list if everything seems consistent)
-         """
-@@ -236,7 +269,7 @@ def find_typedef(f: FileInfo, name: Optional[str]) -> Optional[TypedefMatch]:
-         NAMED('qom_typename', RE_IDENTIFIER), r'\s*\)\n',
-         n='?', name='check_args'))
- 
--EXPECTED_CHECKER_SUFFIXES: List[Tuple[CheckerMacroName, str]] = [
-+EXPECTED_CHECKER_SUFFIXES: list[tuple[CheckerMacroName, str]] = [
-     ('OBJECT_GET_CLASS', '_GET_CLASS'),
-     ('OBJECT_CLASS_CHECK', '_CLASS'),
- ]
-@@ -268,7 +301,7 @@ def sanity_check(self) -> None:
-         if self.typedefname and self.find_typedef() is None:
-             self.warn("typedef used by %s not found", self.name)
- 
--    def find_matching_macros(self) -> List['TypeCheckMacro']:
-+    def find_matching_macros(self) -> list['TypeCheckMacro']:
-         """Find other check macros that generate the same macro names
- 
-         The returned list will always be sorted.
-@@ -281,7 +314,7 @@ def find_matching_macros(self) -> List['TypeCheckMacro']:
-                    and (my_ids.uppercase == m.type_identifiers.uppercase
-                         or my_ids.typename == m.type_identifiers.typename)]
- 
--    def merge_ids(self, matches: List['TypeCheckMacro']) -> Optional[TypeIdentifiers]:
-+    def merge_ids(self, matches: list['TypeCheckMacro']) -> Optional[TypeIdentifiers]:
-         """Try to merge info about type identifiers from all matches in a list"""
-         if not matches:
-             return None
-@@ -581,10 +614,12 @@ def gen_patches(self) -> Iterable[Patch]:
-             return
- 
-         # group checkers by uppercase name:
--        decl_types: List[Type[TypeDeclaration]] = [DeclareInstanceChecker, DeclareInstanceType,
--                                                   DeclareClassCheckers, DeclareClassType,
--                                                   DeclareObjCheckers]
--        checker_dict: Dict[str, List[TypeDeclaration]] = {}
-+        decl_types: list[type[TypeDeclaration]] = [
-+            DeclareInstanceChecker, DeclareInstanceType,
-+            DeclareClassCheckers, DeclareClassType,
-+            DeclareObjCheckers
-+        ]
-+        checker_dict: dict[str, list[TypeDeclaration]] = {}
-         for t in decl_types:
-             for m in self.file.matches_of_type(t):
-                 checker_dict.setdefault(m.group('uppercase'), []).append(m)
-@@ -603,9 +638,9 @@ def gen_patches(self) -> Iterable[Patch]:
-             field_dict = {f: v.pop() if v else None for f,v in fvalues.items()}
-             yield from self.gen_patches_for_type(uppercase, checkers, field_dict)
- 
--    def find_conflicts(self, uppercase: str, checkers: List[TypeDeclaration]) -> bool:
-+    def find_conflicts(self, uppercase: str, checkers: list[TypeDeclaration]) -> bool:
-         """Look for conflicting declarations that would make it unsafe to add new ones"""
--        conflicting: List[FileMatch] = []
-+        conflicting: list[FileMatch] = []
-         # conflicts in the same file:
-         conflicting.extend(chain(self.file.find_matches(DefineDirective, uppercase),
-                                  self.file.find_matches(DeclareInterfaceChecker, uppercase, 'uppercase'),
-@@ -634,8 +669,8 @@ def find_conflicts(self, uppercase: str, checkers: List[TypeDeclaration]) -> boo
-         return False
- 
-     def gen_patches_for_type(self, uppercase: str,
--                             checkers: List[TypeDeclaration],
--                             fields: Dict[str, Optional[str]]) -> Iterable[Patch]:
-+                             checkers: list[TypeDeclaration],
-+                             fields: dict[str, Optional[str]]) -> Iterable[Patch]:
-         """Should be reimplemented by subclasses"""
-         return
-         yield
-@@ -644,8 +679,8 @@ class DeclareVoidTypes(TypeDeclarationFixup):
-     """Add DECLARE_*_TYPE(..., void) when there's no declared type"""
-     regexp = RE_FILE_BEGIN
-     def gen_patches_for_type(self, uppercase: str,
--                             checkers: List[TypeDeclaration],
--                             fields: Dict[str, Optional[str]]) -> Iterable[Patch]:
-+                             checkers: list[TypeDeclaration],
-+                             fields: dict[str, Optional[str]]) -> Iterable[Patch]:
-         if self.find_conflicts(uppercase, checkers):
-             return
- 
-@@ -672,8 +707,8 @@ def gen_patches_for_type(self, uppercase: str,
- class AddDeclareTypeName(TypeDeclarationFixup):
-     """Add DECLARE_TYPE_NAME declarations if necessary"""
-     def gen_patches_for_type(self, uppercase: str,
--                             checkers: List[TypeDeclaration],
--                             fields: Dict[str, Optional[str]]) -> Iterable[Patch]:
-+                             checkers: list[TypeDeclaration],
-+                             fields: dict[str, Optional[str]]) -> Iterable[Patch]:
-         typename = fields.get('typename')
-         if typename is None:
-             self.warn("typename unavailable")
-@@ -754,7 +789,7 @@ def find_typename_uppercase(files: FileList, typename: str) -> Optional[str]:
- 
- def find_type_checkers(files:FileList, name:str, group:str='uppercase') -> Iterable[TypeCheckerDeclaration]:
-     """Find usage of DECLARE*CHECKER macro"""
--    c: Type[TypeCheckerDeclaration]
-+    c: type[TypeCheckerDeclaration]
-     for c in (DeclareInstanceChecker, DeclareClassCheckers, DeclareObjCheckers, ObjectDeclareType, ObjectDeclareSimpleType):
-         yield from files.find_matches(c, name=name, group=group)
- 
-@@ -775,8 +810,8 @@ class InitialIncludes(FileMatch):
-                  n='*', name='includes'))
- 
- class SymbolUserList(NamedTuple):
--    definitions: List[FileMatch]
--    users: List[FileMatch]
-+    definitions: list[FileMatch]
-+    users: list[FileMatch]
- 
- class MoveSymbols(FileMatch):
-     """Handle missing symbols
-@@ -790,7 +825,7 @@ def gen_patches(self) -> Iterator[Patch]:
-             self.debug("skipping object.h")
-             return
- 
--        index: Dict[RequiredIdentifier, SymbolUserList] = {}
-+        index: dict[RequiredIdentifier, SymbolUserList] = {}
-         definition_classes = [SimpleTypedefMatch, FullStructTypedefMatch, ConstantDefine, Include]
-         user_classes = [TypeCheckMacro, DeclareObjCheckers, DeclareInstanceChecker, DeclareClassCheckers, InterfaceCheckMacro]
- 
-diff --git a/scripts/codeconverter/codeconverter/qom_type_info.py b/scripts/codeconverter/codeconverter/qom_type_info.py
-index 4ecdd728890..76fcf498f58 100644
---- a/scripts/codeconverter/codeconverter/qom_type_info.py
-+++ b/scripts/codeconverter/codeconverter/qom_type_info.py
-@@ -5,14 +5,49 @@
- #
- # This work is licensed under the terms of the GNU GPL, version 2.  See
- # the COPYING file in the top-level directory.
-+from collections.abc import Iterable
-+import logging
- import re
-+from typing import Optional, Union
- 
--from .patching import *
--from .qom_macros import *
--from .regexps import *
--from .utils import *
-+from .patching import (
-+    FileInfo,
-+    FileList,
-+    FileMatch,
-+    Patch,
-+    RegexpScanner,
-+)
-+from .qom_macros import (
-+    DeclareClassCheckers,
-+    DeclareInstanceChecker,
-+    DeclareObjCheckers,
-+    ExpressionDefine,
-+    OldStyleObjectDeclareSimpleType,
-+    SimpleTypedefMatch,
-+    TypeDeclaration,
-+    TypeDeclarationFixup,
-+    find_type_checkers,
-+    find_typename_uppercase,
-+)
-+from .regexps import (
-+    CPP_SPACE,
-+    NAMED,
-+    OR,
-+    RE_ARRAY,
-+    RE_ARRAY_ITEM,
-+    RE_COMMENTS,
-+    RE_EXPRESSION,
-+    RE_IDENTIFIER,
-+    RE_SIZEOF,
-+    SP,
-+    M,
-+    S,
-+)
- 
- 
-+logger = logging.getLogger(__name__)
-+DBG = logger.debug
-+
- TI_FIELDS = [ 'name', 'parent', 'abstract', 'interfaces',
-     'instance_size', 'instance_init', 'instance_post_init', 'instance_finalize',
-     'class_size', 'class_init', 'class_base_init', 'class_data']
-@@ -27,7 +62,7 @@
- RE_TYPEINFO_START = S(r'^[ \t]*', M(r'(static|const)\s+', name='modifiers'), r'TypeInfo\s+',
-                       NAMED('name', RE_IDENTIFIER), r'\s*=\s*{[ \t]*\n')
- 
--ParsedArray = List[str]
-+ParsedArray = list[str]
- ParsedInitializerValue = Union[str, ParsedArray]
- 
- class ArrayItem(FileMatch):
-@@ -57,7 +92,7 @@ def parsed(self) -> ParsedInitializerValue:
-             return array.parsed()
-         return parsed
- 
--TypeInfoInitializers = Dict[str, FieldInitializer]
-+TypeInfoInitializers = dict[str, FieldInitializer]
- 
- class TypeDefinition(FileMatch):
-     """
-@@ -341,7 +376,9 @@ def gen_patches(self) -> Iterable[Patch]:
- 
-         ok = True
- 
--        #checkers: List[TypeCheckerDeclaration] = list(find_type_checkers(self.allfiles, uppercase))
-+        #checkers: list[TypeCheckerDeclaration] = list(
-+        #    find_type_checkers(self.allfiles, uppercase)
-+        #)
-         #for c in checkers:
-         #    c.info("instance type checker declaration (%s) is here", c.group('uppercase'))
-         #if not checkers:
-@@ -446,7 +483,11 @@ class ObjectDefineType(TypeDefinition):
-                r'\s*\);?\n?')
- 
- def find_type_definitions(files: FileList, uppercase: str) -> Iterable[TypeDefinition]:
--    types: List[Type[TypeDefinition]] = [TypeInfoVar, ObjectDefineType, ObjectDefineTypeExtended]
-+    types: list[type[TypeDefinition]] = [
-+        TypeInfoVar,
-+        ObjectDefineType,
-+        ObjectDefineTypeExtended
-+    ]
-     for t in types:
-         for m in files.matches_of_type(t):
-             m.debug("uppercase: %s", m.uppercase)
-@@ -456,9 +497,12 @@ def find_type_definitions(files: FileList, uppercase: str) -> Iterable[TypeDefin
- 
- class AddDeclareVoidClassType(TypeDeclarationFixup):
-     """Will add DECLARE_CLASS_TYPE(..., void) if possible"""
--    def gen_patches_for_type(self, uppercase: str,
--                             checkers: List[TypeDeclaration],
--                             fields: Dict[str, Optional[str]]) -> Iterable[Patch]:
-+    def gen_patches_for_type(
-+        self,
-+        uppercase: str,
-+        checkers: list[TypeDeclaration],
-+        fields: dict[str, Optional[str]],
-+    ) -> Iterable[Patch]:
-         defs = list(find_type_definitions(self.allfiles, uppercase))
-         if len(defs) > 1:
-             self.warn("multiple definitions for %s", uppercase)
-@@ -552,7 +596,10 @@ def gen_patches(self) -> Iterable[Patch]:
-             if not self.file.force:
-                 return
- 
--        decl_types: List[Type[TypeDeclaration]] = [DeclareClassCheckers, DeclareObjCheckers]
-+        decl_types: list[type[TypeDeclaration]] = [
-+            DeclareClassCheckers,
-+            DeclareObjCheckers
-+        ]
-         class_decls = [m for t in decl_types
-                        for m in self.allfiles.find_matches(t, uppercase, 'uppercase')]
- 
-@@ -632,7 +679,10 @@ def gen_patches(self) -> Iterable[Patch]:
-             if not self.file.force:
-                 return
- 
--        decl_types: List[Type[TypeDeclaration]] = [DeclareClassCheckers, DeclareObjCheckers]
-+        decl_types: list[type[TypeDeclaration]] = [
-+            DeclareClassCheckers,
-+            DeclareObjCheckers
-+        ]
-         class_decls = [m for t in decl_types
-                        for m in self.allfiles.find_matches(t, uppercase, 'uppercase')]
-         if class_decls:
-diff --git a/scripts/codeconverter/codeconverter/test_patching.py b/scripts/codeconverter/codeconverter/test_patching.py
-index b125eee2b72..4e5165a8014 100644
---- a/scripts/codeconverter/codeconverter/test_patching.py
-+++ b/scripts/codeconverter/codeconverter/test_patching.py
-@@ -7,13 +7,8 @@
- # the COPYING file in the top-level directory.
- from tempfile import NamedTemporaryFile
- 
--from .patching import (
--    FileInfo,
--    FileList,
--    FileMatch,
--    Patch,
--)
--from .regexps import *
-+from .patching import FileInfo, FileList, FileMatch
-+from .regexps import NAMED, RE_IDENTIFIER, S
- 
- 
- class BasicPattern(FileMatch):
-diff --git a/scripts/codeconverter/codeconverter/test_regexps.py b/scripts/codeconverter/codeconverter/test_regexps.py
-index 86d0499c50e..deba604361b 100644
---- a/scripts/codeconverter/codeconverter/test_regexps.py
-+++ b/scripts/codeconverter/codeconverter/test_regexps.py
-@@ -5,9 +5,35 @@
- #
- # This work is licensed under the terms of the GNU GPL, version 2.  See
- # the COPYING file in the top-level directory.
--from .qom_macros import *
--from .qom_type_info import *
--from .regexps import *
-+
-+import re
-+
-+from .qom_macros import (
-+    RE_CHECK_MACRO,
-+    RE_MACRO_DEFINE,
-+    RE_STRUCT_TYPEDEF,
-+    InitialIncludes,
-+)
-+from .qom_type_info import (
-+    RE_TI_FIELD_INIT,
-+    RE_TI_FIELDS,
-+    RE_TYPEINFO_START,
-+    TypeInfoVar,
-+)
-+from .regexps import (
-+    CPP_SPACE,
-+    RE_ARRAY,
-+    RE_ARRAY_CAST,
-+    RE_ARRAY_ITEM,
-+    RE_COMMENT,
-+    RE_COMMENTS,
-+    RE_EXPRESSION,
-+    RE_FUN_CALL,
-+    RE_IDENTIFIER,
-+    RE_MACRO_CONCAT,
-+    RE_SIMPLE_VALUE,
-+    SP,
-+)
- 
- 
- def test_res() -> None:
-diff --git a/scripts/codeconverter/codeconverter/utils.py b/scripts/codeconverter/codeconverter/utils.py
-index ced81a76486..b39cfb8b7d1 100644
---- a/scripts/codeconverter/codeconverter/utils.py
-+++ b/scripts/codeconverter/codeconverter/utils.py
-@@ -6,7 +6,12 @@
- # This work is licensed under the terms of the GNU GPL, version 2.  See
- # the COPYING file in the top-level directory.
- import logging
--from typing import *
-+from typing import (
-+    NamedTuple,
-+    NewType,
-+    Optional,
-+    TypeVar,
-+)
- 
- 
- logger = logging.getLogger(__name__)
--- 
-2.48.1
+The difference between the two frameworks is that one is for C and the
+other is for Rust, which increases the maintenance burden.
+
+> I am leaning towards option 1, i.e. keep using serde but only cover
+> conversions to and from QObject.
+
+Based on my understanding of the three options above, I also think that
+option 1 is the more appropriate approach.
+
+> The reason is that one future usecase
+> for Rust in QEMU is the UEFI variable store; that one also has some
+> Rust<->JSON conversions and could be served by either QObject or
+> serde_json. Either way, it'd be nice for the UEFI variable store to
+> remain within the Rust serde ecosystem and allow sharing code between
+> QEMU and Coconut SVSM. But I'm not so sure...
+
+Thanks,
+Zhao
 
 
