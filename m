@@ -1,93 +1,152 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uQ448-0000Ru-S0
-	for mharc-qemu-rust@gnu.org; Fri, 13 Jun 2025 09:03:30 -0400
+	id 1uQADD-0005AJ-48
+	for mharc-qemu-rust@gnu.org; Fri, 13 Jun 2025 15:37:15 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uQ43i-00009d-DF
- for qemu-rust@nongnu.org; Fri, 13 Jun 2025 09:03:02 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uQADA-00059S-Vo
+ for qemu-rust@nongnu.org; Fri, 13 Jun 2025 15:37:12 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uQ43f-0000Yl-VW
- for qemu-rust@nongnu.org; Fri, 13 Jun 2025 09:03:02 -0400
+ (Exim 4.90_1) (envelope-from <jsnow@redhat.com>) id 1uQAD6-0005Mk-Kp
+ for qemu-rust@nongnu.org; Fri, 13 Jun 2025 15:37:11 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1749819779;
+ s=mimecast20190719; t=1749843426;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZA6ipBLWLrIC7AEh0eM3XoAiZ5TU/mlZesNKTaKlNBk=;
- b=P/xzoz7QGV9Mt8XoB1Czm7ndNCXL3/jkmwqYiLt8mwOt3gRsbBZKDG8/B00IhIVmxg0MmO
- VDNvI/wlLSseYrAvMLHbYsSGXmTMdEwoQUh7TKeTzxMG8ZD+0C6UP5ieMl2ab5y59d36aG
- USZp+BXKhVjH64BQjd+Fu1x/drTOKIo=
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=v6KgViuFjR1WJCP8hMyuFp9zVb8OEl6/pzjbqiT4YPc=;
+ b=QiTpN1Zvs6876UUsf606lt5lZSsk0NLuDXiFMzEiRJJ6CFmqX0Gl1v5buLCmSF74FeuPc5
+ qmgispWU6odiu+oE2uuAs1Iclzd3EqEBlwORYGHOR1EVl22MHYm9+qnHdVWuR0PHdBYmbb
+ 4nEWPCd3bJUxAH9AFugz7B6ISnCXcXM=
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-118-l0AwSkx-OcqsIbLeJya4Xw-1; Fri, 13 Jun 2025 09:02:57 -0400
-X-MC-Unique: l0AwSkx-OcqsIbLeJya4Xw-1
-X-Mimecast-MFC-AGG-ID: l0AwSkx-OcqsIbLeJya4Xw_1749819776
-Received: by mail-lf1-f69.google.com with SMTP id
- 2adb3069b0e04-553218c5adaso1042892e87.2
- for <qemu-rust@nongnu.org>; Fri, 13 Jun 2025 06:02:57 -0700 (PDT)
+ us-mta-117-QGINWG2UP8uaIGTXohUhBg-1; Fri, 13 Jun 2025 15:37:05 -0400
+X-MC-Unique: QGINWG2UP8uaIGTXohUhBg-1
+X-Mimecast-MFC-AGG-ID: QGINWG2UP8uaIGTXohUhBg_1749843424
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-313d6cc50ddso2036857a91.3
+ for <qemu-rust@nongnu.org>; Fri, 13 Jun 2025 12:37:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749819776; x=1750424576;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ZA6ipBLWLrIC7AEh0eM3XoAiZ5TU/mlZesNKTaKlNBk=;
- b=jNWwV4V9ShbYYR4TDlIYD4Gf7wbCJDh+Taii43lcFQMaUtia8AQQyw/1k4sPqPt/fn
- epQsNnY9X6MBvpAqyYLBjFGo76fPpoAUJeIuWwwcCdDM1UScisogE8LqIJ+PBqFIZuRQ
- xGbg2w5TLsrjYpkL8G8DglIODGO9TQ25Yow299Q/lm/cAGGSyk0BVhmDyfE6XqIqJfn1
- ZhbEKMo6tO6gpaE8+iA1W7goshmNHrGHLL9ILhOok+lWuItut13lzbflgTYY/m6IHxIB
- AzFvzA43D0m8p++Kgof9Yd2X/Z4ROQd76EVhXdxV3p4AUv7nqPXBGxsUEZ12LhUyIumH
- Ztmw==
-X-Gm-Message-State: AOJu0YxPvpciVSQQirnpabnZgTDM3cbAZ9p2G8+t0JZ+ikG7NDzg2dmU
- Lu8LmfE9nt9wKmo1ssZBxyumIK+rKKfna4ACrdK0+cthAI+eC6ZVhtbEnxqyqf4tCOvqwqTW624
- rW7+CNphudtnPgzKBL3q6S1IqKULnBeclM+tBw448zqmLi8hka36qJgo=
-X-Gm-Gg: ASbGnctm4zRhiQB2rTo5NENMGsMSZvfOiWyVuaI11az2QGoao6rVoRr39GwLOycS1Hx
- +GrIgu80ergpW8+9eBfOokwKcu0Eoi7cvnj+hNiF9fbARtdnHoJIiQwV0N4cD3VrncltyLfZ7VS
- WJ40Ci5H45Zc3psFPSrhuHym5SOR4NxK/lhs6xUtGEUesClR+pUGxOxFWaIKyArhOH5xlBt/jXv
- WT+C8hAJCvdY3ryBpoZ25jquiMprEPHBeURoCOdvSIRQuwm7gcWx83v7Ty+MfAt9EOR+xHkB28Z
- IHh3C/eAQfJptTYD0b0AAsfF
-X-Received: by 2002:a05:6512:3b9e:b0:54f:c10b:7290 with SMTP id
- 2adb3069b0e04-553af990816mr679589e87.26.1749819775666; 
- Fri, 13 Jun 2025 06:02:55 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFpxJCiCgPC3g4pQu6RDNC9AT9wGHHLwPvV6P5CoOXSlnAU3g8YNDPvSc6gcFc/570e3/30jg==
-X-Received: by 2002:a05:6512:3b9e:b0:54f:c10b:7290 with SMTP id
- 2adb3069b0e04-553af990816mr679467e87.26.1749819774315; 
- Fri, 13 Jun 2025 06:02:54 -0700 (PDT)
-Received: from [192.168.122.1] ([151.49.64.79])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4532e25e89fsm50539045e9.33.2025.06.13.06.02.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Jun 2025 06:02:52 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org,
-	tanishdesai37@gmail.com
-Subject: [PATCH 2/2] rust: move rust.bindgen to qemu-api crate
-Date: Fri, 13 Jun 2025 15:02:49 +0200
-Message-ID: <20250613130249.1225545-3-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250613130249.1225545-1-pbonzini@redhat.com>
-References: <20250613130249.1225545-1-pbonzini@redhat.com>
+ d=1e100.net; s=20230601; t=1749843424; x=1750448224;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=v6KgViuFjR1WJCP8hMyuFp9zVb8OEl6/pzjbqiT4YPc=;
+ b=I1IHQsazrpJGJXrp0QcavYZzJRIXdhtFERlKFNg5tY46+dyOqR7Re8A32oKTvRi8bg
+ fqBNHiMTmmWQoOfCqjsbhPqs/BR1hiSen1zyAsQGdH8msa9UzM9aNClu5011ApB60qPZ
+ h1ifaB2IywTveRXcHy3SxN5eedbyAwj+0uJYDbpQydLP7Ka31KmE5otfXnK8NehkXKRz
+ nwYMJmkcA8cvwSfLGolRtah5O+Sq49JMfy1BOleXwcdv66Z2gZVOtGMUJjEVnWRS1jph
+ fuwasHQgLuNcojIyt8VkF0OLDceuOAvZqf10+Tswc77XX25wtKVHjIjSqvEUuH565N0A
+ WFvw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUj2ErWxIzPF8uY+UOm/tDWUl46GlsfWoV6NLBkYdrplq9JfI1XDSSE0w7n472dA7PN28cEOc669Vk=@nongnu.org
+X-Gm-Message-State: AOJu0YzVtL+TSEy9iJXvBCtqh1dApdhSh98vUJkIBY7KdAt6VY1X6Vnl
+ 99rLqhadPP3Dprz5P1L9005KkcpIlBGnZnYFazve7EuojY2MnFDfrjM9RjDyGeLyA4uqX3edQ/X
+ SQ1i6BpHsp+R0Q4XdlzKt2sXS3Pz1Axe3Wg8JUrrEe9DyMy/OJnpVQ2IBqCAKsSriDGMd8pQjMG
+ 3rwiCHl6R9lWrJMemlsBbyEaScxXAUSw==
+X-Gm-Gg: ASbGncugTAbnSjC4oQ02SC1MSCT4IccGuZjqG3qxt3nAIly2NLSJUIzdAcm2yUmnUhl
+ N8IKhqQNWlShg1jrPOIm7NWjRyCTLNz9dgcV4/wfIMYaokIRbJQcwaQVZQ4i76SInY2BFDV9f1Y
+ KnjHcbUX0mzzxcJq61VGxozQhLl0SD2Y8uokk=
+X-Received: by 2002:a17:90b:38d1:b0:313:d79e:1f48 with SMTP id
+ 98e67ed59e1d1-313f1cd5fd7mr1412245a91.16.1749843424273; 
+ Fri, 13 Jun 2025 12:37:04 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFhf1HqKLp320naz0KUatZcE9BnzmY7beSDDUcZNuUCQOKgLCaWfg8YHgA6yJFkz4svRxh8Tde5oKAfHRznHds=
+X-Received: by 2002:a17:90b:38d1:b0:313:d79e:1f48 with SMTP id
+ 98e67ed59e1d1-313f1cd5fd7mr1412109a91.16.1749843423695; Fri, 13 Jun 2025
+ 12:37:03 -0700 (PDT)
 MIME-Version: 1.0
+References: <20250612205451.1177751-1-jsnow@redhat.com>
+ <20250612205451.1177751-2-jsnow@redhat.com>
+ <7e66e758-da47-47eb-9114-22f07e1ffdc9@redhat.com>
+In-Reply-To: <7e66e758-da47-47eb-9114-22f07e1ffdc9@redhat.com>
+From: John Snow <jsnow@redhat.com>
+Date: Fri, 13 Jun 2025 15:36:51 -0400
+X-Gm-Features: AX0GCFuiAeQBZnODkOUFiBBQ0SwoPYSj3-6O0mDgbYSey7x4h5zk9dtghUBJoLg
+Message-ID: <CAFn=p-aZz51W14-v4jd2J6wXqzO6ZKvo8L5ckhA=RGsWE9D1UA@mail.gmail.com>
+Subject: Re: [PATCH v2 01/12] python: convert packages to PEP517/pyproject.toml
+To: Thomas Huth <thuth@redhat.com>
+Cc: qemu-devel@nongnu.org, Joel Stanley <joel@jms.id.au>,
+ Yi Liu <yi.l.liu@intel.com>, 
+ =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+ Helge Deller <deller@gmx.de>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Fabiano Rosas <farosas@suse.de>, Alexander Bulekov <alxndr@bu.edu>,
+ Darren Kenny <darren.kenny@oracle.com>, 
+ Leif Lindholm <leif.lindholm@oss.qualcomm.com>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ Ed Maste <emaste@freebsd.org>, Gerd Hoffmann <kraxel@redhat.com>,
+ Warner Losh <imp@bsdimp.com>, 
+ Tyrone Ting <kfting@nuvoton.com>, Eric Blake <eblake@redhat.com>,
+ Troy Lee <leetroy@gmail.com>, 
+ Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+ Michael Roth <michael.roth@amd.com>, 
+ Laurent Vivier <laurent@vivier.eu>, Ani Sinha <anisinha@redhat.com>,
+ Weiwei Li <liwei1518@gmail.com>, 
+ Eric Farman <farman@linux.ibm.com>, Steven Lee <steven_lee@aspeedtech.com>, 
+ Brian Cain <brian.cain@oss.qualcomm.com>, Li-Wen Hsu <lwhsu@freebsd.org>, 
+ Jamin Lin <jamin_lin@aspeedtech.com>, 
+ Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>, qemu-block@nongnu.org,
+ Bernhard Beschow <shentey@gmail.com>, 
+ =?UTF-8?Q?Cl=C3=A9ment_Mathieu=2D=2DDrif?= <clement.mathieu--drif@eviden.com>, 
+ Maksim Davydov <davydov-max@yandex-team.ru>,
+ Niek Linnenbank <nieklinnenbank@gmail.com>, 
+ =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, Paul Durrant <paul@xen.org>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Jagannathan Raman <jag.raman@oracle.com>, 
+ Igor Mitsyanko <i.mitsyanko@gmail.com>, Max Filippov <jcmvbkbc@gmail.com>, 
+ Markus Armbruster <armbru@redhat.com>,
+ Pierrick Bouvier <pierrick.bouvier@linaro.org>, 
+ "Michael S. Tsirkin" <mst@redhat.com>, Anton Johansson <anjo@rev.ng>,
+ Peter Maydell <peter.maydell@linaro.org>, 
+ Eric Auger <eric.auger@redhat.com>, Yanan Wang <wangyanan55@huawei.com>,
+ qemu-arm@nongnu.org, 
+ Hao Wu <wuhaotsh@google.com>, Mads Ynddal <mads@ynddal.dk>, 
+ Sriram Yagnaraman <sriram.yagnaraman@ericsson.com>, qemu-riscv@nongnu.org, 
+ Paolo Bonzini <pbonzini@redhat.com>, Jason Wang <jasowang@redhat.com>, 
+ Nicholas Piggin <npiggin@gmail.com>, Michael Rolnik <mrolnik@gmail.com>,
+ Zhao Liu <zhao1.liu@intel.com>, 
+ Alessandro Di Federico <ale@rev.ng>, Antony Pavlov <antonynpavlov@gmail.com>, 
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, Hanna Reitz <hreitz@redhat.com>, 
+ Ilya Leoshkevich <iii@linux.ibm.com>, Marcelo Tosatti <mtosatti@redhat.com>, 
+ Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>, 
+ Qiuhao Li <Qiuhao.Li@outlook.com>, Hyman Huang <yong.huang@smartx.com>, 
+ =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
+ qemu-rust@nongnu.org, Bandan Das <bsd@redhat.com>, 
+ Strahinja Jankovic <strahinja.p.jankovic@gmail.com>, 
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, 
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+ kvm@vger.kernel.org, Fam Zheng <fam@euphon.net>, Jia Liu <proljc@gmail.com>, 
+ =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>, 
+ Alistair Francis <alistair@alistair23.me>, Kyle Evans <kevans@freebsd.org>, 
+ Alexandre Iooss <erdnaxe@crans.org>, Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+ Peter Xu <peterx@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, 
+ Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, 
+ =?UTF-8?B?RnLDqWTDqXJpYyBCYXJyYXQ=?= <fbarrat@linux.ibm.com>, 
+ qemu-ppc@nongnu.org, Radoslaw Biernacki <rad@semihalf.com>, 
+ Beniamino Galvani <b.galvani@gmail.com>, David Hildenbrand <david@redhat.com>, 
+ Richard Henderson <richard.henderson@linaro.org>,
+ David Woodhouse <dwmw2@infradead.org>, 
+ Eduardo Habkost <eduardo@habkost.net>,
+ Ahmed Karaman <ahmedkhaledkaraman@gmail.com>, 
+ Huacai Chen <chenhuacai@kernel.org>, Harsh Prateek Bora <harshpb@linux.ibm.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: yByRWD6nco2Kxbi7mtHykRvxaQalxYKV5XKFv4_EaOU_1749819776
+X-Mimecast-MFC-PROC-ID: A2TwSfIccHhBKD7-08I8szhAOepBmqcCzAKVi9wdz9A_1749843424
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Content-Type: multipart/alternative; boundary="000000000000aeb5fa0637792b4e"
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=jsnow@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -100,155 +159,93 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Jun 2025 13:03:03 -0000
+X-List-Received-Date: Fri, 13 Jun 2025 19:37:14 -0000
 
-Once qemu-api is split in multiple crates, each of which will have
-its own invocation of bindgen.  There cannot be only one, because
-there are occasional "impl" blocks for the bindgen-generated
-structs (e.g. VMStateFlags or QOM classes) that have to
-reside in the same crate as the bindgen-generated code.
+--000000000000aeb5fa0637792b4e
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-For now, prepare for this new organization by invoking bindgen
-within the qemu-api crate's build definitions.
+On Fri, Jun 13, 2025 at 4:36=E2=80=AFAM Thomas Huth <thuth@redhat.com> wrot=
+e:
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- meson.build                   | 41 -----------------------------------
- rust/{ => qemu-api}/wrapper.h |  0
- rust/meson.build              |  4 +++-
- rust/qemu-api/meson.build     | 41 +++++++++++++++++++++++++++++++++++
- 4 files changed, 44 insertions(+), 42 deletions(-)
- rename rust/{ => qemu-api}/wrapper.h (100%)
-
-diff --git a/meson.build b/meson.build
-index d9838319dae..4676908dbb2 100644
---- a/meson.build
-+++ b/meson.build
-@@ -4234,47 +4234,6 @@ if have_rust
-   else
-     bindgen_args_common += ['--merge-extern-blocks']
-   endif
+> On 12/06/2025 22.54, John Snow wrote:
+> > Newer versions of setuptools increasingly expect that packages are
+> > defined using the pyproject.toml/PEP517 packaging layout format. With
+> > 3.9 as our minimum, I believe it's finally appropriate to make the shif=
+t
+> > away from the legacy packaging format.
+> >
+> > Update documentation and dependencies that change as a result of the
+> > different build/packaging/installation pathways.
+> >
+> > This change has the effect of fixing "make check-dev", which has been
+> > broken on newer versions of Fedora for a while, now.
+> >
+> > Signed-off-by: John Snow <jsnow@redhat.com>
+> > ---
+> >   python/README.rst        | 33 ++++++++++++++++-----------------
+> >   python/Makefile          | 18 +++++++++---------
+> >   python/pyproject.toml    | 10 ++++++++++
+> >   python/setup.py          | 40 ---------------------------------------=
 -
--  bindgen_args = []
--  c_enums = [
--    'DeviceCategory',
--    'GpioPolarity',
--    'MachineInitPhase',
--    'MemoryDeviceInfoKind',
--    'MigrationPolicy',
--    'MigrationPriority',
--    'QEMUChrEvent',
--    'QEMUClockType',
--    'ResetType',
--    'device_endian',
--    'module_init_type',
--  ]
--  foreach enum : c_enums
--    bindgen_args += ['--rustified-enum', enum]
--  endforeach
--  c_bitfields = [
--    'ClockEvent',
--    'VMStateFlags',
--  ]
--  foreach enum : c_bitfields
--    bindgen_args += ['--bitfield-enum', enum]
--  endforeach
--
--  # TODO: Remove this comment when the clang/libclang mismatch issue is solved.
--  #
--  # Rust bindings generation with `bindgen` might fail in some cases where the
--  # detected `libclang` does not match the expected `clang` version/target. In
--  # this case you must pass the path to `clang` and `libclang` to your build
--  # command invocation using the environment variables CLANG_PATH and
--  # LIBCLANG_PATH
--  _qemu_api_bindings_inc_rs = rust.bindgen(
--    input: 'rust/wrapper.h',
--    dependencies: common_ss.all_dependencies(),
--    output: 'bindings.inc.rs',
--    include_directories: bindings_incdir,
--    bindgen_version: ['>=0.60.0'],
--    args: bindgen_args_common + bindgen_args,
--    )
-   subdir('rust')
- endif
- 
-diff --git a/rust/wrapper.h b/rust/qemu-api/wrapper.h
-similarity index 100%
-rename from rust/wrapper.h
-rename to rust/qemu-api/wrapper.h
-diff --git a/rust/meson.build b/rust/meson.build
-index e9f0879e296..331f11b7e72 100644
---- a/rust/meson.build
-+++ b/rust/meson.build
-@@ -20,6 +20,8 @@ proc_macro2_rs_native = dependency('proc-macro2-1-rs', native: true)
- 
- qemuutil_rs = qemuutil.partial_dependency(link_args: true, links: true)
- 
-+genrs = []
-+
- subdir('qemu-api-macros')
- subdir('bits')
- subdir('qemu-api')
-@@ -33,5 +35,5 @@ if cargo.found()
-     command: [config_host['MESON'], 'devenv',
-               '--workdir', '@CURRENT_SOURCE_DIR@',
-               cargo, 'fmt'],
--    depends: _qemu_api_bindings_inc_rs)
-+    depends: genrs)
- endif
-diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
-index 64c04dfd74b..05d010e094f 100644
---- a/rust/qemu-api/meson.build
-+++ b/rust/qemu-api/meson.build
-@@ -7,6 +7,47 @@ if get_option('debug_mutex')
-   _qemu_api_cfg += ['--cfg', 'feature="debug_cell"']
- endif
- 
-+c_enums = [
-+  'DeviceCategory',
-+  'GpioPolarity',
-+  'MachineInitPhase',
-+  'MemoryDeviceInfoKind',
-+  'MigrationPolicy',
-+  'MigrationPriority',
-+  'QEMUChrEvent',
-+  'QEMUClockType',
-+  'ResetType',
-+  'device_endian',
-+  'module_init_type',
-+]
-+_qemu_api_bindgen_args = []
-+foreach enum : c_enums
-+  _qemu_api_bindgen_args += ['--rustified-enum', enum]
-+endforeach
-+c_bitfields = [
-+  'ClockEvent',
-+  'VMStateFlags',
-+]
-+foreach enum : c_bitfields
-+  _qemu_api_bindgen_args += ['--bitfield-enum', enum]
-+endforeach
-+
-+# TODO: Remove this comment when the clang/libclang mismatch issue is solved.
-+#
-+# Rust bindings generation with `bindgen` might fail in some cases where the
-+# detected `libclang` does not match the expected `clang` version/target. In
-+# this case you must pass the path to `clang` and `libclang` to your build
-+# command invocation using the environment variables CLANG_PATH and
-+# LIBCLANG_PATH
-+_qemu_api_bindings_inc_rs = rust.bindgen(
-+  input: 'wrapper.h',
-+  dependencies: common_ss.all_dependencies(),
-+  output: 'bindings.inc.rs',
-+  include_directories: bindings_incdir,
-+  bindgen_version: ['>=0.60.0'],
-+  args: bindgen_args_common + _qemu_api_bindgen_args,
-+  )
-+
- _qemu_api_rs = static_library(
-   'qemu_api',
-   structured_sources(
--- 
-2.49.0
+> >   python/tests/minreqs.txt |  2 +-
+> >   5 files changed, 36 insertions(+), 67 deletions(-)
+> >   create mode 100644 python/pyproject.toml
+> >   delete mode 100755 python/setup.py
+>
+> Reviewed-by: Thomas Huth <thuth@redhat.com>
+
+
+Thanks. If there are no objections, I might stage at least the first few
+reviewed patches here so I can get this stitched up sooner than later. The
+more disruptive parts I might wait a touch longer on.
+
+--000000000000aeb5fa0637792b4e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jun 13,=
+ 2025 at 4:36=E2=80=AFAM Thomas Huth &lt;<a href=3D"mailto:thuth@redhat.com=
+">thuth@redhat.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote=
+" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);=
+padding-left:1ex">On 12/06/2025 22.54, John Snow wrote:<br>
+&gt; Newer versions of setuptools increasingly expect that packages are<br>
+&gt; defined using the pyproject.toml/PEP517 packaging layout format. With<=
+br>
+&gt; 3.9 as our minimum, I believe it&#39;s finally appropriate to make the=
+ shift<br>
+&gt; away from the legacy packaging format.<br>
+&gt; <br>
+&gt; Update documentation and dependencies that change as a result of the<b=
+r>
+&gt; different build/packaging/installation pathways.<br>
+&gt; <br>
+&gt; This change has the effect of fixing &quot;make check-dev&quot;, which=
+ has been<br>
+&gt; broken on newer versions of Fedora for a while, now.<br>
+&gt; <br>
+&gt; Signed-off-by: John Snow &lt;<a href=3D"mailto:jsnow@redhat.com" targe=
+t=3D"_blank">jsnow@redhat.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0python/README.rst=C2=A0 =C2=A0 =C2=A0 =C2=A0 | 33 ++++++++=
+++++++++-----------------<br>
+&gt;=C2=A0 =C2=A0python/Makefile=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 18 +++=
+++++++---------<br>
+&gt;=C2=A0 =C2=A0python/pyproject.toml=C2=A0 =C2=A0 | 10 ++++++++++<br>
+&gt;=C2=A0 =C2=A0python/setup.py=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 40 ---=
+-------------------------------------<br>
+&gt;=C2=A0 =C2=A0python/tests/minreqs.txt |=C2=A0 2 +-<br>
+&gt;=C2=A0 =C2=A05 files changed, 36 insertions(+), 67 deletions(-)<br>
+&gt;=C2=A0 =C2=A0create mode 100644 python/pyproject.toml<br>
+&gt;=C2=A0 =C2=A0delete mode 100755 python/setup.py<br>
+<br>
+Reviewed-by: Thomas Huth &lt;<a href=3D"mailto:thuth@redhat.com" target=3D"=
+_blank">thuth@redhat.com</a>&gt;</blockquote><div><br></div><div>Thanks. If=
+ there are no objections, I might stage at least the first few reviewed pat=
+ches here so I can get this stitched up sooner than later. The more disrupt=
+ive parts I might wait a touch longer on. <br></div></div></div>
+
+--000000000000aeb5fa0637792b4e--
 
 
