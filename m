@@ -1,94 +1,132 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uR5dC-0002x2-U8
-	for mharc-qemu-rust@gnu.org; Mon, 16 Jun 2025 04:55:54 -0400
+	id 1uR9hS-0007kW-6B
+	for mharc-qemu-rust@gnu.org; Mon, 16 Jun 2025 09:16:34 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uR5cz-0002ux-Mk
- for qemu-rust@nongnu.org; Mon, 16 Jun 2025 04:55:41 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
+ id 1uR5jj-0006Vi-95; Mon, 16 Jun 2025 05:02:41 -0400
+Received: from www3579.sakura.ne.jp ([49.212.243.89])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uR5cx-0005RH-TD
- for qemu-rust@nongnu.org; Mon, 16 Jun 2025 04:55:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1750064134;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TB8pH9CIWgvd8G0LKdKNGhXRV9n9BvvHO5KW78+WfW0=;
- b=I65MqtUUtDoCV2eXVVcn9rhYsyOrjoxnGTBCOBBach/yvETAO12ZBr+vVUMmXzHsVBlP0I
- FstSGVixNZAyXdZn84YTHi/6oWEnzNw+ZrPBN2sHTTgzXPL++Trw44El4yjYhBgfUhbeTs
- eQvEXzCtBps3veRC5dOokW+kDnmJkZ8=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-606-W4XxUWoTMbeiSQa7OWGqrA-1; Mon, 16 Jun 2025 04:55:32 -0400
-X-MC-Unique: W4XxUWoTMbeiSQa7OWGqrA-1
-X-Mimecast-MFC-AGG-ID: W4XxUWoTMbeiSQa7OWGqrA_1750064131
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-3a4f858bc5eso2772467f8f.0
- for <qemu-rust@nongnu.org>; Mon, 16 Jun 2025 01:55:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750064131; x=1750668931;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TB8pH9CIWgvd8G0LKdKNGhXRV9n9BvvHO5KW78+WfW0=;
- b=oqkVGnpph+q/SOUjQv9MQcpBLoyNvbuFg3Uqy2nsZZTnQhIcRkYVbOqkFIAKjR0hW/
- Z1SOI+JDYitovvFE/XH9gUKP5EC2wiG3T9j/QYWiEqEvcOxnYogL+oiI0UEhQh3txyaC
- f4kd6C01IhoYQpJaLNhmvzAWMbr2ryuLJ+Ex3ktvbRwf4d3A5Qv7xDE9Ihd7FiouivpO
- L7Kq/TRmBsdMEoOBpeIo9U3QgNmLjCVeR+CmzAGa2bnc1PS5qhfdFoMgjtvBotuedG6Q
- arrPAtOGxxxBKTEsDulxtGHHPO2XEY6DaOqhyGgh9ZTA09Qg6l+Iw7qkX9173MHjCv+2
- dlcg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW9Doo0WtidT8B5jFVvQXVpvM5FUwHUGozkpL5M/VV+NDFLbUiD6VG/8tat5NRAMoDI86w7zgD3i6s=@nongnu.org
-X-Gm-Message-State: AOJu0YyoZEGZqUBMmqHN1wT5y8jJbicOkVcwo3H69dqIqZC5wYiumBVg
- K+JXaXn04uDB0ND/7tBFRltEkQ2fAmB4sU5FyPk5fZttaOO1G25SUJqBpMDUIPwmBgKOzWl8viU
- Wm0xGGQAfPEpMe2im0EG+HRxKNS1VRDl7rgbwxZZvsvGwqcmkbe7wIHAFfTxEd82ilgJnJbgdNm
- q+Y6EHVWnTGySRemZRqr5xhvtRMsT/uQ==
-X-Gm-Gg: ASbGncscAh9foYyE52tSx/uRICUutjp7uEypzrBXioGJx3rMc4pKg2fEuE4Oif6pCNQ
- ROG3EC9zpjr4uk859Qlu01qGaKWepuFnRRSrmi1RFfh9A2QxFx7JNqyHZRC74FBqMt0Wt1Y0xS4
- b7/Xxd
-X-Received: by 2002:a05:6000:4818:b0:3a5:2e59:833a with SMTP id
- ffacd0b85a97d-3a57238b9fcmr6751169f8f.1.1750064131350; 
- Mon, 16 Jun 2025 01:55:31 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGtQYhPA8JnZ3ZEVz3jqhLHCfDT5W28ZUUGCyW+IeL741cQBAC8pJh3aNW0lRe1o1Kbiob/B+rTJfN/y0BB2uo=
-X-Received: by 2002:a05:6000:4818:b0:3a5:2e59:833a with SMTP id
- ffacd0b85a97d-3a57238b9fcmr6751152f8f.1.1750064130995; Mon, 16 Jun 2025
- 01:55:30 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
+ id 1uR5jf-0006Fs-Gl; Mon, 16 Jun 2025 05:02:38 -0400
+Received: from [133.11.54.205] (h205.csg.ci.i.u-tokyo.ac.jp [133.11.54.205])
+ (authenticated bits=0)
+ by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 55G8rZGk082978
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Mon, 16 Jun 2025 17:53:35 +0900 (JST)
+ (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+DKIM-Signature: a=rsa-sha256; bh=KScVJRjX5qHx2qPV2Idy8E22L/QoVbymW4s2ZmhlRqk=; 
+ c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+ h=Message-ID:Date:From:Subject:To;
+ s=rs20250326; t=1750064017; v=1;
+ b=u8P2EHe+1Y+3zACB4AUA3bkn/KAg15g60iwqmmx8tIcExa0kj2B3qDQM0W6d7OY+
+ VSnFJGbZc2rJgdN5gK8R7ctygc0RUk3VAF7yFGFwbbQEaW7nx/1j99kraEJM522U
+ 880sw6x8Y0OFe7fe1iLwC4VUTiJZfCP2sX7s/EF+VrmF7u3x2fGeDYlp2LNKYWbj
+ EIMlWMtydWaTXPmIe6mZv1bmhCS9fwPPGINHFbhzxcqIJs4ukEN6xFpliyxAsq4l
+ kdwV17yNkvKZujSwi0NB3erFgwCY1Bv8y8tlCJDE9A/q9Fru+iBod8QBtDaFASvS
+ xtUzTYDCN4eH5DW21FDDYg==
+Message-ID: <ffdab955-0255-4781-8bcf-909dcc195a01@rsg.ci.i.u-tokyo.ac.jp>
+Date: Mon, 16 Jun 2025 17:53:35 +0900
 MIME-Version: 1.0
-References: <20250605101124.367270-1-pbonzini@redhat.com>
- <aEk6vdosWZgyQGXD@intel.com>
- <CABgObfaK8h3GE4GWbPrn22JshYcCFdXsxWHWuAPVC4pRb7GZ0A@mail.gmail.com>
- <CABgObfa+w3pcYhFnO6ETxSfoNiNU=+_8WcW6dE8dkUrbt6darw@mail.gmail.com>
- <aEu90HVJsySBHJKz@intel.com>
-In-Reply-To: <aEu90HVJsySBHJKz@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Mon, 16 Jun 2025 10:55:18 +0200
-X-Gm-Features: AX0GCFvMsH4ieTPhQ_OjiwbHWb6zj-Pu8gMH6MxR9xy0Jupm12-TEsSD6va9AxM
-Message-ID: <CABgObfYZO7bd41CNo9c7dg+mDYXAUhv_5+rkW22oq5AaxSXkCQ@mail.gmail.com>
-Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from 2021
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel@nongnu.org, marcandre.lureau@redhat.com, qemu-rust@nongnu.org, 
- armbru@redhat.com, mkletzan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: WL1dTivtGN4PbKoPuxKH60C3X9eBHNwREiA7g4OpWqQ_1750064131
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+User-Agent: Mozilla Thunderbird
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+Subject: Re: [PATCH v2 00/12] Python: Fix 'make check-dev' and modernize to
+ 3.9+
+To: John Snow <jsnow@redhat.com>, qemu-devel@nongnu.org
+Cc: Joel Stanley <joel@jms.id.au>, Yi Liu <yi.l.liu@intel.com>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Helge Deller <deller@gmx.de>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Fabiano Rosas
+ <farosas@suse.de>, Alexander Bulekov <alxndr@bu.edu>,
+ Darren Kenny <darren.kenny@oracle.com>,
+ Leif Lindholm <leif.lindholm@oss.qualcomm.com>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>,
+ Ed Maste <emaste@freebsd.org>, Gerd Hoffmann <kraxel@redhat.com>,
+ Warner Losh <imp@bsdimp.com>, Kevin Wolf <kwolf@redhat.com>,
+ Tyrone Ting <kfting@nuvoton.com>, Eric Blake <eblake@redhat.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Troy Lee <leetroy@gmail.com>, Halil Pasic <pasic@linux.ibm.com>,
+ Michael Roth <michael.roth@amd.com>,
+ Laurent Vivier <laurent@vivier.eu>, Ani Sinha <anisinha@redhat.com>,
+ Weiwei Li <liwei1518@gmail.com>, Eric Farman <farman@linux.ibm.com>,
+ Steven Lee <steven_lee@aspeedtech.com>,
+ Brian Cain <brian.cain@oss.qualcomm.com>,
+ Li-Wen Hsu <lwhsu@freebsd.org>, Jamin Lin <jamin_lin@aspeedtech.com>,
+ qemu-s390x@nongnu.org,
+ Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
+ qemu-block@nongnu.org, Bernhard Beschow <shentey@gmail.com>,
+ =?UTF-8?Q?Cl=C3=A9ment_Mathieu--Drif?= <clement.mathieu--drif@eviden.com>,
+ Maksim Davydov <davydov-max@yandex-team.ru>,
+ Niek Linnenbank <nieklinnenbank@gmail.com>,
+ =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Paul Durrant <paul@xen.org>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Jagannathan Raman <jag.raman@oracle.com>,
+ Igor Mitsyanko <i.mitsyanko@gmail.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Markus Armbruster <armbru@redhat.com>,
+ Pierrick Bouvier <pierrick.bouvier@linaro.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Anton Johansson <anjo@rev.ng>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Cleber Rosa <crosa@redhat.com>, Eric Auger <eric.auger@redhat.com>,
+ Yanan Wang <wangyanan55@huawei.com>, qemu-arm@nongnu.org,
+ Hao Wu <wuhaotsh@google.com>, Mads Ynddal <mads@ynddal.dk>,
+ Sriram Yagnaraman <sriram.yagnaraman@ericsson.com>,
+ qemu-riscv@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Nicholas Piggin <npiggin@gmail.com>,
+ Michael Rolnik <mrolnik@gmail.com>, Zhao Liu <zhao1.liu@intel.com>,
+ Alessandro Di Federico <ale@rev.ng>, Thomas Huth <thuth@redhat.com>,
+ Antony Pavlov <antonynpavlov@gmail.com>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, Hanna Reitz <hreitz@redhat.com>,
+ Ilya Leoshkevich <iii@linux.ibm.com>,
+ Marcelo Tosatti <mtosatti@redhat.com>,
+ Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ Qiuhao Li <Qiuhao.Li@outlook.com>, Hyman Huang <yong.huang@smartx.com>,
+ =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
+ Magnus Damm <magnus.damm@gmail.com>, qemu-rust@nongnu.org,
+ Bandan Das <bsd@redhat.com>,
+ Strahinja Jankovic <strahinja.p.jankovic@gmail.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ kvm@vger.kernel.org, Fam Zheng <fam@euphon.net>,
+ Jia Liu <proljc@gmail.com>,
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
+ Alistair Francis <alistair@alistair23.me>,
+ Subbaraya Sundeep <sundeep.lkml@gmail.com>,
+ Kyle Evans <kevans@freebsd.org>, Song Gao <gaosong@loongson.cn>,
+ Alexandre Iooss <erdnaxe@crans.org>, Aurelien Jarno <aurelien@aurel32.net>,
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+ Peter Xu <peterx@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
+ BALATON Zoltan <balaton@eik.bme.hu>,
+ Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ =?UTF-8?B?RnLDqWTDqXJpYyBCYXJyYXQ=?= <fbarrat@linux.ibm.com>,
+ qemu-ppc@nongnu.org, Radoslaw Biernacki <rad@semihalf.com>,
+ Beniamino Galvani <b.galvani@gmail.com>, David Hildenbrand
+ <david@redhat.com>, Richard Henderson <richard.henderson@linaro.org>,
+ David Woodhouse <dwmw2@infradead.org>, Eduardo Habkost
+ <eduardo@habkost.net>, Ahmed Karaman <ahmedkhaledkaraman@gmail.com>,
+ Huacai Chen <chenhuacai@kernel.org>, Mahmoud Mandour
+ <ma.mandourr@gmail.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>
+References: <20250612205451.1177751-1-jsnow@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20250612205451.1177751-1-jsnow@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=49.212.243.89;
+ envelope-from=odaki@rsg.ci.i.u-tokyo.ac.jp; helo=www3579.sakura.ne.jp
+X-Spam_score_int: -16
+X-Spam_score: -1.7
+X-Spam_bar: -
+X-Spam_report: (-1.7 / 5.0 requ) BAYES_00=-1.9, DKIM_INVALID=0.1,
+ DKIM_SIGNED=0.1, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Mon, 16 Jun 2025 09:16:26 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,39 +138,87 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Jun 2025 08:55:42 -0000
+X-List-Received-Date: Mon, 16 Jun 2025 09:02:44 -0000
 
-On Fri, Jun 13, 2025 at 7:36=E2=80=AFAM Zhao Liu <zhao1.liu@intel.com> wrot=
-e:
-> > 1) everything is done through an intermediate QObject step (e.g. for a
-> > setter: Visitor->QObject with an input visitor, and QObject->Rust with
-> > serde deserialization).
-> >     + easy, Rust only sees serde
-> >     + QMP commands use a single conversion step
-> >     - inefficient
->
-> This sounds like a natural approach.
+On 2025/06/13 5:54, John Snow wrote:
+> This series does a couple things that I'll probably end up splitting out
+> into smaller series if history is any guide, but either way, here it
+> goes:
 
-Yep, serde is complex but the result is very natural. In some cases
-serde has different defaults than QEMU, but attributes like
-#[serde(skip_serializing_if =3D "Option::is_none")] can be automatically
-generated by qapi-gen.
+I'm surprised with the large number of Ccs. I suggest splitting the 
+series with subsystem boundaries to reduce the number of Ccs for each 
+split series.
 
-> > 2) everything is done through an intermediate C step (e.g. for a
-> > setter: Visitor->C with a visit_type_* function, and C->Rust with
-> > generated code that does not need to use serde).
->
-> I understand this step indicates to use bindgen to generate visit_type_*
-> bindings...
+> 
+> A) Convert qemu.git/python/ to a PEP517/pyproject.toml
+> package. Ultimately this means deleting setup.py and fully migrating to
+> newer python infrastructure. I think this should be safe to do by now,
+> but admittedly I am not *confident* as it relies on setuptools versions
+> in the wild, not python versions. My motivation for trying it is to fix
+> "make check-dev", which has been broken for the last two Fedora releases
+> under newer setuptools which have started removing support for the
+> pre-PEP517 packaging formats, which will only continue to get worse from
+> here on out.
 
-More than that, it's using qapi-gen to generate implementations like
-the *Foreign traits used by Error. Marc-Andr=C3=A9 wrote his own traits but
-I suspect a lot of the code could be reused.
+I'm afraid this change may not be safe.
 
-So I must give credit to Marc-Andr=C3=A9 that there is a big advantage
-here, in that a lot of the code is already written and it is simpler
-than serde.
+The documentation of setuptools says pyproject.toml is supported since 
+61.0.0:
+https://setuptools.pypa.io/en/stable/userguide/pyproject_config.html
 
-Paolo
+Looking at Repology as suggested in docs/about/build-platforms.rst, the 
+following distributions have older setuptools, unfortunately:
+CentOS Stream 9: 53.0.0
+Debian 11: 44.1.1
+Ubuntu 22.04: 44.1.1
 
+docs/about/build-platforms.rst also says:
+ > Optional build dependencies
+ >   Build components whose absence does not affect the ability to build
+ >   QEMU may not be available in distros, or may be too old for our
+ >   requirements. Many of these, such as additional modules for the
+ >   functional testing framework or various linters, are written in
+ >   Python and therefore can also be installed using ``pip``.
+
+In my understanding, QEMU Python Tooling is an optional component so 
+dropping the support of old Linux distribution is tolerated according to 
+the documentation. But I think we still need to assess the potential 
+impact on the usability to justify that.
+
+A possible option is to fetch a new version of setuptools version when 
+necessary. The same documentation says:
+ > Python build dependencies
+ >   Some of QEMU's build dependencies are written in Python.  Usually
+ >   these are only packaged by distributions for the default Python
+ >   runtime.
+ >   If QEMU bumps its minimum Python version and a non-default runtime
+ >   is required, it may be necessary to fetch python modules from the
+ >   Python Package Index (PyPI) via ``pip``, in order to build QEMU.
+
+Automatically fetching a compatible version of setuptools as described 
+here will reduce the adverse effect of the change.
+
+The documentation page of setuptools I mentioned earlier has the 
+following note:
+ > If compatibility with legacy builds or versions of tools that don’t
+ > support certain packaging standards (e.g. PEP 517 or PEP 660), a
+ > simple setup.py script can be added to your project [1] (while keeping
+ > the configuration in pyproject.toml):
+ >
+ > from setuptools import setup
+ >
+ > setup()
+
+I have no idea what it means though. (Will it automatically fetch new 
+setuptools to parse pyproject.toml or something?)
+
+> C) Move us to 3.9+ style type hints. They are deprecated in 3.9, and
+> *could* be removed at any time. I figured now was a good time as any to
+> get rid of them before they become a problem randomly some day in the
+> future.
+
+I guess you meant that the old style type hints are deprecated.
+
+Regards,
+Akihiko Odaki
 
