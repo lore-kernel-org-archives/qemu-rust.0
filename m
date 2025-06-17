@@ -1,75 +1,67 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uRDJE-0008AF-E8
-	for mharc-qemu-rust@gnu.org; Mon, 16 Jun 2025 13:07:48 -0400
+	id 1uRR4t-0004fX-By
+	for mharc-qemu-rust@gnu.org; Tue, 17 Jun 2025 03:49:55 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <stefanha@gmail.com>)
- id 1uRDJ0-00081V-Qm; Mon, 16 Jun 2025 13:07:36 -0400
-Received: from mail-ed1-x52c.google.com ([2a00:1450:4864:20::52c])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <stefanha@gmail.com>)
- id 1uRDIy-0007wC-9i; Mon, 16 Jun 2025 13:07:34 -0400
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-606fdbd20afso9710787a12.1; 
- Mon, 16 Jun 2025 10:07:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1750093649; x=1750698449; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yOo8rSqsKdyCcBpCDqRMCJh2UFcFmNcw+BIDQqIIz18=;
- b=Y9kLPTse9zOfYaAGZEmNsP1kLfSZD/h0lf3QJpk61DoihdqemRhkocSrdY7Fe5+WR3
- BO7zQp+js82oX3FK/iaCH8yghytbsg242KQ+/wJn6eugF0rDrF4fDTAX+gD8PANICgze
- sx1tuZh6Z8Id3WobpLkEffnra5/k87//7MrFk4UPpyQHHI3lmojynE1nAir97bu03cmr
- O8lXDCsf9ku3O6MAd6PVaPZbAS1aJxeEnC7KwulEo41ndyOnrD8ezOOK+DX2CN/3iqbA
- QrH6F3EClGvpLpeNtkav6EmXN1VX8QTalOCFNCv2jwjMSueUegDO8S7CvId3eoEIhy14
- H0XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750093649; x=1750698449;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yOo8rSqsKdyCcBpCDqRMCJh2UFcFmNcw+BIDQqIIz18=;
- b=tsyVon7KJbtmfkib36H33ufWwlAwKeoquQx8hox7s8+dHyg8kAcfB1z8EVMNvJJISh
- pHo2g4b99HDSWn+FTbd7UiQhBbzFlKCsDINnr4e8XVF9Wzk1BM7z8h68jIzMGTVaBhsh
- ns9P+dHxWnsoL2KtJKLxryLc1hxqwln8JghEziAszl0nte19pGDPjDwhMYixGXkVHAfU
- B6klrNimOqcJYPBOG2BTFb9Bc4UIRENAQv6a8ywzEf1J4e/uLS4DfYCEyEy0/W6doaVU
- Z0A9P8mHQYOjs1DVZibKwWvyej3Z5F9EQoJFGkw2ixhjADMlelVMShHV+06cVHDWRuZ/
- Tm/A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW4jP9OlwY63WqjsdbbMzlEwwF5ZH9QHGpAqrn5lys0ZP/dLkVsVtqqS/Xzw3YJrCDEXYnif1tNvGg=@nongnu.org
-X-Gm-Message-State: AOJu0Yyii7mbQfXo3rJ1RhufmLTUA4/0FeBvnwR1i7qGoD1xva8SvzIp
- qcrbTUp7/zSiS6LqZ+kZycW7LYLPkY9Up0eZkKB1v9HsElRzdVGkfeqgSURbId3zyviTPP98rTm
- WL6nv+gl4nCF/mJKy49HfRp8MFeyoN2dnEg==
-X-Gm-Gg: ASbGnct22rqLQCTzCoOGbt6Hq7Kpc464nmV+P9umNY6B0YlNzUKFWQKNCrLkkazyEKg
- JXv9ok+8L+HrSSZL6/TApuaQ51fV1mVbJSfKR5RpwWvK55EcQ8hijsmYblBrHQ76ODCVhy0XWic
- 5USWoQBv2nDGq0O/GnkCIPTT81lEZWkiwhlG43YAzpzQ==
-X-Google-Smtp-Source: AGHT+IFp4xdeIItnCONEuthp6am/jG4GogweqiGRmNTCLSqcBae8qFzTlMAKnA71vxoWVkdtTSuK74OG0/YY/eojNyc=
-X-Received: by 2002:a17:907:7ea9:b0:ad4:f517:ca3 with SMTP id
- a640c23a62f3a-adfad363e27mr990033766b.20.1750093648381; Mon, 16 Jun 2025
- 10:07:28 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAJSP0QW-3ibYSCL0jYyvm1eADp7fKvLgorGWEk8WXW4SMGfaJw@mail.gmail.com>
- <b23712cc-1291-4b3e-b6c9-2d5c9abc4622@redhat.com>
-In-Reply-To: <b23712cc-1291-4b3e-b6c9-2d5c9abc4622@redhat.com>
-From: Stefan Hajnoczi <stefanha@gmail.com>
-Date: Mon, 16 Jun 2025 13:07:15 -0400
-X-Gm-Features: AX0GCFt6NjmU3IML0HyCYUzC4MGsoSZFV32dJdzvwqA3pS88Jia6HYMkHriwhp8
-Message-ID: <CAJSP0QWNPuO-Bs3dEs3JbLSgh9HMC3WyPVeJ1j8GLWC0tQ3ndQ@mail.gmail.com>
-Subject: Re: New CI error due to mismatched lifetime in hpet device
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uRR4q-0004ez-GR
+ for qemu-rust@nongnu.org; Tue, 17 Jun 2025 03:49:53 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uRR4f-0003Ig-Hx
+ for qemu-rust@nongnu.org; Tue, 17 Jun 2025 03:49:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1750146576;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=aNDRYl9V+a4t5NQliCh4E39OKl/+9sxQi49k0cQATBY=;
+ b=ia7g7pCHX6bwJSB69R8D8n5QyD/ZkYB5CCqclxvXbhONuetxrqdY23/GvQRZxEx37bSQeR
+ kQ0WbmtgjXNPT+kuXUv1jYzOzWrspRiLkFwn+VxDD9skDjaScffVCIWmqt2KD4HI/K0YSO
+ 6QJZjbIN5pG8pSeS6hGTL0rrh4J7fA4=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-185-sh23Fg8GP8q3BdyKXbI93Q-1; Tue,
+ 17 Jun 2025 03:49:31 -0400
+X-MC-Unique: sh23Fg8GP8q3BdyKXbI93Q-1
+X-Mimecast-MFC-AGG-ID: sh23Fg8GP8q3BdyKXbI93Q_1750146570
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 7675F19560A5; Tue, 17 Jun 2025 07:49:30 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.11])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 0144C1956094; Tue, 17 Jun 2025 07:49:29 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 323F521E6A27; Tue, 17 Jun 2025 09:49:27 +0200 (CEST)
+From: Markus Armbruster <armbru@redhat.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::52c;
- envelope-from=stefanha@gmail.com; helo=mail-ed1-x52c.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Cc: qemu-devel@nongnu.org,  marcandre.lureau@redhat.com,
+ qemu-rust@nongnu.org,  mkletzan@redhat.com
+Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from 2021
+In-Reply-To: <20250605101124.367270-1-pbonzini@redhat.com> (Paolo Bonzini's
+ message of "Thu, 5 Jun 2025 12:11:21 +0200")
+References: <20250605101124.367270-1-pbonzini@redhat.com>
+Date: Tue, 17 Jun 2025 09:49:27 +0200
+Message-ID: <875xgu95a0.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -39
+X-Spam_score: -4.0
+X-Spam_bar: ----
+X-Spam_report: (-4.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.892,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_PASS=-0.001,
+ T_SPF_HELO_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -82,57 +74,43 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Jun 2025 17:07:42 -0000
+X-List-Received-Date: Tue, 17 Jun 2025 07:49:54 -0000
 
-On Mon, Jun 16, 2025 at 1:00=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com>=
- wrote:
->
-> On 6/16/25 18:46, Stefan Hajnoczi wrote:
-> > Hi Paolo,
-> > The CI is hitting the following new issue in rust/hw/hpet/device.rs:
->
-> Thanks!  I just saw it as well.
->
-> As you've noticed, this job is allowed to fail, because it's just making
-> sure that we find these issues before they hit the "real" CI targets.
->
-> I'll send a patch as soon as it passes CI.  Let me know if you want to
-> apply it right away; otherwise I'll send my next pull request later this
-> week and in the meanwhile you can ignore the failure.
+pylint isn't happy with the new module:
 
-There is no rush, I just wanted to let you know that the job is now in
-the warning state. The next pull request is good.
+************* Module qapi.rs_types
+scripts/qapi/rs_types.py:286:4: W0237: Parameter 'branches' has been renamed to 'variants' in overriding 'QAPISchemaGenRsTypeVisitor.visit_object_type' method (arguments-renamed)
+scripts/qapi/rs_types.py:307:4: W0237: Parameter 'alternatives' has been renamed to 'variants' in overriding 'QAPISchemaGenRsTypeVisitor.visit_alternate_type' method (arguments-renamed)
+scripts/qapi/rs_types.py:316:67: W0613: Unused argument 'builtins' (unused-argument)
+scripts/qapi/rs_types.py:9:0: W0611: Unused POINTER_SUFFIX imported from common (unused-import)
+scripts/qapi/rs_types.py:10:0: W0611: Unused rs_ctype_parse imported from rs (unused-import)
+scripts/qapi/rs_types.py:18:0: W0611: Unused QAPISchemaEnumType imported from schema (unused-import)
+scripts/qapi/rs_types.py:18:0: W0611: Unused QAPISchemaType imported from schema (unused-import)
 
-Thanks,
-Stefan
 
->
-> Paolo
->
-> > error: lifetime flowing from input to output with different syntax can
-> > be confusing
-> > --> ../rust/hw/timer/hpet/src/device.rs:770:15
-> > |
-> > 770 | fn decode(&self, mut addr: hwaddr, size: u32) -> HPETAddrDecode {
-> > | ^^^^^ -------------- the lifetime gets resolved as `'_`
-> > | |
-> > | this lifetime flows to the output
-> > |
-> > =3D note: `-D mismatched-lifetime-syntaxes` implied by `-D warnings`
-> > =3D help: to override `-D warnings` add `#[allow(mismatched_lifetime_sy=
-ntaxes)]`
-> > help: one option is to remove the lifetime for references and use the
-> > anonymous lifetime for paths
-> > |
-> > 770 | fn decode(&self, mut addr: hwaddr, size: u32) -> HPETAddrDecode<'=
-_> {
-> > | ++++
-> > error: aborting due to 1 previous error
-> >
-> > https://gitlab.com/qemu-project/qemu/-/jobs/10338038013#L5165
-> >
-> > Stefan
-> >
-> >
->
+Might be too early to bother with the type hints, but here goes anyway:
+
+$ mypy scripts/qapi-gen.py 
+scripts/qapi/schema.py:70: error: Argument 1 to "rsgen_ifcond" has incompatible type "str | dict[str, object] | None"; expected "str | dict[str, Any]"  [arg-type]
+scripts/qapi/rs.py:99: error: Incompatible types in assignment (expression has type "str | None", variable has type "dict[str, str]")  [assignment]
+scripts/qapi/rs.py:103: error: Unsupported left operand type for + ("None")  [operator]
+scripts/qapi/rs.py:103: note: Left operand is of type "str | None"
+scripts/qapi/rs.py:103: error: Incompatible types in assignment (expression has type "str | Any", variable has type "dict[str, str]")  [assignment]
+scripts/qapi/rs.py:106: error: Incompatible types in assignment (expression has type "str", variable has type "dict[str, str]")  [assignment]
+scripts/qapi/rs.py:108: error: Incompatible types in assignment (expression has type "str", variable has type "dict[str, str]")  [assignment]
+scripts/qapi/rs.py:110: error: Incompatible types in assignment (expression has type "str", variable has type "dict[str, str]")  [assignment]
+scripts/qapi/rs.py:111: error: Incompatible return value type (got "dict[str, str]", expected "str")  [return-value]
+scripts/qapi/rs_types.py:47: error: Item "None" of "QAPISchemaVariants | None" has no attribute "tag_member"  [union-attr]
+scripts/qapi/rs_types.py:49: error: Item "None" of "QAPISchemaVariants | None" has no attribute "variants"  [union-attr]
+scripts/qapi/rs_types.py:84: error: Item "None" of "QAPISchemaVariants | None" has no attribute "variants"  [union-attr]
+scripts/qapi/rs_types.py:116: error: Incompatible default for argument "exclude" (default has type "None", argument has type "list[str]")  [assignment]
+scripts/qapi/rs_types.py:116: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
+scripts/qapi/rs_types.py:116: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
+scripts/qapi/rs_types.py:118: error: Incompatible return value type (got "list[str]", expected "str")  [return-value]
+scripts/qapi/rs_types.py:251: error: Item "None" of "QAPISchemaVariants | None" has no attribute "variants"  [union-attr]
+scripts/qapi/rs_types.py:309: error: Argument 2 of "visit_alternate_type" is incompatible with supertype "QAPISchemaVisitor"; supertype defines the argument type as "QAPISourceInfo | None"  [override]
+scripts/qapi/rs_types.py:309: note: This violates the Liskov substitution principle
+scripts/qapi/rs_types.py:309: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides
+Found 15 errors in 3 files (checked 1 source file)
+
 
