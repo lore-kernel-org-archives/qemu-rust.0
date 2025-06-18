@@ -1,90 +1,71 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uRoFE-0002r1-Cw
-	for mharc-qemu-rust@gnu.org; Wed, 18 Jun 2025 04:34:08 -0400
+	id 1uRtjI-0005Jj-Mn
+	for mharc-qemu-rust@gnu.org; Wed, 18 Jun 2025 10:25:32 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uRoFC-0002qj-J0
- for qemu-rust@nongnu.org; Wed, 18 Jun 2025 04:34:06 -0400
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uRtjF-0005Im-Ly
+ for qemu-rust@nongnu.org; Wed, 18 Jun 2025 10:25:29 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uRoF9-0001IK-Hw
- for qemu-rust@nongnu.org; Wed, 18 Jun 2025 04:34:06 -0400
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uRtjA-0003Go-Sg
+ for qemu-rust@nongnu.org; Wed, 18 Jun 2025 10:25:29 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1750235640;
+ s=mimecast20190719; t=1750256722;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8+7qm2QOt4HDeG9l0wtWmNg5ozuJh8NqO4G3QAepq4g=;
- b=Ks6gYeeLVcUNiLNgVUyPQFLRd20QncAizocfQbZgkOyy0GZtyjbD9NyZVCOOcg39evzlTP
- DmeN5j+ImLiTwCpeERyepO0FA3k7KpXB3CpjgjldkyENBIzSn8uAffDZ6pBWzXRbs+yJdd
- GoSL1LdZzvU0wOtA6sNyAnv2TBvdiDc=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-553-LhuxDew_NWKR3-NT1FpJig-1; Wed, 18 Jun 2025 04:33:59 -0400
-X-MC-Unique: LhuxDew_NWKR3-NT1FpJig-1
-X-Mimecast-MFC-AGG-ID: LhuxDew_NWKR3-NT1FpJig_1750235638
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-ad5697c4537so48633466b.0
- for <qemu-rust@nongnu.org>; Wed, 18 Jun 2025 01:33:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750235638; x=1750840438;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=8+7qm2QOt4HDeG9l0wtWmNg5ozuJh8NqO4G3QAepq4g=;
- b=I4uKaSK0Fpu+iiUiJshyx8Ip+4de/T3Nq/dMTFYxmj9Z95j69NezZKryJy8E8F92de
- W0qflNM69nhxvz+eBvecLEoktEGoFxBUHYeFWV2apVfCI9TNCG+LrjJ3Azgqgd/xgVZH
- nYv21QbkKEkysMSZei/I44Peno8+7hOJOyFO3fLtZZ/PaYCXeZYRvxd2UYYb1BL4tpUz
- ZySM/jxyxwn5cJInYMpSTKoe+VNY6qt3djsoQKO2I1ELX9WA+xKro1r3f5UouNpjEt1G
- avO9DLRJvKxCxFL0KzLw51fmqLpoQbJiOrV4lMVCy6e2asoMnaJl4mub6HTr2LNiS/0c
- 5MfQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUyQngvI61YgjoIvvePRuTautciNwIwZLvEQM8hA0tULgqFTRT0nx2KdrfpS1HZbxX6l7uCkwCufjQ=@nongnu.org
-X-Gm-Message-State: AOJu0YwE0TKZmpgn+BXBfPibFLvfFZu5Y2QPriMqpr3H4GFnezK0geK6
- oelfQFyqxFv/lZsTMWfjKrUMgxpohXzHqWfsuptBTFuEfVM41YFhVYTm4nEm5wJp0sBs/jpE8ZX
- 9Kl2c1SPDnxAG/Z8QfZFdgsdvB1Ot0HFYnJk60byAIXSQ13DeNY8ZB/TE6g8+HG+0hNyd3+Mejd
- fNIdlI+tNtWXA3hhdXzvPSuv35+SDnOVC9DqJZIw==
-X-Gm-Gg: ASbGncvFigohu1XM+Hv2Ep7eFsAW67NJbiSogr/DOoEMjUKE/bv1befEGY13RTXDu2F
- Bjn1sEOnou/Ut9ZKyixmRm71UG8hU15S6NLChWNAdbG4dUmSbecmTqBkieEpu8z/SK1PE7Gl6vu
- W+En4=
-X-Received: by 2002:a17:907:fd15:b0:ad8:93a3:29c2 with SMTP id
- a640c23a62f3a-ae01f776416mr168824166b.14.1750235637662; 
- Wed, 18 Jun 2025 01:33:57 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGsV3u1ClSgt8OoUXKBlV7V9QDsSQHpYeFYOE2GMyGGQsALPPKSFqZ4mKstFH7U+TB6Sr7fSr1TtpxZgzTM4OY=
-X-Received: by 2002:a05:6000:386:b0:3a5:7944:c9f with SMTP id
- ffacd0b85a97d-3a58e13fb12mr1354282f8f.2.1750235266692; Wed, 18 Jun 2025
- 01:27:46 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250605101124.367270-1-pbonzini@redhat.com>
- <875xgu95a0.fsf@pond.sub.org>
-In-Reply-To: <875xgu95a0.fsf@pond.sub.org>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Wed, 18 Jun 2025 10:27:35 +0200
-X-Gm-Features: Ac12FXyDE8ZZGtQt4QQZvafhgjJsN8mxstQmRlx91AhrC-E6Bvl_1kbSsLYxPv4
-Message-ID: <CABgObfZgp82HKSv3-CFL-MD-86LGQQGcAPYi83Q8Qhq_HbiORQ@mail.gmail.com>
+ bh=2Uu3Hv3gRjvZsH8KV0tCkElui3DCDdwBo7EjBdAtZMA=;
+ b=C9AVlN3dwwLDXWJItVanWrJvD9OKSl8Oc26PMD0FncB2adSdHElNfXQNvY5WmxXXfvifUb
+ Dpc8Ldh5gfpxEGX07fmw8XTsjzz4Or5wlotpI5PmfrJPTuwwevDQHeFE2Dg6gTNAB8pHu8
+ i08TFDZ6YT45i6v5L922QNPfGB+6p3U=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-175-pFe7oIyANYaLO8-uup1HEw-1; Wed,
+ 18 Jun 2025 10:25:19 -0400
+X-MC-Unique: pFe7oIyANYaLO8-uup1HEw-1
+X-Mimecast-MFC-AGG-ID: pFe7oIyANYaLO8-uup1HEw_1750256718
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 14FFD180028A; Wed, 18 Jun 2025 14:25:18 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.11])
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 457F619560A3; Wed, 18 Jun 2025 14:25:17 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id CC87C21E6A27; Wed, 18 Jun 2025 16:25:14 +0200 (CEST)
+From: Markus Armbruster <armbru@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Zhao Liu <zhao1.liu@intel.com>,  qemu-devel@nongnu.org,
+ marcandre.lureau@redhat.com,  qemu-rust@nongnu.org,  mkletzan@redhat.com
 Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from 2021
-To: Markus Armbruster <armbru@redhat.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, 
- =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>, 
- qemu-rust@nongnu.org, Martin Kletzander <mkletzan@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 43UGjvfd7jFghiA1SnH3SIvaY5JyX0K4xk9fUCxG0SY_1750235638
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="000000000000584b660637d467ed"
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+In-Reply-To: <CABgObfa+w3pcYhFnO6ETxSfoNiNU=+_8WcW6dE8dkUrbt6darw@mail.gmail.com>
+ (Paolo Bonzini's message of "Thu, 12 Jun 2025 12:24:44 +0200")
+References: <20250605101124.367270-1-pbonzini@redhat.com>
+ <aEk6vdosWZgyQGXD@intel.com>
+ <CABgObfaK8h3GE4GWbPrn22JshYcCFdXsxWHWuAPVC4pRb7GZ0A@mail.gmail.com>
+ <CABgObfa+w3pcYhFnO6ETxSfoNiNU=+_8WcW6dE8dkUrbt6darw@mail.gmail.com>
+Date: Wed, 18 Jun 2025 16:25:14 +0200
+Message-ID: <877c19nn3p.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -39
 X-Spam_score: -4.0
 X-Spam_bar: ----
-X-Spam_report: (-4.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.89,
+X-Spam_report: (-4.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.895,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
- RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -97,200 +78,140 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Jun 2025 08:34:06 -0000
+X-List-Received-Date: Wed, 18 Jun 2025 14:25:30 -0000
 
---000000000000584b660637d467ed
-Content-Type: text/plain; charset="UTF-8"
+I don't know enough about Rust/serde to give advice.  I do know how to
+make a fool of myself by asking dumb questions.
 
-Il mar 17 giu 2025, 09:49 Markus Armbruster <armbru@redhat.com> ha scritto:
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-> pylint isn't happy with the new module:
+> On Wed, Jun 11, 2025 at 10:57=E2=80=AFAM Paolo Bonzini <pbonzini@redhat.c=
+om> wrote:
+>> Yes. If using serde the implementation of the traits is very small,
+>> and basically the same for all types. If not using serde, it would
+>> need some (or most) of the infrastructure in Marc-Andr=C3=A9's original
+>> series.
 >
-
-Fixed, will post a new version.
-
-Can I pick your brain on whether to focus on Rust<->QObject conversion or
-give the Rust structs the full visitor treatment? (See other messages in
-reply to the cover letter).
-
-Paolo
-
-
-************* Module qapi.rs_types
-> scripts/qapi/rs_types.py:286:4: W0237: Parameter 'branches' has been
-> renamed to 'variants' in overriding
-> 'QAPISchemaGenRsTypeVisitor.visit_object_type' method (arguments-renamed)
-> scripts/qapi/rs_types.py:307:4: W0237: Parameter 'alternatives' has been
-> renamed to 'variants' in overriding
-> 'QAPISchemaGenRsTypeVisitor.visit_alternate_type' method (arguments-renamed)
-> scripts/qapi/rs_types.py:316:67: W0613: Unused argument 'builtins'
-> (unused-argument)
-> scripts/qapi/rs_types.py:9:0: W0611: Unused POINTER_SUFFIX imported from
-> common (unused-import)
-> scripts/qapi/rs_types.py:10:0: W0611: Unused rs_ctype_parse imported from
-> rs (unused-import)
-> scripts/qapi/rs_types.py:18:0: W0611: Unused QAPISchemaEnumType imported
-> from schema (unused-import)
-> scripts/qapi/rs_types.py:18:0: W0611: Unused QAPISchemaType imported from
-> schema (unused-import)
+> Looking more at it, the Rust->QObject and QObject->Rust parts *can* be
+> done with serde (following the model of serde_json's Value
+> (de)serializer) but the Rust<->C part has a problem.
 >
+> To recap, Rust->C is the serialization and corresponds to output
+> visitors. C->Rust is the deserialization and corresponds to input
+> visitors.
 >
-> Might be too early to bother with the type hints, but here goes anyway:
+> For serialization, serde has a push model where the generated code
+> looks like this:
 >
-> $ mypy scripts/qapi-gen.py
-> scripts/qapi/schema.py:70: error: Argument 1 to "rsgen_ifcond" has
-> incompatible type "str | dict[str, object] | None"; expected "str |
-> dict[str, Any]"  [arg-type]
-> scripts/qapi/rs.py:99: error: Incompatible types in assignment (expression
-> has type "str | None", variable has type "dict[str, str]")  [assignment]
-> scripts/qapi/rs.py:103: error: Unsupported left operand type for +
-> ("None")  [operator]
-> scripts/qapi/rs.py:103: note: Left operand is of type "str | None"
-> scripts/qapi/rs.py:103: error: Incompatible types in assignment
-> (expression has type "str | Any", variable has type "dict[str, str]")
-> [assignment]
-> scripts/qapi/rs.py:106: error: Incompatible types in assignment
-> (expression has type "str", variable has type "dict[str, str]")
-> [assignment]
-> scripts/qapi/rs.py:108: error: Incompatible types in assignment
-> (expression has type "str", variable has type "dict[str, str]")
-> [assignment]
-> scripts/qapi/rs.py:110: error: Incompatible types in assignment
-> (expression has type "str", variable has type "dict[str, str]")
-> [assignment]
-> scripts/qapi/rs.py:111: error: Incompatible return value type (got
-> "dict[str, str]", expected "str")  [return-value]
-> scripts/qapi/rs_types.py:47: error: Item "None" of "QAPISchemaVariants |
-> None" has no attribute "tag_member"  [union-attr]
-> scripts/qapi/rs_types.py:49: error: Item "None" of "QAPISchemaVariants |
-> None" has no attribute "variants"  [union-attr]
-> scripts/qapi/rs_types.py:84: error: Item "None" of "QAPISchemaVariants |
-> None" has no attribute "variants"  [union-attr]
-> scripts/qapi/rs_types.py:116: error: Incompatible default for argument
-> "exclude" (default has type "None", argument has type "list[str]")
-> [assignment]
-> scripts/qapi/rs_types.py:116: note: PEP 484 prohibits implicit Optional.
-> Accordingly, mypy has changed its default to no_implicit_optional=True
-> scripts/qapi/rs_types.py:116: note: Use
-> https://github.com/hauntsaninja/no_implicit_optional to automatically
-> upgrade your codebase
-> scripts/qapi/rs_types.py:118: error: Incompatible return value type (got
-> "list[str]", expected "str")  [return-value]
-> scripts/qapi/rs_types.py:251: error: Item "None" of "QAPISchemaVariants |
-> None" has no attribute "variants"  [union-attr]
-> scripts/qapi/rs_types.py:309: error: Argument 2 of "visit_alternate_type"
-> is incompatible with supertype "QAPISchemaVisitor"; supertype defines the
-> argument type as "QAPISourceInfo | None"  [override]
-> scripts/qapi/rs_types.py:309: note: This violates the Liskov substitution
-> principle
-> scripts/qapi/rs_types.py:309: note: See
-> https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides
-> Found 15 errors in 3 files (checked 1 source file)
+>       let mut state =3D
+>           Serializer::serialize_struct(serializer, "S", 2);
+>       SerializeStruct::serialize_field(&mut state, "a", &self.a)?;
+>       SerializeStruct::serialize_field(&mut state, "b", &self.b)?;
+>       SerializeStruct::end(state)
 >
+> whereas QAPI has a pull model where visit_type_* drives the process
+> and requests the fields one by one.
 >
+> For deserialization, serde has a pull model where the generated code
+> asks for the field names one by one:
+>
+>     fn visit_map<__A>(self, mut __map: __A)
+>         while let Some(key) =3D
+>             MapAccess::next_key::<__Field>(&mut __map)? {
+>                 match __key { ... }
+>         }
+>     }
+>
+> whereas QAPI has a push model where visit_type_* again drives the
+> process and sends fields one by one.
+>
+> For commands this is not a problem because the real underlying
+> transformation is QObject->QObject and the intermediate steps (to and
+> from QObject) can use serde.
 
---000000000000584b660637d467ed
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Are you talking about commands implemented in Rust?
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
-ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mar 17 giu 2025, 09:49 Markus=
- Armbruster &lt;<a href=3D"mailto:armbru@redhat.com">armbru@redhat.com</a>&=
-gt; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-pylint isn&#39;t happy with the new module:<br></blockquote></div></div><di=
-v dir=3D"auto"><br></div><div dir=3D"auto">Fixed, will post a new version.=
-=C2=A0</div><div dir=3D"auto"><br></div><div dir=3D"auto">Can I pick your b=
-rain on whether to focus on Rust&lt;-&gt;QObject conversion or give the Rus=
-t structs the full visitor treatment? (See other messages in reply to the c=
-over letter).</div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo</div=
-><div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"auto">=
-<div class=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gmail=
-_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
-,204);padding-left:1ex">
-************* Module qapi.rs_types<br>
-scripts/qapi/rs_types.py:286:4: W0237: Parameter &#39;branches&#39; has bee=
-n renamed to &#39;variants&#39; in overriding &#39;QAPISchemaGenRsTypeVisit=
-or.visit_object_type&#39; method (arguments-renamed)<br>
-scripts/qapi/rs_types.py:307:4: W0237: Parameter &#39;alternatives&#39; has=
- been renamed to &#39;variants&#39; in overriding &#39;QAPISchemaGenRsTypeV=
-isitor.visit_alternate_type&#39; method (arguments-renamed)<br>
-scripts/qapi/rs_types.py:316:67: W0613: Unused argument &#39;builtins&#39; =
-(unused-argument)<br>
-scripts/qapi/rs_types.py:9:0: W0611: Unused POINTER_SUFFIX imported from co=
-mmon (unused-import)<br>
-scripts/qapi/rs_types.py:10:0: W0611: Unused rs_ctype_parse imported from r=
-s (unused-import)<br>
-scripts/qapi/rs_types.py:18:0: W0611: Unused QAPISchemaEnumType imported fr=
-om schema (unused-import)<br>
-scripts/qapi/rs_types.py:18:0: W0611: Unused QAPISchemaType imported from s=
-chema (unused-import)<br>
-<br>
-<br>
-Might be too early to bother with the type hints, but here goes anyway:<br>
-<br>
-$ mypy scripts/qapi-gen.py <br>
-scripts/qapi/schema.py:70: error: Argument 1 to &quot;rsgen_ifcond&quot; ha=
-s incompatible type &quot;str | dict[str, object] | None&quot;; expected &q=
-uot;str | dict[str, Any]&quot;=C2=A0 [arg-type]<br>
-scripts/qapi/rs.py:99: error: Incompatible types in assignment (expression =
-has type &quot;str | None&quot;, variable has type &quot;dict[str, str]&quo=
-t;)=C2=A0 [assignment]<br>
-scripts/qapi/rs.py:103: error: Unsupported left operand type for + (&quot;N=
-one&quot;)=C2=A0 [operator]<br>
-scripts/qapi/rs.py:103: note: Left operand is of type &quot;str | None&quot=
-;<br>
-scripts/qapi/rs.py:103: error: Incompatible types in assignment (expression=
- has type &quot;str | Any&quot;, variable has type &quot;dict[str, str]&quo=
-t;)=C2=A0 [assignment]<br>
-scripts/qapi/rs.py:106: error: Incompatible types in assignment (expression=
- has type &quot;str&quot;, variable has type &quot;dict[str, str]&quot;)=C2=
-=A0 [assignment]<br>
-scripts/qapi/rs.py:108: error: Incompatible types in assignment (expression=
- has type &quot;str&quot;, variable has type &quot;dict[str, str]&quot;)=C2=
-=A0 [assignment]<br>
-scripts/qapi/rs.py:110: error: Incompatible types in assignment (expression=
- has type &quot;str&quot;, variable has type &quot;dict[str, str]&quot;)=C2=
-=A0 [assignment]<br>
-scripts/qapi/rs.py:111: error: Incompatible return value type (got &quot;di=
-ct[str, str]&quot;, expected &quot;str&quot;)=C2=A0 [return-value]<br>
-scripts/qapi/rs_types.py:47: error: Item &quot;None&quot; of &quot;QAPISche=
-maVariants | None&quot; has no attribute &quot;tag_member&quot;=C2=A0 [unio=
-n-attr]<br>
-scripts/qapi/rs_types.py:49: error: Item &quot;None&quot; of &quot;QAPISche=
-maVariants | None&quot; has no attribute &quot;variants&quot;=C2=A0 [union-=
-attr]<br>
-scripts/qapi/rs_types.py:84: error: Item &quot;None&quot; of &quot;QAPISche=
-maVariants | None&quot; has no attribute &quot;variants&quot;=C2=A0 [union-=
-attr]<br>
-scripts/qapi/rs_types.py:116: error: Incompatible default for argument &quo=
-t;exclude&quot; (default has type &quot;None&quot;, argument has type &quot=
-;list[str]&quot;)=C2=A0 [assignment]<br>
-scripts/qapi/rs_types.py:116: note: PEP 484 prohibits implicit Optional. Ac=
-cordingly, mypy has changed its default to no_implicit_optional=3DTrue<br>
-scripts/qapi/rs_types.py:116: note: Use <a href=3D"https://github.com/haunt=
-saninja/no_implicit_optional" rel=3D"noreferrer noreferrer" target=3D"_blan=
-k">https://github.com/hauntsaninja/no_implicit_optional</a> to automaticall=
-y upgrade your codebase<br>
-scripts/qapi/rs_types.py:118: error: Incompatible return value type (got &q=
-uot;list[str]&quot;, expected &quot;str&quot;)=C2=A0 [return-value]<br>
-scripts/qapi/rs_types.py:251: error: Item &quot;None&quot; of &quot;QAPISch=
-emaVariants | None&quot; has no attribute &quot;variants&quot;=C2=A0 [union=
--attr]<br>
-scripts/qapi/rs_types.py:309: error: Argument 2 of &quot;visit_alternate_ty=
-pe&quot; is incompatible with supertype &quot;QAPISchemaVisitor&quot;; supe=
-rtype defines the argument type as &quot;QAPISourceInfo | None&quot;=C2=A0 =
-[override]<br>
-scripts/qapi/rs_types.py:309: note: This violates the Liskov substitution p=
-rinciple<br>
-scripts/qapi/rs_types.py:309: note: See <a href=3D"https://mypy.readthedocs=
-.io/en/stable/common_issues.html#incompatible-overrides" rel=3D"noreferrer =
-noreferrer" target=3D"_blank">https://mypy.readthedocs.io/en/stable/common_=
-issues.html#incompatible-overrides</a><br>
-Found 15 errors in 3 files (checked 1 source file)<br>
-<br>
-</blockquote></div></div></div>
+The existing data flow is roughly like this (I'm simplifying):
 
---000000000000584b660637d467ed--
+1. Parse JSON text into request QObject, pass to QMP core
+
+2. Extract command name string and argument QDict
+
+3. Look up generated command marshaller / unmarshaller, pass argument
+   QDict to it
+
+4. Unmarshall argument QDict with the QObject input visitor and
+   generated visit_type_ARG()
+
+5. Pass the C arguments to the handwritten command handler, receive the
+   C return value
+
+6. Marshall the return value into a QObject with the QObject output
+   visitor and generated visit_type_RET(), return it to QMP core
+
+7. Insert it into a response QObject
+
+8. Unparse response QObject into JSON text
+
+How would a Serde flow look like?
+
+> However, QOM property getters/setters (especially, but not
+> exclusively, for properties with compound types) remain a problem
+> since these use callbacks with a Visitor* argument.
+
+object_property_set() takes the new property value wrapped in an input
+visitor.  The property setter extracts it using visit_type_FOOs() with
+this input visitor as it sees fit.  Ideally, it uses exactly
+visit_type_PROPTYPE().
+
+object_property_get() takes an output visitor to be wrapped it around
+the property value.  The property getter inserts it using
+visit_type_FOOs() with this output visitor as it sees fit.  Ideally, it
+uses exactly visit_type_PROPTYPE().
+
+We sometimes use a QObject input / output visitor, and sometimes a
+string input / output visitor.  The latter come with restrictions, and
+are evolutionary dead ends.
+
+The QObject visitors wrap a QObject, the string visitors wrap a string
+(d'oh).
+
+>                                                     I see three
+> possibilities:
+>
+> 1) everything is done through an intermediate QObject step (e.g. for a
+> setter: Visitor->QObject with an input visitor, and QObject->Rust with
+> serde deserialization).
+>     + easy, Rust only sees serde
+>     + QMP commands use a single conversion step
+>     - inefficient
+>
+> 2) everything is done through an intermediate C step (e.g. for a
+> setter: Visitor->C with a visit_type_* function, and C->Rust with
+> generated code that does not need to use serde). There is still a
+> double conversion step, but it's more efficient than option 1
+>     + one framework (visitor)
+>     - double conversion for the QMP commands
+>     - lots of generated code
+>
+> 3) generating a Rust visit_type_* implementation as well, either in
+> qapi-gen (3a) or through a procedural macro (3b). This should not be
+> hard to write but it would remove a lot of the advantages from using
+> serde.
+>     + efficient
+>     + preserves single conversion for QMP commands
+>     - two frameworks
+
+I'm afraid this is too terse for ignorant me.
+
+> I am leaning towards option 1, i.e. keep using serde but only cover
+> conversions to and from QObject. The reason is that one future usecase
+> for Rust in QEMU is the UEFI variable store; that one also has some
+> Rust<->JSON conversions and could be served by either QObject or
+> serde_json. Either way, it'd be nice for the UEFI variable store to
+> remain within the Rust serde ecosystem and allow sharing code between
+> QEMU and Coconut SVSM. But I'm not so sure...
+>
+> Paolo
 
 
