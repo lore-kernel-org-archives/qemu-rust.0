@@ -1,71 +1,93 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uRtjI-0005Jj-Mn
-	for mharc-qemu-rust@gnu.org; Wed, 18 Jun 2025 10:25:32 -0400
+	id 1uRwhy-0003Ie-Mu
+	for mharc-qemu-rust@gnu.org; Wed, 18 Jun 2025 13:36:22 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uRtjF-0005Im-Ly
- for qemu-rust@nongnu.org; Wed, 18 Jun 2025 10:25:29 -0400
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uRwhw-0003Hz-Fw
+ for qemu-rust@nongnu.org; Wed, 18 Jun 2025 13:36:20 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uRtjA-0003Go-Sg
- for qemu-rust@nongnu.org; Wed, 18 Jun 2025 10:25:29 -0400
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uRwhs-0004Tm-Qq
+ for qemu-rust@nongnu.org; Wed, 18 Jun 2025 13:36:20 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1750256722;
+ s=mimecast20190719; t=1750268174;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=2Uu3Hv3gRjvZsH8KV0tCkElui3DCDdwBo7EjBdAtZMA=;
- b=C9AVlN3dwwLDXWJItVanWrJvD9OKSl8Oc26PMD0FncB2adSdHElNfXQNvY5WmxXXfvifUb
- Dpc8Ldh5gfpxEGX07fmw8XTsjzz4Or5wlotpI5PmfrJPTuwwevDQHeFE2Dg6gTNAB8pHu8
- i08TFDZ6YT45i6v5L922QNPfGB+6p3U=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-175-pFe7oIyANYaLO8-uup1HEw-1; Wed,
- 18 Jun 2025 10:25:19 -0400
-X-MC-Unique: pFe7oIyANYaLO8-uup1HEw-1
-X-Mimecast-MFC-AGG-ID: pFe7oIyANYaLO8-uup1HEw_1750256718
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 14FFD180028A; Wed, 18 Jun 2025 14:25:18 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.45.242.11])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 457F619560A3; Wed, 18 Jun 2025 14:25:17 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id CC87C21E6A27; Wed, 18 Jun 2025 16:25:14 +0200 (CEST)
-From: Markus Armbruster <armbru@redhat.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Zhao Liu <zhao1.liu@intel.com>,  qemu-devel@nongnu.org,
- marcandre.lureau@redhat.com,  qemu-rust@nongnu.org,  mkletzan@redhat.com
-Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from 2021
-In-Reply-To: <CABgObfa+w3pcYhFnO6ETxSfoNiNU=+_8WcW6dE8dkUrbt6darw@mail.gmail.com>
- (Paolo Bonzini's message of "Thu, 12 Jun 2025 12:24:44 +0200")
+ bh=wWUGyBXKompQ/HwYyPMue2Kas0U5DfPSg3fkCWCqxmQ=;
+ b=EuLV3gZ9hG/8m3E1A90dZiNKMU2q3K72LDk2qsnytXQ5iQtdE1Cwj5gu+82tVBWOSRysDe
+ xNJpHRPu1UjtXW/VxRwQ0VonuHONbJy/+rRyxLDqqS5Lo4/gnfKNPBtg+ly7yQxYcHo3ib
+ EDNbcwDnxYMizhCfJj35dGZ4eBhvNDM=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-347-G3tPOd-qOhK_H8ImVRllvA-1; Wed, 18 Jun 2025 13:36:13 -0400
+X-MC-Unique: G3tPOd-qOhK_H8ImVRllvA-1
+X-Mimecast-MFC-AGG-ID: G3tPOd-qOhK_H8ImVRllvA_1750268172
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-3a58939191eso942424f8f.0
+ for <qemu-rust@nongnu.org>; Wed, 18 Jun 2025 10:36:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750268172; x=1750872972;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=wWUGyBXKompQ/HwYyPMue2Kas0U5DfPSg3fkCWCqxmQ=;
+ b=ozKur40L9hHcTSlXgORKGceqDhButsQPkAgr/W1dyVMMfuf0d4sXwHvGocvWMyNsim
+ eqkCJZ5PEu5m1G9wbMF/hw8e5203AOED+jzSXXjpsmpC7FGNSPZe8KncNQOmynA9gyxd
+ glpuJITtplGM5hsfHGboB4H3jzE2HadOgQ9kZf8/sypa87suyJvnX+L/k/OGJncces+B
+ n/cdCRGYQRecwPxx1bHkjC48pHXQCRDTB75zyJ2WzI2SZ7qKr4s3OxjgNC01H9VwurwT
+ jI3ws9yOKdusoJyLJV2zcgakAh27G65/jd2Eg5gdMHBXwPpXNMw5TZI2VzLwVXVNx86O
+ aqNA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVuDstoKb0uC5iPgFpSD/rBWZI/5gs3MPXUgphFtnRO1+pQN6epFUtPDDrSkz8SY5Bqih/7XVKOp24=@nongnu.org
+X-Gm-Message-State: AOJu0YykAHc/5sj08Kh5rWOQ7kMvgZ4uiRfBMSjKza6YB8Pw5NShQl4u
+ z8QbJZt/xUXy6oujsuQvZPMqvJwoucBhL8uB5xk9wqnsg+jpIHhW2C9B2nwd3Gx8GUjzrob8Hjp
+ Vdt9swnso6bSuP8d5uTcTUVACCBDOyjmdWsIZc1LU/GZw/NlTa0aYBntsEHujneYCIYdm8Qd9Mz
+ Z+UHLqxEdYHHfvLWWgYu2jjW5+EAznsQ==
+X-Gm-Gg: ASbGncuVaKGnSLl7erudVdtemTOEA/H4fhoT4HARKexxvNTiX9o68T18dC03BGtQlHn
+ iMtut0GEiAkcvnK7VManih/v8qdv0B5Ez3v6lAvKV6oSpTsRctcuOZufaOmD0DuVjp4aBsW0OFr
+ N1c3s=
+X-Received: by 2002:a05:6000:2486:b0:3a4:ef30:a4c8 with SMTP id
+ ffacd0b85a97d-3a572399103mr16955486f8f.10.1750268172001; 
+ Wed, 18 Jun 2025 10:36:12 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE+A1tQWbHLL0pXpwgJaduA/7Ydj40rzuzGUJi+sLiRcaAXGk630Mvo4Fvajgp83Y/fnSDknZgRGnc4nOHau/s=
+X-Received: by 2002:a05:6000:2486:b0:3a4:ef30:a4c8 with SMTP id
+ ffacd0b85a97d-3a572399103mr16955470f8f.10.1750268171592; Wed, 18 Jun 2025
+ 10:36:11 -0700 (PDT)
+MIME-Version: 1.0
 References: <20250605101124.367270-1-pbonzini@redhat.com>
  <aEk6vdosWZgyQGXD@intel.com>
  <CABgObfaK8h3GE4GWbPrn22JshYcCFdXsxWHWuAPVC4pRb7GZ0A@mail.gmail.com>
  <CABgObfa+w3pcYhFnO6ETxSfoNiNU=+_8WcW6dE8dkUrbt6darw@mail.gmail.com>
-Date: Wed, 18 Jun 2025 16:25:14 +0200
-Message-ID: <877c19nn3p.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
+ <877c19nn3p.fsf@pond.sub.org>
+In-Reply-To: <877c19nn3p.fsf@pond.sub.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Wed, 18 Jun 2025 19:36:00 +0200
+X-Gm-Features: Ac12FXxoz7JmlW0nRWAm6o60zGqGCNGxpbrbAultRxPXx1hLPhjBStJd8ceemvk
+Message-ID: <CABgObfY7==Q8z9xPS6oO-qv9U4LJ19Y+mCYENqSYnGFwkhoBYw@mail.gmail.com>
+Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from 2021
+To: Markus Armbruster <armbru@redhat.com>
+Cc: Zhao Liu <zhao1.liu@intel.com>, qemu-devel <qemu-devel@nongnu.org>, 
+ =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>, 
+ qemu-rust@nongnu.org, Martin Kletzander <mkletzan@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: XGsrkfKYlcUX0j1MAOziP4tmXpzCT45sgC4qvXh8IU0_1750268172
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/alternative; boundary="000000000000a139850637dc1090"
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -39
 X-Spam_score: -4.0
 X-Spam_bar: ----
 X-Spam_report: (-4.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.895,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -78,140 +100,299 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Jun 2025 14:25:30 -0000
+X-List-Received-Date: Wed, 18 Jun 2025 17:36:21 -0000
 
-I don't know enough about Rust/serde to give advice.  I do know how to
-make a fool of myself by asking dumb questions.
+--000000000000a139850637dc1090
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Paolo Bonzini <pbonzini@redhat.com> writes:
+Il mer 18 giu 2025, 16:25 Markus Armbruster <armbru@redhat.com> ha scritto:
 
-> On Wed, Jun 11, 2025 at 10:57=E2=80=AFAM Paolo Bonzini <pbonzini@redhat.c=
-om> wrote:
->> Yes. If using serde the implementation of the traits is very small,
->> and basically the same for all types. If not using serde, it would
->> need some (or most) of the infrastructure in Marc-Andr=C3=A9's original
->> series.
+> I don't know enough about Rust/serde to give advice.  I do know how to
+> make a fool of myself by asking dumb questions.
 >
-> Looking more at it, the Rust->QObject and QObject->Rust parts *can* be
-> done with serde (following the model of serde_json's Value
-> (de)serializer) but the Rust<->C part has a problem.
->
-> To recap, Rust->C is the serialization and corresponds to output
-> visitors. C->Rust is the deserialization and corresponds to input
-> visitors.
->
-> For serialization, serde has a push model where the generated code
-> looks like this:
->
->       let mut state =3D
->           Serializer::serialize_struct(serializer, "S", 2);
->       SerializeStruct::serialize_field(&mut state, "a", &self.a)?;
->       SerializeStruct::serialize_field(&mut state, "b", &self.b)?;
->       SerializeStruct::end(state)
->
-> whereas QAPI has a pull model where visit_type_* drives the process
-> and requests the fields one by one.
->
-> For deserialization, serde has a pull model where the generated code
-> asks for the field names one by one:
->
->     fn visit_map<__A>(self, mut __map: __A)
->         while let Some(key) =3D
->             MapAccess::next_key::<__Field>(&mut __map)? {
->                 match __key { ... }
->         }
->     }
->
-> whereas QAPI has a push model where visit_type_* again drives the
-> process and sends fields one by one.
->
+
+No dumb questions, only dumb answers.
+
 > For commands this is not a problem because the real underlying
-> transformation is QObject->QObject and the intermediate steps (to and
-> from QObject) can use serde.
+> > transformation is QObject->QObject and the intermediate steps (to and
+> > from QObject) can use serde.
+>
+> Are you talking about commands implemented in Rust?
+>
 
-Are you talking about commands implemented in Rust?
+Yes. I will intersperse your text with the corresponding Rust/serde
+implementation.
 
 The existing data flow is roughly like this (I'm simplifying):
+>
+> 1. Parse JSON text into request QObject, pass to QMP core
+> 2. Extract command name string and argument QDict
+> 3. Look up generated command marshaller / unmarshaller, pass argument
+>    QDict to it
+>
 
-1. Parse JSON text into request QObject, pass to QMP core
-
-2. Extract command name string and argument QDict
-
-3. Look up generated command marshaller / unmarshaller, pass argument
-   QDict to it
+Same so far since this is C code.
 
 4. Unmarshall argument QDict with the QObject input visitor and
-   generated visit_type_ARG()
+>    generated visit_type_ARG()
+>
+
+Unmarshall with QObject Deserializer, which talks to a serde-generated
+Deserialize implementation.
 
 5. Pass the C arguments to the handwritten command handler, receive the
-   C return value
+>    C return value
+>
+
+Same.
 
 6. Marshall the return value into a QObject with the QObject output
-   visitor and generated visit_type_RET(), return it to QMP core
+>    visitor and generated visit_type_RET(), return it to QMP core
+>
+
+Marshall with the QObject Serializer, which talks to a serde-generated
+Serialize implementation.
 
 7. Insert it into a response QObject
+> 8. Unparse response QObject into JSON text
+>
 
-8. Unparse response QObject into JSON text
+Same.
 
 How would a Serde flow look like?
+>
+
+As described above, visitors are bypassed and the marshalling/unmarshalling
+works directly at the QObject level.
+
+Implementation-wise the main difference is that 1) the type code
+(Serialize/Deserialize) is not the same for serialization and
+desetialization, unlike visit_type_*() 2) the code generation is done by
+serde instead of qapi-gen and we'd be mostly oblivious to how it works.
+
+The Serializer and Deserializer should be about 1500 lines of Rust + tests,
+and they would do the functionality of the QObject input and output
+visitors.
 
 > However, QOM property getters/setters (especially, but not
-> exclusively, for properties with compound types) remain a problem
-> since these use callbacks with a Visitor* argument.
-
-object_property_set() takes the new property value wrapped in an input
-visitor.  The property setter extracts it using visit_type_FOOs() with
-this input visitor as it sees fit.  Ideally, it uses exactly
-visit_type_PROPTYPE().
-
-object_property_get() takes an output visitor to be wrapped it around
-the property value.  The property getter inserts it using
-visit_type_FOOs() with this output visitor as it sees fit.  Ideally, it
-uses exactly visit_type_PROPTYPE().
-
-We sometimes use a QObject input / output visitor, and sometimes a
-string input / output visitor.  The latter come with restrictions, and
-are evolutionary dead ends.
-
-The QObject visitors wrap a QObject, the string visitors wrap a string
-(d'oh).
-
->                                                     I see three
-> possibilities:
+> > exclusively, for properties with compound types) remain a problem
+> > since these use callbacks with a Visitor* argument.
 >
-> 1) everything is done through an intermediate QObject step (e.g. for a
-> setter: Visitor->QObject with an input visitor, and QObject->Rust with
-> serde deserialization).
->     + easy, Rust only sees serde
->     + QMP commands use a single conversion step
->     - inefficient
+> object_property_set() takes the new property value wrapped in an input
+> visitor.  The property setter extracts it using visit_type_FOOs() with
+> this input visitor as it sees fit.  Ideally, it uses exactly
+> visit_type_PROPTYPE().
 >
-> 2) everything is done through an intermediate C step (e.g. for a
-> setter: Visitor->C with a visit_type_* function, and C->Rust with
-> generated code that does not need to use serde). There is still a
-> double conversion step, but it's more efficient than option 1
->     + one framework (visitor)
->     - double conversion for the QMP commands
->     - lots of generated code
+> object_property_get() takes an output visitor to be wrapped it around
+> the property value.  The property getter inserts it using
+> visit_type_FOOs() with this output visitor as it sees fit.  Ideally, it
+> uses exactly visit_type_PROPTYPE().
 >
-> 3) generating a Rust visit_type_* implementation as well, either in
-> qapi-gen (3a) or through a procedural macro (3b). This should not be
-> hard to write but it would remove a lot of the advantages from using
-> serde.
->     + efficient
->     + preserves single conversion for QMP commands
->     - two frameworks
+> We sometimes use a QObject input / output visitor, and sometimes a
+> string input / output visitor.  The latter come with restrictions, and
+> are evolutionary dead ends.
+>
+> The QObject visitors wrap a QObject, the string visitors wrap a string
+> (d'oh).
+>
+
+Yep. The string visitor is why we cannot just change getters and setters to
+use QObject.
+
+In this case, without writing a visit_type_*() implementation that can
+write to a Rust struct, an intermediate QObject would be the only way to
+turn a Visitor into a Rust data type. So I can imagine three ways to
+operate:
+
+* Keep using serde like for commands: in the callback that is invoked by
+object_property_set() do Visitor->QObject->setter (yes that means double
+conversion when the source visitor is and QObject visitor) or for the
+getter case, getter->QObject->Visitor. This has the minimum amount of code
+added to qapi-gen.
+
+* Generate a visit_type_*() implementation that emits a Rust struct (i.e.
+one that maps for example 'str' to a String and not a *mut c_char) and
+forgo serde completely. Use this generated implementation everywhere: QOM
+getters and setters, as well as QMP commands. This is how C code works.
+
+* Generate rust->C (e.g. String->*mut c_char) and C->rust converters from
+qapi-gen; use the existing C visit_type_*() to extract data from visitors
+and then apply said converters to turn the data into a Rust struct, and
+likewise in the other direction. This was the way Marc-Andr=C3=A9's prototy=
+pe
+worked.
 
 I'm afraid this is too terse for ignorant me.
-
-> I am leaning towards option 1, i.e. keep using serde but only cover
-> conversions to and from QObject. The reason is that one future usecase
-> for Rust in QEMU is the UEFI variable store; that one also has some
-> Rust<->JSON conversions and could be served by either QObject or
-> serde_json. Either way, it'd be nice for the UEFI variable store to
-> remain within the Rust serde ecosystem and allow sharing code between
-> QEMU and Coconut SVSM. But I'm not so sure...
 >
-> Paolo
+
+I tried to translate that. :)
+
+Paolo
+
+
+> > I am leaning towards option 1, i.e. keep using serde but only cover
+> > conversions to and from QObject. The reason is that one future usecase
+> > for Rust in QEMU is the UEFI variable store; that one also has some
+> > Rust<->JSON conversions and could be served by either QObject or
+> > serde_json. Either way, it'd be nice for the UEFI variable store to
+> > remain within the Rust serde ecosystem and allow sharing code between
+> > QEMU and Coconut SVSM. But I'm not so sure...
+> >
+> > Paolo
+>
+>
+
+--000000000000a139850637dc1090
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
+ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mer 18 giu 2025, 16:25 Markus=
+ Armbruster &lt;<a href=3D"mailto:armbru@redhat.com">armbru@redhat.com</a>&=
+gt; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
+I don&#39;t know enough about Rust/serde to give advice.=C2=A0 I do know ho=
+w to<br>
+make a fool of myself by asking dumb questions.<br></blockquote></div></div=
+><div dir=3D"auto"><br></div><div dir=3D"auto">No dumb questions, only dumb=
+ answers.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"=
+gmail_quote gmail_quote_container"><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">
+&gt; For commands this is not a problem because the real underlying<br>
+&gt; transformation is QObject-&gt;QObject and the intermediate steps (to a=
+nd<br>
+&gt; from QObject) can use serde.<br>
+<br>
+Are you talking about commands implemented in Rust?<br></blockquote></div><=
+/div><div dir=3D"auto"><br></div><div dir=3D"auto">Yes. I will intersperse =
+your text with the corresponding Rust/serde implementation.</div><div dir=
+=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote gmail_quote=
+_container"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+The existing data flow is roughly like this (I&#39;m simplifying):<br>
+<br>
+1. Parse JSON text into request QObject, pass to QMP core<br>2. Extract com=
+mand name string and argument QDict<br>3. Look up generated command marshal=
+ler / unmarshaller, pass argument<br>
+=C2=A0 =C2=A0QDict to it<br></blockquote></div></div><div dir=3D"auto"><br>=
+</div><div dir=3D"auto">Same so far since this is C code.</div><div dir=3D"=
+auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_con=
+tainer"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+4. Unmarshall argument QDict with the QObject input visitor and<br>
+=C2=A0 =C2=A0generated visit_type_ARG()<br></blockquote></div></div><div di=
+r=3D"auto"><br></div><div dir=3D"auto">Unmarshall with QObject Deserializer=
+, which talks to a serde-generated Deserialize implementation.</div><div di=
+r=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote gmail_quot=
+e_container"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">5. Pass the =
+C arguments to the handwritten command handler, receive the<br>
+=C2=A0 =C2=A0C return value<br></blockquote></div></div><div dir=3D"auto"><=
+br></div><div dir=3D"auto">Same.</div><div dir=3D"auto"><br></div><div dir=
+=3D"auto"><div class=3D"gmail_quote gmail_quote_container"><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
+gb(204,204,204);padding-left:1ex">
+6. Marshall the return value into a QObject with the QObject output<br>
+=C2=A0 =C2=A0visitor and generated visit_type_RET(), return it to QMP core<=
+br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">M=
+arshall with the QObject Serializer, which talks to a serde-generated Seria=
+lize implementation.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><di=
+v class=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
+4);padding-left:1ex">
+7. Insert it into a response QObject<br>8. Unparse response QObject into JS=
+ON text<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D=
+"auto">Same.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=
+=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gmail_quote" st=
+yle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padd=
+ing-left:1ex">
+How would a Serde flow look like?<br></blockquote></div></div><div dir=3D"a=
+uto"><br></div><div dir=3D"auto">As described above, visitors are bypassed =
+and the marshalling/unmarshalling works directly at the QObject level.</div=
+><div dir=3D"auto"><br></div><div dir=3D"auto">Implementation-wise the main=
+ difference is that 1) the type code (Serialize/Deserialize) is not the sam=
+e for serialization and desetialization, unlike visit_type_*() 2) the code =
+generation is done by serde instead of qapi-gen and we&#39;d be mostly obli=
+vious to how it works.</div><div dir=3D"auto"><br></div><div dir=3D"auto">T=
+he Serializer and Deserializer should be about 1500 lines of Rust + tests, =
+and they would do the functionality of the QObject input and output visitor=
+s.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_q=
+uote gmail_quote_container"><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
+x">
+&gt; However, QOM property getters/setters (especially, but not<br>
+&gt; exclusively, for properties with compound types) remain a problem<br>
+&gt; since these use callbacks with a Visitor* argument.<br>
+<br>
+object_property_set() takes the new property value wrapped in an input<br>
+visitor.=C2=A0 The property setter extracts it using visit_type_FOOs() with=
+<br>
+this input visitor as it sees fit.=C2=A0 Ideally, it uses exactly<br>
+visit_type_PROPTYPE().<br>
+<br>
+object_property_get() takes an output visitor to be wrapped it around<br>
+the property value.=C2=A0 The property getter inserts it using<br>
+visit_type_FOOs() with this output visitor as it sees fit.=C2=A0 Ideally, i=
+t<br>
+uses exactly visit_type_PROPTYPE().<br>
+<br>
+We sometimes use a QObject input / output visitor, and sometimes a<br>
+string input / output visitor.=C2=A0 The latter come with restrictions, and=
+<br>
+are evolutionary dead ends.<br>
+<br>
+The QObject visitors wrap a QObject, the string visitors wrap a string<br>
+(d&#39;oh).<br></blockquote></div></div><div dir=3D"auto"><br></div><div di=
+r=3D"auto">Yep. The string visitor is why we cannot just change getters and=
+ setters to use QObject.</div><div dir=3D"auto"><br></div><div dir=3D"auto"=
+>In this case, without writing a visit_type_*() implementation that can wri=
+te to a Rust struct, an intermediate QObject would be the only way to turn =
+a Visitor into a Rust data type. So I can imagine three ways to operate:</d=
+iv><div dir=3D"auto"><br></div><div dir=3D"auto">* Keep using serde like fo=
+r commands: in the callback that is invoked by object_property_set() do Vis=
+itor-&gt;QObject-&gt;setter (yes that means double conversion when the sour=
+ce visitor is and QObject visitor) or for the getter case, getter-&gt;QObje=
+ct-&gt;Visitor. This has the minimum amount of code added to qapi-gen.</div=
+><div dir=3D"auto"><br></div><div dir=3D"auto">* Generate a visit_type_*() =
+implementation that emits a Rust struct (i.e. one that maps for example &#3=
+9;str&#39; to a String and not a *mut c_char) and forgo serde completely. U=
+se this generated implementation everywhere: QOM getters and setters, as we=
+ll as QMP commands. This is how C code works.</div><div dir=3D"auto"><br></=
+div><div dir=3D"auto">* Generate rust-&gt;C (e.g. String-&gt;*mut c_char) a=
+nd C-&gt;rust converters from qapi-gen; use the existing C visit_type_*() t=
+o extract data from visitors and then apply said converters to turn the dat=
+a into a Rust struct, and likewise in the other direction. This was the way=
+ Marc-Andr=C3=A9&#39;s prototype worked.</div><div dir=3D"auto"><br></div><=
+div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_container"><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px =
+solid rgb(204,204,204);padding-left:1ex">I&#39;m afraid this is too terse f=
+or ignorant me.<br></blockquote></div></div><div dir=3D"auto"><br></div><di=
+v dir=3D"auto">I tried to translate that. :)</div><div dir=3D"auto"><br></d=
+iv><div dir=3D"auto">Paolo</div><div dir=3D"auto"><br></div><div dir=3D"aut=
+o"><div class=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
+204,204);padding-left:1ex">
+<br>
+&gt; I am leaning towards option 1, i.e. keep using serde but only cover<br=
+>
+&gt; conversions to and from QObject. The reason is that one future usecase=
+<br>
+&gt; for Rust in QEMU is the UEFI variable store; that one also has some<br=
+>
+&gt; Rust&lt;-&gt;JSON conversions and could be served by either QObject or=
+<br>
+&gt; serde_json. Either way, it&#39;d be nice for the UEFI variable store t=
+o<br>
+&gt; remain within the Rust serde ecosystem and allow sharing code between<=
+br>
+&gt; QEMU and Coconut SVSM. But I&#39;m not so sure...<br>
+&gt;<br>
+&gt; Paolo<br>
+<br>
+</blockquote></div></div></div>
+
+--000000000000a139850637dc1090--
 
 
