@@ -1,54 +1,53 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uSYKJ-0003jN-Fg
-	for mharc-qemu-rust@gnu.org; Fri, 20 Jun 2025 05:46:27 -0400
+	id 1uSd35-0004hK-Ug
+	for mharc-qemu-rust@gnu.org; Fri, 20 Jun 2025 10:49:02 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uSYKI-0003j8-0z; Fri, 20 Jun 2025 05:46:26 -0400
-Received: from mgamail.intel.com ([192.198.163.14])
+ id 1uSd33-0004gs-Jp; Fri, 20 Jun 2025 10:48:57 -0400
+Received: from mgamail.intel.com ([198.175.65.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uSYKC-0001HX-MU; Fri, 20 Jun 2025 05:46:25 -0400
+ id 1uSd31-0002e9-Mb; Fri, 20 Jun 2025 10:48:57 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1750412780; x=1781948780;
+ t=1750430935; x=1781966935;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=OtF5QLWiSi3HkyWcQstKPhjFG38NQRVgAtZdeqisCsI=;
- b=iodHW6M29GEV1SChNVaXNgaWUpa7mCPBnXKr0mlK25qkSkR5zKltoGvy
- 7Yf8psR34GXMqbiPM+qWJpSgijwiRP2TlG4zGzk5Twj0iKt+mWxP4GlCz
- YIgfKeq2evCyIpP2J3bOyw24tbDtcLpSAP+WarqC3nzcMh5vniECM8o70
- hm0M9NCMmoIP2UXD8zImjYLNKqSIYVinUbOEFkriIx5GMXa2+9m0RdfeC
- F+NWi5acqTD58ilnlLvL5bZ/GTcLdGwabrdnjCF86fVGv768FkfjjZtKa
- 7MzVOO6xJO/nk4OlziI7OpKW/PGQ/OlHoQ4qXCSEa0QNqi4ey/waFeTgr A==;
-X-CSE-ConnectionGUID: cPb5UFbPTzas+Xc4pKyPGw==
-X-CSE-MsgGUID: ewhp2ETjRoq7+Vi6KXRAVg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11469"; a="52752258"
-X-IronPort-AV: E=Sophos;i="6.16,251,1744095600"; d="scan'208";a="52752258"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2025 02:46:17 -0700
-X-CSE-ConnectionGUID: BlmFe89BRrCLC7SQ/cqZlA==
-X-CSE-MsgGUID: ZX2/Q7i1RiaVyW2AbLDQHQ==
+ bh=hzBRiRIv93nZl1GGEvVbRxQPgPeMNr/86iMn9Ox/NZA=;
+ b=SZq9b4UoLbMVY8iZuyXdBFPV/mQ2J7EooZHtx+QXQWHLvqbwpRNm3qdB
+ 5Xoszr/UbtIa3PNDWW/ukYbIR0XgpvhA1WIeRC2UTduWhJ7znbNEqgy8n
+ dzvbPRWH03x5m9JRZxRPnhN80RDus21v950u+rqTm70cGs69O5BnALAyZ
+ NNgXZhYHOImSRhYgeKMwkq3yKEWQJDzib15g1pQRDT7JWB/rCmnwnSZkf
+ k70k3udiCrpF3/U/58g0B3EqjqYtruk+5PM4oY8EVu9ifuDPBAldcJirF
+ Ol/6lbXTcqkfZSMHwD8BDytT9w7oTyUYD+bZmQh0ZidVQ3qIXffyCSoF5 g==;
+X-CSE-ConnectionGUID: wuFhOcmkTOuYneYHKrlouA==
+X-CSE-MsgGUID: hS9qw/irQbi/GArU+6Q/6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11469"; a="52786729"
+X-IronPort-AV: E=Sophos;i="6.16,251,1744095600"; d="scan'208";a="52786729"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jun 2025 07:48:53 -0700
+X-CSE-ConnectionGUID: sSUorJBPQMuz4WfQtYMeRA==
+X-CSE-MsgGUID: aqGW1bfMT+Kuo9ZjA4jymQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,251,1744095600"; d="scan'208";a="155160688"
+X-IronPort-AV: E=Sophos;i="6.16,251,1744095600"; d="scan'208";a="150422369"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa005.fm.intel.com with ESMTP; 20 Jun 2025 02:46:16 -0700
-Date: Fri, 20 Jun 2025 18:07:36 +0800
+ by orviesa006.jf.intel.com with ESMTP; 20 Jun 2025 07:48:52 -0700
+Date: Fri, 20 Jun 2025 23:10:11 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, tanishdesai37@gmail.com
-Subject: Re: [PATCH 1/2] rust: prepare variable definitions for multiple
- bindgen invocations
-Message-ID: <aFUy6CBpwgPoyYwC@intel.com>
+Subject: Re: [PATCH 2/2] rust: move rust.bindgen to qemu-api crate
+Message-ID: <aFV507NQPwVISgBD@intel.com>
 References: <20250613130249.1225545-1-pbonzini@redhat.com>
- <20250613130249.1225545-2-pbonzini@redhat.com>
+ <20250613130249.1225545-3-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250613130249.1225545-2-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.14; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250613130249.1225545-3-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.16; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -62
 X-Spam_score: -6.3
@@ -70,29 +69,31 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Jun 2025 09:46:26 -0000
+X-List-Received-Date: Fri, 20 Jun 2025 14:48:58 -0000
 
-On Fri, Jun 13, 2025 at 03:02:48PM +0200, Paolo Bonzini wrote:
-> Date: Fri, 13 Jun 2025 15:02:48 +0200
+On Fri, Jun 13, 2025 at 03:02:49PM +0200, Paolo Bonzini wrote:
+> Date: Fri, 13 Jun 2025 15:02:49 +0200
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 1/2] rust: prepare variable definitions for multiple
->  bindgen invocations
+> Subject: [PATCH 2/2] rust: move rust.bindgen to qemu-api crate
 > X-Mailer: git-send-email 2.49.0
 > 
-> When splitting the QEMU Rust bindings into multiple crates, the
-> bindgen-generated structs also have to be split so that it's
-> possible to add "impl" blocks (e.g. for Sync/Send or Default,
-> or even for utility methods in cases such as VMStateFlags).
+> Once qemu-api is split in multiple crates, each of which will have
+> its own invocation of bindgen.  There cannot be only one, because
+> there are occasional "impl" blocks for the bindgen-generated
+> structs (e.g. VMStateFlags or QOM classes) that have to
+> reside in the same crate as the bindgen-generated code.
 > 
-> Tweak various variable definitions in meson.build, to avoid naming
-> conflicts once there will be multiple bindgen invocations.
+> For now, prepare for this new organization by invoking bindgen
+> within the qemu-api crate's build definitions.
 > 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  meson.build               | 21 ++++++++++++---------
->  rust/meson.build          |  2 +-
->  rust/qemu-api/meson.build |  2 +-
->  3 files changed, 14 insertions(+), 11 deletions(-)
+>  meson.build                   | 41 -----------------------------------
+>  rust/{ => qemu-api}/wrapper.h |  0
+>  rust/meson.build              |  4 +++-
+>  rust/qemu-api/meson.build     | 41 +++++++++++++++++++++++++++++++++++
+>  4 files changed, 44 insertions(+), 42 deletions(-)
+>  rename rust/{ => qemu-api}/wrapper.h (100%)
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
