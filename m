@@ -1,58 +1,55 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uSd35-0004hK-Ug
-	for mharc-qemu-rust@gnu.org; Fri, 20 Jun 2025 10:49:02 -0400
+	id 1uTbN6-0003Fe-E5
+	for mharc-qemu-rust@gnu.org; Mon, 23 Jun 2025 03:13:40 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uSd33-0004gs-Jp; Fri, 20 Jun 2025 10:48:57 -0400
-Received: from mgamail.intel.com ([198.175.65.16])
+ id 1uTbMz-0003CP-Qn; Mon, 23 Jun 2025 03:13:35 -0400
+Received: from mgamail.intel.com ([198.175.65.15])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uSd31-0002e9-Mb; Fri, 20 Jun 2025 10:48:57 -0400
+ id 1uTbMu-0006X4-Qh; Mon, 23 Jun 2025 03:13:33 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1750430935; x=1781966935;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=hzBRiRIv93nZl1GGEvVbRxQPgPeMNr/86iMn9Ox/NZA=;
- b=SZq9b4UoLbMVY8iZuyXdBFPV/mQ2J7EooZHtx+QXQWHLvqbwpRNm3qdB
- 5Xoszr/UbtIa3PNDWW/ukYbIR0XgpvhA1WIeRC2UTduWhJ7znbNEqgy8n
- dzvbPRWH03x5m9JRZxRPnhN80RDus21v950u+rqTm70cGs69O5BnALAyZ
- NNgXZhYHOImSRhYgeKMwkq3yKEWQJDzib15g1pQRDT7JWB/rCmnwnSZkf
- k70k3udiCrpF3/U/58g0B3EqjqYtruk+5PM4oY8EVu9ifuDPBAldcJirF
- Ol/6lbXTcqkfZSMHwD8BDytT9w7oTyUYD+bZmQh0ZidVQ3qIXffyCSoF5 g==;
-X-CSE-ConnectionGUID: wuFhOcmkTOuYneYHKrlouA==
-X-CSE-MsgGUID: hS9qw/irQbi/GArU+6Q/6g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11469"; a="52786729"
-X-IronPort-AV: E=Sophos;i="6.16,251,1744095600"; d="scan'208";a="52786729"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2025 07:48:53 -0700
-X-CSE-ConnectionGUID: sSUorJBPQMuz4WfQtYMeRA==
-X-CSE-MsgGUID: aqGW1bfMT+Kuo9ZjA4jymQ==
+ t=1750662809; x=1782198809;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=qOl7mHK6TK3aNhs6+gjydbgxV9RfzDGdv3wDQBk3UDE=;
+ b=NC+KQ8EMkCIFWwdLkNnzjyOfXvySZagea9qVdGpq9X46mwho3wohly5f
+ EZYqsBWQ+C/xdiQ9b36PmqMMVPaSjsqorr0sYmg2/if9gRT8M0idrqUri
+ KLQEta733/dX2vktgqfIzgenOmzrcXpT2SfwxMTYEp/1lQKn/Cv9O37++
+ 92V68BQeQ7We3D3+ji2yUQGrC+2nmkcIRATbCG3RJLwwAxL/EYEfhkjpM
+ 0UlSo2ir2jMgMQfyupZZpqtHkIviLqmHoEUw2GPCuN+047t4fa6eMslg6
+ BNrjnnZze6GX4PJPObOYfwToQV69UONG0t3Vj/ohqvBM0wGLcibss4ggv A==;
+X-CSE-ConnectionGUID: OmIrM+W2TTerNc28nIIrpg==
+X-CSE-MsgGUID: KX5II8ApR9mdSGFjF0A63g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11472"; a="56526768"
+X-IronPort-AV: E=Sophos;i="6.16,258,1744095600"; d="scan'208";a="56526768"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2025 00:13:24 -0700
+X-CSE-ConnectionGUID: PCMeYeJwRDSaVYiADSry+g==
+X-CSE-MsgGUID: 3Oue4hlDSCSybtk4n698SQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,251,1744095600"; d="scan'208";a="150422369"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa006.jf.intel.com with ESMTP; 20 Jun 2025 07:48:52 -0700
-Date: Fri, 20 Jun 2025 23:10:11 +0800
+X-IronPort-AV: E=Sophos;i="6.16,258,1744095600"; d="scan'208";a="155819621"
+Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
+ by fmviesa005.fm.intel.com with ESMTP; 23 Jun 2025 00:13:22 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, tanishdesai37@gmail.com
-Subject: Re: [PATCH 2/2] rust: move rust.bindgen to qemu-api crate
-Message-ID: <aFV507NQPwVISgBD@intel.com>
-References: <20250613130249.1225545-1-pbonzini@redhat.com>
- <20250613130249.1225545-3-pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
+ Dapeng Mi <dapeng1.mi@intel.com>, Zhao Liu <zhao1.liu@intel.com>
+Subject: [PATCH] rust/qemu-api: Fix binding path in source directory
+Date: Mon, 23 Jun 2025 15:34:36 +0800
+Message-Id: <20250623073436.1833357-1-zhao1.liu@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250613130249.1225545-3-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.16; envelope-from=zhao1.liu@intel.com;
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=198.175.65.15; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
-X-Spam_score_int: -62
-X-Spam_score: -6.3
-X-Spam_bar: ------
-X-Spam_report: (-6.3 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-1.897,
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
@@ -69,32 +66,46 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Jun 2025 14:48:58 -0000
+X-List-Received-Date: Mon, 23 Jun 2025 07:13:37 -0000
 
-On Fri, Jun 13, 2025 at 03:02:49PM +0200, Paolo Bonzini wrote:
-> Date: Fri, 13 Jun 2025 15:02:49 +0200
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 2/2] rust: move rust.bindgen to qemu-api crate
-> X-Mailer: git-send-email 2.49.0
-> 
-> Once qemu-api is split in multiple crates, each of which will have
-> its own invocation of bindgen.  There cannot be only one, because
-> there are occasional "impl" blocks for the bindgen-generated
-> structs (e.g. VMStateFlags or QOM classes) that have to
-> reside in the same crate as the bindgen-generated code.
-> 
-> For now, prepare for this new organization by invoking bindgen
-> within the qemu-api crate's build definitions.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  meson.build                   | 41 -----------------------------------
->  rust/{ => qemu-api}/wrapper.h |  0
->  rust/meson.build              |  4 +++-
->  rust/qemu-api/meson.build     | 41 +++++++++++++++++++++++++++++++++++
->  4 files changed, 44 insertions(+), 42 deletions(-)
->  rename rust/{ => qemu-api}/wrapper.h (100%)
+The build.rs had supported placing bindings.inc.rs in rust/qemu-api/src,
+but this "not encouraged" feature is broken.
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+Considering that manually copying bindings.inc.rs to the development
+directory is also useful, fix the bindings.inc.rs path generation to
+give this feature another chance.
+
+Fixes: commit 1ae4ca0463d7 ("rust: move rust.bindgen to qemu-api crate")
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+---
+ rust/qemu-api/build.rs | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/rust/qemu-api/build.rs b/rust/qemu-api/build.rs
+index 7849486c1baf..29d09456257c 100644
+--- a/rust/qemu-api/build.rs
++++ b/rust/qemu-api/build.rs
+@@ -9,12 +9,14 @@
+ use std::{env, fs::remove_file, io::Result, path::Path};
+ 
+ fn main() -> Result<()> {
+-    // Placing bindings.inc.rs in the source directory is supported
+-    // but not documented or encouraged.
+-    let path = env::var("MESON_BUILD_ROOT")
+-        .unwrap_or_else(|_| format!("{}/src", env!("CARGO_MANIFEST_DIR")));
++    let file = if let Ok(root) = env::var("MESON_BUILD_ROOT") {
++        format!("{root}/rust/qemu-api/bindings.inc.rs")
++    } else {
++        // Placing bindings.inc.rs in the source directory is supported
++        // but not documented or encouraged.
++        format!("{}/src/bindings.inc.rs", env!("CARGO_MANIFEST_DIR"))
++    };
+ 
+-    let file = format!("{path}/rust/qemu-api/bindings.inc.rs");
+     let file = Path::new(&file);
+     if !Path::new(&file).exists() {
+         panic!(concat!(
+-- 
+2.34.1
 
 
