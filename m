@@ -1,53 +1,53 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uTwlf-0004in-OF
-	for mharc-qemu-rust@gnu.org; Tue, 24 Jun 2025 02:04:27 -0400
+	id 1uTxdY-00076O-37
+	for mharc-qemu-rust@gnu.org; Tue, 24 Jun 2025 03:00:08 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uTwld-0004iM-Eg; Tue, 24 Jun 2025 02:04:25 -0400
-Received: from mgamail.intel.com ([192.198.163.8])
+ id 1uTxdU-00074X-OL; Tue, 24 Jun 2025 03:00:05 -0400
+Received: from mgamail.intel.com ([198.175.65.10])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uTwlb-0004yR-45; Tue, 24 Jun 2025 02:04:25 -0400
+ id 1uTxdS-0008HF-Im; Tue, 24 Jun 2025 03:00:04 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1750745063; x=1782281063;
+ t=1750748403; x=1782284403;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=TFJmV5L5V8xaJ+OtJMXsOdVwtyd31h4ycfHa8SFGLig=;
- b=A4l0I8tLfk1+ZwUqiK7zqKLpj1OkvrRd9eZb7YRObSZDvcvVeV732m8m
- kbRZb5/DMQf4cJMp8/Y5z1nSI8tBM7b2yHFFBMghH4wQ5sTdiQHrVKDMD
- pFJmT5YT1f2ZxPFZMqZ6nJZgu/5Bo/AoLwfdHk28fThgjyXtMQGjyr3Ym
- TAwfPH3IcA+hEJS8HlqESyU/WkBUp/22R5ynJphVcrooZ0khxP5X/yaB+
- 8HZMeIiUGuVU5UMxMzGeTo5OhM4I5h4dlG4AwF3vAN69XtOcOFJGHVXsJ
- bft/KWTBvA/OihpfXN0a7RMgRDulpK526JAmuyZxxR1F3WkwchmadlDv6 w==;
-X-CSE-ConnectionGUID: 8sAd/FvtSnuoRNjzqaEGiw==
-X-CSE-MsgGUID: QyK8DrY1TMyXcG+pNvaRIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11473"; a="70540245"
-X-IronPort-AV: E=Sophos;i="6.16,260,1744095600"; d="scan'208";a="70540245"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2025 23:04:15 -0700
-X-CSE-ConnectionGUID: 8rQc3CDCQ86K46OI8bKTtQ==
-X-CSE-MsgGUID: A/pZ1EaQRWyaIy9K/q8HQw==
+ bh=RycR102Wtr4p7SMK586lhgFL+Zx3BzOWjdXsAILJ25s=;
+ b=ai88y5FNIuQhfyWeW5slVIu50WX20yEYm7035WRe1RFtM98oOyjBarT1
+ trjqfe/cQ9+bv6GzE/reK7MnGtfGETLoCpiiCwvcuRtZTjgi17k+DH9Um
+ 4SCtH4kdJyTJUrPrYy/nq3pIr5kadvhjTa0nDkynzK/aLyTQUVdzn18xG
+ 0hF5j882Q+NaJ7yCXhFPhEidcWaXh1QBim7EMqV8KM9xwT5hAetl2V3w4
+ UgfSv3d2itt9O3H5X9bJyia3qB+avgiwZ8nfoAA6YISXgCSpBedvsUWu8
+ P4HOlnnJjrGhZemtNWpJpyiuDe/6BV05ymLSTWg1Yn1g3BGbAA2N43Qro g==;
+X-CSE-ConnectionGUID: dJ/mKxytQjyqluTkM3+0RQ==
+X-CSE-MsgGUID: T+I8trecSjWiEGlAIc4iOQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11473"; a="70397824"
+X-IronPort-AV: E=Sophos;i="6.16,260,1744095600"; d="scan'208";a="70397824"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2025 00:00:00 -0700
+X-CSE-ConnectionGUID: olZOwTzrS/eWuP2XHptNQw==
+X-CSE-MsgGUID: bBLeFKxuTxymoVsO5Msp/A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,260,1744095600"; d="scan'208";a="156203168"
+X-IronPort-AV: E=Sophos;i="6.16,260,1744095600"; d="scan'208";a="152532379"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa003.jf.intel.com with ESMTP; 23 Jun 2025 23:04:14 -0700
-Date: Tue, 24 Jun 2025 14:25:35 +0800
+ by fmviesa010.fm.intel.com with ESMTP; 23 Jun 2025 23:59:58 -0700
+Date: Tue, 24 Jun 2025 15:21:19 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  manos.pitsidianakis@linaro.org, shentey@gmail.com
 Subject: Re: [PATCH] rust: log: implement io::Write
-Message-ID: <aFpE3y5B7tS2efvA@intel.com>
+Message-ID: <aFpR7+RMBlgt5DTD@intel.com>
 References: <20250617081213.115329-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20250617081213.115329-1-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.8; envelope-from=zhao1.liu@intel.com;
+Received-SPF: pass client-ip=198.175.65.10; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -69,45 +69,69 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Jun 2025 06:04:25 -0000
+X-List-Received-Date: Tue, 24 Jun 2025 07:00:06 -0000
 
-> +/// A RAII guard for QEMU's logging infrastructure.  Creating the guard
-> +/// locks the log file, and dropping it (letting it go out of scope) unlocks
-> +/// the file.
+>  /// A macro to log messages conditionally based on a provided mask.
+> @@ -24,6 +96,8 @@ pub enum Log {
+>  /// log level and, if so, formats and logs the message. It is the Rust
+>  /// counterpart of the `qemu_log_mask()` macro in the C implementation.
+>  ///
+> +/// Errors from writing to the log are ignored.
 > +///
-> +/// As long as the guard lives, it can be written to using [`std::io::Write`].
-> +///
-> +/// The locking is recursive, therefore owning a guard does not prevent
-> +/// using [`log_mask_ln!()`](crate::log_mask_ln).
-> +pub struct LogGuard(NonNull<bindings::FILE>);
+>  /// # Parameters
+>  ///
+>  /// - `$mask`: A log level mask. This should be a variant of the `Log` enum.
+> @@ -62,12 +136,9 @@ macro_rules! log_mask_ln {
+>          if unsafe {
+>              (::qemu_api::bindings::qemu_loglevel & ($mask as std::os::raw::c_int)) != 0
+>          } {
+> -            let formatted_string = format!("{}\n", format_args!($fmt $($args)*));
+> -            let c_string = std::ffi::CString::new(formatted_string).unwrap();
+> -
+> -            unsafe {
+> -                ::qemu_api::bindings::qemu_log(c_string.as_ptr());
+> -            }
+> +            #[allow(unused_must_use)]
 
-Nice! I happen to be implementing a similar RAII for FlatView:
+I found this doesn't work :-( :
 
-pub struct FlatViewRefGuard(NonNull<FlatView>);
+error: unused `Result` that must be used
+   --> ../rust/hw/char/pl011/src/device.rs:281:21
+    |
+281 |                     log_mask_ln!(Log::Unimp, "pl011: DMA not implemented");
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+    = note: `-D unused-must-use` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(unused_must_use)]`
+    = note: this error originates in the macro `log_mask_ln` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-> +impl LogGuard {
+I understand meson sets `-D warings` so that `allow` can't work...
 
-...
+What about just ignoring the return value? Afterall pl011 doesn't care
+the returned value.
 
-> +    /// Writes a formatted string into the log, returning any error encountered.
-> +    ///
-> +    /// This method is primarily used by the [`log_mask_ln!()`](crate::log_mask_ln)
-> +    /// macro, and it is rare for it to be called explicitly.
-> +    pub fn log_fmt(args: std::fmt::Arguments) -> io::Result<()> {
-> +        if let Some(mut log) = Self::new() {
-> +            use io::Write;
+@@ -136,8 +137,7 @@ macro_rules! log_mask_ln {
+         if unsafe {
+             (::qemu_api::bindings::qemu_loglevel & ($mask as std::os::raw::c_int)) != 0
+         } {
+-            #[allow(unused_must_use)]
+-            ::qemu_api::log::LogGuard::log_fmt(
++            let _ = ::qemu_api::log::LogGuard::log_fmt(
+                 format_args!("{}\n", format_args!($fmt $($args)*)));
+         }
+     }};
 
-I think it's better to place this "use" at the beginning of the file.
+Thanks,
+Zhao
 
-> +            log.write_fmt(args)?;
-> +        }
-> +        Ok(())
-> +    }
-> +}
-
-Overall, LGTM,
-
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
-
-
+> +            ::qemu_api::log::LogGuard::log_fmt(
+> +                format_args!("{}\n", format_args!($fmt $($args)*)));
+>          }
+>      }};
+>  }
+> -- 
+> 2.49.0
+> 
+> 
 
