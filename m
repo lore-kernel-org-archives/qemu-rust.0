@@ -1,137 +1,95 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uUedK-0003gQ-B7
-	for mharc-qemu-rust@gnu.org; Thu, 26 Jun 2025 00:54:46 -0400
+	id 1uX2q7-0006wl-7j
+	for mharc-qemu-rust@gnu.org; Wed, 02 Jul 2025 15:09:51 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uUedI-0003fQ-Cm
- for qemu-rust@nongnu.org; Thu, 26 Jun 2025 00:54:44 -0400
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uX2q4-0006hj-B8
+ for qemu-rust@nongnu.org; Wed, 02 Jul 2025 15:09:48 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1uUedE-0006MT-9v
- for qemu-rust@nongnu.org; Thu, 26 Jun 2025 00:54:43 -0400
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uX2pv-0005Ua-4T
+ for qemu-rust@nongnu.org; Wed, 02 Jul 2025 15:09:46 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1750913679;
+ s=mimecast20190719; t=1751483373;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ux55LTzZu+8r8VvC9MmnRWtiQyH3i5QT3q5f9MnpL9Q=;
- b=QCEKlDuvXGyNaNBT+npxGJZv655Q3d01PwriL68trCtdsyabbiwJ5x0DA1PORQ58G4g+U3
- Hr04rroPhsxeylYJzYRLAESCULnPsdJ/j1lzL2xPVdh7awLBNEUWpHS8vX/y3qc3sx33ta
- jlGUEMlt/SCOGi1+DkYKejikNoDAVzQ=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-29-bzK0JSyXOEeHtuAvfZED4w-1; Thu,
- 26 Jun 2025 00:54:34 -0400
-X-MC-Unique: bzK0JSyXOEeHtuAvfZED4w-1
-X-Mimecast-MFC-AGG-ID: bzK0JSyXOEeHtuAvfZED4w_1750913670
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 4886119560B2; Thu, 26 Jun 2025 04:54:27 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.45.242.10])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 6CE3F30001A1; Thu, 26 Jun 2025 04:54:21 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id B9BE521E6A27; Thu, 26 Jun 2025 06:54:18 +0200 (CEST)
-From: Markus Armbruster <armbru@redhat.com>
-To: John Snow <jsnow@redhat.com>
-Cc: qemu-devel@nongnu.org,  Joel Stanley <joel@jms.id.au>,  Yi Liu
- <yi.l.liu@intel.com>,  Alex =?utf-8?Q?Benn=C3=A9e?=
- <alex.bennee@linaro.org>,  Helge Deller
- <deller@gmx.de>,  Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,  Andrew
- Jeffery <andrew@codeconstruct.com.au>,  Fabiano Rosas <farosas@suse.de>,
- Alexander Bulekov <alxndr@bu.edu>,  Darren Kenny
- <darren.kenny@oracle.com>,  Leif Lindholm
- <leif.lindholm@oss.qualcomm.com>,  =?utf-8?Q?C=C3=A9dric?= Le Goater
- <clg@kaod.org>,  Ed
- Maste <emaste@freebsd.org>,  Gerd Hoffmann <kraxel@redhat.com>,  Warner
- Losh <imp@bsdimp.com>,  Kevin Wolf <kwolf@redhat.com>,  Tyrone Ting
- <kfting@nuvoton.com>,  Eric Blake <eblake@redhat.com>,  Palmer Dabbelt
- <palmer@dabbelt.com>,  Yoshinori Sato <ysato@users.sourceforge.jp>,  Troy
- Lee <leetroy@gmail.com>,  Halil Pasic <pasic@linux.ibm.com>,  Akihiko
- Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,  Michael Roth
- <michael.roth@amd.com>,  Laurent Vivier <laurent@vivier.eu>,  Ani Sinha
- <anisinha@redhat.com>,  Weiwei Li <liwei1518@gmail.com>,  Eric Farman
- <farman@linux.ibm.com>,  Steven Lee <steven_lee@aspeedtech.com>,  Brian
- Cain <brian.cain@oss.qualcomm.com>,  Li-Wen Hsu <lwhsu@freebsd.org>,
- Jamin Lin <jamin_lin@aspeedtech.com>,  qemu-s390x@nongnu.org,  Vladimir
- Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,  qemu-block@nongnu.org,
- Bernhard Beschow <shentey@gmail.com>,  =?utf-8?Q?Cl=C3=A9ment?=
- Mathieu--Drif <clement.mathieu--drif@eviden.com>,  Maksim Davydov
- <davydov-max@yandex-team.ru>,  Niek Linnenbank <nieklinnenbank@gmail.com>,
- =?utf-8?Q?Herv=C3=A9?= Poussineau <hpoussin@reactos.org>,  Christian
- Borntraeger
- <borntraeger@linux.ibm.com>,  Paul Durrant <paul@xen.org>,  Manos
- Pitsidianakis <manos.pitsidianakis@linaro.org>,  Jagannathan Raman
- <jag.raman@oracle.com>,  Igor Mitsyanko <i.mitsyanko@gmail.com>,  Max
- Filippov <jcmvbkbc@gmail.com>,  Pierrick Bouvier
- <pierrick.bouvier@linaro.org>,  "Michael S. Tsirkin" <mst@redhat.com>,
- Anton Johansson <anjo@rev.ng>,  Peter Maydell <peter.maydell@linaro.org>,
- Cleber Rosa <crosa@redhat.com>,  Eric Auger <eric.auger@redhat.com>,
- Yanan Wang <wangyanan55@huawei.com>,  qemu-arm@nongnu.org,  Hao Wu
- <wuhaotsh@google.com>,  Mads Ynddal <mads@ynddal.dk>,  Sriram Yagnaraman
- <sriram.yagnaraman@ericsson.com>,  qemu-riscv@nongnu.org,  Paolo Bonzini
- <pbonzini@redhat.com>,  Jason Wang <jasowang@redhat.com>,  Nicholas Piggin
- <npiggin@gmail.com>,  Michael Rolnik <mrolnik@gmail.com>,  Zhao Liu
- <zhao1.liu@intel.com>,  Alessandro Di Federico <ale@rev.ng>,  Thomas Huth
- <thuth@redhat.com>,  Antony Pavlov <antonynpavlov@gmail.com>,  Jiaxun Yang
- <jiaxun.yang@flygoat.com>,  Hanna Reitz <hreitz@redhat.com>,  Ilya
- Leoshkevich <iii@linux.ibm.com>,  Marcelo Tosatti <mtosatti@redhat.com>,
- Nina Schoetterl-Glausch <nsg@linux.ibm.com>,  Daniel Henrique Barboza
- <danielhb413@gmail.com>,  Qiuhao Li <Qiuhao.Li@outlook.com>,  Hyman Huang
- <yong.huang@smartx.com>,  Daniel P. =?utf-8?Q?Berrang=C3=A9?=
- <berrange@redhat.com>,
- Magnus Damm <magnus.damm@gmail.com>,  qemu-rust@nongnu.org,  Bandan Das
- <bsd@redhat.com>,  Strahinja Jankovic <strahinja.p.jankovic@gmail.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,  Philippe =?utf-8?Q?Ma?=
- =?utf-8?Q?thieu-Daud=C3=A9?=
- <philmd@linaro.org>,  kvm@vger.kernel.org,  Fam Zheng <fam@euphon.net>,
- Jia Liu <proljc@gmail.com>,  =?utf-8?Q?Marc-Andr=C3=A9?= Lureau
- <marcandre.lureau@redhat.com>,  Alistair Francis <alistair@alistair23.me>,
- Subbaraya Sundeep <sundeep.lkml@gmail.com>,  Kyle Evans
- <kevans@freebsd.org>,  Song Gao <gaosong@loongson.cn>,  Alexandre Iooss
- <erdnaxe@crans.org>,  Aurelien Jarno <aurelien@aurel32.net>,  Liu Zhiwei
- <zhiwei_liu@linux.alibaba.com>,  Peter Xu <peterx@redhat.com>,  Stefan
- Hajnoczi <stefanha@redhat.com>,  BALATON Zoltan <balaton@eik.bme.hu>,
- Elena Ufimtseva <elena.ufimtseva@oracle.com>,  "Edgar E. Iglesias"
- <edgar.iglesias@gmail.com>,  =?utf-8?B?RnLDqWTDqXJpYw==?= Barrat
- <fbarrat@linux.ibm.com>,
- qemu-ppc@nongnu.org,  Radoslaw Biernacki <rad@semihalf.com>,  Beniamino
- Galvani <b.galvani@gmail.com>,  David Hildenbrand <david@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,  David Woodhouse
- <dwmw2@infradead.org>,  Eduardo Habkost <eduardo@habkost.net>,  Ahmed
- Karaman <ahmedkhaledkaraman@gmail.com>,  Huacai Chen
- <chenhuacai@kernel.org>,  Mahmoud Mandour <ma.mandourr@gmail.com>,  Harsh
- Prateek Bora <harshpb@linux.ibm.com>
-Subject: Re: [PATCH v2 06/12] python: upgrade to python3.9+ syntax
-In-Reply-To: <CAFn=p-YPN6MWZiETi7XWkyYVPpe7uew49CwjEdAsMmW=ZPOx5A@mail.gmail.com>
- (John Snow's message of "Wed, 25 Jun 2025 13:35:24 -0400")
-References: <20250612205451.1177751-1-jsnow@redhat.com>
- <20250612205451.1177751-7-jsnow@redhat.com>
- <87cyatmw40.fsf@pond.sub.org>
- <CAFn=p-YPN6MWZiETi7XWkyYVPpe7uew49CwjEdAsMmW=ZPOx5A@mail.gmail.com>
-Date: Thu, 26 Jun 2025 06:54:18 +0200
-Message-ID: <87cyar14sl.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ bh=DXkkRzTlmYZi0YZDj8pQyWz30kSaNP1GFwKQAikmgUw=;
+ b=gJuAaRpA8R2r4RZVIjk6wELRtSqO8WMmNfCCnjoEDX/j1L0WGaQ3igZ+gZil4/Vti/2puS
+ nd0di1xgNn7C2wsq6ukm4zxP7chVHpm0N33oPqUz8k57BwWDn2L8BmuPVZxRqR2hiArzIL
+ os7jSAvwagj4t3YndIMUGOS8mWX6KP8=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-117-FCS6Q8ceO2KBtN-cA5C8Jw-1; Wed, 02 Jul 2025 15:09:31 -0400
+X-MC-Unique: FCS6Q8ceO2KBtN-cA5C8Jw-1
+X-Mimecast-MFC-AGG-ID: FCS6Q8ceO2KBtN-cA5C8Jw_1751483371
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-3a50816cc58so3605881f8f.3
+ for <qemu-rust@nongnu.org>; Wed, 02 Jul 2025 12:09:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1751483370; x=1752088170;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=DXkkRzTlmYZi0YZDj8pQyWz30kSaNP1GFwKQAikmgUw=;
+ b=kH/wl20CxvT9PO33H1Wr8kppa1NGzoY3Alpa38iB1mMZI97S0/y7zRt5MzLXuayOQZ
+ 6WHhTLu73ptvKuA9QCbQzCiivPnI26dqPWrQgMB49Fzf4LnoEbeDS3OVUdUujfWuGxki
+ 7iAqGaBuud17eyvJz2o850trSbCCUMB4SVYsLz77CK4zpee7rkPOefDZBLRHb+YTSWgc
+ z29HxX+b0D0LL7QihHNd7214NZAsj5EOz8fs3s/gm6O2om57i7CwkrTuC+uQd/S5CCM9
+ vYqUuXJurOG1v34BdwC7QSNnigO0qfuyvB2dXZvjEKA7v3mF7br5gJkptiOfk8r6eSeN
+ PnjA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUVXyuyoGe8oATuIYtq+FoT3x2Q3zRbaxh0YjfJHtvjXOojP44wUYZlJ5cqD+9P6b7O+hx8YHkK4lU=@nongnu.org
+X-Gm-Message-State: AOJu0YyNPTm1SzVADuPC6jCPRwYAaou2+4GcWvqBLHOiieQTwhXFrbTJ
+ v75DXdsXAp2WxklmSnhLRMaIik5q4PwL6usuhfU/X/TJ1YpYfEB5Uk5DCK2kc3wkF9mWG7V2UZx
+ yXNKlIbW9wuJhnbCht3Nm4EeVVJ1ytUr1AGjP52oUtcHkxaCkkHgvTAMk061mRNX12F3OUR/soG
+ IQnLFZ66XzrtvHS2VAtJo4CrHqyO4Dfw==
+X-Gm-Gg: ASbGncs+EwrNSUZo+xaSGMixa6V59MSWkg+/cm08X9gQXexfJxtFKmbEgd2dKAICLZy
+ z/EcBSm1n1O5h0zT7lcdmHhq08UcxDQb3cvnjFJTD9orGq9cFVDKofWRpGMqN65wfQvryhTlIGc
+ 0B7g==
+X-Received: by 2002:a05:6000:25e8:b0:3a5:2653:7308 with SMTP id
+ ffacd0b85a97d-3b20110b7bamr2712596f8f.57.1751483370376; 
+ Wed, 02 Jul 2025 12:09:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGw7/creKSpJk0DIfDJxBW2cTkOZ4hOPOm9FyTcS+DOqxItp7f6xgcflSu0NTOp+4960gDEHbtYaU5qyWIGHsc=
+X-Received: by 2002:a05:6000:25e8:b0:3a5:2653:7308 with SMTP id
+ ffacd0b85a97d-3b20110b7bamr2712574f8f.57.1751483369922; Wed, 02 Jul 2025
+ 12:09:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
+References: <20250605101124.367270-1-pbonzini@redhat.com>
+ <aEk6vdosWZgyQGXD@intel.com>
+ <CABgObfaK8h3GE4GWbPrn22JshYcCFdXsxWHWuAPVC4pRb7GZ0A@mail.gmail.com>
+ <CABgObfa+w3pcYhFnO6ETxSfoNiNU=+_8WcW6dE8dkUrbt6darw@mail.gmail.com>
+ <877c19nn3p.fsf@pond.sub.org>
+ <CABgObfY7==Q8z9xPS6oO-qv9U4LJ19Y+mCYENqSYnGFwkhoBYw@mail.gmail.com>
+ <877c1262n5.fsf@pond.sub.org>
+In-Reply-To: <877c1262n5.fsf@pond.sub.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Wed, 2 Jul 2025 15:09:18 -0400
+X-Gm-Features: Ac12FXzmYIv5cqwzHKIc4arj4beWTDd8lm9emxR2gu-uqvHy-auvRt37w0sfayc
+Message-ID: <CABgObfafZ1K7nORbh8xOi6M2Jeairn=Azor=JTN8MHFxMfOsBQ@mail.gmail.com>
+Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from 2021
+To: Markus Armbruster <armbru@redhat.com>
+Cc: Zhao Liu <zhao1.liu@intel.com>, qemu-devel <qemu-devel@nongnu.org>, 
+ =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>, 
+ qemu-rust@nongnu.org, Martin Kletzander <mkletzan@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: _WSjpmRuZxUQ9FRZtnXXNzZGnOE0jHGQCYIH7APwl64_1751483371
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/alternative; boundary="000000000000183b2d0638f7000a"
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+X-Spam_score_int: -17
+X-Spam_score: -1.8
+X-Spam_bar: -
+X-Spam_report: (-1.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.237,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ T_SPF_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -144,161 +102,237 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Jun 2025 04:54:44 -0000
+X-List-Received-Date: Wed, 02 Jul 2025 19:09:49 -0000
 
-John Snow <jsnow@redhat.com> writes:
+--000000000000183b2d0638f7000a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> On Tue, Jun 24, 2025 at 3:34=E2=80=AFAM Markus Armbruster <armbru@redhat.=
-com> wrote:
->
->> John Snow <jsnow@redhat.com> writes:
->>
->> > This patch is fully automated, using pymagic, isort and autoflake.
->> >
->> > Create a script named pymagic.sh:
->> >
->> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
->> >
->> > pyupgrade --exit-zero-even-if-changed --keep-percent-format \
->> >           --py39-plus "$@"
->> >
->> > autoflake -i "$@"
->> >
->> > isort --settings-file python/setup.cfg \
->> >       -p compat -p qapidoc_legacy -p iotests -o qemu "$@"
->> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
->> >
->> > Then, from qemu.git root:
->> >
->> >> find . -type f -name '*.py' | xargs pymagic
->> >> git grep --name-only "#!/usr/bin/env python" | xargs pymagic
->> >
->> > This changes a lot of old Pythonisms, but in particular it upgrades the
->> > old Python type hint paradigm to the new 3.9+ paradigm wherein you no
->> > longer need to import List, Dict, Tuple, Set, etc from the Typing modu=
-le
->> > and instead directly subscript the built-in types list, dict, tuple,
->> > set, etc. The old-style annotations are deprecated as of 3.9 and are
->> > eligible for removal starting in Python 3.14, though the exact date of
->> > their removal is not yet known.
->> >
->> > pyupgrade updates the imports and type hint paradigms (as well as
->> > updating other old 'isms, such as removing the unicode string
->> > prefix). autoflake in turn then removes any unused import statements,
->> > possibly left behind by pyupgrade. Lastly, isort fixes the import order
->> > and formatting to the standard we use in qemu.git/python and
->> > scripts/qapi in particular.
->> >
->> > Signed-off-by: John Snow <jsnow@redhat.com>
->>
->> [...]
->>
->> >  448 files changed, 1959 insertions(+), 1631 deletions(-)
->>
->> *=C3=84chz*
->>
->
-> Gesundheit.
->
->
->>
->> I hate it when people ask me to split up my mechanical patches...
->>
->> One split is by subsystem / maintainer.  I've done this a few times, and
->> it's quite a bother.  Questionable use of your time if you ask me.
->>
->
-> I'd prefer not to unless it is requested of me specifically. I don't think
-> most maintainers really care about the nuances of Python and as long as
-> their stuff continues to work they're not going to mind much.
->
-> Or, to be frank: I don't think this series would ever garner enough review
-> and attention to warrant the labor it'd take to tailor it to such a revie=
-w.
-> It's mechanical, it's boring, it should be fine.
->
-> I switched from a manual patch series to a tool-driven one specifically to
-> make it more mindless and less interesting, and going through and splitti=
-ng
-> it back out is ... eh. I would prefer not to.
->
->
->>
->> There's another split here...  Your pymagic.sh runs three tools.  If you
->> commit after each one, the patch splits into three.
->>
->
-> I use all three because each one alone isn't sufficient to then pass the
-> static analysis checks, they each do a little bit of damage that another
-> tool corrects afterwards.
->
-> pyupgrade works to modernize syntax, but leaves impotent import statements
-> hanging.
+Il lun 23 giu 2025, 08:53 Markus Armbruster <armbru@redhat.com> ha scritto:
 
-Import statements it made impotent, I presume.
-
-> autoflake removes those impotent imports.
-> isort fixes the import statement ordering and formatting to our standard.
-
-Out of curiosity: what messes up ordering and formatting?
-
-> (And then I do some manual fixups to fix the linting tests where things
-> were auto-formatted suboptimally.)
+> We end up with two separate ways to do the same job, which is kind of
+> sad.
 >
-> I can still split it out for review purposes, like I did here with some
-> manual fixups appended to the end.
+> I gather the alternative would be to use generated QAPI visitors for the
+> generated Rust data types instead of Serde.  This would be unusual for
+> Rust code: Serde exists and works, so reinvent it would be wasteful and
+> dumb.
 >
-> Just, for merge, they'll be combined by necessity as a result of our
-> no-regressions-for-bisect rule.
 
-I see.
+My feeling as well.
 
->> I understand you pass --py39-plus to pyupgrade to get the type hints
->> modernized.  If you run it without --py39-plus for all the miscellaneous
->> upgrades, commit, then run it with --py39-plus for just the type hint
->> upgrades, commit, the last patch splits again.
->>
+The string visitors have long been a thorn in my side.
 >
-> I can try it! I actually didn't try running it without py39-plus at all, =
-so
-> I don't know what that'll do. but no harm in an experiment.
+> I wish QOM wasn't so annoyingly flexible.  I wish a property had to be
+> of QAPI type (possibly complex).  Less headaches.  Less boilerplate,
+> too.
 >
+> Almost all QOM properties are.  And the few that aren't feel like bad
+> ideas to me.
 >
->>
->> Thoughts?
+
+Makes sense. On the other hand, from the C point of view I admit that
+passing a Visitor* or a QObject* to the setter would not be very
+different=E2=80=94or possibly even a bit more code for the QObject*. Likewi=
+se for
+passing a QObject** on the getter side.
+
+So the problem isn't the flexibility... It's using/exploiting it.
+
+> * Keep using serde like for commands: in the callback that is invoked by
+> > object_property_set() do Visitor->QObject->setter (yes that means doubl=
+e
+> > conversion when the source visitor is and QObject visitor) or for the
+> > getter case, getter->QObject->Visitor. This has the minimum amount of
+> code
+> > added to qapi-gen.
 >
+> Recall the callback gets the new property value wrapped in an input
+> visitor.  Whereas a C setter extracts it into some C variable(s), a Rust
+> setter extracts it into a QObject, which it then passes to Serde for
+> deserialization into Rust variables.  Correct?
 >
-> First and foremost I just thought it'd be good to get this mechanical
-> change squared away in one giant patch so we could add this one singular
-> horrible mega-commit into the git blame "ignored commits" list to minimize
-> the impact of the "flag day".
 
-Point.
+Yes.
 
-Still, it's awfully hard to see what the horrible mega-commit does.
+> * Generate a visit_type_*() implementation that emits a Rust struct (i.e.
+> > one that maps for example 'str' to a String and not a *mut c_char) and
+> > forgo serde completely. Use this generated implementation everywhere: Q=
+OM
+> > getters and setters, as well as QMP commands. This is how C code works.
+>
+> This is the alternative mentioned above.
+>
 
-A patch that does one thing entirely mechanically is fine even when it's
-huge.  Understanding the one thing is easy.  I can usually develop
-confidence in the patch.
+Yes.
 
-A patch that does many things mechanically can be problematic.  If it's
-small enough, I can just review them like any other patch.  If it's way
-too big for that, we have to rely on appeal to authority, i.e. the
-tool(s) that generated the patch.  Certainly not nothing, but it gives
-me an uneasy feeling.
+> * Generate rust->C (e.g. String->*mut c_char) and C->rust converters from
+> > qapi-gen; use the existing C visit_type_*() to extract data from visito=
+rs
+> > and then apply said converters to turn the data into a Rust struct, and
+> > likewise in the other direction. This was the way Marc-Andr=C3=A9's pro=
+totype
+> > worked.
+>
+> Converters between C and Rust data types let us cut at the C data type
+> instead of at QObject.
+>
+> We use the same code up to QAPI-generated C data type and from
+> QAPI-generated C data type on.
+>
+> In between, we work directly with the C data type for properties
+> implemented in C, and convert to and from the Rust data type for
+> properties implemented in Rust.
+>
+> Correct?
+>
 
-This is why I'm keen to see the type hint upgrade split off.  I expect
-the type hint part to do one thing entirely mechanically (fine), and I
-hope the other part will be small enough to let me build confidence in
-it.
+Yes.
 
-> This upgrade will have to happen "eventually" but it needn't be "right
-> now", but I figured it'd be good to get it out of the way... or put anoth=
-er
-> way, "better my mess than someone else's".
+The simplest such converters convert via QObject.  Grossly inefficient
+> :)
+>
+> Marc-Andr=C3=A9's prototype demonstrates efficient converters can be had.
+> The question is whether they're worth their keep.
+>
 
-I'd prefer upgrade now rather than later for the Python code I maintain.
+Exactly. What keeps me on the edge is that for QMP the result is still a
+bit less efficient than straight QObject->Rust via Serde. For the QOM
+property Visitor->C->Rust is better than Visitor->QObject->Rust, but is it
+worth the extra amount of code generator? Leaving the code generation
+business to Serde is appealing and it gets one of the two (QMP) as
+efficient as it can be.
+
+The Serde interface code is pretty much write once and forget, since
+QObject hasn't changed substantially in 15 years. The qapi-gen code is
+write once but stays more in the way of other Python code we maintain. On
+the other hand the Serde code is probably going to be a bit on the
+impenetrable side, and until someone writes it we don't know if the balance
+may tilt back towards preferring Marc-Andr=C3=A9's ideas.
+
+Paolo
+
+--000000000000183b2d0638f7000a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
+ner"><div dir=3D"ltr" class=3D"gmail_attr">Il lun 23 giu 2025, 08:53 Markus=
+ Armbruster &lt;<a href=3D"mailto:armbru@redhat.com">armbru@redhat.com</a>&=
+gt; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
+We end up with two separate ways to do the same job, which is kind of<br>
+sad.<br>
+<br>
+I gather the alternative would be to use generated QAPI visitors for the<br=
+>
+generated Rust data types instead of Serde.=C2=A0 This would be unusual for=
+<br>
+Rust code: Serde exists and works, so reinvent it would be wasteful and<br>
+dumb.<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"a=
+uto">My feeling as well.</div><div dir=3D"auto"><br></div><div dir=3D"auto"=
+><div class=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex">The string visitors have long been a thorn in my s=
+ide.<br>
+<br>
+I wish QOM wasn&#39;t so annoyingly flexible.=C2=A0 I wish a property had t=
+o be<br>
+of QAPI type (possibly complex).=C2=A0 Less headaches.=C2=A0 Less boilerpla=
+te,<br>
+too.<br>
+<br>
+Almost all QOM properties are.=C2=A0 And the few that aren&#39;t feel like =
+bad<br>
+ideas to me.<br></blockquote></div></div><div dir=3D"auto"><br></div><div d=
+ir=3D"auto">Makes sense. On the other hand, from the C point of view I admi=
+t that passing a Visitor* or a QObject* to the setter would not be very dif=
+ferent=E2=80=94or possibly even a bit more code for the QObject*. Likewise =
+for passing a QObject** on the getter side.</div><div dir=3D"auto"><br></di=
+v><div dir=3D"auto">So the problem isn&#39;t the flexibility... It&#39;s us=
+ing/exploiting it.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div =
+class=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
+;padding-left:1ex">&gt; * Keep using serde like for commands: in the callba=
+ck that is invoked by<br>
+&gt; object_property_set() do Visitor-&gt;QObject-&gt;setter (yes that mean=
+s double<br>
+&gt; conversion when the source visitor is and QObject visitor) or for the<=
+br>
+&gt; getter case, getter-&gt;QObject-&gt;Visitor. This has the minimum amou=
+nt of code<br>
+&gt; added to qapi-gen.<br>
+<br>
+Recall the callback gets the new property value wrapped in an input<br>
+visitor.=C2=A0 Whereas a C setter extracts it into some C variable(s), a Ru=
+st<br>
+setter extracts it into a QObject, which it then passes to Serde for<br>
+deserialization into Rust variables.=C2=A0 Correct?<br></blockquote></div><=
+/div><div dir=3D"auto"><br></div><div dir=3D"auto">Yes.</div><div dir=3D"au=
+to"><br></div><div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_conta=
+iner"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left:1px solid rgb(204,204,204);padding-left:1ex">
+&gt; * Generate a visit_type_*() implementation that emits a Rust struct (i=
+.e.<br>
+&gt; one that maps for example &#39;str&#39; to a String and not a *mut c_c=
+har) and<br>
+&gt; forgo serde completely. Use this generated implementation everywhere: =
+QOM<br>
+&gt; getters and setters, as well as QMP commands. This is how C code works=
+.<br>
+<br>
+This is the alternative mentioned above.<br></blockquote></div></div><div d=
+ir=3D"auto"><br></div><div dir=3D"auto">Yes.</div><div dir=3D"auto"><br></d=
+iv><div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_container"><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
+1px solid rgb(204,204,204);padding-left:1ex">
+&gt; * Generate rust-&gt;C (e.g. String-&gt;*mut c_char) and C-&gt;rust con=
+verters from<br>
+&gt; qapi-gen; use the existing C visit_type_*() to extract data from visit=
+ors<br>
+&gt; and then apply said converters to turn the data into a Rust struct, an=
+d<br>
+&gt; likewise in the other direction. This was the way Marc-Andr=C3=A9&#39;=
+s prototype<br>
+&gt; worked.<br>
+<br>
+Converters between C and Rust data types let us cut at the C data type<br>
+instead of at QObject.<br>
+<br>
+We use the same code up to QAPI-generated C data type and from<br>
+QAPI-generated C data type on.<br>
+<br>
+In between, we work directly with the C data type for properties<br>
+implemented in C, and convert to and from the Rust data type for<br>
+properties implemented in Rust.<br>
+<br>
+Correct?<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=
+=3D"auto">Yes.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div clas=
+s=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gmail_quote" s=
+tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
+ding-left:1ex">
+The simplest such converters convert via QObject.=C2=A0 Grossly inefficient=
+<br>
+:)<br>
+<br>
+Marc-Andr=C3=A9&#39;s prototype demonstrates efficient converters can be ha=
+d.<br>
+The question is whether they&#39;re worth their keep.<br></blockquote></div=
+></div><div dir=3D"auto"><br></div><div dir=3D"auto">Exactly. What keeps me=
+ on the edge is that for QMP the result is still a bit less efficient than =
+straight QObject-&gt;Rust via Serde. For the QOM property Visitor-&gt;C-&gt=
+;Rust is better than Visitor-&gt;QObject-&gt;Rust, but is it worth the extr=
+a amount of code generator? Leaving the code generation business to Serde i=
+s appealing and it gets one of the two (QMP) as efficient as it can be.</di=
+v><div dir=3D"auto"><br></div><div dir=3D"auto">The Serde interface code is=
+ pretty much write once and forget, since QObject hasn&#39;t changed substa=
+ntially in 15 years. The qapi-gen code is write once but stays more in the =
+way of other Python code we maintain. On the other hand the Serde code is p=
+robably going to be a bit on the impenetrable side, and until someone write=
+s it we don&#39;t know if the balance may tilt back towards preferring Marc=
+-Andr=C3=A9&#39;s ideas.</div><div dir=3D"auto"><br></div><div dir=3D"auto"=
+>Paolo</div></div>
+
+--000000000000183b2d0638f7000a--
 
 
