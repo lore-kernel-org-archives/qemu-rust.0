@@ -1,105 +1,106 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uXKSr-0000x2-Co
-	for mharc-qemu-rust@gnu.org; Thu, 03 Jul 2025 09:59:01 -0400
+	id 1uXKnw-0001Ib-3b
+	for mharc-qemu-rust@gnu.org; Thu, 03 Jul 2025 10:20:48 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uXKSp-0000w4-QM
- for qemu-rust@nongnu.org; Thu, 03 Jul 2025 09:59:00 -0400
-Received: from mail-ej1-x62d.google.com ([2a00:1450:4864:20::62d])
+ id 1uXKnt-0001Gc-Fr
+ for qemu-rust@nongnu.org; Thu, 03 Jul 2025 10:20:45 -0400
+Received: from mail-wm1-x336.google.com ([2a00:1450:4864:20::336])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uXKSh-0000hm-E9
- for qemu-rust@nongnu.org; Thu, 03 Jul 2025 09:58:59 -0400
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-ae0b6532345so184357166b.1
- for <qemu-rust@nongnu.org>; Thu, 03 Jul 2025 06:58:46 -0700 (PDT)
+ id 1uXKno-0004Ov-4m
+ for qemu-rust@nongnu.org; Thu, 03 Jul 2025 10:20:45 -0400
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-451d41e1ad1so55470855e9.1
+ for <qemu-rust@nongnu.org>; Thu, 03 Jul 2025 07:20:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1751551125; x=1752155925; darn=nongnu.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Mq32u52RK+HWwNC5TASeS+/bUraLvFaEkHDNXHlNzLk=;
- b=x9GPW1HvFnakbLDW/cqUR4wPeYzWgmwaFJchXCZVPucCl8SgC6oqwa1S/POumsabFO
- XoijhYDt9/Z8sV3T2ii4YjDCAeH2+MlqXeIbSXkypmHDnsFdnALoQ++cQFHp1fD2hsRq
- mHwFJT+tblzgtU9nMbNmu8P65ui+HLrHjxI3HMiGO8IrrSlHt2IaGkiOqVJbZghserdD
- Z+cunD1MQgydZ/L6HsjePDXeYfmq25A8qc+mPeoaqYKBDiLr6mnll2aK/ZVD3mywmZnE
- Yvy0xAU9H7EarDb9eKHus+WESD+5xA+vsgqwx5EsHhIQoLrHHvP0wdbX8Dm6TZj0Nv4z
- ZShg==
+ d=linaro.org; s=google; t=1751552436; x=1752157236; darn=nongnu.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=YKofTUEQUxvI9iY9E4Ena7buN9HRCjm4eu8sr8lBqpg=;
+ b=vMgFD1yW3bF0HiFX9rXsXdvZZHQyyw9+vjgo17TM4ICdBac45jvshb78MeRwzQKIWi
+ UA7FMuj0ixLGe6+KO0DJSWHMbkGcAzj+LS2UONHoTVWeb6PjN3G95RdVDmspQdaweX+p
+ HqeWXB5AusqwIx/Uihj7B+8rdQTY8TaaaB6EMZJwm5XO5+9wkOfClU3+4ccszoevliH4
+ N2zCVanM6bsrGpZhQbBQzvgjiHas8IJAyRHZGrYc8WkMDg8q+PvqYAYtolv4IO6C29bU
+ 8PPVHhIT5xC3skYX3RdR9+UELWpqQu9HvKu/MVWArlQy5ix/kSEoXGWW9ezKeL+sqzmh
+ PsRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751551125; x=1752155925;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1751552436; x=1752157236;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Mq32u52RK+HWwNC5TASeS+/bUraLvFaEkHDNXHlNzLk=;
- b=YgcL43eegvmNpuj8ruDl3Nsr6qoKvx1HzIOgNQ/7g8a3nudlrFpjBQuuzzix3gNm9s
- tTdlAZ24R2kMBK3Zvr8Hu2o3/De9NoATNTkYZdLSh0bxiM7ZxBH4QrcaO5NuGSpyougK
- qRBId8Ua1sL33wfuTzyqlM2DgloNiibqVwohSkE30GkTbS5VrcEzj6kPjtuD8PhIJJjR
- 2u5VvYX06DtPPFqwW3W/oFlOnR4g4XwtQrnuE+YSNOKVM+NKayILSSm2WLdnLnddB2dm
- 7KwkFbcXmEBrEJq4474jO0cfvjAjz3kinAYpqqZMVjE5R9A+WsMXBhE1gYkp0cwt6UCz
- j0Fg==
-X-Gm-Message-State: AOJu0YzgF9vLPwzgCqrRQ/MUf4ni4niKD7jDPTsZBxbt8+y4E/HT86ZA
- sR6P3SQlK2/YQ0LW865djktTB29RMDvmCbvvl5Re3lLt8yM4jFpSSB9XlVZ/s9mxQF8yp8slql2
- KGRfLa10=
-X-Gm-Gg: ASbGncs1IEvi0Wmz7VBXosCnxg9Kld9WsLv9tsiDGr6bOt0RKRA8pFY1E9v+dgv/cxb
- qYkjeGBrDN6WPDLSaTM7GO1RNFj/NRn0VGBG6z5RWu3Vwq7zcopxNSbM9+A+z0gs4RR5Ip48JJF
- xTSly/t12yzvrxOaw//BeOUpemc5qnm86nQUMfhp7VMNH09twDOm7FDa8jYDw65fmYMwifd2sjz
- cv+XyPcGgdoOvIHM9P3cM4Q8Rxs/ONDAMnmNh0JnIiH7Q4mpaS4lK38ru3WevUN8gOZKkBrfbAR
- LS+4Q7okUyQTzAeAaQm9Jvc60NiHeAcZ9fu4lsGJRcVQzSa9wPbFHfGopf3oaTP4Nmread9W/zk
- 4G4SG+97hf0EYQba5IYxzgiICCCKCogo=
-X-Google-Smtp-Source: AGHT+IE5o9LVGaXcBrAdQk0V6fbGZzjDbatvFTtJ/HyLnlDbfZHpBoRE7AVguy/axbOkt0UEN5ix9g==
-X-Received: by 2002:a17:906:f597:b0:ad5:6174:f947 with SMTP id
- a640c23a62f3a-ae3dd5ef9f6mr276716466b.22.1751551124892; 
- Thu, 03 Jul 2025 06:58:44 -0700 (PDT)
+ bh=YKofTUEQUxvI9iY9E4Ena7buN9HRCjm4eu8sr8lBqpg=;
+ b=oZLYrukdjAbphtW8dILaFxUGrn1SG9baPUKa5jnNFkDTlsA7DA8srJV3Iy10YT2Cc3
+ 2iAs2pecvHgJf4XLj6pO3zQBRU4mpIjGCgtr2aV9OQlYqieSbMThrVhdg8pIFiSaEEbJ
+ qmGPTTvaiGr222SWN3qnYILDGpuekUhmxhhvx00doLZ38sfyQ3JX/vDNyr5EidEkwwrH
+ 3+gT9jXz+pgFP9tOBss8KeCcNbhKOyzHH2RBihlJ1lttp1IpU5qHzWOPrURDDli/0+hK
+ j5cvweHzmdYpOobQJUNQhCjRe4QpWCo0zFWRD4a/p7NdB1CwWcKn8pAxABQ/BY7Gy/uM
+ iz9w==
+X-Gm-Message-State: AOJu0Yxf94n4XK/zgZcU7MBSSVOedHw3IDWX1+cg45z36XZL+Dps+n0I
+ LmMMEbzB9N7XUdqlkbHXf/a+kTYBzg2HnIqr86GqJ2HFV+aN80Y9QKEd5cabcsPk8GxqIt5AAJL
+ yYNgPKGI=
+X-Gm-Gg: ASbGncsZX6ItnNxW6DWsnuLN4TXeF+3RThuvqFTer1+YJ/8QXkFCQ41UvOzvtlBtN58
+ /xbbBeKbnJilMwdnIjLsaL4IEKKlFGFLAp3CgoP479PHnF0u/tmeZPz42uHx7qKcdo3NGRpG+8b
+ jq7Ml9jDb42p0IrM8DtBDsUuXafQVJ/jG2SkDDhJvLtSPLDIqVUMp/xk2HpvwCWQjhq2qUV7Ntu
+ laD0MwW/a8aMLgeYryoKrHHUO66gkWugj+sPKbYOU9Bss6V8kxNcRzqpUKY0Zz8jX4On4IbGW8B
+ sZpf1jOgDPi8EZaYXEtoB75Mf4yVaWQL2785JlCE0LNUF9awMVyY70pPmTL+b0Y5FGJKUeNVOcP
+ 4rLb/LP/QWheagyTyZi4tbEnNotpYfmE=
+X-Google-Smtp-Source: AGHT+IGYT963byciZayRsFLXGd2IvlsFsPDOgxTJg45GllKRKmIMfusHgavjNT/HncglWhbPgSIK/Q==
+X-Received: by 2002:a05:600c:1388:b0:450:d00d:cc with SMTP id
+ 5b1f17b1804b1-454ab368e3bmr34604495e9.2.1751552436060; 
+ Thu, 03 Jul 2025 07:20:36 -0700 (PDT)
 Received: from [127.0.1.1] (ppp-2-86-212-125.home.otenet.gr. [2.86.212.125])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ae353ca1ca6sm1279678966b.176.2025.07.03.06.58.44
+ ffacd0b85a97d-3a892e52a5asm18976600f8f.54.2025.07.03.07.20.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Jul 2025 06:58:44 -0700 (PDT)
+ Thu, 03 Jul 2025 07:20:35 -0700 (PDT)
 From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Subject: [PATCH 0/3] Small Rust memory API improvements
-Date: Thu, 03 Jul 2025 16:58:10 +0300
-Message-Id: <20250703-rust-mem-api-v1-0-cd5314bdf580@linaro.org>
+Date: Thu, 03 Jul 2025 17:20:22 +0300
+Subject: [PATCH] rust/bindings: allow unnecessary_transmutes (1.88)
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAHKMZmgC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDI1MDcwNj3aLS4hLd3NRc3cSCTF3ztMQ0UzMTk+SURCMloJaCotS0zAqwcdG
- xtbUAKD+YqF4AAAA=
-X-Change-ID: 20250703-rust-mem-api-7faf5644cda2
+Message-Id: <20250703-rust_bindings_allow_unnecessary_transmutes-v1-1-692ca210d331@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAKWRZmgC/x3NQQrCMBBA0auUWRtIamrBq4iEtBnrQJ3KTKKW0
+ rs3uHyb/zdQFEKFa7OB4IeUFq5wpwbGZ+QJDaVqaG3b2d6ejRTNYSBOxJOGOM/LNxRmHFE1yhq
+ yRNZXyagmXZxPg+9cHz3U4FvwQb//7Hbf9wNQftURfAAAAA==
+X-Change-ID: 20250703-rust_bindings_allow_unnecessary_transmutes-d614db4517a4
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, 
  Zhao Liu <zhao1.liu@intel.com>, 
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1018;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1667;
  i=manos.pitsidianakis@linaro.org; h=from:subject:message-id;
- bh=cXzmzyJpLxv1pQB88zIDrrVR5bfuIDmXpNrttE6CKSA=;
+ bh=qBnzFK2jzBx9ni4zlQZpeE9EoRu2AVMJDhHXnUF08bA=;
  b=LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tCgpvd0VCYlFLUy9aQU5Bd0FLQVhjcHgzQi9mZ
- 25RQWNzbVlnQm9ab3lUY29XV3FvcjFZTmJ3RW5wZ0t3dEhsVXZxCi96QkRGRXh1YURHZnRDSWVC
- bFNKQWpNRUFBRUtBQjBXSVFUTVhCdE9SS0JXODRkd0hSQjNLY2R3ZjM0SjBBVUMKYUdhTWt3QUt
- DUkIzS2Nkd2YzNEowQVgyRC80bVpEQ0NHMkdJS2Z3ZVNDNVdrQUl2QnpHK2M1NTVnV3F4dFpleA
- pQNU1KSkd3YjNlSjI1dUZzZGdPZCtibGE5U0xyTUJsdndLdzBjclRIbW8xeUtmdTFvTEQxMEVEV
- W5uS2dKdGRMCmNqV1M5UGk2YlJ4dG1MQXpMYnV6TmhKOVNWT1cxMmJWQmZZWlJoV3IxdzFTMGVW
- N3BqQml1cTdwMldqVHhXNC8KT0RraGxpUWV0M0lHenZOVWF3YkhIYisvanpDd0k5WGNzL0lwQzd
- JY2pIbVpTRTV4cWVwdlVMNlgySjJQM2svVgpldlZ3bXFyK213V291bXpLcG45YWgxS2NxZTh1Sz
- BDU2FOZjFhbEgzcjZ0TEVuK2w4eWdtSGRKa2xLN1l4ZGlOCnFiQ3JWTytFWEZiVk43SksvOXdST
- llLQlc2d3lRTXZzRnZVNnVxdjJ0U1JoQ0pQdUNXeGc5aVBJZWc1bEEvK1kKSWlOK00vc3psREZw
- SkFiVGhFZGhmYUJ5RjF6djlBYks0aU83RlVvdGpab2lTMDhPYkRWYVNGNWxCNDk5SVZRYQp2ay9
- MY1JWWTlNY0RpZGVERklNT3Z6Z3puSTBVbkdPVXQyTUxiRytIdU9BMEdLeVpOaGdvSHJyaGErMT
- ZHaVNhCjRackhRNVVyTGwwOHg2QzBIek1nYmN5Z0cvZVo5ajlFUHl5aC9aRi93MCt1Mm5iRG5vS
- EdrTWhHSWpPVklzRGcKTTRBVlpkQ0p0VG8vVTVqcHZiN1BRTjRqaXN5Tm12VTBzTVAxWTUwWTIy
- QUxlQ2hjVG0wcnRLa2ZQQUhhOTg5aAp2YmsrT1UybnduYVNxTjFaQmVuUmtvNUdFN2VUSGNjNjd
- uOFpKZ1A3VC83YUVVblE5UHMyZldiZFc1MmNZaVlzCjRvZCszdz09Cj14d2R1Ci0tLS0tRU5EIF
+ 25RQWNzbVlnQm9acEd5YXhRYm8wandnZjVEcEVGZjhMajkyYUU0ClJkYWI1eGExTmxKN08yWXgx
+ SmVKQWpNRUFBRUtBQjBXSVFUTVhCdE9SS0JXODRkd0hSQjNLY2R3ZjM0SjBBVUMKYUdhUnNnQUt
+ DUkIzS2Nkd2YzNEowRi9ZRC85MGtQV09zMkdiVUpmd1NqaWNQcHhRV3dnMHpxNjF3MkN1RmRvYg
+ o0NXNXeUdtdm9STDZSYmlGaE5lMVFGMmlMdGkwMWRLRG1PcSthUVpLeTV6MllBYjdkZy9lS24yS
+ U1hQUgwTkYrCm1zam5tRzc0cGhjMm9KOG5SRjlQakt1QlRzcGhQUnJ1WlVGdDNlNnBoWWpBT2FQ
+ SjVTcDVwbGRaVnNCaGdQZ24KRlgwUVN4bmVQWXloTTRGdjAvTStjKzRBR0YrL3BVMWdHdGdlVS9
+ 5c3UwNWZESHZXZUlZendYSi93YVlGUGhhRQpnazkwdEtMaUkxQkRpM21oZmduWnBEakVHWHN6bF
+ k3UlZZWUlxWGsyNzZ6UTdQaFBEYWJCR2dWVHVXMzFKNnlkCkhjaWNEUWhQS0ZocTFXYkhXYk9QT
+ WhtVzRFN2hSU0FsZWlQK2tsVTdkZWRzZTFHZ0JnNklUS0pvYzZud2gvUmUKR1c2K2g4bVROWjl5
+ dUIzMzU4VU5oVmtneXZBa3BtRHRkSmFKZThodWNQbUk3SDRoR1Y4dkN3TDJHTUpEUnpvVApoSnV
+ aaGFwcmNvQzlkREhYTmhqRzN1WldKK1JWalNPYkNJNG5ubmI2RUhWWjBYZWpCdzl3VEd0TURSdU
+ ZHMm55CnZxR1E4ME94M3h4UHJONFNTUHJ4R2NlbzJYb3M5Mm5zR1pvaHdqSnEvR3dhSTFpbFhUZ
+ k9KR0JpTnJCSkI2WGMKUWdPZVRxdEhNZTMxUkd6OHRLd2Z4d3VhK3JpUG9SaXVjd2FVZVNwazQ4
+ eGtqeko4Tmw3blZ5dWt1aE5ETHI1KwpIYlQ1TXVQTHVtVUt4c2ZWamE4QlkybmxIQ1NWRXpYbEc
+ 0TVptVlZQN2Q5dGdxQnhjc2lUWlNNcGphM091cEFBCjN6Mmhndz09Cj1SVWZPCi0tLS0tRU5EIF
  BHUCBNRVNTQUdFLS0tLS0K
 X-Developer-Key: i=manos.pitsidianakis@linaro.org; a=openpgp;
  fpr=7C721DF9DB3CC7182311C0BF68BC211D47B421E1
-Received-SPF: pass client-ip=2a00:1450:4864:20::62d;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ej1-x62d.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::336;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-wm1-x336.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, SPF_HELO_NONE=0.001,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -113,33 +114,46 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Jul 2025 13:59:00 -0000
+X-List-Received-Date: Thu, 03 Jul 2025 14:20:46 -0000
 
-This series adds minor improvements to the memory API:
+This is a new lint introduced in Rust 1.88. It does not affect
+compilation when using a previous version or our MSRV, 1.77. But with
+1.88 compilation fails because we deny all warnings:
 
-- Use an enum to define bit width for memory accesses instead of an
-  integer
-- Add *_with_attrs methods to MemoryRegionOps
+  error: unnecessary transmute
+     --> rust/qemu-api/libqemu_api.rlib.p/structured/bindings.inc.rs:729:18
+      |
+  729 |         unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 24u8) as u32) }
+      |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace this with: `u32::cast_signed(self._bitfield_1.get(0usize, 24u8) as u32)`
+      |
+      = note: `-D unnecessary-transmutes` implied by `-D warnings`
+      = help: to override `-D warnings` add `#[allow(unnecessary_transmutes)]`
 
-The *_with_attrs methods are not currently used by any device, and that
-patch can be dropped without issue.
+Allow this lint, which even though it does not exist in previous
+versions, it works because we allow for `unknown_lints` in
+rust/Cargo.toml.
 
 Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 ---
-Manos Pitsidianakis (3):
-      rust/memory: replace size arg with Bits enum
-      memattrs.h: make MemTxAttrs into enum
-      rust: add *_with_attrs methods to MemoryRegionOps
+ rust/qemu-api/src/bindings.rs | 1 +
+ 1 file changed, 1 insertion(+)
 
- include/exec/memattrs.h          | 11 ++---
- rust/hw/char/pl011/src/device.rs |  8 ++--
- rust/hw/timer/hpet/src/device.rs | 14 +++----
- rust/qemu-api/meson.build        |  1 +
- rust/qemu-api/src/memory.rs      | 86 +++++++++++++++++++++++++++++++++++-----
- 5 files changed, 93 insertions(+), 27 deletions(-)
+diff --git a/rust/qemu-api/src/bindings.rs b/rust/qemu-api/src/bindings.rs
+index 057de4b6467c50ecc5acb6b51e6fde87ef5fa67f..3cdad0f0ec640880bc74a942bbcb303be4cda775 100644
+--- a/rust/qemu-api/src/bindings.rs
++++ b/rust/qemu-api/src/bindings.rs
+@@ -6,6 +6,7 @@
+     non_camel_case_types,
+     non_snake_case,
+     non_upper_case_globals,
++    unnecessary_transmutes,
+     unsafe_op_in_unsafe_fn,
+     clippy::pedantic,
+     clippy::restriction,
+
 ---
 base-commit: c77283dd5d79149f4e7e9edd00f65416c648ee59
-change-id: 20250703-rust-mem-api-7faf5644cda2
+change-id: 20250703-rust_bindings_allow_unnecessary_transmutes-d614db4517a4
 
 --
 γαῖα πυρί μιχθήτω
