@@ -1,94 +1,105 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uX2q7-0006wl-7j
-	for mharc-qemu-rust@gnu.org; Wed, 02 Jul 2025 15:09:51 -0400
+	id 1uXK4n-0007Ba-8n
+	for mharc-qemu-rust@gnu.org; Thu, 03 Jul 2025 09:34:09 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uX2q4-0006hj-B8
- for qemu-rust@nongnu.org; Wed, 02 Jul 2025 15:09:48 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uX2pv-0005Ua-4T
- for qemu-rust@nongnu.org; Wed, 02 Jul 2025 15:09:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1751483373;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=DXkkRzTlmYZi0YZDj8pQyWz30kSaNP1GFwKQAikmgUw=;
- b=gJuAaRpA8R2r4RZVIjk6wELRtSqO8WMmNfCCnjoEDX/j1L0WGaQ3igZ+gZil4/Vti/2puS
- nd0di1xgNn7C2wsq6ukm4zxP7chVHpm0N33oPqUz8k57BwWDn2L8BmuPVZxRqR2hiArzIL
- os7jSAvwagj4t3YndIMUGOS8mWX6KP8=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-117-FCS6Q8ceO2KBtN-cA5C8Jw-1; Wed, 02 Jul 2025 15:09:31 -0400
-X-MC-Unique: FCS6Q8ceO2KBtN-cA5C8Jw-1
-X-Mimecast-MFC-AGG-ID: FCS6Q8ceO2KBtN-cA5C8Jw_1751483371
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-3a50816cc58so3605881f8f.3
- for <qemu-rust@nongnu.org>; Wed, 02 Jul 2025 12:09:31 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uXK4j-00077t-Ch
+ for qemu-rust@nongnu.org; Thu, 03 Jul 2025 09:34:06 -0400
+Received: from mail-wr1-x42d.google.com ([2a00:1450:4864:20::42d])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uXK4X-00019Q-2K
+ for qemu-rust@nongnu.org; Thu, 03 Jul 2025 09:34:00 -0400
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3a4fb9c2436so4702537f8f.1
+ for <qemu-rust@nongnu.org>; Thu, 03 Jul 2025 06:33:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1751549629; x=1752154429; darn=nongnu.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=lPoLRXwQ2Qc0igi1+T6XuwBUXl7SWUBoR7DXhHIDuaI=;
+ b=Ne8no013CoqyQEgg7FLhoYOSBqxQas1CbYRDMbNEcnII+r41v2FObvSHL53jfBI+Ju
+ po5EhlP2JJQQgFZsoaA4v/07U+nFoGDbbYvbpolwl4AxRSROu3r7brUGE04pYXOjZ2iL
+ JJbS4PLAKFfI6aAda6DsGC8y9h3LvucrKG/HNisgoqB7KmjbcRkKKahy51Zd24IHgHN7
+ UAGk47KgFMPrU1sJL0g2hk6i+BvukDeNWADYY6/GPY9Im6zTdNo8yqeOn3e3iue6V1lS
+ Glzt+WyJ6Z9MXU5PHb/KO8SR/G/USYcx96i8EkF18QRQCUyZ2TgdxsO0iSqhx7vuCVB/
+ Hotg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751483370; x=1752088170;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1751549629; x=1752154429;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=DXkkRzTlmYZi0YZDj8pQyWz30kSaNP1GFwKQAikmgUw=;
- b=kH/wl20CxvT9PO33H1Wr8kppa1NGzoY3Alpa38iB1mMZI97S0/y7zRt5MzLXuayOQZ
- 6WHhTLu73ptvKuA9QCbQzCiivPnI26dqPWrQgMB49Fzf4LnoEbeDS3OVUdUujfWuGxki
- 7iAqGaBuud17eyvJz2o850trSbCCUMB4SVYsLz77CK4zpee7rkPOefDZBLRHb+YTSWgc
- z29HxX+b0D0LL7QihHNd7214NZAsj5EOz8fs3s/gm6O2om57i7CwkrTuC+uQd/S5CCM9
- vYqUuXJurOG1v34BdwC7QSNnigO0qfuyvB2dXZvjEKA7v3mF7br5gJkptiOfk8r6eSeN
- PnjA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUVXyuyoGe8oATuIYtq+FoT3x2Q3zRbaxh0YjfJHtvjXOojP44wUYZlJ5cqD+9P6b7O+hx8YHkK4lU=@nongnu.org
-X-Gm-Message-State: AOJu0YyNPTm1SzVADuPC6jCPRwYAaou2+4GcWvqBLHOiieQTwhXFrbTJ
- v75DXdsXAp2WxklmSnhLRMaIik5q4PwL6usuhfU/X/TJ1YpYfEB5Uk5DCK2kc3wkF9mWG7V2UZx
- yXNKlIbW9wuJhnbCht3Nm4EeVVJ1ytUr1AGjP52oUtcHkxaCkkHgvTAMk061mRNX12F3OUR/soG
- IQnLFZ66XzrtvHS2VAtJo4CrHqyO4Dfw==
-X-Gm-Gg: ASbGncs+EwrNSUZo+xaSGMixa6V59MSWkg+/cm08X9gQXexfJxtFKmbEgd2dKAICLZy
- z/EcBSm1n1O5h0zT7lcdmHhq08UcxDQb3cvnjFJTD9orGq9cFVDKofWRpGMqN65wfQvryhTlIGc
- 0B7g==
-X-Received: by 2002:a05:6000:25e8:b0:3a5:2653:7308 with SMTP id
- ffacd0b85a97d-3b20110b7bamr2712596f8f.57.1751483370376; 
- Wed, 02 Jul 2025 12:09:30 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGw7/creKSpJk0DIfDJxBW2cTkOZ4hOPOm9FyTcS+DOqxItp7f6xgcflSu0NTOp+4960gDEHbtYaU5qyWIGHsc=
-X-Received: by 2002:a05:6000:25e8:b0:3a5:2653:7308 with SMTP id
- ffacd0b85a97d-3b20110b7bamr2712574f8f.57.1751483369922; Wed, 02 Jul 2025
- 12:09:29 -0700 (PDT)
+ bh=lPoLRXwQ2Qc0igi1+T6XuwBUXl7SWUBoR7DXhHIDuaI=;
+ b=g2iMUD1RpzY+59xt5GxFnK2GTJwrCrvyBDX36+34aGgD6q/S4VeIn+BcuLvmfL0x5R
+ MpKwoLSpocc4SWWPaEQc0M6xBK0VQIQs+JvA4IYmqSBuiBaIhcPyvnJglWp++ZOVQxKD
+ hqG93YdRZNsW7Hsykde98cF6JfyHhwYOMiUi9rPJAkje1FlgYgsKaO/p1lERONrUZjB3
+ dVfPcKwjeGNYwYEF665tQX6Kysn7PSIlIwevyvrZ1ynFyh1bpHX19XE0egeZrHdKr4BO
+ DZERU9qBH8QovddHdRezOCF6lhHme726+m+LLjKwDcJWWpua02JJ796M2tsCoe72M5OT
+ TVjA==
+X-Gm-Message-State: AOJu0YxQ9z1S8ZizCUrCVgBXJq5/QB2YhGhSMh16TdkanTjMRWPTnfew
+ PAP7smH4gjshXUrWWC1pNYmCQd6K3DE+97kPm/YFguFr287bhb+RAcWVijahwtJqUcI=
+X-Gm-Gg: ASbGncvmh1KCKtQG/nLkugEiCkaoSKX/PxoMseavZQRWvrwwpSVUZ2NaZQX1k6biJ/g
+ 7ncUvByIQKsuBCl9GvkWPL/667H6AI4WrSPSWkdDzdpwqxomwI11pFtWgQ67wgNpGJpwcU30V5a
+ 6r/vK+t1EGRghSn+zsTFX3U+gA/hfxNITpuqHRG+gKda5MjZJxP5IKMoQ6n+DP9eEAXndg5gzdd
+ 19i6kO957hPYut1t5KlC75ngFmhUzAQ2zndoG60N80xpGrTDT1bOtgk/EFOXLSxOgRPfIjA+GmB
+ WTW7z5g6XPt1y1J+qIAqu9jBdNNab/cCe5QpKW3qc2t8hBzhMN/tItHB79A9Ap6KdnBgefD0qnq
+ bu5eIZRzbT1rOpaB6dudSr1fC2fYgbII=
+X-Google-Smtp-Source: AGHT+IHJQN4bD7ZZkMNvOxx4ZGWQ8VgFpi6pNG4OTkatF1r5BkReFQRqMwpIdA9X+nXEU4hCNWzPdA==
+X-Received: by 2002:adf:9dc2:0:b0:3a4:e665:ca5 with SMTP id
+ ffacd0b85a97d-3b32cd20f10mr2176556f8f.23.1751549628698; 
+ Thu, 03 Jul 2025 06:33:48 -0700 (PDT)
+Received: from [127.0.1.1] (ppp-2-86-212-125.home.otenet.gr. [2.86.212.125])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-454a9972d83sm26993475e9.11.2025.07.03.06.33.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Jul 2025 06:33:48 -0700 (PDT)
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Thu, 03 Jul 2025 16:33:43 +0300
+Subject: [PATCH] rust/qemu-api-macros: use syn::Error directly
 MIME-Version: 1.0
-References: <20250605101124.367270-1-pbonzini@redhat.com>
- <aEk6vdosWZgyQGXD@intel.com>
- <CABgObfaK8h3GE4GWbPrn22JshYcCFdXsxWHWuAPVC4pRb7GZ0A@mail.gmail.com>
- <CABgObfa+w3pcYhFnO6ETxSfoNiNU=+_8WcW6dE8dkUrbt6darw@mail.gmail.com>
- <877c19nn3p.fsf@pond.sub.org>
- <CABgObfY7==Q8z9xPS6oO-qv9U4LJ19Y+mCYENqSYnGFwkhoBYw@mail.gmail.com>
- <877c1262n5.fsf@pond.sub.org>
-In-Reply-To: <877c1262n5.fsf@pond.sub.org>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Wed, 2 Jul 2025 15:09:18 -0400
-X-Gm-Features: Ac12FXzmYIv5cqwzHKIc4arj4beWTDd8lm9emxR2gu-uqvHy-auvRt37w0sfayc
-Message-ID: <CABgObfafZ1K7nORbh8xOi6M2Jeairn=Azor=JTN8MHFxMfOsBQ@mail.gmail.com>
-Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from 2021
-To: Markus Armbruster <armbru@redhat.com>
-Cc: Zhao Liu <zhao1.liu@intel.com>, qemu-devel <qemu-devel@nongnu.org>, 
- =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>, 
- qemu-rust@nongnu.org, Martin Kletzander <mkletzan@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: _WSjpmRuZxUQ9FRZtnXXNzZGnOE0jHGQCYIH7APwl64_1751483371
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="000000000000183b2d0638f7000a"
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -17
-X-Spam_score: -1.8
-X-Spam_bar: -
-X-Spam_report: (-1.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
- RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.237,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20250703-rust_macros-v1-1-b99f82febbbf@linaro.org>
+X-B4-Tracking: v=1; b=H4sIALaGZmgC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI1MDcwNj3aLS4pL43MTkovxiXVPjFMtUs0SDJAsDIyWgjoKi1LTMCrBp0bG
+ 1tQCtsOeEXQAAAA==
+X-Change-ID: 20250703-rust_macros-53d9e6a0b802
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, 
+ Zhao Liu <zhao1.liu@intel.com>, 
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=19173;
+ i=manos.pitsidianakis@linaro.org; h=from:subject:message-id;
+ bh=Of5AnNPDvej2ZFXoTltV/Wb4vvhC5vIttMxc2b/uIK8=;
+ b=LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tCgpvd0VCYlFLUy9aQU5Bd0FLQVhjcHgzQi9mZ
+ 25RQWNzbVlnQm9ab2E3UUozdFQ4QWM4L2Mwd3Z2cXBncStQRHNYCmhDaWMrT1NXYk01QklkcVk0
+ bEdKQWpNRUFBRUtBQjBXSVFUTVhCdE9SS0JXODRkd0hSQjNLY2R3ZjM0SjBBVUMKYUdhR3V3QUt
+ DUkIzS2Nkd2YzNEowQW0yRC85UkI5aUhmUjZ1Vnl0UkpEVU45azV0Y0h4cXNEODR1Vm90VTdRUw
+ pta0NzZ2RvZmVHQlNRVzNDL0J5aGZ0cEN6K2pmT0N4SmtwaFlUMHBNMGIvWkM2d2VqUTVRU210Z
+ 2dvd05reUxECm9jUnVQb0JIVEdYZnJMUzlQQzNGN2JSZE91TW1sajdYN1d4ZDh6OS96c2lXaUNE
+ dVB6THV3OEJ5MFFQQjdDRUsKWlNFdWNyRVM3Y3FDajlMWFArOUNVcFEvK0dBaGllYTRHODFzOUp
+ iQVdXd2FiZ2xFaUVmbzlqRTkvTUMrNkVkRAp6aVRMaHdFWUdOQjFKb2M0Tm1LVkFPdFNBa3dXWk
+ V1WFk2cDBDbCt6WFF6WkRVcURtbE90WDNqVUpxNUFRaXFTCmtldTgzUjZTZDVxN1BWR1RiRWZPZ
+ Wg3SGN2akhkUytEK1pRQ085TTVaaDJmcDd0NnNKY1gxTHFlRUNrajk5eVYKa0NEdUVBZGZRVlZV
+ d3lucXR4dHN4dVhrdk9zQXpIdTg0OGZDb2JTY0hoZ1RPT2RkU2l5WnRHazBXcURPTW9ENgpsSFd
+ ZZjNXSDBNM2tXMlBLWUluaHBGUEd6L1N1TlRiL1VVVzhIS3lzNkRRRkxSYm40RHh0am51em5UTz
+ RESkRnCjIyZkt1eS9Yc0pEeE5IY3MwTmdxT2MySmJCa29PQ1IrQWY3TndZU3AySXZuYjhtTEIwK
+ 25ULy9kblErTEVRa0cKU2tSVzJVN1RqS1pGbmpyK3RBaHBZUEFHRVFUdDdHM3NxM2sybjRIUER6
+ U0E4UVB4MjZDRmpSM2pJMjlMdDBCUgpTQ2g4V0RtNG83TkJMOEcyTUdXRXFPeUkzdjhpaVVNYXh
+ PUnRpWEpnYkhWQXIxdWUyRnNFV3Q4eTZ3b2Z1M2NnClpVd21iUT09Cj1FNWUxCi0tLS0tRU5EIF
+ BHUCBNRVNTQUdFLS0tLS0K
+X-Developer-Key: i=manos.pitsidianakis@linaro.org; a=openpgp;
+ fpr=7C721DF9DB3CC7182311C0BF68BC211D47B421E1
+Received-SPF: pass client-ip=2a00:1450:4864:20::42d;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-wr1-x42d.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  T_SPF_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -102,237 +113,486 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Jul 2025 19:09:49 -0000
+X-List-Received-Date: Thu, 03 Jul 2025 13:34:07 -0000
 
---000000000000183b2d0638f7000a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Our MacroError type wraps syn::Error as a variant, and uses another
+variant for custom errors. Fortunately syn::Error can be used directly,
+avoiding extra code on our side, so change the proc macro crate to use
+it.
 
-Il lun 23 giu 2025, 08:53 Markus Armbruster <armbru@redhat.com> ha scritto:
+Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+---
+ docs/devel/rust.rst               | 11 ++---
+ rust/qemu-api-macros/src/bits.rs  | 58 ++++++++++----------------
+ rust/qemu-api-macros/src/lib.rs   | 86 +++++++++++++++++++--------------------
+ rust/qemu-api-macros/src/utils.rs | 26 ------------
+ 4 files changed, 70 insertions(+), 111 deletions(-)
 
-> We end up with two separate ways to do the same job, which is kind of
-> sad.
->
-> I gather the alternative would be to use generated QAPI visitors for the
-> generated Rust data types instead of Serde.  This would be unusual for
-> Rust code: Serde exists and works, so reinvent it would be wasteful and
-> dumb.
->
+diff --git a/docs/devel/rust.rst b/docs/devel/rust.rst
+index dc8c44109e1c17dde0707439dc6255257532cb84..b6737536c694fd54fd0d3204c0dd1145a9b0e973 100644
+--- a/docs/devel/rust.rst
++++ b/docs/devel/rust.rst
+@@ -351,7 +351,7 @@ Writing procedural macros
+ '''''''''''''''''''''''''
+ 
+ By conventions, procedural macros are split in two functions, one
+-returning ``Result<proc_macro2::TokenStream, MacroError>`` with the body of
++returning ``Result<proc_macro2::TokenStream, syn::Error>`` with the body of
+ the procedural macro, and the second returning ``proc_macro::TokenStream``
+ which is the actual procedural macro.  The former's name is the same as
+ the latter with the ``_or_error`` suffix.  The code for the latter is more
+@@ -361,18 +361,19 @@ from the type after ``as`` in the invocation of ``parse_macro_input!``::
+     #[proc_macro_derive(Object)]
+     pub fn derive_object(input: TokenStream) -> TokenStream {
+         let input = parse_macro_input!(input as DeriveInput);
+-        let expanded = derive_object_or_error(input).unwrap_or_else(Into::into);
+ 
+-        TokenStream::from(expanded)
++        derive_object_or_error(input)
++            .unwrap_or_else(syn::Error::into_compile_error)
++            .into()
+     }
+ 
+ The ``qemu_api_macros`` crate has utility functions to examine a
+ ``DeriveInput`` and perform common checks (e.g. looking for a struct
+-with named fields).  These functions return ``Result<..., MacroError>``
++with named fields).  These functions return ``Result<..., syn::Error>``
+ and can be used easily in the procedural macro function::
+ 
+     fn derive_object_or_error(input: DeriveInput) ->
+-        Result<proc_macro2::TokenStream, MacroError>
++        Result<proc_macro2::TokenStream, Error>
+     {
+         is_c_repr(&input, "#[derive(Object)]")?;
+ 
+diff --git a/rust/qemu-api-macros/src/bits.rs b/rust/qemu-api-macros/src/bits.rs
+index 5ba84757ee029e79c52dccf14335733e99d631aa..a80a3b9fee16b0d4a474dc6e1c0052d6b1ce9928 100644
+--- a/rust/qemu-api-macros/src/bits.rs
++++ b/rust/qemu-api-macros/src/bits.rs
+@@ -6,8 +6,7 @@
+ use proc_macro2::{
+     Delimiter, Group, Ident, Punct, Spacing, Span, TokenStream, TokenTree, TokenTree as TT,
+ };
+-
+-use crate::utils::MacroError;
++use syn::Error;
+ 
+ pub struct BitsConstInternal {
+     typ: TokenTree,
+@@ -36,27 +35,21 @@ fn parse_primary(
+         tok: TokenTree,
+         it: &mut dyn Iterator<Item = TokenTree>,
+         out: &mut TokenStream,
+-    ) -> Result<Option<TokenTree>, MacroError> {
++    ) -> Result<Option<TokenTree>, Error> {
+         let next = match tok {
+             TT::Group(ref g) => {
+                 if g.delimiter() != Delimiter::Parenthesis && g.delimiter() != Delimiter::None {
+-                    return Err(MacroError::Message("expected parenthesis".into(), g.span()));
++                    return Err(Error::new(g.span(), "expected parenthesis"));
+                 }
+                 let mut stream = g.stream().into_iter();
+                 let Some(first_tok) = stream.next() else {
+-                    return Err(MacroError::Message(
+-                        "expected operand, found ')'".into(),
+-                        g.span(),
+-                    ));
++                    return Err(Error::new(g.span(), "expected operand, found ')'"));
+                 };
+                 let mut output = TokenStream::new();
+                 // start from the lowest precedence
+                 let next = self.parse_or(first_tok, &mut stream, &mut output)?;
+                 if let Some(tok) = next {
+-                    return Err(MacroError::Message(
+-                        format!("unexpected token {tok}"),
+-                        tok.span(),
+-                    ));
++                    return Err(Error::new(tok.span(), format!("unexpected token {tok}")));
+                 }
+                 out.extend(Some(paren(output)));
+                 it.next()
+@@ -74,20 +67,17 @@ fn parse_primary(
+             }
+             TT::Punct(ref p) => {
+                 if p.as_char() != '!' {
+-                    return Err(MacroError::Message("expected operand".into(), p.span()));
++                    return Err(Error::new(p.span(), "expected operand"));
+                 }
+                 let Some(rhs_tok) = it.next() else {
+-                    return Err(MacroError::Message(
+-                        "expected operand at end of input".into(),
+-                        p.span(),
+-                    ));
++                    return Err(Error::new(p.span(), "expected operand at end of input"));
+                 };
+                 let next = self.parse_primary(rhs_tok, it, out)?;
+                 out.extend([punct('.'), ident("invert"), paren(TokenStream::new())]);
+                 next
+             }
+             _ => {
+-                return Err(MacroError::Message("unexpected literal".into(), tok.span()));
++                return Err(Error::new(tok.span(), "unexpected literal"));
+             }
+         };
+         Ok(next)
+@@ -99,7 +89,7 @@ fn parse_binop<
+             TokenTree,
+             &mut dyn Iterator<Item = TokenTree>,
+             &mut TokenStream,
+-        ) -> Result<Option<TokenTree>, MacroError>,
++        ) -> Result<Option<TokenTree>, Error>,
+     >(
+         &self,
+         tok: TokenTree,
+@@ -108,7 +98,7 @@ fn parse_binop<
+         ch: char,
+         f: F,
+         method: &'static str,
+-    ) -> Result<Option<TokenTree>, MacroError> {
++    ) -> Result<Option<TokenTree>, Error> {
+         let mut next = f(self, tok, it, out)?;
+         while next.is_some() {
+             let op = next.as_ref().unwrap();
+@@ -118,10 +108,7 @@ fn parse_binop<
+             }
+ 
+             let Some(rhs_tok) = it.next() else {
+-                return Err(MacroError::Message(
+-                    "expected operand at end of input".into(),
+-                    p.span(),
+-                ));
++                return Err(Error::new(p.span(), "expected operand at end of input"));
+             };
+             let mut rhs = TokenStream::new();
+             next = f(self, rhs_tok, it, &mut rhs)?;
+@@ -136,7 +123,7 @@ pub fn parse_sub(
+         tok: TokenTree,
+         it: &mut dyn Iterator<Item = TokenTree>,
+         out: &mut TokenStream,
+-    ) -> Result<Option<TokenTree>, MacroError> {
++    ) -> Result<Option<TokenTree>, Error> {
+         self.parse_binop(tok, it, out, '-', Self::parse_primary, "difference")
+     }
+ 
+@@ -146,7 +133,7 @@ fn parse_and(
+         tok: TokenTree,
+         it: &mut dyn Iterator<Item = TokenTree>,
+         out: &mut TokenStream,
+-    ) -> Result<Option<TokenTree>, MacroError> {
++    ) -> Result<Option<TokenTree>, Error> {
+         self.parse_binop(tok, it, out, '&', Self::parse_sub, "intersection")
+     }
+ 
+@@ -156,7 +143,7 @@ fn parse_xor(
+         tok: TokenTree,
+         it: &mut dyn Iterator<Item = TokenTree>,
+         out: &mut TokenStream,
+-    ) -> Result<Option<TokenTree>, MacroError> {
++    ) -> Result<Option<TokenTree>, Error> {
+         self.parse_binop(tok, it, out, '^', Self::parse_and, "symmetric_difference")
+     }
+ 
+@@ -166,13 +153,13 @@ pub fn parse_or(
+         tok: TokenTree,
+         it: &mut dyn Iterator<Item = TokenTree>,
+         out: &mut TokenStream,
+-    ) -> Result<Option<TokenTree>, MacroError> {
++    ) -> Result<Option<TokenTree>, Error> {
+         self.parse_binop(tok, it, out, '|', Self::parse_xor, "union")
+     }
+ 
+     pub fn parse(
+         it: &mut dyn Iterator<Item = TokenTree>,
+-    ) -> Result<proc_macro2::TokenStream, MacroError> {
++    ) -> Result<proc_macro2::TokenStream, Error> {
+         let mut pos = Span::call_site();
+         let mut typ = proc_macro2::TokenStream::new();
+ 
+@@ -198,15 +185,15 @@ pub fn parse(
+         };
+ 
+         let Some(tok) = next else {
+-            return Err(MacroError::Message(
+-                "expected expression, do not call this macro directly".into(),
++            return Err(Error::new(
+                 pos,
++                "expected expression, do not call this macro directly",
+             ));
+         };
+         let TT::Group(ref _group) = tok else {
+-            return Err(MacroError::Message(
+-                "expected parenthesis, do not call this macro directly".into(),
++            return Err(Error::new(
+                 tok.span(),
++                "expected parenthesis, do not call this macro directly",
+             ));
+         };
+         let mut out = TokenStream::new();
+@@ -219,10 +206,7 @@ pub fn parse(
+         // A parenthesized expression is a single production of the grammar,
+         // so the input must have reached the last token.
+         if let Some(tok) = next {
+-            return Err(MacroError::Message(
+-                format!("unexpected token {tok}"),
+-                tok.span(),
+-            ));
++            return Err(Error::new(tok.span(), format!("unexpected token {tok}")));
+         }
+         Ok(out)
+     }
+diff --git a/rust/qemu-api-macros/src/lib.rs b/rust/qemu-api-macros/src/lib.rs
+index c18bb4e036f4e7737f9b95ac300b7d1e8742ef1f..2cb79c799a2807cbb6ca7ed47d018ba22deaa372 100644
+--- a/rust/qemu-api-macros/src/lib.rs
++++ b/rust/qemu-api-macros/src/lib.rs
+@@ -6,83 +6,79 @@
+ use quote::quote;
+ use syn::{
+     parse_macro_input, parse_quote, punctuated::Punctuated, spanned::Spanned, token::Comma, Data,
+-    DeriveInput, Field, Fields, FieldsUnnamed, Ident, Meta, Path, Token, Variant,
++    DeriveInput, Error, Field, Fields, FieldsUnnamed, Ident, Meta, Path, Token, Variant,
+ };
+-
+-mod utils;
+-use utils::MacroError;
+-
+ mod bits;
+ use bits::BitsConstInternal;
+ 
+ fn get_fields<'a>(
+     input: &'a DeriveInput,
+     msg: &str,
+-) -> Result<&'a Punctuated<Field, Comma>, MacroError> {
++) -> Result<&'a Punctuated<Field, Comma>, Error> {
+     let Data::Struct(ref s) = &input.data else {
+-        return Err(MacroError::Message(
+-            format!("Struct required for {msg}"),
++        return Err(Error::new(
+             input.ident.span(),
++            format!("Struct required for {msg}"),
+         ));
+     };
+     let Fields::Named(ref fs) = &s.fields else {
+-        return Err(MacroError::Message(
++        return Err(Error::new(
++            input.ident.span(),
+             format!("Named fields required for {msg}"),
+-            input.ident.span(),
+         ));
+     };
+     Ok(&fs.named)
+ }
+ 
+-fn get_unnamed_field<'a>(input: &'a DeriveInput, msg: &str) -> Result<&'a Field, MacroError> {
++fn get_unnamed_field<'a>(input: &'a DeriveInput, msg: &str) -> Result<&'a Field, Error> {
+     let Data::Struct(ref s) = &input.data else {
+-        return Err(MacroError::Message(
+-            format!("Struct required for {msg}"),
++        return Err(Error::new(
+             input.ident.span(),
++            format!("Struct required for {msg}"),
+         ));
+     };
+     let Fields::Unnamed(FieldsUnnamed { ref unnamed, .. }) = &s.fields else {
+-        return Err(MacroError::Message(
++        return Err(Error::new(
++            s.fields.span(),
+             format!("Tuple struct required for {msg}"),
+-            s.fields.span(),
+         ));
+     };
+     if unnamed.len() != 1 {
+-        return Err(MacroError::Message(
++        return Err(Error::new(
++            s.fields.span(),
+             format!("A single field is required for {msg}"),
+-            s.fields.span(),
+         ));
+     }
+     Ok(&unnamed[0])
+ }
+ 
+-fn is_c_repr(input: &DeriveInput, msg: &str) -> Result<(), MacroError> {
++fn is_c_repr(input: &DeriveInput, msg: &str) -> Result<(), Error> {
+     let expected = parse_quote! { #[repr(C)] };
+ 
+     if input.attrs.iter().any(|attr| attr == &expected) {
+         Ok(())
+     } else {
+-        Err(MacroError::Message(
++        Err(Error::new(
++            input.ident.span(),
+             format!("#[repr(C)] required for {msg}"),
+-            input.ident.span(),
+         ))
+     }
+ }
+ 
+-fn is_transparent_repr(input: &DeriveInput, msg: &str) -> Result<(), MacroError> {
++fn is_transparent_repr(input: &DeriveInput, msg: &str) -> Result<(), Error> {
+     let expected = parse_quote! { #[repr(transparent)] };
+ 
+     if input.attrs.iter().any(|attr| attr == &expected) {
+         Ok(())
+     } else {
+-        Err(MacroError::Message(
++        Err(Error::new(
++            input.ident.span(),
+             format!("#[repr(transparent)] required for {msg}"),
+-            input.ident.span(),
+         ))
+     }
+ }
+ 
+-fn derive_object_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream, MacroError> {
++fn derive_object_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream, Error> {
+     is_c_repr(&input, "#[derive(Object)]")?;
+ 
+     let name = &input.ident;
+@@ -103,12 +99,13 @@ fn derive_object_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream
+ #[proc_macro_derive(Object)]
+ pub fn derive_object(input: TokenStream) -> TokenStream {
+     let input = parse_macro_input!(input as DeriveInput);
+-    let expanded = derive_object_or_error(input).unwrap_or_else(Into::into);
+ 
+-    TokenStream::from(expanded)
++    derive_object_or_error(input)
++        .unwrap_or_else(syn::Error::into_compile_error)
++        .into()
+ }
+ 
+-fn derive_opaque_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream, MacroError> {
++fn derive_opaque_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream, Error> {
+     is_transparent_repr(&input, "#[derive(Wrapper)]")?;
+ 
+     let name = &input.ident;
+@@ -149,13 +146,14 @@ pub const fn raw_get(slot: *mut Self) -> *mut <Self as crate::cell::Wrapper>::Wr
+ #[proc_macro_derive(Wrapper)]
+ pub fn derive_opaque(input: TokenStream) -> TokenStream {
+     let input = parse_macro_input!(input as DeriveInput);
+-    let expanded = derive_opaque_or_error(input).unwrap_or_else(Into::into);
+ 
+-    TokenStream::from(expanded)
++    derive_opaque_or_error(input)
++        .unwrap_or_else(syn::Error::into_compile_error)
++        .into()
+ }
+ 
+ #[allow(non_snake_case)]
+-fn get_repr_uN(input: &DeriveInput, msg: &str) -> Result<Path, MacroError> {
++fn get_repr_uN(input: &DeriveInput, msg: &str) -> Result<Path, Error> {
+     let repr = input.attrs.iter().find(|attr| attr.path().is_ident("repr"));
+     if let Some(repr) = repr {
+         let nested = repr.parse_args_with(Punctuated::<Meta, Token![,]>::parse_terminated)?;
+@@ -170,23 +168,23 @@ fn get_repr_uN(input: &DeriveInput, msg: &str) -> Result<Path, MacroError> {
+         }
+     }
+ 
+-    Err(MacroError::Message(
+-        format!("#[repr(u8/u16/u32/u64) required for {msg}"),
++    Err(Error::new(
+         input.ident.span(),
++        format!("#[repr(u8/u16/u32/u64) required for {msg}"),
+     ))
+ }
+ 
+-fn get_variants(input: &DeriveInput) -> Result<&Punctuated<Variant, Comma>, MacroError> {
++fn get_variants(input: &DeriveInput) -> Result<&Punctuated<Variant, Comma>, Error> {
+     let Data::Enum(ref e) = &input.data else {
+-        return Err(MacroError::Message(
+-            "Cannot derive TryInto for union or struct.".to_string(),
++        return Err(Error::new(
+             input.ident.span(),
++            "Cannot derive TryInto for union or struct.",
+         ));
+     };
+     if let Some(v) = e.variants.iter().find(|v| v.fields != Fields::Unit) {
+-        return Err(MacroError::Message(
+-            "Cannot derive TryInto for enum with non-unit variants.".to_string(),
++        return Err(Error::new(
+             v.fields.span(),
++            "Cannot derive TryInto for enum with non-unit variants.",
+         ));
+     }
+     Ok(&e.variants)
+@@ -197,7 +195,7 @@ fn derive_tryinto_body(
+     name: &Ident,
+     variants: &Punctuated<Variant, Comma>,
+     repr: &Path,
+-) -> Result<proc_macro2::TokenStream, MacroError> {
++) -> Result<proc_macro2::TokenStream, Error> {
+     let discriminants: Vec<&Ident> = variants.iter().map(|f| &f.ident).collect();
+ 
+     Ok(quote! {
+@@ -210,7 +208,7 @@ fn derive_tryinto_body(
+ }
+ 
+ #[rustfmt::skip::macros(quote)]
+-fn derive_tryinto_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream, MacroError> {
++fn derive_tryinto_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream, Error> {
+     let repr = get_repr_uN(&input, "#[derive(TryInto)]")?;
+     let name = &input.ident;
+     let body = derive_tryinto_body(name, get_variants(&input)?, &repr)?;
+@@ -247,9 +245,10 @@ fn try_from(value: #repr) -> Result<Self, #repr> {
+ #[proc_macro_derive(TryInto)]
+ pub fn derive_tryinto(input: TokenStream) -> TokenStream {
+     let input = parse_macro_input!(input as DeriveInput);
+-    let expanded = derive_tryinto_or_error(input).unwrap_or_else(Into::into);
+ 
+-    TokenStream::from(expanded)
++    derive_tryinto_or_error(input)
++        .unwrap_or_else(syn::Error::into_compile_error)
++        .into()
+ }
+ 
+ #[proc_macro]
+@@ -257,6 +256,7 @@ pub fn bits_const_internal(ts: TokenStream) -> TokenStream {
+     let ts = proc_macro2::TokenStream::from(ts);
+     let mut it = ts.into_iter();
+ 
+-    let expanded = BitsConstInternal::parse(&mut it).unwrap_or_else(Into::into);
+-    TokenStream::from(expanded)
++    BitsConstInternal::parse(&mut it)
++        .unwrap_or_else(syn::Error::into_compile_error)
++        .into()
+ }
+diff --git a/rust/qemu-api-macros/src/utils.rs b/rust/qemu-api-macros/src/utils.rs
+deleted file mode 100644
+index 02c91aed7f6a6d33075bbaa8b4fec4536da94e60..0000000000000000000000000000000000000000
+--- a/rust/qemu-api-macros/src/utils.rs
++++ /dev/null
+@@ -1,26 +0,0 @@
+-// Procedural macro utilities.
+-// Author(s): Paolo Bonzini <pbonzini@redhat.com>
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-
+-use proc_macro2::Span;
+-use quote::quote_spanned;
+-
+-pub enum MacroError {
+-    Message(String, Span),
+-    ParseError(syn::Error),
+-}
+-
+-impl From<syn::Error> for MacroError {
+-    fn from(err: syn::Error) -> Self {
+-        MacroError::ParseError(err)
+-    }
+-}
+-
+-impl From<MacroError> for proc_macro2::TokenStream {
+-    fn from(err: MacroError) -> Self {
+-        match err {
+-            MacroError::Message(msg, span) => quote_spanned! { span => compile_error!(#msg); },
+-            MacroError::ParseError(err) => err.into_compile_error(),
+-        }
+-    }
+-}
 
-My feeling as well.
+---
+base-commit: c77283dd5d79149f4e7e9edd00f65416c648ee59
+change-id: 20250703-rust_macros-53d9e6a0b802
 
-The string visitors have long been a thorn in my side.
->
-> I wish QOM wasn't so annoyingly flexible.  I wish a property had to be
-> of QAPI type (possibly complex).  Less headaches.  Less boilerplate,
-> too.
->
-> Almost all QOM properties are.  And the few that aren't feel like bad
-> ideas to me.
->
-
-Makes sense. On the other hand, from the C point of view I admit that
-passing a Visitor* or a QObject* to the setter would not be very
-different=E2=80=94or possibly even a bit more code for the QObject*. Likewi=
-se for
-passing a QObject** on the getter side.
-
-So the problem isn't the flexibility... It's using/exploiting it.
-
-> * Keep using serde like for commands: in the callback that is invoked by
-> > object_property_set() do Visitor->QObject->setter (yes that means doubl=
-e
-> > conversion when the source visitor is and QObject visitor) or for the
-> > getter case, getter->QObject->Visitor. This has the minimum amount of
-> code
-> > added to qapi-gen.
->
-> Recall the callback gets the new property value wrapped in an input
-> visitor.  Whereas a C setter extracts it into some C variable(s), a Rust
-> setter extracts it into a QObject, which it then passes to Serde for
-> deserialization into Rust variables.  Correct?
->
-
-Yes.
-
-> * Generate a visit_type_*() implementation that emits a Rust struct (i.e.
-> > one that maps for example 'str' to a String and not a *mut c_char) and
-> > forgo serde completely. Use this generated implementation everywhere: Q=
-OM
-> > getters and setters, as well as QMP commands. This is how C code works.
->
-> This is the alternative mentioned above.
->
-
-Yes.
-
-> * Generate rust->C (e.g. String->*mut c_char) and C->rust converters from
-> > qapi-gen; use the existing C visit_type_*() to extract data from visito=
-rs
-> > and then apply said converters to turn the data into a Rust struct, and
-> > likewise in the other direction. This was the way Marc-Andr=C3=A9's pro=
-totype
-> > worked.
->
-> Converters between C and Rust data types let us cut at the C data type
-> instead of at QObject.
->
-> We use the same code up to QAPI-generated C data type and from
-> QAPI-generated C data type on.
->
-> In between, we work directly with the C data type for properties
-> implemented in C, and convert to and from the Rust data type for
-> properties implemented in Rust.
->
-> Correct?
->
-
-Yes.
-
-The simplest such converters convert via QObject.  Grossly inefficient
-> :)
->
-> Marc-Andr=C3=A9's prototype demonstrates efficient converters can be had.
-> The question is whether they're worth their keep.
->
-
-Exactly. What keeps me on the edge is that for QMP the result is still a
-bit less efficient than straight QObject->Rust via Serde. For the QOM
-property Visitor->C->Rust is better than Visitor->QObject->Rust, but is it
-worth the extra amount of code generator? Leaving the code generation
-business to Serde is appealing and it gets one of the two (QMP) as
-efficient as it can be.
-
-The Serde interface code is pretty much write once and forget, since
-QObject hasn't changed substantially in 15 years. The qapi-gen code is
-write once but stays more in the way of other Python code we maintain. On
-the other hand the Serde code is probably going to be a bit on the
-impenetrable side, and until someone writes it we don't know if the balance
-may tilt back towards preferring Marc-Andr=C3=A9's ideas.
-
-Paolo
-
---000000000000183b2d0638f7000a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
-ner"><div dir=3D"ltr" class=3D"gmail_attr">Il lun 23 giu 2025, 08:53 Markus=
- Armbruster &lt;<a href=3D"mailto:armbru@redhat.com">armbru@redhat.com</a>&=
-gt; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-We end up with two separate ways to do the same job, which is kind of<br>
-sad.<br>
-<br>
-I gather the alternative would be to use generated QAPI visitors for the<br=
->
-generated Rust data types instead of Serde.=C2=A0 This would be unusual for=
-<br>
-Rust code: Serde exists and works, so reinvent it would be wasteful and<br>
-dumb.<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"a=
-uto">My feeling as well.</div><div dir=3D"auto"><br></div><div dir=3D"auto"=
-><div class=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
-4,204);padding-left:1ex">The string visitors have long been a thorn in my s=
-ide.<br>
-<br>
-I wish QOM wasn&#39;t so annoyingly flexible.=C2=A0 I wish a property had t=
-o be<br>
-of QAPI type (possibly complex).=C2=A0 Less headaches.=C2=A0 Less boilerpla=
-te,<br>
-too.<br>
-<br>
-Almost all QOM properties are.=C2=A0 And the few that aren&#39;t feel like =
-bad<br>
-ideas to me.<br></blockquote></div></div><div dir=3D"auto"><br></div><div d=
-ir=3D"auto">Makes sense. On the other hand, from the C point of view I admi=
-t that passing a Visitor* or a QObject* to the setter would not be very dif=
-ferent=E2=80=94or possibly even a bit more code for the QObject*. Likewise =
-for passing a QObject** on the getter side.</div><div dir=3D"auto"><br></di=
-v><div dir=3D"auto">So the problem isn&#39;t the flexibility... It&#39;s us=
-ing/exploiting it.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div =
-class=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex">&gt; * Keep using serde like for commands: in the callba=
-ck that is invoked by<br>
-&gt; object_property_set() do Visitor-&gt;QObject-&gt;setter (yes that mean=
-s double<br>
-&gt; conversion when the source visitor is and QObject visitor) or for the<=
-br>
-&gt; getter case, getter-&gt;QObject-&gt;Visitor. This has the minimum amou=
-nt of code<br>
-&gt; added to qapi-gen.<br>
-<br>
-Recall the callback gets the new property value wrapped in an input<br>
-visitor.=C2=A0 Whereas a C setter extracts it into some C variable(s), a Ru=
-st<br>
-setter extracts it into a QObject, which it then passes to Serde for<br>
-deserialization into Rust variables.=C2=A0 Correct?<br></blockquote></div><=
-/div><div dir=3D"auto"><br></div><div dir=3D"auto">Yes.</div><div dir=3D"au=
-to"><br></div><div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_conta=
-iner"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
-order-left:1px solid rgb(204,204,204);padding-left:1ex">
-&gt; * Generate a visit_type_*() implementation that emits a Rust struct (i=
-.e.<br>
-&gt; one that maps for example &#39;str&#39; to a String and not a *mut c_c=
-har) and<br>
-&gt; forgo serde completely. Use this generated implementation everywhere: =
-QOM<br>
-&gt; getters and setters, as well as QMP commands. This is how C code works=
-.<br>
-<br>
-This is the alternative mentioned above.<br></blockquote></div></div><div d=
-ir=3D"auto"><br></div><div dir=3D"auto">Yes.</div><div dir=3D"auto"><br></d=
-iv><div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_container"><bloc=
-kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
-1px solid rgb(204,204,204);padding-left:1ex">
-&gt; * Generate rust-&gt;C (e.g. String-&gt;*mut c_char) and C-&gt;rust con=
-verters from<br>
-&gt; qapi-gen; use the existing C visit_type_*() to extract data from visit=
-ors<br>
-&gt; and then apply said converters to turn the data into a Rust struct, an=
-d<br>
-&gt; likewise in the other direction. This was the way Marc-Andr=C3=A9&#39;=
-s prototype<br>
-&gt; worked.<br>
-<br>
-Converters between C and Rust data types let us cut at the C data type<br>
-instead of at QObject.<br>
-<br>
-We use the same code up to QAPI-generated C data type and from<br>
-QAPI-generated C data type on.<br>
-<br>
-In between, we work directly with the C data type for properties<br>
-implemented in C, and convert to and from the Rust data type for<br>
-properties implemented in Rust.<br>
-<br>
-Correct?<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=
-=3D"auto">Yes.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div clas=
-s=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
-ding-left:1ex">
-The simplest such converters convert via QObject.=C2=A0 Grossly inefficient=
-<br>
-:)<br>
-<br>
-Marc-Andr=C3=A9&#39;s prototype demonstrates efficient converters can be ha=
-d.<br>
-The question is whether they&#39;re worth their keep.<br></blockquote></div=
-></div><div dir=3D"auto"><br></div><div dir=3D"auto">Exactly. What keeps me=
- on the edge is that for QMP the result is still a bit less efficient than =
-straight QObject-&gt;Rust via Serde. For the QOM property Visitor-&gt;C-&gt=
-;Rust is better than Visitor-&gt;QObject-&gt;Rust, but is it worth the extr=
-a amount of code generator? Leaving the code generation business to Serde i=
-s appealing and it gets one of the two (QMP) as efficient as it can be.</di=
-v><div dir=3D"auto"><br></div><div dir=3D"auto">The Serde interface code is=
- pretty much write once and forget, since QObject hasn&#39;t changed substa=
-ntially in 15 years. The qapi-gen code is write once but stays more in the =
-way of other Python code we maintain. On the other hand the Serde code is p=
-robably going to be a bit on the impenetrable side, and until someone write=
-s it we don&#39;t know if the balance may tilt back towards preferring Marc=
--Andr=C3=A9&#39;s ideas.</div><div dir=3D"auto"><br></div><div dir=3D"auto"=
->Paolo</div></div>
-
---000000000000183b2d0638f7000a--
+--
+γαῖα πυρί μιχθήτω
 
 
