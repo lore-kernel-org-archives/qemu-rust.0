@@ -1,63 +1,63 @@
 Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uXf0H-0001yW-He
-	for mharc-qemu-rust@gnu.org; Fri, 04 Jul 2025 07:54:53 -0400
+	id 1uXfJe-0000hq-5L
+	for mharc-qemu-rust@gnu.org; Fri, 04 Jul 2025 08:14:57 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uXf0F-0001yF-HJ; Fri, 04 Jul 2025 07:54:51 -0400
-Received: from mgamail.intel.com ([198.175.65.10])
+ id 1uXfJO-0000fh-EV; Fri, 04 Jul 2025 08:14:38 -0400
+Received: from mgamail.intel.com ([198.175.65.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uXf07-0007b9-M2; Fri, 04 Jul 2025 07:54:50 -0400
+ id 1uXfJH-0001X1-Tm; Fri, 04 Jul 2025 08:14:37 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1751630084; x=1783166084;
+ t=1751631272; x=1783167272;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=nHxLZnRJULJ8wMclJBaqK/qYsk48uSA1nXCIP1o+Rt4=;
- b=lHes/0V8b6Au74srp8ghe5RagBLqJKQhaIuikhA3rKZr9tFsZ+dR0hzW
- MKXMnWEXQ3CUAAk9Yzv+Wzn8bXQ2l76EtzEBIHEKLDqZ9hnQdmaW7HPwH
- x9NOM9r7onkTJIyqQ+DnsrxGqHz6G5051zYSqc816YcgXUxqMGfI0lxZK
- obJbknljB2gJkypcwj2IM7nac8L7QiqfPLNjiZjedg2wIpBGKe1BH59Z9
- Nlj0WPjpEsWB+DHnfb+ubD6wjlS+g7jl7QGCir47TnmMs/aIxB3SXIizI
- 3QjzL+1jz4/S3rrHLGSCOh9H6XLFhtps4qru52LiTlZzfMOJvl523b3yD Q==;
-X-CSE-ConnectionGUID: STmvupqISEK2Qly0Nj4HJw==
-X-CSE-MsgGUID: JMAHGwGCSQSUI+f0dTwVKw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11483"; a="71401185"
-X-IronPort-AV: E=Sophos;i="6.16,287,1744095600"; d="scan'208";a="71401185"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2025 04:54:38 -0700
-X-CSE-ConnectionGUID: LHm9fgjHQaSjCvTq5KlNqg==
-X-CSE-MsgGUID: BdQX2OQaQAK5kQq1Y4QOSw==
+ bh=Yv+aBB9Hki6+HDxlVgF6wNkRw3v40in58G3b/4NxQWo=;
+ b=eQk6BFura71codR/rtcDvgbI/TZ4pT3vecRNXj+O5IPEgr7Tqx8Uc98B
+ +00qQHxNu/wAiqUQLIvUw7v/LTQufaqmI/+YaDaAreLX+ypLWliBZSQ4J
+ 51jlcswRvKm7H4hv204EzkRnWyplj07GmGUnUJe/giEy6WtRH26RAQ2j+
+ X/ZCSCj7unjcpGflLijy1qg0CHPFEFRJI/4RL48mtjzHQmG3RdyHuZKFe
+ sgCTQTtWHo4NY2wrtmaH4+6V6Iy9nTrL90nQTRcl3Vt7SbESScUfnm3Ni
+ QXOl7QpItHv1IABJFZPfmtTd5EBSfE6K1bEkH8JB0u9/qIaAuD19iZdfd g==;
+X-CSE-ConnectionGUID: DL8wMW/xQiORmCza4U7G4w==
+X-CSE-MsgGUID: R6EMfCToSuaxlLZFFjDtSQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11483"; a="54085073"
+X-IronPort-AV: E=Sophos;i="6.16,287,1744095600"; d="scan'208";a="54085073"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2025 05:14:29 -0700
+X-CSE-ConnectionGUID: 7L6rUULbSVyaD9yWRJiN2g==
+X-CSE-MsgGUID: FtVsQ70vQGSAt2ZHyMoZyQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,287,1744095600"; d="scan'208";a="158658098"
+X-IronPort-AV: E=Sophos;i="6.16,287,1744095600"; d="scan'208";a="155393809"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa003.fm.intel.com with ESMTP; 04 Jul 2025 04:54:35 -0700
-Date: Fri, 4 Jul 2025 20:16:01 +0800
+ by fmviesa010.fm.intel.com with ESMTP; 04 Jul 2025 05:14:27 -0700
+Date: Fri, 4 Jul 2025 20:35:53 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
  Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH 1/2] rust/qemu-api-macros: normalize TryInto output
-Message-ID: <aGfGAcebpPS4UV3x@intel.com>
+Subject: Re: [PATCH 0/2] rust: add Derive macro unit tests
+Message-ID: <aGfKqbywpiZEUr37@intel.com>
 References: <20250704-rust_add_derive_macro_unit_tests-v1-0-ebd47fa7f78f@linaro.org>
- <20250704-rust_add_derive_macro_unit_tests-v1-1-ebd47fa7f78f@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250704-rust_add_derive_macro_unit_tests-v1-1-ebd47fa7f78f@linaro.org>
-Received-SPF: pass client-ip=198.175.65.10; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250704-rust_add_derive_macro_unit_tests-v1-0-ebd47fa7f78f@linaro.org>
+Received-SPF: pass client-ip=198.175.65.16; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
-X-Spam_score_int: -18
-X-Spam_score: -1.9
-X-Spam_bar: -
-X-Spam_report: (-1.9 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.218, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_score_int: -41
+X-Spam_score: -4.2
+X-Spam_bar: ----
+X-Spam_report: (-4.2 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.218,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -70,26 +70,31 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Jul 2025 11:54:52 -0000
+X-List-Received-Date: Fri, 04 Jul 2025 12:14:40 -0000
 
-On Fri, Jul 04, 2025 at 01:26:57PM +0300, Manos Pitsidianakis wrote:
-> Date: Fri, 04 Jul 2025 13:26:57 +0300
-> From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-> Subject: [PATCH 1/2] rust/qemu-api-macros: normalize TryInto output
-> X-Mailer: b4 0.14.2
+> You can run the added tests directly with this meson command:
 > 
-> Remove extraneous `;` and add missing trailing comma to TryInto derive
-> macro to match rustfmt style. We will add a test in the followup commit
-> and we would like the inlined output in the test body to be properly
-> formatted as well.
-> 
-> No functional changes intended.
-> 
-> Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-> ---
->  rust/qemu-api-macros/src/lib.rs | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>   meson test rust-qemu-api-macros-tests
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+Hi Manos, do you meet this error:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/mesonbuild/mesonmain.py", line 146, in run
+    return options.run_func(options)
+  File "/usr/lib/python3/dist-packages/mesonbuild/mtest.py", line 2004, in run
+    b = build.load(options.wd)
+  File "/usr/lib/python3/dist-packages/mesonbuild/build.py", line 2868, in load
+    obj = pickle.load(f)
+ModuleNotFoundError: No module named 'mesonbuild.options'
+
+ERROR: Unhandled python exception
+
+    This is a Meson bug and should be reported!
+---
+
+But I've tested this series via `make check`.
+
+
+
 
 
