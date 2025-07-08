@@ -1,78 +1,99 @@
-Received: from list by lists.gnu.org with archive (Exim 4.90_1)
-	id 1uXfO1-0003NJ-4P
-	for mharc-qemu-rust@gnu.org; Fri, 04 Jul 2025 08:19:27 -0400
+Return-Path: <qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84A62C83F09
+	for <qemu-rust@archiver.kernel.org>; Tue,  8 Jul 2025 20:04:17 +0000 (UTC)
+Received: from localhost ([::1] helo=lists1p.gnu.org)
+	by lists.gnu.org with esmtp (Exim 4.90_1)
+	(envelope-from <qemu-rust-bounces@nongnu.org>)
+	id 1uZEXy-0004Eu-8I; Tue, 08 Jul 2025 16:04:10 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uXfNm-0003Kv-7f
- for qemu-rust@nongnu.org; Fri, 04 Jul 2025 08:19:10 -0400
-Received: from mail-ed1-x535.google.com ([2a00:1450:4864:20::535])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uXfNh-0003kL-Rt
- for qemu-rust@nongnu.org; Fri, 04 Jul 2025 08:19:07 -0400
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-604bff84741so1528937a12.2
- for <qemu-rust@nongnu.org>; Fri, 04 Jul 2025 05:19:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1751631542; x=1752236342; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oJfIR9UWsxS+bqd1tEuMyoRls3ClDB7lB9jYjN8f+ck=;
- b=NbvGuKaXdGy6vlJHqB6R0hTyaasE8TtBELA7NnrvTKyy0D8IDggmPqeglUozoMNPAR
- V1FWeWflNZUsgC/2J5YVCugIGVz3nQaszy5JT0nGA09poZ7RnaD5aAc3UVZzCyo52tQa
- Dt8YOojiExWS3nyVz0xPol3dIuHNR9ssZc9TZzxARFcTY5NN5QDbXbSq5DqMlhZ3kKzI
- 2N0sNa16RO6bI2rZ1B0I/IBjEDSciZy9HgWuvO2Q+GnCgb1vyhP1KadQ1Jz1dZ27MWOU
- 8rcZqQoLcUo3OIsWEDJPIOjUJwdp6n0MwsZaYJX0LGnpuj7wBBtvd5QHBrjc78cmBOy3
- dxSQ==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uZCRi-00044q-Cb
+ for qemu-rust@nongnu.org; Tue, 08 Jul 2025 13:50:25 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uZCQJ-0005K5-J7
+ for qemu-rust@nongnu.org; Tue, 08 Jul 2025 13:48:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1751996826;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=b4eakUl1ltj5XPn29ft+YlM5niASE2dTzYNqHfnFkes=;
+ b=SHSTq9ULGHmqD88R8JtUwKlvP+RtP3E/o0CAjg0LZujV7ULkq3QkdaD6vjiHozXTg+g5XB
+ VvnkTO0XekPjC94hnS0VF2Q9ulzQHoi6mqHgvOgb42NC2TnYrYBS1UoSCvPi8Khp6Z2SU6
+ TkqEoGZRbLvO4l04PUFeztSl6y6/xTA=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-618-nDoyqew0NiePoVpTecyp5w-1; Tue, 08 Jul 2025 08:25:25 -0400
+X-MC-Unique: nDoyqew0NiePoVpTecyp5w-1
+X-Mimecast-MFC-AGG-ID: nDoyqew0NiePoVpTecyp5w_1751977524
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-3a50049f8eeso1882440f8f.3
+ for <qemu-rust@nongnu.org>; Tue, 08 Jul 2025 05:25:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751631542; x=1752236342;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=oJfIR9UWsxS+bqd1tEuMyoRls3ClDB7lB9jYjN8f+ck=;
- b=Vprm9R9pUYOZFc7BJb76PN7or60It0UKURKFhaQeGQcpRUYIUrf8Yy/pupYbNLP565
- dPU2nBPuJz5KohdfTBdVSRVaKFHeYdq9OByLGMiGp2Ls6eHsodarzHcax7+zO/J7fEPQ
- cABUfJjawaeNC4k1+QBa1qToBbFGMFtQ4ZBSZUR+deM48JxwcSafCnTSTuz628y5orwt
- qCntgFwtTluhJI/teYXjeQcPNifBimqPXJrpYcRphOH7/KqDJwGqdLuD1kaX3DVEMnSD
- wO6KKPUWykyaMhnqCqIbEq5/+cREr52TYzsJZxo35ZL0VdlUbfuizeNG+0U35DHPuPXk
- W8Mw==
+ d=1e100.net; s=20230601; t=1751977524; x=1752582324;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=b4eakUl1ltj5XPn29ft+YlM5niASE2dTzYNqHfnFkes=;
+ b=O1dHLM+GHmjCXL/dGruRSMBvFE6iygw8lse6SqfqzxFlV3gWO3nCcyJMEP9Y+69Dxh
+ w0vq6RUsW8IqjIddfRg8/xovK9IF2siRqhz6lN0tsZpzMKdGBVxbDmuccWXBUF+PHsqr
+ 3LhwihplGC2jJdQHfm/sJc+ouYbyshozOU3LqN9+9VE5eVhnRsQ4pn5plJBuCUyGQjx6
+ 6GFOsvWrABGCL/Pz0ZDttnMMDSolCZQ8HgjLwvFtCiY2uWto0YRiEy0EaT5q8W95gRa7
+ CfLegqiyWIsFdwzzDqBnig/KBRd+Ih7Hha29R0yh3rqN79WKtn11I3wpqv3bMgY73Clt
+ 1HiA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXJm22I8GQMNRhy1UtnSO3t1l2snjH+XODEWDN2a4XhC5kQorjpiqhOMJDetZ593LwjoCJrhm+F1Dw=@nongnu.org
-X-Gm-Message-State: AOJu0Yz6lR1G04cKfkP9BOykeuUdY5U0vXRDCmR6qmM7+OPJrcLjZvuH
- UyW+5gLzJrDAsti8kajmq/CzGCv4LnYcij2jR8yY/ytZfMNKNwQ3h/bUni50jkdo22DytjTe9ZM
- v5Ie9fmiLxQ76Eb4WZbfIWEUhFfbITDBCctum/LF7Pg==
-X-Gm-Gg: ASbGncsCmjIwVQ3AX07d3elgYfLXkz2RhVoWJZx6alcjOoK9xEr+iwZUPFLuFjyGmLr
- lZAwyNM9S2qH2evfMJ2d6g3q1uB/eUNdHHi0ky0lizGGvpwDZHLrp4Vypn9IEUcOwjihtjdEq6Q
- yI5HHpaT1krNX98+yEXw8ocdjXsTNQqhxHnvfe1ZQbjSE=
-X-Google-Smtp-Source: AGHT+IG9gO9hDSEDs9TdXGLVglUNhefZJCU/vSM31F8AZB4cRpN4KdvlB5Qzcbu7EihJSWszmFisKItdNp/FO9jht3A=
-X-Received: by 2002:a17:907:d94:b0:ad8:a329:b490 with SMTP id
- a640c23a62f3a-ae3fbc56cbamr223334666b.23.1751631542216; Fri, 04 Jul 2025
- 05:19:02 -0700 (PDT)
+ AJvYcCWQK887dnw1EXTI4qvIjvqawO9WtuWC1lSxb/LyEfe2+jkQJgkX0ze8GNQgmC5yHO3EB5Us1HCl9oM=@nongnu.org
+X-Gm-Message-State: AOJu0YzOWnyM9a3SOUBw2fxpesOXQWyUFIOn+h4yzyLdubhHKj4vWmk0
+ kkD+Z581fzrOjHnmSYbetPj1KwM92qTLoRQvSoAzh90vgqzk2FQVph6IyI68PPNEH+hqKSJpsuc
+ ZPR2C/DrNFWZQqXYW0rjkLzdGMS9b0+3mbNEGXXzILFDHCwUL5USjhAcif6IcIFFrO0l9/WiUvZ
+ D6VW5ONjL8nDW6lLTnnEBIub1//bPndw==
+X-Gm-Gg: ASbGnctUSA2MWmQibtCo/3IwoTBj11Pa+DejfNE+vLcW4UOaiwc4PWlyFV7pAZkXtNO
+ bd1mk35Scxi0xKVdFl4s7Hj9m0cTfQPpQjeU8mIsaxpllai0LHkai4oFGFDZ0NqXg06pl+cJcRH
+ JEXIZy
+X-Received: by 2002:a05:6000:2588:b0:3a5:1cc5:4a17 with SMTP id
+ ffacd0b85a97d-3b5ddedc49cmr2213691f8f.42.1751977523997; 
+ Tue, 08 Jul 2025 05:25:23 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF45YM4O3HZs6YCkvL0vQJ6r1LvNL6axxGo513DcN7DqQYe0gHQG76rQtGQ41n+FKYsytUr8U3YA8LJCL2ttGc=
+X-Received: by 2002:a05:6000:2588:b0:3a5:1cc5:4a17 with SMTP id
+ ffacd0b85a97d-3b5ddedc49cmr2213665f8f.42.1751977523560; Tue, 08 Jul 2025
+ 05:25:23 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250704-rust_add_derive_macro_unit_tests-v1-0-ebd47fa7f78f@linaro.org>
- <aGfKqbywpiZEUr37@intel.com>
-In-Reply-To: <aGfKqbywpiZEUr37@intel.com>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Fri, 4 Jul 2025 15:18:18 +0300
-X-Gm-Features: Ac12FXwJFj4tmBXIKE-Le9yl85wKgJs-a03DIJc5x9ddVZvMRDKl8DF45VekluM
-Message-ID: <CAAjaMXbcMUmdUFMYfiZsygjhrmzKWqBWhdtBwwtt2JgvnrxoKg@mail.gmail.com>
-Subject: Re: [PATCH 0/2] rust: add Derive macro unit tests
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, 
- =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
- Paolo Bonzini <pbonzini@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::535;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x535.google.com
+References: <20250703-rust-mem-api-v1-0-cd5314bdf580@linaro.org>
+ <20250703-rust-mem-api-v1-1-cd5314bdf580@linaro.org>
+ <591f8a81-2c8e-4e30-abf2-4571afed41b4@redhat.com>
+ <CAAjaMXZ3JziZ6gUHF67=nqvxzUF0M46SPqftRKgHOYYLaUxjJg@mail.gmail.com>
+In-Reply-To: <CAAjaMXZ3JziZ6gUHF67=nqvxzUF0M46SPqftRKgHOYYLaUxjJg@mail.gmail.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Tue, 8 Jul 2025 14:25:10 +0200
+X-Gm-Features: Ac12FXxIyiVAoWAMhhYdBNcRj-Ei6pdc0UOFvXJtkQDGmCSMw6cWSyZKcC_dF2c
+Message-ID: <CABgObfYY-WVcYGno3moOospz-G2vWgo=0LLVzxTZxscRFK7+wg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] rust/memory: replace size arg with Bits enum
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Cc: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org, 
+ Zhao Liu <zhao1.liu@intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: hLpZc02BY_jL4jOfLN77L4sp_c42Orw3ROtgDYo7jNs_1751977524
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/alternative; boundary="000000000000f25e0f06396a0df8"
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -86,46 +107,134 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Jul 2025 12:19:12 -0000
+Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
+Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Fri, Jul 4, 2025 at 3:14=E2=80=AFPM Zhao Liu <zhao1.liu@intel.com> wrote=
-:
+--000000000000f25e0f06396a0df8
+Content-Type: text/plain; charset="UTF-8"
+
+Il mar 8 lug 2025, 11:11 Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+ha scritto:
+
+> > I find this both verbose and (ok, that's subjective) ugly due to the
+> > extra import, the underscore.
 >
-> > You can run the added tests directly with this meson command:
-> >
-> >   meson test rust-qemu-api-macros-tests
->
-> Hi Manos, do you meet this error:
->
-> Traceback (most recent call last):
->   File "/usr/lib/python3/dist-packages/mesonbuild/mesonmain.py", line 146=
-, in run
->     return options.run_func(options)
->   File "/usr/lib/python3/dist-packages/mesonbuild/mtest.py", line 2004, i=
-n run
->     b =3D build.load(options.wd)
->   File "/usr/lib/python3/dist-packages/mesonbuild/build.py", line 2868, i=
-n load
->     obj =3D pickle.load(f)
-> ModuleNotFoundError: No module named 'mesonbuild.options'
->
-> ERROR: Unhandled python exception
->
->     This is a Meson bug and should be reported!
-> ---
->
-> But I've tested this series via `make check`.
->
->
->
+> Yep, I agree on that, but I wasn't sure what name would be better.
+> Whatever type-level improvement this patch brings, it's small, though
+> nice-to-have. We can drop it, no problem.
 >
 
-Sounds like it used your global meson installation instead of the one
-from the virtual environment of your build directory.
+You did identify a small but real problem, which can be fixed with
+assertions.
 
-Thank you for testing!
+And also another issue in the API, which is that some code likes to use bit
+sizes and other likes to use byte sizes. And it's not clear whether you
+have to do *8 or /8.
 
---=20
-Manos Pitsidianakis
-Emulation and Virtualization Engineer at Linaro Ltd
+This is the one that is where an enum does work great, but without the "as"
+(because it reintroduces the *8 or /8 problem) and with names that don't
+have digits (because of the underscore, but also because it makes the
+result of "as" confusing).
+
+Byte/Word/Long/Quad would work for me, as it matches the C stb/stw/stl/stq
+APIs. Also please add the enum to the prelude. Still verbose but readable.
+I would also add methods like nbits() and nbytes() that can be used instead
+of "as".
+
+Of course if you go with the enum there is no need for assertions in the
+memory API. Except for the >= one, so perhaps it would also make sense to
+implement Cmp in addition to Eq?
+
+> The main effect on generated code is to add an assert! to
+> > memory_region_ops_read_cb() and memory_region_ops_write_cb() that's
+> > similar to the above.  I'm not sure of its value, either: if the size is
+> > not 1/2/4/8, memory.c/physmem.c must have screwed up big.  It's not a
+> > safety concern, either, since the size is not used in any unsafe code.
+>
+> Yep it's more of a guard rail since we can't have refined integer types.
+>
+
+It's not a lot in the grand scheme of things, but adding a match around all
+reads and writes isn't great. :(
+
+The only way to make an enum from an integer of the same repr is via
+transmute, right? So probably there could be an unsafe method
+Size::from_unchecked(u32) too?
+
+Paolo
+
+
+> --
+> Manos Pitsidianakis
+> Emulation and Virtualization Engineer at Linaro Ltd
+>
+>
+
+--000000000000f25e0f06396a0df8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
+ner"><div dir=3D"ltr" class=3D"gmail_attr">Il mar 8 lug 2025, 11:11 Manos P=
+itsidianakis &lt;<a href=3D"mailto:manos.pitsidianakis@linaro.org">manos.pi=
+tsidianakis@linaro.org</a>&gt; ha scritto:</div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
+204);padding-left:1ex">
+&gt; I find this both verbose and (ok, that&#39;s subjective) ugly due to t=
+he<br>
+&gt; extra import, the underscore.<br>
+<br>
+Yep, I agree on that, but I wasn&#39;t sure what name would be better.<br>
+Whatever type-level improvement this patch brings, it&#39;s small, though<b=
+r>
+nice-to-have. We can drop it, no problem.<br></blockquote></div></div><div =
+dir=3D"auto"><br></div><div dir=3D"auto">You did identify a small but real =
+problem, which can be fixed with assertions.</div><div dir=3D"auto"><br></d=
+iv><div dir=3D"auto">And also another issue in the API, which is that some =
+code likes to use bit sizes and other likes to use byte sizes. And it&#39;s=
+ not clear whether you have to do *8 or /8.</div><div dir=3D"auto"><br></di=
+v><div dir=3D"auto">This is the one that is where an enum does work great, =
+but without the &quot;as&quot; (because it reintroduces the *8 or /8 proble=
+m) and with names that don&#39;t have digits (because of the underscore, bu=
+t also because it makes the result of &quot;as&quot; confusing).</div><div =
+dir=3D"auto"><br></div><div dir=3D"auto">Byte/Word/Long/Quad would work for=
+ me, as it matches the C stb/stw/stl/stq APIs. Also please add the enum to =
+the prelude. Still verbose but readable. I would also add methods like nbit=
+s() and nbytes() that can be used instead of &quot;as&quot;.</div><div dir=
+=3D"auto"><br></div><div dir=3D"auto">Of course if you go with the enum the=
+re is no need for assertions in the memory API. Except for the &gt;=3D one,=
+ so perhaps it would also make sense to implement Cmp in addition to Eq?</d=
+iv><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote =
+gmail_quote_container"><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+&gt; The main effect on generated code is to add an assert! to<br>
+&gt; memory_region_ops_read_cb() and memory_region_ops_write_cb() that&#39;=
+s<br>
+&gt; similar to the above.=C2=A0 I&#39;m not sure of its value, either: if =
+the size is<br>
+&gt; not 1/2/4/8, memory.c/physmem.c must have screwed up big.=C2=A0 It&#39=
+;s not a<br>
+&gt; safety concern, either, since the size is not used in any unsafe code.=
+<br>
+<br>
+Yep it&#39;s more of a guard rail since we can&#39;t have refined integer t=
+ypes.<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"a=
+uto">It&#39;s not a lot in the grand scheme of things, but adding a match a=
+round all reads and writes isn&#39;t great. :(</div><div dir=3D"auto"><br><=
+/div><div dir=3D"auto">The only way to make an enum from an integer of the =
+same repr is via transmute, right? So probably there could be an unsafe met=
+hod Size::from_unchecked(u32) too?</div><div dir=3D"auto"><br></div><div di=
+r=3D"auto">Paolo</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div cl=
+ass=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
+adding-left:1ex">
+<br>
+-- <br>
+Manos Pitsidianakis<br>
+Emulation and Virtualization Engineer at Linaro Ltd<br>
+<br>
+</blockquote></div></div></div>
+
+--000000000000f25e0f06396a0df8--
+
 
