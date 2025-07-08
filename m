@@ -4,91 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F1B7C83F09
-	for <qemu-rust@archiver.kernel.org>; Tue,  8 Jul 2025 20:45:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A989C8303C
+	for <qemu-rust@archiver.kernel.org>; Tue,  8 Jul 2025 20:46:15 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uZFA5-0001mK-9U; Tue, 08 Jul 2025 16:43:33 -0400
+	id 1uZFAg-0003uQ-Bd; Tue, 08 Jul 2025 16:44:10 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uZDbK-0001B0-3n
- for qemu-rust@nongnu.org; Tue, 08 Jul 2025 15:04:03 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1uZDaq-0000g4-3w
+ for qemu-rust@nongnu.org; Tue, 08 Jul 2025 15:03:09 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uZDbD-0003Tf-9h
- for qemu-rust@nongnu.org; Tue, 08 Jul 2025 15:03:31 -0400
+ id 1uZDah-0003LT-Ae
+ for qemu-rust@nongnu.org; Tue, 08 Jul 2025 15:02:59 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1752001401;
+ s=mimecast20190719; t=1752001372;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
- b=Gdx1q+rrU6158H3BQPcBGGZDWmI3FjZATkH97HRwvxgGw3+HGzDeCKKmIKTQ6huMIA1jzR
- s324KYAoLeVneXHEyFR3+R96fQQQL2agqbY7T659moVWM1Os8mhM+cNfUYxhQ1MF8TE8D/
- DoON0XJXz4mqozbLVbfH9juhGNigJ0k=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5LTihkAM4nk0aean+/b4dviw52JpVpN8+MR4k4njjo8=;
+ b=LvvkV+31u5Ha7W8woYlIUe+eHLHc1XOZeaUGPUuZpzcEvz/WalIin+53twZFkcnsh3vyRm
+ PHpgbxUhL4EGjUFY4vn1HjEgw1+41PkqRp19yS+J/JZYj1qEbhv7KBuP23ClTOELOi4L1K
+ amCk4jfn+bXYFyoyYHEdSO2C9vs8HV8=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-627-SghTS6n7OnaIuxqXvx4PVQ-1; Tue, 08 Jul 2025 04:35:06 -0400
-X-MC-Unique: SghTS6n7OnaIuxqXvx4PVQ-1
-X-Mimecast-MFC-AGG-ID: SghTS6n7OnaIuxqXvx4PVQ_1751963706
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-4538a2f4212so21298275e9.2
- for <qemu-rust@nongnu.org>; Tue, 08 Jul 2025 01:35:06 -0700 (PDT)
+ us-mta-450-b8uaFdeIMNieBtAmAEV8Fg-1; Tue, 08 Jul 2025 04:35:14 -0400
+X-MC-Unique: b8uaFdeIMNieBtAmAEV8Fg-1
+X-Mimecast-MFC-AGG-ID: b8uaFdeIMNieBtAmAEV8Fg_1751963714
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-4535ee06160so34329385e9.3
+ for <qemu-rust@nongnu.org>; Tue, 08 Jul 2025 01:35:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751963705; x=1752568505;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
- b=kbLo8AJ1b6Ch/YUZ90T2viiPvAuBhQ6NM6LgNsuVT/PGQ5GYrciGC3Ot8tT0WuiQaR
- bInagB7U0jj+AsnayaHa082aGPrL/AoyWHFXdqjuh1+wFh/IBGzUOO4VMKZNogAd0NXh
- GJnsqMX/tIfEBJU57pQyI3V0cy3zjI2ZaIsQRjD3gtlHE97gYaT9l9PbxSnKUGPyruG8
- GuV2+l4d1/Dn/MYIv/PCHA/V0x/kMWihADjUgr84xmE0JDFXi+YIFKjljWXHViye1K09
- 96PLdG3jycrr8tST89bB0NKhYlJOqMIGj7UThPo1e6NLJaLdVa2LNaV8s01McKL3qsXb
- eMXQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWJWM2e6Wp0PWgGdhEjm14wgsr9h8Y/v3bHGmclYi4FQki6V/Ho4AehMjOsNLLT5jl6nhVeSMcHu+c=@nongnu.org
-X-Gm-Message-State: AOJu0YxVtqRSq9UrjtW5fHfv8XqmdfnfrylmUftGMkMkm2rQx7ymZPCN
- HYYPzTg4+orvGze3hwcReuxprh3Kjde/v9YUP8JnZz15irFdLxgexFj1sWe4QqzTevtguivvFpM
- EXBltFjQchshFxXwPfCp6NlvktwtlN89Bqm4FfRbTeiB089cEtERSyLBl7+Q/aMU=
-X-Gm-Gg: ASbGncsMyEu1xCMD/pZisny5+BHeYuVJQgZ0HqmlDxEqFt66TqbWaca/kCs5oGkC/F6
- k8UdO5ieKicFjd0WVdgzAJsKObgkflUy/qlcMUzd2dtMeM+HoFr56X3bb3yJrmPKv1q0evq79Qr
- FffnKRrvj5rdfSgtetKCLTiyxPGJl+IBqDEhpzBcBQp//PtvgcqhLk7UXoS7wM14zXajdZdAzAR
- Wn47GH+jL+8q35WWgUuKXQvMv0BsArpguMi3e8p6GMn6yPvg2Be5+tKR8slNpeDASc3H6dzSlk0
- XGtTTj8JaYEvet9pMhYW9tRTxAU=
-X-Received: by 2002:a05:600c:8411:b0:450:cabd:160 with SMTP id
- 5b1f17b1804b1-454cd4b49c8mr20051805e9.3.1751963705174; 
- Tue, 08 Jul 2025 01:35:05 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFuq228yys8KKAslTF+KBC8WlfLDQa0iRUsy2Y/shqoZ1rnYNPHPQNK3PwP453nsM6GYXe3lg==
-X-Received: by 2002:a05:600c:8411:b0:450:cabd:160 with SMTP id
- 5b1f17b1804b1-454cd4b49c8mr20051445e9.3.1751963704719; 
- Tue, 08 Jul 2025 01:35:04 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1751963713; x=1752568513;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5LTihkAM4nk0aean+/b4dviw52JpVpN8+MR4k4njjo8=;
+ b=FA7JAZMqvIi6K/78LiaPkaz4e3yMUN+M5p7HoGtS2Mn70vn6VUytbhj3Pp0xk8hvy0
+ F/+C1Bnhi7CSPiQZp4MiXpD0HeJTP1SNA926RuZq1UceMoMOYNPNOpIhgA7wyEp9X9vm
+ A1HlsL+fDJnhFvX3r1tepxNmDz9Ei9ccSkHMPFMc/cyQIDh/SCo0h1ZXG+EyQyBXEZzu
+ UnhpRb9l+mPOU13GFhWmy4w70dmf6mS4GVnQNQRyw5A/Ah0IoMuhJWH22LnJiB0isE+K
+ 6he3diFROC2d9yANW4eSMTNrVeuk5jemrausJyvtAh5ZejUoyeYIqqAtWHJneLA8SekI
+ J6ww==
+X-Gm-Message-State: AOJu0Yylw2axnrBst3YQW7RjFUM6tWaxb7h6BgcVXAtFz603KaqhOvHW
+ ozIfE7/gnSfXGXsqqGAWEmC1maxoqWYzMC7uJjXK1YWGlWcNMDsY3pc+MA4fBaZqDbcrRPTC71c
+ xWhLt8yjzDvt8vsq0hfzCDf1n3sSQmb/6TqRTMcDpaM8YoKGyRa+DAWI=
+X-Gm-Gg: ASbGncuQC+8jZfE0flqp6AmGOB/KVmb/ADcwT9jN9+nvrXYHW+MFmSMHdyhL+03nytS
+ HkbVp8aXrxw8QAhqPh39R9bVi34ZOktwijoL0+xs1bgEtPeJJP9sb8cHvJshfCiERci9tHgiQ88
+ 7dmr6pJxWOalsNpxR55N6vPLEkIjZsnxBCPl2h/Z66qiAhHFbUZhtO/CsHrhUYvmUm7zUXhxK1v
+ Bx+wMeODL3p6+cxQ8t1YafX8dLcOpFDChXfa+HWfAJpIzhpXzZb9Lfkd/vjc7BxUfrw5+cp9Xxj
+ iBO4pAhaqTZfxaDwrEl6qYWsxGs=
+X-Received: by 2002:a05:600c:3b10:b0:44d:a244:4983 with SMTP id
+ 5b1f17b1804b1-454cde10611mr18634145e9.3.1751963713435; 
+ Tue, 08 Jul 2025 01:35:13 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHraeHBC0Ql+WplsiGyQXAJs4gO/VtysIFk4ox8H9ht5kGxU18G4bXI1Vh35b9SY8vrv/SQOA==
+X-Received: by 2002:a05:600c:3b10:b0:44d:a244:4983 with SMTP id
+ 5b1f17b1804b1-454cde10611mr18633885e9.3.1751963713000; 
+ Tue, 08 Jul 2025 01:35:13 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.202.169])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-454cd39cdcdsm15265955e9.13.2025.07.08.01.35.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Jul 2025 01:35:04 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: Re: [PATCH] rust/bindings: allow unnecessary_transmutes (1.88)
-Date: Tue,  8 Jul 2025 10:26:06 +0200
-Message-ID: <20250708082606.49710-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250703-rust._5Fbindings._5Fallow._5Funnecessary._5Ftransmutes-v1-1-692ca210d331@linaro.org>
-References: 
+ by smtp.googlemail.com with ESMTPSA id
+ 5b1f17b1804b1-454cd4eef79sm12763685e9.0.2025.07.08.01.35.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Jul 2025 01:35:12 -0700 (PDT)
+Message-ID: <591f8a81-2c8e-4e30-abf2-4571afed41b4@redhat.com>
+Date: Tue, 8 Jul 2025 10:35:10 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] rust/memory: replace size arg with Bits enum
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
+References: <20250703-rust-mem-api-v1-0-cd5314bdf580@linaro.org>
+ <20250703-rust-mem-api-v1-1-cd5314bdf580@linaro.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+In-Reply-To: <20250703-rust-mem-api-v1-1-cd5314bdf580@linaro.org>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: fFy4stIAxV3u-X_pss07DIFNneL4xnMoPFCy7dYDkg0_1751963706
+X-Mimecast-MFC-PROC-ID: r9DhI6Xznb5yTJxHwc-dI7qG01J4nUGpCfz3iCkpmLA_1751963714
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
@@ -97,8 +133,7 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
- TVD_SPACE_RATIO=0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -114,7 +149,40 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Queued, thanks.
+> We have the ability to make memory accesses use a typesafe access width
+> type in Rust, which the C API currently lacks as it does not use a
+> newtype wrapper for specifying the amount of bytes a memory access has;
+> it uses a plain 32-bit integer value instead.
+
+I find this both verbose and (ok, that's subjective) ugly due to the 
+extra import, the underscore.
+
+There are two parts on the patches:
+
+1) the extra checking on impl_sizes and valid_sizes.  That's valuable, 
+what about just adding something like this:
+
+         assert!(min == 1 || min == 2 || min == 4 || min == 8);
+         assert!(max == 1 || max == 2 || max == 4 || max == 8);
+         assert!(max >= min);
+
+It can be validated at compile time anyway, since the functions are 
+pretty much always used in const context (in fact, for C code there's a 
+scripts/checkpatch.pl check that they are declared as const).
+
+
+2) Passing Bits to the read and write callbacks.  The argument is 
+ignored for pl011, and converted with "as u32" for HPET.  I find this to 
+be worse than before, because it's very unobvious that _32 is defined to 
+4 rather than 32.
+
+The main effect on generated code is to add an assert! to 
+memory_region_ops_read_cb() and memory_region_ops_write_cb() that's 
+similar to the above.  I'm not sure of its value, either: if the size is 
+not 1/2/4/8, memory.c/physmem.c must have screwed up big.  It's not a 
+safety concern, either, since the size is not used in any unsafe code.
+
+Thanks,
 
 Paolo
 
