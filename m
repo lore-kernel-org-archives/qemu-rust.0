@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EAAFC83F09
-	for <qemu-rust@archiver.kernel.org>; Tue,  8 Jul 2025 21:02:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56178C8303C
+	for <qemu-rust@archiver.kernel.org>; Tue,  8 Jul 2025 21:05:27 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uZFDR-000239-3o; Tue, 08 Jul 2025 16:47:01 -0400
+	id 1uZFI2-0004Gs-KZ; Tue, 08 Jul 2025 16:51:46 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uZDmO-0003hq-RT; Tue, 08 Jul 2025 15:15:07 -0400
-Received: from mgamail.intel.com ([198.175.65.9])
+ id 1uZEBV-0004O8-PR; Tue, 08 Jul 2025 15:40:57 -0400
+Received: from mgamail.intel.com ([192.198.163.19])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uZDmG-0006fB-R2; Tue, 08 Jul 2025 15:14:55 -0400
+ id 1uZEBS-0005kz-NV; Tue, 08 Jul 2025 15:40:57 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1752002093; x=1783538093;
+ t=1752003655; x=1783539655;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
  bh=eqW/GZxVmXxa6Rs8JzPHetgNBfIq7ooBhf8uaasmLf0=;
- b=R44LPOUR1PdI2qjzFnnM/3TXTPt0pgI5Vais0OyCRA1N6wo8t2ENZvsW
- 5j9zuulO+Em63EnW4aO9xy6tJ/SjrYhQbdEXAS4gFkUo7oP2TD03CcC9F
- hlqQ/WTin8g+TEneNEOtg4hlzA3wkK+zePYjmpaeT0CF+amyvHKep/Z4T
- JZtt6NUaIz+gE7+hxAMtwa/xWTvYtZorQVeStO84YgapTfbSNs3gDhkka
- 0potVJFztFvWzgTdut4xHDpyyUnBJMC3zn5uQtHTjnb7Hgnbg/Eydwjcz
- v+s/Zign5rmtpEPdrBKDRqOQcGS6TyAqIKspguoMnUX9+j++vd/kuqE9G g==;
-X-CSE-ConnectionGUID: qqq2wr9JS7WMt4hvJIfwpg==
-X-CSE-MsgGUID: J4APQoszTVW8GA5GW8KTCQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11487"; a="76739652"
-X-IronPort-AV: E=Sophos;i="6.16,296,1744095600"; d="scan'208";a="76739652"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2025 00:58:29 -0700
-X-CSE-ConnectionGUID: y/tLSVigRZSgnvc/1wdxyA==
-X-CSE-MsgGUID: hAUsDz+zQJyt1tCW+CnNRA==
+ b=XZ3YSuwk5AHYLqAzEH68o6hXULh7nkgf/bPG2uVBgqLcQSsz1ExQHncR
+ RJKRbvh5D5JQAm4grAWOTVqJsUo0Znk/sWeJIzkCQjkjTVLyNH91WT2RW
+ sWdv3/Z1KBY+sOfEZH76yeRKHpqQPW3o0rtEuk8Rjza7OWBRmd7i2AQcu
+ mTdCcYiWK/z0BRRKGOVLPNgtuPn5usH6dMl5atrCZbSOnAxuXbak1Fv1B
+ 2zlXT6m3cpAKpUADl5FvyTD/Hzjcbez1qpzL/BUrVMtqfFVQzZc4lHnSB
+ 7hpsfOLm3nFlbbAEpQHGDWFzB2tlM5fMs05vYv5yAjTKHzmXVLYgiwuQQ Q==;
+X-CSE-ConnectionGUID: CXhnn8wNSoih55ElZkCQew==
+X-CSE-MsgGUID: LsmlR17nQ4iBRoawWl72sQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11487"; a="53311488"
+X-IronPort-AV: E=Sophos;i="6.16,296,1744095600"; d="scan'208";a="53311488"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2025 01:21:29 -0700
+X-CSE-ConnectionGUID: sX6WYzgDSYmoTN+MIKEsbA==
+X-CSE-MsgGUID: 0i8rHPW3Rhy1bEfXAbFyUQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,296,1744095600"; d="scan'208";a="154842527"
+X-IronPort-AV: E=Sophos;i="6.16,296,1744095600"; d="scan'208";a="186392256"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa010.jf.intel.com with ESMTP; 08 Jul 2025 00:58:27 -0700
-Date: Tue, 8 Jul 2025 16:19:55 +0800
+ by fmviesa001.fm.intel.com with ESMTP; 08 Jul 2025 01:21:27 -0700
+Date: Tue, 8 Jul 2025 16:42:55 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Paolo Bonzini <pbonzini@redhat.com>
 Subject: Re: [PATCH 1/3] rust/memory: replace size arg with Bits enum
-Message-ID: <aGzUq5vZFZvk4uxh@intel.com>
+Message-ID: <aGzaD5RM6qPYlkSQ@intel.com>
 References: <20250703-rust-mem-api-v1-0-cd5314bdf580@linaro.org>
  <20250703-rust-mem-api-v1-1-cd5314bdf580@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20250703-rust-mem-api-v1-1-cd5314bdf580@linaro.org>
-Received-SPF: pass client-ip=198.175.65.9; envelope-from=zhao1.liu@intel.com;
+Received-SPF: pass client-ip=192.198.163.19; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
