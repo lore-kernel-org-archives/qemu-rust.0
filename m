@@ -4,80 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9BD9C83F09
-	for <qemu-rust@archiver.kernel.org>; Wed,  9 Jul 2025 06:22:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12865C83F03
+	for <qemu-rust@archiver.kernel.org>; Wed,  9 Jul 2025 10:10:29 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uZOCc-0007AZ-0Z; Wed, 09 Jul 2025 02:22:46 -0400
+	id 1uZRkj-0003Zy-4q; Wed, 09 Jul 2025 06:10:13 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uZOCY-00078W-Cj
- for qemu-rust@nongnu.org; Wed, 09 Jul 2025 02:22:42 -0400
-Received: from mail-ed1-x52b.google.com ([2a00:1450:4864:20::52b])
+ (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
+ id 1uZRkf-0003L9-15; Wed, 09 Jul 2025 06:10:09 -0400
+Received: from mail-wm1-x32c.google.com ([2a00:1450:4864:20::32c])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uZOCV-0007BE-Kc
- for qemu-rust@nongnu.org; Wed, 09 Jul 2025 02:22:42 -0400
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-60867565fb5so8640210a12.3
- for <qemu-rust@nongnu.org>; Tue, 08 Jul 2025 23:22:38 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
+ id 1uZRkb-0002dw-UV; Wed, 09 Jul 2025 06:10:08 -0400
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-451d41e1ad1so38818955e9.1; 
+ Wed, 09 Jul 2025 03:10:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1752042157; x=1752646957; darn=nongnu.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=eU5MkZCjZ3zcKXhUUVHuA9ttfeBxlkWeraWlBe9UDDk=;
- b=HT8ZedC3UGzgjybsXf8vd9KJc09B/yuujYXRU+mj/PBFDC58/DoJCTdmTV+7bBHk93
- s9Hqr+rtIgj3BiIg6felnfT8W5FbA7RF1Uh8mFYet2gN+kaJc6I3SDrbeyUSDGGoHoaM
- ixwPpdxUlET/GPwZGWRrMVUYqPKQ/sbd9miO67H4Ela4cOsa25unOfW4GSevQ+2hQTqW
- V0Bzzw29+1t6kVLd/W/zdXb8fxMs2H4OlnR/XOoOXnzl5fxuJ+SeSwToSX76DGot58DR
- sgfgh/XPXaGIoKldbig6GwAVvjjBLZUWp/98GICKsMtFhWAHK3qmfEDkSQvOYx/vLqUC
- rGzA==
+ d=gmail.com; s=20230601; t=1752055802; x=1752660602; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=475jB6MdlCNPNFuOqNsxLmjn1XeoERrEy/4fED6c5Go=;
+ b=cg1caZK4l1M3xZVhMMbtZ7cBXR0Ny+1NnLUvaXvlsuSSPKDCOl7zTMTIGY0Oad4Vkx
+ J7L3XrNaLwZs+lFVIp4kMwm2MZOpk5XUHKHc9HkmMI1CF9/7ogbBOrNIEjdsUrUxF+3C
+ Cp4GvnsKweR1IPkyWAVb4i2YFCj0TRmVH2o9bcESoSj30fK1tX8BdaQjgxHR1FC+0FB5
+ 4FyXvuWzDmYn6dvZ4kzJPhtRDsE7zeVP185kutgAZ/BNiAOF9LEiukr4/IijnemXUgsy
+ CYM9rptjzsm8e6YkajevcfsVhsQfGPnxFyGRBv60wPIH2bIH/qcaa3s5FAsUNcNPyEhy
+ cQZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752042157; x=1752646957;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=eU5MkZCjZ3zcKXhUUVHuA9ttfeBxlkWeraWlBe9UDDk=;
- b=UEasfa8R+2ThYSdQa23E61owcSa+0wqLu+VFq9JgYwKiV98DWMHBO8ap1lmMegNfXD
- 2qYoJZjLKHYf7nVvbhiJg7MVOT/VsHFSK5ZwDFwmFEUFvNXURYaWVHVLf0OfbS9wihZt
- OuZV8Agv1A3RBhezRdeDLXOReBIG6REeV1rNHm7de1Xz+W34VL0QtU5wnlVO1hB0S5Gx
- pRcnVAbTu9xPT/JgU+UA5aArRUYGLidkUQi+OtOgW5cF0PYgdX6VDDOmwIAsqqAycTOe
- f08cNHXI6txnOzk8ArNMo5AIVqNy9UEsK2pbpwf3i6pKZwNR8rxthQrQOpV5sZrIxRDn
- PUFQ==
+ d=1e100.net; s=20230601; t=1752055802; x=1752660602;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=475jB6MdlCNPNFuOqNsxLmjn1XeoERrEy/4fED6c5Go=;
+ b=rA27sPRe7Qtd3086ESG/oiVWqVpDwtM08+rMmXzSdtHnEFS6fNIYw1jEsQWSPU14RJ
+ DUetynqbidsBAzOsPMy6buxligho6uvP4T9R+15dqVv1Ev/ZFHI1fzW0CzTMs+341otm
+ a2dZg32Gs0BG+uO9ea3FOeYPf5F2ga3hZCDDDCE71pBRoy0fWI/1JfnmGhG14fYIQNwb
+ 1sWV27+S1BLqh/dSeDDOHkp13NEDFv+8ViNjvuEEsB1iIQb7VBDPIDZIW3iKqYrPxNW2
+ Iy9W82t0QY+PNEELOiZ2YP/bxLdq7D0XdcGWWQpCeWh2htPxL7hmrtiLsjwVl79qUzpi
+ wa3g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU5ftt0AMZHxrtMIRBbHrKNKkizxnqn/jPb4cYkl9nY2V/umyAm8YYqpStLQPRuVLFxPwyUuIqnvps=@nongnu.org
-X-Gm-Message-State: AOJu0Yw6H8LhP9JjYG1CKmpB0fEgU8V+m+xEdN3pziSkRYlnZzZYy3G+
- ygJetj6qVi7Ain99bn6b8KpWw8qVMmV1ot5y41/AtkzOR/gIdyMUg//anKB3Rcx5pC4fAWFlgU1
- uyG/p3Zp5OkbEMTZaSe2fMLYZ5bkr7rxfQ4oASfS1yQ==
-X-Gm-Gg: ASbGncsTwBhXN/Fb07Bl94WYBKdci5NzjkZkFBe/2+0B/ojW2OPXOY6diLiU42fUSc0
- WpWl5nWAlPCjPUf4212jSImVeQBMq+/PxDY2h6G8QzabtAPjajSvCTS7ufenjRGvdsTp1VGtVT0
- 1XoZmtnMGtiXJIpOijXWSHyje+K9DftbXHP8iW8KSN+ITZRjcHrc5kKg==
-X-Google-Smtp-Source: AGHT+IHnDGBQG/JpDxUImxaVpn8crQOUWRo8jbi0mjHhkI3WKRL0wIp91nmZNF78kASWeucvSzFx+Y9ZPeWCRLzB4og=
-X-Received: by 2002:a05:6402:2707:b0:604:f62b:4118 with SMTP id
- 4fb4d7f45d1cf-611a659a338mr791401a12.5.1752042157439; Tue, 08 Jul 2025
- 23:22:37 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250708204907.2178-1-shentey@gmail.com>
-In-Reply-To: <20250708204907.2178-1-shentey@gmail.com>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Wed, 9 Jul 2025 09:22:11 +0300
-X-Gm-Features: Ac12FXxDsW7rsiE5qyty_PdDRbkuys9kO07MIeWQU6OglvyrNS4vTld9py4kyP8
-Message-ID: <CAAjaMXb+eo5uUNV6=RjKqf2mQgNeeYxYbt7oj-j5k3ToU=zEJQ@mail.gmail.com>
+ AJvYcCU6CIT0JVlFLghiqFHAJjhcO9VtwSkBizYYPZPHpROFUoVmBwQWi529Bhr0KFfmkzFSpjMOiNmYV0E=@nongnu.org
+X-Gm-Message-State: AOJu0YwKKBtl6uR7srEKxMZ6nV88/TT7FFx1MT2dghyg8GnTeIxMDjc0
+ SECiCSHJUNVm2IlhqMq3jFtzV06g8KEBK6QknIgm/m0Zq3kCDQG9kb/v
+X-Gm-Gg: ASbGncvKtwOG4wqhjzXoQkRVm2HkYfOX2rd/KdMEP8NhuxVcZEvHBaii1mVnybPc+NI
+ kjhs6G5kwdc0w0fG7iz1nIZYG1sMK3rB22EHvGy3vGkpucC1+iGXbdMrxf7AoGoabe6FuPaP/ag
+ ty66kwAyGYodqWfA0Kp38QGZGxl1NX74SpF8BOPv/DAo4zauC1OuVAkoh9jmiQG9wirhn+DQJaE
+ X/HvIo1XMxIb5+XdM21+MZf4vHF43pZRQD2CyirxxYvfulhYE/VrMpINrl74mThcWWWyK2F8jaf
+ Y/CpsprG4KWAAxgGuhesivVmQ6OIOzW1iwYRRsyjrOBpp7cJhIo1rYoqvQ==
+X-Google-Smtp-Source: AGHT+IGmMTKrOLkSjjRplwY5VMXYp7WIo9uDU0KNKUOHL+ZFbXbjg/YUfgTxu/zuq9tR64Jsmrcghw==
+X-Received: by 2002:a05:600c:1e0d:b0:442:d5dd:5b4b with SMTP id
+ 5b1f17b1804b1-454d53bc8c5mr18512965e9.31.1752055801901; 
+ Wed, 09 Jul 2025 03:10:01 -0700 (PDT)
+Received: from [127.0.0.1] ([185.238.219.12]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-454d5103082sm17677955e9.29.2025.07.09.03.10.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Jul 2025 03:10:01 -0700 (PDT)
+Date: Wed, 09 Jul 2025 10:07:57 +0000
+From: Bernhard Beschow <shentey@gmail.com>
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+CC: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 Subject: Re: [PATCH] rust: Fix compilation with rustc v1.88
-To: Bernhard Beschow <shentey@gmail.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Content-Type: text/plain; charset="UTF-8"
-Received-SPF: pass client-ip=2a00:1450:4864:20::52b;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x52b.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+In-Reply-To: <CAAjaMXb+eo5uUNV6=RjKqf2mQgNeeYxYbt7oj-j5k3ToU=zEJQ@mail.gmail.com>
+References: <20250708204907.2178-1-shentey@gmail.com>
+ <CAAjaMXb+eo5uUNV6=RjKqf2mQgNeeYxYbt7oj-j5k3ToU=zEJQ@mail.gmail.com>
+Message-ID: <B2503DB0-7984-4C4D-A2CE-2F9D0679691C@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::32c;
+ envelope-from=shentey@gmail.com; helo=mail-wm1-x32c.google.com
+X-Spam_score_int: 12
+X-Spam_score: 1.2
+X-Spam_bar: +
+X-Spam_report: (1.2 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
+ DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_SBL_CSS=3.335, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -93,14 +99,22 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Hi Bernhard,
 
-Thanks for your patch!
 
-There was an identical patch last week on the list:
-https://lore.kernel.org/qemu-rust/20250703-rust_bindings_allow_unnecessary_transmutes-v1-1-692ca210d331@linaro.org/
+Am 9=2E Juli 2025 06:22:11 UTC schrieb Manos Pitsidianakis <manos=2Epitsid=
+ianakis@linaro=2Eorg>:
+>Hi Bernhard,
+>
+>Thanks for your patch!
+>
+>There was an identical patch last week on the list:
+>https://lore=2Ekernel=2Eorg/qemu-rust/20250703-rust_bindings_allow_unnece=
+ssary_transmutes-v1-1-692ca210d331@linaro=2Eorg/
+>
 
--- 
-Manos Pitsidianakis
-Emulation and Virtualization Engineer at Linaro Ltd
+Oh, I missed it=2E I just added my r-b=2E
+
+Thanks,
+Bernhard
+
 
