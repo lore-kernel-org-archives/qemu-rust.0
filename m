@@ -4,84 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD7B5C83F09
-	for <qemu-rust@archiver.kernel.org>; Wed,  9 Jul 2025 10:10:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B98DEC83F1F
+	for <qemu-rust@archiver.kernel.org>; Thu, 10 Jul 2025 09:45:11 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uZRki-0003Xl-39; Wed, 09 Jul 2025 06:10:12 -0400
+	id 1uZnpw-0006n4-M5; Thu, 10 Jul 2025 05:45:05 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
- id 1uZRkf-0003Ni-Fc; Wed, 09 Jul 2025 06:10:09 -0400
-Received: from mail-wm1-x329.google.com ([2a00:1450:4864:20::329])
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uZnmI-0003uy-J8
+ for qemu-rust@nongnu.org; Thu, 10 Jul 2025 05:41:23 -0400
+Received: from mail-ed1-x534.google.com ([2a00:1450:4864:20::534])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <shentey@gmail.com>)
- id 1uZRkd-0002oy-4U; Wed, 09 Jul 2025 06:10:09 -0400
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-453647147c6so50868875e9.2; 
- Wed, 09 Jul 2025 03:10:06 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uZnmE-0001QE-MP
+ for qemu-rust@nongnu.org; Thu, 10 Jul 2025 05:41:17 -0400
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-60bfcada295so1107192a12.1
+ for <qemu-rust@nongnu.org>; Thu, 10 Jul 2025 02:41:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1752055804; x=1752660604; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
+ d=linaro.org; s=google; t=1752140459; x=1752745259; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=N3JR7wZY1F3KxPkuQKBsORQAo/RXZVimMrLFlqEbXQc=;
- b=SO0Bz1ctBcRCJSBZzbd576M8wHHBdiZPjwSWdYPWGnFztKt02qLHbI1QMNzwJgsQd4
- 07or7zHgYnplyDAIl04ODfKkKys9pIEqEYVwNYV3XoX6yV+qVOtg2HfBfIjaoSvTuHa5
- u134av+LjbNfKZGZAuG6dOhQhhSptEV1I1GGSSuMqaQAM2bW7Z9Y3aGETBiLXcJ2blcI
- MoMRiJFuKo5s6fIppJNJXFVQp8/k4tUTAZ+1M3WoLBxJXWMSdl3/o2vL+jY0F117hS76
- h943wDePBA4tu+dsZeR8ltkHvE7t+YGylUISf0X9Hf2f+7mJjwcE0cgkii0zH76Ks5Jh
- AEOQ==
+ bh=+X/My+fccYmoU/a5r3/dgMI3DlG1ukJmNg/JqkbMMUs=;
+ b=p23px/aZQMiEerYOlzJ0wKOBP//MmKOC+l3wztBcqsDICYewNBxmBnxx6euIllaNfF
+ /T6JF7tebqIZ4taPesVj2ZM+gT9dDSgvGKj0bLRpInBaZAQFmlGkVKYxHsoZ6czW2QbW
+ CbbR7j9gzzKbRtO5JqGp44uKLaU9ugeo1+q3l7OeVM+O0IHiKsHO2Qjm6Ko3yapstJ27
+ YK0htLgehNaOCLfYS/7y/oDtjD1NCF91q0btjBI5geRiAxQM1DTV4ByQIZnYxlpJFkIv
+ y1VnWUfHQj/Ihoqi1abC2lTP+sQ0lBQagQiqdap9YjeKhCdQmsKOUlmsKNwCZpMpskkS
+ VkMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752055804; x=1752660604;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1752140460; x=1752745260;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=N3JR7wZY1F3KxPkuQKBsORQAo/RXZVimMrLFlqEbXQc=;
- b=sV/5K/Edw0/avg1vOG+qZdngFg0275Jt7qLHSXuffN4Cj5Q+/Um3B3tM1+/53xJePD
- T7klasLRV8rn2IfDUUSt9iQvcUfzxJAlO6MEK4/N/aZ5097s2q6RL0rGHtsBJXL/l0v/
- cxCBdSnTM6mTspRxaqYBiKVlaqyuefkszeYuVNuNKRGylnE8VDKI1zYTWQJ0mLeasYrv
- CjfMe+ByFFVfHuGxz9Y0tpPEx4OmETa7lSu9lbwpyDAUOKtRmC3PwE9wAEZ4N2tizLYN
- gEDprpv7JW4sNQLialmp6CTrbchhs9Zu5Axs3KcwQWMIHqM6GdBAIKi5vlHxJiROmlxj
- 9B3A==
-X-Gm-Message-State: AOJu0YxgOfr9e4D9+VSU5PyApncOJ3Ec39n93kVTc59obK+9Q2c+tYwu
- crOKFTvlepMaRJTnJaIj0krtYc7GWypJWDIsLtvM7TvOamD6A1XxRRuEnG4zwA==
-X-Gm-Gg: ASbGnctkfU3B6D3xp6HufhduPnHs42hUfBt58kzt1G2xrsOSRYFoZ0VP6R7QAX215iF
- gZZFidRPqt4FG5X0HD+hQLqzDOnp/SQG7ZAm7zDIu+zGYemJc4e1jUtzRfCOwE7h3dph/kbZgiF
- a9IKrZdE1aAh3MFpOoaSm/dhlwj3LZUN0pPRwUUaYlgOB2Yzi+7SFRWjfEpvuTXinN8ofWyi3NT
- inKHSAQkYG6NTKRQ//s47VEfZpLOW4z01ht/DdEAtK0IaeoCN+TuFH5PvkGfjUItD8J9VE7MvmI
- pAwhGZoa7EKOA6kZtxCJm8Vn3ilrrTDwoyMgaCe3+jlFl5qRzzJRBWO/hQ==
-X-Google-Smtp-Source: AGHT+IEyOWc/AC5g2a7zcvhAB+tC5c4sfFf/gJFJkC+Q4r7upoFpC/0d+2nlPCXEvLLHeFw3Ep/o3g==
-X-Received: by 2002:a05:600c:3f0a:b0:450:b240:aaab with SMTP id
- 5b1f17b1804b1-454d5318572mr17831145e9.8.1752055804267; 
- Wed, 09 Jul 2025 03:10:04 -0700 (PDT)
-Received: from [127.0.0.1] ([185.238.219.12]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-454d5133183sm17724495e9.40.2025.07.09.03.10.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Jul 2025 03:10:03 -0700 (PDT)
-Date: Wed, 09 Jul 2025 10:06:22 +0000
-From: Bernhard Beschow <shentey@gmail.com>
-To: qemu-devel@nongnu.org, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-CC: qemu-rust@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
- Zhao Liu <zhao1.liu@intel.com>
-Subject: Re: [PATCH] rust/bindings: allow unnecessary_transmutes (1.88)
-In-Reply-To: <20250703-rust_bindings_allow_unnecessary_transmutes-v1-1-692ca210d331@linaro.org>
-References: <20250703-rust_bindings_allow_unnecessary_transmutes-v1-1-692ca210d331@linaro.org>
-Message-ID: <BB0E766D-CB22-4155-AC0D-07A7566164A2@gmail.com>
+ bh=+X/My+fccYmoU/a5r3/dgMI3DlG1ukJmNg/JqkbMMUs=;
+ b=gSyW3olXoxpUnKwHHjpNLMT7c2hez/OegQtksTwi2oa5iqJQliz3+QGa+KMuexSw3R
+ X9MQ85So/01zggmEEUHM1OMSRx9xem6+ZfhCFMEVo71EXdmVU/6664uKAlQGwim3eXSj
+ ygJQI0A/DjBrK6S/aI0MrH77XRcUnDdPF0M5HvcVGyIY639CyPIIL8hSeB+5mcq6fFDf
+ 6wQkNTZcbhUtzwHSUd4foesCzmE77LqaFLM/eaio3dDg8aapbipBEjprzNFkIXAtsOzI
+ k0Y+0A0Gz/xuDZY8nBNEF3VjCJnIiCFQpCNtElK2P2qtrbtKhPOyKOMxYX2GfOfICbmh
+ gldA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWiFLjKoKJ4LEQaj6OlmpU/eMdz7ges2NA5o5rqAcjXfg9q+gmGYPLvBehAExv39lEAAp/u4rlBOcw=@nongnu.org
+X-Gm-Message-State: AOJu0YwR3/Gj++XVO8S2Jn05QvaH4lMEkCpFc+W7+c1+P7lMFjC9xM3s
+ L8O1pMo9tgTW1D1KNPetiv2/0ydRPa+BU3QmmVVsZSoIZ1WEGEdJHvijQRlpyMJFYyI2k1L5qWb
+ fOlL/Q//BNrQ3br4JrDJQebP8eztd7uI0Ugenn3buyg==
+X-Gm-Gg: ASbGnctfAQI/R+hNIj1mhpO7gyEZ/wnA/huIyqv6wnMcH/hryfDty/w7ZyCXguFmuTk
+ x4uiofMZWO4frXyNLQ1evlKkFbIyQqe4hzcdyRcDL7xH7+YRExD0dQC4+9JQOHTmyKZaXkpnGwb
+ mSGEDi657VEzqKPVpmrl7rEYnJgca7cHJeBcFoFY05bIR1zfvoRN4DAQ==
+X-Google-Smtp-Source: AGHT+IHFR95borLPoiLx1vYBl8kT16hfp7qWyYFUhIcO5NUasn/i/FHnnS3Y8qrhqlLQ5C9VHdq41opOgeaQAWot9IY=
+X-Received: by 2002:a05:6402:35cf:b0:607:f513:4808 with SMTP id
+ 4fb4d7f45d1cf-611c83fc620mr1581190a12.1.1752140459321; Thu, 10 Jul 2025
+ 02:40:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+References: <20250703-rust-qdev-properties-v2-1-d4afac766e94@linaro.org>
+ <63edd7ca-02b3-416c-ae28-38bd5386aa89@redhat.com>
+In-Reply-To: <63edd7ca-02b3-416c-ae28-38bd5386aa89@redhat.com>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Thu, 10 Jul 2025 12:40:31 +0300
+X-Gm-Features: Ac12FXwVQrqYjz5BLgNbMB8ChiJWM7kebKLvctS4dt7JOL4ISAoGEeujoynmMtg
+Message-ID: <CAAjaMXbdA51QOR0tx4OnbSnWdx9=cjR_GsaMFdAvrVHy9a-XQQ@mail.gmail.com>
+Subject: Re: [PATCH RFC v2] rust: add qdev DeviceProperties derive macro
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, 
+ =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+ Zhao Liu <zhao1.liu@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::329;
- envelope-from=shentey@gmail.com; helo=mail-wm1-x329.google.com
-X-Spam_score_int: 12
-X-Spam_score: 1.2
-X-Spam_bar: +
-X-Spam_report: (1.2 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
- DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_SBL_CSS=3.335, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+Received-SPF: pass client-ip=2a00:1450:4864:20::534;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x534.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -97,64 +98,310 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
+Thanks for the comments, I am preparing a new version with all
+problems/suggestions fixed.
+
+On Tue, Jul 8, 2025 at 12:48=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com>=
+ wrote:
+>
+> On 7/3/25 16:37, Manos Pitsidianakis wrote:
+> > Add derive macro for declaring qdev properties directly above the field
+> > definitions. To do this, we split DeviceImpl::properties method on a
+> > separate trait so we can implement only that part in the derive macro
+> > expansion (we cannot partially implement the DeviceImpl trait).
+> >
+> > Adding a `property` attribute above the field declaration will generate
+> > a `qemu_api::bindings::Property` array member in the device's property
+> > list.
+> >
+> > Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+>
+> Very nice.  I have relatively many comments but they are all very
+> simple.  The main ones are about unused functionality that could be left
+> for later, and some code duplication.
+>
+> Aside from that, I actually liked using Device for the macro name in
+> your earlier versions.  Yes, it's just for properties in practice, but
+> it's nice and small to just say Device; and it mimics Object.  It's your
+> choice anyway.
+
+I was thinking of making a `Device` derive macro that lets you also
+define `DeviceImpl::REALIZE` and `DeviceImpl::vmsd` as macro
+attributes on the struct definition, then merge DeviceProperties into
+that. WDYT?
+
+>
+> > - Update hpet code to use the derive macro
+>
+> Don't worry about that for the first inclusion.  More below.
+>
+> > - Change MacroError use to syn::Error use if changed in upstream too
+>
+> True.  In the review below I'll just use syn::Error instead of MacroError=
+.
+>
+> > +impl DevicePropertiesImpl for PL011Luminary {}
+>
+> Does it make sense to use #[derive()] anyway, and skip the import?
+> Especially because...
+
+Oops, yes.
+
+>
+> > +/// Trait to define device properties.
+> > +pub trait DevicePropertiesImpl {
+> > +    /// An array providing the properties that the user can set on the
+> > +    /// device.  Not a `const` because referencing statics in constant=
+s
+> > +    /// is unstable until Rust 1.83.0.
+> > +    fn properties() -> &'static [Property] {
+> > +        &[]
+> > +    }
+> > +}
+> > +
+>
+> ... the trait should be declared unsafe(*), and it's nice to hide the
+> implementation of unsafe traits behind macros that do guarantee the safet=
+y.
+
+Good idea, will do,
+
+>
+>         (*) One can also declare properties() unsafe, but with 1.83.0
+>              properties() becomes an associated const, and there are no
+>              unsafe const declarations... might as well plan ahead.
+>
+> And then, what about calling the trait "DeviceImplUnsafe"?  It is a
+> clearer split: device code uses #[derive()] for anything that cannot be
+> declared safely (think of zerocopy), and impl for what *is* safe.
+
+Hm, isn't it redundant if the trait is marked as `unsafe`? Or maybe I
+misunderstood your point.
+>
+> > +            } else if value =3D=3D "qdev_prop" {
+> > +                let _: syn::Token![=3D] =3D content.parse()?;
+> > +                if retval.qdev_prop.is_some() {
+> > +                    return Err(syn::Error::new(
+> > +                        value.span(),
+> > +                        "`qdev_prop` can only be used at most once",
+> > +                    ));
+> > +                }
+> > +                retval.qdev_prop =3D Some(content.parse()?);
+>
+> qdev_prop is only needed together with bitnr, right?  If so:
+>
+> 1) Thoughts for later: maybe if bitnr is used the macro should use a
+> different trait than QDevProp (e.g. QDevBitProp).  Would this be enough
+> for qdev_prop to go away? (I think/hope so)
+>
+> 2) Thoughts for now: maybe leave out bitnr and qdev_prop?  And revisit
+> together with the HPET conversion, which needs bitnr.
+
+Agreed, that makes more sense
+
+>
+> > +        let prop_name =3D rename
+> > +            .as_ref()
+>
+> I think ".as_ref()" is not needed?  I may be wrong though.
+>
+> > +                DevicePropertyName::Str(lit) =3D> {> +                =
+    let span =3D lit.span();
+> > +                    let value =3D lit.value();
+> > +                    let lit =3D std::ffi::CString::new(value.as_str())
+> > +                        .map_err(|err| {
+> > +                            MacroError::Message(
+> > +                                format!("Property name `{value}` canno=
+t be represented as a C string: {err}"),
+> > +                                span
+> > +                            )
+> > +                        })?;
+> > +                    let lit =3D syn::LitCStr::new(&lit, span);
+> > +                    Ok(quote_spanned! {span=3D>
+> > +                        #lit
+> > +                    })
+>
+> quote_spanned! is not needed here, because all the tokens that you're
+> producing are interpolated:
+>
+>    Any interpolated tokens preserve the Span information provided by
+>    their ToTokens implementation. Tokens that originate within the
+>    quote_spanned! invocation are spanned with the given span argument
+>    (https://docs.rs/quote/1.0.40/quote/macro.quote_spanned.html)
+>
+> Also please extract this into a separate function.  That is, make
+> everything just
+>
+>      make_c_str(lit.value(), lit.span())
+>
+> (make_c_str returns a Result<syn::LitCStr, syn::Error>).
+>
+> > +            .unwrap_or_else(|| {
+> > +                let span =3D field_name.span();
+> > +                let field_name_value =3D field_name.to_string();
+> > +                let lit =3D std::ffi::CString::new(field_name_value.as=
+_str()).map_err(|err| {
+> > +                    MacroError::Message(
+> > +                        format!("Field `{field_name_value}` cannot be =
+represented as a C string: {err}\nPlease set an explicit property name usin=
+g the `rename=3D...` option in the field's `property` attribute."),
+>
+> I don't think this error can happen, because the field name cannot
+> contain a NUL character and that's the only way CString::new fails.  So
+> just using the same function above is fine, because the more detailed
+> error isn't necessary.
+>
+> Putting everything together and using .map_or_else() gives you something
+> like this:
+>
+>          let prop_name =3D rename
+>              .map_or_else(
+>                  || make_c_str(field_name.to_string(), field_name.span())
+>                  |lit| {
+>                      match lit {
+>                          DevicePropertyName::CStr(lit) =3D> {
+>                              Ok(lit)
+>                          }
+>                          DevicePropertyName::Str(lit) =3D> {
+>                              make_c_str(lit.value(), lit.span())
+>                          }
+>                      }
+>                  })?;
+>
+> You could even go ahead and only accept syn::LitStr, dropping
+> DevicePropertyName altogether.  But since you've written the code and
+> c"" support is only 10-15 lines of code overall, do as you wish.
+>
+> > +                        span
+> > +                    )
+> > +                })?;
+> > +                let lit =3D syn::LitCStr::new(&lit, span);
+> > +                Ok(quote_spanned! {span=3D>
+> > +                    #lit
+> > +                })
+> > +            })?;
+> > +        let field_ty =3D field.ty.clone();
+> > +        let qdev_prop =3D qdev_prop
+> > +            .as_ref()
+>
+> Again, .as_ref() might not be needed here either.
+>
+> > +            .map(|path| {
+> > +                quote_spanned! {field_span=3D>
+> > +                    unsafe { &#path }
+> > +                }
+> > +            })
+> > +            .unwrap_or_else(
+> > +                || quote_spanned! {field_span=3D> <#field_ty as ::qemu=
+_api::qdev::QDevProp>::VALUE },
+> > +            );
+>
+> If you decide to keep qdev_prop, .map_or_else() can be used here too.
+>
+> > +        let set_default =3D defval.is_some();
+> > +        let bitnr =3D bitnr.as_ref().unwrap_or(&zero);
+> > +        let defval =3D defval.as_ref().unwrap_or(&zero);
+> > +        properties_expanded.push(quote_spanned! {field_span=3D>
+> > +            ::qemu_api::bindings::Property {
+> > +                name: ::std::ffi::CStr::as_ptr(#prop_name),
+> > +                info: #qdev_prop ,
+> > +                offset: ::core::mem::offset_of!(#name, #field_name) as=
+ isize,
+> > +                bitnr: #bitnr,
+> > +                set_default: #set_default,
+> > +                defval: ::qemu_api::bindings::Property__bindgen_ty_1 {=
+ u: #defval as u64 },
+>
+> Maybe add a TODO that not all types should have a default (e.g.
+> pointers).  No need to fix it now, but having a note in the code would
+> be nice.
+>
+> > diff --git a/rust/qemu-api/src/qdev.rs b/rust/qemu-api/src/qdev.rs
+> > index 36f02fb57dbffafb21a2e7cc96419ca42e865269..01f199f198c6a5f8a761beb=
+143e567fc267028aa 100644
+> > --- a/rust/qemu-api/src/qdev.rs
+> > +++ b/rust/qemu-api/src/qdev.rs
+> > @@ -101,8 +101,54 @@ pub trait ResettablePhasesImpl {
+> >       T::EXIT.unwrap()(unsafe { state.as_ref() }, typ);
+> >   }
+> >
+> > +/// Helper trait to return pointer to a [`bindings::PropertyInfo`] for=
+ a type.
+> > +///
+> > +/// This trait is used by [`qemu_api_macros::DeviceProperty`] derive m=
+acro.
+> > +///
+> > +/// # Safety
+> > +///
+> > +/// This trait is marked as `unsafe` because currently having a `const=
+` refer to an `extern static`
+> > +/// results in this compiler error:
+> > +///
+> > +/// ```text
+> > +/// constructing invalid value: encountered reference to `extern` stat=
+ic in `const`
+> > +/// ```
+> > +///
+> > +/// It is the implementer's responsibility to provide a valid [`bindin=
+gs::PropertyInfo`] pointer
+> > +/// for the trait implementation to be safe.
+> > +pub unsafe trait QDevProp {
+> > +    const VALUE: *const bindings::PropertyInfo;
+>
+> "*const" or "&"?
+
+This is the thing I mentioned to you over IRC: Unfortunately even with
+const refs for statics we get this because the static is extern:
+
+error[E0080]: it is undefined behavior to use this value
+   --> build/rust/qemu-api/libqemu_api.rlib.p/structured/qdev.rs:135:5
+    |
+135 |     const VALUE: &'static bindings::PropertyInfo =3D unsafe {
+&bindings::qdev_prop_chr };
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ constructing
+invalid value: encountered reference to `extern` static in `const`
+    |
+    =3D note: The rules on what exactly is undefined behavior aren't
+clear, so this check might be overzealous. Please open an issue on the
+rustc repository if you believe it should not be considered undefined
+behavior.
+    =3D note: the raw bytes of the constant (size: 8, align: 8) {
+                =E2=95=BE=E2=94=80=E2=94=80=E2=94=80=E2=94=80alloc93<imm>=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=95=BC                     =
+    =E2=94=82 =E2=95=BE=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=95=BC
+            }
+IIUC the error, it's because const refs can get dereferenced in const
+context by the compiler in general, but PropertyInfo does not get
+dereferenced anywhere so we are good.
+
+>
+> > @@ -68,10 +68,13 @@ impl ObjectImpl for DummyState {
+> >
+> >   impl ResettablePhasesImpl for DummyState {}
+> >
+> > -impl DeviceImpl for DummyState {
+> > +impl DevicePropertiesImpl for DummyState {
+> >       fn properties() -> &'static [Property] {
+> >           &DUMMY_PROPERTIES
+> >       }
+> > +}
+>
+> You can easily use #[derive()] here too, since the DummyState code is
+> mostly copied from pl011.
+>
+> > +impl DevicePropertiesImpl for DummyChildState {}
+>
+> ... and here too.
+>
+> Thanks,
+>
+> Paolo
+>
 
 
-Am 3=2E Juli 2025 14:20:22 UTC schrieb Manos Pitsidianakis <manos=2Epitsid=
-ianakis@linaro=2Eorg>:
->This is a new lint introduced in Rust 1=2E88=2E It does not affect
->compilation when using a previous version or our MSRV, 1=2E77=2E But with
->1=2E88 compilation fails because we deny all warnings:
->
->  error: unnecessary transmute
->     --> rust/qemu-api/libqemu_api=2Erlib=2Ep/structured/bindings=2Einc=
-=2Ers:729:18
->      |
->  729 |         unsafe { ::std::mem::transmute(self=2E_bitfield_1=2Eget(0=
-usize, 24u8) as u32) }
->      |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
-^^^^^^^^^^^^^^^^ help: replace this with: `u32::cast_signed(self=2E_bitfiel=
-d_1=2Eget(0usize, 24u8) as u32)`
->      |
->      =3D note: `-D unnecessary-transmutes` implied by `-D warnings`
->      =3D help: to override `-D warnings` add `#[allow(unnecessary_transm=
-utes)]`
->
->Allow this lint, which even though it does not exist in previous
->versions, it works because we allow for `unknown_lints` in
->rust/Cargo=2Etoml=2E
->
->Signed-off-by: Manos Pitsidianakis <manos=2Epitsidianakis@linaro=2Eorg>
->---
-> rust/qemu-api/src/bindings=2Ers | 1 +
-> 1 file changed, 1 insertion(+)
->
->diff --git a/rust/qemu-api/src/bindings=2Ers b/rust/qemu-api/src/bindings=
-=2Ers
->index 057de4b6467c50ecc5acb6b51e6fde87ef5fa67f=2E=2E3cdad0f0ec640880bc74a=
-942bbcb303be4cda775 100644
->--- a/rust/qemu-api/src/bindings=2Ers
->+++ b/rust/qemu-api/src/bindings=2Ers
->@@ -6,6 +6,7 @@
->     non_camel_case_types,
->     non_snake_case,
->     non_upper_case_globals,
->+    unnecessary_transmutes,
->     unsafe_op_in_unsafe_fn,
->     clippy::pedantic,
->     clippy::restriction,
->
->---
->base-commit: c77283dd5d79149f4e7e9edd00f65416c648ee59
->change-id: 20250703-rust_bindings_allow_unnecessary_transmutes-d614db4517=
-a4
->
->--
->=CE=B3=CE=B1=E1=BF=96=CE=B1 =CF=80=CF=85=CF=81=CE=AF =CE=BC=CE=B9=CF=87=
-=CE=B8=CE=AE=CF=84=CF=89
->
->
 
-FWIW:
-
-Reviewed-by: Bernhard Beschow <shentey@gmail=2Ecom>
+--=20
+Manos Pitsidianakis
+Emulation and Virtualization Engineer at Linaro Ltd
 
