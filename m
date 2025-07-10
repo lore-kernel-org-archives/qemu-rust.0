@@ -4,87 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD389C83F1B
-	for <qemu-rust@archiver.kernel.org>; Thu, 10 Jul 2025 14:55:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A77FC83F1B
+	for <qemu-rust@archiver.kernel.org>; Thu, 10 Jul 2025 16:50:26 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uZsgM-0006I6-49; Thu, 10 Jul 2025 10:55:30 -0400
+	id 1uZuT1-0006aK-FE; Thu, 10 Jul 2025 12:49:51 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uZsZO-00084v-K7
- for qemu-rust@nongnu.org; Thu, 10 Jul 2025 10:48:22 -0400
-Received: from mail-ed1-x535.google.com ([2a00:1450:4864:20::535])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uZsZJ-0008FQ-VM
- for qemu-rust@nongnu.org; Thu, 10 Jul 2025 10:48:15 -0400
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-60c60f7eeaaso1644154a12.0
- for <qemu-rust@nongnu.org>; Thu, 10 Jul 2025 07:48:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1752158892; x=1752763692; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Syd2hLex+/9IYla7n/kVYhD0VKPS4nIq7p0b0wmaMBA=;
- b=MbWoYe9OeuU8/cN4YHg1hMfTffYNlMElCahHXf1v9WZJV+RehjGtr/eMUW2OnUsIVB
- 4kmH90M5B0xlud9/Qkl0wkNad+BhUx42N68Ui5rFxScc9tAV9wVw3ZoZZPujF8inpHiE
- bJgpteyErhTvecEhDKKcCfZUEHW6TKLtsHQAZRp8KM+Sg769uYDiwecCScJksfJGM8ah
- oZdUJDywqjz+Vo1S7db2YP8LYQemVPK1jrTnoGQL7YqEo02e8AJU+O+6khFgWAqYIYNS
- 8mSv6YG3eIvWgdUGWCYboUD/r/VnOYdl50hVBMqgXHoxzTHJIMBbjRbmesCAviHIiM3H
- 4A7Q==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uZu9Y-0002ud-IB
+ for qemu-rust@nongnu.org; Thu, 10 Jul 2025 12:29:46 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uZu9R-0003os-Rt
+ for qemu-rust@nongnu.org; Thu, 10 Jul 2025 12:29:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1752164976;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZC7zdxlSsFyQWVgmh3dGZUfDCyjhxzt7G1eaJyMKXXA=;
+ b=g3IUp+RONv8uawsg3SOwQbnx9x9BxfDxvJKRtFgrslTiwRbccdSOKkMEEpRws4ESHCwbuV
+ VSNEnGjS3DoCVMU/3pyIsSRM9M8rM84/TZQgti5Y0D3mybAf6DBx99ZOGF6wsiojEnLSSl
+ gUWaCPoxUi130OYXzdhPfyY0ak1mHQM=
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-453-K75_QUolN8OD-u5adV442g-1; Thu, 10 Jul 2025 12:29:35 -0400
+X-MC-Unique: K75_QUolN8OD-u5adV442g-1
+X-Mimecast-MFC-AGG-ID: K75_QUolN8OD-u5adV442g_1752164975
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-311ef4fb5fdso1489300a91.1
+ for <qemu-rust@nongnu.org>; Thu, 10 Jul 2025 09:29:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752158892; x=1752763692;
+ d=1e100.net; s=20230601; t=1752164972; x=1752769772;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Syd2hLex+/9IYla7n/kVYhD0VKPS4nIq7p0b0wmaMBA=;
- b=KiP0YJDA9Trxw2/Rz3KpIUHLqY6DABxvdCA9JM92ATq5VVwve5y2qmLXUzfBVRJP1r
- 1V7q0ciyDRepLPsEviNa+5Dfd8kFMq6A+weTPM569xI6AjyzuiUwBdsdnFnij3TknWSH
- Y9QI62XF8yiqYoeDecbhCnXzsClKvXAcwqd+8vPQ0ZA/uQveV+0ZYydbxBRIuWRQ7XHL
- oBL1IkH0y7dstfKZkkFGRza6d7TCDi0WNZwi18qB0PKcnn7GaRQ1D3TUSM8K2fHtjF/o
- YrFYERZYhpBdhoUyD0QL66oKBa6IueB0E0nquCbuu5aY6CiCsRWRiXn/VSZLIhdHfB76
- CyAg==
+ bh=ZC7zdxlSsFyQWVgmh3dGZUfDCyjhxzt7G1eaJyMKXXA=;
+ b=gPU4TQ2SF3Pqh1bpaZ3WNrOCUIXwJd+N1iiMNX5uynLHzQHbPGLxdvXkSWcJdY/w/h
+ ANIAW28/MGiFKpWSi81He994E9eV3XlHbJR2pUEm3A6/h5P8A1od/u+zHuCOgADe4kig
+ bEryrFUqdB0Gi999FdLpMgSZ+cNC7BiqqJgsrjOG2lTbXc/huegU1X/9ihDtH92Rl0e1
+ sV6oykxt7Y+vQ7KjeDJ2bLhnb0B4dKQWvo58Q/aIe2VRHO+LbYgz5yQYsDkaFML2VGk/
+ QdwK7AVTcdMzeSk0puCOKvJGtSXgyOe/nWlJx9Tk/tujXntfcpC6g4cYBG4wTjFFwuef
+ 5zgw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWYgCgwt3h/jII87f0wWhIQqtziGqlfmFij8qZmkBfQ50FVE9yCVZ9dQTFRhtM34ukGnfCVrWFdXw4=@nongnu.org
-X-Gm-Message-State: AOJu0YyIsc5XoR1EP+/mipAEM+teAtwNM8EBvjMIsVUA91eiVOq1zgLk
- EqMb5AT6h4Uv4ipPUt6vabNwNrB++2iNzmTpofObrAgf6+73c3lv5ZFDqyMi3iK8ca9yMn4RRut
- 8tweyZvpFTjc6Z0xdPNh/6RvyRgAVDB/rgoxUnfI6sg==
-X-Gm-Gg: ASbGncvAlrrkeMxhNkLDmHpVpqkTXpbOKLEAnu/6feLrcRqS0rpsv+BCCJu6kEgXPBW
- CV4nmTd7mNOO9hzv7hS9FXr0zYb/b5iJXi86d7tvJnXzSJ0jrcK+PvKkr54i7o34xtvOtXfW1ea
- qxNDCeDfp2Xusw0IEFnXgLGsbCdoFzbgiDo/4MKCdvUJ0=
-X-Google-Smtp-Source: AGHT+IE31XVbzGgBMG36VPp6oKguQl7msjhAZu6FTzzhd2b/38TOeJZm0X1BWOIHNsLLeTS9LF/RFlMcZSl/8KTbJ6Q=
-X-Received: by 2002:a05:6402:1ece:b0:607:2a09:38dd with SMTP id
- 4fb4d7f45d1cf-611a6e20b74mr7083143a12.18.1752158892076; Thu, 10 Jul 2025
- 07:48:12 -0700 (PDT)
+ AJvYcCWekEbGRycNllagHykCd5t/sbqxww9Df2nYyJlsfFtnaZdOoj7DIqifKRhtMeF7vlyTwNWwUgpnxIQ=@nongnu.org
+X-Gm-Message-State: AOJu0YxbYa9uJLBEyYMXw0J6vj8o/gH4+//l8GKbTIiYHUXrCZ2ImCpZ
+ RYZ9gyN0YLedOm1GVv1ataigB4YxWuRW6Empz3EevivtcZaT8YfdBdFaXbQi2dz51Ct68OrDYCI
+ 840RU6Ke8I/0X6uwILkCRGh5N2g7L2xgv4BKNveBnIMxSK3XDkVSAeG/utJm+tW3f5RCWbXnryi
+ RSM3HtLQ0Xba1A30AmWcqLnXiurdc4pe0sDfYDwg==
+X-Gm-Gg: ASbGncuXVp9AgBLO+BkGwBjN05ivwNrOxbdNk6+KP+dP6p7/93+TzM9OuvgTGISFRq4
+ 5KHg87nccINPqy3AftJNAjyCKloIhgyeeRIS7Q+6NuxnThNi2XUt2HBx7DDoV07Xgtna+b6aKNM
+ mmJM3z
+X-Received: by 2002:a17:90b:4cc5:b0:312:39c1:c9cf with SMTP id
+ 98e67ed59e1d1-31c4cca45a1mr241994a91.7.1752164972186; 
+ Thu, 10 Jul 2025 09:29:32 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEVmPtsEW5+DofQTShJiHBp0Lg0MUabQ7Mdvq7qOKFdsC6qicHzW/f8lRi/ctXN/0RGV7IIbZlcqw0ObX52VXk=
+X-Received: by 2002:a17:90b:4cc5:b0:312:39c1:c9cf with SMTP id
+ 98e67ed59e1d1-31c4cca45a1mr241946a91.7.1752164971757; Thu, 10 Jul 2025
+ 09:29:31 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250703-rust-qdev-properties-v2-1-d4afac766e94@linaro.org>
  <63edd7ca-02b3-416c-ae28-38bd5386aa89@redhat.com>
  <CAAjaMXbdA51QOR0tx4OnbSnWdx9=cjR_GsaMFdAvrVHy9a-XQQ@mail.gmail.com>
  <CABgObfaiM6-n_O-jD5NkT8iD05a-+jfs33hVkb-UsuG8D_TAvQ@mail.gmail.com>
-In-Reply-To: <CABgObfaiM6-n_O-jD5NkT8iD05a-+jfs33hVkb-UsuG8D_TAvQ@mail.gmail.com>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Thu, 10 Jul 2025 17:47:46 +0300
-X-Gm-Features: Ac12FXyGqTNYDTrv38AZIItvTRk_ANtil9tzJ47HLUBFNU9tNr7fuf6MWnNHViI
-Message-ID: <CAAjaMXaHVSg7cmV8q5Jazfiw_o=pu6KmHj7SnSeoJzzStNd+4g@mail.gmail.com>
+ <CAAjaMXaHVSg7cmV8q5Jazfiw_o=pu6KmHj7SnSeoJzzStNd+4g@mail.gmail.com>
+In-Reply-To: <CAAjaMXaHVSg7cmV8q5Jazfiw_o=pu6KmHj7SnSeoJzzStNd+4g@mail.gmail.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Thu, 10 Jul 2025 18:29:19 +0200
+X-Gm-Features: Ac12FXx6Lmfq38n4o5mMTKl1elWXxv6VVq1nJgTuuX20q3KGmCfIqGMJVmBmIv0
+Message-ID: <CABgObfYoqFkzgurUvt0aG4RFp=-h_pirYiaaWU9ybtU8GrD-bQ@mail.gmail.com>
 Subject: Re: [PATCH RFC v2] rust: add qdev DeviceProperties derive macro
-To: Paolo Bonzini <pbonzini@redhat.com>
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, 
  =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
  Zhao Liu <zhao1.liu@intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: QcxiZaYYof5UyEbKTCEov73ihVcYEW_lyaM4VIIOsg4_1752164975
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::535;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x535.google.com
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -100,78 +113,66 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Thu, Jul 10, 2025 at 5:26=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com>=
- wrote:
+On Thu, Jul 10, 2025 at 4:48=E2=80=AFPM Manos Pitsidianakis
+<manos.pitsidianakis@linaro.org> wrote:
 >
-> On Thu, Jul 10, 2025 at 11:41=E2=80=AFAM Manos Pitsidianakis
-> <manos.pitsidianakis@linaro.org> wrote:
-> > > Aside from that, I actually liked using Device for the macro name in
-> > > your earlier versions.  Yes, it's just for properties in practice, bu=
-t
-> > > it's nice and small to just say Device; and it mimics Object.  It's y=
-our
-> > > choice anyway.
+> On Thu, Jul 10, 2025 at 5:26=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.co=
+m> wrote:
 > >
-> > I was thinking of making a `Device` derive macro that lets you also
-> > define `DeviceImpl::REALIZE` and `DeviceImpl::vmsd` as macro
-> > attributes on the struct definition, then merge DeviceProperties into
-> > that. WDYT?
->
-> Like #[derive(Device(realize =3D PL011State::realize))]? I kind of like
-> having traits for classes (the "const" does look a bit ugly/foreign,
-> but Linux has some other ideas using a #[vtable] procedural macro).
-
-I was thinking:
-
-#[repr(C)]
-#[derive(Device)]
-#[device(realize =3D PL011State::realize, vmsd =3D VMSTATE_PL011)]
-pub struct PL011State {
-  ..
-}
-
-I agree about traits for class methods, it's definitely cleaner. The
-lines blur here because we have REALIZE as a constant in order to make
-it nullable from the C side =F0=9F=A4=94
-
-> For vmsd yes, you could pass it as a VMStateDescription const's name
-> in the same style, like #[derive(Device(vmsd =3D
-> device_class::VMSTATE_PL011))].
->
-> WRT naming, I was thinking the other way round: call it Device
-> already, and then add functionality without having to change the name.
-> Your choice; naming suggestions are risky :) but I wasn't afraid of
-> making this suggestion because you had that name before.
->
-> > Hm, isn't it redundant if the trait is marked as `unsafe`? Or maybe I
-> > misunderstood your point.
->
-> Yes, you're right - just wanted something not too tied to properties
-> in case the derive macro is extended later. Maybe DeviceDerive, or
-> DeviceImplDerive? But any name is fine, just keep it consistent
-> between macro and trait.
->
-> > > > +/// It is the implementer's responsibility to provide a valid [`bi=
-ndings::PropertyInfo`] pointer
-> > > > +/// for the trait implementation to be safe.
-> > > > +pub unsafe trait QDevProp {
-> > > > +    const VALUE: *const bindings::PropertyInfo;
+> > On Thu, Jul 10, 2025 at 11:41=E2=80=AFAM Manos Pitsidianakis
+> > <manos.pitsidianakis@linaro.org> wrote:
+> > > > Aside from that, I actually liked using Device for the macro name i=
+n
+> > > > your earlier versions.  Yes, it's just for properties in practice, =
+but
+> > > > it's nice and small to just say Device; and it mimics Object.  It's=
+ your
+> > > > choice anyway.
 > > >
-> > > "*const" or "&"?
+> > > I was thinking of making a `Device` derive macro that lets you also
+> > > define `DeviceImpl::REALIZE` and `DeviceImpl::vmsd` as macro
+> > > attributes on the struct definition, then merge DeviceProperties into
+> > > that. WDYT?
 > >
-> > This is the thing I mentioned to you over IRC: Unfortunately even with
-> > const refs for statics we get this because the static is extern:
+> > Like #[derive(Device(realize =3D PL011State::realize))]? I kind of like
+> > having traits for classes (the "const" does look a bit ugly/foreign,
+> > but Linux has some other ideas using a #[vtable] procedural macro).
 >
-> Ah okay - I just wasn't sure, which is why I wrote it as a question.
-> It worked in vmstate because there the const is a VMStateField which
-> has a *const inside. So yes, definitely a *const.
+> I was thinking:
 >
-> Paolo
+> #[repr(C)]
+> #[derive(Device)]
+> #[device(realize =3D PL011State::realize, vmsd =3D VMSTATE_PL011)]
+> pub struct PL011State {
+>   ..
+> }
 >
+> I agree about traits for class methods, it's definitely cleaner. The
+> lines blur here because we have REALIZE as a constant in order to make
+> it nullable from the C side =F0=9F=A4=94
 
-Thanks!
+Yes, I agree. Another factor to consider is the quality of error messages.
 
---=20
-Manos Pitsidianakis
-Emulation and Virtualization Engineer at Linaro Ltd
+For what it's worth, this is the solution they use in Linux:
+https://rust-for-linux.github.io/docs/macros/attr.vtable.html. In
+short, they generate a HAS_REALIZE boolean const, and compute the
+function pointer with something like
+  if Self::HAS_REALIZE { Some(Self::realize) } else { None }
+
+Forgetting the #[vtable] attribute on the "impl" produces a decent
+error message, too.
+
+And here is the source:
+https://rust-for-linux.github.io/docs/src/macros/vtable.rs.html. Linux
+doesn't use proc_macro2 or quote so probably it would have to be
+rewritten for QEMU, but it's small and easy to understand.
+
+Even if it's *also* not the nicest, it may be worth adopting this
+convention just for consistency among mixed C/Rust programs.
+
+Paolo
+
+
+Paolo
+
 
