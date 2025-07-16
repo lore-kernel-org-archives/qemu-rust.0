@@ -4,83 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4B05C83F17
-	for <qemu-rust@archiver.kernel.org>; Tue, 15 Jul 2025 07:23:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2E51C83F27
+	for <qemu-rust@archiver.kernel.org>; Wed, 16 Jul 2025 12:20:38 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uba0y-0007Dz-Km; Tue, 15 Jul 2025 03:23:48 -0400
+	id 1uc17e-0003Pt-Re; Wed, 16 Jul 2025 08:20:31 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uba0w-0007Cp-4W
- for qemu-rust@nongnu.org; Tue, 15 Jul 2025 03:23:46 -0400
-Received: from mail-ed1-x529.google.com ([2a00:1450:4864:20::529])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uba0u-0003dy-0c
- for qemu-rust@nongnu.org; Tue, 15 Jul 2025 03:23:45 -0400
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-607ec30df2bso9979086a12.1
- for <qemu-rust@nongnu.org>; Tue, 15 Jul 2025 00:23:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1752564222; x=1753169022; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UN1P7wXWdQjECtU3dVq1DC7zxXQJBQQB9IdVTomSwR4=;
- b=nQQY70zngZcrGp8TEeNiEwVaB4ASeAa1xBmWMpDBMYDP8DD7uaSPKjlQySMRQBjVZ0
- d1D6cwJPD/YSAGKr265suyk5KCT3a6uIbvg/fLZ0+b+H/LQUaE7lWror+j/sdmOItVlJ
- NutWqGu+Xim9RjTLoAZmJbu7cQtt1nEHSLs0QDbXtgi7PMstaid6B/8tOde2yUhkifG+
- /QAa3Sx2kmygbWaaFjrYKcSCqPh4ZrQpsoErocNkfDEcH51xMbRn6rrpL68nm7IFqQW6
- GBZEA6dCwJSaj7XTCMHc4aO61KXPeldmsv0iJsue9LrZBPwTs2J7ZglBrRpsfDHXaPqX
- n9TQ==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uc0vs-00055D-86
+ for qemu-rust@nongnu.org; Wed, 16 Jul 2025 08:08:20 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uc0vp-0002h9-M3
+ for qemu-rust@nongnu.org; Wed, 16 Jul 2025 08:08:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1752667694;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:autocrypt:autocrypt;
+ bh=QVYkEoq3jsjPIHsmpjc5W3zKYgt4DxW3gtiAiotlAGY=;
+ b=YmO7079nR6TGK8e+COskZ/T9SDBLYVSWAMEf7iHOJTwFwUlJ4G86MdrsMPfld7WQV5YbfK
+ nCg6ENpjdFYu5+MNJbPv8vNntSaKCJ0cspZF+BwZgXg1jX37m3TwL2/ACmlZzIMwrzrVBb
+ JFfIL/K537J4q65w5k7TOYHC+fCvTRE=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-683-P9Wp7lS1NPeM3RZFlu0HMQ-1; Wed, 16 Jul 2025 08:08:13 -0400
+X-MC-Unique: P9Wp7lS1NPeM3RZFlu0HMQ-1
+X-Mimecast-MFC-AGG-ID: P9Wp7lS1NPeM3RZFlu0HMQ_1752667692
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-3af3c860ed7so2899029f8f.1
+ for <qemu-rust@nongnu.org>; Wed, 16 Jul 2025 05:08:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752564222; x=1753169022;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UN1P7wXWdQjECtU3dVq1DC7zxXQJBQQB9IdVTomSwR4=;
- b=rVTy1ev3DNVh/c+1c2okzCETdRLb4YNfFpO31vkd2mNniYIysLfCZ1AsxPCHbPwQJo
- HEr2wSnPcaH2tgNAZtRlvXM08ICB/pqx72ff65iJ8u9BNUy54+X+Z5UmbBXOebbv/N9i
- kxZNsJOpXLauG41er+uLbyPdt4ocewksuwwhV+4eOyZt9qhjW/2wuwQ/hsmlIh5m9L4D
- 5CrEHdDD0NICz5u7y29hFBwCiqTXWdW5jrOs0VRDxq4Kf//oZsi+Sc/XE4rvy3n1C/K9
- W/2FzW0YHx7hLSjsVXTrtlVqkVsX261jokE4ER+v4xOWbhH7lQG/eIelZxyrsGi8bT4q
- d/Ig==
+ d=1e100.net; s=20230601; t=1752667691; x=1753272491;
+ h=content-transfer-encoding:autocrypt:subject:to:content-language
+ :from:user-agent:mime-version:date:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=QVYkEoq3jsjPIHsmpjc5W3zKYgt4DxW3gtiAiotlAGY=;
+ b=CjRVa6YHsSC3Mcu0Qj7qbuhRjtu+6TOpT6N6dy2fUAUSsy9loM14nso+3Mv/d8Dahu
+ u1xEXCokQ3i1Z4QvmEwyaB+TyW7RJdnOlmwzoyg/4qoymAyPcTskYdjmO4iFOoD9ZwXn
+ 492mDqfMvUlXucpT3tJLZga4N4WAMwucyDhZjHnOtlDEL0xnwRevqDLgPiT2hUTSmOxG
+ YHwNQIMdTUGtYlBH/J+gKL3TLAza6KVOal4JIfn8eMXRi/Vs8qmj+uuO3oKoOFooq7vB
+ L06udCrzrlT9iZWXNxER/A9WHFGJ3is2eEY0dBXJ8Xx8eY5tnhwBviKNSX5tAY2DzZvC
+ tDUQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWlonFGeJS/GIsjhaITVQqsrmMrgtxC7cJhpARijWtJcjMNvjRwxc+5jsi8UdAiIUw6yQyXxI/WvgY=@nongnu.org
-X-Gm-Message-State: AOJu0YxYInng0iPlaGM+iStPEpAUIpyFA4MeMF1A4acA6+CpmYFPjwLl
- uk32F7n6BouuY/XyXNe/GZ4rZSQjNupdkbaA0kctlPxVfuFafgHIdBzN8XteSNOC1DrYv+mv0uB
- Jk7bpDH/4iS2P0jVofh4+Kj3wGtbPktew04TVOuND1ypA7bsSFk82rIE=
-X-Gm-Gg: ASbGncuVTZaGsEh51QFL9aYld2uuhmWaEu+Gtqc+XseSS9fDOsrx78Es2PtWXYE9x2p
- DtYT0nhZMM76qCvEW+mRgd2E+aK+50y1H5kfkguMDCKDPtVUrPVygpcZrV0RYZ3dYmIrVSEWQwf
- FhsGiJduPmJExWTdsgfwQaMzpaMOyn3CeWSghzBMAU05m0itsTMlrdneYnaekPZeeydH+2DD12/
- 3lAGbY=
-X-Google-Smtp-Source: AGHT+IFkPbE5xNZZG95Q3SKrElAfzAAmTR+dvzwbAhFfwYxu8ShPJbhR9Ta2rRniMI3YiOH4ryrufuC1sTrn78+ICao=
-X-Received: by 2002:a05:6402:5255:b0:60e:23d:43b1 with SMTP id
- 4fb4d7f45d1cf-611e848f84dmr13955242a12.16.1752564221512; Tue, 15 Jul 2025
- 00:23:41 -0700 (PDT)
+ AJvYcCVyFHws9FTn+XOlSDV+a3OKtDy1DDEPb48V/wjQp4X5npygzKNtux6xpkRXmHoSwP9OWnHhFwT8PaQ=@nongnu.org
+X-Gm-Message-State: AOJu0Yyzs1mfLYATZpL+5UGodCgKODgf3DmnZxXEx6HSQHLB1AWdbc+Q
+ Fitr+IiHQUDAF32EMxeKWo0lt+UlliW49aZGv2ZfhE6p8NCzxy1eU95/cYf3PZ86xZuQjwQ/H3B
+ Q04+qZKX8ncD/Ltwy/6m0v9hxL369O1V7D/yRI8+H52gKFFfb0cJSJCPBIFRc1so=
+X-Gm-Gg: ASbGncvJVLADI5OCSgKrbdDkGeK+52NVmL49rwMPQWmV/DAaWlvS5tFek/uje+AnC2Q
+ 7GqtWU098831afGLfiLUc/JkAGunk5QYgpElPtI+WY2v16cFRCFOHMS5sHiNeEpKJ9VTRaGAG0e
+ s+rwH1HlEEpuwMd4yIHH5HMYY74nTwPrG+1Q0Of1e7gQ9CzhbAke2oeoVlsxM9B+EjGFRnKsIVU
+ JFHHVflXKiL5/DP+zK2Facpg9jMwaLNLxsI3SsU8SaB02ex0BMmJ8euPGH6qc+xoF58c0pPdcpy
+ dZjAZ5eSdaT3+NzBJPT0LEbbmoM0OlWsQ2spmWMaaG0=
+X-Received: by 2002:a05:6000:26d3:b0:3a4:febd:39f2 with SMTP id
+ ffacd0b85a97d-3b60e523ce1mr1878465f8f.37.1752667691257; 
+ Wed, 16 Jul 2025 05:08:11 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHuYAXreTlfmcE4wrzUoBLGnJ+EuOnJffkdqabBpQbbfzv6fFHRzsFGVO2tYROSDgvCTqROZw==
+X-Received: by 2002:a05:6000:26d3:b0:3a4:febd:39f2 with SMTP id
+ ffacd0b85a97d-3b60e523ce1mr1878432f8f.37.1752667690636; 
+ Wed, 16 Jul 2025 05:08:10 -0700 (PDT)
+Received: from [192.168.10.48] ([151.49.73.155])
+ by smtp.googlemail.com with ESMTPSA id
+ 5b1f17b1804b1-45627898725sm33167265e9.1.2025.07.16.05.08.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Jul 2025 05:08:09 -0700 (PDT)
+Message-ID: <c2342e56-b6d8-4115-8318-d8047a46f1ad@redhat.com>
+Date: Wed, 16 Jul 2025 14:08:09 +0200
 MIME-Version: 1.0
-References: <e41344bd22248b0883752ef7a7c459090a3d9cfc.1752560127.git.mst@redhat.com>
-In-Reply-To: <e41344bd22248b0883752ef7a7c459090a3d9cfc.1752560127.git.mst@redhat.com>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Tue, 15 Jul 2025 10:23:15 +0300
-X-Gm-Features: Ac12FXyusC6k6XN8M6XIpB9GBXO_0cqLsHdz3RTT_XV6LIzW9TETpwx124NjMFU
-Message-ID: <CAAjaMXZ069X5b-1VF0ZA1+NWBoHRdrBZmimSZADsrY4A7k+P_A@mail.gmail.com>
-Subject: Re: [PATCH v2] rust: bindings: allow any number of params
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::529;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x529.google.com
+User-Agent: Mozilla Thunderbird
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
+Subject: Rust in QEMU update, July 2025
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: RecY9m-JHpV-g1loHaErXLS76sOc6rhA6Qvka1zm_sU_1752667692
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -96,60 +145,159 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Tue, Jul 15, 2025 at 9:15=E2=80=AFAM Michael S. Tsirkin <mst@redhat.com>=
- wrote:
->
-> We are going to be adding more parameters, and this makes
-> rust unhappy:
->     Functions with lots of parameters are considered bad style and reduce
->     readability (=E2=80=9Cwhat does the 5th parameter mean?=E2=80=9D). Co=
-nsider grouping
->     some parameters into a new type.
->
-> Specifically:
->
-> error: this function has too many arguments (8/7)
->     --> /builds/mstredhat/qemu/build/rust/qemu-api/rust-qemu-api-tests.p/=
-structured/bindings.inc.rs:3840:5
->      |
-> 3840 | /     pub fn new_bitfield_1(
-> 3841 | |         secure: std::os::raw::c_uint,
-> 3842 | |         space: std::os::raw::c_uint,
-> 3843 | |         user: std::os::raw::c_uint,
-> ...    |
-> 3848 | |         address_type: std::os::raw::c_uint,
-> 3849 | |     ) -> __BindgenBitfieldUnit<[u8; 4usize]> {
->      | |____________________________________________^
->      |
->      =3D help: for further information visit https://rust-lang.github.io/=
-rust-clippy/master/index.html#too_many_arguments
->      =3D note: `-D clippy::too-many-arguments` implied by `-D warnings`
->      =3D help: to override `-D warnings` add `#[allow(clippy::too_many_ar=
-guments)]`
->
-> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> ---
->  rust/qemu-api/src/bindings.rs | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/rust/qemu-api/src/bindings.rs b/rust/qemu-api/src/bindings.r=
-s
-> index 057de4b646..c4f1f755ce 100644
-> --- a/rust/qemu-api/src/bindings.rs
-> +++ b/rust/qemu-api/src/bindings.rs
-> @@ -13,7 +13,8 @@
->      clippy::missing_const_for_fn,
->      clippy::ptr_offset_with_cast,
->      clippy::useless_transmute,
-> -    clippy::missing_safety_doc
-> +    clippy::missing_safety_doc,
-> +    clippy::too_many_arguments
->  )]
->
->  //! `bindgen`-generated declarations.
-> --
-> MST
->
+While I have generally given a three months cadence to the update,
+this one is a bit early---mostly due to the upcoming freeze, and
+many subprojects having reached a point where an update is useful.
 
-Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+
+Summary
+'''''''
+
+Achievements
+   Almost full safety for device code; logging and initial work on tracing;
+   starting to look at interoperability of C<->Rust data structures
+
+Current blockers
+   Static linking of Rust stdlib; formalize design for QAPI/QMP integration;
+   bump to Rust 1.83 for key safety features
+
+Next steps
+   Complete tracing and DMA support; finalize 1.83 update; explore new
+   devices written in Rust and report on holes in bindings
+
+
+Table of contents
+'''''''''''''''''
+
+* Status in QEMU 10.1
+* Build system
+* Improvements to devices
+* Cleanups
+* Next steps
+
+
+Status in QEMU 10.1
+'''''''''''''''''''
+
+For platform availability, the only change from 10.0 to 10.1 is that the
+minimum supported Rust version is now 1.77 rather than 1.63.  This means
+there's no support for building QEMU with Rust enabled with Debian bookworm,
+*on mips64el* only.  Other architectures remain buildable on bookworm too.
+
+With the update to Meson 1.8, support for clippy and rustdoc moved from
+QEMU's meson.build files to Meson itself.  The update also made it
+possible to use --enable-modules and --enable-rust together.
+
+There are two new dependencies: anyhow, a commonly used crate providing
+a general purpose Error implementation; and foreign, a crate that I wrote
+to provide utilities for conversion between C and Rust data types.
+Both are used to provide access to ``Error*`` from Rust code.
+
+As soon as the Rust version is bumped again from 1.77 to 1.83, Rust devices
+will need basically no unsafe Rust code.  This means that there will be a
+practical benefit to writing *new* devices in Rust.  If any devices are
+contributed that are written in Rust and do not have a C counterpart, it may
+be worth splitting "enable Rust" from "enable all devices written in Rust".
+This way, the C versions of the pl011 and HPET devices remain available
+on platforms without a new-enough compiler version.
+
+
+Build system
+''''''''''''
+
+Rust is still not enabled by default.  The main reason is that Rust
+staticlibs also link statically to the Rust standard library, thus
+bloating the resulting executable (and making distros hate us as well).
+A pending Meson pull request[1] will fix this, as long as ``system/main.c``
+is rewritten or wrapped in Rust.
+
+As mentioned in the earlier updates, in parallel to QEMU work I'm
+looking at improvements to Meson's support for Cargo and Rust.  While
+there weren't many news over the last few months, the plan is to add
+support for cross compilation and the ``[lints]`` section to its Cargo
+support.  I have therefore made a proposal for tighter integration
+between ``meson.build`` files and Cargo packages[2].
+
+.. [1] https://github.com/mesonbuild/meson/pull/14224
+.. [2] https://github.com/mesonbuild/meson/issues/14639
+
+
+Stefano Garzarella is looking at merging the ``buildigvm`` tool into
+QEMU's ``contrib/`` directory.  ``buildigvm`` is written in Rust, but
+it has a relatively large set of dependencies that make it impractical
+(for now) to drive its build from Meson.  While for now Stefano is going
+to call out to Cargo in order to build ``buildigvm``, this is not expected
+to last forever; ``buildigvm`` will provide a further testbed for
+changes to Meson.
+
+
+Improvements to devices
+'''''''''''''''''''''''
+
+New in 10.1 is logging support, as well as ``Error*`` bindings so that
+``realize()`` implementations can fail.
+
+With the recent merge of a procedural macro for property support,
+there is basically no remaining unsafe code in devices outside the QOM
+``instance_init`` method.  Merging the improvements to qdev and VMState
+however will require a bump of the minimum supported Rust version
+to 1.83.0.
+
+The remaining missing feature for pl011 and HPET is tracing.  A student
+is working on it and he has the simpletrace backend working, with syslog
+and log coming next.  The plan for the dtrace backend is to use the
+``probe`` crate[1], possibly extending it to support ust as well.
+
+.. [1] https://github.com/cuviper/probe-rs
+
+
+Zhao is looking into using the ``vm-memory`` crate in QEMU.  This
+allows devices to perform DMA, including HPET.
+
+
+Cleanups
+''''''''
+
+With the Rust bindings and the first couple of devices taking shape,
+it's time to clean up some of the things that have grown a bit more
+haphazardly over the last year.
+
+One important change, which should make it easier for Kevin to continue
+his work on block layer bindings, is to split the ``qemu-api`` crate
+in multiple parts, roughly matching the ``declare_dependency()``
+statements used for the C code.
+
+Also, pl011 and HPET were developed independently and sometimes have
+different idioms where we could aim for unification.  The main two are:
+
+* name of files (the PL011 main source file is ``device.rs``, but the
+   HPET one is ``hpet``.rs) and split between device code and a
+   registers module
+
+* adjusting HPET to use the ``bilge`` crate and/or the ``bits`` macro
+
+These could be good tasks for someone who is learning Rust.
+
+
+Next steps
+''''''''''
+
+The highest-priority missing feature, tracing, is being worked on; as is
+DMA.
+
+The next step could be better integration of QAPI/QMP (for which Marc-André
+Lureau had a prototype already in 2022) and support for QOM properties.
+Last month we had a discussion on whether to continue with Marc-André's
+approach of converting between C and Rust representations; implement
+QEMU's ``Visitor`` interface for Rust data structures; or focus on
+conversion between ``QObject`` and Rust, using ``serde`` for code
+generation.  Markus leaned towards the latter (though it must be said that
+there's no code for it yet, and there could be unforeseen obstacles).
+
+Finally, I'm going to take a step back from actively writing Rust code
+for QEMU for some time, but I'll be available for reviews and will keep
+looking at upstream Meson support for the language.
+
+Paolo
+
 
