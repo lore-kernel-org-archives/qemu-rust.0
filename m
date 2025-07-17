@@ -4,122 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2E51C83F27
-	for <qemu-rust@archiver.kernel.org>; Wed, 16 Jul 2025 12:20:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33ABEC83F1A
+	for <qemu-rust@archiver.kernel.org>; Thu, 17 Jul 2025 06:46:04 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uc17e-0003Pt-Re; Wed, 16 Jul 2025 08:20:31 -0400
+	id 1ucIMi-000795-F8; Thu, 17 Jul 2025 02:45:12 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uc0vs-00055D-86
- for qemu-rust@nongnu.org; Wed, 16 Jul 2025 08:08:20 -0400
+ id 1ucI5l-0008At-Mi
+ for qemu-rust@nongnu.org; Thu, 17 Jul 2025 02:27:43 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uc0vp-0002h9-M3
- for qemu-rust@nongnu.org; Wed, 16 Jul 2025 08:08:19 -0400
+ id 1ucI5h-000864-JQ
+ for qemu-rust@nongnu.org; Thu, 17 Jul 2025 02:27:39 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1752667694;
+ s=mimecast20190719; t=1752733656;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:autocrypt:autocrypt;
- bh=QVYkEoq3jsjPIHsmpjc5W3zKYgt4DxW3gtiAiotlAGY=;
- b=YmO7079nR6TGK8e+COskZ/T9SDBLYVSWAMEf7iHOJTwFwUlJ4G86MdrsMPfld7WQV5YbfK
- nCg6ENpjdFYu5+MNJbPv8vNntSaKCJ0cspZF+BwZgXg1jX37m3TwL2/ACmlZzIMwrzrVBb
- JFfIL/K537J4q65w5k7TOYHC+fCvTRE=
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=idkGHwv6pmeTAhqgTjVqPwn8pB104XDgL5/WOwov3Dw=;
+ b=CegjdogDzoqkzlsjE7SS0PU8/069mOPkI6rkRna6AVIxAF/B+MEG1CrOMHk33daUfwIOam
+ U1oPmqNIzzlrr+LpYc/Jds9H0fteu8yppb4oEFDUbCCavJ2/jYTHOQOKSWBqcgX9eId6Dc
+ 3LoCs6tj4WF0wAV356cPXJWpF6GFrfg=
 Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
  [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-683-P9Wp7lS1NPeM3RZFlu0HMQ-1; Wed, 16 Jul 2025 08:08:13 -0400
-X-MC-Unique: P9Wp7lS1NPeM3RZFlu0HMQ-1
-X-Mimecast-MFC-AGG-ID: P9Wp7lS1NPeM3RZFlu0HMQ_1752667692
+ us-mta-191-YX77Q-HYPmCuTYBMkelNzA-1; Thu, 17 Jul 2025 02:27:34 -0400
+X-MC-Unique: YX77Q-HYPmCuTYBMkelNzA-1
+X-Mimecast-MFC-AGG-ID: YX77Q-HYPmCuTYBMkelNzA_1752733653
 Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-3af3c860ed7so2899029f8f.1
- for <qemu-rust@nongnu.org>; Wed, 16 Jul 2025 05:08:12 -0700 (PDT)
+ ffacd0b85a97d-3a4f7ebfd00so261408f8f.2
+ for <qemu-rust@nongnu.org>; Wed, 16 Jul 2025 23:27:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752667691; x=1753272491;
- h=content-transfer-encoding:autocrypt:subject:to:content-language
- :from:user-agent:mime-version:date:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=QVYkEoq3jsjPIHsmpjc5W3zKYgt4DxW3gtiAiotlAGY=;
- b=CjRVa6YHsSC3Mcu0Qj7qbuhRjtu+6TOpT6N6dy2fUAUSsy9loM14nso+3Mv/d8Dahu
- u1xEXCokQ3i1Z4QvmEwyaB+TyW7RJdnOlmwzoyg/4qoymAyPcTskYdjmO4iFOoD9ZwXn
- 492mDqfMvUlXucpT3tJLZga4N4WAMwucyDhZjHnOtlDEL0xnwRevqDLgPiT2hUTSmOxG
- YHwNQIMdTUGtYlBH/J+gKL3TLAza6KVOal4JIfn8eMXRi/Vs8qmj+uuO3oKoOFooq7vB
- L06udCrzrlT9iZWXNxER/A9WHFGJ3is2eEY0dBXJ8Xx8eY5tnhwBviKNSX5tAY2DzZvC
- tDUQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVyFHws9FTn+XOlSDV+a3OKtDy1DDEPb48V/wjQp4X5npygzKNtux6xpkRXmHoSwP9OWnHhFwT8PaQ=@nongnu.org
-X-Gm-Message-State: AOJu0Yyzs1mfLYATZpL+5UGodCgKODgf3DmnZxXEx6HSQHLB1AWdbc+Q
- Fitr+IiHQUDAF32EMxeKWo0lt+UlliW49aZGv2ZfhE6p8NCzxy1eU95/cYf3PZ86xZuQjwQ/H3B
- Q04+qZKX8ncD/Ltwy/6m0v9hxL369O1V7D/yRI8+H52gKFFfb0cJSJCPBIFRc1so=
-X-Gm-Gg: ASbGncvJVLADI5OCSgKrbdDkGeK+52NVmL49rwMPQWmV/DAaWlvS5tFek/uje+AnC2Q
- 7GqtWU098831afGLfiLUc/JkAGunk5QYgpElPtI+WY2v16cFRCFOHMS5sHiNeEpKJ9VTRaGAG0e
- s+rwH1HlEEpuwMd4yIHH5HMYY74nTwPrG+1Q0Of1e7gQ9CzhbAke2oeoVlsxM9B+EjGFRnKsIVU
- JFHHVflXKiL5/DP+zK2Facpg9jMwaLNLxsI3SsU8SaB02ex0BMmJ8euPGH6qc+xoF58c0pPdcpy
- dZjAZ5eSdaT3+NzBJPT0LEbbmoM0OlWsQ2spmWMaaG0=
-X-Received: by 2002:a05:6000:26d3:b0:3a4:febd:39f2 with SMTP id
- ffacd0b85a97d-3b60e523ce1mr1878465f8f.37.1752667691257; 
- Wed, 16 Jul 2025 05:08:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHuYAXreTlfmcE4wrzUoBLGnJ+EuOnJffkdqabBpQbbfzv6fFHRzsFGVO2tYROSDgvCTqROZw==
-X-Received: by 2002:a05:6000:26d3:b0:3a4:febd:39f2 with SMTP id
- ffacd0b85a97d-3b60e523ce1mr1878432f8f.37.1752667690636; 
- Wed, 16 Jul 2025 05:08:10 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1752733653; x=1753338453;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=idkGHwv6pmeTAhqgTjVqPwn8pB104XDgL5/WOwov3Dw=;
+ b=b4pvzGF0jvpETg+qT+OYJhnZnja4+IYWrAXlRx3j6bUM9cqN5Farsh8PKeFwKjlGbb
+ cOgcknHwQVGN8wC/BB4XGRmWlG1cO0HiqcMBHTb4ln095Qv5ff/kCklfDIyd5ifd/txo
+ ObbsA52JMVXVhjeourymFHNedqqBlOFSc11VMw2knCYVef/rKatD5ihoJINdqbcRQK7f
+ JlE0nqzLAQvr4shh1p8DdY6mdQvOg0kMD9QrOFrzOjq7EpbOfpOm7pL7lssZR/qUjvcy
+ SO4incCI2GA7CTI579OG0j436w8EuQ/mrbDWpBkD+hzZgxyHZebcFQjYz4hcyNJJ6KvL
+ /DuA==
+X-Gm-Message-State: AOJu0YwTB0QyDjwC4IUiGcy7AwTfQKxSQt0ihHgEpoQQ7+z6aalInANL
+ gJwoGbFj8YUS3NBUaYDG+H7mY9098Ag4FGqr7+xUt3QWuYP6wI0w1To59H0+eQ4V4EVc8od2l0k
+ Upl7KALgVtZT7xVaZZrQkI4cQQd4BJ21trbc1J2xKLUd2i2gLj3QlyEk=
+X-Gm-Gg: ASbGncs2cOyxvce0E9WFmpCbpVYJdGe/Ayvv55VtNL0VINCl8KyDHRhIHhF6jpGLaEC
+ 2b7m/LtmE++WS/sdPMQhHtFIsYcFF1ZbGeb20nafFu9YNi5cm2nOdC2psjOMF46trzhOkF8OTn1
+ Y0/S/OFzSDzs554rLhZcZ+2VHK6hBVve850be1rioyyWNKi/kfmciP7xTM5XarHS0hjdxtF8rbM
+ BQEHDbXMZAwOTchrd44aFQIeYyEFjG+0rhDbodokpyyvDvcIX/xDCBUSqCS/YlhzBc3/3Q7dRqQ
+ dCEXty8r/JabXKoQEATR9Bx5J6d/4C/v65ddoFbIT8c=
+X-Received: by 2002:a05:6000:250d:b0:3a5:58a5:6a83 with SMTP id
+ ffacd0b85a97d-3b613e66eaemr1140196f8f.13.1752733653233; 
+ Wed, 16 Jul 2025 23:27:33 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHra9UfOABKEB5T130dQ6ZZFVGZu4mHDHo1L6t3BM9ReMpJah12MQbrITyMyROflUJgshaO2A==
+X-Received: by 2002:a05:6000:250d:b0:3a5:58a5:6a83 with SMTP id
+ ffacd0b85a97d-3b613e66eaemr1140179f8f.13.1752733652817; 
+ Wed, 16 Jul 2025 23:27:32 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.73.155])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-45627898725sm33167265e9.1.2025.07.16.05.08.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 05:08:09 -0700 (PDT)
-Message-ID: <c2342e56-b6d8-4115-8318-d8047a46f1ad@redhat.com>
-Date: Wed, 16 Jul 2025 14:08:09 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b5e8e1e1d5sm19941359f8f.78.2025.07.16.23.27.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Jul 2025 23:27:30 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org
-Subject: Rust in QEMU update, July 2025
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
- CxXPkIBTvYY+ZPkoTh5xF9oS1jqI8iRLzouzF8yXs3QjQIZ2SfuCxSVwlV65jotcjD2FTN04
- hVopm9llFijNZpVIOGUTqzM4U55sdsCcZUluWM6x4HSOdw5F5Utxfp1wOjD/v92Lrax0hjiX
- DResHSt48q+8FrZzY+AUbkUS+Jm34qjswdrgsC5uxeVcLkBgWLmov2kMaMROT0YmFY6A3m1S
- P/kXmHDXxhe23gKb3dgwxUTpENDBGcfEzrzilWueOeUWiOcWuFOed/C3SyijBx3Av/lbCsHU
- Vx6pMycNTdzU1BuAroB+Y3mNEuW56Yd44jlInzG2UOwt9XjjdKkJZ1g0P9dwptwLEgTEd3Fo
- UdhAQyRXGYO8oROiuh+RZ1lXp6AQ4ZjoyH8WLfTLf5g1EKCTc4C1sy1vQSdzIRu3rBIjAvnC
- tGZADei1IExLqB3uzXKzZ1BZ+Z8hnt2og9hb7H0y8diYfEk2w3R7wEr+Ehk5NQsT2MPI2QBd
- wEv1/Aj1DgUHZAHzG1QN9S8wNWQ6K9DqHZTBnI1hUlkp22zCSHK/6FwUCuYp1zcAEQEAAc0j
- UGFvbG8gQm9uemluaSA8cGJvbnppbmlAcmVkaGF0LmNvbT7CwU0EEwECACMFAlRCcBICGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRB+FRAMzTZpsbceDp9IIN6BIA0Ol7MoB15E
- 11kRz/ewzryFY54tQlMnd4xxfH8MTQ/mm9I482YoSwPMdcWFAKnUX6Yo30tbLiNB8hzaHeRj
- jx12K+ptqYbg+cevgOtbLAlL9kNgLLcsGqC2829jBCUTVeMSZDrzS97ole/YEez2qFpPnTV0
- VrRWClWVfYh+JfzpXmgyhbkuwUxNFk421s4Ajp3d8nPPFUGgBG5HOxzkAm7xb1cjAuJ+oi/K
- CHfkuN+fLZl/u3E/fw7vvOESApLU5o0icVXeakfSz0LsygEnekDbxPnE5af/9FEkXJD5EoYG
- SEahaEtgNrR4qsyxyAGYgZlS70vkSSYJ+iT2rrwEiDlo31MzRo6Ba2FfHBSJ7lcYdPT7bbk9
- AO3hlNMhNdUhoQv7M5HsnqZ6unvSHOKmReNaS9egAGdRN0/GPDWr9wroyJ65ZNQsHl9nXBqE
- AukZNr5oJO5vxrYiAuuTSd6UI/xFkjtkzltG3mw5ao2bBpk/V/YuePrJsnPFHG7NhizrxttB
- nTuOSCMo45pfHQ+XYd5K1+Cv/NzZFNWscm5htJ0HznY+oOsZvHTyGz3v91pn51dkRYN0otqr
- bQ4tlFFuVjArBZcapSIe6NV8C4cEiSTOwE0EVEJx7gEIAMeHcVzuv2bp9HlWDp6+RkZe+vtl
- KwAHplb/WH59j2wyG8V6i33+6MlSSJMOFnYUCCL77bucx9uImI5nX24PIlqT+zasVEEVGSRF
- m8dgkcJDB7Tps0IkNrUi4yof3B3shR+vMY3i3Ip0e41zKx0CvlAhMOo6otaHmcxr35sWq1Jk
- tLkbn3wG+fPQCVudJJECvVQ//UAthSSEklA50QtD2sBkmQ14ZryEyTHQ+E42K3j2IUmOLriF
- dNr9NvE1QGmGyIcbw2NIVEBOK/GWxkS5+dmxM2iD4Jdaf2nSn3jlHjEXoPwpMs0KZsgdU0pP
- JQzMUMwmB1wM8JxovFlPYrhNT9MAEQEAAcLBMwQYAQIACQUCVEJx7gIbDAAKCRB+FRAMzTZp
- sadRDqCctLmYICZu4GSnie4lKXl+HqlLanpVMOoFNnWs9oRP47MbE2wv8OaYh5pNR9VVgyhD
- OG0AU7oidG36OeUlrFDTfnPYYSF/mPCxHttosyt8O5kabxnIPv2URuAxDByz+iVbL+RjKaGM
- GDph56ZTswlx75nZVtIukqzLAQ5fa8OALSGum0cFi4ptZUOhDNz1onz61klD6z3MODi0sBZN
- Aj6guB2L/+2ZwElZEeRBERRd/uommlYuToAXfNRdUwrwl9gRMiA0WSyTb190zneRRDfpSK5d
- usXnM/O+kr3Dm+Ui+UioPf6wgbn3T0o6I5BhVhs4h4hWmIW7iNhPjX1iybXfmb1gAFfjtHfL
- xRUr64svXpyfJMScIQtBAm0ihWPltXkyITA92ngCmPdHa6M1hMh4RDX+Jf1fiWubzp1voAg0
- JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
- dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
- b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org,
+	manos.pitsidianakis@linaro.org
+Subject: [PATCH 1/4] subprojects: update proc-macro2 and syn
+Date: Thu, 17 Jul 2025 08:27:24 +0200
+Message-ID: <20250717062727.305466-2-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20250717062727.305466-1-pbonzini@redhat.com>
+References: <20250717062727.305466-1-pbonzini@redhat.com>
+MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: RecY9m-JHpV-g1loHaErXLS76sOc6rhA6Qvka1zm_sU_1752667692
+X-Mimecast-MFC-PROC-ID: wmTebbsTnwQOVlWxV3QpcfW6N7txv46auAOBMRyNmr8_1752733653
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
@@ -145,159 +112,119 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-While I have generally given a three months cadence to the update,
-this one is a bit early---mostly due to the upcoming freeze, and
-many subprojects having reached a point where an update is useful.
+Update to a version that is accepted by the attrs crate.
 
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ rust/Cargo.lock                                       | 8 ++++----
+ subprojects/.gitignore                                | 4 ++--
+ subprojects/packagefiles/proc-macro2-1-rs/meson.build | 2 +-
+ subprojects/packagefiles/syn-2-rs/meson.build         | 2 +-
+ subprojects/proc-macro2-1-rs.wrap                     | 8 ++++----
+ subprojects/syn-2-rs.wrap                             | 8 ++++----
+ 6 files changed, 16 insertions(+), 16 deletions(-)
 
-Summary
-'''''''
-
-Achievements
-   Almost full safety for device code; logging and initial work on tracing;
-   starting to look at interoperability of C<->Rust data structures
-
-Current blockers
-   Static linking of Rust stdlib; formalize design for QAPI/QMP integration;
-   bump to Rust 1.83 for key safety features
-
-Next steps
-   Complete tracing and DMA support; finalize 1.83 update; explore new
-   devices written in Rust and report on holes in bindings
-
-
-Table of contents
-'''''''''''''''''
-
-* Status in QEMU 10.1
-* Build system
-* Improvements to devices
-* Cleanups
-* Next steps
-
-
-Status in QEMU 10.1
-'''''''''''''''''''
-
-For platform availability, the only change from 10.0 to 10.1 is that the
-minimum supported Rust version is now 1.77 rather than 1.63.  This means
-there's no support for building QEMU with Rust enabled with Debian bookworm,
-*on mips64el* only.  Other architectures remain buildable on bookworm too.
-
-With the update to Meson 1.8, support for clippy and rustdoc moved from
-QEMU's meson.build files to Meson itself.  The update also made it
-possible to use --enable-modules and --enable-rust together.
-
-There are two new dependencies: anyhow, a commonly used crate providing
-a general purpose Error implementation; and foreign, a crate that I wrote
-to provide utilities for conversion between C and Rust data types.
-Both are used to provide access to ``Error*`` from Rust code.
-
-As soon as the Rust version is bumped again from 1.77 to 1.83, Rust devices
-will need basically no unsafe Rust code.  This means that there will be a
-practical benefit to writing *new* devices in Rust.  If any devices are
-contributed that are written in Rust and do not have a C counterpart, it may
-be worth splitting "enable Rust" from "enable all devices written in Rust".
-This way, the C versions of the pl011 and HPET devices remain available
-on platforms without a new-enough compiler version.
-
-
-Build system
-''''''''''''
-
-Rust is still not enabled by default.  The main reason is that Rust
-staticlibs also link statically to the Rust standard library, thus
-bloating the resulting executable (and making distros hate us as well).
-A pending Meson pull request[1] will fix this, as long as ``system/main.c``
-is rewritten or wrapped in Rust.
-
-As mentioned in the earlier updates, in parallel to QEMU work I'm
-looking at improvements to Meson's support for Cargo and Rust.  While
-there weren't many news over the last few months, the plan is to add
-support for cross compilation and the ``[lints]`` section to its Cargo
-support.  I have therefore made a proposal for tighter integration
-between ``meson.build`` files and Cargo packages[2].
-
-.. [1] https://github.com/mesonbuild/meson/pull/14224
-.. [2] https://github.com/mesonbuild/meson/issues/14639
-
-
-Stefano Garzarella is looking at merging the ``buildigvm`` tool into
-QEMU's ``contrib/`` directory.  ``buildigvm`` is written in Rust, but
-it has a relatively large set of dependencies that make it impractical
-(for now) to drive its build from Meson.  While for now Stefano is going
-to call out to Cargo in order to build ``buildigvm``, this is not expected
-to last forever; ``buildigvm`` will provide a further testbed for
-changes to Meson.
-
-
-Improvements to devices
-'''''''''''''''''''''''
-
-New in 10.1 is logging support, as well as ``Error*`` bindings so that
-``realize()`` implementations can fail.
-
-With the recent merge of a procedural macro for property support,
-there is basically no remaining unsafe code in devices outside the QOM
-``instance_init`` method.  Merging the improvements to qdev and VMState
-however will require a bump of the minimum supported Rust version
-to 1.83.0.
-
-The remaining missing feature for pl011 and HPET is tracing.  A student
-is working on it and he has the simpletrace backend working, with syslog
-and log coming next.  The plan for the dtrace backend is to use the
-``probe`` crate[1], possibly extending it to support ust as well.
-
-.. [1] https://github.com/cuviper/probe-rs
-
-
-Zhao is looking into using the ``vm-memory`` crate in QEMU.  This
-allows devices to perform DMA, including HPET.
-
-
-Cleanups
-''''''''
-
-With the Rust bindings and the first couple of devices taking shape,
-it's time to clean up some of the things that have grown a bit more
-haphazardly over the last year.
-
-One important change, which should make it easier for Kevin to continue
-his work on block layer bindings, is to split the ``qemu-api`` crate
-in multiple parts, roughly matching the ``declare_dependency()``
-statements used for the C code.
-
-Also, pl011 and HPET were developed independently and sometimes have
-different idioms where we could aim for unification.  The main two are:
-
-* name of files (the PL011 main source file is ``device.rs``, but the
-   HPET one is ``hpet``.rs) and split between device code and a
-   registers module
-
-* adjusting HPET to use the ``bilge`` crate and/or the ``bits`` macro
-
-These could be good tasks for someone who is learning Rust.
-
-
-Next steps
-''''''''''
-
-The highest-priority missing feature, tracing, is being worked on; as is
-DMA.
-
-The next step could be better integration of QAPI/QMP (for which Marc-André
-Lureau had a prototype already in 2022) and support for QOM properties.
-Last month we had a discussion on whether to continue with Marc-André's
-approach of converting between C and Rust representations; implement
-QEMU's ``Visitor`` interface for Rust data structures; or focus on
-conversion between ``QObject`` and Rust, using ``serde`` for code
-generation.  Markus leaned towards the latter (though it must be said that
-there's no code for it yet, and there could be unforeseen obstacles).
-
-Finally, I'm going to take a step back from actively writing Rust code
-for QEMU for some time, but I'll be available for reviews and will keep
-looking at upstream Meson support for the language.
-
-Paolo
+diff --git a/rust/Cargo.lock b/rust/Cargo.lock
+index b785c718f31..4baf6ba663c 100644
+--- a/rust/Cargo.lock
++++ b/rust/Cargo.lock
+@@ -118,9 +118,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "proc-macro2"
+-version = "1.0.84"
++version = "1.0.95"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "ec96c6a92621310b51366f1e28d05ef11489516e93be030060e5fc12024a49d6"
++checksum = "02b3e5e68a3a1a02aad3ec490a98007cbc13c37cbe84a3cd7b8e406d76e7f778"
+ dependencies = [
+  "unicode-ident",
+ ]
+@@ -155,9 +155,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "syn"
+-version = "2.0.66"
++version = "2.0.104"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "c42f3f41a2de00b01c0aaad383c5a45241efc8b2d1eda5661812fda5f3cdcff5"
++checksum = "17b6f705963418cdb9927482fa304bc562ece2fdd4f616084c50b7023b435a40"
+ dependencies = [
+  "proc-macro2",
+  "quote",
+diff --git a/subprojects/.gitignore b/subprojects/.gitignore
+index f4281934ce1..9d579f72d12 100644
+--- a/subprojects/.gitignore
++++ b/subprojects/.gitignore
+@@ -16,7 +16,7 @@
+ /libc-0.2.162
+ /proc-macro-error-1.0.4
+ /proc-macro-error-attr-1.0.4
+-/proc-macro2-1.0.84
++/proc-macro2-1.0.95
+ /quote-1.0.36
+-/syn-2.0.66
++/syn-2.0.104
+ /unicode-ident-1.0.12
+diff --git a/subprojects/packagefiles/proc-macro2-1-rs/meson.build b/subprojects/packagefiles/proc-macro2-1-rs/meson.build
+index 5759df3ecc9..ba7de070292 100644
+--- a/subprojects/packagefiles/proc-macro2-1-rs/meson.build
++++ b/subprojects/packagefiles/proc-macro2-1-rs/meson.build
+@@ -1,6 +1,6 @@
+ project('proc-macro2-1-rs', 'rust',
+   meson_version: '>=1.5.0',
+-  version: '1.0.84',
++  version: '1.0.95',
+   license: 'MIT OR Apache-2.0',
+   default_options: [])
+ 
+diff --git a/subprojects/packagefiles/syn-2-rs/meson.build b/subprojects/packagefiles/syn-2-rs/meson.build
+index a0094174084..3e6dc318a9c 100644
+--- a/subprojects/packagefiles/syn-2-rs/meson.build
++++ b/subprojects/packagefiles/syn-2-rs/meson.build
+@@ -1,6 +1,6 @@
+ project('syn-2-rs', 'rust',
+   meson_version: '>=1.5.0',
+-  version: '2.0.66',
++  version: '2.0.104',
+   license: 'MIT OR Apache-2.0',
+   default_options: [])
+ 
+diff --git a/subprojects/proc-macro2-1-rs.wrap b/subprojects/proc-macro2-1-rs.wrap
+index 6c9369f0df3..0f06cd8e111 100644
+--- a/subprojects/proc-macro2-1-rs.wrap
++++ b/subprojects/proc-macro2-1-rs.wrap
+@@ -1,8 +1,8 @@
+ [wrap-file]
+-directory = proc-macro2-1.0.84
+-source_url = https://crates.io/api/v1/crates/proc-macro2/1.0.84/download
+-source_filename = proc-macro2-1.0.84.0.tar.gz
+-source_hash = ec96c6a92621310b51366f1e28d05ef11489516e93be030060e5fc12024a49d6
++directory = proc-macro2-1.0.95
++source_url = https://crates.io/api/v1/crates/proc-macro2/1.0.95/download
++source_filename = proc-macro2-1.0.95.0.tar.gz
++source_hash = 02b3e5e68a3a1a02aad3ec490a98007cbc13c37cbe84a3cd7b8e406d76e7f778
+ #method = cargo
+ patch_directory = proc-macro2-1-rs
+ 
+diff --git a/subprojects/syn-2-rs.wrap b/subprojects/syn-2-rs.wrap
+index d79cf750fb4..1e5e9d9fb6e 100644
+--- a/subprojects/syn-2-rs.wrap
++++ b/subprojects/syn-2-rs.wrap
+@@ -1,8 +1,8 @@
+ [wrap-file]
+-directory = syn-2.0.66
+-source_url = https://crates.io/api/v1/crates/syn/2.0.66/download
+-source_filename = syn-2.0.66.0.tar.gz
+-source_hash = c42f3f41a2de00b01c0aaad383c5a45241efc8b2d1eda5661812fda5f3cdcff5
++directory = syn-2.0.104
++source_url = https://crates.io/api/v1/crates/syn/2.0.104/download
++source_filename = syn-2.0.104.0.tar.gz
++source_hash = 17b6f705963418cdb9927482fa304bc562ece2fdd4f616084c50b7023b435a40
+ #method = cargo
+ patch_directory = syn-2-rs
+ 
+-- 
+2.50.1
 
 
