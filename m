@@ -4,86 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10483C83F27
-	for <qemu-rust@archiver.kernel.org>; Tue, 22 Jul 2025 12:29:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44C6AC83F27
+	for <qemu-rust@archiver.kernel.org>; Tue, 22 Jul 2025 12:55:15 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1ueC7S-0001Wp-R3; Tue, 22 Jul 2025 08:29:20 -0400
+	id 1ueCWT-0007Qy-9F; Tue, 22 Jul 2025 08:55:13 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1ueC7O-0001RV-8O
- for qemu-rust@nongnu.org; Tue, 22 Jul 2025 08:29:14 -0400
-Received: from mail-ed1-x532.google.com ([2a00:1450:4864:20::532])
+ (Exim 4.90_1) (envelope-from <ngompa13@gmail.com>)
+ id 1ueBhg-0001L6-MK; Tue, 22 Jul 2025 08:02:42 -0400
+Received: from mail-ej1-f45.google.com ([209.85.218.45])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1ueC7I-0001Rr-Rl
- for qemu-rust@nongnu.org; Tue, 22 Jul 2025 08:29:13 -0400
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-612a8e6f675so7996779a12.3
- for <qemu-rust@nongnu.org>; Tue, 22 Jul 2025 05:29:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1753187346; x=1753792146; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dU5Vuu2RbHdWWGd+esiFCg0Vx8GarEZq9jusKs2nt2Q=;
- b=WtMAzV3XgI/vMvjhOrWwccSWElAV/ozoSgttV2YARV25E22+94XzWOFgJwGzWnyCjO
- nZpVbWPV8ZiqdRCf2eN80Z4yf3AezpALgMgByJ7KVQOi9MouXkevWXkN/r/F+kawVcZx
- JI5KbWoKdMi0qAjuQqft+Rxy4sqsVTlIMcTyKxWTeP3H+ZRsnYn24DCvUpB/98duKcTv
- YRYS1y10HfzU/rWtivPSGqIb8+nJvjMFw/dFcb8fgcGn9c8ME92/XeBd/COObMEC6Zow
- bA4c2Rcu0u6GPomouWEXtjq/ikX0lryqrFOf9nWMpH1V6uhJdoS0XedG8oTO7PzL6Jot
- BKJA==
+ (Exim 4.90_1) (envelope-from <ngompa13@gmail.com>)
+ id 1ueBhd-0001Pb-7b; Tue, 22 Jul 2025 08:02:39 -0400
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-af0dc229478so253145166b.1; 
+ Tue, 22 Jul 2025 05:02:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753187346; x=1753792146;
+ d=1e100.net; s=20230601; t=1753185749; x=1753790549;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dU5Vuu2RbHdWWGd+esiFCg0Vx8GarEZq9jusKs2nt2Q=;
- b=Ay3mpBIw/xQPL/x/ZzUNY3VNTYAN36JDD334mbYcCW/a3FwIX5Jk3WodTl+UWGW14K
- UnrvQ3axmJd7UdWxTLNO/wJM9y14P/LYTNQ6Swo/VWuqXuPdFUbmmib5bzkv0Zxxlise
- AVdVVejoOX8c7QXHlJeAp0h6Yo/fVwQK15Ws4e+6bWH+scAsfAB/9dP7mBq5AZL1cs2u
- 3t0gPz0c5nPSc3NKPt1PnyDtvNisK8c5Lg/gaqJ4xHQoLGQB2dUO+fLTbhHvHkCOXMPk
- g5qAjXd/MJu4FsG46AzuKn9Q9VeFCdG2cD7wuvInwmv9r9X3sZi49i9opHbwUJio8ajc
- 4KMw==
+ bh=wKchTSFkgT9LHWbhAAmAfGOhLIhg/J0mzwd7ts9T860=;
+ b=ZzR6g1nSRNv355f5M9Zhy0KjOISL6gg2hbYmtpgIrcyhhS5nECs4GPPlCeQipk0zpI
+ KmkxPowFDI/N0REgUvumcGWuAkBVIrzxWWnsLP1i7nTUwjq58SderP1AxCIo7Xf7SHjl
+ 6fvOc7okC3uqsImUzPtgJM+iaYaJJA7XEaDAVV7O/BfPBQuFqSexdRMQvy+OQp1GZohl
+ r9ypZXRVZp9W367LqXZhFSjsmAGY84xE71Uv7dnHWQ7JL7jW+5ty8aSx509Aie9Xi0lj
+ ROD8wQpUZO/yqwBFmMxTeg0oS1Q5DTrMsOWzY9s8oiOdWvDqa9Qsm9ZPIMpvV1AHDhnB
+ hfWw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUBpcWYg+oN4pHu38FUH7tdWgJ5NO7wbVBGh+2DiCTKOeKYVFr3O5mKklA2HJM124Zpgw+cd2Twyfk=@nongnu.org
-X-Gm-Message-State: AOJu0Yw3wfgYcmsU7EjxKg2lxUtkE4Mcy+cCL4EDZNNWbEr8ho/JkjdL
- 2Odo8pZoz+7IiFzLJjeBO5X6HG8nlscYZ7LZhYIsOpmtNSaPRN0DsvI4xQbAo2i44b8sjeuI0R7
- UuggXaGyiHUb7by0bdrxbhNzqJCR4ov64Tby3mu0iMI51TCX9PHaGoa8=
-X-Gm-Gg: ASbGnctlP1p9dMHZQpSJp4MLhHZp0hfmmpITUBL5ZWoZMNjBtSmVR50FyOvzJbztFKY
- nzYHyx4SUZtGA5XCXful2mLsf6T5BsJ1z+Vnu9ReVhbzA5j8VhrXbWjmc3eejLf+tLKmehb6kTu
- 86JJRxFbDaUrMKTOAM0XgJ6gz4e+5SXoDeI9AtEv2A03sJnr2DvsevjV+rsVTwWkIYxq4TeMICF
- gT7DQ==
-X-Google-Smtp-Source: AGHT+IHePfySFLH2TTpEZl6cGZKtFCmmu+kUzfqT2d31uzQFzvruq+jVsbw5ekj9m0jcB0g/MUS+EQCDhOQMoSHERAc=
-X-Received: by 2002:a50:cd4e:0:b0:612:a524:2b31 with SMTP id
- 4fb4d7f45d1cf-612a52432demr14021192a12.25.1753187345847; Tue, 22 Jul 2025
- 05:29:05 -0700 (PDT)
+ AJvYcCXUsvjgzvxGQnjefR9zgGtC/UVrRwWODmbm8gbcXrNV7GY3I/ntT9FtWddL/NXf04gEkoGieu5z79Q=@nongnu.org
+X-Gm-Message-State: AOJu0YwdCN6MdnZzHRkKSWHuWCY/gkCVVGjr8pTDAbf3dLxFzVWmwApg
+ 8CYCT8+l3blIk+Kjj9Qqz+9vCqL0PaP68P4REYS2ZzPVPS+LvWPq5jvAMPo1ZiMw
+X-Gm-Gg: ASbGncvS3NFZ954Q0NPZVsxbsM62sWK3C1DdXrBvyZXN/PyWh/Jl+9QZfhY695eSHsm
+ vbfkjJyP7D6wVKUYihWo/r9Wc8Ica7ds11D0JmE21UaMMEhAegySfsgAgGtb8Gd6J6apbuH0Hmz
+ KIc0PlKr7IGOEwRP6ua65CFYixCKXGsltZoW3CjGgADP2LbiKG7K4PRzA34uZ628rlrtSO5+V2T
+ rYn4Yxm1NtMOpn50jJ4+OUILRI25mZ7557/2Gz02Ue9t3yX2sMkyBI0f20f5qxs8HjDgOm02BR8
+ B7cyAgU0DE9LX6L9pKtyamq+R4BUFCudCLfSeZtEeyWh1aulxOdOKFzgyoW6X67sp48TvwtgsRy
+ q7Grg0lvznUW9CLYFBrTQ5VatM+FveegjiKT7hA74toqNkTM6Yj1PGyXvry3iAbsfeg==
+X-Google-Smtp-Source: AGHT+IFNBQGrS/zbGoS0lzNAME9rd0OKauH9oTXy0cSfc8ZTjR9gLBP4Yqh4DNnE6aReWsJUpfU6MA==
+X-Received: by 2002:a05:6402:164d:b0:60c:5853:5b7f with SMTP id
+ 4fb4d7f45d1cf-61285dfca8dmr19237858a12.32.1753185738149; 
+ Tue, 22 Jul 2025 05:02:18 -0700 (PDT)
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com.
+ [209.85.208.51]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-612f21073e6sm5036792a12.56.2025.07.22.05.02.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Jul 2025 05:02:17 -0700 (PDT)
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-60c9d8a169bso9244917a12.1; 
+ Tue, 22 Jul 2025 05:02:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXR6Yg2rrkyCSHjvCh9ydKCf59WMWnVglkBzI9U1bNuUg1d1WYvZAQanlWxIb0I6/Y6WtK4bO2jqQ8=@nongnu.org
+X-Received: by 2002:a05:6402:2683:b0:612:bd30:d326 with SMTP id
+ 4fb4d7f45d1cf-612bd30d6e9mr16689528a12.22.1753185736482; Tue, 22 Jul 2025
+ 05:02:16 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250722083507.678542-1-pbonzini@redhat.com>
 In-Reply-To: <20250722083507.678542-1-pbonzini@redhat.com>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Tue, 22 Jul 2025 15:28:39 +0300
-X-Gm-Features: Ac12FXxqk7gGztfIdI9ISyH8gEuAM5tiEwlLdSXgcbO1Yacw5Luyz7Exa_-7VHE
-Message-ID: <CAAjaMXagtnr-r6ou8Nfh4+x_TSt4BTUT_4RM7tMnjX7bU_ohAA@mail.gmail.com>
+From: Neal Gompa <ngompa@fedoraproject.org>
+Date: Tue, 22 Jul 2025 08:01:38 -0400
+X-Gmail-Original-Message-ID: <CAEg-Je8cctYdMik1+sEM7yAsATvUuOwC0pNzqH80UbHSn3B+Ww@mail.gmail.com>
+X-Gm-Features: Ac12FXzjOGfO3BS2nXdgOUOuU-piBWEzMROVxJh7Zrhf87poH4F2UvJ2wz_GoQk
+Message-ID: <CAEg-Je8cctYdMik1+sEM7yAsATvUuOwC0pNzqH80UbHSn3B+Ww@mail.gmail.com>
 Subject: Re: [PATCH] scripts: add script to help distro use global Rust
  packages
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, berrange@redhat.com, 
- ngompa@fedoraproject.org
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, berrange@redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::532;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x532.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Received-SPF: pass client-ip=209.85.218.45; envelope-from=ngompa13@gmail.com;
+ helo=mail-ej1-f45.google.com
+X-Spam_score_int: -14
+X-Spam_score: -1.5
+X-Spam_bar: -
+X-Spam_report: (-1.5 / 5.0 requ) BAYES_00=-1.9, FREEMAIL_ENVFROM_END_DIGIT=0.25,
+ FREEMAIL_FORGED_FROMDOMAIN=0.001, FREEMAIL_FROM=0.001,
+ HEADER_FROM_DIFFERENT_DOMAINS=0.158, RCVD_IN_DNSWL_NONE=-0.0001,
+ RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Tue, 22 Jul 2025 08:51:55 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,8 +101,8 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Tue, Jul 22, 2025 at 11:36=E2=80=AFAM Paolo Bonzini <pbonzini@redhat.com=
-> wrote:
+On Tue, Jul 22, 2025 at 4:35=E2=80=AFAM Paolo Bonzini <pbonzini@redhat.com>=
+ wrote:
 >
 > Some distros prefer to avoid vendored crate sources, and instead use
 > local sources from e.g. ``/usr/share/cargo/registry``.  Add a
@@ -123,254 +126,15 @@ _crate_nameversion %{1}}/" -i subprojects/%{1}.wrap
 >  2 files changed, 199 insertions(+)
 >  create mode 100755 scripts/get-wraps-from-cargo-registry.py
 >
-> diff --git a/docs/about/build-platforms.rst b/docs/about/build-platforms.=
-rst
-> index 8ecbd6b26f7..8671c3be9cd 100644
-> --- a/docs/about/build-platforms.rst
-> +++ b/docs/about/build-platforms.rst
-> @@ -127,6 +127,14 @@ Rust build dependencies
->    (or newer) package.  The path to ``rustc`` and ``rustdoc`` must be
->    provided manually to the configure script.
->
-> +  Some distros prefer to avoid vendored crate sources, and instead use
-> +  local sources from e.g. ``/usr/share/cargo/registry``.  QEMU includes =
-a
-> +  script, ``scripts/get-wraps-from-cargo-registry.py``, that automatical=
-ly
-> +  performs this task.  The script is meant to be invoked after unpacking
-> +  the QEMU tarball.  QEMU also includes ``rust/Cargo.toml`` and
-> +  ``rust/Cargo.lock`` files that can be used to compute QEMU's build
-> +  dependencies, e.g. using ``cargo2rpm -p rust/Cargo.toml buildrequires`=
-`.
-> +
->  Optional build dependencies
->    Build components whose absence does not affect the ability to build QE=
-MU
->    may not be available in distros, or may be too old for our requirement=
-s.
-> diff --git a/scripts/get-wraps-from-cargo-registry.py b/scripts/get-wraps=
--from-cargo-registry.py
-> new file mode 100755
-> index 00000000000..6b76d00a6d9
-> --- /dev/null
-> +++ b/scripts/get-wraps-from-cargo-registry.py
-> @@ -0,0 +1,191 @@
-> +#!/usr/bin/env python3
-> +
-> +"""
-> +get-wraps-from-cargo-registry.py - Update Meson subprojects from a globa=
-l registry
-> +"""
-> +
-> +# Copyright (C) 2025 Red Hat, Inc.
-> +#
-> +# Author: Paolo Bonzini <pbonzini@redhat.com>
-> +#
-> +# This work is licensed under the terms of the GNU GPL, version 2 or
-> +# later. See the COPYING file in the top-level directory.
-> +
 
-Nit, missing:
+I am impressed how much code my three lines in the Mesa spec file produced.
 
-# SPDX-License-Identifier:
+The code looks good to me and seems to do what it says on the tin.
 
-> +import argparse
-> +import configparser
-> +import filecmp
-> +import glob
-> +import os
-> +import subprocess
-> +import sys
-> +
-> +
-> +def get_name_and_semver(namever: str) -> tuple[str, str]:
-> +    """Split a subproject name into its name and semantic version parts"=
-""
-> +    parts =3D namever.rsplit("-", 1)
-> +    if len(parts) !=3D 2:
-> +        return namever, ""
-> +
-> +    return parts[0], parts[1]
-> +
-> +
-> +class UpdateSubprojects:
-> +    cargo_registry: str
-> +    top_srcdir: str
-> +    dry_run: bool
-> +    changes: int =3D 0
-> +
-> +    def find_installed_crate(self, namever: str) -> str | None:
-> +        """Find installed crate matching name and semver prefix"""
-> +        name, semver =3D get_name_and_semver(namever)
-> +
-> +        # exact version match
-> +        path =3D os.path.join(self.cargo_registry, f"{name}-{semver}")
-> +        if os.path.exists(path):
-> +            return f"{name}-{semver}"
-> +
-> +        # semver match
-> +        matches =3D sorted(glob.glob(f"{path}.*"))
-> +        return os.path.basename(matches[0]) if matches else None
-> +
-> +    def compare_build_rs(self, orig_dir: str, registry_namever: str) -> =
-None:
-> +        """Warn if the build.rs in the original directory differs from t=
-he registry version."""
-> +        orig_build_rs =3D os.path.join(orig_dir, "build.rs")
-> +        new_build_rs =3D os.path.join(self.cargo_registry, registry_name=
-ver, "build.rs")
-> +
-> +        msg =3D None
-> +        if os.path.isfile(orig_build_rs) !=3D os.path.isfile(new_build_r=
-s):
-> +            if os.path.isfile(orig_build_rs):
-> +                msg =3D f"build.rs removed in {registry_namever}"
-> +            if os.path.isfile(new_build_rs):
-> +                msg =3D f"build.rs added in {registry_namever}"
-> +
-> +        elif os.path.isfile(orig_build_rs) and not filecmp.cmp(orig_buil=
-d_rs, new_build_rs):
-> +            msg =3D f"build.rs changed from {orig_dir} to {registry_name=
-ver}"
-> +
-> +        if msg:
-> +            print(f"=E2=9A=A0=EF=B8=8F  Warning: {msg}")
-> +            print("   This may affect the build process - please review =
-the differences.")
-> +
-> +    def update_subproject(self, wrap_file: str, registry_namever: str) -=
-> None:
-> +        """Modify [wrap-file] section to point to self.cargo_registry.""=
-"
-> +        assert wrap_file.endswith("-rs.wrap")
-> +        wrap_name =3D wrap_file[:-5]
-> +
-> +        env =3D os.environ.copy()
-> +        env["MESON_PACKAGE_CACHE_DIR"] =3D self.cargo_registry
-> +
-> +        config =3D configparser.ConfigParser()
-> +        config.read(wrap_file)
-> +        if "wrap-file" not in config:
-> +            return
-> +
-> +        # do not download the wrap, always use the local copy
-> +        orig_dir =3D config["wrap-file"]["directory"]
-> +        if os.path.exists(orig_dir) and orig_dir !=3D registry_namever:
-> +            self.compare_build_rs(orig_dir, registry_namever)
-> +        if self.dry_run:
-> +            if orig_dir =3D=3D registry_namever:
-> +                print(f"Will install {orig_dir} from registry.")
-> +            else:
-> +                print(f"Will replace {orig_dir} with {registry_namever}.=
-")
-> +            self.changes +=3D 1
-> +            return
-> +
-> +        config["wrap-file"]["directory"] =3D registry_namever
-> +        for key in list(config["wrap-file"].keys()):
-> +            if key.startswith("source"):
-> +                del config["wrap-file"][key]
-> +
-> +        # replace existing directory with installed version
-> +        if os.path.exists(orig_dir):
-> +            subprocess.run(
-> +                ["meson", "subprojects", "purge", "--confirm", wrap_name=
-],
-> +                cwd=3Dself.top_srcdir,
-> +                env=3Denv,
-> +                check=3DTrue,
-> +            )
-> +
-> +        with open(wrap_file, "w") as f:
-> +            config.write(f)
-> +
-> +        if orig_dir =3D=3D registry_namever:
-> +            print(f"Installing {orig_dir} from registry.")
-> +        else:
-> +            print(f"Replacing {orig_dir} with {registry_namever}.")
-> +
-> +        if orig_dir !=3D registry_namever:
-> +            patch_dir =3D config["wrap-file"]["patch_directory"]
-> +            patch_dir =3D os.path.join("packagefiles", patch_dir)
-> +            _, ver =3D registry_namever.rsplit("-", 1)
-> +            subprocess.run(
-> +                ["meson", "rewrite", "kwargs", "set", "project", "/", "v=
-ersion", ver],
-> +                cwd=3Dpatch_dir,
-> +                env=3Denv,
-> +                check=3DTrue,
-> +            )
-> +
-> +        subprocess.run(
-> +            ["meson", "subprojects", "download", wrap_name],
-> +            cwd=3Dself.top_srcdir,
-> +            env=3Denv,
-> +            check=3DTrue,
-> +        )
-> +
-> +    @staticmethod
-> +    def parse_cmdline() -> argparse.Namespace:
-> +        parser =3D argparse.ArgumentParser(
-> +            description=3D"Replace Meson subprojects with packages in a =
-Cargo registry"
-> +        )
-> +        parser.add_argument(
-> +            "--cargo-registry",
-> +            default=3Dos.environ.get("CARGO_REGISTRY"),
-> +            help=3D"Path to Cargo registry (default: CARGO_REGISTRY env =
-var)",
-> +        )
-> +        parser.add_argument(
-> +            "--dry-run",
-> +            action=3D"store_true",
-> +            default=3DFalse,
-> +            help=3D"Do not actually replace anything",
-> +        )
-> +
-> +        args =3D parser.parse_args()
-> +        if not args.cargo_registry:
-> +            print("error: CARGO_REGISTRY environment variable not set an=
-d --cargo-registry not provided")
-> +            sys.exit(1)
-> +
-> +        return args
-> +
-> +    def __init__(self, args: argparse.Namespace):
-> +        self.cargo_registry =3D args.cargo_registry
-> +        self.dry_run =3D args.dry_run
-> +        self.top_srcdir =3D os.getcwd()
-> +
-> +    def main(self) -> None:
-> +        if not os.path.exists("subprojects"):
-> +            print("'subprojects' directory not found, nothing to do.")
-> +            return
-> +
-> +        os.chdir("subprojects")
-> +        for wrap_file in sorted(glob.glob("*-rs.wrap")):
-> +            namever =3D wrap_file[:-8]  # Remove '-rs.wrap'
-> +
-> +            registry_namever =3D self.find_installed_crate(namever)
-> +            if not registry_namever:
-> +                print(f"No installed crate found for {wrap_file}")
-> +                continue
-> +
-> +            self.update_subproject(wrap_file, registry_namever)
-> +
-> +        if self.changes:
-> +            if self.dry_run:
-> +                print("Rerun without --dry-run to apply changes.")
-> +            else:
-> +                print(f"=E2=9C=A8 {self.changes} subproject(s) updated!"=
-)
-> +        else:
-> +            print("No changes.")
-> +
-> +
-> +if __name__ =3D=3D "__main__":
-> +    args =3D UpdateSubprojects.parse_cmdline()
-> +    UpdateSubprojects(args).main()
-> --
-> 2.50.1
->
->
+Reviewed-by: Neal Gompa <ngompa@fedoraproject.org>
+
+
+
+--=20
+Neal Gompa (FAS: ngompa)
 
