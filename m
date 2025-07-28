@@ -4,67 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2554C83F27
-	for <qemu-rust@archiver.kernel.org>; Tue, 22 Jul 2025 14:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6372BC83F17
+	for <qemu-rust@archiver.kernel.org>; Mon, 28 Jul 2025 12:33:36 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1ueDse-00071H-JP; Tue, 22 Jul 2025 10:22:09 -0400
+	id 1ugN2X-00014y-Rk; Mon, 28 Jul 2025 08:33:15 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1ueDoL-0003Uj-Vj; Tue, 22 Jul 2025 10:17:45 -0400
-Received: from mgamail.intel.com ([192.198.163.18])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1ueDoH-0002vI-WB; Tue, 22 Jul 2025 10:17:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1753193858; x=1784729858;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=QpA7Auk83yejgin4enzPJ97PcNK0/rjrjfBAnFYKpGs=;
- b=RyItNvuW4DcGX8FFS+g8bCm00k1RbL3YpLuD6huAIx0sLr6M2wjoRUN7
- W2YieLMOcxSwsB6yH4xJAz97F9bnybxYJCLG+HrA/m+L18haK2Any+vBc
- MnWmiMULZ3QwUImxPl8Rd9f7NHgUTuKkdYVoSewrFtcIvJ8ZLkDWWoq7/
- +Anw/lZ7dHMAAUy8M/BicmZspjYrhhz/3hGmQu2J0prpbpQTxyqmJVh9v
- yL5Ds6cQsva4w5kEOjNkilPJiNjh5mxDtNaXk+BXG8NyTP1h4YMvNVNxn
- UAw4JSxiuNl1d0Q3UJhW+w/kAX6yP9gLIpKmfNA4ca07mGQEtb1xLBKsk A==;
-X-CSE-ConnectionGUID: CUILMJnMQrae05K6bF8GpQ==
-X-CSE-MsgGUID: Lf03q2cJTPSP7Blb4Rxb7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11500"; a="54664477"
-X-IronPort-AV: E=Sophos;i="6.16,331,1744095600"; d="scan'208";a="54664477"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2025 07:17:32 -0700
-X-CSE-ConnectionGUID: SVRQ4+PJTqyl7YK4D8A+Xw==
-X-CSE-MsgGUID: uyt1hJsfTKuQSjMNzR+bdw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,331,1744095600"; d="scan'208";a="163397282"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa003.jf.intel.com with ESMTP; 22 Jul 2025 07:17:30 -0700
-Date: Tue, 22 Jul 2025 22:39:03 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH] rust: devices are not staticlibs
-Message-ID: <aH+ih+Nd5yiQH2lr@intel.com>
-References: <20250721105238.461477-1-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1ugMLR-0000oc-4z
+ for qemu-rust@nongnu.org; Mon, 28 Jul 2025 07:48:46 -0400
+Received: from mail-wm1-x330.google.com ([2a00:1450:4864:20::330])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1ugMLL-0003TN-Us
+ for qemu-rust@nongnu.org; Mon, 28 Jul 2025 07:48:40 -0400
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-45619d70c72so38823465e9.0
+ for <qemu-rust@nongnu.org>; Mon, 28 Jul 2025 04:48:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1753703309; x=1754308109; darn=nongnu.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=XF5+LSZYZazbjmjjD/zVta9N0XJQHpjuSTLdKCII5AE=;
+ b=y8RHEEohnuuf19xtFIPVLqnbTgy2H6y2uymkZiD8pA8JGR31oLLPJ5BelJps4mIiKS
+ B8kO7/hMcMQ1YjlesgaiyOH7UYCWVfleUXwcRIBFztSZ56w6aOk4dft7jZPT/3RsDlOG
+ yMYmvQHC1AWuboZecWpfz2cYQ4r5X7tIs/Og3b6vhM28u/dzAOe6ISbPo7nlnyqrX26d
+ 3l4vO2NRB6JeMJcP37YpSNzK6MAYMnx8su4erXR8m0GIqcdh5X+84G8NX3Q+HaklCpIB
+ qEGQ08Uj64ZtBkL2af4QnpX3gJCWWzBlZef5DyGqO5tez/lNXCKvzMFtLNapc7QMGoig
+ EgEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753703309; x=1754308109;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XF5+LSZYZazbjmjjD/zVta9N0XJQHpjuSTLdKCII5AE=;
+ b=F/+2wgHsKxcmRrWugNl0zeC/6KVt2wsRJZCbGCuRCdBwvFqrIi/LLy5B+SBQ8/ngvY
+ izWnJnS5/UCWKth5xFzHI/AZjT80X5QaiPU5LC6TyQvCgpDBJ14HvxnR1StHfOcYrJn4
+ pWWxpm2axJFWYTKZVYLFvHsHTth79vhflyCFXR9SS2Pz3d3MZ1lFkd46ReZXNbZfSCN5
+ yUwNlauNewrLqKhxy0Nl2wCvpxpQB58GCreqhVRy/yNDWSdcp7W1vGNWkDNC6HudP1Lf
+ 9zfyVoYs2/PopPsEi2Iw9kQmE+DiwM9Ebmyg6XHBHYFAkH7sffqlUtnzeTYtsAwo51gZ
+ Tfyg==
+X-Gm-Message-State: AOJu0YwSFAhH5j8Xwrk4ZQYoGcnpAMsEiPBVD49dwtpZ9UEioRqMfoAT
+ Fh3sgFDrEkuaEqLT+MTNiuXcw6cGKpPea4TIDTJC7ZzKtBIyxBSxpGJ7kEBkV9EdTyPO3QYD5t3
+ xgGIs
+X-Gm-Gg: ASbGncvJM2dCAJY/RpGuBtmGVMV3IwHB/Dy7s+4vaxh35kSuiNFlHcEy0gLQqDH3CYd
+ 5vXi+gbPmoGyHb8Rbx86q1YcGH7TpycqtjuSIDgpKkczrAhTvnzruzRHCagOkzZ1T4RqaUivIgO
+ HDbAAQ3LxFcSZg/ms0BokOnyTYa5DiudUbevUiGQTxSRqNnI4iMtRr03Jma2AcuKdIREKxWZxGD
+ wUyvDDFxjp5TE2k0msq+YTDVaDvra6sJrhpenkev9b9UZoLtFXKwgbn4wuDX+jD87CqRqSYO57h
+ EnIsSsidezg/32APbt/J7J5k96qK5iwMaC7WQgohxKOZ9pnSK78//Wfnv0KTIKNJdnJeHE5w+1h
+ qsnnHg2zkr/0pzZ4VxaQk4IrTBLgZ1ydf6g==
+X-Google-Smtp-Source: AGHT+IFpkJ1rPsEbVvsm7A3jC2M9rMhtCqhAeTciQOMqFVDLJRuNiiVd7bnlfdalIXmHBmr8gLk3vQ==
+X-Received: by 2002:a05:600c:4e4d:b0:453:7713:476c with SMTP id
+ 5b1f17b1804b1-4587555067bmr90539045e9.2.1753703309243; 
+ Mon, 28 Jul 2025 04:48:29 -0700 (PDT)
+Received: from [127.0.1.1] ([80.106.57.42]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4586ec77799sm123346535e9.2.2025.07.28.04.48.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Jul 2025 04:48:28 -0700 (PDT)
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Mon, 28 Jul 2025 14:48:23 +0300
+Subject: [PATCH] rust: declare self as qemu_api for proc-macros
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250721105238.461477-1-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.18; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -49
-X-Spam_score: -5.0
-X-Spam_bar: -----
-X-Spam_report: (-5.0 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.633,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_MSPIKE_H2=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20250728-self-as-qemu_api-v1-1-001c339cccc8@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAIZjh2gC/x3MSQqAMAxA0atI1gZqVRyuIiLBRg04NiiCeHeLy
+ 7f4/wFlL6xQRw94vkRlWwOSOIJ+onVkFBcM1tjcFLZE5XlAUjx4OTvaBR3n5EpbkUkzCNnueZD
+ 7Xzbt+37rOg1TYgAAAA==
+X-Change-ID: 20250728-self-as-qemu_api-de5ad829a034
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3338;
+ i=manos.pitsidianakis@linaro.org; h=from:subject:message-id;
+ bh=nO/5Rn87DP20nFAymwMnIX4VjoCVPzTL929nkSdMZCQ=;
+ b=LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tCgpvd0VCYlFLUy9aQU5Bd0FLQVhjcHgzQi9mZ
+ 25RQWNzbVlnQm9oMk9NUTl4UDljdDZFRTFSVWdKWDQxZXFwUjY5CmxtQy84SmVUcGJuQXhMclIr
+ UUdKQWpNRUFBRUtBQjBXSVFUTVhCdE9SS0JXODRkd0hSQjNLY2R3ZjM0SjBBVUMKYUlkampBQUt
+ DUkIzS2Nkd2YzNEowSmhCRUFDRjJqUWNsdEZ3dzc1b3V5SDUxQjY0Y2JLWHYwVXdPQXNFZytUUA
+ p6aHVhTG5ZMFVYUkpFekFpY0xqM01WWVJzeUwwNUtZWHhsSWtZY1pWYlFwZmF5U0o0c2g5czBsS
+ 25ha3BhNHFvCktqTmZkTnNDQjJvUkRZUmc5SjIyUk9ZTVBBdE9YWUYzS1VrY25iMHhxZ1h2aExo
+ V2xFQ3Y0MWlzQmhMOHZNR2kKS0htRUpJZlEya0NFQ0h5K05FV3lGRXdWSG15bEJ1TzBuYmFTd3p
+ 0azhXZXVNTkdTV3M3SVA5MmJPUmU3S1phNwpxWWZOdlJ0MHN3MS84UnVSZ1E2YWZhYVFrQkdaQz
+ hMLy9DREVHblMxemNYRG1uWWsxemdleEJ0WmlsQy8yYytECkJKZUlrb0RPMzBzNUtOSUR6R3ovN
+ DEzUjBzVEhoNk91V001R2JyS1hyNTRGQmhWelF2b2NnMHZ0SjVRWnkybTEKRStLbUZFYTNqSTZn
+ RWZ2U05aWWZoOHVjbXNGRnlBdUJJd1EyOTBQZTNBR3pTMTJHTmF5WDA0R2FWcnFkS0FvdApHWUE
+ yZFpyazVGYS95Y3dSKytkY2pnN3o0ZUF5R2t0bDQ3M2xaL243UW9SMXlrRS9aVVhlVHpkZDBXUn
+ ZtMldlCktWNllBY05hZmZscHh6VktROVYwMkI4RkRkS2gyQTFqa0lwZTdsYXA4amxXWkd3OHRRN
+ nRtb1JzamNkS1YrSmoKSFUxSEtlN3dLVEFnZ0xWYVIrQ29pdUc1QkVlS3BFYnppRER1dkRHdk5o
+ dmZZekNMRVdJR0hzS0RkaFJ3amVUSgpQOS9vT1pZQmdGMlpXRVNVVE9HRkd5Ylk4Z3pWOFRsajN
+ OY2FNTEFlMjhScU5FemZQSG14S2h2WjNYQjlubXpSCmVLa1E4Zz09Cj0xTVk0Ci0tLS0tRU5EIF
+ BHUCBNRVNTQUdFLS0tLS0K
+X-Developer-Key: i=manos.pitsidianakis@linaro.org; a=openpgp;
+ fpr=7C721DF9DB3CC7182311C0BF68BC211D47B421E1
+Received-SPF: pass client-ip=2a00:1450:4864:20::330;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-wm1-x330.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -80,22 +123,82 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, Jul 21, 2025 at 12:52:38PM +0200, Paolo Bonzini wrote:
-> Date: Mon, 21 Jul 2025 12:52:38 +0200
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH] rust: devices are not staticlibs
-> X-Mailer: git-send-email 2.50.1
-> 
-> This is only cosmetic for now, but hopefully later on Meson will parse more
-> of Cargo.toml.  Devices are linked into a staticlib but are not staticlibs
-> themselves.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/hw/char/pl011/Cargo.toml | 3 ---
->  rust/hw/timer/hpet/Cargo.toml | 3 ---
->  2 files changed, 6 deletions(-)
+Fix an outstanding TODO.
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+Declaring `extern crate self as qemu_api` allows use of `qemu_api`
+within the qemu_api crate; this allows the Wrapper derive macro and
+future proc macros to be used interchangeably in the qemu_api crate and
+other crates. This is not required currently and is only for
+future-proofing.
+
+Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+---
+ rust/qemu-api-macros/src/lib.rs | 14 ++++++--------
+ rust/qemu-api/src/lib.rs        |  3 +++
+ 2 files changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/rust/qemu-api-macros/src/lib.rs b/rust/qemu-api-macros/src/lib.rs
+index b525d89c09e496a1f7f5582dc6d994e318f62bca..e01ac26cf3dd5a1b06ce095ef32b27a67e0def19 100644
+--- a/rust/qemu-api-macros/src/lib.rs
++++ b/rust/qemu-api-macros/src/lib.rs
+@@ -115,23 +115,21 @@ fn derive_opaque_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream
+     let field = &get_unnamed_field(&input, "#[derive(Wrapper)]")?;
+     let typ = &field.ty;
+ 
+-    // TODO: how to add "::qemu_api"?  For now, this is only used in the
+-    // qemu_api crate so it's not a problem.
+     Ok(quote! {
+-        unsafe impl crate::cell::Wrapper for #name {
+-            type Wrapped = <#typ as crate::cell::Wrapper>::Wrapped;
++        unsafe impl ::qemu_api::cell::Wrapper for #name {
++            type Wrapped = <#typ as ::qemu_api::cell::Wrapper>::Wrapped;
+         }
+         impl #name {
+-            pub unsafe fn from_raw<'a>(ptr: *mut <Self as crate::cell::Wrapper>::Wrapped) -> &'a Self {
++            pub unsafe fn from_raw<'a>(ptr: *mut <Self as ::qemu_api::cell::Wrapper>::Wrapped) -> &'a Self {
+                 let ptr = ::std::ptr::NonNull::new(ptr).unwrap().cast::<Self>();
+                 unsafe { ptr.as_ref() }
+             }
+ 
+-            pub const fn as_mut_ptr(&self) -> *mut <Self as crate::cell::Wrapper>::Wrapped {
++            pub const fn as_mut_ptr(&self) -> *mut <Self as ::qemu_api::cell::Wrapper>::Wrapped {
+                 self.0.as_mut_ptr()
+             }
+ 
+-            pub const fn as_ptr(&self) -> *const <Self as crate::cell::Wrapper>::Wrapped {
++            pub const fn as_ptr(&self) -> *const <Self as ::qemu_api::cell::Wrapper>::Wrapped {
+                 self.0.as_ptr()
+             }
+ 
+@@ -139,7 +137,7 @@ pub const fn as_void_ptr(&self) -> *mut ::core::ffi::c_void {
+                 self.0.as_void_ptr()
+             }
+ 
+-            pub const fn raw_get(slot: *mut Self) -> *mut <Self as crate::cell::Wrapper>::Wrapped {
++            pub const fn raw_get(slot: *mut Self) -> *mut <Self as ::qemu_api::cell::Wrapper>::Wrapped {
+                 slot.cast()
+             }
+         }
+diff --git a/rust/qemu-api/src/lib.rs b/rust/qemu-api/src/lib.rs
+index 86dcd8ef17a9ecd040742a99e4b0421e19ec88f6..44d995cfdb990e0d17e7216cf4d1f04a5a980a1f 100644
+--- a/rust/qemu-api/src/lib.rs
++++ b/rust/qemu-api/src/lib.rs
+@@ -32,6 +32,9 @@
+ pub mod vmstate;
+ pub mod zeroable;
+ 
++// Allow proc-macros to refer to `::qemu_api` inside the `qemu_api` crate (this crate).
++extern crate self as qemu_api;
++
+ use std::{
+     alloc::{GlobalAlloc, Layout},
+     ffi::c_void,
+
+---
+base-commit: c017386f28c03a03b8f14444f8671d3d8f7180fe
+change-id: 20250728-self-as-qemu_api-de5ad829a034
+
+--
+γαῖα πυρί μιχθήτω
 
 
