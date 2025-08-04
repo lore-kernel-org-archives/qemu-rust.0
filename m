@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEA2CC87FCB
-	for <qemu-rust@archiver.kernel.org>; Mon,  4 Aug 2025 15:16:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BA98C87FCF
+	for <qemu-rust@archiver.kernel.org>; Mon,  4 Aug 2025 15:16:39 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uiwv8-0001wI-0d; Mon, 04 Aug 2025 11:16:15 -0400
+	id 1uiwv5-0001ts-Mb; Mon, 04 Aug 2025 11:16:11 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uivXQ-0005hp-7J
- for qemu-rust@nongnu.org; Mon, 04 Aug 2025 09:47:40 -0400
-Received: from mail-ed1-x535.google.com ([2a00:1450:4864:20::535])
+ id 1uivXO-0005fI-MO
+ for qemu-rust@nongnu.org; Mon, 04 Aug 2025 09:47:39 -0400
+Received: from mail-ed1-x530.google.com ([2a00:1450:4864:20::530])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uivXN-0002Yw-6Y
+ id 1uivXM-0002YX-Au
  for qemu-rust@nongnu.org; Mon, 04 Aug 2025 09:47:38 -0400
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-615398dc162so7814619a12.3
- for <qemu-rust@nongnu.org>; Mon, 04 Aug 2025 06:47:36 -0700 (PDT)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-61521cd7be2so4653889a12.3
+ for <qemu-rust@nongnu.org>; Mon, 04 Aug 2025 06:47:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1754315256; x=1754920056; darn=nongnu.org;
+ d=linaro.org; s=google; t=1754315254; x=1754920054; darn=nongnu.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=LMgCrR6KlknYh+ENybJoq0RqAETuG6eMroYq7thwFcY=;
- b=sxOgOFjIyMhowtgPS6PXLRh8njZsIb7EhCo0m821r6F7KPlCHxsT4f4DqHjzkGlaGz
- V0Uagi6CoG/fQbqFQfaG796hSJg36uN/ZODv2q74wUN5JkFTo1qzOznShhOZgRzu9Xkg
- ns1PbY27rQheQj9tFhROvZYqSyHk/GvT6VGeA9QTrIVbK2Jc8uxPDG/TACR/FogOzdTG
- J7vMlqB4TpDo547+o1cC0YqOrUeWkSPLdbfZwxm2gYLf7jHebp7CoJebOtwM84tDyj4a
- JzYp7pqmo8BJzLWiAVN5ubaK+mkf5sBTe2iv5Z3cRyIJMLdC4gQn4cnD/4eBd1iQyAKf
- 58Bw==
+ :reply-to; bh=hEvV4qFqWB9cTuaBcclspfI/a8mVi5g2F2fZs6PHmRM=;
+ b=hrlDy2b3moG2wV+Bo/09h9QcfwprdxaBwxW8qcICA09S8X4xO9X+AalFFATV+cBtOB
+ 8JfzhwJAUMtTfNHexDkj5jwB88RXcU5XfRuI8OQ7AyNdSIJL9UUDGMtYZpZFGBCLFHpf
+ e6CaWvyjiXe+AB+4alZxzdINwfSVNXqLIQK/Eax+DWEed3KAezYWIYy4LrZ7mta8xskF
+ QboPB+esvmPZElLce6hnDQv6uXW55DQhLS3cJuCJOzrErtfKsNGM6UYX5iXMIJGIWBOS
+ SXg58aWy4K6a32l5/FrA6WnM6yl4ndW4XU/VXLPcoefCutIEGO51nJQ1ZMmb1v3nu+9n
+ uqSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754315256; x=1754920056;
+ d=1e100.net; s=20230601; t=1754315254; x=1754920054;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=LMgCrR6KlknYh+ENybJoq0RqAETuG6eMroYq7thwFcY=;
- b=tywGzPT2cj6dIkidfADBOu8+F7kDonF0BJRBrHqG9InFdIoMsoH8LkOmwLQ+bq28mw
- qzE+/HIx3Eh/Ia6ZQE+zoXl8HhgY+dArrXjSzNG3hELObejD6VNxvrt8yw6RdnCmoXw+
- po9FqKv2jTj6p9m+uJvbjDs1yJ7bqp+DWK2xShj8PNFn9OMOIYVE2Dmizq7VZifTU7kw
- 4/EhZc3WosE5TxjOsk6Krb1ZlVwxziAgx5B9VUsHoU3skf+zSMhsXCGYauhNMLWtDnJu
- vxS4KSQKk8wNLwPCA6jGy1djB6Pv5i+q0cmwM+ilrDctik3iZEsYzRjMXN881XvintO/
- eROw==
-X-Gm-Message-State: AOJu0YysmgNPIZVDTE/jGQi2gkV5xsbgrsoWpJZiYOEwM91erZxkpKJy
- gbcBjczVBmWhnzEQ+crZ5vWn2crNIBI5M0IRkjGjhbwXoBAHO2jVJWKH9gDKWT64DEc=
-X-Gm-Gg: ASbGncsyGvKw0x0pGOEV2JMRyF1D9/TvCO1uw8Im/fT6SHPerU5gknitobAgbSvyh3i
- 3ykYNxX/1usw4wox/LqSo4NIghlD/YOOvUrAxvrpIHG5pxyQ9yHaL3ekiNqvub+578A8hJzYUIR
- qDVRt8AD8HQ50tXP0PMwaroc+cTYFFc4ZS6AxzGhxqv6dx8iYbZR/crG2RFZMvM3Xy2MamYQZ15
- u0/PJTjwXgmvZFfzN8eCKt2YY5TRaER3G8wcwaFVMyi7xrT6zpGVgLWIPnvpRqf2r+C3nV49kCb
- T/b0+FMmP5fvT6bWVr2aZgkePQGpL6uGyVNe3I6YOzbEzUVbFEW1W/tlV/36ya6Vev7X7QW6zou
- 9dhlJub/lIAtLYjZiN0cpJSNr4MPOZovMqgh2yUiMIkBYgXTPbEsurcuCp7JOGwwpOgU=
-X-Google-Smtp-Source: AGHT+IFqOd9wQ9qUvXAzSSypDy8vF0aKHLWLlZv7VxJ/ZQ1eozu+WxLgzwynxPNhVI4/RJK6/T0AYw==
-X-Received: by 2002:a05:6402:34c9:b0:615:a5d5:972c with SMTP id
- 4fb4d7f45d1cf-615e6eb5b7emr8745017a12.6.1754315255602; 
- Mon, 04 Aug 2025 06:47:35 -0700 (PDT)
+ bh=hEvV4qFqWB9cTuaBcclspfI/a8mVi5g2F2fZs6PHmRM=;
+ b=I28XwbeFF516QgPiDECVTS8RhfWsAEjW+ulapuRjMJ85vKGU24ewUzpEoQAtpoDfdB
+ /+CTPlWUiN5USddsyWdACDyotRl9c6E2uoLX6SJ9S3f5hM0lDaJqyEXxJ6lJnmb/Hk4S
+ bFRAgsbjVMLkpemv+5uj6Zq7mTNKLammJqBpXvhySpwgU2lXteRpc6+dKfmL+gvpr3Mb
+ RvP5zvjjQ1dxnWOFg0zlOFGnq4r2oziBv6XuaWjCDwTNU+JKNXIdpuYQ24cd/jx/G998
+ JsGcNxh3Je2Gq2BEuUbOk1sg1ECtywF/Zn0n0gTNMl3J68ogwuEljK6EPtOonivJrOLj
+ BJLg==
+X-Gm-Message-State: AOJu0YySp29gcsTh+PTYxqd4TzqF+p1RECMhW/Zz8mOgATG+ocN29reD
+ N2HAKwJjpprXo1ipeMpkgg5fONgCnxcxCcTlE6BMY5S8UrcsXP+DXd7k1LFsxepQELU=
+X-Gm-Gg: ASbGnctGgSERCirOQU1yb9Sd/IA1FybtgDn4bR4d2bWlyuB+XgdfGqeE48zEZwD8thZ
+ tWWOjay1+9Quo1s2ndsQSq6aY03/o5PYR821/SOBAusZpP5aMJV3PJAPCUIpMbYII+8G6TyPjcG
+ eDB+bcldv5l6n/DRVMHzQfMilxS4Da3Yy3ryE46KffIsyiEsG9RlNberZm9yVobQVPOH9m/sZ7F
+ H6wZ+uyGQYRD7H6JpzSR78nxAaPWaAiyU/WeuqTfth5XZhsN03HlGSFEbMU5K8KuDj/HESuUMLW
+ igRUH1OeJ0QkFq3hX88J62Sd+iCboMS5FY1LFERhmLEj93OvAYmmyoIA1EFXaxA2VmySCvYBAjB
+ iM0KVHG/HyqDx9PQHScV+ge/7uMkuzWJjM6rdmrOjpFi/aQKzlMhXNX/tpbRNLxzfMmU=
+X-Google-Smtp-Source: AGHT+IFAlqNGj+0nkPhQ+9IT3H+LbzRMYlhKz0ws80qY5loS3glrxXNT+jp2M/5wAQAouxqQmz9vaQ==
+X-Received: by 2002:a05:6402:354f:b0:607:28c9:c3c9 with SMTP id
+ 4fb4d7f45d1cf-615e6ebc8bemr9194835a12.6.1754315254472; 
+ Mon, 04 Aug 2025 06:47:34 -0700 (PDT)
 Received: from [127.0.1.1] (athedsl-4441708.home.otenet.gr. [79.129.182.92])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8f15d9fsm6850590a12.17.2025.08.04.06.47.34
+ 4fb4d7f45d1cf-615a8f15d9fsm6850590a12.17.2025.08.04.06.47.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Aug 2025 06:47:35 -0700 (PDT)
+ Mon, 04 Aug 2025 06:47:34 -0700 (PDT)
 From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Mon, 04 Aug 2025 16:47:15 +0300
-Subject: [PATCH RFC 2/5] rust/qemu-api/log: add Log::Trace variant
+Date: Mon, 04 Aug 2025 16:47:14 +0300
+Subject: [PATCH RFC 1/5] rust/bindings: add trace headers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250804-rust_trace-v1-2-b20cc16b0c51@linaro.org>
+Message-Id: <20250804-rust_trace-v1-1-b20cc16b0c51@linaro.org>
 References: <20250804-rust_trace-v1-0-b20cc16b0c51@linaro.org>
 In-Reply-To: <20250804-rust_trace-v1-0-b20cc16b0c51@linaro.org>
 To: qemu-devel@nongnu.org
@@ -78,30 +78,30 @@ Cc: qemu-rust@nongnu.org,
  alex.bennee@linaro.org, 
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=786;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1100;
  i=manos.pitsidianakis@linaro.org; h=from:subject:message-id;
- bh=pk38yZHd4Z7OGorg/EcCACOf8ud5WhK9Uhm8ny8k1HI=;
+ bh=oF/2Jbbj/kJRLShPsty+hf1YAhHddpc/rIM+iPuPKJc=;
  b=LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tCgpvd0VCYlFLUy9aQU5Bd0FLQVhjcHgzQi9mZ
- 25RQWNzbVlnQm9rTG56S3drWlExMnV5ejBVenhXL0ZTN3ZjQlBqCmlhd1AvaUtwMEdDejBFQjF5
- cWFKQWpNRUFBRUtBQjBXSVFUTVhCdE9SS0JXODRkd0hSQjNLY2R3ZjM0SjBBVUMKYUpDNTh3QUt
- DUkIzS2Nkd2YzNEowRklWRC85c0J0aGdCN0YrVllYaUhSK3liT2JNM3hEOENZay9GYndWOUpBeA
- pKY3VZUTlnU1ZrQWluM21UTDh1NGRaRmJHYlMrQmdhSUR5Ym5jMEg1TjlxaDRicno1VjBNYXZoY
- TVOVGZLOFc5CmZGWG5waktqTVVDYmJMZGZaZnhnUjZnaFlFRnlxQXZzakdiTW9MU2ExQjFFZ2FS
- Szh2eWhuSk45SGFHTFpSSGcKOWlDN25mZXZlbHVRUjh6Q1FoVGc0bkhuSHRLS0lvVjQyek5ZMGt
- 1ek41eVZsWjY0aDJZTE4yY3BxVUZ6K0lERwp4Y29OcDlDNTZmQlZrVEMxYXRkcnVmRjd6Rm1Pek
- tFV0NZNmtabklBN3Zzdk5WOVNTekxveEpDYTFHcTVoQzRUCmZ1Qlh4RjBleDhoQmZsZGtpOVpHR
- lFoL3dWUEpjV3l5NGVZUTlOMFFheGordEM3dkZBMVpnWWhYZTFsOFN0SlEKSEZRS1d6SjNCRSsw
- OXVncWY1V0M5MjJiUWkrUllJa2ttNW9FaU8vR3Z2SUJkenU2b3AwQ0F5Y0w1UnRzVmdNdAp3aDY
- xUU5ORDVqVDZVdE9nWEZYL0JkVUl2aHcwZFRTN2VRTXNkQ0VTN0hQVE1EU3laSDVIQ0lLTjdWUn
- ZTUkVECnUwd3FRbzAxd29KZEdrYjVPejMrYkljeEQ1UkJrVDFKTDFrZmxQekV6Mkhtc3d5VTRDe
- GhHcW5TQXVqZndDQzMKNHhlRHVUb3Z5ckhka2liQlpDMDlCVnkxQ0xweGpCdHpxRkMrNnlIWndH
- RUFLUU1CLytDOEkvKzVtN29Va2RGMgpDa29xWnArRkxWNnF6WHd2eWZVY2c1cXA0TFprN3Y0NCt
- oaU5QZ0pQQ2NCSmQzMHFSYnU5aDdBNEdldmkxQUJDCmYvNWZNZz09Cj1obHdlCi0tLS0tRU5EIF
+ 25RQWNzbVlnQm9rTG56dU1TRFV6Y3RSOHpLK2RqcVF5YnhGRFpXCjZ5MkZ4eHRpNXhBd1JlWTNk
+ Wm1KQWpNRUFBRUtBQjBXSVFUTVhCdE9SS0JXODRkd0hSQjNLY2R3ZjM0SjBBVUMKYUpDNTh3QUt
+ DUkIzS2Nkd2YzNEowSkswRC80OFJCNUhRQ1Y0WEp5MFVmSEJZV3NjTFRqeWZZS0xtZFJ0WGxOSg
+ p2OGdRay91c3VWendFVzBGNnVWUGRzY3MrOHdDYnRKRi9nMWt5SW9vbWlaRG9LWDdqNkFVMmZxK
+ 25yRGJiUGt5Cm41S045RlVoVnN4V05Sd09BZTY2cEJiRTFRMzRWQUFNNWtpQUMva09kaFFyNFBu
+ UVpyMEtFbWNuUVVybENxUEMKTnRhbU1zQTEzUFJmR2QwYURVNHFEaC9nQWlKL0M4NTV0TmU0WXU
+ 5SittWWZmNS9TdVdDRWNGNi81SW9CV0g4WQpIN1ZsY3hVR3FPbzB2RXc2VmZ0bWxDVkx6RzFwZn
+ hyWFQxMGRSQ3hsS2lxeCtqYlpqWFhiWFEvTkZvVWVXZFNtClNVVHZtOWErMGZPYzhVN2k1c1JWM
+ mlnUUp3MHp3eDNRZVNLczdZWkhTVFJ6OWo3V1dGUEVvK20rQmVBODhYN0QKbnVvc0xSRkkrNjZI
+ SENGQWUyeWJyVGFhKzNLakhSYWFQNU9FcE1pcFBrakhLUXJZK0YxUTFIN2phVHF2VGtDRQp2bU5
+ RU1ZDcVV4WUxtTEQ1cDBxR3VZTkFyOEFVRkZJMU9VMlJhemMxdndUck9wZVVZN3hKWHllRUF5Mj
+ N0V2M1CkdTNjA3ejk5OE5YWWE5UWR1blVjRzF1QjYvOTE4RzdNTlloWnV4dm5BaVBjeUl2cjRYU
+ 28wRlVldlhnOGt5OEkKMWdWeVlhbVZ1aFBKa29lazZoYVZWMlorcUVKTkRtUjI2Ui81VTNkWjhq
+ dUxieHIyL1BZSmwwNytrNkpleHZqeAo5N05ydTM3ZDBjd1E5M3hUY3VWaDFTV0Y0NlZFQkZZaXB
+ lMnBLekpkQTkrV0JGV1VEdkZXWFRodkhEMHZCR1BaCjlENWx5UT09Cj14dmViCi0tLS0tRU5EIF
  BHUCBNRVNTQUdFLS0tLS0K
 X-Developer-Key: i=manos.pitsidianakis@linaro.org; a=openpgp;
  fpr=7C721DF9DB3CC7182311C0BF68BC211D47B421E1
-Received-SPF: pass client-ip=2a00:1450:4864:20::535;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x535.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::530;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x530.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -126,24 +126,31 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 ---
- rust/qemu-api/src/log.rs | 4 ++++
- 1 file changed, 4 insertions(+)
+ rust/qemu-api/src/bindings.rs | 3 +++
+ rust/qemu-api/wrapper.h       | 2 ++
+ 2 files changed, 5 insertions(+)
 
-diff --git a/rust/qemu-api/src/log.rs b/rust/qemu-api/src/log.rs
-index a441b8c1f2e61b6aba95a3679ca9c426ab890c19..750ff4b4d878fabeac0bc2b28d291db4b824c760 100644
---- a/rust/qemu-api/src/log.rs
-+++ b/rust/qemu-api/src/log.rs
-@@ -23,6 +23,10 @@ pub enum Log {
-     /// Log guest access of unimplemented functionality.
-     /// Corresponds to `LOG_UNIMP` in the C implementation.
-     Unimp = bindings::LOG_UNIMP,
-+
-+    /// Log trace item.
-+    /// Corresponds to `LOG_TRACE` in the C implementation.
-+    Trace = bindings::LOG_TRACE,
- }
+diff --git a/rust/qemu-api/src/bindings.rs b/rust/qemu-api/src/bindings.rs
+index b8104dea8bea4348987978d5041cfc58e4d15a8f..d863b8bd7ecd449b5fe5c6f1be3bd7b4251b2883 100644
+--- a/rust/qemu-api/src/bindings.rs
++++ b/rust/qemu-api/src/bindings.rs
+@@ -56,3 +56,6 @@ unsafe impl Sync for VMStateField {}
  
- /// A RAII guard for QEMU's logging infrastructure.  Creating the guard
+ unsafe impl Send for VMStateInfo {}
+ unsafe impl Sync for VMStateInfo {}
++
++unsafe impl Send for TraceEvent {}
++unsafe impl Sync for TraceEvent {}
+diff --git a/rust/qemu-api/wrapper.h b/rust/qemu-api/wrapper.h
+index 15a1b19847f2f2ab1a1a856621abb64f757070ea..540ef5eeac840deadd2e9a6f0dcd154f8dc1487a 100644
+--- a/rust/qemu-api/wrapper.h
++++ b/rust/qemu-api/wrapper.h
+@@ -69,3 +69,5 @@ typedef enum memory_order {
+ #include "qemu/timer.h"
+ #include "system/address-spaces.h"
+ #include "hw/char/pl011.h"
++#include "trace/event-internal.h"
++#include "trace/control-internal.h"
 
 -- 
 2.47.2
