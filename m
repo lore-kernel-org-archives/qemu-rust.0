@@ -4,100 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8C1EC87FCF
-	for <qemu-rust@archiver.kernel.org>; Mon,  4 Aug 2025 10:09:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66C6DC87FCF
+	for <qemu-rust@archiver.kernel.org>; Mon,  4 Aug 2025 11:34:28 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uis8J-0006Cs-Ed; Mon, 04 Aug 2025 06:09:32 -0400
+	id 1uitSK-0003b3-Gg; Mon, 04 Aug 2025 07:34:18 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uis7P-0005zc-3V
- for qemu-rust@nongnu.org; Mon, 04 Aug 2025 06:08:37 -0400
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1uitSE-0003Rf-Is
+ for qemu-rust@nongnu.org; Mon, 04 Aug 2025 07:34:10 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uis7M-0004vy-HH
- for qemu-rust@nongnu.org; Mon, 04 Aug 2025 06:08:34 -0400
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1uitSA-0008Et-Hp
+ for qemu-rust@nongnu.org; Mon, 04 Aug 2025 07:34:10 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1754302111;
+ s=mimecast20190719; t=1754307245;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=o1TdvNN+z1sK0RpIh+poIaIGxfYSVZLeWGAj7Vp5N50=;
- b=XkmhpmQ6VR3J5oCaEBPcVpEChxE0vWPgVa0hC/3mF1dbH7TYo58AsNoQqg1n5qgjRRzFKh
- MOyUhX79RjweHBEX+kXdhv+gfxV6CC6QDvRCiwI5Bu4MZG4qEPhzUWrCC4lJsASunrtmmv
- /i6pCgcAKseBcVoVwHfniSrsHFnrvdQ=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-325-3RQvkmDvO6GZOzbYaKscIg-1; Mon, 04 Aug 2025 06:08:29 -0400
-X-MC-Unique: 3RQvkmDvO6GZOzbYaKscIg-1
-X-Mimecast-MFC-AGG-ID: 3RQvkmDvO6GZOzbYaKscIg_1754302108
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-459dfbece11so626505e9.2
- for <qemu-rust@nongnu.org>; Mon, 04 Aug 2025 03:08:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754302108; x=1754906908;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=o1TdvNN+z1sK0RpIh+poIaIGxfYSVZLeWGAj7Vp5N50=;
- b=Vd0nMOS9qtZL9XznutCnRKT06E03Wo6dDuDFm3aq14qNxdHgRukS0onnGbn36KOLnS
- Fb7L13ua2LBf7riPmhI2jutWp38htrtO3IBtFjBIaw0BDZCAwc1+Bjy2avKWHWrnu+Qt
- RkvahmF/9svJ7SpUhwjIsGeFDZochrC4rXQUXA9jTXKLVVFyBrQBWuGViWfrAWj5eFDE
- fCdRUm9Mv6SARKpwbQkBkF95nAftt+3cZ4mrcGCrHjIevP15ggCuxbur/6I7GOJLVjJb
- 32oIdKHxX61HEj8FRYmf0rP3n4JguwVXzuI9mxeh5k5WjnpsoYBZBotoVJTLzjX34CMG
- M7Ew==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW2YXEtrwPc8I3DwyCZflNyheF1OFNMTSnYjGw36G9s8LbEIN35wIryqEmy1t6NBHy/VEpi8X1rH1k=@nongnu.org
-X-Gm-Message-State: AOJu0YwbRgO3WH3ImLGMy0KxbOqqK3y83faRgb30GeTEMEz5X07PdF4q
- oUiDBfOYdjTlDhJHFFI90MN7VNmgLP9XeHcIHnKhybi1gbejpCnplTffIvrpO6iNgDIKXMRm5NC
- y4H0aDCxqKwYYqqLRylAOc3gjxp+gNJda+cqabvi9xd/rO4eHn/OvbtCr/J+iLG94Jd6CApTJ60
- SLdpNqr197ZEfpnx8rjf9DHz/X76fxIw==
-X-Gm-Gg: ASbGncs9MXaBaR0NcNp1r4pKuDQfdpQkzXT1tMXjFEl+89nlbjrk/P+j/nDBYTgZRDK
- Kl3scJTb3h+ugG2e4nSCMe20+uaufDs27tZbVv8e3+0+HjVtUi0+EO47m4PAo3WLX1fs0sqZJ9K
- Ht8QCWTeH3aAYnQmFSckLY
-X-Received: by 2002:a05:600c:4692:b0:458:a559:a693 with SMTP id
- 5b1f17b1804b1-458b6b316b3mr65389725e9.18.1754302107792; 
- Mon, 04 Aug 2025 03:08:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHbU55T3r3T6/QGs5csnfFiUkjcwaQVOQeDnNp+CMFAnO5y6dXEHvZmb8wPgi6toYxh+2+WcJfE15PJH8lN6QQ=
-X-Received: by 2002:a05:600c:4692:b0:458:a559:a693 with SMTP id
- 5b1f17b1804b1-458b6b316b3mr65389435e9.18.1754302107370; Mon, 04 Aug 2025
- 03:08:27 -0700 (PDT)
-MIME-Version: 1.0
+ bh=ilgD5Zz0ngSgLt/RoTpHFnRGqtmSqoGg/dDNBPn5N1k=;
+ b=BK5qYKPUdcsG6t8KTo4kKx+MuXnui08TryfkZ/jIXxqvlkIEI+Nwc9zp7LVu8KFZfvhzTh
+ xwUxiQQ33/LZcdFtRB/ZpLMOGzDjA4N5XnpeXsojoYETdVSgFDynw8SpJTqVQi+zKH4GBS
+ fY6Qq77XiYpz52J5i4T5+/ASrt614uk=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-321-MQY3lX6EPBuVGX6psz6SBQ-1; Mon,
+ 04 Aug 2025 07:34:01 -0400
+X-MC-Unique: MQY3lX6EPBuVGX6psz6SBQ-1
+X-Mimecast-MFC-AGG-ID: MQY3lX6EPBuVGX6psz6SBQ_1754307240
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 68CDF1800349; Mon,  4 Aug 2025 11:34:00 +0000 (UTC)
+Received: from redhat.com (unknown [10.45.225.203])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id B79C518003FC; Mon,  4 Aug 2025 11:33:56 +0000 (UTC)
+Date: Mon, 4 Aug 2025 13:33:53 +0200
+From: Kevin Wolf <kwolf@redhat.com>
+To: Fabiano Rosas <farosas@suse.de>
+Cc: Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+ Martin Kletzander <mkletzan@redhat.com>, qemu-devel@nongnu.org,
+ qemu-block@nongnu.org,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, qemu-rust@nongnu.org,
+ Hanna Reitz <hreitz@redhat.com>, werner@suse.de
+Subject: Re: [PATCH 2/2] tests/qemu-iotests: Indent expected error messages
+Message-ID: <aJCaoULvGgKjEL16@redhat.com>
 References: <cover.1754060086.git.mkletzan@redhat.com>
- <ad68bd5bdf4148770e3750fca4f14d0ae794538d.1754060086.git.mkletzan@redhat.com>
- <CABgObfYBVF3aCOBtX-eQcm4M-WNAHxbMcjsUKiY3rLkinGe1qA@mail.gmail.com>
- <aJB1oeH2eTIeeJne@wheatley.k8r.cz>
-In-Reply-To: <aJB1oeH2eTIeeJne@wheatley.k8r.cz>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Mon, 4 Aug 2025 12:08:15 +0200
-X-Gm-Features: Ac12FXze5VPLacZDvIO_VVhGukIoOQBSdVm4wvSrGl8KJvdDK_hebCS5C48yZf4
-Message-ID: <CABgObfaivWp1v55KHjBK1Ba8fDgo3Lr+wF5HkHrvOz62Z_gLoQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] rust: Add antoher variant for impl_vmstate_struct!
- macro
-To: Martin Kletzander <mkletzan@redhat.com>
-Cc: qemu-devel <qemu-devel@nongnu.org>, 
- "open list:Block layer core" <qemu-block@nongnu.org>, 
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org, 
- Hanna Reitz <hreitz@redhat.com>, Kevin Wolf <kwolf@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: HN6sckS_a41mAUTWOpTiI08eVIO06h8fLKCkehnOZlI_1754302108
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="000000000000f0595e063b8749be"
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ <f5be6d407c105fa199d10867f5de48bbd25c008c.1754060086.git.mkletzan@redhat.com>
+ <aIzhtcg-TNZE0zH8@redhat.com> <87v7n63lld.fsf@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <87v7n63lld.fsf@suse.de>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=kwolf@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -30
-X-Spam_score: -3.1
-X-Spam_bar: ---
-X-Spam_report: (-3.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=-1,
- RCVD_IN_MSPIKE_WL=-0.01, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_PASS=-0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -113,177 +90,52 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
---000000000000f0595e063b8749be
-Content-Type: text/plain; charset="UTF-8"
-
-Il lun 4 ago 2025, 10:56 Martin Kletzander <mkletzan@redhat.com> ha scritto:
-
-> *BUT* of course I had to rebase the patches on top of current rust-next
-> on Friday and there were some of your commits from Thursday which I now
-> see actually fix all what I tried fixing before as well.  I tried
-> finding the previous commit on which I saw all the issues and after some
-> rebuilding I could not.  So it is now not even broken on rust-next.
->
-> This way I completely wasted your time, but at least learned something
-> that's happening in the code.  Sorry for that.
->
-
-Uh no you didn't. It was broken.
-
-Paolo
-
-Martin
->
-> >Paolo
+Am 01.08.2025 um 21:09 hat Fabiano Rosas geschrieben:
+> Daniel P. Berrangé <berrange@redhat.com> writes:
+> 
+> > On Fri, Aug 01, 2025 at 04:59:50PM +0200, Martin Kletzander wrote:
+> >> From: Martin Kletzander <mkletzan@redhat.com>
+> >> 
+> >> When running all tests the expected "killed" messages are indented
+> >> differently than the actual ones, by three more spaces.  Change it so
+> >> that the messages match and tests pass.
 > >
-> > rust/qemu-api/src/vmstate.rs         | 11 +++++++++++
-> >>  rust/qemu-api/tests/vmstate_tests.rs |  1 +
-> >>  2 files changed, 12 insertions(+)
-> >>
-> >> diff --git a/rust/qemu-api/src/vmstate.rs b/rust/qemu-api/src/
-> vmstate.rs
-> >> index b5c6b764fbba..716e52afe740 100644
-> >> --- a/rust/qemu-api/src/vmstate.rs
-> >> +++ b/rust/qemu-api/src/vmstate.rs
-> >> @@ -449,6 +449,17 @@ macro_rules! vmstate_validate {
-> >>  /// description of the struct.
-> >>  #[macro_export]
-> >>  macro_rules! impl_vmstate_struct {
-> >> +    ($type:ty, $(&)?$vmsd:ident) => {
-> >> +        unsafe impl $crate::vmstate::VMState for $type {
-> >> +            const BASE: $crate::bindings::VMStateField =
-> >> +                $crate::bindings::VMStateField {
-> >> +                    vmsd: $vmsd.as_ref(),
-> >> +                    size: ::core::mem::size_of::<$type>(),
-> >> +                    flags: $crate::bindings::VMStateFlags::VMS_STRUCT,
-> >> +                    ..$crate::zeroable::Zeroable::ZERO
-> >> +                };
-> >> +        }
-> >> +    };
-> >>      ($type:ty, $vmsd:expr) => {
-> >>          unsafe impl $crate::vmstate::VMState for $type {
-> >>              const BASE: $crate::bindings::VMStateField = {
-> >> diff --git a/rust/qemu-api/tests/vmstate_tests.rs
-> b/rust/qemu-api/tests/
-> >> vmstate_tests.rs
-> >> index 2c0670ba0eed..7d3180e6c2ea 100644
-> >> --- a/rust/qemu-api/tests/vmstate_tests.rs
-> >> +++ b/rust/qemu-api/tests/vmstate_tests.rs
-> >> @@ -320,6 +320,7 @@ fn test_vmstate_struct_varray_uint8_wrapper() {
-> >>          b"arr_a_wrap\0"
-> >>      );
-> >>      assert_eq!(foo_fields[5].num_offset, 228);
-> >> +    assert_eq!(foo_fields[5].vmsd, VMSTATE_FOOA.as_ref());
-> >>      assert!(unsafe { foo_fields[5].field_exists.unwrap()(foo_b_p, 0)
-> });
-> >>
-> >>      // The last VMStateField in VMSTATE_FOOB.
-> >> --
-> >> 2.50.1
-> >>
-> >>
->
+> > This would break the tests on my system and CI too.
+> >
+> > What distro are you seeing this on ?
+> >
+> > I'm guessing this is a different in either valgrind or C library ?
+> 
+> It's bash, we have an open issue about it:
+> 
+> https://gitlab.com/qemu-project/qemu/-/issues/3050
 
---000000000000f0595e063b8749be
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I see a patch has been posted to that bug, the most important part of
+which is this added filtering:
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote gmail_quote_contai=
-ner"><div dir=3D"ltr" class=3D"gmail_attr">Il lun 4 ago 2025, 10:56 Martin =
-Kletzander &lt;<a href=3D"mailto:mkletzan@redhat.com">mkletzan@redhat.com</=
-a>&gt; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x">*BUT* of course I had to rebase the patches on top of current rust-next<=
-br>
-on Friday and there were some of your commits from Thursday which I now<br>
-see actually fix all what I tried fixing before as well.=C2=A0 I tried<br>
-finding the previous commit on which I saw all the issues and after some<br=
->
-rebuilding I could not.=C2=A0 So it is now not even broken on rust-next.<br=
->
-<br>
-This way I completely wasted your time, but at least learned something<br>
-that&#39;s happening in the code.=C2=A0 Sorry for that.<br></blockquote></d=
-iv></div><div dir=3D"auto"><br></div><div dir=3D"auto">Uh no you didn&#39;t=
-. It was broken.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Paolo</=
-div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote=
- gmail_quote_container"><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-Martin<br>
-<br>
-&gt;Paolo<br>
-&gt;<br>
-&gt; rust/qemu-api/src/<a href=3D"http://vmstate.rs" rel=3D"noreferrer nore=
-ferrer" target=3D"_blank">vmstate.rs</a>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
- 11 +++++++++++<br>
-&gt;&gt;=C2=A0 rust/qemu-api/tests/<a href=3D"http://vmstate_tests.rs" rel=
-=3D"noreferrer noreferrer" target=3D"_blank">vmstate_tests.rs</a> |=C2=A0 1=
- +<br>
-&gt;&gt;=C2=A0 2 files changed, 12 insertions(+)<br>
-&gt;&gt;<br>
-&gt;&gt; diff --git a/rust/qemu-api/src/<a href=3D"http://vmstate.rs" rel=
-=3D"noreferrer noreferrer" target=3D"_blank">vmstate.rs</a> b/rust/qemu-api=
-/src/<a href=3D"http://vmstate.rs" rel=3D"noreferrer noreferrer" target=3D"=
-_blank">vmstate.rs</a><br>
-&gt;&gt; index b5c6b764fbba..716e52afe740 100644<br>
-&gt;&gt; --- a/rust/qemu-api/src/<a href=3D"http://vmstate.rs" rel=3D"noref=
-errer noreferrer" target=3D"_blank">vmstate.rs</a><br>
-&gt;&gt; +++ b/rust/qemu-api/src/<a href=3D"http://vmstate.rs" rel=3D"noref=
-errer noreferrer" target=3D"_blank">vmstate.rs</a><br>
-&gt;&gt; @@ -449,6 +449,17 @@ macro_rules! vmstate_validate {<br>
-&gt;&gt;=C2=A0 /// description of the struct.<br>
-&gt;&gt;=C2=A0 #[macro_export]<br>
-&gt;&gt;=C2=A0 macro_rules! impl_vmstate_struct {<br>
-&gt;&gt; +=C2=A0 =C2=A0 ($type:ty, $(&amp;)?$vmsd:ident) =3D&gt; {<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsafe impl $crate::vmstate::VMState =
-for $type {<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const BASE: $crate::bin=
-dings::VMStateField =3D<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 $crate::b=
-indings::VMStateField {<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 vmsd: $vmsd.as_ref(),<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 size: ::core::mem::size_of::&lt;$type&gt;(),<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 flags: $crate::bindings::VMStateFlags::VMS_STRUCT,<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 ..$crate::zeroable::Zeroable::ZERO<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 };<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-&gt;&gt; +=C2=A0 =C2=A0 };<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 ($type:ty, $vmsd:expr) =3D&gt; {<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsafe impl $crate::vmstate::VMS=
-tate for $type {<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const BASE: $crate=
-::bindings::VMStateField =3D {<br>
-&gt;&gt; diff --git a/rust/qemu-api/tests/<a href=3D"http://vmstate_tests.r=
-s" rel=3D"noreferrer noreferrer" target=3D"_blank">vmstate_tests.rs</a> b/r=
-ust/qemu-api/tests/<br>
-&gt;&gt; <a href=3D"http://vmstate_tests.rs" rel=3D"noreferrer noreferrer" =
-target=3D"_blank">vmstate_tests.rs</a><br>
-&gt;&gt; index 2c0670ba0eed..7d3180e6c2ea 100644<br>
-&gt;&gt; --- a/rust/qemu-api/tests/<a href=3D"http://vmstate_tests.rs" rel=
-=3D"noreferrer noreferrer" target=3D"_blank">vmstate_tests.rs</a><br>
-&gt;&gt; +++ b/rust/qemu-api/tests/<a href=3D"http://vmstate_tests.rs" rel=
-=3D"noreferrer noreferrer" target=3D"_blank">vmstate_tests.rs</a><br>
-&gt;&gt; @@ -320,6 +320,7 @@ fn test_vmstate_struct_varray_uint8_wrapper() =
-{<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 b&quot;arr_a_wrap\0&quot;<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 );<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 assert_eq!(foo_fields[5].num_offset, 228);<br>
-&gt;&gt; +=C2=A0 =C2=A0 assert_eq!(foo_fields[5].vmsd, VMSTATE_FOOA.as_ref(=
-));<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 assert!(unsafe { foo_fields[5].field_exists.un=
-wrap()(foo_b_p, 0) });<br>
-&gt;&gt;<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 // The last VMStateField in VMSTATE_FOOB.<br>
-&gt;&gt; --<br>
-&gt;&gt; 2.50.1<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-</blockquote></div></div></div>
+--- a/tests/qemu-iotests/common.filter
++++ b/tests/qemu-iotests/common.filter  2025-07-25 11:39:22.419665788 +0000
+@@ -75,7 +75,7 @@ _filter_qemu_io()
+     _filter_win32 | \
+     gsed -e "s/[0-9]* ops\; [0-9/:. sec]* ([0-9/.inf]* [EPTGMKiBbytes]*\/sec and [0-9/.inf]* ops\/sec)/X ops\; XX:XX:XX.X (XXX YYY\/sec and XXX ops\/sec)/" \
+         -e "s/: line [0-9][0-9]*:  *[0-9][0-9]*\( Aborted\| Killed\)/:\1/" \
+-        -e "s/qemu-io> //g"
++        -e "s/qemu-io> //g" -e '/Killed/{ s/ \{2,\}/ /}'
+ }
 
---000000000000f0595e063b8749be--
+ # replace occurrences of QEMU_PROG with "qemu"
+
+This approach makes sense to me, though I would have kept each sed
+expression on a separate line.
+
+And given that the context line above includes "Aborted" as well, maybe
+have it here, too, though none of the actual test outputs have an
+Aborted message any more since commit 3f39447. Or we could have a
+cleanup patch first that removes the unused "Abort" above, just to keep
+things consistent.
+
+Either way, please post this as a proper patch on the mailing list.
+
+Kevin
 
 
