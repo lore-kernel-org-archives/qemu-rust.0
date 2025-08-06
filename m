@@ -4,94 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 297CDC87FD1
-	for <qemu-rust@archiver.kernel.org>; Wed,  6 Aug 2025 09:39:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38111C87FCB
+	for <qemu-rust@archiver.kernel.org>; Wed,  6 Aug 2025 12:02:05 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1ujac3-0001in-UM; Wed, 06 Aug 2025 05:39:11 -0400
+	id 1ujcpp-0001wH-LX; Wed, 06 Aug 2025 08:01:33 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1ujaa9-0000MW-Jd
- for qemu-rust@nongnu.org; Wed, 06 Aug 2025 05:37:13 -0400
-Received: from mail-ed1-x531.google.com ([2a00:1450:4864:20::531])
+ (Exim 4.90_1) (envelope-from <werner@suse.de>) id 1ujY3J-0002CJ-8T
+ for qemu-rust@nongnu.org; Wed, 06 Aug 2025 02:55:09 -0400
+Received: from smtp-out1.suse.de ([2a07:de40:b251:101:10:150:64:1])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1ujaa7-0004pZ-Mq
- for qemu-rust@nongnu.org; Wed, 06 Aug 2025 05:37:13 -0400
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-615622ed70fso10126950a12.3
- for <qemu-rust@nongnu.org>; Wed, 06 Aug 2025 02:37:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1754473030; x=1755077830; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=I+UqFI1/PN506Bb7rCYGzgCe9CYkRyiz0BuTqy/BR8U=;
- b=A/DDh/k65kiQI2ZLAgJFvDQiw/XM8Z/fQcCJWXq3jlMzSMGSBa9TbricepNdzWI0lK
- DDFiOnfpYO1BSr3cqTaXfPD+fD+RKkducy9mh09Bp5b6wQCVkCal+GlbtVIqxm6iFKW/
- Y21JesG/mhCTNsP3rtI/x5DQpVmWzbt94G+vnNNlnCVJTB6MFKnl6GUqE8ZA1igfpo75
- MlGxxNQHweNaA+IV6nkwUc0y1L4kxO4TrKAK/FjjJarf8FnV58Kqrb2/CF/mKaeris5x
- fmqGNyHjyqwX/sJDhPUzqOsXd7dVr/vu91ZyF9bUJGVKskwJ9YWFR3Mf8HDOWfQq3kQ9
- so9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754473030; x=1755077830;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=I+UqFI1/PN506Bb7rCYGzgCe9CYkRyiz0BuTqy/BR8U=;
- b=WTUVZEhqr/gpNd7+zSBoF+gpDG9aeRo1Obg5AdiplazkY9R4rthd79EzDI0i0SKwdW
- U1Y1JVgAC/s0yp0FkTesDUYCADdB6nmVBfDxti9nWnsol3HkjuAxlCmQLwuL6HPJn0Jf
- W83gzGggrEq1CgB5mklo5XErl9//XX03uRngnooGQIibP7UQulXIolmNGJN5cKCLqEpq
- PSCpiSLuUrYDDAMBztXT1VhgIxffa5IfICZfSL4KXnzU85lwgtUjTggCPFEULrTfUSOk
- ihE7MKxAQriFJrbmcctg3QDwiimGEu3qNqrGlROzS0n3MO/jYjjzA9eN0Aq5tdzkoFNb
- EYvw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVDEWiAxb9iLNvHBFrBpKfqDLDFPY6z+s3RuK8wbkvIEvIUVagY0wwBnvfQVEJqViTjReA2ozL6dG4=@nongnu.org
-X-Gm-Message-State: AOJu0YzhfEn0cEtyxpXAXkbat+bsnVCEZaBMY7Ps8c7B6jM8kXx1debO
- NwKD3UvZvd1jYPWJA4iJ9Af6dQAXEwL04qirRcGRigZms4SfXPMKTNar80UdrOxdTJCNR822OAc
- 3rTG/mVRJtHtgi4z21PSHc6dl048GwjjtVw5TgLCdHw==
-X-Gm-Gg: ASbGncsCPKXmNEQ1hBsh+xS6DIgr1uqu3Lbyfl57KDyB7Nrb8vKAocVXK6R5kOKpDFG
- pr88eGSwXc1KdvJVmA1fo+KdXczPdww76ELtlhSp4cT4iCnzx8k8wX2Xe3+T3Qcojq3JFqQ3ag2
- NNkLKxH1VSP8ZovNT2U7WXh1BiX9XVx69oXg6ZWz1nG98VDRQmNiilWCE5c+eHWPUoJXvhWomsu
- gHEAxgw
-X-Google-Smtp-Source: AGHT+IGe1KitGE2+htjyCZDB4lva09ealXKVoVL1OjoyncLf6cKJBiTcSP0XuySIEX4rfE02HtiEQHU5gWFcqt2IXEI=
-X-Received: by 2002:aa7:d64b:0:b0:608:6501:6a1f with SMTP id
- 4fb4d7f45d1cf-617960b2169mr1410619a12.1.1754473029795; Wed, 06 Aug 2025
- 02:37:09 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <werner@suse.de>) id 1ujY3G-0006Jk-NV
+ for qemu-rust@nongnu.org; Wed, 06 Aug 2025 02:55:08 -0400
+Received: from mydomainname.com (unknown
+ [IPv6:2a07:de40:a101:3:21c:c0ff:fea4:1c14])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0B9C52124C;
+ Wed,  6 Aug 2025 06:55:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1754463303; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7BS65gToqlPi6L/SjsAGQaiV1rK5D2jqZBp1sOPGaH8=;
+ b=i/EHIRTB03Oa+W2SP6wU7vi1VeBzGMudwOt0FHd81FHOBMIhCqBeFImCwwFcer0qBVQ5ho
+ 78ngizzbos0osqdWNzpNpOVA4gNKKKWIXW9KV++/jARq9gDiImZo/n9wq0S8pW8mobxOAE
+ x7cOerC+eeR1LEnl/uzES6lktd1QVZI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1754463303;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7BS65gToqlPi6L/SjsAGQaiV1rK5D2jqZBp1sOPGaH8=;
+ b=R6kTvoiUq4WtruJHyMrVOYxFnp9zzDijPizSJhNqJCuY4JnQwhDDALxK7TTY+wzGceKIz+
+ l0vZxvwtxu0excDQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="i/EHIRTB";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=R6kTvoiU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1754463303; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7BS65gToqlPi6L/SjsAGQaiV1rK5D2jqZBp1sOPGaH8=;
+ b=i/EHIRTB03Oa+W2SP6wU7vi1VeBzGMudwOt0FHd81FHOBMIhCqBeFImCwwFcer0qBVQ5ho
+ 78ngizzbos0osqdWNzpNpOVA4gNKKKWIXW9KV++/jARq9gDiImZo/n9wq0S8pW8mobxOAE
+ x7cOerC+eeR1LEnl/uzES6lktd1QVZI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1754463303;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7BS65gToqlPi6L/SjsAGQaiV1rK5D2jqZBp1sOPGaH8=;
+ b=R6kTvoiUq4WtruJHyMrVOYxFnp9zzDijPizSJhNqJCuY4JnQwhDDALxK7TTY+wzGceKIz+
+ l0vZxvwtxu0excDQ==
+Received: from boole.nue2.suse.org (localhost [127.0.0.1])
+ by mydomainname.com (8.18.1/8.18.1/SUSE Linux 0.8) with ESMTPS id
+ 5766t0cN007292
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Wed, 6 Aug 2025 08:55:02 +0200
+Received: (from werner@localhost)
+ by boole.nue2.suse.org (8.18.1/8.18.1/Submit) id 5766t0JS007291;
+ Wed, 6 Aug 2025 08:55:00 +0200
+Date: Wed, 6 Aug 2025 08:54:51 +0200
+From: "Dr. Werner Fink" <werner@suse.de>
+To: Kevin Wolf <kwolf@redhat.com>
+Cc: Fabiano Rosas <farosas@suse.de>,
+ Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>,
+ Martin Kletzander <mkletzan@redhat.com>, qemu-devel@nongnu.org,
+ qemu-block@nongnu.org,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, qemu-rust@nongnu.org,
+ Hanna Reitz <hreitz@redhat.com>
+Subject: Re: [PATCH 2/2] tests/qemu-iotests: Indent expected error messages
+Message-ID: <aJL8RH8ePPNEteMg@boole.nue2.suse.org>
+References: <cover.1754060086.git.mkletzan@redhat.com>
+ <f5be6d407c105fa199d10867f5de48bbd25c008c.1754060086.git.mkletzan@redhat.com>
+ <aIzhtcg-TNZE0zH8@redhat.com> <87v7n63lld.fsf@suse.de>
+ <aJCaoULvGgKjEL16@redhat.com>
 MIME-Version: 1.0
-References: <20250804-rust_trace-v1-0-b20cc16b0c51@linaro.org>
- <aJIrpoEhrl7aLBMg@redhat.com>
- <CAAjaMXa6ManykYJJk--vNZT7oeBW9UR2v6WixaaQ8LUCSjy9Ug@mail.gmail.com>
- <aJI0mr5HDgtE9HIc@redhat.com>
- <CAAjaMXZ0Dho+5FSyc4zkOZXZT6UvHtjgmpj6_0QZQcH_AD9=VQ@mail.gmail.com>
- <aJJFVgkt7R49ZwIF@redhat.com>
- <CAAjaMXYhWsWPoDdfoNyTGrJSRfiYJDqBkv8fC87+Zi3YCtU06Q@mail.gmail.com>
- <ad404bb4-93fb-4a27-995f-734e647c1da0@redhat.com>
-In-Reply-To: <ad404bb4-93fb-4a27-995f-734e647c1da0@redhat.com>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Wed, 6 Aug 2025 12:36:43 +0300
-X-Gm-Features: Ac12FXybkjYA4S9Z2djlMHF9OchSkOmkH-kC6z2pwZxXyt9H79SOievTjDb1oI0
-Message-ID: <CAAjaMXZH75Ooyb+S-qTQfsDgj7VO0ed8fv5S_tYe=VC++ABy4w@mail.gmail.com>
-Subject: Re: [PATCH RFC 0/5] rust: implement tracing
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
- qemu-devel@nongnu.org, qemu-rust@nongnu.org, 
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
- alex.bennee@linaro.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::531;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x531.google.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="mKVQr9wRQYJ9X9GZ"
+Content-Disposition: inline
+In-Reply-To: <aJCaoULvGgKjEL16@redhat.com>
+X-GPG-Fingerprint: 1B06 BF5A 3829 90FB CBA2  75BE 50E9 0D55 1DC1 6B2E
+X-MS-Reactions: disallow
+X-Spamd-Result: default: False [-1.11 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ HFILTER_HOSTNAME_UNKNOWN(2.50)[]; RDNS_NONE(2.00)[];
+ SIGNED_PGP(-2.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ FROM_NAME_HAS_TITLE(1.00)[dr];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain,text/x-patch];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MX_GOOD(-0.01)[];
+ RCVD_TLS_LAST(0.00)[]; MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~];
+ ARC_NA(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; HAS_ATTACHMENT(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_SEVEN(0.00)[10];
+ DNSWL_BLOCKED(0.00)[2a07:de40:a101:3:21c:c0ff:fea4:1c14:from];
+ MISSING_XM_UA(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim]
+X-Rspamd-Queue-Id: 0B9C52124C
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+Received-SPF: pass client-ip=2a07:de40:b251:101:10:150:64:1;
+ envelope-from=werner@suse.de; helo=smtp-out1.suse.de
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Wed, 06 Aug 2025 08:01:26 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,72 +136,251 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Hello Paolo,
 
-On Wed, Aug 6, 2025 at 12:03=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com>=
- wrote:
->
-> On 8/5/25 22:06, Manos Pitsidianakis wrote:
-> >> If you're thinking this is all rather complicated, you'd be right,
-> >> which is why for initial feature parity I figured the simplest is
-> >> likely to just wrap the existing QEMU inline probe function, so
-> >> Rust doesn't need to know about the different backends... yet...
->
-> It's not too hard to add individual backends (other than dtrace---see
-> below--and ust which doesn't build for me(*) and I wanted to deprecate).
->   Tanish is pretty close to being able to post initial work.
+--mKVQr9wRQYJ9X9GZ
+Content-Type: multipart/mixed; protected-headers=v1;
+	boundary="uH/Fd1FsaV0ujoTj"
+Content-Disposition: inline
+Date: Wed, 6 Aug 2025 08:54:51 +0200
+From: "Dr. Werner Fink" <werner@suse.de>
+To: Kevin Wolf <kwolf@redhat.com>
+Cc: Fabiano Rosas <farosas@suse.de>,
+	Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>,
+	Martin Kletzander <mkletzan@redhat.com>, qemu-devel@nongnu.org,
+	qemu-block@nongnu.org,
+	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+	Paolo Bonzini <pbonzini@redhat.com>, qemu-rust@nongnu.org,
+	Hanna Reitz <hreitz@redhat.com>
+Subject: Re: [PATCH 2/2] tests/qemu-iotests: Indent expected error messages
 
-Ack, I look forward to it :) I hope my RFC provides them some
-inspiration on what things (not) to do.
 
-Thanks,
+--uH/Fd1FsaV0ujoTj
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->
-> > Yes, that indeed makes sense.  Generated C trace headers statically
-> > linked to a standalone trace crate library for each subsystem, that
-> > rust qemu crates can link to in return is the cleanest solution for
-> > this approach IMHO, because doing this kind of codegen via macros
-> > needs interaction with meson to generate the C sources and then run
-> > bindgen all while compiling this one crate which is a single meson lib
-> > target.
-> >
-> > It might be possible to generate the equivalent of the C code for each
-> > backend just like this RFC generates only the log backend code, I'll
-> > take a look out of curiosity...
-> >
-> >> FWIW, the original DTrace authors created a Rust crate with native
-> >> rust integration of dynamic probes.
-> >>
-> >>    https://github.com/oxidecomputer/usdt
-> >>
-> >> I think that (somehow) we probably want to integrate that with QEMU
-> >> and its tracetool.
->
-> This unfortunately only works for macOS and Solaris.  It also has quite
-> a few dependencies (~25) on other crates.  There is also a "probe" crate
-> (https://github.com/cuviper/probe-rs) that is minimal and (currently)
-> specific to Linux, which is what I planned to use.
->
-> By the way, while I like the idea of using Rust format strings, there
-> are parts of tracetool (e.g. format/log_stap.py) that need the printf
-> strings, and also backends (e.g. backend/syslog.py) that call into libc
-> and therefore need to use printf format strings.  So I think we're stuck.
->
-> Paolo
->
-> (*) that's because this tracepoint:
->
-> visit_type_str(void *v, const char *name, char **obj) "v=3D%p name=3D%s o=
-bj=3D%p
->
-> incorrectly handles 'char **' as a string.  The breakage has been there
-> since 2016, though probably it's only more recent versions of ust that
-> actually fail to compile and until then the bug was latent until you
-> enabled this tracepoint.  But it seems unlikely that anyone has used the
-> ust backend recently.
->
+On 2025/08/04 13:33:53 +0200, Kevin Wolf wrote:
+> Am 01.08.2025 um 21:09 hat Fabiano Rosas geschrieben:
+> > Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
+> >=20
+> > > On Fri, Aug 01, 2025 at 04:59:50PM +0200, Martin Kletzander wrote:
+> > >> From: Martin Kletzander <mkletzan@redhat.com>
+> > >>=20
+> > >> When running all tests the expected "killed" messages are indented
+> > >> differently than the actual ones, by three more spaces.  Change it so
+> > >> that the messages match and tests pass.
+> > >
+> > > This would break the tests on my system and CI too.
+> > >
+> > > What distro are you seeing this on ?
+> > >
+> > > I'm guessing this is a different in either valgrind or C library ?
+> >=20
+> > It's bash, we have an open issue about it:
+> >=20
+> > https://gitlab.com/qemu-project/qemu/-/issues/3050
+>=20
+> I see a patch has been posted to that bug, the most important part of
+> which is this added filtering:
+>=20
+> --- a/tests/qemu-iotests/common.filter
+> +++ b/tests/qemu-iotests/common.filter  2025-07-25 11:39:22.419665788 +00=
+00
+> @@ -75,7 +75,7 @@ _filter_qemu_io()
+>      _filter_win32 | \
+>      gsed -e "s/[0-9]* ops\; [0-9/:. sec]* ([0-9/.inf]* [EPTGMKiBbytes]*\=
+/sec and [0-9/.inf]* ops\/sec)/X ops\; XX:XX:XX.X (XXX YYY\/sec and XXX ops=
+\/sec)/" \
+>          -e "s/: line [0-9][0-9]*:  *[0-9][0-9]*\( Aborted\| Killed\)/:\1=
+/" \
+> -        -e "s/qemu-io> //g"
+> +        -e "s/qemu-io> //g" -e '/Killed/{ s/ \{2,\}/ /}'
+>  }
+>=20
+>  # replace occurrences of QEMU_PROG with "qemu"
+>=20
+> This approach makes sense to me, though I would have kept each sed
+> expression on a separate line.
+>=20
+> And given that the context line above includes "Aborted" as well, maybe
+> have it here, too, though none of the actual test outputs have an
+> Aborted message any more since commit 3f39447. Or we could have a
+> cleanup patch first that removes the unused "Abort" above, just to keep
+> things consistent.
+>=20
+> Either way, please post this as a proper patch on the mailing list.
+
+Just next try in tha attached patch with a fixed version of
+the sed command.
+
+Werner
 
 --=20
-Manos Pitsidianakis
-Emulation and Virtualization Engineer at Linaro Ltd
+  "Having a smoking section in a restaurant is like having
+          a peeing section in a swimming pool." -- Edward Burr
+
+--uH/Fd1FsaV0ujoTj
+Content-Type: text/x-patch; charset=utf-8
+Content-Description: padding.patch
+Content-Disposition: attachment; filename=padding.patch
+Content-Transfer-Encoding: quoted-printable
+
+=46rom: Werner Fink <werner@suse.de>
+Date: Fri, 08 Aug 06:41:23 +0000
+Subject: [PATCH 1/1] Avoid dependency on padding on signal messages
+
+New bash 5.3 uses a different padding for reporting job status.
+
+Resolves: boo#1246830
+Signed-off-by: Werner Fink <werner@suse.de>
+---
+ tests/qemu-iotests/039.out       |   10 +++++-----
+ tests/qemu-iotests/061.out       |    4 ++--
+ tests/qemu-iotests/137.out       |    2 +-
+ tests/qemu-iotests/common.filter |    2 +-
+ 4 files changed, 9 insertions(+), 9 deletions(-)
+
+--- a/tests/qemu-iotests/039.out
++++ b/tests/qemu-iotests/039.out	2025-07-25 11:36:51.949026116 +0000
+@@ -11,7 +11,7 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=3DIMGFMT size=3D134217728
+ wrote 512/512 bytes at offset 0
+ 512 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-./common.rc: Killed                  ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO=
+}" _qemu_proc_exec "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@"=
+ )
++./common.rc: Killed ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO}" _qemu_proc_exe=
+c "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@" )
+ incompatible_features     [0]
+ ERROR cluster 5 refcount=3D0 reference=3D1
+ ERROR OFLAG_COPIED data cluster: l2_entry=3D8000000000050000 refcount=3D0
+@@ -46,7 +46,7 @@ read 512/512 bytes at offset 0
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=3DIMGFMT size=3D134217728
+ wrote 512/512 bytes at offset 0
+ 512 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-./common.rc: Killed                  ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO=
+}" _qemu_proc_exec "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@"=
+ )
++./common.rc: Killed ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO}" _qemu_proc_exe=
+c "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@" )
+ incompatible_features     [0]
+ ERROR cluster 5 refcount=3D0 reference=3D1
+ Rebuilding refcount structure
+@@ -60,7 +60,7 @@ incompatible_features     []
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=3DIMGFMT size=3D134217728
+ wrote 512/512 bytes at offset 0
+ 512 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-./common.rc: Killed                  ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO=
+}" _qemu_proc_exec "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@"=
+ )
++./common.rc: Killed ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO}" _qemu_proc_exe=
+c "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@" )
+ incompatible_features     []
+ No errors were found on the image.
+=20
+@@ -79,7 +79,7 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=3DIMGFMT size=3D134217728
+ wrote 512/512 bytes at offset 0
+ 512 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-./common.rc: Killed                  ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO=
+}" _qemu_proc_exec "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@"=
+ )
++./common.rc: Killed ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO}" _qemu_proc_exe=
+c "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@" )
+ incompatible_features     [0]
+ ERROR cluster 5 refcount=3D0 reference=3D1
+ ERROR OFLAG_COPIED data cluster: l2_entry=3D8000000000050000 refcount=3D0
+@@ -89,7 +89,7 @@ Data may be corrupted, or further writes
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=3DIMGFMT size=3D134217728
+ wrote 512/512 bytes at offset 0
+ 512 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-./common.rc: Killed                  ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO=
+}" _qemu_proc_exec "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@"=
+ )
++./common.rc: Killed ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO}" _qemu_proc_exe=
+c "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@" )
+ incompatible_features     []
+ No errors were found on the image.
+ *** done
+--- a/tests/qemu-iotests/061.out
++++ b/tests/qemu-iotests/061.out	2025-07-25 11:36:51.949026116 +0000
+@@ -118,7 +118,7 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=3DIMGFMT size=3D67108864
+ wrote 131072/131072 bytes at offset 0
+ 128 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-./common.rc: Killed                  ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO=
+}" _qemu_proc_exec "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@"=
+ )
++./common.rc: Killed ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO}" _qemu_proc_exe=
+c "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@" )
+ magic                     0x514649fb
+ version                   3
+ backing_file_offset       0x0
+@@ -304,7 +304,7 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=3DIMGFMT size=3D67108864
+ wrote 131072/131072 bytes at offset 0
+ 128 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-./common.rc: Killed                  ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO=
+}" _qemu_proc_exec "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@"=
+ )
++./common.rc: Killed ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO}" _qemu_proc_exe=
+c "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@" )
+ magic                     0x514649fb
+ version                   3
+ backing_file_offset       0x0
+--- a/tests/qemu-iotests/137.out
++++ b/tests/qemu-iotests/137.out	2025-07-25 11:36:51.949026116 +0000
+@@ -35,7 +35,7 @@ Formatting 'TEST_DIR/t.IMGFMT', fmt=3DIMGF
+ qemu-io: Unsupported value 'blubb' for qcow2 option 'overlap-check'. Allow=
+ed are any of the following: none, constant, cached, all
+ wrote 512/512 bytes at offset 0
+ 512 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-./common.rc: Killed                  ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO=
+}" _qemu_proc_exec "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@"=
+ )
++./common.rc: Killed ( VALGRIND_QEMU=3D"${VALGRIND_QEMU_IO}" _qemu_proc_exe=
+c "${VALGRIND_LOGFILE}" "$QEMU_IO_PROG" $QEMU_IO_ARGS "$@" )
+ OK: Dirty bit not set
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=3DIMGFMT size=3D67108864
+ qemu-io: Parameter 'lazy-refcounts' expects 'on' or 'off'
+--- a/tests/qemu-iotests/common.filter
++++ b/tests/qemu-iotests/common.filter	2025-08-06 06:41:23.649980764 +0000
+@@ -74,7 +74,7 @@ _filter_qemu_io()
+ {
+     _filter_win32 | \
+     gsed -e "s/[0-9]* ops\; [0-9/:. sec]* ([0-9/.inf]* [EPTGMKiBbytes]*\/s=
+ec and [0-9/.inf]* ops\/sec)/X ops\; XX:XX:XX.X (XXX YYY\/sec and XXX ops\/=
+sec)/" \
+-        -e "s/: line [0-9][0-9]*:  *[0-9][0-9]*\( Aborted\| Killed\)/:\1/"=
+ \
++        -e "s/: line [0-9][0-9]*:  *[0-9][0-9]*\( Aborted\| Killed\) \{2,\=
+}/:\1 /" \
+         -e "s/qemu-io> //g"
+ }
+=20
+
+--uH/Fd1FsaV0ujoTj--
+
+--mKVQr9wRQYJ9X9GZ
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJgBAABCABKFiEEGwa/WjgpkPvLonW+UOkNVR3Bay4FAmiS/DwsFIAAAAAAFQAO
+cGthLWFkZHJlc3NAZ251cGcub3Jnd2VybmVyQHN1c2UuZGUACgkQUOkNVR3Bay7b
+IA/+KQ9xsawXRwAl/aZfQiRV7jQbhjIqXeDhZGe6m882q46ZkZnY3sxbyAX2Yixi
+blNfRSwoRP5fpeAYhkZiCHp2wZ6llSiNSXIoHBJHFVCQqZAAIei58mcjzOxu+RVe
+YvZSHj/lBHkdt0anfieZMa+w4sZXFCQHyHQxKc9T0DZz1bknpAQF9skC/oZiydwT
+k6QgJ5OfzonNPdDM4/Hq6k5miUMXjw/mt+kjjrTtGfZ/CF3kMUMxJHoZE3By2zIK
+oBPwyAtL/BA1XMdqFUbAeMSUA3ZhCBBWbN3VSoVzJ6LHGKykEwwMAatXMi+he8Sk
+Ka+q2ffk5enKgRZRrlpF7olq6iS1Qj7LavI/Sispwsv+B63Y9EuoTXFYqXFu6wZD
+Rmlacl5gK8wyN0a5jsaB8Sur0vt/c6F2UZQLvwlh+xONjheY6KlzHOLSqNXnrcex
+79S3iVkSfDRjz0e0JLg5e6S9nJfYSeonTERlEuFfzlD+HvXQh9VO6XW9EKlBjlSe
+Mr6/twlYOlvdfA1GSXQ1pV1N3izWaNeNzccnogkDCyWFKDW/EEhAa8r2VathBMnU
+Ody2JC67PC9TQ1mib+zfqxW1XlIDs6xMvbwQKSXeRaLSCZ7X7wWCLfdgeu0pDdcu
+8WnWqDPTd9gxjn/Lb6XcJFR4Rgpg27ZWyYX4VAgAnd1stHs=
+=yJGY
+-----END PGP SIGNATURE-----
+
+--mKVQr9wRQYJ9X9GZ--
 
