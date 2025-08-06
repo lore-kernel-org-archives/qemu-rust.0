@@ -4,90 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEECEC87FCB
-	for <qemu-rust@archiver.kernel.org>; Tue,  5 Aug 2025 20:07:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 801E8C87FCB
+	for <qemu-rust@archiver.kernel.org>; Wed,  6 Aug 2025 09:06:30 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1ujNwP-000465-Do; Tue, 05 Aug 2025 16:07:21 -0400
+	id 1uja5Y-0005OG-Px; Wed, 06 Aug 2025 05:05:36 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1ujNwG-00043X-B1
- for qemu-rust@nongnu.org; Tue, 05 Aug 2025 16:07:14 -0400
-Received: from mail-vs1-xe31.google.com ([2607:f8b0:4864:20::e31])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1ujNwE-0004Hi-5Z
- for qemu-rust@nongnu.org; Tue, 05 Aug 2025 16:07:11 -0400
-Received: by mail-vs1-xe31.google.com with SMTP id
- ada2fe7eead31-4fc15e2c451so3232401137.2
- for <qemu-rust@nongnu.org>; Tue, 05 Aug 2025 13:07:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1754424428; x=1755029228; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+M5UR3LoHP/3zpg8bb1OP9EoCk8splBA+X4lHdFz1L8=;
- b=KBUXP+cH71sB9SkRzC79g5XEECy0g3gtSAS5T/uXR3oSPld3ZLdgc9FiR+qEpfNaPh
- /VfRBDpyqsqhZtDsAUECj220gpxZyYNHWTsUSBeqQ+DvLbZxVOk53TvUfDwe72xw/SPL
- sBKRUFdqAe9tcnO5LJnoDEVmdX/lpwgOYFs16F1TBDqNt9n5DwrroCdmVeh+9Qi+iE6z
- zPmaNLvl5oWlwFf6x1suEhRm94BtMwYefNd05CU0c8k4aSikZTLhPcqpmotCWFPYuTGw
- Igh0ktbs4IDK/I5cQ4iDru6ai8KPmevQXrbMxoUoHD1y/sAD3jT7Uit3RSNf6mUZYEKB
- Fgbw==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uja3O-000468-89
+ for qemu-rust@nongnu.org; Wed, 06 Aug 2025 05:03:30 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1uja3L-0006LT-EY
+ for qemu-rust@nongnu.org; Wed, 06 Aug 2025 05:03:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1754470996;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Osm7RAccpZZBrNRQaWjeyQ8yeXkODzrKLf0+W29EHts=;
+ b=U2eimgKAbtwSfLOP+1VwXxLcymvly7J3tAP4CtgTbn0/Y6ksIlgORquJsGsoXkodUTgteG
+ hKaFUK6pVdVHTlxYMm5V9YkzRlLjC+6YoMnglVdQLu5q9Y2bqjCjCCunJWdAehAc2pamVH
+ xqs5hdgXJubFS8NNRQ/XTgpoyzOg/Dg=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-323-IR64a11YNNWyGKjP_imjLw-1; Wed, 06 Aug 2025 05:02:58 -0400
+X-MC-Unique: IR64a11YNNWyGKjP_imjLw-1
+X-Mimecast-MFC-AGG-ID: IR64a11YNNWyGKjP_imjLw_1754470977
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-3b79c28f8ceso4881527f8f.3
+ for <qemu-rust@nongnu.org>; Wed, 06 Aug 2025 02:02:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754424428; x=1755029228;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+M5UR3LoHP/3zpg8bb1OP9EoCk8splBA+X4lHdFz1L8=;
- b=PTbtK/sZPXZ+RKbPSjHB/fQO/z9nrKDAvnAqteWyc0HDd/nKQqCCj5CLmXurSB7k/Q
- 4F6qPIU5wDyTRD438tTsN1w7c0qkPoAgBoGvW6wnWGWIPQLZBCPwcOBuZl2Yxq7fZXyJ
- B2hM2nfRe/WxecrM8SzsmRWvPkdPa4BUgm7jUdNG+HMiVVcs/1GVjX+DO1d0OE7/L1Zi
- rSLZaMQvMTjaQuRHVkYQXFuUGn/iPegmPoGM38bFK9waWf6LBFsUhSXUvRKvtKCkGfrX
- Zs779O8OJsYlUT/9kmoGn9XsdlbHGEu6oqgIt1no6bOxvUxsXjtnqXCKAttSctHlN31I
- 7psg==
+ d=1e100.net; s=20230601; t=1754470977; x=1755075777;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Osm7RAccpZZBrNRQaWjeyQ8yeXkODzrKLf0+W29EHts=;
+ b=YCXlFQu9HSGiHfBZYDksyFskkz4UPx5ipaRguUo3PYlSloszr+WehR/OdVOtRPtUfs
+ r1ZbT6dqPS2hRsQPLA15OmMKjbtYYaO+qeVEVnLFKCvLPCT+7O7Sxf1yDAQN5EY+sQ/o
+ bkR+ohR8GGAtWBs4VxksxzMlO0EqlvmsdU732ctF3nK3svF2K3bxeXAO21jNB2VFM5tK
+ ujyjlzVrdMoupa4tjCQWbG2LPIzkb+7dlgGfIXP9zJYSc6RtcDmw5VnRfyw7yK+gLQqt
+ QTAY89VezMb26wizA3StukqRcuLAMvGh6BLhcjpPtVDPWm+Dt/v8ig2gLRLfzGZhoiHi
+ GPHw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUfbsOriyx35onUskGMO+k46QZA7hx0ATWgKZouWHZsiQAbnCwG6/XhSZ9Wt+TKEfjYV8RMmLtK6wI=@nongnu.org
-X-Gm-Message-State: AOJu0YyR82a/comwfVpQ/Tvqdx90JEOBocf2g0KvJVoqQNXjWVt5VWYq
- hI0jzDrfDha3ezg5BXb0ei9KeyvtWtQyx5/AsHQrLkuPmQ80os4XpNUVAL37WbqvFUQZyaAJw4n
- GLy4/RjFGtfibg0qBf0LK7wTq7kdBY1OexefGJAvI9g==
-X-Gm-Gg: ASbGncu6r0UEyyN8Jie18JgqbVy1md58mls/hiNkuZT60WqT02EplPFEjXfxi/Eg8eZ
- zRvxF5cRBEFUHwO/pfKcavfdAJB1gcnupw5k5T7iam6Lb2u4uD9Z572HmeMm4jmdSUtPGLOAFOt
- fJdH2XUbqh2pk+RyWVu+nbBCA6IpKrt4Wtln2Zxxes7pOQ0fAt2ZqyZal7BOu80jYqs+AmB6arJ
- J+9/HQiwE/iqJ9bqmw=
-X-Google-Smtp-Source: AGHT+IHT9asMWiRzrcOQViUD675lp+aQQ3OWkuZuyrP+dKlh8J6MfxQtk3H/2eDtYpCdQhz2yzVG6B4caqgpm1GDwjw=
-X-Received: by 2002:a05:6102:c04:b0:4ec:b2cc:de60 with SMTP id
- ada2fe7eead31-50379034525mr47200137.11.1754424428499; Tue, 05 Aug 2025
- 13:07:08 -0700 (PDT)
+ AJvYcCUCPVh1Aml4Ye6sRpM69HpG55vMNugSC9jKTq15dbKN34rvwBkiBDmQjKQL93CpUamV/8UyYcDET64=@nongnu.org
+X-Gm-Message-State: AOJu0YyI7IXwaRndN/aot6Iy1pHsiCfHAZll1iFvqAH5qp5Xd5CmvBD3
+ fzDV9VmGqpk+NS+7tjX6yhc9ATiw2pJ2e/ikav06iSD4Mu6KXWW7//xzIsNUiwqjaTCmbC9o7V5
+ xA0Hm8UQNDEdWaRUOnz6qTip9zU96VsczicGLwR7I+8GD9OOH3hHpXBk=
+X-Gm-Gg: ASbGncv027E7Xg52I8fJubR+H7rUor+Qmas6QMa7a50gJo8FN8qY7i9gBzYb/3GwtTU
+ tOyy/rRTMfwpQHgVA68hkWszbLrDYAZ0bqhavrm8jkqW94dbO0tQISBsDATc6Lt+42+F9T+uLDU
+ OZW59WmYNgPzWud8y8T+psV5tqCa1tjFGOGtNWtpjUpvxwy5am2/iIDewJb4FbD1keHEVhX0Rm3
+ gKkqE9v7p+74gFiWzAFN9hM4BbWlhmYkyRrcj6eKx9HzH4kTmkxBHA8pl5rexr4P3VgnHjcVh1j
+ 1N0Hdc9gNKKCMlONHk4vkjzUrXS4y9lxNOlYmFoSLWef
+X-Received: by 2002:a5d:5f8a:0:b0:3b7:9aff:db60 with SMTP id
+ ffacd0b85a97d-3b8f4160c8fmr1500071f8f.10.1754470976724; 
+ Wed, 06 Aug 2025 02:02:56 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFHLP6cW7npRyfqRgtC/lsDNI6x5yWcOkYRLruA58O0KyrqvlZx0QbjwL3K3qLHbNivuiZD1w==
+X-Received: by 2002:a5d:5f8a:0:b0:3b7:9aff:db60 with SMTP id
+ ffacd0b85a97d-3b8f4160c8fmr1500040f8f.10.1754470976291; 
+ Wed, 06 Aug 2025 02:02:56 -0700 (PDT)
+Received: from [192.168.10.48] ([151.49.253.173])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-3b79c48a05bsm22418518f8f.69.2025.08.06.02.02.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 06 Aug 2025 02:02:55 -0700 (PDT)
+Message-ID: <ad404bb4-93fb-4a27-995f-734e647c1da0@redhat.com>
+Date: Wed, 6 Aug 2025 11:02:53 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/5] rust: implement tracing
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ alex.bennee@linaro.org
 References: <20250804-rust_trace-v1-0-b20cc16b0c51@linaro.org>
  <aJIrpoEhrl7aLBMg@redhat.com>
  <CAAjaMXa6ManykYJJk--vNZT7oeBW9UR2v6WixaaQ8LUCSjy9Ug@mail.gmail.com>
  <aJI0mr5HDgtE9HIc@redhat.com>
  <CAAjaMXZ0Dho+5FSyc4zkOZXZT6UvHtjgmpj6_0QZQcH_AD9=VQ@mail.gmail.com>
  <aJJFVgkt7R49ZwIF@redhat.com>
-In-Reply-To: <aJJFVgkt7R49ZwIF@redhat.com>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Tue, 5 Aug 2025 23:06:41 +0300
-X-Gm-Features: Ac12FXzHbByIA96QwbkFshFybyVGOGYyWjYhq_coJYazT85NFeQ2fippHTTtFbU
-Message-ID: <CAAjaMXYhWsWPoDdfoNyTGrJSRfiYJDqBkv8fC87+Zi3YCtU06Q@mail.gmail.com>
-Subject: Re: [PATCH RFC 0/5] rust: implement tracing
-To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, 
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
- alex.bennee@linaro.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2607:f8b0:4864:20::e31;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-vs1-xe31.google.com
+ <CAAjaMXYhWsWPoDdfoNyTGrJSRfiYJDqBkv8fC87+Zi3YCtU06Q@mail.gmail.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+In-Reply-To: <CAAjaMXYhWsWPoDdfoNyTGrJSRfiYJDqBkv8fC87+Zi3YCtU06Q@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: McEakIQPC9wa1hxmLpfxSzSlyzS17yARaYz9vfOecSo_1754470977
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -103,146 +159,56 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Hello Daniel,
+On 8/5/25 22:06, Manos Pitsidianakis wrote:
+>> If you're thinking this is all rather complicated, you'd be right,
+>> which is why for initial feature parity I figured the simplest is
+>> likely to just wrap the existing QEMU inline probe function, so
+>> Rust doesn't need to know about the different backends... yet...
 
+It's not too hard to add individual backends (other than dtrace---see 
+below--and ust which doesn't build for me(*) and I wanted to deprecate). 
+  Tanish is pretty close to being able to post initial work.
 
-Thanks very much for the write up, I think I understand it a lot better now=
- :)
+> Yes, that indeed makes sense.  Generated C trace headers statically
+> linked to a standalone trace crate library for each subsystem, that
+> rust qemu crates can link to in return is the cleanest solution for
+> this approach IMHO, because doing this kind of codegen via macros
+> needs interaction with meson to generate the C sources and then run
+> bindgen all while compiling this one crate which is a single meson lib
+> target.
+> 
+> It might be possible to generate the equivalent of the C code for each
+> backend just like this RFC generates only the log backend code, I'll
+> take a look out of curiosity...
+>
+>> FWIW, the original DTrace authors created a Rust crate with native
+>> rust integration of dynamic probes.
+>>
+>>    https://github.com/oxidecomputer/usdt
+>>
+>> I think that (somehow) we probably want to integrate that with QEMU
+>> and its tracetool.
 
-On Tue, Aug 5, 2025 at 8:54=E2=80=AFPM Daniel P. Berrang=C3=A9 <berrange@re=
-dhat.com> wrote:
->
-> On Tue, Aug 05, 2025 at 07:47:39PM +0300, Manos Pitsidianakis wrote:
-> > On Tue, Aug 5, 2025 at 7:43=E2=80=AFPM Daniel P. Berrang=C3=A9 <berrang=
-e@redhat.com> wrote:
-> > >
-> > > On Tue, Aug 05, 2025 at 07:25:39PM +0300, Manos Pitsidianakis wrote:
-> > > > On Tue, Aug 5, 2025 at 7:05=E2=80=AFPM Daniel P. Berrang=C3=A9 <ber=
-range@redhat.com> wrote:
-> > > > >
-> > > > > On Mon, Aug 04, 2025 at 04:47:13PM +0300, Manos Pitsidianakis wro=
-te:
-> > > > > > This RFC series contains some simple patches I've been sitting =
-on for
-> > > > > > some months to allow tracing in rust devices in a similar matte=
-r to C,
-> > > > > > only it's done via a proc-macro codegen instead of using tracet=
-ool
-> > > > > > script or equivalent.
-> > > > >
-> > > > > IIUC, this series is only emitting the traces events via the
-> > > > > qemu_log function, and so feels like it is missing the benefit
-> > > > > of tracing, vs the traditional logging framework.
-> > > > >
-> > > > > In our RHEL & Fedora distro builds we disable the log backend
-> > > > > and enable dtrace, so that we have fully dynamic tracing and
-> > > > > observability across the kernel, qemu, libvirt and other
-> > > > > components with dtrace integration.
-> > > >
-> > > > Hi Daniel,
-> > > >
-> > > > Thanks for the insight! Do you have any points where I should look =
-at
-> > > > the trace implementation for how the different backends are support=
-ed?
-> > > >
-> > > > So I think there's already work in progress to support proper traci=
-ng
-> > > > for Rust, I only sent this as a temporary fixup to provide some kin=
-d
-> > > > of parity between C and Rust implementations until a proper, better
-> > > > solution is available that can replace it.
-> > >
-> > > Can the rust code not easily consume the existing functions in the
-> > > trace.h files generated for the C code as a short-term solution ?
-> > >
-> > > It would not benefit from the code inlining in the same way as C
-> > > would, but it would at least give feature parity for tracing with
-> > > all the trace backends are available.
-> > >
-> > > Then, we can look at optimizing with a pure rust impl of some
-> > > backends at a later date, to regain what we lost from lack of
-> > > inlining ?
-> >
-> > It can, but we'd need to add extra intermediate steps to convert the
-> > trace headers into Rust equivalent code, so it's not ideal.
-> >
-> > I tried to generate code exactly like the generated trace headers
-> > though, so I'm not sure what is missing to be honest (hence my
-> > previous email question). The generated code generates TraceEvents and
-> > registers them with trace_event_register_group. What else is missing
-> > to support e.g. dtrace?
->
-> 'trace_event_register_group' is essentially irrelevant for the
-> fully dynamic trace backends like dtrace - that's only used for
-> the backends whose output is controlled by QEMU monitor commands
-> / command line arguments.
->
-> In the dtrace case the binary gets instructions which are a squence
-> of nops normally, and dtrace tool gets the kernel to live patch the
-> binary at runtime to put in a jump for any probes that are being
-> watched.
->
-> Take a look at the generated files <build-dir>/trace/trace-*.h when
-> using the different '--enable-trace-backends=3D...' options.
->
-> eg taking the trace-crypto.h header, with 'log' backend we see it
-> emits
->
->    if (trace_event_get_state(TRACE_QCRYPTO_TLS_SESSION_CHECK_CREDS) && qe=
-mu_loglevel_mask(LOG_TRACE)) {
-> #line 23 "../crypto/trace-events"
->         qemu_log("qcrypto_tls_session_check_creds " "TLS session check cr=
-eds session=3D%p status=3D%s" "\n", session, status);
-> #line 372 "trace/trace-crypto.h"
->     }
->
-> but with dtrace it emits
->
->     QEMU_QCRYPTO_TLS_SESSION_CHECK_CREDS(session, status);
->
-> which is a referencing a macro created by the external 'dtrace' binary,
-> which in the Linux case ends up looking like
->
->   #if defined STAP_SDT_V1
->   #define QEMU_QCRYPTO_TLS_SESSION_CHECK_CREDS_ENABLED() __builtin_expect=
- (qcrypto_tls_session_check_creds_semaphore, 0)
->   #define qemu_qcrypto_tls_session_check_creds_semaphore qcrypto_tls_sess=
-ion_check_creds_semaphore
->   #else
->   #define QEMU_QCRYPTO_TLS_SESSION_CHECK_CREDS_ENABLED() __builtin_expect=
- (qemu_qcrypto_tls_session_check_creds_semaphore, 0)
->   #endif
->   __extension__ extern unsigned short qemu_qcrypto_tls_session_check_cred=
-s_semaphore __attribute__ ((unused)) __attribute__ ((section (".probes")));
->   #define QEMU_QCRYPTO_TLS_SESSION_CHECK_CREDS(arg1, arg2) \
->   DTRACE_PROBE2 (qemu, qcrypto_tls_session_check_creds, arg1, arg2)
->
-> you can end up enabling multiple trace backends concurrently too.
->
-> If you're thinking this is all rather complicated, you'd be right,
-> which is why for initial feature parity I figured the simplest is
-> likely to just wrap the existing QEMU inline probe function, so
-> Rust doesn't need to know about the different backends... yet...
+This unfortunately only works for macOS and Solaris.  It also has quite 
+a few dependencies (~25) on other crates.  There is also a "probe" crate 
+(https://github.com/cuviper/probe-rs) that is minimal and (currently) 
+specific to Linux, which is what I planned to use.
 
-Yes, that indeed makes sense.  Generated C trace headers statically
-linked to a standalone trace crate library for each subsystem, that
-rust qemu crates can link to in return is the cleanest solution for
-this approach IMHO, because doing this kind of codegen via macros
-needs interaction with meson to generate the C sources and then run
-bindgen all while compiling this one crate which is a single meson lib
-target.
+By the way, while I like the idea of using Rust format strings, there 
+are parts of tracetool (e.g. format/log_stap.py) that need the printf 
+strings, and also backends (e.g. backend/syslog.py) that call into libc 
+and therefore need to use printf format strings.  So I think we're stuck.
 
-It might be possible to generate the equivalent of the C code for each
-backend just like this RFC generates only the log backend code, I'll
-take a look out of curiosity...
+Paolo
 
->
-> FWIW, the original DTrace authors created a Rust crate with native
-> rust integration of dynamic probes.
->
->   https://github.com/oxidecomputer/usdt
->
-> I think that (somehow) we probably want to integrate that with QEMU
-> and its tracetool.
+(*) that's because this tracepoint:
+
+visit_type_str(void *v, const char *name, char **obj) "v=%p name=%s obj=%p
+
+incorrectly handles 'char **' as a string.  The breakage has been there 
+since 2016, though probably it's only more recent versions of ust that 
+actually fail to compile and until then the bug was latent until you 
+enabled this tracepoint.  But it seems unlikely that anyone has used the 
+ust backend recently.
+
 
