@@ -4,92 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEB91C87FCA
-	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 13:18:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A31EC87FCF
+	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 13:39:18 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uk0VN-0003B9-Sa; Thu, 07 Aug 2025 09:18:01 -0400
+	id 1uk0pj-0008Ho-Dn; Thu, 07 Aug 2025 09:39:03 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uk0VM-0003Ad-BR
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:18:00 -0400
+ id 1uk0ph-0008EN-Px
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:39:01 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uk0VK-0002WF-Ix
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:18:00 -0400
+ id 1uk0pf-0006Zu-3B
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:39:01 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1754572677;
+ s=mimecast20190719; t=1754573937;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=D/Id2zcnnR0fHRy+UH4GD6YxhmpweTZLTRWklDZzmWA=;
- b=GM7CYxXPWT8lr+Y9o8rY43yJOZ+hxvRawpeou5Co4LE54mG3NvHZjhmW0Se3MTuuywGTSB
- H5fxLtS7V3AvGYqKjPS6tLT7b3HINe5YNLb3cRgWGxaPDWQZwVrHgk1QRvdYwhfL3QoEg5
- xudM+QEyEkGvQWNx7sBbxPu70ObjXoE=
+ bh=eajPJ0jM75i14E/4uSBoOxv9vy6PstDXgr8ThgCRvCc=;
+ b=YtL6kK+qjomuiUKzyx1+21zC8cqW2ZhVJ/FhjQeQBAy1f0GC2wGHgh6rLgw0aqZfb6F3sb
+ BGIZsDq+Q390lwPuoiCyMqy3XuaDHJ+5s9bOUl/V8Pxlw2/sp94jwjs3Oj30aQpybV5Uxo
+ sQN5HRzf3NBSsKUFEQs4cWUFOQ6ZgHY=
 Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
  [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-436-3bhaYd6YNMeRd2jeHhVrKQ-1; Thu, 07 Aug 2025 09:17:56 -0400
-X-MC-Unique: 3bhaYd6YNMeRd2jeHhVrKQ-1
-X-Mimecast-MFC-AGG-ID: 3bhaYd6YNMeRd2jeHhVrKQ_1754572675
+ us-mta-472-ZpX02fRvPAC7Tqg0xQ7MeA-1; Thu, 07 Aug 2025 09:38:56 -0400
+X-MC-Unique: ZpX02fRvPAC7Tqg0xQ7MeA-1
+X-Mimecast-MFC-AGG-ID: ZpX02fRvPAC7Tqg0xQ7MeA_1754573935
 Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-3b7825a2ca5so999665f8f.1
- for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 06:17:56 -0700 (PDT)
+ ffacd0b85a97d-3b788e2581bso445864f8f.0
+ for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 06:38:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754572675; x=1755177475;
+ d=1e100.net; s=20230601; t=1754573935; x=1755178735;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=D/Id2zcnnR0fHRy+UH4GD6YxhmpweTZLTRWklDZzmWA=;
- b=cD6DcNXfH2sjMKFM4Rg9X+e9xDCHy7YY1R+OJb5TPeDWmNUts0QxmzPzR9jsgHpDrw
- yqajWj5ZQY6cG2tX9P4T68/uj3sopH67OiiKp7T8s5n3SQAH3q152kFN1F0oq0hnuwWk
- TMq3WLGiP1pp4FjF+CXkQ5hxbWnYaHnhjxg+IHKxG/+3516YbyOeG7d7OGHmxpNGUY9f
- 6AecaN9iXM9GlfDfO2BuYmHL0iI4x21JutYv2801Mz6f5ilc+90/Rd2DaoJoRpvI2KaI
- xLWyhhMhpYqRFvX2k7JK3EuCaRKVmhtPRfSCyWcU6TC4jcwdMHT14/YIsZmU/XGlSPZU
- zauQ==
+ bh=eajPJ0jM75i14E/4uSBoOxv9vy6PstDXgr8ThgCRvCc=;
+ b=bZoemohbeOwshHeKbTtaa8scUt5KuY1Z1PUxgU2cqZI93cO+0lUUhAl7FwzBodHlWB
+ E586CRnh+VizmTH32MYAPP+AOOwUIEPymqc+yIMvtSgAcd8q4Zu7Dqh1MnHpCujY4+Sa
+ e390a6mEUdeh6gLeo0acx14QtBLXceVzZLciTvEQaRI/TWOi4OGMuMcS5STJDUdJtHmk
+ zMl7Rw/G3epN46ZsDrmSBiGPPMAyTedgUOpQSx1mj3r+parT3osO3csH/QiHOXBsracA
+ 5mwL+lnWIRNDyNakqgDdUm03MzVECachVwTbu9dPUG3ZOQooqOvCdz8urw+OiHHNQns/
+ 7A1g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUiDu5ms1EwnB6LAmU+2xTAugIbOXiCXXyo0X5tdNugAa5oVNVGdJyfbisv5DX9DYselrR5VYgVZw0=@nongnu.org
-X-Gm-Message-State: AOJu0YyCdh4u49EJvlc6jM2sxP2gd/si8OBPorXe1rp/WBRmH3m+63dx
- bHaK1XQaTABLOU5RAEw2TTRprYJmhnATX57xSCJbsL9Q6uPpi3xtJF2B4U4BYJcNddjdSRBjRqb
- A6I0A9zMvWlr4i9FDGQJwDmq2rS8cd156+9UsONaiEi0BTZ9IHMCDCPI=
-X-Gm-Gg: ASbGncuuRfbIFLTKSqkum9mb67MQC3Uouv2pkp1u+munyb5fxZ191w+qGPZD75zIyI5
- oL+fjeUdMxMyTO071G8zNq/lOiw74E0Q+8Ry5t7kPs7AWkeGgm71nfBN2kHyfDg2gUt+ditO/GZ
- r5eDRwGsiQ0J50UtQpj5K/gKFzZWTJ0DB0JDCIR6bgP5wWxTONgc79aX+Wh3DsMd+MPQ8i24aoe
- jkCPnWT1d6OYxgz5qEj+d4D6EndH/Ve/vvH51dzc+cq/v8IAdKrj6sMopc6PNKZSAC0lsfdWmCU
- FG/dauT0wtxYGPbuGe8Uxh3nBkwNhFMuPmN07QfHKTas
-X-Received: by 2002:a5d:5f82:0:b0:3b7:8f49:94e4 with SMTP id
- ffacd0b85a97d-3b8f97c46efmr2961159f8f.7.1754572675046; 
- Thu, 07 Aug 2025 06:17:55 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IExHpCdHFDMxBy2yC7Gq3pv6LlUJfp4MOCwML2Xb9f4x2ReZJlNoJgv6o9lI8+7sAd7+m62JA==
-X-Received: by 2002:a5d:5f82:0:b0:3b7:8f49:94e4 with SMTP id
- ffacd0b85a97d-3b8f97c46efmr2961132f8f.7.1754572674642; 
- Thu, 07 Aug 2025 06:17:54 -0700 (PDT)
+ AJvYcCU0h5h/oisU1RwF7V7D2If6Ps23JOgkdNkq95yX3jFnDmIAzV9ZcL1uatmv6mi0GQqDa/Tx7Y6aT+g=@nongnu.org
+X-Gm-Message-State: AOJu0YxrCQmR7YmKavDikIlV6/O+n818WXd5LqrIRtwXPJdAZyE2c8T1
+ uYDefO5aluKt6zONguAd6NevhKI/vCCQABl2EeGC4sJpngLLLEV6a8j6phtrSZy7deNv5oNkf58
+ w7sEt56utInPX7czzvO6qCLLRkNXajULAeVxz8FV0SjsecCYDg9FpMNI=
+X-Gm-Gg: ASbGncuPPIrWtQj3CaKTQu0JsiNG/5Y0EZuuvwVYVkf2jCWugQXEP4F2/778+Sx39ha
+ NbkGd3aoMIAxtdPkIOwgGlC+LyKBQQzkoTIBiUsUvqYvvcfsYK0Pv7i9bvqdTfyFuP68DKx6d+T
+ bPV3uXa8A0CWIWKj6ZGc6rP6Vir+fQNvqCD7FwBLSDZ/PMR3um514ezyqHW2oNeDAgk+dkgwuKI
+ p30KKaa5ec40iI8yYwzHkwWoY9ZEv6MtoTWQh/YIT9vaDfOvKga09X7ZwXOd+0aWOQtcvrcfLoV
+ 6L+8GsW368J3ejUfkamZ+CpCOWw7HPqKnNwIFXJFhzoO
+X-Received: by 2002:a05:6000:2004:b0:3b5:dc07:50a4 with SMTP id
+ ffacd0b85a97d-3b8f418b286mr6079773f8f.2.1754573934727; 
+ Thu, 07 Aug 2025 06:38:54 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFE0ZIjqHS/eIqY3HrroZIdY8WRWawmXq1zwhUh6yxr8Vx4HA2BsznnI5IFH1AHOUbYTmQ9Kw==
+X-Received: by 2002:a05:6000:2004:b0:3b5:dc07:50a4 with SMTP id
+ ffacd0b85a97d-3b8f418b286mr6079748f8f.2.1754573934243; 
+ Thu, 07 Aug 2025 06:38:54 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.253.173])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-3b79c3bc12csm27358013f8f.28.2025.08.07.06.17.53
+ 5b1f17b1804b1-459e5c84b8csm47925475e9.4.2025.08.07.06.38.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Aug 2025 06:17:53 -0700 (PDT)
-Message-ID: <c7e99d14-eccc-4e97-8b11-1342fe0c5aa6@redhat.com>
-Date: Thu, 7 Aug 2025 15:17:52 +0200
+ Thu, 07 Aug 2025 06:38:53 -0700 (PDT)
+Message-ID: <c641dbf2-a2e7-4c44-b231-fc872df1fe69@redhat.com>
+Date: Thu, 7 Aug 2025 15:38:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 07/26] subprojects: Add winapi crate
-To: Zhao Liu <zhao1.liu@intel.com>, Peter Xu <peterx@redhat.com>,
- David Hildenbrand <david@redhat.com>,
+Subject: Re: [RFC 13/26] rust: Add RCU bindings
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Zhao Liu <zhao1.liu@intel.com>
+Cc: Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
  =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Thomas Huth <thuth@redhat.com>, Junjie Mao <junjie.mao@hotmail.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
+ Thomas Huth <thuth@redhat.com>, Junjie Mao <junjie.mao@hotmail.com>,
+ qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Dapeng Mi <dapeng1.mi@linux.intel.com>,
  Chuanxiao Dong <chuanxiao.dong@intel.com>
 References: <20250807123027.2910950-1-zhao1.liu@intel.com>
- <20250807123027.2910950-8-zhao1.liu@intel.com>
+ <20250807123027.2910950-14-zhao1.liu@intel.com>
+ <CAAjaMXZ9XbEmcJVg1-8uFhnkG-qUF+sB5g26e0W3HhxK_-NFwg@mail.gmail.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -126,9 +127,9 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20250807123027.2910950-8-zhao1.liu@intel.com>
+In-Reply-To: <CAAjaMXZ9XbEmcJVg1-8uFhnkG-qUF+sB5g26e0W3HhxK_-NFwg@mail.gmail.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 3_WBIYsQ87kWkHhGKDXs8yIaOoixUZ7Y37hHvc37Y4c_1754572675
+X-Mimecast-MFC-PROC-ID: v8K7-FzA8guCyvT-DhrKkBvrvJA0ArXewV12v4IVe5k_1754573935
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -142,7 +143,7 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -158,11 +159,62 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 8/7/25 14:30, Zhao Liu wrote:
-> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+On 8/7/25 14:29, Manos Pitsidianakis wrote:
 
-I created https://github.com/rust-vmm/vm-memory/pull/335 so this is not 
-needed.
+>> +//! Bindings for `rcu_read_lock` and `rcu_read_unlock`.
+>> +//! More details about RCU in QEMU, please refer docs/devel/rcu.rst.
+>> +
+> 
+> How about a RAII guard type? e.g. RCUGuard and runs `rcu_read_unlock` on Drop.
+
+Clippy says Rcu not RCU.  :)
+
+You're right, not just because it's nice but also because it bounds the 
+dereference of the FlatView.  Something like this build on top of the 
+guard object:
+
+pub struct RcuCell<T> {
+     data: AtomicPtr<T>
+}
+
+impl<T> RcuCell {
+     pub fn raw_get(&self) -> *mut T {
+         self.data.load(Ordering::Acquire)
+     }
+
+     pub fn get<'g>(&self, _: &'g RcuGuard) -> Option<&'g T> {
+         unsafe {
+             self.raw_get().as_ref()
+         }
+     }
+}
+
+Using this is a bit ugly, because you need transmute, but it's isolated:
+
+impl AddressSpace {
+    pub fn get_flatview(&self, rcu: &'g Guard) -> &'g FlatView {
+        let flatp = unsafe {
+            std::mem::transmute::<&*mut FlatView, &RcuCell<FlatView>>(
+                &self.0.as_ptr().current_map)
+        };
+        flatp.get(rcu)
+    }
+}
+
+impl GuestAddressSpace for AddressSpace {
+     fn memory(&self) -> Self::T {
+         let rcu = RcuGuard::guard();
+         FlatViewRefGuard::new(self.get_flatview(rcu))
+     }
+}
+
+> Destructors are not guaranteed to run or run only once, but the former
+> should happen when things go wrong e.g. crashes/aborts. You can add a
+> flag in the RCUGuard to make sure Drop runs unlock only once (since it
+> takes &mut and not ownership)
+
+Yeah I think many things would go wrong if Arc could run its drop 
+implementation more than once.
 
 Paolo
 
