@@ -4,81 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D791C87FCA
-	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 13:53:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E9F7C87FCF
+	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 13:54:33 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uk134-0000e7-B6; Thu, 07 Aug 2025 09:52:50 -0400
+	id 1uk14b-0004j7-NU; Thu, 07 Aug 2025 09:54:26 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uk12z-0000Zi-GA
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:52:47 -0400
+ id 1uk14S-0004Tm-3M
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:54:17 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uk12y-0000WA-0U
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:52:45 -0400
+ id 1uk14P-0000gz-BJ
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:54:14 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1754574762;
+ s=mimecast20190719; t=1754574852;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Jvula5eCMbUGkLkKPyBhGU5eLiLfuloHOPJZUTCCHYA=;
- b=ZXvaGEgrgpo1+h7760e9pGBVMEe/9v1XtlgApAc/d4teMr7efbOYQ+gGGS59LpbI3sQbuu
- BwYSaitT7qL1XJFoiL90NOTszqhEQSeVNY1Wc1JBd8fGIw31kBWbCHJKO5p6isv5x5/YX3
- 5yhFSJK4KXCSyM67wq0e6h89brSt74g=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=Hk1cAPfnwD8uL1N9Q2z/2ZZehf8PtNf0DH4ZOV1vykk=;
+ b=R10a0nfPaQhg5VMnC/rMMEz//ctdB+XsGKqivr2Jyn4p/m0wUP1gZ3tMpRO/oa3C08HYOW
+ hK0BddhHKSVP+up+GYfGZmt5riqe8L/97AuUKQxmUEUJRTnUrFXwKW0e8e5M+iOJL/Cekr
+ tkmooLE+TyIfr71uOIAmuweXievXsVs=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-108-tocKy904M0SjKHH6KHhWzg-1; Thu, 07 Aug 2025 09:52:41 -0400
-X-MC-Unique: tocKy904M0SjKHH6KHhWzg-1
-X-Mimecast-MFC-AGG-ID: tocKy904M0SjKHH6KHhWzg_1754574760
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-45526e19f43so3810585e9.3
- for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 06:52:40 -0700 (PDT)
+ us-mta-650-dRjd5-AhOk6tMxGWNt-wVQ-1; Thu, 07 Aug 2025 09:54:11 -0400
+X-MC-Unique: dRjd5-AhOk6tMxGWNt-wVQ-1
+X-Mimecast-MFC-AGG-ID: dRjd5-AhOk6tMxGWNt-wVQ_1754574850
+Received: by mail-ej1-f72.google.com with SMTP id
+ a640c23a62f3a-af93cf3fd41so103039966b.1
+ for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 06:54:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754574760; x=1755179560;
+ d=1e100.net; s=20230601; t=1754574849; x=1755179649;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Jvula5eCMbUGkLkKPyBhGU5eLiLfuloHOPJZUTCCHYA=;
- b=Rowoka6CfQlyTjRUOdVbam2kScGqlrNR0NE1PUlXVhz0tkdPJk92SPfXOjMJx7a3kp
- rvX7gIgAAfPamzsO0w+q4lB4RZpwOYWGRY4enozTNrgKrepTllbjfyPx2nW+v3PXkiC/
- 0FnC+TKKyHF6heQ4sATIl29Uk9px2cyPKVO20Khst4TCELmzm8Brafbe0LXQYZT1iJXz
- VrXY/kIfBxZrpbVriXYwwACzM69Drt0nBby9yp5186/HEjIhZXXa1NtjpXqUJqgONTRP
- thDb/O/ZiaG7v2Zjykq3dQ1t91I8NdWHeXlIq6XDazhfDvmgKV/uRSe8TynkK4guV3Vu
- nLVg==
+ bh=Hk1cAPfnwD8uL1N9Q2z/2ZZehf8PtNf0DH4ZOV1vykk=;
+ b=h70I/HJXNKPTbwpIAsCuLY3CVaMlV7w3O1+xjDGnjG8ReO8kKZ/dn4K4F3h6xqNOOV
+ WXTkaC0bFmOUdNfeyFWaAmT1cBqHQhwPbxXE55ISovl2QkZc04PlzkSjZXNxAJ1wJH0W
+ jne46uhGerJFcbYzQRVVr4jwl8FfRB2tTPY9jai058NPZe19I+va/mEJmVRH3BvtAfou
+ WrbuWhG+iYS86WwjRHgmLUGnwfDe4ARJEbZN9bjMSbY+FLzcASrUekLmOQz3JdYu/NGR
+ i7XB13//pCmGdyLufJ0ZzkxD8UNbTIotZecC4D/8RWS06jQ+lDJ/ZPspnvoqePoOtg3S
+ byNQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV5CyZA6xn3TGGRTb06AQJiT/5y50B9PJrH/nyGoWcyEJIqYyG7mQV5+XlPYYCqut+ktPD1ddNphrs=@nongnu.org
-X-Gm-Message-State: AOJu0YyG2SBgbobIMgzmm1OMnnNbdI61ToafDKTyO0ul5TPb17rTKmvd
- EbLWP1bbXvsJaa0DhbzXDFgzpBsQ2+0sRQb/MgPdp0ObaAkHKJ50rMqDCK9b5tDDG2S1e5MJsg8
- IkOlMMDQcKN3Z/4JRfIpa2q5y1X7ESiUT9n0HlU6wgxlND+4W/uAMiig=
-X-Gm-Gg: ASbGncsPKcRx57X0kcOwVvMGh8lXSEjX6EZGhb8lkvKNWSvMu2715mdNFPsnB7Bhzbk
- aps7wkY4DQN5Txc819OxEj7oh6GzPbufWJpG3kbrY65BLFHbrj4qEO8bWXGdYrw9sFyt1wl8+7X
- jXCMhb3we8zHlKFaRM2LiQa/S8iiAwthexDuhDgQnKMj+d5J4G8FyRDapU8eulaotZQhDgbbnCI
- pKJln7KG5CDLcMMvLuflfN6gv8jYom9CJDzL/PSf04y5Uwb8zAQZALQkXhh7TKmYSRE0g2RBkr7
- KcWmcuLcq3vgSYuK3u5Nt7BZVSM/tJUQsje6+I8yBKj8
-X-Received: by 2002:a05:600c:3b22:b0:459:db5a:b097 with SMTP id
- 5b1f17b1804b1-459e70eeb97mr68530375e9.16.1754574759676; 
- Thu, 07 Aug 2025 06:52:39 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEtmGLo8uaep6GbSM9+eeuqEBVyQbsJ5sriF+VdjL7eX0xrcwqLIJyJ+Vdar58LStw+f73iYQ==
-X-Received: by 2002:a05:600c:3b22:b0:459:db5a:b097 with SMTP id
- 5b1f17b1804b1-459e70eeb97mr68530105e9.16.1754574759236; 
- Thu, 07 Aug 2025 06:52:39 -0700 (PDT)
+ AJvYcCU2eHPnn7eBD+t95h49Yqt86/1DiUX2eBd4+5MLhegM04O/9989ZBP9X8BbiswKbQ+1cPv0piqDuKw=@nongnu.org
+X-Gm-Message-State: AOJu0YyT9jLkpCCmzSeMoOdwRMewbDopOSoWavayQfYsnDJuq556VggQ
+ PO7gg1ls7km4hqags1sXGpGiaTI8JWrLnmPt499OFK6p0TmgNaksZsKDc+3DUWz5cgZvldICYJM
+ nBKclhhAWI+iXnLXHqLNMGA9sUvef2qIPq9+kv7yrOXuhM9AQhP25aROE0AQMzgE=
+X-Gm-Gg: ASbGncvfRRZGgB18O5QD6exWPKtP6xVYOnU8RxEBQaRo3OED+2kBK7WGsq7SbzCXV6t
+ HfrwA4sl65G9a2LvhUIgTJFiJCr4gjif4Xw2FFQroDsp9WFhXkImN0HBKShLEEAupkdPahdyzon
+ Z148Pg7t7E/vL9J9Ef40S0FrykQGs+5qhIfsvAhK8BDPqKUsoNRpI1bP61J6BVQoRJ7zUouhmmC
+ itEPHDBsnmzYWrkwuAdQzuMifjJuydrQHz5ytaz3zbmxBbTZJkJoS8EZ2AbqoD2bLRCA0iV279L
+ cjU3QYqzMtVArimT3L/Mj8sR0BNxYPi4cqglTTo57LUE
+X-Received: by 2002:a17:907:7f2a:b0:ae3:c777:6e5e with SMTP id
+ a640c23a62f3a-af9a3db26b4mr375560066b.19.1754574849242; 
+ Thu, 07 Aug 2025 06:54:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFoeE1SfllRBerNk5R6caCvjcV8DdF0qXDvYu5qphmp4GO2tqoabVXJCz9rOpqaVKNJQHsWCQ==
+X-Received: by 2002:a17:907:7f2a:b0:ae3:c777:6e5e with SMTP id
+ a640c23a62f3a-af9a3db26b4mr375557566b.19.1754574848800; 
+ Thu, 07 Aug 2025 06:54:08 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.253.173])
  by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-459ee17535bsm43001965e9.16.2025.08.07.06.52.38
+ a640c23a62f3a-af91a1e82fbsm1304386666b.88.2025.08.07.06.54.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Aug 2025 06:52:38 -0700 (PDT)
-Message-ID: <4cc91b3d-ce3a-46fa-80da-fa5039f6a490@redhat.com>
-Date: Thu, 7 Aug 2025 15:52:37 +0200
+ Thu, 07 Aug 2025 06:54:08 -0700 (PDT)
+Message-ID: <262b5b35-e8f4-4bd7-8e7c-0d2acc2c9742@redhat.com>
+Date: Thu, 7 Aug 2025 15:54:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 01/26] rust/hpet: Fix the error caused by vm-memory
+Subject: Re: [RFC 12/26] rcu: Make rcu_read_lock & rcu_read_unlock not inline
 To: Zhao Liu <zhao1.liu@intel.com>, Peter Xu <peterx@redhat.com>,
  David Hildenbrand <david@redhat.com>,
  =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
@@ -89,7 +89,7 @@ Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Dapeng Mi <dapeng1.mi@linux.intel.com>,
  Chuanxiao Dong <chuanxiao.dong@intel.com>
 References: <20250807123027.2910950-1-zhao1.liu@intel.com>
- <20250807123027.2910950-2-zhao1.liu@intel.com>
+ <20250807123027.2910950-13-zhao1.liu@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -126,9 +126,9 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20250807123027.2910950-2-zhao1.liu@intel.com>
+In-Reply-To: <20250807123027.2910950-13-zhao1.liu@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: k4AA1gZ70nZWvu58UaVzpUNryl_8PK-tg0_bhXzfK7I_1754574760
+X-Mimecast-MFC-PROC-ID: pZj-BbhwNKhqR5wa0ifSEU0PvZRZ1chDKsbUrlPJvgg_1754574850
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -142,7 +142,7 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -159,28 +159,131 @@ Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 On 8/7/25 14:30, Zhao Liu wrote:
-> error[E0283]: type annotations needed
->     --> hw/timer/hpet/src/device.rs:884:55
->      |
-> 884 |         self.num_timers == self.num_timers_save.get().into()
->      |                         --                            ^^^^
->      |                         |
->      |                         type must be known at this point
->      |
->      = note: multiple `impl`s satisfying `usize: PartialEq<_>` found in the following crates: `core`, `vm_memory`:
->              - impl PartialEq<vm_memory::endian::BeSize> for usize;
->              - impl PartialEq<vm_memory::endian::LeSize> for usize;
->              - impl<host> PartialEq for usize
->                where the constant `host` has type `bool`;
-> help: try using a fully qualified path to specify the expected types
->      |
-> 884 |         self.num_timers == <u8 as Into<T>>::into(self.num_timers_save.get())
->      |                            ++++++++++++++++++++++                          ~
+> Make rcu_read_lock & rcu_read_unlock not inline, then bindgen could
+> generate the bindings.
+> 
+> Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
+> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 
-Oh, interesting.  In this case, you can write:
-
-     usize::from(self.num_timers_save.get())
+Either this, or keep it inline and add wrappers rust_rcu_read_lock() and 
+rust_rcu_read_unlock().
 
 Paolo
+
+> ---
+>   include/qemu/rcu.h | 45 ++-------------------------------------------
+>   util/rcu.c         | 43 +++++++++++++++++++++++++++++++++++++++++++
+>   2 files changed, 45 insertions(+), 43 deletions(-)
+> 
+> diff --git a/include/qemu/rcu.h b/include/qemu/rcu.h
+> index 020dbe4d8b77..34d955204b81 100644
+> --- a/include/qemu/rcu.h
+> +++ b/include/qemu/rcu.h
+> @@ -75,49 +75,8 @@ struct rcu_reader_data {
+>   
+>   QEMU_DECLARE_CO_TLS(struct rcu_reader_data, rcu_reader)
+>   
+> -static inline void rcu_read_lock(void)
+> -{
+> -    struct rcu_reader_data *p_rcu_reader = get_ptr_rcu_reader();
+> -    unsigned ctr;
+> -
+> -    if (p_rcu_reader->depth++ > 0) {
+> -        return;
+> -    }
+> -
+> -    ctr = qatomic_read(&rcu_gp_ctr);
+> -    qatomic_set(&p_rcu_reader->ctr, ctr);
+> -
+> -    /*
+> -     * Read rcu_gp_ptr and write p_rcu_reader->ctr before reading
+> -     * RCU-protected pointers.
+> -     */
+> -    smp_mb_placeholder();
+> -}
+> -
+> -static inline void rcu_read_unlock(void)
+> -{
+> -    struct rcu_reader_data *p_rcu_reader = get_ptr_rcu_reader();
+> -
+> -    assert(p_rcu_reader->depth != 0);
+> -    if (--p_rcu_reader->depth > 0) {
+> -        return;
+> -    }
+> -
+> -    /* Ensure that the critical section is seen to precede the
+> -     * store to p_rcu_reader->ctr.  Together with the following
+> -     * smp_mb_placeholder(), this ensures writes to p_rcu_reader->ctr
+> -     * are sequentially consistent.
+> -     */
+> -    qatomic_store_release(&p_rcu_reader->ctr, 0);
+> -
+> -    /* Write p_rcu_reader->ctr before reading p_rcu_reader->waiting.  */
+> -    smp_mb_placeholder();
+> -    if (unlikely(qatomic_read(&p_rcu_reader->waiting))) {
+> -        qatomic_set(&p_rcu_reader->waiting, false);
+> -        qemu_event_set(&rcu_gp_event);
+> -    }
+> -}
+> -
+> +void rcu_read_lock(void);
+> +void rcu_read_unlock(void);
+>   void synchronize_rcu(void);
+>   
+>   /*
+> diff --git a/util/rcu.c b/util/rcu.c
+> index b703c86f15a3..2dfd82796e1e 100644
+> --- a/util/rcu.c
+> +++ b/util/rcu.c
+> @@ -141,6 +141,49 @@ static void wait_for_readers(void)
+>       QLIST_SWAP(&registry, &qsreaders, node);
+>   }
+>   
+> +void rcu_read_lock(void)
+> +{
+> +    struct rcu_reader_data *p_rcu_reader = get_ptr_rcu_reader();
+> +    unsigned ctr;
+> +
+> +    if (p_rcu_reader->depth++ > 0) {
+> +        return;
+> +    }
+> +
+> +    ctr = qatomic_read(&rcu_gp_ctr);
+> +    qatomic_set(&p_rcu_reader->ctr, ctr);
+> +
+> +    /*
+> +     * Read rcu_gp_ptr and write p_rcu_reader->ctr before reading
+> +     * RCU-protected pointers.
+> +     */
+> +    smp_mb_placeholder();
+> +}
+> +
+> +void rcu_read_unlock(void)
+> +{
+> +    struct rcu_reader_data *p_rcu_reader = get_ptr_rcu_reader();
+> +
+> +    assert(p_rcu_reader->depth != 0);
+> +    if (--p_rcu_reader->depth > 0) {
+> +        return;
+> +    }
+> +
+> +    /* Ensure that the critical section is seen to precede the
+> +     * store to p_rcu_reader->ctr.  Together with the following
+> +     * smp_mb_placeholder(), this ensures writes to p_rcu_reader->ctr
+> +     * are sequentially consistent.
+> +     */
+> +    qatomic_store_release(&p_rcu_reader->ctr, 0);
+> +
+> +    /* Write p_rcu_reader->ctr before reading p_rcu_reader->waiting.  */
+> +    smp_mb_placeholder();
+> +    if (unlikely(qatomic_read(&p_rcu_reader->waiting))) {
+> +        qatomic_set(&p_rcu_reader->waiting, false);
+> +        qemu_event_set(&rcu_gp_event);
+> +    }
+> +}
+> +
+>   void synchronize_rcu(void)
+>   {
+>       QEMU_LOCK_GUARD(&rcu_sync_lock);
 
 
