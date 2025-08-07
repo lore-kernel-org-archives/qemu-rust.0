@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11ECAC87FCA
-	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 12:29:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 672DCC87FCA
+	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 12:42:16 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1ujzke-0001Lh-N4; Thu, 07 Aug 2025 08:29:44 -0400
+	id 1ujzwN-0003gy-7d; Thu, 07 Aug 2025 08:41:51 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1ujzka-0001JY-Gk
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 08:29:40 -0400
-Received: from mail-ed1-x531.google.com ([2a00:1450:4864:20::531])
+ id 1ujzwL-0003di-5D
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 08:41:49 -0400
+Received: from mail-ed1-x52e.google.com ([2a00:1450:4864:20::52e])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1ujzkY-0000gp-Iu
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 08:29:40 -0400
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-615c8ca53efso1677320a12.2
- for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 05:29:37 -0700 (PDT)
+ id 1ujzwI-000302-3b
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 08:41:47 -0400
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-604bff84741so1793165a12.2
+ for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 05:41:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1754569777; x=1755174577; darn=nongnu.org;
+ d=linaro.org; s=google; t=1754570504; x=1755175304; darn=nongnu.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kLuWjuObH0hdqtraSsu5F50TkfggzDjqnfB7BJtWoVY=;
- b=HtKzgso59tU/EnpGFulq4mg0wvf8XOLU02XRNaOiGjuPXGzz08TJF/57yM6HayWw1P
- R+wvtYeV774FW+1dMk5TS8Yeu+w4FEo2BHhzYf5Zaaw3gbRWU7W9Cj24/UWdwksWvnru
- jw/iuElcE1M/6j6Mjt5LobBRVG3Lx8iSs59UOkf8rCToKeg+jcLPl2foP59S9c+iAXyD
- kL0LCngKi9toidLK1ovYA9gJzKU5/ax3t1RuYkEu9cu3mEpGLakHK0hM6E8BgZu3s1iW
- w92HL4D8fBFsVDIa5vcc3l7LWC1Us7QTH/r+pHGCFwM7mg0EgXfi6ng7sdj5EFZS5tMn
- WYNw==
+ bh=Uvdal751jqyRTot/pDvPZqEYDMdRfnZS0zQnhiX+4XU=;
+ b=aRu2tqDc3wPs6BUTcucQ88uGAt8SUSL4Q7MERg4hwJj8IAQeM1rmjoJf160BdgrxK8
+ zWuSUFDq3Q2KKrwP25AGOUZjuebRr+n7hdzM81ifJ3cv2cA0vGVyP+rgSFUwfm5jNt6P
+ LKfb1BXfFklVoMa1TRKFVN/O+LP0OL/6G74poXCfuZmeJOHi+YMAxTZ/FY/u3DrbZu6L
+ gw6RhLW4zO39sTi16xOeUAhlShtEPmBZ8XyNVO/5Jyx5J50vltmKG+ZByPkyqLnByDK8
+ +yDRpdfiamgS00TUmlEGpL9aMDFDb51kYDcAdNWoPRJsI3ZL7Uq/urlKtIbZJlt1N8DP
+ /3cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754569777; x=1755174577;
+ d=1e100.net; s=20230601; t=1754570504; x=1755175304;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kLuWjuObH0hdqtraSsu5F50TkfggzDjqnfB7BJtWoVY=;
- b=Gs2+Rx2YNbqwRA1KNJWyt+WImZzwHGZxWdKLLxuPiqbGiuMXNQ09//DnCZo8JnAhyz
- LcEXB/5SB9dKZrnN5b3XsZllGWeOUctwJwvdQEZzZRPwjiko0RDzO6+2eXUylJWV+8oE
- LKiosZGp+20MRone6nqrFItv7zgnG5DrLeUCbEYZlMBmTuy12bnXCIPl/R3SeMJbVyDc
- +eKiXcU6yKaELabf2iwA/pXUy2s9SRGJZQJrHxP5rKveGiJSJZJG0MGvLirfxKDZIQ/o
- JW0BS2XvUjI9MGuzjpzu23tULtZ/Jalbypw5PryqJ8lSZvIDWHKEW5BSm7Vm0lCub4/s
- qMKg==
+ bh=Uvdal751jqyRTot/pDvPZqEYDMdRfnZS0zQnhiX+4XU=;
+ b=ru2wCXAwMTtLLg79CImjYmSdFHQ6YsPfoKxphU/mxA1PI+bVG8Wyg7oh/r2uHGtVFI
+ e9Qki8LEy7Lh1ZB8nYmc4SHysKOK1EyBeU582HhMFkgj75lzGluUMqWtc8OT7RhrZ3D9
+ r401vmCzCM41v4WmBvLPZ1q1a6AotEmA4aRhm0DWdYE45zqq72nwm4d6tFKFXUMv8n6M
+ yuidnE4EF8YF6/3ZaSycIo/sBKeCJqNoy0XbGV2XIlswLoNfxmvFPpOSLqHxFxVV0QwL
+ jD75koU59QIol/lH5BD7mgc7KAOOM8vpwJfpWKgvzkTCWzIsmq2GdAH4FHILG3cHdaA0
+ Erfg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXolEyXKUvnpwnfylV9M7tg6Qjy1yCYhr2ub1dafgYfX5PtD8d3rAI32FL0IdnPtG3YoAZYNbg6/8g=@nongnu.org
-X-Gm-Message-State: AOJu0YwFEv0Pfd3urdf8SpQ6pgIQzVRYF6Lq/LdvKYGCK/hKK56Lqgzv
- 4IKKxRHt/SesljJKnUP2+1H1yiexhdvXjT6HuWsWTs1mQaq2QEXdrKLlVFzwh0aUizzX/tdMtp4
- X7/gFMlhbN6beW8C/xuztO9FF88nTf2dTWmSKGpycJQ==
-X-Gm-Gg: ASbGnctIzaQ+8ZvC5VPp71JWrQ6pYbGJtu+HnkgB9r8YGlez3ptx35GDXdnNhk16bvL
- RG9qYZ2tg35wXdaDVTEiQ18MIONXW07l7SdZLIkY6RVaBZaLV2GCvNFry2FWFxDgtzwElpxylvR
- Fnd5KD3GagCY+JiPiowfaNGjLbAhVlq/Ggsx7BbIEQzQ8BILupYmMXY/ED/IBpqezj/ah8Cpb9o
- y/gwPyW
-X-Google-Smtp-Source: AGHT+IEdE8O/oaHfKrzyQCsRfDNTbtxqq2QXRKTLiXTlQQdFKtycmAcZJbE9T/sTwYG8S3hOHAlfRZgRqhofjWJTp9c=
-X-Received: by 2002:a05:6402:5210:b0:615:a2ec:667b with SMTP id
- 4fb4d7f45d1cf-61796141dc0mr5562404a12.20.1754569776489; Thu, 07 Aug 2025
- 05:29:36 -0700 (PDT)
+ AJvYcCXc0eFU/L9M13f+dj23YAiDueWSgywkYsyaYcF50TEsIXpU0Uk7q6mFq7nkCrgLt2T6/eymyFM0bRM=@nongnu.org
+X-Gm-Message-State: AOJu0YxOtkL5AaXD7pi/WXfY+ToONJpBU+Nr73td68z4u7UBMl8Y8SIX
+ 83kyyxiFbdQKMjB4lk5EJpa4IDk6O4J937gCutb7JbXtXZ7zfMCsN8ov3ANbcftOz+ukggQbf/L
+ fYO2TkWGgli3BsJS+A4lG6PDn+Vhdq1RtiUyR/VIsYw==
+X-Gm-Gg: ASbGncvjH0dqkJf3csqZ99uKgMcSFVEn+ZgLc1P1nqAeldO8AvMIn6tRFGnvGAvIJwM
+ fGg4N+ny6QjJvy5CITPCQTOap5CsZUK9eC4WRhJriWJuRXv56n62nyFB1xSOkgZ6u0hslI6Y9zj
+ 3Ez+7DW+v1UBfFW3e/lP1edUoe7yrOexw50/BHu64a5WkceIa3NnxqzutTUxTgFJq+GJJvT0sb/
+ nB2flBQ
+X-Google-Smtp-Source: AGHT+IG1IJW+DwzcfbmsruHztxRdT0K2AGQNODwg69IQGcsp6u86KWZI/0XX7A0voTeyO22HcorXVdUxMHhwI/TBVKg=
+X-Received: by 2002:a05:6402:2355:b0:617:cd9d:e26a with SMTP id
+ 4fb4d7f45d1cf-617cd9de772mr819235a12.6.1754570503923; Thu, 07 Aug 2025
+ 05:41:43 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250807123027.2910950-1-zhao1.liu@intel.com>
- <20250807123027.2910950-14-zhao1.liu@intel.com>
-In-Reply-To: <20250807123027.2910950-14-zhao1.liu@intel.com>
+ <20250807123027.2910950-19-zhao1.liu@intel.com>
+In-Reply-To: <20250807123027.2910950-19-zhao1.liu@intel.com>
 From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Thu, 7 Aug 2025 15:29:09 +0300
-X-Gm-Features: Ac12FXzOtzgiGM5SJYAlQSRveIb7qp-WUQLn_qkkTOu-7G5R3n4ZkVIy44ClGLM
-Message-ID: <CAAjaMXZ9XbEmcJVg1-8uFhnkG-qUF+sB5g26e0W3HhxK_-NFwg@mail.gmail.com>
-Subject: Re: [RFC 13/26] rust: Add RCU bindings
+Date: Thu, 7 Aug 2025 15:41:17 +0300
+X-Gm-Features: Ac12FXyxJB611_11oQwNY6s66qm8p492d7Z8RoVCHMRP2EcUEchUPvIoXXqDUlw
+Message-ID: <CAAjaMXaNVFinLS3eRcBw+-R21XnHWDx5ACWQDhnS-ndseDBhJw@mail.gmail.com>
+Subject: Re: [RFC 18/26] memory: Rename flatview_access_allowed() to
+ memory_region_access_allowed()
 To: Zhao Liu <zhao1.liu@intel.com>
 Cc: Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>, 
  David Hildenbrand <david@redhat.com>,
@@ -80,8 +81,8 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
  Chuanxiao Dong <chuanxiao.dong@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::531;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x531.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::52e;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x52e.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -104,99 +105,87 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Thu, Aug 7, 2025 at 3:09=E2=80=AFPM Zhao Liu <zhao1.liu@intel.com> wrote=
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+
+On Thu, Aug 7, 2025 at 3:10=E2=80=AFPM Zhao Liu <zhao1.liu@intel.com> wrote=
 :
 >
-> Add rcu_read_lock() & rcu_read_unlock() bindings, then they can be used
-> in memory access.
+> flatview_access_allowed() accepts `MemoryRegion *mr` as an argument, so
+> it's based on MemoryRegion and should be named as
+> memory_region_access_allowed().
 >
-> Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
 > Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 > ---
->  rust/qemu-api/meson.build |  1 +
->  rust/qemu-api/src/lib.rs  |  1 +
->  rust/qemu-api/src/rcu.rs  | 26 ++++++++++++++++++++++++++
->  rust/qemu-api/wrapper.h   |  1 +
->  4 files changed, 29 insertions(+)
->  create mode 100644 rust/qemu-api/src/rcu.rs
+>  system/physmem.c | 14 +++++++-------
+>  1 file changed, 7 insertions(+), 7 deletions(-)
 >
-> diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
-> index a362d44ed396..d40472092248 100644
-> --- a/rust/qemu-api/meson.build
-> +++ b/rust/qemu-api/meson.build
-> @@ -68,6 +68,7 @@ _qemu_api_rs =3D static_library(
->        'src/prelude.rs',
->        'src/qdev.rs',
->        'src/qom.rs',
-> +      'src/rcu.rs',
->        'src/sysbus.rs',
->        'src/timer.rs',
->        'src/uninit.rs',
-> diff --git a/rust/qemu-api/src/lib.rs b/rust/qemu-api/src/lib.rs
-> index 86dcd8ef17a9..4705cf9ccbc5 100644
-> --- a/rust/qemu-api/src/lib.rs
-> +++ b/rust/qemu-api/src/lib.rs
-> @@ -26,6 +26,7 @@
->  pub mod module;
->  pub mod qdev;
->  pub mod qom;
-> +pub mod rcu;
->  pub mod sysbus;
->  pub mod timer;
->  pub mod uninit;
-> diff --git a/rust/qemu-api/src/rcu.rs b/rust/qemu-api/src/rcu.rs
-> new file mode 100644
-> index 000000000000..30d8b9e43967
-> --- /dev/null
-> +++ b/rust/qemu-api/src/rcu.rs
-> @@ -0,0 +1,26 @@
-> +// Copyright (C) 2025 Intel Corporation.
-> +// Author(s): Zhao Liu <zhao1.liu@intel.com>
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +//! Bindings for `rcu_read_lock` and `rcu_read_unlock`.
-> +//! More details about RCU in QEMU, please refer docs/devel/rcu.rst.
-> +
-
-How about a RAII guard type? e.g. RCUGuard and runs `rcu_read_unlock` on Dr=
-op.
-
-Destructors are not guaranteed to run or run only once, but the former
-should happen when things go wrong e.g. crashes/aborts. You can add a
-flag in the RCUGuard to make sure Drop runs unlock only once (since it
-takes &mut and not ownership)
-
-> +use crate::bindings;
-> +
-> +/// Used by a reader to inform the reclaimer that the reader is
-> +/// entering an RCU read-side critical section.
-> +pub fn rcu_read_lock() {
-> +    // SAFETY: no return and no argument, everything is done at C side.
-> +    unsafe { bindings::rcu_read_lock() }
-> +}
-> +
-> +/// Used by a reader to inform the reclaimer that the reader is
-> +/// exiting an RCU read-side critical section.  Note that RCU
-> +/// read-side critical sections may be nested and/or overlapping.
-> +pub fn rcu_read_unlock() {
-> +    // SAFETY: no return and no argument, everything is done at C side.
-> +    unsafe { bindings::rcu_read_unlock() }
-> +}
-> +
-> +// FIXME: maybe we need rcu_read_lock_held() to check the rcu context,
-> +// then make it possible to add assertion at any RCU critical section.
-
-This would be less necessary with Drop, maybe.
-
-> diff --git a/rust/qemu-api/wrapper.h b/rust/qemu-api/wrapper.h
-> index 15a1b19847f2..ce0ac8d3f550 100644
-> --- a/rust/qemu-api/wrapper.h
-> +++ b/rust/qemu-api/wrapper.h
-> @@ -69,3 +69,4 @@ typedef enum memory_order {
->  #include "qemu/timer.h"
->  #include "system/address-spaces.h"
->  #include "hw/char/pl011.h"
-> +#include "qemu/rcu.h"
+> diff --git a/system/physmem.c b/system/physmem.c
+> index d2106d0ffa87..8aaaab4d3a74 100644
+> --- a/system/physmem.c
+> +++ b/system/physmem.c
+> @@ -2921,7 +2921,7 @@ bool prepare_mmio_access(MemoryRegion *mr)
+>  }
+>
+>  /**
+> - * flatview_access_allowed
+> + * memory_region_access_allowed
+>   * @mr: #MemoryRegion to be accessed
+>   * @attrs: memory transaction attributes
+>   * @addr: address within that memory region
+> @@ -2931,8 +2931,8 @@ bool prepare_mmio_access(MemoryRegion *mr)
+>   *
+>   * Returns: true if transaction is allowed, false if denied.
+>   */
+> -static bool flatview_access_allowed(MemoryRegion *mr, MemTxAttrs attrs,
+> -                                    hwaddr addr, hwaddr len)
+> +static bool memory_region_access_allowed(MemoryRegion *mr, MemTxAttrs at=
+trs,
+> +                                         hwaddr addr, hwaddr len)
+>  {
+>      if (likely(!attrs.memory)) {
+>          return true;
+> @@ -2952,7 +2952,7 @@ static MemTxResult flatview_write_continue_step(Mem=
+TxAttrs attrs,
+>                                                  hwaddr len, hwaddr mr_ad=
+dr,
+>                                                  hwaddr *l, MemoryRegion =
+*mr)
+>  {
+> -    if (!flatview_access_allowed(mr, attrs, mr_addr, *l)) {
+> +    if (!memory_region_access_allowed(mr, attrs, mr_addr, *l)) {
+>          return MEMTX_ACCESS_ERROR;
+>      }
+>
+> @@ -3036,7 +3036,7 @@ static MemTxResult flatview_write(FlatView *fv, hwa=
+ddr addr, MemTxAttrs attrs,
+>
+>      l =3D len;
+>      mr =3D flatview_translate(fv, addr, &mr_addr, &l, true, attrs);
+> -    if (!flatview_access_allowed(mr, attrs, addr, len)) {
+> +    if (!memory_region_access_allowed(mr, attrs, addr, len)) {
+>          return MEMTX_ACCESS_ERROR;
+>      }
+>      return flatview_write_continue(fv, addr, attrs, buf, len,
+> @@ -3048,7 +3048,7 @@ static MemTxResult flatview_read_continue_step(MemT=
+xAttrs attrs, uint8_t *buf,
+>                                                 hwaddr *l,
+>                                                 MemoryRegion *mr)
+>  {
+> -    if (!flatview_access_allowed(mr, attrs, mr_addr, *l)) {
+> +    if (!memory_region_access_allowed(mr, attrs, mr_addr, *l)) {
+>          return MEMTX_ACCESS_ERROR;
+>      }
+>
+> @@ -3127,7 +3127,7 @@ static MemTxResult flatview_read(FlatView *fv, hwad=
+dr addr,
+>
+>      l =3D len;
+>      mr =3D flatview_translate(fv, addr, &mr_addr, &l, false, attrs);
+> -    if (!flatview_access_allowed(mr, attrs, addr, len)) {
+> +    if (!memory_region_access_allowed(mr, attrs, addr, len)) {
+>          return MEMTX_ACCESS_ERROR;
+>      }
+>      return flatview_read_continue(fv, addr, attrs, buf, len,
 > --
 > 2.34.1
 >
