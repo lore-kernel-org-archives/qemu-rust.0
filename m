@@ -4,81 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E9F7C87FCF
-	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 13:54:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBC67C87FCF
+	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 13:57:49 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uk14b-0004j7-NU; Thu, 07 Aug 2025 09:54:26 -0400
+	id 1uk17Y-0005a6-76; Thu, 07 Aug 2025 09:57:28 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uk14S-0004Tm-3M
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:54:17 -0400
+ id 1uk17W-0005XO-TC
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:57:26 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uk14P-0000gz-BJ
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:54:14 -0400
+ id 1uk17T-0001D8-Gk
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:57:26 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1754574852;
+ s=mimecast20190719; t=1754575042;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Hk1cAPfnwD8uL1N9Q2z/2ZZehf8PtNf0DH4ZOV1vykk=;
- b=R10a0nfPaQhg5VMnC/rMMEz//ctdB+XsGKqivr2Jyn4p/m0wUP1gZ3tMpRO/oa3C08HYOW
- hK0BddhHKSVP+up+GYfGZmt5riqe8L/97AuUKQxmUEUJRTnUrFXwKW0e8e5M+iOJL/Cekr
- tkmooLE+TyIfr71uOIAmuweXievXsVs=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=veE0YXU9ZdxW/BhZLiaGxGzPpaO9gN/is2WgVHdvubc=;
+ b=e10SRB2NyHFLvBul33smI4Xv/6c1a5goxzPYnlPzTbd6J6geZcKFWTA3itoUWSMUE2Seo5
+ rZYgnuG0tVauxfDsFLe7/IBeJ3h7Ufet4vw6ioNYiVDzyxaKB+EMI5IIU28L4i8B3wFPVy
+ x5eObKZF3Of7tSA3ssnp/DemFAcsmmA=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-650-dRjd5-AhOk6tMxGWNt-wVQ-1; Thu, 07 Aug 2025 09:54:11 -0400
-X-MC-Unique: dRjd5-AhOk6tMxGWNt-wVQ-1
-X-Mimecast-MFC-AGG-ID: dRjd5-AhOk6tMxGWNt-wVQ_1754574850
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-af93cf3fd41so103039966b.1
- for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 06:54:10 -0700 (PDT)
+ us-mta-168-Hhc8i2JSP5OKE0vam-WuLQ-1; Thu, 07 Aug 2025 09:57:21 -0400
+X-MC-Unique: Hhc8i2JSP5OKE0vam-WuLQ-1
+X-Mimecast-MFC-AGG-ID: Hhc8i2JSP5OKE0vam-WuLQ_1754575040
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-3b78b88ecfeso522134f8f.3
+ for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 06:57:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754574849; x=1755179649;
+ d=1e100.net; s=20230601; t=1754575040; x=1755179840;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Hk1cAPfnwD8uL1N9Q2z/2ZZehf8PtNf0DH4ZOV1vykk=;
- b=h70I/HJXNKPTbwpIAsCuLY3CVaMlV7w3O1+xjDGnjG8ReO8kKZ/dn4K4F3h6xqNOOV
- WXTkaC0bFmOUdNfeyFWaAmT1cBqHQhwPbxXE55ISovl2QkZc04PlzkSjZXNxAJ1wJH0W
- jne46uhGerJFcbYzQRVVr4jwl8FfRB2tTPY9jai058NPZe19I+va/mEJmVRH3BvtAfou
- WrbuWhG+iYS86WwjRHgmLUGnwfDe4ARJEbZN9bjMSbY+FLzcASrUekLmOQz3JdYu/NGR
- i7XB13//pCmGdyLufJ0ZzkxD8UNbTIotZecC4D/8RWS06jQ+lDJ/ZPspnvoqePoOtg3S
- byNQ==
+ bh=veE0YXU9ZdxW/BhZLiaGxGzPpaO9gN/is2WgVHdvubc=;
+ b=PQW6+CyXhMDJj0uxywqtOSeGC27V42Qb4dM0bNWfKu2Zu1UySFBj2UaBeInZANX7yy
+ 27KocHIV2DUTdhuR/tsbc9afzGFL1YVd/eL5prZ7pnRyyi6CDLKdifaTOGNPYDhLbuKN
+ DQMeF09d969yoCl8t3A/NLi8jVtgihFuYOq2xsXy6JmyXptaa+xv/5E51+xOXzb1BlfY
+ DIzwJrMdFd8NZFnf//O1sdP175s0Fs79lU2JPL+492RzjZ6ksfQoImKeyuTLCG5Dkq9R
+ LTh57x6mVWMO2bViSu5kmM1f680wbuh308UaCGeyetpFN8ORzGLQVlg1zZh/aTDrXrEi
+ G+2A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU2eHPnn7eBD+t95h49Yqt86/1DiUX2eBd4+5MLhegM04O/9989ZBP9X8BbiswKbQ+1cPv0piqDuKw=@nongnu.org
-X-Gm-Message-State: AOJu0YyT9jLkpCCmzSeMoOdwRMewbDopOSoWavayQfYsnDJuq556VggQ
- PO7gg1ls7km4hqags1sXGpGiaTI8JWrLnmPt499OFK6p0TmgNaksZsKDc+3DUWz5cgZvldICYJM
- nBKclhhAWI+iXnLXHqLNMGA9sUvef2qIPq9+kv7yrOXuhM9AQhP25aROE0AQMzgE=
-X-Gm-Gg: ASbGncvfRRZGgB18O5QD6exWPKtP6xVYOnU8RxEBQaRo3OED+2kBK7WGsq7SbzCXV6t
- HfrwA4sl65G9a2LvhUIgTJFiJCr4gjif4Xw2FFQroDsp9WFhXkImN0HBKShLEEAupkdPahdyzon
- Z148Pg7t7E/vL9J9Ef40S0FrykQGs+5qhIfsvAhK8BDPqKUsoNRpI1bP61J6BVQoRJ7zUouhmmC
- itEPHDBsnmzYWrkwuAdQzuMifjJuydrQHz5ytaz3zbmxBbTZJkJoS8EZ2AbqoD2bLRCA0iV279L
- cjU3QYqzMtVArimT3L/Mj8sR0BNxYPi4cqglTTo57LUE
-X-Received: by 2002:a17:907:7f2a:b0:ae3:c777:6e5e with SMTP id
- a640c23a62f3a-af9a3db26b4mr375560066b.19.1754574849242; 
- Thu, 07 Aug 2025 06:54:09 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFoeE1SfllRBerNk5R6caCvjcV8DdF0qXDvYu5qphmp4GO2tqoabVXJCz9rOpqaVKNJQHsWCQ==
-X-Received: by 2002:a17:907:7f2a:b0:ae3:c777:6e5e with SMTP id
- a640c23a62f3a-af9a3db26b4mr375557566b.19.1754574848800; 
- Thu, 07 Aug 2025 06:54:08 -0700 (PDT)
+ AJvYcCXEmyPbMGGXcEz3SQyoRrPc0TXtIb3WuRlNHUCV6QJnxRH3iWZ8V0ZVNaj3yqW0NQXuhqSKYH9K/kg=@nongnu.org
+X-Gm-Message-State: AOJu0YxJQ2IRs0DJOxJK7DgxOpBcJlhHi7W1pU6mCqOApqYGkq5oq5Hy
+ xEqBscs8BjuzGizyd8ps2zYR+m9l/JokdzVH7LgrAMBRdBb8T7apDKQaUXWS7F08GACedEZVqx3
+ y2sc2VuyrjaLyGCci/NCoVhRTI5OS4DhwEJ8fCa6saZ1wp+zgxVPAtbA=
+X-Gm-Gg: ASbGnctCUwiiGjNClLIZ6WrDEeVVvNf0c1pMMDrEZuXNInmqi4hLi/8yfjPH6AkjP5n
+ k0ucJVnI1qD0gK67fe8vlCJR/0S7j83QI3KqptJSd39Ii+ODD16zwtVS3Tm6u7HrlkQhOm8X85T
+ aTORC3vouFVNVI+x1RIbusvBUt6aQa+VficebYF5kpwLEM/Yzo5Zrgu987KhnIdOwI29W7hJ0JF
+ tcxSvwuScOv3OFT+rZeK5E9rd9Y3/E2v5EcwK5e6tPR0Uh69Zdf4lXJU4O4/TyX11SglTsJMQNe
+ 9QbFXouHpKTcfHbntq6L9VzaeebZ2PK+JffGPp0z35xe
+X-Received: by 2002:adf:fac6:0:b0:3b8:ff39:486d with SMTP id
+ ffacd0b85a97d-3b8ff394bb9mr931388f8f.8.1754575039876; 
+ Thu, 07 Aug 2025 06:57:19 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHXYwZoGNhakMxRJpYivC+7uq1cW0gVwDnE4VKL/NXOOs4ZMWf4zIuaDjvfzTtVOw3TIhYo9A==
+X-Received: by 2002:adf:fac6:0:b0:3b8:ff39:486d with SMTP id
+ ffacd0b85a97d-3b8ff394bb9mr931369f8f.8.1754575039368; 
+ Thu, 07 Aug 2025 06:57:19 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.253.173])
  by smtp.googlemail.com with ESMTPSA id
- a640c23a62f3a-af91a1e82fbsm1304386666b.88.2025.08.07.06.54.07
+ 5b1f17b1804b1-458bd5a0f9bsm127902595e9.0.2025.08.07.06.57.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Aug 2025 06:54:08 -0700 (PDT)
-Message-ID: <262b5b35-e8f4-4bd7-8e7c-0d2acc2c9742@redhat.com>
-Date: Thu, 7 Aug 2025 15:54:06 +0200
+ Thu, 07 Aug 2025 06:57:18 -0700 (PDT)
+Message-ID: <beab841b-9c69-43d2-b996-879eee9e1120@redhat.com>
+Date: Thu, 7 Aug 2025 15:57:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 12/26] rcu: Make rcu_read_lock & rcu_read_unlock not inline
+Subject: Re: [RFC 16/26] memory: Make flatview_do_translate() return a pointer
+ to MemoryRegionSection
 To: Zhao Liu <zhao1.liu@intel.com>, Peter Xu <peterx@redhat.com>,
  David Hildenbrand <david@redhat.com>,
  =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
@@ -89,7 +90,7 @@ Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Dapeng Mi <dapeng1.mi@linux.intel.com>,
  Chuanxiao Dong <chuanxiao.dong@intel.com>
 References: <20250807123027.2910950-1-zhao1.liu@intel.com>
- <20250807123027.2910950-13-zhao1.liu@intel.com>
+ <20250807123027.2910950-17-zhao1.liu@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -126,9 +127,9 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20250807123027.2910950-13-zhao1.liu@intel.com>
+In-Reply-To: <20250807123027.2910950-17-zhao1.liu@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: pZj-BbhwNKhqR5wa0ifSEU0PvZRZ1chDKsbUrlPJvgg_1754574850
+X-Mimecast-MFC-PROC-ID: oQzpu72jt3EQFQ9R3LbnwuAWhzPkWFnTnwqLN9unBvs_1754575040
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -159,131 +160,22 @@ Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 On 8/7/25 14:30, Zhao Liu wrote:
-> Make rcu_read_lock & rcu_read_unlock not inline, then bindgen could
-> generate the bindings.
+> Rust side will use cell::Opaque<> to hide details of C structure, and
+> this could help avoid the direct operation on C memory from Rust side.
 > 
-> Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
-> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+> Therefore, it's necessary to wrap a translation binding and make it only
+> return the pointer to MemoryRegionSection, instead of the copy.
+> 
+> As the first step, make flatview_do_translate return a pointer to
+> MemoryRegionSection, so that we can build a wrapper based on it.
 
-Either this, or keep it inline and add wrappers rust_rcu_read_lock() and 
-rust_rcu_read_unlock().
+Independent of Rust, doing the copy as late as possible is good, but 
+make it return a "const MemoryRegionSection*" so that there's no risk of 
+overwriting data.  Hopefully this does not show a bigger problem!
 
 Paolo
 
-> ---
->   include/qemu/rcu.h | 45 ++-------------------------------------------
->   util/rcu.c         | 43 +++++++++++++++++++++++++++++++++++++++++++
->   2 files changed, 45 insertions(+), 43 deletions(-)
-> 
-> diff --git a/include/qemu/rcu.h b/include/qemu/rcu.h
-> index 020dbe4d8b77..34d955204b81 100644
-> --- a/include/qemu/rcu.h
-> +++ b/include/qemu/rcu.h
-> @@ -75,49 +75,8 @@ struct rcu_reader_data {
->   
->   QEMU_DECLARE_CO_TLS(struct rcu_reader_data, rcu_reader)
->   
-> -static inline void rcu_read_lock(void)
-> -{
-> -    struct rcu_reader_data *p_rcu_reader = get_ptr_rcu_reader();
-> -    unsigned ctr;
-> -
-> -    if (p_rcu_reader->depth++ > 0) {
-> -        return;
-> -    }
-> -
-> -    ctr = qatomic_read(&rcu_gp_ctr);
-> -    qatomic_set(&p_rcu_reader->ctr, ctr);
-> -
-> -    /*
-> -     * Read rcu_gp_ptr and write p_rcu_reader->ctr before reading
-> -     * RCU-protected pointers.
-> -     */
-> -    smp_mb_placeholder();
-> -}
-> -
-> -static inline void rcu_read_unlock(void)
-> -{
-> -    struct rcu_reader_data *p_rcu_reader = get_ptr_rcu_reader();
-> -
-> -    assert(p_rcu_reader->depth != 0);
-> -    if (--p_rcu_reader->depth > 0) {
-> -        return;
-> -    }
-> -
-> -    /* Ensure that the critical section is seen to precede the
-> -     * store to p_rcu_reader->ctr.  Together with the following
-> -     * smp_mb_placeholder(), this ensures writes to p_rcu_reader->ctr
-> -     * are sequentially consistent.
-> -     */
-> -    qatomic_store_release(&p_rcu_reader->ctr, 0);
-> -
-> -    /* Write p_rcu_reader->ctr before reading p_rcu_reader->waiting.  */
-> -    smp_mb_placeholder();
-> -    if (unlikely(qatomic_read(&p_rcu_reader->waiting))) {
-> -        qatomic_set(&p_rcu_reader->waiting, false);
-> -        qemu_event_set(&rcu_gp_event);
-> -    }
-> -}
-> -
-> +void rcu_read_lock(void);
-> +void rcu_read_unlock(void);
->   void synchronize_rcu(void);
->   
->   /*
-> diff --git a/util/rcu.c b/util/rcu.c
-> index b703c86f15a3..2dfd82796e1e 100644
-> --- a/util/rcu.c
-> +++ b/util/rcu.c
-> @@ -141,6 +141,49 @@ static void wait_for_readers(void)
->       QLIST_SWAP(&registry, &qsreaders, node);
->   }
->   
-> +void rcu_read_lock(void)
-> +{
-> +    struct rcu_reader_data *p_rcu_reader = get_ptr_rcu_reader();
-> +    unsigned ctr;
-> +
-> +    if (p_rcu_reader->depth++ > 0) {
-> +        return;
-> +    }
-> +
-> +    ctr = qatomic_read(&rcu_gp_ctr);
-> +    qatomic_set(&p_rcu_reader->ctr, ctr);
-> +
-> +    /*
-> +     * Read rcu_gp_ptr and write p_rcu_reader->ctr before reading
-> +     * RCU-protected pointers.
-> +     */
-> +    smp_mb_placeholder();
-> +}
-> +
-> +void rcu_read_unlock(void)
-> +{
-> +    struct rcu_reader_data *p_rcu_reader = get_ptr_rcu_reader();
-> +
-> +    assert(p_rcu_reader->depth != 0);
-> +    if (--p_rcu_reader->depth > 0) {
-> +        return;
-> +    }
-> +
-> +    /* Ensure that the critical section is seen to precede the
-> +     * store to p_rcu_reader->ctr.  Together with the following
-> +     * smp_mb_placeholder(), this ensures writes to p_rcu_reader->ctr
-> +     * are sequentially consistent.
-> +     */
-> +    qatomic_store_release(&p_rcu_reader->ctr, 0);
-> +
-> +    /* Write p_rcu_reader->ctr before reading p_rcu_reader->waiting.  */
-> +    smp_mb_placeholder();
-> +    if (unlikely(qatomic_read(&p_rcu_reader->waiting))) {
-> +        qatomic_set(&p_rcu_reader->waiting, false);
-> +        qemu_event_set(&rcu_gp_event);
-> +    }
-> +}
-> +
->   void synchronize_rcu(void)
->   {
->       QEMU_LOCK_GUARD(&rcu_sync_lock);
+> In addtion, add a global variable `unassigned_section` to help get a
+> pointer to an invalid MemoryRegionSection.
 
 
