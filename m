@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B3E9C87FCF
-	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 12:18:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DA7EC87FCA
+	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 12:19:02 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1ujzSV-0004X3-1I; Thu, 07 Aug 2025 08:10:59 -0400
+	id 1ujzSG-0003iY-EV; Thu, 07 Aug 2025 08:10:45 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1ujzSM-00045N-3F; Thu, 07 Aug 2025 08:10:50 -0400
+ id 1ujzRu-0001rw-V7; Thu, 07 Aug 2025 08:10:23 -0400
 Received: from mgamail.intel.com ([192.198.163.15])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1ujzSI-0005Bt-3m; Thu, 07 Aug 2025 08:10:48 -0400
+ id 1ujzRp-0005Cn-Jw; Thu, 07 Aug 2025 08:10:22 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1754568646; x=1786104646;
+ t=1754568618; x=1786104618;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=L9/7AiV5IeaaNeK7AehXkGkn2BxB38AEIVLuEzucq1A=;
- b=Cfmp4LFTD9KVyFU7xMN1Rkyoza4ECjrTWS02T8LXk0aKvO1hw7u2KY60
- gkmmuKzkQPQMCgh4o6Q2uUnltw2p4mugWmZYwgwRYxMREcNIyscFSHcvf
- N5HLCxZI7bOcC3s6Kw5BZ4otI5mSdq0fxEcXVWtha7ygx31VrfyxE/tg1
- 7oC7r0iLWf7VhSzAvNK63Du/tEaG0y5UbScpDbolZ36zmsQbXPA2jaSux
- adSK0VyCj7h4LMynypuHnlmGDNzQBGbAhRAjybBTc5lcVn0uRGnWhb0ks
- 3/NlJxFiI5v5aqZ9mYFvubwPoNeX4jtHnHcKVXm3ZRjRU1yo1aVjklJs0 Q==;
-X-CSE-ConnectionGUID: Sz959LUfTnmU1lv9P/E6Vw==
-X-CSE-MsgGUID: JS20heUoQRuvmLt6EdvoHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11514"; a="57036870"
-X-IronPort-AV: E=Sophos;i="6.17,271,1747724400"; d="scan'208";a="57036870"
+ bh=lbnpK8OyGgwHu5vkc+8beR3dBNzfXQc8vRTwv8yoFE8=;
+ b=OTpkRXBJWTwAThCzTt2mRXsSFC2YOoV7fqb69UeCUWd3h9UuOp18udKh
+ Nwyg5UqFornxIvZuwta8g6v3AAvD0oDZoe4y1TKE9wIlKYqLDgrCo7Hgk
+ gcwSfymOCqXKD/H01VphATrHrskMvcEz4KAd6QcW7sxnXgqS77vI7cZ3S
+ MsCCAf1UetGQwBQcB/U8QgtchQPct6R7LxnjQug04B0WPIoWCtfUpXUAK
+ hdrlRLxPDFdQCE8Nli5rdWAQHPmJOBjxrt6qFIn+9QJ/Aq4TNC/BCWDjN
+ W7AbDY2WK1EXlVMn7vx405+nSNCUtqGGGzi/pbVZlhmf+r8hsgVpEnTbg A==;
+X-CSE-ConnectionGUID: l829pqP2QrKqNzOeHri9aQ==
+X-CSE-MsgGUID: j9VwhQD6RCe1cdpv3Q7+/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11514"; a="57036829"
+X-IronPort-AV: E=Sophos;i="6.17,271,1747724400"; d="scan'208";a="57036829"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2025 05:10:12 -0700
-X-CSE-ConnectionGUID: P4ljDsr3TpGdx0ODypJrZw==
-X-CSE-MsgGUID: Tlh/sA68TKigewNTOtyX/w==
+ 07 Aug 2025 05:09:55 -0700
+X-CSE-ConnectionGUID: d/BF90LjQYusZ5jvSUIDRQ==
+X-CSE-MsgGUID: vCBVfKaoToqbg8jWIBvAXg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,271,1747724400"; d="scan'208";a="164701226"
+X-IronPort-AV: E=Sophos;i="6.17,271,1747724400"; d="scan'208";a="164701142"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by orviesa009.jf.intel.com with ESMTP; 07 Aug 2025 05:10:09 -0700
+ by orviesa009.jf.intel.com with ESMTP; 07 Aug 2025 05:09:52 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
  David Hildenbrand <david@redhat.com>,
@@ -53,9 +53,10 @@ To: Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Dapeng Mi <dapeng1.mi@linux.intel.com>,
  Chuanxiao Dong <chuanxiao.dong@intel.com>, Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC 21/26] memory: Add store/load interfaces for Rust side
-Date: Thu,  7 Aug 2025 20:30:22 +0800
-Message-Id: <20250807123027.2910950-22-zhao1.liu@intel.com>
+Subject: [RFC 16/26] memory: Make flatview_do_translate() return a pointer to
+ MemoryRegionSection
+Date: Thu,  7 Aug 2025 20:30:17 +0800
+Message-Id: <20250807123027.2910950-17-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250807123027.2910950-1-zhao1.liu@intel.com>
 References: <20250807123027.2910950-1-zhao1.liu@intel.com>
@@ -86,193 +87,158 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-At present, there're many store/load variants defined in
-memory_ldst.c.inc.
+Rust side will use cell::Opaque<> to hide details of C structure, and
+this could help avoid the direct operation on C memory from Rust side.
 
-However, the Bytes::store() and Bytes::load() of vm-memory are bound
-with AtomicAccess trait, which makes it (almost) impossible to select
-proper interface (for l, w or q) based on specific type.
+Therefore, it's necessary to wrap a translation binding and make it only
+return the pointer to MemoryRegionSection, instead of the copy.
 
-So it's necessary to provide such interfaces that hide the type details
-as much as possible. And compared with address_space_st{size} or
-address_space_ld{size}, the differences include:
+As the first step, make flatview_do_translate return a pointer to
+MemoryRegionSection, so that we can build a wrapper based on it.
 
- * No translation, and only memory access.
-
- * Only support native endian. Then Rust side must handle the endian
-   format before/after processing store()/load().
-
- * Use bytes array instead of single uint64_t for the value to be
-   written or read. Then Rust side doesn't need to convert generic type
-   to u64.
-
-   - But the extra cost is that there's the need for conversation
-     between bytes array and uint64_t inside the interfaces.
-
- * Do not handle the cross-region case via MMIO access. Then Rust side
-   will handle such abnormal cases.
+In addtion, add a global variable `unassigned_section` to help get a
+pointer to an invalid MemoryRegionSection.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- include/system/memory.h | 52 +++++++++++++++++++++++++++++++--
- system/physmem.c        | 65 +++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 112 insertions(+), 5 deletions(-)
+ system/physmem.c | 51 ++++++++++++++++++++++--------------------------
+ 1 file changed, 23 insertions(+), 28 deletions(-)
 
-diff --git a/include/system/memory.h b/include/system/memory.h
-index a75c8c348f58..f0f51f1c4c89 100644
---- a/include/system/memory.h
-+++ b/include/system/memory.h
-@@ -3440,7 +3440,7 @@ MemTxResult section_rust_write_continue_step(MemoryRegionSection *section,
-     MemTxAttrs attrs, const uint8_t *buf, hwaddr len, hwaddr mr_addr, hwaddr *l);
- 
- /**
-- * section_read_continue_step: read from #MemoryRegionSection.
-+ * section_rust_read_continue_step: read from #MemoryRegionSection.
-  *
-  * Not: This function should only used by Rust side, and user shouldn't
-  * call it directly!
-@@ -3461,9 +3461,57 @@ MemTxResult section_rust_write_continue_step(MemoryRegionSection *section,
-  * Return a MemTxResult indicating whether the operation succeeded
-  * or failed.
-  */
--MemTxResult section_read_continue_step(MemoryRegionSection *section,
-+MemTxResult section_rust_read_continue_step(MemoryRegionSection *section,
-     MemTxAttrs attrs, uint8_t *buf, hwaddr len, hwaddr mr_addr, hwaddr *l);
- 
-+/**
-+ * section_rust_store: store data to #MemoryRegionSection.
-+ *
-+ * Not: This function should only used by Rust side, and user shouldn't
-+ * call it directly!
-+ *
-+ * This function provides a wrapper for address_space_st{size} without
-+ * translation, and only supports native endian by default.
-+ *
-+ * Should be called from an RCU critical section.
-+ *
-+ * @section: #MemoryRegionSection to be accessed.
-+ * @mr_offset: address within that memory region.
-+ * @buf: buffer to be written.
-+ * @attrs: memory transaction attributes.
-+ * @len: the number of bytes is expected to read.
-+ *
-+ * Return a MemTxResult indicating whether the operation succeeded
-+ * or failed.
-+ */
-+MemTxResult section_rust_store(MemoryRegionSection *section,
-+                               hwaddr mr_offset, const uint8_t *buf,
-+                               MemTxAttrs attrs, hwaddr len);
-+
-+/**
-+ * section_rust_load: load data from #MemoryRegionSection.
-+ *
-+ * Not: This function should only used by Rust side, and user shouldn't
-+ * call it directly!
-+ *
-+ * This function provides a wrapper for address_space_st{size} without
-+ * translation, and only supports native endian by default.
-+ *
-+ * Should be called from an RCU critical section.
-+ *
-+ * @section: #MemoryRegionSection to be accessed.
-+ * @mr_offset: address within that memory region.
-+ * @buf: buffer to be written.
-+ * @attrs: memory transaction attributes.
-+ * @len: the number of bytes is expected to read.
-+ *
-+ * Return a MemTxResult indicating whether the operation succeeded
-+ * or failed.
-+ */
-+MemTxResult section_rust_load(MemoryRegionSection *section,
-+                              hwaddr mr_offset, uint8_t *buf,
-+                              MemTxAttrs attrs, hwaddr len);
-+
- /*
-  * Inhibit technologies that require discarding of pages in RAM blocks, e.g.,
-  * to manage the actual amount of memory consumed by the VM (then, the memory
 diff --git a/system/physmem.c b/system/physmem.c
-index 0c30dea775ca..6048d5faac8c 100644
+index 785c9a4050c6..4af29ea2168e 100644
 --- a/system/physmem.c
 +++ b/system/physmem.c
-@@ -3120,9 +3120,9 @@ static MemTxResult flatview_read_continue_step(MemTxAttrs attrs, uint8_t *buf,
- }
+@@ -103,6 +103,9 @@ AddressSpace address_space_io;
+ AddressSpace address_space_memory;
  
- MemTxResult
--section_read_continue_step(MemoryRegionSection *section, MemTxAttrs attrs,
--                           uint8_t *buf, hwaddr len, hwaddr mr_addr,
--                           hwaddr *l)
-+section_rust_read_continue_step(MemoryRegionSection *section, MemTxAttrs attrs,
-+                                uint8_t *buf, hwaddr len, hwaddr mr_addr,
-+                                hwaddr *l)
+ static MemoryRegion io_mem_unassigned;
++static MemoryRegionSection unassigned_section = {
++    .mr = &io_mem_unassigned
++};
+ 
+ typedef struct PhysPageEntry PhysPageEntry;
+ 
+@@ -418,14 +421,11 @@ address_space_translate_internal(AddressSpaceDispatch *d, hwaddr addr, hwaddr *x
+  * This function is called from RCU critical section.  It is the common
+  * part of flatview_do_translate and address_space_translate_cached.
+  */
+-static MemoryRegionSection address_space_translate_iommu(IOMMUMemoryRegion *iommu_mr,
+-                                                         hwaddr *xlat,
+-                                                         hwaddr *plen_out,
+-                                                         hwaddr *page_mask_out,
+-                                                         bool is_write,
+-                                                         bool is_mmio,
+-                                                         AddressSpace **target_as,
+-                                                         MemTxAttrs attrs)
++static MemoryRegionSection *
++address_space_translate_iommu(IOMMUMemoryRegion *iommu_mr, hwaddr *xlat,
++                              hwaddr *plen_out, hwaddr *page_mask_out,
++                              bool is_write, bool is_mmio,
++                              AddressSpace **target_as, MemTxAttrs attrs)
  {
-     return flatview_read_continue_step(attrs, buf, len, mr_addr, l, section->mr);
- }
-@@ -3239,6 +3239,65 @@ void cpu_physical_memory_rw(hwaddr addr, void *buf,
-                      buf, len, is_write);
+     MemoryRegionSection *section;
+     hwaddr page_mask = (hwaddr)-1;
+@@ -463,10 +463,10 @@ static MemoryRegionSection address_space_translate_iommu(IOMMUMemoryRegion *iomm
+     if (page_mask_out) {
+         *page_mask_out = page_mask;
+     }
+-    return *section;
++    return section;
+ 
+ unassigned:
+-    return (MemoryRegionSection) { .mr = &io_mem_unassigned };
++    return &unassigned_section;
  }
  
-+MemTxResult section_rust_store(MemoryRegionSection *section,
-+                               hwaddr mr_offset, const uint8_t *buf,
-+                               MemTxAttrs attrs, hwaddr len)
-+{
-+    MemoryRegion *mr = section->mr;
-+    MemTxResult r;
-+    uint64_t val;
-+
-+    val = ldn_he_p(buf, len);
-+    if (!memory_access_is_direct(mr, true, attrs)) {
-+        bool release_lock = false;
-+
-+        release_lock |= prepare_mmio_access(mr);
-+        r = memory_region_dispatch_write(mr, mr_offset, val,
-+                                         size_memop(len) |
-+                                         devend_memop(DEVICE_NATIVE_ENDIAN),
-+                                         attrs);
-+        if (release_lock) {
-+            bql_unlock();
-+        }
-+    } else {
-+        uint8_t *ptr = qemu_map_ram_ptr(mr->ram_block, mr_offset);
-+        stn_p(ptr, len, val);
-+        invalidate_and_set_dirty(mr, mr_offset, len);
-+        r = MEMTX_OK;
-+    }
-+
-+    return r;
-+}
-+
-+MemTxResult section_rust_load(MemoryRegionSection *section,
-+                              hwaddr mr_offset, uint8_t *buf,
-+                              MemTxAttrs attrs, hwaddr len)
-+{
-+    MemoryRegion *mr = section->mr;
-+    MemTxResult r;
-+    uint64_t val;
-+
-+    if (!memory_access_is_direct(mr, false, attrs)) {
-+        bool release_lock = false;
-+
-+        release_lock |= prepare_mmio_access(mr);
-+        r = memory_region_dispatch_read(mr, mr_offset, &val,
-+                                        size_memop(len) |
-+                                        devend_memop(DEVICE_NATIVE_ENDIAN),
-+                                        attrs);
-+        if (release_lock) {
-+            bql_unlock();
-+        }
-+    } else {
-+        uint8_t *ptr = qemu_map_ram_ptr(mr->ram_block, mr_offset);
-+        val = ldn_p(ptr, len);
-+        r = MEMTX_OK;
-+    }
-+
-+    stn_he_p(buf, len, val);
-+    return r;
-+}
-+
- enum write_rom_type {
-     WRITE_DATA,
-     FLUSH_CACHE,
+ /**
+@@ -489,15 +489,10 @@ unassigned:
+  *
+  * This function is called from RCU critical section
+  */
+-static MemoryRegionSection flatview_do_translate(FlatView *fv,
+-                                                 hwaddr addr,
+-                                                 hwaddr *xlat,
+-                                                 hwaddr *plen_out,
+-                                                 hwaddr *page_mask_out,
+-                                                 bool is_write,
+-                                                 bool is_mmio,
+-                                                 AddressSpace **target_as,
+-                                                 MemTxAttrs attrs)
++static MemoryRegionSection *
++flatview_do_translate(FlatView *fv, hwaddr addr, hwaddr *xlat, hwaddr *plen_out,
++                      hwaddr *page_mask_out, bool is_write, bool is_mmio,
++                      AddressSpace **target_as, MemTxAttrs attrs)
+ {
+     MemoryRegionSection *section;
+     IOMMUMemoryRegion *iommu_mr;
+@@ -523,14 +518,14 @@ static MemoryRegionSection flatview_do_translate(FlatView *fv,
+         *page_mask_out = ~TARGET_PAGE_MASK;
+     }
+ 
+-    return *section;
++    return section;
+ }
+ 
+ /* Called from RCU critical section */
+ IOMMUTLBEntry address_space_get_iotlb_entry(AddressSpace *as, hwaddr addr,
+                                             bool is_write, MemTxAttrs attrs)
+ {
+-    MemoryRegionSection section;
++    MemoryRegionSection *section;
+     hwaddr xlat, page_mask;
+ 
+     /*
+@@ -542,13 +537,13 @@ IOMMUTLBEntry address_space_get_iotlb_entry(AddressSpace *as, hwaddr addr,
+                                     attrs);
+ 
+     /* Illegal translation */
+-    if (section.mr == &io_mem_unassigned) {
++    if (section->mr == &io_mem_unassigned) {
+         goto iotlb_fail;
+     }
+ 
+     /* Convert memory region offset into address space offset */
+-    xlat += section.offset_within_address_space -
+-        section.offset_within_region;
++    xlat += section->offset_within_address_space -
++        section->offset_within_region;
+ 
+     return (IOMMUTLBEntry) {
+         .target_as = as,
+@@ -569,13 +564,13 @@ MemoryRegion *flatview_translate(FlatView *fv, hwaddr addr, hwaddr *xlat,
+                                  MemTxAttrs attrs)
+ {
+     MemoryRegion *mr;
+-    MemoryRegionSection section;
++    MemoryRegionSection *section;
+     AddressSpace *as = NULL;
+ 
+     /* This can be MMIO, so setup MMIO bit. */
+     section = flatview_do_translate(fv, addr, xlat, plen, NULL,
+                                     is_write, true, &as, attrs);
+-    mr = section.mr;
++    mr = section->mr;
+ 
+     if (xen_enabled() && memory_access_is_direct(mr, is_write, attrs)) {
+         hwaddr page = ((addr & TARGET_PAGE_MASK) + TARGET_PAGE_SIZE) - addr;
+@@ -3618,7 +3613,7 @@ static inline MemoryRegion *address_space_translate_cached(
+     MemoryRegionCache *cache, hwaddr addr, hwaddr *xlat,
+     hwaddr *plen, bool is_write, MemTxAttrs attrs)
+ {
+-    MemoryRegionSection section;
++    MemoryRegionSection *section;
+     MemoryRegion *mr;
+     IOMMUMemoryRegion *iommu_mr;
+     AddressSpace *target_as;
+@@ -3636,7 +3631,7 @@ static inline MemoryRegion *address_space_translate_cached(
+     section = address_space_translate_iommu(iommu_mr, xlat, plen,
+                                             NULL, is_write, true,
+                                             &target_as, attrs);
+-    return section.mr;
++    return section->mr;
+ }
+ 
+ /* Called within RCU critical section.  */
 -- 
 2.34.1
 
