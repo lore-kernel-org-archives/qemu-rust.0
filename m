@@ -4,94 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DC6EC87FCA
-	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 15:11:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2A08C87FCF
+	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 15:12:30 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uk2HJ-0005JA-C0; Thu, 07 Aug 2025 11:11:37 -0400
+	id 1uk2Hn-0006QR-N9; Thu, 07 Aug 2025 11:12:09 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uk2HI-0005F1-0o
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 11:11:36 -0400
-Received: from mail-wr1-x42b.google.com ([2a00:1450:4864:20::42b])
+ id 1uk2He-0006B6-96
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 11:12:00 -0400
+Received: from mail-wr1-x435.google.com ([2a00:1450:4864:20::435])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uk2HG-0006G6-Hv
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 11:11:35 -0400
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3b8de6f7556so639361f8f.1
- for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 08:11:33 -0700 (PDT)
+ id 1uk2HX-0006Gx-JQ
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 11:11:57 -0400
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3b78bca0890so540164f8f.3
+ for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 08:11:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1754579491; x=1755184291; darn=nongnu.org;
+ d=linaro.org; s=google; t=1754579498; x=1755184298; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:message-id:date:user-agent
  :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OpqPnw6+VyeU3ESlPvYO8l3ftjOYPSRSgEpE+HLivKw=;
- b=ej3F7Aps/LGDBhMASrlGO2V8mc4ZtzIJZ0fFICy5MqTkvzZOsbZbVTIB2x/K75SGmS
- fYuBByRwSTrLcWGf+zPARC3hg8DIRWxNK+B/KxoxuT0v08LWKLI+yjOQ6kNLPUCfWPtd
- dX2vKXj0Skcu/LQ2Z9slMwySEg+Qp7MZdJ8t2RQ473AzBV1wbDYyQKtk1mV52Geo+XoU
- MbmInKf3flh0NIBjUppdPNiVDSVONsRLtdToadVmwZCqJJSgLcvtDcpLqAeYgg9BFjb1
- 4uVuSSmFnfLfZI3HFpJBqCkK4Lae29bJDhtqOJ7LE6H3rMgEXrEqfXm7LkVYR4bwVj9n
- 757Q==
+ bh=0nzZKHDdzB1VMGttSmHY8juU+cAh88BKNe6a+gQJg8A=;
+ b=o3wXlYN8C4Zy/utn11tYg1TxcmJAA74L9OK05A/E/aGsioZJNiWORDyRqhhkMmzaxc
+ XdxTeWr9H2AStog2uDxiDcmileG/skjE+3Efxa/b+/TLkOSGlXEXIvwNfMkgvXxwWeko
+ AwEOQWEvePcpDVSJNS9pg7xcrcbKXVB3SscxSELEUqeNFtSkvWsYqB2Rs69Q/GcGBoVA
+ 4HQxSVnLANylXbCdLJqMUv3Sv40Jq0D/QYT9qxJ9r7qT7SOaWznubsUvxuGmx143Zqx3
+ T4galqK50UHUkMCi1w0W0XObOQWPz+V1rn0030CRuK4/9q7d7NfHUVK0/3aKCi9RJ88b
+ ByDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754579491; x=1755184291;
+ d=1e100.net; s=20230601; t=1754579498; x=1755184298;
  h=content-transfer-encoding:mime-version:message-id:date:user-agent
  :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=OpqPnw6+VyeU3ESlPvYO8l3ftjOYPSRSgEpE+HLivKw=;
- b=jH57vEzYho0vlNTnU/WCnjaqodXxRdRLln1TN+f/X3fQQbInrhM/AFNiVO5Wd3EWfO
- /RZc61x69PbCzzgWNqoqjmISOQoh6HLEetFLEfNXbqgokxa3runGfqfFiTFBgfSRBgoY
- MEi9TA9csDaM2pQgfBMMp2p3BRLWmtKX8bU6LD9+QVjxv1H1CwNu+WzVR2IRjyf7En42
- 7cN/yfa6Wbn5cIYgsKCjbEfhcB2DvEDg0E3grxyr1v7iyHD+H2AFNw4xmUasm/NWVAnH
- VxXSLXPIVT06hXbNBhvmhg5I3BzomE9em4o9BactrtJ6DMuA8YcVudddb6xuOcHpdTb7
- PQDw==
+ bh=0nzZKHDdzB1VMGttSmHY8juU+cAh88BKNe6a+gQJg8A=;
+ b=sVZ2cqo5QyA4F/YKLIDKkBICcDhTiq+fTI/zhTG++k1kZUYlflKuKhALwj1ffIfnh7
+ Tq25Bf0WMJaH1Y0dldxdECYOqcCN1U7so2DLVmXqIp/Ek5Wcdsd5d0LX+feEccguzm3J
+ BkNlXxp+2TGdY2T36cf2+WAGtEamxlbdewfTjBum18lDCvXr30Q4Os5bCVy9MKiwjdri
+ QtmnircuvWoTlyyQH+qLhMwnyl/FnU97u0FSW4i/Tg8OtxYK8vxo+4fKZq7Uiv8dsCrC
+ 1rIabLAqHsXYxqxyr1FlWerOPuJX/FFvZHkntEVXcRhF4rPGaZ1RWuP0BbVe/gzNC4HP
+ 6TYQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUyroNnJqY8gHWAWAJHQc/w7Q+MZeq8U+kuwco05/DgtszYxwG8YLAUDkQo5g4jtsZgDTAAVimbyPI=@nongnu.org
-X-Gm-Message-State: AOJu0YwHtAgCU5zZjgfxTH++VYzNLA3BszoTdiQrNRMfUMpknL3kY71b
- V0pfs+7Q5byQ1LmQtJqhFoDbJ+zSzgw4F+rp8ddEPfQQXl9Fvh9HVmcIJl+S8N8+pZE=
-X-Gm-Gg: ASbGnctyXyHMPl6azJzlue8MGhdZPfln7DPiTjTG9zZe4VwHVuDpb7USdvdm9UORun6
- 8z7WSt1EuLFbUqTuArqfFvl/H2I8QGDyUMZfILSE71r1QDoRthOJYq7tnWQSi9UkD57xoMraNdM
- W7lH7x0YYfkX6FpExl16iMR+INaJRztoOEx7BBQ5xY/Y9ixtzs2//q8d+dXYcEE0WMJV4H7JWv0
- RRixb/MXXX7NHp4Gq8bSrvNBpy9+EO78Ei/cptFWE1vUwCdM450JDBqhpx8b2dJ5KGPSHTSuz9o
- bHMuj1cgNfGATutUtCxMWS81QiKfCXfZh1vyQdP8sx4PUekWU/xVEEwMeJ7jZv1qk6ZJHp6xAKy
- EJ2cWF1o/Lvt5aNCKjEbyYh4=
-X-Google-Smtp-Source: AGHT+IFPcAlVrWOhe1wWpOL+C9aoxPMdnOaOkN400JPEQlEfXdp6ztJhs6I9seGlcPSk/ZfWJ9MqIg==
-X-Received: by 2002:a05:6000:2f85:b0:3a8:38b4:1d55 with SMTP id
- ffacd0b85a97d-3b8f41d46bamr6417823f8f.28.1754579491517; 
- Thu, 07 Aug 2025 08:11:31 -0700 (PDT)
+ AJvYcCVCx3/sg3749iV1tV5ctVhoU4s1DdRAq2Eflm+ybjMPsfUy8O1sAuIvZg88Jq+hzpZQVfaHqM0CtP8=@nongnu.org
+X-Gm-Message-State: AOJu0Yzkp5A2E7G0i52EPpYZVa1zUEByieXtQ/0NHBtU03dr+lf8exGR
+ d8YR2S/mCXCATtHonlo7sy0lBLUsKqT11WW6ec9g2xQ1ZKqPPJ6sdCJ+0wa1lDTbG4VVnliDbsN
+ iaL7g
+X-Gm-Gg: ASbGncu93W81jxHNBT6EwiM8Xlvvv27LgJ4NwZ5YkiNU9725Fc0rf5qxtkbQosaVse6
+ qbmogvXFWMdBey4i0MbC9zUfA0WAZ3smWVUk9CPtwDO1ndftVuZ07JmBKe5KMl+IHPFsKhYfA5f
+ DvzHFcmf2Mjgr47SUIUzBNczhSlRFpE9VOfxOgNNzXNR+j5TmUth5DlM6oT0gq99eFXoXN0jbar
+ nbdVmVZroDCq9oqFk/RfpcVwRqdz0rLsJ+oLGhd/dPkLBxXtsX9oe6RGGYXq1ukwrEolDVXiIUL
+ T1uKYRfb4KWJICC8RPqFw/iV7fYPt/l/8fJxGMSxzS2XOAmtHbxTQmyl5NHQmcm/vk2fZV8HT9U
+ ukDmrbtI+v2cnOMmAYAWvp8o=
+X-Google-Smtp-Source: AGHT+IHd5WX/CSj6LtAJw4/lXm8cPEz/pOhzsLSNtyzDUH4QomuzJMZloRiSBVYMaPyNaT6telnZHA==
+X-Received: by 2002:a05:6000:2407:b0:3a3:63d3:369a with SMTP id
+ ffacd0b85a97d-3b9000839bbmr10981f8f.25.1754579497913; 
+ Thu, 07 Aug 2025 08:11:37 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-459dc2647f6sm83313575e9.2.2025.08.07.08.11.30
+ ffacd0b85a97d-3b79c3b9160sm27191581f8f.21.2025.08.07.08.11.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Aug 2025 08:11:30 -0700 (PDT)
+ Thu, 07 Aug 2025 08:11:37 -0700 (PDT)
 Received: from draig (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id A824F5F88A;
- Thu, 07 Aug 2025 16:11:29 +0100 (BST)
+ by draig.lan (Postfix) with ESMTP id 56D1E5F88A;
+ Thu, 07 Aug 2025 16:11:36 +0100 (BST)
 From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 Cc: qemu-devel@nongnu.org,  qemu-rust@nongnu.org,  pbonzini@redhat.com,
  zhao1.liu@intel.com
-Subject: Re: [PATCH 1/2] docs/devel/rust: Add mention of 128bit integers
-In-Reply-To: <20250807-rust-docs-add-128bit-mention-v1-1-1d8a1ece3a51@linaro.org>
- (Manos Pitsidianakis's message of "Thu, 07 Aug 2025 16:02:04 +0300")
+Subject: Re: [PATCH 2/2] MAINTAINERS: add Rust docs to qemu-rust entry
+In-Reply-To: <20250807-rust-docs-add-128bit-mention-v1-2-1d8a1ece3a51@linaro.org>
+ (Manos Pitsidianakis's message of "Thu, 07 Aug 2025 16:02:05 +0300")
 References: <20250807-rust-docs-add-128bit-mention-v1-0-1d8a1ece3a51@linaro.org>
- <20250807-rust-docs-add-128bit-mention-v1-1-1d8a1ece3a51@linaro.org>
+ <20250807-rust-docs-add-128bit-mention-v1-2-1d8a1ece3a51@linaro.org>
 User-Agent: mu4e 1.12.12; emacs 30.1
-Date: Thu, 07 Aug 2025 16:11:29 +0100
-Message-ID: <87bjoryxni.fsf@draig.linaro.org>
+Date: Thu, 07 Aug 2025 16:11:36 +0100
+Message-ID: <875xezyxnb.fsf@draig.linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::42b;
- envelope-from=alex.bennee@linaro.org; helo=mail-wr1-x42b.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::435;
+ envelope-from=alex.bennee@linaro.org; helo=mail-wr1-x435.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -109,12 +110,29 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 Manos Pitsidianakis <manos.pitsidianakis@linaro.org> writes:
 
-> FFI and 128bit integers are now stable in 1.89.0, add a mention in the
-> "missing" list.
+> Cc qemu-rust list when touching developer Rust docs
 >
 > Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
 Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+
+> ---
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a07086ed76213e3a204bbbf3a83137f1487e4b65..82011bb097fccac3dcc9df46c=
+db15afa41c44cbb 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3519,6 +3519,7 @@ Rust-related patches CC here
+>  L: qemu-rust@nongnu.org
+>  F: tests/docker/test-rust
+>  F: rust/
+> +F: docs/devel/rust.rst
+>=20=20
+>  SLIRP
+>  M: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
 --=20
 Alex Benn=C3=A9e
