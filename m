@@ -4,145 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 205C7C87FCA
-	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 14:13:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DC6EC87FCA
+	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 15:11:56 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uk1Mv-0004al-0N; Thu, 07 Aug 2025 10:13:22 -0400
+	id 1uk2HJ-0005JA-C0; Thu, 07 Aug 2025 11:11:37 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uk1Mo-0004VL-Rh
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 10:13:14 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uk1Mj-0004R4-Ku
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 10:13:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1754575986;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=TZeGEn5xHM1k/EW+W75gI6JAh/2Pw8L54gV9Jh0EXnc=;
- b=FWMMNZaWigSnCSpP6UIEcsXGr41rhqS/+IhA0NiHBQslchs5w713zBQ+bekIWM+iGHan1l
- EjPhFA1lsuRrhATvAWRu3xAEopMxdlZ+RRN2pGJ9XCsfK9XUP/aYXKMTm9VWrZmIoo9xKj
- IWIj8YsbqGZv2YY1biT+NiGDHPUQ56o=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-355-MU3wTGzKMty83ZOM0UQSWQ-1; Thu, 07 Aug 2025 10:13:04 -0400
-X-MC-Unique: MU3wTGzKMty83ZOM0UQSWQ-1
-X-Mimecast-MFC-AGG-ID: MU3wTGzKMty83ZOM0UQSWQ_1754575984
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-3b7931d3d76so672227f8f.1
- for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 07:13:04 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
+ id 1uk2HI-0005F1-0o
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 11:11:36 -0400
+Received: from mail-wr1-x42b.google.com ([2a00:1450:4864:20::42b])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
+ id 1uk2HG-0006G6-Hv
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 11:11:35 -0400
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3b8de6f7556so639361f8f.1
+ for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 08:11:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1754579491; x=1755184291; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OpqPnw6+VyeU3ESlPvYO8l3ftjOYPSRSgEpE+HLivKw=;
+ b=ej3F7Aps/LGDBhMASrlGO2V8mc4ZtzIJZ0fFICy5MqTkvzZOsbZbVTIB2x/K75SGmS
+ fYuBByRwSTrLcWGf+zPARC3hg8DIRWxNK+B/KxoxuT0v08LWKLI+yjOQ6kNLPUCfWPtd
+ dX2vKXj0Skcu/LQ2Z9slMwySEg+Qp7MZdJ8t2RQ473AzBV1wbDYyQKtk1mV52Geo+XoU
+ MbmInKf3flh0NIBjUppdPNiVDSVONsRLtdToadVmwZCqJJSgLcvtDcpLqAeYgg9BFjb1
+ 4uVuSSmFnfLfZI3HFpJBqCkK4Lae29bJDhtqOJ7LE6H3rMgEXrEqfXm7LkVYR4bwVj9n
+ 757Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754575983; x=1755180783;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=TZeGEn5xHM1k/EW+W75gI6JAh/2Pw8L54gV9Jh0EXnc=;
- b=Pf9jiQRF0uY5I0QFr7P52bedGho2PkAXn0ubqjz33b7JPWQVhGVbuxijOul1sEvrXS
- bUwp2IdS3tFBIX8IyjrH0oQBK2luXOjaPmvNrhNlU8lLdVmOfTGmvNs+X60AZMIkd/4R
- uU6EiG40nkYM6Acz0V03k+KuqioOcQnEf65KpIVv23aKYHibbfaXdyAnoqf7d3X/+iKR
- 8DuAlb/BrZoyk0pCqk6RLbvFWIRtmhK9YJv/Ijb6/gOeSiQvx8RTqSRoUrUDr4AFh23G
- PXoob9aCeEgGbPqTK0DsJUhVJLyAvT3PZ2mAjPw6m0FuqwW1Z+Tpk98m6hAL5zbf/5h8
- ojKA==
+ d=1e100.net; s=20230601; t=1754579491; x=1755184291;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=OpqPnw6+VyeU3ESlPvYO8l3ftjOYPSRSgEpE+HLivKw=;
+ b=jH57vEzYho0vlNTnU/WCnjaqodXxRdRLln1TN+f/X3fQQbInrhM/AFNiVO5Wd3EWfO
+ /RZc61x69PbCzzgWNqoqjmISOQoh6HLEetFLEfNXbqgokxa3runGfqfFiTFBgfSRBgoY
+ MEi9TA9csDaM2pQgfBMMp2p3BRLWmtKX8bU6LD9+QVjxv1H1CwNu+WzVR2IRjyf7En42
+ 7cN/yfa6Wbn5cIYgsKCjbEfhcB2DvEDg0E3grxyr1v7iyHD+H2AFNw4xmUasm/NWVAnH
+ VxXSLXPIVT06hXbNBhvmhg5I3BzomE9em4o9BactrtJ6DMuA8YcVudddb6xuOcHpdTb7
+ PQDw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXtSyjf4i0g8jY38fx0B2+SWO/pUB6md+DxULEEHWLw0iAkKZnbZPXvWeL6RK94SGvO0cwPw68SxOw=@nongnu.org
-X-Gm-Message-State: AOJu0YxiqqZSqwcqBe1Sjh4j+zrPP3cB/a3LjdM/8IYk3kGZYgpY7faZ
- iTp0eAvKChinK/y1xvE4q11tL2ejtmObFnOMIQ5QSJ4FBOZSaeslRD/ZGG7FNq8A0feb+Y0h/8e
- yaratxERJ6R2OdziEp9tuMdFB6TTEe69eJmi5bPYCaI6s5fQXYnS+ihY=
-X-Gm-Gg: ASbGncuxROUFn/9f8MO5CuVg+PG89PnQaOneZkVtlsz/QzpLkDGHwTqEWDRmDdb+jJc
- ZnhKwDY2zJR9sg0vzAG+ATjk3QNbh+LQCLKKcM75ChHgQiSAXGKg9ShRJA/dz7e0KNHTmhfavB/
- ssqlztwDXVTFaYmg6ieOU1yQdg+oft8gHZAOVBN1DStF4ho5UdxtOp7niZXs2GYRfBHJ6Alj8WT
- 99ECgeIgLh0UYsqDOkRRkoHtFZjh41cDGjhBwOvq9FnOFDJngWFTiWFdj4sKSws++6Q3Zx23Hcq
- DFO3LQi8R/b+8su2TFUNY6CnD3uQwkXAgXmkflSkw7RJ
-X-Received: by 2002:a05:6000:2204:b0:3b4:9721:2b2d with SMTP id
- ffacd0b85a97d-3b8f48de380mr5424929f8f.9.1754575983528; 
- Thu, 07 Aug 2025 07:13:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFIFCzEYBHd1ZGXQnwZIzcOzskL80owLj2MB3R97Q0u/w3GvlERiNbET4dj3HB6HsX4gjOD5w==
-X-Received: by 2002:a05:6000:2204:b0:3b4:9721:2b2d with SMTP id
- ffacd0b85a97d-3b8f48de380mr5424890f8f.9.1754575983050; 
- Thu, 07 Aug 2025 07:13:03 -0700 (PDT)
-Received: from [192.168.10.48] ([151.49.253.173])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-459dbba5210sm165256865e9.2.2025.08.07.07.13.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Aug 2025 07:13:02 -0700 (PDT)
-Message-ID: <a3272f93-8766-46a0-bda2-ddea777ef79c@redhat.com>
-Date: Thu, 7 Aug 2025 16:13:00 +0200
+ AJvYcCUyroNnJqY8gHWAWAJHQc/w7Q+MZeq8U+kuwco05/DgtszYxwG8YLAUDkQo5g4jtsZgDTAAVimbyPI=@nongnu.org
+X-Gm-Message-State: AOJu0YwHtAgCU5zZjgfxTH++VYzNLA3BszoTdiQrNRMfUMpknL3kY71b
+ V0pfs+7Q5byQ1LmQtJqhFoDbJ+zSzgw4F+rp8ddEPfQQXl9Fvh9HVmcIJl+S8N8+pZE=
+X-Gm-Gg: ASbGnctyXyHMPl6azJzlue8MGhdZPfln7DPiTjTG9zZe4VwHVuDpb7USdvdm9UORun6
+ 8z7WSt1EuLFbUqTuArqfFvl/H2I8QGDyUMZfILSE71r1QDoRthOJYq7tnWQSi9UkD57xoMraNdM
+ W7lH7x0YYfkX6FpExl16iMR+INaJRztoOEx7BBQ5xY/Y9ixtzs2//q8d+dXYcEE0WMJV4H7JWv0
+ RRixb/MXXX7NHp4Gq8bSrvNBpy9+EO78Ei/cptFWE1vUwCdM450JDBqhpx8b2dJ5KGPSHTSuz9o
+ bHMuj1cgNfGATutUtCxMWS81QiKfCXfZh1vyQdP8sx4PUekWU/xVEEwMeJ7jZv1qk6ZJHp6xAKy
+ EJ2cWF1o/Lvt5aNCKjEbyYh4=
+X-Google-Smtp-Source: AGHT+IFPcAlVrWOhe1wWpOL+C9aoxPMdnOaOkN400JPEQlEfXdp6ztJhs6I9seGlcPSk/ZfWJ9MqIg==
+X-Received: by 2002:a05:6000:2f85:b0:3a8:38b4:1d55 with SMTP id
+ ffacd0b85a97d-3b8f41d46bamr6417823f8f.28.1754579491517; 
+ Thu, 07 Aug 2025 08:11:31 -0700 (PDT)
+Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-459dc2647f6sm83313575e9.2.2025.08.07.08.11.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Aug 2025 08:11:30 -0700 (PDT)
+Received: from draig (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id A824F5F88A;
+ Thu, 07 Aug 2025 16:11:29 +0100 (BST)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Cc: qemu-devel@nongnu.org,  qemu-rust@nongnu.org,  pbonzini@redhat.com,
+ zhao1.liu@intel.com
+Subject: Re: [PATCH 1/2] docs/devel/rust: Add mention of 128bit integers
+In-Reply-To: <20250807-rust-docs-add-128bit-mention-v1-1-1d8a1ece3a51@linaro.org>
+ (Manos Pitsidianakis's message of "Thu, 07 Aug 2025 16:02:04 +0300")
+References: <20250807-rust-docs-add-128bit-mention-v1-0-1d8a1ece3a51@linaro.org>
+ <20250807-rust-docs-add-128bit-mention-v1-1-1d8a1ece3a51@linaro.org>
+User-Agent: mu4e 1.12.12; emacs 30.1
+Date: Thu, 07 Aug 2025 16:11:29 +0100
+Message-ID: <87bjoryxni.fsf@draig.linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 00/26] rust/memory: Integrate the vm-memory API from rust-vmm
-To: Zhao Liu <zhao1.liu@intel.com>, Peter Xu <peterx@redhat.com>,
- David Hildenbrand <david@redhat.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Thomas Huth <thuth@redhat.com>, Junjie Mao <junjie.mao@hotmail.com>,
- Hanna Reitz <hreitz@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
- Dapeng Mi <dapeng1.mi@linux.intel.com>,
- Chuanxiao Dong <chuanxiao.dong@intel.com>
-References: <20250807123027.2910950-1-zhao1.liu@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <20250807123027.2910950-1-zhao1.liu@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 7LJCltmIuYNi0Jw-BizBNRuTJes7cEcOYwNSq2qUmGc_1754575984
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::42b;
+ envelope-from=alex.bennee@linaro.org; helo=mail-wr1-x42b.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -158,65 +107,16 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-[Adding Hanna who's been working on vm-memory]
+Manos Pitsidianakis <manos.pitsidianakis@linaro.org> writes:
 
-On 8/7/25 14:30, Zhao Liu wrote:
-> Hi,
-> 
-> This RFC series explores integrating the vm-memory API into QEMU's
-> rust/memory bindings.
-> 
-> Thanks to Paolo and Manos's many suggestions and feedback, I have
-> resolved many issues over the past few months, but there are still
-> some open issues that I would like to discuss.
-> 
-> This series finally provides the following safe interfaces in Rust:
->   * AddressSpace::write in Rust <=> address_space_write in C
->     - **but only** supports MEMTXATTRS_UNSPECIFIED
-> 
->   * AddressSpace::read in Rust <=> address_space_read_full in C
->     - **but only** supports MEMTXATTRS_UNSPECIFIED.
-> 
->   * AddressSpace::store in Rust <=> address_space_st{size} in C
->     - **but only** supports MEMTXATTRS_UNSPECIFIED and native endian.
-> 
->   * AddressSpace::load in Rust <=> address_space_ld{size} in C
->     - **but only** supports MEMTXATTRS_UNSPECIFIED and native endian.
+> FFI and 128bit integers are now stable in 1.89.0, add a mention in the
+> "missing" list.
+>
+> Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
-Endianness can be handled by BeNN and LeNN.  For MemTxAttrs we can use 
-Bytes<(GuestAddress, MemTxAttrs)> (a variant on something you mention 
-below).
+Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
 
-Thinking out loud: maybe if we do our implementation in 
-Bytes<(GuestAddress, MemTxAttrs)>, and Bytes<GuestAddress>::try_access 
-wraps Bytes<(GuestAddress, MemTxAttrs)>, your downstream-only changes 
-are not needed anymore?
-
-> And this series involves changes mainly to these three parts:
->   * NEW QEMU memory APIs wrapper at C side.
->   * Extra changes for vm-memory (downstream for now).
->   * NEW QEMU memory bindings/APIs based on vm-memory at Rust side.
-> 
-> Although the number of line changes appears to be significant, more
-> than half of them are documentation and comments.
-Yep, thanks for writing them.
-
-This is a good RFC, it's complete enough to show the challenges and the 
-things that are missing stand up easily.
-
-I'll look into what vm-memory is missing so that we can simplify QEMU's 
-code further, but the basic traits match which is nice.  And the final 
-outcome, which is essentially:
-
-     let (addr, value) = (GuestAddress(self.fsb >> 32),
-                          Le32(self.fsb as u32));
-     ADDRESS_SPACE_MEMORY.memory().store(addr, value);
-
-is as clean as it can be, if anything a bit wordy due to the 
-GuestAddress "newtype" wrapper.  (If we decide it's too bad, the 
-convenience methods in AddressSpace can automatically do the 
-GuestAddress conversion...)
-
-Paolo
-
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
 
