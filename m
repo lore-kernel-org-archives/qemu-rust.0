@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B2C6C87FCF
-	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 12:11:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D7ADC87FCA
+	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 12:12:26 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1ujzRw-00024D-MQ; Thu, 07 Aug 2025 08:10:24 -0400
+	id 1ujzRx-00025D-09; Thu, 07 Aug 2025 08:10:25 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1ujzQv-0007eF-ES; Thu, 07 Aug 2025 08:09:24 -0400
+ id 1ujzRJ-0008Al-F9; Thu, 07 Aug 2025 08:09:46 -0400
 Received: from mgamail.intel.com ([192.198.163.15])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1ujzQs-000545-LL; Thu, 07 Aug 2025 08:09:20 -0400
+ id 1ujzRH-0005AS-Gp; Thu, 07 Aug 2025 08:09:45 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1754568559; x=1786104559;
+ t=1754568583; x=1786104583;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=te8bf6C67vk8RNoSAtSd8hbkT5L5XunTcV4T9AUV3uM=;
- b=YAMMg/GTKswXyWK8ybmv0y9Bd5WH5rsAgKB5+hu8zaxtSFIVc3LWbh4F
- nOF4s71V4z5myIClJeFkf6ZKygt7JR6RwmR9lunRjZ2IpSNP+td6zZbM9
- hLUhie0F1BSj7L+OvJaN3tXjqsKxMpI9y2WRTFYPW9VVrrDQSu+gvAMQ2
- 5f59Uuzwlv+EiAR7+X+My/gEyVV9A+LvVcxHyQus5QRAPCYnioW0KJvHC
- fT3p8k58GNFJ4Go8TSTpl1FdNPe+B70tzKTJxKrBO8Kk099P44deD69DC
- FZiQ9Rw5hGDJnmTmB4FgToRh3IWz135K5QZ8Pe0VSJYomn68/dmem8ioQ g==;
-X-CSE-ConnectionGUID: 5b9zeRWyR9WEmQRGQLfozQ==
-X-CSE-MsgGUID: ozu0uv63SCydiRzM1Zfq4Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11514"; a="57036724"
-X-IronPort-AV: E=Sophos;i="6.17,271,1747724400"; d="scan'208";a="57036724"
+ bh=0eAU/mU1IVyjxZrqAptdRp3Py54WmvSs7NPummwpoe0=;
+ b=adfinu97wpid4tu8RwagqTUEC9YSyE7kW/Hm+J3G5o7o0bJwgedPF2ig
+ zMoMt1pgeJdKWxRFAyOOHDljTPa4er5eAAL5eJOGEvnXGLiEK0lufvRZs
+ G2XbPeya8rrrcE8WP1CmBt+o8+YwYtsa6Lswd84620+3LJ3xIYfCTvmdZ
+ flgZ9CmYS26nbx1kswC8Qs4EPXIJMzZGizQ/PCvVFK/wBieoVV4c3xVRs
+ i8z8lCqSV8aF5ShARKDw6+u1ymjKWc5Eref2aw37c4L7q5YrgE3NJCrps
+ bC2tjmZ7kNLpC8eg/BOVs7042zEjkWez9DwUtY//wmtM9EoAygOdq3VkA Q==;
+X-CSE-ConnectionGUID: ZfHCbucORMSzo8jsj30oYg==
+X-CSE-MsgGUID: 0/aJEPCBQB+/FXvm0mZCCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11514"; a="57036799"
+X-IronPort-AV: E=Sophos;i="6.17,271,1747724400"; d="scan'208";a="57036799"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2025 05:09:17 -0700
-X-CSE-ConnectionGUID: D0LDIIGET8GgV/VRXuVkWQ==
-X-CSE-MsgGUID: 25UiyN6tRoSzRkNQFw28KQ==
+ 07 Aug 2025 05:09:41 -0700
+X-CSE-ConnectionGUID: eOAHi3cMTLWg6dG0LYe7YQ==
+X-CSE-MsgGUID: Q8vO1LQFT5WLmLedjY/kQg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,271,1747724400"; d="scan'208";a="164701063"
+X-IronPort-AV: E=Sophos;i="6.17,271,1747724400"; d="scan'208";a="164701129"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by orviesa009.jf.intel.com with ESMTP; 07 Aug 2025 05:09:14 -0700
+ by orviesa009.jf.intel.com with ESMTP; 07 Aug 2025 05:09:38 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
  David Hildenbrand <david@redhat.com>,
@@ -53,9 +53,9 @@ To: Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Dapeng Mi <dapeng1.mi@linux.intel.com>,
  Chuanxiao Dong <chuanxiao.dong@intel.com>, Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC 05/26] subprojects: Add winapi-i686-pc-windows-gnu crate
-Date: Thu,  7 Aug 2025 20:30:06 +0800
-Message-Id: <20250807123027.2910950-6-zhao1.liu@intel.com>
+Subject: [RFC 12/26] rcu: Make rcu_read_lock & rcu_read_unlock not inline
+Date: Thu,  7 Aug 2025 20:30:13 +0800
+Message-Id: <20250807123027.2910950-13-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250807123027.2910950-1-zhao1.liu@intel.com>
 References: <20250807123027.2910950-1-zhao1.liu@intel.com>
@@ -69,8 +69,8 @@ X-Spam_bar: ----
 X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
- TVD_SPACE_RATIO=0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -86,96 +86,126 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
+Make rcu_read_lock & rcu_read_unlock not inline, then bindgen could
+generate the bindings.
+
+Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- scripts/archive-source.sh                     |  3 ++-
- scripts/make-release                          |  3 ++-
- subprojects/.gitignore                        |  1 +
- .../meson.build                               | 20 +++++++++++++++++++
- .../winapi-i686-pc-windows-gnu-0.4-rs.wrap    | 10 ++++++++++
- 5 files changed, 35 insertions(+), 2 deletions(-)
- create mode 100644 subprojects/packagefiles/winapi-i686-pc-windows-gnu-0.4-rs/meson.build
- create mode 100644 subprojects/winapi-i686-pc-windows-gnu-0.4-rs.wrap
+ include/qemu/rcu.h | 45 ++-------------------------------------------
+ util/rcu.c         | 43 +++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 45 insertions(+), 43 deletions(-)
 
-diff --git a/scripts/archive-source.sh b/scripts/archive-source.sh
-index 3ae064f65263..2dff5d3d89fe 100755
---- a/scripts/archive-source.sh
-+++ b/scripts/archive-source.sh
-@@ -31,7 +31,8 @@ subprojects="keycodemapdb libvfio-user berkeley-softfloat-3
-   bilge-impl-0.2-rs either-1-rs foreign-0.3-rs itertools-0.11-rs
-   libc-0.2-rs proc-macro2-1-rs
-   proc-macro-error-1-rs proc-macro-error-attr-1-rs quote-1-rs
--  syn-2-rs thiserror-1-rs thiserror-impl-1-rs unicode-ident-1-rs"
-+  syn-2-rs thiserror-1-rs thiserror-impl-1-rs unicode-ident-1-rs
-+  winapi-i686-pc-windows-gnu-0.4-rs"
- sub_deinit=""
+diff --git a/include/qemu/rcu.h b/include/qemu/rcu.h
+index 020dbe4d8b77..34d955204b81 100644
+--- a/include/qemu/rcu.h
++++ b/include/qemu/rcu.h
+@@ -75,49 +75,8 @@ struct rcu_reader_data {
  
- function cleanup() {
-diff --git a/scripts/make-release b/scripts/make-release
-index 73a14c12bdeb..f7a1481f856a 100755
---- a/scripts/make-release
-+++ b/scripts/make-release
-@@ -44,7 +44,8 @@ SUBPROJECTS="libvfio-user keycodemapdb berkeley-softfloat-3
-   bilge-impl-0.2-rs either-1-rs foreign-0.3-rs itertools-0.11-rs
-   libc-0.2-rs proc-macro2-1-rs
-   proc-macro-error-1-rs proc-macro-error-attr-1-rs quote-1-rs
--  syn-2-rs thiserror-1-rs thiserror-impl-1-rs unicode-ident-1-rs"
-+  syn-2-rs thiserror-1-rs thiserror-impl-1-rs unicode-ident-1-rs
-+  winapi-i686-pc-windows-gnu-0.4-rs"
+ QEMU_DECLARE_CO_TLS(struct rcu_reader_data, rcu_reader)
  
- src="$1"
- version="$2"
-diff --git a/subprojects/.gitignore b/subprojects/.gitignore
-index 3b09ab42da08..838409353fca 100644
---- a/subprojects/.gitignore
-+++ b/subprojects/.gitignore
-@@ -22,3 +22,4 @@
- /thiserror-1.0.65
- /thiserror-impl-1.0.65
- /unicode-ident-1.0.12
-+/winapi-i686-pc-windows-gnu-0.4.0
-diff --git a/subprojects/packagefiles/winapi-i686-pc-windows-gnu-0.4-rs/meson.build b/subprojects/packagefiles/winapi-i686-pc-windows-gnu-0.4-rs/meson.build
-new file mode 100644
-index 000000000000..5ae1b87403d2
---- /dev/null
-+++ b/subprojects/packagefiles/winapi-i686-pc-windows-gnu-0.4-rs/meson.build
-@@ -0,0 +1,20 @@
-+project('winapi-i686-pc-windows-gnu-0.4-rs', 'rust',
-+ meson_version: '>=1.5.0',
-+ version: '0.4.0',
-+ license: 'MIT OR Apache-2.0',
-+ default_options: [])
+-static inline void rcu_read_lock(void)
+-{
+-    struct rcu_reader_data *p_rcu_reader = get_ptr_rcu_reader();
+-    unsigned ctr;
+-
+-    if (p_rcu_reader->depth++ > 0) {
+-        return;
+-    }
+-
+-    ctr = qatomic_read(&rcu_gp_ctr);
+-    qatomic_set(&p_rcu_reader->ctr, ctr);
+-
+-    /*
+-     * Read rcu_gp_ptr and write p_rcu_reader->ctr before reading
+-     * RCU-protected pointers.
+-     */
+-    smp_mb_placeholder();
+-}
+-
+-static inline void rcu_read_unlock(void)
+-{
+-    struct rcu_reader_data *p_rcu_reader = get_ptr_rcu_reader();
+-
+-    assert(p_rcu_reader->depth != 0);
+-    if (--p_rcu_reader->depth > 0) {
+-        return;
+-    }
+-
+-    /* Ensure that the critical section is seen to precede the
+-     * store to p_rcu_reader->ctr.  Together with the following
+-     * smp_mb_placeholder(), this ensures writes to p_rcu_reader->ctr
+-     * are sequentially consistent.
+-     */
+-    qatomic_store_release(&p_rcu_reader->ctr, 0);
+-
+-    /* Write p_rcu_reader->ctr before reading p_rcu_reader->waiting.  */
+-    smp_mb_placeholder();
+-    if (unlikely(qatomic_read(&p_rcu_reader->waiting))) {
+-        qatomic_set(&p_rcu_reader->waiting, false);
+-        qemu_event_set(&rcu_gp_event);
+-    }
+-}
+-
++void rcu_read_lock(void);
++void rcu_read_unlock(void);
+ void synchronize_rcu(void);
+ 
+ /*
+diff --git a/util/rcu.c b/util/rcu.c
+index b703c86f15a3..2dfd82796e1e 100644
+--- a/util/rcu.c
++++ b/util/rcu.c
+@@ -141,6 +141,49 @@ static void wait_for_readers(void)
+     QLIST_SWAP(&registry, &qsreaders, node);
+ }
+ 
++void rcu_read_lock(void)
++{
++    struct rcu_reader_data *p_rcu_reader = get_ptr_rcu_reader();
++    unsigned ctr;
 +
-+lib = static_library(
-+  'winapi-i686-pc-windows-gnu',
-+  'src/lib.rs',
-+  override_options : ['rust_std=2021', 'build.rust_std=2021'],
-+  rust_abi : 'rust',
-+  rust_args: ['--cap-lints', 'allow'],
-+  dependencies: [thiserror_rs],
-+)
++    if (p_rcu_reader->depth++ > 0) {
++        return;
++    }
 +
-+dep = declare_dependency(
-+  link_with : [lib],
-+)
++    ctr = qatomic_read(&rcu_gp_ctr);
++    qatomic_set(&p_rcu_reader->ctr, ctr);
 +
-+meson.override_dependency('winapi-i686-pc-windows-gnu-0.4-rs', dep)
-diff --git a/subprojects/winapi-i686-pc-windows-gnu-0.4-rs.wrap b/subprojects/winapi-i686-pc-windows-gnu-0.4-rs.wrap
-new file mode 100644
-index 000000000000..8ec2f2351d9e
---- /dev/null
-+++ b/subprojects/winapi-i686-pc-windows-gnu-0.4-rs.wrap
-@@ -0,0 +1,10 @@
-+[wrap-file]
-+directory = winapi-i686-pc-windows-gnu-0.4.0
-+source_url = https://crates.io/api/v1/crates/winapi-i686-pc-windows-gnu/0.4.0/download
-+source_filename = winapi-i686-pc-windows-gnu-0.4.0.tar.gz
-+source_hash = ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6
-+#method = cargo
-+patch_directory = winapi-i686-pc-windows-gnu-0.4-rs
++    /*
++     * Read rcu_gp_ptr and write p_rcu_reader->ctr before reading
++     * RCU-protected pointers.
++     */
++    smp_mb_placeholder();
++}
 +
-+# bump this version number on every change to meson.build or the patches:
-+# v2
++void rcu_read_unlock(void)
++{
++    struct rcu_reader_data *p_rcu_reader = get_ptr_rcu_reader();
++
++    assert(p_rcu_reader->depth != 0);
++    if (--p_rcu_reader->depth > 0) {
++        return;
++    }
++
++    /* Ensure that the critical section is seen to precede the
++     * store to p_rcu_reader->ctr.  Together with the following
++     * smp_mb_placeholder(), this ensures writes to p_rcu_reader->ctr
++     * are sequentially consistent.
++     */
++    qatomic_store_release(&p_rcu_reader->ctr, 0);
++
++    /* Write p_rcu_reader->ctr before reading p_rcu_reader->waiting.  */
++    smp_mb_placeholder();
++    if (unlikely(qatomic_read(&p_rcu_reader->waiting))) {
++        qatomic_set(&p_rcu_reader->waiting, false);
++        qemu_event_set(&rcu_gp_event);
++    }
++}
++
+ void synchronize_rcu(void)
+ {
+     QEMU_LOCK_GUARD(&rcu_sync_lock);
 -- 
 2.34.1
 
