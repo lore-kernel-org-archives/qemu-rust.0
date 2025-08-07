@@ -4,82 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBC67C87FCF
-	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 13:57:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B6CDC87FCF
+	for <qemu-rust@archiver.kernel.org>; Thu,  7 Aug 2025 13:59:47 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uk17Y-0005a6-76; Thu, 07 Aug 2025 09:57:28 -0400
+	id 1uk19g-0001x8-9j; Thu, 07 Aug 2025 09:59:40 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uk17W-0005XO-TC
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:57:26 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1uk19Z-0001si-Tr
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:59:33 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uk17T-0001D8-Gk
- for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:57:26 -0400
+ id 1uk19Y-0001Uf-5N
+ for qemu-rust@nongnu.org; Thu, 07 Aug 2025 09:59:33 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1754575042;
+ s=mimecast20190719; t=1754575171;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=veE0YXU9ZdxW/BhZLiaGxGzPpaO9gN/is2WgVHdvubc=;
- b=e10SRB2NyHFLvBul33smI4Xv/6c1a5goxzPYnlPzTbd6J6geZcKFWTA3itoUWSMUE2Seo5
- rZYgnuG0tVauxfDsFLe7/IBeJ3h7Ufet4vw6ioNYiVDzyxaKB+EMI5IIU28L4i8B3wFPVy
- x5eObKZF3Of7tSA3ssnp/DemFAcsmmA=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=w4mC43sdkOYN8DO8xZVfIe3ZNV+4qeNeenNNdIx7M3Q=;
+ b=WKcv2z3vVjHgrOt6PvStuccShzOrx3TVNjjAjz/6ynFhiG2llIFKdnvpKqnFkCMnJg8p2T
+ yVTm6DgghMQOL5wKFX2JhFS2is+DvprU9SrHtfuSGpe9SwaBVC/l1TRKO2cZbz/WV1UOoJ
+ xA6Xt3WfR/TEoNQnCKzWBSTc8MAaDQU=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-168-Hhc8i2JSP5OKE0vam-WuLQ-1; Thu, 07 Aug 2025 09:57:21 -0400
-X-MC-Unique: Hhc8i2JSP5OKE0vam-WuLQ-1
-X-Mimecast-MFC-AGG-ID: Hhc8i2JSP5OKE0vam-WuLQ_1754575040
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-3b78b88ecfeso522134f8f.3
- for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 06:57:20 -0700 (PDT)
+ us-mta-459-0vZ4S3R0N7m8sjEkvfZfLg-1; Thu, 07 Aug 2025 09:59:29 -0400
+X-MC-Unique: 0vZ4S3R0N7m8sjEkvfZfLg-1
+X-Mimecast-MFC-AGG-ID: 0vZ4S3R0N7m8sjEkvfZfLg_1754575169
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-3b785d52c19so467367f8f.1
+ for <qemu-rust@nongnu.org>; Thu, 07 Aug 2025 06:59:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754575040; x=1755179840;
+ d=1e100.net; s=20230601; t=1754575169; x=1755179969;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=veE0YXU9ZdxW/BhZLiaGxGzPpaO9gN/is2WgVHdvubc=;
- b=PQW6+CyXhMDJj0uxywqtOSeGC27V42Qb4dM0bNWfKu2Zu1UySFBj2UaBeInZANX7yy
- 27KocHIV2DUTdhuR/tsbc9afzGFL1YVd/eL5prZ7pnRyyi6CDLKdifaTOGNPYDhLbuKN
- DQMeF09d969yoCl8t3A/NLi8jVtgihFuYOq2xsXy6JmyXptaa+xv/5E51+xOXzb1BlfY
- DIzwJrMdFd8NZFnf//O1sdP175s0Fs79lU2JPL+492RzjZ6ksfQoImKeyuTLCG5Dkq9R
- LTh57x6mVWMO2bViSu5kmM1f680wbuh308UaCGeyetpFN8ORzGLQVlg1zZh/aTDrXrEi
- G+2A==
+ bh=w4mC43sdkOYN8DO8xZVfIe3ZNV+4qeNeenNNdIx7M3Q=;
+ b=PrxaqBzdVPr6ZuJCA7fafsR+bl8ClkDAm1oiNoC7kwI3KZFaBUexokJDx4K2yypOvY
+ LDGFcJFBmN84M6MkVXJmvhL/2VHHCbIan+9y9ly/asAxZTJWufv0JeKbkMExJGLVT5XV
+ zwzB0yiirU+A5do6ePerVy0zb0HecX1n2YLSAwlvJwDFauG848cRDxjiD/+ypCd4Fbvz
+ KMgiELscgUaaHiWyTARRGNxeS0dnbkjNgXl74cxg5fSphwtJafPLQoYw7/8EA2tcsyJJ
+ mzSm0zRzNCSZ4nIfxRn57sFVosnrcXGjtUMcmSHF96kqJ48YPtCr4dMxs/U9Lm1VYdVu
+ W3Hw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXEmyPbMGGXcEz3SQyoRrPc0TXtIb3WuRlNHUCV6QJnxRH3iWZ8V0ZVNaj3yqW0NQXuhqSKYH9K/kg=@nongnu.org
-X-Gm-Message-State: AOJu0YxJQ2IRs0DJOxJK7DgxOpBcJlhHi7W1pU6mCqOApqYGkq5oq5Hy
- xEqBscs8BjuzGizyd8ps2zYR+m9l/JokdzVH7LgrAMBRdBb8T7apDKQaUXWS7F08GACedEZVqx3
- y2sc2VuyrjaLyGCci/NCoVhRTI5OS4DhwEJ8fCa6saZ1wp+zgxVPAtbA=
-X-Gm-Gg: ASbGnctCUwiiGjNClLIZ6WrDEeVVvNf0c1pMMDrEZuXNInmqi4hLi/8yfjPH6AkjP5n
- k0ucJVnI1qD0gK67fe8vlCJR/0S7j83QI3KqptJSd39Ii+ODD16zwtVS3Tm6u7HrlkQhOm8X85T
- aTORC3vouFVNVI+x1RIbusvBUt6aQa+VficebYF5kpwLEM/Yzo5Zrgu987KhnIdOwI29W7hJ0JF
- tcxSvwuScOv3OFT+rZeK5E9rd9Y3/E2v5EcwK5e6tPR0Uh69Zdf4lXJU4O4/TyX11SglTsJMQNe
- 9QbFXouHpKTcfHbntq6L9VzaeebZ2PK+JffGPp0z35xe
-X-Received: by 2002:adf:fac6:0:b0:3b8:ff39:486d with SMTP id
- ffacd0b85a97d-3b8ff394bb9mr931388f8f.8.1754575039876; 
- Thu, 07 Aug 2025 06:57:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHXYwZoGNhakMxRJpYivC+7uq1cW0gVwDnE4VKL/NXOOs4ZMWf4zIuaDjvfzTtVOw3TIhYo9A==
-X-Received: by 2002:adf:fac6:0:b0:3b8:ff39:486d with SMTP id
- ffacd0b85a97d-3b8ff394bb9mr931369f8f.8.1754575039368; 
- Thu, 07 Aug 2025 06:57:19 -0700 (PDT)
+ AJvYcCU8I6KiSBhSGXw2IlJhksay3LfcK5S10RTlv4WgkUFLMBOPsAJzX56GAF7P4Ukkvwgh9JhV3dqZNSw=@nongnu.org
+X-Gm-Message-State: AOJu0YxgsEa+WBBaE7zKm37bCBTKTeOPE9S8NOfapTvCVEJQymJSEe1x
+ hr0yDkHKgBgJTx5tjJtF0LcaPLY9BEwgzEDaXqhR6uH9b2vicNzpBvc2zNYM3Im+fWUGeMACAif
+ uoZemQMhCDbMDBFLgS/Jtc8chSajE5PpEfqtuPwMQ+gATrIiPPwLGAoQ=
+X-Gm-Gg: ASbGncuhpads6PzvlfeH98Kc8O2j5t3sbx6cKMJH/z+Ru2ukM49brWI+20OtQt1KV0y
+ J27x2aGkxLlGVQWdJ8F3h2yXTegSVmgu3ilKCZZXSe17kPOUh4eI0J/9tQQtPYi95aouwoOSXJV
+ fMZvf1aWpAuQxF/dEiBjjlGZh34bkMt8L4sunDxe8Xw2Txym/0766AeJh509D8QMb2mt2L6Et/8
+ gKme26LxjNVNsKRKSu2MmE584u4kl7rqhkOPhx4LKeLl2VZ6CwZxjdDrJXTuaAoOWCdWQhuq93F
+ eYPIcLwBUCyFkASqjikcM81/BFobk1pWnl9BgzBKL+IS
+X-Received: by 2002:a05:6000:24ca:b0:3b7:97c8:da97 with SMTP id
+ ffacd0b85a97d-3b8f4924341mr5103684f8f.43.1754575168570; 
+ Thu, 07 Aug 2025 06:59:28 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH4bYybHt6OpehfRrH8E4W3KmHSZkyO01XruguXVMOhUqdH2pZvclXBad/QDtSQsDWetWsHlA==
+X-Received: by 2002:a05:6000:24ca:b0:3b7:97c8:da97 with SMTP id
+ ffacd0b85a97d-3b8f4924341mr5103655f8f.43.1754575168145; 
+ Thu, 07 Aug 2025 06:59:28 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.253.173])
  by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-458bd5a0f9bsm127902595e9.0.2025.08.07.06.57.18
+ 5b1f17b1804b1-459ded356b9sm162899795e9.12.2025.08.07.06.59.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Aug 2025 06:57:18 -0700 (PDT)
-Message-ID: <beab841b-9c69-43d2-b996-879eee9e1120@redhat.com>
-Date: Thu, 7 Aug 2025 15:57:17 +0200
+ Thu, 07 Aug 2025 06:59:27 -0700 (PDT)
+Message-ID: <d144ae17-afe3-4578-a875-79c1d6a4d723@redhat.com>
+Date: Thu, 7 Aug 2025 15:59:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 16/26] memory: Make flatview_do_translate() return a pointer
- to MemoryRegionSection
+Subject: Re: [RFC 10/26] subprojects/vm-memory: Patch vm-memory for QEMU
+ memory backend
 To: Zhao Liu <zhao1.liu@intel.com>, Peter Xu <peterx@redhat.com>,
  David Hildenbrand <david@redhat.com>,
  =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
@@ -90,7 +90,7 @@ Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Dapeng Mi <dapeng1.mi@linux.intel.com>,
  Chuanxiao Dong <chuanxiao.dong@intel.com>
 References: <20250807123027.2910950-1-zhao1.liu@intel.com>
- <20250807123027.2910950-17-zhao1.liu@intel.com>
+ <20250807123027.2910950-11-zhao1.liu@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -127,14 +127,14 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20250807123027.2910950-17-zhao1.liu@intel.com>
+In-Reply-To: <20250807123027.2910950-11-zhao1.liu@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: oQzpu72jt3EQFQ9R3LbnwuAWhzPkWFnTnwqLN9unBvs_1754575040
+X-Mimecast-MFC-PROC-ID: 2MuoYhnoSYKEirOwkzOLS6daLie_laWsvuio2mqeqDY_1754575169
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
@@ -143,7 +143,7 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -160,22 +160,42 @@ Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 On 8/7/25 14:30, Zhao Liu wrote:
-> Rust side will use cell::Opaque<> to hide details of C structure, and
-> this could help avoid the direct operation on C memory from Rust side.
+> Add 2 patches to support QEMU memory backend implementation.
 > 
-> Therefore, it's necessary to wrap a translation binding and make it only
-> return the pointer to MemoryRegionSection, instead of the copy.
+> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+> ---
+>   .../packagefiles/vm-memory-0.16-rs/0001.diff  |  81 +++++++++++++
+>   .../packagefiles/vm-memory-0.16-rs/0002.diff  | 111 ++++++++++++++++++
+>   subprojects/vm-memory-0.16-rs.wrap            |   2 +
+>   3 files changed, 194 insertions(+)
+>   create mode 100644 subprojects/packagefiles/vm-memory-0.16-rs/0001.diff
+>   create mode 100644 subprojects/packagefiles/vm-memory-0.16-rs/0002.diff
 > 
-> As the first step, make flatview_do_translate return a pointer to
-> MemoryRegionSection, so that we can build a wrapper based on it.
+> diff --git a/subprojects/packagefiles/vm-memory-0.16-rs/0001.diff b/subprojects/packagefiles/vm-memory-0.16-rs/0001.diff
+> new file mode 100644
+> index 000000000000..037193108d45
+> --- /dev/null
+> +++ b/subprojects/packagefiles/vm-memory-0.16-rs/0001.diff
+> @@ -0,0 +1,81 @@
+> +From 298f8ba019b2fe159fa943e0ae4dfd3c83ee64e0 Mon Sep 17 00:00:00 2001
+> +From: Zhao Liu <zhao1.liu@intel.com>
+> +Date: Wed, 6 Aug 2025 11:31:11 +0800
+> +Subject: [PATCH 1/2] guest_memory: Add a marker tarit to implement
+> + Bytes<GuestAddress> for GuestMemory
 
-Independent of Rust, doing the copy as late as possible is good, but 
-make it return a "const MemoryRegionSection*" so that there's no risk of 
-overwriting data.  Hopefully this does not show a bigger problem!
+This was a bit surprising.  Maybe this is something where GuestMemory 
+needs some extra flexibility.
+
+> @@ -0,0 +1,111 @@
+> +From 2af7ea12a589fde619690e5060c01710cb6f2e0e Mon Sep 17 00:00:00 2001
+> +From: Zhao Liu <zhao1.liu@intel.com>
+> +Date: Wed, 6 Aug 2025 14:27:14 +0800
+> +Subject: [PATCH 2/2] guest_memory: Add is_write argument for
+> + GuestMemory::try_access()
+
+This should be fine.  But Hanna is also working on IOMMU so maybe this 
+won't be needed!
 
 Paolo
-
-> In addtion, add a global variable `unassigned_section` to help get a
-> pointer to an invalid MemoryRegionSection.
 
 
