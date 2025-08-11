@@ -4,57 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCAB8C87FDB
-	for <qemu-rust@archiver.kernel.org>; Mon, 11 Aug 2025 14:30:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30603CA0ED1
+	for <qemu-rust@archiver.kernel.org>; Mon, 11 Aug 2025 16:18:16 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1ulTXJ-0002Nn-Pj; Mon, 11 Aug 2025 10:30:12 -0400
+	id 1ulVDk-000479-Fr; Mon, 11 Aug 2025 12:18:00 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1ulTX2-0002J0-10
- for qemu-rust@nongnu.org; Mon, 11 Aug 2025 10:29:49 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1ulVDi-00046Z-71
+ for qemu-rust@nongnu.org; Mon, 11 Aug 2025 12:17:58 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1ulTWw-0007Nd-OX
- for qemu-rust@nongnu.org; Mon, 11 Aug 2025 10:29:47 -0400
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1ulVDZ-00012d-E5
+ for qemu-rust@nongnu.org; Mon, 11 Aug 2025 12:17:57 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1754922581;
+ s=mimecast20190719; t=1754929068;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=TUk+oxQqP3+1Tw1ir7+gMc1fhS/zGQAqfeWjeuFoIrM=;
- b=POPVm435H1AnRNnRy2cFOxSTLGGxcV7FbXMqo5h/kas/wbzTWZwp+S9zZR4du2W8s46AaU
- a0y8AxY8cA9LfkT+Vo4LdMBnqMB7qBebzrZd641lZS3S3BH8VTqKb+teXoN4JpUu08NqCs
- TqysLcoQOCL3u4L4PRBvZI7N6xqHaBE=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-685-UZC_Oj-WPciD7xmtnY9mOw-1; Mon,
- 11 Aug 2025 10:29:36 -0400
-X-MC-Unique: UZC_Oj-WPciD7xmtnY9mOw-1
-X-Mimecast-MFC-AGG-ID: UZC_Oj-WPciD7xmtnY9mOw_1754922576
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 92EED18002A0; Mon, 11 Aug 2025 14:29:35 +0000 (UTC)
-Received: from merkur.redhat.com (unknown [10.44.33.151])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 8F7541955F24; Mon, 11 Aug 2025 14:29:33 +0000 (UTC)
-From: Kevin Wolf <kwolf@redhat.com>
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=hlU8bznwYi7/BJmgtxk75tZW/kbsGO8zP8CVQnoj8y0=;
+ b=WEQy6B8t+LzBFSM/9wYg9OfC4emfXPpFzRfrgTWcxFU3+m4ysBpfHSO5Ubp6j7U/mbVP2T
+ jT2149V3KBXie7fEeiRT8VmZu+xJFRtZEO4p7a4nD39mCiujCIt3oMt0rXOsmmOg3oFHke
+ H9PHNl9Sr2hj9J/SoE5v0ORIrJ5D/8M=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-32-yb2p18XDMumF945MF-JQWg-1; Mon, 11 Aug 2025 12:17:47 -0400
+X-MC-Unique: yb2p18XDMumF945MF-JQWg-1
+X-Mimecast-MFC-AGG-ID: yb2p18XDMumF945MF-JQWg_1754929066
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-456106b7c4aso20975165e9.0
+ for <qemu-rust@nongnu.org>; Mon, 11 Aug 2025 09:17:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1754929065; x=1755533865;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=hlU8bznwYi7/BJmgtxk75tZW/kbsGO8zP8CVQnoj8y0=;
+ b=buSxg7Va4NlwgmqwZKkyRir4Il9/OXdqm/xFDJD0QKKTAg6ymO24dNLO0Unug3ZQsN
+ C/58ls9IjtaQO/+x3LLH6MB1MmicDydDC3hinkYwDRHN0FNRo9ealnx6vWa5lhAP+lhu
+ 8VCr4Cr3qaYyf8msHRp5KN9d5ThmNuwXfby6bIpxkRernq5e2eRBMvAkCSc6TSr8jbqz
+ MmfTFJ4kzqw3COsJTymdiLbDwpahtF/HoEaLzjB+Hu4y+uHn5rxI60/B+WzSA71TA1cC
+ 0l0M2yVIcdgCJ1BJuTKV+nMSLxrfiK3cteMH4mUTn7A/SQzWxeqhxowQWFpcPHSL/aol
+ rj0g==
+X-Gm-Message-State: AOJu0Yz3pSX2qoGEQmyLqZRAJgcJpC0pOV8VVh+z13az55N4wrytnBnz
+ I0AjGPMAONehLb7MXPlt1JeyqoSh/8uVKG1jRj2dgDJ9a3Eg9HnzqS53ivWeLQmZtSAj460a/9L
+ HPnIyubjnDvCg+34WEuXTAR6pI00xeYn+3sDcbisXPvHS/6Io9jLVEA3ZMRKphJU=
+X-Gm-Gg: ASbGnctN8gtYXrVBu4UYisnubP/ezseIsD/PWCmdikNpYh2Es3vcHQsVA/h/fxXd0cn
+ c/D+fz5Kgpq6GNHif3vBa7IAmn+D+UuOAoA3/nHG/xotX19JBrYeVpsfncVKKamd2GHW1sjAeyg
+ horSr4uoVNIOL+jIZMLc/63R6MnAfjSECEvZJ7h/svgBR8rcM5v1jfXfaLrl/PfBMD5ZVZdoyYt
+ RMVPFVWnUyJrxo8DEZXKgMpEsJn4KcfrPHx8KgGeYQ55cN8DDwY2KN7F548ig/g4mAkiU8XvrQZ
+ VwQjml52wbcuZoTa3H7gVBIn8uXX56NiddBIRqkDxt0d
+X-Received: by 2002:a05:600c:1c98:b0:456:942:b162 with SMTP id
+ 5b1f17b1804b1-45a10d966cfmr1958955e9.11.1754929064760; 
+ Mon, 11 Aug 2025 09:17:44 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF1qKLdmt3Y71abcxR3wXiirDFR2rSnu+ov6jxbLWoSATd517ZudiKLVnU/hZCLlMvxfWgWJw==
+X-Received: by 2002:a05:600c:1c98:b0:456:942:b162 with SMTP id
+ 5b1f17b1804b1-45a10d966cfmr1958705e9.11.1754929064322; 
+ Mon, 11 Aug 2025 09:17:44 -0700 (PDT)
+Received: from [192.168.10.48] ([151.49.234.144])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b8e0846777sm31356529f8f.48.2025.08.11.09.17.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Aug 2025 09:17:41 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
-Cc: kwolf@redhat.com, pbonzini@redhat.com, manos.pitsidianakis@linaro.org,
- qemu-rust@nongnu.org
-Subject: [PATCH] configure: Don't disable Rust for too old meson version
-Date: Mon, 11 Aug 2025 16:29:23 +0200
-Message-ID: <20250811142923.89983-1-kwolf@redhat.com>
+Cc: qemu-rust@nongnu.org,
+	manos.pitsidianakis@linaro.org
+Subject: [PATCH 1/2] rust: do not link C libraries into Rust rlibs
+Date: Mon, 11 Aug 2025 18:17:36 +0200
+Message-ID: <20250811161737.220835-2-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20250811161737.220835-1-pbonzini@redhat.com>
+References: <20250811161737.220835-1-pbonzini@redhat.com>
 MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: C6Esv5XhnAqqVV0bcNj0JIaeleIykXwBkUDGuLzWvfw_1754929066
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=kwolf@redhat.com;
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
@@ -63,7 +96,8 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001,
+ T_SPF_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -79,56 +113,93 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-If the user explicitly specified --enable-rust, don't just fail if meson
-is too old for Rust support, but do the same thing as if meson was too
-old for the C code: Just download a newer one.
+When a C library is linked into a Rust rlib, rustc remembers the dependency
+into the metadata and adds the library to the linker command line.
+Unfortunately, static libraries are sensitive to their position on the
+command line and rustc does not always get it right.
 
-In order to avoid the additional download for people who aren't
-intentionally opting in to Rust, keep the automatic disabling based on
-the meson version as the default if neither --enable-rust nor
---disable-rust were given.
+Meson could work around it itself by never adding these static libraries
+to the rlibs (after all, Meson tracks the transitive dependencies already
+and knows how to add them to dependents of those rlibs); at least for now,
+do it in QEMU: never link C libraries into Rust rlibs, and add them to the
+final build products only.
 
-Signed-off-by: Kevin Wolf <kwolf@redhat.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- configure       | 8 +++++---
- pythondeps.toml | 4 ++++
- 2 files changed, 9 insertions(+), 3 deletions(-)
+ rust/hw/char/pl011/meson.build |  2 +-
+ rust/hw/timer/hpet/meson.build |  2 +-
+ rust/meson.build               |  2 --
+ rust/qemu-api/meson.build      | 15 +++++++++------
+ 4 files changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/configure b/configure
-index 825057ebf1..274a778764 100755
---- a/configure
-+++ b/configure
-@@ -1186,10 +1186,12 @@ fi
- meson_version=$($meson --version)
- if test "$rust" != disabled && ! version_ge "$meson_version" 1.8.1; then
-   if test "$rust" = enabled; then
--    error_exit "Rust support needs Meson 1.8.1 or newer"
-+    $mkvenv ensuregroup --dir "${source_path}/python/wheels" \
-+         ${source_path}/pythondeps.toml meson-rust || exit 1
-+  else
-+    echo "Rust needs Meson 1.8.1, disabling" 2>&1
-+    rust=disabled
-   fi
--  echo "Rust needs Meson 1.8.1, disabling" 2>&1
--  rust=disabled
- fi
- if test "$rust" != disabled && has "$rustc" && $rustc -vV > "${TMPDIR1}/${TMPB}.out"; then
-   rust_host_triple=$(sed -n 's/^host: //p' "${TMPDIR1}/${TMPB}.out")
-diff --git a/pythondeps.toml b/pythondeps.toml
-index b2eec940ce..d0f52b14f7 100644
---- a/pythondeps.toml
-+++ b/pythondeps.toml
-@@ -22,6 +22,10 @@
- meson = { accepted = ">=1.5.0", installed = "1.8.1", canary = "meson" }
- pycotap = { accepted = ">=1.1.0", installed = "1.3.1" }
+diff --git a/rust/hw/char/pl011/meson.build b/rust/hw/char/pl011/meson.build
+index 2a1be329abc..16acf12f7cc 100644
+--- a/rust/hw/char/pl011/meson.build
++++ b/rust/hw/char/pl011/meson.build
+@@ -7,7 +7,7 @@ _libpl011_rs = static_library(
+     bilge_rs,
+     bilge_impl_rs,
+     bits_rs,
+-    qemu_api,
++    qemu_api_rs,
+     qemu_api_macros,
+   ],
+ )
+diff --git a/rust/hw/timer/hpet/meson.build b/rust/hw/timer/hpet/meson.build
+index c2d7c0532ca..64195410a3e 100644
+--- a/rust/hw/timer/hpet/meson.build
++++ b/rust/hw/timer/hpet/meson.build
+@@ -4,7 +4,7 @@ _libhpet_rs = static_library(
+   override_options: ['rust_std=2021', 'build.rust_std=2021'],
+   rust_abi: 'rust',
+   dependencies: [
+-    qemu_api,
++    qemu_api_rs,
+     qemu_api_macros,
+   ],
+ )
+diff --git a/rust/meson.build b/rust/meson.build
+index 331f11b7e72..45936a0a731 100644
+--- a/rust/meson.build
++++ b/rust/meson.build
+@@ -18,8 +18,6 @@ quote_rs_native = dependency('quote-1-rs', native: true)
+ syn_rs_native = dependency('syn-2-rs', native: true)
+ proc_macro2_rs_native = dependency('proc-macro2-1-rs', native: true)
  
-+[meson-rust]
-+# The install key should match the version in python/wheels/
-+meson = { accepted = ">=1.8.1", installed = "1.8.1", canary = "meson" }
+-qemuutil_rs = qemuutil.partial_dependency(link_args: true, links: true)
+-
+ genrs = []
+ 
+ subdir('qemu-api-macros')
+diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
+index a090297c458..88875e723d8 100644
+--- a/rust/qemu-api/meson.build
++++ b/rust/qemu-api/meson.build
+@@ -79,15 +79,18 @@ _qemu_api_rs = static_library(
+   override_options: ['rust_std=2021', 'build.rust_std=2021'],
+   rust_abi: 'rust',
+   rust_args: _qemu_api_cfg,
+-  dependencies: [anyhow_rs, foreign_rs, libc_rs, qemu_api_macros, qemuutil_rs,
+-                 qom, hwcore, chardev, migration],
++  # Cannot add qemuutil here; rustc adds it too early to the linker command line.
++  # Instead, we add it and all C static libraries to the executables only.
++  dependencies: [anyhow_rs, foreign_rs, libc_rs, qemu_api_macros],
+ )
+ 
+-rust.test('rust-qemu-api-tests', _qemu_api_rs,
+-          suite: ['unit', 'rust'])
+-
++qemu_api_rs = declare_dependency(link_with: _qemu_api_rs)
+ qemu_api = declare_dependency(link_with: [_qemu_api_rs],
+-  dependencies: [qemu_api_macros, qom, hwcore, chardev, migration])
++  dependencies: [qemu_api_macros, qom, hwcore, chardev, migration, qemuutil])
 +
- [docs]
- # Please keep the installed versions in sync with docs/requirements.txt
- sphinx = { accepted = ">=3.4.3", installed = "6.2.1", canary = "sphinx-build" }
++rust.test('rust-qemu-api-tests', _qemu_api_rs,
++          suite: ['unit', 'rust'],
++          dependencies: [qemu_api_macros, qom, hwcore, chardev, migration, qemuutil])
+ 
+ # Doctests are essentially integration tests, so they need the same dependencies.
+ # Note that running them requires the object files for C code, so place them
 -- 
 2.50.1
 
