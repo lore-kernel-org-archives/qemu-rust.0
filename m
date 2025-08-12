@@ -4,80 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7230EC87FCB
-	for <qemu-rust@archiver.kernel.org>; Tue, 12 Aug 2025 10:22:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68BEBCA0EC4
+	for <qemu-rust@archiver.kernel.org>; Tue, 12 Aug 2025 12:57:36 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1ulm8h-0001P5-4h; Tue, 12 Aug 2025 06:21:55 -0400
+	id 1uloZI-00045Z-8e; Tue, 12 Aug 2025 08:57:32 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1ulm8d-0001OG-R5; Tue, 12 Aug 2025 06:21:51 -0400
-Received: from mgamail.intel.com ([198.175.65.15])
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1uloZG-00045O-Qq
+ for qemu-rust@nongnu.org; Tue, 12 Aug 2025 08:57:31 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1ulm8a-0000wP-RX; Tue, 12 Aug 2025 06:21:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1754994109; x=1786530109;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=LYvBduOsu5wSmNDUQZDQtXmrcMtse/oYwB2XsTWTOsU=;
- b=bHdGLGZzlceBCITE7q1uSjxZReisFTETprpK/CBb9gzuWnPG7elNre7u
- WLj/fv7/W3S5AiCqOWFDCEgtA4LjWfy93EEGfbIf2+WCGK1Jm/p4mnjMh
- CyB7qaPINlKMkN9A/tadxNb9CRJ7tDvM86QJOyeltFnUocu5NKpF4cGWW
- uPqk0A4pTWQkn+7ANW+riZ3qM6g8NYlE1ifMgAliFlhKiWEx3+kS8GJqB
- nEE7SKo39+KR5qIf72uRcSdvezurN3s1pPPKzMecBPHlcyJTx5QkknUlT
- BvyImM4YqhOhTyyZ9PFTmITOMtsiQzKFmBpgCZb1S4sfAiUVD3vSpyhdk g==;
-X-CSE-ConnectionGUID: UfzbciOgTnOOLPvK5CW0Vw==
-X-CSE-MsgGUID: Bz/N9tjgQyivzlQ5o7cWcQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11518"; a="60888910"
-X-IronPort-AV: E=Sophos;i="6.17,284,1747724400"; d="scan'208";a="60888910"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2025 03:21:43 -0700
-X-CSE-ConnectionGUID: Zl4u5XNhTnyK4+l9fHV8GQ==
-X-CSE-MsgGUID: beDK0mweRGaCUPRgxH/i4g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,284,1747724400"; d="scan'208";a="166450486"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa008.jf.intel.com with ESMTP; 12 Aug 2025 03:21:40 -0700
-Date: Tue, 12 Aug 2025 18:43:20 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
- Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
- Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
- Thomas Huth <thuth@redhat.com>, Junjie Mao <junjie.mao@hotmail.com>,
- qemu-devel <qemu-devel@nongnu.org>, qemu-rust@nongnu.org,
- Dapeng Mi <dapeng1.mi@linux.intel.com>,
- Chuanxiao Dong <chuanxiao.dong@intel.com>
-Subject: Re: [RFC 13/26] rust: Add RCU bindings
-Message-ID: <aJsayGjIhHBRuySu@intel.com>
-References: <20250807123027.2910950-1-zhao1.liu@intel.com>
- <20250807123027.2910950-14-zhao1.liu@intel.com>
- <CAAjaMXZ9XbEmcJVg1-8uFhnkG-qUF+sB5g26e0W3HhxK_-NFwg@mail.gmail.com>
- <c641dbf2-a2e7-4c44-b231-fc872df1fe69@redhat.com>
- <aJb3C8qbXQ1zx306@intel.com>
- <CABgObfaVoYi09-HkwojkJT_-AJosdKNPwxMySHn6yn2cuS1Z5g@mail.gmail.com>
- <CAAjaMXbHOTj1ed=sbkvR=4Uhgk2TyrqaAsXAgZ6uH622cart9w@mail.gmail.com>
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1uloZA-0003YI-5z
+ for qemu-rust@nongnu.org; Tue, 12 Aug 2025 08:57:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1755003439;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9iNa96K1rabLNX47958kYkEO+RGHNx8CYIS7IVHq8Po=;
+ b=T/cz1YUhALX2vGQmFLKCVxr5Cc+y2zN7ePamB32yrNBG2ntsKKA6aQCRDurHC2lxNyX3uh
+ ObWe9ePueZoqyza2gtSL8lEwx+mjFfIuoquR7pdVHSlzSYjm577kW/wfH3E8Go7jF+NzwQ
+ 9TqC4+R4lqIT17OImvNcamsQLbqKcm0=
+Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-3-xJvcaxJBOMymfxS8upKhvA-1; Tue,
+ 12 Aug 2025 08:57:15 -0400
+X-MC-Unique: xJvcaxJBOMymfxS8upKhvA-1
+X-Mimecast-MFC-AGG-ID: xJvcaxJBOMymfxS8upKhvA_1755003434
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 7CB0A19560B1; Tue, 12 Aug 2025 12:57:14 +0000 (UTC)
+Received: from redhat.com (unknown [10.44.33.181])
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id BBAF6180028E; Tue, 12 Aug 2025 12:57:12 +0000 (UTC)
+Date: Tue, 12 Aug 2025 14:57:10 +0200
+From: Kevin Wolf <kwolf@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, manos.pitsidianakis@linaro.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH] configure: Don't disable Rust for too old meson version
+Message-ID: <aJs6JkGsa414_4I7@redhat.com>
+References: <20250811142923.89983-1-kwolf@redhat.com>
+ <f85bd476-501a-4693-b830-6ab7a7168d94@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAAjaMXbHOTj1ed=sbkvR=4Uhgk2TyrqaAsXAgZ6uH622cart9w@mail.gmail.com>
-Received-SPF: pass client-ip=198.175.65.15; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+In-Reply-To: <f85bd476-501a-4693-b830-6ab7a7168d94@redhat.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=kwolf@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -93,58 +82,24 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-> >> > impl AddressSpace {
-> >> >    pub fn get_flatview(&self, rcu: &'g Guard) -> &'g FlatView {
-> >>
-> >> IIUC, this lifetime is using the "branded type" pattern as ParentInit.
-> >>
-> >
-> > No, it's much simpler (that one uses the combination of for<'identity> and
-> > PhantomData as explained in the comment). It says that the lifetime of the
-> > returned reference cannot exceed the guard. It's just like
-> >
-> > pub fn get_item(&self, array: &'g [u8]) -> &'g u8 {
-> >    &array[self.0]
-> > }
-> >
-> > Except that the guard is only there to limit the lifetime and not to hold
-> > data.
-
-I see. It's clear for me now. Thank you!
-
-> > In addition, about rcu_read_lock_held(), I thought at C side, there're
-> >> so many comments are saying "Called within RCU critical section" but
-> >> without any check.
-> >>
-> >> So I wonder whether we should do some check for RCU critical section,
-> >> just like bql check via `assert!(bql_locked())`. Maybe we can have a
-> >> Rcu debug feature to cover all these checks.
-> >>
-> >
-> > In Rust you would just pass a &RcuGuard into the function (or store it in
-> > a struct) for a zero-cost assertion that you are in the RCU critical
-> > section.
-> >
+Am 12.08.2025 um 08:41 hat Paolo Bonzini geschrieben:
+> On 8/11/25 16:29, Kevin Wolf wrote:
+> > If the user explicitly specified --enable-rust, don't just fail if meson
+> > is too old for Rust support, but do the same thing as if meson was too
+> > old for the C code: Just download a newer one.
+> > 
+> > In order to avoid the additional download for people who aren't
+> > intentionally opting in to Rust, keep the automatic disabling based on
+> > the meson version as the default if neither --enable-rust nor
+> > --disable-rust were given.
 > 
-> Agreed. You could put debug_asserts for sanity check for good measure.
+> Reviewed-by: Paolo Bonzini <pbonzini@redhat.com>
+> 
+> Are you going to submit the patch yourself?
 
-Thanks!
+If we want to have it in 10.1 (I don't see why not?), I'm going to send
+a pull request today, so I could include it.
 
-Then I see, the most RCU critical part is accessing FlatView through
-AddressSpace.
-
-Here, require RCU by function signature (&RcuGuard) is very convenient:
-
-pub fn get_flatview<'g>(&self, rcu: &'g RcuGuard) -> &'g FlatView;
-
-As for the methods of FlatView itself and the lower-level interfaces
-(e.g., the write & read detail methods), although RCU critical sections
-are also required, there is no need to worry about them because the
-upper-level access already ensures RCU lock is held. Of course, it would
-be better to add &RcuGuard to some structures and check them with
-debug_assert/assert.
-
-Regards,
-Zhao
+Kevin
 
 
