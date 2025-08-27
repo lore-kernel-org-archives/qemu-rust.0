@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D033BCA0FED
-	for <qemu-rust@archiver.kernel.org>; Wed, 27 Aug 2025 10:49:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCAB9CA0FF6
+	for <qemu-rust@archiver.kernel.org>; Wed, 27 Aug 2025 10:49:43 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1urDdP-0006Z8-JP; Wed, 27 Aug 2025 06:44:07 -0400
+	id 1urDiR-000673-6w; Wed, 27 Aug 2025 06:49:19 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1urDdN-0006Gn-S0
- for qemu-rust@nongnu.org; Wed, 27 Aug 2025 06:44:05 -0400
+ id 1urDiF-0005p9-Of
+ for qemu-rust@nongnu.org; Wed, 27 Aug 2025 06:49:08 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1urDdE-0003CT-G7
- for qemu-rust@nongnu.org; Wed, 27 Aug 2025 06:44:03 -0400
+ id 1urDiA-0004FM-Pn
+ for qemu-rust@nongnu.org; Wed, 27 Aug 2025 06:49:07 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1756291434;
+ s=mimecast20190719; t=1756291740;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=7glKp3iAXT7oWbQoqa4xTy9oqf6+gQDv8X1FHZdqxp8=;
- b=ggEn0plrf36PblKQZxTg6FHfTd3TQxCBu7aPXnMd2pvDDlfyQvO8dc2ClgzQNN6XjRk/Xc
- IjiwJShjp3K+8oA1/AeV1dc+qsO1FtTQy8OIMFCia+Se3ykIlHe1ecaj+D+lQqH7dSdw+G
- uzBwRuKJ5JPyt61LGN0sTo6bn7Sf2IY=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=67HQqnP2opv/aXwsf95p/RgyTrHKiF4C47ubIzwJMl0=;
+ b=Ft8gpemmiTC1e95xJXAed6k9dPz5Y8QTo2tScZvEIw7DWFEBONJ+BFNp2g+srtYuw4KPZg
+ JrbJJ6LsDc+70VaZqqbdQZ+n4d0F5IQUaF4hC9UHNBLTqHBFQPWxZSjpf97sycmPmsz+lf
+ FhAaYo7W8sEErd68RR429LbdwvRnDHI=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-619-EqbaxQcCP9OyTywHEbEYlQ-1; Wed,
- 27 Aug 2025 06:43:52 -0400
-X-MC-Unique: EqbaxQcCP9OyTywHEbEYlQ-1
-X-Mimecast-MFC-AGG-ID: EqbaxQcCP9OyTywHEbEYlQ_1756291431
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-145-j_Z-RIvMOUWcOenug5qLbA-1; Wed,
+ 27 Aug 2025 06:43:21 -0400
+X-MC-Unique: j_Z-RIvMOUWcOenug5qLbA-1
+X-Mimecast-MFC-AGG-ID: j_Z-RIvMOUWcOenug5qLbA_1756291400
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 4E9C3195608A; Wed, 27 Aug 2025 10:43:51 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 8EA031800345; Wed, 27 Aug 2025 10:43:20 +0000 (UTC)
 Received: from localhost (unknown [10.45.242.16])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id C1D1019560AB; Wed, 27 Aug 2025 10:43:48 +0000 (UTC)
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id ED27B1955F24; Wed, 27 Aug 2025 10:43:17 +0000 (UTC)
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org,
@@ -55,15 +55,15 @@ Cc: qemu-rust@nongnu.org,
  pbonzini@redhat.com,
  =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Subject: [PATCH 15/22] rust: split "hwcore" crate
-Date: Wed, 27 Aug 2025 14:41:37 +0400
-Message-ID: <20250827104147.717203-16-marcandre.lureau@redhat.com>
+Subject: [PATCH 11/22] rust: split "bql" crate
+Date: Wed, 27 Aug 2025 14:41:33 +0400
+Message-ID: <20250827104147.717203-12-marcandre.lureau@redhat.com>
 In-Reply-To: <20250827104147.717203-1-marcandre.lureau@redhat.com>
 References: <20250827104147.717203-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 Received-SPF: pass client-ip=170.10.129.124;
  envelope-from=marcandre.lureau@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
@@ -92,64 +92,71 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
+Unfortunately, an example had to be compile-time disabled, since it
+relies on higher level crates (qdev, irq etc). The alternative is
+probably to move that code to an example in qemu-api or elsewere and
+make a link to it, or include_str.
+
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 ---
- MAINTAINERS                               |  1 +
- rust/hw/core/wrapper.h                    | 32 ++++++++
- rust/qemu-api/wrapper.h                   |  6 --
- rust/Cargo.lock                           | 17 ++++
- rust/Cargo.toml                           |  1 +
- rust/hw/char/pl011/Cargo.toml             |  1 +
- rust/hw/char/pl011/meson.build            |  1 +
- rust/hw/char/pl011/src/device.rs          | 20 +++--
- rust/hw/core/Cargo.toml                   | 26 +++++++
- rust/hw/core/build.rs                     |  1 +
- rust/hw/core/meson.build                  | 94 +++++++++++++++++++++++
- rust/hw/core/src/bindings.rs              | 41 ++++++++++
- rust/{qemu-api => hw/core}/src/irq.rs     |  0
- rust/hw/core/src/lib.rs                   | 14 ++++
- rust/{qemu-api => hw/core}/src/qdev.rs    |  6 +-
- rust/{qemu-api => hw/core}/src/sysbus.rs  |  0
- rust/{qemu-api => hw/core}/tests/tests.rs | 12 +--
- rust/hw/timer/hpet/Cargo.toml             |  1 +
- rust/hw/timer/hpet/meson.build            |  1 +
- rust/hw/timer/hpet/src/device.rs          | 22 +++---
- rust/meson.build                          |  1 +
- rust/qemu-api/Cargo.toml                  |  1 +
- rust/qemu-api/meson.build                 | 17 +---
- rust/qemu-api/src/bindings.rs             | 10 ---
- rust/qemu-api/src/lib.rs                  |  4 -
- rust/qemu-api/src/prelude.rs              |  4 -
- 26 files changed, 261 insertions(+), 73 deletions(-)
- create mode 100644 rust/hw/core/wrapper.h
- create mode 100644 rust/hw/core/Cargo.toml
- create mode 120000 rust/hw/core/build.rs
- create mode 100644 rust/hw/core/meson.build
- create mode 100644 rust/hw/core/src/bindings.rs
- rename rust/{qemu-api => hw/core}/src/irq.rs (100%)
- create mode 100644 rust/hw/core/src/lib.rs
- rename rust/{qemu-api => hw/core}/src/qdev.rs (98%)
- rename rust/{qemu-api => hw/core}/src/sysbus.rs (100%)
- rename rust/{qemu-api => hw/core}/tests/tests.rs (94%)
+ MAINTAINERS                          |  1 +
+ rust/bql/wrapper.h                   | 27 ++++++++
+ rust/Cargo.lock                      | 10 +++
+ rust/Cargo.toml                      |  1 +
+ rust/bql/Cargo.toml                  | 23 +++++++
+ rust/bql/build.rs                    |  1 +
+ rust/bql/meson.build                 | 52 ++++++++++++++++
+ rust/bql/src/bindings.rs             | 25 ++++++++
+ rust/{qemu-api => bql}/src/cell.rs   | 92 ++++++++++------------------
+ rust/bql/src/lib.rs                  | 29 +++++++++
+ rust/common/src/opaque.rs            |  4 +-
+ rust/hw/char/pl011/Cargo.toml        |  1 +
+ rust/hw/char/pl011/meson.build       |  1 +
+ rust/hw/char/pl011/src/device.rs     |  1 +
+ rust/hw/timer/hpet/Cargo.toml        |  1 +
+ rust/hw/timer/hpet/meson.build       |  1 +
+ rust/hw/timer/hpet/src/device.rs     |  2 +-
+ rust/hw/timer/hpet/src/fw_cfg.rs     |  5 +-
+ rust/meson.build                     |  1 +
+ rust/migration/src/vmstate.rs        |  4 +-
+ rust/qemu-api/Cargo.toml             |  5 +-
+ rust/qemu-api/meson.build            |  9 +--
+ rust/qemu-api/src/chardev.rs         | 17 +++--
+ rust/qemu-api/src/irq.rs             |  1 +
+ rust/qemu-api/src/lib.rs             |  1 -
+ rust/qemu-api/src/prelude.rs         |  3 -
+ rust/qemu-api/src/qdev.rs            |  5 +-
+ rust/qemu-api/src/qom.rs             | 13 ++--
+ rust/qemu-api/src/sysbus.rs          | 13 ++--
+ rust/qemu-api/tests/tests.rs         |  4 +-
+ rust/qemu-api/tests/vmstate_tests.rs |  2 +-
+ 31 files changed, 244 insertions(+), 111 deletions(-)
+ create mode 100644 rust/bql/wrapper.h
+ create mode 100644 rust/bql/Cargo.toml
+ create mode 120000 rust/bql/build.rs
+ create mode 100644 rust/bql/meson.build
+ create mode 100644 rust/bql/src/bindings.rs
+ rename rust/{qemu-api => bql}/src/cell.rs (92%)
+ create mode 100644 rust/bql/src/lib.rs
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index ce8bb3c076..3f40a80240 100644
+index bb4f5f011f..0b5f327d4f 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -3513,6 +3513,7 @@ S: Maintained
- F: rust/bql/
- F: rust/chardev/
+@@ -3510,6 +3510,7 @@ F: include/hw/registerfields.h
+ Rust
+ M: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+ S: Maintained
++F: rust/bql/
  F: rust/common/
-+F: rust/hw/core/
  F: rust/migration/
  F: rust/qemu-api
- F: rust/qemu-api-macros
-diff --git a/rust/hw/core/wrapper.h b/rust/hw/core/wrapper.h
+diff --git a/rust/bql/wrapper.h b/rust/bql/wrapper.h
 new file mode 100644
-index 0000000000..3bdbd1249e
+index 0000000000..2ef9a96e1d
 --- /dev/null
-+++ b/rust/hw/core/wrapper.h
-@@ -0,0 +1,32 @@
++++ b/rust/bql/wrapper.h
+@@ -0,0 +1,27 @@
 +/* SPDX-License-Identifier: GPL-2.0-or-later */
 +
 +/*
@@ -176,172 +183,71 @@ index 0000000000..3bdbd1249e
 +
 +#include "qemu/osdep.h"
 +
-+#include "hw/sysbus.h"
-+#include "hw/clock.h"
-+#include "hw/qdev-clock.h"
-+#include "hw/qdev-properties.h"
-+#include "hw/qdev-properties-system.h"
-+#include "hw/irq.h"
-diff --git a/rust/qemu-api/wrapper.h b/rust/qemu-api/wrapper.h
-index 564733b903..7c9c20b14f 100644
---- a/rust/qemu-api/wrapper.h
-+++ b/rust/qemu-api/wrapper.h
-@@ -49,11 +49,5 @@ typedef enum memory_order {
- 
- #include "qemu/osdep.h"
- #include "qemu-io.h"
--#include "hw/sysbus.h"
--#include "hw/clock.h"
--#include "hw/qdev-clock.h"
--#include "hw/qdev-properties.h"
--#include "hw/qdev-properties-system.h"
--#include "hw/irq.h"
- #include "exec/memattrs.h"
- #include "hw/char/pl011.h"
++#include "qemu/main-loop.h"
 diff --git a/rust/Cargo.lock b/rust/Cargo.lock
-index 1003dc05c3..d454692c91 100644
+index b3a810a653..2a73a0dd45 100644
 --- a/rust/Cargo.lock
 +++ b/rust/Cargo.lock
-@@ -91,6 +91,7 @@ version = "0.1.0"
- dependencies = [
-  "bql",
-  "common",
-+ "hwcore",
-  "migration",
-  "qemu_api",
+@@ -44,6 +44,13 @@ dependencies = [
   "qemu_api_macros",
-@@ -99,6 +100,20 @@ dependencies = [
-  "util",
  ]
  
 +[[package]]
-+name = "hwcore"
++name = "bql"
 +version = "0.1.0"
 +dependencies = [
-+ "bql",
-+ "chardev",
-+ "common",
 + "migration",
-+ "qemu_api_macros",
-+ "qom",
-+ "system",
-+ "util",
 +]
 +
  [[package]]
- name = "itertools"
- version = "0.11.0"
-@@ -133,6 +148,7 @@ dependencies = [
-  "bql",
-  "chardev",
+ name = "common"
+ version = "0.1.0"
+@@ -70,6 +77,7 @@ dependencies = [
+ name = "hpet"
+ version = "0.1.0"
+ dependencies = [
++ "bql",
   "common",
-+ "hwcore",
   "migration",
   "qemu_api",
-  "qemu_api_macros",
-@@ -182,6 +198,7 @@ dependencies = [
-  "chardev",
+@@ -108,6 +116,7 @@ dependencies = [
+  "bilge",
+  "bilge-impl",
+  "bits",
++ "bql",
+  "common",
+  "migration",
+  "qemu_api",
+@@ -152,6 +161,7 @@ name = "qemu_api"
+ version = "0.1.0"
+ dependencies = [
+  "anyhow",
++ "bql",
   "common",
   "foreign",
-+ "hwcore",
   "libc",
-  "migration",
-  "qemu_api_macros",
 diff --git a/rust/Cargo.toml b/rust/Cargo.toml
-index ea25474ce4..11280ad524 100644
+index 0640a21580..73cb54f60b 100644
 --- a/rust/Cargo.toml
 +++ b/rust/Cargo.toml
-@@ -9,6 +9,7 @@ members = [
-     "qemu-api",
-     "qom",
-     "system",
-+    "hw/core",
-     "hw/char/pl011",
-     "hw/timer/hpet",
-     "util",
-diff --git a/rust/hw/char/pl011/Cargo.toml b/rust/hw/char/pl011/Cargo.toml
-index e4b1c3f1eb..830d88586b 100644
---- a/rust/hw/char/pl011/Cargo.toml
-+++ b/rust/hw/char/pl011/Cargo.toml
-@@ -23,6 +23,7 @@ migration = { path = "../../../migration" }
- qom = { path = "../../../qom" }
- chardev = { path = "../../../chardev" }
- system = { path = "../../../system" }
-+hwcore = { path = "../../../hw/core" }
- qemu_api = { path = "../../../qemu-api" }
- qemu_api_macros = { path = "../../../qemu-api-macros" }
- 
-diff --git a/rust/hw/char/pl011/meson.build b/rust/hw/char/pl011/meson.build
-index 06ebaf7ab9..83030476de 100644
---- a/rust/hw/char/pl011/meson.build
-+++ b/rust/hw/char/pl011/meson.build
-@@ -16,6 +16,7 @@ _libpl011_rs = static_library(
-     qom_rs,
-     chardev_rs,
-     system_rs,
-+    hwcore_rs,
-   ],
- )
- 
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index b9c4f1c350..ffc805d4f6 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -11,18 +11,16 @@
- use bql::BqlRefCell;
- use chardev::{CharBackend, Chardev, Event};
- use common::{static_assert, uninit_field_mut, Zeroable};
-+use hwcore::{
-+    bindings::{qdev_prop_bool, qdev_prop_chr},
-+    declare_properties, define_property, vmstate_clock, Clock, ClockEvent, DeviceImpl,
-+    DeviceMethods, DeviceState, IRQState, InterruptSource, Property, ResetType,
-+    ResettablePhasesImpl, SysBusDevice, SysBusDeviceImpl, SysBusDeviceMethods,
-+};
- use migration::{
-     impl_vmstate_forward, vmstate_fields, vmstate_of, vmstate_struct, vmstate_subsections,
-     vmstate_unused, VMStateDescription,
- };
--use qemu_api::{
--    bindings::{qdev_prop_bool, qdev_prop_chr},
--    irq::{IRQState, InterruptSource},
--    prelude::*,
--    qdev::{Clock, ClockEvent, DeviceImpl, DeviceState, Property, ResetType, ResettablePhasesImpl},
--    sysbus::{SysBusDevice, SysBusDeviceImpl},
--    vmstate_clock,
--};
- use qom::{prelude::*, ObjectImpl, Owned, ParentField, ParentInit};
- use system::{hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder};
- use util::{log::Log, log_mask_ln};
-@@ -783,16 +781,16 @@ extern "C" fn pl011_post_load(opaque: *mut c_void, version_id: c_int) -> c_int {
-     ..Zeroable::ZERO
- };
- 
--qemu_api::declare_properties! {
-+declare_properties! {
-     PL011_PROPERTIES,
--    qemu_api::define_property!(
-+    define_property!(
-         c"chardev",
-         PL011State,
-         char_backend,
-         unsafe { &qdev_prop_chr },
-         CharBackend
-     ),
--    qemu_api::define_property!(
-+    define_property!(
-         c"migrate-clk",
-         PL011State,
-         migrate_clock,
-diff --git a/rust/hw/core/Cargo.toml b/rust/hw/core/Cargo.toml
+@@ -2,6 +2,7 @@
+ resolver = "2"
+ members = [
+     "bits",
++    "bql",
+     "common",
+     "migration",
+     "qemu-api-macros",
+diff --git a/rust/bql/Cargo.toml b/rust/bql/Cargo.toml
 new file mode 100644
-index 0000000000..0b35380264
+index 0000000000..1041bd4ea9
 --- /dev/null
-+++ b/rust/hw/core/Cargo.toml
-@@ -0,0 +1,26 @@
++++ b/rust/bql/Cargo.toml
+@@ -0,0 +1,23 @@
 +[package]
-+name = "hwcore"
++name = "bql"
 +version = "0.1.0"
-+description = "Rust bindings for QEMU/hwcore"
++description = "Rust bindings for QEMU/BQL"
 +resolver = "2"
 +publish = false
 +
@@ -353,64 +259,37 @@ index 0000000000..0b35380264
 +rust-version.workspace = true
 +
 +[dependencies]
-+common = { path = "../../common" }
-+bql = { path = "../../bql" }
-+qom = { path = "../../qom" }
-+chardev = { path = "../../chardev" }
-+migration = { path = "../../migration" }
-+system = { path = "../../system" }
-+util = { path = "../../util" }
-+qemu_api_macros = { path = "../../qemu-api-macros" }
++migration = { path = "../migration" }
++
++[features]
++default = ["debug_cell"]
++debug_cell = []
 +
 +[lints]
 +workspace = true
-diff --git a/rust/hw/core/build.rs b/rust/hw/core/build.rs
+diff --git a/rust/bql/build.rs b/rust/bql/build.rs
 new file mode 120000
-index 0000000000..2a79ee31b8
+index 0000000000..71a3167885
 --- /dev/null
-+++ b/rust/hw/core/build.rs
++++ b/rust/bql/build.rs
 @@ -0,0 +1 @@
-+../../util/build.rs
++../util/build.rs
 \ No newline at end of file
-diff --git a/rust/hw/core/meson.build b/rust/hw/core/meson.build
+diff --git a/rust/bql/meson.build b/rust/bql/meson.build
 new file mode 100644
-index 0000000000..d390f2d665
+index 0000000000..465774a5b2
 --- /dev/null
-+++ b/rust/hw/core/meson.build
-@@ -0,0 +1,94 @@
-+_hwcore_cfg = run_command(rustc_args,
++++ b/rust/bql/meson.build
+@@ -0,0 +1,52 @@
++_bql_cfg = run_command(rustc_args,
 +  '--config-headers', config_host_h, '--features', files('Cargo.toml'),
 +  capture: true, check: true).stdout().strip().splitlines()
 +
-+_hwcore_bindgen_args = []
-+c_enums = [
-+  'DeviceCategory',
-+  'GpioPolarity',
-+  'MachineInitPhase',
-+  'ResetType',
-+]
-+foreach enum : c_enums
-+  _hwcore_bindgen_args += ['--rustified-enum', enum]
-+endforeach
++if get_option('debug_mutex')
++  _bql_cfg += ['--cfg', 'feature="debug_cell"']
++endif
 +
-+blocked_type = [
-+  'Chardev',
-+  'Error',
-+  'ObjectClass',
-+  'MemoryRegion',
-+  'VMStateDescription',
-+]
-+foreach type: blocked_type
-+  _hwcore_bindgen_args += ['--blocklist-type', type]
-+endforeach
-+
-+c_bitfields = [
-+  'ClockEvent',
-+]
-+foreach enum : c_bitfields
-+  _hwcore_bindgen_args += ['--bitfield-enum', enum]
-+endforeach
-+
++#
 +# TODO: Remove this comment when the clang/libclang mismatch issue is solved.
 +#
 +# Rust bindings generation with `bindgen` might fail in some cases where the
@@ -418,66 +297,48 @@ index 0000000000..d390f2d665
 +# this case you must pass the path to `clang` and `libclang` to your build
 +# command invocation using the environment variables CLANG_PATH and
 +# LIBCLANG_PATH
-+_hwcore_bindings_inc_rs = rust.bindgen(
++_bql_bindings_inc_rs = rust.bindgen(
 +  input: 'wrapper.h',
 +  dependencies: common_ss.all_dependencies(),
 +  output: 'bindings.inc.rs',
 +  include_directories: bindings_incdir,
 +  bindgen_version: ['>=0.60.0'],
-+  args: bindgen_args_common + _hwcore_bindgen_args,
++  args: bindgen_args_common,
 +)
 +
-+_hwcore_rs = static_library(
-+  'hwcore',
++_bql_rs = static_library(
++  'bql',
 +  structured_sources(
 +    [
 +      'src/lib.rs',
 +      'src/bindings.rs',
-+      'src/irq.rs',
-+      'src/qdev.rs',
-+      'src/sysbus.rs',
++      'src/cell.rs',
 +    ],
-+    {'.': _hwcore_bindings_inc_rs}
++    {'.': _bql_bindings_inc_rs}
 +  ),
 +  override_options: ['rust_std=2021', 'build.rust_std=2021'],
 +  rust_abi: 'rust',
-+  rust_args: _hwcore_cfg,
-+  dependencies: [qemu_api_macros, common_rs, bql_rs, chardev_rs, migration_rs, qemuutil_rs, qom_rs, system_rs, util_rs,
-+                 qom, hwcore, chardev, migration],
++  rust_args: _bql_cfg,
++  dependencies: [migration_rs, qemuutil_rs],
 +)
 +
-+hwcore_rs = declare_dependency(link_with: [_hwcore_rs],
-+  dependencies: [qom_rs, hwcore])
++bql_rs = declare_dependency(link_with: [_bql_rs],
++  dependencies: [qemuutil_rs])
 +
 +# Doctests are essentially integration tests, so they need the same dependencies.
 +# Note that running them requires the object files for C code, so place them
 +# in a separate suite that is run by the "build" CI jobs rather than "check".
-+rust.doctest('rust-hwcore-rs-doctests',
-+     _hwcore_rs,
++rust.doctest('rust-bql-rs-doctests',
++     _bql_rs,
 +     protocol: 'rust',
-+     dependencies: hwcore_rs,
++     dependencies: bql_rs,
 +     suite: ['doc', 'rust'])
-+
-+test('rust-hwcore-rs-integration',
-+    executable(
-+        'rust-hwcore-rs-integration',
-+        files('tests/tests.rs'),
-+        override_options: ['rust_std=2021', 'build.rust_std=2021'],
-+        rust_args: ['--test'],
-+        install: false,
-+        dependencies: [common_rs, hwcore_rs, bql_rs, migration_rs, qemu_api_macros, util_rs]),
-+    args: [
-+        '--test', '--test-threads', '1',
-+        '--format', 'pretty',
-+    ],
-+    protocol: 'rust',
-+    suite: ['unit', 'rust'])
-diff --git a/rust/hw/core/src/bindings.rs b/rust/hw/core/src/bindings.rs
+diff --git a/rust/bql/src/bindings.rs b/rust/bql/src/bindings.rs
 new file mode 100644
-index 0000000000..919c02b56a
+index 0000000000..9ffff12cde
 --- /dev/null
-+++ b/rust/hw/core/src/bindings.rs
-@@ -0,0 +1,41 @@
++++ b/rust/bql/src/bindings.rs
+@@ -0,0 +1,25 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +#![allow(
 +    dead_code,
@@ -498,339 +359,794 @@ index 0000000000..919c02b56a
 +    clippy::too_many_arguments
 +)]
 +
-+use chardev::bindings::Chardev;
-+use common::Zeroable;
-+use migration::bindings::VMStateDescription;
-+use qom::bindings::ObjectClass;
-+use system::bindings::MemoryRegion;
-+use util::bindings::Error;
-+
 +#[cfg(MESON)]
 +include!("bindings.inc.rs");
 +
 +#[cfg(not(MESON))]
 +include!(concat!(env!("OUT_DIR"), "/bindings.inc.rs"));
-+
-+unsafe impl Send for Property {}
-+unsafe impl Sync for Property {}
-+
-+unsafe impl Send for TypeInfo {}
-+unsafe impl Sync for TypeInfo {}
-+
-+unsafe impl Zeroable for Property__bindgen_ty_1 {}
-+unsafe impl Zeroable for Property {}
-diff --git a/rust/qemu-api/src/irq.rs b/rust/hw/core/src/irq.rs
-similarity index 100%
-rename from rust/qemu-api/src/irq.rs
-rename to rust/hw/core/src/irq.rs
-diff --git a/rust/hw/core/src/lib.rs b/rust/hw/core/src/lib.rs
+diff --git a/rust/qemu-api/src/cell.rs b/rust/bql/src/cell.rs
+similarity index 92%
+rename from rust/qemu-api/src/cell.rs
+rename to rust/bql/src/cell.rs
+index 70cee2ca7a..43109130c5 100644
+--- a/rust/qemu-api/src/cell.rs
++++ b/rust/bql/src/cell.rs
+@@ -75,9 +75,10 @@
+ //!
+ //! ### Example
+ //!
+-//! ```
++//! ```ignore
++//! # use bql::BqlRefCell;
+ //! # use qemu_api::prelude::*;
+-//! # use qemu_api::{cell::BqlRefCell, irq::InterruptSource, irq::IRQState};
++//! # use qemu_api::{irq::InterruptSource, irq::IRQState};
+ //! # use qemu_api::{sysbus::SysBusDevice, qom::Owned, qom::ParentField};
+ //! # const N_GPIOS: usize = 8;
+ //! # struct PL061Registers { /* ... */ }
+@@ -141,7 +142,6 @@
+ //! Multiple immutable borrows are allowed via [`borrow`](BqlRefCell::borrow),
+ //! or a single mutable borrow via [`borrow_mut`](BqlRefCell::borrow_mut).  The
+ //! thread will panic if these rules are violated or if the BQL is not held.
+-
+ use std::{
+     cell::{Cell, UnsafeCell},
+     cmp::Ordering,
+@@ -154,30 +154,6 @@
+ 
+ use migration::impl_vmstate_transparent;
+ 
+-use crate::bindings;
+-
+-/// An internal function that is used by doctests.
+-pub fn bql_start_test() {
+-    // SAFETY: integration tests are run with --test-threads=1, while
+-    // unit tests and doctests are not multithreaded and do not have
+-    // any BQL-protected data.  Just set bql_locked to true.
+-    unsafe {
+-        bindings::rust_bql_mock_lock();
+-    }
+-}
+-
+-pub fn bql_locked() -> bool {
+-    // SAFETY: the function does nothing but return a thread-local bool
+-    unsafe { bindings::bql_locked() }
+-}
+-
+-fn bql_block_unlock(increase: bool) {
+-    // SAFETY: this only adjusts a counter
+-    unsafe {
+-        bindings::bql_block_unlock(increase);
+-    }
+-}
+-
+ /// A mutable memory location that is protected by the Big QEMU Lock.
+ ///
+ /// # Memory layout
+@@ -256,8 +232,8 @@ impl<T> BqlCell<T> {
+     /// # Examples
+     ///
+     /// ```
+-    /// use qemu_api::cell::BqlCell;
+-    /// # qemu_api::cell::bql_start_test();
++    /// use bql::BqlCell;
++    /// # bql::start_test();
+     ///
+     /// let c = BqlCell::new(5);
+     /// ```
+@@ -273,8 +249,8 @@ pub const fn new(value: T) -> BqlCell<T> {
+     /// # Examples
+     ///
+     /// ```
+-    /// use qemu_api::cell::BqlCell;
+-    /// # qemu_api::cell::bql_start_test();
++    /// use bql::BqlCell;
++    /// # bql::start_test();
+     ///
+     /// let c = BqlCell::new(5);
+     ///
+@@ -291,8 +267,8 @@ pub fn set(&self, val: T) {
+     /// # Examples
+     ///
+     /// ```
+-    /// use qemu_api::cell::BqlCell;
+-    /// # qemu_api::cell::bql_start_test();
++    /// use bql::BqlCell;
++    /// # bql::start_test();
+     ///
+     /// let cell = BqlCell::new(5);
+     /// assert_eq!(cell.get(), 5);
+@@ -301,7 +277,7 @@ pub fn set(&self, val: T) {
+     /// ```
+     #[inline]
+     pub fn replace(&self, val: T) -> T {
+-        assert!(bql_locked());
++        assert!(crate::is_locked());
+         // SAFETY: This can cause data races if called from multiple threads,
+         // but it won't happen as long as C code accesses the value
+         // under BQL protection only.
+@@ -313,8 +289,8 @@ pub fn replace(&self, val: T) -> T {
+     /// # Examples
+     ///
+     /// ```
+-    /// use qemu_api::cell::BqlCell;
+-    /// # qemu_api::cell::bql_start_test();
++    /// use bql::BqlCell;
++    /// # bql::start_test();
+     ///
+     /// let c = BqlCell::new(5);
+     /// let five = c.into_inner();
+@@ -322,7 +298,7 @@ pub fn replace(&self, val: T) -> T {
+     /// assert_eq!(five, 5);
+     /// ```
+     pub fn into_inner(self) -> T {
+-        assert!(bql_locked());
++        assert!(crate::is_locked());
+         self.value.into_inner()
+     }
+ }
+@@ -333,8 +309,8 @@ impl<T: Copy> BqlCell<T> {
+     /// # Examples
+     ///
+     /// ```
+-    /// use qemu_api::cell::BqlCell;
+-    /// # qemu_api::cell::bql_start_test();
++    /// use bql::BqlCell;
++    /// # bql::start_test();
+     ///
+     /// let c = BqlCell::new(5);
+     ///
+@@ -342,7 +318,7 @@ impl<T: Copy> BqlCell<T> {
+     /// ```
+     #[inline]
+     pub fn get(&self) -> T {
+-        assert!(bql_locked());
++        assert!(crate::is_locked());
+         // SAFETY: This can cause data races if called from multiple threads,
+         // but it won't happen as long as C code accesses the value
+         // under BQL protection only.
+@@ -356,8 +332,8 @@ impl<T> BqlCell<T> {
+     /// # Examples
+     ///
+     /// ```
+-    /// use qemu_api::cell::BqlCell;
+-    /// # qemu_api::cell::bql_start_test();
++    /// use bql::BqlCell;
++    /// # bql::start_test();
+     ///
+     /// let c = BqlCell::new(5);
+     ///
+@@ -375,8 +351,8 @@ impl<T: Default> BqlCell<T> {
+     /// # Examples
+     ///
+     /// ```
+-    /// use qemu_api::cell::BqlCell;
+-    /// # qemu_api::cell::bql_start_test();
++    /// use bql::BqlCell;
++    /// # bql::start_test();
+     ///
+     /// let c = BqlCell::new(5);
+     /// let five = c.take();
+@@ -445,7 +421,7 @@ impl<T> BqlRefCell<T> {
+     /// # Examples
+     ///
+     /// ```
+-    /// use qemu_api::cell::BqlRefCell;
++    /// use bql::BqlRefCell;
+     ///
+     /// let c = BqlRefCell::new(5);
+     /// ```
+@@ -504,8 +480,8 @@ fn panic_already_borrowed(&self) -> ! {
+     /// # Examples
+     ///
+     /// ```
+-    /// use qemu_api::cell::BqlRefCell;
+-    /// # qemu_api::cell::bql_start_test();
++    /// use bql::BqlRefCell;
++    /// # bql::start_test();
+     ///
+     /// let c = BqlRefCell::new(5);
+     ///
+@@ -516,8 +492,8 @@ fn panic_already_borrowed(&self) -> ! {
+     /// An example of panic:
+     ///
+     /// ```should_panic
+-    /// use qemu_api::cell::BqlRefCell;
+-    /// # qemu_api::cell::bql_start_test();
++    /// use bql::BqlRefCell;
++    /// # bql::start_test();
+     ///
+     /// let c = BqlRefCell::new(5);
+     ///
+@@ -534,7 +510,7 @@ pub fn borrow(&self) -> BqlRef<'_, T> {
+                 self.borrowed_at.set(Some(std::panic::Location::caller()));
+             }
+ 
+-            bql_block_unlock(true);
++            crate::block_unlock(true);
+ 
+             // SAFETY: `BorrowRef` ensures that there is only immutable access
+             // to the value while borrowed.
+@@ -558,8 +534,8 @@ pub fn borrow(&self) -> BqlRef<'_, T> {
+     /// # Examples
+     ///
+     /// ```
+-    /// use qemu_api::cell::BqlRefCell;
+-    /// # qemu_api::cell::bql_start_test();
++    /// use bql::BqlRefCell;
++    /// # bql::start_test();
+     ///
+     /// let c = BqlRefCell::new("hello".to_owned());
+     ///
+@@ -571,8 +547,8 @@ pub fn borrow(&self) -> BqlRef<'_, T> {
+     /// An example of panic:
+     ///
+     /// ```should_panic
+-    /// use qemu_api::cell::BqlRefCell;
+-    /// # qemu_api::cell::bql_start_test();
++    /// use bql::BqlRefCell;
++    /// # bql::start_test();
+     ///
+     /// let c = BqlRefCell::new(5);
+     /// let m = c.borrow();
+@@ -589,7 +565,7 @@ pub fn borrow_mut(&self) -> BqlRefMut<'_, T> {
+             }
+ 
+             // SAFETY: this only adjusts a counter
+-            bql_block_unlock(true);
++            crate::block_unlock(true);
+ 
+             // SAFETY: `BorrowRefMut` guarantees unique access.
+             let value = unsafe { NonNull::new_unchecked(self.value.get()) };
+@@ -608,7 +584,7 @@ pub fn borrow_mut(&self) -> BqlRefMut<'_, T> {
+     /// # Examples
+     ///
+     /// ```
+-    /// use qemu_api::cell::BqlRefCell;
++    /// use bql::BqlRefCell;
+     ///
+     /// let c = BqlRefCell::new(5);
+     ///
+@@ -733,7 +709,7 @@ fn drop(&mut self) {
+         let borrow = self.borrow.get();
+         debug_assert!(is_reading(borrow));
+         self.borrow.set(borrow - 1);
+-        bql_block_unlock(false)
++        crate::block_unlock(false)
+     }
+ }
+ 
+@@ -823,7 +799,7 @@ fn drop(&mut self) {
+         let borrow = self.borrow.get();
+         debug_assert!(is_writing(borrow));
+         self.borrow.set(borrow + 1);
+-        bql_block_unlock(false)
++        crate::block_unlock(false)
+     }
+ }
+ 
+diff --git a/rust/bql/src/lib.rs b/rust/bql/src/lib.rs
 new file mode 100644
-index 0000000000..c5588d9bc2
+index 0000000000..ef08221e9c
 --- /dev/null
-+++ b/rust/hw/core/src/lib.rs
-@@ -0,0 +1,14 @@
++++ b/rust/bql/src/lib.rs
+@@ -0,0 +1,29 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +
-+pub use qom;
++mod bindings;
++use bindings::{bql_block_unlock, bql_locked, rust_bql_mock_lock};
 +
-+pub mod bindings;
++mod cell;
++pub use cell::*;
 +
-+mod irq;
-+pub use irq::*;
++/// An internal function that is used by doctests.
++pub fn start_test() {
++    // SAFETY: integration tests are run with --test-threads=1, while
++    // unit tests and doctests are not multithreaded and do not have
++    // any BQL-protected data.  Just set bql_locked to true.
++    unsafe {
++        rust_bql_mock_lock();
++    }
++}
 +
-+mod qdev;
-+pub use qdev::*;
++pub fn is_locked() -> bool {
++    // SAFETY: the function does nothing but return a thread-local bool
++    unsafe { bql_locked() }
++}
 +
-+mod sysbus;
-+pub use sysbus::*;
-diff --git a/rust/qemu-api/src/qdev.rs b/rust/hw/core/src/qdev.rs
-similarity index 98%
-rename from rust/qemu-api/src/qdev.rs
-rename to rust/hw/core/src/qdev.rs
-index 3010a9fba9..359eee7ec9 100644
---- a/rust/qemu-api/src/qdev.rs
-+++ b/rust/hw/core/src/qdev.rs
-@@ -9,13 +9,13 @@
++pub fn block_unlock(increase: bool) {
++    // SAFETY: this only adjusts a counter
++    unsafe {
++        bql_block_unlock(increase);
++    }
++}
+diff --git a/rust/common/src/opaque.rs b/rust/common/src/opaque.rs
+index f96b91e25a..e076964634 100644
+--- a/rust/common/src/opaque.rs
++++ b/rust/common/src/opaque.rs
+@@ -69,8 +69,8 @@
+ //! and only at FFI boundaries. For QEMU-specific types that need interior
+ //! mutability, prefer [`BqlCell`] or [`BqlRefCell`].
+ //!
+-//! [`BqlCell`]: ../../qemu_api/cell/struct.BqlCell.html
+-//! [`BqlRefCell`]: ../../qemu_api/cell/struct.BqlRefCell.html
++//! [`BqlCell`]: ../../bql/cell/struct.BqlCell.html
++//! [`BqlRefCell`]: ../../bql/cell/struct.BqlRefCell.html
+ use std::{cell::UnsafeCell, fmt, marker::PhantomPinned, mem::MaybeUninit, ptr::NonNull};
+ 
+ /// Stores an opaque value that is shared with C code.
+diff --git a/rust/hw/char/pl011/Cargo.toml b/rust/hw/char/pl011/Cargo.toml
+index 7fd7531823..1a1d4ba715 100644
+--- a/rust/hw/char/pl011/Cargo.toml
++++ b/rust/hw/char/pl011/Cargo.toml
+@@ -18,6 +18,7 @@ bilge-impl = { version = "0.2.0" }
+ bits = { path = "../../../bits" }
+ common = { path = "../../../common" }
+ util = { path = "../../../util" }
++bql = { path = "../../../bql" }
+ migration = { path = "../../../migration" }
+ qemu_api = { path = "../../../qemu-api" }
+ qemu_api_macros = { path = "../../../qemu-api-macros" }
+diff --git a/rust/hw/char/pl011/meson.build b/rust/hw/char/pl011/meson.build
+index e3ddd17351..7062497b7c 100644
+--- a/rust/hw/char/pl011/meson.build
++++ b/rust/hw/char/pl011/meson.build
+@@ -10,6 +10,7 @@ _libpl011_rs = static_library(
+     common_rs,
+     util_rs,
+     migration_rs,
++    bql_rs,
+     qemu_api,
+     qemu_api_macros,
+   ],
+diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
+index 904faa80a9..7cffb894a8 100644
+--- a/rust/hw/char/pl011/src/device.rs
++++ b/rust/hw/char/pl011/src/device.rs
+@@ -8,6 +8,7 @@
      ptr::NonNull,
  };
  
--pub use bindings::{ClockEvent, DeviceClass, Property, ResetType};
- use chardev::Chardev;
- use common::{callbacks::FnCall, Opaque};
- use migration::vmstate::VMStateDescription;
- use qom::{prelude::*, ObjectClass, ObjectImpl, Owned, ParentInit};
- pub use util::{Error, Result};
- 
-+pub use crate::bindings::{ClockEvent, DeviceClass, Property, ResetType};
- use crate::{
-     bindings::{self, qdev_init_gpio_in, qdev_init_gpio_out, ResettableClass},
-     irq::InterruptSource,
-@@ -425,11 +425,11 @@ macro_rules! vmstate_clock {
-                 ::common::assert_field_type!(
-                     $struct_name,
-                     $field_name,
--                    ::qom::Owned<$crate::qdev::Clock> $(, num = $num)?
-+                    ::qom::Owned<$crate::Clock> $(, num = $num)?
-                 );
-                 ::std::mem::offset_of!($struct_name, $field_name)
-             },
--            size: ::core::mem::size_of::<*const $crate::qdev::Clock>(),
-+            size: ::core::mem::size_of::<*const $crate::Clock>(),
-             flags: ::migration::VMStateFlags(
-                 ::migration::VMStateFlags::VMS_STRUCT.0
-                     | ::migration::VMStateFlags::VMS_POINTER.0,
-diff --git a/rust/qemu-api/src/sysbus.rs b/rust/hw/core/src/sysbus.rs
-similarity index 100%
-rename from rust/qemu-api/src/sysbus.rs
-rename to rust/hw/core/src/sysbus.rs
-diff --git a/rust/qemu-api/tests/tests.rs b/rust/hw/core/tests/tests.rs
-similarity index 94%
-rename from rust/qemu-api/tests/tests.rs
-rename to rust/hw/core/tests/tests.rs
-index d8d07f7929..421b35d98d 100644
---- a/rust/qemu-api/tests/tests.rs
-+++ b/rust/hw/core/tests/tests.rs
-@@ -6,18 +6,14 @@
- 
- use bql::BqlCell;
- use common::Zeroable;
--use migration::VMStateDescription;
--use qemu_api::{
--    bindings::qdev_prop_bool,
--    declare_properties, define_property,
--    qdev::{DeviceClassExt, DeviceImpl, DeviceState, Property, ResettablePhasesImpl},
--    sysbus::SysBusDevice,
-+use hwcore::{
-+    bindings::qdev_prop_bool, declare_properties, define_property, DeviceClassExt, DeviceImpl,
-+    DeviceState, Property, ResettablePhasesImpl, SysBusDevice,
- };
-+use migration::vmstate::VMStateDescription;
- use qom::{prelude::*, ObjectImpl, ParentField};
- use util::bindings::{module_call_init, module_init_type};
- 
--mod vmstate_tests;
--
- // Test that macros can compile.
- pub static VMSTATE: VMStateDescription = VMStateDescription {
-     name: c"name".as_ptr(),
++use bql::BqlRefCell;
+ use common::{static_assert, uninit_field_mut, Zeroable};
+ use migration::{
+     impl_vmstate_forward, vmstate_fields, vmstate_of, vmstate_struct, vmstate_subsections,
 diff --git a/rust/hw/timer/hpet/Cargo.toml b/rust/hw/timer/hpet/Cargo.toml
-index a95b1271c6..e28d66f645 100644
+index 70acdf03d6..9fcec38bfa 100644
 --- a/rust/hw/timer/hpet/Cargo.toml
 +++ b/rust/hw/timer/hpet/Cargo.toml
-@@ -19,6 +19,7 @@ qom = { path = "../../../qom" }
- system = { path = "../../../system" }
+@@ -14,6 +14,7 @@ rust-version.workspace = true
+ common = { path = "../../../common" }
+ util = { path = "../../../util" }
+ migration = { path = "../../../migration" }
++bql = { path = "../../../bql" }
  qemu_api = { path = "../../../qemu-api" }
  qemu_api_macros = { path = "../../../qemu-api-macros" }
-+hwcore = { path = "../../../hw/core" }
  
- [lints]
- workspace = true
 diff --git a/rust/hw/timer/hpet/meson.build b/rust/hw/timer/hpet/meson.build
-index 74cbe27df8..d65306c169 100644
+index 2c605dcf9d..5e01e57210 100644
 --- a/rust/hw/timer/hpet/meson.build
 +++ b/rust/hw/timer/hpet/meson.build
-@@ -12,6 +12,7 @@ _libhpet_rs = static_library(
+@@ -7,6 +7,7 @@ _libhpet_rs = static_library(
+     common_rs,
+     util_rs,
+     migration_rs,
++    bql_rs,
+     qemu_api,
      qemu_api_macros,
-     qom_rs,
-     system_rs,
-+    hwcore_rs,
    ],
- )
- 
 diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
-index 184315a696..b8e6b1fe31 100644
+index 35b968cca7..c0e52ce415 100644
 --- a/rust/hw/timer/hpet/src/device.rs
 +++ b/rust/hw/timer/hpet/src/device.rs
-@@ -12,17 +12,15 @@
+@@ -10,6 +10,7 @@
+     slice::from_ref,
+ };
  
- use bql::{BqlCell, BqlRefCell};
++use bql::{BqlCell, BqlRefCell};
  use common::{bitops::IntegerExt, uninit_field_mut, Zeroable};
-+use hwcore::{
-+    bindings::{qdev_prop_bit, qdev_prop_bool, qdev_prop_uint32, qdev_prop_usize},
-+    declare_properties, define_property, DeviceImpl, DeviceMethods, DeviceState, InterruptSource,
-+    Property, ResetType, ResettablePhasesImpl, SysBusDevice, SysBusDeviceImpl, SysBusDeviceMethods,
-+};
  use migration::{
      vmstate_fields, vmstate_of, vmstate_struct, vmstate_subsections, vmstate_validate,
-     VMStateDescription, VMStateFieldHelper,
- };
--use qemu_api::{
--    bindings::{qdev_prop_bit, qdev_prop_bool, qdev_prop_uint32, qdev_prop_usize},
--    irq::InterruptSource,
--    prelude::*,
--    qdev::{DeviceImpl, DeviceState, Property, ResetType, ResettablePhasesImpl},
--    sysbus::{SysBusDevice, SysBusDeviceImpl},
--};
- use qom::{prelude::*, ObjectImpl, ParentField, ParentInit};
- use system::{
-     bindings::{address_space_memory, address_space_stl_le, hwaddr},
-@@ -900,9 +898,9 @@ impl ObjectImpl for HPETState {
- }
+@@ -20,7 +21,6 @@
+         address_space_memory, address_space_stl_le, qdev_prop_bit, qdev_prop_bool,
+         qdev_prop_uint32, qdev_prop_usize,
+     },
+-    cell::{BqlCell, BqlRefCell},
+     irq::InterruptSource,
+     memory::{
+         hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder, MEMTXATTRS_UNSPECIFIED,
+diff --git a/rust/hw/timer/hpet/src/fw_cfg.rs b/rust/hw/timer/hpet/src/fw_cfg.rs
+index 0605225fbb..e569b57b93 100644
+--- a/rust/hw/timer/hpet/src/fw_cfg.rs
++++ b/rust/hw/timer/hpet/src/fw_cfg.rs
+@@ -5,7 +5,6 @@
+ use std::ptr::addr_of_mut;
  
- // TODO: Make these properties user-configurable!
--qemu_api::declare_properties! {
-+declare_properties! {
-     HPET_PROPERTIES,
--    qemu_api::define_property!(
-+    define_property!(
-         c"timers",
-         HPETState,
-         num_timers,
-@@ -910,7 +908,7 @@ impl ObjectImpl for HPETState {
-         u8,
-         default = HPET_MIN_TIMERS
-     ),
--    qemu_api::define_property!(
-+    define_property!(
-         c"msi",
-         HPETState,
-         flags,
-@@ -919,7 +917,7 @@ impl ObjectImpl for HPETState {
-         bit = HPET_FLAG_MSI_SUPPORT_SHIFT as u8,
-         default = false,
-     ),
--    qemu_api::define_property!(
-+    define_property!(
-         c"hpet-intcap",
-         HPETState,
-         int_route_cap,
-@@ -927,7 +925,7 @@ impl ObjectImpl for HPETState {
-         u32,
-         default = 0
-     ),
--    qemu_api::define_property!(
-+    define_property!(
-         c"hpet-offset-saved",
-         HPETState,
-         hpet_offset_saved,
+ use common::Zeroable;
+-use qemu_api::cell::bql_locked;
+ 
+ /// Each `HPETState` represents a Event Timer Block. The v1 spec supports
+ /// up to 8 blocks. QEMU only uses 1 block (in PC machine).
+@@ -38,7 +37,7 @@ unsafe impl Zeroable for HPETFwConfig {}
+ 
+ impl HPETFwConfig {
+     pub(crate) fn assign_hpet_id() -> Result<usize, &'static str> {
+-        assert!(bql_locked());
++        assert!(bql::is_locked());
+         // SAFETY: all accesses go through these methods, which guarantee
+         // that the accesses are protected by the BQL.
+         let mut fw_cfg = unsafe { *addr_of_mut!(hpet_fw_cfg) };
+@@ -58,7 +57,7 @@ pub(crate) fn assign_hpet_id() -> Result<usize, &'static str> {
+     }
+ 
+     pub(crate) fn update_hpet_cfg(hpet_id: usize, timer_block_id: u32, address: u64) {
+-        assert!(bql_locked());
++        assert!(bql::is_locked());
+         // SAFETY: all accesses go through these methods, which guarantee
+         // that the accesses are protected by the BQL.
+         let mut fw_cfg = unsafe { *addr_of_mut!(hpet_fw_cfg) };
 diff --git a/rust/meson.build b/rust/meson.build
-index d8b71f5506..041b0a473e 100644
+index 826949b2e6..2ba1ea2280 100644
 --- a/rust/meson.build
 +++ b/rust/meson.build
-@@ -31,6 +31,7 @@ subdir('bql')
- subdir('qom')
- subdir('system')
- subdir('chardev')
-+subdir('hw/core')
+@@ -27,6 +27,7 @@ subdir('qemu-api-macros')
+ subdir('bits')
+ subdir('util')
+ subdir('migration')
++subdir('bql')
  subdir('qemu-api')
  
  subdir('hw')
+diff --git a/rust/migration/src/vmstate.rs b/rust/migration/src/vmstate.rs
+index 4f95ab0d49..243f31baf6 100644
+--- a/rust/migration/src/vmstate.rs
++++ b/rust/migration/src/vmstate.rs
+@@ -198,8 +198,8 @@ pub const fn vmstate_varray_flag<T: VMState>(_: PhantomData<T>) -> VMStateFlags
+ /// [`impl_vmstate_bitsized!`](crate::impl_vmstate_bitsized)
+ /// and [`impl_vmstate_forward!`](crate::impl_vmstate_forward) help with this.
+ ///
+-/// [`BqlCell`]: ../../qemu_api/cell/struct.BqlCell.html
+-/// [`BqlRefCell`]: ../../qemu_api/cell/struct.BqlRefCell.html
++/// [`BqlCell`]: ../../bql/cell/struct.BqlCell.html
++/// [`BqlRefCell`]: ../../bql/cell/struct.BqlRefCell.html
+ /// [`Owned`]: ../../qemu_api/qom/struct.Owned.html
+ #[macro_export]
+ macro_rules! vmstate_of {
 diff --git a/rust/qemu-api/Cargo.toml b/rust/qemu-api/Cargo.toml
-index cc1bfec44a..f8b80e5771 100644
+index 4e44737843..8ba19baae8 100644
 --- a/rust/qemu-api/Cargo.toml
 +++ b/rust/qemu-api/Cargo.toml
-@@ -16,6 +16,7 @@ rust-version.workspace = true
- [dependencies]
+@@ -17,14 +17,11 @@ rust-version.workspace = true
  common = { path = "../common" }
- chardev = { path = "../chardev" }
-+hwcore = { path = "../hw/core" }
  migration = { path = "../migration" }
  util = { path = "../util" }
- bql = { path = "../bql" }
++bql = { path = "../bql" }
+ qemu_api_macros = { path = "../qemu-api-macros" }
+ anyhow = "~1.0"
+ libc.workspace = true
+ foreign = "~0.3.1"
+ 
+-[features]
+-default = ["debug_cell"]
+-debug_cell = []
+-
+ [lints]
+ workspace = true
 diff --git a/rust/qemu-api/meson.build b/rust/qemu-api/meson.build
-index 644ca44573..a4c90b2bf7 100644
+index ee6311cd3f..dd829e3348 100644
 --- a/rust/qemu-api/meson.build
 +++ b/rust/qemu-api/meson.build
-@@ -3,22 +3,12 @@ _qemu_api_cfg = run_command(rustc_args,
+@@ -2,10 +2,6 @@ _qemu_api_cfg = run_command(rustc_args,
+   '--config-headers', config_host_h, '--features', files('Cargo.toml'),
    capture: true, check: true).stdout().strip().splitlines()
  
+-if get_option('debug_mutex')
+-  _qemu_api_cfg += ['--cfg', 'feature="debug_cell"']
+-endif
+-
  c_enums = [
--  'DeviceCategory',
--  'GpioPolarity',
--  'MachineInitPhase',
-   'MemoryDeviceInfoKind',
--  'ResetType',
- ]
- _qemu_api_bindgen_args = []
- foreach enum : c_enums
-   _qemu_api_bindgen_args += ['--rustified-enum', enum]
- endforeach
--c_bitfields = [
--  'ClockEvent',
--]
--foreach enum : c_bitfields
--  _qemu_api_bindgen_args += ['--bitfield-enum', enum]
--endforeach
- 
- blocked_type = [
-   'Chardev',
-@@ -55,17 +45,14 @@ _qemu_api_rs = static_library(
+   'DeviceCategory',
+   'GpioPolarity',
+@@ -51,7 +47,6 @@ _qemu_api_rs = static_library(
      [
        'src/lib.rs',
        'src/bindings.rs',
--      'src/irq.rs',
-       'src/prelude.rs',
--      'src/qdev.rs',
--      'src/sysbus.rs',
-     ],
-     {'.' : _qemu_api_bindings_inc_rs},
-   ),
+-      'src/cell.rs',
+       'src/chardev.rs',
+       'src/irq.rs',
+       'src/memory.rs',
+@@ -65,7 +60,7 @@ _qemu_api_rs = static_library(
    override_options: ['rust_std=2021', 'build.rust_std=2021'],
    rust_abi: 'rust',
    rust_args: _qemu_api_cfg,
--  dependencies: [anyhow_rs, common_rs, chardev_rs, foreign_rs, libc_rs, qemu_api_macros, qemuutil_rs, util_rs, migration_rs, bql_rs, qom_rs, system_rs,
-+  dependencies: [anyhow_rs, common_rs, chardev_rs, foreign_rs, libc_rs, qemu_api_macros, qemuutil_rs, util_rs, migration_rs, bql_rs, qom_rs, system_rs, hwcore_rs,
+-  dependencies: [anyhow_rs, common_rs, foreign_rs, libc_rs, qemu_api_macros, qemuutil_rs, util_rs, migration_rs,
++  dependencies: [anyhow_rs, common_rs, foreign_rs, libc_rs, qemu_api_macros, qemuutil_rs, util_rs, migration_rs, bql_rs,
                   qom, hwcore, chardev, migration],
  )
  
-@@ -87,7 +74,7 @@ rust.doctest('rust-qemu-api-doctests',
- test('rust-qemu-api-integration',
-     executable(
-         'rust-qemu-api-integration',
--        files('tests/tests.rs', 'tests/vmstate_tests.rs'),
-+        files('tests/vmstate_tests.rs'),
+@@ -91,7 +86,7 @@ test('rust-qemu-api-integration',
          override_options: ['rust_std=2021', 'build.rust_std=2021'],
          rust_args: ['--test'],
          install: false,
-diff --git a/rust/qemu-api/src/bindings.rs b/rust/qemu-api/src/bindings.rs
-index 63b805c76e..9c863e9b5b 100644
---- a/rust/qemu-api/src/bindings.rs
-+++ b/rust/qemu-api/src/bindings.rs
-@@ -21,7 +21,6 @@
- //! `bindgen`-generated declarations.
+-        dependencies: [common_rs, util_rs, migration_rs, qemu_api]),
++        dependencies: [bql_rs, common_rs, util_rs, migration_rs, qemu_api]),
+     args: [
+         '--test', '--test-threads', '1',
+         '--format', 'pretty',
+diff --git a/rust/qemu-api/src/chardev.rs b/rust/qemu-api/src/chardev.rs
+index 4d42306b6c..c241b30b00 100644
+--- a/rust/qemu-api/src/chardev.rs
++++ b/rust/qemu-api/src/chardev.rs
+@@ -18,13 +18,10 @@
+     slice,
+ };
  
- use chardev::bindings::Chardev;
--use common::Zeroable;
- use migration::bindings::VMStateDescription;
- use qom::bindings::ObjectClass;
- use system::bindings::{device_endian, MemTxAttrs, MemoryRegion};
-@@ -32,12 +31,3 @@
++use bql::{BqlRefCell, BqlRefMut};
+ use common::{callbacks::FnCall, errno, Opaque};
  
- #[cfg(not(MESON))]
- include!(concat!(env!("OUT_DIR"), "/bindings.inc.rs"));
--
--unsafe impl Send for Property {}
--unsafe impl Sync for Property {}
--
--unsafe impl Send for TypeInfo {}
--unsafe impl Sync for TypeInfo {}
--
--unsafe impl Zeroable for crate::bindings::Property__bindgen_ty_1 {}
--unsafe impl Zeroable for crate::bindings::Property {}
+-use crate::{
+-    bindings,
+-    cell::{BqlRefCell, BqlRefMut},
+-    prelude::*,
+-};
++use crate::{bindings, prelude::*};
+ 
+ /// A safe wrapper around [`bindings::Chardev`].
+ #[repr(transparent)]
+@@ -44,13 +41,15 @@ pub struct CharBackend {
+     _pin: PhantomPinned,
+ }
+ 
+-impl Write for BqlRefMut<'_, bindings::CharBackend> {
++pub struct CharBackendMut<'a>(BqlRefMut<'a, bindings::CharBackend>);
++
++impl Write for CharBackendMut<'_> {
+     fn flush(&mut self) -> io::Result<()> {
+         Ok(())
+     }
+ 
+     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
+-        let chr: &mut bindings::CharBackend = self;
++        let chr: &mut bindings::CharBackend = &mut self.0;
+ 
+         let len = buf.len().try_into().unwrap();
+         let r = unsafe { bindings::qemu_chr_fe_write(addr_of_mut!(*chr), buf.as_ptr(), len) };
+@@ -58,7 +57,7 @@ fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
+     }
+ 
+     fn write_all(&mut self, buf: &[u8]) -> io::Result<()> {
+-        let chr: &mut bindings::CharBackend = self;
++        let chr: &mut bindings::CharBackend = &mut self.0;
+ 
+         let len = buf.len().try_into().unwrap();
+         let r = unsafe { bindings::qemu_chr_fe_write_all(addr_of_mut!(*chr), buf.as_ptr(), len) };
+@@ -198,7 +197,7 @@ pub fn accept_input(&self) {
+     /// the big QEMU lock while the character device is borrowed, as
+     /// that might cause C code to write to the character device.
+     pub fn borrow_mut(&self) -> impl Write + '_ {
+-        self.inner.borrow_mut()
++        CharBackendMut(self.inner.borrow_mut())
+     }
+ 
+     /// Send a continuous stream of zero bits on the line if `enabled` is
+diff --git a/rust/qemu-api/src/irq.rs b/rust/qemu-api/src/irq.rs
+index ea6b32848c..3063fbe97a 100644
+--- a/rust/qemu-api/src/irq.rs
++++ b/rust/qemu-api/src/irq.rs
+@@ -10,6 +10,7 @@
+     ptr,
+ };
+ 
++use bql::BqlCell;
+ use common::Opaque;
+ 
+ use crate::{
 diff --git a/rust/qemu-api/src/lib.rs b/rust/qemu-api/src/lib.rs
-index 38ff102b86..50fb2fa99d 100644
+index 52e4d5889b..37e6c21946 100644
 --- a/rust/qemu-api/src/lib.rs
 +++ b/rust/qemu-api/src/lib.rs
-@@ -12,7 +12,3 @@
- // for prelude-like modules
+@@ -13,7 +13,6 @@
  #[rustfmt::skip]
  pub mod prelude;
--
--pub mod irq;
--pub mod qdev;
--pub mod sysbus;
+ 
+-pub mod cell;
+ pub mod chardev;
+ pub mod irq;
+ pub mod memory;
 diff --git a/rust/qemu-api/src/prelude.rs b/rust/qemu-api/src/prelude.rs
-index 9e9d1c8247..8db56f9f81 100644
+index c10c171158..9da7313016 100644
 --- a/rust/qemu-api/src/prelude.rs
 +++ b/rust/qemu-api/src/prelude.rs
-@@ -3,7 +3,3 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
+@@ -4,9 +4,6 @@
  
  //! Commonly used traits and types for QEMU.
+ 
+-pub use crate::cell::BqlCell;
+-pub use crate::cell::BqlRefCell;
 -
--pub use crate::qdev::DeviceMethods;
--
--pub use crate::sysbus::SysBusDeviceMethods;
+ pub use crate::qdev::DeviceMethods;
+ 
+ pub use crate::qom::InterfaceType;
+diff --git a/rust/qemu-api/src/qdev.rs b/rust/qemu-api/src/qdev.rs
+index 15e1fdff96..6875c32be7 100644
+--- a/rust/qemu-api/src/qdev.rs
++++ b/rust/qemu-api/src/qdev.rs
+@@ -16,7 +16,6 @@
+ 
+ use crate::{
+     bindings::{self, qdev_init_gpio_in, qdev_init_gpio_out, ResettableClass},
+-    cell::bql_locked,
+     chardev::Chardev,
+     irq::InterruptSource,
+     prelude::*,
+@@ -275,7 +274,7 @@ fn do_init_clock_in(
+             cb: Option<unsafe extern "C" fn(*mut c_void, ClockEvent)>,
+             events: ClockEvent,
+         ) -> Owned<Clock> {
+-            assert!(bql_locked());
++            assert!(bql::is_locked());
+ 
+             // SAFETY: the clock is heap allocated, but qdev_init_clock_in()
+             // does not gift the reference to its caller; so use Owned::from to
+@@ -346,7 +345,7 @@ pub trait DeviceMethods: ObjectDeref
+     Self::Target: IsA<DeviceState>,
+ {
+     fn prop_set_chr(&self, propname: &str, chr: &Owned<Chardev>) {
+-        assert!(bql_locked());
++        assert!(bql::is_locked());
+         let c_propname = CString::new(propname).unwrap();
+         let chr: &Chardev = chr;
+         unsafe {
+diff --git a/rust/qemu-api/src/qom.rs b/rust/qemu-api/src/qom.rs
+index 901445013c..e797958e4e 100644
+--- a/rust/qemu-api/src/qom.rs
++++ b/rust/qemu-api/src/qom.rs
+@@ -105,12 +105,9 @@
+ use common::Opaque;
+ use migration::impl_vmstate_pointer;
+ 
+-use crate::{
+-    bindings::{
+-        self, object_class_dynamic_cast, object_dynamic_cast, object_get_class,
+-        object_get_typename, object_new, object_ref, object_unref, TypeInfo,
+-    },
+-    cell::bql_locked,
++use crate::bindings::{
++    self, object_class_dynamic_cast, object_dynamic_cast, object_get_class, object_get_typename,
++    object_new, object_ref, object_unref, TypeInfo,
+ };
+ 
+ /// A safe wrapper around [`bindings::Object`].
+@@ -873,7 +870,7 @@ impl<T: ObjectType> ObjectDeref for Owned<T> {}
+ 
+ impl<T: ObjectType> Drop for Owned<T> {
+     fn drop(&mut self) {
+-        assert!(bql_locked());
++        assert!(bql::is_locked());
+         // SAFETY: creation method is unsafe, and whoever calls it has
+         // responsibility that the pointer is valid, and remains valid
+         // throughout the lifetime of the `Owned<T>` and its clones.
+@@ -897,7 +894,7 @@ fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+ pub trait ObjectClassMethods: IsA<Object> {
+     /// Return a new reference counted instance of this class
+     fn new() -> Owned<Self> {
+-        assert!(bql_locked());
++        assert!(bql::is_locked());
+         // SAFETY: the object created by object_new is allocated on
+         // the heap and has a reference count of 1
+         unsafe {
+diff --git a/rust/qemu-api/src/sysbus.rs b/rust/qemu-api/src/sysbus.rs
+index 2dbfc31dbd..b21883246e 100644
+--- a/rust/qemu-api/src/sysbus.rs
++++ b/rust/qemu-api/src/sysbus.rs
+@@ -11,7 +11,6 @@
+ 
+ use crate::{
+     bindings,
+-    cell::bql_locked,
+     irq::{IRQState, InterruptSource},
+     memory::MemoryRegion,
+     prelude::*,
+@@ -56,7 +55,7 @@ pub trait SysBusDeviceMethods: ObjectDeref
+     /// region with a number that corresponds to the order of calls to
+     /// `init_mmio`.
+     fn init_mmio(&self, iomem: &MemoryRegion) {
+-        assert!(bql_locked());
++        assert!(bql::is_locked());
+         unsafe {
+             bindings::sysbus_init_mmio(self.upcast().as_mut_ptr(), iomem.as_mut_ptr());
+         }
+@@ -67,7 +66,7 @@ fn init_mmio(&self, iomem: &MemoryRegion) {
+     /// whoever creates the sysbus device will refer to the interrupts with
+     /// a number that corresponds to the order of calls to `init_irq`.
+     fn init_irq(&self, irq: &InterruptSource) {
+-        assert!(bql_locked());
++        assert!(bql::is_locked());
+         unsafe {
+             bindings::sysbus_init_irq(self.upcast().as_mut_ptr(), irq.as_ptr());
+         }
+@@ -75,7 +74,7 @@ fn init_irq(&self, irq: &InterruptSource) {
+ 
+     // TODO: do we want a type like GuestAddress here?
+     fn mmio_addr(&self, id: u32) -> Option<u64> {
+-        assert!(bql_locked());
++        assert!(bql::is_locked());
+         // SAFETY: the BQL ensures that no one else writes to sbd.mmio[], and
+         // the SysBusDevice must be initialized to get an IsA<SysBusDevice>.
+         let sbd = unsafe { *self.upcast().as_ptr() };
+@@ -89,7 +88,7 @@ fn mmio_addr(&self, id: u32) -> Option<u64> {
+ 
+     // TODO: do we want a type like GuestAddress here?
+     fn mmio_map(&self, id: u32, addr: u64) {
+-        assert!(bql_locked());
++        assert!(bql::is_locked());
+         let id: i32 = id.try_into().unwrap();
+         unsafe {
+             bindings::sysbus_mmio_map(self.upcast().as_mut_ptr(), id, addr);
+@@ -100,7 +99,7 @@ fn mmio_map(&self, id: u32, addr: u64) {
+     // object_property_set_link) adds a reference to the IRQState,
+     // which can prolong its life
+     fn connect_irq(&self, id: u32, irq: &Owned<IRQState>) {
+-        assert!(bql_locked());
++        assert!(bql::is_locked());
+         let id: i32 = id.try_into().unwrap();
+         let irq: &IRQState = irq;
+         unsafe {
+@@ -110,7 +109,7 @@ fn connect_irq(&self, id: u32, irq: &Owned<IRQState>) {
+ 
+     fn sysbus_realize(&self) {
+         // TODO: return an Error
+-        assert!(bql_locked());
++        assert!(bql::is_locked());
+         unsafe {
+             bindings::sysbus_realize(
+                 self.upcast().as_mut_ptr(),
+diff --git a/rust/qemu-api/tests/tests.rs b/rust/qemu-api/tests/tests.rs
+index 2ea4f88dd1..bc4bd320ce 100644
+--- a/rust/qemu-api/tests/tests.rs
++++ b/rust/qemu-api/tests/tests.rs
+@@ -4,11 +4,11 @@
+ 
+ use std::{ffi::CStr, ptr::addr_of};
+ 
++use bql::BqlCell;
+ use common::Zeroable;
+ use migration::VMStateDescription;
+ use qemu_api::{
+     bindings::qdev_prop_bool,
+-    cell::{self, BqlCell},
+     declare_properties, define_property,
+     prelude::*,
+     qdev::{DeviceImpl, DeviceState, Property, ResettablePhasesImpl},
+@@ -113,7 +113,7 @@ pub fn class_init<T: DeviceImpl>(self: &mut DummyChildClass) {
+ fn init_qom() {
+     static ONCE: BqlCell<bool> = BqlCell::new(false);
+ 
+-    cell::bql_start_test();
++    bql::start_test();
+     if !ONCE.get() {
+         unsafe {
+             module_call_init(module_init_type::MODULE_INIT_QOM);
+diff --git a/rust/qemu-api/tests/vmstate_tests.rs b/rust/qemu-api/tests/vmstate_tests.rs
+index 3f64eb46c0..f808aed2c9 100644
+--- a/rust/qemu-api/tests/vmstate_tests.rs
++++ b/rust/qemu-api/tests/vmstate_tests.rs
+@@ -9,6 +9,7 @@
+     slice,
+ };
+ 
++use bql::BqlCell;
+ use common::{Opaque, Zeroable};
+ use migration::{
+     bindings::{
+@@ -19,7 +20,6 @@
+     vmstate::{VMStateDescription, VMStateField, VMStateFieldHelper},
+     vmstate_fields, vmstate_of, vmstate_struct, vmstate_unused, vmstate_validate,
+ };
+-use qemu_api::cell::BqlCell;
+ 
+ const FOO_ARRAY_MAX: usize = 3;
+ 
 -- 
 2.50.1
 
