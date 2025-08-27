@@ -4,77 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F060CA0FF6
-	for <qemu-rust@archiver.kernel.org>; Wed, 27 Aug 2025 10:50:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67D9CCA0FED
+	for <qemu-rust@archiver.kernel.org>; Wed, 27 Aug 2025 14:16:28 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1urDbt-0003xn-JO; Wed, 27 Aug 2025 06:42:33 -0400
+	id 1urGwj-0006BR-04; Wed, 27 Aug 2025 10:16:17 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1urDbp-0003ut-CM
- for qemu-rust@nongnu.org; Wed, 27 Aug 2025 06:42:29 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1urGwg-00069J-OE; Wed, 27 Aug 2025 10:16:15 -0400
+Received: from mgamail.intel.com ([192.198.163.11])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1urDbk-0002xk-EZ
- for qemu-rust@nongnu.org; Wed, 27 Aug 2025 06:42:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1756291342;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=AH/0NEagMSH65Fn1K4i6N+lAPAe9QFXw4Yt07/Zr5OA=;
- b=NaLfDzLXp+KTbl/V/kcA57QBiQGZPtCn5QWgyP3Y9t4RTpkugxI3onZ+yvmaZ9UsgjralM
- jvbjpk1b4uwSyxrtzl7e2COZTGs+PJk4Ethc7juHxitT4aFrT2PLvKQv+R1X3wA1DUrVYO
- blKFAjfQyoR+S+NWRz5aM4U35cKkYjo=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-44-va_UOuO_N7eRH9c_Wd4OyA-1; Wed,
- 27 Aug 2025 06:42:18 -0400
-X-MC-Unique: va_UOuO_N7eRH9c_Wd4OyA-1
-X-Mimecast-MFC-AGG-ID: va_UOuO_N7eRH9c_Wd4OyA_1756291337
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 9C4ED180044F; Wed, 27 Aug 2025 10:42:17 +0000 (UTC)
-Received: from localhost (unknown [10.45.242.16])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 72F551955F24; Wed, 27 Aug 2025 10:42:14 +0000 (UTC)
-From: marcandre.lureau@redhat.com
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org,
- =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- pbonzini@redhat.com,
- =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Subject: [PATCH 03/22] rust: add workspace authors
-Date: Wed, 27 Aug 2025 14:41:25 +0400
-Message-ID: <20250827104147.717203-4-marcandre.lureau@redhat.com>
-In-Reply-To: <20250827104147.717203-1-marcandre.lureau@redhat.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1urGwe-0005Pv-4K; Wed, 27 Aug 2025 10:16:14 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1756304172; x=1787840172;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=QZcgxXn/WefyHuhkOr0kLRoJkiy4L49DP7WrUMKn3q4=;
+ b=k6hFREW05iAJzJy1JIe4ZIqAzgjZA13HbG6G0ZEOdenDq2W99oY0yWjP
+ /IUBTWrOipKCyRkjyTue8jycq0FOytfVVkKmWbbGYWnJby/t/zzl5KibO
+ c3DWSDtRKky14flltulHlu40pIVfssGbI65WfaGo+zrd2gG7u0ScHvf3L
+ RK5vYVwAIHF2P4CKYXkqH8MGFRo1nqgPb57Kfn9UuuKgGQIPeqVuZL5ll
+ fPpqP9uWUIhHdLs+HhvFoJ0dtrEK0Bh/zdY3lkEMsxnMrFf1sj4M1W0AL
+ 2jNo+KZXsKeC8qeCJMMcNcHNufPE/ZzxMypmfgkf8QWUrGpzOUeMyR5F6 Q==;
+X-CSE-ConnectionGUID: Zk5AcQHyQue/suS/stVgfQ==
+X-CSE-MsgGUID: jEJr/ORYR8KH+K4NryGWFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11535"; a="69149403"
+X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="69149403"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2025 07:16:06 -0700
+X-CSE-ConnectionGUID: hMdQxRrsQaerlcl0NbxHdQ==
+X-CSE-MsgGUID: CvfpyM80Q1SIw/cuNSslPQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="175152822"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa005.jf.intel.com with ESMTP; 27 Aug 2025 07:16:03 -0700
+Date: Wed, 27 Aug 2025 22:37:50 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: marcandre.lureau@redhat.com
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
+ Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+ Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+ pbonzini@redhat.com, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Subject: Re: [PATCH 01/22] docs/rust: update msrv
+Message-ID: <aK8YPt8vt5XN0vDI@intel.com>
 References: <20250827104147.717203-1-marcandre.lureau@redhat.com>
+ <20250827104147.717203-2-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-Received-SPF: pass client-ip=170.10.133.124;
- envelope-from=marcandre.lureau@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+In-Reply-To: <20250827104147.717203-2-marcandre.lureau@redhat.com>
+Received-SPF: pass client-ip=192.198.163.11; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -90,26 +85,44 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Marc-AndrÃ© Lureau <marcandre.lureau@redhat.com>
+On Wed, Aug 27, 2025 at 02:41:23PM +0400, marcandre.lureau@redhat.com wrote:
+> Date: Wed, 27 Aug 2025 14:41:23 +0400
+> From: marcandre.lureau@redhat.com
+> Subject: [PATCH 01/22] docs/rust: update msrv
+> 
+> From: Marc-André Lureau <marcandre.lureau@redhat.com>
+> 
+> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+> ---
+>  docs/devel/rust.rst | 2 +-
+>  rust/Cargo.toml     | 1 +
+>  2 files changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/docs/devel/rust.rst b/docs/devel/rust.rst
+> index b6737536c6..f52da6f97e 100644
+> --- a/docs/devel/rust.rst
+> +++ b/docs/devel/rust.rst
+> @@ -1,4 +1,4 @@
+> -.. |msrv| replace:: 1.63.0
+> +.. |msrv| replace:: 1.77.0
+>
+>  Rust in QEMU
+>  ============
+> diff --git a/rust/Cargo.toml b/rust/Cargo.toml
+> index 0868e1b426..56cfe07791 100644
+> --- a/rust/Cargo.toml
+> +++ b/rust/Cargo.toml
+> @@ -13,6 +13,7 @@ edition = "2021"
+>  homepage = "https://www.qemu.org"
+>  license = "GPL-2.0-or-later"
+>  repository = "https://gitlab.com/qemu-project/qemu/"
+> +# don't forget to update docs/devel/rust.rst msrv
 
-Signed-off-by: Marc-AndrÃ© Lureau <marcandre.lureau@redhat.com>
----
- rust/Cargo.toml | 1 +
- 1 file changed, 1 insertion(+)
+Good comment!
 
-diff --git a/rust/Cargo.toml b/rust/Cargo.toml
-index 8b878775ce..15c80fdbf4 100644
---- a/rust/Cargo.toml
-+++ b/rust/Cargo.toml
-@@ -15,6 +15,7 @@ license = "GPL-2.0-or-later"
- repository = "https://gitlab.com/qemu-project/qemu/"
- # don't forget to update docs/devel/rust.rst msrv
- rust-version = "1.77.0"
-+authors = ["The QEMU Project Developers <qemu-devel@nongnu.org>"]
- 
- [workspace.lints.rust]
- unexpected_cfgs = { level = "deny", check-cfg = [
--- 
-2.50.1
+>  rust-version = "1.77.0"
+>  
+
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
