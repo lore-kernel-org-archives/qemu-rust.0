@@ -4,64 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F774CA0FF2
-	for <qemu-rust@archiver.kernel.org>; Wed, 27 Aug 2025 02:37:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 005C1C8303F
+	for <qemu-rust@archiver.kernel.org>; Wed, 27 Aug 2025 06:33:58 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1ur61v-0007Xr-Bh; Tue, 26 Aug 2025 22:36:55 -0400
+	id 1ur9j2-0005U9-1X; Wed, 27 Aug 2025 02:33:40 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1ur61r-0007O9-6K; Tue, 26 Aug 2025 22:36:52 -0400
+ id 1ur9iy-0005Sv-Jz; Wed, 27 Aug 2025 02:33:36 -0400
 Received: from mgamail.intel.com ([192.198.163.7])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1ur61j-0004m4-Tr; Tue, 26 Aug 2025 22:36:49 -0400
+ id 1ur9iu-0006Gf-RN; Wed, 27 Aug 2025 02:33:35 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756262204; x=1787798204;
+ t=1756276413; x=1787812413;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=rts/0Q3cR6nRJCzrtg2wLNXiZ3VhT8rRBY6bKGvvPhM=;
- b=g98aK682eJ7+a/3JenardCkseMH7f1P6keKa85CzdkikkMa0PjhEy9ne
- eMAkEabp+OiddVUiAqUAFudYpfY3zDqzeAyU0bomuobpGPEmzMLsYylDt
- fKsZKYJghWgwyv72sv2Ip+G4dzeoUMKXaUZhDIM9cQvCcq4Mh/1uwuqoQ
- PirN1H6baqK8siamWkvnb9KHs+M3ZfQB8eB91c3QLQFGZYi5W2/aD/dTF
- qPP4Ngtwm6aqh/jwn28VPgncTprbjlzRfEIVQfzc+DnlRNUYz0844LUcW
- Wf59aRBrZ815a95I4leikux/F5nR33xhlQNsLHf4Hm5Q30IXGHxVqoGvD g==;
-X-CSE-ConnectionGUID: X7sCn0yURRyu9Q3mfCC0fg==
-X-CSE-MsgGUID: w6lLkgNBR4mK/5dVYyW8lg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11534"; a="83914131"
-X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="83914131"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ mime-version:in-reply-to;
+ bh=1awMoRt/9bEJOAxlg7Rue9aCbtQiImxN+y6fkTrBK3Q=;
+ b=eelm5O1iJujHeyVs+oYAfCeA29Rxfn1F9RMhEHVTEjd/YIbgi1a4BG5l
+ OoUAE6zwrblFb4HyGZOOZhc2ADoaB43bUDsZxz1PRZEa98F5FMrRKNFrf
+ bR/jOYArV0gou4CHPASTWRvfZTvCXvhufM406B32nrU7dtYkxXHsPal6j
+ 8OknLrbTzTuyjNHR0yKtVDyZ5459sePdm9UdCzf5gbxJTxx8oaW0fXDu6
+ olRm4/ptH1R1W168CXcPzHuGH2KSRElbDxTpNF8yhDQpgPjk7Hg8u9k6w
+ y4L9tGsqtDYgytn9K+l4kei0mBsq960BbOpaLNddOq2hpN3T0YmANYUHU A==;
+X-CSE-ConnectionGUID: oyAIWLd7Q8GN+7uoqY66AA==
+X-CSE-MsgGUID: ZgaUcK4fTuSVBovzqFMx5g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11534"; a="83928421"
+X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="83928421"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2025 19:36:34 -0700
-X-CSE-ConnectionGUID: dhwEPE02R5uZErxgBfvP+w==
-X-CSE-MsgGUID: 4KzYpUURSOm63wBRRO4j4Q==
+ 26 Aug 2025 23:33:28 -0700
+X-CSE-ConnectionGUID: nlJSvG1kTUayAA6vGwvn4Q==
+X-CSE-MsgGUID: S/rQD60jSz+knFCzj4+jrQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="169641087"
+X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="169712908"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa007.jf.intel.com with ESMTP; 26 Aug 2025 19:36:32 -0700
-Date: Wed, 27 Aug 2025 10:58:18 +0800
+ by fmviesa006.fm.intel.com with ESMTP; 26 Aug 2025 23:33:26 -0700
+Date: Wed, 27 Aug 2025 14:55:12 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: marcandre.lureau@redhat.com
-Cc: qemu-devel@nongnu.org,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
  Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+ qemu-rust@nongnu.org,
  Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
- pbonzini@redhat.com, qemu-rust@nongnu.org
-Subject: Re: [PATCH 4/4] rust/qemu-api-macros: make derive(Object) friendly
- when missing parent
-Message-ID: <aK50Sjm595hUDJXB@intel.com>
-References: <20250826133132.4064478-1-marcandre.lureau@redhat.com>
- <20250826133132.4064478-5-marcandre.lureau@redhat.com>
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Subject: Re: [RFC 10/18] rust: split "qom" crate
+Message-ID: <aK6r0AytZGSOkWYF@intel.com>
+References: <20250826140449.4190022-1-marcandre.lureau@redhat.com>
+ <20250826140449.4190022-11-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250826133132.4064478-5-marcandre.lureau@redhat.com>
+In-Reply-To: <20250826140449.4190022-11-marcandre.lureau@redhat.com>
 Received-SPF: pass client-ip=192.198.163.7; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
@@ -87,18 +85,99 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Tue, Aug 26, 2025 at 05:31:32PM +0400, marcandre.lureau@redhat.com wrote:
-> Date: Tue, 26 Aug 2025 17:31:32 +0400
-> From: marcandre.lureau@redhat.com
-> Subject: [PATCH 4/4] rust/qemu-api-macros: make derive(Object) friendly
->  when missing parent
-> 
-> From: Marc-André Lureau <marcandre.lureau@redhat.com>
-> 
-> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-> ---
->  rust/qemu-api-macros/src/lib.rs | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
+> diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
+> index 7cffb894a8..a3bcd1297a 100644
+> --- a/rust/hw/char/pl011/src/device.rs
+> +++ b/rust/hw/char/pl011/src/device.rs
+> @@ -21,10 +21,13 @@
+>      memory::{hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder},
+>      prelude::*,
+>      qdev::{Clock, ClockEvent, DeviceImpl, DeviceState, Property, ResetType, ResettablePhasesImpl},
+> -    qom::{ObjectImpl, Owned, ParentField, ParentInit},
+>      sysbus::{SysBusDevice, SysBusDeviceImpl},
+>      vmstate_clock,
+>  };
+> +use qom::{
+> +    qom_isa, IsA, Object, ObjectClassMethods, ObjectDeref, ObjectImpl, ObjectMethods, ObjectType,
+> +    Owned, ParentField, ParentInit,
+> +};
+
+These QOM parts are frequently used and very common. at least for qom,
+I think prelude would help a lot.
+
+A qom prelude could help reduce the changes in other parts (pl011/
+hpet/memory...).
+
+> diff --git a/rust/qom/meson.build b/rust/qom/meson.build
+> new file mode 100644
+> index 0000000000..6e95d75fa0
+> --- /dev/null
+> +++ b/rust/qom/meson.build
+> @@ -0,0 +1,61 @@
+> +_qom_cfg = run_command(rustc_args,
+> +  '--config-headers', config_host_h, '--features', files('Cargo.toml'),
+> +  capture: true, check: true).stdout().strip().splitlines()
+> +
+> +# TODO: Remove this comment when the clang/libclang mismatch issue is solved.
+> +#
+> +# Rust bindings generation with `bindgen` might fail in some cases where the
+> +# detected `libclang` does not match the expected `clang` version/target. In
+> +# this case you must pass the path to `clang` and `libclang` to your build
+> +# command invocation using the environment variables CLANG_PATH and
+> +# LIBCLANG_PATH
+> +_qom_bindings_inc_rs = rust.bindgen(
+> +  input: 'wrapper.h',
+> +  dependencies: common_ss.all_dependencies(),
+> +  output: 'bindings.inc.rs',
+
+There're many binding files with the same name. What about adding a prefix
+like "qom-bindings" to distinguish it? This can help search and locate
+specific binding file.
+
+> +  include_directories: bindings_incdir,
+> +  bindgen_version: ['>=0.60.0'],
+> +  args: bindgen_args_common,
+> +)
+
+...
+
+> diff --git a/rust/qom/tests/tests.rs b/rust/qom/tests/tests.rs
+> new file mode 100644
+> index 0000000000..49f1cbecf5
+> --- /dev/null
+> +++ b/rust/qom/tests/tests.rs
+> @@ -0,0 +1,47 @@
+> +use std::{ffi::CStr, sync::LazyLock};
+
+LazyLock is useful, but it became stable since v1.80. So if Paolo
+decide pick this series after v1.83 support, it's fine.
+
+> +use qom::{qom_isa, Object, ObjectClassMethods, ObjectImpl, ObjectType, ParentField};
+> +use util::bindings::{module_call_init, module_init_type};
+
+...
+
+> +fn init_qom() {
+> +    static ONCE: LazyLock<()> = LazyLock::new(|| unsafe {
+> +        module_call_init(module_init_type::MODULE_INIT_QOM);
+> +    });
+
+But for now, we can still use a static BqlCell<bool> as the workaround,
+just like rust/hwcore/tests/tests.rs did, to decouple with MSRV
+dependency.
+
+And it seems rust/hwcore/tests/tests.rs has already covered this test
+case, do we still need this test?
+
+If so, then it's better to add this new test in a seperate patch, which
+makes current patch focus on the splitting :-).
+
+> +    bql::start_test();
+> +    LazyLock::force(&ONCE);
+> +}
+> +
+
+Otherwise, LGTM,
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
