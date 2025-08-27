@@ -4,89 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01546CA0FED
-	for <qemu-rust@archiver.kernel.org>; Tue, 26 Aug 2025 20:49:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F774CA0FF2
+	for <qemu-rust@archiver.kernel.org>; Wed, 27 Aug 2025 02:37:14 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1ur0bp-0003Ki-1d; Tue, 26 Aug 2025 16:49:37 -0400
+	id 1ur61v-0007Xr-Bh; Tue, 26 Aug 2025 22:36:55 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <marcandre.lureau@gmail.com>)
- id 1ur0Js-0002Qa-U6; Tue, 26 Aug 2025 16:31:06 -0400
-Received: from mail-qt1-x830.google.com ([2607:f8b0:4864:20::830])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <marcandre.lureau@gmail.com>)
- id 1ur0Jk-0006YP-Lv; Tue, 26 Aug 2025 16:31:04 -0400
-Received: by mail-qt1-x830.google.com with SMTP id
- d75a77b69052e-4b1098f9ed9so44242631cf.0; 
- Tue, 26 Aug 2025 13:30:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756240252; x=1756845052; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qS1kyiVRtTyTgXCTqqt4GbfxdfCiL3EvwaL+Mr9BWCg=;
- b=hh8IvwYoY6Mb0lIpHUeSMWX/eX8MSbYOqRkeukTY8DahaEoYsoo7GolYl4T5MxiU/g
- 3uX0YTGvxN8Z/8cuaoHk/6gFsZ9fzG9p1sXowV9CIOjMTfC6UBQfsfVbgAtBuj+jEW0j
- nCs6fEgKD/Hw4sfVC9Wba8Wl5VLN0rcx1e8GmknuvkbvwSxt1e5kV0wMVYzMjlwWEYlZ
- 1iz4w8LqryWCgz5Qy7nm/HYgr+/U+pmMPubAi6jNZIJCqq1XEsmYXVxy5sKvbknaNNDS
- 0WuHVfLQx1Jd+nK22fmwRu/XG3dLbP8Dr4HHN1zAwCxjBV6/AosNxWu218E7BnUk+9X8
- 3cpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756240252; x=1756845052;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qS1kyiVRtTyTgXCTqqt4GbfxdfCiL3EvwaL+Mr9BWCg=;
- b=smtZxCLrpGwg5CYmSDmE/s9YevM03s4GmpWW6cGgL8mh9kXxPL1zd2Tt8rGHgfWs/6
- 3A1uKmW5ZGJ23TH6Xk6gnSjWv2iJwdrFnwq5x3m3YjtU7SZ82pI3kk/JykPErh/QTrcU
- 3lRgIr/cNM6cl36fNo6s9XSyF/ogt3vjiS4+H4iWn1uN6MyVEORoQuU61fE3ctvWM3si
- +z/HXiq4H+vKqLutXOM4WsmNxKEuKMccIKpkxdwCo+6RdbsBd9uPzXDodsHK1Fw6W+nW
- OwBiG/jIBD1HtzFdkZdrtMbGIW7v2IQbEbWe7qNQeLjSXDjJ7Ot/wbNflqwz42o/slR0
- j7Fw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVoVYSfoLerGp9WqOjULPu0HoTPdKImJ3aJs0YOSDA97WJokY6uM2I+HTWmFyX4JADa47zj2xVy2qk=@nongnu.org
-X-Gm-Message-State: AOJu0YxLs/6XR+36EF91/f9J+qa0Ek5dB/HJXLUO5FFnunoPjJo1SIyy
- 5k5WXrEFWdgccfGXpIiZC5Ly8M5MYnpkAlKEz2Z7c2eTOtnDCQkoG8jTsdTYNknURwT/a1hgQea
- IkqmyeZ5bLaDUTGYmL1v/kUHZZUyLB1RPylXL
-X-Gm-Gg: ASbGncsYqQBhQLyMTmqUsvrxZDsAHoFxWp69GFnwupnK0Hnv+NOpyGuxNzdaEFz7Vvy
- LoAqAPF6IpWlvCr7/MuhEiCv+pRRr+WU+7XTaXoQs03uPx0/ErA1b4Tq1AxlBuzOMYNpxWuKmCu
- mbcage+/Ju5ZSHdPkkn9oWAw7hC1VJB58+eog2Mb0/zZb0SbZ4rOBjMBeAyxJqrqWKsHU8hgoXs
- ZbZrchJUr0PrI3AGu68lNZFnRV/OisTfMl1IfRunV8KAd8ggPE=
-X-Google-Smtp-Source: AGHT+IGcMh3Oj3vWvoUG1O9IPz86/voArCZ4Z3VAaT8oRCdCy9KnhE+hcfsPIozMd5vORz1lNyMD7b1kUPEpxFwKDRY=
-X-Received: by 2002:a05:622a:5588:b0:4b0:8633:f979 with SMTP id
- d75a77b69052e-4b2aab1fb13mr197006771cf.42.1756240252002; Tue, 26 Aug 2025
- 13:30:52 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250826140449.4190022-1-marcandre.lureau@redhat.com>
- <20250826140449.4190022-15-marcandre.lureau@redhat.com>
- <d65f6de8-744a-4c85-a85b-695bb3893868@redhat.com>
-In-Reply-To: <d65f6de8-744a-4c85-a85b-695bb3893868@redhat.com>
-From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>
-Date: Wed, 27 Aug 2025 00:30:40 +0400
-X-Gm-Features: Ac12FXytJZyjGyk5KoyksasxTaYq7fPe9joXfVGZaNyu6C7t9LiDI03uJyz2smg
-Message-ID: <CAJ+F1C+BWMZxvoP=Bz343xspM-wfxAWw+bYYoCdgxxS55d3WHA@mail.gmail.com>
-Subject: Re: [RFC 14/18] rust: rename qemu_api_macros -> qemu_macros
-To: Paolo Bonzini <pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1ur61r-0007O9-6K; Tue, 26 Aug 2025 22:36:52 -0400
+Received: from mgamail.intel.com ([192.198.163.7])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1ur61j-0004m4-Tr; Tue, 26 Aug 2025 22:36:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1756262204; x=1787798204;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=rts/0Q3cR6nRJCzrtg2wLNXiZ3VhT8rRBY6bKGvvPhM=;
+ b=g98aK682eJ7+a/3JenardCkseMH7f1P6keKa85CzdkikkMa0PjhEy9ne
+ eMAkEabp+OiddVUiAqUAFudYpfY3zDqzeAyU0bomuobpGPEmzMLsYylDt
+ fKsZKYJghWgwyv72sv2Ip+G4dzeoUMKXaUZhDIM9cQvCcq4Mh/1uwuqoQ
+ PirN1H6baqK8siamWkvnb9KHs+M3ZfQB8eB91c3QLQFGZYi5W2/aD/dTF
+ qPP4Ngtwm6aqh/jwn28VPgncTprbjlzRfEIVQfzc+DnlRNUYz0844LUcW
+ Wf59aRBrZ815a95I4leikux/F5nR33xhlQNsLHf4Hm5Q30IXGHxVqoGvD g==;
+X-CSE-ConnectionGUID: X7sCn0yURRyu9Q3mfCC0fg==
+X-CSE-MsgGUID: w6lLkgNBR4mK/5dVYyW8lg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11534"; a="83914131"
+X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="83914131"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2025 19:36:34 -0700
+X-CSE-ConnectionGUID: dhwEPE02R5uZErxgBfvP+w==
+X-CSE-MsgGUID: 4KzYpUURSOm63wBRRO4j4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="169641087"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa007.jf.intel.com with ESMTP; 26 Aug 2025 19:36:32 -0700
+Date: Wed, 27 Aug 2025 10:58:18 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: marcandre.lureau@redhat.com
 Cc: qemu-devel@nongnu.org,
- =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
- qemu-rust@nongnu.org,
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2607:f8b0:4864:20::830;
- envelope-from=marcandre.lureau@gmail.com; helo=mail-qt1-x830.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+ Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+ pbonzini@redhat.com, qemu-rust@nongnu.org
+Subject: Re: [PATCH 4/4] rust/qemu-api-macros: make derive(Object) friendly
+ when missing parent
+Message-ID: <aK50Sjm595hUDJXB@intel.com>
+References: <20250826133132.4064478-1-marcandre.lureau@redhat.com>
+ <20250826133132.4064478-5-marcandre.lureau@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250826133132.4064478-5-marcandre.lureau@redhat.com>
+Received-SPF: pass client-ip=192.198.163.7; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Tue, 26 Aug 2025 16:49:33 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,31 +87,19 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Hi
+On Tue, Aug 26, 2025 at 05:31:32PM +0400, marcandre.lureau@redhat.com wrote:
+> Date: Tue, 26 Aug 2025 17:31:32 +0400
+> From: marcandre.lureau@redhat.com
+> Subject: [PATCH 4/4] rust/qemu-api-macros: make derive(Object) friendly
+>  when missing parent
+> 
+> From: Marc-André Lureau <marcandre.lureau@redhat.com>
+> 
+> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+> ---
+>  rust/qemu-api-macros/src/lib.rs | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
 
-On Tue, Aug 26, 2025 at 6:55=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com>=
- wrote:
->
-> On 8/26/25 16:04, marcandre.lureau@redhat.com wrote:
-> > From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
-> >
-> > Since "qemu_api" is no longer the unique crate to provide APIs.
->
-> In addition to renaming, maybe you can re-export the macros from the
-> appropriate crate?
->
-> derive(Object) -> qom
-> derive(Wrapper) -> common
-> derive(TryInto) -> common
-> derive(Device) -> hwcore
->
-> That is, keep a single qemu_api_macros crate for the implementation but
-> allow using the nicer #[derive(qom::Object)].
->
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
-Good idea! working on it
-
-
---=20
-Marc-Andr=C3=A9 Lureau
 
