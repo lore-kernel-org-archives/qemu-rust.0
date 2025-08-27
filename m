@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84C47CA0EFF
-	for <qemu-rust@archiver.kernel.org>; Wed, 27 Aug 2025 14:45:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1462CA0FED
+	for <qemu-rust@archiver.kernel.org>; Wed, 27 Aug 2025 14:59:24 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1urHOI-0002OE-LT; Wed, 27 Aug 2025 10:44:46 -0400
+	id 1urHcI-0000HW-Ol; Wed, 27 Aug 2025 10:59:14 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1urHOC-0002LR-Bh; Wed, 27 Aug 2025 10:44:40 -0400
-Received: from mgamail.intel.com ([192.198.163.7])
+ id 1urHcG-0000GA-OW; Wed, 27 Aug 2025 10:59:13 -0400
+Received: from mgamail.intel.com ([198.175.65.10])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1urHO5-0001de-FC; Wed, 27 Aug 2025 10:44:40 -0400
+ id 1urHcE-0003xk-Tv; Wed, 27 Aug 2025 10:59:12 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756305874; x=1787841874;
+ t=1756306752; x=1787842752;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=mRi7teFjtyQ0V5zHbFF5pZ28nyknigHSLJ/UIbQgA7w=;
- b=EWv5PcpLnvS01ZaxhB8DFAu/9QaZMXySs4zCwJZpHbRHJARaZ2c4pWPA
- mYA0iG8c7ZBM70nLbt75MUeWTJBRPHQlmcuspNkme16PDuBc9I3rpUtZl
- 61Sro/+bda6LyjbuAomX4Pj4UwFs72vrhQA4moQsB3bSPk9BPQ5kFfjQB
- EGkhKa2V9HZqGLmEu5bklqHTWCdrfaasThPMNAir7JH8ZKhBtQ2uTBsNE
- rFGGVsr5GrUwyyh7H0VOzahTN1s5mQp+DvS/0ie9OlVlL1VL8h+7HaSX3
- P2suVODsCPrXzxFgRJqq9hKBDFYjvLUCVTV6DdJZqTj8VWhC43MhqaCPN A==;
-X-CSE-ConnectionGUID: AGVUuqojR269Q5THaH4UWw==
-X-CSE-MsgGUID: wcoClQ4oTo+x/fXIBeowZA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11535"; a="83964581"
-X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="83964581"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2025 07:44:30 -0700
-X-CSE-ConnectionGUID: rIduckGPTkGOgm84N5v8Vw==
-X-CSE-MsgGUID: ybQy4QXcSju/CADQdsg5Xw==
+ bh=sMfQvAzQJILc1q4t6dp+HRnBN19H6kuEgUBH+TWMMpI=;
+ b=a07oTnel4Z05jUJBR7Y6zIhvV5uerYz+QAF4JtLO1oNL+D6q1jEEhG+E
+ OfogiEV2u2BRYEJ6XRbLL8GmySVWt7h5pozUEowuj/Zie/rbNjiVAloII
+ ZG0m5AF3K6NqCUXQiTX4R18NtWEl5A6MePi6TyDa/mRQP67Y6QebLlkkE
+ leL7coafExKevt2rtOfTLOPlJV8XHVVyjpFFdC1RTWShvhrq4AEhLfXq6
+ PgNTfJJ6E2nuueYskpnJBw5HPNbzyqCnyuxC68bs7nwgtm7gDGzdJLQ48
+ xIC6qqLzq/LiXwkSOuwCzoYLjrPBifuj5ovU7jItQOm+omvCugUOJhsrj w==;
+X-CSE-ConnectionGUID: C+OYgAN7QYSJA5nkUk0f8g==
+X-CSE-MsgGUID: j2Rcg55JTDGdrMTXvXeWaw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11535"; a="76010512"
+X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="76010512"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2025 07:59:08 -0700
+X-CSE-ConnectionGUID: VqV8Pg+/Q621rNqjsBje6w==
+X-CSE-MsgGUID: /X7jZCHJQDyopAcpdnNYtQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="169147453"
+X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="169111490"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa010.jf.intel.com with ESMTP; 27 Aug 2025 07:44:28 -0700
-Date: Wed, 27 Aug 2025 23:06:14 +0800
+ by orviesa006.jf.intel.com with ESMTP; 27 Aug 2025 07:59:05 -0700
+Date: Wed, 27 Aug 2025 23:20:52 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: marcandre.lureau@redhat.com
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
  Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
  pbonzini@redhat.com, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Subject: Re: [PATCH 04/22] rust: make build.rs generic over various
- ./rust/projects
-Message-ID: <aK8e5uTtY5Mcs1XN@intel.com>
+Subject: Re: [PATCH 05/22] rust: split Rust-only "common" crate
+Message-ID: <aK8iVBVe8NgGnmm1@intel.com>
 References: <20250827104147.717203-1-marcandre.lureau@redhat.com>
- <20250827104147.717203-5-marcandre.lureau@redhat.com>
+ <20250827104147.717203-6-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250827104147.717203-5-marcandre.lureau@redhat.com>
-Received-SPF: pass client-ip=192.198.163.7; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250827104147.717203-6-marcandre.lureau@redhat.com>
+Received-SPF: pass client-ip=198.175.65.10; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -86,22 +85,30 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Wed, Aug 27, 2025 at 02:41:26PM +0400, marcandre.lureau@redhat.com wrote:
-> Date: Wed, 27 Aug 2025 14:41:26 +0400
+On Wed, Aug 27, 2025 at 02:41:27PM +0400, marcandre.lureau@redhat.com wrote:
+> Date: Wed, 27 Aug 2025 14:41:27 +0400
 > From: marcandre.lureau@redhat.com
-> Subject: [PATCH 04/22] rust: make build.rs generic over various
->  ./rust/projects
+> Subject: [PATCH 05/22] rust: split Rust-only "common" crate
 > 
 > From: Marc-André Lureau <marcandre.lureau@redhat.com>
 > 
-> Guess the name of the subdir from the manifest directory, instead of
-> hard-coding it. In the following commits, other crates can then link to
-> this file, instead of maintaining their own copy.
-> 
 > Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 > ---
->  rust/qemu-api/build.rs | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)> 
+
+...
+
+> diff --git a/rust/common/Cargo.toml b/rust/common/Cargo.toml
+> new file mode 100644
+> index 0000000000..5e106427e8
+> --- /dev/null
+> +++ b/rust/common/Cargo.toml
+> @@ -0,0 +1,19 @@
+> +[package]
+> +name = "common"
+> +version = "0.1.0"
+> +description = "Rust common code for QEMU"
+
+Meybe "Rust-only common code for QEMU"
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
