@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 922A6CA0FFF
-	for <qemu-rust@archiver.kernel.org>; Sat, 30 Aug 2025 15:11:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1052DCA0FFF
+	for <qemu-rust@archiver.kernel.org>; Sat, 30 Aug 2025 15:13:22 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1usN9W-0004JY-43; Sat, 30 Aug 2025 11:06:02 -0400
+	id 1usN9H-0003IP-0s; Sat, 30 Aug 2025 11:05:47 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uru2c-0008Qz-SU; Fri, 29 Aug 2025 04:01:04 -0400
-Received: from mgamail.intel.com ([192.198.163.10])
+ id 1urts5-0003na-8o; Fri, 29 Aug 2025 03:50:06 -0400
+Received: from mgamail.intel.com ([198.175.65.19])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uru2a-0000Ab-4q; Fri, 29 Aug 2025 04:00:58 -0400
+ id 1urts2-0006Lk-2E; Fri, 29 Aug 2025 03:50:04 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756454457; x=1787990457;
+ t=1756453803; x=1787989803;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=wHq5pNeo8OzARHa76q54XoHKWaxLkg+xaQ0N8DZj1Xc=;
- b=K3znGgQTZ/IMz/72RqyK55zrDWBSGOHka5RwXBTrnXsPaRR97ZKIjoHc
- QJ6NWvuTTv2cn8xWuR6B4GUFVYeq2zxkYuQoQs1VJZeO/BUzUL8ZwIGpk
- nIZuDoSKIDtANlv2NMvdzKOJn8Pz8wncGtXEJF0JuV8+p0bda0e67/O0w
- vdOGCSgQPWe1JsG2sKYb6bBjNUP7vfD7XQj3mdckVx4ll9UvbG7WS7jJe
- kglspzB1XSevm1BJsaZmla+Xo6H7c97ZILYaVHW+nkas5WYVLW/PwC8+l
- dqw0s4XwapXrEMTMqhXxdIqHJBYzMJEPFJb5pJsljbrgk7gBsJqzYtWLR g==;
-X-CSE-ConnectionGUID: bLR94VzCQGOal9lpbC6MVQ==
-X-CSE-MsgGUID: 8dbjL009SZSAmrWvLbWLOQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11536"; a="70105374"
-X-IronPort-AV: E=Sophos;i="6.18,221,1751266800"; d="scan'208";a="70105374"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2025 01:00:49 -0700
-X-CSE-ConnectionGUID: lCXL1VGCSJCUAwf9N5AcsQ==
-X-CSE-MsgGUID: dvhpzZAYQoaHbJeQ0ojqiw==
+ bh=PyjAvsoGl6TjNSESg50dh1k9Za98OTvUqe8LMboSoFo=;
+ b=nfI4jofDcR3bPUYYrk01U+ChBbyAbUD1LBZ6HzQ88Pl89YS08hWlXBkB
+ F+8hEMv9s2+JfTsHHekujvxACfsZhaSymANh+SxdqGhYPwgCLxlR/Stdn
+ UrHXqYid/oR4CUfou6TgfHOUSkqxRPPdJNVnwShsaLif3iHJymhLwwOcO
+ U4phRDbNjIFC4C9yRBzLbt5IRWkNvT1De+HG3T9Ei7nYPcsAf1TD3DaNC
+ yPgMe6lmC/ltj0voD/8Ls098OJKPEF+n8bdELNeRwD/ChyF/F4eTbdlnG
+ 9tMgHay7M4pBae23CGPyimc6MobpqZsyg/IROyzypnaag/E2FyrB9VGhb g==;
+X-CSE-ConnectionGUID: N+sznBodRxSUYoJUfnZ+lw==
+X-CSE-MsgGUID: O1tHjnTTTzKaWtlVK3DbWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11536"; a="58587122"
+X-IronPort-AV: E=Sophos;i="6.18,221,1751266800"; d="scan'208";a="58587122"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2025 00:49:53 -0700
+X-CSE-ConnectionGUID: x4FEJS0GR+qul17q/dnzhw==
+X-CSE-MsgGUID: 21VypKaNSAm5oAqL08JCUw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,221,1751266800"; d="scan'208";a="174701969"
+X-IronPort-AV: E=Sophos;i="6.18,221,1751266800"; d="scan'208";a="201263132"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa004.jf.intel.com with ESMTP; 29 Aug 2025 01:00:48 -0700
-Date: Fri, 29 Aug 2025 16:22:34 +0800
+ by orviesa002.jf.intel.com with ESMTP; 29 Aug 2025 00:49:51 -0700
+Date: Fri, 29 Aug 2025 16:11:38 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: marcandre.lureau@redhat.com
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
  Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
  pbonzini@redhat.com, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Subject: Re: [PATCH 09/22] rust: move Cell vmstate impl
-Message-ID: <aLFjSgdHHa2PE+Sp@intel.com>
+Subject: Re: [PATCH 07/22] rust: move vmstate_clock!() to qdev module
+Message-ID: <aLFguuET9x5y/Spl@intel.com>
 References: <20250827104147.717203-1-marcandre.lureau@redhat.com>
- <20250827104147.717203-10-marcandre.lureau@redhat.com>
+ <20250827104147.717203-8-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250827104147.717203-10-marcandre.lureau@redhat.com>
-Received-SPF: pass client-ip=192.198.163.10; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20250827104147.717203-8-marcandre.lureau@redhat.com>
+Received-SPF: pass client-ip=198.175.65.19; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -85,10 +85,10 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Wed, Aug 27, 2025 at 02:41:31PM +0400, marcandre.lureau@redhat.com wrote:
-> Date: Wed, 27 Aug 2025 14:41:31 +0400
+On Wed, Aug 27, 2025 at 02:41:29PM +0400, marcandre.lureau@redhat.com wrote:
+> Date: Wed, 27 Aug 2025 14:41:29 +0400
 > From: marcandre.lureau@redhat.com
-> Subject: [PATCH 09/22] rust: move Cell vmstate impl
+> Subject: [PATCH 07/22] rust: move vmstate_clock!() to qdev module
 > 
 > From: Marc-André Lureau <marcandre.lureau@redhat.com>
 > 
@@ -96,9 +96,9 @@ On Wed, Aug 27, 2025 at 02:41:31PM +0400, marcandre.lureau@redhat.com wrote:
 > 
 > Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 > ---
->  rust/qemu-api/src/cell.rs    |  5 ++++-
->  rust/qemu-api/src/vmstate.rs | 16 +++++++---------
->  2 files changed, 11 insertions(+), 10 deletions(-)
+>  rust/qemu-api/src/qdev.rs    | 34 ++++++++++++++++++++++++++++++++++
+>  rust/qemu-api/src/vmstate.rs | 34 ----------------------------------
+>  2 files changed, 34 insertions(+), 34 deletions(-)
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
