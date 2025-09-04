@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B204CCA1012
-	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 08:26:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DDF9CA1012
+	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 08:26:50 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uu5CO-0002Tv-Gh; Thu, 04 Sep 2025 04:20:04 -0400
+	id 1uu5CX-00034S-DC; Thu, 04 Sep 2025 04:20:14 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uu5B8-0001ET-0r
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:18:47 -0400
-Received: from mail-ej1-x62a.google.com ([2a00:1450:4864:20::62a])
+ id 1uu5BD-0001Kz-VS
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:18:53 -0400
+Received: from mail-ed1-x533.google.com ([2a00:1450:4864:20::533])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uu5B1-0008Dg-TR
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:18:45 -0400
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-b042ec947e4so94974766b.0
- for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 01:18:38 -0700 (PDT)
+ id 1uu5B2-0008EW-In
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:18:51 -0400
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b5b113eso1224554a12.0
+ for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 01:18:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1756973916; x=1757578716; darn=nongnu.org;
+ d=linaro.org; s=google; t=1756973918; x=1757578718; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ompVlJELO9ntgp7NqWovDalEEm5jaDFBaNVePh2Fg+k=;
- b=lqYpu8iTmfnRDkPsYPfWztkOHruSw/9HDNGJXi2AUKgD2QshF8ZVZgxVfo5/ciCepf
- rKV2iawkbnU1xvxO8tHX6k5Rj7eRU2cLG1LTxzQ6lLDWG9JpA6bJxjYSdl+njg0sEHyn
- QBxAtAho0yliqPYWp9QMmnoxYQS/rz0y+IIUtlqmxVUgl1x74H+07Zua3du1gvee1brZ
- H1Wkj7mBGshRf5sELwH7eSJ9rXk/kB4NO0CNSAGdt9nEQLlbEVtMXY7/o4I+7f+0VJGa
- rgJwcHqh1YDPejeLnAanrDnUdOtdEpYTdT/00WOnqVxxQWn1rHTjhmrUWqkbMl2V0cHc
- RNXg==
+ bh=fTwVN2pdB6APtd4vJTidA71Ye17u96MfvC5vKsLhS50=;
+ b=p1ae7NMzRSWnpR4jVCWgQ3pev7i0v6m9jCE7rPMi8lVC0+tCsL3MG33Z/Yg8MQ+a/X
+ lJeUD+ekFS9ayuxSIp98rC6iYP5XDdnRy8M61+tNqbKM08ElbmzLZdR4TiQhQQw7ZC9i
+ MVuHp2KQ7LFd/SOwqYbfsMLxDfvGFL2zXUQQAA32hScVJZz678Dx9cW5Mzh6HisbWZzT
+ wQJn/EvajGpO5M1f5AQZO6fEJpSQKBE4DAvGSPoweM6MF1JuuVZxpx/IxBbbgl1O/a8d
+ peRzpvZChswNHdfwVBqVbgMwsezZgsve9ydxEuisSSIhN5BqaSQUbV6Iry2K0DHugEtz
+ WBIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756973916; x=1757578716;
+ d=1e100.net; s=20230601; t=1756973918; x=1757578718;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ompVlJELO9ntgp7NqWovDalEEm5jaDFBaNVePh2Fg+k=;
- b=Qg2pwYAOkutxLT5a/P+0Slo0pRsTv5bRDiBlsoz5VNr1yXqUNMTsz+dLBlS/tirdHk
- hA7krdwTgP6NyPvEBHTgK7CYMBJAZdnl+OLWVlEc55wYRlQMoliu8GWfw/GrDLqvfdmN
- j6XocKzmKHNYtSuhk3BrvyJpiMbYPOOKhv/ckAk9IxkB+8/BSe110UbDyBVrjA2diO7h
- wC7KIvBFTq6+6d2FmCBrTCNaabUYIVDCccM9Nd064DzemQfb4W+nqrAEtLHgNA9AYjEy
- 6mra3lecJ+Tp1g5Lt+83FBU4m8Q7GzZO+E2ZGz5BM8rsguc6x9SjAp7OjHGpNHPHT03Y
- DGbw==
+ bh=fTwVN2pdB6APtd4vJTidA71Ye17u96MfvC5vKsLhS50=;
+ b=SPQXg2Qyg8g/FPSUj/5nt8CB+eeid8KexLDFQsRJkrrzvuFAsupsik7AXSgRAQI2u/
+ uG4DgVfATpVlCUMxDqlGYUeE6jub/eUU4LWdwi8UY+DoX7cCzpE18ABmVdc1EHIwsrQf
+ J4R2G0fEieQqTn6AGQlwXDa2vXMYrRrdkpfk8lT73AiecGZKijJMN0COAat0ypPw5wBF
+ eJhk/+cxLa+1bdlyJOEHaAPaPVryABU559MFgQziuSr6zeAsp+9Ir3Nol5I/bXHREPO3
+ LHVI+rLCKy8o8Gb/EYEnSXhVCHQMiDASQzK/SqvjzfKyDjE29LBayGKi/Y2PcsP7Ogs7
+ 1nlA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVFIyaTfbUR2nvosywhV/KN5hjb8SThaOY0uSTGmt0ZT1SlQ6mFlXSZIW1eB9Mdvi0JRtaFrWJfHmA=@nongnu.org
-X-Gm-Message-State: AOJu0YzQobz6nYeT3WCQf9/dZeBZItiRDR2zmLjfJVgeVUR7zznOBut8
- x2FLAZF832ZuUvU0cqqFK3xf6HYE8yat1tavULlAS83u6KaLB/SGOxLhul3REHe8JH8=
-X-Gm-Gg: ASbGncvyBuTSZCrPoGtMVw4k/sKKSvUX6OeYZicn0+5rTosG8pnWI1orSEzwa01T92J
- EbrWkIfibfgSxlC92ksNl6PUgVxuVPXauDIJoALfIe51LCtY9973i05LkXIXfEUiGLnCL8bPL2l
- tjWVA+RUzvZ8IKYxsJDPVMSoXuzQbqPS0osPtPjkGh8+mCSwMCw3d4InAxOHTWUi1amyRSHgB9n
- gEQ4fPYeYzXVdyZXekIDc3U+KNY2B0Sh3fNQ/1Crhtt/QZvN2MBCzbW8UjtZiirxQcFAOKWeqKg
- vvjtIhVco0NcnM20iGF+cJwu/8RRb86IaoP0hQwzdTBjIcHtF1poilYCKwAs5O1B1/M5oi13Z0R
- 1i+0BWU65FyF6RdeAU9xxWBZhJYSrUMTiUw==
-X-Google-Smtp-Source: AGHT+IFXKnqgaKsY2aRYlcO4LSLsCuART/SZSEUFpFcB1viH9haZ5yBXysPjsYR6aV+gJtHba4UXNg==
-X-Received: by 2002:a17:907:e916:b0:afe:ae6c:411c with SMTP id
- a640c23a62f3a-b01f2113c64mr1656930766b.64.1756973915989; 
- Thu, 04 Sep 2025 01:18:35 -0700 (PDT)
+ AJvYcCU2z20WD8+893u5ochCX9f5QFbz9smYrubnq8Dit/NN4S8pBVXLBa4BwoOpPaYpZD2rQrrhHPZ69yg=@nongnu.org
+X-Gm-Message-State: AOJu0YwRIEQ+Z8kNVs9XiB6P/ebl0PLFjNdRPmKWTiO/l/UndRe+oEvK
+ pd0Oxh3BT+RNppFe8XWEvFruVEmtJ9Kl/UrP8Cv08/CXVYlTkcLGWpUqKTYOC3IMkpI=
+X-Gm-Gg: ASbGncseqmXDrywlDmjQ3MIaAg4NcN+TJ6TWEvgf0rftyZiPETdth2CSDKgX5p9WfX6
+ Z4DCz2lXg6A+X8tN/IrLUf2dZRwmRLsUMzzZPRYTNyjWEQVPUMrCS9HQjF2oYETb+bLWGsDAQtB
+ O54ByGOIm/78lGepfziMzdfQ8MR1yGsui8imbHyMVObnDzo22I68LeV8ZvywvI4b446aQqr2lIx
+ wecxAwYFJXNwQatQZRwS5aFkLdOfAgWPZ73NwWytbz+kZiH5LiSn73gfOz+mYUAQKPYYfI0kt76
+ sWQ4ktBolOBlSc4MJ0DDMMA2e4JI4x7hckWjwcDfMEimB4NQpmXyadKvNvsI5t6mzLGip3YAGic
+ o2roa4b7FKXnTFApDjmfs9/Ces5DzIiXEkw==
+X-Google-Smtp-Source: AGHT+IF1g0xPlQZwXvixbktzxWp7pylp9yJpF3ozVocEpxZl4vhVy/vLrP8CDNUZO12I//3cD7pawA==
+X-Received: by 2002:a17:907:7e86:b0:afe:ad18:8662 with SMTP id
+ a640c23a62f3a-b01d8c74c8emr1897318666b.23.1756973918422; 
+ Thu, 04 Sep 2025 01:18:38 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aff138a8c1dsm1395320766b.99.2025.09.04.01.18.33
+ a640c23a62f3a-aff12a6b404sm1396323866b.88.2025.09.04.01.18.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Sep 2025 01:18:34 -0700 (PDT)
+ Thu, 04 Sep 2025 01:18:37 -0700 (PDT)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 58E905F9D0;
- Thu, 04 Sep 2025 09:11:29 +0100 (BST)
+ by draig.lan (Postfix) with ESMTP id 5CC61601C5;
+ Thu, 04 Sep 2025 09:11:35 +0100 (BST)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Reinoud Zandijk <reinoud@netbsd.org>,
@@ -129,20 +129,17 @@ Cc: Reinoud Zandijk <reinoud@netbsd.org>,
  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
  Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
  =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Nicholas Piggin <npiggin@gmail.com>, John Levon <john.levon@nutanix.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Subject: [PATCH v2 010/281] tests/functional/test_aarch64_virt_gpu: Skip test
- if EGL won't initialize
-Date: Thu,  4 Sep 2025 09:06:44 +0100
-Message-ID: <20250904081128.1942269-11-alex.bennee@linaro.org>
+ Nicholas Piggin <npiggin@gmail.com>, John Levon <john.levon@nutanix.com>
+Subject: [PATCH v2 055/281] linux-user: Move get_elf_hwcap to sparc/elfload.c
+Date: Thu,  4 Sep 2025 09:07:29 +0100
+Message-ID: <20250904081128.1942269-56-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250904081128.1942269-1-alex.bennee@linaro.org>
 References: <20250904081128.1942269-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::62a;
- envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x62a.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::533;
+ envelope-from=alex.bennee@linaro.org; helo=mail-ed1-x533.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -165,52 +162,127 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Peter Maydell <peter.maydell@linaro.org>
+From: Richard Henderson <richard.henderson@linaro.org>
 
-If you are using the Nvidia drivers and have installed new versions
-of those packages but have not yet rebooted the host kernel,
-attempting to use the egl-headless display will cause QEMU to fail to
-start with
+Change the return type to abi_ulong, and pass in the cpu.
 
-$ qemu-system-aarch64 -M virt -display egl-headless
-qemu-system-aarch64: egl: eglInitialize failed: EGL_NOT_INITIALIZED
-qemu-system-aarch64: egl: render node init failed
-
-together with this complaint in the host kernel dmesg:
-
-[7874777.555649] NVRM: API mismatch: the client has the version 535.247.01, but
-                 NVRM: this kernel module has the version 535.230.02.  Please
-                 NVRM: make sure that this kernel module and all NVIDIA driver
-                 NVRM: components have the same version.
-
-This isn't a problem with QEMU itself, so reporting this as a test
-failure is misleading.  Instead skip the tests, as we already do for
-various other kinds of "host system can't actually run the EGL
-display" situation.
-
-Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
-Message-ID: <20250826123455.2856988-1-peter.maydell@linaro.org>
-Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Acked-by: Alex Bennée <alex.bennee@linaro.org>
-Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Signed-off-by: Thomas Huth <thuth@redhat.com>
+Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
+Signed-off-by: Richard Henderson <richard.henderson@linaro.org>
 ---
- tests/functional/test_aarch64_virt_gpu.py | 2 ++
- 1 file changed, 2 insertions(+)
+ linux-user/loader.h           |  3 ++-
+ linux-user/sparc/target_elf.h |  2 ++
+ linux-user/elfload.c          | 30 +-----------------------------
+ linux-user/sparc/elfload.c    | 27 +++++++++++++++++++++++++++
+ 4 files changed, 32 insertions(+), 30 deletions(-)
 
-diff --git a/tests/functional/test_aarch64_virt_gpu.py b/tests/functional/test_aarch64_virt_gpu.py
-index 38447278579..4e50887c3e9 100755
---- a/tests/functional/test_aarch64_virt_gpu.py
-+++ b/tests/functional/test_aarch64_virt_gpu.py
-@@ -76,6 +76,8 @@ def _launch_virt_gpu(self, gpu_device):
-                 self.skipTest("egl-headless support is not available")
-             elif "'type' does not accept value 'dbus'" in excp.output:
-                 self.skipTest("dbus display support is not available")
-+            elif "eglInitialize failed: EGL_NOT_INITIALIZED" in excp.output:
-+                self.skipTest("EGL failed to initialize on this host")
-             else:
-                 self.log.info("unhandled launch failure: %s", excp.output)
-                 raise excp
+diff --git a/linux-user/loader.h b/linux-user/loader.h
+index 151a06f5db5..2c8414e0e53 100644
+--- a/linux-user/loader.h
++++ b/linux-user/loader.h
+@@ -101,7 +101,8 @@ extern unsigned long guest_stack_size;
+ /* Note that Elf32 and Elf64 use uint32_t for e_flags. */
+ const char *get_elf_cpu_model(uint32_t eflags);
+ 
+-#if defined(TARGET_I386) || defined(TARGET_X86_64) || defined(TARGET_ARM)
++#if defined(TARGET_I386) || defined(TARGET_X86_64) || defined(TARGET_ARM) \
++    || defined(TARGET_SPARC)
+ abi_ulong get_elf_hwcap(CPUState *cs);
+ abi_ulong get_elf_hwcap2(CPUState *cs);
+ #endif
+diff --git a/linux-user/sparc/target_elf.h b/linux-user/sparc/target_elf.h
+index 7e46748d261..b7544db0a1c 100644
+--- a/linux-user/sparc/target_elf.h
++++ b/linux-user/sparc/target_elf.h
+@@ -8,4 +8,6 @@
+ #ifndef SPARC_TARGET_ELF_H
+ #define SPARC_TARGET_ELF_H
+ 
++#define HAVE_ELF_HWCAP          1
++
+ #endif
+diff --git a/linux-user/elfload.c b/linux-user/elfload.c
+index 149d1313c0a..16709865f78 100644
+--- a/linux-user/elfload.c
++++ b/linux-user/elfload.c
+@@ -565,35 +565,7 @@ static void elf_core_copy_regs(target_elf_gregset_t *regs,
+ # define ELF_ARCH   EM_SPARCV9
+ #endif
+ 
+-#include "elf.h"
+-
+-#define ELF_HWCAP get_elf_hwcap()
+-
+-static uint32_t get_elf_hwcap(void)
+-{
+-    /* There are not many sparc32 hwcap bits -- we have all of them. */
+-    uint32_t r = HWCAP_SPARC_FLUSH | HWCAP_SPARC_STBAR |
+-                 HWCAP_SPARC_SWAP | HWCAP_SPARC_MULDIV;
+-
+-#ifdef TARGET_SPARC64
+-    CPUSPARCState *env = cpu_env(thread_cpu);
+-    uint32_t features = env->def.features;
+-
+-    r |= HWCAP_SPARC_V9 | HWCAP_SPARC_V8PLUS;
+-    /* 32x32 multiply and divide are efficient. */
+-    r |= HWCAP_SPARC_MUL32 | HWCAP_SPARC_DIV32;
+-    /* We don't have an internal feature bit for this. */
+-    r |= HWCAP_SPARC_POPC;
+-    r |= features & CPU_FEATURE_FSMULD ? HWCAP_SPARC_FSMULD : 0;
+-    r |= features & CPU_FEATURE_VIS1 ? HWCAP_SPARC_VIS : 0;
+-    r |= features & CPU_FEATURE_VIS2 ? HWCAP_SPARC_VIS2 : 0;
+-    r |= features & CPU_FEATURE_FMAF ? HWCAP_SPARC_FMAF : 0;
+-    r |= features & CPU_FEATURE_VIS3 ? HWCAP_SPARC_VIS3 : 0;
+-    r |= features & CPU_FEATURE_IMA ? HWCAP_SPARC_IMA : 0;
+-#endif
+-
+-    return r;
+-}
++#define ELF_HWCAP get_elf_hwcap(thread_cpu)
+ 
+ static inline void init_thread(struct target_pt_regs *regs,
+                                struct image_info *infop)
+diff --git a/linux-user/sparc/elfload.c b/linux-user/sparc/elfload.c
+index 243e6f9b66a..32ca1b05b1a 100644
+--- a/linux-user/sparc/elfload.c
++++ b/linux-user/sparc/elfload.c
+@@ -3,6 +3,7 @@
+ #include "qemu/osdep.h"
+ #include "qemu.h"
+ #include "loader.h"
++#include "elf.h"
+ 
+ 
+ const char *get_elf_cpu_model(uint32_t eflags)
+@@ -13,3 +14,29 @@ const char *get_elf_cpu_model(uint32_t eflags)
+     return "Fujitsu MB86904";
+ #endif
+ }
++
++abi_ulong get_elf_hwcap(CPUState *cs)
++{
++    /* There are not many sparc32 hwcap bits -- we have all of them. */
++    uint32_t r = HWCAP_SPARC_FLUSH | HWCAP_SPARC_STBAR |
++                 HWCAP_SPARC_SWAP | HWCAP_SPARC_MULDIV;
++
++#ifdef TARGET_SPARC64
++    CPUSPARCState *env = cpu_env(cs);
++    uint32_t features = env->def.features;
++
++    r |= HWCAP_SPARC_V9 | HWCAP_SPARC_V8PLUS;
++    /* 32x32 multiply and divide are efficient. */
++    r |= HWCAP_SPARC_MUL32 | HWCAP_SPARC_DIV32;
++    /* We don't have an internal feature bit for this. */
++    r |= HWCAP_SPARC_POPC;
++    r |= features & CPU_FEATURE_FSMULD ? HWCAP_SPARC_FSMULD : 0;
++    r |= features & CPU_FEATURE_VIS1 ? HWCAP_SPARC_VIS : 0;
++    r |= features & CPU_FEATURE_VIS2 ? HWCAP_SPARC_VIS2 : 0;
++    r |= features & CPU_FEATURE_FMAF ? HWCAP_SPARC_FMAF : 0;
++    r |= features & CPU_FEATURE_VIS3 ? HWCAP_SPARC_VIS3 : 0;
++    r |= features & CPU_FEATURE_IMA ? HWCAP_SPARC_IMA : 0;
++#endif
++
++    return r;
++}
 -- 
 2.47.2
 
