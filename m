@@ -4,72 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA2EDCA0EFF
-	for <qemu-rust@archiver.kernel.org>; Sat, 30 Aug 2025 16:08:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D99EBCA1012
+	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 08:13:23 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1usNBv-0007lL-HN; Sat, 30 Aug 2025 11:08:31 -0400
+	id 1uu54x-0006VR-3V; Thu, 04 Sep 2025 04:12:25 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uruc3-0005wa-4t; Fri, 29 Aug 2025 04:37:35 -0400
-Received: from mgamail.intel.com ([192.198.163.16])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uruc0-0007v3-6l; Fri, 29 Aug 2025 04:37:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756456652; x=1787992652;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=8MEwvMA5vWesPqUlof2mHDRU5hI6F3MzUmiUPKTMc2w=;
- b=HIsEgfp1Go/hDO3tu/U2onEWeLqA65sQ0z6AEJe9in9AREA2ERzH0dba
- 2t2NXNW4BHxC8pgxaAWk5m+mQZVppb+7p4n4x2/fpQtLQCqIcD7ZOObpB
- f6dEYKYJNvIeHKkI53mWwIr34lTEIJoOWrV7M2MQ8q0mCKaH+TRgY6MZd
- SXW6UHCoHEBQkbf/EiO/88xhbTgSUpvnwUYiU29nYLlQ2PkfYSDS3u6sc
- xCfK3ILArvPEbvAr0xJrlGKuIXij5Fcij4Q2GPDVOpaE7GvWtn/QY43Qg
- c/2g9qKBgKQPqImrW48/6rq2UcaK8WP79p7CbxxweVPWzMVY8o7JGneDX Q==;
-X-CSE-ConnectionGUID: rtumsdV7TUeypL5xK0KwDQ==
-X-CSE-MsgGUID: GU90eCCpSr6IL5+I/o0vsg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11536"; a="46308778"
-X-IronPort-AV: E=Sophos;i="6.18,221,1751266800"; d="scan'208";a="46308778"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2025 01:37:25 -0700
-X-CSE-ConnectionGUID: yNyV1i/RRbCTfXHCc77mNw==
-X-CSE-MsgGUID: m8WXClvBTLinjLXFgRmqwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,221,1751266800"; d="scan'208";a="170718644"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa008.fm.intel.com with ESMTP; 29 Aug 2025 01:37:23 -0700
-Date: Fri, 29 Aug 2025 16:59:10 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: marcandre.lureau@redhat.com
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
- Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
- Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
- pbonzini@redhat.com, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Subject: Re: [PATCH 10/22] rust: split "migration" crate
-Message-ID: <aLFr3u+r8P5GGZRJ@intel.com>
-References: <20250827104147.717203-1-marcandre.lureau@redhat.com>
- <20250827104147.717203-11-marcandre.lureau@redhat.com>
+ (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
+ id 1uu54a-0006Gh-Rw
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:00 -0400
+Received: from mail-ej1-x62c.google.com ([2a00:1450:4864:20::62c])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
+ id 1uu54J-00041b-OA
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:00 -0400
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-b042cc3954fso129248166b.0
+ for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 01:11:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1756973501; x=1757578301; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3j1jG2MY/WGcH+crz7CtyaM5tw55oKFFqSyUb2OGtbM=;
+ b=xNT+gtAKGeol2h2GXBI9/QpScgbWnH/9lYAyf+ydexCHyJR3MbG6diaU1f4RciO8i3
+ J/+j5W9wYbqQvWrjCoDcHJqpvZPD0GcTDdv0kRK0WMjAvFUPR6PMm4p3df1Z+G9n7Lpg
+ GAWIXEsoQTLL5qFU68EUiRf8yDlPBYYSF6AwIecc3Vai9YtQjXnIESEVREzinjxeaZq8
+ nXqqaeLLmrkBHC3ufD6qGwmZYmdRetEhVicmqw5UpaNMDp3BLiL7mk9X952FgozqcShp
+ 2aFk6nMDm2h8l4C+O7RBouylyPQBeujvUEt50j5P8RZMxB/Gqs9IP+2B9KGcLO8fLjw5
+ e5tA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756973501; x=1757578301;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3j1jG2MY/WGcH+crz7CtyaM5tw55oKFFqSyUb2OGtbM=;
+ b=JoAsbNpG5jb9iYxMrsgET9KkXBY2dYBfbgrCmsxEMfWLDvp32nT62K+Wm3PcpvWMYc
+ gywfmjPsDjaCMX3AFRd1CW2vl1IoYIEiPedAlGtHfZ8KCNDjSN5ZZ7imhboBBNd+aR1q
+ XeAr1kmhL+CFF/73xkJWsO5bsNviTI+kdnKvOTuGA8OYLeOqO3wP89zmTOIQsA/6LIHW
+ b5uC5cn41IGOwQAAR69yNRBWOB9E+60TXFmMZ0hW9jMSnGlOpvdLm0cwa7uCwJGGu1Y9
+ L3d8LQj9OYTO/MG8p6b7TFCWnwow+aC87uGJ6exPgLvqGmlo2niYOBtxy8rKkk33fWQJ
+ KjAw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUaGYgOR3uDInB/WMfTP/lsb96+e3UY6l4z0nmXSogsy5LFSmAAMr+86UBko4uaVB9Yiv0a7Bl+91g=@nongnu.org
+X-Gm-Message-State: AOJu0YzTDnO8nX+fDGcPr/7BVSQMd5uhbvioPXLcI2CL6sC9xti0Ehah
+ XkhmNCEXy+96zquHtWIJLC0gyqyR7YW/lgQMlkAMjz8XgUmHwZ7HbgxMl6CtR6vHx9A=
+X-Gm-Gg: ASbGnctx2Uvakyc4/p48mQc/zplP/4XaT9+4q53RNHrhaShJahqQ3M5NZQtE4n/9NPh
+ W12k6MQRgZQS0YtCm/if2tdrkSVK/CDLxEER4GIyQtTKudvpE4q/c/7flQqCIy4NY2BhvCIJVc+
+ 3GBgM9DtM1vxBMtCC1JdAOso+xkYdzJOwTe88d9BucduRI2w6LrFAudzviTESSpPIFB5a9Qm9FJ
+ SnVEcIVjETLa8IFrHjQIxykJoUici3XHKLjyj4DnqptbYyd5e4BY8pzXCoJcEQaG9i2BJRuqyTB
+ HZcd7Js3fWfIkcoKnOkseNV/3nt1eADgi9JpRloX4ZA2UFVbUYnusY9s+1MkvRRvYxsJA8gdDeZ
+ lGPSO9lsvMpaOc9044RtDe1revG6pTKi1ww==
+X-Google-Smtp-Source: AGHT+IHtaOAptd/dOyrxka90iG+Ickwt+7m6mDEjwCXtB/2x+x0WNk1ZvG1BgsoUzoIQQ2o03oW8Ow==
+X-Received: by 2002:a17:906:4789:b0:b04:1a1c:cb5b with SMTP id
+ a640c23a62f3a-b041a1ccc38mr1426344866b.7.1756973501036; 
+ Thu, 04 Sep 2025 01:11:41 -0700 (PDT)
+Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b03ab857474sm1225662366b.89.2025.09.04.01.11.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Sep 2025 01:11:37 -0700 (PDT)
+Received: from draig.lan (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id 71DFF5F9F7;
+ Thu, 04 Sep 2025 09:11:29 +0100 (BST)
+From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: Reinoud Zandijk <reinoud@netbsd.org>,
+ =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@redhat.com>,
+ Huacai Chen <chenhuacai@kernel.org>, Zhao Liu <zhao1.liu@intel.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Alistair Francis <alistair.francis@wdc.com>, qemu-arm@nongnu.org,
+ Fam Zheng <fam@euphon.net>, Helge Deller <deller@gmx.de>,
+ Matthew Rosato <mjrosato@linux.ibm.com>, Fabiano Rosas <farosas@suse.de>,
+ qemu-rust@nongnu.org, Bibo Mao <maobibo@loongson.cn>,
+ qemu-riscv@nongnu.org, Thanos Makatos <thanos.makatos@nutanix.com>,
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+ Riku Voipio <riku.voipio@iki.fi>, Cameron Esfahani <dirty@apple.com>,
+ Alexander Graf <agraf@csgraf.de>, Laurent Vivier <lvivier@redhat.com>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+ qemu-ppc@nongnu.org, Stafford Horne <shorne@gmail.com>,
+ Sunil Muthuswamy <sunilmut@microsoft.com>,
+ Jagannathan Raman <jag.raman@oracle.com>,
+ Igor Mammedov <imammedo@redhat.com>,
+ Brian Cain <brian.cain@oss.qualcomm.com>,
+ Phil Dennis-Jordan <phil@philjordan.eu>, devel@lists.libvirt.org,
+ Mads Ynddal <mads@ynddal.dk>, Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+ Peter Xu <peterx@redhat.com>, Jason Herne <jjherne@linux.ibm.com>,
+ Michael Rolnik <mrolnik@gmail.com>, Weiwei Li <liwei1518@gmail.com>,
+ Laurent Vivier <laurent@vivier.eu>, Ilya Leoshkevich <iii@linux.ibm.com>,
+ qemu-block@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
+ Kostiantyn Kostiuk <kkostiuk@redhat.com>, Kyle Evans <kevans@freebsd.org>,
+ David Hildenbrand <david@redhat.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Warner Losh <imp@bsdimp.com>,
+ Daniel Henrique Barboza <dbarboza@ventanamicro.com>,
+ John Snow <jsnow@redhat.com>, Yoshinori Sato <yoshinori.sato@nifty.com>,
+ Aleksandar Rikalo <arikalo@gmail.com>,
+ Alistair Francis <alistair@alistair23.me>,
+ Marcelo Tosatti <mtosatti@redhat.com>,
+ Yonggang Luo <luoyonggang@gmail.com>,
+ Radoslaw Biernacki <rad@semihalf.com>,
+ Artyom Tarasenko <atar4qemu@gmail.com>,
+ Yanan Wang <wangyanan55@huawei.com>, Eduardo Habkost <eduardo@habkost.net>,
+ Aurelien Jarno <aurelien@aurel32.net>,
+ Richard Henderson <richard.henderson@linaro.org>, qemu-s390x@nongnu.org,
+ Alex Williamson <alex.williamson@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Ani Sinha <anisinha@redhat.com>,
+ Roman Bolshakov <rbolshakov@ddn.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Chinmay Rath <rathc@linux.ibm.com>, Thomas Huth <thuth@redhat.com>,
+ Cleber Rosa <crosa@redhat.com>, kvm@vger.kernel.org,
+ Song Gao <gaosong@loongson.cn>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Halil Pasic <pasic@linux.ibm.com>, Eric Farman <farman@linux.ibm.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Leif Lindholm <leif.lindholm@oss.qualcomm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Michael Roth <michael.roth@amd.com>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Nicholas Piggin <npiggin@gmail.com>, John Levon <john.levon@nutanix.com>,
+ Gustavo Romero <gustavo.romero@linaro.org>
+Subject: [PATCH v2 011/281] tests/functional: Fix reverse_debugging asset
+ precaching
+Date: Thu,  4 Sep 2025 09:06:45 +0100
+Message-ID: <20250904081128.1942269-12-alex.bennee@linaro.org>
+X-Mailer: git-send-email 2.47.2
+In-Reply-To: <20250904081128.1942269-1-alex.bennee@linaro.org>
+References: <20250904081128.1942269-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250827104147.717203-11-marcandre.lureau@redhat.com>
-Received-SPF: pass client-ip=192.198.163.16; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Received-SPF: pass client-ip=2a00:1450:4864:20::62c;
+ envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x62c.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -85,98 +164,52 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Hi Marc-Andre,
+From: Gustavo Romero <gustavo.romero@linaro.org>
 
-On Wed, Aug 27, 2025 at 02:41:32PM +0400, marcandre.lureau@redhat.com wrote:
-> Date: Wed, 27 Aug 2025 14:41:32 +0400
-> From: marcandre.lureau@redhat.com
-> Subject: [PATCH 10/22] rust: split "migration" crate
-> 
-> From: Marc-André Lureau <marcandre.lureau@redhat.com>
-> 
-> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-> ---
+This commit fixes the asset precaching in the reverse_debugging test on
+aarch64.
 
-...
+QemuBaseTest.main() precaches assets (kernel, rootfs, DT blobs, etc.)
+that are defined in variables with the ASSET_ prefix. This works because
+it ultimately calls Asset.precache_test(), which relies on introspection
+to locate these variables.
 
-> @@ -0,0 +1,51 @@
-> +/*
-> + * QEMU System Emulator
-> + *
-> + * Copyright (c) 2024 Linaro Ltd.
-> + *
-> + * Authors: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a copy
-> + * of this software and associated documentation files (the "Software"), to deal
-> + * in the Software without restriction, including without limitation the rights
-> + * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-> + * copies of the Software, and to permit persons to whom the Software is
-> + * furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-> + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-> + * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-> + * THE SOFTWARE.
-> + */
+If an asset variable is not named with the ASSET_ prefix, precache_test
+cannot find the asset and precaching silently fails. Hence, fix the
+asset precaching by fixing the asset variable name.
 
-Could we use /* SPDX-License-Identifier: GPL-2.0-or-later */ directly ?
+Signed-off-by: Gustavo Romero <gustavo.romero@linaro.org>
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Message-ID: <20250827001008.22112-1-gustavo.romero@linaro.org>
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+---
+ tests/functional/test_aarch64_reverse_debug.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-[snip]
-
-> +// using extension traits would be nicer, unfortunately it doesn't allow const
-> +// fn yet
-> +pub struct VMStateFieldHelper(pub VMStateField);
->
->  // Add a couple builder-style methods to VMStateField, allowing
->  // easy derivation of VMStateField constants from other types.
-
-A question: Sorry I didn't get your point about why we need
-VMStateFieldHelper?
-
-For its use case:
-
-> -        vmstate_struct!(FooB, arr_a[0 .. num_a], &VMSTATE_FOOA, FooA).with_version_id(1),
-> -        vmstate_struct!(FooB, arr_a_mul[0 .. num_a_mul * 32], &VMSTATE_FOOA, FooA).with_version_id(2),
-> +        VMStateFieldHelper(vmstate_struct!(FooB, arr_a[0 .. num_a], &VMSTATE_FOOA, FooA)).with_version_id(1).0,
-> +        VMStateFieldHelper(vmstate_struct!(FooB, arr_a_mul[0 .. num_a_mul * 32], &VMSTATE_FOOA, FooA)).with_version_id(2).0,
-
-It seems VMStateFieldHelper add another wrapper around vmstate_struct
-(and vmstate_of).
-
-The builder pattern is good, but I'm afraid this builder makes the use of
-vmstate_struct! more complex.
-
-> -impl VMStateField {
-> +impl VMStateFieldHelper {
->      #[must_use]
->      pub const fn with_version_id(mut self, version_id: i32) -> Self {
->          assert!(version_id >= 0);
-> -        self.version_id = version_id;
-> +        self.0.version_id = version_id;
->          self
->      }
-
-If we could have a build() method then user doesn't need to write ".0"
-at the end.
-
->  }
-
-And there's another VMStateDescriptionBuilder:
-
-https://lore.kernel.org/qemu-devel/20250505100854.73936-4-pbonzini@redhat.com/#t
-
-I think Paolo has the plan to merge it with v1.83 support. So if this
-VMStateFieldHelper is necessary, it's better seperate this into another
-patch and base it over VMStateDescriptionBuilder if possible.
-
-Thanks,
-Zhao
+diff --git a/tests/functional/test_aarch64_reverse_debug.py b/tests/functional/test_aarch64_reverse_debug.py
+index 58d45328350..8bc91ccfde7 100755
+--- a/tests/functional/test_aarch64_reverse_debug.py
++++ b/tests/functional/test_aarch64_reverse_debug.py
+@@ -21,7 +21,7 @@ class ReverseDebugging_AArch64(ReverseDebugging):
+ 
+     REG_PC = 32
+ 
+-    KERNEL_ASSET = Asset(
++    ASSET_KERNEL = Asset(
+         ('https://archives.fedoraproject.org/pub/archive/fedora/linux/'
+          'releases/29/Everything/aarch64/os/images/pxeboot/vmlinuz'),
+         '7e1430b81c26bdd0da025eeb8fbd77b5dc961da4364af26e771bd39f379cbbf7')
+@@ -30,7 +30,7 @@ class ReverseDebugging_AArch64(ReverseDebugging):
+     def test_aarch64_virt(self):
+         self.set_machine('virt')
+         self.cpu = 'cortex-a53'
+-        kernel_path = self.KERNEL_ASSET.fetch()
++        kernel_path = self.ASSET_KERNEL.fetch()
+         self.reverse_debugging(args=('-kernel', kernel_path))
+ 
+ 
+-- 
+2.47.2
 
 
