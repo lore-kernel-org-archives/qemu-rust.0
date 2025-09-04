@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28491CA1015
-	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 08:16:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37B96CA1015
+	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 08:16:44 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uu56S-0008N3-7T; Thu, 04 Sep 2025 04:13:56 -0400
+	id 1uu58l-0003N7-Th; Thu, 04 Sep 2025 04:16:20 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uu54r-0006Qy-PF
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:20 -0400
+ id 1uu559-0006bv-3L
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:37 -0400
 Received: from mail-ej1-x62f.google.com ([2a00:1450:4864:20::62f])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uu54P-00045k-5r
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:15 -0400
+ id 1uu54b-0004DI-8B
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:34 -0400
 Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-afcb7ace3baso137851466b.3
- for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 01:11:48 -0700 (PDT)
+ a640c23a62f3a-b0418f6fc27so103936166b.3
+ for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 01:12:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1756973507; x=1757578307; darn=nongnu.org;
+ d=linaro.org; s=google; t=1756973519; x=1757578319; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=cDNuaOsGD6r42U8ngLUfY1h4DF7myqs0cRJmalDhUb4=;
- b=xUWz195pqBsLmcCReE/sfbXU7RMWUFfpEB9xYxaQBt3qPAqqr4zqCpdKxQESjLRxvE
- cH+SQexwlf9z1CdIDlXay5dC6hX60d7jKaHFGgYk2SV+mpwVaws1iuoePVuKvO05t2At
- GBPtIwTgDJcmvx4q941GCl3Utk1LP14NHO4yM58eAQiYsNk1qOaHLs3mDUbtu3CV8dJa
- feXuTsiGGmntjRXmdpu93YZNoAZgxOdGNOe6QJzLWcHZjIH6HO7MB1DV/9WyV10DuMLp
- RPiBHEYX3yO0AYdDeiaOZ9vhEhgULVKpiNYx7xTPb5jU/D1IoXvhjhLB+8CmDCeWPGcT
- WIMw==
+ bh=TRlsHGqvmjF2Vf3U8TOAt/9n2Jks0amzBlUrbfofXWc=;
+ b=QI+cZspRjrpy3CvOuDYgZuKvrx1UpTP+Ydr27eM91ovS2np+ZU/ijhXONbGIEMTeSp
+ lBlpzoFqOuNuKyE3tiW4MM3V5S1N9MiIezdHF72Z2zb91Crgx5exCu18+FAATovq3SH5
+ J5MCTT+HEf2cMv1Z94WW3esJDS2ySdL0ZdIo6r/JCHljCHxiNLqAWBBcOGGtadpVLahT
+ DPzJQQhjLZ2hNY/AIl3mIW6/Dvc4shzM/26/Ey1WTxjDxsqMheQjL2ctz3Qe4RRA4RAS
+ hpWLhMsFQUhZms35B9DeBL3pnFIqRDFw13TadUYOdZpv0VfD7wCjRcHs069t8eYapzEw
+ 614Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756973507; x=1757578307;
+ d=1e100.net; s=20230601; t=1756973519; x=1757578319;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=cDNuaOsGD6r42U8ngLUfY1h4DF7myqs0cRJmalDhUb4=;
- b=R+Fnn+I/4jzW4l/PJFdrXk6rVgIf+mtKlVeI5qcxOz1pzAvOK13WemnA3rtkPIpGW6
- ODa5t70aoTXgr/8ZKMpkR4jHmo4qDFCVIN0gNEsHNqRKZu36WBOcb4vb3lIhcFLbDsph
- Cdb52kDA8uqHSYotGU63cc8UzCjP5yAkaoKmDYImyaablVDuzlkZQU2DU8zCpbIuBuco
- 1kChuwuLH57lspsGUArKoA4zM7IHLrOG++J7ZHGlLdTGCJHcLIy6Zf/2G8Y1UGb+AVKN
- aw8eQW/EzBeoQJNKpNbAOgLdvkz+kSzi70fF5Fv15J60JhtrU2beTJK+C3AWhQvyX1Ed
- l4WA==
+ bh=TRlsHGqvmjF2Vf3U8TOAt/9n2Jks0amzBlUrbfofXWc=;
+ b=G0jONxnh8uEo8sHa+PkVF2EFo5OeG9myNxp7okoBtEaiAeAZlfzRqT4UJS4utH8eLU
+ NCrplVvSy4E03RlSmNpNQITHKCD++3HTYQZxq2gFzAcXm3rPJdTNy5YXHHAhBfWVQEoJ
+ rGbhxG+6OU7Fir7ttY69no39zo1gjlaDljtiqv3+TDb7V39MykqZuONu+Ia77F5wv99j
+ PYFS9k4G251NXXCg+NZ5geLw2RUwwXQWuRcU2R919rKRF5pPQt4qJlz/epWvqkOSwuaS
+ fkZ9pHc14IrqDhJ1/TiHgRnCkNM4EHECE1X68BgnGtqmtZQH252aQqt2/0/LNeb69iSG
+ k3zQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUiyqIqKJHrTSVNsAQdEV5hSfAC5PBGp8dk5fw80nV9FO91efIYiv+VeuUVicnqTHgYLeI+2ZIdRGw=@nongnu.org
-X-Gm-Message-State: AOJu0YzAPU5omKIuHCgOdHJIBgRPFphfdeqvmcW5LsWUqV7Hnypb3KGu
- YNenoIGAgslxkqvonIbYojem6uSc1halmQQ2QRJaOotKGKPvY8jUUmO81Y0ADXu9Fsk=
-X-Gm-Gg: ASbGncuuV2Z9/ioiqwApN4w8jZQtvmo1cTmgmKDKbsMT/3c4PqIwVYyynDtne2pmYpy
- NQD2SuMkYn6SwroTMwcNuqX9amoN0OCBMtJcpY/QeiqEZcslilgQzk7Qk+CVXucceG2SuieaMms
- nAqBkYNRAKNhvxlCJL/gOItYhzHL/8FYhXdoHDy5RaDwJBygrXh6Qed1+HDWHO/BL6SZqng3Vyy
- bZcV2pqmDRch9VaD5fREZAli03dAUz4J1aKOz94jo5QWskXpdgPGMMPziCzeYK8gPH5GDAkO3xI
- /ez5x99ZokXzY4K5HRby/ii4X+l09UnUfqdrfU6+uE8+u3ofH2p/Y6ZZj1GNfTU55TPHl6+Fs09
- AuGQyvxHdkkq/EhzRLvUL2msOUQNgm0Sq84Ni4W7fL8bC
-X-Google-Smtp-Source: AGHT+IEuGPLBjng4TGodrmsMkqQv/1x2d0i2N2XuU6rOMtEyrvdgiQZZOH9o9y1LB92mX/fQfkpwaw==
-X-Received: by 2002:a17:906:9f92:b0:afe:a615:39ef with SMTP id
- a640c23a62f3a-b01d8a2667emr1911016566b.9.1756973507309; 
- Thu, 04 Sep 2025 01:11:47 -0700 (PDT)
+ AJvYcCVyOfY8UfMxh0w6ciKnYY2Mlco6SABAmD7okvbRvChbN+PKMqFi7aiGqNA753naXig/N8wHtvLwkuE=@nongnu.org
+X-Gm-Message-State: AOJu0Yz7eJmg7lQkgtS4sL+cExuYazNLQgKcAzKoAXtF1F7xvENa2ObY
+ HzRgdLTIY+6iEuCqCM3T9Xq/fDf0oAAW0eBsbLKBhiGiAQ1wXdkC/hXUnZbLQuiXghk=
+X-Gm-Gg: ASbGnctoTaKdS/mS5MIwWQPRAr6o/oJdssn+5KUh6SN6/c2zGNKSHhJbRdOTIZT5aUk
+ ye69iLpm+T9v232oRwKlPa3xQtwY0VFV03f8h6ePeaak5G2lG2FJsqzQ3dh8hAK4sTZdTLAkDEh
+ Y8Vba8RVp1+NBu3uslt5aj2d2iaiUJTQAt1RSmf7p7gniWmbgjq5N+D0MX18TxEFlKy9ihZ/vlI
+ /RrO3J2z931CzL6tsUxL69o9o9gs6QGRvsdrHD2mqeoF0J1Lh+2bDB01tx9n4AVowt7JXSqcN0G
+ CMjTn6GpNmFfqmDSxFi4n1iw/+pmsKBq1JpDIBoD/Zo5tpLfYurx9qvlQIWkd+8LgfRiFaMvfcb
+ KG5GUuH3pvWCNdAvixPrFK2A=
+X-Google-Smtp-Source: AGHT+IHiB61XSQJ8aB9kXr4pJ7kTktTaOCm5+fM0Vksx2NmfVFmOxv3vcmFjV8pk0rEQY7r1+KjTyw==
+X-Received: by 2002:a17:907:3cca:b0:b04:354e:47a5 with SMTP id
+ a640c23a62f3a-b04354e4b78mr1354661066b.17.1756973519415; 
+ Thu, 04 Sep 2025 01:11:59 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b0416e878a2sm1085838766b.95.2025.09.04.01.11.40
+ a640c23a62f3a-b0432937d7esm869790666b.17.2025.09.04.01.11.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Sep 2025 01:11:43 -0700 (PDT)
+ Thu, 04 Sep 2025 01:11:55 -0700 (PDT)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 19D475FAD0;
- Thu, 04 Sep 2025 09:11:31 +0100 (BST)
+ by draig.lan (Postfix) with ESMTP id 9C0DE60363;
+ Thu, 04 Sep 2025 09:11:35 +0100 (BST)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Reinoud Zandijk <reinoud@netbsd.org>,
@@ -129,17 +129,15 @@ Cc: Reinoud Zandijk <reinoud@netbsd.org>,
  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
  Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
  =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Nicholas Piggin <npiggin@gmail.com>, John Levon <john.levon@nutanix.com>,
- Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Subject: [PATCH v2 024/281] tests/functional: Move m68k tests into
- architecture specific folder
-Date: Thu,  4 Sep 2025 09:06:58 +0100
-Message-ID: <20250904081128.1942269-25-alex.bennee@linaro.org>
+ Nicholas Piggin <npiggin@gmail.com>, John Levon <john.levon@nutanix.com>
+Subject: [PATCH v2 057/281] linux-user: Move get_elf_hwcap to
+ loongarch64/elfload.c
+Date: Thu,  4 Sep 2025 09:07:31 +0100
+Message-ID: <20250904081128.1942269-58-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250904081128.1942269-1-alex.bennee@linaro.org>
 References: <20250904081128.1942269-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=2a00:1450:4864:20::62f;
  envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x62f.google.com
@@ -165,134 +163,159 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Thomas Huth <thuth@redhat.com>
+From: Richard Henderson <richard.henderson@linaro.org>
 
-The tests/functional folder has become quite crowded, thus move the
-m68k tests into a target-specific subfolder.
+Change the return type to abi_ulong, and pass in the cpu.
 
-Reviewed-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-Signed-off-by: Thomas Huth <thuth@redhat.com>
-Message-ID: <20250819112403.432587-13-thuth@redhat.com>
+Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
+Signed-off-by: Richard Henderson <richard.henderson@linaro.org>
 ---
- MAINTAINERS                                              | 8 ++++----
- tests/functional/m68k/meson.build                        | 9 +++++++++
- .../{test_m68k_mcf5208evb.py => m68k/test_mcf5208evb.py} | 0
- .../{test_m68k_nextcube.py => m68k/test_nextcube.py}     | 0
- .../functional/{test_m68k_q800.py => m68k/test_q800.py}  | 0
- .../{test_m68k_replay.py => m68k/test_replay.py}         | 0
- .../{test_m68k_tuxrun.py => m68k/test_tuxrun.py}         | 0
- tests/functional/meson.build                             | 9 +--------
- 8 files changed, 14 insertions(+), 12 deletions(-)
- create mode 100644 tests/functional/m68k/meson.build
- rename tests/functional/{test_m68k_mcf5208evb.py => m68k/test_mcf5208evb.py} (100%)
- rename tests/functional/{test_m68k_nextcube.py => m68k/test_nextcube.py} (100%)
- rename tests/functional/{test_m68k_q800.py => m68k/test_q800.py} (100%)
- rename tests/functional/{test_m68k_replay.py => m68k/test_replay.py} (100%)
- rename tests/functional/{test_m68k_tuxrun.py => m68k/test_tuxrun.py} (100%)
+ linux-user/loader.h                 |  3 +-
+ linux-user/loongarch64/target_elf.h |  2 ++
+ linux-user/elfload.c                | 49 +----------------------------
+ linux-user/loongarch64/elfload.c    | 47 +++++++++++++++++++++++++++
+ 4 files changed, 52 insertions(+), 49 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 716127e831d..e188de813fb 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1312,7 +1312,7 @@ F: hw/m68k/mcf_intc.c
- F: hw/char/mcf_uart.c
- F: hw/net/mcf_fec.c
- F: include/hw/m68k/mcf*.h
--F: tests/functional/test_m68k_mcf5208evb.py
-+F: tests/functional/m68k/test_mcf5208evb.py
+diff --git a/linux-user/loader.h b/linux-user/loader.h
+index 818c5e6d7d7..92b6d41145e 100644
+--- a/linux-user/loader.h
++++ b/linux-user/loader.h
+@@ -102,7 +102,8 @@ extern unsigned long guest_stack_size;
+ const char *get_elf_cpu_model(uint32_t eflags);
  
- NeXTcube
- M: Thomas Huth <huth@tuxfamily.org>
-@@ -1320,7 +1320,7 @@ S: Odd Fixes
- F: hw/m68k/next-*.c
- F: hw/display/next-fb.c
- F: include/hw/m68k/next-cube.h
--F: tests/functional/test_m68k_nextcube.py
-+F: tests/functional/m68k/test_nextcube.py
+ #if defined(TARGET_I386) || defined(TARGET_X86_64) || defined(TARGET_ARM) \
+-    || defined(TARGET_SPARC) || defined(TARGET_PPC)
++    || defined(TARGET_SPARC) || defined(TARGET_PPC) \
++    || defined(TARGET_LOONGARCH64)
+ abi_ulong get_elf_hwcap(CPUState *cs);
+ abi_ulong get_elf_hwcap2(CPUState *cs);
+ #endif
+diff --git a/linux-user/loongarch64/target_elf.h b/linux-user/loongarch64/target_elf.h
+index 39a08d35d9b..037740d36f2 100644
+--- a/linux-user/loongarch64/target_elf.h
++++ b/linux-user/loongarch64/target_elf.h
+@@ -6,4 +6,6 @@
+ #ifndef LOONGARCH_TARGET_ELF_H
+ #define LOONGARCH_TARGET_ELF_H
  
- q800
- M: Laurent Vivier <laurent@vivier.eu>
-@@ -1346,7 +1346,7 @@ F: include/hw/m68k/q800-glue.h
- F: include/hw/misc/djmemc.h
- F: include/hw/misc/iosb.h
- F: include/hw/audio/asc.h
--F: tests/functional/test_m68k_q800.py
-+F: tests/functional/m68k/test_q800.py
- 
- virt
- M: Laurent Vivier <laurent@vivier.eu>
-@@ -1361,7 +1361,7 @@ F: include/hw/intc/goldfish_pic.h
- F: include/hw/intc/m68k_irqc.h
- F: include/hw/misc/virt_ctrl.h
- F: docs/specs/virt-ctlr.rst
--F: tests/functional/test_m68k_tuxrun.py
-+F: tests/functional/m68k/test_tuxrun.py
- 
- MicroBlaze Machines
- -------------------
-diff --git a/tests/functional/m68k/meson.build b/tests/functional/m68k/meson.build
-new file mode 100644
-index 00000000000..e29044a6d73
---- /dev/null
-+++ b/tests/functional/m68k/meson.build
-@@ -0,0 +1,9 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
++#define HAVE_ELF_HWCAP          1
 +
-+tests_m68k_system_thorough = [
-+  'mcf5208evb',
-+  'nextcube',
-+  'replay',
-+  'q800',
-+  'tuxrun',
-+]
-diff --git a/tests/functional/test_m68k_mcf5208evb.py b/tests/functional/m68k/test_mcf5208evb.py
-similarity index 100%
-rename from tests/functional/test_m68k_mcf5208evb.py
-rename to tests/functional/m68k/test_mcf5208evb.py
-diff --git a/tests/functional/test_m68k_nextcube.py b/tests/functional/m68k/test_nextcube.py
-similarity index 100%
-rename from tests/functional/test_m68k_nextcube.py
-rename to tests/functional/m68k/test_nextcube.py
-diff --git a/tests/functional/test_m68k_q800.py b/tests/functional/m68k/test_q800.py
-similarity index 100%
-rename from tests/functional/test_m68k_q800.py
-rename to tests/functional/m68k/test_q800.py
-diff --git a/tests/functional/test_m68k_replay.py b/tests/functional/m68k/test_replay.py
-similarity index 100%
-rename from tests/functional/test_m68k_replay.py
-rename to tests/functional/m68k/test_replay.py
-diff --git a/tests/functional/test_m68k_tuxrun.py b/tests/functional/m68k/test_tuxrun.py
-similarity index 100%
-rename from tests/functional/test_m68k_tuxrun.py
-rename to tests/functional/m68k/test_tuxrun.py
-diff --git a/tests/functional/meson.build b/tests/functional/meson.build
-index e2e66dcf523..d32dd4a371f 100644
---- a/tests/functional/meson.build
-+++ b/tests/functional/meson.build
-@@ -16,6 +16,7 @@ subdir('avr')
- subdir('hppa')
- subdir('i386')
- subdir('loongarch64')
-+subdir('m68k')
+ #endif
+diff --git a/linux-user/elfload.c b/linux-user/elfload.c
+index 843b1f7b6cc..574b37a22c1 100644
+--- a/linux-user/elfload.c
++++ b/linux-user/elfload.c
+@@ -725,54 +725,7 @@ static void elf_core_copy_regs(target_elf_gregset_t *regs,
+ #define USE_ELF_CORE_DUMP
+ #define ELF_EXEC_PAGESIZE        4096
  
- test_mips_timeouts = {
-   'mips_malta' : 480,
-@@ -81,14 +82,6 @@ tests_generic_linuxuser = [
- tests_generic_bsduser = [
- ]
- 
--tests_m68k_system_thorough = [
--  'm68k_mcf5208evb',
--  'm68k_nextcube',
--  'm68k_replay',
--  'm68k_q800',
--  'm68k_tuxrun',
--]
+-#define ELF_HWCAP get_elf_hwcap()
 -
- tests_microblaze_system_thorough = [
-   'microblaze_replay',
-   'microblaze_s3adsp1800'
+-/* See arch/loongarch/include/uapi/asm/hwcap.h */
+-enum {
+-    HWCAP_LOONGARCH_CPUCFG   = (1 << 0),
+-    HWCAP_LOONGARCH_LAM      = (1 << 1),
+-    HWCAP_LOONGARCH_UAL      = (1 << 2),
+-    HWCAP_LOONGARCH_FPU      = (1 << 3),
+-    HWCAP_LOONGARCH_LSX      = (1 << 4),
+-    HWCAP_LOONGARCH_LASX     = (1 << 5),
+-    HWCAP_LOONGARCH_CRC32    = (1 << 6),
+-    HWCAP_LOONGARCH_COMPLEX  = (1 << 7),
+-    HWCAP_LOONGARCH_CRYPTO   = (1 << 8),
+-    HWCAP_LOONGARCH_LVZ      = (1 << 9),
+-    HWCAP_LOONGARCH_LBT_X86  = (1 << 10),
+-    HWCAP_LOONGARCH_LBT_ARM  = (1 << 11),
+-    HWCAP_LOONGARCH_LBT_MIPS = (1 << 12),
+-};
+-
+-static uint32_t get_elf_hwcap(void)
+-{
+-    LoongArchCPU *cpu = LOONGARCH_CPU(thread_cpu);
+-    uint32_t hwcaps = 0;
+-
+-    hwcaps |= HWCAP_LOONGARCH_CRC32;
+-
+-    if (FIELD_EX32(cpu->env.cpucfg[1], CPUCFG1, UAL)) {
+-        hwcaps |= HWCAP_LOONGARCH_UAL;
+-    }
+-
+-    if (FIELD_EX32(cpu->env.cpucfg[2], CPUCFG2, FP)) {
+-        hwcaps |= HWCAP_LOONGARCH_FPU;
+-    }
+-
+-    if (FIELD_EX32(cpu->env.cpucfg[2], CPUCFG2, LAM)) {
+-        hwcaps |= HWCAP_LOONGARCH_LAM;
+-    }
+-
+-    if (FIELD_EX32(cpu->env.cpucfg[2], CPUCFG2, LSX)) {
+-        hwcaps |= HWCAP_LOONGARCH_LSX;
+-    }
+-
+-    if (FIELD_EX32(cpu->env.cpucfg[2], CPUCFG2, LASX)) {
+-        hwcaps |= HWCAP_LOONGARCH_LASX;
+-    }
+-
+-    return hwcaps;
+-}
++#define ELF_HWCAP get_elf_hwcap(thread_cpu)
+ 
+ #define ELF_PLATFORM "loongarch"
+ 
+diff --git a/linux-user/loongarch64/elfload.c b/linux-user/loongarch64/elfload.c
+index 874dc4c2304..ee4a85b8d6c 100644
+--- a/linux-user/loongarch64/elfload.c
++++ b/linux-user/loongarch64/elfload.c
+@@ -9,3 +9,50 @@ const char *get_elf_cpu_model(uint32_t eflags)
+ {
+     return "la464";
+ }
++
++/* See arch/loongarch/include/uapi/asm/hwcap.h */
++enum {
++    HWCAP_LOONGARCH_CPUCFG   = (1 << 0),
++    HWCAP_LOONGARCH_LAM      = (1 << 1),
++    HWCAP_LOONGARCH_UAL      = (1 << 2),
++    HWCAP_LOONGARCH_FPU      = (1 << 3),
++    HWCAP_LOONGARCH_LSX      = (1 << 4),
++    HWCAP_LOONGARCH_LASX     = (1 << 5),
++    HWCAP_LOONGARCH_CRC32    = (1 << 6),
++    HWCAP_LOONGARCH_COMPLEX  = (1 << 7),
++    HWCAP_LOONGARCH_CRYPTO   = (1 << 8),
++    HWCAP_LOONGARCH_LVZ      = (1 << 9),
++    HWCAP_LOONGARCH_LBT_X86  = (1 << 10),
++    HWCAP_LOONGARCH_LBT_ARM  = (1 << 11),
++    HWCAP_LOONGARCH_LBT_MIPS = (1 << 12),
++};
++
++abi_ulong get_elf_hwcap(CPUState *cs)
++{
++    LoongArchCPU *cpu = LOONGARCH_CPU(cs);
++    abi_ulong hwcaps = 0;
++
++    hwcaps |= HWCAP_LOONGARCH_CRC32;
++
++    if (FIELD_EX32(cpu->env.cpucfg[1], CPUCFG1, UAL)) {
++        hwcaps |= HWCAP_LOONGARCH_UAL;
++    }
++
++    if (FIELD_EX32(cpu->env.cpucfg[2], CPUCFG2, FP)) {
++        hwcaps |= HWCAP_LOONGARCH_FPU;
++    }
++
++    if (FIELD_EX32(cpu->env.cpucfg[2], CPUCFG2, LAM)) {
++        hwcaps |= HWCAP_LOONGARCH_LAM;
++    }
++
++    if (FIELD_EX32(cpu->env.cpucfg[2], CPUCFG2, LSX)) {
++        hwcaps |= HWCAP_LOONGARCH_LSX;
++    }
++
++    if (FIELD_EX32(cpu->env.cpucfg[2], CPUCFG2, LASX)) {
++        hwcaps |= HWCAP_LOONGARCH_LASX;
++    }
++
++    return hwcaps;
++}
 -- 
 2.47.2
 
