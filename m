@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5079ACA1012
-	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 08:14:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BDF9CA1012
+	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 08:14:48 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uu54a-0006Fj-37; Thu, 04 Sep 2025 04:12:00 -0400
+	id 1uu54M-0005zj-VH; Thu, 04 Sep 2025 04:11:47 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uu54X-0006CT-Km
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:11:57 -0400
-Received: from mail-ed1-x52f.google.com ([2a00:1450:4864:20::52f])
+ id 1uu54L-0005xZ-6j
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:11:45 -0400
+Received: from mail-ed1-x52e.google.com ([2a00:1450:4864:20::52e])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uu54J-00040V-6L
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:11:57 -0400
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-619487c8865so3298481a12.1
- for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 01:11:41 -0700 (PDT)
+ id 1uu54B-0003wu-KM
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:11:44 -0400
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-61cc281171cso1360066a12.0
+ for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 01:11:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1756973500; x=1757578300; darn=nongnu.org;
+ d=linaro.org; s=google; t=1756973494; x=1757578294; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ZYVyVNsFyTXeOSFCWu8uUvsiqoxRwuwTGPuSI8iWgeI=;
- b=rZ4ZeC78nxBSs7Hm28KPJA5UJ9/lmcd+qT6HI2dPYRgjbSbw8vupniVlEUHXvqpbsn
- 6MeEkMYeEq/YchF968lN9sYtAbppFqVpYC/43sQmjCIMFtH9d3RCZy0CjSbJlH0COMkO
- p+fkLqifdJb4uTSQDeYHOcAWBNd15ftan2CM9gzXQNY4LC9D918wKhTnIoynp/txtjm8
- Zmzu4E1LcDGH1WKI8qe9NIZZhVPWdReTtf8tfSByB9PJuRE25pirUXXDydE/M97AnMaN
- eInmWkGSTDl936dtve9BqbQUbseczCRXpssU3GICm/dRQ/c6TRcMGz/ZdIfHPbM+58zL
- qIEw==
+ bh=pfipyU6Vd8H7OBNmQiaCitsZISqNnzAeEnNiRJw+yKE=;
+ b=caj0DpFnSePan/4y2+VOBkWT7raednY+dAt05Uj3JP0mvw2IFTabM9LwpikrDcpNxg
+ MpcKf6aREwHKyTL85488ZaHWFP+eeqwXTYJK9+7c+9utFruGTZ2fj/ydZEjjY/pEIKCq
+ 7jpNNVOGSYnAhfvosPCgh3FN9xyGR9V7vtzFqHksdVND3VdItLnh4s8fhO+V1A79C9sT
+ AkOMi5HSHFDHbPz08TrD0PDRNhecvBJUWREyKI5Mr/P5cRH8QCThkC98XmZQSKkpC3Xq
+ p3qBqvjAm5WQ6IZPlj/031cs8NIMFelPbRE8cU2eYArZWUB3/Fmc52kUFChjb0Nkg56F
+ qbSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756973500; x=1757578300;
+ d=1e100.net; s=20230601; t=1756973494; x=1757578294;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ZYVyVNsFyTXeOSFCWu8uUvsiqoxRwuwTGPuSI8iWgeI=;
- b=dTed5CHVu1DL0VoZI98XcW1grBO3soDkNKEn0R/AGNixEaEo6rCikj2FhslOM5uOGf
- CETlTgEQfBydnqE3oNep8wS86PHYgZjmjxam6b6Bj57sLOYQRAUKS7kyzj1j4ljzh38v
- 4MtEN35OyUSBHTB7Z12ID+LEfBinvvm4riS2ueIk7/C8L/lO7YpmQD14xqKR8tcwOJ6H
- 0PfNGgW9HryYCBR16xbx3tfAPklXTys8Bp5buAgU57e+gW+Olak/8uEefXr0E2WYM0xf
- gKo0rX0C6izKN21h8lBOxKfbkEmsDzfP574q3mfjXXm8ixW1rhgwI5WoRrOUVHASsM4T
- YpEQ==
+ bh=pfipyU6Vd8H7OBNmQiaCitsZISqNnzAeEnNiRJw+yKE=;
+ b=iHTqPr/fCkTAazBQ3B6rhTbKItS03SLPMwMy/3GU5HmWO4tX7BCLO7fe63Rmb5ehmL
+ w3cTmdI5mzk4BVPlBncggoRBcpt71NdwMrIIE9mpWZGLbzMCB5kvOe395/+rZbueO90P
+ /DGdGLK9Wi0u8xUyllo411TcOlMxPRWyfJM0EH7WNjdzAgAg+5OQ4jJPv7rbe4pv7T3J
+ OVctqkz53hoxjiT9ToHh7mA2+0TVVmxxr5sSZKw2qvEZYzr8ujfZyLmWzw3ReSl5TIg0
+ fPkq0s6PzyKHZJBRif4mP7mP51MbD6OYtQNUa2GRqkqvsbaz6xkdvdGBiVmulJYwxIb5
+ +zmg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXjsZUaZQo3kBGyjxZuxfHkCDEakIII35EyfYlGopE9zB1v2cD1MLDhNPG5a6Y3LHt2VYCq9w5hsw8=@nongnu.org
-X-Gm-Message-State: AOJu0Yw+bim7ymaczumz5FP6GutPCdxEK5Ul3x+yhytNLd5el+WBwhV9
- odkreTbmmKI8u/P736417URZxVP/R03MWv1lHc3Io6QrbmZc0zeAmS2lJHC9Y6GUrk4=
-X-Gm-Gg: ASbGncu0UjZ3TIwLzRTDKbIFBTI9Hva7mUxWyIEyZr/TjmXpVSD20yJ/uuzqMDQM2dZ
- yRSi7pT9rVlFySvolsryc4EgLWcfMEs2/2legyhqtfICydjdX6029LQ2i9ThAIgeeepkFnewkSM
- KCxOTkKvIzC93oNlNyijmGUXWx9d8BaYcXBsrSLx3n0Jh/NeBCABOfWBPHimRLCVRlHQxbNcQzH
- 9uQxmppzUn5NUYGy88xEX/ntn5lTmgZAghuBecYJGhBP2+BgQmeet64OEc+wzN2+01/rekJRQiB
- 2BSWxCABPIvi1UrCaHtiaOZUa+Twl9tYnIgIY+9wDywAReSBZVFXyOm54IdJ9mCchpEODBOxT1U
- KCtP6c2/9zlqlVeRql1hG3O7HBV38D1xcPw==
-X-Google-Smtp-Source: AGHT+IFieb+gm+rWJ0Oa45cj1KjcPCC4rl/ynxe9G4bgf3W7srLgMSyNw8FhmhZu6eY5HA4lnrH5tA==
-X-Received: by 2002:a17:907:9729:b0:af9:8739:10ca with SMTP id
- a640c23a62f3a-b01083235f9mr1709209966b.28.1756973499527; 
- Thu, 04 Sep 2025 01:11:39 -0700 (PDT)
+ AJvYcCUCjthdT8J5UwPXOu8240BqIXgcWe3lweaxbW6EzJ3fy7nrMaydUd7zqvXTTaa0ZXGKW/UJ6tB6lOI=@nongnu.org
+X-Gm-Message-State: AOJu0YxcOm1Sr/x58AQwG8liNGGzsh+uhR7fFSmZHlW+SFb90E6OgArF
+ zIRA+g+QyRegkE8EQHEt8K4JZ3ra/5FoKFERRCbE44Y9jWnxdVxpX3kUuIP08Phz2A8=
+X-Gm-Gg: ASbGncslpGegJrUVVN3Z2OGOCeLOqy8/+jxaFhpqARSgD7RulNRf0tDXzjpr+BUHlnZ
+ G9wB0QOtP0sRFwQy1H/eqGqXvf1tC128/IndcDT9JvMqWk6tNJqhei2OXkTPnrmo+DoHQR621EV
+ TML0b0OtUf2U+m7ryl9EbQUx4PLbMyTSvHINVic6A3tFvobdTKBusyeWTvegY2wfOIKgAkgfmhL
+ jzok2SsSo/w3EEV0tYx/xsYHdV+KDuy65dRY834SNBVE7Ia2CsciKI8G9GsGmANELdw1yz3QIop
+ w3zrnX0jjUoyfyHFb9h66/YDdpkDjwUPzBy8Z7bP74j0hU+3/ApwvZ8NxGzsueo8Ag2S5eHKBzg
+ 6RBqhbtlkHrFSjwS/b8YZoRQ=
+X-Google-Smtp-Source: AGHT+IEoaLYHbkuQ5w0GIOHrSrp6jiGSZD/L88aCCuGmKVKhMNAGz92wDlGLKlrjfHoRe3Zrhm5FPg==
+X-Received: by 2002:a05:6402:40c8:b0:620:1c6d:e6c4 with SMTP id
+ 4fb4d7f45d1cf-6201c6de967mr689986a12.38.1756973493583; 
+ Thu, 04 Sep 2025 01:11:33 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b047011daa1sm275133966b.79.2025.09.04.01.11.34
+ 4fb4d7f45d1cf-61cfc52ade4sm13646124a12.45.2025.09.04.01.11.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Sep 2025 01:11:37 -0700 (PDT)
+ Thu, 04 Sep 2025 01:11:32 -0700 (PDT)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 2163E5F93E;
- Thu, 04 Sep 2025 09:11:29 +0100 (BST)
+ by draig.lan (Postfix) with ESMTP id 674E15F913;
+ Thu, 04 Sep 2025 09:11:28 +0100 (BST)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Reinoud Zandijk <reinoud@netbsd.org>,
@@ -129,18 +129,17 @@ Cc: Reinoud Zandijk <reinoud@netbsd.org>,
  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
  Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
  =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Nicholas Piggin <npiggin@gmail.com>, John Levon <john.levon@nutanix.com>,
- Cornelia Huck <cohuck@redhat.com>
-Subject: [PATCH v2 008/281] hw: add compat machines for 10.2
-Date: Thu,  4 Sep 2025 09:06:42 +0100
-Message-ID: <20250904081128.1942269-9-alex.bennee@linaro.org>
+ Nicholas Piggin <npiggin@gmail.com>, John Levon <john.levon@nutanix.com>
+Subject: [PATCH v2 002/281] scripts/minikconf.py: fix invalid attribute access
+Date: Thu,  4 Sep 2025 09:06:36 +0100
+Message-ID: <20250904081128.1942269-3-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250904081128.1942269-1-alex.bennee@linaro.org>
 References: <20250904081128.1942269-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::52f;
- envelope-from=alex.bennee@linaro.org; helo=mail-ed1-x52f.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::52e;
+ envelope-from=alex.bennee@linaro.org; helo=mail-ed1-x52e.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -163,251 +162,32 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Cornelia Huck <cohuck@redhat.com>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
-Add 10.2 machine types for arm/i440fx/m68k/q35/s390x/spapr.
+Fix parse method to use `defconfig` global variable instead of the
+non-existent KconfigParser class attribute
 
-Signed-off-by: Cornelia Huck <cohuck@redhat.com>
-Reviewed-by: Thomas Huth <thuth@redhat.com>
-Acked-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20250805095616.1168905-1-cohuck@redhat.com>
-Signed-off-by: Thomas Huth <thuth@redhat.com>
+Fixes: f349474920d80838ecea3d421531fdb0660b8740 ("minikconfig: implement allnoconfig and defconfig modes")
+Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Link: https://lore.kernel.org/r/20250820-scripts-minikconf-fixes-v1-1-252041a9125e@linaro.org
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- include/hw/boards.h        |  3 +++
- include/hw/i386/pc.h       |  3 +++
- hw/arm/virt.c              |  9 ++++++++-
- hw/core/machine.c          |  3 +++
- hw/i386/pc.c               |  3 +++
- hw/i386/pc_piix.c          | 13 +++++++++++--
- hw/i386/pc_q35.c           | 13 +++++++++++--
- hw/m68k/virt.c             |  9 ++++++++-
- hw/ppc/spapr.c             | 15 +++++++++++++--
- hw/s390x/s390-virtio-ccw.c | 14 +++++++++++++-
- 10 files changed, 76 insertions(+), 9 deletions(-)
+ scripts/minikconf.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/hw/boards.h b/include/hw/boards.h
-index f94713e6e29..665b6201214 100644
---- a/include/hw/boards.h
-+++ b/include/hw/boards.h
-@@ -779,6 +779,9 @@ struct MachineState {
-     } \
-     type_init(machine_initfn##_register_types)
+diff --git a/scripts/minikconf.py b/scripts/minikconf.py
+index 6f7f43b2918..2a4694fb6a3 100644
+--- a/scripts/minikconf.py
++++ b/scripts/minikconf.py
+@@ -340,7 +340,7 @@ class KconfigParser:
  
-+extern GlobalProperty hw_compat_10_1[];
-+extern const size_t hw_compat_10_1_len;
-+
- extern GlobalProperty hw_compat_10_0[];
- extern const size_t hw_compat_10_0_len;
- 
-diff --git a/include/hw/i386/pc.h b/include/hw/i386/pc.h
-index 79b72c54dd3..e83157ab358 100644
---- a/include/hw/i386/pc.h
-+++ b/include/hw/i386/pc.h
-@@ -214,6 +214,9 @@ void pc_system_parse_ovmf_flash(uint8_t *flash_ptr, size_t flash_size);
- /* sgx.c */
- void pc_machine_init_sgx_epc(PCMachineState *pcms);
- 
-+extern GlobalProperty pc_compat_10_1[];
-+extern const size_t pc_compat_10_1_len;
-+
- extern GlobalProperty pc_compat_10_0[];
- extern const size_t pc_compat_10_0_len;
- 
-diff --git a/hw/arm/virt.c b/hw/arm/virt.c
-index ef6be3660f5..9326cfc895f 100644
---- a/hw/arm/virt.c
-+++ b/hw/arm/virt.c
-@@ -3455,10 +3455,17 @@ static void machvirt_machine_init(void)
- }
- type_init(machvirt_machine_init);
- 
-+static void virt_machine_10_2_options(MachineClass *mc)
-+{
-+}
-+DEFINE_VIRT_MACHINE_AS_LATEST(10, 2)
-+
- static void virt_machine_10_1_options(MachineClass *mc)
- {
-+    virt_machine_10_2_options(mc);
-+    compat_props_add(mc->compat_props, hw_compat_10_1, hw_compat_10_1_len);
- }
--DEFINE_VIRT_MACHINE_AS_LATEST(10, 1)
-+DEFINE_VIRT_MACHINE(10, 1)
- 
- static void virt_machine_10_0_options(MachineClass *mc)
- {
-diff --git a/hw/core/machine.c b/hw/core/machine.c
-index bd47527479a..38c949c4f2c 100644
---- a/hw/core/machine.c
-+++ b/hw/core/machine.c
-@@ -37,6 +37,9 @@
- #include "hw/virtio/virtio-iommu.h"
- #include "audio/audio.h"
- 
-+GlobalProperty hw_compat_10_1[] = {};
-+const size_t hw_compat_10_1_len = G_N_ELEMENTS(hw_compat_10_1);
-+
- GlobalProperty hw_compat_10_0[] = {
-     { "scsi-hd", "dpofua", "off" },
-     { "vfio-pci", "x-migration-load-config-after-iter", "off" },
-diff --git a/hw/i386/pc.c b/hw/i386/pc.c
-index 2f58e73d334..bc048a6d137 100644
---- a/hw/i386/pc.c
-+++ b/hw/i386/pc.c
-@@ -81,6 +81,9 @@
-     { "qemu64-" TYPE_X86_CPU, "model-id", "QEMU Virtual CPU version " v, },\
-     { "athlon-" TYPE_X86_CPU, "model-id", "QEMU Virtual CPU version " v, },
- 
-+GlobalProperty pc_compat_10_1[] = {};
-+const size_t pc_compat_10_1_len = G_N_ELEMENTS(pc_compat_10_1);
-+
- GlobalProperty pc_compat_10_0[] = {
-     { TYPE_X86_CPU, "x-consistent-cache", "false" },
-     { TYPE_X86_CPU, "x-vendor-cpuid-only-v2", "false" },
-diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-index c03324281bd..d165ac72ed7 100644
---- a/hw/i386/pc_piix.c
-+++ b/hw/i386/pc_piix.c
-@@ -504,12 +504,21 @@ static void pc_i440fx_machine_options(MachineClass *m)
-                      pc_piix_compat_defaults, pc_piix_compat_defaults_len);
- }
- 
--static void pc_i440fx_machine_10_1_options(MachineClass *m)
-+static void pc_i440fx_machine_10_2_options(MachineClass *m)
- {
-     pc_i440fx_machine_options(m);
- }
- 
--DEFINE_I440FX_MACHINE_AS_LATEST(10, 1);
-+DEFINE_I440FX_MACHINE_AS_LATEST(10, 2);
-+
-+static void pc_i440fx_machine_10_1_options(MachineClass *m)
-+{
-+    pc_i440fx_machine_10_2_options(m);
-+    compat_props_add(m->compat_props, hw_compat_10_1, hw_compat_10_1_len);
-+    compat_props_add(m->compat_props, pc_compat_10_1, pc_compat_10_1_len);
-+}
-+
-+DEFINE_I440FX_MACHINE(10, 1);
- 
- static void pc_i440fx_machine_10_0_options(MachineClass *m)
- {
-diff --git a/hw/i386/pc_q35.c b/hw/i386/pc_q35.c
-index b309b2b378d..e89951285e5 100644
---- a/hw/i386/pc_q35.c
-+++ b/hw/i386/pc_q35.c
-@@ -374,12 +374,21 @@ static void pc_q35_machine_options(MachineClass *m)
-                      pc_q35_compat_defaults, pc_q35_compat_defaults_len);
- }
- 
--static void pc_q35_machine_10_1_options(MachineClass *m)
-+static void pc_q35_machine_10_2_options(MachineClass *m)
- {
-     pc_q35_machine_options(m);
- }
- 
--DEFINE_Q35_MACHINE_AS_LATEST(10, 1);
-+DEFINE_Q35_MACHINE_AS_LATEST(10, 2);
-+
-+static void pc_q35_machine_10_1_options(MachineClass *m)
-+{
-+    pc_q35_machine_10_2_options(m);
-+    compat_props_add(m->compat_props, hw_compat_10_1, hw_compat_10_1_len);
-+    compat_props_add(m->compat_props, pc_compat_10_1, pc_compat_10_1_len);
-+}
-+
-+DEFINE_Q35_MACHINE(10, 1);
- 
- static void pc_q35_machine_10_0_options(MachineClass *m)
- {
-diff --git a/hw/m68k/virt.c b/hw/m68k/virt.c
-index 875fd00ef8d..98cfe43c73a 100644
---- a/hw/m68k/virt.c
-+++ b/hw/m68k/virt.c
-@@ -367,10 +367,17 @@ type_init(virt_machine_register_types)
- #define DEFINE_VIRT_MACHINE(major, minor) \
-     DEFINE_VIRT_MACHINE_IMPL(false, major, minor)
- 
-+static void virt_machine_10_2_options(MachineClass *mc)
-+{
-+}
-+DEFINE_VIRT_MACHINE_AS_LATEST(10, 2)
-+
- static void virt_machine_10_1_options(MachineClass *mc)
- {
-+    virt_machine_10_2_options(mc);
-+    compat_props_add(mc->compat_props, hw_compat_10_1, hw_compat_10_1_len);
- }
--DEFINE_VIRT_MACHINE_AS_LATEST(10, 1)
-+DEFINE_VIRT_MACHINE(10, 1)
- 
- static void virt_machine_10_0_options(MachineClass *mc)
- {
-diff --git a/hw/ppc/spapr.c b/hw/ppc/spapr.c
-index 1855a3cd8d0..eb22333404d 100644
---- a/hw/ppc/spapr.c
-+++ b/hw/ppc/spapr.c
-@@ -4761,15 +4761,26 @@ static void spapr_machine_latest_class_options(MachineClass *mc)
- #define DEFINE_SPAPR_MACHINE(major, minor) \
-     DEFINE_SPAPR_MACHINE_IMPL(false, major, minor)
- 
-+/*
-+ * pseries-10.2
-+ */
-+static void spapr_machine_10_2_class_options(MachineClass *mc)
-+{
-+    /* Defaults for the latest behaviour inherited from the base class */
-+}
-+
-+DEFINE_SPAPR_MACHINE_AS_LATEST(10, 2);
-+
- /*
-  * pseries-10.1
-  */
- static void spapr_machine_10_1_class_options(MachineClass *mc)
- {
--    /* Defaults for the latest behaviour inherited from the base class */
-+    spapr_machine_10_2_class_options(mc);
-+    compat_props_add(mc->compat_props, hw_compat_10_1, hw_compat_10_1_len);
- }
- 
--DEFINE_SPAPR_MACHINE_AS_LATEST(10, 1);
-+DEFINE_SPAPR_MACHINE(10, 1);
- 
- /*
-  * pseries-10.0
-diff --git a/hw/s390x/s390-virtio-ccw.c b/hw/s390x/s390-virtio-ccw.c
-index a79bd13275b..d0c6e80cb05 100644
---- a/hw/s390x/s390-virtio-ccw.c
-+++ b/hw/s390x/s390-virtio-ccw.c
-@@ -911,14 +911,26 @@ static const TypeInfo ccw_machine_info = {
-     DEFINE_CCW_MACHINE_IMPL(false, major, minor)
- 
- 
-+static void ccw_machine_10_2_instance_options(MachineState *machine)
-+{
-+}
-+
-+static void ccw_machine_10_2_class_options(MachineClass *mc)
-+{
-+}
-+DEFINE_CCW_MACHINE_AS_LATEST(10, 2);
-+
- static void ccw_machine_10_1_instance_options(MachineState *machine)
- {
-+    ccw_machine_10_2_instance_options(machine);
- }
- 
- static void ccw_machine_10_1_class_options(MachineClass *mc)
- {
-+    ccw_machine_10_2_class_options(mc);
-+    compat_props_add(mc->compat_props, hw_compat_10_1, hw_compat_10_1_len);
- }
--DEFINE_CCW_MACHINE_AS_LATEST(10, 1);
-+DEFINE_CCW_MACHINE(10, 1);
- 
- static void ccw_machine_10_0_instance_options(MachineState *machine)
- {
+     @classmethod
+     def parse(self, fp, mode=None):
+-        data = KconfigData(mode or KconfigParser.defconfig)
++        data = KconfigData(mode or defconfig)
+         parser = KconfigParser(data)
+         parser.parse_file(fp)
+         return data
 -- 
 2.47.2
 
