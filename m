@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5827DCA1015
-	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 08:18:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF75ACA1013
+	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 08:21:47 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uu58P-0002Lw-2l; Thu, 04 Sep 2025 04:15:57 -0400
+	id 1uu59u-0006Rv-St; Thu, 04 Sep 2025 04:17:31 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uu54x-0006VV-Fl
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:25 -0400
-Received: from mail-ej1-x636.google.com ([2a00:1450:4864:20::636])
+ id 1uu55D-0006hT-07
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:44 -0400
+Received: from mail-ej1-x62c.google.com ([2a00:1450:4864:20::62c])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uu54S-000483-Tl
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:19 -0400
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-b046f6fb230so120588166b.1
- for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 01:11:51 -0700 (PDT)
+ id 1uu54c-0004EJ-UM
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:38 -0400
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-b0473327e70so122774766b.3
+ for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 01:12:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1756973511; x=1757578311; darn=nongnu.org;
+ d=linaro.org; s=google; t=1756973521; x=1757578321; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IEFayKNVFnXVPmO4dwPqIX/9FJE7mupFd4n+Gsn2REk=;
- b=xIysAJawZH2S/b/ZwjoTNypa7PX0e/hdZanQpKKNjZ8Qfj9YLOcWqEk0WrnV3N+B9E
- c1dHlYamxVUxCZioGHpCl3HQyKIUJVppHYzT3gGp/1c9JN7E0F6Nx8Wt9rT6ln56N0R4
- s7ZH+V6uxtMHfASO4Bw4iKKf48MDIUpEg6PHrRiXfCMCmZA9zByt9/Wz9r40Q5Np24sA
- Z4YqU4pfz8Del6nClxtRjL/ezCyvoA5xD/KYuenHs9a7KXBd5we+cm0O4yjUEpi9ozTv
- fCpvpy2UCgBHlTgF1HS1No4XzYx08Cdi7z9a8+w5DB0O0QyaXYAUi9LZsPDsoFYygHBo
- lS6A==
+ bh=dryPG5cdTvon401P43IQAncMYcpBnZGjJaBP50H9h5s=;
+ b=Z+VLcHiKE1AbteVM4e0xrE933CXRtp7Cd+3Dc52K669bV+8jEIQKbHzlOV8BnzMbOs
+ YI0Y4pLm46aIKaqhnTwIJ5ZFtyyABlwzfm3lZzMzuR0ScA30jiniA/X03OLEBs0SkUM1
+ xR1TWu7yoaVRtd3UiFntzM3QMs0w4MEqsZq6H4h9Q+xUV2PVQluKFBVK+W7J0AJRjC3z
+ uV54SnVNP91yeNL4bbBFWy20Ss4N9V9+qIfbQ1cJ7uCa157Gg824AwZtwHTjzBEiMNtd
+ Sh394/TllXwDjQobOX3x/3Le3jq0Y7JEe9ZehXkkHQ4Iq94/gfULSpQ4aG6m+cxENQKl
+ MziA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756973511; x=1757578311;
+ d=1e100.net; s=20230601; t=1756973521; x=1757578321;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IEFayKNVFnXVPmO4dwPqIX/9FJE7mupFd4n+Gsn2REk=;
- b=DbW09vWEr/l5kb1kJM5U4SReoxQIQEg1+51KNvgmZAUpRDTkaCFCfo6bobu6Ca6Ddi
- uw44IeDktWVwAHLIA640F9CIjjimkkjf8irDMQ49zBzQQ6L+rB9YDje8uaJHcnRmPUAv
- CdiReCczzAWzSk8ieFRsiOH5pGVf2yacO+ffYy+Jq0Z0hZzj8zxYTdGpn0bz7s3UrjMi
- O1uoGMiylQ2UlAejKpVJe/gfuZpetLswkVn3HjLy/mB9iwZnFdlSR8BBs7pIXTdvvSDy
- loSZlXLL0Pgl+YLavrfDOyRa64WSOO3dBDFBp5gZiPo4HQyiyR8YWkhVjHjJ0tBjATdY
- V4xg==
+ bh=dryPG5cdTvon401P43IQAncMYcpBnZGjJaBP50H9h5s=;
+ b=Upb02tBk69Rlq/xWipay32/i6iz8Df4AwpdMF/x8MKhS1VOb3AtU6k2MGO8aOt3lK/
+ Z6Vf0u1jt276+v1Lzu3//IAU//5hqeqqMoOP9n1yXUJOQONcAwksoWh5K0NyJzfeDvKh
+ KNuA3Pgv0p26w+TMzasq+0zGPpSkUbzQXOubU9sZedsWU5ViUnhvMTs4T5AL//aSuSzh
+ xGMijhOe4tEjh0JQUbLlqxstV4e7t23SnpxpQNxvwPDTsrnY92zsLjRFGCE1Njdw1rn6
+ JnGSMGzCJU++Msrp/pzAHac+4y52+q/wc31CQiKXlPBA97iC+n0TxbwtRN6mgIk8IMP/
+ kO7w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXpg/P1739eaD08+C/mQU8/N+vTLb2WqT/LmaMpF0SHDlxVBvf5aqpZuenN2Elyu5zw8DKwZ1E60fo=@nongnu.org
-X-Gm-Message-State: AOJu0YwWR9mtF2o+AcscKLucr3FldxVYkxAgXos8fiB8yzCb5lATAynH
- lHeMZ9xvD9Ac5KlK5r2TBpES2eedAqJMLOGt2CXZBwhzNl75cCeM8kvqbPjZZw49aCA=
-X-Gm-Gg: ASbGncsqh6WeW1TVUEI6OTll9C6QcJblqtMG2/RAFNW98BY9ISHZkriLBsw8NxlLJ6p
- r2hW9Tp1s1zkfFRYK8azn+p4NQRgRvTl3u0PRVfVr8sStSNc9mCAATdFG6mDqNm7XiT22VScs+X
- 8yGqUOoceuH08G/hxsH2IGNkt+ANvfzMa3Qi1YG4qyC0/Jy21lAeOVTXGtsa56t7Ff8rJDAyXbz
- Slbn5tfflBmhV9XJc9wCAsemVQFpGjXqmmr35+5xPjwSjChASmu2xhDbFOVh9BwQeygVTq2ArsR
- sVZVYvQGin3OB2TpJTuDnivdCUxYtHms8yB46jimv590gbVWWYA5q0z/mzrQFf4jJis/aYS8ZrJ
- l4dqtDVzJBU8fYbBtUEL+X2E=
-X-Google-Smtp-Source: AGHT+IFGA6yysX5rYii0EXHOc7wdrviuB8wTGOuSTKIEOmP0UAztX9Mp/wwZz0qOsZ6RV/4aH8D/dw==
-X-Received: by 2002:a17:907:7241:b0:b04:38f2:9060 with SMTP id
- a640c23a62f3a-b0438f29593mr1159240066b.18.1756973510632; 
- Thu, 04 Sep 2025 01:11:50 -0700 (PDT)
+ AJvYcCVpbc137+8lx8sFzmxcI/HM3BMiuf14D+DPCe0gNRFXW1G7W/Bd+Yg3gfOpaHFDgNe17Tzqtjxqtv4=@nongnu.org
+X-Gm-Message-State: AOJu0YwCFgARiXy5J/Rmo0EfT8nQ4fPQwFd2opDdlis7JCa0rFSKYsHk
+ UtJqhljynyvtDtdDfFx5mHOP9geCEX054DHnfP2foNFs+NwbD7GgYxZIhrLMmCsMFmA=
+X-Gm-Gg: ASbGncunF0VoHXiljO+KQCOEN8xI6sYChUXHsSSCFmJ8PGQSM9vdmxBDlpp54jC1h27
+ 1ycDI5J2gvDTlJnHJF3KT1QoXXasU5yOrEnes++gO94JgZc3VEoDUsN1zuM9ERlr5eVUpvmltRy
+ KXczabSorxQvzHtTrD2/bZJ55GXYN9IPJSCiw/mOZnxus9pNtD4nX+p91Kw7v1kOh0PEz5rFXYJ
+ z74jkPlbKSTZFO6QIB2Hvs0BP5ZMBnQ+wIO5LLnDEYQT8nvhmNB8QfNTynd8g0J1jxWqwLZ2/6N
+ eeX4a8tTVvK4xUyMiOGgjblRgGD6TTHVb3e9pkW/xMB2KVnA2YJAnJovrHuxCWAdgsboAEg0dSL
+ cMSWGjucSvag/iZpoWhav1YI=
+X-Google-Smtp-Source: AGHT+IGDnb25U4p97OCHED0J2lFk0ur4/KBbXrud2PABbqZVX6GA8E6Xsu3KLiaHB+cjs0txk70Kjg==
+X-Received: by 2002:a17:907:7ea8:b0:b04:53cc:441c with SMTP id
+ a640c23a62f3a-b0453cc4688mr868679666b.28.1756973521151; 
+ Thu, 04 Sep 2025 01:12:01 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b0426516668sm972126766b.46.2025.09.04.01.11.43
+ a640c23a62f3a-aff12a6b404sm1395198066b.88.2025.09.04.01.11.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Sep 2025 01:11:49 -0700 (PDT)
+ Thu, 04 Sep 2025 01:11:55 -0700 (PDT)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 2137060046;
- Thu, 04 Sep 2025 09:11:32 +0100 (BST)
+ by draig.lan (Postfix) with ESMTP id 8A375601B3;
+ Thu, 04 Sep 2025 09:11:34 +0100 (BST)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Reinoud Zandijk <reinoud@netbsd.org>,
@@ -129,20 +129,18 @@ Cc: Reinoud Zandijk <reinoud@netbsd.org>,
  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
  Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
  =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Nicholas Piggin <npiggin@gmail.com>, John Levon <john.levon@nutanix.com>,
- Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Subject: [PATCH v2 032/281] tests/functional: Move sh4/sh4eb tests into
- target-specific folders
-Date: Thu,  4 Sep 2025 09:07:06 +0100
-Message-ID: <20250904081128.1942269-33-alex.bennee@linaro.org>
+ Nicholas Piggin <npiggin@gmail.com>, John Levon <john.levon@nutanix.com>
+Subject: [PATCH v2 051/281] linux-user: Move ppc uabi/asm/elf.h workaround to
+ osdep.h
+Date: Thu,  4 Sep 2025 09:07:25 +0100
+Message-ID: <20250904081128.1942269-52-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250904081128.1942269-1-alex.bennee@linaro.org>
 References: <20250904081128.1942269-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::636;
- envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x636.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::62c;
+ envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x62c.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -165,117 +163,79 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Thomas Huth <thuth@redhat.com>
+From: Richard Henderson <richard.henderson@linaro.org>
 
-The tests/functional folder has become quite crowded, thus move the
-sh4 tests into a target-specific subfolder.
+Move the workaround out of linux-user/elfload.c, so that
+we don't have to replicate it in many places.  Place it
+immediately after the include of <signal.h>, which draws
+in the relevant symbols.
 
-Reviewed-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-Signed-off-by: Thomas Huth <thuth@redhat.com>
-Message-ID: <20250819112403.432587-21-thuth@redhat.com>
+Note that ARCH_DLINFO is not defined by the kernel header,
+and so there's no need to undef it either.
+
+Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
+Signed-off-by: Richard Henderson <richard.henderson@linaro.org>
 ---
- MAINTAINERS                                       |  4 ++--
- tests/functional/meson.build                      | 15 ++-------------
- tests/functional/sh4/meson.build                  | 10 ++++++++++
- .../{test_sh4_r2d.py => sh4/test_r2d.py}          |  0
- .../{test_sh4_tuxrun.py => sh4/test_tuxrun.py}    |  0
- tests/functional/sh4eb/meson.build                |  5 +++++
- .../{test_sh4eb_r2d.py => sh4eb/test_r2d.py}      |  0
- 7 files changed, 19 insertions(+), 15 deletions(-)
- create mode 100644 tests/functional/sh4/meson.build
- rename tests/functional/{test_sh4_r2d.py => sh4/test_r2d.py} (100%)
- rename tests/functional/{test_sh4_tuxrun.py => sh4/test_tuxrun.py} (100%)
- create mode 100644 tests/functional/sh4eb/meson.build
- rename tests/functional/{test_sh4eb_r2d.py => sh4eb/test_r2d.py} (100%)
+ include/qemu/osdep.h |  8 ++++++++
+ hw/core/loader.c     |  4 ----
+ linux-user/elfload.c | 10 ----------
+ 3 files changed, 8 insertions(+), 14 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4a55a20f6a5..eddec0058e0 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1736,8 +1736,8 @@ F: hw/pci-host/sh_pci.c
- F: hw/timer/sh_timer.c
- F: include/hw/sh4/sh_intc.h
- F: include/hw/timer/tmu012.h
--F: tests/functional/test_sh4*_r2d.py
--F: tests/functional/test_sh4_tuxrun.py
-+F: tests/functional/sh4*/test_r2d.py
-+F: tests/functional/sh4/test_tuxrun.py
+diff --git a/include/qemu/osdep.h b/include/qemu/osdep.h
+index 96fe51bc390..be3460b32f2 100644
+--- a/include/qemu/osdep.h
++++ b/include/qemu/osdep.h
+@@ -133,6 +133,14 @@ QEMU_EXTERN_C int daemon(int, int);
+ #include <setjmp.h>
+ #include <signal.h>
  
- SPARC Machines
- --------------
-diff --git a/tests/functional/meson.build b/tests/functional/meson.build
-index abaa4e00fca..ce713509e32 100644
---- a/tests/functional/meson.build
-+++ b/tests/functional/meson.build
-@@ -30,10 +30,8 @@ subdir('riscv32')
- subdir('riscv64')
- subdir('rx')
- subdir('s390x')
--
--test_sh4_timeouts = {
--  'sh4_tuxrun' : 240,
--}
-+subdir('sh4')
-+subdir('sh4eb')
++/*
++ * Avoid conflict with linux/arch/powerpc/include/uapi/asm/elf.h, included
++ * from <asm/sigcontext.h>, but we might as well do this unconditionally.
++ */
++#undef ELF_CLASS
++#undef ELF_DATA
++#undef ELF_ARCH
++
+ #ifdef CONFIG_IOVEC
+ #include <sys/uio.h>
+ #endif
+diff --git a/hw/core/loader.c b/hw/core/loader.c
+index e7056ba4bd3..524af6f14a0 100644
+--- a/hw/core/loader.c
++++ b/hw/core/loader.c
+@@ -295,10 +295,6 @@ static void *load_at(int fd, off_t offset, size_t size)
+     return ptr;
+ }
  
- test_x86_64_timeouts = {
-   'acpi_bits' : 420,
-@@ -56,15 +54,6 @@ tests_generic_linuxuser = [
- tests_generic_bsduser = [
- ]
+-#ifdef ELF_CLASS
+-#undef ELF_CLASS
+-#endif
+-
+ #define ELF_CLASS   ELFCLASS32
+ #include "elf.h"
  
--tests_sh4_system_thorough = [
--  'sh4_r2d',
--  'sh4_tuxrun',
--]
+diff --git a/linux-user/elfload.c b/linux-user/elfload.c
+index ea214105ff8..4ca8c39dc26 100644
+--- a/linux-user/elfload.c
++++ b/linux-user/elfload.c
+@@ -35,16 +35,6 @@
+ #include "target/arm/cpu-features.h"
+ #endif
+ 
+-#ifdef _ARCH_PPC64
+-#undef ARCH_DLINFO
+-#undef ELF_PLATFORM
+-#undef ELF_HWCAP
+-#undef ELF_HWCAP2
+-#undef ELF_CLASS
+-#undef ELF_DATA
+-#undef ELF_ARCH
+-#endif
 -
--tests_sh4eb_system_thorough = [
--  'sh4eb_r2d',
--]
--
- tests_sparc_system_quick = [
-   'sparc_migration',
- ]
-diff --git a/tests/functional/sh4/meson.build b/tests/functional/sh4/meson.build
-new file mode 100644
-index 00000000000..56f824e1e71
---- /dev/null
-+++ b/tests/functional/sh4/meson.build
-@@ -0,0 +1,10 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
-+test_sh4_timeouts = {
-+  'tuxrun' : 240,
-+}
-+
-+tests_sh4_system_thorough = [
-+  'r2d',
-+  'tuxrun',
-+]
-diff --git a/tests/functional/test_sh4_r2d.py b/tests/functional/sh4/test_r2d.py
-similarity index 100%
-rename from tests/functional/test_sh4_r2d.py
-rename to tests/functional/sh4/test_r2d.py
-diff --git a/tests/functional/test_sh4_tuxrun.py b/tests/functional/sh4/test_tuxrun.py
-similarity index 100%
-rename from tests/functional/test_sh4_tuxrun.py
-rename to tests/functional/sh4/test_tuxrun.py
-diff --git a/tests/functional/sh4eb/meson.build b/tests/functional/sh4eb/meson.build
-new file mode 100644
-index 00000000000..25e9a6e4041
---- /dev/null
-+++ b/tests/functional/sh4eb/meson.build
-@@ -0,0 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
-+tests_sh4eb_system_thorough = [
-+  'r2d',
-+]
-diff --git a/tests/functional/test_sh4eb_r2d.py b/tests/functional/sh4eb/test_r2d.py
-similarity index 100%
-rename from tests/functional/test_sh4eb_r2d.py
-rename to tests/functional/sh4eb/test_r2d.py
+ #ifndef TARGET_ARCH_HAS_SIGTRAMP_PAGE
+ #define TARGET_ARCH_HAS_SIGTRAMP_PAGE 0
+ #endif
 -- 
 2.47.2
 
