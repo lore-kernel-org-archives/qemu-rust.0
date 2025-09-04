@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 902C5CA1015
-	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 08:14:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52326CA1013
+	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 08:14:18 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uu55f-000745-0T; Thu, 04 Sep 2025 04:13:08 -0400
+	id 1uu54c-0006Im-BN; Thu, 04 Sep 2025 04:12:02 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uu54h-0006OT-CH
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:09 -0400
-Received: from mail-ej1-x632.google.com ([2a00:1450:4864:20::632])
+ id 1uu54Z-0006Dg-0E
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:11:59 -0400
+Received: from mail-ej1-x629.google.com ([2a00:1450:4864:20::629])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uu54K-000432-Us
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:06 -0400
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-b042cc39551so125897366b.0
- for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 01:11:44 -0700 (PDT)
+ id 1uu54J-00040t-6g
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:11:58 -0400
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-afec5651966so143298566b.2
+ for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 01:11:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1756973503; x=1757578303; darn=nongnu.org;
+ d=linaro.org; s=google; t=1756973500; x=1757578300; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KFEhhh8NSACPPy03lAUeW1WvXOIqiNIP9Gmw/5CKVpI=;
- b=pzzLfY7qD0RusmvLWQi6qIhUK5qTZsgYjX90c6w9sYL/esVsGSUkzXzx7KaxQU7BtW
- K5oeSQT/cL6nFA0fhgbaWuVZ2no3RwcrVuqTRiDe+bJ4c2Q6D0z/4xTJaQVpL4fchrFf
- EqBlig8boICIE7nUoodDs5pS2WwudMzre2Yo6DPiyn10nhC62GflOvV1BH5klfXwhwn5
- 6liX4HuWMjmWIEqVfRS9Hd7wi10Y4MTCM1KCVNvD0ZY7ROPXytjYm/IY+awMEgacwZ3J
- gy1NycRCgUu6p01kSm0hhtGLH0xxK8luqkAWuAsiABpabKMooNOzBlYSbhcv32O1vKb3
- RwUQ==
+ bh=YHrtANvKFxNzkcAR0b6AvL2FoL97RQya7kVY684YbqM=;
+ b=SEQkebx0f+a2248VgstBtza4jORb0i7e7R7xUbUN1rdFAHXcFfebXhdT+9rTtAgh2L
+ /ub5rvBndNE30JwVRtOxMnNuwDDRGDIb8AWnsQQBpX7sTkckbkTMkkZTSBf2FmbmH1C0
+ pEZsJx1szvd9YA+Se9tq76IWZROoa0pQ0ygYpA5dJ6r0Ao3LHpTZBxxmsIlzMHtDenv0
+ hKyoOR+dKQTGGPt8xqrGB/O3y6BfjBCO2mxMj/YBQdHOOVAr9gnVbPHMRY9SIyZME/LC
+ ZWu6gi1otc0iSGjcLVNAnUWN7qvLlX152oiRT9ZBR9vJsanBTFwXX13dZEApi17lxUBq
+ 7kDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756973503; x=1757578303;
+ d=1e100.net; s=20230601; t=1756973500; x=1757578300;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KFEhhh8NSACPPy03lAUeW1WvXOIqiNIP9Gmw/5CKVpI=;
- b=Cm3iOBhV9qXjBlonmh3bUOYO7j6wZuIKJ4SOjE9s5RsjuMbzLPXvMnyIdcZ+BGjkIp
- WBUjsHPVW/EEWSUMzNo1fAZ7rHt7tdM4lQzLave4/GxY8sHEfSGF6s7yPDwANmdjT9kk
- JGksxH8+WXnEAZL+QXIFJfm9vl1SEz8c+TixspHESwINzyEpzgPH7ODO83E1qadZ4wMT
- oXmCNpjRiHGkZVLsa2Uo4hwKsrwLwGBnbXYK0yfTlHZ5JUIQ+Up+5z+GGrp4Mp92tjI7
- Wy/uPids5Dx+tGt8VA4Eqw05QZJrM07LWKuwaEB0EPQxWLU9/Lp92IS5rEX/tVdYWvyu
- wsdQ==
+ bh=YHrtANvKFxNzkcAR0b6AvL2FoL97RQya7kVY684YbqM=;
+ b=XFHl/I3l/iSzqBZTI6SpgOIgQGSn9xTgoDZYzQFSdWT+S10o8q0GkTx4NOlsjecNIX
+ nm1Xlsdo/2DzH3m4HaHq40kSEMwWrMgVjuz/1pa6hVQmuVHYJs/PpLIO/LYbv5yd4MY4
+ Nw3QCI1ILjMPZ0iPuFKOSJd+uc4ew+LKYgbmPxicmW13maYxG8Bb6PwPYHuwGJgEi0K6
+ 6AEJH0sg33faqx1It06SnIZ6GcdWd0EK4rKHO2Zi9wdZSU/PF/ob985mEwZp7ZR6wBIT
+ duimQO7yTDelbjidgQ8DGEzZ9oPsTWmnNqgUIshCXJwn+T0MECnMxjqKeu+lzl19ids6
+ az4g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXPRj/nUYBXAkcnfNhZo8rIKWWrMoPwAryooPCWyRRiV5iv4UXi960b3r/b5pQs9nXRkCudXIlEnhg=@nongnu.org
-X-Gm-Message-State: AOJu0YwoIAAVi0Gn1Ib47Thho479HsHqWblGxfDp3ufdfMNPTPkOfZRm
- eTglNVWD+dWHvLwlYc4w8IqOme3mgVT3wUARCYa4ObO7VDjFcrkGG/5FiSuIabpufrRovze5tGk
- l+tloTZCnaw==
-X-Gm-Gg: ASbGncs5Xs8Y9vXB1CtPg+rllvNGlEJV0cmdvbieCHUaI+KP6Q1h1ZquclppkPQzJ92
- e3r5eJ+7qgijiocynB4kYR3v4y403AaRkRWDMuRWYbqVpCg9AvvO4YH8djhKt0xg2+/AbzKTs+p
- F25pnERinRxiPoh6uD2OlpcOUH4troR4RP/3B85throOvcfaD+eXRg5yITd6+61mQI23cbsNJZH
- zILgJdumRxhOW6nOtavHH12/6kWkbJs8sSonB5A/j7WdomBN9yUrCMVRRNF/DS3W0SdIw9hs175
- xunSoEfPO/hgZCXwg6V5u/WUurPDY5/uZ1vK96JiWQSn4dMvQaFwQNpGsDEr7PiwJ2RbWTmVXae
- ACWeNSj3oJi9ObD5p8Gtz9kiU1x9N8s6FRw==
-X-Google-Smtp-Source: AGHT+IFlmoTtWtJZg3Geb0kfl+Z+ucuFEHRktCaxjXa7c0bTRextSI2xhSOy4rmatDTUkMpDVjITog==
-X-Received: by 2002:a17:907:3e8f:b0:b04:6c19:ed8d with SMTP id
- a640c23a62f3a-b046c19eea9mr457804566b.26.1756973503102; 
- Thu, 04 Sep 2025 01:11:43 -0700 (PDT)
+ AJvYcCWqTAx0TwMMl4vQjcA7T4c3TAYZt2hntr+GBe4bD/KRyCLnctkFdhZxJiM+3tuQg40tHv8/Px2YaCY=@nongnu.org
+X-Gm-Message-State: AOJu0YyAluj2+Adtlv5Y/90qOSITMlx/irFQHC81bBDwL+oDbXbLQblQ
+ MMTmrCIaPqCkIMOiPYn0930/9y4WxJsAMlrriVGUxw2UT/zNXyrW5mhyyQozRpN9LrE=
+X-Gm-Gg: ASbGncugftlMu5SNvVfkYNXXIZNpGu1S/DToHH612tmEe+JFX3ZPHKhzIrckTUyKuJ4
+ hA+z36Wqq2kh9qqDwX2DwrxvFKdhXr2bNrDIRWVDK3h7rTwpib4Fx9ZTUaanwBS0d3ihuFzNW5Z
+ wNciv7RAeaxIPNOB5PhHtck1tb9vS1mv54avwOtv4lDJQTgb1t3zw1qElnbkyFnip/laHh81fvM
+ nBl6QIAM7gDh0OE1+HMqrMrWpcVGNT9Ho8VYCu+ci8yDpmK+KjdABgQUP4vy1a0l1aWLpm6Du81
+ BN+2bzLwf7S+yICBFw7TwIH2dmU7+CUqLcw5R3pprMmCOBXjRNIDALU14QgNdPsLR8NXR/9Nu4P
+ 8+N+Ja/D38VDvxr6/JwetBhk=
+X-Google-Smtp-Source: AGHT+IHWlLajDsQ384nIBXustMLg5QOay+NZ7bnHzT4T4G8CTt2TPFaQ6+dQTw7Hxia/vwaMzjizQQ==
+X-Received: by 2002:a17:906:12cf:b0:b04:11e5:9a8e with SMTP id
+ a640c23a62f3a-b0411e59b44mr1462147366b.40.1756973499887; 
+ Thu, 04 Sep 2025 01:11:39 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cfc4e50fbsm13438274a12.38.2025.09.04.01.11.37
+ a640c23a62f3a-b046d420e02sm306741066b.39.2025.09.04.01.11.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 04 Sep 2025 01:11:37 -0700 (PDT)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id F0D1B5FA1B;
- Thu, 04 Sep 2025 09:11:29 +0100 (BST)
+ by draig.lan (Postfix) with ESMTP id D1C1B5F93A;
+ Thu, 04 Sep 2025 09:11:28 +0100 (BST)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Reinoud Zandijk <reinoud@netbsd.org>,
@@ -131,18 +130,17 @@ Cc: Reinoud Zandijk <reinoud@netbsd.org>,
  Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
  =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  Nicholas Piggin <npiggin@gmail.com>, John Levon <john.levon@nutanix.com>,
- Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Subject: [PATCH v2 015/281] tests/functional/meson.build: Split timeout
- settings by target
-Date: Thu,  4 Sep 2025 09:06:49 +0100
-Message-ID: <20250904081128.1942269-16-alex.bennee@linaro.org>
+ Stefan Hajnoczi <stefanha@redhat.com>
+Subject: [PATCH v2 006/281] Update version for the v10.1.0 release
+Date: Thu,  4 Sep 2025 09:06:40 +0100
+Message-ID: <20250904081128.1942269-7-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250904081128.1942269-1-alex.bennee@linaro.org>
 References: <20250904081128.1942269-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::632;
- envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x632.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::629;
+ envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x629.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -165,124 +163,20 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Thomas Huth <thuth@redhat.com>
+From: Stefan Hajnoczi <stefanha@redhat.com>
 
-We are going to move these settings into target-specific subfolders.
-As a first step, split the big test_timeouts array up into individual
-ones.
-
-Reviewed-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Signed-off-by: Thomas Huth <thuth@redhat.com>
-Message-ID: <20250819112403.432587-4-thuth@redhat.com>
+Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 ---
- tests/functional/meson.build | 50 +++++++++++++++++++++++++++++++-----
- 1 file changed, 44 insertions(+), 6 deletions(-)
+ VERSION | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tests/functional/meson.build b/tests/functional/meson.build
-index 38ae0d6cd3b..356aad12dee 100644
---- a/tests/functional/meson.build
-+++ b/tests/functional/meson.build
-@@ -10,7 +10,7 @@ if get_option('tcg_interpreter')
- endif
- 
- # Timeouts for individual tests that can be slow e.g. with debugging enabled
--test_timeouts = {
-+test_aarch64_timeouts = {
-   'aarch64_aspeed_ast2700' : 600,
-   'aarch64_aspeed_ast2700fc' : 600,
-   'aarch64_device_passthrough' : 720,
-@@ -25,7 +25,9 @@ test_timeouts = {
-   'aarch64_tuxrun' : 240,
-   'aarch64_virt' : 360,
-   'aarch64_virt_gpu' : 480,
--  'acpi_bits' : 420,
-+}
-+
-+test_arm_timeouts = {
-   'arm_aspeed_palmetto' : 120,
-   'arm_aspeed_romulus' : 120,
-   'arm_aspeed_witherspoon' : 120,
-@@ -44,24 +46,55 @@ test_timeouts = {
-   'arm_replay' : 240,
-   'arm_tuxrun' : 240,
-   'arm_sx1' : 360,
--  'intel_iommu': 300,
-+}
-+
-+test_mips_timeouts = {
-   'mips_malta' : 480,
-+}
-+
-+test_mipsel_timeouts = {
-   'mipsel_malta' : 420,
-   'mipsel_replay' : 480,
-+}
-+
-+test_mips64_timeouts = {
-   'mips64_malta' : 240,
-+}
-+
-+test_mips64el_timeouts = {
-   'mips64el_malta' : 420,
-   'mips64el_replay' : 180,
--  'netdev_ethtool' : 180,
-+}
-+
-+test_ppc_timeouts = {
-   'ppc_40p' : 240,
-+}
-+
-+test_ppc64_timeouts = {
-   'ppc64_hv' : 1000,
-   'ppc64_powernv' : 480,
-   'ppc64_pseries' : 480,
-   'ppc64_replay' : 210,
-   'ppc64_tuxrun' : 420,
-   'ppc64_mac99' : 120,
-+}
-+
-+test_riscv64_timeouts = {
-   'riscv64_tuxrun' : 120,
-+}
-+
-+test_s390x_timeouts = {
-   's390x_ccw_virtio' : 420,
-+}
-+
-+test_sh4_timeouts = {
-   'sh4_tuxrun' : 240,
-+}
-+
-+test_x86_64_timeouts = {
-+  'acpi_bits' : 420,
-+  'intel_iommu': 300,
-+  'netdev_ethtool' : 180,
-   'virtio_balloon': 120,
-   'x86_64_kvm_xen' : 180,
-   'x86_64_replay' : 480,
-@@ -404,6 +437,11 @@ foreach speed : ['quick', 'thorough']
-                                build_by_default: false,
-                                env: test_precache_env)
-       precache_all += precache
-+      if is_variable('test_' + target_base + '_timeouts')
-+        time_out = get_variable('test_' + target_base + '_timeouts').get(test, 90)
-+      else
-+        time_out = 90
-+      endif
- 
-       # Ideally we would add 'precache' to 'depends' here, such that
-       # 'build_by_default: false' lets the pre-caching automatically
-@@ -419,8 +457,8 @@ foreach speed : ['quick', 'thorough']
-            env: test_env,
-            args: [testpath],
-            protocol: 'tap',
--           timeout: test_timeouts.get(test, 90),
--           priority: test_timeouts.get(test, 90),
-+           timeout: time_out,
-+           priority: time_out,
-            suite: suites)
-     endforeach
-   endforeach
+diff --git a/VERSION b/VERSION
+index dadcbd47d3c..4149c39eec6 100644
+--- a/VERSION
++++ b/VERSION
+@@ -1 +1 @@
+-10.0.94
++10.1.0
 -- 
 2.47.2
 
