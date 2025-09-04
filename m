@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE21ECA1013
-	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 08:26:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B204CCA1012
+	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 08:26:27 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uu59t-0006Oq-J6; Thu, 04 Sep 2025 04:17:30 -0400
+	id 1uu5CO-0002Tv-Gh; Thu, 04 Sep 2025 04:20:04 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uu553-0006Yj-Uv
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:30 -0400
-Received: from mail-ej1-x630.google.com ([2a00:1450:4864:20::630])
+ id 1uu5B8-0001ET-0r
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:18:47 -0400
+Received: from mail-ej1-x62a.google.com ([2a00:1450:4864:20::62a])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1uu54Y-0004BQ-Bh
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:12:29 -0400
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-b03fa5c5a89so107102066b.2
- for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 01:11:57 -0700 (PDT)
+ id 1uu5B1-0008Dg-TR
+ for qemu-rust@nongnu.org; Thu, 04 Sep 2025 04:18:45 -0400
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-b042ec947e4so94974766b.0
+ for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 01:18:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1756973516; x=1757578316; darn=nongnu.org;
+ d=linaro.org; s=google; t=1756973916; x=1757578716; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ihVvxQgeNn/GjHbnY+gzjmvaE+8lZrZaLCxntP4XREM=;
- b=avRlE9VTTURAZOpb8FUB9d5rAta+5agkzNhCtstztO98O/IqGmh327Lerp0U/0Qyi6
- 2J8wa16ayXLXhtD8YVrpoyzNpbX7QwZUFS08/cTWtqzCaPDkQD01Fk2+xE5ZLZvzccqK
- dsFEgfB1VFl+1e/hy6r4RdTP9GhuxupWH7W+h94fpF775L8vwTpvKG7UYVFm7CuT8H6r
- FG1PXa9Prw6Ak+o01RrHwzRjK84YGFEEM0epn0h+hmSke3J9GKKH51zuj5F0TelqVnFO
- wiFadNt5/sR6U2sNtncBpzLbGv1rS4egHd0vF5ehKMQjKSveIeFjsEVPvGO9WQyoT4JQ
- 5lvA==
+ bh=ompVlJELO9ntgp7NqWovDalEEm5jaDFBaNVePh2Fg+k=;
+ b=lqYpu8iTmfnRDkPsYPfWztkOHruSw/9HDNGJXi2AUKgD2QshF8ZVZgxVfo5/ciCepf
+ rKV2iawkbnU1xvxO8tHX6k5Rj7eRU2cLG1LTxzQ6lLDWG9JpA6bJxjYSdl+njg0sEHyn
+ QBxAtAho0yliqPYWp9QMmnoxYQS/rz0y+IIUtlqmxVUgl1x74H+07Zua3du1gvee1brZ
+ H1Wkj7mBGshRf5sELwH7eSJ9rXk/kB4NO0CNSAGdt9nEQLlbEVtMXY7/o4I+7f+0VJGa
+ rgJwcHqh1YDPejeLnAanrDnUdOtdEpYTdT/00WOnqVxxQWn1rHTjhmrUWqkbMl2V0cHc
+ RNXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756973516; x=1757578316;
+ d=1e100.net; s=20230601; t=1756973916; x=1757578716;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ihVvxQgeNn/GjHbnY+gzjmvaE+8lZrZaLCxntP4XREM=;
- b=MWzbdkUkETwWNdF/ts8NOB7xzJNNQiNVqUOF0PQ+u8Cc4bCgvLEEp48PqLKgp6GtnI
- SbgC2IX22tpAOhVTx7/zSiyoT7V4lOdZ8Hu9rfcmUmYZDuN85+4CF3rxXdd2DQ167MkI
- yVmB/1TqQrTlAbZyFB3FiYtn+6YH5d5BJ9VYfNTB7CjnOlFjZn4Mf043O7Wm/nWwDKTe
- finub+y/oDdvJXbNJfRIRTgRiBWODx5sfyZGDwzoMIbS8FvWOxlVbhdTWHbIuWI9VF63
- dsYWVAi3B+7NgN8+04Oj2YvQXznFvvZOjrzafHCXFfuj4v2Lvuq3VJuUiYb3Jo+3DRCk
- lQnA==
+ bh=ompVlJELO9ntgp7NqWovDalEEm5jaDFBaNVePh2Fg+k=;
+ b=Qg2pwYAOkutxLT5a/P+0Slo0pRsTv5bRDiBlsoz5VNr1yXqUNMTsz+dLBlS/tirdHk
+ hA7krdwTgP6NyPvEBHTgK7CYMBJAZdnl+OLWVlEc55wYRlQMoliu8GWfw/GrDLqvfdmN
+ j6XocKzmKHNYtSuhk3BrvyJpiMbYPOOKhv/ckAk9IxkB+8/BSe110UbDyBVrjA2diO7h
+ wC7KIvBFTq6+6d2FmCBrTCNaabUYIVDCccM9Nd064DzemQfb4W+nqrAEtLHgNA9AYjEy
+ 6mra3lecJ+Tp1g5Lt+83FBU4m8Q7GzZO+E2ZGz5BM8rsguc6x9SjAp7OjHGpNHPHT03Y
+ DGbw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXpxIN4MuHXyDEC3pZ6oz9hby/fM1gyZwlezzCQ9KD1VVR1FIdEqvtqvLvk2Pe1WTBUWQDbQKcp3rQ=@nongnu.org
-X-Gm-Message-State: AOJu0YwM0+osrH0g2pfxXsNuVxAkJZLfUggphk7JI1TXWa9unFNt7MjX
- ZrE2oIhwXPM8QMo+mq1JJznQmxYpkDZlUnth9isDZL1rB2Cnpi6JtnUTDhfVSA4NpFA=
-X-Gm-Gg: ASbGnctB5Dl/Rpi+BEt0jsAwelkye5yXdAw51UtLI+YTFrBjGaYvUY8l6BUhn3Cua5K
- BKLWmy2gyI26nkFusK1Zrxe1mbdMSJvIrMnpzpgLbr1BsKpD9uNpPTYAO84AcrsYsT7xhWP0CZs
- UuyQ5hrd0vssTdANfDGjWpCfPrvLjdKrq7YGMMS1xj/2dnYqmowjoh8ZKsO4VZVxx+Hae/hnAHX
- Tzn8uthfMccp6aUE/Ti2Pb24RpUB5Tp9Ps15WoKzrmzK/mE8OcNHRcU0iliTFVX5A6UT2wmtMUw
- 54042gdYRK30h6uZM7xNSIQlyg6HLLvJPGNQ0YAjmB8fwLica7Bhq2rNwTp1TeWQj7nftE5vJTj
- S1zC2WzQ5bUtfO+G8tJU4gvA=
-X-Google-Smtp-Source: AGHT+IE6icEl4XuEBWlH8j8BpgjiN6xgfsXzhcsYUMtNnFW6HtKULX+/oPffLgfaZHVhKWGCJwwp1Q==
-X-Received: by 2002:a17:907:2682:b0:afd:d9e4:51e7 with SMTP id
- a640c23a62f3a-b01f20bde05mr360782366b.63.1756973516361; 
- Thu, 04 Sep 2025 01:11:56 -0700 (PDT)
+ AJvYcCVFIyaTfbUR2nvosywhV/KN5hjb8SThaOY0uSTGmt0ZT1SlQ6mFlXSZIW1eB9Mdvi0JRtaFrWJfHmA=@nongnu.org
+X-Gm-Message-State: AOJu0YzQobz6nYeT3WCQf9/dZeBZItiRDR2zmLjfJVgeVUR7zznOBut8
+ x2FLAZF832ZuUvU0cqqFK3xf6HYE8yat1tavULlAS83u6KaLB/SGOxLhul3REHe8JH8=
+X-Gm-Gg: ASbGncvyBuTSZCrPoGtMVw4k/sKKSvUX6OeYZicn0+5rTosG8pnWI1orSEzwa01T92J
+ EbrWkIfibfgSxlC92ksNl6PUgVxuVPXauDIJoALfIe51LCtY9973i05LkXIXfEUiGLnCL8bPL2l
+ tjWVA+RUzvZ8IKYxsJDPVMSoXuzQbqPS0osPtPjkGh8+mCSwMCw3d4InAxOHTWUi1amyRSHgB9n
+ gEQ4fPYeYzXVdyZXekIDc3U+KNY2B0Sh3fNQ/1Crhtt/QZvN2MBCzbW8UjtZiirxQcFAOKWeqKg
+ vvjtIhVco0NcnM20iGF+cJwu/8RRb86IaoP0hQwzdTBjIcHtF1poilYCKwAs5O1B1/M5oi13Z0R
+ 1i+0BWU65FyF6RdeAU9xxWBZhJYSrUMTiUw==
+X-Google-Smtp-Source: AGHT+IFXKnqgaKsY2aRYlcO4LSLsCuART/SZSEUFpFcB1viH9haZ5yBXysPjsYR6aV+gJtHba4UXNg==
+X-Received: by 2002:a17:907:e916:b0:afe:ae6c:411c with SMTP id
+ a640c23a62f3a-b01f2113c64mr1656930766b.64.1756973915989; 
+ Thu, 04 Sep 2025 01:18:35 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b04709b3effsm279304666b.5.2025.09.04.01.11.50
+ a640c23a62f3a-aff138a8c1dsm1395320766b.99.2025.09.04.01.18.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Sep 2025 01:11:55 -0700 (PDT)
+ Thu, 04 Sep 2025 01:18:34 -0700 (PDT)
 Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 0EB89601A4;
- Thu, 04 Sep 2025 09:11:34 +0100 (BST)
+ by draig.lan (Postfix) with ESMTP id 58E905F9D0;
+ Thu, 04 Sep 2025 09:11:29 +0100 (BST)
 From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Reinoud Zandijk <reinoud@netbsd.org>,
@@ -129,17 +129,20 @@ Cc: Reinoud Zandijk <reinoud@netbsd.org>,
  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
  Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
  =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Nicholas Piggin <npiggin@gmail.com>, John Levon <john.levon@nutanix.com>
-Subject: [PATCH v2 048/281] semihosting: Retrieve stack top from image_info
-Date: Thu,  4 Sep 2025 09:07:22 +0100
-Message-ID: <20250904081128.1942269-49-alex.bennee@linaro.org>
+ Nicholas Piggin <npiggin@gmail.com>, John Levon <john.levon@nutanix.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Subject: [PATCH v2 010/281] tests/functional/test_aarch64_virt_gpu: Skip test
+ if EGL won't initialize
+Date: Thu,  4 Sep 2025 09:06:44 +0100
+Message-ID: <20250904081128.1942269-11-alex.bennee@linaro.org>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250904081128.1942269-1-alex.bennee@linaro.org>
 References: <20250904081128.1942269-1-alex.bennee@linaro.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::630;
- envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x630.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::62a;
+ envelope-from=alex.bennee@linaro.org; helo=mail-ej1-x62a.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -162,99 +165,52 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Richard Henderson <richard.henderson@linaro.org>
+From: Peter Maydell <peter.maydell@linaro.org>
 
-Remove the write-once field TaskState.stack_base, and use the
-same value from struct image_info.
+If you are using the Nvidia drivers and have installed new versions
+of those packages but have not yet rebooted the host kernel,
+attempting to use the egl-headless display will cause QEMU to fail to
+start with
 
-Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
-Signed-off-by: Richard Henderson <richard.henderson@linaro.org>
+$ qemu-system-aarch64 -M virt -display egl-headless
+qemu-system-aarch64: egl: eglInitialize failed: EGL_NOT_INITIALIZED
+qemu-system-aarch64: egl: render node init failed
+
+together with this complaint in the host kernel dmesg:
+
+[7874777.555649] NVRM: API mismatch: the client has the version 535.247.01, but
+                 NVRM: this kernel module has the version 535.230.02.  Please
+                 NVRM: make sure that this kernel module and all NVIDIA driver
+                 NVRM: components have the same version.
+
+This isn't a problem with QEMU itself, so reporting this as a test
+failure is misleading.  Instead skip the tests, as we already do for
+various other kinds of "host system can't actually run the EGL
+display" situation.
+
+Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
+Message-ID: <20250826123455.2856988-1-peter.maydell@linaro.org>
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Acked-by: Alex Bennée <alex.bennee@linaro.org>
+Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Signed-off-by: Thomas Huth <thuth@redhat.com>
 ---
- linux-user/qemu.h             | 1 -
- linux-user/aarch64/cpu_loop.c | 1 -
- linux-user/arm/cpu_loop.c     | 1 -
- linux-user/m68k/cpu_loop.c    | 1 -
- linux-user/riscv/cpu_loop.c   | 1 -
- semihosting/arm-compat-semi.c | 6 +++++-
- 6 files changed, 5 insertions(+), 6 deletions(-)
+ tests/functional/test_aarch64_virt_gpu.py | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/linux-user/qemu.h b/linux-user/qemu.h
-index 0b19fa43e65..b6621536b36 100644
---- a/linux-user/qemu.h
-+++ b/linux-user/qemu.h
-@@ -127,7 +127,6 @@ struct TaskState {
-     abi_ulong heap_base;
-     abi_ulong heap_limit;
- #endif
--    abi_ulong stack_base;
-     int used; /* non zero if used */
-     struct image_info *info;
-     struct linux_binprm *bprm;
-diff --git a/linux-user/aarch64/cpu_loop.c b/linux-user/aarch64/cpu_loop.c
-index fea43cefa6b..b65999a75bf 100644
---- a/linux-user/aarch64/cpu_loop.c
-+++ b/linux-user/aarch64/cpu_loop.c
-@@ -168,7 +168,6 @@ void target_cpu_copy_regs(CPUArchState *env, target_pt_regs *regs)
-         qemu_guest_getrandom_nofail(&env->keys, sizeof(env->keys));
-     }
- 
--    ts->stack_base = info->start_stack;
-     ts->heap_base = info->brk;
-     /* This will be filled in on the first SYS_HEAPINFO call.  */
-     ts->heap_limit = 0;
-diff --git a/linux-user/arm/cpu_loop.c b/linux-user/arm/cpu_loop.c
-index 33f63951a95..e40d6beafa2 100644
---- a/linux-user/arm/cpu_loop.c
-+++ b/linux-user/arm/cpu_loop.c
-@@ -504,7 +504,6 @@ void target_cpu_copy_regs(CPUArchState *env, target_pt_regs *regs)
-     arm_rebuild_hflags(env);
- #endif
- 
--    ts->stack_base = info->start_stack;
-     ts->heap_base = info->brk;
-     /* This will be filled in on the first SYS_HEAPINFO call.  */
-     ts->heap_limit = 0;
-diff --git a/linux-user/m68k/cpu_loop.c b/linux-user/m68k/cpu_loop.c
-index 5da91b997ae..3aaaf02ca4e 100644
---- a/linux-user/m68k/cpu_loop.c
-+++ b/linux-user/m68k/cpu_loop.c
-@@ -117,7 +117,6 @@ void target_cpu_copy_regs(CPUArchState *env, target_pt_regs *regs)
-     env->aregs[7] = regs->usp;
-     env->sr = regs->sr;
- 
--    ts->stack_base = info->start_stack;
-     ts->heap_base = info->brk;
-     /* This will be filled in on the first SYS_HEAPINFO call.  */
-     ts->heap_limit = 0;
-diff --git a/linux-user/riscv/cpu_loop.c b/linux-user/riscv/cpu_loop.c
-index 3ac8bbfec1f..541de765ffa 100644
---- a/linux-user/riscv/cpu_loop.c
-+++ b/linux-user/riscv/cpu_loop.c
-@@ -109,7 +109,6 @@ void target_cpu_copy_regs(CPUArchState *env, target_pt_regs *regs)
-         exit(EXIT_FAILURE);
-     }
- 
--    ts->stack_base = info->start_stack;
-     ts->heap_base = info->brk;
-     /* This will be filled in on the first SYS_HEAPINFO call.  */
-     ts->heap_limit = 0;
-diff --git a/semihosting/arm-compat-semi.c b/semihosting/arm-compat-semi.c
-index 86e5260e504..bc04b02eba8 100644
---- a/semihosting/arm-compat-semi.c
-+++ b/semihosting/arm-compat-semi.c
-@@ -696,7 +696,11 @@ void do_common_semihosting(CPUState *cs)
- 
-             retvals[0] = ts->heap_base;
-             retvals[1] = ts->heap_limit;
--            retvals[2] = ts->stack_base;
-+            /*
-+             * Note that semihosting is *not* thread aware.
-+             * Always return the stack base of the main thread.
-+             */
-+            retvals[2] = ts->info->start_stack;
-             retvals[3] = 0; /* Stack limit.  */
- #else
-             retvals[0] = info.heapbase;  /* Heap Base */
+diff --git a/tests/functional/test_aarch64_virt_gpu.py b/tests/functional/test_aarch64_virt_gpu.py
+index 38447278579..4e50887c3e9 100755
+--- a/tests/functional/test_aarch64_virt_gpu.py
++++ b/tests/functional/test_aarch64_virt_gpu.py
+@@ -76,6 +76,8 @@ def _launch_virt_gpu(self, gpu_device):
+                 self.skipTest("egl-headless support is not available")
+             elif "'type' does not accept value 'dbus'" in excp.output:
+                 self.skipTest("dbus display support is not available")
++            elif "eglInitialize failed: EGL_NOT_INITIALIZED" in excp.output:
++                self.skipTest("EGL failed to initialize on this host")
+             else:
+                 self.log.info("unhandled launch failure: %s", excp.output)
+                 raise excp
 -- 
 2.47.2
 
