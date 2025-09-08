@@ -4,151 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E85ACA1015
-	for <qemu-rust@archiver.kernel.org>; Thu,  4 Sep 2025 12:52:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB135CA1013
+	for <qemu-rust@archiver.kernel.org>; Mon,  8 Sep 2025 10:27:18 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uu9Rd-0005Br-GV; Thu, 04 Sep 2025 08:52:06 -0400
+	id 1uvZ5D-0002wO-6J; Mon, 08 Sep 2025 06:26:47 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <imammedo@redhat.com>)
- id 1uu8m7-0008KF-2R
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 08:09:11 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <imammedo@redhat.com>)
- id 1uu8lv-0003xC-H7
- for qemu-rust@nongnu.org; Thu, 04 Sep 2025 08:09:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1756987734;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=RGfsbECkN8yDi9zfYlQG8Tqcfjb7p7ijr5WocyCehHg=;
- b=XJ+Le8mjlcPUJz3CCcbGcAMjjQuatCONgfMyzvWAOp88xyK+Vna7nzXjCBwB5anzXmZ+x5
- yBtWlN8Ro4Nad/wmFTlTj1bpZP9UWWBhhWuvjRjk7GABzHHEKwWv/5ESpKEg5eMDUmXRaC
- GBLdul+LaEn/ExGuewUjeaikO+0KtCY=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-407-AM63JENsPI2nhNn2qfNDLw-1; Thu, 04 Sep 2025 08:08:50 -0400
-X-MC-Unique: AM63JENsPI2nhNn2qfNDLw-1
-X-Mimecast-MFC-AGG-ID: AM63JENsPI2nhNn2qfNDLw_1756987730
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-45dd12d469cso4156055e9.2
- for <qemu-rust@nongnu.org>; Thu, 04 Sep 2025 05:08:50 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uvZ5B-0002vl-MK
+ for qemu-rust@nongnu.org; Mon, 08 Sep 2025 06:26:45 -0400
+Received: from mail-ej1-x630.google.com ([2a00:1450:4864:20::630])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uvZ4z-00039D-9g
+ for qemu-rust@nongnu.org; Mon, 08 Sep 2025 06:26:44 -0400
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-b0475ce7f41so747785266b.1
+ for <qemu-rust@nongnu.org>; Mon, 08 Sep 2025 03:26:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1757327185; x=1757931985; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dHK/jEohPDLexJ1AX8b+BF56O/scjTSCjWar3EBr5e8=;
+ b=kzM9YvHEXEhGdk6i6vgJwfNcJdEIAhlqGPDuJAen/cdiHIBgFV3YbV0DYpdabjc3MT
+ ObDG5lPgl1gcPnhITnAxqNguIvw45Al41XBe+/RNJ6DLnI0yptLe5VygnPUmOmEdrJSW
+ mUzXSgSHcXZETG3a5DzhgIu32oZZ9e1J+kv/ZLxEGVuAHb//SkyuIIPaiAMzB0Mn6mZ4
+ K/ylwknBfXUUVZtmEogPZITYp+aJBeelZMHV9cs9uy3pUAgAEwHPJtY1xd5PJ42UEd8U
+ HLfwx8JYSbiFTeipiSfyZ/RuW2twUTs+/eQAbxjGouYYzoVqgBaXmVznGOYPi+U8LolM
+ DRhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756987729; x=1757592529;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1757327185; x=1757931985;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=RGfsbECkN8yDi9zfYlQG8Tqcfjb7p7ijr5WocyCehHg=;
- b=plAekTnALlcMWwODfG2lOG5UeSqyMEY5WzW1pMGxiMIpVfKWC5afIiFP/bdA9SkcAS
- G9uB2IUEyzLkEXFx4i3LeYUCukiQB1RcosFQLgapGBffegcXu3GTFDYjOfAZ1iu4/b1e
- VXQcjm7nfG4EDxcapQ2VmecyeaEkfBk9esGhBPTptfuid8x+VHaR8qyA+yEDuPRXgGIX
- camPv1R6a544n49trSYlpLEOUB8nYAlerLmuYCZC1JSlMoChzxLWfUn/KLpJgrCZKRR7
- 1iir3ZUR8C1dGkLaGFwz3nrOBrlrOMcp1pTIS53SKfIit6xG5SthLdnyU0ItBpdtayn3
- TxHg==
+ bh=dHK/jEohPDLexJ1AX8b+BF56O/scjTSCjWar3EBr5e8=;
+ b=mmFqdlGDUIk0mCap4kVR0v+TZBwcPvDUtycgvil/pMQ/RI8aYeAi0033noCboihGDC
+ o90TuyK2XMTatiLOsRi7Z1VZr1nwg6pJDG1j5HKNr+8Sb8xsCJiqcajtO3FRD9mrVHRr
+ T9wzGEFgGKeN1737slbhIHqo31HL0q1tFbkUI5bYUMCxyb9P5Tna3dDorTX14ytpJw1K
+ tw6P8lH2LVVdUs1TnerEAXYaFTZHOc1ebLNuj4J6nJY3l/YOxCaNvpoOlBWMg3seVXHD
+ 9jySfHrfO8Fbn1KLKtSF9Ts0zgQ1aBiYP1Y3bTQ0m0ZHBbNh0S7hJcktIJ4kmyDEp6qv
+ T4ng==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWxvdGjXXFrDv7XEDR1ur5b7RcuSUceaJUQKySbL1FWJhCquJ4H+EW7yCJrD4kumsB/+0UncZohmds=@nongnu.org
-X-Gm-Message-State: AOJu0YzjqXztv37fyWFUDyWkuUkRTNh9B7UcHPHBKPL0rOIoBLDyrbyC
- eqxrYjQDk+YyIDfdd2gQ7I+9RphiA9b5H3MfsdtcIgaFIZ7kne5SAaqf42KM+QiIk/EBIe1pWgW
- VMNI8r0mGn78aLbaBCBpmVRbHouuvhHeJvGHdIACu2EYhBeNnkp4RWTY=
-X-Gm-Gg: ASbGncvA0ablOF9pV3vLipSL5MvHGFupw0r95fHZAPXclPnhY62kP9EvdHbd0yvxoNL
- qRFAUnLpg5yNEOE8THO2Y8kWjdkywtgyUAAo59AbQzkdK4/G8RzQ/XjKUUuMy+AwGzcE+xrH8Yp
- NcWlRmvWhsP4CNQX5iCa3CNDNr01wDJxAMY1B3Sv9ZW2N0Wh/z/zcV1ZIS06FK46eBHSvTTU5N2
- rX1eFwPbl/Pe05ug+OjQpcphYiVcBoi29hKGnIU5Mqyv0L70p2ACmunlY+88407SvbQwWbS+vRw
- mSBWsNT4ib8En6mijmNvAFNqFE0aNg==
-X-Received: by 2002:a05:6000:2681:b0:3df:1a8b:ff40 with SMTP id
- ffacd0b85a97d-3df1a8c028amr3675207f8f.43.1756987729310; 
- Thu, 04 Sep 2025 05:08:49 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGX0PPz3yh7ncUtLm/xW0ZxJtT+AldckvinW77LYH+EITFhgO23Jx24JW/wmCpN9gO6bSEhZg==
-X-Received: by 2002:a05:6000:2681:b0:3df:1a8b:ff40 with SMTP id
- ffacd0b85a97d-3df1a8c028amr3675186f8f.43.1756987728720; 
- Thu, 04 Sep 2025 05:08:48 -0700 (PDT)
-Received: from fedora ([85.93.96.130]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3d53fda847dsm18324880f8f.0.2025.09.04.05.08.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Sep 2025 05:08:48 -0700 (PDT)
-Date: Thu, 4 Sep 2025 14:08:44 +0200
-From: Igor Mammedov <imammedo@redhat.com>
-To: Alex =?UTF-8?B?QmVubsOpZQ==?= <alex.bennee@linaro.org>, Peter Xu
- <peterx@redhat.com>
-Cc: qemu-devel@nongnu.org, Reinoud Zandijk <reinoud@netbsd.org>,
- =?UTF-8?B?Q8OpZHJpYw==?= Le Goater <clg@redhat.com>, Huacai Chen
- <chenhuacai@kernel.org>, Zhao Liu <zhao1.liu@intel.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Alistair Francis <alistair.francis@wdc.com>,
- qemu-arm@nongnu.org, Fam Zheng <fam@euphon.net>, Helge Deller
- <deller@gmx.de>, Matthew Rosato <mjrosato@linux.ibm.com>, Fabiano Rosas
- <farosas@suse.de>, qemu-rust@nongnu.org, Bibo Mao <maobibo@loongson.cn>,
- qemu-riscv@nongnu.org, Thanos Makatos <thanos.makatos@nutanix.com>, Liu
- Zhiwei <zhiwei_liu@linux.alibaba.com>, Riku Voipio <riku.voipio@iki.fi>,
- Cameron Esfahani <dirty@apple.com>, Alexander Graf <agraf@csgraf.de>,
- Laurent Vivier <lvivier@redhat.com>, Harsh Prateek Bora
- <harshpb@linux.ibm.com>, "Daniel P. =?UTF-8?B?QmVycmFuZ8Op?="
- <berrange@redhat.com>, qemu-ppc@nongnu.org, Stafford Horne
- <shorne@gmail.com>, Sunil Muthuswamy <sunilmut@microsoft.com>, Jagannathan
- Raman <jag.raman@oracle.com>, Brian Cain <brian.cain@oss.qualcomm.com>,
- Phil Dennis-Jordan <phil@philjordan.eu>, devel@lists.libvirt.org, Mads
- Ynddal <mads@ynddal.dk>, Elena Ufimtseva <elena.ufimtseva@oracle.com>,
- Jason Herne <jjherne@linux.ibm.com>, Michael Rolnik <mrolnik@gmail.com>,
- Weiwei Li <liwei1518@gmail.com>, Laurent Vivier <laurent@vivier.eu>, Ilya
- Leoshkevich <iii@linux.ibm.com>, qemu-block@nongnu.org, Peter Maydell
- <peter.maydell@linaro.org>, Kostiantyn Kostiuk <kkostiuk@redhat.com>, Kyle
- Evans <kevans@freebsd.org>, David Hildenbrand <david@redhat.com>, "Edgar E.
- Iglesias" <edgar.iglesias@gmail.com>, Warner Losh <imp@bsdimp.com>, Daniel
- Henrique Barboza <dbarboza@ventanamicro.com>, John Snow <jsnow@redhat.com>,
- Yoshinori Sato <yoshinori.sato@nifty.com>, Aleksandar Rikalo
- <arikalo@gmail.com>, Alistair Francis <alistair@alistair23.me>, Marcelo
- Tosatti <mtosatti@redhat.com>, Yonggang Luo <luoyonggang@gmail.com>,
- Radoslaw Biernacki <rad@semihalf.com>, Artyom Tarasenko
- <atar4qemu@gmail.com>, Yanan Wang <wangyanan55@huawei.com>, Eduardo Habkost
- <eduardo@habkost.net>, Aurelien Jarno <aurelien@aurel32.net>, Richard
- Henderson <richard.henderson@linaro.org>, qemu-s390x@nongnu.org, Alex
- Williamson <alex.williamson@redhat.com>, "Michael S. Tsirkin"
- <mst@redhat.com>, Ani Sinha <anisinha@redhat.com>, Roman Bolshakov
- <rbolshakov@ddn.com>, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Chinmay Rath <rathc@linux.ibm.com>, Thomas Huth <thuth@redhat.com>, Cleber
- Rosa <crosa@redhat.com>, kvm@vger.kernel.org, Song Gao
- <gaosong@loongson.cn>, Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?=
- <philmd@linaro.org>, Halil Pasic <pasic@linux.ibm.com>, Eric Farman
- <farman@linux.ibm.com>, Palmer Dabbelt <palmer@dabbelt.com>, Leif Lindholm
- <leif.lindholm@oss.qualcomm.com>, Christian Borntraeger
- <borntraeger@linux.ibm.com>, Michael Roth <michael.roth@amd.com>, Mauro
- Carvalho Chehab <mchehab+huawei@kernel.org>, Jiaxun Yang
- <jiaxun.yang@flygoat.com>, =?UTF-8?B?TWFyYy1BbmRyw6k=?= Lureau
- <marcandre.lureau@redhat.com>, Mark Cave-Ayland
- <mark.cave-ayland@ilande.co.uk>, Marcel Apfelbaum
- <marcel.apfelbaum@gmail.com>, Nicholas Piggin <npiggin@gmail.com>, John
- Levon <john.levon@nutanix.com>, Xin Wang <wangxinxin.wang@huawei.com>
-Subject: Re: [PATCH v2 001/281] target/i386: Add support for save/load of
- exception error code
-Message-ID: <20250904140844.5b670290@fedora>
-In-Reply-To: <20250904081128.1942269-2-alex.bennee@linaro.org>
-References: <20250904081128.1942269-1-alex.bennee@linaro.org>
- <20250904081128.1942269-2-alex.bennee@linaro.org>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
+ AJvYcCXkwgbDslOTGyLvu94ZfXKn1IWE37JOJahBtjZ7jK9zN2VUUANB+6ty/my3tmTOBnZKmDRL5tdjXoI=@nongnu.org
+X-Gm-Message-State: AOJu0YzVO39FLJYphpmywB7paBgiwwPKM+k0L6yPtXVCTbHonJD7y6f8
+ lOJirXFmcJcewZxafAG0uOozUDy2c2JPsT2+pOl5e6wfOL0VdPeygj47RhfwMxTNV6WejEyIvHP
+ ojtq1Rs/FuFGYxnBgwOr/eQwUGYOd7mkd7xQl3LZBeQ==
+X-Gm-Gg: ASbGncvQuX92Aa+TQCNnJd/CLy4A/J3dhr/Pt2PgvEGE7dzvJavFlKd5c3NRpZuXb+i
+ T2Y8f6qxPvJ4iQXocJ1vfY4VuiIP7VANbwxuULf1gBBs+uXKYdUp8jHFNL91dHzsUhT19GabY0o
+ TKj7ZuAAKPrS0h2rIvKLVydJTTSggUyaKIFAd9qyZAfB4Q+YsR+AxbjKiujaO7KNb27JPtmx/L3
+ 2QPtRVRjlaGDGVyV8mB8+5g36RIGA==
+X-Google-Smtp-Source: AGHT+IFR8eoeE1eKXmTE2+iEI4lYQrEAuGAbeECHppnVwqCgBFP+qat/2T4q1UJnIYARpRr0J/RbQS04UhVZmQ5orWA=
+X-Received: by 2002:a17:907:6088:b0:afe:78c2:4d4a with SMTP id
+ a640c23a62f3a-b04b1542fbbmr675934766b.34.1757327185061; Mon, 08 Sep 2025
+ 03:26:25 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: HuVa1TPBKCJ9ayilr_qfJL1zlJZBEHzsD0rdkj9mnrA_1756987730
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
+References: <8076a298-1cd9-4c90-a64c-f65004753975@redhat.com>
+ <CAAjaMXaPM0qrCwrMY_n531R4d5X3h+GjRHKzjHLeY3FprT5_TA@mail.gmail.com>
+ <ee80babd-6e48-483b-93d8-849539c0f378@redhat.com>
+In-Reply-To: <ee80babd-6e48-483b-93d8-849539c0f378@redhat.com>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Mon, 8 Sep 2025 13:25:59 +0300
+X-Gm-Features: Ac12FXy_mSXQs71g1vi6-wKrzQensJBeodHtNSDHmCVSYEJ1VljXKy-ikpt7Ogo
+Message-ID: <CAAjaMXY4auReucQ_BCZWppBg-nCcNLydzaYi3gXaqASXicwz9g@mail.gmail.com>
+Subject: Re: Rust high-level pre/post migration callbacks
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel <qemu-devel@nongnu.org>, Zhao Liu <zhao1.liu@intel.com>,
+ qemu-rust@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=imammedo@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::630;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ej1-x630.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_PASS=-0.001,
- T_SPF_HELO_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Thu, 04 Sep 2025 08:52:02 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,86 +99,53 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Thu,  4 Sep 2025 09:06:35 +0100
-Alex Benn=C3=A9e <alex.bennee@linaro.org> wrote:
+On Mon, Sep 8, 2025 at 1:19=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com> =
+wrote:
+>
+> On 9/8/25 12:02, Manos Pitsidianakis wrote:
+> > Hi Paolo,
+> >
+> > I'm not familiar with how migration works under the hood, but this
+> > data transformation design looks very clean and neat to me.
+>
+> Thanks!
+>
+> >> Using it is very easy, you can just declare your state like:
+> >>
+> >>       regs: Migratable<Mutex<MyDeviceRegisters>>
+> >
+> > Hm it's a shame we cannot do this with a trait since it requires state
+> > storage for migration_state.
+>
+> Yeah, but a Box is just a single pointer.  We need to have an actual
+> location in memory for the C code to retrieve the pointer.
 
-> From: Xin Wang <wangxinxin.wang@huawei.com>
->=20
-> For now, qemu save/load CPU exception info(such as exception_nr and
-> has_error_code), while the exception error_code is ignored. This will
-> cause the dest hypervisor reinject a vCPU exception with error_code(0),
-> potentially causing a guest kernel panic.
->=20
-> For instance, if src VM stopped with an user-mode write #PF (error_code 6=
-),
-> the dest hypervisor will reinject an #PF with error_code(0) when vCPU res=
-ume,
-> then guest kernel panic as:
->   BUG: unable to handle page fault for address: 00007f80319cb010
->   #PF: supervisor read access in user mode
->   #PF: error_code(0x0000) - not-present page
->   RIP: 0033:0x40115d
->=20
-> To fix it, support save/load exception error_code.
+Oh yeah I got that. I was talking about needing to introduce new
+wrapper types for fields.
 
-this potentially will break migration between new/old QEMU versions
-due to presence new subsection. But then according to commit message
-the guest might panic (on dst) when resumed anyways.
+>
+> > A suggestion: we could declare a "mirror" struct to hold
+> > `migration_state` with a Derive macro. This is what the `rkyv` crate
+> > does with its `Archive` derive macro and trait
+> > <https://docs.rs/rkyv/latest/rkyv/trait.Archive.html>
+>
+> Nice!  I'm not familiar with rkyv but it does look very similar.
+>
+> When I tried to clean up the HPET (create HPETRegisters, and replace use
+> of raw pointers with self_cell to implement self-referential structs),
+> migration was the big mess, so I hope that this design will fix both
+> that and Mutex<>.  And indeed having a derive macro is very similar to
+> what I came up with one day later :) while thinking about how HPET could
+> use it in practice.
+>
+> Probably the derive macro would require some changes to the trait, but
+> the basic idea remains the same.
 
-So patch changes how guest will fail
-(panic: old =3D> old, old =3D> new
- vs migration error: new =3D> old ).
+Yes exactly. You could store the migration data in another struct
+(e.g. `FooDeviceMigrationState`) and use it as a conduit between the
+device and C migration logic.
 
-Peter,
-do we care and do we need a compat knob to make existing
-machine type behave old way?
-
->=20
-> Signed-off-by: Xin Wang <wangxinxin.wang@huawei.com>
-> Link: https://lore.kernel.org/r/20250819145834.3998-1-wangxinxin.wang@hua=
-wei.com
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  target/i386/machine.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
->=20
-> diff --git a/target/i386/machine.c b/target/i386/machine.c
-> index dd2dac1d443..45b7cea80aa 100644
-> --- a/target/i386/machine.c
-> +++ b/target/i386/machine.c
-> @@ -462,6 +462,24 @@ static const VMStateDescription vmstate_exception_in=
-fo =3D {
->      }
->  };
-> =20
-> +static bool cpu_errcode_needed(void *opaque)
-> +{
-> +    X86CPU *cpu =3D opaque;
-> +
-> +    return cpu->env.has_error_code !=3D 0;
-> +}
-> +
-> +static const VMStateDescription vmstate_error_code =3D {
-> +    .name =3D "cpu/error_code",
-> +    .version_id =3D 1,
-> +    .minimum_version_id =3D 1,
-> +    .needed =3D cpu_errcode_needed,
-> +    .fields =3D (const VMStateField[]) {
-> +        VMSTATE_INT32(env.error_code, X86CPU),
-> +        VMSTATE_END_OF_LIST()
-> +    }
-> +};
-> +
->  /* Poll control MSR enabled by default */
->  static bool poll_control_msr_needed(void *opaque)
->  {
-> @@ -1746,6 +1764,7 @@ const VMStateDescription vmstate_x86_cpu =3D {
->      },
->      .subsections =3D (const VMStateDescription * const []) {
->          &vmstate_exception_info,
-> +        &vmstate_error_code,
->          &vmstate_async_pf_msr,
->          &vmstate_async_pf_int_msr,
->          &vmstate_pv_eoi_msr,
-
+>
+> Paolo
+>
 
