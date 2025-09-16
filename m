@@ -4,68 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27A8DCAC598
-	for <qemu-rust@archiver.kernel.org>; Tue, 16 Sep 2025 08:39:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E99CAC599
+	for <qemu-rust@archiver.kernel.org>; Tue, 16 Sep 2025 09:59:14 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uyR9A-0006rD-9J; Tue, 16 Sep 2025 04:34:44 -0400
+	id 1uySSf-00035r-ST; Tue, 16 Sep 2025 05:58:57 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uyR8z-0006bh-Q1; Tue, 16 Sep 2025 04:34:35 -0400
-Received: from mgamail.intel.com ([198.175.65.10])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uyR8r-0005zs-JF; Tue, 16 Sep 2025 04:34:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758011666; x=1789547666;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=GuzeBHtL/53MAiPhgK+s+BNAuq5u5mNGV7VJ0Ymk0BQ=;
- b=b1pXEs7rEfKI7ro7vHKZ3spBVTI2RuaEeKRPlZcY2LebBlBPGaGLRyh/
- z5EiYlUOcwzIRTYE3uiFJ3cRZObKtPy2GZEAwqU1U0y5q+w2aJ4cFOS5U
- 0M3BwxLSZs7loXmMoynxgoeZL0vRP/fLE55N7cUhLgoO61NYKPkGRT1vE
- 1njR9kl2tDxGflDa5p4ZMYw4+zlaXeTD14i+Y2EftDmj1VdsIIVikENvu
- wrDzLaJKZjP4geeTwj/XRvSgKb7sC2Cm1swB+IjOFd7vpd/Oy1DkHkndA
- td5sosHUDO7CkFECKsqO1qSWcieA9XT+IfMsHamOMm+ye55fhfb638nw8 w==;
-X-CSE-ConnectionGUID: j7ouXmT0QaS/53AIXtgkKA==
-X-CSE-MsgGUID: Odwg114mRVeJue2z7UAm1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11554"; a="77725147"
-X-IronPort-AV: E=Sophos;i="6.18,268,1751266800"; d="scan'208";a="77725147"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2025 01:34:16 -0700
-X-CSE-ConnectionGUID: Oy3GDtaSQ5CHkw+dK+LgMA==
-X-CSE-MsgGUID: ik8W7+iQToi/4jB30uGitw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,268,1751266800"; d="scan'208";a="174691025"
-Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by orviesa007.jf.intel.com with ESMTP; 16 Sep 2025 01:34:13 -0700
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 03/12] rust/qemu-macros: Fix Clippy's complaints about lambda
- parameter naming
-Date: Tue, 16 Sep 2025 16:55:48 +0800
-Message-Id: <20250916085557.2008344-4-zhao1.liu@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250916085557.2008344-1-zhao1.liu@intel.com>
-References: <20250916085557.2008344-1-zhao1.liu@intel.com>
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uySSe-00035D-4b
+ for qemu-rust@nongnu.org; Tue, 16 Sep 2025 05:58:56 -0400
+Received: from mail-ej1-x62d.google.com ([2a00:1450:4864:20::62d])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1uySSb-0006jf-99
+ for qemu-rust@nongnu.org; Tue, 16 Sep 2025 05:58:55 -0400
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-afcb7ae31caso931243066b.3
+ for <qemu-rust@nongnu.org>; Tue, 16 Sep 2025 02:58:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1758016730; x=1758621530; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5GDkCc8k9k8NvhxDKxnlZQ3BFcIIh0HOlG5+a9C5M4U=;
+ b=IGuuwws41QW+VUPXq6VuJAP8SDmEOIvx8eXPJDhTn6YZ/Wv6fRZvu3riwCbwrLyCVE
+ N4e4Xab3jMEOKzNOqi9+nAfNrnsdWgVgmERQOfloXJcQ+cQdDvtp2Ay/yuwsS4mw6gf0
+ zhjy09wfKUyhglFePjP7PosHVRGrBAsWYyRRm7v8dbvhD2QK0CRd+2SdSy9AllDekLha
+ Z7EBdsU/cZlNT/gaw7wRC7dMVk8tvwYe+fI6luG/wDTQi8lM7AZjrpGSMOJJawfyRIBm
+ ju0/IW5S6rkSOkbsO+Xs39+lCNIp3fXIcFnUwymwefaoUxAB7NnYoDopBo/B7rOkTub4
+ e3rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758016730; x=1758621530;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=5GDkCc8k9k8NvhxDKxnlZQ3BFcIIh0HOlG5+a9C5M4U=;
+ b=c3LpUCiCjDTEZBpiMByxKA15mo3A5qphc7WkF7F2qTiBOsTQXmaU+qFZrv9s9LZjdP
+ OMn0lDFPEuI9F1F0S6baYFsQKHTKR/9fmo3AlfVtA9UOfETAraPeR2KZSwILhhqb21++
+ 9TLmb7nm51UR1rAxgvAMoMEMkwAt9Z1V0ERZyP6KxK/C6g7pqVYXyOpRuk3kEMN6zrMl
+ ShFwberEvM8nKzOPs/yfVX/HhbqucjnCUp2qKhW2RCLFY+3I0HMCOjGHar3nxaOxojLQ
+ 3Zw2Rm7xzyh6wpeecaMx2TbsayIehTUBfsrWy9AuEQufDQqYFnELSke586/FmT9LVpZ9
+ vu4Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUACp14lSdB7I1jiO7Z7eFK726xKeRLcpw6GfOhAEnoRhpludTt0qcSUibHpXutpeziJjpcWZgWl4I=@nongnu.org
+X-Gm-Message-State: AOJu0Yx/19czK3pyTLA1yfk8xHPitMgZKxTdSRpnExyaz1NyomspqWZw
+ eosAStiPlsL7gmAuuLPQBZwukA6RQIqHoTH6dj6xuQryRjM5uEzepPQglfgkytFqZE+gqY0mp7E
+ rHalrrjsrMi2D7c/dzC6k4q//8urrhxeJF2fyPe8Vrw==
+X-Gm-Gg: ASbGncsLh+AsGBSc075hIYv3X9Hsuo3MMMfQu4ovAEVWQmJxQF2YMCRKMpIRfH1h+ip
+ 2eUU1+0Ok3EEm9p18Gfy8dJlrW7hCQL1bd6LDH20U0Nx/XXueqMLkKdL8uE9+TabZGbNRYSwZr1
+ k6IIJ/b/tMsPLKW3ThII/1V1E85EWduf/J4+ahrWrWCptletiFP1bv15QbVNjUEwUgs5N/ueJrw
+ CLOlT05
+X-Google-Smtp-Source: AGHT+IFX/ZsZkHs8lk8Q1qDqAsE1sFXK/zM+wXxC1inQzbcsyPLZ4K3a5hFSCu2yNI5oGzcVB2HuS97lr15u6CRa9ns=
+X-Received: by 2002:a17:907:8689:b0:b04:1edf:a42b with SMTP id
+ a640c23a62f3a-b07c3547602mr1669266966b.11.1758016729944; Tue, 16 Sep 2025
+ 02:58:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=198.175.65.10; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.035,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+References: <20250916085557.2008344-1-zhao1.liu@intel.com>
+ <20250916085557.2008344-2-zhao1.liu@intel.com>
+In-Reply-To: <20250916085557.2008344-2-zhao1.liu@intel.com>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Tue, 16 Sep 2025 12:58:24 +0300
+X-Gm-Features: AS18NWCNHuNDQnKhCbIgHEo1BBKmYfCOZUrnzeN10t1afUnCXFE2AgCl0HRaxh0
+Message-ID: <CAAjaMXaLvSV=nfd8m4Q-RPTx4jpWisDpeH6J6rgTke4Mox=8pw@mail.gmail.com>
+Subject: Re: [PATCH 01/12] subprojects: Update .gitignore for proc-macro2 and
+ syn
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::62d;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ej1-x62d.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -81,44 +99,36 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-error: `rename` shadows a previous, unrelated binding
-   --> qemu-macros/src/lib.rs:265:14
-    |
-265 |             |rename| -> Result<proc_macro2::TokenStream, Error> {
-    |              ^^^^^^
-    |
-note: previous binding is here
-   --> qemu-macros/src/lib.rs:245:30
-    |
-245 |         let DeviceProperty { rename, defval } = prop;
-    |                              ^^^^^^
-    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#shadow_unrelated
-    = note: requested on the command line with `-D clippy::shadow-unrelated`
+On Tue, Sep 16, 2025 at 11:34=E2=80=AFAM Zhao Liu <zhao1.liu@intel.com> wro=
+te:
+>
+> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+> ---
+>  subprojects/.gitignore | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/subprojects/.gitignore b/subprojects/.gitignore
+> index f4281934ce11..9d579f72d121 100644
+> --- a/subprojects/.gitignore
+> +++ b/subprojects/.gitignore
+> @@ -16,7 +16,7 @@
+>  /libc-0.2.162
+>  /proc-macro-error-1.0.4
+>  /proc-macro-error-attr-1.0.4
+> -/proc-macro2-1.0.84
+> +/proc-macro2-1.0.95
+>  /quote-1.0.36
+> -/syn-2.0.66
+> +/syn-2.0.104
+>  /unicode-ident-1.0.12
+> --
+> 2.34.1
+>
 
-Rename the lambda parameter to "prop_rename" to fix the above clippy
-error.
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
-Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
----
- rust/qemu-macros/src/lib.rs | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Maybe we could change the entries to match any directory with a version, e.=
+g.
 
-diff --git a/rust/qemu-macros/src/lib.rs b/rust/qemu-macros/src/lib.rs
-index 830b4326985b..ed4064d6e110 100644
---- a/rust/qemu-macros/src/lib.rs
-+++ b/rust/qemu-macros/src/lib.rs
-@@ -262,8 +262,8 @@ macro_rules! str_to_c_str {
- 
-         let prop_name = rename.map_or_else(
-             || str_to_c_str!(field_name.to_string(), field_name.span()),
--            |rename| -> Result<proc_macro2::TokenStream, Error> {
--                match rename {
-+            |prop_rename| -> Result<proc_macro2::TokenStream, Error> {
-+                match prop_rename {
-                     DevicePropertyName::CStr(cstr_lit) => Ok(quote! { #cstr_lit }),
-                     DevicePropertyName::Str(str_lit) => {
-                         str_to_c_str!(str_lit.value(), str_lit.span())
--- 
-2.34.1
-
+/proc-macro2-[0-9.]*/
 
