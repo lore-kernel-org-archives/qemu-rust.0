@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D32ECAC59E
-	for <qemu-rust@archiver.kernel.org>; Tue, 16 Sep 2025 08:37:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC8A7CAC599
+	for <qemu-rust@archiver.kernel.org>; Tue, 16 Sep 2025 08:37:30 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uyR9G-0006z5-H2; Tue, 16 Sep 2025 04:34:51 -0400
+	id 1uyR9D-0006xM-KH; Tue, 16 Sep 2025 04:34:47 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uyR9C-0006wc-T9; Tue, 16 Sep 2025 04:34:47 -0400
+ id 1uyR97-0006gn-Ki; Tue, 16 Sep 2025 04:34:41 -0400
 Received: from mgamail.intel.com ([198.175.65.10])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uyR9A-000603-Pp; Tue, 16 Sep 2025 04:34:46 -0400
+ id 1uyR91-000603-Uv; Tue, 16 Sep 2025 04:34:39 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758011685; x=1789547685;
+ t=1758011676; x=1789547676;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=3DpIAtVPe2GcmZt3Ew37XZkVJO/WxB+atKkvNLLCeOc=;
- b=YZWrYEGAossMaDR49VxaFnHLgN3b/dXUsXFWabE7BSoWn41xSD4ICCMb
- goxEABVJ/YxYuD5cWB+LpIStHVlWz5WW+4ltzAKsJVHB2JlYbNKT+PvOC
- IViEg7bw3GSs60b3SWleJ74Ns2ogjjs2riKPF7uIFZQBMbu8oqyflfAc5
- s6K7HucKU4cDQ4diDLcLm8DNqvxtaeCmOvG4SmpRg28xmzmK73Na/P1ub
- sOHNOvaU1wR9LfwE4LC5wqf55kAkWykhtQyQHjcvcyQgjgcjWFweEu0sl
- XrWB6P66/QJEqx2sAw+ph54DsNHplZ95QYK4DmCBT/CuTVk2+bh5lmKCS g==;
-X-CSE-ConnectionGUID: 0yIEEV7kSNalv051fd3dRw==
-X-CSE-MsgGUID: 1CgURh5NSKWVMEBRPEGGMQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11554"; a="77725207"
-X-IronPort-AV: E=Sophos;i="6.18,268,1751266800"; d="scan'208";a="77725207"
+ bh=VO7sI8EkKjiuIxmrP/H7OvNMu6oE7ELux2ybMT1pdIE=;
+ b=RxZjw3nR/SrdA6FOpORankBlxmtxA4kjwJldj73z6992bur4z9pFy94D
+ LjhrZE2PeuOdTUqwtJ9GQGTERSMx5Q41T8eWCP90fsOF41z3MXi6RRpz6
+ 6rACCKSaWXVKt/Qwm4k4gEmWlut05KuBOt44H52d/ky+eT9/i9Arcyus9
+ eDqdzrp5poCZQA9dhFIWEI302dxuS2uSLjWZWLJRztvA7Py74A+AW1SlK
+ muSXjAE/zziTxt4gbKEf1w7GkfB+xSDttq2UTU9kmattSdxJSrYG74jwi
+ pRlJT/tnmo5om0XhZw0C/ulZtUs110tD0TPFvfR9JxvCGYWVRjOib24t+ w==;
+X-CSE-ConnectionGUID: uW9GqoXtQbm/VoxKE8JaJg==
+X-CSE-MsgGUID: w9wKpmMZSmKtwdMXhowwhw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11554"; a="77725179"
+X-IronPort-AV: E=Sophos;i="6.18,268,1751266800"; d="scan'208";a="77725179"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2025 01:34:29 -0700
-X-CSE-ConnectionGUID: KpBMtPJ8RHmxLNtMg2pK8w==
-X-CSE-MsgGUID: dMpdE2pHQZKSrNXfPK96hQ==
+ 16 Sep 2025 01:34:22 -0700
+X-CSE-ConnectionGUID: GlwNrBC1T/qr+Tr/Pahf+A==
+X-CSE-MsgGUID: 5JSql50AQzOflj35Hn3NGQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,268,1751266800"; d="scan'208";a="174691131"
+X-IronPort-AV: E=Sophos;i="6.18,268,1751266800"; d="scan'208";a="174691082"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by orviesa007.jf.intel.com with ESMTP; 16 Sep 2025 01:34:27 -0700
+ by orviesa007.jf.intel.com with ESMTP; 16 Sep 2025 01:34:20 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 11/12] rust/hpet: Convert qdev properties to #property macro
-Date: Tue, 16 Sep 2025 16:55:56 +0800
-Message-Id: <20250916085557.2008344-12-zhao1.liu@intel.com>
+Subject: [PATCH 07/12] rust/qdev: Rename PropertyInfo field from VALUE to
+ BASE_INFO
+Date: Tue, 16 Sep 2025 16:55:52 +0800
+Message-Id: <20250916085557.2008344-8-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250916085557.2008344-1-zhao1.liu@intel.com>
 References: <20250916085557.2008344-1-zhao1.liu@intel.com>
@@ -80,127 +81,76 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Convert HPET's properties to #property macro:
- * num_timers: usize property.
- * flags: u32 bit property.
- * int_route_cap: u32 property.
- * hpet_offset_saved: bool property.
+Bit property info will added next. To distinguish different info fields,
+rename `VALUE` to `BASE_INFO`, then it can better reflect that it
+represents the basic property info.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- rust/hw/timer/hpet/src/device.rs | 55 ++++----------------------------
- 1 file changed, 7 insertions(+), 48 deletions(-)
+ rust/hw/core/src/qdev.rs    | 12 ++++++------
+ rust/qemu-macros/src/lib.rs |  2 +-
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
-index fce75415579d..86638c076666 100644
---- a/rust/hw/timer/hpet/src/device.rs
-+++ b/rust/hw/timer/hpet/src/device.rs
-@@ -13,9 +13,8 @@
- use bql::{BqlCell, BqlRefCell};
- use common::{bitops::IntegerExt, uninit_field_mut};
- use hwcore::{
--    bindings::{qdev_prop_bit, qdev_prop_bool, qdev_prop_uint32, qdev_prop_usize},
--    declare_properties, define_property, DeviceImpl, DeviceMethods, DeviceState, InterruptSource,
--    Property, ResetType, ResettablePhasesImpl, SysBusDevice, SysBusDeviceImpl, SysBusDeviceMethods,
-+    DeviceImpl, DeviceMethods, DeviceState, InterruptSource, ResetType, ResettablePhasesImpl,
-+    SysBusDevice, SysBusDeviceImpl, SysBusDeviceMethods,
- };
- use migration::{
-     self, impl_vmstate_struct, vmstate_fields, vmstate_of, vmstate_subsections, vmstate_validate,
-@@ -520,7 +519,7 @@ fn write(&mut self, reg: TimerRegister, value: u64, shift: u32, len: u32) {
- 
- /// HPET Event Timer Block Abstraction
- #[repr(C)]
--#[derive(qom::Object)]
-+#[derive(qom::Object, hwcore::Device)]
- pub struct HPETState {
-     parent_obj: ParentField<SysBusDevice>,
-     iomem: MemoryRegion,
-@@ -540,10 +539,12 @@ pub struct HPETState {
-     // Internal state
-     /// Capabilities that QEMU HPET supports.
-     /// bit 0: MSI (or FSB) support.
-+    #[property(rename = "msi", bit = HPET_FLAG_MSI_SUPPORT_SHIFT as u8, default = false)]
-     flags: u32,
- 
-     /// Offset of main counter relative to qemu clock.
-     hpet_offset: BqlCell<u64>,
-+    #[property(rename = "hpet-offset-saved", default = true)]
-     hpet_offset_saved: bool,
- 
-     irqs: [InterruptSource; HPET_NUM_IRQ_ROUTES],
-@@ -555,11 +556,13 @@ pub struct HPETState {
-     /// the timers' interrupt can be routed, and is encoded in the
-     /// bits 32:64 of timer N's config register:
-     #[doc(alias = "intcap")]
-+    #[property(rename = "hpet-intcap", default = 0)]
-     int_route_cap: u32,
- 
-     /// HPET timer array managed by this timer block.
-     #[doc(alias = "timer")]
-     timers: [BqlRefCell<HPETTimer>; HPET_MAX_TIMERS],
-+    #[property(rename = "timers", default = HPET_MIN_TIMERS)]
-     num_timers: usize,
-     num_timers_save: BqlCell<u8>,
- 
-@@ -901,44 +904,6 @@ impl ObjectImpl for HPETState {
-     const CLASS_INIT: fn(&mut Self::Class) = Self::Class::class_init::<Self>;
+diff --git a/rust/hw/core/src/qdev.rs b/rust/hw/core/src/qdev.rs
+index 2735e2b2c109..d887046d8de1 100644
+--- a/rust/hw/core/src/qdev.rs
++++ b/rust/hw/core/src/qdev.rs
+@@ -109,13 +109,13 @@ pub trait ResettablePhasesImpl {
+ ///
+ /// # Safety
+ ///
+-/// This trait is marked as `unsafe` because `VALUE` must be a valid raw
++/// This trait is marked as `unsafe` because `BASE_INFO` must be a valid raw
+ /// reference to a [`bindings::PropertyInfo`].
+ ///
+ /// Note we could not use a regular reference:
+ ///
+ /// ```text
+-/// const VALUE: &bindings::PropertyInfo = ...
++/// const BASE_INFO: &bindings::PropertyInfo = ...
+ /// ```
+ ///
+ /// because this results in the following compiler error:
+@@ -131,22 +131,22 @@ pub trait ResettablePhasesImpl {
+ /// It is the implementer's responsibility to provide a valid
+ /// [`bindings::PropertyInfo`] pointer for the trait implementation to be safe.
+ pub unsafe trait QDevProp {
+-    const VALUE: *const bindings::PropertyInfo;
++    const BASE_INFO: *const bindings::PropertyInfo;
  }
  
--// TODO: Make these properties user-configurable!
--declare_properties! {
--    HPET_PROPERTIES,
--    define_property!(
--        c"timers",
--        HPETState,
--        num_timers,
--        unsafe { &qdev_prop_usize },
--        usize,
--        default = HPET_MIN_TIMERS
--    ),
--    define_property!(
--        c"msi",
--        HPETState,
--        flags,
--        unsafe { &qdev_prop_bit },
--        u32,
--        bit = HPET_FLAG_MSI_SUPPORT_SHIFT as u8,
--        default = false,
--    ),
--    define_property!(
--        c"hpet-intcap",
--        HPETState,
--        int_route_cap,
--        unsafe { &qdev_prop_uint32 },
--        u32,
--        default = 0
--    ),
--    define_property!(
--        c"hpet-offset-saved",
--        HPETState,
--        hpet_offset_saved,
--        unsafe { &qdev_prop_bool },
--        bool,
--        default = true
--    ),
--}
--
- static VMSTATE_HPET_RTC_IRQ_LEVEL: VMStateDescription<HPETState> =
-     VMStateDescriptionBuilder::<HPETState>::new()
-         .name(c"hpet/rtc_irq_level")
-@@ -1001,12 +966,6 @@ impl ObjectImpl for HPETState {
-         ))
-         .build();
+ /// Use [`bindings::qdev_prop_bool`] for `bool`.
+ unsafe impl QDevProp for bool {
+-    const VALUE: *const bindings::PropertyInfo = addr_of!(bindings::qdev_prop_bool);
++    const BASE_INFO: *const bindings::PropertyInfo = addr_of!(bindings::qdev_prop_bool);
+ }
  
--// SAFETY: HPET_PROPERTIES is a valid Property array constructed with the
--// hwcore::declare_properties macro.
--unsafe impl hwcore::DevicePropertiesImpl for HPETState {
--    const PROPERTIES: &'static [Property] = &HPET_PROPERTIES;
--}
--
- impl DeviceImpl for HPETState {
-     const VMSTATE: Option<VMStateDescription<Self>> = Some(VMSTATE_HPET);
-     const REALIZE: Option<fn(&Self) -> util::Result<()>> = Some(Self::realize);
+ /// Use [`bindings::qdev_prop_uint64`] for `u64`.
+ unsafe impl QDevProp for u64 {
+-    const VALUE: *const bindings::PropertyInfo = addr_of!(bindings::qdev_prop_uint64);
++    const BASE_INFO: *const bindings::PropertyInfo = addr_of!(bindings::qdev_prop_uint64);
+ }
+ 
+ /// Use [`bindings::qdev_prop_chr`] for [`chardev::CharBackend`].
+ unsafe impl QDevProp for chardev::CharBackend {
+-    const VALUE: *const bindings::PropertyInfo = addr_of!(bindings::qdev_prop_chr);
++    const BASE_INFO: *const bindings::PropertyInfo = addr_of!(bindings::qdev_prop_chr);
+ }
+ 
+ /// Trait to define device properties.
+diff --git a/rust/qemu-macros/src/lib.rs b/rust/qemu-macros/src/lib.rs
+index ed4064d6e110..b43ca31bae30 100644
+--- a/rust/qemu-macros/src/lib.rs
++++ b/rust/qemu-macros/src/lib.rs
+@@ -272,7 +272,7 @@ macro_rules! str_to_c_str {
+             },
+         )?;
+         let field_ty = field.ty.clone();
+-        let qdev_prop = quote! { <#field_ty as ::hwcore::QDevProp>::VALUE };
++        let qdev_prop = quote! { <#field_ty as ::hwcore::QDevProp>::BASE_INFO };
+         let set_default = defval.is_some();
+         let defval = defval.unwrap_or(syn::Expr::Verbatim(quote! { 0 }));
+         properties_expanded.push(quote! {
 -- 
 2.34.1
 
