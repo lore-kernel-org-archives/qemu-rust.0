@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E99CAC599
-	for <qemu-rust@archiver.kernel.org>; Tue, 16 Sep 2025 09:59:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91B1BCAC598
+	for <qemu-rust@archiver.kernel.org>; Tue, 16 Sep 2025 10:00:14 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uySSf-00035r-ST; Tue, 16 Sep 2025 05:58:57 -0400
+	id 1uySTr-0003TO-3e; Tue, 16 Sep 2025 06:00:11 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uySSe-00035D-4b
- for qemu-rust@nongnu.org; Tue, 16 Sep 2025 05:58:56 -0400
-Received: from mail-ej1-x62d.google.com ([2a00:1450:4864:20::62d])
+ id 1uySTn-0003Ps-Ke
+ for qemu-rust@nongnu.org; Tue, 16 Sep 2025 06:00:07 -0400
+Received: from mail-ej1-x631.google.com ([2a00:1450:4864:20::631])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uySSb-0006jf-99
- for qemu-rust@nongnu.org; Tue, 16 Sep 2025 05:58:55 -0400
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-afcb7ae31caso931243066b.3
- for <qemu-rust@nongnu.org>; Tue, 16 Sep 2025 02:58:51 -0700 (PDT)
+ id 1uySTl-0006yw-HT
+ for qemu-rust@nongnu.org; Tue, 16 Sep 2025 06:00:07 -0400
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-b042eb09948so1085177566b.3
+ for <qemu-rust@nongnu.org>; Tue, 16 Sep 2025 03:00:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1758016730; x=1758621530; darn=nongnu.org;
+ d=linaro.org; s=google; t=1758016803; x=1758621603; darn=nongnu.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5GDkCc8k9k8NvhxDKxnlZQ3BFcIIh0HOlG5+a9C5M4U=;
- b=IGuuwws41QW+VUPXq6VuJAP8SDmEOIvx8eXPJDhTn6YZ/Wv6fRZvu3riwCbwrLyCVE
- N4e4Xab3jMEOKzNOqi9+nAfNrnsdWgVgmERQOfloXJcQ+cQdDvtp2Ay/yuwsS4mw6gf0
- zhjy09wfKUyhglFePjP7PosHVRGrBAsWYyRRm7v8dbvhD2QK0CRd+2SdSy9AllDekLha
- Z7EBdsU/cZlNT/gaw7wRC7dMVk8tvwYe+fI6luG/wDTQi8lM7AZjrpGSMOJJawfyRIBm
- ju0/IW5S6rkSOkbsO+Xs39+lCNIp3fXIcFnUwymwefaoUxAB7NnYoDopBo/B7rOkTub4
- e3rA==
+ bh=0knXNhwQcyMcJCZFY0e0kjInqKjhzBpbWBjDNiQOn7M=;
+ b=KaHB4qQ/qqt/fTArDqbv7mmt/sCCj/IACWcJpT2B72cO+bRvbPRqfxDtKLt+qNBq+9
+ 6df34aXkc7DSpqx9VPQN1yd9D/QxJuLWfSEG8xYAPMSTKBRtOwkN8JoaVMxC6E2T/LhJ
+ 72epEreVnFu975FChJwtRFhu2OLbQmTvPmNVx99uWzFjM2PxnSlMu0nE62z7bu8FJbDR
+ xDDQFhwT/QMa3fSM0zFpIATMDE240XXjcCWG+po+HVDd2VOU6eix0Fcqo2+rSYwSHLZn
+ 1/n1U3BPiun7J6bpaHHu3F4dSDqFQDjqmkqY52pItJFnGoMDTf8bhHyNMi9W9HmtJnVh
+ 3b2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758016730; x=1758621530;
+ d=1e100.net; s=20230601; t=1758016803; x=1758621603;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=5GDkCc8k9k8NvhxDKxnlZQ3BFcIIh0HOlG5+a9C5M4U=;
- b=c3LpUCiCjDTEZBpiMByxKA15mo3A5qphc7WkF7F2qTiBOsTQXmaU+qFZrv9s9LZjdP
- OMn0lDFPEuI9F1F0S6baYFsQKHTKR/9fmo3AlfVtA9UOfETAraPeR2KZSwILhhqb21++
- 9TLmb7nm51UR1rAxgvAMoMEMkwAt9Z1V0ERZyP6KxK/C6g7pqVYXyOpRuk3kEMN6zrMl
- ShFwberEvM8nKzOPs/yfVX/HhbqucjnCUp2qKhW2RCLFY+3I0HMCOjGHar3nxaOxojLQ
- 3Zw2Rm7xzyh6wpeecaMx2TbsayIehTUBfsrWy9AuEQufDQqYFnELSke586/FmT9LVpZ9
- vu4Q==
+ bh=0knXNhwQcyMcJCZFY0e0kjInqKjhzBpbWBjDNiQOn7M=;
+ b=Lr7QtRhiO6FpqBKF4X663Ld0Sz2KKKgVbvU+cz0GgUtz1icKLUoSXfUZJdgHK+suL+
+ 8rRXdd1Xip98h8UiSfTz7Jm1JHtQrI6t9dCFXq0EXZRthlnO7gC8SLbQwNQjhvyAvUz8
+ d3l4YCJZ63yfV+X/no4gOxQ91A1ud8UPEQp5oHv1/BjCArdxtd7qpUwqt6KLVML9NWoi
+ oh061PerJfEGHlbJKh5V/5rkzHHm3INy7HyF4gzqhcDQRXyRhTjh0kMIuMofcZQqsx3C
+ uQeSwkAMaYdbuqigypVHAD+mLEZwEy/gP7HHmSn3/wCNBYODfk7R1IGT3fn+adgEInMv
+ wq5w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUACp14lSdB7I1jiO7Z7eFK726xKeRLcpw6GfOhAEnoRhpludTt0qcSUibHpXutpeziJjpcWZgWl4I=@nongnu.org
-X-Gm-Message-State: AOJu0Yx/19czK3pyTLA1yfk8xHPitMgZKxTdSRpnExyaz1NyomspqWZw
- eosAStiPlsL7gmAuuLPQBZwukA6RQIqHoTH6dj6xuQryRjM5uEzepPQglfgkytFqZE+gqY0mp7E
- rHalrrjsrMi2D7c/dzC6k4q//8urrhxeJF2fyPe8Vrw==
-X-Gm-Gg: ASbGncsLh+AsGBSc075hIYv3X9Hsuo3MMMfQu4ovAEVWQmJxQF2YMCRKMpIRfH1h+ip
- 2eUU1+0Ok3EEm9p18Gfy8dJlrW7hCQL1bd6LDH20U0Nx/XXueqMLkKdL8uE9+TabZGbNRYSwZr1
- k6IIJ/b/tMsPLKW3ThII/1V1E85EWduf/J4+ahrWrWCptletiFP1bv15QbVNjUEwUgs5N/ueJrw
- CLOlT05
-X-Google-Smtp-Source: AGHT+IFX/ZsZkHs8lk8Q1qDqAsE1sFXK/zM+wXxC1inQzbcsyPLZ4K3a5hFSCu2yNI5oGzcVB2HuS97lr15u6CRa9ns=
-X-Received: by 2002:a17:907:8689:b0:b04:1edf:a42b with SMTP id
- a640c23a62f3a-b07c3547602mr1669266966b.11.1758016729944; Tue, 16 Sep 2025
- 02:58:49 -0700 (PDT)
+ AJvYcCUhu7HReuvz6gzKPB7WBBf0YWZpEOkLyKa5DzmOI7c6sE14MGzDG1jf75+fVPU1uUcU48oX3Wgfw9E=@nongnu.org
+X-Gm-Message-State: AOJu0Yzqa+CO//hW27Lwarn7axU0ryvzJFoM772Z2bAfKYa2q/UJIFLl
+ rk25kBUpXYpTRrmU0cCXAxtWTJSK3/YZSVY7dcyjcjslKnhCUo3wSBTaUndpvpY4gvre5dj9MkN
+ UoyOH8L4wPlcKGunMnIky0kDSRnrfOKu3RAKZUOlA+g==
+X-Gm-Gg: ASbGncs2pBjLda0+2MZE9PjpWEOqW6jlVl5QX7U/tYB8STkqbqo8huDsajTYY9ATVdK
+ 031jqOJ+d30BLx3LnWS3tWB3wnhc37hiWdxuD/wP31HIvXm9MM9xfEKLmJIdpAbW5wmKFh9sVki
+ 3HdS7j82+HYEFYp+7CRF1P4WiZ7zxcvGMwQvI0BDqwrgGkeSc94+4Fkd4844Xh/7X2ELuo41DiG
+ Wmdi2aP
+X-Google-Smtp-Source: AGHT+IGjJUe+AodLXMS9CTz0qyms6nC8Up0SWVgFNb/gPIK4EusPQck9WCprYenVVWT0/MkiLklapetEIWjLHyuTEGc=
+X-Received: by 2002:a17:907:7fa6:b0:b04:25ae:6c79 with SMTP id
+ a640c23a62f3a-b07c37dcb09mr1724155766b.33.1758016802690; Tue, 16 Sep 2025
+ 03:00:02 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250916085557.2008344-1-zhao1.liu@intel.com>
- <20250916085557.2008344-2-zhao1.liu@intel.com>
-In-Reply-To: <20250916085557.2008344-2-zhao1.liu@intel.com>
+ <20250916085557.2008344-3-zhao1.liu@intel.com>
+In-Reply-To: <20250916085557.2008344-3-zhao1.liu@intel.com>
 From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Tue, 16 Sep 2025 12:58:24 +0300
-X-Gm-Features: AS18NWCNHuNDQnKhCbIgHEo1BBKmYfCOZUrnzeN10t1afUnCXFE2AgCl0HRaxh0
-Message-ID: <CAAjaMXaLvSV=nfd8m4Q-RPTx4jpWisDpeH6J6rgTke4Mox=8pw@mail.gmail.com>
-Subject: Re: [PATCH 01/12] subprojects: Update .gitignore for proc-macro2 and
- syn
+Date: Tue, 16 Sep 2025 12:59:35 +0300
+X-Gm-Features: AS18NWCXdKJZFMOcFl_oZrlM7NFamW-it-eD0xym3CwLsw6L8YoZoiMfC_BJj6M
+Message-ID: <CAAjaMXZQdXtvx0asr8rH2vuKpG21YN-WhDn3CParbar7tf=8LQ@mail.gmail.com>
+Subject: Re: [PATCH 02/12] subprojects: Ignore .wraplock file generated by
+ meson v1.9.0
 To: Zhao Liu <zhao1.liu@intel.com>
 Cc: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org,
  qemu-rust@nongnu.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::62d;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ej1-x62d.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::631;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ej1-x631.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -102,33 +102,32 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 On Tue, Sep 16, 2025 at 11:34=E2=80=AFAM Zhao Liu <zhao1.liu@intel.com> wro=
 te:
 >
+> The .wraplock file is automatically generated by meson v1.9.0 (the
+> related issue: https://github.com/mesonbuild/meson/issues/14948).
+>
+> Ignore it for now.
+>
 > Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 > ---
->  subprojects/.gitignore | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/subprojects/.gitignore b/subprojects/.gitignore
-> index f4281934ce11..9d579f72d121 100644
-> --- a/subprojects/.gitignore
-> +++ b/subprojects/.gitignore
-> @@ -16,7 +16,7 @@
->  /libc-0.2.162
->  /proc-macro-error-1.0.4
->  /proc-macro-error-attr-1.0.4
-> -/proc-macro2-1.0.84
-> +/proc-macro2-1.0.95
->  /quote-1.0.36
-> -/syn-2.0.66
-> +/syn-2.0.104
->  /unicode-ident-1.0.12
-> --
-> 2.34.1
->
 
 Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
-Maybe we could change the entries to match any directory with a version, e.=
-g.
-
-/proc-macro2-[0-9.]*/
+>  subprojects/.gitignore | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/subprojects/.gitignore b/subprojects/.gitignore
+> index 9d579f72d121..20b25845760f 100644
+> --- a/subprojects/.gitignore
+> +++ b/subprojects/.gitignore
+> @@ -20,3 +20,6 @@
+>  /quote-1.0.36
+>  /syn-2.0.104
+>  /unicode-ident-1.0.12
+> +
+> +# Workaround for Meson v1.9.0 https://github.com/mesonbuild/meson/issues=
+/14948
+> +/.wraplock
+> --
+> 2.34.1
+>
 
