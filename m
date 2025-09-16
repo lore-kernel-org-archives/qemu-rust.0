@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7975CAC598
-	for <qemu-rust@archiver.kernel.org>; Tue, 16 Sep 2025 08:34:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E01E5CAC598
+	for <qemu-rust@archiver.kernel.org>; Tue, 16 Sep 2025 08:34:57 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uyR8r-0006SP-W0; Tue, 16 Sep 2025 04:34:27 -0400
+	id 1uyR9A-0006sP-NY; Tue, 16 Sep 2025 04:34:44 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uyR8p-0006PF-90; Tue, 16 Sep 2025 04:34:23 -0400
+ id 1uyR93-0006eC-Gn; Tue, 16 Sep 2025 04:34:38 -0400
 Received: from mgamail.intel.com ([198.175.65.10])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uyR8i-0005zs-Vw; Tue, 16 Sep 2025 04:34:21 -0400
+ id 1uyR8z-0005zx-GW; Tue, 16 Sep 2025 04:34:37 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758011657; x=1789547657;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=I/48RpoCPl6ZWK3Vj7H9PIyhemwGMzTTef3jIIR839g=;
- b=gc9iXgBmfzRFpRpTTRR0xz48Sjm/uWgi+EAit2sc5qWz3B0/Xf73PkLu
- HYvCIQxFMAn+Xf6NSFDq6K3eNYY3T8pZzT5NYwS3VtH+Bddk09dcu6Ljh
- uHl0OKKhUgUYPWmGgl4cq+OaYMv4xNMDY4c2SXSmBzDM1id9WtZr5PHdl
- ROiCOHw6NTTPHXGGH+azY5nMib6cILsPTkptThZENsbR+AzXxr0fPb82L
- E6anyVWtRbQAs/0NPGDFGoCjekKSEJjpt/cdDy0JajDp5oIdG3JBlbwWF
- Z3KMl4382uL1VvA7AGU23ajm0D7tbv4F2dUGipeLWq8vxT0GzxjBP24lQ A==;
-X-CSE-ConnectionGUID: h7ZfOAG6SBaoTN+2ntAPgA==
-X-CSE-MsgGUID: vQUO0vspRty6pO/4hoTQag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11554"; a="77725128"
-X-IronPort-AV: E=Sophos;i="6.18,268,1751266800"; d="scan'208";a="77725128"
+ t=1758011674; x=1789547674;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=5dOlQu9/LWVuyBR+Q9SafLwxJOv00jbSW+EcvT80qeI=;
+ b=IzIiNn2Hu6kwT7jBTwTPUq7pHAu4IF3d/QF5FWUvjG4dZ07MZl2M4pe2
+ vdC3XPXHUEfyoWomLJL9uJ5WKp9LtsUqi94HwzrsWuzCLCXt6osI2vBj8
+ LBCKLAGrktpA3daTyUKwWua3Mi0/r88Z9mhojzDQWXJ45NmdqiHtzJvZd
+ FpDVSNUp3ALEubhBA5+gtjtAJYUelAiLf37zIDyAiwY1Yz2OBcNSdfMxk
+ DAoK0DsEPlZrkeJ6+F6RKiNDUgziFmPyzAuKVSqW5E+jNMtLB3qNPXk2m
+ +zZkvcd7VFzozKpXAOnfDhBTux1oFvZUgQRY39IyAhSVH5TqrpuUhkArm A==;
+X-CSE-ConnectionGUID: Pj/6j6k6Rny/J8r8B5xcwA==
+X-CSE-MsgGUID: T9vLZnyLRWKSJ7y+6knONA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11554"; a="77725172"
+X-IronPort-AV: E=Sophos;i="6.18,268,1751266800"; d="scan'208";a="77725172"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2025 01:34:10 -0700
-X-CSE-ConnectionGUID: g+IsUANjR4aILovbVMHyRA==
-X-CSE-MsgGUID: UerIZdUiSd6q7snA9a3xjA==
+ 16 Sep 2025 01:34:20 -0700
+X-CSE-ConnectionGUID: bcrpCV3OSjuK9oUIyX0WZQ==
+X-CSE-MsgGUID: Jxg/NQnSQ3WgQwsTUo0XSQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,268,1751266800"; d="scan'208";a="174690990"
+X-IronPort-AV: E=Sophos;i="6.18,268,1751266800"; d="scan'208";a="174691062"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by orviesa007.jf.intel.com with ESMTP; 16 Sep 2025 01:34:08 -0700
+ by orviesa007.jf.intel.com with ESMTP; 16 Sep 2025 01:34:18 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 00/12] rust: miscellaneous cleanup & HPET #property conversion
-Date: Tue, 16 Sep 2025 16:55:45 +0800
-Message-Id: <20250916085557.2008344-1-zhao1.liu@intel.com>
+Subject: [PATCH 06/12] rust/qdev: Refine the documentation for QDevProp trait
+Date: Tue, 16 Sep 2025 16:55:51 +0800
+Message-Id: <20250916085557.2008344-7-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250916085557.2008344-1-zhao1.liu@intel.com>
+References: <20250916085557.2008344-1-zhao1.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=198.175.65.10; envelope-from=zhao1.liu@intel.com;
@@ -78,46 +80,52 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Hi,
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
-This series include:
- * cleanup for .gitignore of subproject.
- * cleanup for clippy error & warnings based on v1.83.
- * support bit property in #property.
- * HPET #property conversion.
- * get rid of the legacy declare_properties & define_property.
+Refine the documentation to clarify:
+ * `unsfae` requires that `VALUE` must be valid.
+ * using `*const` instead of `&` because the latter will cause compiler
+   error.
 
-And this series is based on the commit 355ce1d4fbaa of Paolo's
-rust-ci branch (since I understand that branch includes the latest
-rust PR patches.)
-
-Thanks and Best Regards,
-Zhao
+Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
-Manos Pitsidianakis (2):
-  rust/qdev: use addr_of! in QDevProp
-  rust/qdev: Refine the documentation for QDevProp trait
+ rust/hw/core/src/qdev.rs | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-Zhao Liu (10):
-  subprojects: Update .gitignore for proc-macro2 and syn
-  subprojects: Ignore .wraplock file generated by meson v1.9.0
-  rust/qemu-macros: Fix Clippy's complaints about lambda parameter
-    naming
-  rust/common/uninit: Fix Clippy's complaints about lifetime
-  rust/qdev: Rename PropertyInfo field from VALUE to BASE_INFO
-  rust/qdev: Support property info for more common types
-  rust/qdev: Support bit property in #property macro
-  rust/hpet: Clean up type mismatch for num_timers property
-  rust/hpet: Convert qdev properties to #property macro
-  rust/qdev: Drop declare_properties & define_property macros
-
- rust/common/src/uninit.rs        |   4 +-
- rust/hw/core/src/qdev.rs         | 105 ++++++++++---------------------
- rust/hw/timer/hpet/src/device.rs |  55 +++-------------
- rust/qemu-macros/src/lib.rs      |  81 ++++++++++++++++--------
- subprojects/.gitignore           |   7 ++-
- 5 files changed, 102 insertions(+), 150 deletions(-)
-
+diff --git a/rust/hw/core/src/qdev.rs b/rust/hw/core/src/qdev.rs
+index 3ee5b242622d..2735e2b2c109 100644
+--- a/rust/hw/core/src/qdev.rs
++++ b/rust/hw/core/src/qdev.rs
+@@ -109,9 +109,16 @@ pub trait ResettablePhasesImpl {
+ ///
+ /// # Safety
+ ///
+-/// This trait is marked as `unsafe` because currently having a `const` refer to
+-/// an `extern static` as a reference instead of a raw pointer results in this
+-/// compiler error:
++/// This trait is marked as `unsafe` because `VALUE` must be a valid raw
++/// reference to a [`bindings::PropertyInfo`].
++///
++/// Note we could not use a regular reference:
++///
++/// ```text
++/// const VALUE: &bindings::PropertyInfo = ...
++/// ```
++///
++/// because this results in the following compiler error:
+ ///
+ /// ```text
+ /// constructing invalid value: encountered reference to `extern` static in `const`
+@@ -119,7 +126,7 @@ pub trait ResettablePhasesImpl {
+ ///
+ /// This is because the compiler generally might dereference a normal reference
+ /// during const evaluation, but not in this case (if it did, it'd need to
+-/// dereference the raw pointer so this would fail to compile).
++/// dereference the raw pointer so using a `*const` would also fail to compile).
+ ///
+ /// It is the implementer's responsibility to provide a valid
+ /// [`bindings::PropertyInfo`] pointer for the trait implementation to be safe.
 -- 
 2.34.1
 
