@@ -4,88 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C67CCA0EE8
-	for <qemu-rust@archiver.kernel.org>; Wed, 17 Sep 2025 09:14:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 208C0CA0EE8
+	for <qemu-rust@archiver.kernel.org>; Wed, 17 Sep 2025 11:42:55 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uyoFQ-0004Bc-7r; Wed, 17 Sep 2025 05:14:44 -0400
+	id 1uyqWf-0006LT-PZ; Wed, 17 Sep 2025 07:40:42 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uyoFK-0004Aa-AK
- for qemu-rust@nongnu.org; Wed, 17 Sep 2025 05:14:38 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1uyqWW-00069i-PN
+ for qemu-rust@nongnu.org; Wed, 17 Sep 2025 07:40:32 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uyoFI-0002P6-Fo
- for qemu-rust@nongnu.org; Wed, 17 Sep 2025 05:14:37 -0400
+ id 1uyqWU-00007T-9F
+ for qemu-rust@nongnu.org; Wed, 17 Sep 2025 07:40:32 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1758100474;
+ s=mimecast20190719; t=1758109229;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ZrV3wSJFLsh+0/8ERTRnMqxczJeijdh7Sto693JBM3g=;
- b=I3H1/ELStZtxvqgwuRvw5P30/iPIJKvXYpMNzATuKO3wnKXg1SVtqddEqf31uaITmyNgng
- o4NN7dA3FTTbxY6k9spHWazQNcnnD5OpRyUm/mepsbG679oiM046aK6+DG6ArXCwaLEaqv
- fINS+lUc4Qx2fREKULSWo9M0NrziCl8=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=fwVgncdj/Sqp7PFyxUTP95A9TG+s+P37rcpvxjB9Jz8=;
+ b=hjx784K8m7Z3l6k0UGK/KJpmgrrmWf0+yUQErqqoB2NwImXyvKpJmTQfmDjO5yttqHktdj
+ /qJrckdaMfsDORSOC/89hIzBxT26jvzq5UreldM91d0kDcLuJsoCREarGo+Eu+QSL5VbSL
+ sFykS1+ZWbpQxDobim53Nl4LEvR41jk=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-266-csUSFvjIOHmMg4ZLBao7mA-1; Wed, 17 Sep 2025 05:14:33 -0400
-X-MC-Unique: csUSFvjIOHmMg4ZLBao7mA-1
-X-Mimecast-MFC-AGG-ID: csUSFvjIOHmMg4ZLBao7mA_1758100472
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-45b9a856d58so15323365e9.0
- for <qemu-rust@nongnu.org>; Wed, 17 Sep 2025 02:14:33 -0700 (PDT)
+ us-mta-631-n0DHp4x8NA6K764fkj12-g-1; Wed, 17 Sep 2025 07:40:27 -0400
+X-MC-Unique: n0DHp4x8NA6K764fkj12-g-1
+X-Mimecast-MFC-AGG-ID: n0DHp4x8NA6K764fkj12-g_1758109226
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-45b990eb77cso6656765e9.0
+ for <qemu-rust@nongnu.org>; Wed, 17 Sep 2025 04:40:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758100471; x=1758705271;
+ d=1e100.net; s=20230601; t=1758109226; x=1758714026;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :references:cc:to:subject:from:user-agent:mime-version:date
+ :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=ZrV3wSJFLsh+0/8ERTRnMqxczJeijdh7Sto693JBM3g=;
- b=VKoYJZCCpwJTKvmo0Vq7Pzd/r71ag3pjBxlFxj5xuJEznSGcAKPtUfE1+L5vrIIGWk
- oOLAuRSAZ4+YMd+uyGfCstBlC8uAtGwM+nYstmv64lLgGPQiVHcv7kKzgqF0lr5p4Km6
- IDwq3KJVqJUcRpl1UOonsVe7/8JjlkEccmLIfNnc3YU7iVGUPxtErdlVZzrdwb2kNiiC
- jzd4x6yzMN9/ZA4aeLps5l7ZA+bLBj+q6mesnxQDONT5byDH248WAPUO4N28kVsI1sh9
- rkx/HNEViHHE9peqkeaMgbDe373JzVrF1rNYmTaa/RNqp3mGdR2xSsMzk+NffYQBY011
- GuWg==
+ bh=fwVgncdj/Sqp7PFyxUTP95A9TG+s+P37rcpvxjB9Jz8=;
+ b=XLSoC8GPvJmnZVVWfXJWhSHJqskb+HPqcFZrpY/NN7xf3P3F2Kh4a/jBqdvjEsCppH
+ FTeLJgAuDgOsgRiQL9DxyGozHCHCXYdAh52GWxU/CEFvWVtfdE+4Fqa1XDVpQ723YpV8
+ FR/SsJb1ybluPTlBdLFCLiJ/LkfqoJyxnUk5Bu27aZfvubX0qx+9QKFvqDBitrQ0sudd
+ kf411ZSKl7I5KC+1C+nI/2nuzER1a6uiZmuui0M54rsJpZUZyWLfENoyoeOSvy+eJqth
+ czFkK2yNh3hCfXCFJzu1z3W5xjP91yNRzS1DygyhMW75VqpVboDF5ogoZFln0/20Z5xR
+ 6C5A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVroPbgDiZQBPldkkH/DbUg/+Sx0rPgcpn8+uQSNvSYtY1bjkUk4soJDY+TgjbVyG8BMWO5Sb+r8Co=@nongnu.org
-X-Gm-Message-State: AOJu0Yyf5OdKYAOTaOepvBmfURWup/YVPTs23e+kYsBB9/Sh744CR5Fo
- 2IOy47/kQbTQfkePFG2Nd7R5aNwpIGcdKHeWAELnfZywo03jIVkJfxuXUfYJTyfWwUvT6OzTaq3
- Q9MvYcqeDAm6eUyRT7XV7nOVg+ovMuqGIQNhleHfyzV2A5bDZrPAUp7ZtL6lpASg=
-X-Gm-Gg: ASbGncuh8X5lBrYVguMVrWQKzi0f64sj8y9Daz+rWI7XLeKeHnWh0oIJCpGXicZ3ytp
- VWyz3plZGpvAaBPyHX4+97pZFph8VgKJwCOGIv9kHkCTe9yEFPl5lZ5FMFwYI3IM0g2nrRvRyTk
- 3p+oz7nKRFkfG2h3iOZGStPzMD0F3WoMaBX4MbRdAtoQ6jOYuLRWI7iB6I7iGyfE4PAT2i8KdV7
- FwFouypGkw1t9jBMyijjmVKDKXd7tzSedE2gtAa18LofnApR1L6JX+I/veXFB9hAiZEAyITVLmq
- 4PZAuShV0C4EQhGj10avb15UNiCz4g6Sg8DIuMfnd6miZ7VWRvexvvC6UqCHo0hLSaCLDi5eATc
- 8CIIcfHg39QU/vZGn+45qJ5MPKGjW9wSZnzajE8QbMUs=
-X-Received: by 2002:a05:600c:138f:b0:45b:9291:320d with SMTP id
- 5b1f17b1804b1-462074c5377mr12405385e9.31.1758100471258; 
- Wed, 17 Sep 2025 02:14:31 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFEmxgu92EHP20rPVmzfYTufMiNW7NMmNylEmR/yhYY3ewoC23dJ0cEaag0bo2PWF1PTFKjzg==
-X-Received: by 2002:a05:600c:138f:b0:45b:9291:320d with SMTP id
- 5b1f17b1804b1-462074c5377mr12405135e9.31.1758100470760; 
- Wed, 17 Sep 2025 02:14:30 -0700 (PDT)
+ AJvYcCWNADcYjYU7YsiPHqq7iVqqEye66a7seDZG7zeF+7D3cY2P4FKsJ8iGbDdtL3MAGsdnV/jKB6VWXIY=@nongnu.org
+X-Gm-Message-State: AOJu0YwmKXP+Uce62VfLmHOg1027xfLqan9/ECso7jChzUaMRZkilq5W
+ bzyiaHxblI9TTaSaupu22hAv8ny4AeiIII7PE1ODhNFpY5xjBIc1+VgI9UVMz7mjcdjUZ8Mf7RZ
+ WdB+D90wJ3MqCcppocB9IobCPGZD/XKsVU4Y4wvbJ9LjiVMnTDEGbBSg=
+X-Gm-Gg: ASbGncsWY2C0xhV7m8aX6xo1zRKllB8yhplYJ8WxgOtagwutndpnlP+amDKikTHBIPm
+ xx7iM/srmaMHyqjR9o6ldLTzuBUJtgKIZ5PIb3kXoc1SnmP/FIKe5/VpxpLVsQ5KySHoVz/2UcB
+ jnLPKGF/LnLi0VF70i1wIY4aV4U/tH02bc8YBj119qBaquVjge2Vfm3X++KMAZ2ejQTSqcUs4NW
+ +YdM8p3xholY1Ig0jX6AdhfPNynmgOBjz8l0r/gCj4QoopoZsNV/69MiYu79N5pGbyPUcYK17bT
+ ZQXPh/CSJdNwfzfzwzzdBBkEUsBW7CQD8lvs/rULdh1QdBNtVqQ5M+8YER2n+1QQ2GxezsnvUy4
+ xHofGomS/050JU1ual9wTu0mOUbnIILNbdmIyQWswi3s=
+X-Received: by 2002:a05:600c:46c6:b0:45d:dc10:a5ee with SMTP id
+ 5b1f17b1804b1-461f94aebebmr17108755e9.15.1758109226317; 
+ Wed, 17 Sep 2025 04:40:26 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHJYsUg5Jvx8FAD0w0tCwDk/n0wKWeDwUalFTocQeblTOfBMfMs83QARTlgiMe8F3aim222YQ==
+X-Received: by 2002:a05:600c:46c6:b0:45d:dc10:a5ee with SMTP id
+ 5b1f17b1804b1-461f94aebebmr17108445e9.15.1758109225852; 
+ Wed, 17 Sep 2025 04:40:25 -0700 (PDT)
 Received: from [192.168.10.48] ([151.95.56.250])
  by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-45f3260a1ddsm35852495e9.5.2025.09.17.02.14.29
+ 5b1f17b1804b1-46139ab391bsm34470325e9.21.2025.09.17.04.40.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Sep 2025 02:14:30 -0700 (PDT)
-Message-ID: <637d028b-2bbb-405c-804b-eb921b344b3a@redhat.com>
-Date: Wed, 17 Sep 2025 11:14:29 +0200
+ Wed, 17 Sep 2025 04:40:25 -0700 (PDT)
+Message-ID: <30f278e0-b55d-4a25-9123-7e7735ad8b8c@redhat.com>
+Date: Wed, 17 Sep 2025 13:40:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Paolo Bonzini <pbonzini@redhat.com>
 Subject: Re: [PATCH 09/12] rust/qdev: Support bit property in #property macro
 To: Zhao Liu <zhao1.liu@intel.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
 References: <20250916085557.2008344-1-zhao1.liu@intel.com>
  <20250916085557.2008344-10-zhao1.liu@intel.com>
+ <CAAjaMXYkJno=nAcAGPWQJMCjcSkePJwjmZgFkPAkX2N3tQoSCQ@mail.gmail.com>
+ <aMpicpXtVu/4lK63@intel.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
  CxXPkIBTvYY+ZPkoTh5xF9oS1jqI8iRLzouzF8yXs3QjQIZ2SfuCxSVwlV65jotcjD2FTN04
@@ -121,23 +123,23 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20250916085557.2008344-10-zhao1.liu@intel.com>
+In-Reply-To: <aMpicpXtVu/4lK63@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: OY9itBtCUmRXbjd8aaJ-l4_Nb4jRA9RJWlPgyT7gJhI_1758100472
+X-Mimecast-MFC-PROC-ID: 5jdqcFyZnpWhBGxtJx3Br40xdI42itOjj9oCGeF2oZY_1758109226
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.009,
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -153,28 +155,28 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 9/16/25 10:55, Zhao Liu wrote:
-> Add BIT_INFO to QDevProp trait, so that bit related property info could
-> be bound to u32 & u64.
+On 9/17/25 09:25, Zhao Liu wrote:
+> Only 3 types supports bit:
 > 
-> Then add "bit=*" field in #property attributes macro to allow device to
-> configure bit property.
+> u32: qdev_prop_bit
+> u64: qdev_prop_bit64
+> OnOffAuto: qdev_prop_on_off_auto_bit64 (not support yet)
+
+Yes, this one needs to wait for QAPI (unless we move OnOffAuto to core 
+code).
+
+> So for other types don't support bit, they need default BIT_INFO item,
+> otherwise, we will meet the error:
 > 
-> In addtion, convert the #property field parsing from `if-else` pattern
-> to `match` pattern, to help readability. And note, the `bitnr` member of
-> `Property` struct is generated by manual TokenStream construction,
-> instead of conditional repetition (like #(bitnr: #bitnr,)?) since
-> `quote` doesn't support this.
+>   not all trait items implemented, missing: `BIT_INFO`
+> 
+> And this panic can provide richer info about why a type can't support
+> bit property. (I just refer the implementation of `trait VMState`).
 
-We're almost certainly going to have more attribute parsing for 
-ToMigrationState, therefore IMO it's time to drop the handwritten parser 
-in favor of 
-https://lore.kernel.org/qemu-devel/20250717062727.305466-1-pbonzini@redhat.com/. 
-   Then the extra parsing would be just one line:
+Yep, looks good. I added to rust-next a couple patches that you can 
+rebase on, to use the attrs crate.
 
-+        parser.once("bitnr", with::eq(set::parse(&mut self.bitnr)));
-
-No other complaint!
+Also please add a testcase.
 
 Paolo
 
