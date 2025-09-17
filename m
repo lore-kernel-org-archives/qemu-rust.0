@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D55DCA0EE8
-	for <qemu-rust@archiver.kernel.org>; Wed, 17 Sep 2025 06:22:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC27BCA0EE8
+	for <qemu-rust@archiver.kernel.org>; Wed, 17 Sep 2025 06:25:21 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uylYG-0005br-Aq; Wed, 17 Sep 2025 02:22:00 -0400
+	id 1uylbG-0007Lp-2J; Wed, 17 Sep 2025 02:25:06 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uylYB-0005Wj-Gf; Wed, 17 Sep 2025 02:21:57 -0400
-Received: from mgamail.intel.com ([198.175.65.10])
+ id 1uylb0-0007IX-Ev; Wed, 17 Sep 2025 02:24:53 -0400
+Received: from mgamail.intel.com ([192.198.163.19])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uylY8-0006ik-Q2; Wed, 17 Sep 2025 02:21:54 -0400
+ id 1uylai-0007Bz-2w; Wed, 17 Sep 2025 02:24:34 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758090113; x=1789626113;
+ t=1758090272; x=1789626272;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=rkk9BsNXl5Rvdut7FbzSncKbNWxRPvemZchr5iug/J0=;
- b=N1AWA8g1MdebW6iGnVEv6VnVQP8WJ/iGEjJ9BgeDhHiaRMi1l4BI8lop
- us1+lPrWfB6Ijr/O67KawlVa31JoH4FoPGGrVGggNfKLMUJlehzXPlQqN
- hfr/hBf/CDETZbo7rmOQ5/ueTEf15mMfIp8tjbmmJX2BUTNawsMO6LiwB
- asSsvc9+SI7BZQ32Q0zMfxpNLsv0YVgLU8OA9P0hSCv+jp553Q2e4X+m5
- wYFMccpO4dbfCFaKy7olmUkNLArmewgXsTfEQYStuWbhWn8VIA9ri95Yk
- BfXe08HomuLzRBxMHu0no77RerYuGoGdDbwCk6cJW45DiOCqdMiu7TLBe w==;
-X-CSE-ConnectionGUID: XrHGQBZZRr2yREIj2DRhRg==
-X-CSE-MsgGUID: 6QGt+HS3RReCwTBbFlMbEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11555"; a="77825697"
-X-IronPort-AV: E=Sophos;i="6.18,271,1751266800"; d="scan'208";a="77825697"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2025 23:21:49 -0700
-X-CSE-ConnectionGUID: iBujJ8ACSoCoJ36aY/BOOA==
-X-CSE-MsgGUID: UQh5KPfTRpm8zrOj2vUrGA==
+ bh=RGmMowDRCbSSZDE+Jt7DwfGm1bZzQY5qksrq9moMJxA=;
+ b=d2Kqc6RzQqC7eTgIpiXWzJlXxk7zp2Vqe5kFF+ndnGGwsAnGLveiLwYX
+ t+31j4n4Lue+K1iYDIc6ZNrl80JmpzLR7QR97pqFz1927aWaeEkh41A00
+ egG4k983ypx8gCNHnaJfDAdWLDUGi8yv2gfhCBLSpBJI9ntNo+x9uO53Y
+ T9j0ubP1nPuTy9WMBuoUCEPr9ghVtQxkqw+W8L7HBKONuJeJWK150cwH6
+ jeuW8hQu1YoP6qHIaFPKS2YosXGHX/mcmUqsBv1aXL6PxGdIvYZ4DFwn1
+ m2Ji5YarLP3kNfeUsHt9uQKX4jgJV+oloVR7iGKeFrIG01vWYT2T8X26L w==;
+X-CSE-ConnectionGUID: LH6QT3zAQRa1AfmXjl73CQ==
+X-CSE-MsgGUID: sIcBcnC9RnSVal7tsasBJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11555"; a="59430655"
+X-IronPort-AV: E=Sophos;i="6.18,271,1751266800"; d="scan'208";a="59430655"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2025 23:24:28 -0700
+X-CSE-ConnectionGUID: 7AW4v/EDRnarBfA2xyXR8g==
+X-CSE-MsgGUID: RzL7vxUrTHWZ5VqCZ0H1Uw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,271,1751266800"; d="scan'208";a="212310402"
+X-IronPort-AV: E=Sophos;i="6.18,271,1751266800"; d="scan'208";a="175068190"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa001.jf.intel.com with ESMTP; 16 Sep 2025 23:21:48 -0700
-Date: Wed, 17 Sep 2025 14:43:42 +0800
+ by fmviesa006.fm.intel.com with ESMTP; 16 Sep 2025 23:24:27 -0700
+Date: Wed, 17 Sep 2025 14:46:21 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 Cc: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org,
  qemu-rust@nongnu.org
-Subject: Re: [PATCH 01/12] subprojects: Update .gitignore for proc-macro2 and
- syn
-Message-ID: <aMpYnncKrxrkiBys@intel.com>
+Subject: Re: [PATCH 07/12] rust/qdev: Rename PropertyInfo field from VALUE to
+ BASE_INFO
+Message-ID: <aMpZPedisDFfG1yN@intel.com>
 References: <20250916085557.2008344-1-zhao1.liu@intel.com>
- <20250916085557.2008344-2-zhao1.liu@intel.com>
- <CAAjaMXaLvSV=nfd8m4Q-RPTx4jpWisDpeH6J6rgTke4Mox=8pw@mail.gmail.com>
+ <20250916085557.2008344-8-zhao1.liu@intel.com>
+ <CAAjaMXYSDGCr4H_Pk8gOHn6NbsOp0+q==V7GgdtR_60tT4FCPw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAjaMXaLvSV=nfd8m4Q-RPTx4jpWisDpeH6J6rgTke4Mox=8pw@mail.gmail.com>
-Received-SPF: pass client-ip=198.175.65.10; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <CAAjaMXYSDGCr4H_Pk8gOHn6NbsOp0+q==V7GgdtR_60tT4FCPw@mail.gmail.com>
+Received-SPF: pass client-ip=192.198.163.19; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -85,47 +85,28 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Tue, Sep 16, 2025 at 12:58:24PM +0300, Manos Pitsidianakis wrote:
-> Date: Tue, 16 Sep 2025 12:58:24 +0300
+On Tue, Sep 16, 2025 at 01:10:39PM +0300, Manos Pitsidianakis wrote:
+> Date: Tue, 16 Sep 2025 13:10:39 +0300
 > From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-> Subject: Re: [PATCH 01/12] subprojects: Update .gitignore for proc-macro2
->  and syn
+> Subject: Re: [PATCH 07/12] rust/qdev: Rename PropertyInfo field from VALUE
+>  to BASE_INFO
 > 
 > On Tue, Sep 16, 2025 at 11:34 AM Zhao Liu <zhao1.liu@intel.com> wrote:
 > >
+> > Bit property info will added next. To distinguish different info fields,
+> > rename `VALUE` to `BASE_INFO`, then it can better reflect that it
+> > represents the basic property info.
+> >
 > > Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 > > ---
-> >  subprojects/.gitignore | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/subprojects/.gitignore b/subprojects/.gitignore
-> > index f4281934ce11..9d579f72d121 100644
-> > --- a/subprojects/.gitignore
-> > +++ b/subprojects/.gitignore
-> > @@ -16,7 +16,7 @@
-> >  /libc-0.2.162
-> >  /proc-macro-error-1.0.4
-> >  /proc-macro-error-attr-1.0.4
-> > -/proc-macro2-1.0.84
-> > +/proc-macro2-1.0.95
-> >  /quote-1.0.36
-> > -/syn-2.0.66
-> > +/syn-2.0.104
-> >  /unicode-ident-1.0.12
-> > --
-> > 2.34.1
-> >
 > 
 > Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
 Thanks!
 
-> Maybe we could change the entries to match any directory with a version, e.g.
-> 
-> /proc-macro2-[0-9.]*/
+> You can squash this patch to the bit info one
 
-Here I prefer exact matching, as it allows for timely cleanup of outdated
-subprojects.
+Yes, after patch 8, renaming doesn't need to change too many places.
 
 Regards,
 Zhao
