@@ -4,85 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19242CAC599
-	for <qemu-rust@archiver.kernel.org>; Tue, 16 Sep 2025 10:20:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D55DCA0EE8
+	for <qemu-rust@archiver.kernel.org>; Wed, 17 Sep 2025 06:22:06 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uySnR-0002Ph-S6; Tue, 16 Sep 2025 06:20:26 -0400
+	id 1uylYG-0005br-Aq; Wed, 17 Sep 2025 02:22:00 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uySnN-0002Ke-MU
- for qemu-rust@nongnu.org; Tue, 16 Sep 2025 06:20:21 -0400
-Received: from mail-ej1-x634.google.com ([2a00:1450:4864:20::634])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1uySnL-0000nd-Dw
- for qemu-rust@nongnu.org; Tue, 16 Sep 2025 06:20:21 -0400
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-b07d4d24d09so275685066b.2
- for <qemu-rust@nongnu.org>; Tue, 16 Sep 2025 03:20:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1758018017; x=1758622817; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fw/wjxliZDSj8JvRwsa1dpja2LrMHrTyuaXLoozbE9w=;
- b=zr1zN6kXKZVv6T96GxX6NQ/wrzHQ7NshaIg0SWX0bP+Jt38qMcTPjK79r7DbjZh0cO
- bpygnZ6OA3Im716ywlLhMTTo/35g1jRySprJhDKF8CsIMRk7qj4MKSSbCEr9t8UleqFK
- Z17ZNS3WwvTyjCHF0APAVmGmyYTihMz0k0WnB+P4F1P7JcLLoMg2SL2HJTbsPy5NSPYU
- pyXDbnu4tIrBRSyfahuS8Hi8Kgzc3bPvV9KgWKhaSVvcXxpTzLaAZlhoEUvWnrpnOouP
- rcm0pdU8wzDUWz0gb2F7FJTDO+TDiIIA5RA6E8CelyIOcghFkTwoodoONI6nz7f9iesc
- lUww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758018017; x=1758622817;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=fw/wjxliZDSj8JvRwsa1dpja2LrMHrTyuaXLoozbE9w=;
- b=g6aZ4HXn11pyc/s9Rsu+z21rhhJhaDelheCYkfKFVHHMyHTg15WAa7ViDNaew2QtlW
- NsVaomalihh9Z1laHNbclYYSqCFgzmn/jl2TpE3olIjWvUdH70haGqw7rXf4bsp/0Wrv
- jiaR5pTGrdt9woDjDzdI3b0NUFaycd+NNBitKw6w+eiNh37NnLQUSslaQ9gBy55jPwJ9
- l4Cqhs6pkJTike1gJ05ojuQaM0XewDKTYWeW7X0O8sI+4ntpwQeJZ16/KhZD3IMgBohT
- Qgg4W9XRw4MDONQNEy40HGP82ifS/kvnADQBeVrMTOCQLRnxPRMZLDDfRabHpv8vGtqX
- TWgg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUP5FJpf5kMMVm8hLv9rnUnVgd2GM2rrKRp6MrZ480a2POzUaND9d4nkaS0cwPAUK81Ke+9E2b0v5Q=@nongnu.org
-X-Gm-Message-State: AOJu0YxzIiLBkV6W/l47uvXl7o1RSdARQqcrky0HtHkMv2lMH/BdH7kI
- gLuzRMxm04Z6NgT/Ym1qIVpCD4b8oHg6NhiY0rqHn1aPPi/ZGb2gMG2SnqG0gJ5jB2/KMwN8tEp
- pgFWk4mZUFaM3n5oEeoJfFttPlFFT4ThGNQSftZFHXg==
-X-Gm-Gg: ASbGncuTyShtp+3c0v1r/qfhs4DmGs2nmuoCLebbilyamNtlXThonQ11NL+8xCGv9Tz
- bexQjse8Sh8qZzcBtHaG/mTHH6LtKuoPH2j27AqbuD1/Q6Jh0KLbSogy++jTktjDmrmCFLq+d9H
- rfKuKlUejN0ZWeF/Y+z5hO642TKLkhKNXvaZfTvmfGuUhPegWogYowMr/md2LO996SKGQ8mhwbb
- /PMKwmL
-X-Google-Smtp-Source: AGHT+IE1GBIydRoX5P8Nc+MnGeslCswHihhmkY2s2WrFRy0Evh0eUI4FYYLvQIljznNScu7SyrFtZlvGvwjQ0+kSR0Q=
-X-Received: by 2002:a17:907:3f89:b0:b04:3bfe:5b20 with SMTP id
- a640c23a62f3a-b07c38295fbmr1649957766b.30.1758018017305; Tue, 16 Sep 2025
- 03:20:17 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250916085557.2008344-1-zhao1.liu@intel.com>
- <20250916085557.2008344-13-zhao1.liu@intel.com>
-In-Reply-To: <20250916085557.2008344-13-zhao1.liu@intel.com>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Tue, 16 Sep 2025 13:19:51 +0300
-X-Gm-Features: AS18NWDFGpAaxu0D9scCyky5HoAKpT5quRYXz1Ujc-bxH20MJv1y5dWwwSd0WgI
-Message-ID: <CAAjaMXaNCc2hE-n+TwxfGauhT+f+5rj2tL9j1iDbf0bOLdgWfw@mail.gmail.com>
-Subject: Re: [PATCH 12/12] rust/qdev: Drop declare_properties &
- define_property macros
-To: Zhao Liu <zhao1.liu@intel.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uylYB-0005Wj-Gf; Wed, 17 Sep 2025 02:21:57 -0400
+Received: from mgamail.intel.com ([198.175.65.10])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uylY8-0006ik-Q2; Wed, 17 Sep 2025 02:21:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1758090113; x=1789626113;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=rkk9BsNXl5Rvdut7FbzSncKbNWxRPvemZchr5iug/J0=;
+ b=N1AWA8g1MdebW6iGnVEv6VnVQP8WJ/iGEjJ9BgeDhHiaRMi1l4BI8lop
+ us1+lPrWfB6Ijr/O67KawlVa31JoH4FoPGGrVGggNfKLMUJlehzXPlQqN
+ hfr/hBf/CDETZbo7rmOQ5/ueTEf15mMfIp8tjbmmJX2BUTNawsMO6LiwB
+ asSsvc9+SI7BZQ32Q0zMfxpNLsv0YVgLU8OA9P0hSCv+jp553Q2e4X+m5
+ wYFMccpO4dbfCFaKy7olmUkNLArmewgXsTfEQYStuWbhWn8VIA9ri95Yk
+ BfXe08HomuLzRBxMHu0no77RerYuGoGdDbwCk6cJW45DiOCqdMiu7TLBe w==;
+X-CSE-ConnectionGUID: XrHGQBZZRr2yREIj2DRhRg==
+X-CSE-MsgGUID: 6QGt+HS3RReCwTBbFlMbEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11555"; a="77825697"
+X-IronPort-AV: E=Sophos;i="6.18,271,1751266800"; d="scan'208";a="77825697"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2025 23:21:49 -0700
+X-CSE-ConnectionGUID: iBujJ8ACSoCoJ36aY/BOOA==
+X-CSE-MsgGUID: UQh5KPfTRpm8zrOj2vUrGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,271,1751266800"; d="scan'208";a="212310402"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa001.jf.intel.com with ESMTP; 16 Sep 2025 23:21:48 -0700
+Date: Wed, 17 Sep 2025 14:43:42 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 Cc: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org,
  qemu-rust@nongnu.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::634;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ej1-x634.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+Subject: Re: [PATCH 01/12] subprojects: Update .gitignore for proc-macro2 and
+ syn
+Message-ID: <aMpYnncKrxrkiBys@intel.com>
+References: <20250916085557.2008344-1-zhao1.liu@intel.com>
+ <20250916085557.2008344-2-zhao1.liu@intel.com>
+ <CAAjaMXaLvSV=nfd8m4Q-RPTx4jpWisDpeH6J6rgTke4Mox=8pw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAjaMXaLvSV=nfd8m4Q-RPTx4jpWisDpeH6J6rgTke4Mox=8pw@mail.gmail.com>
+Received-SPF: pass client-ip=198.175.65.10; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.009,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -99,93 +85,49 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Tue, Sep 16, 2025 at 11:34=E2=80=AFAM Zhao Liu <zhao1.liu@intel.com> wro=
-te:
->
-> After HPET's #property conversion, there's no use case for
-> declare_properties & define_property. So get rid of them for now.
->
-> In future, if there's something that #property really cannot resolve,
-> they can be brought back.
->
-> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
-> ---
+On Tue, Sep 16, 2025 at 12:58:24PM +0300, Manos Pitsidianakis wrote:
+> Date: Tue, 16 Sep 2025 12:58:24 +0300
+> From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+> Subject: Re: [PATCH 01/12] subprojects: Update .gitignore for proc-macro2
+>  and syn
+> 
+> On Tue, Sep 16, 2025 at 11:34 AM Zhao Liu <zhao1.liu@intel.com> wrote:
+> >
+> > Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+> > ---
+> >  subprojects/.gitignore | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/subprojects/.gitignore b/subprojects/.gitignore
+> > index f4281934ce11..9d579f72d121 100644
+> > --- a/subprojects/.gitignore
+> > +++ b/subprojects/.gitignore
+> > @@ -16,7 +16,7 @@
+> >  /libc-0.2.162
+> >  /proc-macro-error-1.0.4
+> >  /proc-macro-error-attr-1.0.4
+> > -/proc-macro2-1.0.84
+> > +/proc-macro2-1.0.95
+> >  /quote-1.0.36
+> > -/syn-2.0.66
+> > +/syn-2.0.104
+> >  /unicode-ident-1.0.12
+> > --
+> > 2.34.1
+> >
+> 
+> Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
-Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Thanks!
 
->  rust/hw/core/src/qdev.rs | 53 ----------------------------------------
->  1 file changed, 53 deletions(-)
->
-> diff --git a/rust/hw/core/src/qdev.rs b/rust/hw/core/src/qdev.rs
-> index a8cd9e3c2fd5..a32ada4c175e 100644
-> --- a/rust/hw/core/src/qdev.rs
-> +++ b/rust/hw/core/src/qdev.rs
-> @@ -248,59 +248,6 @@ pub fn class_init<T: DeviceImpl>(&mut self) {
->      }
->  }
->
-> -#[macro_export]
-> -macro_rules! define_property {
-> -    ($name:expr, $state:ty, $field:ident, $prop:expr, $type:ty, bit =3D =
-$bitnr:expr, default =3D $defval:expr$(,)*) =3D> {
-> -        $crate::bindings::Property {
-> -            // use associated function syntax for type checking
-> -            name: ::std::ffi::CStr::as_ptr($name),
-> -            info: $prop,
-> -            offset: ::std::mem::offset_of!($state, $field) as isize,
-> -            bitnr: $bitnr,
-> -            set_default: true,
-> -            defval: $crate::bindings::Property__bindgen_ty_1 { u: $defva=
-l as u64 },
-> -            ..::common::zeroable::Zeroable::ZERO
-> -        }
-> -    };
-> -    ($name:expr, $state:ty, $field:ident, $prop:expr, $type:ty, default =
-=3D $defval:expr$(,)*) =3D> {
-> -        $crate::bindings::Property {
-> -            // use associated function syntax for type checking
-> -            name: ::std::ffi::CStr::as_ptr($name),
-> -            info: $prop,
-> -            offset: ::std::mem::offset_of!($state, $field) as isize,
-> -            set_default: true,
-> -            defval: $crate::bindings::Property__bindgen_ty_1 { u: $defva=
-l as u64 },
-> -            ..::common::zeroable::Zeroable::ZERO
-> -        }
-> -    };
-> -    ($name:expr, $state:ty, $field:ident, $prop:expr, $type:ty$(,)*) =3D=
-> {
-> -        $crate::bindings::Property {
-> -            // use associated function syntax for type checking
-> -            name: ::std::ffi::CStr::as_ptr($name),
-> -            info: $prop,
-> -            offset: ::std::mem::offset_of!($state, $field) as isize,
-> -            set_default: false,
-> -            ..::common::zeroable::Zeroable::ZERO
-> -        }
-> -    };
-> -}
-> -
-> -#[macro_export]
-> -macro_rules! declare_properties {
-> -    ($ident:ident, $($prop:expr),*$(,)*) =3D> {
-> -        pub static $ident: [$crate::bindings::Property; {
-> -            let mut len =3D 0;
-> -            $({
-> -                _ =3D stringify!($prop);
-> -                len +=3D 1;
-> -            })*
-> -            len
-> -        }] =3D [
-> -            $($prop),*,
-> -        ];
-> -    };
-> -}
-> -
->  unsafe impl ObjectType for DeviceState {
->      type Class =3D DeviceClass;
->      const TYPE_NAME: &'static CStr =3D
-> --
-> 2.34.1
->
+> Maybe we could change the entries to match any directory with a version, e.g.
+> 
+> /proc-macro2-[0-9.]*/
+
+Here I prefer exact matching, as it allows for timely cleanup of outdated
+subprojects.
+
+Regards,
+Zhao
+
 
