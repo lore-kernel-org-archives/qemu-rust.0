@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DA40CAC5A5
-	for <qemu-rust@archiver.kernel.org>; Sat, 20 Sep 2025 15:45:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36912CAC5A7
+	for <qemu-rust@archiver.kernel.org>; Sat, 20 Sep 2025 15:45:56 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uzzkj-0007xM-Fb; Sat, 20 Sep 2025 11:43:57 -0400
+	id 1uzzks-00082n-RJ; Sat, 20 Sep 2025 11:44:06 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uzzkb-0007uJ-48; Sat, 20 Sep 2025 11:43:50 -0400
+ id 1uzzki-0007wo-JF; Sat, 20 Sep 2025 11:43:56 -0400
 Received: from mgamail.intel.com ([198.175.65.11])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uzzkY-0001zT-8d; Sat, 20 Sep 2025 11:43:48 -0400
+ id 1uzzkf-0001zT-Lx; Sat, 20 Sep 2025 11:43:55 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758383027; x=1789919027;
+ t=1758383034; x=1789919034;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FiodBfQIWHUki8bQeGhImk08nFJr+3jgVXS0P5WVo3s=;
- b=lDahQF+1x00hdMBNle8vrOmCSHaIEmO43rl0HTFDKOOz5SiKtINXAs2h
- nfMvTSMO4Yhnw15Fz9UTZ+KXg6YkaTros8++dPzG69e6xG6aBSL9dTong
- 3Vqudt3OewYPhKv5osTzSB+tcMdv09CxmTyTQfb+kAwzcKSRpBdRmDY9b
- NXvGSFaOv7vG0gEE+IXvUE9RBL8MfFF6zDwGtxCL21YwsLxu4rD3uwQPu
- HDeC3+yswjwV7hNDr9tFvz2UV1BtxIUn24yB/csehWGMPf/t+Pvq4/9X+
- vD0IAi7Ly03HT6EdYXIGY6kuawn03Aw1Y50rPceB7V1RmwwPh4PQ2ExHI Q==;
-X-CSE-ConnectionGUID: kxSEbgx0T9inDMJfrmMynQ==
-X-CSE-MsgGUID: MWjlggIVTlq541I/XuqKzA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11559"; a="70955491"
-X-IronPort-AV: E=Sophos;i="6.18,281,1751266800"; d="scan'208";a="70955491"
+ bh=yXrP73a12JJn4IAYq71AmqAT+gHNTzZ0Y1rswE00zAo=;
+ b=bBRblinQuMaIBPtXkCisnX/7+UGYUe4C+f3bzkSGCF9aOIbVwc7glc17
+ Mj5Fpka5FU+whR4bJVK/cL+aAm9PZHTwC1ZN7ilW2wivZUTxtzHwLrE/g
+ KTAzEAPIyNi84I1YQbXbEGUW3FwGF6hqhqlF/jPk1WERaiXDvX5ocPln3
+ DFx44FhJ6S2LjG+SN69sxnZZ5oxW5P8s6TCMItmtQx7qj7dHpQpcfTkmr
+ SFCQXqhlgRykB+Ge83V8TKKzNYTRQVAGO+KyThwZTlhfRkhBIAYBUG746
+ xqEZazytGNWolfXatcCZn0IzsXHc4LCWdHuRhNoRHT46AspMKLY6iEttY g==;
+X-CSE-ConnectionGUID: mAQdu+OmSh+rD+g2efUbng==
+X-CSE-MsgGUID: FpCJ3QjcQo2Q+QExBzGMpg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11559"; a="70955541"
+X-IronPort-AV: E=Sophos;i="6.18,281,1751266800"; d="scan'208";a="70955541"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2025 08:43:41 -0700
-X-CSE-ConnectionGUID: SMUMti+dQ36IuvJ9OWis1Q==
-X-CSE-MsgGUID: WmqcS8HsT5uGBoEHhAJc2g==
+ 20 Sep 2025 08:43:50 -0700
+X-CSE-ConnectionGUID: jkWtAfONRP2NTTHTpKjTQw==
+X-CSE-MsgGUID: slE/YtbiQCmIYmNVttLrmQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,281,1751266800"; d="scan'208";a="181349430"
+X-IronPort-AV: E=Sophos;i="6.18,281,1751266800"; d="scan'208";a="181349467"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa004.fm.intel.com with ESMTP; 20 Sep 2025 08:43:39 -0700
+ by fmviesa004.fm.intel.com with ESMTP; 20 Sep 2025 08:43:48 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH v2 01/12] subprojects: Update .gitignore for proc-macro2 and
- syn
-Date: Sun, 21 Sep 2025 00:05:09 +0800
-Message-Id: <20250920160520.3699591-2-zhao1.liu@intel.com>
+Subject: [PATCH v2 07/12] rust/qdev: Support property info for more common
+ types
+Date: Sun, 21 Sep 2025 00:05:15 +0800
+Message-Id: <20250920160520.3699591-8-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250920160520.3699591-1-zhao1.liu@intel.com>
 References: <20250920160520.3699591-1-zhao1.liu@intel.com>
@@ -81,25 +81,55 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Add a helper macro to implement QDevProp trait for u8/u16/u32/usize/i32
+/i64.
+
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- subprojects/.gitignore | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ rust/hw/core/src/qdev.rs | 28 ++++++++++++++++------------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
 
-diff --git a/subprojects/.gitignore b/subprojects/.gitignore
-index 4f2a489105e9..085de898d9d3 100644
---- a/subprojects/.gitignore
-+++ b/subprojects/.gitignore
-@@ -17,7 +17,7 @@
- /libc-0.2.162
- /proc-macro-error-1.0.4
- /proc-macro-error-attr-1.0.4
--/proc-macro2-1.0.84
-+/proc-macro2-1.0.95
- /quote-1.0.36
- /serde-1.0.219
- /syn-2.0.104
+diff --git a/rust/hw/core/src/qdev.rs b/rust/hw/core/src/qdev.rs
+index 89c21e7c6b50..14d6ecf2ca23 100644
+--- a/rust/hw/core/src/qdev.rs
++++ b/rust/hw/core/src/qdev.rs
+@@ -134,20 +134,24 @@ pub unsafe trait QDevProp {
+     const VALUE: *const bindings::PropertyInfo;
+ }
+ 
+-/// Use [`bindings::qdev_prop_bool`] for `bool`.
+-unsafe impl QDevProp for bool {
+-    const VALUE: *const bindings::PropertyInfo = addr_of!(bindings::qdev_prop_bool);
+-}
+-
+-/// Use [`bindings::qdev_prop_uint64`] for `u64`.
+-unsafe impl QDevProp for u64 {
+-    const VALUE: *const bindings::PropertyInfo = addr_of!(bindings::qdev_prop_uint64);
++macro_rules! impl_qdev_prop {
++    ($type:ty,$info:ident) => {
++        unsafe impl $crate::qdev::QDevProp for $type {
++            const VALUE: *const $crate::bindings::PropertyInfo =
++                addr_of!($crate::bindings::$info);
++        }
++    };
+ }
+ 
+-/// Use [`bindings::qdev_prop_chr`] for [`chardev::CharBackend`].
+-unsafe impl QDevProp for chardev::CharBackend {
+-    const VALUE: *const bindings::PropertyInfo = addr_of!(bindings::qdev_prop_chr);
+-}
++impl_qdev_prop!(bool, qdev_prop_bool);
++impl_qdev_prop!(u8, qdev_prop_uint8);
++impl_qdev_prop!(u16, qdev_prop_uint16);
++impl_qdev_prop!(u32, qdev_prop_uint32);
++impl_qdev_prop!(u64, qdev_prop_uint64);
++impl_qdev_prop!(usize, qdev_prop_usize);
++impl_qdev_prop!(i32, qdev_prop_int32);
++impl_qdev_prop!(i64, qdev_prop_int64);
++impl_qdev_prop!(chardev::CharBackend, qdev_prop_chr);
+ 
+ /// Trait to define device properties.
+ ///
 -- 
 2.34.1
 
