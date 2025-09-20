@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1B46CAC5A7
-	for <qemu-rust@archiver.kernel.org>; Sat, 20 Sep 2025 14:31:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 276E0CAC5A7
+	for <qemu-rust@archiver.kernel.org>; Sat, 20 Sep 2025 14:31:56 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uzybO-0007Gz-8c; Sat, 20 Sep 2025 10:30:14 -0400
+	id 1uzybR-0007J3-RW; Sat, 20 Sep 2025 10:30:17 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uzybN-0007Gb-6C
- for qemu-rust@nongnu.org; Sat, 20 Sep 2025 10:30:13 -0400
+ id 1uzybR-0007I6-5T
+ for qemu-rust@nongnu.org; Sat, 20 Sep 2025 10:30:17 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uzybL-0005Rv-D3
- for qemu-rust@nongnu.org; Sat, 20 Sep 2025 10:30:12 -0400
+ id 1uzybO-0005ST-J3
+ for qemu-rust@nongnu.org; Sat, 20 Sep 2025 10:30:16 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1758378610;
+ s=mimecast20190719; t=1758378613;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Y0J9X0otTLwkzasLt1UDH9KlN9sxJ9cBWuhH6pKrvTE=;
- b=J+kHyGJtdGn8krofo8fau9gn2pM+BQ385KW13agxI0ZKTdlhHMCfuo0+WMsQnH9Q0XnC7r
- ILIadieSduQWYo7jCTICjl+a6SFdrZWxw+vJgFlWDkngxdiT+avE0g+YiXiLu3pDtrpqx1
- WfO9ohpWX4BdHtiEDp7HjG8P+1p2mbQ=
+ bh=fIs8xQFHDs7W4qQkqDiO7oV8jErY0TH0WVxlppzb/1s=;
+ b=ARywSt1Yt5M8I3ywsXlUqnngh7VBT42R819+LiFCxQ9Q0VvkyJe7oz5v8wZdhB/oX51lxv
+ wSxUO10KmQ4iP5b45gU4jQb4LqeoLMEBHa/fEJMRatMC421cEEJSgUrbu/P6f2ZyADHyK+
+ qjicmM16VycYw97ldwLangO79MPX3BU=
 Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
  [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-544-ttxAA3XHMpm0sg3h-5c5nQ-1; Sat, 20 Sep 2025 10:30:09 -0400
-X-MC-Unique: ttxAA3XHMpm0sg3h-5c5nQ-1
-X-Mimecast-MFC-AGG-ID: ttxAA3XHMpm0sg3h-5c5nQ_1758378608
+ us-mta-556-1d78QBrrP9mtOc9R2TMuQQ-1; Sat, 20 Sep 2025 10:30:12 -0400
+X-MC-Unique: 1d78QBrrP9mtOc9R2TMuQQ-1
+X-Mimecast-MFC-AGG-ID: 1d78QBrrP9mtOc9R2TMuQQ_1758378611
 Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-45f2b9b99f0so931775e9.1
- for <qemu-rust@nongnu.org>; Sat, 20 Sep 2025 07:30:09 -0700 (PDT)
+ 5b1f17b1804b1-45e037fd142so29437305e9.3
+ for <qemu-rust@nongnu.org>; Sat, 20 Sep 2025 07:30:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758378608; x=1758983408;
+ d=1e100.net; s=20230601; t=1758378611; x=1758983411;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Y0J9X0otTLwkzasLt1UDH9KlN9sxJ9cBWuhH6pKrvTE=;
- b=hazrhLciYfC7VBNNC5MCC66+MEF4Gc/jpD+mVqpdw0sP4AamfoMICn+kMAwROS7AtT
- j8ucId9eEKdCg35hlFLWX84KCkWIbfFmi+bdiwOgoqSfjNQcfwOCvgNnDpV6LxGWB2Or
- Bce0QRo4Dj3F8zi4KIwrKXUYDE0+DZw5dG4o7D+y23xuxXa6nY3uYVcMUIsEpT69MhIQ
- /wFTYlw0jlDXJK/g0SBKHtjMrmAsoNzBDzQ1o/Yun8u2ec7IsPoZjrvr+6OzaZqUKzQw
- OKVWCt+XMQjBrAtcLvwz0hNj6QSVQNddsbBUg4ImzMyOql40EnR2x4iLZ7bLTcACjg4p
- Z+2g==
-X-Gm-Message-State: AOJu0YxDZNSU7ZX6bW3MRBoqyqMT8RQCxuyX1KE7QJUw8PcuCD0LrUMO
- 3GXb6RUojPwGx8tNAT3Qs8xd6IpYSsmfZRmRWsGk7yYOrlVxGouJG2Rbsmtv2DRj1cGiw34Y757
- YQG5LA9rfN6VtW3emq2UD4HYrxgComqBp/yjpYDw2Ykk5WEQCodBDHnE=
-X-Gm-Gg: ASbGncs7rlkrQe/NUxwRxHvs4rM0FeuEhKA2T7WUAGPtp52pakTuYlzHGXdNTHhQSbv
- 9zrIk0RR0yOA6bX2K+QflTwWBGXI/nWSxmjcJNiIo+49UueCoKcx9GIQfV24L7xshMGJMtAJ4Ti
- rgwowIYr0DzeRR42xQS7RcXlYmOEwNFHywPIbvFlx1Doi+9b9Uo2mH0TGx/74kW5Nkc3Dw+J8WR
- zkHmwId9KI61NCRIz2fOkqVByQtO9CJ9iFGXdbkfXuntquz5VRKRDrSc8B5xhk9ZjuDI1QPJYny
- yN5ygTtqayhVeQiCCQDChzSXLpLP6hJSL1wOKplSz5Tk7X+nx4+0OWrRM3s/BKhdMVRj27tRxg0
- xp8fZcmKBxTClB07OZdL9VCADf0PLMoV+CJj6bh3ErqQ=
-X-Received: by 2002:a05:600c:34c8:b0:45b:8b95:7119 with SMTP id
- 5b1f17b1804b1-464f81642e8mr114252215e9.8.1758378607936; 
- Sat, 20 Sep 2025 07:30:07 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGfhatReDU9ArBw+DDqbbFgu0vDxDVZRAp48hqeXuZBgwvm6fdJ6o4wpAJAY0O0Bz46Q6z3mQ==
-X-Received: by 2002:a05:600c:34c8:b0:45b:8b95:7119 with SMTP id
- 5b1f17b1804b1-464f81642e8mr114252005e9.8.1758378607504; 
- Sat, 20 Sep 2025 07:30:07 -0700 (PDT)
+ bh=fIs8xQFHDs7W4qQkqDiO7oV8jErY0TH0WVxlppzb/1s=;
+ b=CtpjqK6TBs9CafQzxUKNlH1LArtwwCMLbTO+eWvoZdW0S2f1MqCekhzgamatubN1oe
+ wOgxPRdYP/+UkPR8S1gj5tGRAOUTWsHlduujg9jnTjRGUNXd8TMrJYaxYKDoEfm21gMP
+ XWXZPym8momxTZtzG7/OwA6PTNFHv9AFNd5KWMN+Eej09jP73TcSS5ZgcK+BRFhjkeDM
+ BrdhwfsqP+RfqrDBbtI6t0ZgrxzywqIHKIyJ6icjH2cybyTtxZqNapT8viMBItJ9ByFZ
+ ywO+I2Z3p5GjG9xvekn+Iy/1TXvbL9AztD4VDmEimIIvQcdtn0trUUFSGhYk+svLPKcE
+ NbGw==
+X-Gm-Message-State: AOJu0Yy8TEpIRaB3n7/K2CsCR29NZ/G58fNZbXlDuypjGQ+0zuow+4Xn
+ W9UFuWHiPP9mO7gQUSylWfNUbkLc72RYKZoxWCEDE91XnbeSMcpFOaZGM4y7kVHajHttRN4taYL
+ isl8HTJ0p3qv3E9wlWhQvjZdpL1B49wSv0VDRAySw80J17b1P0eoetIIEHKd3nmY=
+X-Gm-Gg: ASbGncvFApWtT1Y5yvpbolAHDZ7cuIre3nt7GgzSP/wLOJtLZKsoelhAkbIA0oDkAMq
+ mUTJylM+xmbz1Hv86Kj1e4D27ZyhuOF25b26bHy+myREi0fgNKhyI9H8MwNt+qOMcSEebEmVNhu
+ Mfs5Sr1goO1a+OaCf4vdn2WahgsSg4BefIhzbi4ya4QyZro5gFWyNcQtFQVTWxgoZTJKPeQu8iB
+ SAOGfr0f7fC6b7WH7JW/meujq92X7xEsKtewG4KFMkGh4B2gWFIw3RsBug84xKxhHoeIwhAwiWl
+ MHQw85uxcByAgzA69HYfXMXY0MWAhAFneRPn/pg8/Fug6d0k5tvmX1gLSVygn7Wv3i3I8qvf89D
+ 4fmTIgpj+HgGYCH4VOF7NdAl9OodxLBB3dy4Ln0NPR2o=
+X-Received: by 2002:a05:600c:45d2:b0:45b:7d77:b592 with SMTP id
+ 5b1f17b1804b1-467e6f36218mr68881465e9.12.1758378610512; 
+ Sat, 20 Sep 2025 07:30:10 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF6yAihBDDQWq6K/o0tKGfwu/bfeX3ARyU00Vs5xEdNClC2xOeX5XKAVt22ovDYOp0oxPHHJA==
+X-Received: by 2002:a05:600c:45d2:b0:45b:7d77:b592 with SMTP id
+ 5b1f17b1804b1-467e6f36218mr68881255e9.12.1758378609964; 
+ Sat, 20 Sep 2025 07:30:09 -0700 (PDT)
 Received: from [192.168.10.48] ([151.95.47.123])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4613e09f879sm166476175e9.19.2025.09.20.07.30.06
+ 5b1f17b1804b1-467fc818e00sm84311545e9.0.2025.09.20.07.30.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 Sep 2025 07:30:06 -0700 (PDT)
+ Sat, 20 Sep 2025 07:30:08 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org, zhao1.liu@intel.com, manos.pitsidianakis@linaro.org
-Subject: [PATCH 3/7] rust: migration: extract vmstate_fields_ref
-Date: Sat, 20 Sep 2025 16:29:54 +0200
-Message-ID: <20250920142958.181910-4-pbonzini@redhat.com>
+Subject: [PATCH 4/7] rust: migration: add high-level migration wrappers
+Date: Sat, 20 Sep 2025 16:29:55 +0200
+Message-ID: <20250920142958.181910-5-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250920142958.181910-1-pbonzini@redhat.com>
 References: <20250920142958.181910-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 5TynoPdIz3lk-WF46wmcPi4ULXUJwAlB1Zdmm0GGM6w_1758378608
+X-Mimecast-MFC-PROC-ID: TrfQ0rYWKZHFhmEH_p0m1vOUYNBSebpAxcFzIdQA0S8_1758378611
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -112,79 +112,525 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-This is useful when building a VMState for generic structs, because you have
-to avoid nested statics.  Using vmstate_fields! will fail in the likely case
-where the _FIELDS static uses Self from an outer item, because that is
-forbidden.
+Instead of dealing with pre/post callbacks, allow devices to
+implement a snapshot/restore mechanism; this has two main
+advantages:
 
-I also looked into returning a &'static [VMStateField] from vmstate_fields!,
-but that also fails; the fields are not promoted to static, which is
-unfortunate but intentional (https://github.com/rust-lang/rust/issues/60502):
+- it can be easily implemented via procedural macros
 
-error[E0716]: temporary value dropped while borrowed
-   --> rust/hw/char/pl011/libpl011.rlib.p/structured/device.rs:743:17
-    |
-738 | /      VMStateDescriptionBuilder::<PL011State>::new()
-739 | |          .name(c"pl011/clock")
-740 | |          .version_id(1)
-741 | |          .minimum_version_id(1)
-742 | |          .needed(&PL011State::clock_needed)
-743 | |          .fields(vmstate_fields! {
-    | | _________________^
-744 | ||              vmstate_of!(PL011State, clock),
-745 | ||         })
-    | ||_________^- argument requires that borrow lasts for `'static`
-    |  |_________|
-    |            creates a temporary value which is freed while still in use
-746 |            .build();
-    |                   - temporary value is freed at the end of this statement
+- there can be generic implementations to deal with various
+  kinds of interior-mutable containers, from BqlRefCell to Mutex,
+  so that C code does not see Rust concepts such as Mutex<>.
+
+Using it is easy; you can implement the snapshot/restore trait
+ToMigrationState and declare your state like:
+
+     regs: Migratable<Mutex<MyDeviceRegisters>>
+
+Migratable<> allows dereferencing to the underlying object with
+no run-time cost.
+
+Note that Migratable<> actually does not accept ToMigrationState,
+only the similar ToMigrationStateShared trait that the user will mostly
+not care about.  This is required by the fact that pre/post callbacks
+take a &self, and ensures that the argument is a Mutex or BqlRefCell
+(including an array or Arc<> thereof).
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/migration/src/vmstate.rs | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
+ rust/Cargo.lock                  |   1 +
+ rust/migration/Cargo.toml        |   1 +
+ rust/migration/meson.build       |   1 +
+ rust/migration/src/lib.rs        |   3 +
+ rust/migration/src/migratable.rs | 430 +++++++++++++++++++++++++++++++
+ 5 files changed, 436 insertions(+)
+ create mode 100644 rust/migration/src/migratable.rs
 
-diff --git a/rust/migration/src/vmstate.rs b/rust/migration/src/vmstate.rs
-index 05a833a8b7d..421a236194d 100644
---- a/rust/migration/src/vmstate.rs
-+++ b/rust/migration/src/vmstate.rs
-@@ -413,19 +413,30 @@ const fn phantom__<T>(_: &T) -> ::core::marker::PhantomData<T> {
-     }};
- }
+diff --git a/rust/Cargo.lock b/rust/Cargo.lock
+index 960f603cedb..32db90066f1 100644
+--- a/rust/Cargo.lock
++++ b/rust/Cargo.lock
+@@ -140,6 +140,7 @@ version = "0.1.0"
+ dependencies = [
+  "bql",
+  "common",
++ "qemu_macros",
+  "util",
+ ]
  
-+/// Add a terminator to the fields in the arguments, and return
-+/// a reference to the resulting array of values.
-+#[macro_export]
-+macro_rules! vmstate_fields_ref {
-+    ($($field:expr),*$(,)*) => {
-+        &[
-+            $($field),*,
-+            $crate::bindings::VMStateField {
-+                flags: $crate::bindings::VMStateFlags::VMS_END,
-+                ..::common::zeroable::Zeroable::ZERO
-+            }
-+        ]
+diff --git a/rust/migration/Cargo.toml b/rust/migration/Cargo.toml
+index f4a86275152..8efce7a72cb 100644
+--- a/rust/migration/Cargo.toml
++++ b/rust/migration/Cargo.toml
+@@ -15,6 +15,7 @@ rust-version.workspace = true
+ [dependencies]
+ bql = { path = "../bql" }
+ common = { path = "../common" }
++qemu_macros = { path = "../qemu-macros" }
+ util = { path = "../util" }
+ 
+ [lints]
+diff --git a/rust/migration/meson.build b/rust/migration/meson.build
+index 2f38da9220f..c258881790d 100644
+--- a/rust/migration/meson.build
++++ b/rust/migration/meson.build
+@@ -30,6 +30,7 @@ _migration_rs = static_library(
+     [
+       'src/lib.rs',
+       'src/bindings.rs',
++      'src/migratable.rs',
+       'src/vmstate.rs',
+     ],
+     {'.' : _migration_bindings_inc_rs},
+diff --git a/rust/migration/src/lib.rs b/rust/migration/src/lib.rs
+index 5f51dde4406..efe9896b619 100644
+--- a/rust/migration/src/lib.rs
++++ b/rust/migration/src/lib.rs
+@@ -2,5 +2,8 @@
+ 
+ pub mod bindings;
+ 
++pub mod migratable;
++pub use migratable::*;
++
+ pub mod vmstate;
+ pub use vmstate::*;
+diff --git a/rust/migration/src/migratable.rs b/rust/migration/src/migratable.rs
+new file mode 100644
+index 00000000000..d09eeb35f11
+--- /dev/null
++++ b/rust/migration/src/migratable.rs
+@@ -0,0 +1,430 @@
++// Copyright 2025 Red Hat, Inc.
++// Author(s): Paolo Bonzini <pbonzini@redhat.com>
++// SPDX-License-Identifier: GPL-2.0-or-later
++
++use std::{
++    fmt,
++    mem::size_of,
++    ptr::{self, addr_of, NonNull},
++    sync::{Arc, Mutex},
++};
++
++use bql::{BqlCell, BqlRefCell};
++use common::Zeroable;
++
++use crate::{
++    bindings, vmstate_fields_ref, vmstate_of, InvalidError, VMState, VMStateDescriptionBuilder,
++};
++
++/// Enables QEMU migration support even when a type is wrapped with
++/// synchronization primitives (like `Mutex`) that the C migration
++/// code cannot directly handle. The trait provides methods to
++/// extract essential state for migration and restore it after
++/// migration completes.
++///
++/// On top of extracting data from synchronization wrappers during save
++/// and restoring it during load, it's also possible to use `ToMigrationState`
++/// to convert runtime representations to migration-safe formats.
++///
++/// # Examples
++///
++/// ```
++/// use bql::BqlCell;
++/// use migration::{InvalidError, ToMigrationState, VMState};
++/// # use migration::VMStateField;
++///
++/// # #[derive(Debug, PartialEq, Eq)]
++/// struct DeviceState {
++///     counter: BqlCell<u32>,
++///     enabled: bool,
++/// }
++///
++/// # #[derive(Debug)]
++/// #[derive(Default)]
++/// struct DeviceMigrationState {
++///     counter: u32,
++///     enabled: bool,
++/// }
++///
++/// # unsafe impl VMState for DeviceMigrationState {
++/// #     const BASE: VMStateField = ::common::Zeroable::ZERO;
++/// # }
++/// impl ToMigrationState for DeviceState {
++///     type Migrated = DeviceMigrationState;
++///
++///     fn snapshot_migration_state(
++///         &self,
++///         target: &mut Self::Migrated,
++///     ) -> Result<(), InvalidError> {
++///         target.counter = self.counter.get();
++///         target.enabled = self.enabled;
++///         Ok(())
++///     }
++///
++///     fn restore_migrated_state_mut(
++///         &mut self,
++///         source: Self::Migrated,
++///         _version_id: u8,
++///     ) -> Result<(), InvalidError> {
++///         self.counter.set(source.counter);
++///         self.enabled = source.enabled;
++///         Ok(())
++///     }
++/// }
++/// # bql::start_test();
++/// # let dev = DeviceState { counter: 10.into(), enabled: true };
++/// # let mig = dev.to_migration_state().unwrap();
++/// # assert!(matches!(*mig, DeviceMigrationState { counter: 10, enabled: true }));
++/// # let mut dev2 = DeviceState { counter: 42.into(), enabled: false };
++/// # dev2.restore_migrated_state_mut(*mig, 1).unwrap();
++/// # assert_eq!(dev2, dev);
++/// ```
++pub trait ToMigrationState {
++    /// The type used to represent the migrated state.
++    type Migrated: Default + VMState;
++
++    /// Capture the current state into a migration-safe format, failing
++    /// if the state cannot be migrated.
++    fn snapshot_migration_state(&self, target: &mut Self::Migrated) -> Result<(), InvalidError>;
++
++    /// Restores state from a migrated representation, failing if the
++    /// state cannot be restored.
++    fn restore_migrated_state_mut(
++        &mut self,
++        source: Self::Migrated,
++        version_id: u8,
++    ) -> Result<(), InvalidError>;
++
++    /// Convenience method to combine allocation and state capture
++    /// into a single operation.
++    fn to_migration_state(&self) -> Result<Box<Self::Migrated>, InvalidError> {
++        let mut migrated = Box::<Self::Migrated>::default();
++        self.snapshot_migration_state(&mut migrated)?;
++        Ok(migrated)
 +    }
 +}
 +
- /// Helper macro to declare a list of
- /// ([`VMStateField`](`crate::bindings::VMStateField`)) into a static and return
- /// a pointer to the array of values it created.
- #[macro_export]
- macro_rules! vmstate_fields {
-     ($($field:expr),*$(,)*) => {{
--        static _FIELDS: &[$crate::bindings::VMStateField] = &[
-+        static _FIELDS: &[$crate::bindings::VMStateField] = $crate::vmstate_fields_ref!(
-             $($field),*,
--            $crate::bindings::VMStateField {
--                flags: $crate::bindings::VMStateFlags::VMS_END,
--                ..::common::zeroable::Zeroable::ZERO
--            }
--        ];
-+        );
-         _FIELDS.as_ptr()
-     }}
- }
++// Implementations for primitive types.  Do not use a blanket implementation
++// for all Copy types, because [T; N] is Copy if T is Copy; that would conflict
++// with the below implementation for arrays.
++macro_rules! impl_for_primitive {
++    ($($t:ty),*) => {
++        $(
++            impl ToMigrationState for $t {
++                type Migrated = Self;
++
++                fn snapshot_migration_state(
++                    &self,
++                    target: &mut Self::Migrated,
++                ) -> Result<(), InvalidError> {
++                    *target = *self;
++                    Ok(())
++                }
++
++                fn restore_migrated_state_mut(
++                    &mut self,
++                    source: Self::Migrated,
++                    _version_id: u8,
++                ) -> Result<(), InvalidError> {
++                    *self = source;
++                    Ok(())
++                }
++            }
++        )*
++    };
++}
++
++impl_for_primitive!(u8, u16, u32, u64, i8, i16, i32, i64, bool);
++
++impl<T: ToMigrationState, const N: usize> ToMigrationState for [T; N]
++where
++    [T::Migrated; N]: Default,
++{
++    type Migrated = [T::Migrated; N];
++
++    fn snapshot_migration_state(&self, target: &mut Self::Migrated) -> Result<(), InvalidError> {
++        for (item, target_item) in self.iter().zip(target.iter_mut()) {
++            item.snapshot_migration_state(target_item)?;
++        }
++        Ok(())
++    }
++
++    fn restore_migrated_state_mut(
++        &mut self,
++        source: Self::Migrated,
++        version_id: u8,
++    ) -> Result<(), InvalidError> {
++        for (item, source_item) in self.iter_mut().zip(source) {
++            item.restore_migrated_state_mut(source_item, version_id)?;
++        }
++        Ok(())
++    }
++}
++
++/// Extension trait for types that support migration state restoration
++/// through interior mutability.
++///
++/// This trait extends [`ToMigrationState`] for types that can restore
++/// their state without requiring mutable access. While user structs
++/// will generally use `ToMigrationState`, the device will have multiple
++/// references and therefore the device struct has to employ an interior
++/// mutability wrapper like [`Mutex`] or [`BqlRefCell`].
++///
++/// Anything that implements this trait can in turn be used within
++/// [`Migratable<T>`], which makes no assumptions on how to achieve mutable
++/// access to the runtime state.
++///
++/// # Examples
++///
++/// ```
++/// use std::sync::Mutex;
++///
++/// use migration::ToMigrationStateShared;
++///
++/// let device_state = Mutex::new(42);
++/// // Can restore without &mut access
++/// device_state.restore_migrated_state(100, 1).unwrap();
++/// assert_eq!(*device_state.lock().unwrap(), 100);
++/// ```
++pub trait ToMigrationStateShared: ToMigrationState {
++    /// Restores state from a migrated representation to an interior-mutable
++    /// object.  Similar to `restore_migrated_state_mut`, but requires a
++    /// shared reference; therefore it can be used to restore a device's
++    /// state even though devices have multiple references to them.
++    fn restore_migrated_state(
++        &self,
++        source: Self::Migrated,
++        version_id: u8,
++    ) -> Result<(), InvalidError>;
++}
++
++impl<T: ToMigrationStateShared, const N: usize> ToMigrationStateShared for [T; N]
++where
++    [T::Migrated; N]: Default,
++{
++    fn restore_migrated_state(
++        &self,
++        source: Self::Migrated,
++        version_id: u8,
++    ) -> Result<(), InvalidError> {
++        for (item, source_item) in self.iter().zip(source) {
++            item.restore_migrated_state(source_item, version_id)?;
++        }
++        Ok(())
++    }
++}
++
++impl<T: ToMigrationStateShared> ToMigrationState for Arc<T> {
++    type Migrated = T::Migrated;
++
++    fn snapshot_migration_state(&self, target: &mut Self::Migrated) -> Result<(), InvalidError> {
++        (**self).snapshot_migration_state(target)
++    }
++
++    fn restore_migrated_state_mut(
++        &mut self,
++        source: Self::Migrated,
++        version_id: u8,
++    ) -> Result<(), InvalidError> {
++        (**self).restore_migrated_state(source, version_id)
++    }
++}
++
++impl<T: ToMigrationStateShared> ToMigrationStateShared for Arc<T> {
++    fn restore_migrated_state(
++        &self,
++        source: Self::Migrated,
++        version_id: u8,
++    ) -> Result<(), InvalidError> {
++        (**self).restore_migrated_state(source, version_id)
++    }
++}
++
++// Interior-mutable types only require ToMigrationState for the inner type!
++
++impl<T: ToMigrationState> ToMigrationState for Mutex<T> {
++    type Migrated = T::Migrated;
++
++    fn snapshot_migration_state(&self, target: &mut Self::Migrated) -> Result<(), InvalidError> {
++        self.lock().unwrap().snapshot_migration_state(target)
++    }
++
++    fn restore_migrated_state_mut(
++        &mut self,
++        source: Self::Migrated,
++        version_id: u8,
++    ) -> Result<(), InvalidError> {
++        self.restore_migrated_state(source, version_id)
++    }
++}
++
++impl<T: ToMigrationState> ToMigrationStateShared for Mutex<T> {
++    fn restore_migrated_state(
++        &self,
++        source: Self::Migrated,
++        version_id: u8,
++    ) -> Result<(), InvalidError> {
++        self.lock()
++            .unwrap()
++            .restore_migrated_state_mut(source, version_id)
++    }
++}
++
++impl<T: ToMigrationState> ToMigrationState for BqlRefCell<T> {
++    type Migrated = T::Migrated;
++
++    fn snapshot_migration_state(&self, target: &mut Self::Migrated) -> Result<(), InvalidError> {
++        self.borrow().snapshot_migration_state(target)
++    }
++
++    fn restore_migrated_state_mut(
++        &mut self,
++        source: Self::Migrated,
++        version_id: u8,
++    ) -> Result<(), InvalidError> {
++        self.get_mut()
++            .restore_migrated_state_mut(source, version_id)
++    }
++}
++
++impl<T: ToMigrationState> ToMigrationStateShared for BqlRefCell<T> {
++    fn restore_migrated_state(
++        &self,
++        source: Self::Migrated,
++        version_id: u8,
++    ) -> Result<(), InvalidError> {
++        self.borrow_mut()
++            .restore_migrated_state_mut(source, version_id)
++    }
++}
++
++/// A wrapper that enables QEMU migration for types with shared state.
++///
++/// `Migratable<T>` provides a bridge between Rust types that use interior
++/// mutability (like `Mutex<T>`) and QEMU's C-based migration infrastructure.
++/// It manages the lifecycle of migration state and provides automatic
++/// conversion between runtime and migration representations.
++///
++/// ```ignore
++/// # use std::sync::Mutex;
++/// # use migration::Migratable;
++///
++/// pub struct DeviceRegs {
++///     status: u32,
++/// }
++///
++/// pub struct SomeDevice {
++///     // ...
++///     registers: Migratable<Mutex<DeviceRegs>>,
++/// }
++/// ```
++#[repr(C)]
++pub struct Migratable<T: ToMigrationStateShared> {
++    /// Pointer to migration state, valid only during migration operations.
++    /// C vmstate does not support NULL pointers, so no `Option<Box<>>`.
++    migration_state: BqlCell<*mut T::Migrated>,
++
++    /// The runtime state that can be accessed during normal operation
++    runtime_state: T,
++}
++
++impl<T: ToMigrationStateShared> std::ops::Deref for Migratable<T> {
++    type Target = T;
++
++    fn deref(&self) -> &Self::Target {
++        &self.runtime_state
++    }
++}
++
++impl<T: ToMigrationStateShared> std::ops::DerefMut for Migratable<T> {
++    fn deref_mut(&mut self) -> &mut Self::Target {
++        &mut self.runtime_state
++    }
++}
++
++impl<T: ToMigrationStateShared> Migratable<T> {
++    /// Creates a new `Migratable` wrapper around the given runtime state.
++    ///
++    /// # Returns
++    /// A new `Migratable` instance ready for use and migration
++    pub fn new(runtime_state: T) -> Self {
++        Self {
++            migration_state: BqlCell::new(ptr::null_mut()),
++            runtime_state,
++        }
++    }
++
++    fn pre_save(&self) -> Result<(), InvalidError> {
++        let state = self.runtime_state.to_migration_state()?;
++        self.migration_state.set(Box::into_raw(state));
++        Ok(())
++    }
++
++    fn post_save(&self) -> Result<(), InvalidError> {
++        let state = unsafe { Box::from_raw(self.migration_state.take()) };
++        drop(state);
++        Ok(())
++    }
++
++    fn pre_load(&self) -> Result<(), InvalidError> {
++        self.migration_state
++            .set(Box::into_raw(Box::<T::Migrated>::default()));
++        Ok(())
++    }
++
++    fn post_load(&self, version_id: u8) -> Result<(), InvalidError> {
++        let state = unsafe { Box::from_raw(self.migration_state.take()) };
++        self.runtime_state
++            .restore_migrated_state(*state, version_id)
++    }
++}
++
++impl<T: ToMigrationStateShared + fmt::Debug> fmt::Debug for Migratable<T>
++where
++    T::Migrated: fmt::Debug,
++{
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        let mut struct_f = f.debug_struct("Migratable");
++        struct_f.field("runtime_state", &self.runtime_state);
++
++        let state = NonNull::new(self.migration_state.get()).map(|x| unsafe { x.as_ref() });
++        struct_f.field("migration_state", &state);
++        struct_f.finish()
++    }
++}
++
++impl<T: ToMigrationStateShared + Default> Default for Migratable<T> {
++    fn default() -> Self {
++        Self::new(T::default())
++    }
++}
++
++impl<T: 'static + ToMigrationStateShared> Migratable<T> {
++    const FIELD: bindings::VMStateField = vmstate_of!(Self, migration_state);
++
++    const FIELDS: &[bindings::VMStateField] = vmstate_fields_ref! {
++        Migratable::<T>::FIELD
++    };
++
++    const VMSD: &'static bindings::VMStateDescription = VMStateDescriptionBuilder::<Self>::new()
++        .version_id(1)
++        .minimum_version_id(1)
++        .pre_save(&Self::pre_save)
++        .pre_load(&Self::pre_load)
++        .post_save(&Self::post_save)
++        .post_load(&Self::post_load)
++        .fields(Self::FIELDS.as_ptr())
++        .build()
++        .as_ref();
++}
++
++unsafe impl<T: 'static + ToMigrationStateShared> VMState for Migratable<T> {
++    const BASE: bindings::VMStateField = {
++        bindings::VMStateField {
++            vmsd: addr_of!(*Self::VMSD),
++            size: size_of::<Self>(),
++            flags: bindings::VMStateFlags::VMS_STRUCT,
++            ..Zeroable::ZERO
++        }
++    };
++}
 -- 
 2.51.0
 
