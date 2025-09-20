@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88FC0CAC5A7
-	for <qemu-rust@archiver.kernel.org>; Sat, 20 Sep 2025 14:31:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1B46CAC5A7
+	for <qemu-rust@archiver.kernel.org>; Sat, 20 Sep 2025 14:31:36 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uzybY-0007Lh-Ne; Sat, 20 Sep 2025 10:30:24 -0400
+	id 1uzybO-0007Gz-8c; Sat, 20 Sep 2025 10:30:14 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uzybU-0007Jp-0s
- for qemu-rust@nongnu.org; Sat, 20 Sep 2025 10:30:20 -0400
+ id 1uzybN-0007Gb-6C
+ for qemu-rust@nongnu.org; Sat, 20 Sep 2025 10:30:13 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uzybR-0005Su-8Q
- for qemu-rust@nongnu.org; Sat, 20 Sep 2025 10:30:19 -0400
+ id 1uzybL-0005Rv-D3
+ for qemu-rust@nongnu.org; Sat, 20 Sep 2025 10:30:12 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1758378616;
+ s=mimecast20190719; t=1758378610;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=JYTQycbVXEUC503A1Xz7erE6PcHFAqKjXXmxKEfIz9U=;
- b=S4WLQyWAjz7WFsEgWg2gxAVtAVJGkbr8qS7TVlImcMirhihkQr9fdIy7CCnILvCgiChg8d
- Vy8x/dGht8oVd3mLzMz1e16OoQ+N8qVPfkog2JBbDkBWCY2pJyddV5Y0gyfadsZLMth4/c
- ea85SswGJ4nXMuEWb0c4daGlGt5nHsE=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=Y0J9X0otTLwkzasLt1UDH9KlN9sxJ9cBWuhH6pKrvTE=;
+ b=J+kHyGJtdGn8krofo8fau9gn2pM+BQ385KW13agxI0ZKTdlhHMCfuo0+WMsQnH9Q0XnC7r
+ ILIadieSduQWYo7jCTICjl+a6SFdrZWxw+vJgFlWDkngxdiT+avE0g+YiXiLu3pDtrpqx1
+ WfO9ohpWX4BdHtiEDp7HjG8P+1p2mbQ=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-394-2iHx3TDLMm-Q7OBaH5-4iA-1; Sat, 20 Sep 2025 10:30:15 -0400
-X-MC-Unique: 2iHx3TDLMm-Q7OBaH5-4iA-1
-X-Mimecast-MFC-AGG-ID: 2iHx3TDLMm-Q7OBaH5-4iA_1758378614
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-45ceeae0513so22270705e9.0
- for <qemu-rust@nongnu.org>; Sat, 20 Sep 2025 07:30:14 -0700 (PDT)
+ us-mta-544-ttxAA3XHMpm0sg3h-5c5nQ-1; Sat, 20 Sep 2025 10:30:09 -0400
+X-MC-Unique: ttxAA3XHMpm0sg3h-5c5nQ-1
+X-Mimecast-MFC-AGG-ID: ttxAA3XHMpm0sg3h-5c5nQ_1758378608
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-45f2b9b99f0so931775e9.1
+ for <qemu-rust@nongnu.org>; Sat, 20 Sep 2025 07:30:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758378614; x=1758983414;
+ d=1e100.net; s=20230601; t=1758378608; x=1758983408;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=JYTQycbVXEUC503A1Xz7erE6PcHFAqKjXXmxKEfIz9U=;
- b=PMw4gnH+4+T8OuiScSmQcvt6Ix6pjnfMlGST+1vVCRpZ17RjbLxHtSQHUe0x0S5h7H
- GM04V7ftheDh++TGnasP4Fde72yVZ3A9iybQqRiqGEv+sgJxz9qojGgyhKWJXplhPFpH
- XYPpXhN+7/MGz4A70TCCA1ePOEOkMS3UgtEC4Vn8cO4quZLO83o56AKKAawtld924MWh
- QdWSWnOwFgkEvKLagejoJuMDfhDaOZ0ADzDeE/Kiq629TX85HKIYVuRakqwwExmWMWEw
- e3HFw+PSoc2a/VuPAMZn6NySUkNdsd7wixsC/FggxExve5Mx3ehPv5Y8ODU9pWVCF+ts
- iBAA==
-X-Gm-Message-State: AOJu0Yy/bAD+y6PnPUNzLzOmIYq42/JdIqcVwndUBUXm7J4mAXAlOk7d
- kPHL7f+qsnBfvDUJ3M4m1iUsCvnBmy3FrgqJxKDMmn5vvpTpATIMU5cQwHSftEGkdWinW+rlOnO
- Hj7o6wEhitM/c/XrBB+YJBrq5ODA/lUZnpWhZU4abFu6zBhvKaSJXnTQ=
-X-Gm-Gg: ASbGncvVGbbUEZu0mf4iozRnDcrSdWQPltPxhfThr7pDMPY+5Tx8sP1iB/kj8gNb6b6
- snd5EiZMDGCpnN3WqC7mq04ybDqGk7pJmV/NWW0TwUE4Pg1a9PAqu0WxUwDjovyIe/Wiiefyern
- BYG5bwgJJIl5+pZcK4dV+bwoKL5AIVtYA4+JA7d05llpqk/g8N//3WUQlmXa4cs0zqqqP4K6pdy
- zZiM2AbY6OdeazFOyBac80PEfrOymYxtctbR9a54Ch/FGLeaIfuptdyChKCcHYnyDky8r6yf2Lj
- NQ+HNPaxpfqtWM+MoJpnvAS1YhYV57T6O5e5ABkfzBuSXwUUUPqxGFHJM2eCzQpmLxCD0OTKMrz
- RNvi0G9nX8Efm4GiCPKM4Mc1KjyRpv0IzcH3SLlV2JbM=
-X-Received: by 2002:a05:600c:68a:b0:467:f71c:292 with SMTP id
- 5b1f17b1804b1-467f71c05fdmr32757245e9.19.1758378613343; 
- Sat, 20 Sep 2025 07:30:13 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH4Tj6bIW6EqkKDvcZOVWeSh2+w+8AyKQ1vH1KzGzUwSKgFNCFGHx51GYGoicvS5mZmrNfbCA==
-X-Received: by 2002:a05:600c:68a:b0:467:f71c:292 with SMTP id
- 5b1f17b1804b1-467f71c05fdmr32757015e9.19.1758378612573; 
- Sat, 20 Sep 2025 07:30:12 -0700 (PDT)
+ bh=Y0J9X0otTLwkzasLt1UDH9KlN9sxJ9cBWuhH6pKrvTE=;
+ b=hazrhLciYfC7VBNNC5MCC66+MEF4Gc/jpD+mVqpdw0sP4AamfoMICn+kMAwROS7AtT
+ j8ucId9eEKdCg35hlFLWX84KCkWIbfFmi+bdiwOgoqSfjNQcfwOCvgNnDpV6LxGWB2Or
+ Bce0QRo4Dj3F8zi4KIwrKXUYDE0+DZw5dG4o7D+y23xuxXa6nY3uYVcMUIsEpT69MhIQ
+ /wFTYlw0jlDXJK/g0SBKHtjMrmAsoNzBDzQ1o/Yun8u2ec7IsPoZjrvr+6OzaZqUKzQw
+ OKVWCt+XMQjBrAtcLvwz0hNj6QSVQNddsbBUg4ImzMyOql40EnR2x4iLZ7bLTcACjg4p
+ Z+2g==
+X-Gm-Message-State: AOJu0YxDZNSU7ZX6bW3MRBoqyqMT8RQCxuyX1KE7QJUw8PcuCD0LrUMO
+ 3GXb6RUojPwGx8tNAT3Qs8xd6IpYSsmfZRmRWsGk7yYOrlVxGouJG2Rbsmtv2DRj1cGiw34Y757
+ YQG5LA9rfN6VtW3emq2UD4HYrxgComqBp/yjpYDw2Ykk5WEQCodBDHnE=
+X-Gm-Gg: ASbGncs7rlkrQe/NUxwRxHvs4rM0FeuEhKA2T7WUAGPtp52pakTuYlzHGXdNTHhQSbv
+ 9zrIk0RR0yOA6bX2K+QflTwWBGXI/nWSxmjcJNiIo+49UueCoKcx9GIQfV24L7xshMGJMtAJ4Ti
+ rgwowIYr0DzeRR42xQS7RcXlYmOEwNFHywPIbvFlx1Doi+9b9Uo2mH0TGx/74kW5Nkc3Dw+J8WR
+ zkHmwId9KI61NCRIz2fOkqVByQtO9CJ9iFGXdbkfXuntquz5VRKRDrSc8B5xhk9ZjuDI1QPJYny
+ yN5ygTtqayhVeQiCCQDChzSXLpLP6hJSL1wOKplSz5Tk7X+nx4+0OWrRM3s/BKhdMVRj27tRxg0
+ xp8fZcmKBxTClB07OZdL9VCADf0PLMoV+CJj6bh3ErqQ=
+X-Received: by 2002:a05:600c:34c8:b0:45b:8b95:7119 with SMTP id
+ 5b1f17b1804b1-464f81642e8mr114252215e9.8.1758378607936; 
+ Sat, 20 Sep 2025 07:30:07 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGfhatReDU9ArBw+DDqbbFgu0vDxDVZRAp48hqeXuZBgwvm6fdJ6o4wpAJAY0O0Bz46Q6z3mQ==
+X-Received: by 2002:a05:600c:34c8:b0:45b:8b95:7119 with SMTP id
+ 5b1f17b1804b1-464f81642e8mr114252005e9.8.1758378607504; 
+ Sat, 20 Sep 2025 07:30:07 -0700 (PDT)
 Received: from [192.168.10.48] ([151.95.47.123])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-461eefee9f3sm167826885e9.1.2025.09.20.07.30.10
+ 5b1f17b1804b1-4613e09f879sm166476175e9.19.2025.09.20.07.30.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 Sep 2025 07:30:11 -0700 (PDT)
+ Sat, 20 Sep 2025 07:30:06 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org, zhao1.liu@intel.com, manos.pitsidianakis@linaro.org
-Subject: [PATCH 5/7] rust: qemu-macros: add ToMigrationState derive macro
-Date: Sat, 20 Sep 2025 16:29:56 +0200
-Message-ID: <20250920142958.181910-6-pbonzini@redhat.com>
+Subject: [PATCH 3/7] rust: migration: extract vmstate_fields_ref
+Date: Sat, 20 Sep 2025 16:29:54 +0200
+Message-ID: <20250920142958.181910-4-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250920142958.181910-1-pbonzini@redhat.com>
 References: <20250920142958.181910-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: xwATwpo1xyGba428wK5O6MqvfkADhoxbTN-nVB7IWVs_1758378614
+X-Mimecast-MFC-PROC-ID: 5TynoPdIz3lk-WF46wmcPi4ULXUJwAlB1Zdmm0GGM6w_1758378608
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -112,623 +112,79 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Add a macro that recursively builds the "migrated" version
-of a struct.
+This is useful when building a VMState for generic structs, because you have
+to avoid nested statics.  Using vmstate_fields! will fail in the likely case
+where the _FIELDS static uses Self from an outer item, because that is
+forbidden.
+
+I also looked into returning a &'static [VMStateField] from vmstate_fields!,
+but that also fails; the fields are not promoted to static, which is
+unfortunate but intentional (https://github.com/rust-lang/rust/issues/60502):
+
+error[E0716]: temporary value dropped while borrowed
+   --> rust/hw/char/pl011/libpl011.rlib.p/structured/device.rs:743:17
+    |
+738 | /      VMStateDescriptionBuilder::<PL011State>::new()
+739 | |          .name(c"pl011/clock")
+740 | |          .version_id(1)
+741 | |          .minimum_version_id(1)
+742 | |          .needed(&PL011State::clock_needed)
+743 | |          .fields(vmstate_fields! {
+    | | _________________^
+744 | ||              vmstate_of!(PL011State, clock),
+745 | ||         })
+    | ||_________^- argument requires that borrow lasts for `'static`
+    |  |_________|
+    |            creates a temporary value which is freed while still in use
+746 |            .build();
+    |                   - temporary value is freed at the end of this statement
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/migration/meson.build              |   2 +-
- rust/migration/src/lib.rs               |   2 +
- rust/migration/src/migratable.rs        |  12 +-
- rust/qemu-macros/src/lib.rs             |  88 +++++++
- rust/qemu-macros/src/migration_state.rs | 296 ++++++++++++++++++++++++
- rust/qemu-macros/src/tests.rs           | 112 ++++++++-
- 6 files changed, 507 insertions(+), 5 deletions(-)
- create mode 100644 rust/qemu-macros/src/migration_state.rs
+ rust/migration/src/vmstate.rs | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
 
-diff --git a/rust/migration/meson.build b/rust/migration/meson.build
-index c258881790d..3843b364c69 100644
---- a/rust/migration/meson.build
-+++ b/rust/migration/meson.build
-@@ -38,7 +38,7 @@ _migration_rs = static_library(
-   override_options: ['rust_std=2021', 'build.rust_std=2021'],
-   rust_abi: 'rust',
-   link_with: [_util_rs, _bql_rs],
--  dependencies: [common_rs],
-+  dependencies: [common_rs, qemu_macros],
- )
- 
- migration_rs = declare_dependency(link_with: [_migration_rs],
-diff --git a/rust/migration/src/lib.rs b/rust/migration/src/lib.rs
-index efe9896b619..c9bdf0d4133 100644
---- a/rust/migration/src/lib.rs
-+++ b/rust/migration/src/lib.rs
-@@ -2,6 +2,8 @@
- 
- pub mod bindings;
- 
-+pub use qemu_macros::ToMigrationState;
-+
- pub mod migratable;
- pub use migratable::*;
- 
-diff --git a/rust/migration/src/migratable.rs b/rust/migration/src/migratable.rs
-index d09eeb35f11..fa25317eea8 100644
---- a/rust/migration/src/migratable.rs
-+++ b/rust/migration/src/migratable.rs
-@@ -79,6 +79,10 @@
- /// # dev2.restore_migrated_state_mut(*mig, 1).unwrap();
- /// # assert_eq!(dev2, dev);
- /// ```
-+///
-+/// More commonly, the trait is derived through the
-+/// [`derive(ToMigrationState)`](qemu_macros::ToMigrationState) procedural
-+/// macro.
- pub trait ToMigrationState {
-     /// The type used to represent the migrated state.
-     type Migrated: Default + VMState;
-@@ -305,13 +309,17 @@ fn restore_migrated_state(
- /// It manages the lifecycle of migration state and provides automatic
- /// conversion between runtime and migration representations.
- ///
--/// ```ignore
-+/// ```
- /// # use std::sync::Mutex;
--/// # use migration::Migratable;
-+/// # use migration::{Migratable, ToMigrationState, VMState, VMStateField};
- ///
-+/// #[derive(ToMigrationState)]
- /// pub struct DeviceRegs {
- ///     status: u32,
- /// }
-+/// # unsafe impl VMState for DeviceRegsMigration {
-+/// #     const BASE: VMStateField = ::common::Zeroable::ZERO;
-+/// # }
- ///
- /// pub struct SomeDevice {
- ///     // ...
-diff --git a/rust/qemu-macros/src/lib.rs b/rust/qemu-macros/src/lib.rs
-index 7ab18061776..8151fb6d4e1 100644
---- a/rust/qemu-macros/src/lib.rs
-+++ b/rust/qemu-macros/src/lib.rs
-@@ -13,9 +13,13 @@
-     Attribute, Data, DeriveInput, Error, Field, Fields, FieldsUnnamed, Ident, Meta, Path, Token,
-     Variant,
- };
-+
- mod bits;
- use bits::BitsConstInternal;
- 
-+mod migration_state;
-+use migration_state::MigrationStateDerive;
-+
- #[cfg(test)]
- mod tests;
- 
-@@ -393,3 +397,87 @@ pub fn bits_const_internal(ts: TokenStream) -> TokenStream {
-         .unwrap_or_else(syn::Error::into_compile_error)
-         .into()
- }
-+
-+/// Derive macro for generating migration state structures and trait
-+/// implementations.
-+///
-+/// This macro generates a migration state struct and implements the
-+/// `ToMigrationState` trait for the annotated struct, enabling state
-+/// serialization and restoration.  Note that defining a `VMStateDescription`
-+/// for the migration state struct is left to the user.
-+///
-+/// # Container attributes
-+///
-+/// The following attributes can be applied to the struct:
-+///
-+/// - `#[migration_state(rename = CustomName)]` - Customizes the name of the
-+///   generated migration struct. By default, the generated struct is named
-+///   `{OriginalName}Migration`.
-+///
-+/// # Field attributes
-+///
-+/// The following attributes can be applied to individual fields:
-+///
-+/// - `#[migration_state(omit)]` - Excludes the field from the migration state
-+///   entirely.
-+///
-+/// - `#[migration_state(into(Type))]` - Converts the field using `.into()`
-+///   during both serialization and restoration.
-+///
-+/// - `#[migration_state(try_into(Type))]` - Converts the field using
-+///   `.try_into()` during both serialization and restoration. Returns
-+///   `InvalidError` on conversion failure.
-+///
-+/// - `#[migration_state(clone)]` - Clones the field value.
-+///
-+/// Fields without any attributes use `ToMigrationState` recursively; note that
-+/// this is a simple copy for types that implement `Copy`.
-+///
-+/// # Attribute compatibility
-+///
-+/// - `omit` cannot be used with any other attributes
-+/// - only one of `into(Type)`, `try_into(Type)` can be used, but they can be
-+///   coupled with `clone`.
-+///
-+/// # Examples
-+///
-+/// Basic usage:
-+/// ```ignore
-+/// #[derive(ToMigrationState)]
-+/// struct MyStruct {
-+///     field1: u32,
-+///     field2: Timer,
-+/// }
-+/// ```
-+///
-+/// With attributes:
-+/// ```ignore
-+/// #[derive(ToMigrationState)]
-+/// #[migration_state(rename = CustomMigration)]
-+/// struct MyStruct {
-+///     #[migration_state(omit)]
-+///     runtime_field: u32,
-+///
-+///     #[migration_state(clone)]
-+///     shared_data: String,
-+///
-+///     #[migration_state(into(Cow<'static, str>), clone)]
-+///     converted_field: String,
-+///
-+///     #[migration_state(try_into(i8))]
-+///     fallible_field: u32,
-+///
-+///     // Default: use ToMigrationState trait recursively
-+///     nested_field: NestedStruct,
-+///
-+///     // Primitive types have a default implementation of ToMigrationState
-+///     simple_field: u32,
-+/// }
-+/// ```
-+#[proc_macro_derive(ToMigrationState, attributes(migration_state))]
-+pub fn derive_to_migration_state(input: TokenStream) -> TokenStream {
-+    let input = parse_macro_input!(input as DeriveInput);
-+    MigrationStateDerive::expand(input)
-+        .unwrap_or_else(syn::Error::into_compile_error)
-+        .into()
-+}
-diff --git a/rust/qemu-macros/src/migration_state.rs b/rust/qemu-macros/src/migration_state.rs
-new file mode 100644
-index 00000000000..89feae1e767
---- /dev/null
-+++ b/rust/qemu-macros/src/migration_state.rs
-@@ -0,0 +1,296 @@
-+use std::borrow::Cow;
-+
-+use proc_macro2::TokenStream;
-+use quote::{format_ident, quote, ToTokens};
-+use syn::{spanned::Spanned, DeriveInput, Error, Field, Ident, Result, Type};
-+
-+use crate::get_fields;
-+
-+#[derive(Debug, Default)]
-+enum ConversionMode {
-+    #[default]
-+    None,
-+    Omit,
-+    Into(Type),
-+    TryInto(Type),
-+    ToMigrationState,
-+}
-+
-+impl ConversionMode {
-+    fn target_type(&self, original_type: &Type) -> TokenStream {
-+        match self {
-+            ConversionMode::Into(ty) | ConversionMode::TryInto(ty) => ty.to_token_stream(),
-+            ConversionMode::ToMigrationState => {
-+                quote! { <#original_type as ToMigrationState>::Migrated }
-+            }
-+            _ => original_type.to_token_stream(),
-+        }
-+    }
-+}
-+
-+#[derive(Debug, Default)]
-+struct ContainerAttrs {
-+    rename: Option<Ident>,
-+}
-+
-+impl ContainerAttrs {
-+    fn parse_from(&mut self, attrs: &[syn::Attribute]) -> Result<()> {
-+        use attrs::{set, with, Attrs};
-+        Attrs::new()
-+            .once("rename", with::eq(set::parse(&mut self.rename)))
-+            .parse_attrs("migration_state", attrs)?;
-+        Ok(())
-+    }
-+
-+    fn parse(attrs: &[syn::Attribute]) -> Result<Self> {
-+        let mut container_attrs = Self::default();
-+        container_attrs.parse_from(attrs)?;
-+        Ok(container_attrs)
-+    }
-+}
-+
-+#[derive(Debug, Default)]
-+struct FieldAttrs {
-+    conversion: ConversionMode,
-+    clone: bool,
-+}
-+
-+impl FieldAttrs {
-+    fn parse_from(&mut self, attrs: &[syn::Attribute]) -> Result<()> {
-+        let mut omit_flag = false;
-+        let mut into_type: Option<Type> = None;
-+        let mut try_into_type: Option<Type> = None;
-+
-+        use attrs::{set, with, Attrs};
-+        Attrs::new()
-+            .once("omit", set::flag(&mut omit_flag))
-+            .once("into", with::paren(set::parse(&mut into_type)))
-+            .once("try_into", with::paren(set::parse(&mut try_into_type)))
-+            .once("clone", set::flag(&mut self.clone))
-+            .parse_attrs("migration_state", attrs)?;
-+
-+        self.conversion = match (omit_flag, into_type, try_into_type, self.clone) {
-+            // Valid combinations of attributes first...
-+            (true, None, None, false) => ConversionMode::Omit,
-+            (false, Some(ty), None, _) => ConversionMode::Into(ty),
-+            (false, None, Some(ty), _) => ConversionMode::TryInto(ty),
-+            (false, None, None, true) => ConversionMode::None, // clone without conversion
-+            (false, None, None, false) => ConversionMode::ToMigrationState, // default behavior
-+
-+            // ... then the error cases
-+            (true, _, _, _) => {
-+                return Err(Error::new(
-+                    attrs[0].span(),
-+                    "ToMigrationState: omit cannot be used with other attributes",
-+                ));
-+            }
-+            (_, Some(_), Some(_), _) => {
-+                return Err(Error::new(
-+                    attrs[0].span(),
-+                    "ToMigrationState: into and try_into attributes cannot be used together",
-+                ));
-+            }
-+        };
-+
-+        Ok(())
-+    }
-+
-+    fn parse(attrs: &[syn::Attribute]) -> Result<Self> {
-+        let mut field_attrs = Self::default();
-+        field_attrs.parse_from(attrs)?;
-+        Ok(field_attrs)
-+    }
-+}
-+
-+#[derive(Debug)]
-+struct MigrationStateField {
-+    name: Ident,
-+    original_type: Type,
-+    attrs: FieldAttrs,
-+}
-+
-+impl MigrationStateField {
-+    fn maybe_clone(&self, mut value: TokenStream) -> TokenStream {
-+        if self.attrs.clone {
-+            value = quote! { #value.clone() };
-+        }
-+        value
-+    }
-+
-+    fn generate_migration_state_field(&self) -> TokenStream {
-+        let name = &self.name;
-+        let field_type = self.attrs.conversion.target_type(&self.original_type);
-+
-+        quote! {
-+            pub #name: #field_type,
-+        }
-+    }
-+
-+    fn generate_snapshot_field(&self) -> TokenStream {
-+        let name = &self.name;
-+        let value = self.maybe_clone(quote! { self.#name });
-+
-+        match &self.attrs.conversion {
-+            ConversionMode::Omit => {
-+                unreachable!("Omitted fields are filtered out during processing")
-+            }
-+            ConversionMode::None => quote! {
-+                target.#name = #value;
-+            },
-+            ConversionMode::Into(_) => quote! {
-+                target.#name = #value.into();
-+            },
-+            ConversionMode::TryInto(_) => quote! {
-+                target.#name = #value.try_into().map_err(|_| migration::InvalidError)?;
-+            },
-+            ConversionMode::ToMigrationState => quote! {
-+                self.#name.snapshot_migration_state(&mut target.#name)?;
-+            },
-+        }
-+    }
-+
-+    fn generate_restore_field(&self) -> TokenStream {
-+        let name = &self.name;
-+
-+        match &self.attrs.conversion {
-+            ConversionMode::Omit => {
-+                unreachable!("Omitted fields are filtered out during processing")
-+            }
-+            ConversionMode::None => quote! {
-+                self.#name = #name;
-+            },
-+            ConversionMode::Into(_) => quote! {
-+                self.#name = #name.into();
-+            },
-+            ConversionMode::TryInto(_) => quote! {
-+                self.#name = #name.try_into().map_err(|_| migration::InvalidError)?;
-+            },
-+            ConversionMode::ToMigrationState => quote! {
-+                self.#name.restore_migrated_state_mut(#name, version_id)?;
-+            },
-+        }
-+    }
-+}
-+
-+#[derive(Debug)]
-+pub struct MigrationStateDerive {
-+    input: DeriveInput,
-+    fields: Vec<MigrationStateField>,
-+    container_attrs: ContainerAttrs,
-+}
-+
-+impl MigrationStateDerive {
-+    fn parse(input: DeriveInput) -> Result<Self> {
-+        let container_attrs = ContainerAttrs::parse(&input.attrs)?;
-+        let fields = get_fields(&input, "ToMigrationState")?;
-+        let fields = Self::process_fields(fields)?;
-+
-+        Ok(Self {
-+            input,
-+            fields,
-+            container_attrs,
-+        })
-+    }
-+
-+    fn process_fields(
-+        fields: &syn::punctuated::Punctuated<Field, syn::token::Comma>,
-+    ) -> Result<Vec<MigrationStateField>> {
-+        let processed = fields
-+            .iter()
-+            .map(|field| {
-+                let attrs = FieldAttrs::parse(&field.attrs)?;
-+                Ok((field, attrs))
-+            })
-+            .collect::<Result<Vec<_>>>()?
-+            .into_iter()
-+            .filter(|(_, attrs)| !matches!(attrs.conversion, ConversionMode::Omit))
-+            .map(|(field, attrs)| MigrationStateField {
-+                name: field.ident.as_ref().unwrap().clone(),
-+                original_type: field.ty.clone(),
-+                attrs,
-+            })
-+            .collect();
-+
-+        Ok(processed)
-+    }
-+
-+    fn migration_state_name(&self) -> Cow<'_, Ident> {
-+        match &self.container_attrs.rename {
-+            Some(rename) => Cow::Borrowed(rename),
-+            None => Cow::Owned(format_ident!("{}Migration", &self.input.ident)),
-+        }
-+    }
-+
-+    fn generate_migration_state_struct(&self) -> TokenStream {
-+        let name = self.migration_state_name();
-+        let fields = self
-+            .fields
-+            .iter()
-+            .map(MigrationStateField::generate_migration_state_field);
-+
-+        quote! {
-+            #[derive(Default)]
-+            pub struct #name {
-+                #(#fields)*
-+            }
-+        }
-+    }
-+
-+    fn generate_snapshot_migration_state(&self) -> TokenStream {
-+        let fields = self
-+            .fields
-+            .iter()
-+            .map(MigrationStateField::generate_snapshot_field);
-+
-+        quote! {
-+            fn snapshot_migration_state(&self, target: &mut Self::Migrated) -> Result<(), migration::InvalidError> {
-+                #(#fields)*
-+                Ok(())
-+            }
-+        }
-+    }
-+
-+    fn generate_restore_migrated_state(&self) -> TokenStream {
-+        let names: Vec<_> = self.fields.iter().map(|f| &f.name).collect();
-+        let fields = self
-+            .fields
-+            .iter()
-+            .map(MigrationStateField::generate_restore_field);
-+
-+        quote! {
-+            fn restore_migrated_state_mut(&mut self, source: Self::Migrated, version_id: u8) -> Result<(), migration::InvalidError> {
-+                let Self::Migrated { #(#names),* } = source;
-+                #(#fields)*
-+                Ok(())
-+            }
-+        }
-+    }
-+
-+    fn generate(&self) -> TokenStream {
-+        let struct_name = &self.input.ident;
-+        let generics = &self.input.generics;
-+
-+        let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
-+        let name = self.migration_state_name();
-+        let migration_state_struct = self.generate_migration_state_struct();
-+        let snapshot_impl = self.generate_snapshot_migration_state();
-+        let restore_impl = self.generate_restore_migrated_state();
-+
-+        quote! {
-+            #migration_state_struct
-+
-+            impl #impl_generics ToMigrationState for #struct_name #ty_generics #where_clause {
-+                type Migrated = #name;
-+
-+                #snapshot_impl
-+
-+                #restore_impl
-+            }
-+        }
-+    }
-+
-+    pub fn expand(input: DeriveInput) -> Result<TokenStream> {
-+        let tokens = Self::parse(input)?.generate();
-+        Ok(tokens)
-+    }
-+}
-diff --git a/rust/qemu-macros/src/tests.rs b/rust/qemu-macros/src/tests.rs
-index 00a106612fc..1ce43aa568e 100644
---- a/rust/qemu-macros/src/tests.rs
-+++ b/rust/qemu-macros/src/tests.rs
-@@ -7,7 +7,7 @@
- use super::*;
- 
- macro_rules! derive_compile_fail {
--    ($derive_fn:ident, $input:expr, $($error_msg:expr),+ $(,)?) => {{
-+    ($derive_fn:path, $input:expr, $($error_msg:expr),+ $(,)?) => {{
-         let input: proc_macro2::TokenStream = $input;
-         let error_msg = &[$( quote! { ::core::compile_error! { $error_msg } } ),*];
-         let derive_fn: fn(input: syn::DeriveInput) -> Result<proc_macro2::TokenStream, syn::Error> =
-@@ -24,7 +24,7 @@ macro_rules! derive_compile_fail {
+diff --git a/rust/migration/src/vmstate.rs b/rust/migration/src/vmstate.rs
+index 05a833a8b7d..421a236194d 100644
+--- a/rust/migration/src/vmstate.rs
++++ b/rust/migration/src/vmstate.rs
+@@ -413,19 +413,30 @@ const fn phantom__<T>(_: &T) -> ::core::marker::PhantomData<T> {
+     }};
  }
  
- macro_rules! derive_compile {
--    ($derive_fn:ident, $input:expr, $($expected:tt)*) => {{
-+    ($derive_fn:path, $input:expr, $($expected:tt)*) => {{
-         let input: proc_macro2::TokenStream = $input;
-         let expected: proc_macro2::TokenStream = $($expected)*;
-         let derive_fn: fn(input: syn::DeriveInput) -> Result<proc_macro2::TokenStream, syn::Error> =
-@@ -244,3 +244,111 @@ fn try_from(value: u8) -> Result<Self, u8> {
-         }
-     );
- }
-+
-+#[test]
-+fn test_derive_to_migration_state() {
-+    derive_compile_fail!(
-+        MigrationStateDerive::expand,
-+        quote! {
-+            struct MyStruct {
-+                #[migration_state(omit, clone)]
-+                bad: u32,
++/// Add a terminator to the fields in the arguments, and return
++/// a reference to the resulting array of values.
++#[macro_export]
++macro_rules! vmstate_fields_ref {
++    ($($field:expr),*$(,)*) => {
++        &[
++            $($field),*,
++            $crate::bindings::VMStateField {
++                flags: $crate::bindings::VMStateFlags::VMS_END,
++                ..::common::zeroable::Zeroable::ZERO
 +            }
-+        },
-+        "ToMigrationState: omit cannot be used with other attributes"
-+    );
-+    derive_compile_fail!(
-+        MigrationStateDerive::expand,
-+        quote! {
-+            struct MyStruct {
-+                #[migration_state(into)]
-+                bad: u32,
-+            }
-+        },
-+        "unexpected end of input, expected parentheses"
-+    );
-+    derive_compile_fail!(
-+        MigrationStateDerive::expand,
-+        quote! {
-+            struct MyStruct {
-+                #[migration_state(into(String), try_into(String))]
-+                bad: &'static str,
-+            }
-+        },
-+        "ToMigrationState: into and try_into attributes cannot be used together"
-+    );
-+    derive_compile!(
-+        MigrationStateDerive::expand,
-+        quote! {
-+            #[migration_state(rename = CustomMigration)]
-+            struct MyStruct {
-+                #[migration_state(omit)]
-+                runtime_field: u32,
-+
-+                #[migration_state(clone)]
-+                shared_data: String,
-+
-+                #[migration_state(into(Cow<'static, str>), clone)]
-+                converted_field: String,
-+
-+                #[migration_state(try_into(i8))]
-+                fallible_field: u32,
-+
-+                nested_field: NestedStruct,
-+                simple_field: u32,
-+            }
-+        },
-+        quote! {
-+            #[derive(Default)]
-+            pub struct CustomMigration {
-+                pub shared_data: String,
-+                pub converted_field: Cow<'static, str>,
-+                pub fallible_field: i8,
-+                pub nested_field: <NestedStruct as ToMigrationState>::Migrated,
-+                pub simple_field: <u32 as ToMigrationState>::Migrated,
-+            }
-+            impl ToMigrationState for MyStruct {
-+                type Migrated = CustomMigration;
-+                fn snapshot_migration_state(
-+                    &self,
-+                    target: &mut Self::Migrated
-+                ) -> Result<(), migration::InvalidError> {
-+                    target.shared_data = self.shared_data.clone();
-+                    target.converted_field = self.converted_field.clone().into();
-+                    target.fallible_field = self
-+                        .fallible_field
-+                        .try_into()
-+                        .map_err(|_| migration::InvalidError)?;
-+                    self.nested_field
-+                        .snapshot_migration_state(&mut target.nested_field)?;
-+                    self.simple_field
-+                        .snapshot_migration_state(&mut target.simple_field)?;
-+                    Ok(())
-+                }
-+                fn restore_migrated_state_mut(
-+                    &mut self,
-+                    source: Self::Migrated,
-+                    version_id: u8
-+                ) -> Result<(), migration::InvalidError> {
-+                    let Self::Migrated {
-+                        shared_data,
-+                        converted_field,
-+                        fallible_field,
-+                        nested_field,
-+                        simple_field
-+                    } = source;
-+                    self.shared_data = shared_data;
-+                    self.converted_field = converted_field.into();
-+                    self.fallible_field = fallible_field
-+                        .try_into()
-+                        .map_err(|_| migration::InvalidError)?;
-+                    self.nested_field
-+                        .restore_migrated_state_mut(nested_field, version_id)?;
-+                    self.simple_field
-+                        .restore_migrated_state_mut(simple_field, version_id)?;
-+                    Ok(())
-+                }
-+            }
-+        }
-+    );
++        ]
++    }
 +}
++
+ /// Helper macro to declare a list of
+ /// ([`VMStateField`](`crate::bindings::VMStateField`)) into a static and return
+ /// a pointer to the array of values it created.
+ #[macro_export]
+ macro_rules! vmstate_fields {
+     ($($field:expr),*$(,)*) => {{
+-        static _FIELDS: &[$crate::bindings::VMStateField] = &[
++        static _FIELDS: &[$crate::bindings::VMStateField] = $crate::vmstate_fields_ref!(
+             $($field),*,
+-            $crate::bindings::VMStateField {
+-                flags: $crate::bindings::VMStateFlags::VMS_END,
+-                ..::common::zeroable::Zeroable::ZERO
+-            }
+-        ];
++        );
+         _FIELDS.as_ptr()
+     }}
+ }
 -- 
 2.51.0
 
