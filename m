@@ -4,99 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B476CAC5A5
-	for <qemu-rust@archiver.kernel.org>; Sat, 20 Sep 2025 14:31:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E7C2CAC5A5
+	for <qemu-rust@archiver.kernel.org>; Sat, 20 Sep 2025 15:44:41 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uzybL-0007G2-VT; Sat, 20 Sep 2025 10:30:11 -0400
+	id 1uzzku-000841-Kx; Sat, 20 Sep 2025 11:44:08 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uzybK-0007F1-Vx
- for qemu-rust@nongnu.org; Sat, 20 Sep 2025 10:30:11 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uzzkk-0007ya-PC; Sat, 20 Sep 2025 11:43:59 -0400
+Received: from mgamail.intel.com ([198.175.65.11])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1uzybJ-0005R1-17
- for qemu-rust@nongnu.org; Sat, 20 Sep 2025 10:30:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1758378608;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=hD5c5Jjgf0+adbTjKcRhlLqzouuGQG7/y7gKp/DqW8w=;
- b=TaZGdF1PDkChPUiAOFjUW0LjQ73lbm40PyyvF/nliw01fhyz+lPGYpax/rChG8wvGjtbi/
- VgHuP3aKet+L+DH98fXjkmAHwek8SMeDmesG8+MZPioYJM/WHADBcQ46QQZBIuzQkg/RGh
- m41alORcQ5cBsoMC/M3L38Jy5c/AaR0=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-577-1Cxq6_ueMsm9TPX73HgqDw-1; Sat, 20 Sep 2025 10:30:07 -0400
-X-MC-Unique: 1Cxq6_ueMsm9TPX73HgqDw-1
-X-Mimecast-MFC-AGG-ID: 1Cxq6_ueMsm9TPX73HgqDw_1758378606
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-3e40057d90aso1410010f8f.0
- for <qemu-rust@nongnu.org>; Sat, 20 Sep 2025 07:30:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758378606; x=1758983406;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hD5c5Jjgf0+adbTjKcRhlLqzouuGQG7/y7gKp/DqW8w=;
- b=H8ZH5ATr25i4HewFlMh7fAvWuRavV52ehW+gbTgT9cJquKTTVdRreQh6lXiVX9V8T3
- 0EDTEHlLB6MYtYOlkK7VaqItREXWhlZ3MbquhwhRLM0cZiLacc+Z654h4tvMeRhsVTgG
- WraUTKuVsMVQNl01a+ETcNKjv4kxifcnqYR5hMQLtbAf/yMFuzvy7SxhEtVNqOqeB6OX
- 0Ec0yenjnkUY17NKxf8HuYq/ZJxigBC8Nnd1um9kakjt3m68jEOxAtLvj1Zb4wf/io8g
- T1RF3hSwcvZ5jHOBpj17EX09xMTctGte9LCDwNu8zJRLNqXXGZIYRvdJPpP56x77riir
- 55Xw==
-X-Gm-Message-State: AOJu0YwMECia42+8mvAvWEFQN5QoxFCkGHTilt6OZv6SO3t9Vtpeu2XY
- SFwo4cqMPeqti+g3baIlopHpgGW4pHDvInjAVvx1NJfg2YIiWE8N6Zj87LsitM5Rxuy5BPaa6uj
- q562Uzx3G9jFFh6TAxD9OeAVaO6Rch2YYZc8oWZeSyGt2QMy3kc3fmYA=
-X-Gm-Gg: ASbGnctwAKtc/4bcupBwMvP8iVyXdiEKaG/HOYjbt0qyTZk2J7sI1V3LRWEgiRVOwAv
- XI5ZNGkH2FROrMQ4VpdpUeOoNX+0sFbF+1Kx7A7yRIxsJkmYRVnZtTh2f5uEsQfMKRnXcibKVDI
- 3aiaNWuAIzwOlZwuttBWnaNnwJvmqhf5wHKvqG29XRFmNHDJpEB8USQbIzaa7hLKQM4l7thr8aW
- TgO2xxVDzQn10prjZyJbcDbkR16/rYkfj0aYRqTfQzyfRLMl7OAClTWsBdT+zQ65agLesUf4uK0
- SB021PkCDUa3mXmGUXDwMFm8+sdRcPgEIuDFaZy2zAmo5TM46NUjEGkMMosiCyrVFO+ef0HrhkQ
- ouBYFtQbt7tlU5ZX9R5h4ESnSCvEXa9/QnzeNnNeGnnA=
-X-Received: by 2002:a05:6000:144f:b0:3ea:e0fd:290a with SMTP id
- ffacd0b85a97d-3ee7ca198bcmr5626466f8f.12.1758378605762; 
- Sat, 20 Sep 2025 07:30:05 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEY2uIvO2v6ndyjsXpxAwwKXgH8Vk5vjX+Z7eR7PXHaulZbV6aLztuwVb3IsPXrIt3KaIJ9CA==
-X-Received: by 2002:a05:6000:144f:b0:3ea:e0fd:290a with SMTP id
- ffacd0b85a97d-3ee7ca198bcmr5626454f8f.12.1758378605369; 
- Sat, 20 Sep 2025 07:30:05 -0700 (PDT)
-Received: from [192.168.10.48] ([151.95.47.123])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3ee0fbc7478sm12161228f8f.38.2025.09.20.07.30.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 Sep 2025 07:30:04 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org, zhao1.liu@intel.com, manos.pitsidianakis@linaro.org
-Subject: [PATCH 2/7] rust: move VMState from bql to migration
-Date: Sat, 20 Sep 2025 16:29:53 +0200
-Message-ID: <20250920142958.181910-3-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20250920142958.181910-1-pbonzini@redhat.com>
-References: <20250920142958.181910-1-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1uzzki-0001zY-RL; Sat, 20 Sep 2025 11:43:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1758383037; x=1789919037;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=A2RQC03kkpwdd2KD8mxBPSDYqTCska/UixEK4wWtb/s=;
+ b=izistnAyUgfSkmbj8M2QHtgXLvlSdtNLoshz80Mc8X+XKhXZuqJYnF3F
+ oGevOSswFp7YGHarQB0YiQNqqeLSZU2763yuY58AZ6oVluMYW/b4SyWTs
+ 02JWO3YFZpkIU7eAaU5wVyoXo+CJdTfz4weWA2hzMr/XQpz7ohlDd2LWk
+ 2rzWyJD9xa/H7Ra+uyjc88MphVKaK07nhloYyUe6r/2ejUFfKPPDEIxFa
+ NGAmCyUoIZ9Fv1MrOz38TOtBsuXJuWhl6PCu4RiVQqjIyb/IRFdv+txbP
+ cxkKR2wGjDOYb4Zern6vWJl8J/p3c5WFRds1DMCN1EPtpLLML5kIhTeBR Q==;
+X-CSE-ConnectionGUID: bLBfY3dLRxqwA30+WjnD/g==
+X-CSE-MsgGUID: v0b7tbkcT/mRQwC1mrZDZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11559"; a="70955549"
+X-IronPort-AV: E=Sophos;i="6.18,281,1751266800"; d="scan'208";a="70955549"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2025 08:43:52 -0700
+X-CSE-ConnectionGUID: /UonA2rHS5C+oHvDK/0ovQ==
+X-CSE-MsgGUID: 5Dg7hN2SRj2vHMqCt4uM3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,281,1751266800"; d="scan'208";a="181349474"
+Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
+ by fmviesa004.fm.intel.com with ESMTP; 20 Sep 2025 08:43:50 -0700
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
+Subject: [PATCH v2 08/12] rust/qdev: Support bit property in #property macro
+Date: Sun, 21 Sep 2025 00:05:16 +0800
+Message-Id: <20250920160520.3699591-9-zhao1.liu@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250920160520.3699591-1-zhao1.liu@intel.com>
+References: <20250920160520.3699591-1-zhao1.liu@intel.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: oC0NpKZ00IT9AU1A0vZF0tUtVs_pQtNOnlnx5V28ke8_1758378606
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.045,
+Received-SPF: pass client-ip=198.175.65.11; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.045,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
  T_FILL_THIS_FORM_SHORT=0.01 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -113,161 +80,175 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-The high-level wrapper Migratable<T> will contain a BqlCell,
-which would introduce a circular dependency betwen the bql and
-migration crates.  Move the implementation of VMState for cells
-to "migration", together with the implementation for std types.
+Add BIT_INFO to QDevProp trait, so that bit related property info could
+be bound to u32 & u64.
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Then add "bit=*" field in #property attributes macro to allow device to
+configure bit property.
+
+In addtion, convert the #property field parsing from `if-else` pattern
+to `match` pattern, to help readability. And note, the `bitnr` member of
+`Property` struct is generated by manual TokenStream construction,
+instead of conditional repetition (like #(bitnr: #bitnr,)?) since
+`quote` doesn't support this.
+
+In addtion, rename VALUE member of QDevProp trait to BASE_INFO.
+
+And update the test cases about qdev property.
+
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- rust/Cargo.lock               | 4 +---
- rust/bql/Cargo.toml           | 3 ---
- rust/bql/meson.build          | 1 -
- rust/bql/src/cell.rs          | 6 ------
- rust/meson.build              | 2 +-
- rust/migration/Cargo.toml     | 1 +
- rust/migration/meson.build    | 4 ++--
- rust/migration/src/vmstate.rs | 2 ++
- 8 files changed, 7 insertions(+), 16 deletions(-)
+Changes since v1:
+ * Use attrs to parse "lib" field in #property.
+ * Rename VALUE to BASE_INFO in this patch.
+ * Update test cases.
+---
+ rust/hw/core/src/qdev.rs      | 19 ++++++++++++-------
+ rust/qemu-macros/src/lib.rs   | 18 +++++++++++++++---
+ rust/qemu-macros/src/tests.rs |  8 +++++---
+ 3 files changed, 32 insertions(+), 13 deletions(-)
 
-diff --git a/rust/Cargo.lock b/rust/Cargo.lock
-index 2826c4d027b..960f603cedb 100644
---- a/rust/Cargo.lock
-+++ b/rust/Cargo.lock
-@@ -57,9 +57,6 @@ dependencies = [
- [[package]]
- name = "bql"
- version = "0.1.0"
--dependencies = [
-- "migration",
--]
- 
- [[package]]
- name = "chardev"
-@@ -141,6 +138,7 @@ checksum = "18d287de67fe55fd7e1581fe933d965a5a9477b38e949cfa9f8574ef01506398"
- name = "migration"
- version = "0.1.0"
- dependencies = [
-+ "bql",
-  "common",
-  "util",
- ]
-diff --git a/rust/bql/Cargo.toml b/rust/bql/Cargo.toml
-index 1041bd4ea93..d87edf4c302 100644
---- a/rust/bql/Cargo.toml
-+++ b/rust/bql/Cargo.toml
-@@ -12,9 +12,6 @@ license.workspace = true
- repository.workspace = true
- rust-version.workspace = true
- 
--[dependencies]
--migration = { path = "../migration" }
--
- [features]
- default = ["debug_cell"]
- debug_cell = []
-diff --git a/rust/bql/meson.build b/rust/bql/meson.build
-index 7214d944089..305d7111897 100644
---- a/rust/bql/meson.build
-+++ b/rust/bql/meson.build
-@@ -36,7 +36,6 @@ _bql_rs = static_library(
-   override_options: ['rust_std=2021', 'build.rust_std=2021'],
-   rust_abi: 'rust',
-   rust_args: _bql_cfg,
--  link_with: [_migration_rs],
- )
- 
- bql_rs = declare_dependency(link_with: [_bql_rs],
-diff --git a/rust/bql/src/cell.rs b/rust/bql/src/cell.rs
-index 8a0c8c14ad4..defa45a3294 100644
---- a/rust/bql/src/cell.rs
-+++ b/rust/bql/src/cell.rs
-@@ -151,8 +151,6 @@
-     ptr::NonNull,
- };
- 
--use migration::impl_vmstate_transparent;
--
- /// A mutable memory location that is protected by the Big QEMU Lock.
+diff --git a/rust/hw/core/src/qdev.rs b/rust/hw/core/src/qdev.rs
+index 14d6ecf2ca23..5cc8a35d1ab0 100644
+--- a/rust/hw/core/src/qdev.rs
++++ b/rust/hw/core/src/qdev.rs
+@@ -109,8 +109,8 @@ pub trait ResettablePhasesImpl {
  ///
- /// # Memory layout
-@@ -364,8 +362,6 @@ pub fn take(&self) -> T {
-     }
- }
- 
--impl_vmstate_transparent!(crate::cell::BqlCell<T> where T: VMState);
--
- /// A mutable memory location with dynamically checked borrow rules,
- /// protected by the Big QEMU Lock.
+ /// # Safety
  ///
-@@ -693,8 +689,6 @@ fn from(t: T) -> BqlRefCell<T> {
-     }
+-/// This trait is marked as `unsafe` because `VALUE` must be a valid raw
+-/// reference to a [`bindings::PropertyInfo`].
++/// This trait is marked as `unsafe` because `BASE_INFO` and `BIT_INFO` must be
++/// valid raw references to [`bindings::PropertyInfo`].
+ ///
+ /// Note we could not use a regular reference:
+ ///
+@@ -131,14 +131,19 @@ pub trait ResettablePhasesImpl {
+ /// It is the implementer's responsibility to provide a valid
+ /// [`bindings::PropertyInfo`] pointer for the trait implementation to be safe.
+ pub unsafe trait QDevProp {
+-    const VALUE: *const bindings::PropertyInfo;
++    const BASE_INFO: *const bindings::PropertyInfo;
++    const BIT_INFO: *const bindings::PropertyInfo = {
++        panic!("invalid type for bit property");
++    };
  }
  
--impl_vmstate_transparent!(crate::cell::BqlRefCell<T> where T: VMState);
--
- struct BorrowRef<'b> {
-     borrow: &'b Cell<BorrowFlag>,
- }
-diff --git a/rust/meson.build b/rust/meson.build
-index 0bb2a9630a1..f4fb7daf05a 100644
---- a/rust/meson.build
-+++ b/rust/meson.build
-@@ -29,8 +29,8 @@ subdir('qemu-macros')
- subdir('common')
- subdir('bits')
- subdir('util')
--subdir('migration')
- subdir('bql')
-+subdir('migration')
- subdir('qom')
- subdir('system')
- subdir('chardev')
-diff --git a/rust/migration/Cargo.toml b/rust/migration/Cargo.toml
-index 708bfaaa682..f4a86275152 100644
---- a/rust/migration/Cargo.toml
-+++ b/rust/migration/Cargo.toml
-@@ -13,6 +13,7 @@ repository.workspace = true
- rust-version.workspace = true
- 
- [dependencies]
-+bql = { path = "../bql" }
- common = { path = "../common" }
- util = { path = "../util" }
- 
-diff --git a/rust/migration/meson.build b/rust/migration/meson.build
-index 2a49bd1633e..2f38da9220f 100644
---- a/rust/migration/meson.build
-+++ b/rust/migration/meson.build
-@@ -36,12 +36,12 @@ _migration_rs = static_library(
-   ),
-   override_options: ['rust_std=2021', 'build.rust_std=2021'],
-   rust_abi: 'rust',
--  link_with: [_util_rs],
-+  link_with: [_util_rs, _bql_rs],
-   dependencies: [common_rs],
- )
- 
- migration_rs = declare_dependency(link_with: [_migration_rs],
--  dependencies: [migration, qemuutil])
-+  dependencies: [bql_rs, migration, qemuutil])
- 
- # Doctests are essentially integration tests, so they need the same dependencies.
- # Note that running them requires the object files for C code, so place them
-diff --git a/rust/migration/src/vmstate.rs b/rust/migration/src/vmstate.rs
-index e04b19b3c9f..05a833a8b7d 100644
---- a/rust/migration/src/vmstate.rs
-+++ b/rust/migration/src/vmstate.rs
-@@ -275,6 +275,8 @@ unsafe impl<$base> $crate::vmstate::VMState for $type where $base: $crate::vmsta
+ macro_rules! impl_qdev_prop {
+-    ($type:ty,$info:ident) => {
++    ($type:ty,$info:ident$(, $bit_info:ident)?) => {
+         unsafe impl $crate::qdev::QDevProp for $type {
+-            const VALUE: *const $crate::bindings::PropertyInfo =
++            const BASE_INFO: *const $crate::bindings::PropertyInfo =
+                 addr_of!($crate::bindings::$info);
++            $(const BIT_INFO: *const $crate::bindings::PropertyInfo =
++                addr_of!($crate::bindings::$bit_info);)?
+         }
      };
  }
+@@ -146,8 +151,8 @@ unsafe impl $crate::qdev::QDevProp for $type {
+ impl_qdev_prop!(bool, qdev_prop_bool);
+ impl_qdev_prop!(u8, qdev_prop_uint8);
+ impl_qdev_prop!(u16, qdev_prop_uint16);
+-impl_qdev_prop!(u32, qdev_prop_uint32);
+-impl_qdev_prop!(u64, qdev_prop_uint64);
++impl_qdev_prop!(u32, qdev_prop_uint32, qdev_prop_bit);
++impl_qdev_prop!(u64, qdev_prop_uint64, qdev_prop_bit64);
+ impl_qdev_prop!(usize, qdev_prop_usize);
+ impl_qdev_prop!(i32, qdev_prop_int32);
+ impl_qdev_prop!(i64, qdev_prop_int64);
+diff --git a/rust/qemu-macros/src/lib.rs b/rust/qemu-macros/src/lib.rs
+index ed2b997b24a4..c459f9bcb42f 100644
+--- a/rust/qemu-macros/src/lib.rs
++++ b/rust/qemu-macros/src/lib.rs
+@@ -183,6 +183,7 @@ fn parse(input: ParseStream<'_>) -> syn::Result<Self> {
+ #[derive(Default, Debug)]
+ struct DeviceProperty {
+     rename: Option<DevicePropertyName>,
++    bitnr: Option<syn::Expr>,
+     defval: Option<syn::Expr>,
+ }
  
-+impl_vmstate_transparent!(bql::BqlCell<T> where T: VMState);
-+impl_vmstate_transparent!(bql::BqlRefCell<T> where T: VMState);
- impl_vmstate_transparent!(std::cell::Cell<T> where T: VMState);
- impl_vmstate_transparent!(std::cell::UnsafeCell<T> where T: VMState);
- impl_vmstate_transparent!(std::pin::Pin<T> where T: VMState);
+@@ -191,6 +192,7 @@ fn parse_from(&mut self, a: &Attribute) -> syn::Result<()> {
+         use attrs::{set, with, Attrs};
+         let mut parser = Attrs::new();
+         parser.once("rename", with::eq(set::parse(&mut self.rename)));
++        parser.once("bit", with::eq(set::parse(&mut self.bitnr)));
+         parser.once("default", with::eq(set::parse(&mut self.defval)));
+         a.parse_args_with(&mut parser)
+     }
+@@ -226,7 +228,11 @@ fn derive_device_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream
+     let mut properties_expanded = vec![];
+ 
+     for (field, prop) in properties {
+-        let DeviceProperty { rename, defval } = prop;
++        let DeviceProperty {
++            rename,
++            bitnr,
++            defval,
++        } = prop;
+         let field_name = field.ident.unwrap();
+         macro_rules! str_to_c_str {
+             ($value:expr, $span:expr) => {{
+@@ -256,14 +262,20 @@ macro_rules! str_to_c_str {
+             },
+         )?;
+         let field_ty = field.ty.clone();
+-        let qdev_prop = quote! { <#field_ty as ::hwcore::QDevProp>::VALUE };
++        let qdev_prop = if bitnr.is_none() {
++            quote! { <#field_ty as ::hwcore::QDevProp>::BASE_INFO }
++        } else {
++            quote! { <#field_ty as ::hwcore::QDevProp>::BIT_INFO }
++        };
++        let bitnr = bitnr.unwrap_or(syn::Expr::Verbatim(quote! { 0 }));
+         let set_default = defval.is_some();
+         let defval = defval.unwrap_or(syn::Expr::Verbatim(quote! { 0 }));
+         properties_expanded.push(quote! {
+             ::hwcore::bindings::Property {
+                 name: ::std::ffi::CStr::as_ptr(#prop_name),
+-                info: #qdev_prop ,
++                info: #qdev_prop,
+                 offset: ::core::mem::offset_of!(#name, #field_name) as isize,
++                bitnr: #bitnr,
+                 set_default: #set_default,
+                 defval: ::hwcore::bindings::Property__bindgen_ty_1 { u: #defval as u64 },
+                 ..::common::Zeroable::ZERO
+diff --git a/rust/qemu-macros/src/tests.rs b/rust/qemu-macros/src/tests.rs
+index 1ce43aa568ec..c6b00c9783a8 100644
+--- a/rust/qemu-macros/src/tests.rs
++++ b/rust/qemu-macros/src/tests.rs
+@@ -60,7 +60,7 @@ struct DummyState {
+                 migrate_clock: bool,
+             }
+         },
+-        "Expected one of `default` or `rename`"
++        "Expected one of `bit`, `default` or `rename`"
+     );
+     // Check that repeated attributes are not allowed:
+     derive_compile_fail!(
+@@ -106,8 +106,9 @@ unsafe impl ::hwcore::DevicePropertiesImpl for DummyState {
+                 const PROPERTIES: &'static [::hwcore::bindings::Property] = &[
+                     ::hwcore::bindings::Property {
+                         name: ::std::ffi::CStr::as_ptr(c"migrate_clock"),
+-                        info: <bool as ::hwcore::QDevProp>::VALUE,
++                        info: <bool as ::hwcore::QDevProp>::BASE_INFO,
+                         offset: ::core::mem::offset_of!(DummyState, migrate_clock) as isize,
++                        bitnr: 0,
+                         set_default: true,
+                         defval: ::hwcore::bindings::Property__bindgen_ty_1 { u: true as u64 },
+                         ..::common::Zeroable::ZERO
+@@ -133,8 +134,9 @@ unsafe impl ::hwcore::DevicePropertiesImpl for DummyState {
+                 const PROPERTIES: &'static [::hwcore::bindings::Property] = &[
+                     ::hwcore::bindings::Property {
+                         name: ::std::ffi::CStr::as_ptr(c"migrate-clk"),
+-                        info: <bool as ::hwcore::QDevProp>::VALUE,
++                        info: <bool as ::hwcore::QDevProp>::BASE_INFO,
+                         offset: ::core::mem::offset_of!(DummyState, migrate_clock) as isize,
++                        bitnr: 0,
+                         set_default: true,
+                         defval: ::hwcore::bindings::Property__bindgen_ty_1 { u: true as u64 },
+                         ..::common::Zeroable::ZERO
 -- 
-2.51.0
+2.34.1
 
 
