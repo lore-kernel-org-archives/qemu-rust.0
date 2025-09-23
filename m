@@ -4,68 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E55BBCAC5A7
-	for <qemu-rust@archiver.kernel.org>; Tue, 23 Sep 2025 14:50:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B52C5CAC5A5
+	for <qemu-rust@archiver.kernel.org>; Tue, 23 Sep 2025 21:02:41 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v14Lw-0000JA-4m; Tue, 23 Sep 2025 10:50:48 -0400
+	id 1v1A9g-0003oe-6R; Tue, 23 Sep 2025 17:02:32 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1v14Lt-0000HB-Uh; Tue, 23 Sep 2025 10:50:45 -0400
-Received: from mgamail.intel.com ([192.198.163.12])
+ (Exim 4.90_1) (envelope-from <git@zabka.it>) id 1v1A9e-0003oS-Ty
+ for qemu-rust@nongnu.org; Tue, 23 Sep 2025 17:02:30 -0400
+Received: from out-178.mta1.migadu.com ([95.215.58.178])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1v14Lr-0005W1-U4; Tue, 23 Sep 2025 10:50:45 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758639044; x=1790175044;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=yTy9mhJ0v6U4wFlKJO78ZOgcatDYlofPdRUASbtEN10=;
- b=LbCwSfUtgezRICjCNsWLV8Xkm9fUTBC2zTLjRIkU2dUFQVWlOApHuZD/
- zzb4t5t2WOoBbhWqxBQAXdm9ucqlDopP/FA+gkhXWWkApViEyqxayYboL
- Qk3V0TsnjVauNff5V7pi+si6ApDdva6YzZK/XcuM3/kz/mFRpuPSd3q8m
- PzuyXt5InMwr4U04qwwDQ2w/iN0gEJwpDhmn+QBuVeDGjk2hvi/ao+0z6
- YAl1iY9XJmAm5kGWVfPCVSeoVRreT1wG0xfshP6zZSZOUDkva3BZl7qIo
- jkCO9cHd8OA4vLKaJzWcasx2C09QL9LL9b28zeBDsrurKdrp6mPmMdBYW w==;
-X-CSE-ConnectionGUID: BH58yB51Ry6mu36y6R0G/g==
-X-CSE-MsgGUID: 9TFkaWb1TvmF9wJ2BRpbPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11561"; a="64747654"
-X-IronPort-AV: E=Sophos;i="6.18,288,1751266800"; d="scan'208";a="64747654"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2025 07:50:38 -0700
-X-CSE-ConnectionGUID: AZTwWG4PSz+0ZclZ6nk3WQ==
-X-CSE-MsgGUID: 6s56t54rRMiQEN8DxMlVXQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,288,1751266800"; d="scan'208";a="200481996"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa002.fm.intel.com with ESMTP; 23 Sep 2025 07:50:36 -0700
-Date: Tue, 23 Sep 2025 23:12:33 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, manos.pitsidianakis@linaro.org
-Subject: Re: [PATCH 1/7] rust: bql: add BqlRefCell::get_mut()
-Message-ID: <aNK44f/1+VEiOUQs@intel.com>
-References: <20250920142958.181910-1-pbonzini@redhat.com>
- <20250920142958.181910-2-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <git@zabka.it>) id 1v1A9c-0005GY-5r
+ for qemu-rust@nongnu.org; Tue, 23 Sep 2025 17:02:30 -0400
+Message-ID: <83566cc2-476d-4cc1-b6ef-ef89b10daddd@zabka.it>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zabka.it; s=key1;
+ t=1758661344;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=dOdFgwWxa58s/IjGej6iJxKRmyywqaee1wpdNeZrhK0=;
+ b=M3K8k10NV68tFXclwPrnAoOlbjWrhjN0eIvPB733B+eWUgNMYkY6aJ3yvKkkDaLegaBzit
+ pfqP++zywuPzrAmkkhJHcBJaUANfDAmYPpyipBPezPVwgm2ov9krbZvcgbw8BF4tn5YWp9
+ 0yWe05mYTAc9//sy2UYxPxtIjAYF7Qs=
+Date: Tue, 23 Sep 2025 23:02:17 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250920142958.181910-2-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.12; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -47
-X-Spam_score: -4.8
-X-Spam_bar: ----
-X-Spam_report: (-4.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.442,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Subject: Re: [PATCH v2 06/12] rust/qdev: Refine the documentation for QDevProp
+ trait
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+References: <20250920160520.3699591-1-zhao1.liu@intel.com>
+ <20250920160520.3699591-7-zhao1.liu@intel.com>
+Content-Language: de-DE, en-GB
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Stefan Zabka <git@zabka.it>
+In-Reply-To: <20250920160520.3699591-7-zhao1.liu@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
+Received-SPF: pass client-ip=95.215.58.178; envelope-from=git@zabka.it;
+ helo=out-178.mta1.migadu.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -81,50 +69,14 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Sat, Sep 20, 2025 at 04:29:52PM +0200, Paolo Bonzini wrote:
-> Date: Sat, 20 Sep 2025 16:29:52 +0200
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 1/7] rust: bql: add BqlRefCell::get_mut()
-> X-Mailer: git-send-email 2.51.0
-> 
-> This method is rarely useful in QEMU due to the pervasiveness of
-> shared references, but add it for when a &mut BqlRefCell<> is used.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/bql/src/cell.rs | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
-> 
-> diff --git a/rust/bql/src/cell.rs b/rust/bql/src/cell.rs
-> index 24ab294b60d..8a0c8c14ad4 100644
-> --- a/rust/bql/src/cell.rs
-> +++ b/rust/bql/src/cell.rs
-> @@ -580,6 +580,25 @@ pub fn borrow_mut(&self) -> BqlRefMut<'_, T> {
->          }
->      }
->  
-> +    /// Returns a mutable reference to the underlying data in this cell,
-> +    /// while the owner already has a mutable reference to the cell.
-> +    ///
-> +    /// # Examples
-> +    ///
-> +    /// ```
-> +    /// use bql::BqlRefCell;
-> +    ///
-> +    /// let mut c = BqlRefCell::new(5);
-> +    ///
-> +    /// *c.get_mut() = 10;
-> +    /// ```
-> +    #[inline]
-> +    pub const fn get_mut(&mut self) -> &mut T {
-> +        // SAFETY: there cannot be any outstanding borrow,
-> +        // since `self` is mutably owned.
-> +        unsafe { &mut *self.as_ptr() }
+At the risk of being terribly annoying:
 
-Why not use UnsafeCell::get_mut?
+On 20/09/2025 18:05, Zhao Liu wrote:> From: Manos Pitsidianakis 
+<manos.pitsidianakis@linaro.org>
+> 
+> Refine the documentation to clarify:
+>   * `unsfae` requires that `VALUE` must be valid.
 
-self.value.get_mut()
-
-Regards,
-Zhao
+I'm assuming this is a typo. If so, is it important enough to be fixed 
+or is it fine, since it's "only" the commit message?
 
