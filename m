@@ -4,67 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D10FCAC5A5
-	for <qemu-rust@archiver.kernel.org>; Sat, 20 Sep 2025 15:45:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D73ECCAC5A7
+	for <qemu-rust@archiver.kernel.org>; Tue, 23 Sep 2025 07:52:29 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1uzzks-00082h-Gn; Sat, 20 Sep 2025 11:44:06 -0400
+	id 1v0xoa-0001bD-0W; Tue, 23 Sep 2025 03:51:56 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uzzkh-0007vd-2d; Sat, 20 Sep 2025 11:43:55 -0400
-Received: from mgamail.intel.com ([198.175.65.11])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1v0xoV-0001ag-U6
+ for qemu-rust@nongnu.org; Tue, 23 Sep 2025 03:51:51 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1uzzkd-0001zY-2m; Sat, 20 Sep 2025 11:43:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758383032; x=1789919032;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=pFp62miZ41RQpRrF2bJMVDi/xIKfTioqkf1d5QID2Po=;
- b=HW7wDw8RaxMiz4bzlhxgu+uWxq61jmlz2H4HONwWMBgq6DU5BjSzJGFA
- PdU0/2g/klxfxS7mWPaxol0y87dHhFgqcMgnM0K9PTO2GHwGWP6cXuwdN
- hxfrAn2p9L92aUlncvQUNI9G2UY4mM1V3AafnP1Cpw/1kfPIfeUfLGIlX
- kmJk52PBuhUIfoSIgMUcZRDfzGRNQZB/W+RDUMukiUgZgkAsnwAYYrCGq
- gGIozcjl2miXyj3MCaEa3KzIyZAm/uy54fd/dUUKtKtfc2AEqqfI2s4eI
- iz/hVMJ7zu8BQR70Az9onR8PE6Bgejc/BxvBnQm9hPeZZZnQu/YgJGSVi w==;
-X-CSE-ConnectionGUID: hQrvM99RRVea5vGY8CzxcA==
-X-CSE-MsgGUID: 4IIb0a1JTBW0XuMaLstSaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11559"; a="70955528"
-X-IronPort-AV: E=Sophos;i="6.18,281,1751266800"; d="scan'208";a="70955528"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2025 08:43:47 -0700
-X-CSE-ConnectionGUID: eBOXPHaETA6IqvSxTIl9Rw==
-X-CSE-MsgGUID: QmAk+qAqSnC0rTxNCMIh4Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,281,1751266800"; d="scan'208";a="181349455"
-Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa004.fm.intel.com with ESMTP; 20 Sep 2025 08:43:46 -0700
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH v2 05/12] rust/qdev: use addr_of! in QDevProp
-Date: Sun, 21 Sep 2025 00:05:13 +0800
-Message-Id: <20250920160520.3699591-6-zhao1.liu@intel.com>
-X-Mailer: git-send-email 2.34.1
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1v0xoP-00058G-58
+ for qemu-rust@nongnu.org; Tue, 23 Sep 2025 03:51:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1758613901;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+ b=X2gDWrWbkkLCuXVBWE/6Sqmloy9JuTRCBt5O8r85ruqbQQheVJ1L48oqD5+A1o3eUutthI
+ 86vxwmrAS//5moiL8gsnWrR71+0O0mldCf9Jl6a3t+nWpTaw3ZB0TyOd9nVtVoyc22jqRm
+ wvPRKaGIhSmMfEVHHMzr+G/WOSU84So=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-310-0w0AX3uaMkCZtMxf00Vrhw-1; Tue, 23 Sep 2025 03:51:39 -0400
+X-MC-Unique: 0w0AX3uaMkCZtMxf00Vrhw-1
+X-Mimecast-MFC-AGG-ID: 0w0AX3uaMkCZtMxf00Vrhw_1758613898
+Received: by mail-ej1-f70.google.com with SMTP id
+ a640c23a62f3a-b2d1072a9c4so135520366b.3
+ for <qemu-rust@nongnu.org>; Tue, 23 Sep 2025 00:51:39 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758613898; x=1759218698;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+ b=JSqB416nTG/NepJ+WRITqqL9AlAv3GhYtpWPymag9M5ZwJManBzzXboObXWeADkYxA
+ yeUM7gXFSIRARCz/PkDUaslGvMELGns8i3+S70nq/cLRbLvOXkUzlky4bQUmIRTduNLe
+ 939PiZiauBxoCj3IKCabEwbrLmtNOuiSwnMBtNTPtcgwebZljckBY2PmJqZJmIyttQPi
+ oKnqB0OlPi9q8/L4ahNzK22y6DJ8ECsH8EIjydjsUS/uCtPCBwfEd/wXQCN8mOjDvtgY
+ nDxjs6hEQD4XFZLTZb4293TSPK8Za3j68B1CoXfO6iBtfVDnm7kr3/zvIpdZKVm0SqB+
+ h6gQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU/1jFSQacWHQU94thyC72AVc5YtrOaxjVdK7uH5glT/Ztqex+kaX8JbMyJ4YAfeq9Sdqu8t70t42o=@nongnu.org
+X-Gm-Message-State: AOJu0YzhsG8p0Saoo4lFzvYC8ExY8gWODlwvbMbNV4Y6OV3tffSxl3Xr
+ rZsc0W+GlE7p+WS2AnN/YMmKJgWQ6Np/Rz0RdyFDDfYIQlbCQOLJu+d/YJ/ZvS7iFunGpDX5duJ
+ x/WcSne5Vx+nrhd1570Bw3EdHvtj3udFmQPbQCJRrX0u8f+Wk2nojEYA=
+X-Gm-Gg: ASbGnct1XfBqJ2E2EFlPPAxPWgi8iVsLrMOO70iUfLnLo774sVKje3TXn4JBgY28bMR
+ B48JnhWsVpp7azZNUrgBPe3dBOsly2nnC291Jui0qlO1Qist601M3Z48QK9KIXdYtA6Px7aSsHw
+ Kp3htQsdIB3JAeaSsyZbMLykAQ+Hyizco3IyFED6oF7P+WgkXSJmIS4LgWKslyDZGsLPdILDyPi
+ vKIVHptmCPuH2PpXXAEIMXJRBAgLcYbFA9hOdD5xhgnX3kTZEGgT01g4G3bq7mMhovoIIJs4aDR
+ ma1MMjLPjh8mXQF2N5VHsH2StYq4OPfSC0I46etqawSR34jAm+gGc6ck1lhFt0IEUYtmvU1Qs6o
+ L6vILSRUOJB+r6yqsz+65R47Vz6YHCmLHJ3Vo31D2xk5+Sw==
+X-Received: by 2002:a17:907:d91:b0:b2e:13a:8d75 with SMTP id
+ a640c23a62f3a-b302ab33ab4mr135598866b.32.1758613898282; 
+ Tue, 23 Sep 2025 00:51:38 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH2PeKe2akn0K57bYEKnScjXMFiKE7N/XpVy5p726qyaC4MRFbv2NlHDs52lzZIvOOiT94VdA==
+X-Received: by 2002:a17:907:d91:b0:b2e:13a:8d75 with SMTP id
+ a640c23a62f3a-b302ab33ab4mr135596466b.32.1758613897828; 
+ Tue, 23 Sep 2025 00:51:37 -0700 (PDT)
+Received: from [192.168.10.48] ([176.206.127.188])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b290caba5a6sm692046966b.65.2025.09.23.00.51.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Sep 2025 00:51:37 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH v2 00/12] rust: miscellaneous cleanup & HPET #property
+ conversion
+Date: Tue, 23 Sep 2025 09:51:32 +0200
+Message-ID: <20250923075132.90995-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250920160520.3699591-1-zhao1.liu@intel.com>
-References: <20250920160520.3699591-1-zhao1.liu@intel.com>
+References: 
 MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Ge6NlF_NVSvBr3aT9qoGNHy7ATHYAkwk5jl4nIx1cT8_1758613898
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=198.175.65.11; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.045,
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -24
+X-Spam_score: -2.5
+X-Spam_bar: --
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.442,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001,
+ T_SPF_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -80,52 +117,8 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Queued, thanks.
 
-We want a &raw pointer, so unsafe { &_ } is not needed.
-
-Suggested-by: Zhao Liu <zhao1.liu@intel.com>
-Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
----
- rust/hw/core/src/qdev.rs | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/rust/hw/core/src/qdev.rs b/rust/hw/core/src/qdev.rs
-index e384cad4d26b..d8113238e513 100644
---- a/rust/hw/core/src/qdev.rs
-+++ b/rust/hw/core/src/qdev.rs
-@@ -6,7 +6,7 @@
- 
- use std::{
-     ffi::{c_int, c_void, CStr, CString},
--    ptr::NonNull,
-+    ptr::{addr_of, NonNull},
- };
- 
- use chardev::Chardev;
-@@ -129,17 +129,17 @@ pub unsafe trait QDevProp {
- 
- /// Use [`bindings::qdev_prop_bool`] for `bool`.
- unsafe impl QDevProp for bool {
--    const VALUE: *const bindings::PropertyInfo = unsafe { &bindings::qdev_prop_bool };
-+    const VALUE: *const bindings::PropertyInfo = addr_of!(bindings::qdev_prop_bool);
- }
- 
- /// Use [`bindings::qdev_prop_uint64`] for `u64`.
- unsafe impl QDevProp for u64 {
--    const VALUE: *const bindings::PropertyInfo = unsafe { &bindings::qdev_prop_uint64 };
-+    const VALUE: *const bindings::PropertyInfo = addr_of!(bindings::qdev_prop_uint64);
- }
- 
- /// Use [`bindings::qdev_prop_chr`] for [`chardev::CharBackend`].
- unsafe impl QDevProp for chardev::CharBackend {
--    const VALUE: *const bindings::PropertyInfo = unsafe { &bindings::qdev_prop_chr };
-+    const VALUE: *const bindings::PropertyInfo = addr_of!(bindings::qdev_prop_chr);
- }
- 
- /// Trait to define device properties.
--- 
-2.34.1
+Paolo
 
 
