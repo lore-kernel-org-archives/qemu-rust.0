@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9122CAC5A5
-	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:07:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 416A5CAC5B0
+	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:07:32 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v1OFb-0000xS-Dj; Wed, 24 Sep 2025 08:05:36 -0400
+	id 1v1OGb-0001NJ-O6; Wed, 24 Sep 2025 08:06:39 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v1OFX-0000wk-UM
- for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:05:32 -0400
+ id 1v1OG9-00019m-28
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:06:11 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v1OFP-0005ys-1C
- for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:05:31 -0400
+ id 1v1OG0-00063z-FR
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:06:05 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1758715516;
+ s=mimecast20190719; t=1758715553;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=qiUxbehf/Kb4+6E+H4lgZaMJv9lZE8sTm0XcJ0f7HgY=;
- b=Cy2HxlnDLr4SHIzIPwyy+9JjicOVG3ifs4qv3PsJhQrxy4SxMrkHC/hfZzB87HLYqZzzdA
- z+u4+GEFFzn/NULytLJbckjj6XxcD2awlAmQ2FA24jqwHOuAG/etR7+ZndskcvxHaGmJ/t
- u1Vh8lSqATRUgwOpGyWGELkV2KWekXE=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=k5wnpcbM9ODLX1XXCTacgV8xSeuvJM1MT6McmH4y+S8=;
+ b=UmdDZza73P1hw2pppH8yTZcWgQ9SHA/noNou1eyepAawQkNYXLTw3EtSULiETRG45oFFVv
+ cAa93Qfv/xmZnpfTn6ZAb1ynsoK458I6WQqGM+04U9vhx+EXZetgXOXDqTMfcbXuXcY1z+
+ jfssKcqKdRIh8E0eXo6jGi0IeRNtS0w=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-296-sJkt2jWaMge2BkiE6yt75g-1; Wed,
- 24 Sep 2025 08:05:13 -0400
-X-MC-Unique: sJkt2jWaMge2BkiE6yt75g-1
-X-Mimecast-MFC-AGG-ID: sJkt2jWaMge2BkiE6yt75g_1758715511
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-302-6oAL3knxOaqC7E74OLgYRw-1; Wed,
+ 24 Sep 2025 08:05:47 -0400
+X-MC-Unique: 6oAL3knxOaqC7E74OLgYRw-1
+X-Mimecast-MFC-AGG-ID: 6oAL3knxOaqC7E74OLgYRw_1758715545
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 83BB81800295; Wed, 24 Sep 2025 12:05:11 +0000 (UTC)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 9C66D1956059; Wed, 24 Sep 2025 12:05:45 +0000 (UTC)
 Received: from localhost (unknown [10.44.22.38])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 050FF1800578; Wed, 24 Sep 2025 12:05:09 +0000 (UTC)
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 6C4F219560B1; Wed, 24 Sep 2025 12:05:43 +0000 (UTC)
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>, Kyle Evans <kevans@freebsd.org>,
@@ -61,15 +61,16 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>, Kyle Evans <kevans@freebsd.org>,
  devel@lists.libvirt.org, qemu-rust@nongnu.org,
  =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  Kohei Tokunaga <ktokunaga.mail@gmail.com>
-Subject: [PATCH v2 05/27] scripts/archive-source: use a bash array
-Date: Wed, 24 Sep 2025 16:04:02 +0400
-Message-ID: <20250924120426.2158655-6-marcandre.lureau@redhat.com>
+Subject: [PATCH v2 10/27] tests/docker/common: print meson log on configure
+ failure
+Date: Wed, 24 Sep 2025 16:04:07 +0400
+Message-ID: <20250924120426.2158655-11-marcandre.lureau@redhat.com>
 In-Reply-To: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
 References: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 Received-SPF: pass client-ip=170.10.133.124;
  envelope-from=marcandre.lureau@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
@@ -80,7 +81,7 @@ X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.444,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, T_SPF_TEMPERROR=0.01 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,60 +100,24 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- scripts/archive-source.sh | 30 ++++++++++++++++++++++--------
- 1 file changed, 22 insertions(+), 8 deletions(-)
+ tests/docker/common.rc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/scripts/archive-source.sh b/scripts/archive-source.sh
-index 68eb9672de..f55130ec34 100755
---- a/scripts/archive-source.sh
-+++ b/scripts/archive-source.sh
-@@ -26,12 +26,26 @@ sub_file="${sub_tdir}/submodule.tar"
- # independent of what the developer currently has initialized
- # in their checkout, because the build environment is completely
- # different to the host OS.
--subprojects="keycodemapdb libvfio-user berkeley-softfloat-3
--  berkeley-testfloat-3 anyhow-1-rs arbitrary-int-1-rs bilge-0.2-rs
--  bilge-impl-0.2-rs either-1-rs foreign-0.3-rs itertools-0.11-rs
--  libc-0.2-rs proc-macro2-1-rs
--  proc-macro-error-1-rs proc-macro-error-attr-1-rs quote-1-rs
--  syn-2-rs unicode-ident-1-rs"
-+subprojects=(
-+  anyhow-1-rs
-+  arbitrary-int-1-rs
-+  berkeley-softfloat-3
-+  berkeley-testfloat-3
-+  bilge-0.2-rs
-+  bilge-impl-0.2-rs
-+  either-1-rs
-+  foreign-0.3-rs
-+  itertools-0.11-rs
-+  keycodemapdb
-+  libc-0.2-rs
-+  libvfio-user
-+  proc-macro-error-1-rs
-+  proc-macro-error-attr-1-rs
-+  proc-macro2-1-rs
-+  quote-1-rs
-+  syn-2-rs
-+  unicode-ident-1-rs
-+)
- sub_deinit=""
+diff --git a/tests/docker/common.rc b/tests/docker/common.rc
+index 2ed2365a61..d202c0c666 100755
+--- a/tests/docker/common.rc
++++ b/tests/docker/common.rc
+@@ -50,7 +50,7 @@ configure_qemu()
+     echo "Configure options:"
+     echo $config_opts
+     $QEMU_SRC/configure $config_opts || \
+-        { cat config.log >&2 && test_fail "Failed to run 'configure'"; }
++        { cat config.log >&2 ; cat meson-logs/meson-log.txt >&2 ; test_fail "Failed to run 'configure'"; }
+ }
  
- function cleanup() {
-@@ -77,10 +91,10 @@ function subproject_dir() {
- git archive --format tar "$(tree_ish)" > "$tar_file"
- test $? -ne 0 && error "failed to archive qemu"
- 
--meson subprojects download $subprojects >/dev/null
-+meson subprojects download ${subprojects[@]} >/dev/null
- test $? -ne 0 && error "failed to download subprojects $subprojects"
- 
--for sp in $subprojects; do
-+for sp in "${subprojects[@]}"; do
-     tar --append --file "$tar_file" --exclude=.git subprojects/"$(subproject_dir $sp)"
-     test $? -ne 0 && error "failed to append subproject $sp to $tar_file"
- done
+ build_qemu()
 -- 
 2.51.0
 
