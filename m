@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78C9DCAC5B0
-	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:10:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7942BCAC5B0
+	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:11:09 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v1OIb-0004Yv-8p; Wed, 24 Sep 2025 08:08:52 -0400
+	id 1v1OIw-0004uk-6e; Wed, 24 Sep 2025 08:09:02 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v1OHF-00023U-Tu
- for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:07:24 -0400
+ id 1v1OHk-0002s6-27
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:07:56 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v1OH8-0006Dr-Db
- for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:07:16 -0400
+ id 1v1OHX-0006JD-T7
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:07:45 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1758715625;
+ s=mimecast20190719; t=1758715652;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=gKXLERfSjh4Y5FUpkbNvYpX8f4W5fYjmQ5uSXku9KAQ=;
- b=B4BFMSwWKZKna0BKM0yv5dxDWQ9VMgDqigpWz9IQmuTxx5Bif0oqlTGNeIccAwujjejC6Y
- CkGnBBkp7BvhdM5VSpPcgNTUBrsAiuNmHODeg5aAz/k5Ted0Q6Le0X3Xz0ojT8gNhGkAje
- CjlO/wHW/tbxiXyWPnPF5NhwdiRfbH8=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=NtgbSAwue8JTbYQxtc4bAVA0bopO7DE9J9ca5Np8TqI=;
+ b=FOOMQNdLFnADzoFzsdE9r05JA6sfiooocmZhv5sOAZxU15rJW3La8tk4LtCDfZXCELsBQ2
+ jI5ouvpYVIHJDP563WvamB9Inys0JFESUhY9/cQO0iovg6JEGnntTXPhbNMs5Uh81kZe8F
+ wEVVPQDvuE8ZGGbku9IrQ/qHMVpFdqk=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-205-98o4ATU6M5aoUfiTt1ulmw-1; Wed,
- 24 Sep 2025 08:07:01 -0400
-X-MC-Unique: 98o4ATU6M5aoUfiTt1ulmw-1
-X-Mimecast-MFC-AGG-ID: 98o4ATU6M5aoUfiTt1ulmw_1758715620
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-435-7jhqfyV-N8WMyVwnI1XbrA-1; Wed,
+ 24 Sep 2025 08:07:29 -0400
+X-MC-Unique: 7jhqfyV-N8WMyVwnI1XbrA-1
+X-Mimecast-MFC-AGG-ID: 7jhqfyV-N8WMyVwnI1XbrA_1758715647
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 0ACC71956053; Wed, 24 Sep 2025 12:07:00 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id B34531800370; Wed, 24 Sep 2025 12:07:27 +0000 (UTC)
 Received: from localhost (unknown [10.44.22.38])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 376E01800452; Wed, 24 Sep 2025 12:06:57 +0000 (UTC)
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 06DB9300018D; Wed, 24 Sep 2025 12:07:25 +0000 (UTC)
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>, Kyle Evans <kevans@freebsd.org>,
@@ -61,15 +61,15 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>, Kyle Evans <kevans@freebsd.org>,
  devel@lists.libvirt.org, qemu-rust@nongnu.org,
  =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  Kohei Tokunaga <ktokunaga.mail@gmail.com>
-Subject: [PATCH v2 20/27] tests/freebsd: enable Rust
-Date: Wed, 24 Sep 2025 16:04:17 +0400
-Message-ID: <20250924120426.2158655-21-marcandre.lureau@redhat.com>
+Subject: [PATCH v2 24/27] WIP: cirrus/macos: enable Rust
+Date: Wed, 24 Sep 2025 16:04:21 +0400
+Message-ID: <20250924120426.2158655-25-marcandre.lureau@redhat.com>
 In-Reply-To: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
 References: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 Received-SPF: pass client-ip=170.10.129.124;
  envelope-from=marcandre.lureau@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
@@ -80,7 +80,7 @@ X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.444,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -98,41 +98,33 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
+Currently fails with a linking issue:
+  = note: some arguments are omitted. use `--verbose` to show all linker arguments
+  = note: ld: warning: ignoring duplicate libraries: '-lSystem', '-lc', '-llibgio-2.0.dylib', '-llibglib-2.0.dylib', '-llibgmodule-2.0.dylib', '-llibgnutls.dylib', '-llibgobject-2.0.dylib', '-llibintl.dylib', '-llibqemuutil.a', '-lm', 'libqemuutil.a'
+          ld: library 'libqemuutil.a' not found
+          clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+error: aborting due to 1 previous error
+
+Fixed in upcoming meson:
+https://github.com/mesonbuild/meson/pull/15024
+
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
  .gitlab-ci.d/cirrus.yml | 2 +-
- tests/vm/freebsd        | 4 +++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/.gitlab-ci.d/cirrus.yml b/.gitlab-ci.d/cirrus.yml
-index 75b611418e..13a0bf5bb9 100644
+index 13a0bf5bb9..17d52e8db3 100644
 --- a/.gitlab-ci.d/cirrus.yml
 +++ b/.gitlab-ci.d/cirrus.yml
-@@ -42,7 +42,7 @@ x64-freebsd-14-build:
-     CIRRUS_VM_RAM: 8G
-     UPDATE_COMMAND: pkg update; pkg upgrade -y
-     INSTALL_COMMAND: pkg install -y
--    CONFIGURE_ARGS: --target-list-exclude=arm-softmmu,i386-softmmu,microblaze-softmmu,mips64el-softmmu,mipsel-softmmu,mips-softmmu,ppc-softmmu,sh4eb-softmmu,xtensa-softmmu
-+    CONFIGURE_ARGS: --target-list-exclude=arm-softmmu,i386-softmmu,microblaze-softmmu,mips64el-softmmu,mipsel-softmmu,mips-softmmu,ppc-softmmu,sh4eb-softmmu,xtensa-softmmu --enable-rust
-     TEST_TARGETS: check
- 
- aarch64-macos-build:
-diff --git a/tests/vm/freebsd b/tests/vm/freebsd
-index 2e96c9eba5..ea09b21fbc 100755
---- a/tests/vm/freebsd
-+++ b/tests/vm/freebsd
-@@ -40,7 +40,9 @@ class FreeBSDVM(basevm.BaseVM):
-         tar -xf /dev/vtbd1;
-         cd ../build;
-         ../src/configure --extra-ldflags=-L/usr/local/lib \
--                         --extra-cflags=-I/usr/local/include {configure_opts};
-+                         --extra-cflags=-I/usr/local/include \
-+                         --enable-rust \
-+                         {configure_opts};
-         gmake --output-sync -j{jobs} {target} {verbose};
-     """
- 
+@@ -56,5 +56,5 @@ aarch64-macos-build:
+     INSTALL_COMMAND: brew install
+     PATH_EXTRA: /opt/homebrew/ccache/libexec:/opt/homebrew/gettext/bin
+     PKG_CONFIG_PATH: /opt/homebrew/curl/lib/pkgconfig:/opt/homebrew/ncurses/lib/pkgconfig:/opt/homebrew/readline/lib/pkgconfig
+-    CONFIGURE_ARGS: --target-list-exclude=arm-softmmu,i386-softmmu,microblazeel-softmmu,mips64-softmmu,mipsel-softmmu,mips-softmmu,ppc-softmmu,sh4-softmmu,xtensaeb-softmmu
++    CONFIGURE_ARGS: --target-list-exclude=arm-softmmu,i386-softmmu,microblazeel-softmmu,mips64-softmmu,mipsel-softmmu,mips-softmmu,ppc-softmmu,sh4-softmmu,xtensaeb-softmmu --enable-rust
+     TEST_TARGETS: check-unit check-block check-qapi-schema check-softfloat check-qtest-x86_64
 -- 
 2.51.0
 
