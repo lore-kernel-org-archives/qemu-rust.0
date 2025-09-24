@@ -4,96 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E391CAC5B0
-	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:25:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 839DACAC5A5
+	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 13:36:04 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v1OYk-0001vq-5z; Wed, 24 Sep 2025 08:25:22 -0400
+	id 1v1Pey-0006Ca-H9; Wed, 24 Sep 2025 09:35:54 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1v1OYS-0001mA-IM
- for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:25:16 -0400
-Received: from mail-wr1-x42b.google.com ([2a00:1450:4864:20::42b])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1v1OYM-0000j3-MY
- for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:25:04 -0400
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3ee15505cdeso680154f8f.0
- for <qemu-rust@nongnu.org>; Wed, 24 Sep 2025 05:24:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1758716693; x=1759321493; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=iNSO2LqqC7261WxFTjQQ87pA9qXbLg8WM16oO+4AvT4=;
- b=FvX7glTM17PkyCTOYrx07dzsrNfXNVzpcch9Gjkrirj8Ao87NKDhLjgDjeicvxmOtm
- n26zM0cTyGoJWgewiX+x1pH9x6TQ64aRtlUOu0jRJN2YTgAQXqeD0ekaRALqZSv4bH0U
- spXkssQxa3OH998G3IG6mGPP+FGRXE/4f0gSvJDCGsPo0NTbR/67iDFRJhA4HVZZNdql
- XZh8IrYsIsDhe8jy09OqOIWbOLxgZw/44SVPXOIoUdmV1tz5HcZf8+g6rqeOnDbESqfc
- y62BT0OW7E0LmWqZ29El5Hy2iohb2k357bjeQG6PaHUlEjbZgouCXKFcp3EpJ6mzQv/O
- kBPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758716693; x=1759321493;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=iNSO2LqqC7261WxFTjQQ87pA9qXbLg8WM16oO+4AvT4=;
- b=YjZdr/r8KvcxvX6z5BYIyCuDsUWNGW1a1Nc6qckXtMREN06SLNkcJDKPgEVp6OWr9j
- cZkxE4b8QEef8E2fEUkemUc4pBnrMhA/dK4evmjRJWxdBhnNywvmYLHg/X+eQAWs0Y2F
- OMDJIEixek60T4XCBMUeO6QRCNNmlaHWfsXhkNrMhMFWv+rqfyVZQEn+qRbH4vNaJ3Ws
- g5iRMPFd9B3E3jU4JDCVVtiNWswGrgWKL0PqoX0D+6XlDjMq7U46AU2pXZy4FcVZLA+2
- GFqylOaYqp/JBg6ScBMYNuHYY+RPjHBQSuw6JeqNYYIO0YdcQ1KGb9SgF1yc3JWfuma4
- xJ1w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWJ0WShPdqCZP2zedI6Cw+SdxRoKaiaajYUSTWiM8uYZd0SwWSX6sd1xrm9q7iuJK0FkzR5anMcEao=@nongnu.org
-X-Gm-Message-State: AOJu0YwbPgaYWUmj0ZefPVrJUzPP4G1hygh8sVMbS8hPtb9LyfOj43nn
- buUbXxFYhiJZ+BUVCWcPraen9DGrcqdkdqtnrbFjqxQw3k/iII6+OXBnJYtz0/MiS/g=
-X-Gm-Gg: ASbGncszONFDNl2RVzPCkQ+gxufgS5f+46U4RCbpFMRqhJV0dezA8voA0D6nSvg9pPE
- OoYF91YQO5YYE/lwUqIAphbnJUU17yRAvClgXbeu9cjF5FgoBGX93+g//RTQaEbP4OFn0g61UQh
- LoujI0AsrFSUcuK39RSAqYYSojqVRsf0LuVm2POvk9OTMSnAy1HEj0y4N1JbBfafAeAulKHNMEc
- jLrL5J9075Sx1wo7LfUhrDs8PS/vCTIuD7EAmuzhbs3RmOnbMgucvFSKZ9qO+7d0nggsyMjUZs3
- Hk1hBhD/bljJJVF4uX68aIDDh/3d4dtxbBKc4LxhJWnkcGpsyWkDiB/8qlVsKc6EacF5kuLnl7v
- b9sfqqVQEpa3ATWfmTIZxVz3v2zwXN+j1dUYoy1WAFuLeDON9Ze+tvGUmX+Kyc++gTg==
-X-Google-Smtp-Source: AGHT+IERXCGdLKrLt9sgzOe2aKifaV9LVcj+jFGZ5mR0vdq+6MakUr8lB2xLjUnLtMaD9GS1xJIkzQ==
-X-Received: by 2002:a05:6000:2389:b0:3ea:6680:8fb9 with SMTP id
- ffacd0b85a97d-40abcc76f3cmr2338249f8f.3.1758716693213; 
- Wed, 24 Sep 2025 05:24:53 -0700 (PDT)
-Received: from [192.168.69.221] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3ee07407cffsm27741022f8f.16.2025.09.24.05.24.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Sep 2025 05:24:52 -0700 (PDT)
-Message-ID: <e73e73c0-3c13-45ad-9818-f28ef69f2105@linaro.org>
-Date: Wed, 24 Sep 2025 14:24:51 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 25/27] RFC: build-sys: deprecate mips host
-Content-Language: en-US
-To: marcandre.lureau@redhat.com, qemu-devel@nongnu.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Kyle Evans <kevans@freebsd.org>,
- Yonggang Luo <luoyonggang@gmail.com>, Li-Wen Hsu <lwhsu@freebsd.org>,
- Thomas Huth <thuth@redhat.com>, =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?=
- <berrange@redhat.com>, Warner Losh <imp@bsdimp.com>,
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1v1Pew-0006Be-9F
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 09:35:51 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1v1Pet-0004jU-2W
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 09:35:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1758720942;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Bag7Ptn4J5Y/1DWF7VKOZgfEh15GMqlPJfGBL0E4bLw=;
+ b=Qs+r7SyjKgEghLcuYXNsSOYFU1r+oxbw2BuqbJzMYSWhzT4fN4ff9/YI3DsAg8/EqQXcU8
+ U+9aSReEqGDnC8cIzrCfwYMIyKq08JB+qO7ihyF6kOyWAZgD2bmVc3z/5fIJ3E6C3xalHL
+ KwlW9/AwBqDUAKkmdJcRMGhLKJavVGg=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-412-8LYYRJ2xObq8va08EsbTiA-1; Wed,
+ 24 Sep 2025 09:35:36 -0400
+X-MC-Unique: 8LYYRJ2xObq8va08EsbTiA-1
+X-Mimecast-MFC-AGG-ID: 8LYYRJ2xObq8va08EsbTiA_1758720934
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id B844718002C0; Wed, 24 Sep 2025 13:35:33 +0000 (UTC)
+Received: from redhat.com (unknown [10.42.28.136])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 6D7153000198; Wed, 24 Sep 2025 13:35:27 +0000 (UTC)
+Date: Wed, 24 Sep 2025 14:35:24 +0100
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: marcandre.lureau@redhat.com
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Kyle Evans <kevans@freebsd.org>, Yonggang Luo <luoyonggang@gmail.com>,
+ Li-Wen Hsu <lwhsu@freebsd.org>, Thomas Huth <thuth@redhat.com>,
+ Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Warner Losh <imp@bsdimp.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>, Ed Maste <emaste@freebsd.org>,
- devel@lists.libvirt.org, qemu-rust@nongnu.org,
- =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ Ed Maste <emaste@freebsd.org>, devel@lists.libvirt.org,
+ qemu-rust@nongnu.org,
+ Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
  Kohei Tokunaga <ktokunaga.mail@gmail.com>
+Subject: Re: [PATCH v2 11/27] build-sys: cfi_debug and safe_stack are not
+ compatible
+Message-ID: <aNPznNG2e5x94Xts@redhat.com>
 References: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
- <20250924120426.2158655-26-marcandre.lureau@redhat.com>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20250924120426.2158655-26-marcandre.lureau@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <20250924120426.2158655-12-marcandre.lureau@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::42b;
- envelope-from=philmd@linaro.org; helo=mail-wr1-x42b.google.com
-X-Spam_score_int: -16
-X-Spam_score: -1.7
-X-Spam_bar: -
-X-Spam_report: (-1.7 / 5.0 requ) BAYES_00=-1.9, DKIM_INVALID=0.1,
- DKIM_SIGNED=0.1, RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+In-Reply-To: <20250924120426.2158655-12-marcandre.lureau@redhat.com>
+User-Agent: Mutt/2.2.14 (2025-02-20)
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -24
+X-Spam_score: -2.5
+X-Spam_bar: --
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.444,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -106,33 +96,39 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 24/9/25 14:04, marcandre.lureau@redhat.com wrote:
+On Wed, Sep 24, 2025 at 04:04:08PM +0400, marcandre.lureau@redhat.com wrote:
 > From: Marc-André Lureau <marcandre.lureau@redhat.com>
+> 
+> It fails to link on fedora >= 41:
+> /usr/bin/ld: /usr/bin/../lib/clang/20/lib/x86_64-redhat-linux-gnu/libclang_rt.safestack.a(safestack.cpp.o): in function `__sanitizer_internal_memcpy':
+> (.text.__sanitizer_internal_memcpy+0x0): multiple definition of `__sanitizer_internal_memcpy'; /usr/bin/../lib/clang/20/lib/x86_64-redhat-linux-gnu/libclang_rt.ubsan_standalone.a(sanitizer_libc.cpp.o):(.text.__sanitizer_internal_memcpy+0x0): first defined here
+> /usr/bin/ld: /usr/bin/../lib/clang/20/lib/x86_64-redhat-linux-gnu/libclang_rt.safestack.a(safestack.cpp.o): in function `__sanitizer_internal_memmove':
+> (.text.__sanitizer_internal_memmove+0x0): multiple definition of `__sanitizer_internal_memmove'; /usr/bin/../lib/clang/20/lib/x86_64-redhat-linux-gnu/libclang_rt.ubsan_standalone.a(sanitizer_libc.cpp.o):(.text.__sanitizer_internal_memmove+0x0): first defined here
+> /usr/bin/ld: /usr/bin/../lib/clang/20/lib/x86_64-redhat-linux-gnu/libclang_rt.safestack.a(safestack.cpp.o): in function `__sanitizer_internal_memset':
+> (.text.__sanitizer_internal_memset+0x0): multiple definition of `__sanitizer_internal_memset'; /usr/bin/../lib/clang/20/lib/x86_64-redhat-linux-gnu/libclang_rt.ubsan_standalone.a(sanitizer_libc.cpp.o):(.text.__sanitizer_internal_memset+0x0): first defined here
+> 
+> cfi_debug seems to pull ubsan which has conflicting symbols with safe_stack.
+> 
+> See also: https://bugzilla.redhat.com/show_bug.cgi?id=2397265
 > 
 > Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 > ---
->   docs/about/build-platforms.rst | 2 --
->   docs/about/deprecated.rst      | 9 +++------
->   meson.build                    | 8 ++++++++
->   3 files changed, 11 insertions(+), 8 deletions(-)
+>  meson.build                | 3 +++
+>  .gitlab-ci.d/buildtest.yml | 6 +++---
+>  2 files changed, 6 insertions(+), 3 deletions(-)
+
+Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
 
 
-> diff --git a/docs/about/deprecated.rst b/docs/about/deprecated.rst
-> index aa300bbd50..285a8354f6 100644
-> --- a/docs/about/deprecated.rst
-> +++ b/docs/about/deprecated.rst
-> @@ -172,8 +172,8 @@ This argument has always been ignored.
->   Host Architectures
->   ------------------
->   
-> -Big endian MIPS since 7.2; 32-bit little endian MIPS since 9.2
-> -''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-> +Big endian MIPS since 7.2; 32-bit little endian MIPS since 9.2, MIPS since 11.0
-> +'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-Maybe just: "MIPS (since 11.0)".
+With regards,
+Daniel
+-- 
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
 
 
