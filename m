@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0B9ACAC5B0
-	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:05:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9331CAC5A5
+	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:05:54 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v1OF7-0000pD-34; Wed, 24 Sep 2025 08:05:05 -0400
+	id 1v1OFk-0000zs-IM; Wed, 24 Sep 2025 08:05:45 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v1OF2-0000oM-98
- for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:05:00 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1v1OFZ-0000x7-7e
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:05:34 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v1OEq-0005kY-WA
- for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:04:59 -0400
+ id 1v1OFS-0005z2-VB
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:05:32 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1758715486;
+ s=mimecast20190719; t=1758715518;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=eNPYkyE9HkvYBoO/8N0IpUesb/0/IHG27dIWRDFLVtw=;
- b=InMzsVj0fj92F0ilNX/u4QGuF7VvfsE9cxxGXQObH/oXJV4ix5hmNem5DaxRRIFly9AhhI
- X9YpkAf+EZubYOrpCBXbDrDNPbCXlarPwUz13+OvLLtes3vBMwSe7FIvWoTzZWx8Ay0OnO
- W3lJg3cW1mZ9BPf/7ljoMHqZP8mW1tk=
-Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=6gAv70L+lmpO2zyGpyLAiun7ldORnQ0pOaWq0N6T3gM=;
+ b=X1V36ijboNH8LsqOMssHoVFUEV+shTfjyRHvGyPoE35T4AsX1YuospBsbpePScvozV8dhe
+ ubjMaZBpeqLPjInp0ks8DzQeM2K/3SQwSDSKLf9gPW+ZYPJpJ0QMdHdXrk7ax71oYhTGzx
+ b83JEt6KtIZskp/nZKsQGY9TruY1DvA=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-338-F15j6rISOfm1O2QRjP0yNw-1; Wed,
- 24 Sep 2025 08:04:43 -0400
-X-MC-Unique: F15j6rISOfm1O2QRjP0yNw-1
-X-Mimecast-MFC-AGG-ID: F15j6rISOfm1O2QRjP0yNw_1758715481
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-249-HRXjd0GWNCm8T8hTc5gowQ-1; Wed,
+ 24 Sep 2025 08:05:06 -0400
+X-MC-Unique: HRXjd0GWNCm8T8hTc5gowQ-1
+X-Mimecast-MFC-AGG-ID: HRXjd0GWNCm8T8hTc5gowQ_1758715498
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 05D151956089; Wed, 24 Sep 2025 12:04:41 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 9027218002C0; Wed, 24 Sep 2025 12:04:58 +0000 (UTC)
 Received: from localhost (unknown [10.44.22.38])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 6648519560B1; Wed, 24 Sep 2025 12:04:38 +0000 (UTC)
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 8BE54180035E; Wed, 24 Sep 2025 12:04:56 +0000 (UTC)
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>, Kyle Evans <kevans@freebsd.org>,
@@ -61,17 +61,17 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>, Kyle Evans <kevans@freebsd.org>,
  devel@lists.libvirt.org, qemu-rust@nongnu.org,
  =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  Kohei Tokunaga <ktokunaga.mail@gmail.com>
-Subject: [PATCH v2 01/27] build-sys: require -lrt when no shm_open() in std
- libs
-Date: Wed, 24 Sep 2025 16:03:58 +0400
-Message-ID: <20250924120426.2158655-2-marcandre.lureau@redhat.com>
+Subject: [PATCH v2 03/27] scripts/archive-source: speed up downloading
+ subprojects
+Date: Wed, 24 Sep 2025 16:04:00 +0400
+Message-ID: <20250924120426.2158655-4-marcandre.lureau@redhat.com>
 In-Reply-To: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
 References: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-Received-SPF: pass client-ip=170.10.133.124;
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Received-SPF: pass client-ip=170.10.129.124;
  envelope-from=marcandre.lureau@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
@@ -79,7 +79,7 @@ X-Spam_score: -2.5
 X-Spam_bar: --
 X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.444,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
@@ -99,53 +99,32 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-Fail during configure time if the shm functions are missing, as required
-by oslib-posix.c. Note, we could further check the presence of the
-function in librt.
+Running meson on each subproject is quite slow.
 
-This is a minor cleanup/improvement.
+According to Paolo, meson will run download tasks in parallel.
 
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 ---
- meson.build | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ scripts/archive-source.sh | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/meson.build b/meson.build
-index 72da97829a..35d1f96180 100644
---- a/meson.build
-+++ b/meson.build
-@@ -1349,7 +1349,13 @@ if get_option('spice') \
- endif
- spice_headers = spice.partial_dependency(compile_args: true, includes: true)
+diff --git a/scripts/archive-source.sh b/scripts/archive-source.sh
+index 035828c532..85cd0a63a0 100755
+--- a/scripts/archive-source.sh
++++ b/scripts/archive-source.sh
+@@ -77,9 +77,10 @@ function subproject_dir() {
+ git archive --format tar "$(tree_ish)" > "$tar_file"
+ test $? -ne 0 && error "failed to archive qemu"
  
--rt = cc.find_library('rt', required: false)
-+rt = not_found
-+if host_os != 'windows'
-+  have_shm_open = cc.has_function('shm_open')
-+  if not have_shm_open
-+    rt = cc.find_library('rt', required: true)
-+  endif
-+endif
- 
- libiscsi = not_found
- if not get_option('libiscsi').auto() or have_block
-@@ -3811,14 +3817,10 @@ util_ss = util_ss.apply({})
- libqemuutil = static_library('qemuutil',
-                              build_by_default: false,
-                              sources: util_ss.sources() + stub_ss.sources() + genh,
--                             dependencies: [util_ss.dependencies(), libm, threads, glib, socket, malloc])
--qemuutil_deps = [event_loop_base]
--if host_os != 'windows'
--  qemuutil_deps += [rt]
--endif
-+                             dependencies: [util_ss.dependencies(), libm, threads, glib, socket, malloc, rt])
- qemuutil = declare_dependency(link_with: libqemuutil,
-                               sources: genh + version_res,
--                              dependencies: qemuutil_deps)
-+                              dependencies: [event_loop_base])
- 
- if have_system or have_user
-   decodetree = generator(find_program('scripts/decodetree.py'),
++meson subprojects download $subprojects
++test $? -ne 0 && error "failed to download subprojects $subprojects"
++
+ for sp in $subprojects; do
+-    meson subprojects download $sp
+-    test $? -ne 0 && error "failed to download subproject $sp"
+     tar --append --file "$tar_file" --exclude=.git subprojects/"$(subproject_dir $sp)"
+     test $? -ne 0 && error "failed to append subproject $sp to $tar_file"
+ done
 -- 
 2.51.0
 
