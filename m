@@ -4,55 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B52C5CAC5A5
-	for <qemu-rust@archiver.kernel.org>; Tue, 23 Sep 2025 21:02:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28CE7CAC5B3
+	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:05:28 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v1A9g-0003oe-6R; Tue, 23 Sep 2025 17:02:32 -0400
+	id 1v1OFL-0000vC-Lg; Wed, 24 Sep 2025 08:05:20 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <git@zabka.it>) id 1v1A9e-0003oS-Ty
- for qemu-rust@nongnu.org; Tue, 23 Sep 2025 17:02:30 -0400
-Received: from out-178.mta1.migadu.com ([95.215.58.178])
+ (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
+ id 1v1OFJ-0000uw-S7
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:05:18 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <git@zabka.it>) id 1v1A9c-0005GY-5r
- for qemu-rust@nongnu.org; Tue, 23 Sep 2025 17:02:30 -0400
-Message-ID: <83566cc2-476d-4cc1-b6ef-ef89b10daddd@zabka.it>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zabka.it; s=key1;
- t=1758661344;
+ (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
+ id 1v1OFF-0005y1-Ti
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:05:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1758715511;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dOdFgwWxa58s/IjGej6iJxKRmyywqaee1wpdNeZrhK0=;
- b=M3K8k10NV68tFXclwPrnAoOlbjWrhjN0eIvPB733B+eWUgNMYkY6aJ3yvKkkDaLegaBzit
- pfqP++zywuPzrAmkkhJHcBJaUANfDAmYPpyipBPezPVwgm2ov9krbZvcgbw8BF4tn5YWp9
- 0yWe05mYTAc9//sy2UYxPxtIjAYF7Qs=
-Date: Tue, 23 Sep 2025 23:02:17 +0200
+ bh=dRv8/ekMxzoG9gBpq9onGvzVMHRWU7qNi5lXY2GT+hs=;
+ b=CwENgYC+58aZ8seJQ5kYg1Fzgn8DQzDz2EaWANuSBdkMdIDb7+mugZaqngHFoCDcNDI56b
+ vhmq6tH7j314blhaYG+xrNIpPBcf9KSEPew6WPF+zu3gvNtrWszCOADvqlRkS8xjpUctkB
+ LnA6e4MQQeHM44uEOiUoQiz7JYOTn4g=
+Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-91-zuMtPkKZM5eOSRtif9LblQ-1; Wed,
+ 24 Sep 2025 08:05:07 -0400
+X-MC-Unique: zuMtPkKZM5eOSRtif9LblQ-1
+X-Mimecast-MFC-AGG-ID: zuMtPkKZM5eOSRtif9LblQ_1758715505
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 2EBE219560B1; Wed, 24 Sep 2025 12:05:05 +0000 (UTC)
+Received: from localhost (unknown [10.44.22.38])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 9ECDF300018D; Wed, 24 Sep 2025 12:05:03 +0000 (UTC)
+From: marcandre.lureau@redhat.com
+To: qemu-devel@nongnu.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Kyle Evans <kevans@freebsd.org>,
+ Yonggang Luo <luoyonggang@gmail.com>,
+ =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
+ Li-Wen Hsu <lwhsu@freebsd.org>, Thomas Huth <thuth@redhat.com>,
+ =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Warner Losh <imp@bsdimp.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, Ed Maste <emaste@freebsd.org>,
+ devel@lists.libvirt.org, qemu-rust@nongnu.org,
+ =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Kohei Tokunaga <ktokunaga.mail@gmail.com>
+Subject: [PATCH v2 04/27] scripts/archive-source: silence subprojects downloads
+Date: Wed, 24 Sep 2025 16:04:01 +0400
+Message-ID: <20250924120426.2158655-5-marcandre.lureau@redhat.com>
+In-Reply-To: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
+References: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 06/12] rust/qdev: Refine the documentation for QDevProp
- trait
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-References: <20250920160520.3699591-1-zhao1.liu@intel.com>
- <20250920160520.3699591-7-zhao1.liu@intel.com>
-Content-Language: de-DE, en-GB
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Stefan Zabka <git@zabka.it>
-In-Reply-To: <20250920160520.3699591-7-zhao1.liu@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
-Received-SPF: pass client-ip=95.215.58.178; envelope-from=git@zabka.it;
- helo=out-178.mta1.migadu.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Received-SPF: pass client-ip=170.10.129.124;
+ envelope-from=marcandre.lureau@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -24
+X-Spam_score: -2.5
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.444,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -69,14 +96,29 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-At the risk of being terribly annoying:
+From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-On 20/09/2025 18:05, Zhao Liu wrote:> From: Manos Pitsidianakis 
-<manos.pitsidianakis@linaro.org>
-> 
-> Refine the documentation to clarify:
->   * `unsfae` requires that `VALUE` must be valid.
+It's too verbose.
 
-I'm assuming this is a typo. If so, is it important enough to be fixed 
-or is it fine, since it's "only" the commit message?
+Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+---
+ scripts/archive-source.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/archive-source.sh b/scripts/archive-source.sh
+index 85cd0a63a0..68eb9672de 100755
+--- a/scripts/archive-source.sh
++++ b/scripts/archive-source.sh
+@@ -77,7 +77,7 @@ function subproject_dir() {
+ git archive --format tar "$(tree_ish)" > "$tar_file"
+ test $? -ne 0 && error "failed to archive qemu"
+ 
+-meson subprojects download $subprojects
++meson subprojects download $subprojects >/dev/null
+ test $? -ne 0 && error "failed to download subprojects $subprojects"
+ 
+ for sp in $subprojects; do
+-- 
+2.51.0
+
 
