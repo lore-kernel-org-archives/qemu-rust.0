@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D2A6CAC5B0
-	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:14:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98DF9CAC5B0
+	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:14:42 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v1OG7-00019Q-Vq; Wed, 24 Sep 2025 08:06:09 -0400
+	id 1v1OHy-0003F8-7R; Wed, 24 Sep 2025 08:08:02 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v1OFu-00011z-65
- for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:05:55 -0400
+ id 1v1OHf-0002oB-Q3
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:07:46 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v1OFr-00063E-FZ
- for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:05:53 -0400
+ id 1v1OHN-0006GB-BV
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:07:43 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1758715548;
+ s=mimecast20190719; t=1758715636;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Zbiw9OiPgU7amN7S+qPA95m72A8hDybR1jdzoET5O7w=;
- b=J4WoVK18e/l17jM3necKFTfKr0ku/mFkcK7UvhzkfWpB+xHEMzafR2kQJ54pEVwMlJSCCr
- m6iajZMrkroK4cvY+SKlR/KAs1EmmSPeEKBQDGybimw6UYz1RKgZPDF6W2oZBbFCMUsN7g
- vhPI9BPM896PTmueqhTZQANXl+oU+l4=
-Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=GNIZhP4SB0pepWcJITSv8uuI1BUDyXfi69KUjl/0Tp8=;
+ b=VDJMiuX+/PDLAV+5yfbwa++tRgwqVgHFJzzqVZyqh/Vs8A9XAbTCGkjd3zVZls+LzfhusE
+ 4Cr9wbC6OEysAeyI154TE5Q04t9vz99uXDS40E+RhPUKbD8teK5MPoG8OVogAkfIlRX2T7
+ BBEpzCLAzDxhHKYjcSrtOctunurH07g=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-110-eKMTn9MCOKmhSnEuIIFAGg-1; Wed,
- 24 Sep 2025 08:05:42 -0400
-X-MC-Unique: eKMTn9MCOKmhSnEuIIFAGg-1
-X-Mimecast-MFC-AGG-ID: eKMTn9MCOKmhSnEuIIFAGg_1758715539
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-58-owlZfo2iM9OCvNLABqV25A-1; Wed,
+ 24 Sep 2025 08:07:08 -0400
+X-MC-Unique: owlZfo2iM9OCvNLABqV25A-1
+X-Mimecast-MFC-AGG-ID: owlZfo2iM9OCvNLABqV25A_1758715626
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 60B9A19560B5; Wed, 24 Sep 2025 12:05:39 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 1E2E3180028E; Wed, 24 Sep 2025 12:07:06 +0000 (UTC)
 Received: from localhost (unknown [10.44.22.38])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id B2800300018D; Wed, 24 Sep 2025 12:05:37 +0000 (UTC)
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id E38BF1800452; Wed, 24 Sep 2025 12:07:04 +0000 (UTC)
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>, Kyle Evans <kevans@freebsd.org>,
@@ -61,16 +61,16 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>, Kyle Evans <kevans@freebsd.org>,
  devel@lists.libvirt.org, qemu-rust@nongnu.org,
  =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  Kohei Tokunaga <ktokunaga.mail@gmail.com>
-Subject: [PATCH v2 09/27] tests/docker: use fully qualified image name for
- emsdk
-Date: Wed, 24 Sep 2025 16:04:06 +0400
-Message-ID: <20250924120426.2158655-10-marcandre.lureau@redhat.com>
+Subject: [PATCH v2 21/27] meson: rust-bindgen limit allowlist-file to
+ srcdir/include
+Date: Wed, 24 Sep 2025 16:04:18 +0400
+Message-ID: <20250924120426.2158655-22-marcandre.lureau@redhat.com>
 In-Reply-To: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
 References: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 Received-SPF: pass client-ip=170.10.133.124;
  envelope-from=marcandre.lureau@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
@@ -99,31 +99,35 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-Without it, at least it fails with podman on fc42:
+gitlab CI restricts usage of directories for the build environment and
+cache. Msys64 is installed under project root ($srcdir/msys64). This
+confuses rust-bindgen allowlist-file which will generate bindings for
+all the system include headers under msys64/.
 
-[1/6] STEP 1/15: FROM emscripten/emsdk:3.1.50 AS build-base
-Error: creating build container: short-name resolution enforced but cannot prompt without a TTY
+blocklist-file is also too strict, as it prevents generating all the
+recursively dependent types coming from system includes.
+
+Instead, let's not use allowlist-file from the project root,
 
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-Reviewed-by: Kohei Tokunaga <ktokunaga.mail@gmail.com>
 ---
- tests/docker/dockerfiles/emsdk-wasm32-cross.docker | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ meson.build | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/tests/docker/dockerfiles/emsdk-wasm32-cross.docker b/tests/docker/dockerfiles/emsdk-wasm32-cross.docker
-index 60a7d02f56..6b1642a207 100644
---- a/tests/docker/dockerfiles/emsdk-wasm32-cross.docker
-+++ b/tests/docker/dockerfiles/emsdk-wasm32-cross.docker
-@@ -8,7 +8,7 @@ ARG PIXMAN_VERSION=0.44.2
- ARG FFI_VERSION=v3.4.7
- ARG MESON_VERSION=1.5.0
- 
--FROM emscripten/emsdk:$EMSDK_VERSION_QEMU AS build-base
-+FROM docker.io/emscripten/emsdk:$EMSDK_VERSION_QEMU AS build-base
- ARG MESON_VERSION
- ENV TARGET=/builddeps/target
- ENV CPATH="$TARGET/include"
+diff --git a/meson.build b/meson.build
+index 9663725529..cf154fe67e 100644
+--- a/meson.build
++++ b/meson.build
+@@ -4237,8 +4237,7 @@ if have_rust
+     '--no-layout-tests',
+     '--no-prepend-enum-name',
+     '--allowlist-file', meson.project_source_root() + '/include/.*',
+-    '--allowlist-file', meson.project_source_root() + '/.*',
+-    '--allowlist-file', meson.project_build_root() + '/.*'
++    '--allowlist-file', meson.project_build_root() + '/.*',
+     ]
+   if not rustfmt.found()
+     if bindgen.version().version_compare('<0.65.0')
 -- 
 2.51.0
 
