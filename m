@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42D8DCAC5B0
-	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:06:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DBEACAC5B0
+	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:06:38 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v1OGB-0001AL-JH; Wed, 24 Sep 2025 08:06:12 -0400
+	id 1v1OFz-00012d-J1; Wed, 24 Sep 2025 08:06:01 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v1OFs-00011L-LM
+ id 1v1OFs-000110-KM
  for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:05:52 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v1OFi-00061r-F6
- for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:05:52 -0400
+ id 1v1OFg-00061L-FG
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:05:49 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1758715538;
+ s=mimecast20190719; t=1758715535;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=NPTiA7pz4spUQfKOdPvRbd9UKF4Oa1NlFcPUrhCqHt8=;
- b=VDQP5JUqN5GeXKixPWOKpuR626MVWVRifHb6itFu+PbGE+069spBaJ0wUd9ASeAh3zD/mu
- VKONWvdO04RuUWW989VfAt1P5DUNNjuHPomyf7lioU4I2TjsSlkm/xHT3s9dp7X8MduqWw
- 0fBOtVirAldHent4+R5aO8gb7l+6Usk=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=BvrANO1O78aC5DZaaVstlvpRpRxOEYslvkqBh8odn14=;
+ b=MFXrnJBvbRT3n97/jBZZntjtcBw8sNXHzuN0j28gg94M+lwNJMf7mU5tXR2rEbOLILmh7w
+ QPd6rPXMPYNd3ot8hgsGeVgSaBRsWHiqPD8W/tpS/qsVGosmcaamOnfNVa1oG/VBulV4+u
+ 3xolim8b0eO26P8E/bVFLjQbVhPDsQM=
+Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-146-QEm85dl4OCysL6QIroqNDw-1; Wed,
- 24 Sep 2025 08:05:35 -0400
-X-MC-Unique: QEm85dl4OCysL6QIroqNDw-1
-X-Mimecast-MFC-AGG-ID: QEm85dl4OCysL6QIroqNDw_1758715532
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-421-qR2-ZjSNP1-pkVoV4etwOw-1; Wed,
+ 24 Sep 2025 08:05:27 -0400
+X-MC-Unique: qR2-ZjSNP1-pkVoV4etwOw-1
+X-Mimecast-MFC-AGG-ID: qR2-ZjSNP1-pkVoV4etwOw_1758715526
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 75590180057E; Wed, 24 Sep 2025 12:05:32 +0000 (UTC)
+ by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id E17721955F2B; Wed, 24 Sep 2025 12:05:25 +0000 (UTC)
 Received: from localhost (unknown [10.44.22.38])
  by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 274641800451; Wed, 24 Sep 2025 12:05:30 +0000 (UTC)
+ id 6BABB1800446; Wed, 24 Sep 2025 12:05:23 +0000 (UTC)
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>, Kyle Evans <kevans@freebsd.org>,
@@ -61,16 +61,16 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>, Kyle Evans <kevans@freebsd.org>,
  devel@lists.libvirt.org, qemu-rust@nongnu.org,
  =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  Kohei Tokunaga <ktokunaga.mail@gmail.com>
-Subject: [PATCH v2 08/27] tests/docker/common: print errors to stderr
-Date: Wed, 24 Sep 2025 16:04:05 +0400
-Message-ID: <20250924120426.2158655-9-marcandre.lureau@redhat.com>
+Subject: [PATCH v2 07/27] configure: set the bindgen cross target
+Date: Wed, 24 Sep 2025 16:04:04 +0400
+Message-ID: <20250924120426.2158655-8-marcandre.lureau@redhat.com>
 In-Reply-To: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
 References: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-Received-SPF: pass client-ip=170.10.133.124;
+Received-SPF: pass client-ip=170.10.129.124;
  envelope-from=marcandre.lureau@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
@@ -78,9 +78,8 @@ X-Spam_score: -2.5
 X-Spam_bar: --
 X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.444,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_PASS=-0.001, T_SPF_HELO_TEMPERROR=0.01 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -98,34 +97,153 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
----
- tests/docker/common.rc | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Implement a bash version of rust-bindgen rust_to_clang_target() to
+convert from rust target to clang target.
 
-diff --git a/tests/docker/common.rc b/tests/docker/common.rc
-index a611e6adf9..2ed2365a61 100755
---- a/tests/docker/common.rc
-+++ b/tests/docker/common.rc
-@@ -50,7 +50,7 @@ configure_qemu()
-     echo "Configure options:"
-     echo $config_opts
-     $QEMU_SRC/configure $config_opts || \
--        { cat config.log && test_fail "Failed to run 'configure'"; }
-+        { cat config.log >&2 && test_fail "Failed to run 'configure'"; }
- }
+Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+---
+ configure                            |  7 ++++
+ scripts/rust-to-clang-target-test.sh | 43 +++++++++++++++++++
+ scripts/rust-to-clang-target.sh      | 62 ++++++++++++++++++++++++++++
+ 3 files changed, 112 insertions(+)
+ create mode 100755 scripts/rust-to-clang-target-test.sh
+ create mode 100644 scripts/rust-to-clang-target.sh
+
+diff --git a/configure b/configure
+index 66613f3f4c..bf964947b8 100755
+--- a/configure
++++ b/configure
+@@ -1878,6 +1878,13 @@ if test "$skip_meson" = no; then
+       eval "c=\$devices_${a}"
+       echo "${a}-softmmu = '$c'" >> $cross
+   done
++  if test "$rust" != disabled; then
++      if test "$cross_compile" = "yes"; then
++          . "$source_path/scripts/rust-to-clang-target.sh"
++          clang_target=$(rust_to_clang_target "$rust_target_triple")
++          echo "bindgen_clang_arguments = [$(meson_quote --target="$clang_target")]" >> $cross
++      fi
++  fi
  
- build_qemu()
-@@ -73,7 +73,7 @@ check_qemu()
- 
- test_fail()
- {
--    echo "$@"
-+    echo "$@" >&2
-     exit 1
- }
- 
+   echo "[built-in options]" >> $cross
+   echo "c_args = [$(meson_quote $CFLAGS $EXTRA_CFLAGS)]" >> $cross
+diff --git a/scripts/rust-to-clang-target-test.sh b/scripts/rust-to-clang-target-test.sh
+new file mode 100755
+index 0000000000..ff6f8fcdc5
+--- /dev/null
++++ b/scripts/rust-to-clang-target-test.sh
+@@ -0,0 +1,43 @@
++#!/usr/bin/env sh
++#
++# Copyright (C) 2025 Red Hat, Inc.
++#
++# Based on rust_to_clang_target() tests from rust-bindgen.
++#
++# SPDX-License-Identifier: GPL-2.0-or-later
++
++scripts_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
++. "$scripts_dir/rust-to-clang-target.sh"
++
++test_case() {
++    input="$1"
++    expected="$2"
++    result=$(rust_to_clang_target "$input")
++
++    if [ "$result" = "$expected" ]; then
++        echo " OK: '$input' -> '$result'"
++    else
++        echo " FAILED: '$input'"
++        echo "  Expected: '$expected'"
++        echo "  Got:      '$result'"
++        exit 1
++    fi
++}
++
++echo "Running tests..."
++
++test_case "aarch64-apple-ios" "arm64-apple-ios"
++test_case "riscv64gc-unknown-linux-gnu" "riscv64-unknown-linux-gnu"
++test_case "riscv64imac-unknown-none-elf" "riscv64-unknown-none-elf"
++test_case "riscv32imc-unknown-none-elf" "riscv32-unknown-none-elf"
++test_case "riscv32imac-unknown-none-elf" "riscv32-unknown-none-elf"
++test_case "riscv32imafc-unknown-none-elf" "riscv32-unknown-none-elf"
++test_case "riscv32i-unknown-none-elf" "riscv32-unknown-none-elf"
++test_case "riscv32imc-esp-espidf" "riscv32-esp-elf"
++test_case "xtensa-esp32-espidf" "xtensa-esp32-elf"
++test_case "aarch64-apple-ios-sim" "arm64-apple-ios-simulator"
++test_case "aarch64-apple-tvos-sim" "arm64-apple-tvos-simulator"
++test_case "aarch64-apple-watchos-sim" "arm64-apple-watchos-simulator"
++
++echo ""
++echo "All tests passed!"
+diff --git a/scripts/rust-to-clang-target.sh b/scripts/rust-to-clang-target.sh
+new file mode 100644
+index 0000000000..5451807888
+--- /dev/null
++++ b/scripts/rust-to-clang-target.sh
+@@ -0,0 +1,62 @@
++#!/usr/bin/env sh
++#
++# Copyright (C) 2025 Red Hat, Inc.
++#
++# Based on rust_to_clang_target() from rust-bindgen.
++#
++# SPDX-License-Identifier: GPL-2.0-or-later
++
++rust_to_clang_target() {
++    rust_target="$1"
++
++    # Split the string by hyphens
++    triple_parts=""
++    old_IFS="$IFS"
++    IFS='-'
++    for part in $rust_target; do
++        triple_parts="$triple_parts $part"
++    done
++    IFS="$old_IFS"
++    set -- $triple_parts
++
++    # RISC-V
++    case "$1" in
++        riscv32*)
++            set -- "riscv32" "${2}" "${3}" "${4}"
++            ;;
++        riscv64*)
++            set -- "riscv64" "${2}" "${3}" "${4}"
++            ;;
++    esac
++
++    # Apple
++    if [ "$2" = "apple" ]; then
++        if [ "$1" = "aarch64" ]; then
++            set -- "arm64" "${2}" "${3}" "${4}"
++        fi
++        if [ "$4" = "sim" ]; then
++            set -- "${1}" "${2}" "${3}" "simulator"
++        fi
++    fi
++
++    # ESP-IDF
++    if [ "$3" = "espidf" ]; then
++        set -- "${1}" "${2}" "elf" "${4}"
++    fi
++
++    # Reassemble the string
++    new_triple=""
++    first=1
++    for part in "$@"; do
++        if [ -n "$part" ]; then
++            if [ "$first" -eq 1 ]; then
++                new_triple="$part"
++                first=0
++            else
++                new_triple="$new_triple-$part"
++            fi
++        fi
++    done
++
++    echo "$new_triple"
++}
 -- 
 2.51.0
 
