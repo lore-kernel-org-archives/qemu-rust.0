@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E0F6CAC5A5
-	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:23:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E391CAC5B0
+	for <qemu-rust@archiver.kernel.org>; Wed, 24 Sep 2025 12:25:34 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v1OVw-0000gN-0V; Wed, 24 Sep 2025 08:22:30 -0400
+	id 1v1OYk-0001vq-5z; Wed, 24 Sep 2025 08:25:22 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1v1OVi-0000eR-T8
- for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:22:22 -0400
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1v1OYS-0001mA-IM
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:25:16 -0400
 Received: from mail-wr1-x42b.google.com ([2a00:1450:4864:20::42b])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1v1OVW-0000Ad-6O
- for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:22:13 -0400
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1v1OYM-0000j3-MY
+ for qemu-rust@nongnu.org; Wed, 24 Sep 2025 08:25:04 -0400
 Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3f0134ccc0cso5150202f8f.1
- for <qemu-rust@nongnu.org>; Wed, 24 Sep 2025 05:21:57 -0700 (PDT)
+ ffacd0b85a97d-3ee15505cdeso680154f8f.0
+ for <qemu-rust@nongnu.org>; Wed, 24 Sep 2025 05:24:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1758716513; x=1759321313; darn=nongnu.org;
+ d=linaro.org; s=google; t=1758716693; x=1759321493; darn=nongnu.org;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Y0znOe9X4B/PKbemoxCtXVM5awE/1hV+1r7TY6n0OQU=;
- b=uuixDhHCedmSs/DSrAM6KHIggj12Tl+fVk4CX8Q8kd30Wubx5+LCuJR+1kWUoNIOlB
- /l4cQ86jCgdRn0aDOf6x0AXatwFf8CNO0JGLWDc7yWAHwS1D9MyGe9eDxX4V6w8UqbCB
- EVZAMU29qJOjjthj79l7/ZWkfV1kBmPsFhU+yaB1qEzHfd2/RMGFryMB9UteR6xBJvO6
- IyHBbJ6qghnY4ZLuF8n/3Sh6EDBHECnC3mNLn3risXbqvexF0vdnzsUOYyFDfjlfUgGJ
- HXGgvkKw1CGC6tpJL1GxTwYbHJofkUZGhpqLGH1y0aL9gqTNpiFZ429Dkw7rVogXOt5J
- 51OQ==
+ bh=iNSO2LqqC7261WxFTjQQ87pA9qXbLg8WM16oO+4AvT4=;
+ b=FvX7glTM17PkyCTOYrx07dzsrNfXNVzpcch9Gjkrirj8Ao87NKDhLjgDjeicvxmOtm
+ n26zM0cTyGoJWgewiX+x1pH9x6TQ64aRtlUOu0jRJN2YTgAQXqeD0ekaRALqZSv4bH0U
+ spXkssQxa3OH998G3IG6mGPP+FGRXE/4f0gSvJDCGsPo0NTbR/67iDFRJhA4HVZZNdql
+ XZh8IrYsIsDhe8jy09OqOIWbOLxgZw/44SVPXOIoUdmV1tz5HcZf8+g6rqeOnDbESqfc
+ y62BT0OW7E0LmWqZ29El5Hy2iohb2k357bjeQG6PaHUlEjbZgouCXKFcp3EpJ6mzQv/O
+ kBPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758716513; x=1759321313;
+ d=1e100.net; s=20230601; t=1758716693; x=1759321493;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Y0znOe9X4B/PKbemoxCtXVM5awE/1hV+1r7TY6n0OQU=;
- b=gt1PUx3SE34y4M8dHkI24+7+Bf3fqybYPtI25PQg4b6MF9OVBqHLVHnAWbgZ5h7m21
- WStsoMec2BgmoDtgQ4OiIgMD6dMXHZqTGxCbokho5pENYi/sEYLhVThqZxuos5h/MFQy
- oqSphRzmTYFKV3uiL5SVu03U8/QO/rjZsj0OPyZyT8pS3qMPc20gVACrpaYRP6iPkOcf
- 2qV22IYtmF20mY2PJZmRumZWrL66czqpHJ5bZ4prhdHVZFYP1kBXILE/v0VEqIa4zhkv
- zdtFCb/cYm4xtt9GKlPITUz4eTWyDrOpBL9+jaFPr09bT4S57EjYhlzNAyASD5Agw1p+
- HyFw==
+ bh=iNSO2LqqC7261WxFTjQQ87pA9qXbLg8WM16oO+4AvT4=;
+ b=YjZdr/r8KvcxvX6z5BYIyCuDsUWNGW1a1Nc6qckXtMREN06SLNkcJDKPgEVp6OWr9j
+ cZkxE4b8QEef8E2fEUkemUc4pBnrMhA/dK4evmjRJWxdBhnNywvmYLHg/X+eQAWs0Y2F
+ OMDJIEixek60T4XCBMUeO6QRCNNmlaHWfsXhkNrMhMFWv+rqfyVZQEn+qRbH4vNaJ3Ws
+ g5iRMPFd9B3E3jU4JDCVVtiNWswGrgWKL0PqoX0D+6XlDjMq7U46AU2pXZy4FcVZLA+2
+ GFqylOaYqp/JBg6ScBMYNuHYY+RPjHBQSuw6JeqNYYIO0YdcQ1KGb9SgF1yc3JWfuma4
+ xJ1w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUn85yOAXOg4hF4ceiTIB3cjY68AfRVOV8UrAoKxRX1Am2NK2RcMeIBzakR7Qs1J7Byv5HMVpKqZzc=@nongnu.org
-X-Gm-Message-State: AOJu0YyzOJ5EpzfoN0Hnk9jaBFtfFbH4VJezd7kOjmWcXT6fOS5197HQ
- IhcWH8+zbVYOT3f3jppGIFpP4r9lDjjx9epwSVbzp7i7j82jdegnrvExSIPBTGIrS2k=
-X-Gm-Gg: ASbGncuW6nDxfiepKKwsIDERBIII6ZBGLuZr7EsfWtwmkPH4Wsx3ETLGxNt94EGQ+HC
- 3C8EmPIYK/o6j+i8Z/ZGe20+hGYvphDa+LZlGG3dx+Gko2UH8egx5bP00nWh/Q3Op7eN1r5lpXs
- d1tECDUtNFsEYd+dEN1AnYL0OoR9HK2ePlmrpdgMo1ooQrAVYk32dq/znDsldxWbUC9ZfYyl3Tk
- YC4Ij2TWbpHzu9lxzQAZLY3Yfy2nWSCqxUNjPNTzHug8Yt9oT3tUQF+U5D2MKdhSLcdwfe/M29k
- fjJr/LWnxBKoDXfwoVftdM1eeUvscpGgJYhG6E8nr3hiffMavwAPZuis34T3SV0vBufxklEsaLt
- Ewoq2l+lrz4tHdd628MkFL2TKOcn3EEIIchnA/RypjlrFnfmh5Q6rJ4b7KY2F+eRtpA==
-X-Google-Smtp-Source: AGHT+IGxcqd8y70UKTOIYQrCqi2wMjfCHzVYmH3qBBwLsAfmtpkEioQL6ghzMao5t5IEoZPUKrVIGA==
-X-Received: by 2002:a05:6000:2902:b0:3eb:d906:e553 with SMTP id
- ffacd0b85a97d-405cb9a546amr4874083f8f.55.1758716513297; 
- Wed, 24 Sep 2025 05:21:53 -0700 (PDT)
+ AJvYcCWJ0WShPdqCZP2zedI6Cw+SdxRoKaiaajYUSTWiM8uYZd0SwWSX6sd1xrm9q7iuJK0FkzR5anMcEao=@nongnu.org
+X-Gm-Message-State: AOJu0YwbPgaYWUmj0ZefPVrJUzPP4G1hygh8sVMbS8hPtb9LyfOj43nn
+ buUbXxFYhiJZ+BUVCWcPraen9DGrcqdkdqtnrbFjqxQw3k/iII6+OXBnJYtz0/MiS/g=
+X-Gm-Gg: ASbGncszONFDNl2RVzPCkQ+gxufgS5f+46U4RCbpFMRqhJV0dezA8voA0D6nSvg9pPE
+ OoYF91YQO5YYE/lwUqIAphbnJUU17yRAvClgXbeu9cjF5FgoBGX93+g//RTQaEbP4OFn0g61UQh
+ LoujI0AsrFSUcuK39RSAqYYSojqVRsf0LuVm2POvk9OTMSnAy1HEj0y4N1JbBfafAeAulKHNMEc
+ jLrL5J9075Sx1wo7LfUhrDs8PS/vCTIuD7EAmuzhbs3RmOnbMgucvFSKZ9qO+7d0nggsyMjUZs3
+ Hk1hBhD/bljJJVF4uX68aIDDh/3d4dtxbBKc4LxhJWnkcGpsyWkDiB/8qlVsKc6EacF5kuLnl7v
+ b9sfqqVQEpa3ATWfmTIZxVz3v2zwXN+j1dUYoy1WAFuLeDON9Ze+tvGUmX+Kyc++gTg==
+X-Google-Smtp-Source: AGHT+IERXCGdLKrLt9sgzOe2aKifaV9LVcj+jFGZ5mR0vdq+6MakUr8lB2xLjUnLtMaD9GS1xJIkzQ==
+X-Received: by 2002:a05:6000:2389:b0:3ea:6680:8fb9 with SMTP id
+ ffacd0b85a97d-40abcc76f3cmr2338249f8f.3.1758716693213; 
+ Wed, 24 Sep 2025 05:24:53 -0700 (PDT)
 Received: from [192.168.69.221] (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3f02f332c31sm21975989f8f.45.2025.09.24.05.21.52
+ ffacd0b85a97d-3ee07407cffsm27741022f8f.16.2025.09.24.05.24.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Sep 2025 05:21:52 -0700 (PDT)
-Message-ID: <79dcaa8e-450d-468c-8df3-508eec009f07@linaro.org>
-Date: Wed, 24 Sep 2025 14:21:51 +0200
+ Wed, 24 Sep 2025 05:24:52 -0700 (PDT)
+Message-ID: <e73e73c0-3c13-45ad-9818-f28ef69f2105@linaro.org>
+Date: Wed, 24 Sep 2025 14:24:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 25/27] RFC: build-sys: deprecate mips host
@@ -88,13 +88,12 @@ Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=2a00:1450:4864:20::42b;
  envelope-from=philmd@linaro.org; helo=mail-wr1-x42b.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- T_SPF_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
+X-Spam_score_int: -16
+X-Spam_score: -1.7
+X-Spam_bar: -
+X-Spam_report: (-1.7 / 5.0 requ) BAYES_00=-1.9, DKIM_INVALID=0.1,
+ DKIM_SIGNED=0.1, RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -120,6 +119,20 @@ On 24/9/25 14:04, marcandre.lureau@redhat.com wrote:
 >   meson.build                    | 8 ++++++++
 >   3 files changed, 11 insertions(+), 8 deletions(-)
 
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+
+> diff --git a/docs/about/deprecated.rst b/docs/about/deprecated.rst
+> index aa300bbd50..285a8354f6 100644
+> --- a/docs/about/deprecated.rst
+> +++ b/docs/about/deprecated.rst
+> @@ -172,8 +172,8 @@ This argument has always been ignored.
+>   Host Architectures
+>   ------------------
+>   
+> -Big endian MIPS since 7.2; 32-bit little endian MIPS since 9.2
+> -''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+> +Big endian MIPS since 7.2; 32-bit little endian MIPS since 9.2, MIPS since 11.0
+> +'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+Maybe just: "MIPS (since 11.0)".
 
 
