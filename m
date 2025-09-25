@@ -4,100 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5E11CAC5A5
-	for <qemu-rust@archiver.kernel.org>; Thu, 25 Sep 2025 10:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61978CAC5A5
+	for <qemu-rust@archiver.kernel.org>; Thu, 25 Sep 2025 10:33:17 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v1j80-0008UJ-Kl; Thu, 25 Sep 2025 06:23:09 -0400
+	id 1v1jHF-0007Vy-Oo; Thu, 25 Sep 2025 06:32:42 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1v1j7y-0008TY-KQ
- for qemu-rust@nongnu.org; Thu, 25 Sep 2025 06:23:07 -0400
-Received: from mail-wm1-x344.google.com ([2a00:1450:4864:20::344])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1v1j7i-0001Sf-Ol
- for qemu-rust@nongnu.org; Thu, 25 Sep 2025 06:23:04 -0400
-Received: by mail-wm1-x344.google.com with SMTP id
- 5b1f17b1804b1-45f2acb5f42so3832425e9.1
- for <qemu-rust@nongnu.org>; Thu, 25 Sep 2025 03:22:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1758795762; x=1759400562; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=2QzDUteR+xjowiKWpoSco8ZUHq9Qb1QEzYu0uhzs3HY=;
- b=QUizS2c5n/caL5ULjjF7wYFM26M5dcjpv/SZoWQU/vgH+JG79R/JvyHlibOvXAtZ6i
- edKWnhOJT1+8ann5iqTqbcZEvKE2wGUL/BGdtRE/EAHlc+Bn6Ktku29Pm3AAIyhF3DJ6
- NWhygyuHaaqjO2roWVsV/1/9ta2gkSpwQ2BvxGjDsmvPPmv1vOEle4r+gPUN8yizfrCq
- E63hIlkcBHmU4cccxN+Vnirv0udmoLjHQuIH5JfRMuDryVhmxyR+FyXzPdpLQMLdMs3S
- BYqnSU7xkLMXKxV7kMUtlnzlWH4vEXmDKrUCnSb3NvDZVx5++WRaiypht86g8cTvOy8G
- jupQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758795762; x=1759400562;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2QzDUteR+xjowiKWpoSco8ZUHq9Qb1QEzYu0uhzs3HY=;
- b=rU8/poHssxXYe4iv5mya/ZTBn0OzHXuixSFOa37DXTP+V4CeiKh+1Oht5AuO5FXbXA
- I0mFy7x9QBQX1UwEsbe6Cu5BfhaXOwlc/j8NRFbylKGSg0d3Uef0BUE0HjZiRq1wGaK6
- cWMoch6wsB3rU+3QTcPzcwOvJLwHp4oHUtm6+AYTNnn2Zv4Ya+dLQjHwzukGDWOsRAPb
- hcaZmGdw8lA/kZ2H2xTmBcOPd6dTvYohOhwQxY8+KLCPb9BJQeBcI+8ObXmWQfY44PQN
- kL+0vkYxiyH/76LL8StV+UkS4gWUYBoOn+neTAsfQ6uGM4eHbBMFtCkWsjN1h3CpMVK8
- G1aw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW5oxniYMUk8ZXWcjBMcwNA36pLmHnC6BckeTjgAAhFzQt5lemzPY+67pGWSL6G/8S1n+bJ/G5KJrc=@nongnu.org
-X-Gm-Message-State: AOJu0YxcngwDlzmCYkLICyyJLRukzGuE9Jn7UvjJ4yJYjmW9i2d1h5Yq
- 7ZCmM8SfG1L80K4kPonW8us7wM4wFGN38tlNW005DJONhb2tOsUFTcslabH1Aam8n1c=
-X-Gm-Gg: ASbGncucuK8l8Ac9D2u38NxisLrdpx5806zgPbJaC5Xdy8e1nWktlgMgnym2cBhclFO
- 8rBFJ3KkJSy8Ip0vUFJ6KhmMpW1hGMs6sIcLlAwUK1kfaf1opk/6HBwituUWqQzu0Q13yPbmXv/
- AsmIEyMW8zjBhhDWwfJEZpNBfyUchvLVVbTDo9gJ6R4G489uqszKQj1+lbQyWBHyJPpfOhFOuv3
- eUPTmU3nF0e8FtouTISURKwNlwPJat/QZXPl8UbgGuyxHd8HAX1O4SIKHQJAKeQkclgHxy8J2eg
- LmUfeFU7hWLBsrTIs1W4Tb+hWiYSq8vp6eVkKq09aeCXwJlUFULIRW+XwXXHt2F5wuvZ+24+iB3
- ATUFrVIQd7spcuhUN01tLf6CDa6ZIFpCD6obXu1JNHi90MbJcUpHnSik04zcEysKdOkLcFRBBAl
- qD
-X-Google-Smtp-Source: AGHT+IGMdaAY/75NRHc0c8phlEuXfXW71zjvHSfAhhx1pufav5/IeGe15UhNvIxOjxP9unFSsZQS6w==
-X-Received: by 2002:a05:600c:8b23:b0:458:b8b0:6338 with SMTP id
- 5b1f17b1804b1-46e33c4bd45mr24167315e9.6.1758795762289; 
- Thu, 25 Sep 2025 03:22:42 -0700 (PDT)
-Received: from [192.168.69.221] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-40fc8aa0078sm2337301f8f.59.2025.09.25.03.22.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Sep 2025 03:22:40 -0700 (PDT)
-Message-ID: <3d77f02a-5e89-432b-8be1-d76df49b90e2@linaro.org>
-Date: Thu, 25 Sep 2025 12:22:39 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/23] util: sync error_report & qemu_log output more
- closely
-Content-Language: en-US
-To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
- qemu-devel@nongnu.org
-Cc: Hanna Reitz <hreitz@redhat.com>,
- =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1v1jGr-00072q-S8
+ for qemu-rust@nongnu.org; Thu, 25 Sep 2025 06:32:25 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1v1jGg-0003Wa-Gs
+ for qemu-rust@nongnu.org; Thu, 25 Sep 2025 06:32:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1758796321;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=PLygx2SrNhE0h/tsW4RkRSuKB4mUTKvybXdgIygkjPw=;
+ b=hxY5v6PwD3nhNemXTNmKzR/gGXCeLoPTt0TWGGCErPm8z0dSObrfoNpyv7xB14BMisZrB9
+ BS2F5IJKLfs1IQwiNr0IB/GK48vdBZZ8dOrLuaUJTDvzwkQOG8HV56FblN79c+0ECvrEy7
+ BT/TlqVCUYnUZycUEkt8REQoOjA8o8Q=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-396-ZHNMZHwFOBq0cEPnYYQ31g-1; Thu,
+ 25 Sep 2025 06:31:58 -0400
+X-MC-Unique: ZHNMZHwFOBq0cEPnYYQ31g-1
+X-Mimecast-MFC-AGG-ID: ZHNMZHwFOBq0cEPnYYQ31g_1758796317
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 9296A195608B; Thu, 25 Sep 2025 10:31:56 +0000 (UTC)
+Received: from redhat.com (unknown [10.42.28.163])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 2368D18003FC; Thu, 25 Sep 2025 10:31:50 +0000 (UTC)
+Date: Thu, 25 Sep 2025 11:31:47 +0100
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+Cc: qemu-devel@nongnu.org, Hanna Reitz <hreitz@redhat.com>,
+ =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
  Kevin Wolf <kwolf@redhat.com>, qemu-rust@nongnu.org,
  Richard Henderson <richard.henderson@linaro.org>,
  Markus Armbruster <armbru@redhat.com>,
- Christian Schoenebeck <qemu_oss@crudebyte.com>, qemu-block@nongnu.org,
- Stefan Weil <sw@weilnetz.de>, "Dr. David Alan Gilbert" <dave@treblig.org>,
+ Christian Schoenebeck <qemu_oss@crudebyte.com>,
+ qemu-block@nongnu.org, Stefan Weil <sw@weilnetz.de>,
+ "Dr. David Alan Gilbert" <dave@treblig.org>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Gerd Hoffmann <kraxel@redhat.com>, devel@lists.libvirt.org,
  Paolo Bonzini <pbonzini@redhat.com>
+Subject: Re: [PATCH v4 00/23] util: sync error_report & qemu_log output more
+ closely
+Message-ID: <aNUaE77pS6ypY8FA@redhat.com>
 References: <20250925094441.1651372-1-berrange@redhat.com>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20250925094441.1651372-1-berrange@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <3d77f02a-5e89-432b-8be1-d76df49b90e2@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::344;
- envelope-from=philmd@linaro.org; helo=mail-wm1-x344.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
+In-Reply-To: <3d77f02a-5e89-432b-8be1-d76df49b90e2@linaro.org>
+User-Agent: Mutt/2.2.14 (2025-02-20)
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -24
+X-Spam_score: -2.5
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, T_SPF_HELO_TEMPERROR=0.01,
- T_SPF_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.444,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -110,149 +96,167 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Hi Daniel,
+On Thu, Sep 25, 2025 at 12:22:39PM +0200, Philippe Mathieu-Daudé wrote:
+> Hi Daniel,
+> 
+> On 25/9/25 11:44, Daniel P. Berrangé wrote:
+> > This series is a tangent that came out of discussion in
+> > 
+> >     https://lists.nongnu.org/archive/html/qemu-devel/2025-08/msg00903.html
+> > 
+> > In thinking about adding thread info to error_report, I
+> > came to realize we should likely make qemu_log behave
+> > consistently with error_report & friends. We already
+> > honour '-msg timestamp=on', but don't honour 'guest-name=on'
+> > and also don't include the binary name.
+> > 
+> > As an example of the current state, consider mixing error and
+> > log output today:
+> > 
+> > - Default context:
+> > 
+> >    # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish \
+> >                         -d 'trace:qcrypto*'
+> >    qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x55ac6d97f700 dir=fish
+> >    qcrypto_tls_creds_get_path TLS creds path creds=0x55ac6d97f700 filename=ca-cert.pem path=<none>
+> >    qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: No such file or directory
+> > 
+> > - Full context:
+> > 
+> >    # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish \
+> >                         -d 'trace:qcrypto*' \
+> >                         -msg guest-name=on,timestamp=on \
+> >                         -name "fish food"
+> >    2025-08-19T20:14:16.791413Z qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x55e9a3458d10 dir=fish
+> >    2025-08-19T20:14:16.791429Z qcrypto_tls_creds_get_path TLS creds path creds=0x55e9a3458d10 filename=ca-cert.pem path=<none>
+> >    2025-08-19T20:14:16.791433Z fish food qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: No such file or directory
+> > 
+> > And after this series is complete:
+> > 
+> > - Default context:
+> > 
+> >    # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish \
+> >                        -d 'trace:qcrypto*'
+> >    qemu-system-x86_64(1184284:main): qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x55a24ad5cb30 dir=fish
+> >    qemu-system-x86_64(1184284:main): qcrypto_tls_creds_get_path TLS creds path creds=0x55a24ad5cb30 filename=ca-cert.pem path=<none>
+> >    qemu-system-x86_64(1184284:main): Unable to access credentials fish/ca-cert.pem: No such file or directory
+> > 
+> > - Full context:
+> > 
+> >    # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish \
+> >                        -d 'trace:qcrypto*' \
+> >                        -msg guest-name=on,timestamp=on \
+> >                        -name "fish food"
+> >    2025-08-19T20:12:50.211823Z [fish food] qemu-system-x86_64(1168876:main): qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x5582183d8760 dir=fish
+> >    2025-08-19T20:12:50.211842Z [fish food] qemu-system-x86_64(1168876:main): qcrypto_tls_creds_get_path TLS creds path creds=0x5582183d8760 filename=ca-cert.pem
+> > +path=<none>
+> >    2025-08-19T20:12:50.211846Z [fish food] qemu-system-x86_64(1168876:main): Unable to access credentials fish/ca-cert.pem: No such file or directory
+> > 
+> > The main things to note:
+> > 
+> >   * error_report/warn_report/qemu_log share the same
+> >     output format and -msg applies to both
+> > 
+> >   * -msg debug-threads=on is now unconditionally enabled
+> >     and thus the param is deprecated & ignored
+> > 
+> >   * Thread ID and name are unconditionally enabled
+> > 
+> >   * Guest name is surrounded in [...] brackets
+> > 
+> >   * The default output lines are typically 15 chars
+> >     wider given that we always include the thread
+> >     ID + name now
+> > 
+> >   * This takes the liberty of assigning the new file
+> >     to the existing error-report.c maintainer (Markus)
+> >     Since splitting it off into message.c instead of
+> >     putting it all in error-report.c felt slightly
+> >     nicer.
+> > 
+> > One thing I didn't tackle is making the location
+> > info get reported for qemu_log. This is used to
+> > give context for error messages when parsing some
+> > CLI args, and could be interesting for log messages
+> > associated with those same CLI args.
+> 
+> Testing with this change on top ...:
+> 
+> -- >8 --
+> diff --git a/include/qemu/message.h b/include/qemu/message.h
+> index 2cc092c993b..97fd2a94fbd 100644
+> --- a/include/qemu/message.h
+> +++ b/include/qemu/message.h
+> @@ -10,2 +10,3 @@ enum QMessageFormatFlags {
+>      QMESSAGE_FORMAT_THREAD_INFO = (1 << 3),
+> +    QMESSAGE_FORMAT_VCPU_ID = (1 << 4),
+>  };
+> diff --git a/system/vl.c b/system/vl.c
+> index bf9f80491f2..2f43a075be9 100644
+> --- a/system/vl.c
+> +++ b/system/vl.c
+> @@ -149,3 +149,4 @@
+>      (QMESSAGE_FORMAT_PROGRAM_NAME | \
+> -     QMESSAGE_FORMAT_THREAD_INFO)
+> +     QMESSAGE_FORMAT_THREAD_INFO | \
+> +     QMESSAGE_FORMAT_VCPU_ID)
+> 
+> diff --git a/util/message.c b/util/message.c
+> index 7d94b9d970d..19d1331403a 100644
+> --- a/util/message.c
+> +++ b/util/message.c
+> @@ -6,2 +6,3 @@
+>  #include "monitor/monitor.h"
+> +#include "hw/core/cpu.h"
+> 
+> @@ -46,2 +47,8 @@ void qmessage_context_print(FILE *fp)
+>      }
+> +
+> +    if (message_format & QMESSAGE_FORMAT_VCPU_ID) {
+> +        if (current_cpu) {
+> +            fprintf(fp, "(cpuid:%d): ", current_cpu->cpu_index);
+> +        }
+> +    }
+>  }
+> ---
+> 
+> ... on a branch where I test heavy vcpu context switching.
+> 
+> When using tracing + stderr AND the stdio console, I sometimes get
+> the trace events to disappear at some point. Not sure why (or if related
+> to my branch) yet.
+> 
+> When redirecting traces to a file ('-D foo.log'), all traces are
+> collected (no hang).
+> 
+> In both cases I notice a high performance slow down (when tracing is
+> used).
+> 
+> Suspicions:
+> - flocking
 
-On 25/9/25 11:44, Daniel P. Berrangé wrote:
-> This series is a tangent that came out of discussion in
-> 
->     https://lists.nongnu.org/archive/html/qemu-devel/2025-08/msg00903.html
-> 
-> In thinking about adding thread info to error_report, I
-> came to realize we should likely make qemu_log behave
-> consistently with error_report & friends. We already
-> honour '-msg timestamp=on', but don't honour 'guest-name=on'
-> and also don't include the binary name.
-> 
-> As an example of the current state, consider mixing error and
-> log output today:
-> 
-> - Default context:
-> 
->    # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish \
->                         -d 'trace:qcrypto*'
->    qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x55ac6d97f700 dir=fish
->    qcrypto_tls_creds_get_path TLS creds path creds=0x55ac6d97f700 filename=ca-cert.pem path=<none>
->    qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: No such file or directory
-> 
-> - Full context:
-> 
->    # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish \
->                         -d 'trace:qcrypto*' \
->                         -msg guest-name=on,timestamp=on \
->                         -name "fish food"
->    2025-08-19T20:14:16.791413Z qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x55e9a3458d10 dir=fish
->    2025-08-19T20:14:16.791429Z qcrypto_tls_creds_get_path TLS creds path creds=0x55e9a3458d10 filename=ca-cert.pem path=<none>
->    2025-08-19T20:14:16.791433Z fish food qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: No such file or directory
-> 
-> And after this series is complete:
-> 
-> - Default context:
-> 
->    # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish \
->                        -d 'trace:qcrypto*'
->    qemu-system-x86_64(1184284:main): qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x55a24ad5cb30 dir=fish
->    qemu-system-x86_64(1184284:main): qcrypto_tls_creds_get_path TLS creds path creds=0x55a24ad5cb30 filename=ca-cert.pem path=<none>
->    qemu-system-x86_64(1184284:main): Unable to access credentials fish/ca-cert.pem: No such file or directory
-> 
-> - Full context:
-> 
->    # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish \
->                        -d 'trace:qcrypto*' \
->                        -msg guest-name=on,timestamp=on \
->                        -name "fish food"
->    2025-08-19T20:12:50.211823Z [fish food] qemu-system-x86_64(1168876:main): qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x5582183d8760 dir=fish
->    2025-08-19T20:12:50.211842Z [fish food] qemu-system-x86_64(1168876:main): qcrypto_tls_creds_get_path TLS creds path creds=0x5582183d8760 filename=ca-cert.pem
-> +path=<none>
->    2025-08-19T20:12:50.211846Z [fish food] qemu-system-x86_64(1168876:main): Unable to access credentials fish/ca-cert.pem: No such file or directory
-> 
-> The main things to note:
-> 
->   * error_report/warn_report/qemu_log share the same
->     output format and -msg applies to both
-> 
->   * -msg debug-threads=on is now unconditionally enabled
->     and thus the param is deprecated & ignored
-> 
->   * Thread ID and name are unconditionally enabled
-> 
->   * Guest name is surrounded in [...] brackets
-> 
->   * The default output lines are typically 15 chars
->     wider given that we always include the thread
->     ID + name now
-> 
->   * This takes the liberty of assigning the new file
->     to the existing error-report.c maintainer (Markus)
->     Since splitting it off into message.c instead of
->     putting it all in error-report.c felt slightly
->     nicer.
-> 
-> One thing I didn't tackle is making the location
-> info get reported for qemu_log. This is used to
-> give context for error messages when parsing some
-> CLI args, and could be interesting for log messages
-> associated with those same CLI args.
+The logging code (and thus tracing) already used flockfile in
+qemu_log, so that should not be new. Only error_report gained
+new flockfile calls in this series.
 
-Testing with this change on top ...:
+> - new formatting
 
--- >8 --
-diff --git a/include/qemu/message.h b/include/qemu/message.h
-index 2cc092c993b..97fd2a94fbd 100644
---- a/include/qemu/message.h
-+++ b/include/qemu/message.h
-@@ -10,2 +10,3 @@ enum QMessageFormatFlags {
-      QMESSAGE_FORMAT_THREAD_INFO = (1 << 3),
-+    QMESSAGE_FORMAT_VCPU_ID = (1 << 4),
-  };
-diff --git a/system/vl.c b/system/vl.c
-index bf9f80491f2..2f43a075be9 100644
---- a/system/vl.c
-+++ b/system/vl.c
-@@ -149,3 +149,4 @@
-      (QMESSAGE_FORMAT_PROGRAM_NAME | \
--     QMESSAGE_FORMAT_THREAD_INFO)
-+     QMESSAGE_FORMAT_THREAD_INFO | \
-+     QMESSAGE_FORMAT_VCPU_ID)
+Seems the more likely option.  If practical, a git bisect across the
+series should show which part introduced any slowdown.
 
-diff --git a/util/message.c b/util/message.c
-index 7d94b9d970d..19d1331403a 100644
---- a/util/message.c
-+++ b/util/message.c
-@@ -6,2 +6,3 @@
-  #include "monitor/monitor.h"
-+#include "hw/core/cpu.h"
+Assuming you've not given any -msg option to QEMU though, the finger
+probably points towards the thread name code, as the bit that is
+new and enabled by default.
 
-@@ -46,2 +47,8 @@ void qmessage_context_print(FILE *fp)
-      }
-+
-+    if (message_format & QMESSAGE_FORMAT_VCPU_ID) {
-+        if (current_cpu) {
-+            fprintf(fp, "(cpuid:%d): ", current_cpu->cpu_index);
-+        }
-+    }
-  }
----
+With regards,
+Daniel
+-- 
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
 
-... on a branch where I test heavy vcpu context switching.
-
-When using tracing + stderr AND the stdio console, I sometimes get
-the trace events to disappear at some point. Not sure why (or if related
-to my branch) yet.
-
-When redirecting traces to a file ('-D foo.log'), all traces are
-collected (no hang).
-
-In both cases I notice a high performance slow down (when tracing is
-used).
-
-Suspicions:
-- flocking
-- new formatting
-
-Regards,
-
-Phil.
 
