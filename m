@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BB3FCAC5A7
-	for <qemu-rust@archiver.kernel.org>; Thu, 25 Sep 2025 09:48:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D791ECAC5A7
+	for <qemu-rust@archiver.kernel.org>; Thu, 25 Sep 2025 09:48:27 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v1iYx-0001Zi-QF; Thu, 25 Sep 2025 05:46:55 -0400
+	id 1v1iZK-00025B-5Y; Thu, 25 Sep 2025 05:47:18 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1v1iYU-0001Hb-28
- for qemu-rust@nongnu.org; Thu, 25 Sep 2025 05:46:26 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1v1iYs-0001WD-IF
+ for qemu-rust@nongnu.org; Thu, 25 Sep 2025 05:46:51 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1v1iY0-0001d5-Ps
- for qemu-rust@nongnu.org; Thu, 25 Sep 2025 05:46:23 -0400
+ id 1v1iYV-0001jj-5N
+ for qemu-rust@nongnu.org; Thu, 25 Sep 2025 05:46:49 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1758793552;
+ s=mimecast20190719; t=1758793584;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jD7prJ6ro51U/diLj3k7/GWH5jMUoGvOMefAMKMPzjA=;
- b=SbWUbNY09cJ26Uo2ZRKMx//Q/RDUQ1g+IJs0Q2RiOdw2bVeVfg7vR1BvCvUboWqQFW0+6j
- 7PMVUQ1L3OT5p86Y6y2s9SqtUC6NtJeldTrv8EjzhVHdqjLqQO/L3siZVzbOQMq1V4yL44
- X24Fd70n6VVNxGc4kI3kQ60iP+3kFmc=
+ bh=4eqRD9Zdeyk92VWPnwKxNF1eluR+jCOfRnC3AfnbZNU=;
+ b=eieopik9q1WpxcIjUd2YqSigJA18PeT11ZQj6wm2hAHetrohsbQ9/WaR5dq7LgFZM5r93x
+ IJtMYn+trFVHMH6fel9YNBCXYKhGeeoAiEB4OqR4a2u00G10+JPsMsrSIY5BIyotHwiLZK
+ 26gnd154ZCDuHU48bkIfPxpG7F0Tq20=
 Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-286-3K4yMJz_MuKvm04cz0dcCw-1; Thu,
- 25 Sep 2025 05:45:49 -0400
-X-MC-Unique: 3K4yMJz_MuKvm04cz0dcCw-1
-X-Mimecast-MFC-AGG-ID: 3K4yMJz_MuKvm04cz0dcCw_1758793548
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-467-t0MUrkWyNHW2HU3sj-E1Ag-1; Thu,
+ 25 Sep 2025 05:46:18 -0400
+X-MC-Unique: t0MUrkWyNHW2HU3sj-E1Ag-1
+X-Mimecast-MFC-AGG-ID: t0MUrkWyNHW2HU3sj-E1Ag_1758793577
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id E38131800378; Thu, 25 Sep 2025 09:45:47 +0000 (UTC)
+ id 0A374180057D; Thu, 25 Sep 2025 09:46:17 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.42.28.163])
  by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 72F27300021A; Thu, 25 Sep 2025 09:45:42 +0000 (UTC)
+ id B185730002D2; Thu, 25 Sep 2025 09:46:11 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Hanna Reitz <hreitz@redhat.com>,
@@ -62,25 +62,25 @@ Cc: Hanna Reitz <hreitz@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Gerd Hoffmann <kraxel@redhat.com>, devel@lists.libvirt.org,
  Paolo Bonzini <pbonzini@redhat.com>
-Subject: [PATCH v4 10/23] ui/vnc: remove use of error_printf_unless_qmp()
-Date: Thu, 25 Sep 2025 10:44:28 +0100
-Message-ID: <20250925094441.1651372-11-berrange@redhat.com>
+Subject: [PATCH v4 15/23] util: don't skip error prefixes when QMP is active
+Date: Thu, 25 Sep 2025 10:44:33 +0100
+Message-ID: <20250925094441.1651372-16-berrange@redhat.com>
 In-Reply-To: <20250925094441.1651372-1-berrange@redhat.com>
 References: <20250925094441.1651372-1-berrange@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
 X-Spam_score: -2.5
 X-Spam_bar: --
 X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.444,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001,
+ T_SPF_HELO_TEMPERROR=0.01,
  T_SPF_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -97,52 +97,45 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-The error_printf_unless_qmp() will print to the monitor if the current
-one is HMP, if it is QMP nothing will be printed, otherwise stderr
-will be used.
+The vreport() function will print to HMP if available, otherwise
+to stderr. In the event that vreport() is called during execution
+of a QMP command, it will print to stderr, but mistakenly omit the
+message prefixes (timestamp, guest name, program name).
 
-This scenario is easily handled by checking !monitor_cur_is_qmp() and
-then calling the error_printf() function.
-
-Reviewed-by: Dr. David Alan Gilbert <dave@treblig.org>
-Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-Reviewed-by: Markus Armbruster <armbru@redhat.com>
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- ui/vnc.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ util/error-report.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/ui/vnc.c b/ui/vnc.c
-index 77c823bf2e..3cc5b4cfec 100644
---- a/ui/vnc.c
-+++ b/ui/vnc.c
-@@ -3530,8 +3530,10 @@ int vnc_display_password(const char *id, const char *password)
-         return -EINVAL;
+diff --git a/util/error-report.c b/util/error-report.c
+index b262ad01cb..872158ad90 100644
+--- a/util/error-report.c
++++ b/util/error-report.c
+@@ -159,7 +159,7 @@ static void print_loc(void)
+     int i;
+     const char *const *argp;
+ 
+-    if (!monitor_cur() && g_get_prgname()) {
++    if (!monitor_cur_is_hmp() && g_get_prgname()) {
+         error_printf("%s:", g_get_prgname());
+         sep = " ";
      }
-     if (vd->auth == VNC_AUTH_NONE) {
--        error_printf_unless_qmp("If you want use passwords please enable "
--                                "password auth using '-vnc ${dpy},password'.\n");
-+        if (!monitor_cur_is_qmp()) {
-+            error_printf("If you want to use passwords, please enable "
-+                         "password auth using '-vnc ${dpy},password'.\n");
-+        }
-         return -EINVAL;
+@@ -203,14 +203,14 @@ static void vreport(report_type type, const char *fmt, va_list ap)
+ {
+     gchar *timestr;
+ 
+-    if (message_with_timestamp && !monitor_cur()) {
++    if (message_with_timestamp && !monitor_cur_is_hmp()) {
+         timestr = real_time_iso8601();
+         error_printf("%s ", timestr);
+         g_free(timestr);
      }
  
-@@ -3570,9 +3572,11 @@ static void vnc_display_print_local_addr(VncDisplay *vd)
-         qapi_free_SocketAddress(addr);
-         return;
+     /* Only prepend guest name if -msg guest-name and -name guest=... are set */
+-    if (error_with_guestname && error_guest_name && !monitor_cur()) {
++    if (error_with_guestname && error_guest_name && !monitor_cur_is_hmp()) {
+         error_printf("%s ", error_guest_name);
      }
--    error_printf_unless_qmp("VNC server running on %s:%s\n",
--                            addr->u.inet.host,
--                            addr->u.inet.port);
-+    if (!monitor_cur_is_qmp()) {
-+        error_printf("VNC server running on %s:%s\n",
-+                     addr->u.inet.host,
-+                     addr->u.inet.port);
-+    }
-     qapi_free_SocketAddress(addr);
- }
  
 -- 
 2.50.1
