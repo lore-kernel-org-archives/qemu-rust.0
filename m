@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B48DCAC5A7
-	for <qemu-rust@archiver.kernel.org>; Thu, 25 Sep 2025 09:46:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1626DCAC5A7
+	for <qemu-rust@archiver.kernel.org>; Thu, 25 Sep 2025 09:46:58 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v1iYD-00015l-Du; Thu, 25 Sep 2025 05:46:09 -0400
+	id 1v1iYJ-00018g-4N; Thu, 25 Sep 2025 05:46:15 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1v1iY3-0000xe-GK
- for qemu-rust@nongnu.org; Thu, 25 Sep 2025 05:46:00 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1v1iYH-000177-R0
+ for qemu-rust@nongnu.org; Thu, 25 Sep 2025 05:46:14 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1v1iXf-0001X0-2m
- for qemu-rust@nongnu.org; Thu, 25 Sep 2025 05:45:59 -0400
+ id 1v1iXm-0001Yu-JE
+ for qemu-rust@nongnu.org; Thu, 25 Sep 2025 05:46:12 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1758793531;
+ s=mimecast20190719; t=1758793539;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jMMgQdxZOS+idaSUGw02GbMbHV34psi17koZpeJ7Adk=;
- b=Y687HsgnZUfxfGV672GEycyDZFM74JagU0XVYC5xOiIl7fF9B4rDlg/n3k7Sai+xxj5WIJ
- ddXZHZtR7PBtC6OFUtoP1GxR6mhsIAMUZFAmiJO28Jij4LpWi7dlQfx/Lyxd8ifUVS7hRm
- 6g+6ejchYIRkS+K1c6+iJ6nFxAc40XE=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=lhvlmbocLMImejtfkUQoIH3CBQ2wk54B4Lb6eRqTx5U=;
+ b=gNCI5ZmK5fuNSXJMPnN753ni7RiS5xTLqTGyBoEkCq0rz1ChKcOkkiLTw6eK3AKXbmxM+N
+ dHfkcN9iMLWsDhUC8W3pxzEB7rdrjoaspGwOYG38sH6nzCXyjUCElDUr5gESnOsHaHTVJf
+ bQEvm/3SB2W8ojxw2nopTjpgeyH4dVI=
+Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-411-tpVKcBWAPYW_EvBV5b3fKg-1; Thu,
- 25 Sep 2025 05:45:26 -0400
-X-MC-Unique: tpVKcBWAPYW_EvBV5b3fKg-1
-X-Mimecast-MFC-AGG-ID: tpVKcBWAPYW_EvBV5b3fKg_1758793525
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-410-EoJm9mPwOkqu78JmdZ4qmg-1; Thu,
+ 25 Sep 2025 05:45:37 -0400
+X-MC-Unique: EoJm9mPwOkqu78JmdZ4qmg-1
+X-Mimecast-MFC-AGG-ID: EoJm9mPwOkqu78JmdZ4qmg_1758793536
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id EA95C1800350; Thu, 25 Sep 2025 09:45:24 +0000 (UTC)
+ by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 25C001955D48; Thu, 25 Sep 2025 09:45:36 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.42.28.163])
  by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id E0A0130002D1; Thu, 25 Sep 2025 09:45:19 +0000 (UTC)
+ id B24C4300021A; Thu, 25 Sep 2025 09:45:30 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Hanna Reitz <hreitz@redhat.com>,
@@ -62,25 +62,27 @@ Cc: Hanna Reitz <hreitz@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Gerd Hoffmann <kraxel@redhat.com>, devel@lists.libvirt.org,
  Paolo Bonzini <pbonzini@redhat.com>
-Subject: [PATCH v4 06/23] util: set the name for the 'main' thread
-Date: Thu, 25 Sep 2025 10:44:24 +0100
-Message-ID: <20250925094441.1651372-7-berrange@redhat.com>
+Subject: [PATCH v4 08/23] log: avoid repeated prefix on incremental qemu_log
+ calls
+Date: Thu, 25 Sep 2025 10:44:26 +0100
+Message-ID: <20250925094441.1651372-9-berrange@redhat.com>
 In-Reply-To: <20250925094441.1651372-1-berrange@redhat.com>
 References: <20250925094441.1651372-1-berrange@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
 X-Spam_score: -2.5
 X-Spam_bar: --
 X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.444,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001,
+ T_SPF_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -96,53 +98,58 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-The default main thread name is undefined, so use a constructor to
-explicitly set it to 'main'. This constructor is marked to run early
-as the thread name is intended to be used in error reporting / logs
-which may be triggered very early in QEMU execution.
+Some code makes multiple qemu_log calls to incrementally emit
+a single message. Currently timestamps get prepended to all
+qemu_log calls, even those continuing a previous incomplete
+message.
 
-Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+This changes the qemu_log so it skips adding a new line prefix,
+if the previous qemu_log call did NOT end with a newline.
+
+Fixes: 012842c07552 (log: make '-msg timestamp=on' apply to all qemu_log usage)
+Reported-by: Richard Henderson <richard.henderson@linaro.org>
 Reviewed-by: Dr. David Alan Gilbert <dave@treblig.org>
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- util/qemu-thread-posix.c | 6 ++++++
- util/qemu-thread-win32.c | 6 ++++++
- 2 files changed, 12 insertions(+)
+ util/log.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/util/qemu-thread-posix.c b/util/qemu-thread-posix.c
-index b1c127dbe3..afeac9ecad 100644
---- a/util/qemu-thread-posix.c
-+++ b/util/qemu-thread-posix.c
-@@ -22,6 +22,12 @@
- #include <pthread_np.h>
- #endif
+diff --git a/util/log.c b/util/log.c
+index abdcb6b311..2642a55c59 100644
+--- a/util/log.c
++++ b/util/log.c
+@@ -143,6 +143,12 @@ void qemu_log_unlock(FILE *logfile)
+     }
+ }
  
-+static void __attribute__((__constructor__(QEMU_CONSTRUCTOR_EARLY)))
-+qemu_thread_init(void)
-+{
-+    qemu_thread_set_name("main");
-+}
++/*
++ * 'true' if the previous log message lacked a trailing '\n',
++ * and thus the subsequent call must skip any prefix
++ */
++static __thread bool incomplete;
 +
- static void error_exit(int err, const char *msg)
+ void qemu_log(const char *fmt, ...)
  {
-     fprintf(stderr, "qemu: %s: %s\n", msg, strerror(err));
-diff --git a/util/qemu-thread-win32.c b/util/qemu-thread-win32.c
-index 4d2d663a9a..8ca6429ad3 100644
---- a/util/qemu-thread-win32.c
-+++ b/util/qemu-thread-win32.c
-@@ -22,6 +22,12 @@ typedef HRESULT (WINAPI *pSetThreadDescription) (HANDLE hThread,
- static pSetThreadDescription SetThreadDescriptionFunc;
- static HMODULE kernel32_module;
- 
-+static void __attribute__((__constructor__(QEMU_CONSTRUCTOR_EARLY)))
-+qemu_thread_init(void)
-+{
-+    qemu_thread_set_name("main");
-+}
-+
- static bool load_set_thread_description(void)
- {
-     static gsize _init_once = 0;
+     FILE *f;
+@@ -154,7 +160,7 @@ void qemu_log(const char *fmt, ...)
+      * was emitted if we are delayed acquiring the
+      * mutex
+      */
+-    if (message_with_timestamp) {
++    if (message_with_timestamp && !incomplete) {
+         g_autoptr(GDateTime) dt = g_date_time_new_now_utc();
+         timestr = g_date_time_format_iso8601(dt);
+     }
+@@ -170,6 +176,7 @@ void qemu_log(const char *fmt, ...)
+         va_start(ap, fmt);
+         vfprintf(f, fmt, ap);
+         va_end(ap);
++        incomplete = fmt[strlen(fmt) - 1] != '\n';
+         qemu_log_unlock(f);
+     }
+ }
 -- 
 2.50.1
 
