@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0462CAC5B5
-	for <qemu-rust@archiver.kernel.org>; Thu, 25 Sep 2025 21:19:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B34FCCAC5B5
+	for <qemu-rust@archiver.kernel.org>; Thu, 25 Sep 2025 22:01:37 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v1tNC-0004J2-Vv; Thu, 25 Sep 2025 17:19:31 -0400
+	id 1v1u1n-0007Hn-8W; Thu, 25 Sep 2025 18:01:29 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <eblake@redhat.com>) id 1v1tHw-0001op-1k
- for qemu-rust@nongnu.org; Thu, 25 Sep 2025 17:14:05 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <eblake@redhat.com>) id 1v1tP2-0005D0-B8
+ for qemu-rust@nongnu.org; Thu, 25 Sep 2025 17:21:25 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <eblake@redhat.com>) id 1v1tHr-00057X-09
- for qemu-rust@nongnu.org; Thu, 25 Sep 2025 17:14:02 -0400
+ (Exim 4.90_1) (envelope-from <eblake@redhat.com>) id 1v1tOs-0006cj-P6
+ for qemu-rust@nongnu.org; Thu, 25 Sep 2025 17:21:23 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1758834831;
+ s=mimecast20190719; t=1758835271;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=clnpiNGMgjzy34SVTV79KfS2QfeMmkFOWjVyr2sQDFA=;
- b=Fs2aMi+2xVXqeNFhnuX8N2LuKDfcIzyS2OE+pnBEBQbepNv/QGcxGKfaFkk8bevNvUw6rL
- nI6BJH0JhRy8mROv3iBnwZ04SiHHsgDNrlSAPGRDjyhYY1sDCtH35SRmw0TTGiXoldN6Q6
- 7E8W9GDOQDJP7uKYjHJiEr0CFRw8hi8=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=36PrxwJPUHqeHMPULMMX/KKN0+r7rH+NalNJdAqYenI=;
+ b=Vd75j8+yAZ52bpCKEtfFgUDkKK2RlTiAEejQEgYDvvRdAQm3RERk5VHdCLjyseUTQTHyQH
+ 1omJCGvEPJPo6LfY/NQJZ1Fm8rCxh3GKm7/Qrd/qDgOdN3HkqhQAShjpazn1gQaGSNI3Cd
+ soI/hgW6fXxiQSJKeilUoZkpQVZNZTw=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-235-vtPK0CaGNZSL5zfgnQJ1QA-1; Thu,
- 25 Sep 2025 17:13:48 -0400
-X-MC-Unique: vtPK0CaGNZSL5zfgnQJ1QA-1
-X-Mimecast-MFC-AGG-ID: vtPK0CaGNZSL5zfgnQJ1QA_1758834826
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-498-1bqEZgw1MoCRe5eNHQnVbQ-1; Thu,
+ 25 Sep 2025 17:21:03 -0400
+X-MC-Unique: 1bqEZgw1MoCRe5eNHQnVbQ-1
+X-Mimecast-MFC-AGG-ID: 1bqEZgw1MoCRe5eNHQnVbQ_1758835261
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 989A2197740B; Thu, 25 Sep 2025 21:13:45 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 7843C18002D7; Thu, 25 Sep 2025 21:21:01 +0000 (UTC)
 Received: from redhat.com (unknown [10.2.16.89])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 808A21956095; Thu, 25 Sep 2025 21:13:40 +0000 (UTC)
-Date: Thu, 25 Sep 2025 16:13:37 -0500
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 61459180044F; Thu, 25 Sep 2025 21:20:56 +0000 (UTC)
+Date: Thu, 25 Sep 2025 16:20:53 -0500
 From: Eric Blake <eblake@redhat.com>
 To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Cc: qemu-devel@nongnu.org, Hanna Reitz <hreitz@redhat.com>, 
@@ -59,29 +59,30 @@ Cc: qemu-devel@nongnu.org, Hanna Reitz <hreitz@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
  Gerd Hoffmann <kraxel@redhat.com>, devel@lists.libvirt.org,
  Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH v4 07/23] util: add API to fetch the current thread name
-Message-ID: <p5yai6s3gtaopp4tnymql2lqqe42dimkhdevmvm4jm427eadpe@7sfg45r6aoz6>
+Subject: Re: [PATCH v4 13/23] monitor: move error_vprintf back to
+ error-report.c
+Message-ID: <rk3vugjp4um6esd3q57wbybmiefb3jvi2ievnxawo4nuxw7ywd@7g7hc4o5fmmu>
 References: <20250925094441.1651372-1-berrange@redhat.com>
- <20250925094441.1651372-8-berrange@redhat.com>
+ <20250925094441.1651372-14-berrange@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250925094441.1651372-8-berrange@redhat.com>
+In-Reply-To: <20250925094441.1651372-14-berrange@redhat.com>
 User-Agent: NeoMutt/20250510
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=eblake@redhat.com;
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=eblake@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
 X-Spam_score: -2.5
 X-Spam_bar: --
 X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001,
+ T_SPF_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Thu, 25 Sep 2025 17:19:27 -0400
+X-Mailman-Approved-At: Thu, 25 Sep 2025 18:01:20 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,60 +97,46 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Thu, Sep 25, 2025 at 10:44:25AM +0100, Daniel P. Berrangé wrote:
-> This will be used to include the thread name in error reports
-> in a later patch. It returns a const string stored in a thread
-> local to avoid memory allocation when it is called repeatedly
-> in a single thread. The thread name should be set at the very
-> start of the thread execution, which is the case when using
-> qemu_thread_create.
+On Thu, Sep 25, 2025 at 10:44:31AM +0100, Daniel P. Berrangé wrote:
+> The current unit tests rely on monitor.o not being linked, such
+> that the monitor stubs get linked instead. Since error_vprintf
+> is in monitor.o this allows a stub error_vprintf impl to be used
+> that calls g_test_message.
+> 
+> This takes a different approach, with error_vprintf moving
+> back to error-report.c such that it is always linked into the
+> tests. The monitor_vprintf() stub is then changed to use
+> g_test_message if QTEST_SLENT_ERROS is set, otherwise it will
+
+Double typo; should be QTEST_SILENT_ERRORS...
+
+> return -1 and trigger error_vprintf to call vfprintf.
+> 
+> The end result is functionally equivalent for the purposes of
+> the unit tests.
 > 
 > Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 > ---
->  include/qemu/thread.h    |  1 +
->  meson.build              | 21 +++++++++++++++++
->  util/qemu-thread-posix.c | 33 ++++++++++++++++++++++++++-
->  util/qemu-thread-win32.c | 49 ++++++++++++++++++++++++++++++++++++----
->  4 files changed, 99 insertions(+), 5 deletions(-)
-> 
 
-> +++ b/util/qemu-thread-posix.c
-
-> +const char *qemu_thread_get_name(void)
-
-> +# endif
-> +    if (rv != 0) {
-> +        strlcpy(namebuf, "unnamed", G_N_ELEMENTS(namebuf));
-
-Should this be g_strlcpy() instead of strlcpy(), for consistency with
-the Windows half of the patch, and since g_strlcpy() is much more
-frequent in the QEMU codebase?
-
-> +++ b/util/qemu-thread-win32.c
-
-> @@ -38,14 +41,17 @@ static bool load_set_thread_description(void)
->              SetThreadDescriptionFunc =
->                  (pSetThreadDescription)GetProcAddress(kernel32_module,
->                                                        "SetThreadDescription");
-> -            if (!SetThreadDescriptionFunc) {
-> +            GetThreadDescriptionFunc =
-> +                (pGetThreadDescription)GetProcAddress(kernel32_module,
-> +                                                      "GetThreadDescription");
-> +            if (!SetThreadDescriptionFunc || !GetThreadDescriptionFunc) {
->                  FreeLibrary(kernel32_module);
->              }
->          }
->          g_once_init_leave(&_init_once, 1);
->      }
+> +++ b/stubs/monitor-core.c
+> @@ -18,5 +18,17 @@ void qapi_event_emit(QAPIEvent event, QDict *qdict)
 >  
-> -    return !!SetThreadDescriptionFunc;
-> +    return !!(SetThreadDescriptionFunc && GetThreadDescriptionFunc);
+>  int monitor_vprintf(Monitor *mon, const char *fmt, va_list ap)
+>  {
+> -    abort();
+> +    /*
+> +     * Pretend 'g_test_message' is our monitor console to
+> +     * stop the caller sending messages to stderr
+> +     */
+> +    if (g_test_initialized() && !g_test_subprocess() &&
+> +        getenv("QTEST_SILENT_ERRORS")) {
 
-Pre-patch, the !! was necessary for converting a pointer to a bool.
-But && also converts to a bool, and "!!(bool)" is redundant compared
-to just "bool".
+...to match the code.
 
-But overall, the patch makes sense.
+With that fixed,
+
+Reviewed-by: Eric Blake <eblake@redhat.com>
+
 
 -- 
 Eric Blake, Principal Software Engineer
