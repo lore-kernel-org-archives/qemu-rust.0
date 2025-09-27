@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD933CAC5AE
-	for <qemu-rust@archiver.kernel.org>; Fri, 26 Sep 2025 16:41:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BCCFCAC5B8
+	for <qemu-rust@archiver.kernel.org>; Sat, 27 Sep 2025 17:18:40 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v2BVl-0007bc-CR; Fri, 26 Sep 2025 12:41:33 -0400
+	id 1v2YZ1-0007fA-2G; Sat, 27 Sep 2025 13:18:27 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1v2BVj-0007bS-Sa
- for qemu-rust@nongnu.org; Fri, 26 Sep 2025 12:41:32 -0400
-Received: from mail-wr1-x42d.google.com ([2a00:1450:4864:20::42d])
+ id 1v2YYz-0007eb-2W
+ for qemu-rust@nongnu.org; Sat, 27 Sep 2025 13:18:25 -0400
+Received: from mail-wr1-x42a.google.com ([2a00:1450:4864:20::42a])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
- id 1v2BVa-0004s3-9a
- for qemu-rust@nongnu.org; Fri, 26 Sep 2025 12:41:31 -0400
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-414f48bd785so711785f8f.1
- for <qemu-rust@nongnu.org>; Fri, 26 Sep 2025 09:41:17 -0700 (PDT)
+ id 1v2YYo-0005F5-8K
+ for qemu-rust@nongnu.org; Sat, 27 Sep 2025 13:18:23 -0400
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3ee130237a8so2280482f8f.0
+ for <qemu-rust@nongnu.org>; Sat, 27 Sep 2025 10:18:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1758904873; x=1759509673; darn=nongnu.org;
+ d=linaro.org; s=google; t=1758993477; x=1759598277; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:message-id:date:user-agent
  :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ow/Yog+KyxSbh0n7xMlyK09VhFG8KT8bLL4FEel20v8=;
- b=vYu8GXfKOfUoaZ3gshtUlp3K8O6JxeI6Mad/VwF7d0H4ZGJqJ3X3K4EfkfqtU3pwhE
- MA6QK6loQRgXesRLEPnFRme6nwCWR2dFVTowFUBK1Ya/gctczuXq4cdNeKIZLOC7AI3V
- t4hMcCo8lS8AvjYfO+UnKtek4jILNBnQAbwlHCU7WlviFZ8iKOYh9tOggE4eSo5S90nw
- pT9SBWGtqzx0AVbQY2u+g5pddPZ6JbFxAvUkpdASQel2RDIWp2rU7A6sHJOrHWsvWji+
- BIutCwEOkuHb87bbwvUPtBDjtwiKBpsSsgpSkHEuVRcRyVMqBEjNyEbyHbdPTeUSiJxM
- +Peg==
+ bh=bU5leybSLoHUS/zdIYbIIt7mWgcZedcjGKuWRErQKEA=;
+ b=kOc+YbFXCERThkYj8CKnP/jfvMjvYbi2KUaSjPG0lNaBPXTpp9QEv9Y1xXhk0NieF6
+ iT8TeoBuJCpFOfQ2MPwQJvqh8CTOouuObbz1r7iNuR+CJuoIYbR0vTxgCF6fGLPrJ3ay
+ Wt4J5KieoDUqLOX6sAOWz2T0QVUEPKJuc5ERqf/G5QXsOVXjNBEcMfgMz3SLwiuyAqok
+ +mH4kyepMeLyzlt4GeLxjBTocqTNwhTNqW2IoH1v4VzGt2S51EmxkfNJYlYVQY+7UkI6
+ Wbgv0vu2tvX1GWD546iGbwR/OFrz6r6HJcF+ch3o/rACvFQ5z4dcGrIknSjDm73RlF8P
+ 6eFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758904873; x=1759509673;
+ d=1e100.net; s=20230601; t=1758993477; x=1759598277;
  h=content-transfer-encoding:mime-version:message-id:date:user-agent
  :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Ow/Yog+KyxSbh0n7xMlyK09VhFG8KT8bLL4FEel20v8=;
- b=DqF7oHvhXBUycASuq7BaAujlifrOCT2PoqSoB595U7K4YtvhJcu5j/7D9PsYCnqa3R
- W4OqgYnySb/dvbRwRWmxZylZZWfLWozO/62In9iCMp0+YxCwRLm2s1gT452mn3VWkMMc
- SdovNshYFcr7+uFnucBWWcFtPtjyrLVmZDbJ2+HNBOrsRH17Uuw2gB+imfPBOzl3/8OP
- W9wiOmjguN5IGq+w95blGxvrL5evoff+uRQMgMUxgpHvYURQOjlbafjhWaLr2Earqqdx
- lL6YRSSTjuIV958oayJjTkEJ7RhWEcuYxeIp6Xf6dxC58hceWmL0yXzDvueHwfqtAiol
- zzOw==
+ bh=bU5leybSLoHUS/zdIYbIIt7mWgcZedcjGKuWRErQKEA=;
+ b=HdsIgFHZ4B0RdSaokef6lUL0JIyr4YW/je7uQCxvqhV1zxBaGC/L0IopJctZ0Kz+5U
+ 1JGOGNriFDsZ5ffOhRj5RhPVp3zPHXrWpWW370C77Mma6b1xdqki25OxGhEnQylkhbAk
+ 6rEbph5o46MZRiY1pPMlgKnDbouC5DZmss7D8nazNM+6+Fgkm4wr0b1qUv7+4bfA72k8
+ clZPT25FiDfsNErHJw9uZOvDdwCgr2z5lRpkkHWFS2i4V6v37Ck1liD9o7nf4uSQvEBI
+ hVvFM/7SYkymZb4ZI4hgZsebp+P/Zy/P+tamuvqd8Crf3MmtuH//PBpzsuCj0WTRq9WG
+ tfvg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXgVg5BP73HrpdZdnapDASAgh2qkaC+QUEDeDjVbvyWjHxUPneJQMcJ3t8QB7+rzu8h6sN+M7k0j6o=@nongnu.org
-X-Gm-Message-State: AOJu0YxcnV5TOcklMZMODYArRl9q9t79FioDnfhG+OyItRcONMtr21kn
- jRnnoOFJsnHDt1eBfbRGIzezSiN96MTxMMkxjuSHAockWq4YAtGCflzBRU6fYZfqMqg=
-X-Gm-Gg: ASbGncszcy9rxnCVGbEBG0ZazMZXMCY3eFp7Ew9L6fRORnfSSotU+eEzK9FTL66n9G6
- uaC6aLAR6iPoEOc/1S5uHRyIto/MxVeYQnCb1/cFwlkb14bRGMUmNSodjaFVCBoyXLe++dIzbRp
- vSAOufnOdVSqTmHkGRzDJ5buiG36h8CO09IZd6ntiL0zazmUV/Dxd+E9+NVdEH1DssP2s7rWUaz
- f2lNfAzioT06NxDxLJSLS0z2QfbB4KGCdOhyPXZThjAlCny2lQrmc0QNKLgIfNiHuEXgwJ9CUl4
- X6bSdWidZcEqpnX9UlWZwpjSjN+/xa/htcKPv5MLVnCDp9NLgWzhOgqHiZ60f14mjq9N0QESVbQ
- V7C/P2ZRvT4HEa40TfUwCW8M=
-X-Google-Smtp-Source: AGHT+IFCdMg6YuL+DIlg1SSm+egjR+yasB0JpYItsXelXICcYkOSeq3p9FzSNNdv3vmauBSGJ2LQHw==
-X-Received: by 2002:a05:6000:24c3:b0:3f5:453:77e3 with SMTP id
- ffacd0b85a97d-40e42502f18mr7204818f8f.6.1758904872687; 
- Fri, 26 Sep 2025 09:41:12 -0700 (PDT)
+ AJvYcCUCEnWlMqXq4F8bVS740ilOJpGMp+PFOtG42jnfcohEbuG11+dZDu3pIn5J7CPG07vHcx1IitTyi84=@nongnu.org
+X-Gm-Message-State: AOJu0YydmHmJWBDOxhzUgz/ts8Ma5npyrY/mFLuKpUuTRzXBI356g7xu
+ K2k+eEXb482m56vQSx6Y4o/3/hhI830wQbDptPccsmhVkEv8AeJvS9PuQWb49qw5BIc=
+X-Gm-Gg: ASbGnctpB+HJwBhTSnNAHTRaVWFyL7UWioS0w3QD2JKTBNWichKQLt8Nf9mmNxCX6rl
+ 5wx4r1p/I/Qyi0JApHCFfILBmT7JBUzp8vPGmUFdaX7ofsDWYOp/WB0g6ITcmRG3+bRSH9nd5MW
+ sVc4f05Pf/Cw+DyQ4jbsIFOfYZrffM8484UdR7Mzf3OmpdpVMjWTXcb1+1r61kXREqJU4y3dg3M
+ EoK1Yu5nUlwkJHQxHmAHnBIeN8SpiavBBgMEzgGQqK/cxU95J287Jdy13p8yCdDw9laeohIQaqu
+ 3Uk5oyFlMdPFcA2xw2Ry7jcAy7xyrFaRWY3lfZYf3XqC+go/FQR4WsPM2qRCIVyjpl6SopcGeEw
+ 9shG43ymcpI/FaMr6+HKMKe2cJSXmmVdFIQ==
+X-Google-Smtp-Source: AGHT+IGwzvFiqu8VpFToMmmcA7U9iG2z/ywVQ47cTrQSvOxP5phNhLphE1cBIhe6aV5K+n6DMKiNtg==
+X-Received: by 2002:a05:6000:2089:b0:3eb:2437:97c5 with SMTP id
+ ffacd0b85a97d-40e468e7384mr10719132f8f.22.1758993477166; 
+ Sat, 27 Sep 2025 10:17:57 -0700 (PDT)
 Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46e33e3b355sm84360675e9.12.2025.09.26.09.41.11
+ ffacd0b85a97d-40fb72face8sm11607504f8f.5.2025.09.27.10.17.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Sep 2025 09:41:11 -0700 (PDT)
+ Sat, 27 Sep 2025 10:17:56 -0700 (PDT)
 Received: from draig (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 0BC435F7C3;
- Fri, 26 Sep 2025 17:41:11 +0100 (BST)
+ by draig.lan (Postfix) with ESMTP id B9AC55F820;
+ Sat, 27 Sep 2025 18:17:54 +0100 (BST)
 From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: marcandre.lureau@redhat.com
 Cc: qemu-devel@nongnu.org,  Paolo Bonzini <pbonzini@redhat.com>,  Kyle Evans
@@ -79,19 +79,18 @@ Cc: qemu-devel@nongnu.org,  Paolo Bonzini <pbonzini@redhat.com>,  Kyle Evans
  <manos.pitsidianakis@linaro.org>,  Jiaxun Yang <jiaxun.yang@flygoat.com>,
  Ed Maste <emaste@freebsd.org>,  devel@lists.libvirt.org,
  qemu-rust@nongnu.org,  Kohei Tokunaga <ktokunaga.mail@gmail.com>
-Subject: Re: [PATCH v2 16/27] tests/lcitool: update to debian13
-In-Reply-To: <20250924120426.2158655-17-marcandre.lureau@redhat.com>
- (marcandre lureau's message of "Wed, 24 Sep 2025 16:04:13 +0400")
+Subject: Re: [PATCH v2 00/27] CI/build-sys fixes to enable Rust more widely
+In-Reply-To: <20250924120426.2158655-1-marcandre.lureau@redhat.com> (marcandre
+ lureau's message of "Wed, 24 Sep 2025 16:03:57 +0400")
 References: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
- <20250924120426.2158655-17-marcandre.lureau@redhat.com>
-User-Agent: mu4e 1.12.12; emacs 30.1
-Date: Fri, 26 Sep 2025 17:41:10 +0100
-Message-ID: <87v7l5go9l.fsf@draig.linaro.org>
+User-Agent: mu4e 1.12.13; emacs 30.1
+Date: Sat, 27 Sep 2025 18:17:54 +0100
+Message-ID: <87y0pzg6gt.fsf@draig.linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::42d;
- envelope-from=alex.bennee@linaro.org; helo=mail-wr1-x42d.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::42a;
+ envelope-from=alex.bennee@linaro.org; helo=mail-wr1-x42a.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -117,658 +116,121 @@ marcandre.lureau@redhat.com writes:
 
 > From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
 >
-> Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
-> Reviewed-by: Daniel P. Berrang=C3=A9 <berrange@redhat.com>
-> ---
->  .../dockerfiles/debian-amd64-cross.docker     |  9 +++++----
->  .../dockerfiles/debian-arm64-cross.docker     |  9 +++++----
->  .../dockerfiles/debian-armhf-cross.docker     | 12 +++++------
->  .../dockerfiles/debian-i686-cross.docker      | 11 +++++-----
->  .../dockerfiles/debian-ppc64el-cross.docker   |  9 +++++----
->  .../dockerfiles/debian-s390x-cross.docker     |  9 +++++----
->  tests/docker/dockerfiles/debian.docker        |  9 +++++----
->  tests/lcitool/refresh                         | 20 ++++++++++---------
->  8 files changed, 46 insertions(+), 42 deletions(-)
+> Hi,
 >
-> diff --git a/tests/docker/dockerfiles/debian-amd64-cross.docker b/tests/d=
-ocker/dockerfiles/debian-amd64-cross.docker
-> index f3ad2205a7..08621879dd 100644
-> --- a/tests/docker/dockerfiles/debian-amd64-cross.docker
-> +++ b/tests/docker/dockerfiles/debian-amd64-cross.docker
-> @@ -1,10 +1,10 @@
->  # THIS FILE WAS AUTO-GENERATED
->  #
-> -#  $ lcitool dockerfile --layers all --cross-arch x86_64 debian-12 qemu
-> +#  $ lcitool dockerfile --layers all --cross-arch x86_64 debian-13 qemu
->  #
->  # https://gitlab.com/libvirt/libvirt-ci
->=20=20
-> -FROM docker.io/library/debian:12-slim
-> +FROM docker.io/library/debian:13-slim
->=20=20
->  RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->      apt-get update && \
-> @@ -48,11 +48,12 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->                        python3-setuptools \
->                        python3-sphinx \
->                        python3-sphinx-rtd-theme \
-> +                      python3-tomli \
->                        python3-venv \
->                        python3-wheel \
->                        python3-yaml \
->                        rpm2cpio \
-> -                      rustc-web \
-> +                      rustc \
->                        sed \
->                        socat \
->                        sparse \
-> @@ -85,7 +86,7 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->      eatmydata apt-get install --no-install-recommends -y \
->                        gcc-x86-64-linux-gnu \
->                        libaio-dev:amd64 \
-> -                      libasan6:amd64 \
-> +                      libasan8:amd64 \
->                        libasound2-dev:amd64 \
->                        libattr1-dev:amd64 \
->                        libbpf-dev:amd64 \
-> diff --git a/tests/docker/dockerfiles/debian-arm64-cross.docker b/tests/d=
-ocker/dockerfiles/debian-arm64-cross.docker
-> index 7d42227fa1..725cccbee1 100644
-> --- a/tests/docker/dockerfiles/debian-arm64-cross.docker
-> +++ b/tests/docker/dockerfiles/debian-arm64-cross.docker
-> @@ -1,10 +1,10 @@
->  # THIS FILE WAS AUTO-GENERATED
->  #
-> -#  $ lcitool dockerfile --layers all --cross-arch aarch64 debian-12 qemu
-> +#  $ lcitool dockerfile --layers all --cross-arch aarch64 debian-13 qemu
->  #
->  # https://gitlab.com/libvirt/libvirt-ci
->=20=20
-> -FROM docker.io/library/debian:12-slim
-> +FROM docker.io/library/debian:13-slim
->=20=20
->  RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->      apt-get update && \
-> @@ -48,11 +48,12 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->                        python3-setuptools \
->                        python3-sphinx \
->                        python3-sphinx-rtd-theme \
-> +                      python3-tomli \
->                        python3-venv \
->                        python3-wheel \
->                        python3-yaml \
->                        rpm2cpio \
-> -                      rustc-web \
-> +                      rustc \
->                        sed \
->                        socat \
->                        sparse \
-> @@ -85,7 +86,7 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->      eatmydata apt-get install --no-install-recommends -y \
->                        gcc-aarch64-linux-gnu \
->                        libaio-dev:arm64 \
-> -                      libasan6:arm64 \
-> +                      libasan8:arm64 \
->                        libasound2-dev:arm64 \
->                        libattr1-dev:arm64 \
->                        libbpf-dev:arm64 \
-> diff --git a/tests/docker/dockerfiles/debian-armhf-cross.docker b/tests/d=
-ocker/dockerfiles/debian-armhf-cross.docker
-> index 8ad4d2bebf..50f7e0e986 100644
-> --- a/tests/docker/dockerfiles/debian-armhf-cross.docker
-> +++ b/tests/docker/dockerfiles/debian-armhf-cross.docker
-> @@ -1,10 +1,10 @@
->  # THIS FILE WAS AUTO-GENERATED
->  #
-> -#  $ lcitool dockerfile --layers all --cross-arch armv7l debian-12 qemu
-> +#  $ lcitool dockerfile --layers all --cross-arch armv7l debian-13 qemu
->  #
->  # https://gitlab.com/libvirt/libvirt-ci
->=20=20
-> -FROM docker.io/library/debian:12-slim
-> +FROM docker.io/library/debian:13-slim
->=20=20
->  RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->      apt-get update && \
-> @@ -48,11 +48,12 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->                        python3-setuptools \
->                        python3-sphinx \
->                        python3-sphinx-rtd-theme \
-> +                      python3-tomli \
->                        python3-venv \
->                        python3-wheel \
->                        python3-yaml \
->                        rpm2cpio \
-> -                      rustc-web \
-> +                      rustc \
->                        sed \
->                        socat \
->                        sparse \
-> @@ -85,7 +86,7 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->      eatmydata apt-get install --no-install-recommends -y \
->                        gcc-arm-linux-gnueabihf \
->                        libaio-dev:armhf \
-> -                      libasan6:armhf \
-> +                      libasan8:armhf \
->                        libasound2-dev:armhf \
->                        libattr1-dev:armhf \
->                        libbpf-dev:armhf \
-> @@ -107,7 +108,6 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->                        libgbm-dev:armhf \
->                        libgcrypt20-dev:armhf \
->                        libglib2.0-dev:armhf \
-> -                      libglusterfs-dev:armhf \
->                        libgnutls28-dev:armhf \
->                        libgtk-3-dev:armhf \
->                        libgtk-vnc-2.0-dev:armhf \
-> @@ -127,7 +127,6 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->                        libpixman-1-dev:armhf \
->                        libpng-dev:armhf \
->                        libpulse-dev:armhf \
-> -                      librbd-dev:armhf \
->                        librdmacm-dev:armhf \
->                        libsasl2-dev:armhf \
->                        libsdl2-dev:armhf \
-> @@ -152,7 +151,6 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->                        libvirglrenderer-dev:armhf \
->                        libvte-2.91-dev:armhf \
->                        libxdp-dev:armhf \
-> -                      libxen-dev:armhf \
->                        libzstd-dev:armhf \
->                        nettle-dev:armhf \
->                        systemtap-sdt-dev:armhf \
+> This patch series fixes a number of issues with the build system and CI a=
+nd
+> enable Rust for many of our jobs, getting us closer to enable Rust by def=
+ault.
+>
+> emscripten is difficult to enable, help welcome.
 
-This fails to build:
+Also I think:
 
-Build started at 2025-09-26T16:02:34.986501
-Main binary: /tmp/qemu-test/build/pyvenv/bin/python3
-Build Options: -Dwerror=3Dtrue -Dprefix=3D/tmp/qemu-test/install -Drust=3De=
-nabled -Ddocs=3Denabled -Dplugins=3Dtrue --cross-file=3Dconfig-meson.cross =
---native-file=3Dconfig-meson.native
-Python system: Linux
-The Meson build system
-Version: 1.9.0
-Source dir: /tmp/qemu-test/src
-Build dir: /tmp/qemu-test/build
-Build type: cross build
-Project name: qemu
-Project version: 10.1.50
------------
-Detecting compiler via: `arm-linux-gnueabihf-gcc --version` -> 0
-stdout:
-arm-linux-gnueabihf-gcc (Debian 14.2.0-19) 14.2.0
-Copyright (C) 2024 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
------------
-Running command: -cpp -x c -E -dM -
------
------------
-Detecting linker via: `arm-linux-gnueabihf-gcc -Wl,--version` -> 0
-stdout:
-GNU ld (GNU Binutils for Debian) 2.44
-Copyright (C) 2025 Free Software Foundation, Inc.
-This program is free software; you may redistribute it under the terms of
-the GNU General Public License version 3 or (at your option) a later versio=
-n.
-This program has absolutely no warranty.
------------
-stderr:
-collect2 version 14.2.0
-/usr/lib/gcc-cross/arm-linux-gnueabihf/14/../../../../arm-linux-gnueabihf/b=
-in/ld -plugin /usr/libexec/gcc-cross/arm-linux-gnueabihf/14/liblto_plugin.s=
-o -plugin-opt=3D/usr/libexec/gcc-cross/arm-linux-gnueabihf/14/lto-wrapper -=
-plugin-opt=3D-fresolution=3D/tmp/ccSBX4gO.res -plugin-opt=3D-pass-through=
-=3D-lgcc -plugin-opt=3D-pass-through=3D-lgcc_s -plugin-opt=3D-pass-through=
-=3D-lc -plugin-opt=3D-pass-through=3D-lgcc -plugin-opt=3D-pass-through=3D-l=
-gcc_s --sysroot=3D/ --build-id --eh-frame-hdr -dynamic-linker /lib/ld-linux=
--armhf.so.3 -X --hash-style=3Dgnu --as-needed -m armelf_linux_eabi -pie /li=
-b/arm-linux-gnueabihf/Scrt1.o /lib/arm-linux-gnueabihf/crti.o /usr/lib/gcc-=
-cross/arm-linux-gnueabihf/14/crtbeginS.o -L/usr/lib/gcc-cross/arm-linux-gnu=
-eabihf/14 -L/usr/lib/gcc-cross/arm-linux-gnueabihf/14/../../../../arm-linux=
--gnueabihf/lib -L/lib/arm-linux-gnueabihf -L/usr/lib/arm-linux-gnueabihf --=
-version -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push=
--state --as-needed -lgcc_s --pop-state /usr/lib/gcc-cross/arm-linux-gnueabi=
-hf/14/crtendS.o /lib/arm-linux-gnueabihf/crtn.o
------------
-Sanity testing C compiler: arm-linux-gnueabihf-gcc
-Is cross compiler: True.
-Sanity check compiler command line: arm-linux-gnueabihf-gcc sanitycheckc.c =
--o sanitycheckc_cross.exe -D_FILE_OFFSET_BITS=3D64 -c
-Sanity check compile stdout:
+  https://gitlab.com/stsquad/qemu/-/pipelines/2065603411
 
------
-Sanity check compile stderr:
+And the:
+  debian-armhf-cross
+  debian-i686-cross
+  debian-mipsel-cross
+  debian-mips64el-cross
+  debian-ppc64el-cross
+  debian-riscv64-cross
 
------
-C compiler for the host machine: arm-linux-gnueabihf-gcc (gcc 14.2.0 "arm-l=
-inux-gnueabihf-gcc (Debian 14.2.0-19) 14.2.0")
-C linker for the host machine: arm-linux-gnueabihf-gcc ld.bfd 2.44
------------
-Detecting archiver via: `arm-linux-gnueabihf-ar --version` -> 0
-stdout:
-GNU ar (GNU Binutils for Debian) 2.44
-Copyright (C) 2025 Free Software Foundation, Inc.
-This program is free software; you may redistribute it under the terms of
-the GNU General Public License version 3 or (at your option) any later vers=
-ion.
-This program has absolutely no warranty.
------------
------------
-Detecting compiler via: `cc --version` -> 0
-stdout:
-cc (Debian 14.2.0-19) 14.2.0
-Copyright (C) 2024 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
------------
-Running command: -cpp -x c -E -dM -
------
------------
-Detecting linker via: `cc -Wl,--version` -> 0
-stdout:
-GNU ld (GNU Binutils for Debian) 2.44
-Copyright (C) 2025 Free Software Foundation, Inc.
-This program is free software; you may redistribute it under the terms of
-the GNU General Public License version 3 or (at your option) a later versio=
-n.
-This program has absolutely no warranty.
------------
-stderr:
-collect2 version 14.2.0
-/usr/bin/ld -plugin /usr/libexec/gcc/x86_64-linux-gnu/14/liblto_plugin.so -=
-plugin-opt=3D/usr/libexec/gcc/x86_64-linux-gnu/14/lto-wrapper -plugin-opt=
-=3D-fresolution=3D/tmp/ccm2bSZj.res -plugin-opt=3D-pass-through=3D-lgcc -pl=
-ugin-opt=3D-pass-through=3D-lgcc_s -plugin-opt=3D-pass-through=3D-lc -plugi=
-n-opt=3D-pass-through=3D-lgcc -plugin-opt=3D-pass-through=3D-lgcc_s --build=
--id --eh-frame-hdr -m elf_x86_64 --hash-style=3Dgnu --as-needed -dynamic-li=
-nker /lib64/ld-linux-x86-64.so.2 -pie /usr/lib/gcc/x86_64-linux-gnu/14/../.=
-./../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86=
-_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o -L/usr/li=
-b/gcc/x86_64-linux-gnu/14 -L/usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_6=
-4-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/14/../../../../lib -L/lib/x86_6=
-4-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/=
-usr/lib/gcc/x86_64-linux-gnu/14/../../.. --version -lgcc --push-state --as-=
-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop=
--state /usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o /usr/lib/gcc/x86_64-linux=
--gnu/14/../../../x86_64-linux-gnu/crtn.o
------------
-Sanity testing C compiler: cc
-Is cross compiler: False.
-Sanity check compiler command line: cc sanitycheckc.c -o sanitycheckc.exe -=
-D_FILE_OFFSET_BITS=3D64
-Sanity check compile stdout:
+cross builds fail.
 
------
-Sanity check compile stderr:
-
------
-Running test binary command:  /tmp/qemu-test/build/meson-private/sanitychec=
-kc.exe
------------
-Sanity check: `/tmp/qemu-test/build/meson-private/sanitycheckc.exe` -> 0
-C compiler for the build machine: cc (gcc 14.2.0 "cc (Debian 14.2.0-19) 14.=
-2.0")
-C linker for the build machine: cc ld.bfd 2.44
------------
-Detecting archiver via: `gcc-ar --version` -> 0
-stdout:
-GNU ar (GNU Binutils for Debian) 2.44
-Copyright (C) 2025 Free Software Foundation, Inc.
-This program is free software; you may redistribute it under the terms of
-the GNU General Public License version 3 or (at your option) any later vers=
-ion.
-This program has absolutely no warranty.
------------
-Build machine cpu family: x86_64
-Build machine cpu: x86_64
-Host machine cpu family: arm
-Host machine cpu: arm
-Target machine cpu family: arm
-Target machine cpu: arm
-Program scripts/symlink-install-tree.py found: YES (/tmp/qemu-test/build/py=
-venv/bin/python3 /tmp/qemu-test/src/scripts/symlink-install-tree.py)
-Program sh found: YES (/usr/bin/sh)
-Program python3 found: YES (/tmp/qemu-test/build/pyvenv/bin/python3)
------------
-Detecting compiler via: `arm-linux-gnueabihf-gcc --version` -> 0
-stdout:
-arm-linux-gnueabihf-gcc (Debian 14.2.0-19) 14.2.0
-Copyright (C) 2024 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
------------
-Running command: -cpp -x c -E -dM -
------
------------
-Detecting linker via: `arm-linux-gnueabihf-gcc -Wl,--version` -> 0
-stdout:
-GNU ld (GNU Binutils for Debian) 2.44
-Copyright (C) 2025 Free Software Foundation, Inc.
-This program is free software; you may redistribute it under the terms of
-the GNU General Public License version 3 or (at your option) a later versio=
-n.
-This program has absolutely no warranty.
------------
-stderr:
-collect2 version 14.2.0
-/usr/lib/gcc-cross/arm-linux-gnueabihf/14/../../../../arm-linux-gnueabihf/b=
-in/ld -plugin /usr/libexec/gcc-cross/arm-linux-gnueabihf/14/liblto_plugin.s=
-o -plugin-opt=3D/usr/libexec/gcc-cross/arm-linux-gnueabihf/14/lto-wrapper -=
-plugin-opt=3D-fresolution=3D/tmp/ccDS7TeO.res -plugin-opt=3D-pass-through=
-=3D-lgcc -plugin-opt=3D-pass-through=3D-lgcc_s -plugin-opt=3D-pass-through=
-=3D-lc -plugin-opt=3D-pass-through=3D-lgcc -plugin-opt=3D-pass-through=3D-l=
-gcc_s --sysroot=3D/ --build-id --eh-frame-hdr -dynamic-linker /lib/ld-linux=
--armhf.so.3 -X --hash-style=3Dgnu --as-needed -m armelf_linux_eabi -pie /li=
-b/arm-linux-gnueabihf/Scrt1.o /lib/arm-linux-gnueabihf/crti.o /usr/lib/gcc-=
-cross/arm-linux-gnueabihf/14/crtbeginS.o -L/usr/lib/gcc-cross/arm-linux-gnu=
-eabihf/14 -L/usr/lib/gcc-cross/arm-linux-gnueabihf/14/../../../../arm-linux=
--gnueabihf/lib -L/lib/arm-linux-gnueabihf -L/usr/lib/arm-linux-gnueabihf --=
-version -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push=
--state --as-needed -lgcc_s --pop-state /usr/lib/gcc-cross/arm-linux-gnueabi=
-hf/14/crtendS.o /lib/arm-linux-gnueabihf/crtn.o
------------
------------
-Detecting compiler via: `rustc --target arm-unknown-linux-gnueabi --version=
-` -> 0
-stdout:
-rustc 1.85.0 (4d91de4e4 2025-02-17) (built from a source tarball)
------------
------------
-Called: `rustc --target arm-unknown-linux-gnueabi -C linker=3Darm-linux-gnu=
-eabihf-gcc -o /tmp/qemu-test/build/meson-private/rusttest.exe /tmp/qemu-tes=
-t/build/meson-private/sanity.rs` -> 1
-stderr:
-error[E0463]: can't find crate for `std`
-  |
-  =3D note: the `arm-unknown-linux-gnueabi` target may not be installed
-  =3D help: consider downloading the target with `rustup target add arm-unk=
-nown-linux-gnueabi`
-
-error: aborting due to 1 previous error
-
-For more information about this error, try `rustc --explain E0463`.
------------
-
-../src/meson.build:91:12: ERROR: Rust compiler rustc --target arm-unknown-l=
-inux-gnueabi -C linker=3Darm-linux-gnueabihf-gcc cannot compile programs.
-Failed to run 'configure'
-make[1]: *** [tests/docker/Makefile.include:203: docker-run] Error 1
-make[1]: Leaving directory '/home/alex/lsrc/qemu.git'
-make: *** [tests/docker/Makefile.include:131: docker-test-build@debian-armh=
-f-cross] Error 2
-=F0=9F=95=9917:02:35 alex@draig:qemu.git  on =EE=82=A0 testing/next:master =
-[$!?=E2=87=A1] took 12m1s [=F0=9F=94=B4 USAGE]
-
-
-> diff --git a/tests/docker/dockerfiles/debian-i686-cross.docker b/tests/do=
-cker/dockerfiles/debian-i686-cross.docker
-> index e7e8d8e0f1..f53b77cb62 100644
-> --- a/tests/docker/dockerfiles/debian-i686-cross.docker
-> +++ b/tests/docker/dockerfiles/debian-i686-cross.docker
-> @@ -1,10 +1,10 @@
->  # THIS FILE WAS AUTO-GENERATED
->  #
-> -#  $ lcitool dockerfile --layers all --cross-arch i686 debian-12 qemu
-> +#  $ lcitool dockerfile --layers all --cross-arch i686 debian-13 qemu
->  #
->  # https://gitlab.com/libvirt/libvirt-ci
->=20=20
-> -FROM docker.io/library/debian:12-slim
-> +FROM docker.io/library/debian:13-slim
->=20=20
->  RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->      apt-get update && \
-> @@ -48,11 +48,12 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->                        python3-setuptools \
->                        python3-sphinx \
->                        python3-sphinx-rtd-theme \
-> +                      python3-tomli \
->                        python3-venv \
->                        python3-wheel \
->                        python3-yaml \
->                        rpm2cpio \
-> -                      rustc-web \
-> +                      rustc \
->                        sed \
->                        socat \
->                        sparse \
-> @@ -85,7 +86,7 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->      eatmydata apt-get install --no-install-recommends -y \
->                        gcc-i686-linux-gnu \
->                        libaio-dev:i386 \
-> -                      libasan6:i386 \
-> +                      libasan8:i386 \
->                        libasound2-dev:i386 \
->                        libattr1-dev:i386 \
->                        libbpf-dev:i386 \
-> @@ -107,7 +108,6 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->                        libgbm-dev:i386 \
->                        libgcrypt20-dev:i386 \
->                        libglib2.0-dev:i386 \
-> -                      libglusterfs-dev:i386 \
->                        libgnutls28-dev:i386 \
->                        libgtk-3-dev:i386 \
->                        libgtk-vnc-2.0-dev:i386 \
-> @@ -127,7 +127,6 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->                        libpixman-1-dev:i386 \
->                        libpng-dev:i386 \
->                        libpulse-dev:i386 \
-> -                      librbd-dev:i386 \
->                        librdmacm-dev:i386 \
->                        libsasl2-dev:i386 \
->                        libsdl2-dev:i386 \
-> diff --git a/tests/docker/dockerfiles/debian-ppc64el-cross.docker b/tests=
-/docker/dockerfiles/debian-ppc64el-cross.docker
-> index 97ef64d934..09de265c26 100644
-> --- a/tests/docker/dockerfiles/debian-ppc64el-cross.docker
-> +++ b/tests/docker/dockerfiles/debian-ppc64el-cross.docker
-> @@ -1,10 +1,10 @@
->  # THIS FILE WAS AUTO-GENERATED
->  #
-> -#  $ lcitool dockerfile --layers all --cross-arch ppc64le debian-12 qemu
-> +#  $ lcitool dockerfile --layers all --cross-arch ppc64le debian-13 qemu
->  #
->  # https://gitlab.com/libvirt/libvirt-ci
->=20=20
-> -FROM docker.io/library/debian:12-slim
-> +FROM docker.io/library/debian:13-slim
->=20=20
->  RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->      apt-get update && \
-> @@ -48,11 +48,12 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->                        python3-setuptools \
->                        python3-sphinx \
->                        python3-sphinx-rtd-theme \
-> +                      python3-tomli \
->                        python3-venv \
->                        python3-wheel \
->                        python3-yaml \
->                        rpm2cpio \
-> -                      rustc-web \
-> +                      rustc \
->                        sed \
->                        socat \
->                        sparse \
-> @@ -85,7 +86,7 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->      eatmydata apt-get install --no-install-recommends -y \
->                        gcc-powerpc64le-linux-gnu \
->                        libaio-dev:ppc64el \
-> -                      libasan6:ppc64el \
-> +                      libasan8:ppc64el \
->                        libasound2-dev:ppc64el \
->                        libattr1-dev:ppc64el \
->                        libbpf-dev:ppc64el \
-> diff --git a/tests/docker/dockerfiles/debian-s390x-cross.docker b/tests/d=
-ocker/dockerfiles/debian-s390x-cross.docker
-> index 3afe91494d..d7b2ca99ce 100644
-> --- a/tests/docker/dockerfiles/debian-s390x-cross.docker
-> +++ b/tests/docker/dockerfiles/debian-s390x-cross.docker
-> @@ -1,10 +1,10 @@
->  # THIS FILE WAS AUTO-GENERATED
->  #
-> -#  $ lcitool dockerfile --layers all --cross-arch s390x debian-12 qemu
-> +#  $ lcitool dockerfile --layers all --cross-arch s390x debian-13 qemu
->  #
->  # https://gitlab.com/libvirt/libvirt-ci
->=20=20
-> -FROM docker.io/library/debian:12-slim
-> +FROM docker.io/library/debian:13-slim
->=20=20
->  RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->      apt-get update && \
-> @@ -48,11 +48,12 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->                        python3-setuptools \
->                        python3-sphinx \
->                        python3-sphinx-rtd-theme \
-> +                      python3-tomli \
->                        python3-venv \
->                        python3-wheel \
->                        python3-yaml \
->                        rpm2cpio \
-> -                      rustc-web \
-> +                      rustc \
->                        sed \
->                        socat \
->                        sparse \
-> @@ -85,7 +86,7 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->      eatmydata apt-get install --no-install-recommends -y \
->                        gcc-s390x-linux-gnu \
->                        libaio-dev:s390x \
-> -                      libasan6:s390x \
-> +                      libasan8:s390x \
->                        libasound2-dev:s390x \
->                        libattr1-dev:s390x \
->                        libbpf-dev:s390x \
-> diff --git a/tests/docker/dockerfiles/debian.docker b/tests/docker/docker=
-files/debian.docker
-> index f68fcc83a9..2696cf2167 100644
-> --- a/tests/docker/dockerfiles/debian.docker
-> +++ b/tests/docker/dockerfiles/debian.docker
-> @@ -1,10 +1,10 @@
->  # THIS FILE WAS AUTO-GENERATED
->  #
-> -#  $ lcitool dockerfile --layers all debian-12 qemu
-> +#  $ lcitool dockerfile --layers all debian-13 qemu
->  #
->  # https://gitlab.com/libvirt/libvirt-ci
->=20=20
-> -FROM docker.io/library/debian:12-slim
-> +FROM docker.io/library/debian:13-slim
->=20=20
->  RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->      apt-get update && \
-> @@ -32,7 +32,7 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->                        git \
->                        hostname \
->                        libaio-dev \
-> -                      libasan6 \
-> +                      libasan8 \
->                        libasound2-dev \
->                        libattr1-dev \
->                        libbpf-dev \
-> @@ -121,11 +121,12 @@ RUN export DEBIAN_FRONTEND=3Dnoninteractive && \
->                        python3-setuptools \
->                        python3-sphinx \
->                        python3-sphinx-rtd-theme \
-> +                      python3-tomli \
->                        python3-venv \
->                        python3-wheel \
->                        python3-yaml \
->                        rpm2cpio \
-> -                      rustc-web \
-> +                      rustc \
->                        sed \
->                        socat \
->                        sparse \
-> diff --git a/tests/lcitool/refresh b/tests/lcitool/refresh
-> index 6f98a91277..f4d2721178 100755
-> --- a/tests/lcitool/refresh
-> +++ b/tests/lcitool/refresh
-> @@ -105,7 +105,7 @@ alpine_extras =3D [
->  # Netmap still needs to be manually built as it is yet to be packaged
->  # into a distro. We also add cscope and gtags which are used in the CI
->  # test
-> -debian12_extras =3D [
-> +debian13_extras =3D [
->      "# netmap/cscope/global\n",
->      "RUN DEBIAN_FRONTEND=3Dnoninteractive eatmydata \\\n",
->      "  apt install -y --no-install-recommends \\\n",
-> @@ -175,8 +175,8 @@ try:
->      generate_dockerfile("alpine", "alpine-321",
->                          trailer=3D"".join(alpine_extras))
->      generate_dockerfile("centos9", "centos-stream-9")
-> -    generate_dockerfile("debian", "debian-12",
-> -                        trailer=3D"".join(debian12_extras))
-> +    generate_dockerfile("debian", "debian-13",
-> +                        trailer=3D"".join(debian13_extras))
->      generate_dockerfile("fedora", "fedora-41")
->      generate_dockerfile("opensuse-leap", "opensuse-leap-15")
->      generate_dockerfile("ubuntu2204", "ubuntu-2204",
-> @@ -191,30 +191,32 @@ try:
->      #
->      # Cross compiling builds
->      #
-> -    generate_dockerfile("debian-amd64-cross", "debian-12",
-> +    generate_dockerfile("debian-amd64-cross", "debian-13",
->                          cross=3D"x86_64",
->                          trailer=3Dcross_build("x86_64-linux-gnu-",
->                                              "x86_64-softmmu,"
->                                              "x86_64-linux-user,"
->                                              "i386-softmmu,i386-linux-use=
-r"))
->=20=20
-> -    generate_dockerfile("debian-arm64-cross", "debian-12",
-> +    generate_dockerfile("debian-arm64-cross", "debian-13",
->                          cross=3D"aarch64",
->                          trailer=3Dcross_build("aarch64-linux-gnu-",
->                                              "aarch64-softmmu,aarch64-lin=
-ux-user"))
->=20=20
-> -    generate_dockerfile("debian-armhf-cross", "debian-12",
-> +    generate_dockerfile("debian-armhf-cross", "debian-13",
->                          cross=3D"armv7l",
->                          trailer=3Dcross_build("arm-linux-gnueabihf-",
->                                              "arm-softmmu,arm-linux-user"=
-))
->=20=20
-> -    generate_dockerfile("debian-i686-cross", "debian-12",
-> +    generate_dockerfile("debian-i686-cross", "debian-13",
->                          cross=3D"i686",
->                          trailer=3Dcross_build("i686-linux-gnu-",
->                                              "x86_64-softmmu,"
->                                              "x86_64-linux-user,"
->                                              "i386-softmmu,i386-linux-use=
-r"))
->=20=20
-> +    # mips no longer supported in debian-13
-> +    # https://www.debian.org/releases/trixie/release-notes/issues.html#m=
-ips-architectures-removed
->      generate_dockerfile("debian-mips64el-cross", "debian-12",
->                          cross=3D"mips64el",
->                          trailer=3Dcross_build("mips64el-linux-gnuabi64-",
-> @@ -225,7 +227,7 @@ try:
->                          trailer=3Dcross_build("mipsel-linux-gnu-",
->                                              "mipsel-softmmu,mipsel-linux=
--user"))
->=20=20
-> -    generate_dockerfile("debian-ppc64el-cross", "debian-12",
-> +    generate_dockerfile("debian-ppc64el-cross", "debian-13",
->                          cross=3D"ppc64le",
->                          trailer=3Dcross_build("powerpc64le-linux-gnu-",
->                                              "ppc64-softmmu,ppc64-linux-u=
-ser"))
-> @@ -238,7 +240,7 @@ try:
->                          trailer=3Dcross_build("riscv64-linux-gnu-",
->                                              "riscv64-softmmu,riscv64-lin=
-ux-user"))
->=20=20
-> -    generate_dockerfile("debian-s390x-cross", "debian-12",
-> +    generate_dockerfile("debian-s390x-cross", "debian-13",
->                          cross=3D"s390x",
->                          trailer=3Dcross_build("s390x-linux-gnu-",
->                                              "s390x-softmmu,s390x-linux-u=
-ser"))
+>
+> v2:
+> - add a rust-to-clang-target-test.sh configure script
+> - drop "RFC: configure: use the same machine as the host triple"
+> - replace "tests: move mips to debian-legacy-test-cross" with "RFC: build=
+-sys: deprecate mips host"
+> - start tackling emscripten
+> - fix mis-placed submodule update
+> - other minor changes, commit message tweaks, bz links
+> - add r-b tags
+>
+> Marc-Andr=C3=A9 Lureau (27):
+>   build-sys: require -lrt when no shm_open() in std libs
+>   gitlab-ci: fix 'needs' property type must be array
+>   scripts/archive-source: speed up downloading subprojects
+>   scripts/archive-source: silence subprojects downloads
+>   scripts/archive-source: use a bash array
+>   configure: fix rust meson configuration
+>   configure: set the bindgen cross target
+>   tests/docker/common: print errors to stderr
+>   tests/docker: use fully qualified image name for emsdk
+>   tests/docker/common: print meson log on configure failure
+>   build-sys: cfi_debug and safe_stack are not compatible
+>   lcitool: update, switch to f41
+>   lcitool/qemu: include libclang-rt for TSAN
+>   lcitool/alpine: workaround bindgen issue
+>   tests/lcitool: add missing rust-std dep
+>   tests/lcitool: update to debian13
+>   tests/docker: add ENABLE_RUST environment
+>   tests/lcitool: enable rust & refresh
+>   configure: set the meson executable suffix/ext
+>   tests/freebsd: enable Rust
+>   meson: rust-bindgen limit allowlist-file to srcdir/include
+>   RFC: tests/docker: add rust to debian-legacy-test-cross
+>   WIP: gitlab-ci: enable rust for msys2-64bit
+>   WIP: cirrus/macos: enable Rust
+>   RFC: build-sys: deprecate mips host
+>   build-sys: pass -fvisibility=3Ddefault for wasm bindgen
+>   WIP: enable rust for wasm/emscripten
+>
+>  docs/about/build-platforms.rst                |  2 -
+>  docs/about/deprecated.rst                     |  9 +--
+>  configure                                     | 27 +++++++-
+>  meson.build                                   | 34 +++++++---
+>  .gitlab-ci.d/buildtest-template.yml           |  2 +-
+>  .gitlab-ci.d/buildtest.yml                    | 66 +++++++++----------
+>  .gitlab-ci.d/cirrus.yml                       |  4 +-
+>  .gitlab-ci.d/crossbuilds.yml                  | 46 ++++++-------
+>  .gitlab-ci.d/static_checks.yml                |  6 +-
+>  .gitlab-ci.d/windows.yml                      |  8 ++-
+>  rust/bql/meson.build                          |  1 +
+>  rust/chardev/meson.build                      |  1 +
+>  rust/hw/char/pl011/meson.build                |  1 +
+>  rust/hw/core/meson.build                      |  1 +
+>  rust/migration/meson.build                    |  3 +-
+>  rust/qom/meson.build                          |  1 +
+>  rust/system/meson.build                       |  1 +
+>  rust/util/meson.build                         |  1 +
+>  scripts/archive-source.sh                     | 33 +++++++---
+>  .../ci/setup/ubuntu/ubuntu-2204-aarch64.yaml  |  5 +-
+>  .../ci/setup/ubuntu/ubuntu-2204-s390x.yaml    |  5 +-
+>  scripts/rust-to-clang-target-test.sh          | 43 ++++++++++++
+>  scripts/rust-to-clang-target.sh               | 62 +++++++++++++++++
+>  tests/docker/common.rc                        | 11 +++-
+>  tests/docker/dockerfiles/alpine.docker        |  6 +-
+>  tests/docker/dockerfiles/centos9.docker       |  4 ++
+>  .../dockerfiles/debian-amd64-cross.docker     | 18 +++--
+>  .../dockerfiles/debian-arm64-cross.docker     | 18 +++--
+>  .../dockerfiles/debian-armhf-cross.docker     | 21 +++---
+>  .../dockerfiles/debian-i686-cross.docker      | 20 ++++--
+>  .../debian-legacy-test-cross.docker           |  9 ++-
+>  .../dockerfiles/debian-mips64el-cross.docker  |  9 ++-
+>  .../dockerfiles/debian-mipsel-cross.docker    |  9 ++-
+>  .../dockerfiles/debian-ppc64el-cross.docker   | 18 +++--
+>  .../dockerfiles/debian-riscv64-cross.docker   | 10 ++-
+>  .../dockerfiles/debian-s390x-cross.docker     | 18 +++--
+>  tests/docker/dockerfiles/debian.docker        | 18 +++--
+>  .../dockerfiles/emsdk-wasm32-cross.docker     | 29 +++++++-
+>  .../dockerfiles/fedora-rust-nightly.docker    | 18 +++--
+>  .../dockerfiles/fedora-win64-cross.docker     | 15 +++--
+>  tests/docker/dockerfiles/fedora.docker        | 18 +++--
+>  tests/docker/dockerfiles/opensuse-leap.docker |  7 +-
+>  tests/docker/dockerfiles/ubuntu2204.docker    |  7 +-
+>  tests/docker/test-wasm                        | 12 ++++
+>  tests/lcitool/libvirt-ci                      |  2 +-
+>  tests/lcitool/projects/qemu.yml               |  3 +-
+>  tests/lcitool/refresh                         | 48 +++++++++-----
+>  tests/vm/freebsd                              |  4 +-
+>  48 files changed, 531 insertions(+), 183 deletions(-)
+>  create mode 100755 scripts/rust-to-clang-target-test.sh
+>  create mode 100644 scripts/rust-to-clang-target.sh
+>  create mode 100755 tests/docker/test-wasm
 
 --=20
 Alex Benn=C3=A9e
