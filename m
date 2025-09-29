@@ -4,76 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4556CAC5B9
-	for <qemu-rust@archiver.kernel.org>; Mon, 29 Sep 2025 15:51:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C012ACAC5B5
+	for <qemu-rust@archiver.kernel.org>; Mon, 29 Sep 2025 15:52:00 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v3G9k-0001Z6-78; Mon, 29 Sep 2025 11:51:16 -0400
+	id 1v3G9g-0001UA-65; Mon, 29 Sep 2025 11:51:12 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v3G9B-000130-Ow
- for qemu-rust@nongnu.org; Mon, 29 Sep 2025 11:50:42 -0400
+ id 1v3G96-00010f-9t
+ for qemu-rust@nongnu.org; Mon, 29 Sep 2025 11:50:36 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v3G8v-0000dN-5Y
- for qemu-rust@nongnu.org; Mon, 29 Sep 2025 11:50:41 -0400
+ id 1v3G8s-0000c7-EG
+ for qemu-rust@nongnu.org; Mon, 29 Sep 2025 11:50:35 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759161022;
+ s=mimecast20190719; t=1759161018;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=u+cJ9QO2Q0sAQJS568/ENx7YFMeKJSiogImV/H5vK6k=;
- b=Qw83UGCzQ1jYd2Yi5ThbTZ985pJRWJg8swtjlKJaQRYFDrZgIP5DFTJtMNUyQZmg9D2Y09
- YfLI3c1oHdmgafq1byWXn96p01DOpAh+0IGIzeWbGohh33fC2UEuyMd/+LXLXHY9Dw1BDf
- Op6yESQXUU8CATkiFMIhOVJftlQFiME=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=5FZwR772WilyPlQiqTOSUvFpm4aGMNEEmbioRqmBBig=;
+ b=RKzm0eE2kImTA2dgFDgViewY0RTiqpz1ZvCILtewMwlZpqrQTPNLIpP3PoayoV63IX1cva
+ NGKlzwWkdz1/rnAJGHg54v4UXc7AZuOCoLPHV6l2UdhQy0NB1LDDNRUNSYMmq0Ji4mSh3B
+ Ss48Ne5+UhrwHyYgkKsjltKYcQws0lk=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-680-ws9Vn2KiOZ-M5YQx7kaLNA-1; Mon, 29 Sep 2025 11:50:20 -0400
-X-MC-Unique: ws9Vn2KiOZ-M5YQx7kaLNA-1
-X-Mimecast-MFC-AGG-ID: ws9Vn2KiOZ-M5YQx7kaLNA_1759161020
-Received: by mail-ed1-f71.google.com with SMTP id
- 4fb4d7f45d1cf-62fd7f9857cso3744570a12.0
- for <qemu-rust@nongnu.org>; Mon, 29 Sep 2025 08:50:20 -0700 (PDT)
+ us-mta-218-gmrFbvSTOzi14eSBuKG_OQ-1; Mon, 29 Sep 2025 11:50:16 -0400
+X-MC-Unique: gmrFbvSTOzi14eSBuKG_OQ-1
+X-Mimecast-MFC-AGG-ID: gmrFbvSTOzi14eSBuKG_OQ_1759161015
+Received: by mail-ej1-f69.google.com with SMTP id
+ a640c23a62f3a-b3fd9c9df9eso125210266b.0
+ for <qemu-rust@nongnu.org>; Mon, 29 Sep 2025 08:50:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759161019; x=1759765819;
+ d=1e100.net; s=20230601; t=1759161015; x=1759765815;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=u+cJ9QO2Q0sAQJS568/ENx7YFMeKJSiogImV/H5vK6k=;
- b=ZeoDmPX0HBNuCtzMJd/LM/37qAxMjEsIWdn7skabOcCZseGGPptuvcDJwjQtXg7NBt
- umHKLYpg5AEmZjcm4W+2BPTpupr9pYAaNqeqw3B9IqnvTpVaCBz/FceiwlXBQxAQokjT
- cIZd8uh2fk9XpYOkjwtqew8YqHgb9p7KfOwjtNjFeSEad7CHhLihFA00GYzqhHQNZnff
- /mNbW7rDLB4ykOsASg66YauWArr1FwKDBY8dKBdc+s/rT80GrOUMK1/ptJLDkJgrICCu
- 2XL0xbm/D1wsmsMMhE18oj6XWx7kqA1Lm207a7mLKECaLNH1VjiO1vBLr1iglZ763l8e
- HGNA==
+ bh=5FZwR772WilyPlQiqTOSUvFpm4aGMNEEmbioRqmBBig=;
+ b=XQ6uCK1OT4Y2bsuHu0jZtYjnyfXRDqEdvb0jvPTkz7cE09ysabSSIBenEBVBYJG4ET
+ fUTquQovQjFZrMbyqzqkct6btiis4T794TUBUzi9VH9MSbQe1laZOndE0ZZgy6w3y9ZC
+ MhXB0FDmbWQTd2x3z1hlAO2PxOe2T2d5Rd4YbONuaGARgoCCja2dekbpKRAwuYpoO40N
+ M7rOTSmx36CF096Kl/QYH9Jot40s5xbtj3WyrV/Eg2Kk9qcKWfuTje3LFv8RwirbKEJf
+ Gxhp2kTFbqYXkard0gg7otGUuHuqVk7hhACRA+WWDx8t+OVYMrdXmm9PGnLoU7y52ZbX
+ aeYg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUmUtxRcJGtZr/JwPQlVj/nyZX7fRbMDOmLr5nTOpb3UAEAR59YW/SpYizq9qKs5l0+NReaZvFbpPY=@nongnu.org
-X-Gm-Message-State: AOJu0YwtA4LFD6tI5dcoj+wCg0X80100LtF3EGw8HhZmSDz/7K4vXayc
- C7/uQdyagQ/c5ysHfNrJWcB/3UA8T9GqIED9WXDcFBvRiAtDryL1OXATOTTP1t7SI2BEMJ5tYs8
- HMFmCYEuE9O/VfNLauVL7GKhpvwwn+2E8gqycIRz3bRB24oTX1zQxI9Y=
-X-Gm-Gg: ASbGncvQ6SYtDlTB4Iuemvmf0F47vGSzpKPSKrtC8SxSIu1NVIn/LOQ8+ZeJ2SLBDMh
- MDicIfZKdsbRcbn/C9A7Zvh9oHnFmy+fwFd9utnWIUVn4CKBI52AeCopPB/pOQwaPTiOu4Big58
- i4DSojqnoaFMB62TybMy2QS6ZCo7bNiSL4SoPjrKS0gpysOkICzw4Qqtf58W8vqFdiPhadjllss
- MUH693+b5Jem7BrxlXqM1fa6VS3RPEJpipObesPU5vZUoLtMgaE+fT/2W5dcQ1ph/GNhvLgjhxi
- X5uH0xcktYiaEoi7wTwiUJB9dY3VLE5GZ+7OwZlB7/o8qGpwvSCW+8SbfZ2yFwm5Eq3x6S9MGp8
- rdbvF89mQkbr/1oNelkPOkYq8R2nF+thrWCdcgffmxphBZA==
-X-Received: by 2002:a17:907:3e93:b0:b40:448d:cdb0 with SMTP id
- a640c23a62f3a-b40448df75dmr250786066b.41.1759161019538; 
- Mon, 29 Sep 2025 08:50:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEsI8J36HzZ2hqMoZwqMNJrQRn4zL3+0oxOL7d8wPOdjwUDpKC0BmrdPUFkKf7RKZnQe8Ul1A==
-X-Received: by 2002:a17:907:3e93:b0:b40:448d:cdb0 with SMTP id
- a640c23a62f3a-b40448df75dmr250783366b.41.1759161019124; 
- Mon, 29 Sep 2025 08:50:19 -0700 (PDT)
+ AJvYcCVuAtBcVZJjBpoi2Gx1j/aWb6dvXDSqG5P7C1cvKckiSreElS6w8Bj889Ps2+iCe6XFqJVHpyUrq0o=@nongnu.org
+X-Gm-Message-State: AOJu0YwxCAxwnxqgK37ROC596AIMH7j7hOBHCLrDYo1VP8UzatL1tCpA
+ yUX72YCBwOCualkffNTkrBO5yvFyGzJnjXLqq1QQo2pGB5QF0+SfwtJiT/Z7EsxFc9ScfDQGqy9
+ WYMBcNDs9DBxOhi+L2mjc/RjhW022W6Y0564bcgC39jVSWHX3V9RCeRQ=
+X-Gm-Gg: ASbGncvOXO041C6rEBbuLQWcJ7CHsHxF3/cy9FgWKZ7KCPAZyUonVFP/rD/uTN9qRhP
+ Qx3yotgGsfXJaxhpw99nM1NTs9hB8Gcci7+lpi/WjN2eJao2Hq5+XEkrk1IQUHDb77/zIIDm1U6
+ pPlL/wWsSI5MNYPV/ldpVlBFoq/ZZGKExTCizwOlN+rk+RJ4leansZbPSvpfZonKTnPALcgoUgb
+ ENmx9eHQZ0SJha2nUAMhsg/GxvAKwK4X3JAH+/rT3tOrLgg9HuLufAL2VhIghDanUV2OTiRz85y
+ Z4anNvT1QqB16/faZzAAbXS7x7VjxKVgojmlU0cJLHBykM751Kmf3ysp8Jjnr7JF2u+x5m6ewk2
+ JlXb6HN7N9rX4FxyKwOt53NW4icXQJhQXSI/sNicQvPH65w==
+X-Received: by 2002:a17:907:c25:b0:b3f:5a00:161d with SMTP id
+ a640c23a62f3a-b413562219emr116126666b.1.1759161015034; 
+ Mon, 29 Sep 2025 08:50:15 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG2Yvz6WdNce+2qmtF9I5Jdxk3mEcihUcc0DS+9V5GDIEPvrmsRxsIEiF5wXKY9ZVr9ZfOcdg==
+X-Received: by 2002:a17:907:c25:b0:b3f:5a00:161d with SMTP id
+ a640c23a62f3a-b413562219emr116124066b.1.1759161014597; 
+ Mon, 29 Sep 2025 08:50:14 -0700 (PDT)
 Received: from [192.168.10.48] ([176.206.127.188])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b35446f758csm953275566b.53.2025.09.29.08.50.17
+ a640c23a62f3a-b3b74cb1e9asm454771566b.98.2025.09.29.08.50.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Sep 2025 08:50:17 -0700 (PDT)
+ Mon, 29 Sep 2025 08:50:13 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Tanish Desai <tanishdesai37@gmail.com>,
@@ -81,19 +81,20 @@ Cc: Tanish Desai <tanishdesai37@gmail.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Mads Ynddal <mads@ynddal.dk>,
  =?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
- Zhao Liu <zhao1.liu@intel.com>, qemu-rust@nongnu.org
-Subject: [PATCH 15/16] tracetool/ftrace: add Rust support
-Date: Mon, 29 Sep 2025 17:49:37 +0200
-Message-ID: <20250929154938.594389-16-pbonzini@redhat.com>
+ Zhao Liu <zhao1.liu@intel.com>, qemu-rust@nongnu.org,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+Subject: [PATCH 13/16] log: change qemu_loglevel to unsigned
+Date: Mon, 29 Sep 2025 17:49:35 +0200
+Message-ID: <20250929154938.594389-14-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250929154938.594389-1-pbonzini@redhat.com>
 References: <20250929154938.594389-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 5UfUEjmYhtJD-p8pZ4dTjsDfQr076_cB7ziWQVQgPkA_1759161020
+X-Mimecast-MFC-PROC-ID: 0ThlNx6XIAcRyN7_91hBSmYMWD1EYHyiB_ubSLarQoc_1759161015
 X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
 Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -25
@@ -119,100 +120,125 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Tanish Desai <tanishdesai37@gmail.com>
+Bindgen makes the LOG_* constants unsigned, even if they are defined as
+(1 << 15):
 
-Signed-off-by: Tanish Desai <tanishdesai37@gmail.com>
+   pub const LOG_TRACE: u32 = 32768;
+
+Make them unsigned in C as well through the BIT() macro, and also change
+the type of the variable that they are used with.
+
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- scripts/tracetool/backend/ftrace.py |  8 +++++-
- tests/tracetool/ftrace.rs           | 40 +++++++++++++++++++++++++++++
- tests/tracetool/tracetool-test.py   |  2 +-
- 3 files changed, 48 insertions(+), 2 deletions(-)
- create mode 100644 tests/tracetool/ftrace.rs
+ include/qemu/log-for-trace.h |  4 ++--
+ include/qemu/log.h           | 44 ++++++++++++++++++------------------
+ util/log.c                   |  2 +-
+ rust/util/src/log.rs         |  2 +-
+ 4 files changed, 26 insertions(+), 26 deletions(-)
 
-diff --git a/scripts/tracetool/backend/ftrace.py b/scripts/tracetool/backend/ftrace.py
-index 7ddd5d11a66..e03698a2edf 100644
---- a/scripts/tracetool/backend/ftrace.py
-+++ b/scripts/tracetool/backend/ftrace.py
-@@ -12,7 +12,7 @@
- __email__      = "stefanha@redhat.com"
+diff --git a/include/qemu/log-for-trace.h b/include/qemu/log-for-trace.h
+index d47c9cd4462..f3a8791f1d4 100644
+--- a/include/qemu/log-for-trace.h
++++ b/include/qemu/log-for-trace.h
+@@ -19,9 +19,9 @@
+ #define QEMU_LOG_FOR_TRACE_H
  
+ /* Private global variable, don't use */
+-extern int qemu_loglevel;
++extern unsigned qemu_loglevel;
  
--from tracetool import out
-+from tracetool import out, expand_format_string
+-#define LOG_TRACE          (1 << 15)
++#define LOG_TRACE          (1u << 15)
  
+ /* Returns true if a bit is set in the current loglevel mask */
+ static inline bool qemu_loglevel_mask(int mask)
+diff --git a/include/qemu/log.h b/include/qemu/log.h
+index aae72985f0d..7effba4da4c 100644
+--- a/include/qemu/log.h
++++ b/include/qemu/log.h
+@@ -14,30 +14,30 @@ bool qemu_log_enabled(void);
+ /* Returns true if qemu_log() will write somewhere other than stderr. */
+ bool qemu_log_separate(void);
  
- PUBLIC = True
-@@ -43,3 +43,9 @@ def generate_h(event, group):
- def generate_h_backend_dstate(event, group):
-     out('    trace_event_get_state_dynamic_by_id(%(event_id)s) || \\',
-         event_id="TRACE_" + event.name.upper())
-+
-+def generate_rs(event, group):
-+    out('        let format_string = c"%(fmt)s";',
-+        '        unsafe {bindings::ftrace_write(format_string.as_ptr() as *const c_char, %(args)s);}',
-+        fmt=expand_format_string(event.fmt),
-+        args=event.args.rust_call_varargs())
-diff --git a/tests/tracetool/ftrace.rs b/tests/tracetool/ftrace.rs
-new file mode 100644
-index 00000000000..07b9259cf29
---- /dev/null
-+++ b/tests/tracetool/ftrace.rs
-@@ -0,0 +1,40 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+// This file is @generated by tracetool, do not edit.
-+
-+#[allow(unused_imports)]
-+use std::ffi::c_char;
-+#[allow(unused_imports)]
-+use util::bindings;
-+
-+#[inline(always)]
-+fn trace_event_state_is_enabled(dstate: u16) -> bool {
-+    (unsafe { trace_events_enabled_count }) != 0 && dstate != 0
-+}
-+
-+extern "C" {
-+    static mut trace_events_enabled_count: u32;
-+}
-+extern "C" {
-+    static mut _TRACE_TEST_BLAH_DSTATE: u16;
-+    static mut _TRACE_TEST_WIBBLE_DSTATE: u16;
-+}
-+
-+#[inline(always)]
-+#[allow(dead_code)]
-+pub fn trace_test_blah(_context: *mut (), _filename: &std::ffi::CStr)
-+{
-+    if trace_event_state_is_enabled(unsafe { _TRACE_TEST_BLAH_DSTATE}) {
-+        let format_string = c"Blah context=%p filename=%s";
-+        unsafe {bindings::ftrace_write(format_string.as_ptr() as *const c_char, _context /* as *mut () */, _filename.as_ptr());}
-+    }
-+}
-+
-+#[inline(always)]
-+#[allow(dead_code)]
-+pub fn trace_test_wibble(_context: *mut (), _value: std::ffi::c_int)
-+{
-+    if trace_event_state_is_enabled(unsafe { _TRACE_TEST_WIBBLE_DSTATE}) {
-+        let format_string = c"Wibble context=%p value=%d";
-+        unsafe {bindings::ftrace_write(format_string.as_ptr() as *const c_char, _context /* as *mut () */, _value /* as std::ffi::c_int */);}
-+    }
-+}
-diff --git a/tests/tracetool/tracetool-test.py b/tests/tracetool/tracetool-test.py
-index f58f3b795e7..3341fb18f90 100755
---- a/tests/tracetool/tracetool-test.py
-+++ b/tests/tracetool/tracetool-test.py
-@@ -14,7 +14,7 @@ def get_formats(backend):
-         "c",
-         "h",
-     ]
--    if backend in {"log", "simple"}:
-+    if backend in {"ftrace", "log", "simple"}:
-         formats += ["rs"]
-     if backend == "dtrace":
-         formats += [
+-#define CPU_LOG_TB_OUT_ASM (1 << 0)
+-#define CPU_LOG_TB_IN_ASM  (1 << 1)
+-#define CPU_LOG_TB_OP      (1 << 2)
+-#define CPU_LOG_TB_OP_OPT  (1 << 3)
+-#define CPU_LOG_INT        (1 << 4)
+-#define CPU_LOG_EXEC       (1 << 5)
+-#define CPU_LOG_PCALL      (1 << 6)
+-#define CPU_LOG_TB_CPU     (1 << 8)
+-#define CPU_LOG_RESET      (1 << 9)
+-#define LOG_UNIMP          (1 << 10)
+-#define LOG_GUEST_ERROR    (1 << 11)
+-#define CPU_LOG_MMU        (1 << 12)
+-#define CPU_LOG_TB_NOCHAIN (1 << 13)
+-#define CPU_LOG_PAGE       (1 << 14)
++#define CPU_LOG_TB_OUT_ASM (1u << 0)
++#define CPU_LOG_TB_IN_ASM  (1u << 1)
++#define CPU_LOG_TB_OP      (1u << 2)
++#define CPU_LOG_TB_OP_OPT  (1u << 3)
++#define CPU_LOG_INT        (1u << 4)
++#define CPU_LOG_EXEC       (1u << 5)
++#define CPU_LOG_PCALL      (1u << 6)
++#define CPU_LOG_TB_CPU     (1u << 8)
++#define CPU_LOG_RESET      (1u << 9)
++#define LOG_UNIMP          (1u << 10)
++#define LOG_GUEST_ERROR    (1u << 11)
++#define CPU_LOG_MMU        (1u << 12)
++#define CPU_LOG_TB_NOCHAIN (1u << 13)
++#define CPU_LOG_PAGE       (1u << 14)
+ /* LOG_TRACE (1 << 15) is defined in log-for-trace.h */
+-#define CPU_LOG_TB_OP_IND  (1 << 16)
+-#define CPU_LOG_TB_FPU     (1 << 17)
+-#define CPU_LOG_PLUGIN     (1 << 18)
++#define CPU_LOG_TB_OP_IND  (1u << 16)
++#define CPU_LOG_TB_FPU     (1u << 17)
++#define CPU_LOG_PLUGIN     (1u << 18)
+ /* LOG_STRACE is used for user-mode strace logging. */
+-#define LOG_STRACE         (1 << 19)
+-#define LOG_PER_THREAD     (1 << 20)
+-#define CPU_LOG_TB_VPU     (1 << 21)
+-#define LOG_TB_OP_PLUGIN   (1 << 22)
+-#define LOG_INVALID_MEM    (1 << 23)
++#define LOG_STRACE         (1u << 19)
++#define LOG_PER_THREAD     (1u << 20)
++#define CPU_LOG_TB_VPU     (1u << 21)
++#define LOG_TB_OP_PLUGIN   (1u << 22)
++#define LOG_INVALID_MEM    (1u << 23)
+ 
+ /* Lock/unlock output. */
+ 
+diff --git a/util/log.c b/util/log.c
+index abdcb6b3111..41f78ce86b2 100644
+--- a/util/log.c
++++ b/util/log.c
+@@ -44,7 +44,7 @@ static FILE *global_file;
+ static __thread FILE *thread_file;
+ static __thread Notifier qemu_log_thread_cleanup_notifier;
+ 
+-int qemu_loglevel;
++unsigned qemu_loglevel;
+ static bool log_per_thread;
+ static GArray *debug_regions;
+ 
+diff --git a/rust/util/src/log.rs b/rust/util/src/log.rs
+index af9a3e91234..0a4bc4249a1 100644
+--- a/rust/util/src/log.rs
++++ b/rust/util/src/log.rs
+@@ -142,7 +142,7 @@ macro_rules! log_mask_ln {
+         let _: $crate::log::Log = $mask;
+ 
+         if unsafe {
+-            ($crate::bindings::qemu_loglevel & ($mask as std::os::raw::c_int)) != 0
++            ($crate::bindings::qemu_loglevel & ($mask as std::os::raw::c_uint)) != 0
+         } {
+             _ = $crate::log::LogGuard::log_fmt(
+                 format_args!("{}\n", format_args!($fmt $($args)*)));
 -- 
 2.51.0
 
