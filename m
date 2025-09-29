@@ -4,76 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BA5CCAC5B5
-	for <qemu-rust@archiver.kernel.org>; Mon, 29 Sep 2025 15:53:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D29FCAC5B5
+	for <qemu-rust@archiver.kernel.org>; Mon, 29 Sep 2025 15:54:14 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v3G98-00012G-Pj; Mon, 29 Sep 2025 11:50:38 -0400
+	id 1v3G9P-0001AU-KB; Mon, 29 Sep 2025 11:50:55 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v3G8t-0000rR-3v
- for qemu-rust@nongnu.org; Mon, 29 Sep 2025 11:50:23 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1v3G8d-0000mE-VB
+ for qemu-rust@nongnu.org; Mon, 29 Sep 2025 11:50:12 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v3G8d-0000Yg-Rp
- for qemu-rust@nongnu.org; Mon, 29 Sep 2025 11:50:22 -0400
+ id 1v3G8P-0000K8-4y
+ for qemu-rust@nongnu.org; Mon, 29 Sep 2025 11:50:07 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759161003;
+ s=mimecast20190719; t=1759160989;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nXiQoLVud16zJS++9JVhoT2jq7OgO1shPqm/dnBddzo=;
- b=QeZky+DudHHNonlD+vdRSiRdduFB3YeYwk81Gv3UEzbEfmcMYZMmrMh2/9RY+zMzf7IddU
- IG+mSl5K4lmP8DySWMtFHfFNk4Wx/BHdpVlxJxY8qZzHAEaGbT39nHIRlDRSfA79FdCAbn
- pk+q08vfNjIQXLwNw0xi3gSY6BFMMHE=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=YG+Kj4OjUTaTT7jTstOf3QwSS6l76vhdq2cWEryDBwk=;
+ b=Kk5CBLV/NAAKe2I7cHP+BoUnBXOhBY6ZjSYM/YJqTtJxiEwcgpZ6wcApcyCSNcNUDCAS4n
+ L2qTqbtP0LIzpNk0Zxf37JJfDWlu6tS9SmnN2+jkQ/J3NbmCGofKQRSQ9L8kFcM43U/RWa
+ 18nZ0Pblnv14bumshKioxGOUt47duTo=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-627-XGte-oaNPgGARRQIwli0Xw-1; Mon, 29 Sep 2025 11:50:01 -0400
-X-MC-Unique: XGte-oaNPgGARRQIwli0Xw-1
-X-Mimecast-MFC-AGG-ID: XGte-oaNPgGARRQIwli0Xw_1759161000
-Received: by mail-ed1-f72.google.com with SMTP id
- 4fb4d7f45d1cf-63214bea14cso3617260a12.2
- for <qemu-rust@nongnu.org>; Mon, 29 Sep 2025 08:50:01 -0700 (PDT)
+ us-mta-398-mAa_LgF9N823wXxMbMh9Rw-1; Mon, 29 Sep 2025 11:49:44 -0400
+X-MC-Unique: mAa_LgF9N823wXxMbMh9Rw-1
+X-Mimecast-MFC-AGG-ID: mAa_LgF9N823wXxMbMh9Rw_1759160983
+Received: by mail-ej1-f72.google.com with SMTP id
+ a640c23a62f3a-b3f2cfc26edso106278266b.2
+ for <qemu-rust@nongnu.org>; Mon, 29 Sep 2025 08:49:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759160999; x=1759765799;
+ d=1e100.net; s=20230601; t=1759160983; x=1759765783;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=nXiQoLVud16zJS++9JVhoT2jq7OgO1shPqm/dnBddzo=;
- b=kudJUArSEFeQPyxVYvQq9z7oKBG79/Vsjv6agj4mUui+0QTNEkADxPAgkAgXlyYvlS
- sHMokBEXudW5B2GvjGIQZ2DxWdDftUvLKg2bX8aQ/Y/FI50MlGjCRnsPPyATjghBshBq
- 5ACE/IYz74VALZcfpHESHadE3ytmAg1iBYgRc0QXfo+xkdgxWF+xjpKSsGqSAErkmyRP
- m9XoWBncjKqRfULR6eJviVVEH3hYOLsIVnywG7FVEfWI2tbqe+AxyXV41ZDC/1GVDvzl
- 5Wk5vDP0efMm5HLYkdrWSMeuCPUd9clJCxFWyaF6S8rACi/IZJP8MCQeRgGZgF9mB3kH
- rDfA==
+ bh=YG+Kj4OjUTaTT7jTstOf3QwSS6l76vhdq2cWEryDBwk=;
+ b=oqc2uA5oeO6oGpCjDCUvOaDpntjBlXlsrySCbeN+ctNUQ5VruwsCRJaLCl/fh9EfnU
+ iH+BcF7QJsLG9jpxNO7jCV05iM/Nis3j3h6S36SnxiLk3uz/BjJPxcXq+1gL8Eg5A08O
+ rNle0aBChyzrp7eCcKsJ6j6rj1T9j7LkGJU9uZMkT+paOAA89d7mXHJzt446bNghCfSv
+ ceq7dW99TFzZvnb0+6d5nA9xt1DHFQgIXdsGB2kgAXob+elEWBx/dnbrYIUfN/0Uz9jL
+ 3m24jCCWBAp5Occq3Lx2JlwzlsummaJiVLMtyH1/9X6jnhXj/JjFS0dVn+X5AfhdcqrU
+ g6fA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUWX1y1sUno2iRU9RfmuiTsj7vGCRgEWbAg77Cse2mc2x9ff8ykqXyZfik9pIGe0zPOX3SJsdz0Ve4=@nongnu.org
-X-Gm-Message-State: AOJu0YyiAy4ewRe90ahZ0YUBrifApGmIylS9HW+1Jq63+aw136mSnC7x
- ZhKQhbU14ywZGButmIOleTabil78B0bA09CqKrNTuPzscEjshGFAVMqS+J97d2GRWcIsn50bJAZ
- HTG5k4i3U/A3RSOZWNSL62kFZ47wgwDKcWp2cTEhn7QvowSvUFqpqLqKPUJDSE/k=
-X-Gm-Gg: ASbGncsqzquAjUo/1FN9WokMQmDRKLQIFHfy8RLZ9/UTGxG+0wCYc19o8UZIND3rGi0
- kVLtsmCqV/scnK0+OnK3PF8ce2idHkh3IER4qHpcbJaGOA1/Zg97/100cUHh7jLZzXcYYO1Ct7a
- N3AhgPu61ZgVofJ1cCrCst5CUuhheB1euvjgBgEg3G8m6pBIBNi9wtGLm/2khaW+SOlBHoN6QmX
- /6zG1ykYhFQn6tYG15LEIu80j39q/ADx7V8njwz6Ho6SJdPHeOIoUdkHReLm4lzkaiLCMB0zAGu
- Q8DlwvAGiZpLtuXuf1K3zzAoTmc3fZjoo+4O+q/lz4gxQrDlUu4EgZ0FWxD1/63RuYP6ctl/hmQ
- adHJnqDtS6aQUVpdV8cl2kP2ack+NHPNKV4OwEFLpAUYCaA==
-X-Received: by 2002:a05:6402:4412:b0:631:6713:3ac2 with SMTP id
- 4fb4d7f45d1cf-6349fabb58bmr15560829a12.38.1759160999471; 
- Mon, 29 Sep 2025 08:49:59 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGZxxwsuUtbggYL5aOlrGiwf5w+UORwVlsBCtdVLYK9eI9LpaPDy14vpQw9wK3Zo/85HtWwow==
-X-Received: by 2002:a05:6402:4412:b0:631:6713:3ac2 with SMTP id
- 4fb4d7f45d1cf-6349fabb58bmr15560810a12.38.1759160999052; 
- Mon, 29 Sep 2025 08:49:59 -0700 (PDT)
+ AJvYcCVsmFzsA96JNQIYWan3AAx2R2D2IWzoknKfhKpa0dETr8H5hcDyGIoE/M2lRrLJW8Yw2gGchmkeMeg=@nongnu.org
+X-Gm-Message-State: AOJu0YwHZg/gsmrLYuSPYqIYSUpXfsZUNiR9yKUryN6mHBqwqT9EXF1r
+ ZaoPQTpE+xi5dAk0IO2LqeNy6zyduAP3jYipVWAhuFG6CCkfJRRkAFbfgzCYdjTd8krsXBl0ws6
+ GQURDckq15rERdnqhnbygD49adoyv+lIkK5cn+5blJOE6Q4WxdHMHGAU=
+X-Gm-Gg: ASbGncskW98uPLN9bp/S8R2Z5jCHeoCVgMAd2fGsXthH8T0LijdM8gohxdE4mB/xPpS
+ GrxhFCzajeA8wxJd80mx7shkkligKCd2ik8I4kfdI7CDYon/R5aNCEVYVN2MxoxedJFJoKwPhug
+ laCbKwIUwAXT8qbnGvqI46niS4A+XX9qIlTFs7eajIhk9lMIc0/N1h99ozUVGcW6E2RdVeSh5IP
+ VJspoOSaGFTl8vpUiEhqQUdJO5zsrxX9vG/nK5gmtCHLfIMGvAh8VmrBjxi8cw77snrEBQ6BeMp
+ XAjk0vl1StK4TDjkxfUgKR1UQM1AxGkc3kL4ptXoxN7qeWj1N9IW0EyfCFTYKVTOve6LfhUQ9kv
+ X0QtpAMpRrbogdBAYXpGatmWap3nfRyV8VfRvrjc2/6luoQ==
+X-Received: by 2002:a17:907:1c95:b0:b2b:2967:5550 with SMTP id
+ a640c23a62f3a-b34b684a607mr1735538366b.5.1759160983407; 
+ Mon, 29 Sep 2025 08:49:43 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEkRZw+cjfBjzE0zBl+cVMYhsnOi4WHvU6zVQt1fLSJa6I869c6OpqPg8aJnTuvr3X9qp11FA==
+X-Received: by 2002:a17:907:1c95:b0:b2b:2967:5550 with SMTP id
+ a640c23a62f3a-b34b684a607mr1735535366b.5.1759160982983; 
+ Mon, 29 Sep 2025 08:49:42 -0700 (PDT)
 Received: from [192.168.10.48] ([176.206.127.188])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-634a364fedesm7967787a12.14.2025.09.29.08.49.57
+ a640c23a62f3a-b3d27759835sm326470166b.13.2025.09.29.08.49.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Sep 2025 08:49:57 -0700 (PDT)
+ Mon, 29 Sep 2025 08:49:41 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Tanish Desai <tanishdesai37@gmail.com>,
@@ -82,26 +82,25 @@ Cc: Tanish Desai <tanishdesai37@gmail.com>,
  Mads Ynddal <mads@ynddal.dk>,
  =?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
  Zhao Liu <zhao1.liu@intel.com>, qemu-rust@nongnu.org
-Subject: [PATCH 07/16] tracetool/backend: remove redundant trace event checks
-Date: Mon, 29 Sep 2025 17:49:29 +0200
-Message-ID: <20250929154938.594389-8-pbonzini@redhat.com>
+Subject: [PATCH 01/16] tracetool: fix usage of try_import()
+Date: Mon, 29 Sep 2025 17:49:23 +0200
+Message-ID: <20250929154938.594389-2-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250929154938.594389-1-pbonzini@redhat.com>
 References: <20250929154938.594389-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: LEad9DQ86FUF3znSHBOfRbUT2K7qpMZdfYokL6Koq8g_1759161000
+X-Mimecast-MFC-PROC-ID: O-IjD6AUMgyFaqw0c3RkvxQcQZtSw7tI58ymJJsOoGU_1759160983
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -25
 X-Spam_score: -2.6
 X-Spam_bar: --
 X-Spam_report: (-2.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.513,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
@@ -119,176 +118,43 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Tanish Desai <tanishdesai37@gmail.com>
+try_import returns a tuple of a boolean and the requested module or attribute.
+exists() functions return tracetool.try_import("tracetool.format." + name)[1]
+but they should return the boolean value instead.
 
-Use CHECK_TRACE_EVENT_GET_STATE in log, syslog, dtrace and simple
-backend, so that the "if (trace_event_get_state)" is created from common
-code and unified when multiple backends are active.
-
-When a single backend is active there is no code change (except
-for the log backend, as shown in tests/tracetool/log.h), but the
-code in the backends is simpler.
-
-Signed-off-by: Tanish Desai <tanishdesai37@gmail.com>
 Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- tests/tracetool/log.h               | 16 ++++++++++------
- scripts/tracetool/backend/ftrace.py |  6 ++----
- scripts/tracetool/backend/log.py    | 10 ++++------
- scripts/tracetool/backend/simple.py |  8 ++------
- scripts/tracetool/backend/syslog.py |  8 ++------
- 5 files changed, 20 insertions(+), 28 deletions(-)
+ scripts/tracetool/backend/__init__.py | 2 +-
+ scripts/tracetool/format/__init__.py  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/tests/tracetool/log.h b/tests/tracetool/log.h
-index edcc7f9d47c..c7795871f85 100644
---- a/tests/tracetool/log.h
-+++ b/tests/tracetool/log.h
-@@ -21,10 +21,12 @@ extern uint16_t _TRACE_TEST_WIBBLE_DSTATE;
- 
- static inline void trace_test_blah(void *context, const char *filename)
- {
--    if (trace_event_get_state(TRACE_TEST_BLAH) && qemu_loglevel_mask(LOG_TRACE)) {
-+    if (trace_event_get_state(TRACE_TEST_BLAH)) {
-+        if (qemu_loglevel_mask(LOG_TRACE)) {
- #line 4 "trace-events"
--        qemu_log("test_blah " "Blah context=%p filename=%s" "\n", context, filename);
--#line 28 "log.h"
-+            qemu_log("test_blah " "Blah context=%p filename=%s" "\n", context, filename);
-+#line 29 "log.h"
-+        }
-     }
- }
- 
-@@ -34,10 +36,12 @@ static inline void trace_test_blah(void *context, const char *filename)
- 
- static inline void trace_test_wibble(void *context, int value)
- {
--    if (trace_event_get_state(TRACE_TEST_WIBBLE) && qemu_loglevel_mask(LOG_TRACE)) {
-+    if (trace_event_get_state(TRACE_TEST_WIBBLE)) {
-+        if (qemu_loglevel_mask(LOG_TRACE)) {
- #line 5 "trace-events"
--        qemu_log("test_wibble " "Wibble context=%p value=%d" "\n", context, value);
--#line 41 "log.h"
-+            qemu_log("test_wibble " "Wibble context=%p value=%d" "\n", context, value);
-+#line 44 "log.h"
-+        }
-     }
- }
- #endif /* TRACE_TESTSUITE_GENERATED_TRACERS_H */
-diff --git a/scripts/tracetool/backend/ftrace.py b/scripts/tracetool/backend/ftrace.py
-index 8c0ce3f23a0..7ddd5d11a66 100644
---- a/scripts/tracetool/backend/ftrace.py
-+++ b/scripts/tracetool/backend/ftrace.py
-@@ -16,6 +16,7 @@
+diff --git a/scripts/tracetool/backend/__init__.py b/scripts/tracetool/backend/__init__.py
+index 7bfcc86cc53..6c6344deddb 100644
+--- a/scripts/tracetool/backend/__init__.py
++++ b/scripts/tracetool/backend/__init__.py
+@@ -94,7 +94,7 @@ def exists(name):
+     if name == "nop":
+         return True
+     name = name.replace("-", "_")
+-    return tracetool.try_import("tracetool.backend." + name)[1]
++    return tracetool.try_import("tracetool.backend." + name)[0]
  
  
- PUBLIC = True
-+CHECK_TRACE_EVENT_GET_STATE = True
+ class Wrapper:
+diff --git a/scripts/tracetool/format/__init__.py b/scripts/tracetool/format/__init__.py
+index 2dc46f3dd93..042fe7d103c 100644
+--- a/scripts/tracetool/format/__init__.py
++++ b/scripts/tracetool/format/__init__.py
+@@ -70,7 +70,7 @@ def exists(name):
+     if len(name) == 0:
+         return False
+     name = name.replace("-", "_")
+-    return tracetool.try_import("tracetool.format." + name)[1]
++    return tracetool.try_import("tracetool.format." + name)[0]
  
  
- def generate_h_begin(events, group):
-@@ -28,14 +29,11 @@ def generate_h(event, group):
-     if len(event.args) > 0:
-         argnames = ", " + argnames
- 
--    out('    if (trace_event_get_state(%(event_id)s)) {',
--        '#line %(event_lineno)d "%(event_filename)s"',
-+    out('#line %(event_lineno)d "%(event_filename)s"',
-         '        ftrace_write("%(name)s " %(fmt)s "\\n" %(argnames)s);',
-         '#line %(out_next_lineno)d "%(out_filename)s"',
--        '    }',
-         name=event.name,
-         args=event.args,
--        event_id="TRACE_" + event.name.upper(),
-         event_lineno=event.lineno,
-         event_filename=event.filename,
-         fmt=event.fmt.rstrip("\n"),
-diff --git a/scripts/tracetool/backend/log.py b/scripts/tracetool/backend/log.py
-index faacec46105..d01d234289f 100644
---- a/scripts/tracetool/backend/log.py
-+++ b/scripts/tracetool/backend/log.py
-@@ -16,6 +16,7 @@
- 
- 
- PUBLIC = True
-+CHECK_TRACE_EVENT_GET_STATE = True
- 
- 
- def generate_h_begin(events, group):
-@@ -28,14 +29,11 @@ def generate_h(event, group):
-     if len(event.args) > 0:
-         argnames = ", " + argnames
- 
--    cond = "trace_event_get_state(%s)" % ("TRACE_" + event.name.upper())
--
--    out('    if (%(cond)s && qemu_loglevel_mask(LOG_TRACE)) {',
-+    out('        if (qemu_loglevel_mask(LOG_TRACE)) {',
-         '#line %(event_lineno)d "%(event_filename)s"',
--        '        qemu_log("%(name)s " %(fmt)s "\\n"%(argnames)s);',
-+        '            qemu_log("%(name)s " %(fmt)s "\\n"%(argnames)s);',
-         '#line %(out_next_lineno)d "%(out_filename)s"',
--        '    }',
--        cond=cond,
-+        '        }',
-         event_lineno=event.lineno,
-         event_filename=event.filename,
-         name=event.name,
-diff --git a/scripts/tracetool/backend/simple.py b/scripts/tracetool/backend/simple.py
-index 97e40495ee9..b5a6b7205a3 100644
---- a/scripts/tracetool/backend/simple.py
-+++ b/scripts/tracetool/backend/simple.py
-@@ -16,6 +16,7 @@
- 
- 
- PUBLIC = True
-+CHECK_TRACE_EVENT_GET_STATE = True
- 
- 
- def is_string(arg):
-@@ -36,13 +37,8 @@ def generate_h_begin(events, group):
- 
- 
- def generate_h(event, group):
--    event_id = 'TRACE_' + event.name.upper()
--    cond = "trace_event_get_state(%s)" % event_id
--    out('    if (%(cond)s) {',
--        '        _simple_%(api)s(%(args)s);',
--        '    }',
-+    out('        _simple_%(api)s(%(args)s);',
-         api=event.api(),
--        cond=cond,
-         args=", ".join(event.args.names()))
- 
- 
-diff --git a/scripts/tracetool/backend/syslog.py b/scripts/tracetool/backend/syslog.py
-index 78ee67136b8..177414d56a6 100644
---- a/scripts/tracetool/backend/syslog.py
-+++ b/scripts/tracetool/backend/syslog.py
-@@ -16,6 +16,7 @@
- 
- 
- PUBLIC = True
-+CHECK_TRACE_EVENT_GET_STATE = True
- 
- 
- def generate_h_begin(events, group):
-@@ -28,14 +29,9 @@ def generate_h(event, group):
-     if len(event.args) > 0:
-         argnames = ", " + argnames
- 
--    cond = "trace_event_get_state(%s)" % ("TRACE_" + event.name.upper())
--
--    out('    if (%(cond)s) {',
--        '#line %(event_lineno)d "%(event_filename)s"',
-+    out('#line %(event_lineno)d "%(event_filename)s"',
-         '        syslog(LOG_INFO, "%(name)s " %(fmt)s %(argnames)s);',
-         '#line %(out_next_lineno)d "%(out_filename)s"',
--        '    }',
--        cond=cond,
-         event_lineno=event.lineno,
-         event_filename=event.filename,
-         name=event.name,
+ def generate(events, format, backend, group):
 -- 
 2.51.0
 
