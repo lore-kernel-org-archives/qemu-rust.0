@@ -4,76 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C012ACAC5B5
-	for <qemu-rust@archiver.kernel.org>; Mon, 29 Sep 2025 15:52:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C171CAC5B5
+	for <qemu-rust@archiver.kernel.org>; Mon, 29 Sep 2025 15:52:04 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v3G9g-0001UA-65; Mon, 29 Sep 2025 11:51:12 -0400
+	id 1v3G8y-0000y3-R8; Mon, 29 Sep 2025 11:50:29 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v3G96-00010f-9t
- for qemu-rust@nongnu.org; Mon, 29 Sep 2025 11:50:36 -0400
+ id 1v3G8c-0000jC-2R
+ for qemu-rust@nongnu.org; Mon, 29 Sep 2025 11:50:07 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v3G8s-0000c7-EG
- for qemu-rust@nongnu.org; Mon, 29 Sep 2025 11:50:35 -0400
+ id 1v3G8O-0000K2-P5
+ for qemu-rust@nongnu.org; Mon, 29 Sep 2025 11:50:04 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759161018;
+ s=mimecast20190719; t=1759160988;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5FZwR772WilyPlQiqTOSUvFpm4aGMNEEmbioRqmBBig=;
- b=RKzm0eE2kImTA2dgFDgViewY0RTiqpz1ZvCILtewMwlZpqrQTPNLIpP3PoayoV63IX1cva
- NGKlzwWkdz1/rnAJGHg54v4UXc7AZuOCoLPHV6l2UdhQy0NB1LDDNRUNSYMmq0Ji4mSh3B
- Ss48Ne5+UhrwHyYgkKsjltKYcQws0lk=
+ bh=BPzxrddqtL0TItlI5LLtoSQbI5T1+Lsx8CSDc/Du130=;
+ b=CaorO2EtMOEcOdzXx1H0tGZOyK6KUhWpYmEt39vtc+x3HZAwVTOZ41Z4Qcbtc3/Rn6vfCy
+ XMv7xK+13jnQxEcbzjW3uqoecNxPvNUqrc5bN/vvBj9lG44pvYtOq9Lg3wYq7wFTRzkWOd
+ 8CaVKoFa6ntKBRX0b7A+6NYBPZZbF7A=
 Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
  [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-218-gmrFbvSTOzi14eSBuKG_OQ-1; Mon, 29 Sep 2025 11:50:16 -0400
-X-MC-Unique: gmrFbvSTOzi14eSBuKG_OQ-1
-X-Mimecast-MFC-AGG-ID: gmrFbvSTOzi14eSBuKG_OQ_1759161015
+ us-mta-648-1xMWhV48PniYrOdqfLwG4Q-1; Mon, 29 Sep 2025 11:49:46 -0400
+X-MC-Unique: 1xMWhV48PniYrOdqfLwG4Q-1
+X-Mimecast-MFC-AGG-ID: 1xMWhV48PniYrOdqfLwG4Q_1759160986
 Received: by mail-ej1-f69.google.com with SMTP id
- a640c23a62f3a-b3fd9c9df9eso125210266b.0
- for <qemu-rust@nongnu.org>; Mon, 29 Sep 2025 08:50:16 -0700 (PDT)
+ a640c23a62f3a-b2e6b2bb443so509017466b.2
+ for <qemu-rust@nongnu.org>; Mon, 29 Sep 2025 08:49:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759161015; x=1759765815;
+ d=1e100.net; s=20230601; t=1759160985; x=1759765785;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=5FZwR772WilyPlQiqTOSUvFpm4aGMNEEmbioRqmBBig=;
- b=XQ6uCK1OT4Y2bsuHu0jZtYjnyfXRDqEdvb0jvPTkz7cE09ysabSSIBenEBVBYJG4ET
- fUTquQovQjFZrMbyqzqkct6btiis4T794TUBUzi9VH9MSbQe1laZOndE0ZZgy6w3y9ZC
- MhXB0FDmbWQTd2x3z1hlAO2PxOe2T2d5Rd4YbONuaGARgoCCja2dekbpKRAwuYpoO40N
- M7rOTSmx36CF096Kl/QYH9Jot40s5xbtj3WyrV/Eg2Kk9qcKWfuTje3LFv8RwirbKEJf
- Gxhp2kTFbqYXkard0gg7otGUuHuqVk7hhACRA+WWDx8t+OVYMrdXmm9PGnLoU7y52ZbX
- aeYg==
+ bh=BPzxrddqtL0TItlI5LLtoSQbI5T1+Lsx8CSDc/Du130=;
+ b=k8SGd48Q6fbyjpDSJyP93UBehHRrCakSOPC0aLOqR94WdQvbnCKVNkNaiHdoOnBwrU
+ cFBi4QLwMkalQ53QleTFCJz7WlYUvakooTASmTnZMzQYz+iI7pkLAyoI4SQPr2W0MFAy
+ ukoEbpENloBGYl69irnR5uu6Pa8vwV9+m9rBh+2EgttwvUhxxQabnG8mPH7rhmxDMkYz
+ GxClgqFl0QNUnVt0JgxUr6C/uLmHgUgN3xRGovt4YXypapTVdiyhU7F/oB7d5rJ5Owas
+ 3qNfOb/6LTlJPs+BQ+r3e/KaimX0+ltjUutcO9qQKdAHWmaJGjfsGIdUyDZauvAc8chI
+ VKlA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVuAtBcVZJjBpoi2Gx1j/aWb6dvXDSqG5P7C1cvKckiSreElS6w8Bj889Ps2+iCe6XFqJVHpyUrq0o=@nongnu.org
-X-Gm-Message-State: AOJu0YwxCAxwnxqgK37ROC596AIMH7j7hOBHCLrDYo1VP8UzatL1tCpA
- yUX72YCBwOCualkffNTkrBO5yvFyGzJnjXLqq1QQo2pGB5QF0+SfwtJiT/Z7EsxFc9ScfDQGqy9
- WYMBcNDs9DBxOhi+L2mjc/RjhW022W6Y0564bcgC39jVSWHX3V9RCeRQ=
-X-Gm-Gg: ASbGncvOXO041C6rEBbuLQWcJ7CHsHxF3/cy9FgWKZ7KCPAZyUonVFP/rD/uTN9qRhP
- Qx3yotgGsfXJaxhpw99nM1NTs9hB8Gcci7+lpi/WjN2eJao2Hq5+XEkrk1IQUHDb77/zIIDm1U6
- pPlL/wWsSI5MNYPV/ldpVlBFoq/ZZGKExTCizwOlN+rk+RJ4leansZbPSvpfZonKTnPALcgoUgb
- ENmx9eHQZ0SJha2nUAMhsg/GxvAKwK4X3JAH+/rT3tOrLgg9HuLufAL2VhIghDanUV2OTiRz85y
- Z4anNvT1QqB16/faZzAAbXS7x7VjxKVgojmlU0cJLHBykM751Kmf3ysp8Jjnr7JF2u+x5m6ewk2
- JlXb6HN7N9rX4FxyKwOt53NW4icXQJhQXSI/sNicQvPH65w==
-X-Received: by 2002:a17:907:c25:b0:b3f:5a00:161d with SMTP id
- a640c23a62f3a-b413562219emr116126666b.1.1759161015034; 
- Mon, 29 Sep 2025 08:50:15 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG2Yvz6WdNce+2qmtF9I5Jdxk3mEcihUcc0DS+9V5GDIEPvrmsRxsIEiF5wXKY9ZVr9ZfOcdg==
-X-Received: by 2002:a17:907:c25:b0:b3f:5a00:161d with SMTP id
- a640c23a62f3a-b413562219emr116124066b.1.1759161014597; 
- Mon, 29 Sep 2025 08:50:14 -0700 (PDT)
+ AJvYcCXRiptDHxLzvHc2f5zdJINt/f1qAApUFZhZXfDdQ8lWTDdn+QHcfV8U81A/BXPjnwarfY0NHo3e4js=@nongnu.org
+X-Gm-Message-State: AOJu0YzP2UI/y3u6hHzso4+CxrU2x6nvo3A9Snni5to6KJHHPc87iUwO
+ xo1yijG9IIYRX9Re3yLkfwQJXEf7YeEvhLbUtaw8JQt4D68q2r5YoI4FO+ogB2HAzconI91Kf1/
+ v4EGILVF3VuFtfCioxQW3W5fc81A/mYCWwSavW+2kbGXsjOBN4epFWoY=
+X-Gm-Gg: ASbGncurvnA4ZsFlGXpKA9CJaBmI+9XAOtNN/ImZvfAHtgIM+eeYB9II5mEDbTyOZcx
+ M6uoK0oyHdfHbpJmM0AOKujOzbcNswRjT3ZfGtfbXFLyUFNhGnJo+VdiV+I8Sjl7a5klJZebMDn
+ u6X2wZurVLEpPX2kbP8m5NiTIF2ycfNBxuEkjSuN5KpzgfC1iWZNZbILc8NDG+rf+g4YvTsbVcl
+ 0LX2aGPpa6aXpvoXZk8FL3QNt0v0oibZMzBtddoTwXALrC1IS0q75AwmM1B4aRhZfAwc6jEPT1Y
+ S6s4mopBN7GW3ruv2bn8t1snRH4cQoKcuZMcorSzSM0cSwPwOy59+HMUTrke58kXijKsctg1pHs
+ KtrX1IIQkQIdNyFrytkQSA5eKSlQ4+DFBIgZcq+RRhXtzDA==
+X-Received: by 2002:a17:907:6093:b0:ae1:a6a0:f2fe with SMTP id
+ a640c23a62f3a-b34bad28537mr1913857566b.36.1759160985479; 
+ Mon, 29 Sep 2025 08:49:45 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG21EHXJbWMybWv0lsGwuZFID3E8aCqbDC3DKgYJf6kzYsdtFqtEWU8jK5Bb3ncnCzjZgj+nw==
+X-Received: by 2002:a17:907:6093:b0:ae1:a6a0:f2fe with SMTP id
+ a640c23a62f3a-b34bad28537mr1913855166b.36.1759160985043; 
+ Mon, 29 Sep 2025 08:49:45 -0700 (PDT)
 Received: from [192.168.10.48] ([176.206.127.188])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b3b74cb1e9asm454771566b.98.2025.09.29.08.50.12
+ a640c23a62f3a-b3545a983ffsm953498566b.94.2025.09.29.08.49.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Sep 2025 08:50:13 -0700 (PDT)
+ Mon, 29 Sep 2025 08:49:44 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Tanish Desai <tanishdesai37@gmail.com>,
@@ -81,20 +81,19 @@ Cc: Tanish Desai <tanishdesai37@gmail.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Mads Ynddal <mads@ynddal.dk>,
  =?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
- Zhao Liu <zhao1.liu@intel.com>, qemu-rust@nongnu.org,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH 13/16] log: change qemu_loglevel to unsigned
-Date: Mon, 29 Sep 2025 17:49:35 +0200
-Message-ID: <20250929154938.594389-14-pbonzini@redhat.com>
+ Zhao Liu <zhao1.liu@intel.com>, qemu-rust@nongnu.org
+Subject: [PATCH 02/16] tracetool: remove dead code
+Date: Mon, 29 Sep 2025 17:49:24 +0200
+Message-ID: <20250929154938.594389-3-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250929154938.594389-1-pbonzini@redhat.com>
 References: <20250929154938.594389-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 0ThlNx6XIAcRyN7_91hBSmYMWD1EYHyiB_ubSLarQoc_1759161015
+X-Mimecast-MFC-PROC-ID: 4qbcjtCa0XUTSrEt_gYEs4yc_kq-aue5DlxTOtb5hi8_1759160986
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -25
@@ -103,7 +102,6 @@ X-Spam_bar: --
 X-Spam_report: (-2.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.513,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -120,125 +118,195 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Bindgen makes the LOG_* constants unsigned, even if they are defined as
-(1 << 15):
+Remove a bunch of dead code from tracetool.
 
-   pub const LOG_TRACE: u32 = 32768;
+In particular, there are no tcg-exec events anymore and the sub-event
+functionality was only used for it.
 
-Make them unsigned in C as well through the BIT() macro, and also change
-the type of the variable that they are used with.
-
-Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- include/qemu/log-for-trace.h |  4 ++--
- include/qemu/log.h           | 44 ++++++++++++++++++------------------
- util/log.c                   |  2 +-
- rust/util/src/log.rs         |  2 +-
- 4 files changed, 26 insertions(+), 26 deletions(-)
+ scripts/tracetool/__init__.py                | 45 +++-----------------
+ scripts/tracetool/format/h.py                |  5 ---
+ scripts/tracetool/format/log_stap.py         |  2 -
+ scripts/tracetool/format/simpletrace_stap.py |  2 -
+ 4 files changed, 6 insertions(+), 48 deletions(-)
 
-diff --git a/include/qemu/log-for-trace.h b/include/qemu/log-for-trace.h
-index d47c9cd4462..f3a8791f1d4 100644
---- a/include/qemu/log-for-trace.h
-+++ b/include/qemu/log-for-trace.h
-@@ -19,9 +19,9 @@
- #define QEMU_LOG_FOR_TRACE_H
+diff --git a/scripts/tracetool/__init__.py b/scripts/tracetool/__init__.py
+index 1d5238a0843..4ef1dc1fca3 100644
+--- a/scripts/tracetool/__init__.py
++++ b/scripts/tracetool/__init__.py
+@@ -15,7 +15,6 @@
+ import os
+ import re
+ import sys
+-import weakref
+ from pathlib import PurePath
  
- /* Private global variable, don't use */
--extern int qemu_loglevel;
-+extern unsigned qemu_loglevel;
+ import tracetool.backend
+@@ -122,10 +121,6 @@ def __init__(self, args):
+             else:
+                 self._args.append(arg)
  
--#define LOG_TRACE          (1 << 15)
-+#define LOG_TRACE          (1u << 15)
+-    def copy(self):
+-        """Create a new copy."""
+-        return Arguments(list(self._args))
+-
+     @staticmethod
+     def build(arg_str):
+         """Build and Arguments instance from an argument string.
+@@ -222,13 +217,12 @@ class Event(object):
+                       r"(?P<name>\w+)"
+                       r"\((?P<args>[^)]*)\)"
+                       r"\s*"
+-                      r"(?:(?:(?P<fmt_trans>\".+),)?\s*(?P<fmt>\".+))?"
++                      r"(?P<fmt>\".+)?"
+                       r"\s*")
  
- /* Returns true if a bit is set in the current loglevel mask */
- static inline bool qemu_loglevel_mask(int mask)
-diff --git a/include/qemu/log.h b/include/qemu/log.h
-index aae72985f0d..7effba4da4c 100644
---- a/include/qemu/log.h
-+++ b/include/qemu/log.h
-@@ -14,30 +14,30 @@ bool qemu_log_enabled(void);
- /* Returns true if qemu_log() will write somewhere other than stderr. */
- bool qemu_log_separate(void);
+     _VALID_PROPS = set(["disable"])
  
--#define CPU_LOG_TB_OUT_ASM (1 << 0)
--#define CPU_LOG_TB_IN_ASM  (1 << 1)
--#define CPU_LOG_TB_OP      (1 << 2)
--#define CPU_LOG_TB_OP_OPT  (1 << 3)
--#define CPU_LOG_INT        (1 << 4)
--#define CPU_LOG_EXEC       (1 << 5)
--#define CPU_LOG_PCALL      (1 << 6)
--#define CPU_LOG_TB_CPU     (1 << 8)
--#define CPU_LOG_RESET      (1 << 9)
--#define LOG_UNIMP          (1 << 10)
--#define LOG_GUEST_ERROR    (1 << 11)
--#define CPU_LOG_MMU        (1 << 12)
--#define CPU_LOG_TB_NOCHAIN (1 << 13)
--#define CPU_LOG_PAGE       (1 << 14)
-+#define CPU_LOG_TB_OUT_ASM (1u << 0)
-+#define CPU_LOG_TB_IN_ASM  (1u << 1)
-+#define CPU_LOG_TB_OP      (1u << 2)
-+#define CPU_LOG_TB_OP_OPT  (1u << 3)
-+#define CPU_LOG_INT        (1u << 4)
-+#define CPU_LOG_EXEC       (1u << 5)
-+#define CPU_LOG_PCALL      (1u << 6)
-+#define CPU_LOG_TB_CPU     (1u << 8)
-+#define CPU_LOG_RESET      (1u << 9)
-+#define LOG_UNIMP          (1u << 10)
-+#define LOG_GUEST_ERROR    (1u << 11)
-+#define CPU_LOG_MMU        (1u << 12)
-+#define CPU_LOG_TB_NOCHAIN (1u << 13)
-+#define CPU_LOG_PAGE       (1u << 14)
- /* LOG_TRACE (1 << 15) is defined in log-for-trace.h */
--#define CPU_LOG_TB_OP_IND  (1 << 16)
--#define CPU_LOG_TB_FPU     (1 << 17)
--#define CPU_LOG_PLUGIN     (1 << 18)
-+#define CPU_LOG_TB_OP_IND  (1u << 16)
-+#define CPU_LOG_TB_FPU     (1u << 17)
-+#define CPU_LOG_PLUGIN     (1u << 18)
- /* LOG_STRACE is used for user-mode strace logging. */
--#define LOG_STRACE         (1 << 19)
--#define LOG_PER_THREAD     (1 << 20)
--#define CPU_LOG_TB_VPU     (1 << 21)
--#define LOG_TB_OP_PLUGIN   (1 << 22)
--#define LOG_INVALID_MEM    (1 << 23)
-+#define LOG_STRACE         (1u << 19)
-+#define LOG_PER_THREAD     (1u << 20)
-+#define CPU_LOG_TB_VPU     (1u << 21)
-+#define LOG_TB_OP_PLUGIN   (1u << 22)
-+#define LOG_INVALID_MEM    (1u << 23)
+-    def __init__(self, name, props, fmt, args, lineno, filename, orig=None,
+-                 event_trans=None, event_exec=None):
++    def __init__(self, name, props, fmt, args, lineno, filename):
+         """
+         Parameters
+         ----------
+@@ -236,20 +230,14 @@ def __init__(self, name, props, fmt, args, lineno, filename, orig=None,
+             Event name.
+         props : list of str
+             Property names.
+-        fmt : str, list of str
+-            Event printing format string(s).
++        fmt : str
++            Event printing format string.
+         args : Arguments
+             Event arguments.
+         lineno : int
+             The line number in the input file.
+         filename : str
+             The path to the input file.
+-        orig : Event or None
+-            Original Event before transformation/generation.
+-        event_trans : Event or None
+-            Generated translation-time event ("tcg" property).
+-        event_exec : Event or None
+-            Generated execution-time event ("tcg" property).
  
- /* Lock/unlock output. */
+         """
+         self.name = name
+@@ -258,29 +246,16 @@ def __init__(self, name, props, fmt, args, lineno, filename, orig=None,
+         self.args = args
+         self.lineno = int(lineno)
+         self.filename = str(filename)
+-        self.event_trans = event_trans
+-        self.event_exec = event_exec
  
-diff --git a/util/log.c b/util/log.c
-index abdcb6b3111..41f78ce86b2 100644
---- a/util/log.c
-+++ b/util/log.c
-@@ -44,7 +44,7 @@ static FILE *global_file;
- static __thread FILE *thread_file;
- static __thread Notifier qemu_log_thread_cleanup_notifier;
+         if len(args) > 10:
+             raise ValueError("Event '%s' has more than maximum permitted "
+                              "argument count" % name)
  
--int qemu_loglevel;
-+unsigned qemu_loglevel;
- static bool log_per_thread;
- static GArray *debug_regions;
+-        if orig is None:
+-            self.original = weakref.ref(self)
+-        else:
+-            self.original = orig
+-
+         unknown_props = set(self.properties) - self._VALID_PROPS
+         if len(unknown_props) > 0:
+             raise ValueError("Unknown properties: %s"
+                              % ", ".join(unknown_props))
+-        assert isinstance(self.fmt, str) or len(self.fmt) == 2
  
-diff --git a/rust/util/src/log.rs b/rust/util/src/log.rs
-index af9a3e91234..0a4bc4249a1 100644
---- a/rust/util/src/log.rs
-+++ b/rust/util/src/log.rs
-@@ -142,7 +142,7 @@ macro_rules! log_mask_ln {
-         let _: $crate::log::Log = $mask;
+-    def copy(self):
+-        """Create a new copy."""
+-        return Event(self.name, list(self.properties), self.fmt,
+-                     self.args.copy(), self.lineno, self.filename,
+-                     self, self.event_trans, self.event_exec)
  
-         if unsafe {
--            ($crate::bindings::qemu_loglevel & ($mask as std::os::raw::c_int)) != 0
-+            ($crate::bindings::qemu_loglevel & ($mask as std::os::raw::c_uint)) != 0
-         } {
-             _ = $crate::log::LogGuard::log_fmt(
-                 format_args!("{}\n", format_args!($fmt $($args)*)));
+     @staticmethod
+     def build(line_str, lineno, filename):
+@@ -302,8 +277,7 @@ def build(line_str, lineno, filename):
+         name = groups["name"]
+         props = groups["props"].split()
+         fmt = groups["fmt"]
+-        fmt_trans = groups["fmt_trans"]
+-        if fmt.find("%m") != -1 or fmt_trans.find("%m") != -1:
++        if fmt.find("%m") != -1:
+             raise ValueError("Event format '%m' is forbidden, pass the error "
+                              "as an explicit trace argument")
+         if fmt.endswith(r'\n"'):
+@@ -312,29 +286,22 @@ def build(line_str, lineno, filename):
+         if '\\n' in fmt:
+             raise ValueError("Event format must not use new line character")
+ 
+-        if len(fmt_trans) > 0:
+-            fmt = [fmt_trans, fmt]
+         args = Arguments.build(groups["args"])
+ 
+         return Event(name, props, fmt, args, lineno, posix_relpath(filename))
+ 
+     def __repr__(self):
+         """Evaluable string representation for this object."""
+-        if isinstance(self.fmt, str):
+-            fmt = self.fmt
+-        else:
+-            fmt = "%s, %s" % (self.fmt[0], self.fmt[1])
+         return "Event('%s %s(%s) %s')" % (" ".join(self.properties),
+                                           self.name,
+                                           self.args,
+-                                          fmt)
++                                          self.fmt)
+     # Star matching on PRI is dangerous as one might have multiple
+     # arguments with that format, hence the non-greedy version of it.
+     _FMT = re.compile(r"(%[\d\.]*\w+|%.*?PRI\S+)")
+ 
+     def formats(self):
+         """List conversion specifiers in the argument print format string."""
+-        assert not isinstance(self.fmt, list)
+         return self._FMT.findall(self.fmt)
+ 
+     QEMU_TRACE               = "trace_%(name)s"
+diff --git a/scripts/tracetool/format/h.py b/scripts/tracetool/format/h.py
+index b42a8268a81..bd9e0ca7f23 100644
+--- a/scripts/tracetool/format/h.py
++++ b/scripts/tracetool/format/h.py
+@@ -40,11 +40,6 @@ def generate(events, backend, group):
+             enabled = 0
+         else:
+             enabled = 1
+-        if "tcg-exec" in e.properties:
+-            # a single define for the two "sub-events"
+-            out('#define TRACE_%(name)s_ENABLED %(enabled)d',
+-                name=e.original.name.upper(),
+-                enabled=enabled)
+         out('#define TRACE_%s_ENABLED %d' % (e.name.upper(), enabled))
+ 
+     backend.generate_begin(events, group)
+diff --git a/scripts/tracetool/format/log_stap.py b/scripts/tracetool/format/log_stap.py
+index 710d62bffe4..5b1bbe907ff 100644
+--- a/scripts/tracetool/format/log_stap.py
++++ b/scripts/tracetool/format/log_stap.py
+@@ -18,8 +18,6 @@
+ from tracetool.backend.simple import is_string
+ from tracetool.format.stap import stap_escape
+ 
+-def global_var_name(name):
+-    return probeprefix().replace(".", "_") + "_" + name
+ 
+ STATE_SKIP = 0
+ STATE_LITERAL = 1
+diff --git a/scripts/tracetool/format/simpletrace_stap.py b/scripts/tracetool/format/simpletrace_stap.py
+index 72971133bf0..ac39a492d96 100644
+--- a/scripts/tracetool/format/simpletrace_stap.py
++++ b/scripts/tracetool/format/simpletrace_stap.py
+@@ -17,8 +17,6 @@
+ from tracetool.backend.simple import is_string
+ from tracetool.format.stap import stap_escape
+ 
+-def global_var_name(name):
+-    return probeprefix().replace(".", "_") + "_" + name
+ 
+ def generate(events, backend, group):
+     out('/* This file is autogenerated by tracetool, do not edit. */',
 -- 
 2.51.0
 
