@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7478BCCA470
-	for <qemu-rust@archiver.kernel.org>; Tue, 30 Sep 2025 15:39:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C8DACCA471
+	for <qemu-rust@archiver.kernel.org>; Tue, 30 Sep 2025 15:39:32 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v3cRG-0008FS-Gq; Tue, 30 Sep 2025 11:38:50 -0400
+	id 1v3cR2-0008BF-LD; Tue, 30 Sep 2025 11:38:36 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v3cRE-0008Cu-2H
- for qemu-rust@nongnu.org; Tue, 30 Sep 2025 11:38:48 -0400
+ id 1v3cR1-0008Aa-31
+ for qemu-rust@nongnu.org; Tue, 30 Sep 2025 11:38:35 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v3cR9-0004Hh-Hn
- for qemu-rust@nongnu.org; Tue, 30 Sep 2025 11:38:46 -0400
+ id 1v3cQx-0004E1-FJ
+ for qemu-rust@nongnu.org; Tue, 30 Sep 2025 11:38:34 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759246721;
+ s=mimecast20190719; t=1759246710;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=S7SIBgllnz6KmtZoaB98vFEfu3NyG7UL6U+A2rY+G0U=;
- b=fFYUZo+dIfIgUoVgKJiQp94tKSRqiRBPSGTslHfk/5SSsP9nu2WK58OxRXwi0Aa/Z89uaj
- ui9nw0APQZhW/+GeQbT+7RMnySLRMmpT5nUDfuAjoF7ntMTSXctmsr3hl7gBhJg3JkNUcE
- fOdllV/9Nebf8YMo3pZuDue7fRNbcmY=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=AkopEzcMgre1oqPqOMOI0pY8SSCf0ly5kfTMun2HyVk=;
+ b=eZmuMgQ8WxDpcoOV9x+RZLsEBy7cAfFn7VylOhF1SRalqsffeRZB5R5Y5sWgG33Hup5WGh
+ PAuSfXyVZJM9zlIZqG1tVMQPM2EOrZ1b8Gl85pDZ3DhcSk+pz/xf0k8QS01UeZaEHOSp62
+ 2qF7y7MV/yzLA8FotIOijgWxXFieY9M=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-256-JKJTufL9MreRhr7YD0yTig-1; Tue,
- 30 Sep 2025 11:38:35 -0400
-X-MC-Unique: JKJTufL9MreRhr7YD0yTig-1
-X-Mimecast-MFC-AGG-ID: JKJTufL9MreRhr7YD0yTig_1759246714
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-138-xLwcWBTsNJ-ywGMm6wmhlg-1; Tue,
+ 30 Sep 2025 11:38:25 -0400
+X-MC-Unique: xLwcWBTsNJ-ywGMm6wmhlg-1
+X-Mimecast-MFC-AGG-ID: xLwcWBTsNJ-ywGMm6wmhlg_1759246702
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 1B5AA1977309; Tue, 30 Sep 2025 15:38:34 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 70FDB1800593; Tue, 30 Sep 2025 15:38:22 +0000 (UTC)
 Received: from localhost (unknown [10.45.242.7])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id A91F01800452; Tue, 30 Sep 2025 15:38:32 +0000 (UTC)
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 1ED361956095; Tue, 30 Sep 2025 15:38:20 +0000 (UTC)
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: devel@lists.libvirt.org,
@@ -62,15 +62,15 @@ Cc: devel@lists.libvirt.org,
  Li-Wen Hsu <lwhsu@freebsd.org>, Warner Losh <imp@bsdimp.com>,
  Kyle Evans <kevans@freebsd.org>, Ed Maste <emaste@freebsd.org>,
  Thomas Huth <thuth@redhat.com>
-Subject: [PULL 07/23] configure: set the bindgen cross target
-Date: Tue, 30 Sep 2025 19:37:28 +0400
-Message-ID: <20250930153746.573875-8-marcandre.lureau@redhat.com>
+Subject: [PULL 05/23] scripts/archive-source: use a bash array
+Date: Tue, 30 Sep 2025 19:37:26 +0400
+Message-ID: <20250930153746.573875-6-marcandre.lureau@redhat.com>
 In-Reply-To: <20250930153746.573875-1-marcandre.lureau@redhat.com>
 References: <20250930153746.573875-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 Received-SPF: pass client-ip=170.10.133.124;
  envelope-from=marcandre.lureau@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
@@ -99,161 +99,64 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-Implement a bash version of rust-bindgen rust_to_clang_target() to
-convert from rust target to clang target.
-
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-Reviewed-by: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <20250924120426.2158655-8-marcandre.lureau@redhat.com>
+Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
+Message-ID: <20250924120426.2158655-6-marcandre.lureau@redhat.com>
 ---
- configure                            |  7 ++++
- scripts/rust-to-clang-target-test.sh | 43 ++++++++++++++++++++
- scripts/rust-to-clang-target.sh      | 60 ++++++++++++++++++++++++++++
- tests/lcitool/libvirt-ci             |  2 +-
- 4 files changed, 111 insertions(+), 1 deletion(-)
- create mode 100755 scripts/rust-to-clang-target-test.sh
- create mode 100644 scripts/rust-to-clang-target.sh
+ scripts/archive-source.sh | 31 +++++++++++++++++++++++--------
+ 1 file changed, 23 insertions(+), 8 deletions(-)
 
-diff --git a/configure b/configure
-index 66613f3f4c..bf964947b8 100755
---- a/configure
-+++ b/configure
-@@ -1878,6 +1878,13 @@ if test "$skip_meson" = no; then
-       eval "c=\$devices_${a}"
-       echo "${a}-softmmu = '$c'" >> $cross
-   done
-+  if test "$rust" != disabled; then
-+      if test "$cross_compile" = "yes"; then
-+          . "$source_path/scripts/rust-to-clang-target.sh"
-+          clang_target=$(rust_to_clang_target "$rust_target_triple")
-+          echo "bindgen_clang_arguments = [$(meson_quote --target="$clang_target")]" >> $cross
-+      fi
-+  fi
+diff --git a/scripts/archive-source.sh b/scripts/archive-source.sh
+index b86e632161..a725dd923d 100755
+--- a/scripts/archive-source.sh
++++ b/scripts/archive-source.sh
+@@ -26,12 +26,27 @@ sub_file="${sub_tdir}/submodule.tar"
+ # independent of what the developer currently has initialized
+ # in their checkout, because the build environment is completely
+ # different to the host OS.
+-subprojects="keycodemapdb libvfio-user berkeley-softfloat-3
+-  berkeley-testfloat-3 anyhow-1-rs arbitrary-int-1-rs attrs-0.2-rs bilge-0.2-rs
+-  bilge-impl-0.2-rs either-1-rs foreign-0.3-rs itertools-0.11-rs
+-  libc-0.2-rs proc-macro2-1-rs
+-  proc-macro-error-1-rs proc-macro-error-attr-1-rs quote-1-rs
+-  syn-2-rs unicode-ident-1-rs"
++subprojects=(
++  anyhow-1-rs
++  arbitrary-int-1-rs
++  attrs-0.2-rs
++  berkeley-softfloat-3
++  berkeley-testfloat-3
++  bilge-0.2-rs
++  bilge-impl-0.2-rs
++  either-1-rs
++  foreign-0.3-rs
++  itertools-0.11-rs
++  keycodemapdb
++  libc-0.2-rs
++  libvfio-user
++  proc-macro-error-1-rs
++  proc-macro-error-attr-1-rs
++  proc-macro2-1-rs
++  quote-1-rs
++  syn-2-rs
++  unicode-ident-1-rs
++)
+ sub_deinit=""
  
-   echo "[built-in options]" >> $cross
-   echo "c_args = [$(meson_quote $CFLAGS $EXTRA_CFLAGS)]" >> $cross
-diff --git a/scripts/rust-to-clang-target-test.sh b/scripts/rust-to-clang-target-test.sh
-new file mode 100755
-index 0000000000..ff6f8fcdc5
---- /dev/null
-+++ b/scripts/rust-to-clang-target-test.sh
-@@ -0,0 +1,43 @@
-+#!/usr/bin/env sh
-+#
-+# Copyright (C) 2025 Red Hat, Inc.
-+#
-+# Based on rust_to_clang_target() tests from rust-bindgen.
-+#
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
-+scripts_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-+. "$scripts_dir/rust-to-clang-target.sh"
-+
-+test_case() {
-+    input="$1"
-+    expected="$2"
-+    result=$(rust_to_clang_target "$input")
-+
-+    if [ "$result" = "$expected" ]; then
-+        echo " OK: '$input' -> '$result'"
-+    else
-+        echo " FAILED: '$input'"
-+        echo "  Expected: '$expected'"
-+        echo "  Got:      '$result'"
-+        exit 1
-+    fi
-+}
-+
-+echo "Running tests..."
-+
-+test_case "aarch64-apple-ios" "arm64-apple-ios"
-+test_case "riscv64gc-unknown-linux-gnu" "riscv64-unknown-linux-gnu"
-+test_case "riscv64imac-unknown-none-elf" "riscv64-unknown-none-elf"
-+test_case "riscv32imc-unknown-none-elf" "riscv32-unknown-none-elf"
-+test_case "riscv32imac-unknown-none-elf" "riscv32-unknown-none-elf"
-+test_case "riscv32imafc-unknown-none-elf" "riscv32-unknown-none-elf"
-+test_case "riscv32i-unknown-none-elf" "riscv32-unknown-none-elf"
-+test_case "riscv32imc-esp-espidf" "riscv32-esp-elf"
-+test_case "xtensa-esp32-espidf" "xtensa-esp32-elf"
-+test_case "aarch64-apple-ios-sim" "arm64-apple-ios-simulator"
-+test_case "aarch64-apple-tvos-sim" "arm64-apple-tvos-simulator"
-+test_case "aarch64-apple-watchos-sim" "arm64-apple-watchos-simulator"
-+
-+echo ""
-+echo "All tests passed!"
-diff --git a/scripts/rust-to-clang-target.sh b/scripts/rust-to-clang-target.sh
-new file mode 100644
-index 0000000000..72db7e1300
---- /dev/null
-+++ b/scripts/rust-to-clang-target.sh
-@@ -0,0 +1,60 @@
-+# Copyright (C) 2025 Red Hat, Inc.
-+#
-+# Based on rust_to_clang_target() from rust-bindgen.
-+#
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
-+rust_to_clang_target() {
-+    rust_target="$1"
-+
-+    # Split the string by hyphens
-+    triple_parts=""
-+    old_IFS="$IFS"
-+    IFS='-'
-+    for part in $rust_target; do
-+        triple_parts="$triple_parts $part"
-+    done
-+    IFS="$old_IFS"
-+    set -- $triple_parts
-+
-+    # RISC-V
-+    case "$1" in
-+        riscv32*)
-+            set -- "riscv32" "${2}" "${3}" "${4}"
-+            ;;
-+        riscv64*)
-+            set -- "riscv64" "${2}" "${3}" "${4}"
-+            ;;
-+    esac
-+
-+    # Apple
-+    if [ "$2" = "apple" ]; then
-+        if [ "$1" = "aarch64" ]; then
-+            set -- "arm64" "${2}" "${3}" "${4}"
-+        fi
-+        if [ "$4" = "sim" ]; then
-+            set -- "${1}" "${2}" "${3}" "simulator"
-+        fi
-+    fi
-+
-+    # ESP-IDF
-+    if [ "$3" = "espidf" ]; then
-+        set -- "${1}" "${2}" "elf" "${4}"
-+    fi
-+
-+    # Reassemble the string
-+    new_triple=""
-+    first=1
-+    for part in "$@"; do
-+        if [ -n "$part" ]; then
-+            if [ "$first" -eq 1 ]; then
-+                new_triple="$part"
-+                first=0
-+            else
-+                new_triple="$new_triple-$part"
-+            fi
-+        fi
-+    done
-+
-+    echo "$new_triple"
-+}
-diff --git a/tests/lcitool/libvirt-ci b/tests/lcitool/libvirt-ci
-index 18c4bfe02c..9da20ff7c3 160000
---- a/tests/lcitool/libvirt-ci
-+++ b/tests/lcitool/libvirt-ci
-@@ -1 +1 @@
--Subproject commit 18c4bfe02c467e5639bf9a687139735ccd7a3fff
-+Subproject commit 9da20ff7c3bc9067804a7561c2ff87583b434853
+ function cleanup() {
+@@ -77,10 +92,10 @@ function subproject_dir() {
+ git archive --format tar "$(tree_ish)" > "$tar_file"
+ test $? -ne 0 && error "failed to archive qemu"
+ 
+-meson subprojects download $subprojects >/dev/null
++meson subprojects download ${subprojects[@]} >/dev/null
+ test $? -ne 0 && error "failed to download subprojects $subprojects"
+ 
+-for sp in $subprojects; do
++for sp in "${subprojects[@]}"; do
+     tar --append --file "$tar_file" --exclude=.git subprojects/"$(subproject_dir $sp)"
+     test $? -ne 0 && error "failed to append subproject $sp to $tar_file"
+ done
 -- 
 2.51.0
 
