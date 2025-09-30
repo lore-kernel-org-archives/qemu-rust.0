@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10DFBCAC5B8
-	for <qemu-rust@archiver.kernel.org>; Tue, 30 Sep 2025 15:39:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25A07CCA470
+	for <qemu-rust@archiver.kernel.org>; Tue, 30 Sep 2025 15:40:04 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v3cR6-0008CP-B0; Tue, 30 Sep 2025 11:38:40 -0400
+	id 1v3cRM-0008Hr-6g; Tue, 30 Sep 2025 11:38:56 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v3cR5-0008C1-1M
- for qemu-rust@nongnu.org; Tue, 30 Sep 2025 11:38:39 -0400
+ id 1v3cRK-0008Ha-G1
+ for qemu-rust@nongnu.org; Tue, 30 Sep 2025 11:38:54 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v3cR2-0004GH-N9
- for qemu-rust@nongnu.org; Tue, 30 Sep 2025 11:38:38 -0400
+ id 1v3cRH-0004Jt-OW
+ for qemu-rust@nongnu.org; Tue, 30 Sep 2025 11:38:54 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759246715;
+ s=mimecast20190719; t=1759246730;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=W1NyfX4soRju/8fy+ZFeLE43fMSLPTeXbpc4OZtvOpw=;
- b=FtawM9jly4Mnts2TXHnSMpbY25PkxyhL/Ez/iPGGYloMDk6tp3a3pH1lHZh9+HBcrvuqDi
- gDhqcUo6wsN2nGo9aDm0P8ngkjDybGiOTfgkXvfotiwbmzQOavbqqq5vfAVg2fwkXcgcGs
- doN0z+xETBr5LKKe0AJh2liGe2TUCwk=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=DlKkwYQZuythXF5SkYF9/V+KhexejJOrTJiJWX7b/fg=;
+ b=W/g0VcVc1aeCxAr70JZmd/du9V5z3BEFps96pjaZhckE3G9mukwjcAWD/5kvQZ2wQrN7bg
+ 4Kn0rE2gquRPveyWmPbHQUVZMs4PuD3EhGk57UQwsbzc0ZEoNicPlHfZYWU5CdVDWVUGC+
+ 2BYd+JuUPnJMtGOMzhbGhAHpenHoaYQ=
+Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-136-_Zu199rOM7K800cE0k2PDg-1; Tue,
- 30 Sep 2025 11:38:30 -0400
-X-MC-Unique: _Zu199rOM7K800cE0k2PDg-1
-X-Mimecast-MFC-AGG-ID: _Zu199rOM7K800cE0k2PDg_1759246708
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-494-UDDU3SdvNkKzLh2Q-sAO1w-1; Tue,
+ 30 Sep 2025 11:38:46 -0400
+X-MC-Unique: UDDU3SdvNkKzLh2Q-sAO1w-1
+X-Mimecast-MFC-AGG-ID: UDDU3SdvNkKzLh2Q-sAO1w_1759246725
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 3589E18002D0; Tue, 30 Sep 2025 15:38:28 +0000 (UTC)
+ by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 19B4519560AF; Tue, 30 Sep 2025 15:38:45 +0000 (UTC)
 Received: from localhost (unknown [10.45.242.7])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id BD3271956095; Tue, 30 Sep 2025 15:38:26 +0000 (UTC)
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 0E3111800452; Tue, 30 Sep 2025 15:38:43 +0000 (UTC)
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: devel@lists.libvirt.org,
@@ -62,15 +62,15 @@ Cc: devel@lists.libvirt.org,
  Li-Wen Hsu <lwhsu@freebsd.org>, Warner Losh <imp@bsdimp.com>,
  Kyle Evans <kevans@freebsd.org>, Ed Maste <emaste@freebsd.org>,
  Thomas Huth <thuth@redhat.com>
-Subject: [PULL 06/23] configure: fix rust meson configuration
-Date: Tue, 30 Sep 2025 19:37:27 +0400
-Message-ID: <20250930153746.573875-7-marcandre.lureau@redhat.com>
+Subject: [PULL 09/23] tests/docker: use fully qualified image name for emsdk
+Date: Tue, 30 Sep 2025 19:37:30 +0400
+Message-ID: <20250930153746.573875-10-marcandre.lureau@redhat.com>
 In-Reply-To: <20250930153746.573875-1-marcandre.lureau@redhat.com>
 References: <20250930153746.573875-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 Received-SPF: pass client-ip=170.10.133.124;
  envelope-from=marcandre.lureau@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
@@ -81,7 +81,7 @@ X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,31 +99,32 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-It was incorrectly set on the [host_machine] and caused error:
-File "/tmp/qemu-test/build/pyvenv/lib/python3.11/site-packages/mesonbuild/envconfig.py", line 281, in from_literal
-    assert all(isinstance(v, str) for v in raw.values()), 'for mypy'
-AssertionError: for mypy
+Without it, at least it fails with podman on fc42:
+
+[1/6] STEP 1/15: FROM emscripten/emsdk:3.1.50 AS build-base
+Error: creating build container: short-name resolution enforced but cannot prompt without a TTY
 
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-Message-ID: <20250924120426.2158655-7-marcandre.lureau@redhat.com>
+Reviewed-by: Kohei Tokunaga <ktokunaga.mail@gmail.com>
+Message-ID: <20250924120426.2158655-10-marcandre.lureau@redhat.com>
 ---
- configure | 2 +-
+ tests/docker/dockerfiles/emsdk-wasm32-cross.docker | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/configure b/configure
-index 0f7eb95586..66613f3f4c 100755
---- a/configure
-+++ b/configure
-@@ -1958,7 +1958,7 @@ if test "$skip_meson" = no; then
-     echo "[binaries]" >> $native
-     echo "c = [$(meson_quote $host_cc)]" >> $native
-     if test "$rust" != disabled; then
--      echo "rust = [$(meson_quote $rustc)]" >> $cross
-+      echo "rust = [$(meson_quote $rustc)]" >> $native
-     fi
-     mv $native config-meson.native
-     meson_option_add --native-file
+diff --git a/tests/docker/dockerfiles/emsdk-wasm32-cross.docker b/tests/docker/dockerfiles/emsdk-wasm32-cross.docker
+index 60a7d02f56..6b1642a207 100644
+--- a/tests/docker/dockerfiles/emsdk-wasm32-cross.docker
++++ b/tests/docker/dockerfiles/emsdk-wasm32-cross.docker
+@@ -8,7 +8,7 @@ ARG PIXMAN_VERSION=0.44.2
+ ARG FFI_VERSION=v3.4.7
+ ARG MESON_VERSION=1.5.0
+ 
+-FROM emscripten/emsdk:$EMSDK_VERSION_QEMU AS build-base
++FROM docker.io/emscripten/emsdk:$EMSDK_VERSION_QEMU AS build-base
+ ARG MESON_VERSION
+ ENV TARGET=/builddeps/target
+ ENV CPATH="$TARGET/include"
 -- 
 2.51.0
 
