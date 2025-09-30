@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 739BCCCA476
-	for <qemu-rust@archiver.kernel.org>; Tue, 30 Sep 2025 15:43:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4D63CAC5B8
+	for <qemu-rust@archiver.kernel.org>; Tue, 30 Sep 2025 15:43:28 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v3cTy-0002pN-Rk; Tue, 30 Sep 2025 11:41:39 -0400
+	id 1v3cSu-0001kW-BC; Tue, 30 Sep 2025 11:40:40 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v3cSY-0001DZ-Oe
- for qemu-rust@nongnu.org; Tue, 30 Sep 2025 11:40:12 -0400
+ id 1v3cSE-0000pF-0F
+ for qemu-rust@nongnu.org; Tue, 30 Sep 2025 11:39:55 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1v3cST-0004iz-PP
- for qemu-rust@nongnu.org; Tue, 30 Sep 2025 11:40:10 -0400
+ id 1v3cS5-0004dn-Jq
+ for qemu-rust@nongnu.org; Tue, 30 Sep 2025 11:39:48 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759246800;
+ s=mimecast20190719; t=1759246779;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=zfCGi7AdoMSi+1WSy8MHbsQU0l//wNXKkk1GTx51jM8=;
- b=Uc+mc9DFmfrsJd4U+2htZJogAOtTEs+XcyrA3Jc/jX2Ws3lA5Vt/gQGq9RC5LXpXfc0SeH
- krZp7yzJfcFdv525Fkuk6PDb401m9YqezYFGMJiTHQVpYLNPKdNRxG8Z1ZXdXN66xVJ7FY
- 6SZX6f6y8spQn37nXKON65ty1mA7omc=
-Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
+ bh=tKv8jMeCFvQ0p+TyajRaY21Dq1JinbhU7WNm9Z/bcfk=;
+ b=G+iUdUI/EUDowg+bluFFBj/xoivFaR199V2wrDfwRK5KIaSd93oKV46QnVoKEluPS/D7oW
+ oL3VsSXP1SXuJIIPOTHzWdYCx9bbLyfuLYmGd+gezEluMTnBMEUu4dciKJUmcsMENg6E6a
+ XlG++B7DyiSAK4Of4DolilQ+PYF8+LY=
+Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-569-oyD4VxbvNWmrs_4SSq7JIg-1; Tue,
- 30 Sep 2025 11:39:57 -0400
-X-MC-Unique: oyD4VxbvNWmrs_4SSq7JIg-1
-X-Mimecast-MFC-AGG-ID: oyD4VxbvNWmrs_4SSq7JIg_1759246795
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-219-gXTeZRQNMyOH-WeEEEbg_g-1; Tue,
+ 30 Sep 2025 11:39:34 -0400
+X-MC-Unique: gXTeZRQNMyOH-WeEEEbg_g-1
+X-Mimecast-MFC-AGG-ID: gXTeZRQNMyOH-WeEEEbg_g_1759246772
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 3AF4E195608E; Tue, 30 Sep 2025 15:39:55 +0000 (UTC)
+ by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 56CBF19560AE; Tue, 30 Sep 2025 15:39:32 +0000 (UTC)
 Received: from localhost (unknown [10.45.242.7])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id E52A830002C5; Tue, 30 Sep 2025 15:39:53 +0000 (UTC)
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id CE1A91800447; Tue, 30 Sep 2025 15:39:30 +0000 (UTC)
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: devel@lists.libvirt.org,
@@ -62,16 +62,15 @@ Cc: devel@lists.libvirt.org,
  Li-Wen Hsu <lwhsu@freebsd.org>, Warner Losh <imp@bsdimp.com>,
  Kyle Evans <kevans@freebsd.org>, Ed Maste <emaste@freebsd.org>,
  Thomas Huth <thuth@redhat.com>
-Subject: [PULL 21/23] meson: rust-bindgen limit allowlist-file to
- srcdir/include
-Date: Tue, 30 Sep 2025 19:37:42 +0400
-Message-ID: <20250930153746.573875-22-marcandre.lureau@redhat.com>
+Subject: [PULL 17/23] tests/docker: add ENABLE_RUST environment
+Date: Tue, 30 Sep 2025 19:37:38 +0400
+Message-ID: <20250930153746.573875-18-marcandre.lureau@redhat.com>
 In-Reply-To: <20250930153746.573875-1-marcandre.lureau@redhat.com>
 References: <20250930153746.573875-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 Received-SPF: pass client-ip=170.10.129.124;
  envelope-from=marcandre.lureau@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
@@ -82,7 +81,7 @@ X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, T_SPF_TEMPERROR=0.01 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -100,36 +99,40 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-gitlab CI restricts usage of directories for the build environment and
-cache. Msys64 is installed under project root ($srcdir/msys64). This
-confuses rust-bindgen allowlist-file which will generate bindings for
-all the system include headers under msys64/.
-
-blocklist-file is also too strict, as it prevents generating all the
-recursively dependent types coming from system includes.
-
-Instead, let's not use allowlist-file from the project root,
-
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-Message-ID: <20250924120426.2158655-22-marcandre.lureau@redhat.com>
+Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+Message-ID: <20250924120426.2158655-18-marcandre.lureau@redhat.com>
 ---
- meson.build | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ tests/docker/common.rc | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/meson.build b/meson.build
-index 14e626aa1e..0d0bf9ee46 100644
---- a/meson.build
-+++ b/meson.build
-@@ -4238,8 +4238,7 @@ if have_rust
-     '--no-layout-tests',
-     '--no-prepend-enum-name',
-     '--allowlist-file', meson.project_source_root() + '/include/.*',
--    '--allowlist-file', meson.project_source_root() + '/.*',
--    '--allowlist-file', meson.project_build_root() + '/.*'
-+    '--allowlist-file', meson.project_build_root() + '/.*',
-     ]
-   if not rustfmt.found()
-     if bindgen.version().version_compare('<0.65.0')
+diff --git a/tests/docker/common.rc b/tests/docker/common.rc
+index d202c0c666..752f4f3aed 100755
+--- a/tests/docker/common.rc
++++ b/tests/docker/common.rc
+@@ -21,6 +21,14 @@ else
+     DEF_TARGET_LIST=${DEF_TARGET_LIST:-"x86_64-softmmu,aarch64-softmmu"}
+ fi
+ 
++enable_rust=""
++if [ "$ENABLE_RUST" = "1" ]; then
++  enable_rust="--enable-rust"
++  if [ -n "$RUST_TARGET" ]; then
++    enable_rust="$enable_rust --rust-target-triple=$RUST_TARGET"
++  fi
++fi
++
+ requires_binary()
+ {
+     found=0
+@@ -46,6 +54,7 @@ configure_qemu()
+                  ${TARGET_LIST:+--target-list=${TARGET_LIST}} \
+                  --prefix=$INSTALL_DIR \
+                  $QEMU_CONFIGURE_OPTS $EXTRA_CONFIGURE_OPTS \
++                 $enable_rust \
+                  $@"
+     echo "Configure options:"
+     echo $config_opts
 -- 
 2.51.0
 
