@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0AF6CCA470
-	for <qemu-rust@archiver.kernel.org>; Tue, 30 Sep 2025 14:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BDD7CCA468
+	for <qemu-rust@archiver.kernel.org>; Tue, 30 Sep 2025 15:00:00 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v3boB-0004WG-OF; Tue, 30 Sep 2025 10:58:29 -0400
+	id 1v3bpS-0004pP-Rg; Tue, 30 Sep 2025 10:59:46 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v3bo5-0004VF-JQ
- for qemu-rust@nongnu.org; Tue, 30 Sep 2025 10:58:22 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1v3bpR-0004og-5a
+ for qemu-rust@nongnu.org; Tue, 30 Sep 2025 10:59:45 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v3bnz-0004WQ-Ar
- for qemu-rust@nongnu.org; Tue, 30 Sep 2025 10:58:21 -0400
+ id 1v3bpJ-0004p7-4Y
+ for qemu-rust@nongnu.org; Tue, 30 Sep 2025 10:59:43 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759244290;
+ s=mimecast20190719; t=1759244369;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FZs0h6AYVzq9vcCTOk5dqb/669DE7XtOFxnqYTO6g4Y=;
- b=GQjDGv2CIxQbShKomw1hXLNeI5IGpA+4S0X3axe9gjfiip0WzxfA8V4samrnaeOXHC8i3N
- UbxUyrnIl4TCgSIuKi+yuZrjOs9cD8MYoNRAAWmm9kCBS9fEVa242ALE/CSGp9eyl7a/Dz
- KYvCVlbGa0pb14tQ2ZDb40+sc/e9rEQ=
+ bh=COvh3/RdYN3KGRtb7nDzXlzK/XoTNPRrpmHpM5JkCDs=;
+ b=SgN8EPs9VHSBi+2syLBUDjX+LCsJFgvsT8B9U6hzPxcAT2oflZhykXFJFJbM3lWCSuZFyx
+ ERpnG6xfLOBKva2BSWjwvc9ljajELS8Jj1xG8LE7gPlhWsyyukF0Wx1Ce8mDP6aBUTTAUe
+ i42Ib0/wdKMVKVWd0sVso8OTGhxvIQI=
 Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
  [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-166-bm9uc7cyP8arE-1yM26vXA-1; Tue, 30 Sep 2025 10:58:08 -0400
-X-MC-Unique: bm9uc7cyP8arE-1yM26vXA-1
-X-Mimecast-MFC-AGG-ID: bm9uc7cyP8arE-1yM26vXA_1759244287
+ us-mta-351-fYALV68DOfGt4opIZwQCow-1; Tue, 30 Sep 2025 10:59:28 -0400
+X-MC-Unique: fYALV68DOfGt4opIZwQCow-1
+X-Mimecast-MFC-AGG-ID: fYALV68DOfGt4opIZwQCow_1759244367
 Received: by mail-ej1-f69.google.com with SMTP id
- a640c23a62f3a-b2f9dc3264bso808253366b.1
- for <qemu-rust@nongnu.org>; Tue, 30 Sep 2025 07:58:08 -0700 (PDT)
+ a640c23a62f3a-afcb72a8816so572361366b.0
+ for <qemu-rust@nongnu.org>; Tue, 30 Sep 2025 07:59:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759244287; x=1759849087;
+ d=1e100.net; s=20230601; t=1759244367; x=1759849167;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=FZs0h6AYVzq9vcCTOk5dqb/669DE7XtOFxnqYTO6g4Y=;
- b=EOTqaN/eHjxM8GgWuIvpwePRpJugVMmZod/9T1HCg3fXDiubY/pGmCoQxe/X4TfLl6
- NT0psoSub5nOzlZE4n5HzsZLAfcBsFiWc8dQTmjk4k/MQ8dZ7v0EsoKkU7aJbZNj83HN
- SsYLxUgxQoifBYOnoSmcKJsiNRvzFUuOwsqAejMajzSaHMrjhpsOKw5N8MuOTceeYs0u
- tp7QeVkQTeFpmKip4XQZP/OQztbEiyAV8Z00M1uW4lVzI2eAIlqN6FlCB5H8/eTntp72
- hTDiVUfFl8dnJ1Y2agRwo2IOF3AhXtAEOCUqZkNGhZI6G2ZV47XmM1y1JR2FZHHGZyci
- iE2Q==
+ bh=COvh3/RdYN3KGRtb7nDzXlzK/XoTNPRrpmHpM5JkCDs=;
+ b=LIj9MpwA3ViLuk9/uQgQtdyEgC8ObVSg418/YruCsF2zQhnB0SCWPPS7twNCjOfjqI
+ xiR+q/ij/Jvgbh1358pkpUI0SwU4wT3Q+0pwSuT/qbtXlBNjb3tlY1YSrDGUngYMFIYO
+ CsDbDWeAcTcYE/6s36W23qUWfdT22l2wI3///B0QcI4TnaGok70wyIVFwYrDOqDb7BHA
+ IOlDx201FWKs4ZYjSuNPqzvbCPoo5fPYjEyavW9i8GTe1iLSW8DZAnebIbmP6DYi1hma
+ TbOXv12n2ASj2S+a0dRym6lz/M2wNV9W0s1pNoM8XRJTEzIhPzDk0pDlM6/eBOHYzVhD
+ ja0A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWS7z/QGnXPS6nw5rYqqfruhgsd15bJmRgeqFZX7RVYe7CdA6JDl7070f3KXB+hvuG+jsFtCHFICIk=@nongnu.org
-X-Gm-Message-State: AOJu0YwSHg9wMyAfyjUYpLpePZxyD53znStBwWaU1NSV4MJOTU8exHTE
- eir2/nMw2daB5X5QiEDu8uVqT799yHRR+kmPWbC3YQlkCtq2DvjvAReUN9f/6yRQJVW5pLxYvnX
- 40uY6vDhYD6V4CiM3CR3hfFdUkua2224l5a+tQH5OAXBFn1dHMHVdPlw=
-X-Gm-Gg: ASbGncuU2UnQEe2sTcNPQyMg+ULGooUElcE66rZOzkGDcWh9DGJ6WSHDR8Fe97zUitT
- vc8o6LLnKGOLQUBooaSRadI3X3zfOAJlUcLLyVnAuHjqglf37u+o7GtbXV03SnYuS3g9k/6ttp9
- swmypBwHVYXc2evAna5s1VkVX8Bkl+48HLS0bxecImmwLzKrK7hdIqefzP4gPuPAC2ibhXawfP/
- ky7LbLgqSWz9g+e41hJyW3wxXc3U/yXrK/AtqvIED+HWRjGWBNhT4nO7/3w2lOv4sNJQbmV3F9V
- rH+tYt5vw+kgzQWL4H9ZOJ7nGkPQtrlSzbrKuSxbK0APSIYYBMndGJLIPD0jAVWuJVUkDhe55rL
- bsUrOuZ/HUA9kV+VMnnKOtG6Jyam1nEO/nE7yQnqX64FhaPNFs+M=
-X-Received: by 2002:a17:907:702:b0:b04:7107:9758 with SMTP id
- a640c23a62f3a-b34baf43b3amr2210652366b.43.1759244287485; 
- Tue, 30 Sep 2025 07:58:07 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGUGMIpnIK44bbWU7+aXndC+moPoC+0yLIifvUBARDStwQ2sbA17FTE0A5aMsenHTTiCZBueg==
-X-Received: by 2002:a17:907:702:b0:b04:7107:9758 with SMTP id
- a640c23a62f3a-b34baf43b3amr2210650066b.43.1759244287083; 
- Tue, 30 Sep 2025 07:58:07 -0700 (PDT)
+ AJvYcCW/DlLAhzoKVLdYL+vxX2sKE/ksrvt6pJUkectQU+ynefXtvfvbgNrydgbqIEAJxlEprb+h9aXq4SI=@nongnu.org
+X-Gm-Message-State: AOJu0YxLLPZafd83Vmx3hSY5heEdXvpIxFqouO34fznDFerS++IH5aez
+ 12153KKqunrHpxhJZuwegBwza3ykxfm92Jh/Ar6xwzKa06hefeyQuon6ERkpRFZfFzEhyff/tEe
+ TuPfzVVG9S2ul0tlw0r0Rkxm3rL98ce6sepCRXEdbsijOVOatpd78OWg=
+X-Gm-Gg: ASbGnctdCuhKiFyO5WnjuY9SqNr3F5l8tDF5z64jrgMYeUDTrBHw4AevkVvgNapdPvT
+ 5wg6m5uDaJsRuL+a1f6OH8+DD6oHAkcbZlt6SYxY7DTzFmJCRp8mrLA0HDsseLjFtJjY100SNHJ
+ xRm3euPLbXCBkf8SSm6nHsIMNTVlzJuyacrEoO1R47mMoZ4PMtNZ+q3HCMsGWbPNxmDQ6iUaU3A
+ rlmI8zBGhBbcX6mtjHlMtrMnm4Qe4lrHGo+kQSn7LHFD3wBgA5JyCgq5XTjSMf3VnewFawtHwkS
+ HZIinrjODF0P87xwemPpFp1j8lB9aacMnkMou2coO2J8tCYXhlnMANkUt3xJTb1Nc/dRkeyuHfJ
+ R9y5NJZ+1DSbWryp792WdwjvkWaRsW/xTmWQUbJPj2jaXACSKv3U=
+X-Received: by 2002:a17:907:980b:b0:b40:6e13:1a7f with SMTP id
+ a640c23a62f3a-b406e131b70mr727497066b.27.1759244366954; 
+ Tue, 30 Sep 2025 07:59:26 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEqH8Crt4pdWyr7i0JDz7DfER45AYlRhv0SX7Znh3FS/u+oMO2t3sMY5/1brsJTaGh6men2yw==
+X-Received: by 2002:a17:907:980b:b0:b40:6e13:1a7f with SMTP id
+ a640c23a62f3a-b406e131b70mr727490266b.27.1759244366167; 
+ Tue, 30 Sep 2025 07:59:26 -0700 (PDT)
 Received: from [192.168.10.81] ([176.206.127.188])
  by smtp.googlemail.com with ESMTPSA id
- a640c23a62f3a-b3bc5761d3dsm647453966b.19.2025.09.30.07.58.05
+ a640c23a62f3a-b40d70daf36sm296673166b.81.2025.09.30.07.59.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Sep 2025 07:58:06 -0700 (PDT)
-Message-ID: <48454dc0-7047-4208-9a60-d25dad5aff35@redhat.com>
-Date: Tue, 30 Sep 2025 16:58:04 +0200
+ Tue, 30 Sep 2025 07:59:25 -0700 (PDT)
+Message-ID: <bc7c8163-4c6d-4690-a0f1-4e00b35a5ec0@redhat.com>
+Date: Tue, 30 Sep 2025 16:59:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 07/27] configure: set the bindgen cross target
@@ -131,21 +131,21 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
 In-Reply-To: <20250924120426.2158655-8-marcandre.lureau@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: EKbau-3lwkPVf8AGWtKg5n_TTsiVPe1eNf_xfSDRW48_1759244287
+X-Mimecast-MFC-PROC-ID: Tt7EDl1GEG1VaL0feOpMXy2eY_aZpydjOJY4J1hDvAc_1759244367
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
 X-Spam_score: -2.5
 X-Spam_bar: --
 X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, T_SPF_TEMPERROR=0.01 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -162,6 +162,90 @@ Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 On 9/24/25 14:04, marcandre.lureau@redhat.com wrote:
+> From: Marc-André Lureau <marcandre.lureau@redhat.com>
+> 
+> Implement a bash version of rust-bindgen rust_to_clang_target() to
+> convert from rust target to clang target.
+> 
+> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+
+Reviewed-by: Paolo Bonzini <pbonzini@redhat.com>
+
+> ---
+>   configure                            |  7 ++++
+>   scripts/rust-to-clang-target-test.sh | 43 +++++++++++++++++++
+>   scripts/rust-to-clang-target.sh      | 62 ++++++++++++++++++++++++++++
+>   3 files changed, 112 insertions(+)
+>   create mode 100755 scripts/rust-to-clang-target-test.sh
+>   create mode 100644 scripts/rust-to-clang-target.sh
+> 
+> diff --git a/configure b/configure
+> index 66613f3f4c..bf964947b8 100755
+> --- a/configure
+> +++ b/configure
+> @@ -1878,6 +1878,13 @@ if test "$skip_meson" = no; then
+>         eval "c=\$devices_${a}"
+>         echo "${a}-softmmu = '$c'" >> $cross
+>     done
+> +  if test "$rust" != disabled; then
+> +      if test "$cross_compile" = "yes"; then
+> +          . "$source_path/scripts/rust-to-clang-target.sh"
+> +          clang_target=$(rust_to_clang_target "$rust_target_triple")
+> +          echo "bindgen_clang_arguments = [$(meson_quote --target="$clang_target")]" >> $cross
+> +      fi
+> +  fi
+>   
+>     echo "[built-in options]" >> $cross
+>     echo "c_args = [$(meson_quote $CFLAGS $EXTRA_CFLAGS)]" >> $cross
+> diff --git a/scripts/rust-to-clang-target-test.sh b/scripts/rust-to-clang-target-test.sh
+> new file mode 100755
+> index 0000000000..ff6f8fcdc5
+> --- /dev/null
+> +++ b/scripts/rust-to-clang-target-test.sh
+> @@ -0,0 +1,43 @@
+> +#!/usr/bin/env sh
+> +#
+> +# Copyright (C) 2025 Red Hat, Inc.
+> +#
+> +# Based on rust_to_clang_target() tests from rust-bindgen.
+> +#
+> +# SPDX-License-Identifier: GPL-2.0-or-later
+> +
+> +scripts_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+> +. "$scripts_dir/rust-to-clang-target.sh"
+> +
+> +test_case() {
+> +    input="$1"
+> +    expected="$2"
+> +    result=$(rust_to_clang_target "$input")
+> +
+> +    if [ "$result" = "$expected" ]; then
+> +        echo " OK: '$input' -> '$result'"
+> +    else
+> +        echo " FAILED: '$input'"
+> +        echo "  Expected: '$expected'"
+> +        echo "  Got:      '$result'"
+> +        exit 1
+> +    fi
+> +}
+> +
+> +echo "Running tests..."
+> +
+> +test_case "aarch64-apple-ios" "arm64-apple-ios"
+> +test_case "riscv64gc-unknown-linux-gnu" "riscv64-unknown-linux-gnu"
+> +test_case "riscv64imac-unknown-none-elf" "riscv64-unknown-none-elf"
+> +test_case "riscv32imc-unknown-none-elf" "riscv32-unknown-none-elf"
+> +test_case "riscv32imac-unknown-none-elf" "riscv32-unknown-none-elf"
+> +test_case "riscv32imafc-unknown-none-elf" "riscv32-unknown-none-elf"
+> +test_case "riscv32i-unknown-none-elf" "riscv32-unknown-none-elf"
+> +test_case "riscv32imc-esp-espidf" "riscv32-esp-elf"
+> +test_case "xtensa-esp32-espidf" "xtensa-esp32-elf"
+> +test_case "aarch64-apple-ios-sim" "arm64-apple-ios-simulator"
+> +test_case "aarch64-apple-tvos-sim" "arm64-apple-tvos-simulator"
+> +test_case "aarch64-apple-watchos-sim" "arm64-apple-watchos-simulator"
+> +
+> +echo ""
+> +echo "All tests passed!"
 > diff --git a/scripts/rust-to-clang-target.sh b/scripts/rust-to-clang-target.sh
 > new file mode 100644
 > index 0000000000..5451807888
@@ -169,15 +253,6 @@ On 9/24/25 14:04, marcandre.lureau@redhat.com wrote:
 > +++ b/scripts/rust-to-clang-target.sh
 > @@ -0,0 +1,62 @@
 > +#!/usr/bin/env sh
-
-No shebang is needed, since the file is sourced into the configure script.
-
-Otherwise,
-
-Reviewed-by: Paolo Bonzini <pbonzini@redhat.com>
-
-Paolo
-
 > +#
 > +# Copyright (C) 2025 Red Hat, Inc.
 > +#
