@@ -4,105 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E7CECCA471
-	for <qemu-rust@archiver.kernel.org>; Tue, 30 Sep 2025 12:06:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36136CCA468
+	for <qemu-rust@archiver.kernel.org>; Tue, 30 Sep 2025 12:42:51 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v3Z71-0004Lv-FL; Tue, 30 Sep 2025 08:05:43 -0400
+	id 1v3Zgj-0005ie-IV; Tue, 30 Sep 2025 08:42:37 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <mlureau@redhat.com>)
- id 1v3Z6x-0004Le-SW
- for qemu-rust@nongnu.org; Tue, 30 Sep 2025 08:05:40 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <mlureau@redhat.com>)
- id 1v3Z6q-0004hJ-OG
- for qemu-rust@nongnu.org; Tue, 30 Sep 2025 08:05:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759233920;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2RnlS1F1hf8oZsRwO8UPMO3s5iAqMbTMeTjy5QEN+U0=;
- b=OHeGEvdboqXv5uP6ROWpPrqL4BzZdJDR5c4rFyfUDqBDNZQSo1moleEaPUSISZwFex8udw
- AR6GSfX5C3fEkNw5ID+GWFIXooPItsEJj6uXG7jyQP2yZ5iHsc+uONoAzYxSzgSy2E+eFd
- v7Xj70Cr+cEtSKnIXEfdEXm6KVa3PHA=
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-37-QXF4K48TO92MPVQAh3n-Tw-1; Tue, 30 Sep 2025 08:05:17 -0400
-X-MC-Unique: QXF4K48TO92MPVQAh3n-Tw-1
-X-Mimecast-MFC-AGG-ID: QXF4K48TO92MPVQAh3n-Tw_1759233916
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-334b0876195so6012031a91.1
- for <qemu-rust@nongnu.org>; Tue, 30 Sep 2025 05:05:16 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
+ id 1v3Zgh-0005i7-Mv
+ for qemu-rust@nongnu.org; Tue, 30 Sep 2025 08:42:35 -0400
+Received: from mail-wr1-x433.google.com ([2a00:1450:4864:20::433])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
+ id 1v3ZgY-0001Js-Ah
+ for qemu-rust@nongnu.org; Tue, 30 Sep 2025 08:42:34 -0400
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3ee12807d97so5144446f8f.0
+ for <qemu-rust@nongnu.org>; Tue, 30 Sep 2025 05:42:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1759236141; x=1759840941; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5D9Jn6L1grQE83K2A+0hDVtEfN8YBwR9togP5K5ulA8=;
+ b=uyLo2+zovyfEBxfMKWLT8istmXs3sqi/tdjt9sOtrVd2FAe1lBEr/Q7V+4+w0ly0iv
+ 9m1aPxRa6iye9ALJmvX3juSY4FtLslbc/bP2kgYZIsh8HCkkhzB+lgF2GWYzrhKDEVVm
+ z13PjVVFzBoaV64dR6Y49bBbwWct9j7fe8drapmm9DcY2Rv4ZVJwSYtZygY+JvSqaGia
+ ERVCwrRnkSbx0FTQYX7KX9V9QDzzjmhpM0nbqmXodRIe3suT65WFH8t+O0ncNTDI0RRZ
+ q6JR0bqfZJ8pMg0ApiF33VN69dd6NzHEcWORpnPoQkBBC6J5cwGDXWv4jgh5xcT9JBcB
+ jdLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759233915; x=1759838715;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=2RnlS1F1hf8oZsRwO8UPMO3s5iAqMbTMeTjy5QEN+U0=;
- b=Nc4uAWVuw+9RBpZoAKIr1a2WA5DuScc2AXMKV6gP3Edg38Jq+NxCFb69lti6lAnjkP
- rTnMSfHBc7YrtoMKVx6waQnpgGCx7Ey1eAGAZkk3ww1SX/HmDN+3ehMBP6a/yH2Dcsxx
- na1zStlra1CtE7Ez0jwaVzpN/btLi4oWA02Zw+XElr2URqN0akTKQH6LVso7CA26Dewx
- eMj5FLWpvpraMUEJP1w3pek7SsQ0tyYb4VE+sv9+IYIgxjHU8BCUPe8FrS6cm/oijj7r
- Fka/SfjOQeBuSb8wz+PICY4j988XOdoALCmwr8aF4lsO17u2iO4GxkKwNQjEsnon++84
- Ac1g==
+ d=1e100.net; s=20230601; t=1759236141; x=1759840941;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=5D9Jn6L1grQE83K2A+0hDVtEfN8YBwR9togP5K5ulA8=;
+ b=l8UeHCxQYpmWbXVrk9Hx687k68QUxDp6w3YpJXDsu5Jipb3I0S+GtFFlSNMAV8B+Xh
+ L0Yja3V1Av99oON+6kaVliLvM71KFxaENZzyeEggXT/T6mteI9UGPVduOT/012g1qU5h
+ 7sCklrUEQ8QtvVwFzR7JAPOHJSA3Y8XcD8ev2unmXDeujZbvdmIuryTVScsGG2UOzgHT
+ KNhjPl2PmKSQJITJHDBYzeBjO3HIi2YIyvKKLzAS6sCbqsndQzT2tpLELdEbmpCip8B2
+ 8yjcLJStIcxBpKNP21m3NXCs33FTdgqSOTrtaH3ys73YXnMwbGnZiRXTJdi4MagJe1vD
+ RMuQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW8aSDv16yiY/DlKdvqhT/OipuatijgTWXd5vAXx+bci1S8q3CTXIhjdlOQlfB2GP8/OExsaO47DyQ=@nongnu.org
-X-Gm-Message-State: AOJu0YyrEhjyUA0ISy9BSu5xcfY1Zx1tA3EocWawC8vwYAl+z2uyp0AU
- GEaJ7M4vkpTH6/JyoomX4Jm90AF0eXWx+HXtg5G1L3XoAQ7jhcieZLwNIUnKJjQmadNz8uNigTK
- YhcgDawcKaKWVWpEHkVOq9LThZ0iRkMABymoD5Mlghy2Ltb5OflUh+jFN0+QDPtZpT8grjCc72h
- MQGnE6fGFwvQ+4RxeDyCAY3M4cyqHmsw==
-X-Gm-Gg: ASbGncuLK1fb2CoPKObckDEewGGmbP1tP2ALM7sRNxZoX+wKaBwWKraEGBCgtmvpXPe
- KWO/ltKHetFKvZ0cenh+2Qggwsp4d3fAImiBob3zWbBHENSy/mFoaqHJsmvyBoVu1sTzQtfVm5m
- e5AbIkLx5mbOi1GAvurmy4vmoupVlWfA4DIjmZMEodoEq71Q13sTm1xHrTXTA=
-X-Received: by 2002:a17:90b:3d0d:b0:335:21bf:3b99 with SMTP id
- 98e67ed59e1d1-33521bf3e0dmr17981466a91.32.1759233915021; 
- Tue, 30 Sep 2025 05:05:15 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGhK4d7nIDNOsBs5dManoLUfQxpcrxwKjlfmw+93i0RTauUaI4mrNhrtu4ibigy4NxT4KAv0cYJD951J61/cek=
-X-Received: by 2002:a17:90b:3d0d:b0:335:21bf:3b99 with SMTP id
- 98e67ed59e1d1-33521bf3e0dmr17981435a91.32.1759233914473; Tue, 30 Sep 2025
- 05:05:14 -0700 (PDT)
-MIME-Version: 1.0
+ AJvYcCWY3xkbADntqlZbmzVaOVxye8oUwxFToMOeZ9Un7QlYkYK4UNZbRP3/qSrpAMkTYRt5z9S5Tspvgxo=@nongnu.org
+X-Gm-Message-State: AOJu0YydyHQrVDrxkhXPPKGmF4IQGRFskduUyv7MdG+ulglFUfu5POZm
+ 5uMTQ2SDKb9rZQEpth13UlseoM/vx/fErJjK2x40xuskeb8nqiiryYcColO/FzoXKQc=
+X-Gm-Gg: ASbGnctkLDCBMSxJEd13dsvLn69TSxoKSDPnMWIZEO1gA2Fp/52INIgN0mhWdvWi5X1
+ pOued3Q9utEoShsNnsHhTeY2k71mVegMbVxRGPKCCHEMIDiD+c2YuhTIXl4oKDkvzuDElYVT5Ah
+ uWoBUqoJbvDvsnpDwBgX9mr/Ug01KK8kELMGr0jR7VO7BedLAqgjc/RQV5CgbYnj+AXJVgUXNB7
+ Lue4tKu7vX8pY7QXVCuLXSzoo0ASm8QeXGlbZlfvRHc0uGiaoRXi7RXt666pyj4zSQQajtHesK2
+ UOYXnnsoq8q6rsRZz0NwdADsB2S3Kgs42YgglenoZx/YeFxOcvxNxT9ekDq+hTCI/AOBrg/TV63
+ 3HRio5BxPYK5DMUWAsEQAfRbOiobQFIqVVogA4aZ94Ht+b/k=
+X-Google-Smtp-Source: AGHT+IFHcN4ezLbEkK5407oHpU24l8zam7ye53Km4dDRhBn9Yd9IqiwC8wx2wjt69FWL/0BbOSY6lg==
+X-Received: by 2002:a5d:5888:0:b0:3ea:e0fd:28ea with SMTP id
+ ffacd0b85a97d-40e4bb2f5b7mr19471800f8f.39.1759236140954; 
+ Tue, 30 Sep 2025 05:42:20 -0700 (PDT)
+Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-40fb9c32734sm23029452f8f.25.2025.09.30.05.42.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Sep 2025 05:42:20 -0700 (PDT)
+Received: from draig (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id 746975F847;
+ Tue, 30 Sep 2025 13:42:19 +0100 (BST)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,  "Henderson, Richard"
+ <richard.henderson@linaro.org>,  qemu-devel@nongnu.org,  Kyle Evans
+ <kevans@freebsd.org>,  Yonggang Luo <luoyonggang@gmail.com>,  Li-Wen Hsu
+ <lwhsu@freebsd.org>,  Thomas Huth <thuth@redhat.com>,  Daniel P.
+ =?utf-8?Q?Berrang=C3=A9?=
+ <berrange@redhat.com>,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
+ <philmd@linaro.org>, Warner Losh <imp@bsdimp.com>,  Manos Pitsidianakis
+ <manos.pitsidianakis@linaro.org>,  Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ Ed Maste <emaste@freebsd.org>,  devel@lists.libvirt.org,
+ qemu-rust@nongnu.org,  Kohei Tokunaga <ktokunaga.mail@gmail.com>
+Subject: Re: [PATCH v2 00/27] CI/build-sys fixes to enable Rust more widely
+In-Reply-To: <CAMxuvawY5PSwM0VNmbCmP7Z2t68D=z77W94Ab0SJfrm5_bRwKg@mail.gmail.com>
+ (=?utf-8?Q?=22Marc-Andr=C3=A9?= Lureau"'s message of "Tue, 30 Sep 2025
+ 16:05:02 +0400")
 References: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
  <87y0pzg6gt.fsf@draig.linaro.org>
-In-Reply-To: <87y0pzg6gt.fsf@draig.linaro.org>
-From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
-Date: Tue, 30 Sep 2025 16:05:02 +0400
-X-Gm-Features: AS18NWDYLQ7X8ooMX2dZVLPTqF52QdjkxBnbPpRL_6ZY27IXUBMJ0qIgPxAlYUw
-Message-ID: <CAMxuvawY5PSwM0VNmbCmP7Z2t68D=z77W94Ab0SJfrm5_bRwKg@mail.gmail.com>
-Subject: Re: [PATCH v2 00/27] CI/build-sys fixes to enable Rust more widely
-To: =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, "Henderson,
- Richard" <richard.henderson@linaro.org>
-Cc: qemu-devel@nongnu.org, Kyle Evans <kevans@freebsd.org>, 
- Yonggang Luo <luoyonggang@gmail.com>, Li-Wen Hsu <lwhsu@freebsd.org>, 
- Thomas Huth <thuth@redhat.com>,
- =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
- Warner Losh <imp@bsdimp.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
- Jiaxun Yang <jiaxun.yang@flygoat.com>, Ed Maste <emaste@freebsd.org>,
- devel@lists.libvirt.org, 
- qemu-rust@nongnu.org, Kohei Tokunaga <ktokunaga.mail@gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: u_x6WbkZ5SPU2JglyCoXai_jKIsSPMEwmxhSImhMWZs_1759233916
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="0000000000008ca63a06400390a4"
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=mlureau@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -24
-X-Spam_score: -2.5
+ <CAMxuvawY5PSwM0VNmbCmP7Z2t68D=z77W94Ab0SJfrm5_bRwKg@mail.gmail.com>
+User-Agent: mu4e 1.12.14-dev1; emacs 30.1
+Date: Tue, 30 Sep 2025 13:42:19 +0100
+Message-ID: <871pnojems.fsf@draig.linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::433;
+ envelope-from=alex.bennee@linaro.org; helo=mail-wr1-x433.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001,
- RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_PASS=-0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -118,374 +117,157 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
---0000000000008ca63a06400390a4
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com> writes:
 
-On Sat, Sep 27, 2025 at 9:18=E2=80=AFPM Alex Benn=C3=A9e <alex.bennee@linar=
-o.org> wrote:
-
-> marcandre.lureau@redhat.com writes:
+> On Sat, Sep 27, 2025 at 9:18=E2=80=AFPM Alex Benn=C3=A9e <alex.bennee@lin=
+aro.org> wrote:
 >
-> > From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
-> >
-> > Hi,
-> >
-> > This patch series fixes a number of issues with the build system and CI
-> and
-> > enable Rust for many of our jobs, getting us closer to enable Rust by
-> default.
-> >
-> > emscripten is difficult to enable, help welcome.
+>  marcandre.lureau@redhat.com writes:
 >
-> Also I think:
+>  > From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+>  >
+>  > Hi,
+>  >
+>  > This patch series fixes a number of issues with the build system and C=
+I and
+>  > enable Rust for many of our jobs, getting us closer to enable Rust by =
+default.
+>  >
+>  > emscripten is difficult to enable, help welcome.
 >
->   https://gitlab.com/stsquad/qemu/-/pipelines/2065603411
+>  Also I think:
+>
+>    https://gitlab.com/stsquad/qemu/-/pipelines/2065603411
+>
+> Current ack/r-b series pass: https://gitlab.com/marcandre.lureau/qemu/-/p=
+ipelines/2071701923
+>
+> I  guess I should end a PR.
+>
+>  And the:
+>    debian-armhf-cross=20=20
+>
+>  debian-mipsel-cross
+>    debian-mips64el-cross
+>
+>    debian-ppc64el-cross
+>    debian-riscv64-cross
+>
+>  cross builds fail.=20
+>
+> Fixed with the --rust-target-triple patch sent earlier
+>=20=20
+>    debian-i686-cross
+>
+> This one fails with:
+>  ../src/meson.build:3394:4: ERROR: Problem encountered: No accelerator
+> available for target x86_64-softmmu
 
-
-Current ack/r-b series pass:
-https://gitlab.com/marcandre.lureau/qemu/-/pipelines/2071701923
-
-I  guess I should end a PR.
-
+Ahh - because TCG on 32 bit no longer allows 64 bit guests we cannot
+find an accelerator. I'll fix that up in my current testing/next series
+by updating DEF_TARGETS
 
 >
-> And the:
->   debian-armhf-cross
-
-debian-mipsel-cross
->   debian-mips64el-cross
+> Paolo, any idea?
 >
-  debian-ppc64el-cross
->   debian-riscv64-cross
+>  >
+>  > v2:
+>  > - add a rust-to-clang-target-test.sh configure script
+>  > - drop "RFC: configure: use the same machine as the host triple"
+>  > - replace "tests: move mips to debian-legacy-test-cross" with "RFC: bu=
+ild-sys: deprecate mips host"
+>  > - start tackling emscripten
+>  > - fix mis-placed submodule update
+>  > - other minor changes, commit message tweaks, bz links
+>  > - add r-b tags
+>  >
+>  > Marc-Andr=C3=A9 Lureau (27):
+>  >   build-sys: require -lrt when no shm_open() in std libs
+>  >   gitlab-ci: fix 'needs' property type must be array
+>  >   scripts/archive-source: speed up downloading subprojects
+>  >   scripts/archive-source: silence subprojects downloads
+>  >   scripts/archive-source: use a bash array
+>  >   configure: fix rust meson configuration
+>  >   configure: set the bindgen cross target
+>  >   tests/docker/common: print errors to stderr
+>  >   tests/docker: use fully qualified image name for emsdk
+>  >   tests/docker/common: print meson log on configure failure
+>  >   build-sys: cfi_debug and safe_stack are not compatible
+>  >   lcitool: update, switch to f41
+>  >   lcitool/qemu: include libclang-rt for TSAN
+>  >   lcitool/alpine: workaround bindgen issue
+>  >   tests/lcitool: add missing rust-std dep
+>  >   tests/lcitool: update to debian13
+>  >   tests/docker: add ENABLE_RUST environment
+>  >   tests/lcitool: enable rust & refresh
+>  >   configure: set the meson executable suffix/ext
+>  >   tests/freebsd: enable Rust
+>  >   meson: rust-bindgen limit allowlist-file to srcdir/include
+>  >   RFC: tests/docker: add rust to debian-legacy-test-cross
+>  >   WIP: gitlab-ci: enable rust for msys2-64bit
+>  >   WIP: cirrus/macos: enable Rust
+>  >   RFC: build-sys: deprecate mips host
+>  >   build-sys: pass -fvisibility=3Ddefault for wasm bindgen
+>  >   WIP: enable rust for wasm/emscripten
+>  >
+>  >  docs/about/build-platforms.rst                |  2 -
+>  >  docs/about/deprecated.rst                     |  9 +--
+>  >  configure                                     | 27 +++++++-
+>  >  meson.build                                   | 34 +++++++---
+>  >  .gitlab-ci.d/buildtest-template.yml           |  2 +-
+>  >  .gitlab-ci.d/buildtest.yml                    | 66 +++++++++----------
+>  >  .gitlab-ci.d/cirrus.yml                       |  4 +-
+>  >  .gitlab-ci.d/crossbuilds.yml                  | 46 ++++++-------
+>  >  .gitlab-ci.d/static_checks.yml                |  6 +-
+>  >  .gitlab-ci.d/windows.yml                      |  8 ++-
+>  >  rust/bql/meson.build                          |  1 +
+>  >  rust/chardev/meson.build                      |  1 +
+>  >  rust/hw/char/pl011/meson.build                |  1 +
+>  >  rust/hw/core/meson.build                      |  1 +
+>  >  rust/migration/meson.build                    |  3 +-
+>  >  rust/qom/meson.build                          |  1 +
+>  >  rust/system/meson.build                       |  1 +
+>  >  rust/util/meson.build                         |  1 +
+>  >  scripts/archive-source.sh                     | 33 +++++++---
+>  >  .../ci/setup/ubuntu/ubuntu-2204-aarch64.yaml  |  5 +-
+>  >  .../ci/setup/ubuntu/ubuntu-2204-s390x.yaml    |  5 +-
+>  >  scripts/rust-to-clang-target-test.sh          | 43 ++++++++++++
+>  >  scripts/rust-to-clang-target.sh               | 62 +++++++++++++++++
+>  >  tests/docker/common.rc                        | 11 +++-
+>  >  tests/docker/dockerfiles/alpine.docker        |  6 +-
+>  >  tests/docker/dockerfiles/centos9.docker       |  4 ++
+>  >  .../dockerfiles/debian-amd64-cross.docker     | 18 +++--
+>  >  .../dockerfiles/debian-arm64-cross.docker     | 18 +++--
+>  >  .../dockerfiles/debian-armhf-cross.docker     | 21 +++---
+>  >  .../dockerfiles/debian-i686-cross.docker      | 20 ++++--
+>  >  .../debian-legacy-test-cross.docker           |  9 ++-
+>  >  .../dockerfiles/debian-mips64el-cross.docker  |  9 ++-
+>  >  .../dockerfiles/debian-mipsel-cross.docker    |  9 ++-
+>  >  .../dockerfiles/debian-ppc64el-cross.docker   | 18 +++--
+>  >  .../dockerfiles/debian-riscv64-cross.docker   | 10 ++-
+>  >  .../dockerfiles/debian-s390x-cross.docker     | 18 +++--
+>  >  tests/docker/dockerfiles/debian.docker        | 18 +++--
+>  >  .../dockerfiles/emsdk-wasm32-cross.docker     | 29 +++++++-
+>  >  .../dockerfiles/fedora-rust-nightly.docker    | 18 +++--
+>  >  .../dockerfiles/fedora-win64-cross.docker     | 15 +++--
+>  >  tests/docker/dockerfiles/fedora.docker        | 18 +++--
+>  >  tests/docker/dockerfiles/opensuse-leap.docker |  7 +-
+>  >  tests/docker/dockerfiles/ubuntu2204.docker    |  7 +-
+>  >  tests/docker/test-wasm                        | 12 ++++
+>  >  tests/lcitool/libvirt-ci                      |  2 +-
+>  >  tests/lcitool/projects/qemu.yml               |  3 +-
+>  >  tests/lcitool/refresh                         | 48 +++++++++-----
+>  >  tests/vm/freebsd                              |  4 +-
+>  >  48 files changed, 531 insertions(+), 183 deletions(-)
+>  >  create mode 100755 scripts/rust-to-clang-target-test.sh
+>  >  create mode 100644 scripts/rust-to-clang-target.sh
+>  >  create mode 100755 tests/docker/test-wasm
 >
-> cross builds fail.
+>  --=20
+>  Alex Benn=C3=A9e
+>  Virtualisation Tech Lead @ Linaro
 
-
-Fixed with the --rust-target-triple patch sent earlier
-
-
->   debian-i686-cross
->
-
-This one fails with:
- ../src/meson.build:3394:4: ERROR: Problem encountered: No accelerator
-available for target x86_64-softmmu
-
-Paolo, any idea?
-
-
-> >
-> > v2:
-> > - add a rust-to-clang-target-test.sh configure script
-> > - drop "RFC: configure: use the same machine as the host triple"
-> > - replace "tests: move mips to debian-legacy-test-cross" with "RFC:
-> build-sys: deprecate mips host"
-> > - start tackling emscripten
-> > - fix mis-placed submodule update
-> > - other minor changes, commit message tweaks, bz links
-> > - add r-b tags
-> >
-> > Marc-Andr=C3=A9 Lureau (27):
-> >   build-sys: require -lrt when no shm_open() in std libs
-> >   gitlab-ci: fix 'needs' property type must be array
-> >   scripts/archive-source: speed up downloading subprojects
-> >   scripts/archive-source: silence subprojects downloads
-> >   scripts/archive-source: use a bash array
-> >   configure: fix rust meson configuration
-> >   configure: set the bindgen cross target
-> >   tests/docker/common: print errors to stderr
-> >   tests/docker: use fully qualified image name for emsdk
-> >   tests/docker/common: print meson log on configure failure
-> >   build-sys: cfi_debug and safe_stack are not compatible
-> >   lcitool: update, switch to f41
-> >   lcitool/qemu: include libclang-rt for TSAN
-> >   lcitool/alpine: workaround bindgen issue
-> >   tests/lcitool: add missing rust-std dep
-> >   tests/lcitool: update to debian13
-> >   tests/docker: add ENABLE_RUST environment
-> >   tests/lcitool: enable rust & refresh
-> >   configure: set the meson executable suffix/ext
-> >   tests/freebsd: enable Rust
-> >   meson: rust-bindgen limit allowlist-file to srcdir/include
-> >   RFC: tests/docker: add rust to debian-legacy-test-cross
-> >   WIP: gitlab-ci: enable rust for msys2-64bit
-> >   WIP: cirrus/macos: enable Rust
-> >   RFC: build-sys: deprecate mips host
-> >   build-sys: pass -fvisibility=3Ddefault for wasm bindgen
-> >   WIP: enable rust for wasm/emscripten
-> >
-> >  docs/about/build-platforms.rst                |  2 -
-> >  docs/about/deprecated.rst                     |  9 +--
-> >  configure                                     | 27 +++++++-
-> >  meson.build                                   | 34 +++++++---
-> >  .gitlab-ci.d/buildtest-template.yml           |  2 +-
-> >  .gitlab-ci.d/buildtest.yml                    | 66 +++++++++----------
-> >  .gitlab-ci.d/cirrus.yml                       |  4 +-
-> >  .gitlab-ci.d/crossbuilds.yml                  | 46 ++++++-------
-> >  .gitlab-ci.d/static_checks.yml                |  6 +-
-> >  .gitlab-ci.d/windows.yml                      |  8 ++-
-> >  rust/bql/meson.build                          |  1 +
-> >  rust/chardev/meson.build                      |  1 +
-> >  rust/hw/char/pl011/meson.build                |  1 +
-> >  rust/hw/core/meson.build                      |  1 +
-> >  rust/migration/meson.build                    |  3 +-
-> >  rust/qom/meson.build                          |  1 +
-> >  rust/system/meson.build                       |  1 +
-> >  rust/util/meson.build                         |  1 +
-> >  scripts/archive-source.sh                     | 33 +++++++---
-> >  .../ci/setup/ubuntu/ubuntu-2204-aarch64.yaml  |  5 +-
-> >  .../ci/setup/ubuntu/ubuntu-2204-s390x.yaml    |  5 +-
-> >  scripts/rust-to-clang-target-test.sh          | 43 ++++++++++++
-> >  scripts/rust-to-clang-target.sh               | 62 +++++++++++++++++
-> >  tests/docker/common.rc                        | 11 +++-
-> >  tests/docker/dockerfiles/alpine.docker        |  6 +-
-> >  tests/docker/dockerfiles/centos9.docker       |  4 ++
-> >  .../dockerfiles/debian-amd64-cross.docker     | 18 +++--
-> >  .../dockerfiles/debian-arm64-cross.docker     | 18 +++--
-> >  .../dockerfiles/debian-armhf-cross.docker     | 21 +++---
-> >  .../dockerfiles/debian-i686-cross.docker      | 20 ++++--
-> >  .../debian-legacy-test-cross.docker           |  9 ++-
-> >  .../dockerfiles/debian-mips64el-cross.docker  |  9 ++-
-> >  .../dockerfiles/debian-mipsel-cross.docker    |  9 ++-
-> >  .../dockerfiles/debian-ppc64el-cross.docker   | 18 +++--
-> >  .../dockerfiles/debian-riscv64-cross.docker   | 10 ++-
-> >  .../dockerfiles/debian-s390x-cross.docker     | 18 +++--
-> >  tests/docker/dockerfiles/debian.docker        | 18 +++--
-> >  .../dockerfiles/emsdk-wasm32-cross.docker     | 29 +++++++-
-> >  .../dockerfiles/fedora-rust-nightly.docker    | 18 +++--
-> >  .../dockerfiles/fedora-win64-cross.docker     | 15 +++--
-> >  tests/docker/dockerfiles/fedora.docker        | 18 +++--
-> >  tests/docker/dockerfiles/opensuse-leap.docker |  7 +-
-> >  tests/docker/dockerfiles/ubuntu2204.docker    |  7 +-
-> >  tests/docker/test-wasm                        | 12 ++++
-> >  tests/lcitool/libvirt-ci                      |  2 +-
-> >  tests/lcitool/projects/qemu.yml               |  3 +-
-> >  tests/lcitool/refresh                         | 48 +++++++++-----
-> >  tests/vm/freebsd                              |  4 +-
-> >  48 files changed, 531 insertions(+), 183 deletions(-)
-> >  create mode 100755 scripts/rust-to-clang-target-test.sh
-> >  create mode 100644 scripts/rust-to-clang-target.sh
-> >  create mode 100755 tests/docker/test-wasm
->
-> --
-> Alex Benn=C3=A9e
-> Virtualisation Tech Lead @ Linaro
->
->
-
---0000000000008ca63a06400390a4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
-mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Sat, Sep 27,=
- 2025 at 9:18=E2=80=AFPM Alex Benn=C3=A9e &lt;<a href=3D"mailto:alex.bennee=
-@linaro.org">alex.bennee@linaro.org</a>&gt; wrote:<br></div><blockquote cla=
-ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
-rgb(204,204,204);padding-left:1ex"><a href=3D"mailto:marcandre.lureau@redha=
-t.com" target=3D"_blank">marcandre.lureau@redhat.com</a> writes:<br>
-<br>
-&gt; From: Marc-Andr=C3=A9 Lureau &lt;<a href=3D"mailto:marcandre.lureau@re=
-dhat.com" target=3D"_blank">marcandre.lureau@redhat.com</a>&gt;<br>
-&gt;<br>
-&gt; Hi,<br>
-&gt;<br>
-&gt; This patch series fixes a number of issues with the build system and C=
-I and<br>
-&gt; enable Rust for many of our jobs, getting us closer to enable Rust by =
-default.<br>
-&gt;<br>
-&gt; emscripten is difficult to enable, help welcome.<br>
-<br>
-Also I think:<br>
-<br>
-=C2=A0 <a href=3D"https://gitlab.com/stsquad/qemu/-/pipelines/2065603411" r=
-el=3D"noreferrer" target=3D"_blank">https://gitlab.com/stsquad/qemu/-/pipel=
-ines/2065603411</a></blockquote><div><br></div><div>Current ack/r-b series =
-pass:=C2=A0<a href=3D"https://gitlab.com/marcandre.lureau/qemu/-/pipelines/=
-2071701923">https://gitlab.com/marcandre.lureau/qemu/-/pipelines/2071701923=
-</a></div><div><br></div><div>I=C2=A0 guess I should end a PR.</div><div><b=
-r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
-;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-<br>
-And the:<br>=C2=A0 debian-armhf-cross=C2=A0=C2=A0</blockquote><blockquote c=
-lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
-d rgb(204,204,204);padding-left:1ex">debian-mipsel-cross<br>
-=C2=A0 debian-mips64el-cross<br></blockquote><div><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
-4,204);padding-left:1ex">=C2=A0 debian-ppc64el-cross<br>
-=C2=A0 debian-riscv64-cross<br>
-<br>
-cross builds fail.=C2=A0</blockquote><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">
-</blockquote><br></div><div>Fixed with the --rust-target-triple patch sent =
-earlier</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
-1ex">
-=C2=A0 debian-i686-cross<br></blockquote><div><br></div><div>This one fails=
- with:</div><div>=C2=A0../src/meson.build:3394:4: ERROR: Problem encountere=
-d: No accelerator available for target x86_64-softmmu</div><div><br></div><=
-div>Paolo, any idea?</div><div><br></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
-dding-left:1ex">
-<br>
-&gt;<br>
-&gt; v2:<br>
-&gt; - add a rust-to-clang-target-test.sh configure script<br>
-&gt; - drop &quot;RFC: configure: use the same machine as the host triple&q=
-uot;<br>
-&gt; - replace &quot;tests: move mips to debian-legacy-test-cross&quot; wit=
-h &quot;RFC: build-sys: deprecate mips host&quot;<br>
-&gt; - start tackling emscripten<br>
-&gt; - fix mis-placed submodule update<br>
-&gt; - other minor changes, commit message tweaks, bz links<br>
-&gt; - add r-b tags<br>
-&gt;<br>
-&gt; Marc-Andr=C3=A9 Lureau (27):<br>
-&gt;=C2=A0 =C2=A0build-sys: require -lrt when no shm_open() in std libs<br>
-&gt;=C2=A0 =C2=A0gitlab-ci: fix &#39;needs&#39; property type must be array=
-<br>
-&gt;=C2=A0 =C2=A0scripts/archive-source: speed up downloading subprojects<b=
-r>
-&gt;=C2=A0 =C2=A0scripts/archive-source: silence subprojects downloads<br>
-&gt;=C2=A0 =C2=A0scripts/archive-source: use a bash array<br>
-&gt;=C2=A0 =C2=A0configure: fix rust meson configuration<br>
-&gt;=C2=A0 =C2=A0configure: set the bindgen cross target<br>
-&gt;=C2=A0 =C2=A0tests/docker/common: print errors to stderr<br>
-&gt;=C2=A0 =C2=A0tests/docker: use fully qualified image name for emsdk<br>
-&gt;=C2=A0 =C2=A0tests/docker/common: print meson log on configure failure<=
-br>
-&gt;=C2=A0 =C2=A0build-sys: cfi_debug and safe_stack are not compatible<br>
-&gt;=C2=A0 =C2=A0lcitool: update, switch to f41<br>
-&gt;=C2=A0 =C2=A0lcitool/qemu: include libclang-rt for TSAN<br>
-&gt;=C2=A0 =C2=A0lcitool/alpine: workaround bindgen issue<br>
-&gt;=C2=A0 =C2=A0tests/lcitool: add missing rust-std dep<br>
-&gt;=C2=A0 =C2=A0tests/lcitool: update to debian13<br>
-&gt;=C2=A0 =C2=A0tests/docker: add ENABLE_RUST environment<br>
-&gt;=C2=A0 =C2=A0tests/lcitool: enable rust &amp; refresh<br>
-&gt;=C2=A0 =C2=A0configure: set the meson executable suffix/ext<br>
-&gt;=C2=A0 =C2=A0tests/freebsd: enable Rust<br>
-&gt;=C2=A0 =C2=A0meson: rust-bindgen limit allowlist-file to srcdir/include=
-<br>
-&gt;=C2=A0 =C2=A0RFC: tests/docker: add rust to debian-legacy-test-cross<br=
->
-&gt;=C2=A0 =C2=A0WIP: gitlab-ci: enable rust for msys2-64bit<br>
-&gt;=C2=A0 =C2=A0WIP: cirrus/macos: enable Rust<br>
-&gt;=C2=A0 =C2=A0RFC: build-sys: deprecate mips host<br>
-&gt;=C2=A0 =C2=A0build-sys: pass -fvisibility=3Ddefault for wasm bindgen<br=
->
-&gt;=C2=A0 =C2=A0WIP: enable rust for wasm/emscripten<br>
-&gt;<br>
-&gt;=C2=A0 docs/about/build-platforms.rst=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 |=C2=A0 2 -<br>
-&gt;=C2=A0 docs/about/deprecated.rst=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 9 +--<br>
-&gt;=C2=A0 configure=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0| 27 +++++++-<br>
-&gt;=C2=A0 meson.build=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| =
-34 +++++++---<br>
-&gt;=C2=A0 .gitlab-ci.d/buildtest-template.yml=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0|=C2=A0 2 +-<br>
-&gt;=C2=A0 .gitlab-ci.d/buildtest.yml=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 66 +++++++++----------<br>
-&gt;=C2=A0 .gitlab-ci.d/cirrus.yml=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 4 +-<br>
-&gt;=C2=A0 .gitlab-ci.d/crossbuilds.yml=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 | 46 ++++++-------<br>
-&gt;=C2=A0 .gitlab-ci.d/static_checks.yml=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 |=C2=A0 6 +-<br>
-&gt;=C2=A0 .gitlab-ci.d/windows.yml=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 8 ++-<br>
-&gt;=C2=A0 rust/bql/meson.build=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 1 +<br>
-&gt;=C2=A0 rust/chardev/meson.build=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 1 +<br>
-&gt;=C2=A0 rust/hw/char/pl011/meson.build=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 |=C2=A0 1 +<br>
-&gt;=C2=A0 rust/hw/core/meson.build=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 1 +<br>
-&gt;=C2=A0 rust/migration/meson.build=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 3 +-<br>
-&gt;=C2=A0 rust/qom/meson.build=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 1 +<br>
-&gt;=C2=A0 rust/system/meson.build=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 1 +<br>
-&gt;=C2=A0 rust/util/meson.build=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 1 +<br>
-&gt;=C2=A0 scripts/archive-source.sh=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 33 +++++++---<br>
-&gt;=C2=A0 .../ci/setup/ubuntu/ubuntu-2204-aarch64.yaml=C2=A0 |=C2=A0 5 +-<=
-br>
-&gt;=C2=A0 .../ci/setup/ubuntu/ubuntu-2204-s390x.yaml=C2=A0 =C2=A0 |=C2=A0 =
-5 +-<br>
-&gt;=C2=A0 scripts/rust-to-clang-target-test.sh=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 | 43 ++++++++++++<br>
-&gt;=C2=A0 scripts/rust-to-clang-target.sh=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0| 62 +++++++++++++++++<br>
-&gt;=C2=A0 tests/docker/common.rc=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 11 +++-<br>
-&gt;=C2=A0 tests/docker/dockerfiles/alpine.docker=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 |=C2=A0 6 +-<br>
-&gt;=C2=A0 tests/docker/dockerfiles/centos9.docker=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0|=C2=A0 4 ++<br>
-&gt;=C2=A0 .../dockerfiles/debian-amd64-cross.docker=C2=A0 =C2=A0 =C2=A0| 1=
-8 +++--<br>
-&gt;=C2=A0 .../dockerfiles/debian-arm64-cross.docker=C2=A0 =C2=A0 =C2=A0| 1=
-8 +++--<br>
-&gt;=C2=A0 .../dockerfiles/debian-armhf-cross.docker=C2=A0 =C2=A0 =C2=A0| 2=
-1 +++---<br>
-&gt;=C2=A0 .../dockerfiles/debian-i686-cross.docker=C2=A0 =C2=A0 =C2=A0 | 2=
-0 ++++--<br>
-&gt;=C2=A0 .../debian-legacy-test-cross.docker=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0|=C2=A0 9 ++-<br>
-&gt;=C2=A0 .../dockerfiles/debian-mips64el-cross.docker=C2=A0 |=C2=A0 9 ++-=
-<br>
-&gt;=C2=A0 .../dockerfiles/debian-mipsel-cross.docker=C2=A0 =C2=A0 |=C2=A0 =
-9 ++-<br>
-&gt;=C2=A0 .../dockerfiles/debian-ppc64el-cross.docker=C2=A0 =C2=A0| 18 +++=
---<br>
-&gt;=C2=A0 .../dockerfiles/debian-riscv64-cross.docker=C2=A0 =C2=A0| 10 ++-=
-<br>
-&gt;=C2=A0 .../dockerfiles/debian-s390x-cross.docker=C2=A0 =C2=A0 =C2=A0| 1=
-8 +++--<br>
-&gt;=C2=A0 tests/docker/dockerfiles/debian.docker=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 | 18 +++--<br>
-&gt;=C2=A0 .../dockerfiles/emsdk-wasm32-cross.docker=C2=A0 =C2=A0 =C2=A0| 2=
-9 +++++++-<br>
-&gt;=C2=A0 .../dockerfiles/fedora-rust-nightly.docker=C2=A0 =C2=A0 | 18 +++=
---<br>
-&gt;=C2=A0 .../dockerfiles/fedora-win64-cross.docker=C2=A0 =C2=A0 =C2=A0| 1=
-5 +++--<br>
-&gt;=C2=A0 tests/docker/dockerfiles/fedora.docker=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 | 18 +++--<br>
-&gt;=C2=A0 tests/docker/dockerfiles/opensuse-leap.docker |=C2=A0 7 +-<br>
-&gt;=C2=A0 tests/docker/dockerfiles/ubuntu2204.docker=C2=A0 =C2=A0 |=C2=A0 =
-7 +-<br>
-&gt;=C2=A0 tests/docker/test-wasm=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 12 ++++<br>
-&gt;=C2=A0 tests/lcitool/libvirt-ci=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 2 +-<br>
-&gt;=C2=A0 tests/lcitool/projects/qemu.yml=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 3 +-<br>
-&gt;=C2=A0 tests/lcitool/refresh=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 48 +++++++++-----<br>
-&gt;=C2=A0 tests/vm/freebsd=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 4 +-<br>
-&gt;=C2=A0 48 files changed, 531 insertions(+), 183 deletions(-)<br>
-&gt;=C2=A0 create mode 100755 scripts/rust-to-clang-target-test.sh<br>
-&gt;=C2=A0 create mode 100644 scripts/rust-to-clang-target.sh<br>
-&gt;=C2=A0 create mode 100755 tests/docker/test-wasm<br>
-<br>
--- <br>
-Alex Benn=C3=A9e<br>
-Virtualisation Tech Lead @ Linaro<br>
-<br>
-</blockquote></div></div>
-
---0000000000008ca63a06400390a4--
-
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
 
