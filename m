@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1D51CAC5BB
-	for <qemu-rust@archiver.kernel.org>; Wed,  1 Oct 2025 15:36:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14B03CCA470
+	for <qemu-rust@archiver.kernel.org>; Wed,  1 Oct 2025 15:36:46 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v3yog-0001ua-Aw; Wed, 01 Oct 2025 11:32:30 -0400
+	id 1v3ypz-0002w0-Gk; Wed, 01 Oct 2025 11:33:51 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
- id 1v3yoV-0001nC-TS
- for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:32:23 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1v3yoy-000229-Ep
+ for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:32:53 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
- id 1v3ynq-0005w6-S4
- for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:32:16 -0400
+ id 1v3yo4-000631-31
+ for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:32:44 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759332690;
+ s=mimecast20190719; t=1759332706;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+e7Tg1ra5ZObVgnU7169bI7KmcvBthglRZjGCUCusRI=;
- b=gH2B6wJF3LClCnzlAhU7EASGMNo72uHC1lCWHGlD7EBnucdb76Pc+6vE2/P3+Ty5Cagg2f
- KrSG8k6EVctxX12g5SPjYm1XLGts3hpyCyFWPyIE+jhrrX2QCuOikE7bEZhOLdc7DeF5Y7
- gImb7z1Oon7cPWhFoLxnn0O7vYkXDg8=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=EAQyA/Nt7EFJ+uayGWTx2W8ZNGaCbQQNpg2aVxa9s3A=;
+ b=KT513PIQjUSe/sdDSLISWLPNv4oQwk/nlrKwzCUxkKol8O3gJCB+GMGTct7j9kWKnR8kmY
+ h1UmNW2ji/tKUTsQkK25Uhw505C/Xy6Q/bJ7L5XjSpvrv3+2CQKJtdzFIZLPR9FdCg3nqZ
+ 3k0p5X1Uol12/7E0+15Uj1fsBbOm5X4=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-582-EO4cFxwmM8CZWx9Fl7SQgw-1; Wed,
- 01 Oct 2025 11:31:27 -0400
-X-MC-Unique: EO4cFxwmM8CZWx9Fl7SQgw-1
-X-Mimecast-MFC-AGG-ID: EO4cFxwmM8CZWx9Fl7SQgw_1759332684
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-121-ur2kWxvdNym8y2Ie9Zvdpg-1; Wed,
+ 01 Oct 2025 11:31:42 -0400
+X-MC-Unique: ur2kWxvdNym8y2Ie9Zvdpg-1
+X-Mimecast-MFC-AGG-ID: ur2kWxvdNym8y2Ie9Zvdpg_1759332699
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id EF40918005B3; Wed,  1 Oct 2025 15:31:22 +0000 (UTC)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id B4F771977309; Wed,  1 Oct 2025 15:31:39 +0000 (UTC)
 Received: from localhost (unknown [10.2.16.112])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id C376E19560B4; Wed,  1 Oct 2025 15:31:21 +0000 (UTC)
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 012C51800447; Wed,  1 Oct 2025 15:31:38 +0000 (UTC)
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
@@ -66,24 +66,24 @@ Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  Alexandre Iooss <erdnaxe@crans.org>, John Snow <jsnow@redhat.com>,
  Peter Maydell <peter.maydell@linaro.org>, Fabiano Rosas <farosas@suse.de>,
  Tanish Desai <tanishdesai37@gmail.com>
-Subject: [PULL 09/16] rust: add trace crate
-Date: Wed,  1 Oct 2025 11:30:52 -0400
-Message-ID: <20251001153059.194991-10-stefanha@redhat.com>
+Subject: [PULL 16/16] tracetool/syslog: add Rust support
+Date: Wed,  1 Oct 2025 11:30:59 -0400
+Message-ID: <20251001153059.194991-17-stefanha@redhat.com>
 In-Reply-To: <20251001153059.194991-1-stefanha@redhat.com>
 References: <20251001153059.194991-1-stefanha@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=stefanha@redhat.com;
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=stefanha@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -25
 X-Spam_score: -2.6
 X-Spam_bar: --
 X-Spam_report: (-2.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.518,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_PASS=-0.001, T_SPF_HELO_TEMPERROR=0.01 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -101,190 +101,152 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 From: Tanish Desai <tanishdesai37@gmail.com>
 
-The trace crate is a minimal container for dependencies of tracepoints
-(so that they do not have to be imported in all the crates that use
-tracepoints); it also contains a macro called "include_trace!" that is
-able to find the right include file from the trace/ directory.
-
-[Write commit message, add #[allow()]. - Paolo]
+The syslog backend needs the syslog function from libc and the LOG_INFO enum
+value; they are re-exported as "::trace::syslog" and "::trace::LOG_INFO"
+so that device crates do not all have to add the libc dependency, but
+otherwise there is nothing special.
 
 Signed-off-by: Tanish Desai <tanishdesai37@gmail.com>
 Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <20250929154938.594389-10-pbonzini@redhat.com>
+Message-ID: <20250929154938.594389-17-pbonzini@redhat.com>
 Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 ---
- rust/Cargo.lock        |  4 ++++
- rust/Cargo.toml        |  1 +
- rust/meson.build       |  2 +-
- rust/trace/Cargo.toml  | 16 ++++++++++++++++
- rust/trace/meson.build | 19 +++++++++++++++++++
- rust/trace/src/lib.rs  | 35 +++++++++++++++++++++++++++++++++++
- trace/meson.build      |  8 +++++++-
- 7 files changed, 83 insertions(+), 2 deletions(-)
- create mode 100644 rust/trace/Cargo.toml
- create mode 100644 rust/trace/meson.build
- create mode 100644 rust/trace/src/lib.rs
+ rust/Cargo.lock                     |  3 +++
+ rust/trace/Cargo.toml               |  3 +++
+ rust/trace/src/lib.rs               |  4 +++
+ scripts/tracetool/backend/syslog.py |  7 ++++-
+ tests/tracetool/syslog.rs           | 40 +++++++++++++++++++++++++++++
+ tests/tracetool/tracetool-test.py   |  2 +-
+ 6 files changed, 57 insertions(+), 2 deletions(-)
+ create mode 100644 tests/tracetool/syslog.rs
 
 diff --git a/rust/Cargo.lock b/rust/Cargo.lock
-index 8315f98c46..3428dbaf0b 100644
+index f84a3dd076..444ef516a7 100644
 --- a/rust/Cargo.lock
 +++ b/rust/Cargo.lock
-@@ -258,6 +258,10 @@ dependencies = [
-  "util",
- ]
+@@ -262,6 +262,9 @@ dependencies = [
+ [[package]]
+ name = "trace"
+ version = "0.1.0"
++dependencies = [
++ "libc",
++]
  
-+[[package]]
-+name = "trace"
-+version = "0.1.0"
-+
  [[package]]
  name = "unicode-ident"
- version = "1.0.12"
-diff --git a/rust/Cargo.toml b/rust/Cargo.toml
-index d8183c614d..f372d7dbf7 100644
---- a/rust/Cargo.toml
-+++ b/rust/Cargo.toml
-@@ -11,6 +11,7 @@ members = [
-     "hw/core",
-     "hw/char/pl011",
-     "hw/timer/hpet",
-+    "trace",
-     "util",
-     "tests",
- ]
-diff --git a/rust/meson.build b/rust/meson.build
-index b3ac3a7197..695d5a62de 100644
---- a/rust/meson.build
-+++ b/rust/meson.build
-@@ -34,7 +34,7 @@ subdir('system')
- subdir('chardev')
- subdir('hw/core')
- subdir('tests')
--
-+subdir('trace')
- subdir('hw')
- 
- cargo = find_program('cargo', required: false)
 diff --git a/rust/trace/Cargo.toml b/rust/trace/Cargo.toml
-new file mode 100644
-index 0000000000..13ac0b33d6
---- /dev/null
+index 13ac0b33d6..fc81bce580 100644
+--- a/rust/trace/Cargo.toml
 +++ b/rust/trace/Cargo.toml
-@@ -0,0 +1,16 @@
-+[package]
-+name = "trace"
-+version = "0.1.0"
-+authors = ["Tanish Desai <tanishdesai37@gmail.com>"]
-+description = "QEMU tracing infrastructure support"
-+resolver = "2"
-+publish = false
+@@ -12,5 +12,8 @@ license.workspace = true
+ repository.workspace = true
+ rust-version.workspace = true
+ 
++[dependencies]
++libc = { workspace = true }
 +
-+edition.workspace = true
-+homepage.workspace = true
-+license.workspace = true
-+repository.workspace = true
-+rust-version.workspace = true
-+
-+[lints]
-+workspace = true
-diff --git a/rust/trace/meson.build b/rust/trace/meson.build
-new file mode 100644
-index 0000000000..adca57e550
---- /dev/null
-+++ b/rust/trace/meson.build
-@@ -0,0 +1,19 @@
-+rust = import('rust')
-+
-+lib_rs = configure_file(
-+  input: 'src/lib.rs',
-+  output: 'lib.rs',
-+  configuration: {
-+    'MESON_BUILD_ROOT': meson.project_build_root(),
-+  })
-+
-+_trace_rs = static_library(
-+  'trace',             # Library name,
-+  lib_rs,
-+  trace_rs_targets,         # List of generated `.rs` custom targets
-+  override_options: ['rust_std=2021', 'build.rust_std=2021'],
-+  dependencies: [libc_rs],
-+  rust_abi: 'rust',
-+)
-+
-+trace_rs = declare_dependency(link_with: _trace_rs)
+ [lints]
+ workspace = true
 diff --git a/rust/trace/src/lib.rs b/rust/trace/src/lib.rs
-new file mode 100644
-index 0000000000..0955461573
---- /dev/null
+index 0955461573..e03bce43c4 100644
+--- a/rust/trace/src/lib.rs
 +++ b/rust/trace/src/lib.rs
-@@ -0,0 +1,35 @@
+@@ -3,6 +3,10 @@
+ //! This crate provides macros that aid in using QEMU's tracepoint
+ //! functionality.
+ 
++#[doc(hidden)]
++/// Re-exported item to avoid adding libc as a dependency everywhere.
++pub use libc::{syslog, LOG_INFO};
++
+ #[macro_export]
+ /// Define the trace-points from the named directory (which should have slashes
+ /// replaced by underscore characters) as functions in a module called `trace`.
+diff --git a/scripts/tracetool/backend/syslog.py b/scripts/tracetool/backend/syslog.py
+index 177414d56a..12b826593d 100644
+--- a/scripts/tracetool/backend/syslog.py
++++ b/scripts/tracetool/backend/syslog.py
+@@ -12,7 +12,7 @@
+ __email__      = "stefanha@redhat.com"
+ 
+ 
+-from tracetool import out
++from tracetool import out, expand_format_string
+ 
+ 
+ PUBLIC = True
+@@ -38,6 +38,11 @@ def generate_h(event, group):
+         fmt=event.fmt.rstrip("\n"),
+         argnames=argnames)
+ 
++def generate_rs(event, group):
++    out('        let format_string = c"%(fmt)s";',
++        '        unsafe {::trace::syslog(::trace::LOG_INFO, format_string.as_ptr() as *const c_char, %(args)s);}',
++        fmt=expand_format_string(event.fmt),
++        args=event.args.rust_call_varargs())
+ 
+ def generate_h_backend_dstate(event, group):
+     out('    trace_event_get_state_dynamic_by_id(%(event_id)s) || \\',
+diff --git a/tests/tracetool/syslog.rs b/tests/tracetool/syslog.rs
+new file mode 100644
+index 0000000000..9d3675a0b5
+--- /dev/null
++++ b/tests/tracetool/syslog.rs
+@@ -0,0 +1,40 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
++// This file is @generated by tracetool, do not edit.
 +
-+//! This crate provides macros that aid in using QEMU's tracepoint
-+//! functionality.
++#[allow(unused_imports)]
++use std::ffi::c_char;
++#[allow(unused_imports)]
++use util::bindings;
 +
-+#[macro_export]
-+/// Define the trace-points from the named directory (which should have slashes
-+/// replaced by underscore characters) as functions in a module called `trace`.
-+///
-+/// ```ignore
-+/// ::trace::include_trace!("hw_char");
-+/// // ...
-+/// trace::trace_pl011_read_fifo_rx_full();
-+/// ```
-+macro_rules! include_trace {
-+    ($name:literal) => {
-+        #[allow(
-+            clippy::ptr_as_ptr,
-+            clippy::cast_lossless,
-+            clippy::used_underscore_binding
-+        )]
-+        mod trace {
-+            #[cfg(not(MESON))]
-+            include!(concat!(
-+                env!("MESON_BUILD_ROOT"),
-+                "/trace/trace-",
-+                $name,
-+                ".rs"
-+            ));
-+
-+            #[cfg(MESON)]
-+            include!(concat!("@MESON_BUILD_ROOT@/trace/trace-", $name, ".rs"));
-+        }
-+    };
++#[inline(always)]
++fn trace_event_state_is_enabled(dstate: u16) -> bool {
++    (unsafe { trace_events_enabled_count }) != 0 && dstate != 0
 +}
-diff --git a/trace/meson.build b/trace/meson.build
-index 9c42a57a05..d89a0db82a 100644
---- a/trace/meson.build
-+++ b/trace/meson.build
-@@ -1,5 +1,5 @@
- system_ss.add(files('control-target.c', 'trace-hmp-cmds.c'))
--
-+trace_rs_targets = []
- trace_events_files = []
- foreach item : [ '.' ] + trace_events_subdirs + qapi_trace_events
-   if item in qapi_trace_events
-@@ -24,6 +24,11 @@ foreach item : [ '.' ] + trace_events_subdirs + qapi_trace_events
-                           input: trace_events_file,
-                           command: [ tracetool, group, '--format=c', '@INPUT@', '@OUTPUT@' ],
-                           depend_files: tracetool_depends)
-+  trace_rs = custom_target(fmt.format('trace', 'rs'),
-+                          output: fmt.format('trace', 'rs'),
-+                          input: trace_events_file,
-+                          command: [ tracetool, group, '--format=rs', '@INPUT@', '@OUTPUT@' ],
-+                          depend_files: tracetool_depends)
-   if 'ust' in get_option('trace_backends')
-     trace_ust_h = custom_target(fmt.format('trace-ust', 'h'),
-                                 output: fmt.format('trace-ust', 'h'),
-@@ -34,6 +39,7 @@ foreach item : [ '.' ] + trace_events_subdirs + qapi_trace_events
-     genh += trace_ust_h
-   endif
-   trace_ss.add(trace_h, trace_c)
-+  trace_rs_targets += trace_rs
-   if 'dtrace' in get_option('trace_backends')
-     trace_dtrace = custom_target(fmt.format('trace-dtrace', 'dtrace'),
-                                  output: fmt.format('trace-dtrace', 'dtrace'),
++
++extern "C" {
++    static mut trace_events_enabled_count: u32;
++}
++extern "C" {
++    static mut _TRACE_TEST_BLAH_DSTATE: u16;
++    static mut _TRACE_TEST_WIBBLE_DSTATE: u16;
++}
++
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_blah(_context: *mut (), _filename: &std::ffi::CStr)
++{
++    if trace_event_state_is_enabled(unsafe { _TRACE_TEST_BLAH_DSTATE}) {
++        let format_string = c"Blah context=%p filename=%s";
++        unsafe {::trace::syslog(::trace::LOG_INFO, format_string.as_ptr() as *const c_char, _context /* as *mut () */, _filename.as_ptr());}
++    }
++}
++
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_wibble(_context: *mut (), _value: std::ffi::c_int)
++{
++    if trace_event_state_is_enabled(unsafe { _TRACE_TEST_WIBBLE_DSTATE}) {
++        let format_string = c"Wibble context=%p value=%d";
++        unsafe {::trace::syslog(::trace::LOG_INFO, format_string.as_ptr() as *const c_char, _context /* as *mut () */, _value /* as std::ffi::c_int */);}
++    }
++}
+diff --git a/tests/tracetool/tracetool-test.py b/tests/tracetool/tracetool-test.py
+index 3341fb18f9..786083ad7f 100755
+--- a/tests/tracetool/tracetool-test.py
++++ b/tests/tracetool/tracetool-test.py
+@@ -14,7 +14,7 @@ def get_formats(backend):
+         "c",
+         "h",
+     ]
+-    if backend in {"ftrace", "log", "simple"}:
++    if backend in {"ftrace", "log", "simple", "syslog"}:
+         formats += ["rs"]
+     if backend == "dtrace":
+         formats += [
 -- 
 2.51.0
 
