@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80676CCA474
-	for <qemu-rust@archiver.kernel.org>; Wed,  1 Oct 2025 15:41:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EE77CAC5BB
+	for <qemu-rust@archiver.kernel.org>; Wed,  1 Oct 2025 15:45:29 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v3yoa-0001pH-On; Wed, 01 Oct 2025 11:32:24 -0400
+	id 1v3yoG-0001dE-B8; Wed, 01 Oct 2025 11:32:05 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
- id 1v3yoN-0001gp-GI
- for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:32:11 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1v3yo7-0001an-4Y
+ for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:31:55 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
- id 1v3ynp-0005w2-7F
- for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:32:10 -0400
+ id 1v3ynf-0005rU-Bp
+ for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:31:53 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759332689;
+ s=mimecast20190719; t=1759332675;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jsq+f/KnsONEBY3Gz1LA0kSgEKwWLr/Vl6wgxQyodo4=;
- b=eMKamZZj4HWbNdgbKJFU2DG0xoUH/3uEx/qoMTUWQT4Y8+Sl8WmVMIHjvDPkjkqtoqk8vb
- d9ozRAha+vXWYQp3PKlnQ5agA1npKa9pj6WpDtaobvqAberFrMp/5P/gAIG7f70piMdny+
- UOGJDOTr3GI72YslbEzbU92yeBDrJ5o=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=BImpza+zTQUaq5TVPM2gVTY8spNlP5wjp8DIFyDjaZY=;
+ b=VWQaCveEH9xvC3hYnzhHB3f20kyfHV+/09Rtny1WurpQt/TxaWryIgwpotyuiWErHttKYj
+ 5OqQOA84Tac+Q6hGLbQqOESdvGpJmZ0EaP0DomgwByBeeH6bjiaCGPQWvWVOT822z+rf/b
+ yr1NbyutmoDBjkHZVVd4fnSxQJfRRR0=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-346-tB-yuZsSPyKF9eI4z4pwbQ-1; Wed,
- 01 Oct 2025 11:31:26 -0400
-X-MC-Unique: tB-yuZsSPyKF9eI4z4pwbQ-1
-X-Mimecast-MFC-AGG-ID: tB-yuZsSPyKF9eI4z4pwbQ_1759332680
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-31-LScm2MscOHy7eO18JMI8Rw-1; Wed,
+ 01 Oct 2025 11:31:11 -0400
+X-MC-Unique: LScm2MscOHy7eO18JMI8Rw-1
+X-Mimecast-MFC-AGG-ID: LScm2MscOHy7eO18JMI8Rw_1759332668
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 7C8C0195609E; Wed,  1 Oct 2025 15:31:20 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 211131800289; Wed,  1 Oct 2025 15:31:08 +0000 (UTC)
 Received: from localhost (unknown [10.2.16.112])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 73FAF180035E; Wed,  1 Oct 2025 15:31:19 +0000 (UTC)
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 9D9D4195608E; Wed,  1 Oct 2025 15:31:06 +0000 (UTC)
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
@@ -64,26 +64,26 @@ Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  Darren Kenny <darren.kenny@oracle.com>,
  Michael Roth <michael.roth@amd.com>, Mads Ynddal <mads@ynddal.dk>,
  Alexandre Iooss <erdnaxe@crans.org>, John Snow <jsnow@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>, Fabiano Rosas <farosas@suse.de>,
- Tanish Desai <tanishdesai37@gmail.com>
-Subject: [PULL 08/16] tracetool: Add Rust format support
-Date: Wed,  1 Oct 2025 11:30:51 -0400
-Message-ID: <20251001153059.194991-9-stefanha@redhat.com>
+ Peter Maydell <peter.maydell@linaro.org>, Fabiano Rosas <farosas@suse.de>
+Subject: [PULL 02/16] tracetool: remove dead code
+Date: Wed,  1 Oct 2025 11:30:45 -0400
+Message-ID: <20251001153059.194991-3-stefanha@redhat.com>
 In-Reply-To: <20251001153059.194991-1-stefanha@redhat.com>
 References: <20251001153059.194991-1-stefanha@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=stefanha@redhat.com;
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=stefanha@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
+X-Spam_score_int: -25
+X-Spam_score: -2.6
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
+X-Spam_report: (-2.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.518,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, T_SPF_TEMPERROR=0.01 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001,
+ T_SPF_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,287 +99,199 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Tanish Desai <tanishdesai37@gmail.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
 
-Generating .rs files makes it possible to support tracing in rust.
-This support comprises a new format, and common code that converts
-the C expressions in trace-events to Rust.  In particular, types
-need to be converted, and PRI macros expanded.
+Remove a bunch of dead code from tracetool.
 
-As of this commit no backend generates Rust code, but it is already
-possible to use tracetool to generate Rust sources; they are not
-functional but they compile and contain tracepoint functions.
+In particular, there are no tcg-exec events anymore and the sub-event
+functionality was only used for it.
 
-[Move Rust argument conversion from Event to Arguments; string
- support. - Paolo]
-
-Signed-off-by: Tanish Desai <tanishdesai37@gmail.com>
+Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <20250929154938.594389-9-pbonzini@redhat.com>
+Message-ID: <20250929154938.594389-3-pbonzini@redhat.com>
 Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 ---
- scripts/tracetool/__init__.py  | 155 +++++++++++++++++++++++++++++++++
- scripts/tracetool/format/rs.py |  64 ++++++++++++++
- 2 files changed, 219 insertions(+)
- create mode 100644 scripts/tracetool/format/rs.py
+ scripts/tracetool/__init__.py                | 45 +++-----------------
+ scripts/tracetool/format/h.py                |  5 ---
+ scripts/tracetool/format/log_stap.py         |  2 -
+ scripts/tracetool/format/simpletrace_stap.py |  2 -
+ 4 files changed, 6 insertions(+), 48 deletions(-)
 
 diff --git a/scripts/tracetool/__init__.py b/scripts/tracetool/__init__.py
-index c4fa0f74e6..74062d21a7 100644
+index 1d5238a084..4ef1dc1fca 100644
 --- a/scripts/tracetool/__init__.py
 +++ b/scripts/tracetool/__init__.py
-@@ -30,6 +30,49 @@ def error(*lines):
-     error_write(*lines)
-     sys.exit(1)
+@@ -15,7 +15,6 @@
+ import os
+ import re
+ import sys
+-import weakref
+ from pathlib import PurePath
  
-+FMT_TOKEN = re.compile(r'''(?:
-+                       " ( (?: [^"\\] | \\[\\"abfnrt] |            # a string literal
-+                               \\x[0-9a-fA-F][0-9a-fA-F]) *? ) "
-+                       | ( PRI [duixX] (?:8|16|32|64|PTR|MAX) )    # a PRIxxx macro
-+                       | \s+                                       # spaces (ignored)
-+                       )''', re.X)
-+
-+PRI_SIZE_MAP = {
-+    '8':  'hh',
-+    '16': 'h',
-+    '32': '',
-+    '64': 'll',
-+    'PTR': 't',
-+    'MAX': 'j',
-+}
-+
-+def expand_format_string(c_fmt, prefix=""):
-+    def pri_macro_to_fmt(pri_macro):
-+        assert pri_macro.startswith("PRI")
-+        fmt_type = pri_macro[3]  # 'd', 'i', 'u', or 'x'
-+        fmt_size = pri_macro[4:]  # '8', '16', '32', '64', 'PTR', 'MAX'
-+
-+        size = PRI_SIZE_MAP.get(fmt_size, None)
-+        if size is None:
-+            raise Exception(f"unknown macro {pri_macro}")
-+        return size + fmt_type
-+
-+    result = prefix
-+    pos = 0
-+    while pos < len(c_fmt):
-+        m = FMT_TOKEN.match(c_fmt, pos)
-+        if not m:
-+            print("No match at position", pos, ":", repr(c_fmt[pos:]), file=sys.stderr)
-+            raise Exception("syntax error in trace file")
-+        if m[1]:
-+            substr = m[1]
-+        elif m[2]:
-+            substr = pri_macro_to_fmt(m[2])
-+        else:
-+            substr = ""
-+        result += substr
-+        pos = m.end()
-+    return result
+ import tracetool.backend
+@@ -122,10 +121,6 @@ def __init__(self, args):
+             else:
+                 self._args.append(arg)
  
- out_lineno = 1
- out_filename = '<none>'
-@@ -89,6 +132,49 @@ def out(*lines, **kwargs):
-     "ptrdiff_t",
- ]
+-    def copy(self):
+-        """Create a new copy."""
+-        return Arguments(list(self._args))
+-
+     @staticmethod
+     def build(arg_str):
+         """Build and Arguments instance from an argument string.
+@@ -222,13 +217,12 @@ class Event(object):
+                       r"(?P<name>\w+)"
+                       r"\((?P<args>[^)]*)\)"
+                       r"\s*"
+-                      r"(?:(?:(?P<fmt_trans>\".+),)?\s*(?P<fmt>\".+))?"
++                      r"(?P<fmt>\".+)?"
+                       r"\s*")
  
-+C_TYPE_KEYWORDS = {"char", "int", "void", "short", "long", "signed", "unsigned"}
-+
-+C_TO_RUST_TYPE_MAP = {
-+    "int": "std::ffi::c_int",
-+    "long": "std::ffi::c_long",
-+    "long long": "std::ffi::c_longlong",
-+    "short": "std::ffi::c_short",
-+    "char": "std::ffi::c_char",
-+    "bool": "bool",
-+    "unsigned": "std::ffi::c_uint",
-+    # multiple keywords, keep them sorted
-+    "long unsigned": "std::ffi::c_long",
-+    "long long unsigned": "std::ffi::c_ulonglong",
-+    "short unsigned": "std::ffi::c_ushort",
-+    "char unsigned": "u8",
-+    "int8_t": "i8",
-+    "uint8_t": "u8",
-+    "int16_t": "i16",
-+    "uint16_t": "u16",
-+    "int32_t": "i32",
-+    "uint32_t": "u32",
-+    "int64_t": "i64",
-+    "uint64_t": "u64",
-+    "void": "()",
-+    "size_t": "usize",
-+    "ssize_t": "isize",
-+    "uintptr_t": "usize",
-+    "ptrdiff_t": "isize",
-+}
-+
-+# Rust requires manual casting of <32-bit types when passing them to
-+# variable-argument functions.
-+RUST_VARARGS_SMALL_TYPES = {
-+    "std::ffi::c_short",
-+    "std::ffi::c_ushort",
-+    "std::ffi::c_char",
-+    "i8",
-+    "u8",
-+    "i16",
-+    "u16",
-+    "bool",
-+}
-+
- def validate_type(name):
-     bits = name.split(" ")
-     for bit in bits:
-@@ -104,6 +190,38 @@ def validate_type(name):
-                              "other complex pointer types should be "
-                              "declared as 'void *'" % name)
+     _VALID_PROPS = set(["disable"])
  
-+def c_type_to_rust(name):
-+    ptr = False
-+    const = False
-+    name = name.rstrip()
-+    if name[-1] == '*':
-+        name = name[:-1].rstrip()
-+        ptr = True
-+        if name[-1] == '*':
-+            # pointers to pointers are the same as void*
-+            name = "void"
-+
-+    bits = name.split()
-+    if "const" in bits:
-+        const = True
-+        bits.remove("const")
-+    if bits[0] in C_TYPE_KEYWORDS:
-+        if "signed" in bits:
-+            bits.remove("signed")
-+        if len(bits) > 1 and "int" in bits:
-+            bits.remove("int")
-+        bits.sort()
-+        name = ' '.join(bits)
-+    else:
-+        if len(bits) > 1:
-+            raise ValueError("Invalid type '%s'." % name)
-+        name = bits[0]
-+
-+    ty = C_TO_RUST_TYPE_MAP[name.strip()]
-+    if ptr:
-+        ty = f'*{"const" if const else "mut"} {ty}'
-+    return ty
-+
- class Arguments:
-     """Event arguments description."""
+-    def __init__(self, name, props, fmt, args, lineno, filename, orig=None,
+-                 event_trans=None, event_exec=None):
++    def __init__(self, name, props, fmt, args, lineno, filename):
+         """
+         Parameters
+         ----------
+@@ -236,20 +230,14 @@ def __init__(self, name, props, fmt, args, lineno, filename, orig=None,
+             Event name.
+         props : list of str
+             Property names.
+-        fmt : str, list of str
+-            Event printing format string(s).
++        fmt : str
++            Event printing format string.
+         args : Arguments
+             Event arguments.
+         lineno : int
+             The line number in the input file.
+         filename : str
+             The path to the input file.
+-        orig : Event or None
+-            Original Event before transformation/generation.
+-        event_trans : Event or None
+-            Generated translation-time event ("tcg" property).
+-        event_exec : Event or None
+-            Generated execution-time event ("tcg" property).
  
-@@ -192,6 +310,43 @@ def casted(self):
-         """List of argument names casted to their type."""
-         return ["(%s)%s" % (type_, name) for type_, name in self._args]
+         """
+         self.name = name
+@@ -258,29 +246,16 @@ def __init__(self, name, props, fmt, args, lineno, filename, orig=None,
+         self.args = args
+         self.lineno = int(lineno)
+         self.filename = str(filename)
+-        self.event_trans = event_trans
+-        self.event_exec = event_exec
  
-+    def rust_decl_extern(self):
-+        """Return a Rust argument list for an extern "C" function"""
-+        return ", ".join((f"_{name}: {c_type_to_rust(type_)}"
-+                          for type_, name in self._args))
-+
-+    def rust_decl(self):
-+        """Return a Rust argument list for a tracepoint function"""
-+        def decl_type(type_):
-+            if type_ == "const char *":
-+                return "&std::ffi::CStr"
-+            return c_type_to_rust(type_)
-+
-+        return ", ".join((f"_{name}: {decl_type(type_)}"
-+                          for type_, name in self._args))
-+
-+    def rust_call_extern(self):
-+        """Return a Rust argument list for a call to an extern "C" function"""
-+        def rust_cast(name, type_):
-+            if type_ == "const char *":
-+                return f"_{name}.as_ptr()"
-+            return f"_{name}"
-+
-+        return ", ".join((rust_cast(name, type_) for type_, name in self._args))
-+
-+    def rust_call_varargs(self):
-+        """Return a Rust argument list for a call to a C varargs function"""
-+        def rust_cast(name, type_):
-+            if type_ == "const char *":
-+                return f"_{name}.as_ptr()"
-+
-+            type_ = c_type_to_rust(type_)
-+            if type_ in RUST_VARARGS_SMALL_TYPES:
-+                return f"_{name} as std::ffi::c_int"
-+            return f"_{name} /* as {type_} */"
-+
-+        return ", ".join((rust_cast(name, type_) for type_, name in self._args))
-+
+         if len(args) > 10:
+             raise ValueError("Event '%s' has more than maximum permitted "
+                              "argument count" % name)
  
- class Event(object):
-     """Event description.
-diff --git a/scripts/tracetool/format/rs.py b/scripts/tracetool/format/rs.py
-new file mode 100644
-index 0000000000..32ac4e5977
---- /dev/null
-+++ b/scripts/tracetool/format/rs.py
-@@ -0,0 +1,64 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
-+"""
-+trace-DIR.rs
-+"""
-+
-+__author__     = "Tanish Desai <tanishdesai37@gmail.com>"
-+__copyright__  = "Copyright 2025, Tanish Desai <tanishdesai37@gmail.com>"
-+__license__    = "GPL version 2 or (at your option) any later version"
-+
-+__maintainer__ = "Stefan Hajnoczi"
-+__email__      = "stefanha@redhat.com"
-+
-+
-+from tracetool import out
-+
-+
-+def generate(events, backend, group):
-+    out('// SPDX-License-Identifier: GPL-2.0-or-later',
-+        '// This file is @generated by tracetool, do not edit.',
-+        '',
-+        '#[allow(unused_imports)]',
-+        'use std::ffi::c_char;',
-+        '#[allow(unused_imports)]',
-+        'use util::bindings;',
-+        '',
-+        '#[inline(always)]',
-+        'fn trace_event_state_is_enabled(dstate: u16) -> bool {',
-+        '    (unsafe { trace_events_enabled_count }) != 0 && dstate != 0',
-+        '}',
-+        '',
-+        'extern "C" {',
-+        '    static mut trace_events_enabled_count: u32;',
-+        '}',)
-+
-+    out('extern "C" {')
-+
-+    for e in events:
-+        out('    static mut %s: u16;' % e.api(e.QEMU_DSTATE))
-+    out('}')
-+
-+    backend.generate_begin(events, group)
-+
-+    for e in events:
-+        out('',
-+            '#[inline(always)]',
-+            '#[allow(dead_code)]',
-+            'pub fn %(api)s(%(args)s)',
-+            '{',
-+            api=e.api(e.QEMU_TRACE),
-+            args=e.args.rust_decl())
-+
-+        if "disable" not in e.properties:
-+            backend.generate(e, group, check_trace_event_get_state=False)
-+            if backend.check_trace_event_get_state:
-+                event_id = 'TRACE_' + e.name.upper()
-+                out('    if trace_event_state_is_enabled(unsafe { _%(event_id)s_DSTATE}) {',
-+                    event_id = event_id,
-+                    api=e.api())
-+                backend.generate(e, group, check_trace_event_get_state=True)
-+                out('    }')
-+        out('}')
-+
-+    backend.generate_end(events, group)
+-        if orig is None:
+-            self.original = weakref.ref(self)
+-        else:
+-            self.original = orig
+-
+         unknown_props = set(self.properties) - self._VALID_PROPS
+         if len(unknown_props) > 0:
+             raise ValueError("Unknown properties: %s"
+                              % ", ".join(unknown_props))
+-        assert isinstance(self.fmt, str) or len(self.fmt) == 2
+ 
+-    def copy(self):
+-        """Create a new copy."""
+-        return Event(self.name, list(self.properties), self.fmt,
+-                     self.args.copy(), self.lineno, self.filename,
+-                     self, self.event_trans, self.event_exec)
+ 
+     @staticmethod
+     def build(line_str, lineno, filename):
+@@ -302,8 +277,7 @@ def build(line_str, lineno, filename):
+         name = groups["name"]
+         props = groups["props"].split()
+         fmt = groups["fmt"]
+-        fmt_trans = groups["fmt_trans"]
+-        if fmt.find("%m") != -1 or fmt_trans.find("%m") != -1:
++        if fmt.find("%m") != -1:
+             raise ValueError("Event format '%m' is forbidden, pass the error "
+                              "as an explicit trace argument")
+         if fmt.endswith(r'\n"'):
+@@ -312,29 +286,22 @@ def build(line_str, lineno, filename):
+         if '\\n' in fmt:
+             raise ValueError("Event format must not use new line character")
+ 
+-        if len(fmt_trans) > 0:
+-            fmt = [fmt_trans, fmt]
+         args = Arguments.build(groups["args"])
+ 
+         return Event(name, props, fmt, args, lineno, posix_relpath(filename))
+ 
+     def __repr__(self):
+         """Evaluable string representation for this object."""
+-        if isinstance(self.fmt, str):
+-            fmt = self.fmt
+-        else:
+-            fmt = "%s, %s" % (self.fmt[0], self.fmt[1])
+         return "Event('%s %s(%s) %s')" % (" ".join(self.properties),
+                                           self.name,
+                                           self.args,
+-                                          fmt)
++                                          self.fmt)
+     # Star matching on PRI is dangerous as one might have multiple
+     # arguments with that format, hence the non-greedy version of it.
+     _FMT = re.compile(r"(%[\d\.]*\w+|%.*?PRI\S+)")
+ 
+     def formats(self):
+         """List conversion specifiers in the argument print format string."""
+-        assert not isinstance(self.fmt, list)
+         return self._FMT.findall(self.fmt)
+ 
+     QEMU_TRACE               = "trace_%(name)s"
+diff --git a/scripts/tracetool/format/h.py b/scripts/tracetool/format/h.py
+index b42a8268a8..bd9e0ca7f2 100644
+--- a/scripts/tracetool/format/h.py
++++ b/scripts/tracetool/format/h.py
+@@ -40,11 +40,6 @@ def generate(events, backend, group):
+             enabled = 0
+         else:
+             enabled = 1
+-        if "tcg-exec" in e.properties:
+-            # a single define for the two "sub-events"
+-            out('#define TRACE_%(name)s_ENABLED %(enabled)d',
+-                name=e.original.name.upper(),
+-                enabled=enabled)
+         out('#define TRACE_%s_ENABLED %d' % (e.name.upper(), enabled))
+ 
+     backend.generate_begin(events, group)
+diff --git a/scripts/tracetool/format/log_stap.py b/scripts/tracetool/format/log_stap.py
+index 710d62bffe..5b1bbe907f 100644
+--- a/scripts/tracetool/format/log_stap.py
++++ b/scripts/tracetool/format/log_stap.py
+@@ -18,8 +18,6 @@
+ from tracetool.backend.simple import is_string
+ from tracetool.format.stap import stap_escape
+ 
+-def global_var_name(name):
+-    return probeprefix().replace(".", "_") + "_" + name
+ 
+ STATE_SKIP = 0
+ STATE_LITERAL = 1
+diff --git a/scripts/tracetool/format/simpletrace_stap.py b/scripts/tracetool/format/simpletrace_stap.py
+index 72971133bf..ac39a492d9 100644
+--- a/scripts/tracetool/format/simpletrace_stap.py
++++ b/scripts/tracetool/format/simpletrace_stap.py
+@@ -17,8 +17,6 @@
+ from tracetool.backend.simple import is_string
+ from tracetool.format.stap import stap_escape
+ 
+-def global_var_name(name):
+-    return probeprefix().replace(".", "_") + "_" + name
+ 
+ def generate(events, backend, group):
+     out('/* This file is autogenerated by tracetool, do not edit. */',
 -- 
 2.51.0
 
