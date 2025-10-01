@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4C46CCA470
-	for <qemu-rust@archiver.kernel.org>; Wed,  1 Oct 2025 15:33:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F1D3CAC5BB
+	for <qemu-rust@archiver.kernel.org>; Wed,  1 Oct 2025 15:34:00 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v3yoJ-0001ez-HD; Wed, 01 Oct 2025 11:32:07 -0400
+	id 1v3ypB-000272-31; Wed, 01 Oct 2025 11:33:03 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
- id 1v3yoA-0001bu-0A
- for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:32:03 -0400
+ id 1v3yoy-000228-Eg
+ for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:32:53 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
- id 1v3ynh-0005sw-2d
- for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:31:56 -0400
+ id 1v3yo2-00061p-Fk
+ for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:32:38 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759332680;
+ s=mimecast20190719; t=1759332705;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PtJ6EpZ8mEfHufbAae3PmYl0gMcXLYONGFFms6VXKuo=;
- b=IluWK8YMM15kVatv6keeq/Iv38L+WHpre+aG6lQexHzf0gi5o+3gWuRxxn6tQFnrJLVPoD
- ysQWjw0RqmxtdXs/qYQoUdBAW6311JIm843ysdXDb5N2Oo+LKBqishmG7UziZJZfc4jI28
- WoHJTCtqdqeh4iSPK/9EkDy4NQMr8bo=
-Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
+ bh=nPMFvPIZtPrzbNILHcryKpd0Gm4HA8zCmCAJFa+fajs=;
+ b=CwOtEpwKMdWmgGX339i/dw2X3ZZgyAR32rASTsmBx6SAFAfNonhz24iicj4+eh+2U4LzTw
+ wtQk839DXXOBvV8lx8Wiwle6cnrCallQFufJghNEdf0qDfoZoXFkdfJK83wtJel1zqMDsF
+ 0uc6Vz88caAq+H7Cku89icO7iP9Hkbw=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-668-GbXTsRWRMvC7OIPX_zFEBA-1; Wed,
- 01 Oct 2025 11:31:15 -0400
-X-MC-Unique: GbXTsRWRMvC7OIPX_zFEBA-1
-X-Mimecast-MFC-AGG-ID: GbXTsRWRMvC7OIPX_zFEBA_1759332672
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-686-61QZohmaN-O3Uc4OE7FKvw-1; Wed,
+ 01 Oct 2025 11:31:39 -0400
+X-MC-Unique: 61QZohmaN-O3Uc4OE7FKvw-1
+X-Mimecast-MFC-AGG-ID: 61QZohmaN-O3Uc4OE7FKvw_1759332697
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id AFD1D1956086; Wed,  1 Oct 2025 15:31:12 +0000 (UTC)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 793CD19560AE; Wed,  1 Oct 2025 15:31:37 +0000 (UTC)
 Received: from localhost (unknown [10.2.16.112])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id E134B1800446; Wed,  1 Oct 2025 15:31:11 +0000 (UTC)
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 216D719560B4; Wed,  1 Oct 2025 15:31:35 +0000 (UTC)
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
@@ -64,15 +64,16 @@ Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  Darren Kenny <darren.kenny@oracle.com>,
  Michael Roth <michael.roth@amd.com>, Mads Ynddal <mads@ynddal.dk>,
  Alexandre Iooss <erdnaxe@crans.org>, John Snow <jsnow@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>, Fabiano Rosas <farosas@suse.de>
-Subject: [PULL 04/16] tracetool: add SPDX headers
-Date: Wed,  1 Oct 2025 11:30:47 -0400
-Message-ID: <20251001153059.194991-5-stefanha@redhat.com>
+ Peter Maydell <peter.maydell@linaro.org>, Fabiano Rosas <farosas@suse.de>,
+ Tanish Desai <tanishdesai37@gmail.com>
+Subject: [PULL 15/16] tracetool/ftrace: add Rust support
+Date: Wed,  1 Oct 2025 11:30:58 -0400
+Message-ID: <20251001153059.194991-16-stefanha@redhat.com>
 In-Reply-To: <20251001153059.194991-1-stefanha@redhat.com>
 References: <20251001153059.194991-1-stefanha@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 Received-SPF: pass client-ip=170.10.133.124; envelope-from=stefanha@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -25
@@ -80,10 +81,9 @@ X-Spam_score: -2.6
 X-Spam_bar: --
 X-Spam_report: (-2.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.518,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- T_SPF_HELO_TEMPERROR=0.01,
- T_SPF_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_PASS=-0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,202 +99,102 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Paolo Bonzini <pbonzini@redhat.com>
+From: Tanish Desai <tanishdesai37@gmail.com>
 
+Signed-off-by: Tanish Desai <tanishdesai37@gmail.com>
 Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <20250929154938.594389-5-pbonzini@redhat.com>
+Message-ID: <20250929154938.594389-16-pbonzini@redhat.com>
 Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 ---
- scripts/tracetool/__init__.py                | 2 ++
- scripts/tracetool/backend/__init__.py        | 2 ++
- scripts/tracetool/backend/dtrace.py          | 2 ++
- scripts/tracetool/backend/ftrace.py          | 2 ++
- scripts/tracetool/backend/log.py             | 2 ++
- scripts/tracetool/backend/simple.py          | 2 ++
- scripts/tracetool/backend/syslog.py          | 2 ++
- scripts/tracetool/backend/ust.py             | 2 ++
- scripts/tracetool/format/__init__.py         | 2 ++
- scripts/tracetool/format/c.py                | 2 ++
- scripts/tracetool/format/d.py                | 2 ++
- scripts/tracetool/format/h.py                | 2 ++
- scripts/tracetool/format/log_stap.py         | 2 ++
- scripts/tracetool/format/simpletrace_stap.py | 2 ++
- scripts/tracetool/format/stap.py             | 2 ++
- scripts/tracetool/format/ust_events_c.py     | 2 ++
- scripts/tracetool/format/ust_events_h.py     | 2 ++
- 17 files changed, 34 insertions(+)
+ scripts/tracetool/backend/ftrace.py |  8 +++++-
+ tests/tracetool/ftrace.rs           | 40 +++++++++++++++++++++++++++++
+ tests/tracetool/tracetool-test.py   |  2 +-
+ 3 files changed, 48 insertions(+), 2 deletions(-)
+ create mode 100644 tests/tracetool/ftrace.rs
 
-diff --git a/scripts/tracetool/__init__.py b/scripts/tracetool/__init__.py
-index 9dd8ec27e1..c4fa0f74e6 100644
---- a/scripts/tracetool/__init__.py
-+++ b/scripts/tracetool/__init__.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
- """
- Machinery for generating tracing-related intermediate files.
- """
-diff --git a/scripts/tracetool/backend/__init__.py b/scripts/tracetool/backend/__init__.py
-index 7040130919..bf91e443e9 100644
---- a/scripts/tracetool/backend/__init__.py
-+++ b/scripts/tracetool/backend/__init__.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
- """
- Backend management.
- 
-diff --git a/scripts/tracetool/backend/dtrace.py b/scripts/tracetool/backend/dtrace.py
-index 4835454193..b4af403025 100644
---- a/scripts/tracetool/backend/dtrace.py
-+++ b/scripts/tracetool/backend/dtrace.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
- """
- DTrace/SystemTAP backend.
- """
 diff --git a/scripts/tracetool/backend/ftrace.py b/scripts/tracetool/backend/ftrace.py
-index e6317ca4bf..a14aafcee6 100644
+index 7ddd5d11a6..e03698a2ed 100644
 --- a/scripts/tracetool/backend/ftrace.py
 +++ b/scripts/tracetool/backend/ftrace.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
- """
- Ftrace built-in backend.
- """
-diff --git a/scripts/tracetool/backend/log.py b/scripts/tracetool/backend/log.py
-index 9842522b18..faacec4610 100644
---- a/scripts/tracetool/backend/log.py
-+++ b/scripts/tracetool/backend/log.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
- """
- Stderr built-in backend.
- """
-diff --git a/scripts/tracetool/backend/simple.py b/scripts/tracetool/backend/simple.py
-index 066e5e9f11..97e40495ee 100644
---- a/scripts/tracetool/backend/simple.py
-+++ b/scripts/tracetool/backend/simple.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
- """
- Simple built-in backend.
- """
-diff --git a/scripts/tracetool/backend/syslog.py b/scripts/tracetool/backend/syslog.py
-index 74af038089..78ee67136b 100644
---- a/scripts/tracetool/backend/syslog.py
-+++ b/scripts/tracetool/backend/syslog.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
- """
- Syslog built-in backend.
- """
-diff --git a/scripts/tracetool/backend/ust.py b/scripts/tracetool/backend/ust.py
-index 6cc651646d..3aa9bb1da2 100644
---- a/scripts/tracetool/backend/ust.py
-+++ b/scripts/tracetool/backend/ust.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
- """
- LTTng User Space Tracing backend.
- """
-diff --git a/scripts/tracetool/format/__init__.py b/scripts/tracetool/format/__init__.py
-index 94a37bfce9..7b9d1b5782 100644
---- a/scripts/tracetool/format/__init__.py
-+++ b/scripts/tracetool/format/__init__.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
- """
- Format management.
+@@ -12,7 +12,7 @@
+ __email__      = "stefanha@redhat.com"
  
-diff --git a/scripts/tracetool/format/c.py b/scripts/tracetool/format/c.py
-index 3c4398c237..50e03313cb 100644
---- a/scripts/tracetool/format/c.py
-+++ b/scripts/tracetool/format/c.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
+ 
+-from tracetool import out
++from tracetool import out, expand_format_string
+ 
+ 
+ PUBLIC = True
+@@ -43,3 +43,9 @@ def generate_h(event, group):
+ def generate_h_backend_dstate(event, group):
+     out('    trace_event_get_state_dynamic_by_id(%(event_id)s) || \\',
+         event_id="TRACE_" + event.name.upper())
 +
- """
- trace/generated-tracers.c
- """
-diff --git a/scripts/tracetool/format/d.py b/scripts/tracetool/format/d.py
-index 684598c183..e9e33dfe30 100644
---- a/scripts/tracetool/format/d.py
-+++ b/scripts/tracetool/format/d.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
++def generate_rs(event, group):
++    out('        let format_string = c"%(fmt)s";',
++        '        unsafe {bindings::ftrace_write(format_string.as_ptr() as *const c_char, %(args)s);}',
++        fmt=expand_format_string(event.fmt),
++        args=event.args.rust_call_varargs())
+diff --git a/tests/tracetool/ftrace.rs b/tests/tracetool/ftrace.rs
+new file mode 100644
+index 0000000000..07b9259cf2
+--- /dev/null
++++ b/tests/tracetool/ftrace.rs
+@@ -0,0 +1,40 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++// This file is @generated by tracetool, do not edit.
 +
- """
- trace/generated-tracers.dtrace (DTrace only).
- """
-diff --git a/scripts/tracetool/format/h.py b/scripts/tracetool/format/h.py
-index 2119753be1..be7f32e67b 100644
---- a/scripts/tracetool/format/h.py
-+++ b/scripts/tracetool/format/h.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
++#[allow(unused_imports)]
++use std::ffi::c_char;
++#[allow(unused_imports)]
++use util::bindings;
 +
- """
- trace/generated-tracers.h
- """
-diff --git a/scripts/tracetool/format/log_stap.py b/scripts/tracetool/format/log_stap.py
-index 02f23bfb8d..259303a189 100644
---- a/scripts/tracetool/format/log_stap.py
-+++ b/scripts/tracetool/format/log_stap.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
++#[inline(always)]
++fn trace_event_state_is_enabled(dstate: u16) -> bool {
++    (unsafe { trace_events_enabled_count }) != 0 && dstate != 0
++}
 +
- """
- Generate .stp file that printfs log messages (DTrace with SystemTAP only).
- """
-diff --git a/scripts/tracetool/format/simpletrace_stap.py b/scripts/tracetool/format/simpletrace_stap.py
-index 3c3584a931..c7bde97a85 100644
---- a/scripts/tracetool/format/simpletrace_stap.py
-+++ b/scripts/tracetool/format/simpletrace_stap.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
++extern "C" {
++    static mut trace_events_enabled_count: u32;
++}
++extern "C" {
++    static mut _TRACE_TEST_BLAH_DSTATE: u16;
++    static mut _TRACE_TEST_WIBBLE_DSTATE: u16;
++}
 +
- """
- Generate .stp file that outputs simpletrace binary traces (DTrace with SystemTAP only).
- """
-diff --git a/scripts/tracetool/format/stap.py b/scripts/tracetool/format/stap.py
-index 04c7a35a25..285c9203ba 100644
---- a/scripts/tracetool/format/stap.py
-+++ b/scripts/tracetool/format/stap.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_blah(_context: *mut (), _filename: &std::ffi::CStr)
++{
++    if trace_event_state_is_enabled(unsafe { _TRACE_TEST_BLAH_DSTATE}) {
++        let format_string = c"Blah context=%p filename=%s";
++        unsafe {bindings::ftrace_write(format_string.as_ptr() as *const c_char, _context /* as *mut () */, _filename.as_ptr());}
++    }
++}
 +
- """
- Generate .stp file (DTrace with SystemTAP only).
- """
-diff --git a/scripts/tracetool/format/ust_events_c.py b/scripts/tracetool/format/ust_events_c.py
-index ea5f0ae99f..074226bfd3 100644
---- a/scripts/tracetool/format/ust_events_c.py
-+++ b/scripts/tracetool/format/ust_events_c.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
- """
- trace/generated-ust.c
- """
-diff --git a/scripts/tracetool/format/ust_events_h.py b/scripts/tracetool/format/ust_events_h.py
-index 242c9814fd..cee7970a40 100644
---- a/scripts/tracetool/format/ust_events_h.py
-+++ b/scripts/tracetool/format/ust_events_h.py
-@@ -1,3 +1,5 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
- """
- trace/generated-ust-provider.h
- """
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_wibble(_context: *mut (), _value: std::ffi::c_int)
++{
++    if trace_event_state_is_enabled(unsafe { _TRACE_TEST_WIBBLE_DSTATE}) {
++        let format_string = c"Wibble context=%p value=%d";
++        unsafe {bindings::ftrace_write(format_string.as_ptr() as *const c_char, _context /* as *mut () */, _value /* as std::ffi::c_int */);}
++    }
++}
+diff --git a/tests/tracetool/tracetool-test.py b/tests/tracetool/tracetool-test.py
+index f58f3b795e..3341fb18f9 100755
+--- a/tests/tracetool/tracetool-test.py
++++ b/tests/tracetool/tracetool-test.py
+@@ -14,7 +14,7 @@ def get_formats(backend):
+         "c",
+         "h",
+     ]
+-    if backend in {"log", "simple"}:
++    if backend in {"ftrace", "log", "simple"}:
+         formats += ["rs"]
+     if backend == "dtrace":
+         formats += [
 -- 
 2.51.0
 
