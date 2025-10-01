@@ -4,84 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A6E9CAC5BB
-	for <qemu-rust@archiver.kernel.org>; Wed,  1 Oct 2025 07:50:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E616CAC5BB
+	for <qemu-rust@archiver.kernel.org>; Wed,  1 Oct 2025 08:02:01 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v3rb1-0003a2-Ml; Wed, 01 Oct 2025 03:49:55 -0400
+	id 1v3rmL-0005ih-EY; Wed, 01 Oct 2025 04:01:37 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v3raz-0003Zk-7k
- for qemu-rust@nongnu.org; Wed, 01 Oct 2025 03:49:53 -0400
+ id 1v3rmD-0005fj-72
+ for qemu-rust@nongnu.org; Wed, 01 Oct 2025 04:01:29 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v3rah-00021V-Ax
- for qemu-rust@nongnu.org; Wed, 01 Oct 2025 03:49:52 -0400
+ id 1v3rlu-00061H-KQ
+ for qemu-rust@nongnu.org; Wed, 01 Oct 2025 04:01:28 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759304968;
+ s=mimecast20190719; t=1759305665;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=4LJlbTi89MWiCTkK6FX/aE1z7BsUo+V9Tk+ja/kMSkE=;
- b=cUUv3R238YBxp2696BtNAmmpilpMANauwMiOXm7r5FO7+ji7JWVggKEzl07S7WbjOmSqWz
- baRr0fN1o5WlwcwPulacnF1e6HKdVCPMoT/oXSMv5TRwsf6iSWK7goGSzaqmARRpT6/cxH
- DX9chq5dxkIc6aklbnzdDOj2oKKjv9w=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=A9PF9wocpKr4tHKqTOJUmRJZPPDhEGhAo4xKIzRERVo=;
+ b=LhhcnlfVUNSjch6Dk1Dz4KumgA619Tbs2/5L43h94I0+yekqPZe8bpDj76CoZj63I/BnxM
+ +x0oLmqciXAnbrfYMnhAsMls6pblnWeODwPdy9EULbHuaM0dvCyCMj/VMpZMA63RkSGVM5
+ tdyk+Q9vKAFewLlAi06zTqVaFA8rPlM=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-146-jJCPgZQDMzSSCbkyojbCCA-1; Wed, 01 Oct 2025 03:49:23 -0400
-X-MC-Unique: jJCPgZQDMzSSCbkyojbCCA-1
-X-Mimecast-MFC-AGG-ID: jJCPgZQDMzSSCbkyojbCCA_1759304962
-Received: by mail-ed1-f72.google.com with SMTP id
- 4fb4d7f45d1cf-62f9cfb8075so7709242a12.2
- for <qemu-rust@nongnu.org>; Wed, 01 Oct 2025 00:49:23 -0700 (PDT)
+ us-mta-328-HTCNpVUBMdCiXWZFdt-Jiw-1; Wed, 01 Oct 2025 04:01:03 -0400
+X-MC-Unique: HTCNpVUBMdCiXWZFdt-Jiw-1
+X-Mimecast-MFC-AGG-ID: HTCNpVUBMdCiXWZFdt-Jiw_1759305662
+Received: by mail-ej1-f69.google.com with SMTP id
+ a640c23a62f3a-b3cd45a823cso282250066b.2
+ for <qemu-rust@nongnu.org>; Wed, 01 Oct 2025 01:01:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759304962; x=1759909762;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4LJlbTi89MWiCTkK6FX/aE1z7BsUo+V9Tk+ja/kMSkE=;
- b=oqnObOVsLdRu1QB0VMf37nSOgg9Qs2S/dtuwWTJrOzTGXoNBv3fczzIa52G84UnkCO
- jYiSF/dmLsnkw0cJsoEdvSpKMGAI0KUPs6jPyWXeiFNSHBzbcnbEwCQupW3N72t/aJPY
- ovpDOtSqIC7Drbvo+khbrtz5olvYDMnfAjmFeVunzjva0ZMC19TBcZhLSuHS/6zsOFOQ
- MRLSSXqrwAimAr90mzWjPVrMGtSyVVLxi2uOTkZy4nAinU+OzEcRPdfOBHAitV8a3Pa+
- hmKmOfCxPaRJ3U/L2VuTLUlUctAVSWw0bkfW1ALVh/aGqw/4nq1c/2RAO4A6WmSWE35i
- QxUw==
-X-Gm-Message-State: AOJu0YxJfiE+dG4j5S6oIEWgT4gumoTETtUZIoK6zHfF46+DSUl4kYTO
- 8tRm9vOe07GIK7/d7PhOzm3lnmb1wM6AqhNsmpfIfCNzRtH+Eql6jQZ6D8KhyREPp7Q6oDNhTp8
- YSfHW0Y1WPRREeSe5D2fNYbyV8dxoef4E6b72iEjkioXq3hSHyvew2+s=
-X-Gm-Gg: ASbGncutyhI0NTkNxnetHmXddcgwDtdutdHWHylt1CSHksrr1mvFeAfC9VzEvIOC/Of
- MDnc3negekW6AExcN+PZXJydWzUK+VhDvW5tXwIb5w//LV/kOQZlKREpNPKaYdDU2FbiasBAou6
- b2z0bO15LXFZ19dcKWKnNK3B3Zimawj/wz0BfVepgaxwooRmeixX4bB0l3uY5qvUPo7BmFVC0p8
- C4XfTrlFqLxXdt1xrB4nXQKcOIsWLST7zwMTXLFkjm0KadvDng9MMlWpuJpm7RW+XJW3VmrTWWa
- AM/meJUyYDioL42ISwfwlbScQqSM/cbBIW11+7CVzNfZ2GvrqgCxoY+euGazavmGOS2BAelFlsn
- AlLTMPdccYb2DPgXCXczQiToy92gantiw4Qf6ow7lokZLVjfI2Z8=
-X-Received: by 2002:a05:6402:358f:b0:631:d77a:57b2 with SMTP id
- 4fb4d7f45d1cf-63678ba9b62mr3165411a12.3.1759304962449; 
- Wed, 01 Oct 2025 00:49:22 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHuJL/aXe9TD4TmQR6Kg76QJ0p1hMwW5OyDyNZtGVJI4iFPbgjOqA/hRgjdYG71pssr0ZdwOA==
-X-Received: by 2002:a05:6402:358f:b0:631:d77a:57b2 with SMTP id
- 4fb4d7f45d1cf-63678ba9b62mr3165382a12.3.1759304962062; 
- Wed, 01 Oct 2025 00:49:22 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1759305662; x=1759910462;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=A9PF9wocpKr4tHKqTOJUmRJZPPDhEGhAo4xKIzRERVo=;
+ b=gMMWsjdo5jd43jywQHw/c9821vvyQrLeNwZnTfNwBTrPjWjf8tgS6ac5eKjU08Ypgo
+ ZUwIDr2NT9leoh984ls6xYChoer4YdZRLuSogmScCA6KmoLXOOKzwbys+Dw9c9l+qyru
+ qEjV7IStfN8i3hd+QtFx6cRoZMQKESFwwr7Bia9hefPuY8Z6ytXq8yo0hC1LK28UGCkA
+ RXi0Wj4NOLS6X6kevGi/XJA/IPqGwS4Z/qL6sIs/X7y05EWFOeOdop1rt8GWD45s06h4
+ C1eXroYDs8rqh5ftTDWa/me++hAWPaXRFyFLzoFydE/DlqejGdyWaKQp2xbYzPkBD5ce
+ Y8gA==
+X-Gm-Message-State: AOJu0Ywxp/QXFm5HQOx3RYqECPjpwPom37Tn6XUUx8CKgY13cFVDYrNn
+ 8MCCx+wPRxfNRw3c037zvDgh+z7BBL0I4HTDXqDG7Z8Vk9e6lwdJeUx0TN/oOck+h6cANsS7/Cu
+ 3JsOKquAipbVDkY6RjlFS3VIgv8oCe30XDr+FOyw00AOJJh+p2meUBSg=
+X-Gm-Gg: ASbGnctCly/obWIOJaGtM5nzYhbniYJkQTCiKc/iUL75sjIhWd114RMgHutua6bNIkw
+ +XC14g+9DuSEUQqoLA2DWBqNdKSziR/C/wSLiJwYgjRKDhGIJEJK9uzwPvAizKsuYSkBy4nmtu1
+ +Lip/CniI81yjVDBu7EP3dZ7TdBWpvwXZyeXVgxQTvBs8lEeTjdIUcrmK9aqR09eRm5z34C/sI3
+ ZoBmATJPH2JmZM8Hvqr4t1ZWjmNz4VvgSWcjco9pB1WcRLTtl8kpI6NHeMBs2Ih+8zwtvoKIf1a
+ tTECsR6tzxvcXbIb0D8JwvNMb9fAx2nW34cN6KRj6l0TOzB7Ly2UsuIIPALuQ5BGXxINUmJEa6g
+ lZMNmHBbQRP4FQKOsbomzgV/dk3AYWBiIMlnGZ2ur020EQirtfGg=
+X-Received: by 2002:a17:907:3f8c:b0:b3d:7e5c:8578 with SMTP id
+ a640c23a62f3a-b46e2436403mr365277966b.12.1759305661957; 
+ Wed, 01 Oct 2025 01:01:01 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGQR/t5nVKKRvg8n/5/D4brEMuY3YFvkcqcZ+wqR2v0RBFywUc4mJ2X2bMo4BAfneyqVCHerw==
+X-Received: by 2002:a17:907:3f8c:b0:b3d:7e5c:8578 with SMTP id
+ a640c23a62f3a-b46e2436403mr365273566b.12.1759305661546; 
+ Wed, 01 Oct 2025 01:01:01 -0700 (PDT)
 Received: from [192.168.10.48] ([176.206.127.188])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-634a3671beasm11100065a12.22.2025.10.01.00.49.21
+ a640c23a62f3a-b3ed414ec70sm575065266b.42.2025.10.01.01.00.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Oct 2025 00:49:21 -0700 (PDT)
+ Wed, 01 Oct 2025 01:00:59 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org,
- =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
-Subject: [PATCH 0/2] rust: do not generate GLib bindings
-Date: Wed,  1 Oct 2025 09:49:18 +0200
-Message-ID: <20251001074920.1041619-1-pbonzini@redhat.com>
+	armbru@redhat.com,
+	marcandre.lureau@redhat.com
+Subject: [PATCH 04/14] rust: add Serialize implementation for QObject
+Date: Wed,  1 Oct 2025 10:00:41 +0200
+Message-ID: <20251001080051.1043944-5-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251001075005.1041833-1-pbonzini@redhat.com>
+References: <20251001075005.1041833-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: J4XxUfZ2GCncmkBWMJcIOjMm3gXpoJ9HKWK3kSDZmQM_1759304962
+X-Mimecast-MFC-PROC-ID: aZYD5-yii1ulVat4o_hO8eq0xDGZr7-BjhFGZzVcuXM_1759305662
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -94,7 +98,7 @@ X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001, T_SPF_TEMPERROR=0.01 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -110,57 +114,158 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Don't generate FFI for glib, rely on glib-sys crate.  This makes it
-possible to limit Rust to the same minimum version as C code.
+This allows QObject to be converted to other formats, for example
+JSON via serde_json.
 
-The disadvantage is that each bindings module needs to import from
-glib explicitly.
+This is not too useful, since QObjects are consumed by
+C code or deserialized into structs, but it can be used for testing
+and it is part of the full implementation of a serde format.
 
-The extra lines in Cargo.lock are all build dependencies that are not
-used by Meson.  They are only used for glib-sys's build.rs rules,
-when running e.g. "cargo check".
+Co-authored-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ rust/Cargo.lock                    |  1 +
+ rust/util/Cargo.toml               |  1 +
+ rust/util/meson.build              |  3 +-
+ rust/util/src/qobject/mod.rs       |  4 +-
+ rust/util/src/qobject/serialize.rs | 59 ++++++++++++++++++++++++++++++
+ 5 files changed, 65 insertions(+), 3 deletions(-)
+ create mode 100644 rust/util/src/qobject/serialize.rs
 
-Marc-André Lureau (1):
-  rust: use glib-sys
-  subprojects: add glib-sys-rs
-
- meson.build                                   |   1 +
- include/hw/core/cpu.h                         |   2 +-
- rust/Cargo.lock                               | 182 ++++++++++++++++++
- rust/Cargo.toml                               |   1 +
- rust/bql/Cargo.toml                           |   3 +
- rust/bql/meson.build                          |   1 +
- rust/bql/src/bindings.rs                      |   4 +
- rust/chardev/Cargo.toml                       |   1 +
- rust/chardev/meson.build                      |   2 +-
- rust/chardev/src/bindings.rs                  |   4 +
- rust/hw/char/pl011/Cargo.toml                 |   1 +
- rust/hw/char/pl011/meson.build                |   1 +
- rust/hw/char/pl011/src/bindings.rs            |   5 +
- rust/hw/core/Cargo.toml                       |   1 +
- rust/hw/core/meson.build                      |   2 +-
- rust/hw/core/src/bindings.rs                  |   3 +
- rust/meson.build                              |   2 +
- rust/migration/Cargo.toml                     |   1 +
- rust/migration/meson.build                    |   2 +-
- rust/migration/src/bindings.rs                |   1 +
- rust/qom/Cargo.toml                           |   1 +
- rust/qom/meson.build                          |   2 +-
- rust/qom/src/bindings.rs                      |   2 +
- rust/system/Cargo.toml                        |   1 +
- rust/system/meson.build                       |   2 +-
- rust/system/src/bindings.rs                   |   4 +
- rust/util/Cargo.toml                          |   1 +
- rust/util/meson.build                         |   2 +-
- rust/util/src/bindings.rs                     |   2 +
- scripts/archive-source.sh                     |   1 +
- subprojects/.gitignore                        |   1 +
- subprojects/glib-sys-0.21-rs.wrap             |   7 +
- .../packagefiles/glib-sys-0.21-rs/meson.build |  33 ++++
- 33 files changed, 272 insertions(+), 7 deletions(-)
- create mode 100644 subprojects/glib-sys-0.21-rs.wrap
- create mode 100644 subprojects/packagefiles/glib-sys-0.21-rs/meson.build
-
+diff --git a/rust/Cargo.lock b/rust/Cargo.lock
+index 0c1df625df1..c1075e11d6c 100644
+--- a/rust/Cargo.lock
++++ b/rust/Cargo.lock
+@@ -446,6 +446,7 @@ dependencies = [
+  "foreign",
+  "glib-sys",
+  "libc",
++ "serde",
+ ]
+ 
+ [[package]]
+diff --git a/rust/util/Cargo.toml b/rust/util/Cargo.toml
+index 85f91436545..554004816eb 100644
+--- a/rust/util/Cargo.toml
++++ b/rust/util/Cargo.toml
+@@ -17,6 +17,7 @@ anyhow = { workspace = true }
+ foreign = { workspace = true }
+ glib-sys = { workspace = true }
+ libc = { workspace = true }
++serde = { workspace = true }
+ common = { path = "../common" }
+ 
+ [lints]
+diff --git a/rust/util/meson.build b/rust/util/meson.build
+index 38da1ba8cd1..5b99d38c903 100644
+--- a/rust/util/meson.build
++++ b/rust/util/meson.build
+@@ -39,10 +39,11 @@ _util_rs = static_library(
+     {'.': _util_bindings_inc_rs,
+     'qobject': [
+       'src/qobject/mod.rs',
++      'src/qobject/serialize.rs',
+     ]}),
+   override_options: ['rust_std=2021', 'build.rust_std=2021'],
+   rust_abi: 'rust',
+-  dependencies: [anyhow_rs, libc_rs, foreign_rs, glib_sys_rs, common_rs, qom, qemuutil],
++  dependencies: [anyhow_rs, libc_rs, foreign_rs, glib_sys_rs, common_rs, serde_rs, qom, qemuutil],
+ )
+ 
+ util_rs = declare_dependency(link_with: [_util_rs], dependencies: [qemuutil, qom])
+diff --git a/rust/util/src/qobject/mod.rs b/rust/util/src/qobject/mod.rs
+index f43d87a3b66..2e3cb247b27 100644
+--- a/rust/util/src/qobject/mod.rs
++++ b/rust/util/src/qobject/mod.rs
+@@ -6,6 +6,8 @@
+ 
+ #![deny(clippy::unwrap_used)]
+ 
++mod serialize;
++
+ use std::{
+     cell::UnsafeCell,
+     ffi::{c_char, CString},
+@@ -222,7 +224,6 @@ fn drop(&mut self) {
+     }
+ }
+ 
+-#[allow(unused)]
+ macro_rules! match_qobject {
+     (@internal ($qobj:expr) =>
+         $(() => $unit:expr,)?
+@@ -305,5 +306,4 @@ macro_rules! match_qobject {
+                 $($type $(($val))? => $code,)+)
+     };
+ }
+-#[allow(unused_imports)]
+ use match_qobject;
+diff --git a/rust/util/src/qobject/serialize.rs b/rust/util/src/qobject/serialize.rs
+new file mode 100644
+index 00000000000..34ec3847c1d
+--- /dev/null
++++ b/rust/util/src/qobject/serialize.rs
+@@ -0,0 +1,59 @@
++//! `QObject` serialization
++//!
++//! This module implements the [`Serialize`] trait for `QObject`,
++//! allowing it to be converted to other formats, for example
++//! JSON.
++
++use std::{ffi::CStr, mem::ManuallyDrop, ptr::addr_of};
++
++use serde::ser::{self, Serialize, SerializeMap, SerializeSeq};
++
++use super::{match_qobject, QObject};
++use crate::bindings;
++
++impl Serialize for QObject {
++    #[inline]
++    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
++    where
++        S: ::serde::Serializer,
++    {
++        match_qobject! { (self) =>
++            () => serializer.serialize_unit(),
++            bool(b) => serializer.serialize_bool(b),
++            i64(i) => serializer.serialize_i64(i),
++            u64(u) => serializer.serialize_u64(u),
++            f64(f) => serializer.serialize_f64(f),
++            CStr(cstr) => cstr.to_str().map_or_else(
++                |_| Err(ser::Error::custom("invalid UTF-8 in QString")),
++                |s| serializer.serialize_str(s),
++            ),
++            QList(l) => {
++                let mut node_ptr = unsafe { l.head.tqh_first };
++                let mut state = serializer.serialize_seq(None)?;
++                while !node_ptr.is_null() {
++                    let node = unsafe { &*node_ptr };
++                    let elem = unsafe { ManuallyDrop::new(QObject::from_raw(addr_of!(*node.value))) };
++                    state.serialize_element(&*elem)?;
++                    node_ptr = unsafe { node.next.tqe_next };
++                }
++                state.end()
++            },
++            QDict(d) => {
++                let mut state = serializer.serialize_map(Some(d.size))?;
++                let mut e_ptr = unsafe { bindings::qdict_first(d) };
++                while !e_ptr.is_null() {
++                    let e = unsafe { &*e_ptr };
++                    let key = unsafe { CStr::from_ptr(e.key) };
++                    key.to_str().map_or_else(
++                        |_| Err(ser::Error::custom("invalid UTF-8 in key")),
++                        |k| state.serialize_key(k),
++                    )?;
++                    let value = unsafe { ManuallyDrop::new(QObject::from_raw(addr_of!(*e.value))) };
++                    state.serialize_value(&*value)?;
++                    e_ptr = unsafe { bindings::qdict_next(d, e) };
++                }
++                state.end()
++            }
++        }
++    }
++}
 -- 
 2.51.0
 
