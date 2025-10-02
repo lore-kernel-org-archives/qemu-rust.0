@@ -4,87 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACAB3CCA470
-	for <qemu-rust@archiver.kernel.org>; Wed,  1 Oct 2025 15:46:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78998CAC5BB
+	for <qemu-rust@archiver.kernel.org>; Thu,  2 Oct 2025 00:01:23 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v3ypl-0002Nl-Ip; Wed, 01 Oct 2025 11:33:39 -0400
+	id 1v46km-0006G2-QM; Wed, 01 Oct 2025 20:01:01 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
- id 1v3yon-0001wS-Vc
- for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:32:46 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
- id 1v3yny-00060D-GG
- for qemu-rust@nongnu.org; Wed, 01 Oct 2025 11:32:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759332700;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vkjoJG+/fUzxN81qDBFwgG4tDymoOTuL4zysWSjKw+U=;
- b=MBfxQM+HDGAuaVkHJC1yHuXyNuO2jD2vSXC4pgQqGSEwnujeL49WUoZmO+Dpm0enzvz0lt
- CdGUXqUTKSpTnRqVki1a5h+CTmYzo1vkyA1KXzbefV/Sy7KC1wt0Tws7ZrbOpD5UPAZ2BZ
- y6O68Y0WitznxN5Op/uthFCks/ctAcU=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-623-PPW-lWExMouJjs_ebg3DHg-1; Wed,
- 01 Oct 2025 11:31:37 -0400
-X-MC-Unique: PPW-lWExMouJjs_ebg3DHg-1
-X-Mimecast-MFC-AGG-ID: PPW-lWExMouJjs_ebg3DHg_1759332694
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 95DDE180057D; Wed,  1 Oct 2025 15:31:32 +0000 (UTC)
-Received: from localhost (unknown [10.2.16.112])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id DC82A180035E; Wed,  1 Oct 2025 15:31:31 +0000 (UTC)
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Bandan Das <bsd@redhat.com>, Markus Armbruster <armbru@redhat.com>,
- =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Mahmoud Mandour <ma.mandourr@gmail.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Richard Henderson <rth@twiddle.net>, Alexander Bulekov <alxndr@bu.edu>,
- Stefan Hajnoczi <stefanha@redhat.com>,
- Pierrick Bouvier <pierrick.bouvier@linaro.org>, qemu-rust@nongnu.org,
- =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
- Qiuhao Li <Qiuhao.Li@outlook.com>, Cleber Rosa <crosa@redhat.com>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Darren Kenny <darren.kenny@oracle.com>,
- Michael Roth <michael.roth@amd.com>, Mads Ynddal <mads@ynddal.dk>,
- Alexandre Iooss <erdnaxe@crans.org>, John Snow <jsnow@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>, Fabiano Rosas <farosas@suse.de>,
- Zhao Liu <zhao1.liu@intel.com>
-Subject: [PULL 13/16] log: change qemu_loglevel to unsigned
-Date: Wed,  1 Oct 2025 11:30:56 -0400
-Message-ID: <20251001153059.194991-14-stefanha@redhat.com>
-In-Reply-To: <20251001153059.194991-1-stefanha@redhat.com>
-References: <20251001153059.194991-1-stefanha@redhat.com>
+ (Exim 4.90_1) (envelope-from <ktokunaga.mail@gmail.com>)
+ id 1v46kl-0006F1-6D
+ for qemu-rust@nongnu.org; Wed, 01 Oct 2025 20:00:59 -0400
+Received: from mail-pg1-x52f.google.com ([2607:f8b0:4864:20::52f])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <ktokunaga.mail@gmail.com>)
+ id 1v46kb-00073Y-8i
+ for qemu-rust@nongnu.org; Wed, 01 Oct 2025 20:00:56 -0400
+Received: by mail-pg1-x52f.google.com with SMTP id
+ 41be03b00d2f7-b523fb676efso368348a12.3
+ for <qemu-rust@nongnu.org>; Wed, 01 Oct 2025 17:00:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1759363240; x=1759968040; darn=nongnu.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=19lwUuZNKZ2bDLpTXMefc0x8xklKWo67KC08NTtTmeo=;
+ b=WwrtG40KXVEp6IlBt1Two32ryXmmrZ9ycrHIGA75I0y3MPmf/GbK9JkfsN6/g+cnuy
+ u7pk/TPr4n3vQ2u8j0yP88n6zpPslxeAfsQatWNuhFBIL2+GmWFA/o7N/AqqzTDoNzr5
+ d0PDHOVQhEqGqFKGLPiZZ1mgRHBE+qMq4M4ZPIlnt+sMPOOFy9Hw53xJpHP+V/94rN1a
+ UuEK7pIt5FrttnzUB1qlQDenqWFTWUELGczdxclkhpIOg/CXz2fbYz4g5jDyQIbH7lQc
+ sk+4kVrccqG+EIsc+vlVQRdqyo/TfcXXr9LyRZ2iCNjmTwntoNt4aQzslRZQF+cQ8vJA
+ AgRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1759363240; x=1759968040;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=19lwUuZNKZ2bDLpTXMefc0x8xklKWo67KC08NTtTmeo=;
+ b=dtrw7eWdWpudTd83vKb/m+3qzYmyVAvLRD38Lrom70V+9a/IVELyASCyL9UZEaSGuJ
+ kjIk1oVa1C4a/VAU6Rw1X27t6wRGFaHRngDOB0bAGWtX2ZfAxo+cz478b6koCPSE8SJ8
+ 2k5FeponUwnthHLJ+X8/347XtbsJ3UD81AsMCNxox75HukDSMs5u56dcIPhMyYMRsl+J
+ Vnq3+pxvpwMUd/due0n63SXytYH89sCIOfCgFbro6WNl71g08C6GwuhQooPBYBPnaU78
+ EUORUCS3N5GZKQmEkHP3/msdR5oaJYNKASbV4S3swzOIlr+kP9e5zbRGcRwsi72Qg3yn
+ kWJQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWHVtGXSMjHkAeWcJCitzsd6W0FwuCDJae0eM4UEYsFZm/dMcl/4+AmDhSQ6Q9IWzF0wfbHBfyaYw8=@nongnu.org
+X-Gm-Message-State: AOJu0YwzhOOHC5j5xX4oOD65MuYzfW609C+Bzw1Fa5iEqe3d2bh6CswT
+ TTfhh6ON82TEDMYhRewZGDoCrCjaQ0vGnkifuvGhsisz94R75tnaPFUVzbw+K0G1TLCbaVWdAWi
+ GcFtn9WUmvqVe+maz30UCLq2Sb4CrFRA=
+X-Gm-Gg: ASbGncsh8JW8U1ntcLtxX6Hbi+Ej4DgAhGHafoOE8CbzpfiXvdVO5EKgQbNXjugxNwE
+ Fr0/XSobLYLkvFXD7TCvYaQbEmmqkd7d1XA7aoXWt5eaNaCLklyrQC+VX5EfNQd5m9Mr/ixkOJU
+ 1fUe8ZZ+cMqL5QYXiLnq2JedbMzptn+DfQswqlos6Xs1e9PLW3VNj7oduneBRtYRKdCIVbEOc0L
+ t0v/KCotnpQMckxvHKxrbb5YBioRLePVnGhbhSfSVqNgw013IwcxFKnxsQX
+X-Google-Smtp-Source: AGHT+IEAP3x0ZEqWZzyZLcacNQMZiKNQhUBlXwJP/p9L8otJgtSzqlIetg5287Vk7Nq5tH1F4qi8F4wOGN3ob3Wtntc=
+X-Received: by 2002:a17:902:f650:b0:24b:164d:4e61 with SMTP id
+ d9443c01a7336-28e7f2a26femr60203655ad.13.1759363239998; Wed, 01 Oct 2025
+ 17:00:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=stefanha@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -25
-X-Spam_score: -2.6
+References: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
+ <20250924120426.2158655-28-marcandre.lureau@redhat.com>
+ <CAEDrbUbOWp24F_wO88Tb9ZCM8Q+jXEK_1BzwGMwC3MG=3TzgAA@mail.gmail.com>
+ <cbb6c926-b5a6-49c2-8b35-0988e1fcc7ce@redhat.com>
+In-Reply-To: <cbb6c926-b5a6-49c2-8b35-0988e1fcc7ce@redhat.com>
+From: Kohei Tokunaga <ktokunaga.mail@gmail.com>
+Date: Thu, 2 Oct 2025 09:00:27 +0900
+X-Gm-Features: AS18NWD-yMDc_EwfuqcImRf38F3sXJgpX53bBJA282HVdDz9__vj9Pzi-gb0RjA
+Message-ID: <CAEDrbUZBdWOMWVYcfUf7aV1+=QpyM0GQVnxhcxcU43WPTWezeQ@mail.gmail.com>
+Subject: Re: [PATCH v2 27/27] WIP: enable rust for wasm/emscripten
+To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
+Cc: marcandre.lureau@redhat.com, Kyle Evans <kevans@freebsd.org>, 
+ Yonggang Luo <luoyonggang@gmail.com>, Li-Wen Hsu <lwhsu@freebsd.org>, 
+ Thomas Huth <thuth@redhat.com>,
+ =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+ Warner Losh <imp@bsdimp.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, Ed Maste <emaste@freebsd.org>,
+ devel@lists.libvirt.org, 
+ qemu-rust@nongnu.org, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
+Content-Type: multipart/alternative; boundary="000000000000f3791c064021ac4b"
+Received-SPF: pass client-ip=2607:f8b0:4864:20::52f;
+ envelope-from=ktokunaga.mail@gmail.com; helo=mail-pg1-x52f.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.518,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, T_SPF_TEMPERROR=0.01 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -100,130 +106,27 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Paolo Bonzini <pbonzini@redhat.com>
+--000000000000f3791c064021ac4b
+Content-Type: text/plain; charset="UTF-8"
 
-Bindgen makes the LOG_* constants unsigned, even if they are defined as
-(1 << 15):
+Hi Paolo,
 
-   pub const LOG_TRACE: u32 = 32768;
+> can you please open a PR for this patch?
 
-Make them unsigned in C as well through the BIT() macro, and also change
-the type of the variable that they are used with.
+Sure, I've opened a PR:
+https://github.com/mesonbuild/meson/pull/15074
 
-Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <20250929154938.594389-14-pbonzini@redhat.com>
-Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
----
- include/qemu/log-for-trace.h |  4 ++--
- include/qemu/log.h           | 44 ++++++++++++++++++------------------
- util/log.c                   |  2 +-
- rust/util/src/log.rs         |  2 +-
- 4 files changed, 26 insertions(+), 26 deletions(-)
+Regards,
+Kohei
 
-diff --git a/include/qemu/log-for-trace.h b/include/qemu/log-for-trace.h
-index d47c9cd446..f3a8791f1d 100644
---- a/include/qemu/log-for-trace.h
-+++ b/include/qemu/log-for-trace.h
-@@ -19,9 +19,9 @@
- #define QEMU_LOG_FOR_TRACE_H
- 
- /* Private global variable, don't use */
--extern int qemu_loglevel;
-+extern unsigned qemu_loglevel;
- 
--#define LOG_TRACE          (1 << 15)
-+#define LOG_TRACE          (1u << 15)
- 
- /* Returns true if a bit is set in the current loglevel mask */
- static inline bool qemu_loglevel_mask(int mask)
-diff --git a/include/qemu/log.h b/include/qemu/log.h
-index aae72985f0..7effba4da4 100644
---- a/include/qemu/log.h
-+++ b/include/qemu/log.h
-@@ -14,30 +14,30 @@ bool qemu_log_enabled(void);
- /* Returns true if qemu_log() will write somewhere other than stderr. */
- bool qemu_log_separate(void);
- 
--#define CPU_LOG_TB_OUT_ASM (1 << 0)
--#define CPU_LOG_TB_IN_ASM  (1 << 1)
--#define CPU_LOG_TB_OP      (1 << 2)
--#define CPU_LOG_TB_OP_OPT  (1 << 3)
--#define CPU_LOG_INT        (1 << 4)
--#define CPU_LOG_EXEC       (1 << 5)
--#define CPU_LOG_PCALL      (1 << 6)
--#define CPU_LOG_TB_CPU     (1 << 8)
--#define CPU_LOG_RESET      (1 << 9)
--#define LOG_UNIMP          (1 << 10)
--#define LOG_GUEST_ERROR    (1 << 11)
--#define CPU_LOG_MMU        (1 << 12)
--#define CPU_LOG_TB_NOCHAIN (1 << 13)
--#define CPU_LOG_PAGE       (1 << 14)
-+#define CPU_LOG_TB_OUT_ASM (1u << 0)
-+#define CPU_LOG_TB_IN_ASM  (1u << 1)
-+#define CPU_LOG_TB_OP      (1u << 2)
-+#define CPU_LOG_TB_OP_OPT  (1u << 3)
-+#define CPU_LOG_INT        (1u << 4)
-+#define CPU_LOG_EXEC       (1u << 5)
-+#define CPU_LOG_PCALL      (1u << 6)
-+#define CPU_LOG_TB_CPU     (1u << 8)
-+#define CPU_LOG_RESET      (1u << 9)
-+#define LOG_UNIMP          (1u << 10)
-+#define LOG_GUEST_ERROR    (1u << 11)
-+#define CPU_LOG_MMU        (1u << 12)
-+#define CPU_LOG_TB_NOCHAIN (1u << 13)
-+#define CPU_LOG_PAGE       (1u << 14)
- /* LOG_TRACE (1 << 15) is defined in log-for-trace.h */
--#define CPU_LOG_TB_OP_IND  (1 << 16)
--#define CPU_LOG_TB_FPU     (1 << 17)
--#define CPU_LOG_PLUGIN     (1 << 18)
-+#define CPU_LOG_TB_OP_IND  (1u << 16)
-+#define CPU_LOG_TB_FPU     (1u << 17)
-+#define CPU_LOG_PLUGIN     (1u << 18)
- /* LOG_STRACE is used for user-mode strace logging. */
--#define LOG_STRACE         (1 << 19)
--#define LOG_PER_THREAD     (1 << 20)
--#define CPU_LOG_TB_VPU     (1 << 21)
--#define LOG_TB_OP_PLUGIN   (1 << 22)
--#define LOG_INVALID_MEM    (1 << 23)
-+#define LOG_STRACE         (1u << 19)
-+#define LOG_PER_THREAD     (1u << 20)
-+#define CPU_LOG_TB_VPU     (1u << 21)
-+#define LOG_TB_OP_PLUGIN   (1u << 22)
-+#define LOG_INVALID_MEM    (1u << 23)
- 
- /* Lock/unlock output. */
- 
-diff --git a/util/log.c b/util/log.c
-index abdcb6b311..41f78ce86b 100644
---- a/util/log.c
-+++ b/util/log.c
-@@ -44,7 +44,7 @@ static FILE *global_file;
- static __thread FILE *thread_file;
- static __thread Notifier qemu_log_thread_cleanup_notifier;
- 
--int qemu_loglevel;
-+unsigned qemu_loglevel;
- static bool log_per_thread;
- static GArray *debug_regions;
- 
-diff --git a/rust/util/src/log.rs b/rust/util/src/log.rs
-index af9a3e9123..0a4bc4249a 100644
---- a/rust/util/src/log.rs
-+++ b/rust/util/src/log.rs
-@@ -142,7 +142,7 @@ macro_rules! log_mask_ln {
-         let _: $crate::log::Log = $mask;
- 
-         if unsafe {
--            ($crate::bindings::qemu_loglevel & ($mask as std::os::raw::c_int)) != 0
-+            ($crate::bindings::qemu_loglevel & ($mask as std::os::raw::c_uint)) != 0
-         } {
-             _ = $crate::log::LogGuard::log_fmt(
-                 format_args!("{}\n", format_args!($fmt $($args)*)));
--- 
-2.51.0
+--000000000000f3791c064021ac4b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div dir=3D"ltr">Hi Paolo,<br><br>&gt; can you please open=
+ a PR for this patch?<br><br>Sure, I&#39;ve opened a PR:<br><a href=3D"http=
+s://github.com/mesonbuild/meson/pull/15074">https://github.com/mesonbuild/m=
+eson/pull/15074</a><br><br>Regards,<br>Kohei</div></div>
+
+--000000000000f3791c064021ac4b--
 
