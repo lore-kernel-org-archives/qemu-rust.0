@@ -4,93 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78998CAC5BB
-	for <qemu-rust@archiver.kernel.org>; Thu,  2 Oct 2025 00:01:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DC78CCA470
+	for <qemu-rust@archiver.kernel.org>; Tue,  7 Oct 2025 19:44:56 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v46km-0006G2-QM; Wed, 01 Oct 2025 20:01:01 -0400
+	id 1v6Dc3-0005JJ-6r; Tue, 07 Oct 2025 15:44:43 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <ktokunaga.mail@gmail.com>)
- id 1v46kl-0006F1-6D
- for qemu-rust@nongnu.org; Wed, 01 Oct 2025 20:00:59 -0400
-Received: from mail-pg1-x52f.google.com ([2607:f8b0:4864:20::52f])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <ktokunaga.mail@gmail.com>)
- id 1v46kb-00073Y-8i
- for qemu-rust@nongnu.org; Wed, 01 Oct 2025 20:00:56 -0400
-Received: by mail-pg1-x52f.google.com with SMTP id
- 41be03b00d2f7-b523fb676efso368348a12.3
- for <qemu-rust@nongnu.org>; Wed, 01 Oct 2025 17:00:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1759363240; x=1759968040; darn=nongnu.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=19lwUuZNKZ2bDLpTXMefc0x8xklKWo67KC08NTtTmeo=;
- b=WwrtG40KXVEp6IlBt1Two32ryXmmrZ9ycrHIGA75I0y3MPmf/GbK9JkfsN6/g+cnuy
- u7pk/TPr4n3vQ2u8j0yP88n6zpPslxeAfsQatWNuhFBIL2+GmWFA/o7N/AqqzTDoNzr5
- d0PDHOVQhEqGqFKGLPiZZ1mgRHBE+qMq4M4ZPIlnt+sMPOOFy9Hw53xJpHP+V/94rN1a
- UuEK7pIt5FrttnzUB1qlQDenqWFTWUELGczdxclkhpIOg/CXz2fbYz4g5jDyQIbH7lQc
- sk+4kVrccqG+EIsc+vlVQRdqyo/TfcXXr9LyRZ2iCNjmTwntoNt4aQzslRZQF+cQ8vJA
- AgRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759363240; x=1759968040;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=19lwUuZNKZ2bDLpTXMefc0x8xklKWo67KC08NTtTmeo=;
- b=dtrw7eWdWpudTd83vKb/m+3qzYmyVAvLRD38Lrom70V+9a/IVELyASCyL9UZEaSGuJ
- kjIk1oVa1C4a/VAU6Rw1X27t6wRGFaHRngDOB0bAGWtX2ZfAxo+cz478b6koCPSE8SJ8
- 2k5FeponUwnthHLJ+X8/347XtbsJ3UD81AsMCNxox75HukDSMs5u56dcIPhMyYMRsl+J
- Vnq3+pxvpwMUd/due0n63SXytYH89sCIOfCgFbro6WNl71g08C6GwuhQooPBYBPnaU78
- EUORUCS3N5GZKQmEkHP3/msdR5oaJYNKASbV4S3swzOIlr+kP9e5zbRGcRwsi72Qg3yn
- kWJQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWHVtGXSMjHkAeWcJCitzsd6W0FwuCDJae0eM4UEYsFZm/dMcl/4+AmDhSQ6Q9IWzF0wfbHBfyaYw8=@nongnu.org
-X-Gm-Message-State: AOJu0YwzhOOHC5j5xX4oOD65MuYzfW609C+Bzw1Fa5iEqe3d2bh6CswT
- TTfhh6ON82TEDMYhRewZGDoCrCjaQ0vGnkifuvGhsisz94R75tnaPFUVzbw+K0G1TLCbaVWdAWi
- GcFtn9WUmvqVe+maz30UCLq2Sb4CrFRA=
-X-Gm-Gg: ASbGncsh8JW8U1ntcLtxX6Hbi+Ej4DgAhGHafoOE8CbzpfiXvdVO5EKgQbNXjugxNwE
- Fr0/XSobLYLkvFXD7TCvYaQbEmmqkd7d1XA7aoXWt5eaNaCLklyrQC+VX5EfNQd5m9Mr/ixkOJU
- 1fUe8ZZ+cMqL5QYXiLnq2JedbMzptn+DfQswqlos6Xs1e9PLW3VNj7oduneBRtYRKdCIVbEOc0L
- t0v/KCotnpQMckxvHKxrbb5YBioRLePVnGhbhSfSVqNgw013IwcxFKnxsQX
-X-Google-Smtp-Source: AGHT+IEAP3x0ZEqWZzyZLcacNQMZiKNQhUBlXwJP/p9L8otJgtSzqlIetg5287Vk7Nq5tH1F4qi8F4wOGN3ob3Wtntc=
-X-Received: by 2002:a17:902:f650:b0:24b:164d:4e61 with SMTP id
- d9443c01a7336-28e7f2a26femr60203655ad.13.1759363239998; Wed, 01 Oct 2025
- 17:00:39 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
+ id 1v6Dbz-0005IQ-Fy
+ for qemu-rust@nongnu.org; Tue, 07 Oct 2025 15:44:39 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
+ id 1v6Dbw-0002iw-He
+ for qemu-rust@nongnu.org; Tue, 07 Oct 2025 15:44:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1759866274;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=mLDC095Je6PjKXnwajIEj0WPK/G+Ot+6NXGRIX+1VlE=;
+ b=Fx+iVbqxCLjuustWe2nPlknhSxQIKzuPQbHQhVFwO62mKcOGhDsSUj+iKaYIo9Ji+YyOvF
+ ieRiD4oljdTjK5Gio503IuyVVG53W8Rp3+GqhSchOaamdVNVQnyFnxVoFapmufSYk3yjEh
+ vSWUWHVQQJqxNw9lQcrCtMLF0WXSayk=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-594-bN6LY8bBOZ2IMoApLegyVw-1; Tue,
+ 07 Oct 2025 15:44:31 -0400
+X-MC-Unique: bN6LY8bBOZ2IMoApLegyVw-1
+X-Mimecast-MFC-AGG-ID: bN6LY8bBOZ2IMoApLegyVw_1759866270
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id CFC0B1800562; Tue,  7 Oct 2025 19:44:29 +0000 (UTC)
+Received: from localhost (unknown [10.2.16.87])
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 03C9A180035E; Tue,  7 Oct 2025 19:44:28 +0000 (UTC)
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Stefan Hajnoczi <stefanha@redhat.com>
+Subject: [PATCH] rust: fix path to rust_root_crate.sh
+Date: Tue,  7 Oct 2025 15:44:27 -0400
+Message-ID: <20251007194427.118871-1-stefanha@redhat.com>
 MIME-Version: 1.0
-References: <20250924120426.2158655-1-marcandre.lureau@redhat.com>
- <20250924120426.2158655-28-marcandre.lureau@redhat.com>
- <CAEDrbUbOWp24F_wO88Tb9ZCM8Q+jXEK_1BzwGMwC3MG=3TzgAA@mail.gmail.com>
- <cbb6c926-b5a6-49c2-8b35-0988e1fcc7ce@redhat.com>
-In-Reply-To: <cbb6c926-b5a6-49c2-8b35-0988e1fcc7ce@redhat.com>
-From: Kohei Tokunaga <ktokunaga.mail@gmail.com>
-Date: Thu, 2 Oct 2025 09:00:27 +0900
-X-Gm-Features: AS18NWD-yMDc_EwfuqcImRf38F3sXJgpX53bBJA282HVdDz9__vj9Pzi-gb0RjA
-Message-ID: <CAEDrbUZBdWOMWVYcfUf7aV1+=QpyM0GQVnxhcxcU43WPTWezeQ@mail.gmail.com>
-Subject: Re: [PATCH v2 27/27] WIP: enable rust for wasm/emscripten
-To: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org
-Cc: marcandre.lureau@redhat.com, Kyle Evans <kevans@freebsd.org>, 
- Yonggang Luo <luoyonggang@gmail.com>, Li-Wen Hsu <lwhsu@freebsd.org>, 
- Thomas Huth <thuth@redhat.com>,
- =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
- Warner Losh <imp@bsdimp.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
- Jiaxun Yang <jiaxun.yang@flygoat.com>, Ed Maste <emaste@freebsd.org>,
- devel@lists.libvirt.org, 
- qemu-rust@nongnu.org, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>
-Content-Type: multipart/alternative; boundary="000000000000f3791c064021ac4b"
-Received-SPF: pass client-ip=2607:f8b0:4864:20::52f;
- envelope-from=ktokunaga.mail@gmail.com; helo=mail-pg1-x52f.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=stefanha@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -24
+X-Spam_score: -2.5
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
- HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.422,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -106,27 +81,28 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
---000000000000f3791c064021ac4b
-Content-Type: text/plain; charset="UTF-8"
+Generated Rust root crate source files contain the wrong path to the
+rust_root_crate.sh script.
 
-Hi Paolo,
+Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+---
+ scripts/rust/rust_root_crate.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> can you please open a PR for this patch?
+diff --git a/scripts/rust/rust_root_crate.sh b/scripts/rust/rust_root_crate.sh
+index 975bddf7f1..f05b8d0210 100755
+--- a/scripts/rust/rust_root_crate.sh
++++ b/scripts/rust/rust_root_crate.sh
+@@ -4,7 +4,7 @@ set -eu
+ 
+ cat <<EOF
+ // @generated
+-// This file is autogenerated by scripts/rust_root_crate.sh
++// This file is autogenerated by scripts/rust/rust_root_crate.sh
+ 
+ EOF
+ 
+-- 
+2.51.0
 
-Sure, I've opened a PR:
-https://github.com/mesonbuild/meson/pull/15074
-
-Regards,
-Kohei
-
---000000000000f3791c064021ac4b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">Hi Paolo,<br><br>&gt; can you please open=
- a PR for this patch?<br><br>Sure, I&#39;ve opened a PR:<br><a href=3D"http=
-s://github.com/mesonbuild/meson/pull/15074">https://github.com/mesonbuild/m=
-eson/pull/15074</a><br><br>Regards,<br>Kohei</div></div>
-
---000000000000f3791c064021ac4b--
 
