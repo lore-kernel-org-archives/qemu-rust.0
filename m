@@ -4,68 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DC78CCA470
-	for <qemu-rust@archiver.kernel.org>; Tue,  7 Oct 2025 19:44:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9DDCCCA470
+	for <qemu-rust@archiver.kernel.org>; Wed,  8 Oct 2025 04:04:25 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v6Dc3-0005JJ-6r; Tue, 07 Oct 2025 15:44:43 -0400
+	id 1v6LPG-0006Ms-87; Wed, 08 Oct 2025 00:04:02 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
- id 1v6Dbz-0005IQ-Fy
- for qemu-rust@nongnu.org; Tue, 07 Oct 2025 15:44:39 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
- id 1v6Dbw-0002iw-He
- for qemu-rust@nongnu.org; Tue, 07 Oct 2025 15:44:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1759866274;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=mLDC095Je6PjKXnwajIEj0WPK/G+Ot+6NXGRIX+1VlE=;
- b=Fx+iVbqxCLjuustWe2nPlknhSxQIKzuPQbHQhVFwO62mKcOGhDsSUj+iKaYIo9Ji+YyOvF
- ieRiD4oljdTjK5Gio503IuyVVG53W8Rp3+GqhSchOaamdVNVQnyFnxVoFapmufSYk3yjEh
- vSWUWHVQQJqxNw9lQcrCtMLF0WXSayk=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-594-bN6LY8bBOZ2IMoApLegyVw-1; Tue,
- 07 Oct 2025 15:44:31 -0400
-X-MC-Unique: bN6LY8bBOZ2IMoApLegyVw-1
-X-Mimecast-MFC-AGG-ID: bN6LY8bBOZ2IMoApLegyVw_1759866270
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id CFC0B1800562; Tue,  7 Oct 2025 19:44:29 +0000 (UTC)
-Received: from localhost (unknown [10.2.16.87])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 03C9A180035E; Tue,  7 Oct 2025 19:44:28 +0000 (UTC)
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Stefan Hajnoczi <stefanha@redhat.com>
-Subject: [PATCH] rust: fix path to rust_root_crate.sh
-Date: Tue,  7 Oct 2025 15:44:27 -0400
-Message-ID: <20251007194427.118871-1-stefanha@redhat.com>
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1v6LPD-0006M2-IX
+ for qemu-rust@nongnu.org; Wed, 08 Oct 2025 00:03:59 -0400
+Received: from mail-wm1-x32b.google.com ([2a00:1450:4864:20::32b])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1v6LPB-0005Wa-ON
+ for qemu-rust@nongnu.org; Wed, 08 Oct 2025 00:03:59 -0400
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-46e4ad36541so74147055e9.0
+ for <qemu-rust@nongnu.org>; Tue, 07 Oct 2025 21:03:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1759896235; x=1760501035; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=pDxokV8dHp4k5TvHdeMKKP9EAWhnhvNQGRW6Dz2Bgi0=;
+ b=fMzC4wwYyhA9y+9YjECxNszUVoG1fLjwKr31+NULxhzpbvpKa6SQLy8uBNrNb3FXhr
+ 5+O5udh5dogYnvq6cOlMr9OPkxLj27LepjFp4LSNenX7XSW0Y4NP0rnb+RP89gsz1r4H
+ N48JqHU8+amWqr2bl99jt8ziUHeSPox2c/M+k3K3jhKuajq1N/umF6As0Wvn0UbOz87F
+ t5kZoTFu0dXJBSKIA7hANPs3fJGMI7sK7zJ/UO7/4XWmMf+9cv8nNBhOOucDfgfMaWBi
+ qdunFQCwPK0iO7rEUldsHGbfOHHNQKEkBBKtoH7JbxFOYiz8KG5wwm57lpyysjUveTi+
+ 4M1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1759896235; x=1760501035;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=pDxokV8dHp4k5TvHdeMKKP9EAWhnhvNQGRW6Dz2Bgi0=;
+ b=n2oyoeHUtIzqrQAJcKPiDz7+z/DSrLLzZBEtwVXZvFTKilgA2nXYGkeztlYEuFNvmg
+ erfKF7y8Qamiluoz2iljB0K0HiI2n+FGh4yy28eKYwQECWXAl8LKmN5YwRHk5fI/61jy
+ eRG7Fwa4c8DzCH3F+SqJCGz1XHca8zvEMRVfOdDaSA0cV255E54H89w3AadbEZIGDaoA
+ e6ZyDGwirc4//5G5mKzF78Jt6vfm0u4y4/k6d0breYNjoCPCplXBTFhmEtijk3Bvoyaz
+ LHmUHuSMKneGSjM+cLmNJDwDXWUrseQlgKaj5JxnEAC+GBz0/M1fwEIloe1PrKLCLlKr
+ VvHg==
+X-Gm-Message-State: AOJu0YyLSnQ2oMeoAq9qw2eWmwrXxjPBX+Dm173MqWSu9sg54D3LznbA
+ 8DKhHyr6kmL+dxievTqDG2MN2HBdK5BVxPULfUjporAXPC7b4M1Q0l4Ax919WuHB/N8=
+X-Gm-Gg: ASbGncsHePqw8CxnPFPjEmuk0dR5cCgNghrDwssFI/rZSsdNuji0AsKhrcCiXBRR46M
+ naBgoXYYkegzcnEvFzZbmtb5ZKcc7w4rPEDQDRx81QSsEagxEKNJI3KfeZOdaPOyCFYNdP/PsW6
+ l8L+ZaUe/o7s7Y9RNWkh/9dMC5Y36kJi2AauKjH5jcuE/s4Ifoz8g9PfSLv24aR00l3tXPoKiht
+ xNwz3Ziqf2qtwp91B6phVZnqvdNrkNWWKIYvCHl/3JgjjiRcIM9L/C+fvvE9Yyx5r1XyeiIn0cd
+ IB5z9wYL+RK60rLSt9qiZqHMGjA9DygllPytczOJrIJbdNOGvUQDaDhu0eSo0ZnQWFy+pjMu9p7
+ UqYDZK23bQksYtA+OSxM045eKs2L6c6e7Ellz6dwYCIC4l4cyaIlC+n4pyhQCuP8CchP47mlFqb
+ rMz0b+OJmIlWtiHqxuew==
+X-Google-Smtp-Source: AGHT+IFLpFYJZ7f91YsjDOeznZPw9lkkoySKt0IpXaGIH3+gXMaFPfCUNJZq4J0uszMlbZkeYgioMA==
+X-Received: by 2002:a05:600c:8b42:b0:45d:e6b6:55fe with SMTP id
+ 5b1f17b1804b1-46fa9b16607mr10581765e9.34.1759896235631; 
+ Tue, 07 Oct 2025 21:03:55 -0700 (PDT)
+Received: from [192.168.69.221] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4255d8e97fbsm27753043f8f.34.2025.10.07.21.03.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Oct 2025 21:03:54 -0700 (PDT)
+Message-ID: <f09b71ea-7402-4e41-8071-5ff45555c128@linaro.org>
+Date: Wed, 8 Oct 2025 06:03:52 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] rust: fix path to rust_root_crate.sh
+Content-Language: en-US
+To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+References: <20251007194427.118871-1-stefanha@redhat.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20251007194427.118871-1-stefanha@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=stefanha@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -24
-X-Spam_score: -2.5
+Received-SPF: pass client-ip=2a00:1450:4864:20::32b;
+ envelope-from=philmd@linaro.org; helo=mail-wm1-x32b.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.422,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -81,28 +100,15 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Generated Rust root crate source files contain the wrong path to the
-rust_root_crate.sh script.
+On 7/10/25 21:44, Stefan Hajnoczi wrote:
+> Generated Rust root crate source files contain the wrong path to the
+> rust_root_crate.sh script.
+> 
+> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> ---
+>   scripts/rust/rust_root_crate.sh | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 
-Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
----
- scripts/rust/rust_root_crate.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/scripts/rust/rust_root_crate.sh b/scripts/rust/rust_root_crate.sh
-index 975bddf7f1..f05b8d0210 100755
---- a/scripts/rust/rust_root_crate.sh
-+++ b/scripts/rust/rust_root_crate.sh
-@@ -4,7 +4,7 @@ set -eu
- 
- cat <<EOF
- // @generated
--// This file is autogenerated by scripts/rust_root_crate.sh
-+// This file is autogenerated by scripts/rust/rust_root_crate.sh
- 
- EOF
- 
--- 
-2.51.0
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
 
