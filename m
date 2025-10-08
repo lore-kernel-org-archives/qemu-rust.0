@@ -4,62 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B88D8CCA470
-	for <qemu-rust@archiver.kernel.org>; Wed,  8 Oct 2025 15:46:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A5ACCD183
+	for <qemu-rust@archiver.kernel.org>; Wed,  8 Oct 2025 16:07:44 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v6WMi-0005JV-PQ; Wed, 08 Oct 2025 11:46:10 -0400
+	id 1v6Wh8-0006Zm-V1; Wed, 08 Oct 2025 12:07:14 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1v6WMb-0005J7-3z; Wed, 08 Oct 2025 11:46:03 -0400
-Received: from mgamail.intel.com ([198.175.65.9])
+ id 1v6Wgz-0006TH-SG; Wed, 08 Oct 2025 12:07:06 -0400
+Received: from mgamail.intel.com ([192.198.163.7])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1v6WMS-0008Eb-Qy; Wed, 08 Oct 2025 11:46:00 -0400
+ id 1v6Wgu-0003Yl-I5; Wed, 08 Oct 2025 12:07:05 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1759938353; x=1791474353;
+ t=1759939622; x=1791475622;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=roZY+39itQRbkIpjQ8uQn0VVrly44G8m51c/qvakQnI=;
- b=nkG+5iLo/mO8ms+O7nczKYV7fvYAjWa4mcCikrGGOluCAzXD3wywe18/
- 4Fh+dh0PMwv6EhKCxOTzUAMcJUbjhpNdyNgeGnBUvpQae7VDDfnYNavo1
- m764WTVVyQl0tbnGDnrIN9jlfPo9pKKSnE85o2dOXMdHgUIGsZkSzh5px
- 96jKilstBDx9vtlVv6UKwLl5CNTxe9rSNubt4sZk8pEvCuWVJZYVH7ZM4
- vY7b0/f/z9If1HxMngQjYMNQTBT4TNm4A7AoXVSpEG5Vbc5Cqf70KOyFv
- VtkUzBZ4ke4CH5g25bNPEhuOPRAQ3tBn2rXUjL/SdRzldopzNCjU64Lpv A==;
-X-CSE-ConnectionGUID: DJCwrBkIT+Kucrb2X9/CjQ==
-X-CSE-MsgGUID: wl4o/4V0QEa6Z53U2tJ2eA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11576"; a="84753707"
-X-IronPort-AV: E=Sophos;i="6.19,213,1754982000"; d="scan'208";a="84753707"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2025 08:45:42 -0700
-X-CSE-ConnectionGUID: VHq4QfpCQASQtJRTQrNCyw==
-X-CSE-MsgGUID: jAwdlRFmSyeF/j9AGqxM7A==
+ mime-version:in-reply-to;
+ bh=NqnKVblzgHh4rHu/Zi6n6SF2/RxYHjTM6wJwcL6baeo=;
+ b=bqd3c5fcVESL3oynnPQj+e87elMeOMiSZl/Mp12cBSP57rNjX5u1uTUr
+ m6ixJxtVKSdfFLVI2tq+VH+SXkZABewbF9zpFEpv+xZ6GhSzFlP9ij1fQ
+ ky1Mf30nLnNfVFMSEXyNZyiW1Z71zvRVZ2+DCLJ+lVZFbA/hfoBzWy7ZY
+ 4+WVTdB/pmjCsTVoEVnyfsQcRxprrXTwwxkmGFA6sERPnqeY5ONnAayP9
+ YPbx0Bvo6tCE6GsmX2L0yAPQs5Ib6HX80EJE0nwlIbYDHxIE/q1TOTTxD
+ du0+sSXQ0ijKnTT4Pfw2hXeOZ4mMcJKrYi5+9Q8YqafQWZsx2Xj4Vx3Bo Q==;
+X-CSE-ConnectionGUID: rh0OGaTKRuqu8BsPv2/D7g==
+X-CSE-MsgGUID: SjCNG4v8RA+7w8bSGrCvKA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11576"; a="87601273"
+X-IronPort-AV: E=Sophos;i="6.19,213,1754982000"; d="scan'208";a="87601273"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2025 09:06:52 -0700
+X-CSE-ConnectionGUID: zyMPlym6QVqo4IxncZ5QUA==
+X-CSE-MsgGUID: RePIAqwLTZeWOOH5ahE6fA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,213,1754982000"; d="scan'208";a="179716773"
+X-IronPort-AV: E=Sophos;i="6.19,213,1754982000"; d="scan'208";a="217577075"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa010.jf.intel.com with ESMTP; 08 Oct 2025 08:45:40 -0700
-Date: Thu, 9 Oct 2025 00:07:42 +0800
+ by orviesa001.jf.intel.com with ESMTP; 08 Oct 2025 09:06:50 -0700
+Date: Thu, 9 Oct 2025 00:28:52 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
+To: Stefan Hajnoczi <stefanha@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
- Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
-Subject: Re: [PATCH] subprojects: Remove version number from .gitignore
-Message-ID: <aOaMTqpsbcbazzUf@intel.com>
-References: <20250930120008.700432-1-pbonzini@redhat.com>
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Subject: Re: [PATCH] rust: fix path to rust_root_crate.sh
+Message-ID: <aOaRRH5VBQkSVmUB@intel.com>
+References: <20251007194427.118871-1-stefanha@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250930120008.700432-1-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.9; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20251007194427.118871-1-stefanha@redhat.com>
+Received-SPF: pass client-ip=192.198.163.7; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -47
 X-Spam_score: -4.8
@@ -84,22 +81,18 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Tue, Sep 30, 2025 at 02:00:08PM +0200, Paolo Bonzini wrote:
-> Date: Tue, 30 Sep 2025 14:00:08 +0200
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH] subprojects: Remove version number from .gitignore
-> X-Mailer: git-send-email 2.51.0
+On Tue, Oct 07, 2025 at 03:44:27PM -0400, Stefan Hajnoczi wrote:
+> Date: Tue,  7 Oct 2025 15:44:27 -0400
+> From: Stefan Hajnoczi <stefanha@redhat.com>
+> Subject: [PATCH] rust: fix path to rust_root_crate.sh
 > 
-> Get rid of all the version numbers, and use wildcard matches instead,
-> because peopl will repeatedly forgot to change these versions.
+> Generated Rust root crate source files contain the wrong path to the
+> rust_root_crate.sh script.
 > 
-> Suggested-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-> Suggested-by: Daniel P. Berrangé <berrange@redhat.com>
-> Suggested-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 > ---
->  subprojects/.gitignore | 30 +++++++++++++++---------------
->  1 file changed, 15 insertions(+), 15 deletions(-)
+>  scripts/rust/rust_root_crate.sh | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
