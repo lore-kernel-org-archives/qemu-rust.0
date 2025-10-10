@@ -4,103 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BA79CCD18E
-	for <qemu-rust@archiver.kernel.org>; Fri, 10 Oct 2025 15:11:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F62FCCA476
+	for <qemu-rust@archiver.kernel.org>; Fri, 10 Oct 2025 15:11:30 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v7ElU-0008O3-Ij; Fri, 10 Oct 2025 11:10:40 -0400
+	id 1v7ElU-0008O7-Tm; Fri, 10 Oct 2025 11:10:40 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v7ElS-0008NW-Oj
- for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:10:38 -0400
+ id 1v7ElT-0008Nr-Ke
+ for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:10:39 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v7ElF-00043V-QB
- for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:10:38 -0400
+ id 1v7ElG-00044F-AG
+ for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:10:39 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1760109019;
+ s=mimecast20190719; t=1760109022;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=1p2DJoRVBR8tV1MAyYgxZfuil60xzN5SPRhSiWSYteE=;
- b=er63XIBsZ7jvFp1v0xJje8q8YuNGGw6cJNylw3l48DeiB9N9clNuY9Ovma5+4592mGt8D3
- GpP7v6aBG9hfFJYspTkE7yrqbPqSMEsfAllmqZ9eyQ9vBFIiUYMGTKy5qXpfIvUtYlCbOs
- LalXRQdQ3bLChZMslIu0Vw6OMyA2xvo=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=EVTFiamtz2g0JhSEELeH53XdwlrM4EAcjsX38InL3bs=;
+ b=Vqrug/d8gFuYWdmuVPswmqm/h6Xy4Q4I+qMacBKxi9GckG/uyNRuQNqjoHfyYe3XxdadT0
+ Ea0ruAJiSmfzRR7iMkH2OY4eSKFDY7JwzArSPrtFVmFUhFJsl3ZVQBUjYLnVDsug23DW6E
+ hW8Xv0anFD2U6TnlO33Kee0WiyMXfF0=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-173-cWC85UddN_Wr71V6gzx0aw-1; Fri, 10 Oct 2025 11:10:17 -0400
-X-MC-Unique: cWC85UddN_Wr71V6gzx0aw-1
-X-Mimecast-MFC-AGG-ID: cWC85UddN_Wr71V6gzx0aw_1760109016
-Received: by mail-ej1-f70.google.com with SMTP id
- a640c23a62f3a-b4544f46392so343516266b.0
- for <qemu-rust@nongnu.org>; Fri, 10 Oct 2025 08:10:16 -0700 (PDT)
+ us-mta-435-ObYlTuUXPRKvDuwDLR_xWw-1; Fri, 10 Oct 2025 11:10:21 -0400
+X-MC-Unique: ObYlTuUXPRKvDuwDLR_xWw-1
+X-Mimecast-MFC-AGG-ID: ObYlTuUXPRKvDuwDLR_xWw_1760109020
+Received: by mail-ed1-f70.google.com with SMTP id
+ 4fb4d7f45d1cf-634bff4ccc6so3304944a12.1
+ for <qemu-rust@nongnu.org>; Fri, 10 Oct 2025 08:10:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760109013; x=1760713813;
+ d=1e100.net; s=20230601; t=1760109019; x=1760713819;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1p2DJoRVBR8tV1MAyYgxZfuil60xzN5SPRhSiWSYteE=;
- b=bG/twStWNd5qTYZtKy+lfTPgzB0Yj4xzyi7TfYt1xdVw/JrJ0blpr4k9ErRfJ1Naor
- 4SORJdixr4coiptEUpVEeIQ7BPgoAJlWRnaSB52gDzLDqMmGYE1FMa7JZi02OqhUtSBj
- U4kwZdmYlyffBE9fF9vHUYW8FbqdKddZLu8xCIFSNVsKGyySeHTKIPQ5LbdTkW/md0F9
- rLndJMxyvz95KbatxgegCczl1KorhveJjQq5r0IvpTdTd7ugKB835ODmdRo0lSS/Ajqc
- PTOrbtnLvGEFD7OJ238fbB2CS4GKkPaqLdcll1L21VkcIn3x7o3mX2E3V6DXq8QtJZ6x
- UQPQ==
+ bh=EVTFiamtz2g0JhSEELeH53XdwlrM4EAcjsX38InL3bs=;
+ b=RJorJh5pTTdL1vuHhBrgiHKnWPGXoNrE8JnjPPc1V8sLufufZbrEfK03nM24fvK2LR
+ zdDF8yXVaO4fPjXuB5zLlEKctaHyRKnNE0/ASXTKO4GMgRtYnbY+a3wSqK04guwhgk6W
+ waSCHMuhtuVE8olMA23QgO5TzSLx2kryAvB4OPSBmxY9KivrLOVpOuEc+TQ1kUuZ98mz
+ 8iYn1jM2tSxaxaTFNug0sEuV4Ppz5Sye6q0mBj0f+FzCbUrw7ysFFZUrcefxlsbQhS0c
+ ADu5r0LU09mFj2rLCU9J8RegX8ilKjKWNB4HRfG+lls0G9sWPzhD4SMb6GhXvmPmWNqg
+ +gtQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUeqYoT7RI3Mf0smU464u7YKGEKAX4aLxuM83jj3dvmK3QDdBW4mzpPiGdjoqzq7Y6U0C0LekI4kl4=@nongnu.org
-X-Gm-Message-State: AOJu0YzaKCRAVtxrOLXxBDuvuLxoDnTmIWqdr6yrh4qAynOi2kNAD6Sx
- jYHtKi6UVbfx8rnW965m46fAz8/qSzbZ3fEBHrxWXAjT8cwr3XQfEt7w2Kzf97IfzH2hVkv1Oa5
- 4lJy5gEgIvQCK34fJFhk58rAfTEBcqF0QTh/3jAg8Xl0TgPZET5amZvTT8eEi3n4=
-X-Gm-Gg: ASbGncsVkepgmMAJADxiGFbz0jzT2b1bIVRl+J81lR8+qzGEZAJPGcGEDpVQsx/Eo2M
- W/5vY2u+i37bEHyNkm7rJ4EoeGilYreaaZrOvS7EODh+fhEWWU3n5R9w1x0qSJQ1tMkc5V3r2B1
- EkGsgnIPrrDCIfRbJXvbkKLhZfoeAXVbPrYySYc8UphFo4K75wJJZqo9LI0S9pqpBmudDLu8DfH
- tir01OApRAMJHkQedfReU/+ASKTlftT//jLZaDtNzxdQhEicKjH6/o+b8UloudNiqXYJei5bS9C
- YNw/eTsmIenZHe5WIq8CrFxRzCEmfLPtM7LyODcXIdxWVVt1gGF6Xct99Qfg6WG5td39B3woulr
- bJeCWbTgvPJUZgjRHmmdAz9lD1lP19G3gw/HzsI1ENhxI
-X-Received: by 2002:a17:907:809:b0:b45:b078:c534 with SMTP id
- a640c23a62f3a-b50ac5cf768mr1355353366b.45.1760109013193; 
- Fri, 10 Oct 2025 08:10:13 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEEqY/Lmavybv5EXJzRc4lxTfQq/vdsK6Ltvb6SFc3/2PjVQdDkvjwgnechuXAJwrkP2t8DpA==
-X-Received: by 2002:a17:907:809:b0:b45:b078:c534 with SMTP id
- a640c23a62f3a-b50ac5cf768mr1355349166b.45.1760109012636; 
- Fri, 10 Oct 2025 08:10:12 -0700 (PDT)
+ AJvYcCUDGyLjusm03mCkS7pmBoJMbXeFOMIEarJ/uxr6l1VAP+NWAwD2YVfPj4FQ7hm7GF70EYrOB1LWfVU=@nongnu.org
+X-Gm-Message-State: AOJu0YzrhE3oB7SIBvrsvMWbH5ZdRc/gra0UWwBpLZ/SH4k4hJXmXeCw
+ iPIKj/AYR8PZ+qqY8jYgaqoU49RX+4voGanK31nx9nqcZt0wR2n07u6TRbNe0IXBwbH1l0Kt69I
+ iQsqO1tLBdCsWCQicKZGrkNayBfOTHvJC+LXVyf6JHTXxogJHjT3iY55Iel2dLIU=
+X-Gm-Gg: ASbGncsDtNQ9Z9FRrJF5Y5cirbUOuXbFpiwB9ocKY2r83NoKPnX1rn7ujjGmWhVoUfA
+ Lgk4hYC+pER2EVWrZ78iGWpB3vgSveH+qUe3rw8vYmwCyrbSiX6L4HxE8SFGO2kItKnS4LxD5NK
+ wQKPkJqU2/o0ZBh3cEpk6LdTO+t9NbLMeVFDb+ejCflGi0bfGVh50x50dCRIV1WTm/BCm603Bjf
+ jgx2uKMOPrxODvC7yozqlgapRt6mjAefz9dmOzdkG5LPq7uw/tsmcS/6mOTNgw1XF+zsCOfx72g
+ Srhc9OFnxtgEUDyA6gYmw1mjL2cyzvrzAXkq2oGh4X4z67AIKby/YECghHiIa9aG8qbKOv3p6Yi
+ qb34n4CzUV2MyZD1qORGUTTn/eiqo78dft7i+bQjb8SGN
+X-Received: by 2002:a05:6402:4312:b0:637:f374:eeda with SMTP id
+ 4fb4d7f45d1cf-639d5c31e8amr11194079a12.20.1760109018431; 
+ Fri, 10 Oct 2025 08:10:18 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGBFLnVpPt/Ln/uvtHT2tQWvrWAdARD8vHorn1C7WvZ3OQXdduMcqlRT0aVQfDyO9PIJ3gPpg==
+X-Received: by 2002:a05:6402:4312:b0:637:f374:eeda with SMTP id
+ 4fb4d7f45d1cf-639d5c31e8amr11194045a12.20.1760109017922; 
+ Fri, 10 Oct 2025 08:10:17 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.231.162])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b55d952a273sm266264866b.83.2025.10.10.08.10.10
+ 4fb4d7f45d1cf-63a5c134062sm2529652a12.36.2025.10.10.08.10.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Oct 2025 08:10:11 -0700 (PDT)
+ Fri, 10 Oct 2025 08:10:15 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: armbru@redhat.com,
 	marcandre.lureau@redhat.com,
 	qemu-rust@nongnu.org
-Subject: [PATCH 02/19] rust/util: use anyhow's native chaining capabilities
-Date: Fri, 10 Oct 2025 17:09:47 +0200
-Message-ID: <20251010151006.791038-3-pbonzini@redhat.com>
+Subject: [PATCH 04/19] rust/qobject: add basic bindings
+Date: Fri, 10 Oct 2025 17:09:49 +0200
+Message-ID: <20251010151006.791038-5-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251010151006.791038-1-pbonzini@redhat.com>
 References: <20251010151006.791038-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: eNYo4l5KzMeDM_r9lxqEcHKtK7SLOz8bzbiCb0-RIMM_1760109016
+X-Mimecast-MFC-PROC-ID: 4QgTMtvZxGr4D9SwYXyRUVe5kjMdiT00EClTURSlElo_1760109020
 X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
 Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
+X-Spam_score_int: -24
+X-Spam_score: -2.5
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.441,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_PASS=-0.001, T_SPF_HELO_TEMPERROR=0.01 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -116,245 +116,387 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-This simplifies conversions, making it possible to convert any error
-into a QEMU util::Error with ".into()" (and therefore with "?").
+This is only a basic API, intended to be used by the serde traits.
 
-The cost is having a separate constructor for when the error is a simple
-string, but that is made easier by the ensure! macro.  If necessary,
-another macro similar to "anyhow!" can be returned, but for now there
-is no need for that.
-
+Co-authored-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/util/src/error.rs | 139 ++++++++++++++---------------------------
- 1 file changed, 46 insertions(+), 93 deletions(-)
+ rust/util/wrapper.h          |   7 +
+ rust/util/meson.build        |   6 +-
+ rust/util/src/lib.rs         |   2 +
+ rust/util/src/qobject/mod.rs | 317 +++++++++++++++++++++++++++++++++++
+ 4 files changed, 330 insertions(+), 2 deletions(-)
+ create mode 100644 rust/util/src/qobject/mod.rs
 
-diff --git a/rust/util/src/error.rs b/rust/util/src/error.rs
-index 20b8e7d5af5..bdbf2634170 100644
---- a/rust/util/src/error.rs
-+++ b/rust/util/src/error.rs
-@@ -38,6 +38,7 @@
-     borrow::Cow,
-     ffi::{c_char, c_int, c_void, CStr},
-     fmt::{self, Display},
-+    ops::Deref,
-     panic, ptr,
- };
+diff --git a/rust/util/wrapper.h b/rust/util/wrapper.h
+index b9ed68a01d8..0907dd59142 100644
+--- a/rust/util/wrapper.h
++++ b/rust/util/wrapper.h
+@@ -30,3 +30,10 @@ typedef enum memory_order {
+ #include "qemu/log.h"
+ #include "qemu/module.h"
+ #include "qemu/timer.h"
++#include "qobject/qnull.h"
++#include "qobject/qbool.h"
++#include "qobject/qnum.h"
++#include "qobject/qstring.h"
++#include "qobject/qobject.h"
++#include "qobject/qlist.h"
++#include "qobject/qdict.h"
+diff --git a/rust/util/meson.build b/rust/util/meson.build
+index 8ad344dccbd..ce468ea5227 100644
+--- a/rust/util/meson.build
++++ b/rust/util/meson.build
+@@ -36,8 +36,10 @@ _util_rs = static_library(
+       'src/module.rs',
+       'src/timer.rs',
+     ],
+-    {'.': _util_bindings_inc_rs}
+-  ),
++    {'.': _util_bindings_inc_rs,
++    'qobject': [
++      'src/qobject/mod.rs',
++    ]}),
+   override_options: ['rust_std=2021', 'build.rust_std=2021'],
+   rust_abi: 'rust',
+   dependencies: [anyhow_rs, libc_rs, foreign_rs, glib_sys_rs, common_rs, qom, qemuutil],
+diff --git a/rust/util/src/lib.rs b/rust/util/src/lib.rs
+index 16c89b95174..fe0128103c8 100644
+--- a/rust/util/src/lib.rs
++++ b/rust/util/src/lib.rs
+@@ -4,6 +4,8 @@
+ pub mod error;
+ pub mod log;
+ pub mod module;
++#[macro_use]
++pub mod qobject;
+ pub mod timer;
  
-@@ -49,104 +50,65 @@
- 
- #[derive(Debug)]
- pub struct Error {
--    msg: Option<Cow<'static, str>>,
--    /// Appends the print string of the error to the msg if not None
--    cause: Option<anyhow::Error>,
-+    cause: anyhow::Error,
-     file: &'static str,
-     line: u32,
- }
- 
--impl std::error::Error for Error {
--    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
--        self.cause.as_ref().map(AsRef::as_ref)
--    }
-+impl Deref for Error {
-+    type Target = anyhow::Error;
- 
--    #[allow(deprecated)]
--    fn description(&self) -> &str {
--        self.msg
--            .as_deref()
--            .or_else(|| self.cause.as_deref().map(std::error::Error::description))
--            .expect("no message nor cause?")
-+    fn deref(&self) -> &Self::Target {
-+        &self.cause
-     }
- }
- 
- impl Display for Error {
-     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
--        let mut prefix = "";
--        if let Some(ref msg) = self.msg {
--            write!(f, "{msg}")?;
--            prefix = ": ";
--        }
--        if let Some(ref cause) = self.cause {
--            write!(f, "{prefix}{cause}")?;
--        } else if prefix.is_empty() {
--            panic!("no message nor cause?");
--        }
--        Ok(())
-+        Display::fmt(&format_args!("{:#}", self.cause), f)
-     }
- }
- 
--impl From<Cow<'static, str>> for Error {
-+impl<E> From<E> for Error where anyhow::Error: From<E> {
-     #[track_caller]
--    fn from(msg: Cow<'static, str>) -> Self {
--        let location = panic::Location::caller();
--        Error {
--            msg: Some(msg),
--            cause: None,
--            file: location.file(),
--            line: location.line(),
--        }
--    }
--}
--
--impl From<String> for Error {
--    #[track_caller]
--    fn from(msg: String) -> Self {
--        let location = panic::Location::caller();
--        Error {
--            msg: Some(Cow::Owned(msg)),
--            cause: None,
--            file: location.file(),
--            line: location.line(),
--        }
--    }
--}
--
--impl From<&'static str> for Error {
--    #[track_caller]
--    fn from(msg: &'static str) -> Self {
--        let location = panic::Location::caller();
--        Error {
--            msg: Some(Cow::Borrowed(msg)),
--            cause: None,
--            file: location.file(),
--            line: location.line(),
--        }
--    }
--}
--
--impl From<anyhow::Error> for Error {
--    #[track_caller]
--    fn from(error: anyhow::Error) -> Self {
--        let location = panic::Location::caller();
--        Error {
--            msg: None,
--            cause: Some(error),
--            file: location.file(),
--            line: location.line(),
--        }
-+    fn from(src: E) -> Self {
-+        Self::new(anyhow::Error::from(src))
-     }
- }
- 
- impl Error {
-+    /// Create a new error from an [`anyhow::Error`].
+ pub use error::{Error, Result};
+diff --git a/rust/util/src/qobject/mod.rs b/rust/util/src/qobject/mod.rs
+new file mode 100644
+index 00000000000..9c6f168d6e1
+--- /dev/null
++++ b/rust/util/src/qobject/mod.rs
+@@ -0,0 +1,317 @@
++//! `QObject` bindings
++//!
++//! This module implements bindings for QEMU's `QObject` data structure.
++//! The bindings integrate with `serde`, which take the role of visitors
++//! in Rust code.
++
++#![deny(clippy::unwrap_used)]
++
++use std::{
++    cell::UnsafeCell,
++    ffi::{c_char, CString},
++    mem::ManuallyDrop,
++    ptr::{addr_of, addr_of_mut},
++    sync::atomic::{AtomicUsize, Ordering},
++};
++
++use common::assert_field_type;
++
++use crate::bindings;
++
++/// A wrapper for a C `QObject`.
++///
++/// Because `QObject` is not thread-safe, the safety of these bindings
++/// right now hinges on treating them as immutable.  It is part of the
++/// contract with the `QObject` constructors that the Rust struct is
++/// only built after the contents are stable.
++///
++/// Only a bare bones API is public; production and consumption of `QObject`
++/// generally goes through `serde`.
++pub struct QObject(&'static UnsafeCell<bindings::QObject>);
++
++// SAFETY: the QObject API are not thread-safe other than reference counting;
++// but the Rust struct is only created once the contents are stable, and
++// therefore it obeys the aliased XOR mutable invariant.
++unsafe impl Send for QObject {}
++unsafe impl Sync for QObject {}
++
++// Since a QObject can be a floating-point value, and potentially a NaN,
++// do not implement Eq
++impl PartialEq for QObject {
++    fn eq(&self, other: &Self) -> bool {
++        unsafe { bindings::qobject_is_equal(self.0.get(), other.0.get()) }
++    }
++}
++
++impl QObject {
++    /// Construct a [`QObject`] from a C `QObjectBase` pointer.
++    /// The caller cedes its reference to the returned struct.
 +    ///
-+    /// This wraps the error with QEMU's location tracking information.
-+    /// Most code should use the `?` operator instead of calling this directly.
-+    #[track_caller]
-+    pub fn new(cause: anyhow::Error) -> Self {
-+        let location = panic::Location::caller();
-+        Error {
-+            cause,
-+            file: location.file(),
-+            line: location.line(),
++    /// # Safety
++    ///
++    /// The `QObjectBase` must not be changed from C code while
++    /// the Rust `QObject` lives
++    const unsafe fn from_base(p: *const bindings::QObjectBase_) -> Self {
++        QObject(unsafe { &*p.cast() })
++    }
++
++    /// Construct a [`QObject`] from a C `QObject` pointer.
++    /// The caller cedes its reference to the returned struct.
++    ///
++    /// # Safety
++    ///
++    /// The `QObject` must not be changed from C code while
++    /// the Rust `QObject` lives
++    pub const unsafe fn from_raw(p: *const bindings::QObject) -> Self {
++        QObject(unsafe { &*p.cast() })
++    }
++
++    /// Obtain a raw C pointer from a reference. `self` is consumed
++    /// and the C `QObject` pointer is leaked.
++    pub fn into_raw(self) -> *mut bindings::QObject {
++        let src = ManuallyDrop::new(self);
++        src.0.get()
++    }
++
++    /// Construct a [`QObject`] from a C `QObject` pointer.
++    /// The caller *does not* cede its reference to the returned struct.
++    ///
++    /// # Safety
++    ///
++    /// The `QObjectBase` must not be changed from C code while
++    /// the Rust `QObject` lives
++    unsafe fn cloned_from_base(p: *const bindings::QObjectBase_) -> Self {
++        let orig = unsafe { ManuallyDrop::new(QObject::from_base(p)) };
++        (*orig).clone()
++    }
++
++    /// Construct a [`QObject`] from a C `QObject` pointer.
++    /// The caller *does not* cede its reference to the returned struct.
++    ///
++    /// # Safety
++    ///
++    /// The `QObject` must not be changed from C code while
++    /// the Rust `QObject` lives
++    pub unsafe fn cloned_from_raw(p: *const bindings::QObject) -> Self {
++        let orig = unsafe { ManuallyDrop::new(QObject::from_raw(p)) };
++        (*orig).clone()
++    }
++
++    fn refcnt(&self) -> &AtomicUsize {
++        assert_field_type!(bindings::QObjectBase_, refcnt, usize);
++        let qobj = self.0.get();
++        unsafe { AtomicUsize::from_ptr(addr_of_mut!((*qobj).base.refcnt)) }
++    }
++}
++
++impl From<()> for QObject {
++    fn from(_null: ()) -> Self {
++        unsafe { QObject::cloned_from_base(addr_of!(bindings::qnull_.base)) }
++    }
++}
++
++impl<T> From<Option<T>> for QObject
++where
++    QObject: From<T>,
++{
++    fn from(o: Option<T>) -> Self {
++        o.map_or_else(|| ().into(), Into::into)
++    }
++}
++
++impl From<bool> for QObject {
++    fn from(b: bool) -> Self {
++        let qobj = unsafe { &*bindings::qbool_from_bool(b) };
++        unsafe { QObject::from_base(addr_of!(qobj.base)) }
++    }
++}
++
++macro_rules! from_int {
++    ($t:ty) => {
++        impl From<$t> for QObject {
++            fn from(n: $t) -> Self {
++                let qobj = unsafe { &*bindings::qnum_from_int(n.into()) };
++                unsafe { QObject::from_base(addr_of!(qobj.base)) }
++            }
++        }
++    };
++}
++
++from_int!(i8);
++from_int!(i16);
++from_int!(i32);
++from_int!(i64);
++
++macro_rules! from_uint {
++    ($t:ty) => {
++        impl From<$t> for QObject {
++            fn from(n: $t) -> Self {
++                let qobj = unsafe { &*bindings::qnum_from_uint(n.into()) };
++                unsafe { QObject::from_base(addr_of!(qobj.base)) }
++            }
++        }
++    };
++}
++
++from_uint!(u8);
++from_uint!(u16);
++from_uint!(u32);
++from_uint!(u64);
++
++macro_rules! from_double {
++    ($t:ty) => {
++        impl From<$t> for QObject {
++            fn from(n: $t) -> Self {
++                let qobj = unsafe { &*bindings::qnum_from_double(n.into()) };
++                unsafe { QObject::from_base(addr_of!(qobj.base)) }
++            }
++        }
++    };
++}
++
++from_double!(f32);
++from_double!(f64);
++
++impl From<CString> for QObject {
++    fn from(s: CString) -> Self {
++        let qobj = unsafe { &*bindings::qstring_from_str(s.as_ptr()) };
++        unsafe { QObject::from_base(addr_of!(qobj.base)) }
++    }
++}
++
++impl<A> FromIterator<A> for QObject
++where
++    Self: From<A>,
++{
++    fn from_iter<I: IntoIterator<Item = A>>(it: I) -> Self {
++        let qlist = unsafe { &mut *bindings::qlist_new() };
++        for elem in it {
++            let elem: QObject = elem.into();
++            let elem = elem.into_raw();
++            unsafe {
++                bindings::qlist_append_obj(qlist, elem);
++            }
++        }
++        unsafe { QObject::from_base(addr_of!(qlist.base)) }
++    }
++}
++
++impl<A> FromIterator<(CString, A)> for QObject
++where
++    Self: From<A>,
++{
++    fn from_iter<I: IntoIterator<Item = (CString, A)>>(it: I) -> Self {
++        let qdict = unsafe { &mut *bindings::qdict_new() };
++        for (key, val) in it {
++            let val: QObject = val.into();
++            let val = val.into_raw();
++            unsafe {
++                bindings::qdict_put_obj(qdict, key.as_ptr().cast::<c_char>(), val);
++            }
++        }
++        unsafe { QObject::from_base(addr_of!(qdict.base)) }
++    }
++}
++
++impl Clone for QObject {
++    fn clone(&self) -> Self {
++        self.refcnt().fetch_add(1, Ordering::Acquire);
++        QObject(self.0)
++    }
++}
++
++impl Drop for QObject {
++    fn drop(&mut self) {
++        if self.refcnt().fetch_sub(1, Ordering::Release) == 1 {
++            unsafe {
++                bindings::qobject_destroy(self.0.get());
++            }
 +        }
 +    }
++}
 +
-+    /// Create a new error from a string message.
-+    ///
-+    /// This is a convenience wrapper around [`Error::new`] for simple string errors.
-+    /// Most code should use the [`ensure!`](crate::ensure) macro instead of calling
-+    /// this directly.
-+    #[track_caller]
-+    pub fn msg(src: impl Into<Cow<'static, str>>) -> Self {
-+        Self::new(anyhow::Error::msg(src.into()))
-+    }
++#[allow(unused)]
++macro_rules! match_qobject {
++    (@internal ($qobj:expr) =>
++        $(() => $unit:expr,)?
++        $(bool($boolvar:tt) => $bool:expr,)?
++        $(i64($i64var:tt) => $i64:expr,)?
++        $(u64($u64var:tt) => $u64:expr,)?
++        $(f64($f64var:tt) => $f64:expr,)?
++        $(CStr($cstrvar:tt) => $cstr:expr,)?
++        $(QList($qlistvar:tt) => $qlist:expr,)?
++        $(QDict($qdictvar:tt) => $qdict:expr,)?
++        $(_ => $other:expr,)?
++    ) => {
++        loop {
++            let qobj_ = $qobj.0.get();
++            match unsafe { &* qobj_ }.base.type_ {
++                $($crate::bindings::QTYPE_QNULL => break $unit,)?
++                $($crate::bindings::QTYPE_QBOOL => break {
++                    let qbool__: *mut $crate::bindings::QBool = qobj_.cast();
++                    let $boolvar = unsafe { (&*qbool__).value };
++                    $bool
++                },)?
++                $crate::bindings::QTYPE_QNUM => {
++                    let qnum__: *mut $crate::bindings::QNum = qobj_.cast();
++                    let qnum__ = unsafe { &*qnum__ };
++                    match qnum__.kind {
++                        $crate::bindings::QNUM_I64 |
++                        $crate::bindings::QNUM_U64 |
++                        $crate::bindings::QNUM_DOUBLE => {}
++                        _ => {
++                            panic!("unreachable");
++                        }
++                    }
 +
-     #[track_caller]
-     #[doc(hidden)]
-     pub fn format(args: fmt::Arguments) -> Self {
-         if let Some(msg) = args.as_str() {
--            Self::from(msg)
-+            Self::new(anyhow::Error::msg(msg))
-         } else {
-             let msg = std::fmt::format(args);
--            Self::from(msg)
-+            Self::new(anyhow::Error::msg(msg))
-         }
-     }
- 
-@@ -155,9 +117,10 @@ pub fn format(args: fmt::Arguments) -> Self {
-     #[track_caller]
-     pub fn with_error(msg: impl Into<Cow<'static, str>>, cause: impl Into<anyhow::Error>) -> Self {
-         let location = panic::Location::caller();
-+        let msg: Cow<'static, str> = msg.into();
-+        let cause: anyhow::Error = cause.into();
-         Error {
--            msg: Some(msg.into()),
--            cause: Some(cause.into()),
-+            cause: cause.context(msg),
-             file: location.file(),
-             line: location.line(),
-         }
-@@ -326,8 +289,7 @@ unsafe fn cloned_from_foreign(c_error: *const bindings::Error) -> Self {
-             };
- 
-             Error {
--                msg: FromForeign::cloned_from_foreign(error.msg),
--                cause: None,
-+                cause: anyhow::Error::msg(String::cloned_from_foreign(error.msg)),
-                 file: file.unwrap(),
-                 line: error.line as u32,
-             }
-@@ -370,8 +332,8 @@ macro_rules! ensure {
-     };
-     ($cond:expr, $err:expr $(,)?) => {
-         if !$cond {
--            let s = ::std::borrow::Cow::<'static, str>::from($err);
--            return $crate::Result::Err(s.into());
-+            let e = $crate::Error::msg($err);
-+            return $crate::Result::Err(e);
-         }
-     };
- }
-@@ -410,19 +372,10 @@ unsafe fn error_get_pretty<'a>(local_err: *mut bindings::Error) -> &'a CStr {
-         unsafe { CStr::from_ptr(bindings::error_get_pretty(local_err)) }
-     }
- 
--    #[test]
--    #[allow(deprecated)]
--    fn test_description() {
--        use std::error::Error;
--
--        assert_eq!(super::Error::from("msg").description(), "msg");
--        assert_eq!(super::Error::from("msg".to_owned()).description(), "msg");
--    }
--
-     #[test]
-     fn test_display() {
--        assert_eq!(&*format!("{}", Error::from("msg")), "msg");
--        assert_eq!(&*format!("{}", Error::from("msg".to_owned())), "msg");
-+        assert_eq!(&*format!("{}", Error::msg("msg")), "msg");
-+        assert_eq!(&*format!("{}", Error::msg("msg".to_owned())), "msg");
-         assert_eq!(&*format!("{}", Error::from(anyhow!("msg"))), "msg");
- 
-         assert_eq!(
-@@ -439,7 +392,7 @@ fn test_bool_or_propagate() {
-             assert!(Error::bool_or_propagate(Ok(()), &mut local_err));
-             assert_eq!(local_err, ptr::null_mut());
- 
--            let my_err = Error::from("msg");
-+            let my_err = Error::msg("msg");
-             assert!(!Error::bool_or_propagate(Err(my_err), &mut local_err));
-             assert_ne!(local_err, ptr::null_mut());
-             assert_eq!(error_get_pretty(local_err), c"msg");
-@@ -456,7 +409,7 @@ fn test_ptr_or_propagate() {
-             assert_eq!(String::from_foreign(ret), "abc");
-             assert_eq!(local_err, ptr::null_mut());
- 
--            let my_err = Error::from("msg");
-+            let my_err = Error::msg("msg");
-             assert_eq!(
-                 Error::ptr_or_propagate(Err::<String, _>(my_err), &mut local_err),
-                 ptr::null_mut()
++                    match qnum__.kind {
++                        $($crate::bindings::QNUM_I64 => break {
++                            let $i64var = unsafe { qnum__.u.i64_ };
++                            $i64
++                        },)?
++                        $($crate::bindings::QNUM_U64 => break {
++                            let $u64var = unsafe { qnum__.u.u64_ };
++                            $u64
++                        },)?
++                        $($crate::bindings::QNUM_DOUBLE => break {
++                            let $f64var = unsafe { qnum__.u.dbl };
++                            $f64
++                        },)?
++                        _ => {}
++                    }
++                },
++                $($crate::bindings::QTYPE_QSTRING => break {
++                    let qstring__: *mut $crate::bindings::QString = qobj_.cast();
++                    let $cstrvar = unsafe { ::core::ffi::CStr::from_ptr((&*qstring__).string) };
++                    $cstr
++                },)?
++                $($crate::bindings::QTYPE_QLIST => break {
++                    let qlist__: *mut $crate::bindings::QList = qobj_.cast();
++                    let $qlistvar = unsafe { &*qlist__ };
++                    $qlist
++                },)?
++                $($crate::bindings::QTYPE_QDICT => break {
++                    let qdict__: *mut $crate::bindings::QDict = qobj_.cast();
++                    let $qdictvar = unsafe { &*qdict__ };
++                    $qdict
++                },)?
++                _ => ()
++            };
++            $(break $other;)?
++            #[allow(unreachable_code)]
++            {
++                panic!("unreachable");
++            }
++        }
++    };
++
++    // first cleanup the syntax a bit, checking that there's at least
++    // one pattern and always adding a trailing comma
++    (($qobj:expr) =>
++        $($type:tt$(($val:tt))? => $code:expr ),+ $(,)?) => {
++            match_qobject!(@internal ($qobj) =>
++                $($type $(($val))? => $code,)+)
++    };
++}
++#[allow(unused_imports)]
++use match_qobject;
 -- 
 2.51.0
 
