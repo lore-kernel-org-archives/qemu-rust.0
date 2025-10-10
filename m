@@ -4,103 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32B64CCA476
-	for <qemu-rust@archiver.kernel.org>; Fri, 10 Oct 2025 15:11:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AD7DCCA476
+	for <qemu-rust@archiver.kernel.org>; Fri, 10 Oct 2025 15:12:01 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v7Elj-00005x-L1; Fri, 10 Oct 2025 11:10:55 -0400
+	id 1v7Emc-0000kN-U1; Fri, 10 Oct 2025 11:11:51 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v7Elh-0008Sy-9E
- for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:10:54 -0400
+ id 1v7EmX-0000gN-Tb
+ for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:11:47 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v7ElK-000457-Qd
- for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:10:49 -0400
+ id 1v7Elp-0004DV-7L
+ for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:11:45 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1760109024;
+ s=mimecast20190719; t=1760109056;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YRsSx/btzTva/S/q1QVS/AopDr2/0oXgK2m/mbc40QU=;
- b=JbzDlMco98Rdjw/VpMqxpj65MiHv+VNZKmBicVDIaRUfwTMNDrzcNUg6dGHt3y+kkT+45z
- b9reLbxCQC3m62WVZLR2WLo1OkAfp/zIiXE3DIEkKbSIVog2lL9zAOIgpAvqtTH4HOgLrH
- 1DdObIQFImnDW1N/AeY+di/XIKtiZng=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=LpWZD6bl9mxamrbUvrIDgAoUaMeQiRW3KeWUfjgV+yg=;
+ b=T6lrXMTUSogylmqdD/b/Ny2f8sggqxiLLw36v+FHbJSu57uluzRjRSlZW5QbOGKUlY/hLz
+ rL1oFbAkoIX3MFve5AFnAOgcYPHyNAT+EwrlMYHn+Kd7JN7y0iuI//gOIoB3fz82bOl/nN
+ mh8J96Q68CRMmukcSzakWqOy8v01xeE=
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-541-tTR8T725Md2UGNTE0KbThg-1; Fri, 10 Oct 2025 11:10:21 -0400
-X-MC-Unique: tTR8T725Md2UGNTE0KbThg-1
-X-Mimecast-MFC-AGG-ID: tTR8T725Md2UGNTE0KbThg_1760109020
-Received: by mail-ej1-f69.google.com with SMTP id
- a640c23a62f3a-afcb78d5c35so327897266b.1
- for <qemu-rust@nongnu.org>; Fri, 10 Oct 2025 08:10:20 -0700 (PDT)
+ us-mta-207-2gJQz8O-NMma1-2eyO6GRg-1; Fri, 10 Oct 2025 11:10:54 -0400
+X-MC-Unique: 2gJQz8O-NMma1-2eyO6GRg-1
+X-Mimecast-MFC-AGG-ID: 2gJQz8O-NMma1-2eyO6GRg_1760109053
+Received: by mail-ed1-f69.google.com with SMTP id
+ 4fb4d7f45d1cf-634741fccc9so2568228a12.2
+ for <qemu-rust@nongnu.org>; Fri, 10 Oct 2025 08:10:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760109020; x=1760713820;
+ d=1e100.net; s=20230601; t=1760109053; x=1760713853;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=YRsSx/btzTva/S/q1QVS/AopDr2/0oXgK2m/mbc40QU=;
- b=rxv/Ho/zSDZQ3603uVP0V5IHB5dQxblnpk1MUIHp9NOKWY3Z9JqxrkD+DKhT9pxWS5
- o6ikp1TVLuEUesOaZhLrGjTnMbltJcUeDYmffWtOmSjOTrorHydZQPtDGj/pFY42ZLKP
- /Gc2F/tffOqXq8JrM2lV3pHNyYNI7UsUfYI/cJhXCeiBR2H18k79KG4kZqfsXdhcRSUs
- zIQAlK1eqCxMT7mU4vA/pIwteha9etuYGSJy8Bj+fH14Mu9XtPI+rDt7YYD0nHL0wID2
- nepPkMAs2vfvCiFnOMrOxzFLoIEDUsTD2vIBqn/9pa7ZmGUcCoqnIB1J/eddKfHMaaw7
- PHBg==
+ bh=LpWZD6bl9mxamrbUvrIDgAoUaMeQiRW3KeWUfjgV+yg=;
+ b=nHUh3WuYtxnEx255OJ551uPpYa2N1mXBe6P6N5XfvVUI/HP2QP/9fqQbsqCM+4AG5j
+ oMz/ecyyJ9o/WAeN03T7cGHm36xpm1UmBRP5bfiuV5HPrQ0xZMrgbWVOtPINF12Ru786
+ Ix8NrvF4EaVh33bLx2vAOI54SkmJQQpoTbPyCXewwsGt83aQwUHsWso8vh9qpMaxP1lo
+ YAOOBovM+hVr6naxuqieRI+qR3t4v0bB8LUuF63MTY668uG4RiCobKrpZfU+qnpAljY+
+ uerx64NafPPBnm6pKxKY+QSaouD1BuNm6vcDP5y1aSEKq16vTBxw/kJQ4Nc0yvLwXKz+
+ MoqQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUF6weOJr1ilnB/cZWFxRllKoKk4cF34U+wSBIu5NBvZrhE8MnBTMO7350bKd3SYBeiZ2t6WK7RE3M=@nongnu.org
-X-Gm-Message-State: AOJu0YzLdGbnPUyFpSPu/ZLoGP4pZEVzzNDToKMYkAvbpn4v0Tzf9bNB
- kyi3aOuUlr2Z4BiqS+fCkfkYFGejom9hBEhtm+VEzt09KgvEGmbwR/xzyRm1Q/Tp7+RQcaSRKTu
- FN/2AA9ouhdcpTk+0uTQjlQnOWI3pgYpTfyiRUGIlJ8qkfijnXfRXBT4=
-X-Gm-Gg: ASbGncun+WeYo30WBSbIFQFeNNEAR+gIkwx0/vDrb3SXkia141aEKXzz6x6bLNg0aw+
- LZZ14sUb38dUj5/OvpuIdLxDTuZBy2OO2qaoocCCSt6Ml4ndGjpx9dVv4c2JYfXn5/tMV+6euZf
- LaNASmTKM5KLqhzNa4DZNbPRdlPl8rKG1hPnJbmgnPo/eM0leCoEYv3nnXePaPmVsm1v5/3jO4w
- sXk3jLoYY83uFFlENkXa7wWO9lWAwR6l5sTFOYL22zJ1Z/dDNDCHM7HOGi1Bo8aQngFazC15ehq
- w019YGawwiXELLluobdA1mlf8HJxxklwI+LfaWhZH4HTBwjUz0Y1O2ZNtmwSlE+XlcRgtyVFkBw
- Z8L+WRAFskvDVwaS6TowdXJD7Bc1ugxpuFtcz8O5xWqgq
-X-Received: by 2002:a17:907:c28:b0:b46:3f98:6ba5 with SMTP id
- a640c23a62f3a-b50aa48e3a6mr1435869766b.11.1760109019731; 
- Fri, 10 Oct 2025 08:10:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEuQl6W1MulL3xWbAIO+JpGNItc70G29j6vMIZ+9VFy+pU1+CdSagjJdMcCIvSM3J/0YoskOQ==
-X-Received: by 2002:a17:907:c28:b0:b46:3f98:6ba5 with SMTP id
- a640c23a62f3a-b50aa48e3a6mr1435866866b.11.1760109019260; 
- Fri, 10 Oct 2025 08:10:19 -0700 (PDT)
+ AJvYcCUvMtSylMRzQB5s7Ck6gVyXe80z+KDjsJZrcuaohsh2xZduDCd9IwJPiWIVpSqL6Jopjj5RbQ/w3ek=@nongnu.org
+X-Gm-Message-State: AOJu0YxVuyFLqrDLtC7sdXxsu/FG11SNR3qhMvfqlqc+zb4DmI7n7mIa
+ dcxEVCb8cVVL/NGVlUCa3oU2H9Dh+AudofAoEFj9TONf/uoWs789ch9FCSLKwygsuyRm4/QbD17
+ OyU4co5oZSEb5zdkhaOYP0SrnsrJ1EC3pUsN2A4JWzq3pr9BWWF6wOcY=
+X-Gm-Gg: ASbGncv7QnBvfLvOo8gMImKj+Bao6hgzMbYM5/mCarG1WpTs18QuRHAbSQmlksfX9lB
+ Nyu2usbL7meUFfhZMD9ldGn70K1Khv7sf7BMzoXRumJlJgY3pp8m9IragmYEE6LSnThMrs4OGAG
+ artOEpTj2BNPYNTmILxPtFQsps06DOgS3PG5Vq/eZoIuHdn44xZHbLietEo0bEMCUishBwQv+Z/
+ cGDfSABPdorrd04zV8LWec8/rHWlXAThfuCScY1XqCDYp56HU1FOFKqO3uTgdkReiO8iEkXIE0m
+ 3xkCtFCbVYgkYPtT39amKGjbNx1U6PhkXrgIg9ob2JnDEAwSD1iJoWNLxeK8DVvBjwfxnxFzkbL
+ nSvXsE106Db2RKjjmizQTdRWNlax8vQzlXYgzGPKw/256
+X-Received: by 2002:a05:6402:350c:b0:628:5b8c:64b7 with SMTP id
+ 4fb4d7f45d1cf-639d5b6485emr11750087a12.6.1760109053490; 
+ Fri, 10 Oct 2025 08:10:53 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFIGbPCD3SRGp+vxEHJt2mklDMdVAiicewi0AqChjNxpxNbRQ0Kq2pNXDtlBryYHAhTrP/oGg==
+X-Received: by 2002:a05:6402:350c:b0:628:5b8c:64b7 with SMTP id
+ 4fb4d7f45d1cf-639d5b6485emr11750053a12.6.1760109053094; 
+ Fri, 10 Oct 2025 08:10:53 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.231.162])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b55d5cad80bsm252171666b.16.2025.10.10.08.10.18
+ 4fb4d7f45d1cf-63a5c3218a8sm2740690a12.40.2025.10.10.08.10.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Oct 2025 08:10:18 -0700 (PDT)
+ Fri, 10 Oct 2025 08:10:51 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: armbru@redhat.com,
 	marcandre.lureau@redhat.com,
 	qemu-rust@nongnu.org
-Subject: [PATCH 05/19] subprojects: add serde
-Date: Fri, 10 Oct 2025 17:09:50 +0200
-Message-ID: <20251010151006.791038-6-pbonzini@redhat.com>
+Subject: [PATCH 18/19] rust/util: build QAPI types
+Date: Fri, 10 Oct 2025 17:10:03 +0200
+Message-ID: <20251010151006.791038-19-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251010151006.791038-1-pbonzini@redhat.com>
 References: <20251010151006.791038-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: rCItLIf8s2bvxB_BowcEvC2xLNeOSGXil4KTpTR_qCo_1760109020
+X-Mimecast-MFC-PROC-ID: 0Dl9XVMtNj2u7NsjXatWOr1SkHfltbRcwXrTVTpSwYo_1760109053
 X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
 Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -16
-X-Spam_score: -1.7
-X-Spam_bar: -
-X-Spam_report: (-1.7 / 5.0 requ) BAYES_00=-1.9, DKIM_INVALID=0.1,
- DKIM_SIGNED=0.1, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001,
- RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_PASS=-0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+X-Spam_score_int: -24
+X-Spam_score: -2.5
+X-Spam_bar: --
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.441,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -116,334 +116,79 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
+From: Marc-André Lureau <marcandre.lureau@redhat.com>
+
+Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/Cargo.toml                               |  2 ++
- rust/meson.build                              |  4 +++
- scripts/archive-source.sh                     |  3 ++
- scripts/make-release                          |  2 +-
- subprojects/.gitignore                        |  3 ++
- .../packagefiles/serde-1-rs/meson.build       | 36 +++++++++++++++++++
- .../packagefiles/serde-1.0.226-include.patch  | 16 +++++++++
- .../packagefiles/serde_core-1-rs/meson.build  | 25 +++++++++++++
- .../serde_core-1.0.226-include.patch          | 15 ++++++++
- .../serde_derive-1-rs/meson.build             | 35 ++++++++++++++++++
- .../serde_derive-1.0.226-include.patch        | 11 ++++++
- subprojects/serde-1-rs.wrap                   | 11 ++++++
- subprojects/serde_core-1-rs.wrap              | 11 ++++++
- subprojects/serde_derive-1-rs.wrap            | 11 ++++++
- 14 files changed, 184 insertions(+), 1 deletion(-)
- create mode 100644 subprojects/packagefiles/serde-1-rs/meson.build
- create mode 100644 subprojects/packagefiles/serde-1.0.226-include.patch
- create mode 100644 subprojects/packagefiles/serde_core-1-rs/meson.build
- create mode 100644 subprojects/packagefiles/serde_core-1.0.226-include.patch
- create mode 100644 subprojects/packagefiles/serde_derive-1-rs/meson.build
- create mode 100644 subprojects/packagefiles/serde_derive-1.0.226-include.patch
- create mode 100644 subprojects/serde-1-rs.wrap
- create mode 100644 subprojects/serde_core-1-rs.wrap
- create mode 100644 subprojects/serde_derive-1-rs.wrap
+ qapi/meson.build      |  6 ++++++
+ rust/Cargo.lock       |  1 +
+ rust/util/Cargo.toml  |  1 +
+ rust/util/meson.build | 16 ++++++++++++++++
+ 4 files changed, 24 insertions(+)
 
-diff --git a/rust/Cargo.toml b/rust/Cargo.toml
-index 4f98b2c03d3..76fdd9b97bf 100644
---- a/rust/Cargo.toml
-+++ b/rust/Cargo.toml
-@@ -30,6 +30,8 @@ anyhow = "~1.0"
- foreign = "~0.3.1"
- libc = "0.2.162"
- glib-sys = { version = "0.21.2", features = ["v2_66"] }
-+serde = "1.0.226"
-+serde_derive = "1.0.226"
+diff --git a/qapi/meson.build b/qapi/meson.build
+index a46269b5a0c..888a9adf7ff 100644
+--- a/qapi/meson.build
++++ b/qapi/meson.build
+@@ -130,3 +130,9 @@ foreach output : qapi_outputs
+   util_ss.add(qapi_files[i])
+   i = i + 1
+ endforeach
++
++qapi_rs_files = custom_target('QAPI Rust',
++  output: 'qapi-types.rs',
++  input: [ files('qapi-schema.json') ],
++  command: [ qapi_gen, '-o', 'qapi', '-b', '@INPUT0@', '-B', 'qapi.backend.QAPIRsBackend' ],
++  depend_files: [ qapi_inputs, qapi_gen_depends ])
+diff --git a/rust/Cargo.lock b/rust/Cargo.lock
+index 7c9f85d5728..1074c926b71 100644
+--- a/rust/Cargo.lock
++++ b/rust/Cargo.lock
+@@ -446,6 +446,7 @@ dependencies = [
+  "glib-sys",
+  "libc",
+  "serde",
++ "serde_derive",
+ ]
  
- [workspace.lints.rust]
- unexpected_cfgs = { level = "deny", check-cfg = ['cfg(MESON)'] }
-diff --git a/rust/meson.build b/rust/meson.build
-index 6ba075c8c71..f65cc4018c2 100644
---- a/rust/meson.build
-+++ b/rust/meson.build
-@@ -4,6 +4,8 @@ subproject('bilge-impl-0.2-rs', required: true)
- subproject('foreign-0.3-rs', required: true)
- subproject('glib-sys-0.21-rs', required: true)
- subproject('libc-0.2-rs', required: true)
-+subproject('serde-1-rs', required: true)
-+subproject('serde_derive-1-rs', required: true)
+ [[package]]
+diff --git a/rust/util/Cargo.toml b/rust/util/Cargo.toml
+index 554004816eb..9f6c52c5acd 100644
+--- a/rust/util/Cargo.toml
++++ b/rust/util/Cargo.toml
+@@ -18,6 +18,7 @@ foreign = { workspace = true }
+ glib-sys = { workspace = true }
+ libc = { workspace = true }
+ serde = { workspace = true }
++serde_derive = { workspace = true }
+ common = { path = "../common" }
  
- anyhow_rs = dependency('anyhow-1-rs')
- bilge_rs = dependency('bilge-0.2-rs')
-@@ -11,6 +13,8 @@ bilge_impl_rs = dependency('bilge-impl-0.2-rs')
- foreign_rs = dependency('foreign-0.3-rs')
- glib_sys_rs = dependency('glib-sys-0.21-rs')
- libc_rs = dependency('libc-0.2-rs')
-+serde_rs = dependency('serde-1-rs')
-+serde_derive_rs = dependency('serde_derive-1-rs', native: true)
- 
- subproject('proc-macro2-1-rs', required: true)
- subproject('quote-1-rs', required: true)
-diff --git a/scripts/archive-source.sh b/scripts/archive-source.sh
-index 8f97b19a088..3ed0429d806 100755
---- a/scripts/archive-source.sh
-+++ b/scripts/archive-source.sh
-@@ -45,6 +45,9 @@ subprojects=(
-   proc-macro-error-attr-1-rs
-   proc-macro2-1-rs
-   quote-1-rs
-+  serde-1-rs
-+  serde_core-1-rs
-+  serde_derive-1-rs
-   syn-2-rs
-   unicode-ident-1-rs
+ [lints]
+diff --git a/rust/util/meson.build b/rust/util/meson.build
+index aff14a41589..fe869ab485e 100644
+--- a/rust/util/meson.build
++++ b/rust/util/meson.build
+@@ -64,3 +64,19 @@ rust.doctest('rust-util-rs-doctests',
+      dependencies: util_rs,
+      suite: ['doc', 'rust']
  )
-diff --git a/scripts/make-release b/scripts/make-release
-index bc1b43caa25..eb5808b83ec 100755
---- a/scripts/make-release
-+++ b/scripts/make-release
-@@ -44,7 +44,7 @@ SUBPROJECTS="libvfio-user keycodemapdb berkeley-softfloat-3
-   bilge-impl-0.2-rs either-1-rs foreign-0.3-rs itertools-0.11-rs
-   libc-0.2-rs proc-macro2-1-rs
-   proc-macro-error-1-rs proc-macro-error-attr-1-rs quote-1-rs
--  syn-2-rs unicode-ident-1-rs"
-+  serde-1-rs serde_core-1-rs serde_derive-1-rs syn-2-rs unicode-ident-1-rs"
- 
- src="$1"
- version="$2"
-diff --git a/subprojects/.gitignore b/subprojects/.gitignore
-index c00c8478372..697d1ef3bdb 100644
---- a/subprojects/.gitignore
-+++ b/subprojects/.gitignore
-@@ -20,6 +20,9 @@
- /proc-macro-error-attr-*
- /proc-macro*
- /quote-*
-+/serde-*
-+/serde_core-*
-+/serde_derive-*
- /syn-*
- /unicode-ident-*
- 
-diff --git a/subprojects/packagefiles/serde-1-rs/meson.build b/subprojects/packagefiles/serde-1-rs/meson.build
-new file mode 100644
-index 00000000000..6cb2b59a147
---- /dev/null
-+++ b/subprojects/packagefiles/serde-1-rs/meson.build
-@@ -0,0 +1,36 @@
-+project('serde-1-rs', 'rust',
-+  meson_version: '>=1.5.0',
-+  version: '1.0.226',
-+  license: 'MIT OR Apache-2.0',
-+  default_options: [])
 +
-+subproject('serde_core-1-rs', required: true)
-+subproject('serde_derive-1-rs', required: true)
++_qapi_cfg = run_command(rustc_args,
++  '--no-strict-cfg',
++  '--config-headers', config_host_h,
++  capture: true, check: true).stdout().strip().splitlines()
 +
-+serde_core_dep = dependency('serde_core-1-rs')
-+serde_derive_dep = dependency('serde_derive-1-rs')
-+
-+_serde_rs = static_library(
-+  'serde',
-+  files('src/lib.rs'),
-+  gnu_symbol_visibility: 'hidden',
++_qapi_rs = static_library(
++  'qapi',
++  qapi_rs_files,
++  rust_args: _qapi_cfg,
 +  override_options: ['rust_std=2021', 'build.rust_std=2021'],
 +  rust_abi: 'rust',
-+  rust_args: [
-+    '--cap-lints', 'allow',
-+    '--cfg', 'feature="alloc"',
-+    '--cfg', 'feature="std"',
-+    '--cfg', 'feature="derive"',
-+  ],
-+  dependencies: [
-+    serde_core_dep,
-+    serde_derive_dep,
-+  ]
++  dependencies: [common_rs, util_rs, serde_rs],
 +)
 +
-+serde_dep = declare_dependency(
-+  link_with: _serde_rs,
-+  dependencies: serde_derive_dep,
-+)
-+
-+meson.override_dependency('serde-1-rs', serde_dep, native: true)
-diff --git a/subprojects/packagefiles/serde-1.0.226-include.patch b/subprojects/packagefiles/serde-1.0.226-include.patch
-new file mode 100644
-index 00000000000..92878136878
---- /dev/null
-+++ b/subprojects/packagefiles/serde-1.0.226-include.patch
-@@ -0,0 +1,16 @@
-+--- a/src/lib.rs	2025-09-23 13:41:09.327582205 +0200
-++++ b/src/lib.rs	2025-09-23 13:41:23.043271856 +0200
-+@@ -241,7 +241,12 @@
-+ #[doc(hidden)]
-+ mod private;
-+ 
-+-include!(concat!(env!("OUT_DIR"), "/private.rs"));
-++#[doc(hidden)]
-++pub mod __private_MESON {
-++    #[doc(hidden)]
-++    pub use crate::private::*;
-++}
-++use serde_core::__private_MESON as serde_core_private;
-+ 
-+ // Re-export #[derive(Serialize, Deserialize)].
-+ //
-diff --git a/subprojects/packagefiles/serde_core-1-rs/meson.build b/subprojects/packagefiles/serde_core-1-rs/meson.build
-new file mode 100644
-index 00000000000..e917d9337f6
---- /dev/null
-+++ b/subprojects/packagefiles/serde_core-1-rs/meson.build
-@@ -0,0 +1,25 @@
-+project('serde_core-1-rs', 'rust',
-+  meson_version: '>=1.5.0',
-+  version: '1.0.226',
-+  license: 'MIT OR Apache-2.0',
-+  default_options: [])
-+
-+_serde_core_rs = static_library(
-+  'serde_core',
-+  files('src/lib.rs'),
-+  gnu_symbol_visibility: 'hidden',
-+  override_options: ['rust_std=2021', 'build.rust_std=2021'],
-+  rust_abi: 'rust',
-+  rust_args: [
-+    '--cap-lints', 'allow',
-+    '--cfg', 'feature="alloc"',
-+    '--cfg', 'feature="result"',
-+    '--cfg', 'feature="std"',
-+  ],
-+)
-+
-+serde_core_dep = declare_dependency(
-+  link_with: _serde_core_rs,
-+)
-+
-+meson.override_dependency('serde_core-1-rs', serde_core_dep, native: true)
-diff --git a/subprojects/packagefiles/serde_core-1.0.226-include.patch b/subprojects/packagefiles/serde_core-1.0.226-include.patch
-new file mode 100644
-index 00000000000..d1321dfe272
---- /dev/null
-+++ b/subprojects/packagefiles/serde_core-1.0.226-include.patch
-@@ -0,0 +1,15 @@
-+--- a/src/lib.rs	2025-09-23 13:32:40.872421170 +0200
-++++ b/src/lib.rs	2025-09-23 13:32:52.181098856 +0200
-+@@ -263,7 +263,11 @@
-+     pub use core::result::Result;
-+ }
-+ 
-+-include!(concat!(env!("OUT_DIR"), "/private.rs"));
-++#[doc(hidden)]
-++pub mod __private_MESON {
-++    #[doc(hidden)]
-++    pub use crate::private::*;
-++}
-+ 
-+ #[cfg(all(not(feature = "std"), no_core_error))]
-+ mod std_error;
-diff --git a/subprojects/packagefiles/serde_derive-1-rs/meson.build b/subprojects/packagefiles/serde_derive-1-rs/meson.build
-new file mode 100644
-index 00000000000..6c1001a844a
---- /dev/null
-+++ b/subprojects/packagefiles/serde_derive-1-rs/meson.build
-@@ -0,0 +1,35 @@
-+project('serde_derive-1-rs', 'rust',
-+  meson_version: '>=1.5.0',
-+  version: '1.0.226',
-+  license: 'MIT OR Apache-2.0',
-+  default_options: [])
-+
-+subproject('quote-1-rs', required: true)
-+subproject('syn-2-rs', required: true)
-+subproject('proc-macro2-1-rs', required: true)
-+
-+quote_dep = dependency('quote-1-rs', native: true)
-+syn_dep = dependency('syn-2-rs', native: true)
-+proc_macro2_dep = dependency('proc-macro2-1-rs', native: true)
-+
-+rust = import('rust')
-+
-+_serde_derive_rs = rust.proc_macro(
-+  'serde_derive',
-+  files('src/lib.rs'),
-+  override_options: ['rust_std=2021', 'build.rust_std=2021'],
-+  rust_args: [
-+    '--cap-lints', 'allow',
-+  ],
-+  dependencies: [
-+    quote_dep,
-+    syn_dep,
-+    proc_macro2_dep,
-+  ],
-+)
-+
-+serde_derive_dep = declare_dependency(
-+  link_with: _serde_derive_rs,
-+)
-+
-+meson.override_dependency('serde_derive-1-rs', serde_derive_dep)
-diff --git a/subprojects/packagefiles/serde_derive-1.0.226-include.patch b/subprojects/packagefiles/serde_derive-1.0.226-include.patch
-new file mode 100644
-index 00000000000..81d65564d29
---- /dev/null
-+++ b/subprojects/packagefiles/serde_derive-1.0.226-include.patch
-@@ -0,0 +1,11 @@
-+--- a/src/lib.rs	2025-09-23 13:51:51.540191923 +0200
-++++ b/src/lib.rs	2025-09-23 13:52:07.690060195 +0200
-+@@ -98,7 +98,7 @@
-+ impl private {
-+     fn ident(&self) -> Ident {
-+         Ident::new(
-+-            concat!("__private", env!("CARGO_PKG_VERSION_PATCH")),
-++            "__private_MESON",
-+             Span::call_site(),
-+         )
-+     }
-diff --git a/subprojects/serde-1-rs.wrap b/subprojects/serde-1-rs.wrap
-new file mode 100644
-index 00000000000..56746dd0f43
---- /dev/null
-+++ b/subprojects/serde-1-rs.wrap
-@@ -0,0 +1,11 @@
-+[wrap-file]
-+directory = serde-1.0.226
-+source_url = https://crates.io/api/v1/crates/serde/1.0.226/download
-+source_filename = serde-1.0.226.0.tar.gz
-+source_hash = 0dca6411025b24b60bfa7ec1fe1f8e710ac09782dca409ee8237ba74b51295fd
-+#method = cargo
-+diff_files = serde-1.0.226-include.patch
-+patch_directory = serde-1-rs
-+
-+# bump this version number on every change to meson.build or the patches:
-+# v1
-diff --git a/subprojects/serde_core-1-rs.wrap b/subprojects/serde_core-1-rs.wrap
-new file mode 100644
-index 00000000000..3692e754935
---- /dev/null
-+++ b/subprojects/serde_core-1-rs.wrap
-@@ -0,0 +1,11 @@
-+[wrap-file]
-+directory = serde_core-1.0.226
-+source_url = https://crates.io/api/v1/crates/serde_core/1.0.226/download
-+source_filename = serde_core-1.0.226.0.tar.gz
-+source_hash = ba2ba63999edb9dac981fb34b3e5c0d111a69b0924e253ed29d83f7c99e966a4
-+#method = cargo
-+diff_files = serde_core-1.0.226-include.patch
-+patch_directory = serde_core-1-rs
-+
-+# bump this version number on every change to meson.build or the patches:
-+# v1
-diff --git a/subprojects/serde_derive-1-rs.wrap b/subprojects/serde_derive-1-rs.wrap
-new file mode 100644
-index 00000000000..00c92dc79cf
---- /dev/null
-+++ b/subprojects/serde_derive-1-rs.wrap
-@@ -0,0 +1,11 @@
-+[wrap-file]
-+directory = serde_derive-1.0.226
-+source_url = https://crates.io/api/v1/crates/serde_derive/1.0.226/download
-+source_filename = serde_derive-1.0.226.0.tar.gz
-+source_hash = 8db53ae22f34573731bafa1db20f04027b2d25e02d8205921b569171699cdb33
-+#method = cargo
-+diff_files = serde_derive-1.0.226-include.patch
-+patch_directory = serde_derive-1-rs
-+
-+# bump this version number on every change to meson.build or the patches:
-+# v1
++qapi_rs = declare_dependency(link_with: [_qapi_rs])
 -- 
 2.51.0
 
