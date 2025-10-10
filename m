@@ -4,97 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20CBCCCD18A
-	for <qemu-rust@archiver.kernel.org>; Thu,  9 Oct 2025 21:12:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF0DBCCA476
+	for <qemu-rust@archiver.kernel.org>; Fri, 10 Oct 2025 12:24:30 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v6xvz-0004xt-LN; Thu, 09 Oct 2025 17:12:24 -0400
+	id 1v7CAN-0002IS-2o; Fri, 10 Oct 2025 08:24:11 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v6xvy-0004xZ-2C
- for qemu-rust@nongnu.org; Thu, 09 Oct 2025 17:12:22 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v6xvp-0004jF-LF
- for qemu-rust@nongnu.org; Thu, 09 Oct 2025 17:12:21 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1760044332;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=8vFaQq5bO3QdHThnOZntVJqWF1rUBmNHmqnUMiGjqLQ=;
- b=iSnh07WxMZIvTZmu7NxkqkSqAYJlPEefgrFMa25JEZmny3VG5Fa3B0PkQhzqTtye8wBh1u
- AA+QbbYawWLlDmCWN5DLnh4nVtk8RbKVQsvnzSh2MEfAHHW8tOdA559Tv6Y90uXKCs37Yy
- Bv3xQh+3Vzg5x12q26X0zPr2tz/Rvmg=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-482-FcHNzCPXOPmCk7QgV9PrSg-1; Thu, 09 Oct 2025 17:12:11 -0400
-X-MC-Unique: FcHNzCPXOPmCk7QgV9PrSg-1
-X-Mimecast-MFC-AGG-ID: FcHNzCPXOPmCk7QgV9PrSg_1760044330
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-3efe4fcc9ccso1117846f8f.3
- for <qemu-rust@nongnu.org>; Thu, 09 Oct 2025 14:12:10 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1v7CAL-0002I1-HZ
+ for qemu-rust@nongnu.org; Fri, 10 Oct 2025 08:24:09 -0400
+Received: from mail-ed1-x533.google.com ([2a00:1450:4864:20::533])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1v7CA4-0007Wu-6W
+ for qemu-rust@nongnu.org; Fri, 10 Oct 2025 08:24:08 -0400
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-62fc28843ecso2923839a12.1
+ for <qemu-rust@nongnu.org>; Fri, 10 Oct 2025 05:23:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1760099024; x=1760703824; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=61F3ksA7PYdsBTIHhvoY3uxIPSjTQ8deWzb9AI9KO1w=;
+ b=WBPWiBb4bLXNPZ3TudBeH5oCO0VRkf3tGzXRHUfavyFSsMnLOMItMMLeC5YOjWAyBH
+ KchAxriNEIZiwIZ3yHdoKSxr4H5QhlYrav0wwyxtYzc9i+1KJgvSjdBCbuBo5851f6wv
+ Rhu7ZMX6SkRlqlPNZ5b4US1tvrB7uWzyBS4GIXlPxVKxr5lHIN6mIqUjic1QgGjf+ATZ
+ XNXac13ptXgA9ESZnwEVZXhwo2kPXxOLupCeD7QZE33PCDJJbKX0tOK+NyY48Fzw9cjH
+ zTDZ2Zs6zOXksDtLXhM+aRDuzDTqk/uoFvAoOtoO1ZfimH3IOWMtQ0yWa0/v8e7SjNRO
+ 2X4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760044330; x=1760649130;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=8vFaQq5bO3QdHThnOZntVJqWF1rUBmNHmqnUMiGjqLQ=;
- b=nBO/J77107hOfRXJHSmpTla1K0mvC3yd5REkwd3tcUSuCistlkYnmmiPLPGsuQ39/a
- DUtsF+IuH/bIRDtYH1nY/uopIty5K2wbmxS4v210deIWv7rzJ/wRhLEHk44REC2o0ROW
- 5NNTAhbuWHdOZLAyAYZcEC1mDdhNO6QVIIVWikQmsFqtNOpishF1xKhLVWAZx8K8zjmD
- qC5CeYFhNdKaes5aDV9xP1CpNKSyzCatW441SkwIKMIz7DaDb31h2B8/0Jdv3ux3V8fL
- Pl+lihnlAmAdVq1YLpl42Fr5+5nljHJ6MnR/FI56vJT+d05ijOTqip+VJa0428m/cmsR
- EapQ==
-X-Gm-Message-State: AOJu0YwL5JbihN6eu2z4El5KdGMHkvBQ9hueVkjSq7ob0QiT5mNYjPUJ
- DQWoHn2DY97ZZ31uLbiienThNxqR/Kj5Yb4iV+dteW6pYJbFKtXg4LSfiQpeZ4zn/IGbMzoSuVL
- mQqNmMcODJc3R58Dfedeprwbvkj9hKBeZQCrVZLeHcPVcq4n52FdsnnA=
-X-Gm-Gg: ASbGnctLP5OCAli6TAWNvtPHhi7CM5BbqX2i/NMZrfnU2tGmYZP72qbRPvWBgDOlqmq
- GgqIZNFvJgKIIxdqrKWeYV2HGbwb6qXRyNUVxM8+0n61aqO5J/nRbg9/r65ixMKzpQxjBOMCnJW
- joYWXqk2J27o5e/D6ZL3Jr/fMTf2Ahsp2lVI0aPKS53p1kiOwlScEeKWSjm31KhkuS8/L4m6rUF
- lNg/pQB2LIIZ0m7TC05Q9xGEW2Lttavdpi4ySLTu2TdJ3Rk2HqK8X2cocOYu8ZSnaEbNC2fOmWf
- /E5OX/OodVYLViNtyM3d34F1vJGUyr0OxlkiUlhOVwsVnL7681zfyVQDuNY35meWgSSshXDLuzi
- 686AzdjYCVqSu9c8z9rYgbw9xZeUyJ66b5HEAHOpF51UNCIQatg==
-X-Received: by 2002:a5d:5f94:0:b0:40d:86d8:a180 with SMTP id
- ffacd0b85a97d-4266e7bf005mr6316330f8f.20.1760044329764; 
- Thu, 09 Oct 2025 14:12:09 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE2YVuE57DYvf40C9YpShEV1rkDBw4MFIGfK0W8vvfGW4EFVS81w3dIV2RmFGi3s5XwGUPDBQ==
-X-Received: by 2002:a5d:5f94:0:b0:40d:86d8:a180 with SMTP id
- ffacd0b85a97d-4266e7bf005mr6316325f8f.20.1760044329407; 
- Thu, 09 Oct 2025 14:12:09 -0700 (PDT)
-Received: from [192.168.10.48] ([151.49.231.162])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-426ce57d3b9sm871873f8f.11.2025.10.09.14.12.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Oct 2025 14:12:08 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org,
-	Richard Henderson <richard.henderson@linaro.org>
-Subject: [PATCH] rust: temporarily disable double_parens check
-Date: Thu,  9 Oct 2025 23:12:08 +0200
-Message-ID: <20251009211208.643222-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.51.0
+ d=1e100.net; s=20230601; t=1760099024; x=1760703824;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=61F3ksA7PYdsBTIHhvoY3uxIPSjTQ8deWzb9AI9KO1w=;
+ b=bh5LwNQEvNtRRzMfpB7VKGil1EgEMn6eu6OLppY/Hzi3I3IS+NBHh6MKFWhq7Q6wmf
+ WxG2086qHMWySBq7SAy0wq2IeIpaziVD5AbRcCYUS807OsfaY2VtfsQ1PPU0w+Hdy/qR
+ AnFdguRcH5SiU+29C6YRhmo44p30/Wje8/BLJT9OWRWqo3A/UQIBfD5/FkvUVLmnFvaO
+ KTCQU99Asq1PjjHSnUhDl0gB/lFkR067MAD/X3gP5mmgU8irF6lFjnJgyxSJ8IwGFNht
+ H/c0Xem5cpblD9kBIRUe/CdRRkDgc5ZYRv0/YkZLkaP3dffo+LPw8+Jmn1EaXsGTRzhC
+ ETHA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV0Fa//QJvxCG+QPV0TgNCop6WF+yOy1xt/BbwScJmW+PNRjX5Au/hXTrmlC2+iJm2C7QU/FyPLIE0=@nongnu.org
+X-Gm-Message-State: AOJu0Yy2siK2oXLdmynj2bKfP6xzklB8eJpa9SsknLCtul/wwk5N6AWX
+ yG7KqXw9Bg8dOM5Oqe7wmfYkeRM01Au2hAB5CYwpHIlfRuo7MXGDqK18ISM/x0D2lCYmm2/v8hX
+ X0SJK9DglPpThTTIT1nQzdVt5NWgxbS/3BqWuMbm1fw==
+X-Gm-Gg: ASbGncv5myFLWyRASpGjDFqjwNVLHdDgZxnLCHjx6C6c079cy3/bYLstxEJe+UML7lm
+ Rb6guvslfU0L4jmZq0ZXrWUpvO0Jlngc5uPBM+4mgtu//M9zMhEobcgE/yC/0Xqa9mqct9KLsGj
+ Hhgs4dBlN6i3w0S8aO4zIlOHpnb3IcokwDsxDok6WNS5M9kt5tIqJLG431A0LXau2JGvkVIPlq/
+ 6kd2xP3rCtNeQAFtY9bd28eRFHPEVvT7Y1IXQ==
+X-Google-Smtp-Source: AGHT+IF+gShXjliGy/ZnBKoVOfgHiCfuLC/rs0Pa5YHKdLzDeu/3+GLHZyA0nnul7pDg3bb8QKC/DVMQ0xZVaO571GA=
+X-Received: by 2002:a05:6402:34d0:b0:638:74dc:cf78 with SMTP id
+ 4fb4d7f45d1cf-639d5c75d9dmr10283150a12.34.1760099023941; Fri, 10 Oct 2025
+ 05:23:43 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: TX1lkicBg886lLIZ4yjNXg3LoxHUID21PpJbB49mwD0_1760044330
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -24
-X-Spam_score: -2.5
+References: <20251009211208.643222-1-pbonzini@redhat.com>
+In-Reply-To: <20251009211208.643222-1-pbonzini@redhat.com>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Fri, 10 Oct 2025 15:23:17 +0300
+X-Gm-Features: AS18NWDmuuMkw3l_m71ex9obDDatrZ3q4Xjdc5hWLJDGEQf7zYpRP5_MwSJUj1U
+Message-ID: <CAAjaMXaPv+hENfLuZUeLEOjakuw7dOTLQCeaUbuveZW4Y_2PBQ@mail.gmail.com>
+Subject: Re: [PATCH] rust: temporarily disable double_parens check
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, 
+ Richard Henderson <richard.henderson@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::533;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x533.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.438,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -110,32 +96,51 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-It is showing in the output of the bits! macro and not easy to fix there
-(at least not without making the macro more complex).  Disable it for
-now.
+On Fri, Oct 10, 2025 at 12:12=E2=80=AFAM Paolo Bonzini <pbonzini@redhat.com=
+> wrote:
+>
+> It is showing in the output of the bits! macro and not easy to fix there
+> (at least not without making the macro more complex).  Disable it for
+> now.
+>
+> Link: https://github.com/rust-lang/rust-clippy/issues/15852
+> Reported-by: Richard Henderson <richard.henderson@linaro.org>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
 
-Link: https://github.com/rust-lang/rust-clippy/issues/15852
-Reported-by: Richard Henderson <richard.henderson@linaro.org>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- rust/Cargo.toml | 3 +++
- 1 file changed, 3 insertions(+)
+How about putting it in the macro expansion instead of globally allowing it=
+?
 
-diff --git a/rust/Cargo.toml b/rust/Cargo.toml
-index 783e626802c..4f98b2c03d3 100644
---- a/rust/Cargo.toml
-+++ b/rust/Cargo.toml
-@@ -109,6 +109,9 @@ used_underscore_binding = "deny"
- # nice to have, but cannot be enabled yet
- #wildcard_imports = "deny"   # still have many bindings::* imports
- 
-+# https://github.com/rust-lang/rust-clippy/issues/15852
-+double_parens = "allow"
-+
- # these may have false positives
- #option_if_let_else = "deny"
- cognitive_complexity = "deny"
--- 
-2.51.0
+macro_rules! foo {
+    ($a:expr, $b:expr, $c:expr, $d:expr) =3D> {
+        #[allow(clippy::double_parens)]
+        InterruptMask(((($a.union($b).union($c).union($d))).into_bits()) as=
+ u32)
+    }
+}
 
+Why is the double parenthesis needed here by the way? It's a method chain
+
+
+>  rust/Cargo.toml | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/rust/Cargo.toml b/rust/Cargo.toml
+> index 783e626802c..4f98b2c03d3 100644
+> --- a/rust/Cargo.toml
+> +++ b/rust/Cargo.toml
+> @@ -109,6 +109,9 @@ used_underscore_binding =3D "deny"
+>  # nice to have, but cannot be enabled yet
+>  #wildcard_imports =3D "deny"   # still have many bindings::* imports
+>
+> +# https://github.com/rust-lang/rust-clippy/issues/15852
+> +double_parens =3D "allow"
+> +
+>  # these may have false positives
+>  #option_if_let_else =3D "deny"
+>  cognitive_complexity =3D "deny"
+> --
+> 2.51.0
+>
+>
 
