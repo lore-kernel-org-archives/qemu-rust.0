@@ -4,90 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2BB6CCD185
-	for <qemu-rust@archiver.kernel.org>; Fri, 10 Oct 2025 15:13:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9F42CCD185
+	for <qemu-rust@archiver.kernel.org>; Fri, 10 Oct 2025 15:13:19 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v7Els-0000EK-H4; Fri, 10 Oct 2025 11:11:04 -0400
+	id 1v7EmB-0000SX-Cv; Fri, 10 Oct 2025 11:11:23 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v7Elr-0000CH-G0
- for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:11:03 -0400
+ id 1v7Em9-0000Pq-Gg
+ for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:11:21 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v7ElU-00048v-Ba
- for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:11:03 -0400
+ id 1v7Elc-00049r-IW
+ for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:11:21 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1760109038;
+ s=mimecast20190719; t=1760109042;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WosTp1yK3Q8xfkSSHqzAC8nqLnmsf887SgMNENXzcxk=;
- b=YYZlNyRJCwqovNqrai+bYl8ghiY5h+N/Ydbn49Cd2mwYtcLsIpzo22iGD7T1CKDIitSXoF
- PBW9kwh3YY7JXfPN1zgPA77cGOb/ImGqft/FIFiZvik2D6pAIWLwhFEJDkwrOw1AxX+uyU
- JXpO1nQOskJKBxMz7jZZJuSrRdP7Y4Y=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=bsuDg+5N7j9JWWIAOco6bdUmkbDvZiJZ+pBxqlSdH5Q=;
+ b=Yi9PPvLuZ4+heV8ZPdlEJo/FQ7p9RkwYYiuuGjUiSnovoNljr8vLXlFMnl9FqOarAFJZgo
+ yOZ2J0Fhhf3g1qsto2hzfWFIwL+xAbkD/MirO6Nm2oL26U3ZyT20aCJvTriM7LCUKYhdZU
+ Lj6RqfhKaplIpvRBu/rRZfwofvAB40E=
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-166-YclZSy6cPO29SXPTobBVOQ-1; Fri, 10 Oct 2025 11:10:37 -0400
-X-MC-Unique: YclZSy6cPO29SXPTobBVOQ-1
-X-Mimecast-MFC-AGG-ID: YclZSy6cPO29SXPTobBVOQ_1760109036
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-b3d21b18e8fso198597466b.2
- for <qemu-rust@nongnu.org>; Fri, 10 Oct 2025 08:10:36 -0700 (PDT)
+ us-mta-672-BRyqHw8ON5G1fpvD-eg8aA-1; Fri, 10 Oct 2025 11:10:40 -0400
+X-MC-Unique: BRyqHw8ON5G1fpvD-eg8aA-1
+X-Mimecast-MFC-AGG-ID: BRyqHw8ON5G1fpvD-eg8aA_1760109040
+Received: by mail-ed1-f69.google.com with SMTP id
+ 4fb4d7f45d1cf-639de61a425so3377859a12.0
+ for <qemu-rust@nongnu.org>; Fri, 10 Oct 2025 08:10:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760109035; x=1760713835;
+ d=1e100.net; s=20230601; t=1760109038; x=1760713838;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=WosTp1yK3Q8xfkSSHqzAC8nqLnmsf887SgMNENXzcxk=;
- b=nA0bHUbndCZ66BwTRDftzxdd1EIUPNKxED69Fc7AgWIA7TvG5RL94ijrA4Sndrn/NT
- KQeqfBkcw/QAkM+EdBa+6vkz8nTiqbPO+lsVa1SOekAkMAVMPzi92H3gjVqHPqIg29jC
- VN2BQuYDBIX0Owe8Lv4xFieXgkXJrR82DVC7gISEzYgz6naI12KqB9LiKoDBdVyqWhK2
- DSPW3V9w386MrQIXR8HcRrMXcKDjxz8tKmGCfsZ9W2VEz62PcCFC3Yu5c+uUjHOv/94S
- VLfbbvRYsHCb4ag+ye6Xcd1BUkOg78geHHIUGazMlNn9yQeuXFC5VWzDIGT7fDiPYwHB
- h1Zg==
+ bh=bsuDg+5N7j9JWWIAOco6bdUmkbDvZiJZ+pBxqlSdH5Q=;
+ b=bvZLtbcFYyekPMB5DeKozrNC04VkL1g2hEj90X0B7ZWDFJr8H5C+mkuqvEG/3JRZyh
+ 7dCwrhk95+szhYltFQUe6roCzVbFvimIUe6MCdKfNDpL96eWxu4NfQwN5bNEGIhS/aGZ
+ CmJbZHvzEnbczeY4y6zk7J0DzOP0Ivuk81yQZKYDhk8HKlvTSLygUQyYjaDzoJNF+Ct6
+ 4yArF78+TncvY6mb9wVUMMjSw495RtuYJzhugu7Eu4YKVFzdfl1hBU2edY4YpxDMPZiU
+ urW6XAOxzLKiwWAZn/a3Aflu819WJUpn4gEHafpZCii0+7CtGnPZFNllkfy7Pcrg0EUT
+ fK2g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVEf7Lz76EEcI40Djj9pBIR9tJylwgvta0SPYEM4SLz4xbhXXH3kUjGxCYKIoVSFgGj+8gxcD2XjaE=@nongnu.org
-X-Gm-Message-State: AOJu0Yz3SZfrzf7BLDwyZb+EaIuNJTTPv4yeXkyw97mkHy7hXCo3Mexj
- PkTSnznq+mKd4ZCFvNnIV2H0ddOxvy6HgIfLomg+bRwFYbyabZ22pxhi5/nVsZOlcjLsA4AkV2e
- HLb0JJQ2VVMz4qyl9mckVBuLV7C16UA+n+EOEpqt242Em2KQz7q2o9Aajz2ByijY=
-X-Gm-Gg: ASbGnctdN5Qmpw3mMtKVlXujsXjX/+yRS6zl9kE6nvaTLe0O1f2s8J5a/jWflfsvbM+
- UNIV4drq0nzR3NwBH5U9yuvJvE5RhF5jK0DtXcSqHBY5tCEaykDV32R4sSRB0HDtEDtri02tjU+
- nqDDTIYKnL0EBEqbBBMr/1HOJ7JwefcrO4EhZK9zpebAz0qPUdi9nAweEOVCXZ7PgXmU0g0vgK4
- qRfusgq1SHsoHKCpb0T3o2l1gIk+F61B2GQ1STSkw/FIFctmSfuYo2D+80C2zRMHdIuLN9wtu1a
- nO8CxYIc1kdsWIP+UJ9I8do7KEUYUn39oY3UQNToG6rRkPhTgMlYsvWMwFEqg/V7MOV4Hyyzv2Q
- shLoGnBBPp95g8194h330jYgUN+I1q2IWmfcJiEjuM0BR
-X-Received: by 2002:a17:907:9448:b0:b40:a71b:151f with SMTP id
- a640c23a62f3a-b50ac1c4e7cmr1338883766b.30.1760109035198; 
- Fri, 10 Oct 2025 08:10:35 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEc8ddHlRxqc2C3ZyaFil4eELHDUpY9sAIKvOHlmzwkIB8TO55EXcYfAaz0BzMmRZARW7u7ww==
-X-Received: by 2002:a17:907:9448:b0:b40:a71b:151f with SMTP id
- a640c23a62f3a-b50ac1c4e7cmr1338880766b.30.1760109034733; 
- Fri, 10 Oct 2025 08:10:34 -0700 (PDT)
+ AJvYcCUtxtZhvVrtqRmyiktcr8HY/fjtZ6I22KIV+s9iCG6KFQ6/IHRbOulEECgQCQakD7/ZMo99QN8AWpY=@nongnu.org
+X-Gm-Message-State: AOJu0YwCFdNEqs1C7tbPhQgIA5cGwhGOeXBfHYt1+6f2sTwTQp2zl6VN
+ 3dIQEbgdkxZPEO1kh3329HvV/JkglAmnKj0uzOAex0ApwNMvesXSj9FHhVlAfcmfU+alN5V/Lgs
+ z00NcZ9QCibQKN12U424K+ktDYmYygZRcL/mcTq8BlP4nzFMKeuYKzCayw3EufsU=
+X-Gm-Gg: ASbGncuvcKpTQiLvIJq64jc8+c688WQmZEZ9XiQwPU5jfe6uvsYmK8xLhvbOnDElqVi
+ mGeS4x8+suJuh7WAlaTxJ0KYweenk8X9vQ+6mgxd/UJWkomUE2yy5XALwVVO0IgadM+DQVGxiVC
+ mRH8rDucZrmXjUHze3PW0535s5yYyBbF5e8y9/5MrRH1fuHQf6vEseyAtsPmyLT+3pJzfy8eqzp
+ w9IfmCGC5KPIKYjGF9ZBmH/DLifQ/Ny7BloaW50e6OUkLmJNTEJ9Xh0U5pkfjqa3eY7nWVxpwlL
+ 5vP83/IcrhlWYm1W863qkytbxIYCGNAhuLjAK+n4/cXUY+MRYTXL6KtUgyhetoQMLc1GDW8/bpf
+ VHBJeyksYYATlxk801X+LWMSVPvMHSh1KATEIK1TeBlgG
+X-Received: by 2002:aa7:d5cc:0:b0:61e:d2f0:5875 with SMTP id
+ 4fb4d7f45d1cf-639ba74b30bmr12289432a12.1.1760109038469; 
+ Fri, 10 Oct 2025 08:10:38 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHb7DtcVGVaEg6pEnHRjhhov0dDCAdTcxK07IMyP5zw75Xmx/jCCdYI1yEsYxCAxqiUnkiHMQ==
+X-Received: by 2002:aa7:d5cc:0:b0:61e:d2f0:5875 with SMTP id
+ 4fb4d7f45d1cf-639ba74b30bmr12289407a12.1.1760109038044; 
+ Fri, 10 Oct 2025 08:10:38 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.231.162])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b55d951d210sm254257866b.74.2025.10.10.08.10.33
+ 4fb4d7f45d1cf-63a5c32249esm2455770a12.41.2025.10.10.08.10.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Oct 2025 08:10:33 -0700 (PDT)
+ Fri, 10 Oct 2025 08:10:35 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: armbru@redhat.com,
 	marcandre.lureau@redhat.com,
 	qemu-rust@nongnu.org
-Subject: [PATCH 11/19] rust/qobject: add from/to JSON bindings for QObject
-Date: Fri, 10 Oct 2025 17:09:56 +0200
-Message-ID: <20251010151006.791038-12-pbonzini@redhat.com>
+Subject: [PATCH 12/19] rust/qobject: add Display/Debug
+Date: Fri, 10 Oct 2025 17:09:57 +0200
+Message-ID: <20251010151006.791038-13-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251010151006.791038-1-pbonzini@redhat.com>
 References: <20251010151006.791038-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 0H0rFQsqegr6JmHShgfgoqX-0sei_NLVbr_1gtdo4gA_1760109036
+X-Mimecast-MFC-PROC-ID: 9OCTz6TDsX_JiwWOlRmfsKWU4QhhwWlS4jBdX1Hcyg4_1760109040
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -116,61 +116,60 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-These are used by tests.  However it could even be an idea to use
-serde_json + transcoding and get rid of the C version...
+From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-Co-authored-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/util/wrapper.h          |  1 +
- rust/util/src/qobject/mod.rs | 17 +++++++++++++++++
- 2 files changed, 18 insertions(+)
+ rust/util/src/qobject/mod.rs | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/rust/util/wrapper.h b/rust/util/wrapper.h
-index 0907dd59142..c88820a5e5b 100644
---- a/rust/util/wrapper.h
-+++ b/rust/util/wrapper.h
-@@ -37,3 +37,4 @@ typedef enum memory_order {
- #include "qobject/qobject.h"
- #include "qobject/qlist.h"
- #include "qobject/qdict.h"
-+#include "qobject/qjson.h"
 diff --git a/rust/util/src/qobject/mod.rs b/rust/util/src/qobject/mod.rs
-index e896aba5f3a..292a3c9c238 100644
+index 292a3c9c238..38b98fdb1e8 100644
 --- a/rust/util/src/qobject/mod.rs
 +++ b/rust/util/src/qobject/mod.rs
-@@ -23,6 +23,7 @@
- use common::assert_field_type;
- pub use deserializer::from_qobject;
- pub use error::{Error, Result};
-+use foreign::prelude::*;
- pub use serializer::to_qobject;
+@@ -12,6 +12,7 @@
+ mod serialize;
+ mod serializer;
  
- use crate::bindings;
-@@ -111,6 +112,22 @@ fn refcnt(&self) -> &AtomicUsize {
-         let qobj = self.0.get();
-         unsafe { AtomicUsize::from_ptr(addr_of_mut!((*qobj).base.refcnt)) }
++use core::fmt::{self, Debug, Display};
+ use std::{
+     cell::UnsafeCell,
+     ffi::{c_char, CString},
+@@ -256,6 +257,33 @@ fn drop(&mut self) {
      }
-+
-+    pub fn to_json(&self) -> String {
-+        let qobj = self.0.get();
-+        unsafe {
-+            let json = bindings::qobject_to_json(qobj);
-+            glib_sys::g_string_free(json, glib_sys::GFALSE).into_native()
-+        }
-+    }
-+
-+    pub fn from_json(json: &str) -> std::result::Result<Self, crate::Error> {
-+        let c_json = std::ffi::CString::new(json)?;
-+        unsafe {
-+            crate::Error::with_errp(|errp| bindings::qobject_from_json(c_json.as_ptr(), errp))
-+                .map(|qobj| QObject::from_raw(qobj))
-+        }
-+    }
  }
  
- impl From<()> for QObject {
++impl Display for QObject {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        // replace with a plain serializer?
++        match_qobject! { (self) =>
++            () => write!(f, "QNull"),
++            bool(b) => write!(f, "QBool({})", if b { "true" } else { "false" }),
++            i64(n) => write!(f, "QNumI64({})", n),
++            u64(n) => write!(f, "QNumU64({})", n),
++            f64(n) => write!(f, "QNumDouble({})", n),
++            CStr(s) => write!(f, "QString({})", s.to_str().unwrap_or("bad CStr")),
++            QList(_) => write!(f, "QList"),
++            QDict(_) => write!(f, "QDict"),
++        }
++    }
++}
++
++impl Debug for QObject {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        let val = self.to_string();
++        f.debug_struct("QObject")
++            .field("ptr", &self.0.get())
++            .field("refcnt()", &self.refcnt())
++            .field("to_string()", &val)
++            .finish()
++    }
++}
++
+ macro_rules! match_qobject {
+     (@internal ($qobj:expr) =>
+         $(() => $unit:expr,)?
 -- 
 2.51.0
 
