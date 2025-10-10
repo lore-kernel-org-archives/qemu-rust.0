@@ -4,94 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F43BCCA476
-	for <qemu-rust@archiver.kernel.org>; Fri, 10 Oct 2025 15:14:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 623EECCA476
+	for <qemu-rust@archiver.kernel.org>; Fri, 10 Oct 2025 15:17:00 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v7Emj-0000mw-J5; Fri, 10 Oct 2025 11:11:57 -0400
+	id 1v7EmD-0000Wq-Or; Fri, 10 Oct 2025 11:11:27 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v7Emf-0000ki-9r
- for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:11:53 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1v7EmC-0000TQ-8a
+ for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:11:24 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v7Els-0004Ep-Uq
- for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:11:51 -0400
+ id 1v7Ele-0004Ar-9A
+ for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:11:22 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1760109062;
+ s=mimecast20190719; t=1760109045;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=F1yOkbzuojTrlKk+buHl+5dXDqrmMnV6cjefuiyhlyQ=;
- b=KFZf2u9wGMEPNyZXNyjrNp3CcxnpShiEyM9dH+4RHy8iK/dMOWpDX+8//kfo+qO74R7iBh
- iMi7Ij8lCu2s4Ow0LpI5FZQYotpxRYtMvyDgQ5IzVk4cLJO0pxt3YozCYr6eAux0Y/iZLz
- pn3KWOer3MHgd/7s300KoUmQm/Kju7g=
+ bh=hJgKnO4p5NCBfsiH7X9uVt6uTBPOKNgBfFsL5Wo3g90=;
+ b=P7vcDPwSNpu05Pjdok2nxsi8MvmUXsfLoJ7L56Avr340JBpMUvOT3I7IcHkvzxvn7/Jn5u
+ coUSapY+ujEVwQW9DhgNYpZ6KKiPrVYiy+WJ+X3OHUyOAOSHXXnu8EERaNvCLtv8aBmzkJ
+ mFVDH28JY1FFkjtGgzRue7YNXTlMcuw=
 Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
  [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-204-iMriCzGoNo6jMvZ7-292Sg-1; Fri, 10 Oct 2025 11:10:57 -0400
-X-MC-Unique: iMriCzGoNo6jMvZ7-292Sg-1
-X-Mimecast-MFC-AGG-ID: iMriCzGoNo6jMvZ7-292Sg_1760109056
+ us-mta-83-j8kqszksMQm--nel8kDi7g-1; Fri, 10 Oct 2025 11:10:42 -0400
+X-MC-Unique: j8kqszksMQm--nel8kDi7g-1
+X-Mimecast-MFC-AGG-ID: j8kqszksMQm--nel8kDi7g_1760109042
 Received: by mail-ej1-f70.google.com with SMTP id
- a640c23a62f3a-b548c516b79so214249666b.3
- for <qemu-rust@nongnu.org>; Fri, 10 Oct 2025 08:10:57 -0700 (PDT)
+ a640c23a62f3a-b47cf7544e0so217079266b.1
+ for <qemu-rust@nongnu.org>; Fri, 10 Oct 2025 08:10:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760109056; x=1760713856;
+ d=1e100.net; s=20230601; t=1760109041; x=1760713841;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=F1yOkbzuojTrlKk+buHl+5dXDqrmMnV6cjefuiyhlyQ=;
- b=KqJ/TV6Jji/SlRIUIEE8oy92tE3owjl2RJqdnR1zMjwd9oEZoNIDozjmEaib7X2DIa
- eH6dNdYqsO0O4V6dgcyX0WWZZsJwu2Cwcz7ZRFgo1JbXh0JE4qNfzfgc2/Iw9qzsbjXE
- QiWEObjL5o8qt6HTb7D4/FkL++AhjBvNsyKdwmM3ykDTuS/JRMf0lx1JQLG4HqeKWqBd
- 7fOEx5rdd3JO6CiIk9W8F7bcuYIc5CpgfpupRLQ6omPSPef3GnkybcXSfX5x6IFu1qOP
- wTHRbxTf5YQZ5b2dgxcv6eQy17IjyKg90Fue9Dm4SoldoWbAjkaPPiHc4TiZa/zpl1qJ
- 4qGA==
+ bh=hJgKnO4p5NCBfsiH7X9uVt6uTBPOKNgBfFsL5Wo3g90=;
+ b=egLh5Ut3QTS3c5nXH2B6I6FIckymBO5ec7t35nL+jspekOBVHmY5JdJddOtkS8jnrH
+ lJmQHgnqgRC0izgVtJ5P+eBw1TuT7TzTVKuGvMjG4tGb1WtXgADHQpVsfBWzxz8EKKHS
+ Aoy4lBb8Dnt1m5ToAQfnmmRZkIRAO3becTAJdTiEEkU5XkRNON6T2QQkFseukZl1+Zn6
+ QwwKgYFaBcII1B5i6zkPueb5CX8NCbr3SrrOk6d3xSL1+ivpouSYbLduuR9K7SNzcFb8
+ 7nTqz2YhRAD1eG4UHpojaA8/Shd3De8w35NWu+LbKP1LQ14ok8bmAdqyE+d326FLD7+4
+ q2cA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV9FC0i+YGvhx50pDKzGfjpCprTxFaZCT9fqwp1VmZo0k7RTdBOoo2j7N4Qjd+oMjtC/CwPlJTFMPI=@nongnu.org
-X-Gm-Message-State: AOJu0YzECA2d9DsQIfpTz3TnL5Yg5pty9jpywalqSpWp0QyTA/IHkGxr
- S0/ukw2GmjwOwH8ep+RkFjpnzoqV2DkM67fmROdb4yFnU7aPraK3Awoq9c+8P4Dy7OqLVLuU8jV
- gYFWzkAHKqPef2olakAVNRENW8WW6zC2o+h+nSiJN9Hwxh0wvUuFRo2A=
-X-Gm-Gg: ASbGncvvJswn/rr3ZlQZ0qXvf6cMnWS3/i9lAnA9a2OCbWql89QROR12YEXw2N7XioI
- nAofGYS69PC5D/6lg3PH2Xv1yEbswIrSZ/nIY625n5PJACUPPPm12ebcXK4r5SYu6w2BIeQSkfM
- PaibrsYNmq10i8WbM/KyJPhpgLWb9d9UKCCQ7QWpeO243gxvo9x/dXpTyrEMD/LxAKxfsL5QP8u
- iznp4lyYjd4jJyZ8OLCOFeZia4NV2h1AT36Qk52fDjMeO5dIUP9/kTLib6E5551J4Udfqo2sMk7
- 7KXMGnnMB8sv6BKXp90Yta6+hAgXUcxgqxHm23PsZIcx/KVhEhFEEMw10rKj3Srx97WY0quKcMl
- 1uCyX89FFwxWyIc/Cr4HTqEdgOwe7lr8bgoKMeiNTzzw3
-X-Received: by 2002:a17:906:6a14:b0:afe:764d:6b22 with SMTP id
- a640c23a62f3a-b50aa48c4cfmr1202280866b.9.1760109055840; 
- Fri, 10 Oct 2025 08:10:55 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFVVmh/0bAHP7hdXC/LRNn8SnraAOcqmHRskIba6Qi+nb/2xvuxezyMS07uKWG40QALxvHtfg==
-X-Received: by 2002:a17:906:6a14:b0:afe:764d:6b22 with SMTP id
- a640c23a62f3a-b50aa48c4cfmr1202276966b.9.1760109055296; 
- Fri, 10 Oct 2025 08:10:55 -0700 (PDT)
+ AJvYcCWvkhJSAPajzX/7P0yQrLe9l7RcmrljKVtr0DCyWjC2sJO3bA/sbpYHYoN3k2PS5hIIn5aoDyIWQvM=@nongnu.org
+X-Gm-Message-State: AOJu0YztrOnpSM4x+Zh++k5mVp+bXAxpPlG70kL3go49zNT6NDBxiurl
+ MgYU8vRBEhmtPuwYMbHbtsG2YQjauUG34KpmKQLvbm6JKnrk4VrKhKDBO2DAB8wqIPTHSsXrjMH
+ yION4RxsIQR6XfCwyUQzAPHGWIhVt8YTxIJuLri01fF0hotMLOuHONA8=
+X-Gm-Gg: ASbGnctGyMbw1Z/aJCVWSmy/Iva6sJYEonE2t3qgahW3Hz1M+AhHeKmlDDqZvukCxKr
+ cxi2/bfqBnJCkBsZHlVp+RJxL58JSCnbn+4YT1yxvdKujF5ILWNgQffS9HrqHuElvi/K74FyC6z
+ FdMuc8yIVbT5vIi1bneFxaSD7/RH6Jg0FCPhbtwVAW8FXbeeTUIsGeGtiDciFsz+SLIYcVS55Iz
+ fKMZTv5JEh44vU03Rl9kBep0JF32hj4bpy4y/FP83RXJmbaCf9O6dzeOKUGoQUGlIvZ1jv4WdJy
+ Gbl4AKP+x3hgnQG53GPLC5/XjIOTMqh1bHjouj5sp5PBvIF6P+OZnDxM80tFTQ1b7f/WKtUGsQ3
+ lSTl8M+DkbWbEtC6kOmHavaT1pbsNNedvCjsmBDwYSZGz
+X-Received: by 2002:a17:906:4788:b0:b0c:fdb7:4df5 with SMTP id
+ a640c23a62f3a-b50aa08f7f4mr1389338866b.18.1760109041425; 
+ Fri, 10 Oct 2025 08:10:41 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE491ow71Xn+kTdRFhbgU/RYKqRUnCR6cj5ICQnAJbi9K9r4MnXO8OtjBc2PBq3vRKmHl1bIg==
+X-Received: by 2002:a17:906:4788:b0:b0c:fdb7:4df5 with SMTP id
+ a640c23a62f3a-b50aa08f7f4mr1389335966b.18.1760109040950; 
+ Fri, 10 Oct 2025 08:10:40 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.231.162])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b55d95257c8sm259085866b.77.2025.10.10.08.10.53
+ a640c23a62f3a-b55d8c12a08sm256553266b.52.2025.10.10.08.10.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Oct 2025 08:10:54 -0700 (PDT)
+ Fri, 10 Oct 2025 08:10:39 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: armbru@redhat.com,
 	marcandre.lureau@redhat.com,
 	qemu-rust@nongnu.org
-Subject: [PATCH 19/19] rust/tests: QAPI integration tests
-Date: Fri, 10 Oct 2025 17:10:04 +0200
-Message-ID: <20251010151006.791038-20-pbonzini@redhat.com>
+Subject: [PATCH 13/19] scripts/qapi: add QAPISchemaIfCond.rsgen()
+Date: Fri, 10 Oct 2025 17:09:58 +0200
+Message-ID: <20251010151006.791038-14-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251010151006.791038-1-pbonzini@redhat.com>
 References: <20251010151006.791038-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 9OVcR2IwOIlGXyg-5MuPqlET2TCCdbFBskdOO_QKNN8_1760109056
+X-Mimecast-MFC-PROC-ID: QJZS6huErLPNvotNtxLyXxZ-_SlHwRBhwiDnJC_SNlU_1760109042
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
 X-Spam_score: -2.5
@@ -100,7 +100,7 @@ X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.441,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, T_SPF_TEMPERROR=0.01 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -118,512 +118,65 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
+Generate Rust #[cfg(...)] guards from QAPI 'if' conditions.
+
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+Link: https://lore.kernel.org/r/20210907121943.3498701-15-marcandre.lureau@redhat.com
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/tests/meson.build          |  25 +-
- rust/tests/tests/integration.rs |   2 +
- rust/tests/tests/qapi.rs        | 444 ++++++++++++++++++++++++++++++++
- 3 files changed, 468 insertions(+), 3 deletions(-)
- create mode 100644 rust/tests/tests/integration.rs
- create mode 100644 rust/tests/tests/qapi.rs
+ scripts/qapi/common.py | 16 ++++++++++++++++
+ scripts/qapi/schema.py |  4 ++++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/rust/tests/meson.build b/rust/tests/meson.build
-index 00688c66fb1..663c1e1aafc 100644
---- a/rust/tests/meson.build
-+++ b/rust/tests/meson.build
-@@ -1,11 +1,30 @@
-+test_qapi_rs_files = custom_target('QAPI Rust',
-+  output: 'test-qapi-types.rs',
-+  input: [ files(meson.project_source_root() + '/tests/qapi-schema/qapi-schema-test.json') ],
-+  command: [ qapi_gen, '-o', meson.current_build_dir(), '-b', '@INPUT0@', '-B', 'qapi.backend.QAPIRsBackend', '-p', 'test-' ],
-+  depend_files: [ qapi_inputs, qapi_gen_depends ])
+diff --git a/scripts/qapi/common.py b/scripts/qapi/common.py
+index d7c8aa3365c..f16b9568bb9 100644
+--- a/scripts/qapi/common.py
++++ b/scripts/qapi/common.py
+@@ -199,6 +199,22 @@ def guardend(name: str) -> str:
+                  name=c_fname(name).upper())
+ 
+ 
++def rsgen_ifcond(ifcond: Optional[Union[str, Dict[str, Any]]]) -> str:
 +
-+_test_qapi_rs = static_library(
-+    'test_qapi',
-+    test_qapi_rs_files,
-+    override_options: ['rust_std=2021', 'build.rust_std=2021'],
-+    rust_abi: 'rust',
-+    dependencies: [common_rs, util_rs, serde_rs, serde_derive_rs])
++    def cfg(ifcond: Union[str, Dict[str, Any]]) -> str:
++        if isinstance(ifcond, str):
++            return ifcond
++        if isinstance(ifcond, list):
++            return ', '.join([cfg(c) for c in ifcond])
++        oper, operands = next(iter(ifcond.items()))
++        operands = cfg(operands)
++        return f'{oper}({operands})'
 +
-+test_qapi_rs = declare_dependency(link_with: [_test_qapi_rs])
++    if not ifcond:
++        return ''
++    return '#[cfg(%s)]' % cfg(ifcond)
 +
- test('rust-integration',
-     executable(
-         'rust-integration',
--        files('tests/vmstate_tests.rs'),
-+        files(
-+            'tests/integration.rs',
-+            'tests/vmstate_tests.rs',
-+            'tests/qapi.rs',
-+        ),
-         override_options: ['rust_std=2021', 'build.rust_std=2021'],
--        rust_args: ['--test'],
-+        rust_args: ['--test'] + _qapi_cfg,
-         install: false,
--        dependencies: [bql_rs, common_rs, util_rs, migration_rs, qom_rs]),
-+        dependencies: [bql_rs, common_rs, util_rs, migration_rs, qom_rs, qapi_rs, test_qapi_rs]),
-     args: [
-         '--test', '--test-threads', '1',
-         '--format', 'pretty',
-diff --git a/rust/tests/tests/integration.rs b/rust/tests/tests/integration.rs
-new file mode 100644
-index 00000000000..ebc17cb5550
---- /dev/null
-+++ b/rust/tests/tests/integration.rs
-@@ -0,0 +1,2 @@
-+mod qapi;
-+mod vmstate_tests;
-diff --git a/rust/tests/tests/qapi.rs b/rust/tests/tests/qapi.rs
-new file mode 100644
-index 00000000000..f8a585e5802
---- /dev/null
-+++ b/rust/tests/tests/qapi.rs
-@@ -0,0 +1,444 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
 +
-+#![allow(unexpected_cfgs)]
-+#![allow(clippy::shadow_unrelated)]
+ def gen_ifcond(ifcond: Optional[Union[str, Dict[str, Any]]],
+                cond_fmt: str, not_fmt: str,
+                all_operator: str, any_operator: str) -> str:
+diff --git a/scripts/qapi/schema.py b/scripts/qapi/schema.py
+index 8d88b40de2e..848a7401251 100644
+--- a/scripts/qapi/schema.py
++++ b/scripts/qapi/schema.py
+@@ -37,6 +37,7 @@
+     docgen_ifcond,
+     gen_endif,
+     gen_if,
++    rsgen_ifcond,
+ )
+ from .error import QAPIError, QAPISemError, QAPISourceError
+ from .expr import check_exprs
+@@ -63,6 +64,9 @@ def gen_endif(self) -> str:
+     def docgen(self) -> str:
+         return docgen_ifcond(self.ifcond)
+ 
++    def rsgen(self) -> str:
++        return rsgen_ifcond(self.ifcond)
 +
-+use util::qobject::{from_qobject, to_qobject, QObject};
-+
-+#[test]
-+fn test_char() {
-+    let json = "\"v\"";
-+    let qo = QObject::from_json(json).unwrap();
-+    let c: char = from_qobject(qo).unwrap();
-+    assert_eq!(c, 'v');
-+    assert_eq!(to_qobject(c).unwrap().to_json(), json);
-+
-+    let json = "'va'";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<char>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_enum() {
-+    let json = "\"value1\"";
-+    let qo = QObject::from_json(json).unwrap();
-+    let e: test_qapi::EnumOne = from_qobject(qo).unwrap();
-+    assert_eq!(e, test_qapi::EnumOne::VALUE1);
-+    assert_eq!(to_qobject(e).unwrap().to_json(), json);
-+}
-+
-+#[test]
-+fn test_struct() {
-+    let expected = test_qapi::TestStruct {
-+        integer: -42,
-+        boolean: true,
-+        string: "foo".into(),
-+    };
-+    let json = "{\"integer\": -42, \"boolean\": true, \"string\": \"foo\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let ts: test_qapi::TestStruct = from_qobject(qo).unwrap();
-+    assert_eq!(ts, expected);
-+    assert_eq!(to_qobject(ts).unwrap().to_json(), json);
-+}
-+
-+#[test]
-+fn test_struct_nested() {
-+    let expected = test_qapi::UserDefTwo {
-+        string0: "string0".into(),
-+        dict1: test_qapi::UserDefTwoDict {
-+            string1: "string1".into(),
-+            dict2: test_qapi::UserDefTwoDictDict {
-+                userdef: test_qapi::UserDefOne {
-+                    integer: 42,
-+                    string: "string".into(),
-+                    enum1: None,
-+                },
-+                string: "string2".into(),
-+            },
-+            dict3: None,
-+        },
-+    };
-+    let json = "{\"string0\": \"string0\", \"dict1\": {\"dict2\": {\"string\": \"string2\", \
-+                \"userdef\": {\"integer\": 42, \"string\": \"string\"}}, \"string1\": \
-+                \"string1\"}}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let udt: test_qapi::UserDefTwo = from_qobject(qo).unwrap();
-+    assert_eq!(udt, expected);
-+    assert_eq!(to_qobject(udt).unwrap().to_json(), json);
-+}
-+
-+#[test]
-+fn test_list() {
-+    let expected = [
-+        test_qapi::UserDefOne {
-+            integer: 42,
-+            string: "string0".into(),
-+            enum1: None,
-+        },
-+        test_qapi::UserDefOne {
-+            integer: 43,
-+            string: "string1".into(),
-+            enum1: None,
-+        },
-+        test_qapi::UserDefOne {
-+            integer: 44,
-+            string: "string2".into(),
-+            enum1: None,
-+        },
-+    ];
-+    let json = "[{\"integer\": 42, \"string\": \"string0\"}, {\"integer\": 43, \"string\": \
-+                \"string1\"}, {\"integer\": 44, \"string\": \"string2\"}]";
-+    let qo = QObject::from_json(json).unwrap();
-+    let ud_list: Vec<test_qapi::UserDefOne> = from_qobject(qo).unwrap();
-+    assert_eq!(ud_list, expected);
-+    assert_eq!(to_qobject(ud_list).unwrap().to_json(), json);
-+}
-+
-+#[test]
-+fn test_flat_union() {
-+    let expected = test_qapi::UserDefFlatUnion {
-+        integer: 41,
-+        string: "str".into(),
-+        u: test_qapi::UserDefFlatUnionVariant::Value1(test_qapi::UserDefA {
-+            boolean: true,
-+            a_b: None,
-+        }),
-+    };
-+    let json = "{\"integer\": 41, \"boolean\": true, \"enum1\": \"value1\", \"string\": \"str\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let ud_fu: test_qapi::UserDefFlatUnion = from_qobject(qo).unwrap();
-+    assert_eq!(ud_fu, expected);
-+    assert_eq!(to_qobject(ud_fu).unwrap().to_json(), json);
-+}
-+
-+#[test]
-+fn test_union_in_union() {
-+    let expected = test_qapi::TestUnionInUnion {
-+        u: test_qapi::TestUnionInUnionVariant::ValueA(test_qapi::TestUnionTypeA {
-+            u: test_qapi::TestUnionTypeAVariant::ValueA1(test_qapi::TestUnionTypeA1 {
-+                integer: 2,
-+                name: "fish".into(),
-+            }),
-+        }),
-+    };
-+    let json =
-+        "{\"name\": \"fish\", \"integer\": 2, \"type-a\": \"value-a1\", \"type\": \"value-a\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uu: test_qapi::TestUnionInUnion = from_qobject(qo).unwrap();
-+    assert_eq!(uu, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::TestUnionInUnion {
-+        u: test_qapi::TestUnionInUnionVariant::ValueA(test_qapi::TestUnionTypeA {
-+            u: test_qapi::TestUnionTypeAVariant::ValueA2(test_qapi::TestUnionTypeA2 {
-+                integer: 1729,
-+                size: 87539319,
-+            }),
-+        }),
-+    };
-+    let json =
-+        "{\"integer\": 1729, \"type-a\": \"value-a2\", \"size\": 87539319, \"type\": \"value-a\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uu: test_qapi::TestUnionInUnion = from_qobject(qo).unwrap();
-+    assert_eq!(uu, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::TestUnionInUnion {
-+        u: test_qapi::TestUnionInUnionVariant::ValueB(test_qapi::TestUnionTypeB {
-+            integer: 1729,
-+            onoff: true,
-+        }),
-+    };
-+    let json = "{\"integer\": 1729, \"onoff\": true, \"type\": \"value-b\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uu: test_qapi::TestUnionInUnion = from_qobject(qo).unwrap();
-+    assert_eq!(uu, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+}
-+
-+#[test]
-+fn test_alternate() {
-+    let expected = test_qapi::UserDefAlternate::I(42);
-+    let json = "42";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::UserDefAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::UserDefAlternate::E(test_qapi::EnumOne::VALUE1);
-+    let json = "\"value1\"";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::UserDefAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::UserDefAlternate::N(());
-+    let json = "null";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::UserDefAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::UserDefAlternate::Udfu(test_qapi::UserDefFlatUnion {
-+        integer: 42,
-+        string: "str".to_string(),
-+        u: test_qapi::UserDefFlatUnionVariant::Value1(test_qapi::UserDefA {
-+            boolean: true,
-+            a_b: None,
-+        }),
-+    });
-+    let json = "{\"integer\": 42, \"boolean\": true, \"enum1\": \"value1\", \"string\": \"str\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::UserDefAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::WrapAlternate {
-+        alt: test_qapi::UserDefAlternate::I(42),
-+    };
-+    let json = "{\"alt\": 42}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::WrapAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::WrapAlternate {
-+        alt: test_qapi::UserDefAlternate::E(test_qapi::EnumOne::VALUE1),
-+    };
-+    let json = "{\"alt\": \"value1\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::WrapAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::WrapAlternate {
-+        alt: test_qapi::UserDefAlternate::Udfu(test_qapi::UserDefFlatUnion {
-+            integer: 1,
-+            string: "str".to_string(),
-+            u: test_qapi::UserDefFlatUnionVariant::Value1(test_qapi::UserDefA {
-+                boolean: true,
-+                a_b: None,
-+            }),
-+        }),
-+    };
-+    let json = "{\"alt\": {\"integer\": 1, \"boolean\": true, \"enum1\": \"value1\", \"string\": \
-+                \"str\"}}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::WrapAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+}
-+
-+#[test]
-+fn test_alternate_number() {
-+    let expected = test_qapi::AltEnumNum::N(42.0);
-+    let json = "42";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltEnumNum = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::AltNumEnum::N(42.0);
-+    let json = "42";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltNumEnum = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::AltEnumInt::I(42);
-+    let json = "42";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltEnumInt = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::AltListInt::I(42);
-+    let json = "42";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltListInt = from_qobject(qo).unwrap();
-+    assert_eq!(&uda, &expected);
-+    assert_eq!(to_qobject(&expected).unwrap().to_json(), json);
-+
-+    // double
-+    let json = "42.5";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::AltEnumBool>(qo).unwrap_err();
-+
-+    let expected = test_qapi::AltEnumNum::N(42.5);
-+    let json = "42.5";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltEnumNum = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::AltNumEnum::N(42.5);
-+    let json = "42.5";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltNumEnum = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let json = "42.5";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::AltEnumInt>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_alternate_list() {
-+    let expected = test_qapi::AltListInt::L(vec![42, 43, 44]);
-+    let json = "[42, 43, 44]";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltListInt = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+}
-+
-+#[test]
-+fn test_errors() {
-+    let json = "{ 'integer': false, 'boolean': 'foo', 'string': -42 }";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::TestStruct>(qo).unwrap_err();
-+
-+    let json = "[ '1', '2', false, '3' ]";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<String>>(qo).unwrap_err();
-+
-+    let json = "{ 'str': 'hi' }";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::UserDefTwo>(qo).unwrap_err();
-+
-+    let json = "{}";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::WrapAlternate>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_wrong_type() {
-+    let json = "[]";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::TestStruct>(qo).unwrap_err();
-+
-+    let json = "{}";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<String>>(qo).unwrap_err();
-+
-+    let json = "1";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::TestStruct>(qo).unwrap_err();
-+
-+    let json = "{}";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<i64>(qo).unwrap_err();
-+
-+    let json = "1";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<String>>(qo).unwrap_err();
-+
-+    let json = "[]";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<i64>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_fail_struct() {
-+    let json = "{ 'integer': -42, 'boolean': true, 'string': 'foo', 'extra': 42 }";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::TestStruct>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_fail_struct_nested() {
-+    let json = "{ 'string0': 'string0', 'dict1': { 'string1': 'string1', 'dict2': { 'userdef1': { \
-+                'integer': 42, 'string': 'string', 'extra': [42, 23, {'foo':'bar'}] }, 'string2': \
-+                'string2'}}}";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::UserDefTwo>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_fail_struct_in_list() {
-+    let json = "[ { 'string': 'string0', 'integer': 42 }, { 'string': 'string1', 'integer': 43 }, \
-+                { 'string': 'string2', 'integer': 44, 'extra': 'ggg' } ]";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<test_qapi::UserDefOne>>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_fail_union_flat() {
-+    let json = "{ 'enum1': 'value2', 'string': 'c', 'integer': 41, 'boolean': true }";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<test_qapi::UserDefFlatUnion>>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_fail_union_flat_no_discrim() {
-+    // test situation where discriminator field ('enum1' here) is missing
-+    let json = "{ 'integer': 42, 'string': 'c', 'string1': 'd', 'string2': 'e' }";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<test_qapi::UserDefFlatUnion2>>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_fail_alternate() {
-+    let json = "3.14";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<test_qapi::UserDefAlternate>>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_qapi() {
-+    let expected = qapi::InetSocketAddress {
-+        host: "host-val".to_string(),
-+        port: "port-val".to_string(),
-+        numeric: None,
-+        to: None,
-+        ipv4: None,
-+        ipv6: None,
-+        keep_alive: None,
-+        #[cfg(HAVE_TCP_KEEPCNT)]
-+        keep_alive_count: None,
-+        #[cfg(HAVE_TCP_KEEPIDLE)]
-+        keep_alive_idle: Some(42),
-+        #[cfg(HAVE_TCP_KEEPINTVL)]
-+        keep_alive_interval: None,
-+        #[cfg(HAVE_IPPROTO_MPTCP)]
-+        mptcp: None,
-+    };
-+
-+    let qsa = to_qobject(&expected).unwrap();
-+    let json = qsa.to_json();
-+    assert_eq!(
-+        json,
-+        "{\"port\": \"port-val\", \"keep_alive_idle\": 42, \"host\": \"host-val\"}"
-+    );
-+    let sa: qapi::InetSocketAddress = from_qobject(qsa).unwrap();
-+    assert_eq!(sa, expected);
-+
-+    let expected = qapi::SocketAddressVariant::Inet(expected);
-+    let qsav = to_qobject(&expected).unwrap();
-+    let json = qsav.to_json();
-+    assert_eq!(
-+        json,
-+        "{\"port\": \"port-val\", \"keep_alive_idle\": 42, \"host\": \"host-val\", \"type\": \
-+         \"inet\"}"
-+    );
-+    let sav: qapi::SocketAddressVariant = from_qobject(qsav).unwrap();
-+    assert_eq!(sav, expected);
-+
-+    let expected = qapi::Qcow2BitmapInfo {
-+        name: "name-val".to_string(),
-+        granularity: 4096,
-+        flags: vec![
-+            qapi::Qcow2BitmapInfoFlags::IN_USE,
-+            qapi::Qcow2BitmapInfoFlags::AUTO,
-+        ],
-+    };
-+    let qbi = to_qobject(&expected).unwrap();
-+    let json = qbi.to_json();
-+    assert_eq!(
-+        json,
-+        "{\"flags\": [\"in-use\", \"auto\"], \"name\": \"name-val\", \"granularity\": 4096}"
-+    );
-+    let bi: qapi::Qcow2BitmapInfo = from_qobject(qbi).unwrap();
-+    assert_eq!(bi, expected);
-+}
+     def is_present(self) -> bool:
+         return bool(self.ifcond)
+ 
 -- 
 2.51.0
 
