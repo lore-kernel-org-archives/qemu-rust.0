@@ -4,86 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0683ECCA476
-	for <qemu-rust@archiver.kernel.org>; Fri, 10 Oct 2025 14:15:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C6C4CCA476
+	for <qemu-rust@archiver.kernel.org>; Fri, 10 Oct 2025 15:10:36 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v7DtW-0007jB-GL; Fri, 10 Oct 2025 10:14:55 -0400
+	id 1v7ElG-0008Fb-Og; Fri, 10 Oct 2025 11:10:27 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1v7DtS-0007b8-6I
- for qemu-rust@nongnu.org; Fri, 10 Oct 2025 10:14:51 -0400
-Received: from mail-ed1-x529.google.com ([2a00:1450:4864:20::529])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1v7DtG-0003gi-O2
- for qemu-rust@nongnu.org; Fri, 10 Oct 2025 10:14:48 -0400
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-63163a6556bso4235668a12.1
- for <qemu-rust@nongnu.org>; Fri, 10 Oct 2025 07:14:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1760105672; x=1760710472; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=058w4CnQoaWYCrsWvckRBoaK3UCOTYkXq/JMaiKx6Lg=;
- b=BBMPmbvUsXMQBxgQ3CZRmfdgWl007a4jmPejpm3TMbG2OJy/nBckxvFbUoMa9NpoLn
- kNEEH2v2fubStlevCdowbot3eY7cY3FZyp/97rPENR2caXAtoUjI+oWCLxiRT+WYqoCb
- itAROP2Ej+3GSQ/oGXYvhDfZgTabvAR3jBuG0iPYKv3vTDxoPwGKydCtu/HOkZYti/Rj
- i8bu1i3MgFdIZgAlcZmm10DPAyTfFKYV8k4ybNnHa1GXP+ShgDjQPUW1JdV3Yvuu81xy
- zrDw0yLJO+sGmPJhXdnZwfpBtEHXtkO3mOSdXM2kOZBEcDkpZh+heuv1okJ7xngk0J3L
- kgYw==
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1v7ElF-0008Ee-UY
+ for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:10:25 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1v7El5-00042G-B5
+ for qemu-rust@nongnu.org; Fri, 10 Oct 2025 11:10:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1760109011;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=80OsYP00CTMBcfR/17Cxs+Xuu/BvDfU4GSy9OiK9oPs=;
+ b=FabstsxTvOHG/FTFdlZydaiuVcCrc2Nx5L6oSWOczI47J658jMO7oRAZn2OlSS1rhed2O1
+ yRNRXkma5EcybxljlYUUpDcaa0QBNbRcM1jjyHJxRWqvKnhQ2Nb1R88bUu1sq4ahk+pI4T
+ qFB1+vXCZ/aaZFSrfUhnIwFZCzUbxIc=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-641-VVw1w-flOT6FSzxK9UMatw-1; Fri, 10 Oct 2025 11:10:10 -0400
+X-MC-Unique: VVw1w-flOT6FSzxK9UMatw-1
+X-Mimecast-MFC-AGG-ID: VVw1w-flOT6FSzxK9UMatw_1760109009
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-b07c2924d53so233905666b.3
+ for <qemu-rust@nongnu.org>; Fri, 10 Oct 2025 08:10:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760105672; x=1760710472;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=058w4CnQoaWYCrsWvckRBoaK3UCOTYkXq/JMaiKx6Lg=;
- b=SziQq028jZ4laDHXHAwd6fwg2AiuS9T00YDNVwamzDkmtm3x8n7yzQydBDuIDob6bP
- eULUqhYzYxiqTtij0PSTFEGJutlsMsIL/WV1zI4kyH5MQEuq57bWLm4xHt1a9fs5FPjo
- Fi8wTKWPrgc3J+ea7GPPansnx+yZhwHQmnJ15gwzU65yiLrIT58u1Irf8xJf8dl8RiYR
- sq2twp4SPfpkFcz1DYopqy9bOdApRyJgu7TqxXBLIjlEOJFXuto4HjFTueBwU4KC7SKV
- 9B0VQhvjgCcw2KYYblgsJXNxm2Rmli9Bm8bi63jzRLM9XsM2uQYiaX2pFxBuCVKGdWPt
- ypmg==
+ d=1e100.net; s=20230601; t=1760109008; x=1760713808;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=80OsYP00CTMBcfR/17Cxs+Xuu/BvDfU4GSy9OiK9oPs=;
+ b=AxIle3obXrQrfvzCcrb3EsYQfnl2AwyP4mz6voEOIjy1l6SKnhArFNfH/PZn7VjFHd
+ WlGAbbJZMSpbdS1ZK7d79e2xQtLk/IrqeEBMrkUjQymGc8NFDKWfeks3Khz7EtP8Pz+e
+ svW2MVIEAHWEeF+Vx1jpmxIKeYmP2q2TXz7+d0tG43h1QCPnbuu/sQIjIo60aKcvPbDO
+ Bb1zJZYftn1LKBSNl98tIgNP2n963l62Aieq+wxtqxiJBSkAyN/8avqKva4F+exHpUDV
+ lht14MEBfhZE8EZOZN40gUQSUiesP8YB/OJ5mr8KVZTXI+4mh07KiGlIzL/17zgpjsCV
+ VojQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVOdxg9jvlh2TWSoFkBi1g5SMZ1f/1bea9SWjgnoz+ExENlfiymCUKDiQ1ZNTmIwFCncgFMJ/L7T0M=@nongnu.org
-X-Gm-Message-State: AOJu0YypgMie26f4SSvIpkxjaFrmZTaqgXj+yoDZssu3kbMEhwbygKIK
- qtzXpFbG0uJWF9HkBI1ZbmPZMZleIIi+WtDH8ATFOba5pjaM2bXNWbEjdOFSYxgRTM/dfMhu0Gb
- KVbHQ+sIl31L88kheaX+CDEeEL0NjSHf/w/zgVCXvRg==
-X-Gm-Gg: ASbGncvpujiyg089azD5xm4FFWUSurdMw7JXaQ4cfD/koTmkNHz5se7FkB019gbhAuW
- 0C3GQ6ao1hI77RygFqMgedxLhnAK6+9YVJF38QXrlnCVm4THMz0GTL9fJ7YyU6VfqrpzYs1W/Oq
- XzSxQwHeb++VmO4qKG7r8sVrjsqtrP1TpkfeTx41Scbh/zyFHgQg5zMXKUVv4XbvtLK6dba7ZcJ
- a38NMWivvkLjsf6IHr411I3p1z6+wLTi9CgIA==
-X-Google-Smtp-Source: AGHT+IGxtlECE4+UHktRUMy+A//VOGAnjBHD2SX5viARvXdAzr32tIoT43FoqQrmT5PrGe95cp7q14jQB4EmZ3Ck21U=
-X-Received: by 2002:a05:6402:254c:b0:62a:a4f0:7e4f with SMTP id
- 4fb4d7f45d1cf-639d5c52babmr10087997a12.29.1760105671989; Fri, 10 Oct 2025
- 07:14:31 -0700 (PDT)
+ AJvYcCUVG5LKT+vGsWcnJ7TTLOwh/CY08pZci1DwxispucQBv2Fr1EqgL5oO7nR60zLfMHRJzE7OsGC1VnY=@nongnu.org
+X-Gm-Message-State: AOJu0Yy0BDR73M8TXfwnYrv1SsPbfyBBDG7wtV6YE6iSqdZaP/F20FXE
+ Yx/SoAlCV+XRnVmEmNjN5uur2YEcWYllmX15idA+R+nFIJZi7fGTpFu/b4ccK6Gyad8HAyuKto2
+ 0RM0Zyxo/YhxQtGI5OjgH6NOTdhRgml4As7gL2kujkJ+mzbgXwOIKixAXhDlCrtk=
+X-Gm-Gg: ASbGncuqz7G9gdsrkpsjDHfutHU7ctVuEYiR7jVCDnnmBxOUkZhLKO4moKJEOfShD2g
+ 7CT00DA9E4V8SBRUCT2F28Or7AOYMDF6F4ULpAFGcmGbPkZcnuhXSdpN1xXnHATLTIKZujEreaQ
+ wnbrlQSxj8a1exda5kF3gUe6/1qtBpHSxutDRMiu9Ya/3jk7Sk8jv/KOGiqOotzDC1MjNl76GlP
+ N1A6vNFF65NoowFgvttBEblrJCb2RAUxvBRYBzIYw7H3pM/0SWKaqLbGaAb/lvQPxi9gR9NSHia
+ vouFkIfRt+pjLAnvB/+1tfWP6gS37qXf1UK2w3MBqFmwFXyZhrpnm9mXf/Cgk9KBLsAvs7aa53w
+ 1sqNjPHhGJKC7CFwct53Su03yX/QNNq6hk3ZYjwb7qPhO
+X-Received: by 2002:a17:906:4789:b0:b3e:f028:2d57 with SMTP id
+ a640c23a62f3a-b50acc3132amr1426694066b.57.1760109007993; 
+ Fri, 10 Oct 2025 08:10:07 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFAuWZVQbffh2NRJQjq1kjw773APTWKBaf9fGH8YH3Dl3PwX2HjsNpBzFItKHPWhL/mfyfmIQ==
+X-Received: by 2002:a17:906:4789:b0:b3e:f028:2d57 with SMTP id
+ a640c23a62f3a-b50acc3132amr1426691266b.57.1760109007572; 
+ Fri, 10 Oct 2025 08:10:07 -0700 (PDT)
+Received: from [192.168.10.48] ([151.49.231.162])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b55d65d002esm248884866b.26.2025.10.10.08.10.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Oct 2025 08:10:07 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: armbru@redhat.com,
+	marcandre.lureau@redhat.com,
+	qemu-rust@nongnu.org
+Subject: [PATCH 00/19] rust: QObject and QAPI bindings
+Date: Fri, 10 Oct 2025 17:09:45 +0200
+Message-ID: <20251010151006.791038-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-References: <20251009211208.643222-1-pbonzini@redhat.com>
- <CAAjaMXaPv+hENfLuZUeLEOjakuw7dOTLQCeaUbuveZW4Y_2PBQ@mail.gmail.com>
- <0766dc6c-6cab-4f56-a8ab-c573aff15421@redhat.com>
-In-Reply-To: <0766dc6c-6cab-4f56-a8ab-c573aff15421@redhat.com>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Fri, 10 Oct 2025 17:14:06 +0300
-X-Gm-Features: AS18NWAPD9S-wVx_UgSXe0blu_FRPrLgrbxk0hk695JasrsM-S9HRdjcGWkRVig
-Message-ID: <CAAjaMXbTonve3KrHm_AfizEq4vH9R53encUwpRG7sNtthqh0HA@mail.gmail.com>
-Subject: Re: [PATCH] rust: temporarily disable double_parens check
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, 
- Richard Henderson <richard.henderson@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::529;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x529.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: koXxn6nwbpJ2GX0TAGPxJvUvGdr-hLvbwrHRka_I_4E_1760109009
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -24
+X-Spam_score: -2.5
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.441,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,43 +113,145 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Fri, Oct 10, 2025 at 5:12=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com>=
- wrote:
->
-> On 10/10/25 14:23, Manos Pitsidianakis wrote:
-> > On Fri, Oct 10, 2025 at 12:12=E2=80=AFAM Paolo Bonzini <pbonzini@redhat=
-.com> wrote:
-> >>
-> >> It is showing in the output of the bits! macro and not easy to fix the=
-re
-> >> (at least not without making the macro more complex).  Disable it for
-> >> now.
-> >>
-> >> Link: https://github.com/rust-lang/rust-clippy/issues/15852
-> >> Reported-by: Richard Henderson <richard.henderson@linaro.org>
-> >> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> >> ---
-> >
-> > How about putting it in the macro expansion instead of globally allowin=
-g it?
-> >
-> > macro_rules! foo {
-> >      ($a:expr, $b:expr, $c:expr, $d:expr) =3D> {
-> >          #[allow(clippy::double_parens)]
-> >          InterruptMask(((($a.union($b).union($c).union($d))).into_bits(=
-)) as u32)
-> >      }
-> > }
->
-> Can you do it for procedural macros as well?
+This adds two related parts of the Rust bindings:
 
-Of course!
+- QAPI code generator that creates Rust structs from the JSON
+  description.  The structs are *not* ABI compatible with the
+  C ones, instead they use native Rust data types.
 
->
-> > Why is the double parenthesis needed here by the way? It's a method cha=
-in
-> It's just how the macro works, occasionally generating double
-> parentheses keeps the parser simple.
+- QObject bindings and (de)serialization support, which can be used to
+  convert QObjects to and from QAPI structs.
 
-Makes sense.
+Unfortunately Rust code is not able to use visitors, other than by
+creating an intermediate QObject.  This is because of the different
+architecture of serde vs. QAPI visitors, and because visitor's
+dual-purpose functions, where the same function is used by both input and
+output visitors, rely heavily on the structs using the same representation
+as the visitor arguments (for example NUL-terminated strings).
+
+The serde format implementation was co-authored by me and Marc-André.
+Marc-André did all the bug fixing and integration testing.
+
+As an example of how this would be used, the marshaling functions for
+QMP commands would look like this:
+
+fn qmp_marshal_query_stats(args: *mut QDict,
+    retp: *mut *mut QObject, errp: *mut *mut Error)
+{
+    let qobj = unsafe { QObject::cloned_from_raw(args.cast()) };
+
+    let result = from_qobject::<StatsFilter>(qobj)
+         .map_err(anyhow::Error::from)
+         .and_then(qmp_query_stats)
+         .and_then(|ret| to_qobject::<Vec<StatsResult>>(ret).map_err(anyhow::Error::from));
+
+    match qmp_marshal_query_stats_rs(qobj) {
+        Ok(ret) => unsafe { *retp = ret.into_raw(); },
+        Err(e) => unsafe { crate::Error::from(e).propagate(errp) },
+    }
+}
+
+As a small extra, patches 1 and 2 rework a bit the error implementation
+so that it is possible to convert any Rust error into a QEMU one.  This
+is because we noticed that we had to add several From<> implementations
+to convert e.g. NulError or serde errors into util::Error.
+
+The price is that it's a bit harder to convert *strings* into errors;
+therefore, the first patch adds a macro wrapper for
+"if !cond { return Err(...) }", where the dots build an error from a
+formatted string.
+
+Paolo
+
+Marc-André Lureau (8):
+  rust/qobject: add Display/Debug
+  scripts/qapi: add QAPISchemaIfCond.rsgen()
+  scripts/qapi: generate high-level Rust bindings
+  scripts/qapi: add serde attributes
+  scripts/qapi: strip trailing whitespaces
+  scripts/rustc_args: add --no-strict-cfg
+  rust/util: build QAPI types
+  rust/tests: QAPI integration tests
+
+Paolo Bonzini (11):
+  util: add ensure macro
+  rust/util: use anyhow's native chaining capabilities
+  rust: do not add qemuutil to Rust crates
+  rust/qobject: add basic bindings
+  subprojects: add serde
+  rust/qobject: add Serialize implementation
+  rust/qobject: add Serializer (to_qobject) implementation
+  rust/qobject: add Deserialize implementation
+  rust/qobject: add Deserializer (from_qobject) implementation
+  rust/util: replace Error::err_or_unit/err_or_else with
+    Error::with_errp
+  rust/qobject: add from/to JSON bindings for QObject
+
+ docs/devel/rust.rst                           |   1 +
+ meson.build                                   |   4 +-
+ rust/util/wrapper.h                           |   8 +
+ qapi/meson.build                              |   6 +
+ rust/Cargo.lock                               |   2 +
+ rust/Cargo.toml                               |   2 +
+ rust/chardev/meson.build                      |   2 +-
+ rust/hw/timer/hpet/src/device.rs              |  21 +-
+ rust/hw/timer/hpet/src/fw_cfg.rs              |   7 +-
+ rust/meson.build                              |   4 +
+ rust/tests/meson.build                        |  25 +-
+ rust/tests/tests/integration.rs               |   2 +
+ rust/tests/tests/qapi.rs                      | 444 +++++++++++++
+ rust/util/Cargo.toml                          |   2 +
+ rust/util/meson.build                         |  31 +-
+ rust/util/src/error.rs                        | 222 +++----
+ rust/util/src/lib.rs                          |   2 +
+ rust/util/src/qobject/deserialize.rs          | 134 ++++
+ rust/util/src/qobject/deserializer.rs         | 371 +++++++++++
+ rust/util/src/qobject/error.rs                |  58 ++
+ rust/util/src/qobject/mod.rs                  | 369 +++++++++++
+ rust/util/src/qobject/serialize.rs            |  59 ++
+ rust/util/src/qobject/serializer.rs           | 585 ++++++++++++++++++
+ scripts/archive-source.sh                     |   3 +
+ scripts/make-release                          |   2 +-
+ scripts/qapi/backend.py                       |  27 +-
+ scripts/qapi/common.py                        |  16 +
+ scripts/qapi/gen.py                           |   6 +-
+ scripts/qapi/main.py                          |   4 +-
+ scripts/qapi/rs.py                            | 181 ++++++
+ scripts/qapi/rs_types.py                      | 387 ++++++++++++
+ scripts/qapi/schema.py                        |   4 +
+ scripts/rust/rustc_args.py                    |  16 +-
+ subprojects/.gitignore                        |   3 +
+ .../packagefiles/serde-1-rs/meson.build       |  36 ++
+ .../packagefiles/serde-1.0.226-include.patch  |  16 +
+ .../packagefiles/serde_core-1-rs/meson.build  |  25 +
+ .../serde_core-1.0.226-include.patch          |  15 +
+ .../serde_derive-1-rs/meson.build             |  35 ++
+ .../serde_derive-1.0.226-include.patch        |  11 +
+ subprojects/serde-1-rs.wrap                   |  11 +
+ subprojects/serde_core-1-rs.wrap              |  11 +
+ subprojects/serde_derive-1-rs.wrap            |  11 +
+ 43 files changed, 3042 insertions(+), 139 deletions(-)
+ create mode 100644 rust/tests/tests/integration.rs
+ create mode 100644 rust/tests/tests/qapi.rs
+ create mode 100644 rust/util/src/qobject/deserialize.rs
+ create mode 100644 rust/util/src/qobject/deserializer.rs
+ create mode 100644 rust/util/src/qobject/error.rs
+ create mode 100644 rust/util/src/qobject/mod.rs
+ create mode 100644 rust/util/src/qobject/serialize.rs
+ create mode 100644 rust/util/src/qobject/serializer.rs
+ create mode 100644 scripts/qapi/rs.py
+ create mode 100644 scripts/qapi/rs_types.py
+ create mode 100644 subprojects/packagefiles/serde-1-rs/meson.build
+ create mode 100644 subprojects/packagefiles/serde-1.0.226-include.patch
+ create mode 100644 subprojects/packagefiles/serde_core-1-rs/meson.build
+ create mode 100644 subprojects/packagefiles/serde_core-1.0.226-include.patch
+ create mode 100644 subprojects/packagefiles/serde_derive-1-rs/meson.build
+ create mode 100644 subprojects/packagefiles/serde_derive-1.0.226-include.patch
+ create mode 100644 subprojects/serde-1-rs.wrap
+ create mode 100644 subprojects/serde_core-1-rs.wrap
+ create mode 100644 subprojects/serde_derive-1-rs.wrap
+
+-- 
+2.51.0
+
 
