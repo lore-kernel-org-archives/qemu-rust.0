@@ -4,140 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7085CCCD184
-	for <qemu-rust@archiver.kernel.org>; Tue, 14 Oct 2025 15:10:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A28A9CCD192
+	for <qemu-rust@archiver.kernel.org>; Tue, 14 Oct 2025 15:17:59 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v8gew-0006O8-KD; Tue, 14 Oct 2025 11:09:54 -0400
+	id 1v8gmg-00028d-W7; Tue, 14 Oct 2025 11:17:55 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v8get-0006Ns-0q
- for qemu-rust@nongnu.org; Tue, 14 Oct 2025 11:09:51 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1v8gme-000287-KK; Tue, 14 Oct 2025 11:17:52 -0400
+Received: from mgamail.intel.com ([198.175.65.14])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v8gem-0005FH-RI
- for qemu-rust@nongnu.org; Tue, 14 Oct 2025 11:09:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1760454579;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=B/zZoSle//6Sw/N0PFc50XkWyU5qfZTc9Kl0ctw4IXw=;
- b=Z5eiZDQij10mD6UL9f10hwvlzF2GfMZAjxpGNWHvut8sWCMxari6L98OJe6lntgAkJ0ct3
- 7iVwTzDK3He1j1xHca05LW1Z8neoqYu93e7AN9BUkmPxubXKd+GE6GFerYMrtY5sv9WFvm
- SmdaW5apH5s+LFYamzWTfQamo3pyIKk=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-124-Zh5r1t1mO7WUObYGfxbjUw-1; Tue, 14 Oct 2025 11:09:38 -0400
-X-MC-Unique: Zh5r1t1mO7WUObYGfxbjUw-1
-X-Mimecast-MFC-AGG-ID: Zh5r1t1mO7WUObYGfxbjUw_1760454577
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-3f6b44ab789so3211900f8f.3
- for <qemu-rust@nongnu.org>; Tue, 14 Oct 2025 08:09:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760454577; x=1761059377;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=B/zZoSle//6Sw/N0PFc50XkWyU5qfZTc9Kl0ctw4IXw=;
- b=XWn9KHrfP4GD1BEZqngQsAolUJXSP2X4oS9bIAJE76wPNuiLHcIk23yFKM9w32PLJw
- vnGEzwBbJwPhoIuElrtQA/HxMIOvu6fKlYGPHDlV8LlDt5XpP8UeqXTibk/aHhyOyL6z
- LZ26wc0gc94Ym64JIGWT06qj2/vkX5jF7LSE11wVdy5TAbJhV3KoEmVwuIXz7DHyAcSN
- HDTTwAUNCIXF7Husv3jJnIlIc6MlAmBlC3navmOu9c9xDj4D97sAsVXJ7AwC67P50ggE
- Z5vGfaSeeissq3zbEvyzB3VD8/RUCivtOGw65/CjHXE7WBD9/lwGUuJndyWalb0Ys/sU
- R83g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUrcNkVAQY/rWJWukpecQK/JaurjWj75Gx7FZEeJ24/Bj9zH8Jt2tqcMxoALg0oyoxRG1Xcm/vl62o=@nongnu.org
-X-Gm-Message-State: AOJu0YxvzSlauOevjUFLSMmMR5jS1gc1OQ4vpmc2r3QWOWtbSlCexOc/
- zrmh7nzZ6jjIoMBFz5r+Ug3EOLUcL1D4uebEKkjWLzXqPVsD5pPMdJ3oRkIiDt4UV+/zxOiZFsD
- jOb7g5lkmduvpX/JHx06oZO60zAgeK60GBfemqGdJHH3YosTDM9cydwg=
-X-Gm-Gg: ASbGncv8vFKBc1wB3VaNhYKqNNydeY/ODPbVQaS7cr7PyKy9EgJgzac1VjOabamreWx
- OeU/PBS/dMeHvdJU6xgLL/rCokIjINqPjKaJycFMJDv7znF7RLE0uCcdfKcQ5fRqonfNrdHvuGT
- juDXnZ9RAboLcsQwmM6OQTc9d7Iv01PnrJpe/Ix+gmyZAMgB+vcdZKqCiO09DyfAgvAgFPEMysD
- 5gTpNIL5JZocmnZJQvuu4xZ3TazsXkpejv7RDCxMkLL614GlzlGVFLn+cA6ePtPOSFdchR4aiGm
- 2Yz8IA7UXPGIM4vQ1KJbYJVig8s4p8G5BYfJuSOV5lAf20uqV+aZeBwmjQHFUnTPQ32QMwucrk9
- Poxlv1t+iNu4xBmKKaAc4MWiUZN9gGElGS2Hx7l7/pXw=
-X-Received: by 2002:a05:6000:420a:b0:400:ac58:b35f with SMTP id
- ffacd0b85a97d-4266708361bmr12750458f8f.21.1760454576942; 
- Tue, 14 Oct 2025 08:09:36 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEhTDkL9zZB8pIrdbMaSQSstkAqa2QSFtzE+AQ9NA0WD5xrmJb5VG1wPUq3CkRSeagWrWVK1Q==
-X-Received: by 2002:a05:6000:420a:b0:400:ac58:b35f with SMTP id
- ffacd0b85a97d-4266708361bmr12750430f8f.21.1760454576497; 
- Tue, 14 Oct 2025 08:09:36 -0700 (PDT)
-Received: from [192.168.10.48] ([151.61.22.175])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-46fb32a84edsm131835335e9.4.2025.10.14.08.09.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Oct 2025 08:09:35 -0700 (PDT)
-Message-ID: <0d7741c3-2ffb-4076-8baa-864a83197805@redhat.com>
-Date: Tue, 14 Oct 2025 17:09:34 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1v8gma-0006U2-BN; Tue, 14 Oct 2025 11:17:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1760455068; x=1791991068;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=+QtHRQ6oWS3RVcVguLBinTUwEH/gTU7AL+1AOC8GzA4=;
+ b=lRsNGGELeMSGe45UzHAvm8ou9pjjALSfozzL0Q2aMd4G7NdIt36L2zxE
+ 7MNYWwHpA7vzCKgpnuj1NtTFSX82q8V873ZQ2nAhu9u7CT4OfHNCn6+1O
+ pNvGizcurawxnF4Eep1fKK5OtfpXr/i5WbEkvmX5T8A97gIZAR4RFos40
+ PKkev5nRyWOtVlqlQskTvHZ13wcbCLtXPfaiGgn3k1ByFLvaf0LC/eyjS
+ 3JWbSGftWFDPkUgehajMrZjcpwzr5xI4weuLodOshfwljKrXdt/BHD0pc
+ E99ctmO3hwRJwDvCBSZ+eExiz3wxye6EI1Fsr5PKg9Kg3e6box5N5P1Cm Q==;
+X-CSE-ConnectionGUID: FzXsZD+1TgyepNe5XbiHAQ==
+X-CSE-MsgGUID: F3pY7HgnRlyOLRBurfINSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="66444690"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="66444690"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2025 08:17:40 -0700
+X-CSE-ConnectionGUID: z61vCBn7Q3KC5vEH5QTWAQ==
+X-CSE-MsgGUID: nDHMKyi1ThKQlYbgXtLpKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,228,1754982000"; d="scan'208";a="187213910"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa004.fm.intel.com with ESMTP; 14 Oct 2025 08:17:38 -0700
+Date: Tue, 14 Oct 2025 23:39:44 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ qemu-devel@nongnu.org, qemu-rust@nongnu.org
 Subject: Re: [PATCH] rust/qemu-macros: Convert bit value to u8 within
  #[property]
-To: Zhao Liu <zhao1.liu@intel.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Message-ID: <aO5uwJnKqSJAlioY@intel.com>
 References: <20251014150251.2473680-1-zhao1.liu@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <20251014150251.2473680-1-zhao1.liu@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 2wO6djBDMZiPcBqQi8PTCffkW3iS7YUBjAdRgX84VTo_1760454577
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ <0d7741c3-2ffb-4076-8baa-864a83197805@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0d7741c3-2ffb-4076-8baa-864a83197805@redhat.com>
+Received-SPF: pass client-ip=198.175.65.14; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -153,32 +83,35 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 10/14/25 17:02, Zhao Liu wrote:
-> diff --git a/rust/qemu-macros/src/lib.rs b/rust/qemu-macros/src/lib.rs
-> index 3e21b67b4719..2a7454da2416 100644
-> --- a/rust/qemu-macros/src/lib.rs
-> +++ b/rust/qemu-macros/src/lib.rs
-> @@ -271,7 +271,10 @@ macro_rules! str_to_c_str {
->                   name: ::std::ffi::CStr::as_ptr(#prop_name),
->                   info: #qdev_prop,
->                   offset: ::core::mem::offset_of!(#name, #field_name) as isize,
-> -                bitnr: #bitnr,
-> +                bitnr: {
-> +                    const { assert!(#bitnr >= 0 && #bitnr <= u8::MAX as _, "bit exceeds u8 range"); }
+On Tue, Oct 14, 2025 at 05:09:34PM +0200, Paolo Bonzini wrote:
+> Date: Tue, 14 Oct 2025 17:09:34 +0200
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: Re: [PATCH] rust/qemu-macros: Convert bit value to u8 within
+>  #[property]
+> 
+> On 10/14/25 17:02, Zhao Liu wrote:
+> > diff --git a/rust/qemu-macros/src/lib.rs b/rust/qemu-macros/src/lib.rs
+> > index 3e21b67b4719..2a7454da2416 100644
+> > --- a/rust/qemu-macros/src/lib.rs
+> > +++ b/rust/qemu-macros/src/lib.rs
+> > @@ -271,7 +271,10 @@ macro_rules! str_to_c_str {
+> >                   name: ::std::ffi::CStr::as_ptr(#prop_name),
+> >                   info: #qdev_prop,
+> >                   offset: ::core::mem::offset_of!(#name, #field_name) as isize,
+> > -                bitnr: #bitnr,
+> > +                bitnr: {
+> > +                    const { assert!(#bitnr >= 0 && #bitnr <= u8::MAX as _, "bit exceeds u8 range"); }
+> 
+> The check for the upper limit must be "#bitnr < $field_ty::BITS as _", for
+> example rejecting 32 for an u32 field.
 
-The check for the upper limit must be "#bitnr < $field_ty::BITS as _", 
-for example rejecting 32 for an u32 field.
+Yes, good point, MAX is not enough.
 
-Also, the tests need to be updated.
+> Also, the tests need to be updated.
 
-Thanks for remembering about this change!
+Will do.
 
-Paolo
-
-> +                    #bitnr as u8
-> +                },
->                   set_default: #set_default,
->                   defval: ::hwcore::bindings::Property__bindgen_ty_1 { u: #defval as u64 },
->                   ..::common::Zeroable::ZERO
+Regards,
+Zhao
 
 
