@@ -4,70 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A28A9CCD192
-	for <qemu-rust@archiver.kernel.org>; Tue, 14 Oct 2025 15:17:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6C74CCD193
+	for <qemu-rust@archiver.kernel.org>; Wed, 15 Oct 2025 11:22:35 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v8gmg-00028d-W7; Tue, 14 Oct 2025 11:17:55 -0400
+	id 1v8zZx-0007vn-2G; Wed, 15 Oct 2025 07:22:01 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1v8gme-000287-KK; Tue, 14 Oct 2025 11:17:52 -0400
-Received: from mgamail.intel.com ([198.175.65.14])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1v8zZv-0007vG-Lg
+ for qemu-rust@nongnu.org; Wed, 15 Oct 2025 07:21:59 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1v8gma-0006U2-BN; Tue, 14 Oct 2025 11:17:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1760455068; x=1791991068;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=+QtHRQ6oWS3RVcVguLBinTUwEH/gTU7AL+1AOC8GzA4=;
- b=lRsNGGELeMSGe45UzHAvm8ou9pjjALSfozzL0Q2aMd4G7NdIt36L2zxE
- 7MNYWwHpA7vzCKgpnuj1NtTFSX82q8V873ZQ2nAhu9u7CT4OfHNCn6+1O
- pNvGizcurawxnF4Eep1fKK5OtfpXr/i5WbEkvmX5T8A97gIZAR4RFos40
- PKkev5nRyWOtVlqlQskTvHZ13wcbCLtXPfaiGgn3k1ByFLvaf0LC/eyjS
- 3JWbSGftWFDPkUgehajMrZjcpwzr5xI4weuLodOshfwljKrXdt/BHD0pc
- E99ctmO3hwRJwDvCBSZ+eExiz3wxye6EI1Fsr5PKg9Kg3e6box5N5P1Cm Q==;
-X-CSE-ConnectionGUID: FzXsZD+1TgyepNe5XbiHAQ==
-X-CSE-MsgGUID: F3pY7HgnRlyOLRBurfINSw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="66444690"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="66444690"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2025 08:17:40 -0700
-X-CSE-ConnectionGUID: z61vCBn7Q3KC5vEH5QTWAQ==
-X-CSE-MsgGUID: nDHMKyi1ThKQlYbgXtLpKg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,228,1754982000"; d="scan'208";a="187213910"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa004.fm.intel.com with ESMTP; 14 Oct 2025 08:17:38 -0700
-Date: Tue, 14 Oct 2025 23:39:44 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH] rust/qemu-macros: Convert bit value to u8 within
- #[property]
-Message-ID: <aO5uwJnKqSJAlioY@intel.com>
-References: <20251014150251.2473680-1-zhao1.liu@intel.com>
- <0d7741c3-2ffb-4076-8baa-864a83197805@redhat.com>
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1v8zZn-0002iZ-5E
+ for qemu-rust@nongnu.org; Wed, 15 Oct 2025 07:21:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1760527305;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=XLpvGGZ8WRVvDXCdQuGucaMwYXJnc6UP4bGICxPC5sM=;
+ b=SmOs+m2FMvECb25mH1LLjwqgq9hyjhihVt0laAa7FBcsPvibMuoA65fvwOUBoUUtME+9bB
+ NzNoSmdNP+DHJFVVEn628L8eWCrHE+EeUE/+OeRfLV6y0yqpJrcuiTGVtireKeg2U2BKk3
+ cHDnEfO6rlFwdnq2FAHsvXcZ5mA6YD0=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-78-eBc-bdE9NUqVzHp3D2sU5A-1; Wed, 15 Oct 2025 07:21:44 -0400
+X-MC-Unique: eBc-bdE9NUqVzHp3D2sU5A-1
+X-Mimecast-MFC-AGG-ID: eBc-bdE9NUqVzHp3D2sU5A_1760527303
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-3ecdb10a612so1202560f8f.2
+ for <qemu-rust@nongnu.org>; Wed, 15 Oct 2025 04:21:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760527303; x=1761132103;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XLpvGGZ8WRVvDXCdQuGucaMwYXJnc6UP4bGICxPC5sM=;
+ b=nAxb0EVkCmEYJKtBn8nGquZRBTu0Zr2byAM8jFO/La/AZ4G+49aTX5h8n75A7wnL6Q
+ ljFDNhsAJV93NHh8kDwx+JhqUjssYQc04YL/vS5zMogqtFaMfUlF0WPFnfVMplTtaOC7
+ 1kA1/ISXV9N7OLhG6aBAZ3w9ptc0X6OWQRcG+QVNiP+kjeCPEPVIzxAq7lLMTgFF8kN3
+ nxLPrf/pK9zXPPV7Ncd1u2mr8IXc39G0P0Y/xl57vcPU8YCIrQTBX2xmNY3xic+qZlJU
+ zAjA1HI9Xc/no/XJjL2iVVmQluZL7OUryQhC9apP9t2hOxzctaiGBQrvwhiIOAoEPlPg
+ bmug==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUVCq2WYUmOYIRJ2bfWMhAbSIoUssg6wZk5m74/pJfztVmaqD3w+jXKqHVIz5HmEtFMN7PQST/RduY=@nongnu.org
+X-Gm-Message-State: AOJu0Yx5FAEu0m+0CDKcgKbQnFMY0F0V+4mY5bK1kq3Qstf69w5XrxbY
+ QrJuk1Nu9H2goe0O1+qwxeWvT+n/WtjcgpQecgnjAAOoZiqd5oY6k7m0Ydf90w4o3Bioi0s8X1n
+ qKN7yjcT0BehR7xL3XKssRn1rKwV+hDaV61WMGz6249tZoRhlJbWLR98=
+X-Gm-Gg: ASbGncu8QqeEVEh0O01qIxVPif0WF31syTPoIJQH99grL566FSSaQttopIJ4bg7DmHr
+ 8adG5VTa3OG0QkZjVU1ZWDuldeklxZbZdx3qTetcCWdAVEpUf4UYWMxRAfZgIupuh820OHOThWS
+ eRXs8lnCL1X7YWnSLV074aeZ94AFm7VhLMw77/RkME3UoSzvKE9qwM/Wm+Myrh8cE22oF4aTSne
+ JTD3sdqejTFqMbNV7nKJ1/zSkSM1qxFMyzpRSWvOFhmgc11ggEx3VgleUadoRnUE8e0ahUndDIt
+ 2WzBAV5gpbbJV0eRPN99QM42V+RFvs4Hq9UMzx8+enz9e7tzmiZLZ5/krjHG4MN60HQGOlwFa2b
+ blgXH1CirgPliSxStwA6EHqw6jzN0/b2T0j84wf6ggZo=
+X-Received: by 2002:a05:6000:420a:b0:3ee:114f:f89f with SMTP id
+ ffacd0b85a97d-42666ac6b77mr17801185f8f.15.1760527302410; 
+ Wed, 15 Oct 2025 04:21:42 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFooIK50no4b0wG7HjD1lDaI6srLJdrhWRRkPgsH0QPHEnZIX3v4Om50AOKZzyrK1xFeWqz0Q==
+X-Received: by 2002:a05:6000:420a:b0:3ee:114f:f89f with SMTP id
+ ffacd0b85a97d-42666ac6b77mr17801149f8f.15.1760527301795; 
+ Wed, 15 Oct 2025 04:21:41 -0700 (PDT)
+Received: from [192.168.10.48] ([151.61.22.175])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-426ce5e10e8sm28591233f8f.39.2025.10.15.04.21.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Oct 2025 04:21:41 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Czenczek <hreitz@redhat.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>,
+ =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ =?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+ Zhao Liu <zhao1.liu@intel.com>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Junjie Mao <junjie.mao@hotmail.com>,
+ =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
+ qemu-rust@nongnu.org
+Subject: Rust in QEMU update, October 2025
+Date: Wed, 15 Oct 2025 13:21:31 +0200
+Message-ID: <20251015112139.1197033-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0d7741c3-2ffb-4076-8baa-864a83197805@redhat.com>
-Received-SPF: pass client-ip=198.175.65.14; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: lbaZqq42RnQ6OaKEYp_d6J4qhSfCgRBtMTC9igHwhSQ_1760527303
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -83,35 +120,169 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Tue, Oct 14, 2025 at 05:09:34PM +0200, Paolo Bonzini wrote:
-> Date: Tue, 14 Oct 2025 17:09:34 +0200
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: Re: [PATCH] rust/qemu-macros: Convert bit value to u8 within
->  #[property]
-> 
-> On 10/14/25 17:02, Zhao Liu wrote:
-> > diff --git a/rust/qemu-macros/src/lib.rs b/rust/qemu-macros/src/lib.rs
-> > index 3e21b67b4719..2a7454da2416 100644
-> > --- a/rust/qemu-macros/src/lib.rs
-> > +++ b/rust/qemu-macros/src/lib.rs
-> > @@ -271,7 +271,10 @@ macro_rules! str_to_c_str {
-> >                   name: ::std::ffi::CStr::as_ptr(#prop_name),
-> >                   info: #qdev_prop,
-> >                   offset: ::core::mem::offset_of!(#name, #field_name) as isize,
-> > -                bitnr: #bitnr,
-> > +                bitnr: {
-> > +                    const { assert!(#bitnr >= 0 && #bitnr <= u8::MAX as _, "bit exceeds u8 range"); }
-> 
-> The check for the upper limit must be "#bitnr < $field_ty::BITS as _", for
-> example rejecting 32 for an u32 field.
+Summary
+'''''''
 
-Yes, good point, MAX is not enough.
+Achievements
+  Definitive code structure and MSRV bump; migration improvements and
+  tracing merged; Rust enabled in CI for more host operating systems;
+  initial bindings for QAPI and QMP
 
-> Also, the tests need to be updated.
+Ongoing work for 10.2
+  Integrate Meson bugfixes from upcoming version 1.9.2; IOMMU support
+  ongoing in rust-vmm
 
-Will do.
+Future work
+  More QAPI/QMP integration; enable by default; tighter integration
+  between Meson and Cargo
 
-Regards,
-Zhao
+
+Table of contents
+'''''''''''''''''
+
+* Status in QEMU 10.2
+* Improvements and cleanups
+* Other work in progress
+* Next steps
+
+
+Status in QEMU 10.2
+'''''''''''''''''''
+
+While the project is still in a "pupal" state, a lot of the individual
+bits are less experimental, and the overall structure of the Rust code
+in QEMU is clearer.
+
+The minimum supported Rust version is now 1.83, with no extra bumps
+planned.  The only unsupported platforms are Debian bookworm mips64el
+(other architectures remain buildable on bookworm too) and Ubuntu
+LTS releases, for which newer versions of Rust are planned but not
+available yet.
+
+We have enabled Rust in CI in almost all jobs.  Once some Meson bugs
+are fixed, which currently prevent enabling Rust for Windows and macOS,
+all targets should support Rust.  Both Marc-André Lureau and Martin
+Kletzander have already identified and fixed some bugs in Meson, and
+their patches will be included in Meson 1.9.2.  Meson 1.9.2 version
+will also make it possible to use rustc to link emulator binaries, which
+makes the resulting executable smaller and the build system a bit simpler.
+
+Over the sunmer, Tanish Desai wrote most of the code for tracing support;
+it is now merged as well, closing the biggest feature gap between Rust
+and C versions of the devices.  While support for the ``dtrace`` and
+``ust`` backends is still missing, ``dtrace`` should be added soon via
+the existing ``probe`` crate.  For ``ust``, the plan is to deprecate it.
+
+With these improvements, there is already a practical benefit to writing
+*new* devices in Rust, especially if you don't need other APIs than those
+with bindings.  The build system boilerplate is still substantial
+for the time being, but this is a temporary issue and the existing
+pl011 and HPET devices provide a model that is easy to follow.
+
+If any devices are contributed that are written in Rust and do not have
+a C counterpart, it may be worth splitting "enable Rust" from "enable
+all devices written in Rust".  This way, the C versions of the pl011
+and HPET devices can remain available until all platforms have a new-enough
+compiler version and no build system issues.
+
+
+Improvements and cleanups
+'''''''''''''''''''''''''
+
+With the recent merge of ``VMStateDescriptionBuilder``, there is no
+remaining need for unsafe code in devices, outside the QOM ``instance_init``
+method.
+
+Migration support was also improved to support thread-safe (non-BQL)
+devices.  The plan is to apply these improvements to HPET, which recently
+became BQL-free in C.  Thread-safety may also be a good reason to rewrite
+other simple devices from C to Rust, for example interrupt controllers.
+
+Rust<->C interoperability is now split across multiple crates, each
+linking to the corresponding C code.  This should simplify work on block
+devices, as there is no need anymore to build the support code twice
+for tools and emulators, and it also makes documentation less daunting.
+
+In addition, GLib bindings use glib_sys, which makes it possible to use
+only features present in our minimum supported version of glib (2.66).
+
+There are now a lot fewer loose ends in the ``meson.build`` files.  The
+files are still pretty large, but they are homogeneous and should be
+readable.
+
+Zhao Liu is looking into cleaning up HPET to separate the registers
+struct, as is already the case for PL011, and at the same time enable
+lock-free MMIO.
+
+
+Other work in progress
+''''''''''''''''''''''
+
+``vm-memory`` integration
+  Zhao also looked into using the ``vm-memory`` crate in QEMU.  Because of
+  QEMU's support for IOMMUs, this required changes to the crate.  Hanna
+  Czenczek's work on IOMMU support for rust-vmm is very close to being
+  merged, and we'll wait for that before continuing with ``vm-memory``
+  integration in QEMU.
+
+  Nevertheless Zhao's work provided some insights on what the future API
+  could look like---for example, a memory store in safe Rust could look
+  like this::
+
+     ADDRESS_SPACE_MEMORY.store::<Le32>(addr, 42);
+
+
+Meson support for Cargo
+  As mentioned in the earlier updates, in parallel to QEMU work I'm
+  looking at improvements to Meson's support for Cargo and Rust.
+
+  The thrust for these improvements is to let QEMU use Cargo subprojects
+  for the crates it depends upon, making it possible to add dependencies
+  simply by adding them to ``Cargo.lock`` (the file that is currently
+  sitting in the ``rust/`` subdirectory).  Hanna was particularly vocal
+  in requesting an easier process to add new Rust dependencies. :)
+
+  Meson 1.10 will already be able to read a superproject's ``Cargo.lock``,
+  but later on it will also need support for reading QEMU's ``Cargo.toml``.
+  This has two objectives: first to resolve the set of features that are
+  required from the dependencies, and second to enable adding new simple
+  build targets (e.g. devices and tests) with one or two lines of Meson
+  code.  The first parts of the work are at:
+
+  - https://github.com/mesonbuild/meson/issues/14639 (specification)
+
+  - https://github.com/mesonbuild/meson/pull/15069 (first part of the
+    implementation, covering feature resolution)
+
+  This is longer term work.  I'm seeking to have it merged over
+  the next few Meson releases starting with Meson 1.10, but it does
+  not block further work on QEMU.  Right now we have roughly 20
+  dependencies, and we're adding about 1 per month on average.
+
+
+Next steps
+''''''''''
+
+There is almost feature parity between C and Rust devices, other than
+for the following items:
+
+- dtrace support [Stefan]
+
+- lock-free MMIO in HPET [Zhao]
+
+Once the above are fixed and Ubuntu gets Rust 1.83, QEMU can enable
+Rust usage by default.
+
+Integration of QObject and QAPI with serde is on the mailing list.
+It enables QMP integration and it also helps supporting QOM properties,
+but is not planned for QEMU 10.2 since there are no users yet.
+One possibility is to resurrect more of Marc-André's 2022 work
+on QMP commands, for which he used qemu-ga.
+
+The cleanups to the build system should be enough to restart work
+on the block layer.
+
+More hands would be welcome in adding bindings for more backends
+and bus types, for example (respectively) block devices and I2C.
 
 
