@@ -4,107 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6C74CCD193
-	for <qemu-rust@archiver.kernel.org>; Wed, 15 Oct 2025 11:22:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0603BCCD195
+	for <qemu-rust@archiver.kernel.org>; Thu, 16 Oct 2025 14:56:49 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1v8zZx-0007vn-2G; Wed, 15 Oct 2025 07:22:01 -0400
+	id 1v9PPH-0000Aq-75; Thu, 16 Oct 2025 10:56:43 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v8zZv-0007vG-Lg
- for qemu-rust@nongnu.org; Wed, 15 Oct 2025 07:21:59 -0400
+ id 1v9PPF-0000AL-Mx
+ for qemu-rust@nongnu.org; Thu, 16 Oct 2025 10:56:41 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1v8zZn-0002iZ-5E
- for qemu-rust@nongnu.org; Wed, 15 Oct 2025 07:21:58 -0400
+ id 1v9PP2-0008Tt-3o
+ for qemu-rust@nongnu.org; Thu, 16 Oct 2025 10:56:41 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1760527305;
+ s=mimecast20190719; t=1760626585;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
- bh=XLpvGGZ8WRVvDXCdQuGucaMwYXJnc6UP4bGICxPC5sM=;
- b=SmOs+m2FMvECb25mH1LLjwqgq9hyjhihVt0laAa7FBcsPvibMuoA65fvwOUBoUUtME+9bB
- NzNoSmdNP+DHJFVVEn628L8eWCrHE+EeUE/+OeRfLV6y0yqpJrcuiTGVtireKeg2U2BKk3
- cHDnEfO6rlFwdnq2FAHsvXcZ5mA6YD0=
+ bh=bKRAus6HdVcn682X1+0P7SmXTLcO6cGl1ErIELft2Ds=;
+ b=MAJwONfI4XL8F8d+DnG8ROYZQUfqivsvfHnx8uXX00sUU3D5RLuIhEZ4ekvuD8up/7IBD/
+ p+PObx9CM5eMr+Phi+SfiRCSRDUx9KB3w2h8+vlL8CYH8/7UiyppF2tMRNvdcCeEnDJJTK
+ ZHTL90qMvLe0ksW7zyG6USEEsE26NvM=
 Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
  [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-78-eBc-bdE9NUqVzHp3D2sU5A-1; Wed, 15 Oct 2025 07:21:44 -0400
-X-MC-Unique: eBc-bdE9NUqVzHp3D2sU5A-1
-X-Mimecast-MFC-AGG-ID: eBc-bdE9NUqVzHp3D2sU5A_1760527303
+ us-mta-572-RbCgsGSUOJyzOvDiZoRFiA-1; Thu, 16 Oct 2025 10:56:23 -0400
+X-MC-Unique: RbCgsGSUOJyzOvDiZoRFiA-1
+X-Mimecast-MFC-AGG-ID: RbCgsGSUOJyzOvDiZoRFiA_1760626583
 Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-3ecdb10a612so1202560f8f.2
- for <qemu-rust@nongnu.org>; Wed, 15 Oct 2025 04:21:43 -0700 (PDT)
+ ffacd0b85a97d-426ff59a320so623660f8f.3
+ for <qemu-rust@nongnu.org>; Thu, 16 Oct 2025 07:56:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760527303; x=1761132103;
+ d=1e100.net; s=20230601; t=1760626582; x=1761231382;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=XLpvGGZ8WRVvDXCdQuGucaMwYXJnc6UP4bGICxPC5sM=;
- b=nAxb0EVkCmEYJKtBn8nGquZRBTu0Zr2byAM8jFO/La/AZ4G+49aTX5h8n75A7wnL6Q
- ljFDNhsAJV93NHh8kDwx+JhqUjssYQc04YL/vS5zMogqtFaMfUlF0WPFnfVMplTtaOC7
- 1kA1/ISXV9N7OLhG6aBAZ3w9ptc0X6OWQRcG+QVNiP+kjeCPEPVIzxAq7lLMTgFF8kN3
- nxLPrf/pK9zXPPV7Ncd1u2mr8IXc39G0P0Y/xl57vcPU8YCIrQTBX2xmNY3xic+qZlJU
- zAjA1HI9Xc/no/XJjL2iVVmQluZL7OUryQhC9apP9t2hOxzctaiGBQrvwhiIOAoEPlPg
- bmug==
+ bh=bKRAus6HdVcn682X1+0P7SmXTLcO6cGl1ErIELft2Ds=;
+ b=i2qVlsCbf1rMAnf3qa5+GkEkx2+GnkGX2lOxtBaggDpCMtJh+QgXmfKRKx9ZNrOce6
+ PKrgUGTzdQBaFSQrUGRkInN3hbUFH1Ch7XT5yUL0Zsd0x7y1jWy1O+3Trrg6MpCApFJi
+ DYa96prg0vmSYYqFNPfIFQlXKyIJ+gnz7zu71/mteP/kT0O7fY1FIvnQDcnLZe9rgtfZ
+ nht69hwFv39bBzzArLALH9qaj+ybLxp9ZoXR32sd4UAguXyZykiNOgoY4+7Z0d2Vu8RB
+ d/Lq0HCmqhrF809UewpN8NM9gQcH/JOSZcrVZI4Ug1UQS8obhEhXu3c0IODZaK+8IUWP
+ LWbQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUVCq2WYUmOYIRJ2bfWMhAbSIoUssg6wZk5m74/pJfztVmaqD3w+jXKqHVIz5HmEtFMN7PQST/RduY=@nongnu.org
-X-Gm-Message-State: AOJu0Yx5FAEu0m+0CDKcgKbQnFMY0F0V+4mY5bK1kq3Qstf69w5XrxbY
- QrJuk1Nu9H2goe0O1+qwxeWvT+n/WtjcgpQecgnjAAOoZiqd5oY6k7m0Ydf90w4o3Bioi0s8X1n
- qKN7yjcT0BehR7xL3XKssRn1rKwV+hDaV61WMGz6249tZoRhlJbWLR98=
-X-Gm-Gg: ASbGncu8QqeEVEh0O01qIxVPif0WF31syTPoIJQH99grL566FSSaQttopIJ4bg7DmHr
- 8adG5VTa3OG0QkZjVU1ZWDuldeklxZbZdx3qTetcCWdAVEpUf4UYWMxRAfZgIupuh820OHOThWS
- eRXs8lnCL1X7YWnSLV074aeZ94AFm7VhLMw77/RkME3UoSzvKE9qwM/Wm+Myrh8cE22oF4aTSne
- JTD3sdqejTFqMbNV7nKJ1/zSkSM1qxFMyzpRSWvOFhmgc11ggEx3VgleUadoRnUE8e0ahUndDIt
- 2WzBAV5gpbbJV0eRPN99QM42V+RFvs4Hq9UMzx8+enz9e7tzmiZLZ5/krjHG4MN60HQGOlwFa2b
- blgXH1CirgPliSxStwA6EHqw6jzN0/b2T0j84wf6ggZo=
-X-Received: by 2002:a05:6000:420a:b0:3ee:114f:f89f with SMTP id
- ffacd0b85a97d-42666ac6b77mr17801185f8f.15.1760527302410; 
- Wed, 15 Oct 2025 04:21:42 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFooIK50no4b0wG7HjD1lDaI6srLJdrhWRRkPgsH0QPHEnZIX3v4Om50AOKZzyrK1xFeWqz0Q==
-X-Received: by 2002:a05:6000:420a:b0:3ee:114f:f89f with SMTP id
- ffacd0b85a97d-42666ac6b77mr17801149f8f.15.1760527301795; 
- Wed, 15 Oct 2025 04:21:41 -0700 (PDT)
-Received: from [192.168.10.48] ([151.61.22.175])
+ AJvYcCVZXoO8W7XYf2uobGsy5wo3qPzc8T2CmtaotqC37Roi1AjlbKPs4LwZXAmhjj0m0EDL8vVk+9L7mvg=@nongnu.org
+X-Gm-Message-State: AOJu0YxJBEYUJR+Kf6IC/PmidqxebOLODrm8q2dmtM89MhR9xyqpvrJ9
+ EUIp6YqcpOgUsEOQ/bTY9uaWb9hKT2Y5gdfrF1LYlqHAnaGxezCJvgvWL1Um+q0oVljpgCu9hCm
+ LNDZMoahybH7dKturhqucP32wtyYD/41aPGtfRqyZ2tyJpsmZ9gjB0s39TrQOewo=
+X-Gm-Gg: ASbGnctRRLdaUX9fPhMSILQEhlSu9+AmdJyaq9YRsxklsOzjPPwkYwr9RtCPP+m3iLn
+ LAb3if5fv2ttMkkGpg8xbqKOWvQNsI7DfIGg8UcRzYlasdc+8Q9bgMx96VkPklniXeqLd95gQGR
+ CpXNhZKtiYLtvThrKf2iTdF0vlQhsRJenVcgPw5c4sSu1HJ3t7ClzNevfKKlQjzKmmWwTwhHR64
+ 7KFjlDzlDDyajFXfbxsfKiiaXK89Mx1WKegYM9YqefwVBA/QBoPkOGX8DPmp8u0ehb9zsRyMjE6
+ rQyt/MDCYiXeJNhORXyyWp0UUZe27twSvJEg+lKQS3zhrY0/mVCyqzglkPuZZ+KImwnLU4Du6bA
+ ekyyWEaZ5OEn5mSnP9HmLuMH6ABZ8g2q9TRTYif0+23JRqZwe3QZQ+bMxjTnHocehs+QHG4K/k6
+ k=
+X-Received: by 2002:a05:6000:2888:b0:427:2e8:fe53 with SMTP id
+ ffacd0b85a97d-42704d7eac3mr294264f8f.6.1760626581612; 
+ Thu, 16 Oct 2025 07:56:21 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHnkNkx4gaoII/mtiHK6Q2V5m2qzQcfNwpWbBojpz75vSrsXpsXCqXBKm1vSpXxRfmrcCkYvA==
+X-Received: by 2002:a05:6000:2888:b0:427:2e8:fe53 with SMTP id
+ ffacd0b85a97d-42704d7eac3mr294246f8f.6.1760626581155; 
+ Thu, 16 Oct 2025 07:56:21 -0700 (PDT)
+Received: from [192.168.1.84] ([93.56.170.18])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-426ce5e10e8sm28591233f8f.39.2025.10.15.04.21.40
+ 5b1f17b1804b1-47114460fe1sm33868415e9.17.2025.10.16.07.56.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Oct 2025 04:21:41 -0700 (PDT)
+ Thu, 16 Oct 2025 07:56:20 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
-Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Czenczek <hreitz@redhat.com>,
- Stefan Hajnoczi <stefanha@redhat.com>,
- =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- =?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
- Zhao Liu <zhao1.liu@intel.com>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Junjie Mao <junjie.mao@hotmail.com>,
- =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
- qemu-rust@nongnu.org
-Subject: Rust in QEMU update, October 2025
-Date: Wed, 15 Oct 2025 13:21:31 +0200
-Message-ID: <20251015112139.1197033-1-pbonzini@redhat.com>
+Cc: mkletzan@redhat.com,
+	marcandre.lureau@redhat.com,
+	qemu-rust@nongnu.org
+Subject: [PATCH] rust: remove useless glib_sys bindings
+Date: Thu, 16 Oct 2025 16:56:19 +0200
+Message-ID: <20251016145619.1324585-1-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: lbaZqq42RnQ6OaKEYp_d6J4qhSfCgRBtMTC9igHwhSQ_1760527303
+X-Mimecast-MFC-PROC-ID: LBgXQgAsimaKyjSeeTuIu1h9xdFWz0Z11HbMI3s5smI_1760626583
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_score_int: -16
+X-Spam_score: -1.7
+X-Spam_bar: -
+X-Spam_report: (-1.7 / 5.0 requ) BAYES_00=-1.9, DKIM_INVALID=0.1,
+ DKIM_SIGNED=0.1, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_PASS=-0.001,
+ T_SPF_TEMPERROR=0.01 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -120,169 +114,148 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Summary
-'''''''
+From: Martin Kletzander <mkletzan@redhat.com>
 
-Achievements
-  Definitive code structure and MSRV bump; migration improvements and
-  tracing merged; Rust enabled in CI for more host operating systems;
-  initial bindings for QAPI and QMP
+The definition of types needed for g_autolist(), g_autoslist(),
+g_autoqueue() need the imports for GList, GSList and GQueue
+to appear everything.  Rust code is never going to see those,
+since they are not used in structs.  Block the types from
+appearing in the bindings.
 
-Ongoing work for 10.2
-  Integrate Meson bugfixes from upcoming version 1.9.2; IOMMU support
-  ongoing in rust-vmm
+Co-authored-by: Martin Kletzander <mkletzan@redhat.com>
+Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ meson.build                        | 1 +
+ rust/bql/src/bindings.rs           | 2 +-
+ rust/chardev/src/bindings.rs       | 4 ++--
+ rust/hw/char/pl011/src/bindings.rs | 2 +-
+ rust/hw/core/src/bindings.rs       | 2 +-
+ rust/migration/src/bindings.rs     | 2 +-
+ rust/qom/src/bindings.rs           | 2 +-
+ rust/system/src/bindings.rs        | 2 +-
+ rust/util/src/bindings.rs          | 2 +-
+ 9 files changed, 10 insertions(+), 9 deletions(-)
 
-Future work
-  More QAPI/QMP integration; enable by default; tighter integration
-  between Meson and Cargo
-
-
-Table of contents
-'''''''''''''''''
-
-* Status in QEMU 10.2
-* Improvements and cleanups
-* Other work in progress
-* Next steps
-
-
-Status in QEMU 10.2
-'''''''''''''''''''
-
-While the project is still in a "pupal" state, a lot of the individual
-bits are less experimental, and the overall structure of the Rust code
-in QEMU is clearer.
-
-The minimum supported Rust version is now 1.83, with no extra bumps
-planned.  The only unsupported platforms are Debian bookworm mips64el
-(other architectures remain buildable on bookworm too) and Ubuntu
-LTS releases, for which newer versions of Rust are planned but not
-available yet.
-
-We have enabled Rust in CI in almost all jobs.  Once some Meson bugs
-are fixed, which currently prevent enabling Rust for Windows and macOS,
-all targets should support Rust.  Both Marc-André Lureau and Martin
-Kletzander have already identified and fixed some bugs in Meson, and
-their patches will be included in Meson 1.9.2.  Meson 1.9.2 version
-will also make it possible to use rustc to link emulator binaries, which
-makes the resulting executable smaller and the build system a bit simpler.
-
-Over the sunmer, Tanish Desai wrote most of the code for tracing support;
-it is now merged as well, closing the biggest feature gap between Rust
-and C versions of the devices.  While support for the ``dtrace`` and
-``ust`` backends is still missing, ``dtrace`` should be added soon via
-the existing ``probe`` crate.  For ``ust``, the plan is to deprecate it.
-
-With these improvements, there is already a practical benefit to writing
-*new* devices in Rust, especially if you don't need other APIs than those
-with bindings.  The build system boilerplate is still substantial
-for the time being, but this is a temporary issue and the existing
-pl011 and HPET devices provide a model that is easy to follow.
-
-If any devices are contributed that are written in Rust and do not have
-a C counterpart, it may be worth splitting "enable Rust" from "enable
-all devices written in Rust".  This way, the C versions of the pl011
-and HPET devices can remain available until all platforms have a new-enough
-compiler version and no build system issues.
-
-
-Improvements and cleanups
-'''''''''''''''''''''''''
-
-With the recent merge of ``VMStateDescriptionBuilder``, there is no
-remaining need for unsafe code in devices, outside the QOM ``instance_init``
-method.
-
-Migration support was also improved to support thread-safe (non-BQL)
-devices.  The plan is to apply these improvements to HPET, which recently
-became BQL-free in C.  Thread-safety may also be a good reason to rewrite
-other simple devices from C to Rust, for example interrupt controllers.
-
-Rust<->C interoperability is now split across multiple crates, each
-linking to the corresponding C code.  This should simplify work on block
-devices, as there is no need anymore to build the support code twice
-for tools and emulators, and it also makes documentation less daunting.
-
-In addition, GLib bindings use glib_sys, which makes it possible to use
-only features present in our minimum supported version of glib (2.66).
-
-There are now a lot fewer loose ends in the ``meson.build`` files.  The
-files are still pretty large, but they are homogeneous and should be
-readable.
-
-Zhao Liu is looking into cleaning up HPET to separate the registers
-struct, as is already the case for PL011, and at the same time enable
-lock-free MMIO.
-
-
-Other work in progress
-''''''''''''''''''''''
-
-``vm-memory`` integration
-  Zhao also looked into using the ``vm-memory`` crate in QEMU.  Because of
-  QEMU's support for IOMMUs, this required changes to the crate.  Hanna
-  Czenczek's work on IOMMU support for rust-vmm is very close to being
-  merged, and we'll wait for that before continuing with ``vm-memory``
-  integration in QEMU.
-
-  Nevertheless Zhao's work provided some insights on what the future API
-  could look like---for example, a memory store in safe Rust could look
-  like this::
-
-     ADDRESS_SPACE_MEMORY.store::<Le32>(addr, 42);
-
-
-Meson support for Cargo
-  As mentioned in the earlier updates, in parallel to QEMU work I'm
-  looking at improvements to Meson's support for Cargo and Rust.
-
-  The thrust for these improvements is to let QEMU use Cargo subprojects
-  for the crates it depends upon, making it possible to add dependencies
-  simply by adding them to ``Cargo.lock`` (the file that is currently
-  sitting in the ``rust/`` subdirectory).  Hanna was particularly vocal
-  in requesting an easier process to add new Rust dependencies. :)
-
-  Meson 1.10 will already be able to read a superproject's ``Cargo.lock``,
-  but later on it will also need support for reading QEMU's ``Cargo.toml``.
-  This has two objectives: first to resolve the set of features that are
-  required from the dependencies, and second to enable adding new simple
-  build targets (e.g. devices and tests) with one or two lines of Meson
-  code.  The first parts of the work are at:
-
-  - https://github.com/mesonbuild/meson/issues/14639 (specification)
-
-  - https://github.com/mesonbuild/meson/pull/15069 (first part of the
-    implementation, covering feature resolution)
-
-  This is longer term work.  I'm seeking to have it merged over
-  the next few Meson releases starting with Meson 1.10, but it does
-  not block further work on QEMU.  Right now we have roughly 20
-  dependencies, and we're adding about 1 per month on average.
-
-
-Next steps
-''''''''''
-
-There is almost feature parity between C and Rust devices, other than
-for the following items:
-
-- dtrace support [Stefan]
-
-- lock-free MMIO in HPET [Zhao]
-
-Once the above are fixed and Ubuntu gets Rust 1.83, QEMU can enable
-Rust usage by default.
-
-Integration of QObject and QAPI with serde is on the mailing list.
-It enables QMP integration and it also helps supporting QOM properties,
-but is not planned for QEMU 10.2 since there are no users yet.
-One possibility is to resurrect more of Marc-André's 2022 work
-on QMP commands, for which he used qemu-ga.
-
-The cleanups to the build system should be enough to restart work
-on the block layer.
-
-More hands would be welcome in adding bindings for more backends
-and bus types, for example (respectively) block devices and I2C.
+diff --git a/meson.build b/meson.build
+index 25813490d22..6cb85b173d0 100644
+--- a/meson.build
++++ b/meson.build
+@@ -4255,6 +4255,7 @@ if have_rust
+     '--allowlist-file', meson.project_source_root() + '/include/.*',
+     '--allowlist-file', meson.project_build_root() + '/.*',
+     '--blocklist-file', glib_pc.get_variable('includedir') + '/glib-2.0/.*',
++    '--blocklist-type', '.*_([a-z]*autoptr)$',
+     ]
+   if not rustfmt.found()
+     if bindgen.version().version_compare('<0.65.0')
+diff --git a/rust/bql/src/bindings.rs b/rust/bql/src/bindings.rs
+index 8c70f3a87ce..efd76790fb2 100644
+--- a/rust/bql/src/bindings.rs
++++ b/rust/bql/src/bindings.rs
+@@ -19,7 +19,7 @@
+ )]
+ 
+ use glib_sys::{
+-    guint, GArray, GHashTable, GHashTableIter, GList, GPollFD, GPtrArray, GQueue, GSList, GSource,
++    guint, GArray, GHashTable, GHashTableIter, GPollFD, GPtrArray, GSList, GSource,
+ };
+ 
+ #[cfg(MESON)]
+diff --git a/rust/chardev/src/bindings.rs b/rust/chardev/src/bindings.rs
+index c95dc89c56d..6447c72b7e3 100644
+--- a/rust/chardev/src/bindings.rs
++++ b/rust/chardev/src/bindings.rs
+@@ -20,8 +20,8 @@
+ 
+ use common::Zeroable;
+ use glib_sys::{
+-    gboolean, guint, GArray, GHashTable, GHashTableIter, GIOCondition, GList, GMainContext,
+-    GPollFD, GPtrArray, GQueue, GSList, GSource, GSourceFunc,
++    gboolean, guint, GArray, GHashTable, GHashTableIter, GIOCondition, GMainContext,
++    GPollFD, GPtrArray, GSList, GSource, GSourceFunc,
+ };
+ 
+ #[cfg(MESON)]
+diff --git a/rust/hw/char/pl011/src/bindings.rs b/rust/hw/char/pl011/src/bindings.rs
+index 52a76d0de5c..654be9185b1 100644
+--- a/rust/hw/char/pl011/src/bindings.rs
++++ b/rust/hw/char/pl011/src/bindings.rs
+@@ -22,7 +22,7 @@
+ 
+ use glib_sys::{
+     gboolean, guint, GArray, GByteArray, GHashTable, GHashTableIter, GIOCondition, GList,
+-    GMainContext, GPollFD, GPtrArray, GQueue, GSList, GSource, GSourceFunc, GString,
++    GMainContext, GPollFD, GPtrArray, GSList, GSource, GSourceFunc, GString,
+ };
+ 
+ #[cfg(MESON)]
+diff --git a/rust/hw/core/src/bindings.rs b/rust/hw/core/src/bindings.rs
+index 65b9aae7536..dd334944600 100644
+--- a/rust/hw/core/src/bindings.rs
++++ b/rust/hw/core/src/bindings.rs
+@@ -21,7 +21,7 @@
+ use chardev::bindings::Chardev;
+ use common::Zeroable;
+ use glib_sys::{
+-    GArray, GByteArray, GHashTable, GHashTableIter, GList, GPtrArray, GQueue, GSList, GString,
++    GArray, GByteArray, GHashTable, GHashTableIter, GList, GPtrArray, GSList, GString,
+ };
+ use migration::bindings::VMStateDescription;
+ use qom::bindings::ObjectClass;
+diff --git a/rust/migration/src/bindings.rs b/rust/migration/src/bindings.rs
+index 24503eb69bd..e9c058386c2 100644
+--- a/rust/migration/src/bindings.rs
++++ b/rust/migration/src/bindings.rs
+@@ -19,7 +19,7 @@
+ )]
+ 
+ use common::Zeroable;
+-use glib_sys::{GHashTable, GHashTableIter, GList, GPtrArray, GQueue, GSList};
++use glib_sys::{GHashTable, GHashTableIter, GPtrArray, GSList};
+ 
+ #[cfg(MESON)]
+ include!("bindings.inc.rs");
+diff --git a/rust/qom/src/bindings.rs b/rust/qom/src/bindings.rs
+index 91de42f2426..e61259ec2ef 100644
+--- a/rust/qom/src/bindings.rs
++++ b/rust/qom/src/bindings.rs
+@@ -18,7 +18,7 @@
+     clippy::too_many_arguments
+ )]
+ 
+-use glib_sys::{GHashTable, GHashTableIter, GList, GPtrArray, GQueue, GSList};
++use glib_sys::{GHashTable, GHashTableIter, GPtrArray, GSList};
+ 
+ #[cfg(MESON)]
+ include!("bindings.inc.rs");
+diff --git a/rust/system/src/bindings.rs b/rust/system/src/bindings.rs
+index 6cbb588de3d..2a5ba43c4f1 100644
+--- a/rust/system/src/bindings.rs
++++ b/rust/system/src/bindings.rs
+@@ -20,7 +20,7 @@
+ 
+ use common::Zeroable;
+ use glib_sys::{
+-    guint, GArray, GByteArray, GHashTable, GHashTableIter, GList, GPollFD, GPtrArray, GQueue,
++    guint, GArray, GByteArray, GHashTable, GHashTableIter, GList, GPollFD, GPtrArray,
+     GSList, GString,
+ };
+ 
+diff --git a/rust/util/src/bindings.rs b/rust/util/src/bindings.rs
+index c277a295add..3514a66f5fa 100644
+--- a/rust/util/src/bindings.rs
++++ b/rust/util/src/bindings.rs
+@@ -18,7 +18,7 @@
+     clippy::too_many_arguments
+ )]
+ 
+-use glib_sys::{guint, GList, GPollFD, GQueue, GSList, GString};
++use glib_sys::{guint, GPollFD, GString};
+ 
+ #[cfg(MESON)]
+ include!("bindings.inc.rs");
+-- 
+2.51.0
 
 
