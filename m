@@ -4,139 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE213CCD1A7
-	for <qemu-rust@archiver.kernel.org>; Tue, 21 Oct 2025 14:29:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D4DECCD184
+	for <qemu-rust@archiver.kernel.org>; Tue, 21 Oct 2025 14:36:10 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vBDLi-0005rZ-1w; Tue, 21 Oct 2025 10:28:30 -0400
+	id 1vBDSu-0000Vv-NA; Tue, 21 Oct 2025 10:35:57 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <marcandre.lureau@gmail.com>)
- id 1vBDLV-0005oZ-29
- for qemu-rust@nongnu.org; Tue, 21 Oct 2025 10:28:20 -0400
-Received: from mail-qk1-x72e.google.com ([2607:f8b0:4864:20::72e])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <marcandre.lureau@gmail.com>)
- id 1vBDLP-0003pa-I7
- for qemu-rust@nongnu.org; Tue, 21 Oct 2025 10:28:16 -0400
-Received: by mail-qk1-x72e.google.com with SMTP id
- af79cd13be357-88f27b67744so787064385a.0
- for <qemu-rust@nongnu.org>; Tue, 21 Oct 2025 07:28:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761056890; x=1761661690; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fOkDZIYP624hXJ84QvSPoENvTgmCF83wfkY593GGoOU=;
- b=QUdK5Stl2zYXVQPt5bFRvNrHAo4oyeSdDOkTiXrn05Pr9rNn6GY5parIxFPYQST4e0
- +gjlvrc7m3JP8//WWuOG55vLri7NDyLHBcqzwLgK/pMqENNA8BIq/zns1k7e3tEBgnAs
- 5vy6laYEOHgElibV5X/UsMW3qYTpkfBq3CSqXovfOMA2cUkUjWZ7lDSeJ8pOozKdxTeN
- j8kdgD8k4EXGM6lv+oLgCiJj0W5t3lH6urGME/7kYi3eKPvqan14No6v8AqJjNR4HqjP
- rR+SsYHwAp+BjoBCJEyjqVtXkzJ67NRNi0h5cy2M0lMy6sUZ87LXU1HSs9QvVNrewU5O
- gCeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761056890; x=1761661690;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=fOkDZIYP624hXJ84QvSPoENvTgmCF83wfkY593GGoOU=;
- b=a10IqMYHH7Dzew1HFN131rzdG9ZA69Dho8KYOr34WTy3tDL9TqW3R8Yo1Hfdnlmh24
- yvzUGrXV6yO5TguAm5KHxnaJBLX0jmy7rSRjJGIWLD434hUwEFt+qIScEoBDBYUTp8n2
- iAU2YUVQYNpOmMFabBiEa9Kw6+cpT3TNqlswqbx282HUO8Aa3poxNkb3J6bjTdMshHnf
- FjlDtsv/GKVW+eGReDB93fGREskdvkW+9taYd6KSu6K9Oeb7upmxkL9lqVYe/G0gkFNY
- f3frDMSPqreXlDv3cYOUo0FNmAqBkoxNL8Tax0SJDh0Y/NzMO+X6Va8AvceM3bKqivhz
- e5LA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUzxHVOmtpCGxS5QYaB9eKC+RGIMyMccut55/nmyxpdzc+m1/MOIIVlt6JlYmXyvAPsbrne7M1tzQc=@nongnu.org
-X-Gm-Message-State: AOJu0Yy3GF+W9meIeZhgH39UgJG0jljYq4+Umpier2xdDF2HPvzW8vti
- 9f5tsEpjVtQ/33mehNRdcp0FO6BuBT1KQl+FL2D6rHX/mrCJHhieaSFFrCHhODbH34CWoJHB3wY
- 3jQQkHrxNKMz0G0csX3myVXWQkq05Jc0=
-X-Gm-Gg: ASbGncs4n8irQpH+Jk4BHQjGhYm7bEdB7sLCi17nXBQLxEXKuF3PgEUhLfb3PcwX7WJ
- efxuVJN+/lz/oh9YHyebMfbgKTp8vMZTh6vfR9WMvMmgXI+X1ElMjD+iNgpq2JcgwNO82TYcII/
- qRRxpa5CKZjngp7vaVZ6iqzBtXlkQfKoLFSEqelUq6+UfzwAbFLn0rMEp6Mg6mU5galI9pciKMP
- j0z1bEopLk2V2SERxgdwOMSP3n3rH4YCjOTqqclXsXe2rRPmF2XWCBFqzGz16JNDnG7VcgznUUx
- ILPV6/bvckuebg9R
-X-Google-Smtp-Source: AGHT+IGp+zf0u9SIF08iLE3a5Asq68ZbyrbibcTK8YXdD3xNkn5pXcBzDMuiMfZHuV9n++d97YerVbPf0S+nqo2EBIc=
-X-Received: by 2002:a05:622a:310:b0:4d9:dea6:4ff0 with SMTP id
- d75a77b69052e-4e89d3d5924mr245955091cf.56.1761056889597; Tue, 21 Oct 2025
- 07:28:09 -0700 (PDT)
-MIME-Version: 1.0
+ (Exim 4.90_1) (envelope-from <dg@treblig.org>)
+ id 1vBClI-0003qg-Iv; Tue, 21 Oct 2025 09:50:55 -0400
+Received: from mx.treblig.org ([2a00:1098:5b::1])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <dg@treblig.org>)
+ id 1vBClG-0007Ar-2z; Tue, 21 Oct 2025 09:50:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+ :Subject; bh=LHZXynPB0hLQ+CBy8lrGdpgfsv32Vai29vkeHTpK2ck=; b=AaJoJRCrdJAEQGZf
+ w9YjMn4734mkUHeOBJkdePtpJDTHkk2w0ISZh4Y3GmCbHPFjkCYBAHHj37lXx1pDzaoAxr4GoJNko
+ ZwfZbctB8awpat4JKKZzK7Ns6cbh8Df0Ji2xKMCszqHMUVVgd+wywJpLbDx1pMUVvMj6znwEbGZtz
+ AWAU8OtbzMUmRs1NPVC7lRi8NwfLEQIBy3fgpb+xKUw0twzTBjxPeGCFLmMCFYapg2UIJJxgf8C88
+ 9cypXp+mGgtoL9b6Iw8hSZv5wYZgy/f40cHt/kKq6uZ5C0Hm2gJwc8Bz+y30h1MLM7USJRUv+fETC
+ Ya35X/iXopHXlilz8A==;
+Received: from dg by mx.treblig.org with local (Exim 4.96)
+ (envelope-from <dg@treblig.org>) id 1vBCk5-000B3N-1t;
+ Tue, 21 Oct 2025 13:49:37 +0000
+Date: Tue, 21 Oct 2025 13:49:37 +0000
+From: "Dr. David Alan Gilbert" <dave@treblig.org>
+To: Peter Maydell <peter.maydell@linaro.org>
+Cc: marcandre.lureau@redhat.com, qemu-devel@nongnu.org, pbonzini@redhat.com,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Stefano Garzarella <sgarzare@redhat.com>,
+ "Gonglei (Arei)" <arei.gonglei@huawei.com>,
+ Zhenwei Pi <pizhenwei@bytedance.com>,
+ Laurent Vivier <lvivier@redhat.com>, Amit Shah <amit@kernel.org>,
+ Stefan Berger <stefanb@linux.vnet.ibm.com>,
+ Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+ Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+ Igor Mitsyanko <i.mitsyanko@gmail.com>,
+ =?iso-8859-1?Q?Cl=E9ment?= Chigot <chigot@adacore.com>,
+ Frederic Konrad <konrad.frederic@yahoo.fr>,
+ Alberto Garcia <berto@igalia.com>, Thomas Huth <huth@tuxfamily.org>,
+ Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Jason Herne <jjherne@linux.ibm.com>,
+ Yoshinori Sato <yoshinori.sato@nifty.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Nicholas Piggin <npiggin@gmail.com>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ "Collin L. Walling" <walling@linux.ibm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Alistair Francis <alistair@alistair23.me>,
+ Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+ Eduardo Habkost <eduardo@habkost.net>, Corey Minyard <minyard@acm.org>,
+ Paul Burton <paulburton@kernel.org>, Aleksandar Rikalo <arikalo@gmail.com>,
+ Aurelien Jarno <aurelien@aurel32.net>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Weiwei Li <liwei1518@gmail.com>,
+ Daniel Henrique Barboza <dbarboza@ventanamicro.com>,
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Michael Rolnik <mrolnik@gmail.com>,
+ Antony Pavlov <antonynpavlov@gmail.com>, Joel Stanley <joel@jms.id.au>,
+ Vijai Kumar K <vijai@behindbytes.com>, Samuel Tardieu <sam@rfc1149.net>,
+ Gustavo Romero <gustavo.romero@linaro.org>,
+ Raphael Norwitz <raphael@enfabrica.net>,
+ Stefan Hajnoczi <stefanha@redhat.com>,
+ "reviewer:vhost-user-scmi" <mzamazal@redhat.com>,
+ Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Fabiano Rosas <farosas@suse.de>, Markus Armbruster <armbru@redhat.com>,
+ Zhang Chen <zhangckid@gmail.com>, Li Zhijian <lizhijian@fujitsu.com>,
+ Jason Wang <jasowang@redhat.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Helge Deller <deller@gmx.de>, Max Filippov <jcmvbkbc@gmail.com>,
+ Lukas Straub <lukasstraub2@web.de>,
+ "open list:Sharp SL-5500 Co..." <qemu-arm@nongnu.org>,
+ "open list:S390 SCLP-backed..." <qemu-s390x@nongnu.org>,
+ "open list:sPAPR (pseries)" <qemu-ppc@nongnu.org>,
+ "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
+ "open list:RISC-V TCG CPUs" <qemu-riscv@nongnu.org>,
+ "open list:virtiofs" <virtio-fs@lists.linux.dev>,
+ "open list:Rust-related patc..." <qemu-rust@nongnu.org>
+Subject: Re: [PATCH] char: rename CharBackend->CharFrontend
+Message-ID: <aPePcTKl6s4FoLCL@gallifrey>
 References: <20251021122533.721467-1-marcandre.lureau@redhat.com>
  <CAFEAcA-jPE_onLYLMxgcAOB7dWRXOLJrWcGPnR0NUdjYytPDVA@mail.gmail.com>
- <aPePcTKl6s4FoLCL@gallifrey>
- <CAJ+F1C+bGKtY6nf3LCXrwhZ2aEdu2npXJ9FapmsqgX0uLL5TUw@mail.gmail.com>
- <f764e4cf-d134-4c4d-a313-a5b7dd6620d0@linaro.org>
-In-Reply-To: <f764e4cf-d134-4c4d-a313-a5b7dd6620d0@linaro.org>
-From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>
-Date: Tue, 21 Oct 2025 18:27:58 +0400
-X-Gm-Features: AS18NWCtKDmDRRz11NBqNv3KECG8ofxt09PdE7ub3r-ykIF5WUP85WNT3b3fqdE
-Message-ID: <CAJ+F1CKG1G=5o+bDBXmLm6ywWDD19z1OFBwQQnDMxMFytFQ2SQ@mail.gmail.com>
-Subject: Re: [PATCH] char: rename CharBackend->CharFrontend
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>
-Cc: "Dr. David Alan Gilbert" <dave@treblig.org>,
- Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org, 
- pbonzini@redhat.com, "Michael S. Tsirkin" <mst@redhat.com>, 
- Stefano Garzarella <sgarzare@redhat.com>,
- "Gonglei (Arei)" <arei.gonglei@huawei.com>, 
- Zhenwei Pi <pizhenwei@bytedance.com>, Laurent Vivier <lvivier@redhat.com>, 
- Amit Shah <amit@kernel.org>, Stefan Berger <stefanb@linux.vnet.ibm.com>, 
- =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
- Igor Mitsyanko <i.mitsyanko@gmail.com>,
- =?UTF-8?Q?Cl=C3=A9ment_Chigot?= <chigot@adacore.com>, 
- Frederic Konrad <konrad.frederic@yahoo.fr>, Alberto Garcia <berto@igalia.com>, 
- Thomas Huth <huth@tuxfamily.org>, Halil Pasic <pasic@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Jason Herne <jjherne@linux.ibm.com>, 
- Yoshinori Sato <yoshinori.sato@nifty.com>, Magnus Damm <magnus.damm@gmail.com>,
- Nicholas Piggin <npiggin@gmail.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>,
- "Collin L. Walling" <walling@linux.ibm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, 
- Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>, 
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Alistair Francis <alistair@alistair23.me>, 
- =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
- Eduardo Habkost <eduardo@habkost.net>, Corey Minyard <minyard@acm.org>, 
- Paul Burton <paulburton@kernel.org>, Aleksandar Rikalo <arikalo@gmail.com>, 
- Aurelien Jarno <aurelien@aurel32.net>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Weiwei Li <liwei1518@gmail.com>,
- Daniel Henrique Barboza <dbarboza@ventanamicro.com>, 
- Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Michael Rolnik <mrolnik@gmail.com>, 
- Antony Pavlov <antonynpavlov@gmail.com>, Joel Stanley <joel@jms.id.au>, 
- Vijai Kumar K <vijai@behindbytes.com>, Samuel Tardieu <sam@rfc1149.net>, 
- Gustavo Romero <gustavo.romero@linaro.org>,
- Raphael Norwitz <raphael@enfabrica.net>, 
- Stefan Hajnoczi <stefanha@redhat.com>,
- "reviewer:vhost-user-scmi" <mzamazal@redhat.com>, 
- Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Fabiano Rosas <farosas@suse.de>, 
- Markus Armbruster <armbru@redhat.com>, Zhang Chen <zhangckid@gmail.com>, 
- Li Zhijian <lizhijian@fujitsu.com>, Jason Wang <jasowang@redhat.com>, 
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
- Richard Henderson <richard.henderson@linaro.org>, Helge Deller <deller@gmx.de>,
- Max Filippov <jcmvbkbc@gmail.com>, Lukas Straub <lukasstraub2@web.de>, 
- "open list:Sharp SL-5500 Co..." <qemu-arm@nongnu.org>, 
- "open list:S390 SCLP-backed..." <qemu-s390x@nongnu.org>,
- "open list:sPAPR (pseries)" <qemu-ppc@nongnu.org>, 
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>, 
- "open list:RISC-V TCG CPUs" <qemu-riscv@nongnu.org>,
- "open list:virtiofs" <virtio-fs@lists.linux.dev>, 
- "open list:Rust-related patc..." <qemu-rust@nongnu.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2607:f8b0:4864:20::72e;
- envelope-from=marcandre.lureau@gmail.com; helo=mail-qk1-x72e.google.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAFEAcA-jPE_onLYLMxgcAOB7dWRXOLJrWcGPnR0NUdjYytPDVA@mail.gmail.com>
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.1.0-34-amd64 (x86_64)
+X-Uptime: 13:49:19 up 176 days, 22:02,  1 user,  load average: 0.00, 0.00, 0.00
+User-Agent: Mutt/2.2.12 (2023-09-09)
+Received-SPF: pass client-ip=2a00:1098:5b::1; envelope-from=dg@treblig.org;
+ helo=mx.treblig.org
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Tue, 21 Oct 2025 10:35:46 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,53 +125,30 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Hi
+* Peter Maydell (peter.maydell@linaro.org) wrote:
+> Marc-André Lureau <marcandre.lureau@redhat.com> wrote:
+> > The actual backend is "Chardev", CharBackend is the frontend side of it,
+> > let's rename it for readability.
+> 
+> I always thought the "frontend" was the device the guest
+> saw (the 16650 UART or whatever). invocation.html has bits
+> talking about "virtio hvc console frontend device" which
+> seem like they also use that terminology.
+> 
+> If we want to clean up the naming it might be helpful to have
+> a comment somewhere documenting the different components and
+> what names we give them and how they fit together (or even
+> better, something in docs/devel/...)
 
-On Tue, Oct 21, 2025 at 6:23=E2=80=AFPM Philippe Mathieu-Daud=C3=A9
-<philmd@linaro.org> wrote:
->
-> On 21/10/25 15:58, Marc-Andr=C3=A9 Lureau wrote:
-> > Hi
-> >
-> > On Tue, Oct 21, 2025 at 5:52=E2=80=AFPM Dr. David Alan Gilbert <dave@tr=
-eblig.org> wrote:
-> >>
-> >> * Peter Maydell (peter.maydell@linaro.org) wrote:
-> >>> Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com> wrote:
-> >>>> The actual backend is "Chardev", CharBackend is the frontend side of=
- it,
-> >>>> let's rename it for readability.
-> >>>
-> >>> I always thought the "frontend" was the device the guest
-> >>> saw (the 16650 UART or whatever). invocation.html has bits
-> >>> talking about "virtio hvc console frontend device" which
-> >>> seem like they also use that terminology.
-> >>>
-> >>> If we want to clean up the naming it might be helpful to have
-> >>> a comment somewhere documenting the different components and
-> >>> what names we give them and how they fit together (or even
-> >>> better, something in docs/devel/...)
-> >>
-> >> Or something more descriptive like 'CharGuestSide'
-> >
-> > If we are talking about the Chardev frontend or user, that's too
-> > restrictive. We have generic stream handling code (think
-> > mux/hub/tests/client/server etc) that do not fit that usage naming.
->
-> Isn't it
->
-> - backend -> host adapter
-> - frontend -> implementation used by guest
->
+Or something more descriptive like 'CharGuestSide'
 
-Sort of, but I think it's too restrictive to name them after "host"
-and "guest", as they also have different purposes than strictly VM
-components/side usage.
+Dave
 
-I believe talking about backend and frontend is usually the preferred
-convention.
-
-
---=20
-Marc-Andr=C3=A9 Lureau
+> thanks
+> -- PMM
+-- 
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
 
