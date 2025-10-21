@@ -4,72 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07B23CCD1AA
-	for <qemu-rust@archiver.kernel.org>; Tue, 21 Oct 2025 12:53:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1356CCD1A7
+	for <qemu-rust@archiver.kernel.org>; Tue, 21 Oct 2025 13:35:57 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vBBrj-0004Ip-5i; Tue, 21 Oct 2025 08:53:27 -0400
+	id 1vBCVl-0005Ry-7N; Tue, 21 Oct 2025 09:34:49 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1vBBri-0004IZ-5H
- for qemu-rust@nongnu.org; Tue, 21 Oct 2025 08:53:26 -0400
-Received: from mail-yw1-x1135.google.com ([2607:f8b0:4864:20::1135])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1vBBrf-0007zf-Qj
- for qemu-rust@nongnu.org; Tue, 21 Oct 2025 08:53:25 -0400
-Received: by mail-yw1-x1135.google.com with SMTP id
- 00721157ae682-71d71bcab6fso54047827b3.0
- for <qemu-rust@nongnu.org>; Tue, 21 Oct 2025 05:53:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1761051201; x=1761656001; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=IuSNCsRv/59+EAgZl2384UmefgwetvdfFm3jSW4yRDA=;
- b=cDUNqoYAPqoLG8I+dRAbrP7pJQxRrKFa6ZT9jtxHsHKMEHWAdv2whjqq4VQZHJP6w8
- /v+WDHv15VLw/aEyAJESUMqhY57lMQPOoTHScfdinwinmLKnUfrI2eWaZd2QuR2LUZHV
- DPRhYC/ld+vD7TICk21Yoz+aRUL6tbhpXbKXyVMk6R6k+eBRJSX1xOjA1lQ6Sj3SfXMq
- DKytaZ7q4dTMpAPvKrra59T2rAM/zMcZcRp1P343tk7UGgw1QI1lK2+Jq32VQqDq0BKx
- MMubYgPC0mHUKDoQIo/yh2mjjjlIQ3kA2vReIlKOFpyGk9bBVodEVvtI0gwqamx2rUk0
- 39ng==
+ (Exim 4.90_1) (envelope-from <mlureau@redhat.com>)
+ id 1vBCVh-0005P7-Ik
+ for qemu-rust@nongnu.org; Tue, 21 Oct 2025 09:34:45 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <mlureau@redhat.com>)
+ id 1vBCV7-0003nN-0i
+ for qemu-rust@nongnu.org; Tue, 21 Oct 2025 09:34:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1761053433;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Q8G6fSfFVaONhcxA1DHI9VcxajpmfGw7mPN/aSeM7JQ=;
+ b=FUbtIIvWlD+FyeAxgUi50oTGw+3ymsr6ZK2dF+Nib6fQGkXPUOrWmWGDshDRIiHicD267H
+ 3XF6R750+fYM2qZ6OHDUI+T2JFUYa1KS1C00ExW8693uP9TUDJPEVKohIttj/eaAQ5TLqE
+ 80FDi4zJT+KqSFG03fvuIVwEx6xUycQ=
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-676-S7tktd-wOwCMjD3Tkv8A3w-1; Tue, 21 Oct 2025 09:30:32 -0400
+X-MC-Unique: S7tktd-wOwCMjD3Tkv8A3w-1
+X-Mimecast-MFC-AGG-ID: S7tktd-wOwCMjD3Tkv8A3w_1761053430
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-33bdd0479a9so4445926a91.2
+ for <qemu-rust@nongnu.org>; Tue, 21 Oct 2025 06:30:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761051201; x=1761656001;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=IuSNCsRv/59+EAgZl2384UmefgwetvdfFm3jSW4yRDA=;
- b=Y9hFXa18LUex2qn10k0GtL+8a16x7Oa+45JMcEm+wZ6yXKBNFJOMQVEIl7f4AqQ5FK
- fRr8B4JplkkIdjFxY66+c93APjCHab6A7b4Uuy5oX7mM0ccvSCdEUtbmLu1wcvEe41x+
- 9aAcPkwnhO7BGhU5D3JkeFZv4BJQ+gbI5EVqX3goR7Zru3kuzW91dl0uD2wlAp8ZKEbl
- 9qBC+P8K6rYqKlDYze18vJftXd0OI+GEw6dKMbYcZD77VzihtEZzkiYvZT0o66R7EGXZ
- ThH91XHYtK7AKrFy5fSn3C66L2p6ljgpSlOI2ZZO5wccJ0oTJxxY6N/wKelIKma7vRAZ
- wARw==
+ d=1e100.net; s=20230601; t=1761053430; x=1761658230;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Q8G6fSfFVaONhcxA1DHI9VcxajpmfGw7mPN/aSeM7JQ=;
+ b=b2DCF3tgOdKpoQ8jYii910Kh1Qsl/FSx0yuZ0WTdDxRT9W8Iz6DykMh1+Ecp+FGjSX
+ +L1dEyHxkWAwa9O3tslo2Q6myWNUilMl/ObTgNoyl95pIC9E34vjJgs0ox8hG8KxjXsh
+ EcDxZpT4cOPQo/Drt9+EozcoACoVMrNVzvIx89IHP01j30I48rQC2KL/AEqUmmRj+zRu
+ gxcQcSMJuHY2j1qGg7K7aR7hVKrMlZpyj9uyjPqjBFPDHiOrR6/unrarY6NmvZDpKjME
+ lAETAGgD2+8dTecuQ4PlLR5tJRrs23ezDwzqdgZnbg7xR1oAnc7I5KRLybXLRCdktsEU
+ SRVA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWD6QB3WjpH1LujuRgazb30j8aUMJuHWIG8PBNTTmZv5Y7YEL+BuRaDmegdHEN1i6mUzzyDYEsTjgU=@nongnu.org
-X-Gm-Message-State: AOJu0YwNunP8kf7nEOcp2DxpIpjg4mtCnpjgpueCrLIfMJVhwFhW27l3
- xJsOYidt+5Mabi5Z9fCm38sKKTiR4t/znKOdqhBhNF+BoyDtLxTPRZBzkqsGeDFjZ9He75kxrHp
- /804DsQOexRHpAtwYqWMZWd+QOZFuQ3SXN+Y4xIBi6g==
-X-Gm-Gg: ASbGncsEOv2l64NFvzG0TAGquJp1mRzjiTgZPpzOgoRWkLXpAb1BqctT4LFiqTD2Vw7
- RmPd7DYgqPl2lyWjEnDp8jDRX923tpovsH3/wjxERSFhhhG8q42oulBK70m9a8G21wUBo9qznCd
- AsWRs0OU3FXLK44N7WVE5Ap76RK3RXlasXFoUmooVfBL42FetjgGhll+Yf7wD5iS/Keor+vkrcL
- QpbMw5rlicFwZ5sULzx5x1HF+8C7wU8B1oRPckTkzwZ+DKHoLDeDICoFDoagQlxpw3+qBo6lkZV
- ASgIsKI=
-X-Google-Smtp-Source: AGHT+IFpbT82ve3LXltYZEPsfJS+RyLmbXt+5DVAMiKWeQCDlh+pMWALlMmxIYO912MM0kwsJVP4r1RcRcCjaeA4YeU=
-X-Received: by 2002:a53:acd9:0:10b0:63d:7ac:b991 with SMTP id
- 956f58d0204a3-63e16179374mr11700457d50.5.1761051201041; Tue, 21 Oct 2025
- 05:53:21 -0700 (PDT)
+ AJvYcCUDa3A/PkSn1110RNsa7SQiQYDGfWbExxnJ0auWdRRHLpr+YhQdsSw1Nsi4/B5G87rgO96Krcz010o=@nongnu.org
+X-Gm-Message-State: AOJu0YzV+rzQz9MLGWDk+zUZAv62MA5KsmI57r3/QWsFt2tuq98yRS6Q
+ 1EjZB6QzSpkaBx/D3Lxp66ttmBeeaEfKbx3DsLN0+mNTzlNC9dJJifCZ7WcC2ht+kM0x49/iFZz
+ FZw8KQUnBglwZjgyUQyb6fNmJhd/12aYB4Lgm69LdwGYEDrG8ux7W+UIBKxZYAllcPrQKiDuK8k
+ qEVPfpGKbp8DkLWD/l/1nHAFdIUNjc6g==
+X-Gm-Gg: ASbGncuTIxXqcBUndOqsUj6699enc2FsakpOpMIn6GELsivPFvPfjk+wfInl2aAb+50
+ 686+wt5BjFEmNa37qJhB07Vpf8GUtKNBsL5QTT0AKUsz95HIm0u9zxgAsuawG6fq0AOlollIj3f
+ GM1RdzUmw+j7VVQMjcKb1qgVm17RtaIksuu/Ty8Ly70QbgGPTixp14mbdYjGPdVYqv5bvY+JG3e
+ 4dfIKI43/Swayg=
+X-Received: by 2002:a17:90b:3ec6:b0:339:ef05:3575 with SMTP id
+ 98e67ed59e1d1-33bcf8f94c3mr25685598a91.26.1761053430066; 
+ Tue, 21 Oct 2025 06:30:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGrcrzdwZmuF2cCRqH2vToyJMLy2bHoJ+Kx9jzECaxXzAzohnouc6v8JutWnCy0AcLWb81s8PtUoo7SVr1fd6U=
+X-Received: by 2002:a17:90b:3ec6:b0:339:ef05:3575 with SMTP id
+ 98e67ed59e1d1-33bcf8f94c3mr25685486a91.26.1761053429385; Tue, 21 Oct 2025
+ 06:30:29 -0700 (PDT)
 MIME-Version: 1.0
 References: <20251021122533.721467-1-marcandre.lureau@redhat.com>
-In-Reply-To: <20251021122533.721467-1-marcandre.lureau@redhat.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Tue, 21 Oct 2025 13:53:09 +0100
-X-Gm-Features: AS18NWCp0ty09wq1HmsCT7-iy0cpel_3YH3JRfs8VpJn1hbNoYoCwcqrR0HZzqM
-Message-ID: <CAFEAcA-jPE_onLYLMxgcAOB7dWRXOLJrWcGPnR0NUdjYytPDVA@mail.gmail.com>
+ <01a51fe7-4414-e787-ddf5-5ede0c1e1e74@eik.bme.hu>
+In-Reply-To: <01a51fe7-4414-e787-ddf5-5ede0c1e1e74@eik.bme.hu>
+From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
+Date: Tue, 21 Oct 2025 17:30:18 +0400
+X-Gm-Features: AS18NWC-i6fdjk32NEoXZbM96aNPF-p1sZDoFKybRPcKVdB4OOANWfiaSgrGQ2I
+Message-ID: <CAMxuvaz8GueSp-vPHFWnbv+Odcy63Cz_hZHd3NzReWXp3pnsqg@mail.gmail.com>
 Subject: Re: [PATCH] char: rename CharBackend->CharFrontend
-To: marcandre.lureau@redhat.com
+To: BALATON Zoltan <balaton@eik.bme.hu>
 Cc: qemu-devel@nongnu.org, pbonzini@redhat.com, 
  "Michael S. Tsirkin" <mst@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>,
  "Gonglei (Arei)" <arei.gonglei@huawei.com>,
@@ -78,7 +85,8 @@ Cc: qemu-devel@nongnu.org, pbonzini@redhat.com,
  Stefan Berger <stefanb@linux.vnet.ibm.com>,
  =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
  =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
- Igor Mitsyanko <i.mitsyanko@gmail.com>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Igor Mitsyanko <i.mitsyanko@gmail.com>, 
  =?UTF-8?Q?Cl=C3=A9ment_Chigot?= <chigot@adacore.com>, 
  Frederic Konrad <konrad.frederic@yahoo.fr>, Alberto Garcia <berto@igalia.com>, 
  Thomas Huth <huth@tuxfamily.org>, Halil Pasic <pasic@linux.ibm.com>, 
@@ -121,17 +129,21 @@ Cc: qemu-devel@nongnu.org, pbonzini@redhat.com,
  "open list:RISC-V TCG CPUs" <qemu-riscv@nongnu.org>,
  "open list:virtiofs" <virtio-fs@lists.linux.dev>, 
  "open list:Rust-related patc..." <qemu-rust@nongnu.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2607:f8b0:4864:20::1135;
- envelope-from=peter.maydell@linaro.org; helo=mail-yw1-x1135.google.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: AlJYgEZmFX3hDBStGtuxDb4oftaiCg_VOpURRP0yYSo_1761053430
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/alternative; boundary="00000000000016e15b0641ab341a"
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=mlureau@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ HTML_MESSAGE=0.001, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_PASS=-0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -147,20 +159,58 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com> wrote:
-> The actual backend is "Chardev", CharBackend is the frontend side of it,
-> let's rename it for readability.
+--00000000000016e15b0641ab341a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I always thought the "frontend" was the device the guest
-saw (the 16650 UART or whatever). invocation.html has bits
-talking about "virtio hvc console frontend device" which
-seem like they also use that terminology.
+Hi
 
-If we want to clean up the naming it might be helpful to have
-a comment somewhere documenting the different components and
-what names we give them and how they fit together (or even
-better, something in docs/devel/...)
+On Tue, Oct 21, 2025 at 5:25=E2=80=AFPM BALATON Zoltan <balaton@eik.bme.hu>=
+ wrote:
 
-thanks
--- PMM
+> On Tue, 21 Oct 2025, marcandre.lureau@redhat.com wrote:
+> > From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+> >
+> > /**
+> > - * struct CharBackend - back end as seen by front end
+> > + * struct CharFrontend - back end as seen by front end
+>
+> I stopped here, haven't read the rest of the patch but the above comment
+> seems to become inconsistent. Which is the front end and back end now?
+>
+>
+It's the "frontend side" of a chardev "backend". Naming it CharBackend has
+always been the source of confusion, since the actual backend is Chardev.
+There was earlier attempt to rename it and various complains. I believe
+this is is long overdue.
+
+--00000000000016e15b0641ab341a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">Hi</div><br><div class=3D"gmail_quote gma=
+il_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Oct 21, 2=
+025 at 5:25=E2=80=AFPM BALATON Zoltan &lt;<a href=3D"mailto:balaton@eik.bme=
+.hu">balaton@eik.bme.hu</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
+204);padding-left:1ex">On Tue, 21 Oct 2025, <a href=3D"mailto:marcandre.lur=
+eau@redhat.com" target=3D"_blank">marcandre.lureau@redhat.com</a> wrote:<br=
+>
+&gt; From: Marc-Andr=C3=A9 Lureau &lt;<a href=3D"mailto:marcandre.lureau@re=
+dhat.com" target=3D"_blank">marcandre.lureau@redhat.com</a>&gt;<br>&gt;<br>
+&gt; /**<br>
+&gt; - * struct CharBackend - back end as seen by front end<br>
+&gt; + * struct CharFrontend - back end as seen by front end<br>
+<br>
+I stopped here, haven&#39;t read the rest of the patch but the above commen=
+t <br>
+seems to become inconsistent. Which is the front end and back end now?<br><=
+br></blockquote><div><br></div><div>It&#39;s the &quot;frontend side&quot; =
+of a chardev &quot;backend&quot;. Naming it CharBackend has always been the=
+ source of confusion, since the actual backend is Chardev. There was earlie=
+r attempt to rename it and various complains. I believe this is is long ove=
+rdue.</div></div></div>
+
+--00000000000016e15b0641ab341a--
+
 
