@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95348CCD1BE
-	for <qemu-rust@archiver.kernel.org>; Thu, 23 Oct 2025 13:56:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AE74CCD1BE
+	for <qemu-rust@archiver.kernel.org>; Thu, 23 Oct 2025 13:56:37 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vBvnX-0004f3-4n; Thu, 23 Oct 2025 09:56:11 -0400
+	id 1vBvna-0004kD-LY; Thu, 23 Oct 2025 09:56:14 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <mkletzan@redhat.com>)
- id 1vBvnU-0004bw-Cu
+ id 1vBvnU-0004bv-Co
  for qemu-rust@nongnu.org; Thu, 23 Oct 2025 09:56:09 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <mkletzan@redhat.com>)
- id 1vBvnQ-0005E0-Pt
+ id 1vBvnQ-0005EH-Ps
  for qemu-rust@nongnu.org; Thu, 23 Oct 2025 09:56:07 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  s=mimecast20190719; t=1761227762;
@@ -26,74 +26,74 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  to:to:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=N5buUGn4k9DX+q2F1RhrNr2ZKOcfJSYeoiQxFdqNeag=;
- b=OFB8RDWu7ft+ISy/xgmnIGGF3fcCzugg3wIWepff7CHF0ygqO56WX+v6JT2Rn1e8b1TYtG
- TP76JFAJu5DuK/ZMj9IdgTj+S4MYRsb3OuZ5dTqbDHHZ4Km5HiskDkcIsGTjMWqVRVEOhj
- 964R/R97OIDtKXGTCi5VAG14hc6fiKw=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=tC8PZlPiQjZNcHg5jwXV2rm1RllOkzq/OVQijD7JM1A=;
+ b=ABEYG+6Tfv1na+HbPpztF9ihFhqU4DJMHuSYLP9rsIOoLYERXY1kVuSrfJ/5kmavJQ8VfA
+ 9D1OTvSS8qa1Y2x/1WYJW71hKKjE67/6dV5j+kGkyedjSZOF9xzU5fdPWtpE38e+uFMTvp
+ 88+NfkrxlWAOX0IgqrWTmJ7pJMjANjM=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-116-Nls2HaOIPTqnBE1hPsRtjg-1; Thu, 23 Oct 2025 09:54:21 -0400
-X-MC-Unique: Nls2HaOIPTqnBE1hPsRtjg-1
-X-Mimecast-MFC-AGG-ID: Nls2HaOIPTqnBE1hPsRtjg_1761227660
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-42700160169so750961f8f.1
- for <qemu-rust@nongnu.org>; Thu, 23 Oct 2025 06:54:20 -0700 (PDT)
+ us-mta-250-tVufBkyyNcG2dI5YSPaozA-1; Thu, 23 Oct 2025 09:54:22 -0400
+X-MC-Unique: tVufBkyyNcG2dI5YSPaozA-1
+X-Mimecast-MFC-AGG-ID: tVufBkyyNcG2dI5YSPaozA_1761227660
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-47106a388cfso7443685e9.0
+ for <qemu-rust@nongnu.org>; Thu, 23 Oct 2025 06:54:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1761227660; x=1761832460;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=N5buUGn4k9DX+q2F1RhrNr2ZKOcfJSYeoiQxFdqNeag=;
- b=akeKxxSA+gdMnbk2+NCz09sQGsWCCmsMO5rzWcC87+H3r7W5YPdAkH0t3VhmNCvujA
- PEQsnLKNAcIAAdOf3Dw63oklBnw8hime0Bp6oY3Z2Ykq3pnwDHwZECn9sKgwX2DzlpLm
- vQY/Lhkt8/TWkkHPbI17lBLsnkJtoHVhwYOxR1U7aPqaQyVylJVlZaBIAN4XJfVGDIvR
- dndA/ck9lJ4j6WLbTUjF1FNA2CLPHEwCLL47qk2Igr8cCB2Bk+gzAQXkX0Rtk5H534UK
- BHmAwuVzzRt5Xc5HN6iCVIlo/uupIb+XilFZ30s08sWC7TeQsGnTjA4svlXjbPljusnE
- j6JA==
+ bh=tC8PZlPiQjZNcHg5jwXV2rm1RllOkzq/OVQijD7JM1A=;
+ b=fXcNuOTuKhUmMWXPO12QzR9p0COlVRMisVvpORH/R++P5hsc9Wv9RfhLS76GXoiM1J
+ 8YcAXx/ktS8eLMjCgLXmfx0mXfYTVFCDW9oKgMyctKl9OKstnp/IFLKrzquiWbIlwh1U
+ +0PPtv4nwi7SsENivD/ZOP4zZ93uHBQJoco7PpiqWrolEZrKtzti9o5Zs8TgkaR5f4D/
+ ov8s2fKovCf3ZS68Ax3A2ReZXMRkeMN0Ks6EJyX6Ew11e9pO4vVqNJJz+qLU5HA4rd4E
+ BLlwgExGpJpjvkXsfqc5dN7wblDrpb4ntQEuMTDgsNaTTD0tumeIxPiM2hXj5Qob2Xch
+ ZB3w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUBQXbNUwvDQctpjjdEnXHnit3g0kbTR+cMYRoEbfkf94MOWmXwxw1i6oPbR3+dvpeAPCf7BittIOs=@nongnu.org
-X-Gm-Message-State: AOJu0Yxu5qCTSYvu2p6Jtmzo70JgWDBWDMuDjePFxS8zXCnJWsoJ3283
- nl1mDLE+wAetHFVhRVkzSJ+C/Ff0dVQmJfX3AoYhqeknH6rvIh3zMg9tCZifpQUVYkM/QW2pvNu
- EEgSV5xvDreEJ1/WbkQdZyDtM2LZcN0BGuBV+4ZnDyUJHiOZ+CHgI1z68GtDvOIQ=
-X-Gm-Gg: ASbGncvadmVUGYDP+cLZTs/TazaMFjV0EWhYOVkHNHizW6Z7arYghp76kT7dn2trhhf
- gwX5LXSs3a/L7Q45kds7qym1w+YnSDd/VOVUKC/WKwMo17uxplzIUX8nJKY6Ifz38XsZ2QPOGad
- bbXPczUN7w+Dc/VeF5Z4+X5vlFA+Gae68RDNzKcIFQ6ODvip66oGGaAoMakd0Zb2dMrt4f0ef6M
- ThJrKbAmo5ExJ+4/CuUzY/CJ/EljqR/+ye4zuCgUhwAAqXvyZdpo7mYs9SzyrpzOgkwqwu5d7zQ
- ZIOBbspuIoQig5gbeelL10j8rp4eWGxbt0IrPbu9dPIPHDXL6XpkmgSRnbJB+WRr1woK/DI5lrJ
- btz0nN9BH
-X-Received: by 2002:a05:6000:3101:b0:429:58f:325 with SMTP id
- ffacd0b85a97d-429058f036bmr2848311f8f.24.1761227659680; 
- Thu, 23 Oct 2025 06:54:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFejbUlPbzCH3uCz+ZgnJK5kXySxpIVtgcMvDzvRZHLG6XILZgP8tgn3JIe0coLBlL38iMvFg==
-X-Received: by 2002:a05:6000:3101:b0:429:58f:325 with SMTP id
- ffacd0b85a97d-429058f036bmr2848286f8f.24.1761227659196; 
+ AJvYcCVXbB81cIsbkPP2Z7yZv4LqQVrB09i7Bxwvnifwm/E/Uqppuppx3Fxc5dovz3bdMh4DIgrrMRb9DcU=@nongnu.org
+X-Gm-Message-State: AOJu0YxGzHVyHS7qdqPpksZ7EhoYCjXFZJ9R6wecSu5w4r7a2vwswALn
+ /pf622tEsGyoN5T26AUKODbyxb1HkAw4rcs5JcT/hHI3uPHJveL7AfI1AVRMZ/7ub2J0xtojo6q
+ WL/3em+42DcmyDHCvpEI/RtgMnauimwS3oy+eihG+1zs/Igo4xqsI2ho=
+X-Gm-Gg: ASbGncsSUY7qsgNVT3HTJDXHFJLVyuBfNwp/b5ic47/3GRsR109UhUz6IAEKqq9g9Ka
+ 0YhuDKvzkjdoYJLcsgNxOqYmivr4e9TYP5vPVR3D4w58Sd3ueh9ATMhG1XsrKG6aZE+4yOnI/QP
+ mr6ho95BZ0KS/3To0E/yTg7bV4m0RJy33TrUjTL7l0H/MHlJHXNQbESqd8cv7rvA7HHocQ0PmWw
+ krH6MWCvz5V9K2nw3XkvLKfpJEeMI6Qztxl0tvuAg54d60FSLv4cHwLTUKmckEeqpzDjI62vF2O
+ tdycCd+56FdS73RQJ5LOZawTtYwqjCi1DIaewexmPB+v/2c8ArW6pnggyOxdPT4hAJv6C0u6hOS
+ YLJSD/ys5
+X-Received: by 2002:a05:600c:548c:b0:471:14af:c725 with SMTP id
+ 5b1f17b1804b1-4711787697bmr184429995e9.3.1761227660109; 
+ Thu, 23 Oct 2025 06:54:20 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFkRo97rOZa0vHoBd+1HXJAJdMK9Xy13Ii2gJArN1Q5CgZ+Gu+uE3BLWBbO8Dq8nYtz2jsSqw==
+X-Received: by 2002:a05:600c:548c:b0:471:14af:c725 with SMTP id
+ 5b1f17b1804b1-4711787697bmr184429835e9.3.1761227659752; 
  Thu, 23 Oct 2025 06:54:19 -0700 (PDT)
 Received: from wheatley.localdomain ([85.93.96.130])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429898ccd88sm5005195f8f.36.2025.10.23.06.54.18
+ 5b1f17b1804b1-475cae9f571sm40672855e9.7.2025.10.23.06.54.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Oct 2025 06:54:18 -0700 (PDT)
+ Thu, 23 Oct 2025 06:54:19 -0700 (PDT)
 Received: from wheatley.pinto-pinecone.ts.net (wheatley.k8r.cz [127.0.0.1])
- by wheatley.localdomain (Postfix) with ESMTP id 6B063DC7C867;
+ by wheatley.localdomain (Postfix) with ESMTP id 76740DC7C868;
  Thu, 23 Oct 2025 15:54:18 +0200 (CEST)
 From: Martin Kletzander <mkletzan@redhat.com>
 To: 'Manos Pitsidianakis ' <manos.pitsidianakis@linaro.org>,
  qemu-rust@nongnu.org, qemu-devel@nongnu.org
-Subject: [RFC PATCH 1/2] rust: Make common::Wrapper work with non-tuple
- structs as well
-Date: Thu, 23 Oct 2025 15:54:08 +0200
-Message-ID: <d51fd56a47b55bd700788514383293a304832531.1761226974.git.mkletzan@redhat.com>
+Subject: [RFC PATCH 2/2] rust/util: Change Timer and TimerListGroup to normal
+ structs
+Date: Thu, 23 Oct 2025 15:54:09 +0200
+Message-ID: <b21bfbd144b1a4ecbe4b9e0323a0f57c35c6e47d.1761226974.git.mkletzan@redhat.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <cover.1761226974.git.mkletzan@redhat.com>
 References: <cover.1761226974.git.mkletzan@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: OThF6PZ4qxDqBEWikq5y7ZhG0RqvejLmNgvvUbc8qG4_1761227660
+X-Mimecast-MFC-PROC-ID: ro6c-QScyuaitiDKAPivZwzBZBQi3gH-rfN5X-cA_jo_1761227660
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=mkletzan@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=mkletzan@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
@@ -120,113 +120,48 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 From: Martin Kletzander <mkletzan@redhat.com>
 
+This will allow the use of pinned_init crate which does not support
+tuple structs.
+
 Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
 ---
- rust/qemu-macros/src/lib.rs | 49 ++++++++++++++++++++++++++++---------
- 1 file changed, 37 insertions(+), 12 deletions(-)
+ rust/util/src/timer.rs | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/rust/qemu-macros/src/lib.rs b/rust/qemu-macros/src/lib.rs
-index 50239f228be2..074ba2189eec 100644
---- a/rust/qemu-macros/src/lib.rs
-+++ b/rust/qemu-macros/src/lib.rs
-@@ -10,8 +10,8 @@
-     punctuated::Punctuated,
-     spanned::Spanned,
-     token::Comma,
--    Attribute, Data, DeriveInput, Error, Field, Fields, FieldsUnnamed, Ident, Meta, Path, Token,
--    Variant,
-+    Attribute, Data, DeriveInput, Error, Field, Fields, FieldsNamed,
-+    FieldsUnnamed, Ident, Index, Member, Meta, Path, Token, Type, Variant,
- };
+diff --git a/rust/util/src/timer.rs b/rust/util/src/timer.rs
+index a99ff5e7ef7a..bc6297214525 100644
+--- a/rust/util/src/timer.rs
++++ b/rust/util/src/timer.rs
+@@ -17,14 +17,18 @@
+ /// A safe wrapper around [`bindings::QEMUTimer`].
+ #[repr(transparent)]
+ #[derive(Debug, common::Wrapper)]
+-pub struct Timer(Opaque<bindings::QEMUTimer>);
++pub struct Timer {
++    inner: Opaque<bindings::QEMUTimer>,
++}
  
- mod bits;
-@@ -42,26 +42,52 @@ fn get_fields<'a>(
-     Ok(&fs.named)
- }
+ unsafe impl Send for Timer {}
+ unsafe impl Sync for Timer {}
  
--fn get_unnamed_field<'a>(input: &'a DeriveInput, msg: &str) -> Result<&'a Field, Error> {
-+fn get_wrapped_field<'a>(input: &'a DeriveInput, msg: &str) -> Result<(Member, &'a Type), Error> {
-     let Data::Struct(ref s) = &input.data else {
-         return Err(Error::new(
-             input.ident.span(),
-             format!("Struct required for {msg}"),
-         ));
-     };
--    let Fields::Unnamed(FieldsUnnamed { ref unnamed, .. }) = &s.fields else {
-+    if let Fields::Unnamed(FieldsUnnamed { ref unnamed, .. }) = &s.fields {
-+        if unnamed.len() != 1 {
-+            return Err(Error::new(
-+                s.fields.span(),
-+                format!("A single field is required for {msg}"),
-+            ));
-+        }
-+        return Ok((Member::Unnamed(Index::from(0)), &unnamed[0].ty));
-+    }
-+
-+    let Fields::Named(FieldsNamed { ref named, .. }) = &s.fields else {
-         return Err(Error::new(
-             s.fields.span(),
--            format!("Tuple struct required for {msg}"),
-+            format!("A tuple struct or a single field named 'inner' is required for {msg}"),
-         ));
-     };
--    if unnamed.len() != 1 {
-+
-+    if named.len() != 1 {
-         return Err(Error::new(
-             s.fields.span(),
-             format!("A single field is required for {msg}"),
-         ));
+ #[repr(transparent)]
+ #[derive(common::Wrapper)]
+-pub struct TimerListGroup(Opaque<bindings::QEMUTimerListGroup>);
++pub struct TimerListGroup {
++    inner: Opaque<bindings::QEMUTimerListGroup>,
++}
+ 
+ unsafe impl Send for TimerListGroup {}
+ unsafe impl Sync for TimerListGroup {}
+@@ -42,7 +46,7 @@ impl Timer {
+     /// [`modify`](Self::modify).
+     pub const unsafe fn new() -> Self {
+         // SAFETY: requirements relayed to callers of Timer::new
+-        Self(unsafe { Opaque::zeroed() })
++        Self { inner: unsafe { Opaque::zeroed() } }
      }
--    Ok(&unnamed[0])
-+
-+    if let Field{ ident: Some(ref ident), .. } = named[0] {
-+        if ident != "inner" {
-+            return Err(Error::new(
-+                ident.span(),
-+                format!("The only field must be named 'inner': {msg}"),
-+            ));
-+        }
-+
-+        return Ok((Member::Named(ident.clone()), &named[0].ty))
-+    }
-+
-+    Err(Error::new(
-+        s.fields.span(),
-+        format!("A single field struct is requried for {msg}"),
-+    ))
- }
  
- fn is_c_repr(input: &DeriveInput, msg: &str) -> Result<(), Error> {
-@@ -129,8 +155,7 @@ fn derive_opaque_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream
-     is_transparent_repr(&input, "#[derive(Wrapper)]")?;
- 
-     let name = &input.ident;
--    let field = &get_unnamed_field(&input, "#[derive(Wrapper)]")?;
--    let typ = &field.ty;
-+    let (member, typ) = &get_wrapped_field(&input, "#[derive(Wrapper)]")?;
- 
-     Ok(quote! {
-         unsafe impl ::common::opaque::Wrapper for #name {
-@@ -143,15 +168,15 @@ pub unsafe fn from_raw<'a>(ptr: *mut <Self as ::common::opaque::Wrapper>::Wrappe
-             }
- 
-             pub const fn as_mut_ptr(&self) -> *mut <Self as ::common::opaque::Wrapper>::Wrapped {
--                self.0.as_mut_ptr()
-+                self.#member.as_mut_ptr()
-             }
- 
-             pub const fn as_ptr(&self) -> *const <Self as ::common::opaque::Wrapper>::Wrapped {
--                self.0.as_ptr()
-+                self.#member.as_ptr()
-             }
- 
-             pub const fn as_void_ptr(&self) -> *mut ::core::ffi::c_void {
--                self.0.as_void_ptr()
-+                self.#member.as_void_ptr()
-             }
- 
-             pub const fn raw_get(slot: *mut Self) -> *mut <Self as ::common::opaque::Wrapper>::Wrapped {
+     /// Create a new timer with the given attributes.
 -- 
 2.51.0
 
