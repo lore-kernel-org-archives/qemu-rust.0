@@ -4,91 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FA48CCD1BE
-	for <qemu-rust@archiver.kernel.org>; Thu, 23 Oct 2025 13:54:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95348CCD1BE
+	for <qemu-rust@archiver.kernel.org>; Thu, 23 Oct 2025 13:56:27 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vBvmL-0002mB-5V; Thu, 23 Oct 2025 09:54:57 -0400
+	id 1vBvnX-0004f3-4n; Thu, 23 Oct 2025 09:56:11 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <mkletzan@redhat.com>)
- id 1vBvmG-0002Yy-IY
- for qemu-rust@nongnu.org; Thu, 23 Oct 2025 09:54:54 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1vBvnU-0004bw-Cu
+ for qemu-rust@nongnu.org; Thu, 23 Oct 2025 09:56:09 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <mkletzan@redhat.com>)
- id 1vBvmE-0004vU-At
- for qemu-rust@nongnu.org; Thu, 23 Oct 2025 09:54:52 -0400
+ id 1vBvnQ-0005E0-Pt
+ for qemu-rust@nongnu.org; Thu, 23 Oct 2025 09:56:07 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1761227662;
+ s=mimecast20190719; t=1761227762;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=8wea7NK5QlWnIzDozQt/I5YMLo/WNbD+ENI9kZgAa7E=;
- b=Y9nhs9gFF3SaJnHA+phb0Z9M801RaZcVeGrpo/8EX0bEdMWnP6NjOZFjFe8T02pJ9vqWQz
- PcMjrN49syjNdfgS13Bt/kfhXcNGnWWir/aq68XX3hTItim/9RG1TfcgHCKaoGwKqK9cS3
- fqhzSP/kA5NbwmVSc3wahnYxdTf0RzU=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=N5buUGn4k9DX+q2F1RhrNr2ZKOcfJSYeoiQxFdqNeag=;
+ b=OFB8RDWu7ft+ISy/xgmnIGGF3fcCzugg3wIWepff7CHF0ygqO56WX+v6JT2Rn1e8b1TYtG
+ TP76JFAJu5DuK/ZMj9IdgTj+S4MYRsb3OuZ5dTqbDHHZ4Km5HiskDkcIsGTjMWqVRVEOhj
+ 964R/R97OIDtKXGTCi5VAG14hc6fiKw=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-360-A1PNkTMiMyeI7uJ5nsXc_w-1; Thu, 23 Oct 2025 09:54:21 -0400
-X-MC-Unique: A1PNkTMiMyeI7uJ5nsXc_w-1
-X-Mimecast-MFC-AGG-ID: A1PNkTMiMyeI7uJ5nsXc_w_1761227660
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-47107fcb257so5909655e9.0
+ us-mta-116-Nls2HaOIPTqnBE1hPsRtjg-1; Thu, 23 Oct 2025 09:54:21 -0400
+X-MC-Unique: Nls2HaOIPTqnBE1hPsRtjg-1
+X-Mimecast-MFC-AGG-ID: Nls2HaOIPTqnBE1hPsRtjg_1761227660
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-42700160169so750961f8f.1
  for <qemu-rust@nongnu.org>; Thu, 23 Oct 2025 06:54:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1761227660; x=1761832460;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8wea7NK5QlWnIzDozQt/I5YMLo/WNbD+ENI9kZgAa7E=;
- b=oLRpZiOtuuJM7i1NXfHae0unqxa8OZX73h5q8i/hnrWm7h4+a/CRa4NeXmfNlGFxCc
- 1ThLVrWttvsPtLfz6S2dS1IvCJaffFDyZdsZROOKp2tFG4+TjEPoSIgBo0//JTxNAl8t
- gw9HE/91RkPB61aNdSVS0UAqyBXf3TqBawu69g2Q0pNz0FcySYQTCShG5grOQQRmz4+O
- 3z+uaMvdWxVIIIKOGH57Urax2xOhI/EKHPPSCq0cNy9HIhRzHnvrJoaa7zquYZ6lwYtl
- cYUtgwQfKtlAOYAggVWpmWPQJ0Uxz8kQAQS9j24jPhtOfO0Xp1QBTytOINW9Y57E9Htj
- KEIQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=N5buUGn4k9DX+q2F1RhrNr2ZKOcfJSYeoiQxFdqNeag=;
+ b=akeKxxSA+gdMnbk2+NCz09sQGsWCCmsMO5rzWcC87+H3r7W5YPdAkH0t3VhmNCvujA
+ PEQsnLKNAcIAAdOf3Dw63oklBnw8hime0Bp6oY3Z2Ykq3pnwDHwZECn9sKgwX2DzlpLm
+ vQY/Lhkt8/TWkkHPbI17lBLsnkJtoHVhwYOxR1U7aPqaQyVylJVlZaBIAN4XJfVGDIvR
+ dndA/ck9lJ4j6WLbTUjF1FNA2CLPHEwCLL47qk2Igr8cCB2Bk+gzAQXkX0Rtk5H534UK
+ BHmAwuVzzRt5Xc5HN6iCVIlo/uupIb+XilFZ30s08sWC7TeQsGnTjA4svlXjbPljusnE
+ j6JA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWxtmSjjrJtXEd+RncVES8aGKaa30aUFjdi9SNGFywBmfrLAGBBUUFFa/BMFD2J6+gf22ekSU5dQz8=@nongnu.org
-X-Gm-Message-State: AOJu0YyEIbzO4I92KA95zw0w/AQokV1vu7mfnIUExIVZp8Te/IpmLPP+
- riTN8sJU88u1K/UeJr1E92xdP5rLcxKiXJqCcLRUtLLKkm5FImB/Ib+ZRAtxJe7dfkfTXv8CmhK
- r5RHfBrHdtboYf1DX0NXuBGCD8KanjFzU3q7wbMIyLZ7cct/y2dqqLkA=
-X-Gm-Gg: ASbGncuE6lx3vG2zJrvQ1/IIWjtU1Ntylp/7K63xxGdt7tu80tEb+aTLgBAYFY3mROk
- Vt+Lc6Vya4FjMhbdv2sz5y/SgeFfF2L9PzlCViJV2s7QJ6+aaBjxBHW0lJwqPNPc7wOe8tSvMb0
- B/ONAngKjNTJeQX2CZglJmdPbQlOuctZmmJ3QdlVvRnRLK4eFfj77yawg79V/ZDt72Mol+xxFDG
- aUg90qhJ0K5+nm3JKLc9jxWwTCzj1HsXufGNRI2YBEHKgZBghJA2SiJzpuuTJ6l8cejGHx1wneZ
- jIyRUmGvlZzm1jQkUrxPNwcpKAmSEKCSzR2p4IUDJQKXQfMQDXskxVJ7MR2JZt4mrHMyuOP+Ut4
- zOLe8TXXW
-X-Received: by 2002:a05:600c:470d:b0:471:12c2:2025 with SMTP id
- 5b1f17b1804b1-471179140abmr211589025e9.32.1761227659841; 
+ AJvYcCUBQXbNUwvDQctpjjdEnXHnit3g0kbTR+cMYRoEbfkf94MOWmXwxw1i6oPbR3+dvpeAPCf7BittIOs=@nongnu.org
+X-Gm-Message-State: AOJu0Yxu5qCTSYvu2p6Jtmzo70JgWDBWDMuDjePFxS8zXCnJWsoJ3283
+ nl1mDLE+wAetHFVhRVkzSJ+C/Ff0dVQmJfX3AoYhqeknH6rvIh3zMg9tCZifpQUVYkM/QW2pvNu
+ EEgSV5xvDreEJ1/WbkQdZyDtM2LZcN0BGuBV+4ZnDyUJHiOZ+CHgI1z68GtDvOIQ=
+X-Gm-Gg: ASbGncvadmVUGYDP+cLZTs/TazaMFjV0EWhYOVkHNHizW6Z7arYghp76kT7dn2trhhf
+ gwX5LXSs3a/L7Q45kds7qym1w+YnSDd/VOVUKC/WKwMo17uxplzIUX8nJKY6Ifz38XsZ2QPOGad
+ bbXPczUN7w+Dc/VeF5Z4+X5vlFA+Gae68RDNzKcIFQ6ODvip66oGGaAoMakd0Zb2dMrt4f0ef6M
+ ThJrKbAmo5ExJ+4/CuUzY/CJ/EljqR/+ye4zuCgUhwAAqXvyZdpo7mYs9SzyrpzOgkwqwu5d7zQ
+ ZIOBbspuIoQig5gbeelL10j8rp4eWGxbt0IrPbu9dPIPHDXL6XpkmgSRnbJB+WRr1woK/DI5lrJ
+ btz0nN9BH
+X-Received: by 2002:a05:6000:3101:b0:429:58f:325 with SMTP id
+ ffacd0b85a97d-429058f036bmr2848311f8f.24.1761227659680; 
  Thu, 23 Oct 2025 06:54:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHwULW8h0Re8+kXSlcx2urbXcMc8wv1br0odV4oLSeuM1EMpO81fWvMOBhF/bVr62Y/qdGKlQ==
-X-Received: by 2002:a05:600c:470d:b0:471:12c2:2025 with SMTP id
- 5b1f17b1804b1-471179140abmr211588845e9.32.1761227659418; 
+X-Google-Smtp-Source: AGHT+IFejbUlPbzCH3uCz+ZgnJK5kXySxpIVtgcMvDzvRZHLG6XILZgP8tgn3JIe0coLBlL38iMvFg==
+X-Received: by 2002:a05:6000:3101:b0:429:58f:325 with SMTP id
+ ffacd0b85a97d-429058f036bmr2848286f8f.24.1761227659196; 
  Thu, 23 Oct 2025 06:54:19 -0700 (PDT)
 Received: from wheatley.localdomain ([85.93.96.130])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-475c4378cbesm95123025e9.16.2025.10.23.06.54.18
+ ffacd0b85a97d-429898ccd88sm5005195f8f.36.2025.10.23.06.54.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 23 Oct 2025 06:54:18 -0700 (PDT)
 Received: from wheatley.pinto-pinecone.ts.net (wheatley.k8r.cz [127.0.0.1])
- by wheatley.localdomain (Postfix) with ESMTP id 5EB16DC7C866;
+ by wheatley.localdomain (Postfix) with ESMTP id 6B063DC7C867;
  Thu, 23 Oct 2025 15:54:18 +0200 (CEST)
 From: Martin Kletzander <mkletzan@redhat.com>
 To: 'Manos Pitsidianakis ' <manos.pitsidianakis@linaro.org>,
  qemu-rust@nongnu.org, qemu-devel@nongnu.org
-Subject: [RFC PATCH 0/2] rust: Make common::Wrapper work with non-tuple structs
-Date: Thu, 23 Oct 2025 15:54:07 +0200
-Message-ID: <cover.1761226974.git.mkletzan@redhat.com>
+Subject: [RFC PATCH 1/2] rust: Make common::Wrapper work with non-tuple
+ structs as well
+Date: Thu, 23 Oct 2025 15:54:08 +0200
+Message-ID: <d51fd56a47b55bd700788514383293a304832531.1761226974.git.mkletzan@redhat.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <cover.1761226974.git.mkletzan@redhat.com>
+References: <cover.1761226974.git.mkletzan@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 3f45pUkfV8GbFUFzUih7njLZBUE5lkkUPCFfHITO0oY_1761227660
+X-Mimecast-MFC-PROC-ID: OThF6PZ4qxDqBEWikq5y7ZhG0RqvejLmNgvvUbc8qG4_1761227660
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=mkletzan@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=mkletzan@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
@@ -113,32 +118,115 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-As part of my "investigation" [0] into safer object initialization using
-pinned-init, I found out that pinned-init will probably not work with tuple
-structs for some time [1].  So I figured out how to change QEMU's Wrapper derive
-macro so that both tuple structs and classic structs (still `#[repr(transparent)]`
-and having only one member) are supported.
+From: Martin Kletzander <mkletzan@redhat.com>
 
-The second patch is there just to show that it works, I also checked the result
-with `cargo expand` to make sure.
-
-This is just to see if the patch makes sense the way it is.  I'm still trying to
-see the best way forward with this pinning effort.  Many thanks for Paolo's
-patience with me.  I'm using what I learn to also try and make a proof of
-concept of something similar to the RustInQEMU effort (although way smaller in
-scope) in libvirt, so it takes a bit more time.
-
-[0] read: learning QEMU internals and possible Rust usage
-[1] https://github.com/Rust-for-Linux/pin-init/issues/85
-
-Martin Kletzander (2):
-  rust: Make common::Wrapper work with non-tuple structs as well
-  rust/util: Change Timer and TimerListGroup to normal structs
-
+Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+---
  rust/qemu-macros/src/lib.rs | 49 ++++++++++++++++++++++++++++---------
- rust/util/src/timer.rs      | 10 +++++---
- 2 files changed, 44 insertions(+), 15 deletions(-)
+ 1 file changed, 37 insertions(+), 12 deletions(-)
 
+diff --git a/rust/qemu-macros/src/lib.rs b/rust/qemu-macros/src/lib.rs
+index 50239f228be2..074ba2189eec 100644
+--- a/rust/qemu-macros/src/lib.rs
++++ b/rust/qemu-macros/src/lib.rs
+@@ -10,8 +10,8 @@
+     punctuated::Punctuated,
+     spanned::Spanned,
+     token::Comma,
+-    Attribute, Data, DeriveInput, Error, Field, Fields, FieldsUnnamed, Ident, Meta, Path, Token,
+-    Variant,
++    Attribute, Data, DeriveInput, Error, Field, Fields, FieldsNamed,
++    FieldsUnnamed, Ident, Index, Member, Meta, Path, Token, Type, Variant,
+ };
+ 
+ mod bits;
+@@ -42,26 +42,52 @@ fn get_fields<'a>(
+     Ok(&fs.named)
+ }
+ 
+-fn get_unnamed_field<'a>(input: &'a DeriveInput, msg: &str) -> Result<&'a Field, Error> {
++fn get_wrapped_field<'a>(input: &'a DeriveInput, msg: &str) -> Result<(Member, &'a Type), Error> {
+     let Data::Struct(ref s) = &input.data else {
+         return Err(Error::new(
+             input.ident.span(),
+             format!("Struct required for {msg}"),
+         ));
+     };
+-    let Fields::Unnamed(FieldsUnnamed { ref unnamed, .. }) = &s.fields else {
++    if let Fields::Unnamed(FieldsUnnamed { ref unnamed, .. }) = &s.fields {
++        if unnamed.len() != 1 {
++            return Err(Error::new(
++                s.fields.span(),
++                format!("A single field is required for {msg}"),
++            ));
++        }
++        return Ok((Member::Unnamed(Index::from(0)), &unnamed[0].ty));
++    }
++
++    let Fields::Named(FieldsNamed { ref named, .. }) = &s.fields else {
+         return Err(Error::new(
+             s.fields.span(),
+-            format!("Tuple struct required for {msg}"),
++            format!("A tuple struct or a single field named 'inner' is required for {msg}"),
+         ));
+     };
+-    if unnamed.len() != 1 {
++
++    if named.len() != 1 {
+         return Err(Error::new(
+             s.fields.span(),
+             format!("A single field is required for {msg}"),
+         ));
+     }
+-    Ok(&unnamed[0])
++
++    if let Field{ ident: Some(ref ident), .. } = named[0] {
++        if ident != "inner" {
++            return Err(Error::new(
++                ident.span(),
++                format!("The only field must be named 'inner': {msg}"),
++            ));
++        }
++
++        return Ok((Member::Named(ident.clone()), &named[0].ty))
++    }
++
++    Err(Error::new(
++        s.fields.span(),
++        format!("A single field struct is requried for {msg}"),
++    ))
+ }
+ 
+ fn is_c_repr(input: &DeriveInput, msg: &str) -> Result<(), Error> {
+@@ -129,8 +155,7 @@ fn derive_opaque_or_error(input: DeriveInput) -> Result<proc_macro2::TokenStream
+     is_transparent_repr(&input, "#[derive(Wrapper)]")?;
+ 
+     let name = &input.ident;
+-    let field = &get_unnamed_field(&input, "#[derive(Wrapper)]")?;
+-    let typ = &field.ty;
++    let (member, typ) = &get_wrapped_field(&input, "#[derive(Wrapper)]")?;
+ 
+     Ok(quote! {
+         unsafe impl ::common::opaque::Wrapper for #name {
+@@ -143,15 +168,15 @@ pub unsafe fn from_raw<'a>(ptr: *mut <Self as ::common::opaque::Wrapper>::Wrappe
+             }
+ 
+             pub const fn as_mut_ptr(&self) -> *mut <Self as ::common::opaque::Wrapper>::Wrapped {
+-                self.0.as_mut_ptr()
++                self.#member.as_mut_ptr()
+             }
+ 
+             pub const fn as_ptr(&self) -> *const <Self as ::common::opaque::Wrapper>::Wrapped {
+-                self.0.as_ptr()
++                self.#member.as_ptr()
+             }
+ 
+             pub const fn as_void_ptr(&self) -> *mut ::core::ffi::c_void {
+-                self.0.as_void_ptr()
++                self.#member.as_void_ptr()
+             }
+ 
+             pub const fn raw_get(slot: *mut Self) -> *mut <Self as ::common::opaque::Wrapper>::Wrapped {
 -- 
 2.51.0
 
