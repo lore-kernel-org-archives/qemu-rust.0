@@ -4,62 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB503CCD1AB
-	for <qemu-rust@archiver.kernel.org>; Wed, 22 Oct 2025 15:53:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0655CCD193
+	for <qemu-rust@archiver.kernel.org>; Thu, 23 Oct 2025 04:59:59 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vBb8n-0005JK-Gb; Wed, 22 Oct 2025 11:52:45 -0400
+	id 1vBnQT-0008Rm-Kf; Thu, 23 Oct 2025 00:59:50 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <chao.liu@openatom.club>)
- id 1vBb8m-0005Fm-4X
- for qemu-rust@nongnu.org; Wed, 22 Oct 2025 11:52:44 -0400
-Received: from sg-1-11.ptr.blmpb.com ([118.26.132.11])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <chao.liu@openatom.club>)
- id 1vBb8e-0006Fz-Kc
- for qemu-rust@nongnu.org; Wed, 22 Oct 2025 11:52:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=openatom-club.20200927.dkim.feishu.cn; t=1761148273;
- h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=glEZMjlrDHh1A2VIOT3Jr7WKbcgCkTHxQO6t8OtYs+w=;
- b=j3xxpFUr5L8EdgcquQmIBN/BFw5CEvSfG6ZGDvFsEPlXqJOUIhXmEtSGVM2B+UbKIiSU24
- xK2Fg7fQqjPAL5jT1PSaF/djhEzmeJX+DVifr5WCUg/P/jdwK9+wA8c1cxFH3R8VyvTUYC
- SR+qbtYwZzH+91FhVU4CVs0bk51oamtWpGS0ALwXXp8qhV/cFqQRDtzIxwqNmGzjM+Xf9F
- sYKdJ5MiGWxN6x95aXY07WW++x+rfBJzPY5bA2ASlQsW+tnV5479qmBn61yPYuAiDm3v0Q
- 15KzLWDUNSimaSwdqKyAyDFK7b3R89VBRYPgIRoZT89RZYNm+lp7b5oLe1lFiw==
-Message-Id: <e0f03fac-2a16-439f-9a22-2015c18ba739@openatom.club>
-Mime-Version: 1.0
+ (Exim 4.90_1) (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
+ id 1vBnQQ-0008RJ-V7; Thu, 23 Oct 2025 00:59:47 -0400
+Received: from www3579.sakura.ne.jp ([49.212.243.89])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
+ id 1vBnQN-0004Cx-T1; Thu, 23 Oct 2025 00:59:46 -0400
+Received: from [133.11.54.205] (h205.csg.ci.i.u-tokyo.ac.jp [133.11.54.205])
+ (authenticated bits=0)
+ by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 59N4q3NC011817
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Thu, 23 Oct 2025 13:52:03 +0900 (JST)
+ (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+DKIM-Signature: a=rsa-sha256; bh=9xxZpM2nB0o+d7uobfPXc5xWQTeCnn5dD9HEOV+8JfY=; 
+ c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+ h=Message-ID:Date:Subject:To:From;
+ s=rs20250326; t=1761195124; v=1;
+ b=jF3ibRwZ1YpqgeWufdnW0Y13nquI1Pea9esn0iH0zkCtqnmwPs1Eo+EIEzahu4CA
+ WSZw53qbYxw0m3aVhmM+IPEFlo3TK+WItwGjAu0w7UJBltEaTmKC/DBhm09vQrLP
+ dQ60t2nVw4sKFpv0ZPMZgjsDXfh3C2YvmsortOrOECMXVacOfWd1lT1uiVuqJNw2
+ CSo6ZLtKggBnJn9SwpJYLxiv2CdD41GR2cHL3JnOehfoid2t0C2gwIkAicEOk0Z9
+ nLwg0jqOUASUxIa5ejAJzD0x32S4I5/GL0PnYUXui+XlkKiJeSOQBLhxxCFKomD3
+ GRrKSSfXhFwFh2hp75ZadQ==
+Message-ID: <f4547020-0df2-40a7-a625-7628ae36db02@rsg.ci.i.u-tokyo.ac.jp>
+Date: Thu, 23 Oct 2025 13:52:02 +0900
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-X-Lms-Return-Path: <lba+268f8fd6f+5e3824+nongnu.org+chao.liu@openatom.club>
-X-Original-From: "Chao Liu(openatom.club)" <chao.liu@openatom.club>
-From: "Chao Liu(openatom.club)" <chao.liu@openatom.club>
-Subject: Re: From HUST OpenAtom Club: Inquiry & Contribution Plan for Rust In
- QEMU
-Content-Type: text/plain; charset=UTF-8
-References: <822f8543-10d0-4669-b484-cbd9837e324c@openatom.club>
- <cc709134-2d28-4ac5-b7fe-c61bd1c5ccbf@redhat.com>
-Received: from [192.168.71.4] ([114.88.97.170]) by smtp.feishu.cn with ESMTPS;
- Wed, 22 Oct 2025 23:51:11 +0800
-To: "Paolo Bonzini" <pbonzini@redhat.com>, <zhao1.liu@intel.com>, 
- <manos.pitsidianakis@linaro.org>, <marcandre.lureau@redhat.com>, 
- <philmd@linaro.org>
-Date: Wed, 22 Oct 2025 23:51:06 +0800
-Content-Transfer-Encoding: quoted-printable
-Cc: <qemu-rust@nongnu.org>, <qemu-devel@nongnu.org>, <dzm91@openatom.club>, 
- <luojia@openatom.club>
-In-Reply-To: <cc709134-2d28-4ac5-b7fe-c61bd1c5ccbf@redhat.com>
-Received-SPF: pass client-ip=118.26.132.11;
- envelope-from=chao.liu@openatom.club; helo=sg-1-11.ptr.blmpb.com
-X-Spam_score_int: -18
-X-Spam_score: -1.9
+Subject: Re: [PATCH v2] char: rename CharBackend->CharFrontend
+To: marcandre.lureau@redhat.com, qemu-devel@nongnu.org
+Cc: "Gonglei (Arei)" <arei.gonglei@huawei.com>,
+ Zhenwei Pi <pizhenwei@bytedance.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Stefano Garzarella <sgarzare@redhat.com>, Laurent Vivier
+ <lvivier@redhat.com>, Amit Shah <amit@kernel.org>,
+ Stefan Berger <stefanb@linux.vnet.ibm.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?=
+ <philmd@linaro.org>, Peter Maydell <peter.maydell@linaro.org>,
+ Igor Mitsyanko <i.mitsyanko@gmail.com>, =?UTF-8?Q?Cl=C3=A9ment_Chigot?=
+ <chigot@adacore.com>, Frederic Konrad <konrad.frederic@yahoo.fr>,
+ Alberto Garcia <berto@igalia.com>, Thomas Huth <huth@tuxfamily.org>,
+ Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Jason Herne <jjherne@linux.ibm.com>,
+ Yoshinori Sato <yoshinori.sato@nifty.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Nicholas Piggin <npiggin@gmail.com>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ "Collin L. Walling" <walling@linux.ibm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Alistair Francis <alistair@alistair23.me>,
+ =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
+ Eduardo Habkost <eduardo@habkost.net>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Helge Deller <deller@gmx.de>, Corey Minyard <minyard@acm.org>,
+ Paul Burton <paulburton@kernel.org>, Aleksandar Rikalo <arikalo@gmail.com>,
+ Aurelien Jarno <aurelien@aurel32.net>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Weiwei Li <liwei1518@gmail.com>,
+ Daniel Henrique Barboza <dbarboza@ventanamicro.com>,
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Michael Rolnik <mrolnik@gmail.com>,
+ Antony Pavlov <antonynpavlov@gmail.com>, Joel Stanley <joel@jms.id.au>,
+ Vijai Kumar K <vijai@behindbytes.com>, Samuel Tardieu <sam@rfc1149.net>,
+ Gustavo Romero <gustavo.romero@linaro.org>,
+ Raphael Norwitz <raphael@enfabrica.net>,
+ Stefan Hajnoczi <stefanha@redhat.com>,
+ "reviewer:vhost-user-scmi" <mzamazal@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Fabiano Rosas <farosas@suse.de>, Markus Armbruster <armbru@redhat.com>,
+ "Dr. David Alan Gilbert" <dave@treblig.org>, Zhang Chen
+ <zhangckid@gmail.com>, Li Zhijian <lizhijian@fujitsu.com>,
+ Jason Wang <jasowang@redhat.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Max Filippov <jcmvbkbc@gmail.com>, Lukas Straub <lukasstraub2@web.de>,
+ "open list:Sharp SL-5500 Co..." <qemu-arm@nongnu.org>,
+ "open list:S390 SCLP-backed..." <qemu-s390x@nongnu.org>,
+ "open list:sPAPR (pseries)" <qemu-ppc@nongnu.org>,
+ "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
+ "open list:RISC-V TCG CPUs" <qemu-riscv@nongnu.org>,
+ "open list:virtiofs" <virtio-fs@lists.linux.dev>,
+ "open list:Rust-related patc..." <qemu-rust@nongnu.org>
+References: <20251022074612.1258413-1-marcandre.lureau@redhat.com>
+Content-Language: en-US
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <20251022074612.1258413-1-marcandre.lureau@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=49.212.243.89;
+ envelope-from=odaki@rsg.ci.i.u-tokyo.ac.jp; helo=www3579.sakura.ne.jp
+X-Spam_score_int: -16
+X-Spam_score: -1.7
 X-Spam_bar: -
-X-Spam_report: (-1.9 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, MSGID_FROM_MTA_HEADER=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-1.7 / 5.0 requ) BAYES_00=-1.9, DKIM_INVALID=0.1,
+ DKIM_SIGNED=0.1, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -75,60 +124,13 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 10/20/2025 11:22 PM, Paolo Bonzini wrote:
-> On 10/20/25 12:56, Chao Liu(openatom.club) wrote:
->> Our initial plan is to add Rust versions of peripheral models for some
->> simple peripherals, such as block devices or I2C devices.
->=20
-> Yes, this is a good idea.=C2=A0 I2C would add a second bus in addition to=
- sysbus and could show the limitation of the existing bindings.
->=20
-> Several simple devices in such hw/misc/i2c-echo.c, hw/gpio/pcf8574.c or h=
-w/rtc/ds1338.c could be converted to Rust in the same way as pl011 or hpet.
->=20
-> For now, avoid devices that have properties (e.g. hw/sensor/tmp105.c).
->=20
-> Block devices are substantially more complex, so I'd stay with something =
-simple for now.
->=20
-> Paolo
->=20
+On 2025/10/22 16:46, marcandre.lureau@redhat.com wrote:
+> From: Marc-André Lureau <marcandre.lureau@redhat.com>
+> 
+> The actual backend is "Chardev", CharBackend is the frontend side of
+> it (whatever talks to the backend), let's rename it for readability.
+> 
+> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-Hi Paolo,
-
-Thank you for your suggestions, which have been very helpful to us!
-
-Currently, we are referring to the Rust implementation of sysbus to develop
-the Rust version of I2CBus, and we have already made some phased progress.
-
-Going forward, we will submit some RFC patches to the upstream for
-everyone to discuss.
-
-Thanks,
-Chao
-
->> In addition, we hope to get some other suggestions on what other suitabl=
-e
->> work we can do regarding Rust In QEMU.
->>
->> We look forward to your reply and hope to contribute to the Rust In QEMU=
-~
->>
->>
->> Link:
->>
->> [1] HUST OpenAtom Open Source Club:
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 https://hust.openatom.club/news/20250812_=
-intro_to_club/
->> [2] RustSBI Github Repo:
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 https://github.com/rustsbi/rustsbi
->> [3] Learning QEMU Camp:
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 https://opencamp.cn/qemu/camp/2025
->>
->>
->> Thanks,
->> Chao
->>
->>
->
+Reviewed-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
 
