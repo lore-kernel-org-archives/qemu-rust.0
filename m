@@ -4,111 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0655CCD193
-	for <qemu-rust@archiver.kernel.org>; Thu, 23 Oct 2025 04:59:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FA48CCD1BE
+	for <qemu-rust@archiver.kernel.org>; Thu, 23 Oct 2025 13:54:59 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vBnQT-0008Rm-Kf; Thu, 23 Oct 2025 00:59:50 -0400
+	id 1vBvmL-0002mB-5V; Thu, 23 Oct 2025 09:54:57 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
- id 1vBnQQ-0008RJ-V7; Thu, 23 Oct 2025 00:59:47 -0400
-Received: from www3579.sakura.ne.jp ([49.212.243.89])
+ (Exim 4.90_1) (envelope-from <mkletzan@redhat.com>)
+ id 1vBvmG-0002Yy-IY
+ for qemu-rust@nongnu.org; Thu, 23 Oct 2025 09:54:54 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
- id 1vBnQN-0004Cx-T1; Thu, 23 Oct 2025 00:59:46 -0400
-Received: from [133.11.54.205] (h205.csg.ci.i.u-tokyo.ac.jp [133.11.54.205])
- (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 59N4q3NC011817
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Thu, 23 Oct 2025 13:52:03 +0900 (JST)
- (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=9xxZpM2nB0o+d7uobfPXc5xWQTeCnn5dD9HEOV+8JfY=; 
- c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
- h=Message-ID:Date:Subject:To:From;
- s=rs20250326; t=1761195124; v=1;
- b=jF3ibRwZ1YpqgeWufdnW0Y13nquI1Pea9esn0iH0zkCtqnmwPs1Eo+EIEzahu4CA
- WSZw53qbYxw0m3aVhmM+IPEFlo3TK+WItwGjAu0w7UJBltEaTmKC/DBhm09vQrLP
- dQ60t2nVw4sKFpv0ZPMZgjsDXfh3C2YvmsortOrOECMXVacOfWd1lT1uiVuqJNw2
- CSo6ZLtKggBnJn9SwpJYLxiv2CdD41GR2cHL3JnOehfoid2t0C2gwIkAicEOk0Z9
- nLwg0jqOUASUxIa5ejAJzD0x32S4I5/GL0PnYUXui+XlkKiJeSOQBLhxxCFKomD3
- GRrKSSfXhFwFh2hp75ZadQ==
-Message-ID: <f4547020-0df2-40a7-a625-7628ae36db02@rsg.ci.i.u-tokyo.ac.jp>
-Date: Thu, 23 Oct 2025 13:52:02 +0900
+ (Exim 4.90_1) (envelope-from <mkletzan@redhat.com>)
+ id 1vBvmE-0004vU-At
+ for qemu-rust@nongnu.org; Thu, 23 Oct 2025 09:54:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1761227662;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=8wea7NK5QlWnIzDozQt/I5YMLo/WNbD+ENI9kZgAa7E=;
+ b=Y9nhs9gFF3SaJnHA+phb0Z9M801RaZcVeGrpo/8EX0bEdMWnP6NjOZFjFe8T02pJ9vqWQz
+ PcMjrN49syjNdfgS13Bt/kfhXcNGnWWir/aq68XX3hTItim/9RG1TfcgHCKaoGwKqK9cS3
+ fqhzSP/kA5NbwmVSc3wahnYxdTf0RzU=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-360-A1PNkTMiMyeI7uJ5nsXc_w-1; Thu, 23 Oct 2025 09:54:21 -0400
+X-MC-Unique: A1PNkTMiMyeI7uJ5nsXc_w-1
+X-Mimecast-MFC-AGG-ID: A1PNkTMiMyeI7uJ5nsXc_w_1761227660
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-47107fcb257so5909655e9.0
+ for <qemu-rust@nongnu.org>; Thu, 23 Oct 2025 06:54:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761227660; x=1761832460;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=8wea7NK5QlWnIzDozQt/I5YMLo/WNbD+ENI9kZgAa7E=;
+ b=oLRpZiOtuuJM7i1NXfHae0unqxa8OZX73h5q8i/hnrWm7h4+a/CRa4NeXmfNlGFxCc
+ 1ThLVrWttvsPtLfz6S2dS1IvCJaffFDyZdsZROOKp2tFG4+TjEPoSIgBo0//JTxNAl8t
+ gw9HE/91RkPB61aNdSVS0UAqyBXf3TqBawu69g2Q0pNz0FcySYQTCShG5grOQQRmz4+O
+ 3z+uaMvdWxVIIIKOGH57Urax2xOhI/EKHPPSCq0cNy9HIhRzHnvrJoaa7zquYZ6lwYtl
+ cYUtgwQfKtlAOYAggVWpmWPQJ0Uxz8kQAQS9j24jPhtOfO0Xp1QBTytOINW9Y57E9Htj
+ KEIQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWxtmSjjrJtXEd+RncVES8aGKaa30aUFjdi9SNGFywBmfrLAGBBUUFFa/BMFD2J6+gf22ekSU5dQz8=@nongnu.org
+X-Gm-Message-State: AOJu0YyEIbzO4I92KA95zw0w/AQokV1vu7mfnIUExIVZp8Te/IpmLPP+
+ riTN8sJU88u1K/UeJr1E92xdP5rLcxKiXJqCcLRUtLLKkm5FImB/Ib+ZRAtxJe7dfkfTXv8CmhK
+ r5RHfBrHdtboYf1DX0NXuBGCD8KanjFzU3q7wbMIyLZ7cct/y2dqqLkA=
+X-Gm-Gg: ASbGncuE6lx3vG2zJrvQ1/IIWjtU1Ntylp/7K63xxGdt7tu80tEb+aTLgBAYFY3mROk
+ Vt+Lc6Vya4FjMhbdv2sz5y/SgeFfF2L9PzlCViJV2s7QJ6+aaBjxBHW0lJwqPNPc7wOe8tSvMb0
+ B/ONAngKjNTJeQX2CZglJmdPbQlOuctZmmJ3QdlVvRnRLK4eFfj77yawg79V/ZDt72Mol+xxFDG
+ aUg90qhJ0K5+nm3JKLc9jxWwTCzj1HsXufGNRI2YBEHKgZBghJA2SiJzpuuTJ6l8cejGHx1wneZ
+ jIyRUmGvlZzm1jQkUrxPNwcpKAmSEKCSzR2p4IUDJQKXQfMQDXskxVJ7MR2JZt4mrHMyuOP+Ut4
+ zOLe8TXXW
+X-Received: by 2002:a05:600c:470d:b0:471:12c2:2025 with SMTP id
+ 5b1f17b1804b1-471179140abmr211589025e9.32.1761227659841; 
+ Thu, 23 Oct 2025 06:54:19 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHwULW8h0Re8+kXSlcx2urbXcMc8wv1br0odV4oLSeuM1EMpO81fWvMOBhF/bVr62Y/qdGKlQ==
+X-Received: by 2002:a05:600c:470d:b0:471:12c2:2025 with SMTP id
+ 5b1f17b1804b1-471179140abmr211588845e9.32.1761227659418; 
+ Thu, 23 Oct 2025 06:54:19 -0700 (PDT)
+Received: from wheatley.localdomain ([85.93.96.130])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-475c4378cbesm95123025e9.16.2025.10.23.06.54.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Oct 2025 06:54:18 -0700 (PDT)
+Received: from wheatley.pinto-pinecone.ts.net (wheatley.k8r.cz [127.0.0.1])
+ by wheatley.localdomain (Postfix) with ESMTP id 5EB16DC7C866;
+ Thu, 23 Oct 2025 15:54:18 +0200 (CEST)
+From: Martin Kletzander <mkletzan@redhat.com>
+To: 'Manos Pitsidianakis ' <manos.pitsidianakis@linaro.org>,
+ qemu-rust@nongnu.org, qemu-devel@nongnu.org
+Subject: [RFC PATCH 0/2] rust: Make common::Wrapper work with non-tuple structs
+Date: Thu, 23 Oct 2025 15:54:07 +0200
+Message-ID: <cover.1761226974.git.mkletzan@redhat.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] char: rename CharBackend->CharFrontend
-To: marcandre.lureau@redhat.com, qemu-devel@nongnu.org
-Cc: "Gonglei (Arei)" <arei.gonglei@huawei.com>,
- Zhenwei Pi <pizhenwei@bytedance.com>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Stefano Garzarella <sgarzare@redhat.com>, Laurent Vivier
- <lvivier@redhat.com>, Amit Shah <amit@kernel.org>,
- Stefan Berger <stefanb@linux.vnet.ibm.com>,
- Paolo Bonzini <pbonzini@redhat.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?=
- <philmd@linaro.org>, Peter Maydell <peter.maydell@linaro.org>,
- Igor Mitsyanko <i.mitsyanko@gmail.com>, =?UTF-8?Q?Cl=C3=A9ment_Chigot?=
- <chigot@adacore.com>, Frederic Konrad <konrad.frederic@yahoo.fr>,
- Alberto Garcia <berto@igalia.com>, Thomas Huth <huth@tuxfamily.org>,
- Halil Pasic <pasic@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Jason Herne <jjherne@linux.ibm.com>,
- Yoshinori Sato <yoshinori.sato@nifty.com>,
- Magnus Damm <magnus.damm@gmail.com>, Nicholas Piggin <npiggin@gmail.com>,
- Harsh Prateek Bora <harshpb@linux.ibm.com>,
- "Collin L. Walling" <walling@linux.ibm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Alistair Francis <alistair@alistair23.me>,
- =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
- Eduardo Habkost <eduardo@habkost.net>,
- Richard Henderson <richard.henderson@linaro.org>,
- Helge Deller <deller@gmx.de>, Corey Minyard <minyard@acm.org>,
- Paul Burton <paulburton@kernel.org>, Aleksandar Rikalo <arikalo@gmail.com>,
- Aurelien Jarno <aurelien@aurel32.net>,
- Palmer Dabbelt <palmer@dabbelt.com>, Weiwei Li <liwei1518@gmail.com>,
- Daniel Henrique Barboza <dbarboza@ventanamicro.com>,
- Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Michael Rolnik <mrolnik@gmail.com>,
- Antony Pavlov <antonynpavlov@gmail.com>, Joel Stanley <joel@jms.id.au>,
- Vijai Kumar K <vijai@behindbytes.com>, Samuel Tardieu <sam@rfc1149.net>,
- Gustavo Romero <gustavo.romero@linaro.org>,
- Raphael Norwitz <raphael@enfabrica.net>,
- Stefan Hajnoczi <stefanha@redhat.com>,
- "reviewer:vhost-user-scmi" <mzamazal@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Fabiano Rosas <farosas@suse.de>, Markus Armbruster <armbru@redhat.com>,
- "Dr. David Alan Gilbert" <dave@treblig.org>, Zhang Chen
- <zhangckid@gmail.com>, Li Zhijian <lizhijian@fujitsu.com>,
- Jason Wang <jasowang@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Max Filippov <jcmvbkbc@gmail.com>, Lukas Straub <lukasstraub2@web.de>,
- "open list:Sharp SL-5500 Co..." <qemu-arm@nongnu.org>,
- "open list:S390 SCLP-backed..." <qemu-s390x@nongnu.org>,
- "open list:sPAPR (pseries)" <qemu-ppc@nongnu.org>,
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
- "open list:RISC-V TCG CPUs" <qemu-riscv@nongnu.org>,
- "open list:virtiofs" <virtio-fs@lists.linux.dev>,
- "open list:Rust-related patc..." <qemu-rust@nongnu.org>
-References: <20251022074612.1258413-1-marcandre.lureau@redhat.com>
-Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <20251022074612.1258413-1-marcandre.lureau@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 3f45pUkfV8GbFUFzUih7njLZBUE5lkkUPCFfHITO0oY_1761227660
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=49.212.243.89;
- envelope-from=odaki@rsg.ci.i.u-tokyo.ac.jp; helo=www3579.sakura.ne.jp
-X-Spam_score_int: -16
-X-Spam_score: -1.7
-X-Spam_bar: -
-X-Spam_report: (-1.7 / 5.0 requ) BAYES_00=-1.9, DKIM_INVALID=0.1,
- DKIM_SIGNED=0.1, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=mkletzan@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -124,13 +113,33 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 2025/10/22 16:46, marcandre.lureau@redhat.com wrote:
-> From: Marc-André Lureau <marcandre.lureau@redhat.com>
-> 
-> The actual backend is "Chardev", CharBackend is the frontend side of
-> it (whatever talks to the backend), let's rename it for readability.
-> 
-> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+As part of my "investigation" [0] into safer object initialization using
+pinned-init, I found out that pinned-init will probably not work with tuple
+structs for some time [1].  So I figured out how to change QEMU's Wrapper derive
+macro so that both tuple structs and classic structs (still `#[repr(transparent)]`
+and having only one member) are supported.
 
-Reviewed-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+The second patch is there just to show that it works, I also checked the result
+with `cargo expand` to make sure.
+
+This is just to see if the patch makes sense the way it is.  I'm still trying to
+see the best way forward with this pinning effort.  Many thanks for Paolo's
+patience with me.  I'm using what I learn to also try and make a proof of
+concept of something similar to the RustInQEMU effort (although way smaller in
+scope) in libvirt, so it takes a bit more time.
+
+[0] read: learning QEMU internals and possible Rust usage
+[1] https://github.com/Rust-for-Linux/pin-init/issues/85
+
+Martin Kletzander (2):
+  rust: Make common::Wrapper work with non-tuple structs as well
+  rust/util: Change Timer and TimerListGroup to normal structs
+
+ rust/qemu-macros/src/lib.rs | 49 ++++++++++++++++++++++++++++---------
+ rust/util/src/timer.rs      | 10 +++++---
+ 2 files changed, 44 insertions(+), 15 deletions(-)
+
+-- 
+2.51.0
+
 
