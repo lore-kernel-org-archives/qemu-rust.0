@@ -4,59 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDFEDCCD1BF
-	for <qemu-rust@archiver.kernel.org>; Sat, 25 Oct 2025 14:28:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7A86CCD1A5
+	for <qemu-rust@archiver.kernel.org>; Mon, 27 Oct 2025 06:01:27 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vCfEs-00043e-9Q; Sat, 25 Oct 2025 10:27:26 -0400
+	id 1vDGIB-0000d0-D1; Mon, 27 Oct 2025 02:01:19 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <chenmiao@openatom.club>)
- id 1vCdZH-0001c2-40
- for qemu-rust@nongnu.org; Sat, 25 Oct 2025 08:40:23 -0400
-Received: from sg-1-37.ptr.blmpb.com ([118.26.132.37])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <chenmiao@openatom.club>)
- id 1vCdZ7-0003jF-TC
- for qemu-rust@nongnu.org; Sat, 25 Oct 2025 08:40:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=openatom-club.20200927.dkim.feishu.cn; t=1761395937;
- h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=pVMloPN1g9fl6a5oBE0FeDpy/NkXLu/pcvpPddum0PM=;
- b=Qdbu+FLyjhZLBr5vQn9XU4bLiEIU8ocsaHsB3n8IYWISfKe+/s1RlbtnoRJruNepTdtUeL
- A8Ria8da8iEmPlumPdROw8/cilmeANYPqLm161Yng11QfvayOG32qMZxojHMBbLCoD69xe
- opWlr/4Zr+Eq8FaQ/nmVLRK5kaDxwdCu+rotKr4C7K6D/lw/uSOGMnq5OJRBbNqiKGaCU5
- /1U/Cws3X1EgqQLSXtj0fl/3Ukx2inI4/HmquFWaZJz3UosLsFJmKH2tPkaXRSlMqzyc4t
- U2zZVL64ytzcaCDSpe15PujS3YCudAjiiCJOzbtsZpTFYUl6ZhhSgamu30t1FQ==
-Cc: <qemu-rust@nongnu.org>, <qemu-devel@nongnu.org>, 
- <hust-os-kernel-patches@googlegroups.com>
-Message-Id: <20251025123853.63139-2-chenmiao@openatom.club>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Original-From: chenmiao <chenmiao@openatom.club>
-Received: from nyaos.localdomain ([114.249.194.57]) by smtp.feishu.cn with
- ESMTPS; Sat, 25 Oct 2025 20:38:54 +0800
-To: <pbonzini@redhat.com>, <manos.pitsidianakis@linaro.org>, 
- <richard.henderson@linaro.org>, <philmd@linaro.org>
-X-Mailer: git-send-email 2.43.0
-From: "chenmiao" <chenmiao@openatom.club>
-Subject: [RFC 1/5] rust: hw: core: Add the BusState of rust version
-Date: Sat, 25 Oct 2025 12:38:49 +0000
-X-Lms-Return-Path: <lba+268fcc4df+2ac5f0+nongnu.org+chenmiao@openatom.club>
-Content-Type: text/plain; charset=UTF-8
-Received-SPF: pass client-ip=118.26.132.37;
- envelope-from=chenmiao@openatom.club; helo=sg-1-37.ptr.blmpb.com
-X-Spam_score_int: -18
-X-Spam_score: -1.9
-X-Spam_bar: -
-X-Spam_report: (-1.9 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, MSGID_FROM_MTA_HEADER=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vDGIA-0000cZ-H0; Mon, 27 Oct 2025 02:01:18 -0400
+Received: from mgamail.intel.com ([192.198.163.13])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vDGI8-0003UJ-Ek; Mon, 27 Oct 2025 02:01:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1761544876; x=1793080876;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=5GcIoUEbVLn4r+3U/67dMJ9YrkF59pGKydiph58TFY8=;
+ b=DfTieBzVvornEUmXTDmpxfjirvWiOmxF/lJQ6iPl6ccTvG6M44DHe08t
+ piOErBONLcDWOR9OwVb+b0RB/DI1gsFCo4ngDRgE5MNdrD+dgq/z+vxGB
+ nkbCVzaRF7AZcndUL6qLUoR20oHvBwxTAtuqGgmsORre9DUtMa+gWHv4M
+ l4IuRDIIfRgMgyH6+OUgIAaA3OY4sM0nfH3GPzyPGwIRBDkct9wMt0clU
+ 2oTdP5SVAPb17HgSFywdbuvrEPIZLYS8UWAaAxIwRhFRFU46N+QzfNpZT
+ 6oeNU2qjs5qgLETFMZyuDW9h/2CQ4jCSq+lWqBAwB34+MHyukAli0UfjX w==;
+X-CSE-ConnectionGUID: IADjHUOKQ2OciG76INq6BQ==
+X-CSE-MsgGUID: 7zQhILgGRr+uphxlUdxmkQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="66233881"
+X-IronPort-AV: E=Sophos;i="6.19,258,1754982000"; d="scan'208";a="66233881"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2025 23:01:13 -0700
+X-CSE-ConnectionGUID: 6VkfQLnMTGir/KE97NJcTQ==
+X-CSE-MsgGUID: c8GKq0NzSsK5HQMCJryC3g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,258,1754982000"; d="scan'208";a="184570122"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa009.jf.intel.com with ESMTP; 26 Oct 2025 23:01:11 -0700
+Date: Mon, 27 Oct 2025 14:23:20 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: chenmiao <chenmiao@openatom.club>
+Cc: pbonzini@redhat.com, manos.pitsidianakis@linaro.org,
+ richard.henderson@linaro.org, philmd@linaro.org,
+ qemu-rust@nongnu.org, qemu-devel@nongnu.org,
+ hust-os-kernel-patches@googlegroups.com
+Subject: Re: [RFC 1/5] rust: hw: core: Add the BusState of rust version
+Message-ID: <aP8P2H0qk0yJMPe3@intel.com>
+References: <20251025123853.63139-2-chenmiao@openatom.club>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251025123853.63139-2-chenmiao@openatom.club>
+Received-SPF: pass client-ip=192.198.163.13; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Sat, 25 Oct 2025 10:27:21 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,97 +83,65 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-A Rust version implementation has been designed for BusState,
-which will be used for the subsequent I2CBus implementation.
+On Sat, Oct 25, 2025 at 12:38:49PM +0000, chenmiao wrote:
+> Date: Sat, 25 Oct 2025 12:38:49 +0000
+> From: chenmiao <chenmiao@openatom.club>
+> Subject: [RFC 1/5] rust: hw: core: Add the BusState of rust version
+> X-Mailer: git-send-email 2.43.0
+> 
+> A Rust version implementation has been designed for BusState,
+> which will be used for the subsequent I2CBus implementation.
+> 
+> Signed-off-by: chenmiao <chenmiao@openatom.club>
+> ---
+>  rust/hw/core/meson.build |  1 +
+>  rust/hw/core/src/bus.rs  | 51 ++++++++++++++++++++++++++++++++++++++++
+>  rust/hw/core/src/lib.rs  |  3 +++
+>  3 files changed, 55 insertions(+)
+>  create mode 100644 rust/hw/core/src/bus.rs
 
-Signed-off-by: chenmiao <chenmiao@openatom.club>
----
- rust/hw/core/meson.build |  1 +
- rust/hw/core/src/bus.rs  | 51 ++++++++++++++++++++++++++++++++++++++++
- rust/hw/core/src/lib.rs  |  3 +++
- 3 files changed, 55 insertions(+)
- create mode 100644 rust/hw/core/src/bus.rs
+After a quick glance, I think this BusState is implemented quite well.
 
-diff --git a/rust/hw/core/meson.build b/rust/hw/core/meson.build
-index 1560dd2..efcda50 100644
---- a/rust/hw/core/meson.build
-+++ b/rust/hw/core/meson.build
-@@ -50,6 +50,7 @@ _hwcore_rs = static_library(
-     [
-       'src/lib.rs',
-       'src/bindings.rs',
-+      'src/bus.rs',
-       'src/irq.rs',
-       'src/qdev.rs',
-       'src/sysbus.rs',
-diff --git a/rust/hw/core/src/bus.rs b/rust/hw/core/src/bus.rs
-new file mode 100644
-index 0000000..c87d18d
---- /dev/null
-+++ b/rust/hw/core/src/bus.rs
-@@ -0,0 +1,51 @@
-+// Copyright 2025 HUST OpenAtom Open Source Club.
-+// Author(s): Chen Miao <chenmiao@openatom.club>
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+use std::{ffi::CStr, ptr::addr_of_mut};
-+
-+pub use bindings::BusClass;
-+use common::Opaque;
-+use qom::{qom_isa, IsA, Object, ObjectCast, ObjectDeref, ObjectType};
-+
-+use crate::{bindings, DeviceImpl};
-+
-+#[repr(transparent)]
-+#[derive(Debug, common::Wrapper)]
-+pub struct BusState(Opaque<bindings::BusState>);
-+
-+unsafe impl Send for BusState {}
-+unsafe impl Sync for BusState {}
-+
-+unsafe impl ObjectType for BusState {
-+    type Class = BusClass;
-+    const TYPE_NAME: &'static std::ffi::CStr =
-+        unsafe { CStr::from_bytes_with_nul_unchecked(bindings::TYPE_BUS) };
-+}
-+
-+qom_isa!(BusState: Object);
-+
-+pub trait BusStateImpl: DeviceImpl + IsA<BusState> {}
-+
-+impl BusClass {
-+    pub fn class_init<T: BusStateImpl>(self: &mut BusClass) {
-+        self.parent_class.class_init::<T>();
-+    }
-+}
-+
-+pub trait BusStateMethods: ObjectDeref
-+where
-+    Self::Target: IsA<BusState>,
-+{
-+    fn bus_realize(&self) {
-+        assert!(bql::is_locked());
-+        unsafe {
-+            bindings::qbus_realize(
-+                self.upcast().as_mut_ptr(),
-+                addr_of_mut!(util::bindings::error_fatal),
-+            );
-+        }
-+    }
-+}
-+
-+impl<R: ObjectDeref> BusStateMethods for R where R::Target: IsA<BusState> {}
-diff --git a/rust/hw/core/src/lib.rs b/rust/hw/core/src/lib.rs
-index b40801e..10cc516 100644
---- a/rust/hw/core/src/lib.rs
-+++ b/rust/hw/core/src/lib.rs
-@@ -13,3 +13,6 @@
- 
- mod sysbus;
- pub use sysbus::*;
-+
-+mod bus;
-+pub use bus::*;
--- 
-2.43.0
+Only a few minor nits inline:
+
+...
+
+> +pub trait BusStateImpl: DeviceImpl + IsA<BusState> {}
+> +
+> +impl BusClass {
+> +    pub fn class_init<T: BusStateImpl>(self: &mut BusClass) {
+> +        self.parent_class.class_init::<T>();
+> +    }
+> +}
+> +
+> +pub trait BusStateMethods: ObjectDeref
+
+This can be named BusMethods - just like DeviceMethods did.
+
+> +where
+> +    Self::Target: IsA<BusState>,
+> +{
+> +    fn bus_realize(&self) {
+
+"bus_" prefix is not needed:
+
+dummy_bus.realize() is clear and enough.
+
+> +        assert!(bql::is_locked());
+
+It's better to add safety comment from beginning (// SAFETY: xxx).
+
+> +        unsafe {
+> +            bindings::qbus_realize(
+> +                self.upcast().as_mut_ptr(),
+> +                addr_of_mut!(util::bindings::error_fatal),
+> +            );
+> +        }
+> +    }
+> +}
+
+Regards,
+Zhao
+
+
 
