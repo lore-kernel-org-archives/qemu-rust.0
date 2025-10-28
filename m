@@ -4,59 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30582CCD1BF
-	for <qemu-rust@archiver.kernel.org>; Tue, 28 Oct 2025 10:20:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86150CCD1BF
+	for <qemu-rust@archiver.kernel.org>; Tue, 28 Oct 2025 10:20:53 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vDgoS-0005kN-CS; Tue, 28 Oct 2025 06:20:28 -0400
+	id 1vDgoo-0005sd-M4; Tue, 28 Oct 2025 06:20:48 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <chenmiao@openatom.club>)
- id 1vDgoA-0005Zb-9l
- for qemu-rust@nongnu.org; Tue, 28 Oct 2025 06:20:10 -0400
-Received: from sg-1-34.ptr.blmpb.com ([118.26.132.34])
+ id 1vDgoE-0005aH-Ch
+ for qemu-rust@nongnu.org; Tue, 28 Oct 2025 06:20:15 -0400
+Received: from sg-1-12.ptr.blmpb.com ([118.26.132.12])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <chenmiao@openatom.club>)
- id 1vDgo0-0001si-Pm
- for qemu-rust@nongnu.org; Tue, 28 Oct 2025 06:20:03 -0400
+ id 1vDgo1-0001sD-Lu
+ for qemu-rust@nongnu.org; Tue, 28 Oct 2025 06:20:08 -0400
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=openatom-club.20200927.dkim.feishu.cn; t=1761646721;
+ s=s1; d=openatom-club.20200927.dkim.feishu.cn; t=1761646715;
  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
  reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=zvHdl+wWHOB+VeJgQE82SVVMbZQtCopVyudakAiLOR0=;
- b=cr4cEed9VnzMoOvgk2WHlyc4nQRoPtDlQCBBBCnnAvfHhFbVT3nY/OSWlX225Q90tD2qzh
- vQ67PzzeLLBda6rRWPi991TVm9SM+NUgHiCehn8MRIlkm1dq/EbX1+drMMAqxTSvVT4bdh
- U0xHrs433idPm7RladgDlm+MqvLT6GqhMHrv9fomC0kv7SaCziSucdoaDj8pTyTOkL+p42
- t91FzaQzD/kKvAArHJTSUYWeOLCHxrF+znT4jN4jD6LxyyifYoKCaa+I3uz5CZyT6qtzZd
- 07yvEsQFngl267TpOZ1i/TbW9utQBniXbXhHX4AjodQDBL1CHGoIAqxZwf4jyw==
+ bh=OH4Oe6W5Z3AuH260sYJtxczopVvleZqTZ9FAidoBgIU=;
+ b=WYGu2G5J3L6Z3dWl7RkIibIsC0uG3hxjWY3D/kz4hAn8/ppOIkoLfs7rG+EN4/vFcUcWWu
+ AuEwDeCz5uiwUC0NFWAyAEjRfbZy0HKHS8RD2aRG5M1lgxyzy0ObHAGK1S7h4p9S26xEHT
+ J2VHsFzRqA6G+YcSEIG0fa0C5dl6Ea6uGt2epWVibBjT5EyfpKkdFdKmbLms2w1Qp6WmNK
+ DwmTN5I3MXY13lNy7EERKm54lCHHfKsKG2kYNHxOFRsxvNpO2fO/CnGFbPBk1GyE77/XFs
+ 3XnLWyx112ftw3ZvPkCwR+N7iaW+5R9Ni0Kvs9a3JncXm5qXmUd5zWshJG/pig==
+Cc: <chao.liu@openatom.club>, <qemu-rust@nongnu.org>, 
+ <qemu-devel@nongnu.org>, <hust-os-kernel-patches@googlegroups.com>
+Received: from nyaos.localdomain ([114.249.194.57]) by smtp.feishu.cn with
+ ESMTPS; Tue, 28 Oct 2025 18:18:32 +0800
+X-Mailer: git-send-email 2.43.0
+From: "chenmiao" <chenmiao@openatom.club>
+Message-Id: <12c58ca355cd04d7157e4c20f074683abfe14e7c.1761644606.git.chenmiao@openatom.club>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Subject: [RFC PATCH v2 1/5] rust/hw/core: Add the BusState of rust version
+Date: Tue, 28 Oct 2025 10:18:25 +0000
+X-Original-From: chenmiao <chenmiao@openatom.club>
 To: <zhao1.liu@intel.com>, <pbonzini@redhat.com>, 
  <manos.pitsidianakis@linaro.org>, <richard.henderson@linaro.org>, 
  <philmd@linaro.org>
-X-Mailer: git-send-email 2.43.0
-X-Lms-Return-Path: <lba+26900987f+47dc6e+nongnu.org+chenmiao@openatom.club>
-Cc: <chao.liu@openatom.club>, <qemu-rust@nongnu.org>, 
- <qemu-devel@nongnu.org>, <hust-os-kernel-patches@googlegroups.com>
-From: "chenmiao" <chenmiao@openatom.club>
-Message-Id: <45032bb11a9006cb7a6e1c30ca6299d40cef614c.1761644606.git.chenmiao@openatom.club>
-Received: from nyaos.localdomain ([114.249.194.57]) by smtp.feishu.cn with
- ESMTPS; Tue, 28 Oct 2025 18:18:38 +0800
-Content-Transfer-Encoding: 7bit
-Subject: [RFC PATCH v2 4/5] rust/hw/core: Provide some interfaces for the GPIO
- device
-Date: Tue, 28 Oct 2025 10:18:28 +0000
 Mime-Version: 1.0
-X-Original-From: chenmiao <chenmiao@openatom.club>
-Content-Type: text/plain; charset=UTF-8
-Received-SPF: pass client-ip=118.26.132.34;
- envelope-from=chenmiao@openatom.club; helo=sg-1-34.ptr.blmpb.com
+X-Lms-Return-Path: <lba+269009879+2580b9+nongnu.org+chenmiao@openatom.club>
+Received-SPF: pass client-ip=118.26.132.12;
+ envelope-from=chenmiao@openatom.club; helo=sg-1-12.ptr.blmpb.com
 X-Spam_score_int: -18
 X-Spam_score: -1.9
 X-Spam_bar: -
 X-Spam_report: (-1.9 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, MSGID_FROM_MTA_HEADER=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ DKIM_VALID=-0.1, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -72,79 +70,97 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-In irq.rs, we added a new get method for the InterruptSource type to determine
-whether an InterruptSource is null. This eliminates the need to repeatedly
-call self.cell.get().is_null() for null checks during comparisons.
-Additionally, we exposed the slice_as_ptrmethod to support external usage with
-the &[InterruptSource]type.
-
-In qdev.rs, we implemented the init_gpio_out_namedfunction, which corresponds
-to the C function qdev_init_gpio_out_named. We also refactored the
-init_gpio_outfunction to reuse the init_gpio_out_namedinterface.
+A Rust version implementation has been designed for BusState,
+which will be used for the subsequent I2CBus implementation.
 
 Signed-off-by: chenmiao <chenmiao@openatom.club>
----
- rust/hw/core/src/irq.rs  |  6 +++++-
- rust/hw/core/src/qdev.rs | 12 +++++++++---
- 2 files changed, 14 insertions(+), 4 deletions(-)
+Signed-off-by: Chao Liu <chao.liu@openatom.club>
 
-diff --git a/rust/hw/core/src/irq.rs b/rust/hw/core/src/irq.rs
-index e0d7784d97..dd5d0cadbc 100644
---- a/rust/hw/core/src/irq.rs
-+++ b/rust/hw/core/src/irq.rs
-@@ -71,6 +71,10 @@ pub fn pulse(&self) {
-     pub fn raise(&self) {
-         self.set(true);
-     }
+---
+Changes in V2:
+  - Rename the BusMethods and add some Safety comment.
+  - Remove the unnecessary realize function.
+
+---
+ rust/hw/core/meson.build |  1 +
+ rust/hw/core/src/bus.rs  | 44 ++++++++++++++++++++++++++++++++++++++++
+ rust/hw/core/src/lib.rs  |  3 +++
+ 3 files changed, 48 insertions(+)
+ create mode 100644 rust/hw/core/src/bus.rs
+
+diff --git a/rust/hw/core/meson.build b/rust/hw/core/meson.build
+index 1560dd20c6..efcda50fef 100644
+--- a/rust/hw/core/meson.build
++++ b/rust/hw/core/meson.build
+@@ -50,6 +50,7 @@ _hwcore_rs = static_library(
+     [
+       'src/lib.rs',
+       'src/bindings.rs',
++      'src/bus.rs',
+       'src/irq.rs',
+       'src/qdev.rs',
+       'src/sysbus.rs',
+diff --git a/rust/hw/core/src/bus.rs b/rust/hw/core/src/bus.rs
+new file mode 100644
+index 0000000000..d3fbf519d4
+--- /dev/null
++++ b/rust/hw/core/src/bus.rs
+@@ -0,0 +1,44 @@
++// Copyright 2025 HUST OpenAtom Open Source Club.
++// Author(s): Chen Miao <chenmiao@openatom.club>
++// SPDX-License-Identifier: GPL-2.0-or-later
 +
-+    pub fn get(&self) -> bool {
-+        !self.cell.get().is_null()
-+    }
- }
- 
- impl<T> InterruptSource<T>
-@@ -91,7 +95,7 @@ pub(crate) const fn as_ptr(&self) -> *mut *mut bindings::IRQState {
-         self.cell.as_ptr()
-     }
- 
--    pub(crate) const fn slice_as_ptr(slice: &[Self]) -> *mut *mut bindings::IRQState {
-+    pub const fn slice_as_ptr(slice: &[Self]) -> *mut *mut bindings::IRQState {
-         assert!(!slice.is_empty());
-         slice[0].as_ptr()
-     }
-diff --git a/rust/hw/core/src/qdev.rs b/rust/hw/core/src/qdev.rs
-index c3097a284d..1d7a0b7c1a 100644
---- a/rust/hw/core/src/qdev.rs
-+++ b/rust/hw/core/src/qdev.rs
-@@ -17,7 +17,7 @@
- 
- pub use crate::bindings::{ClockEvent, DeviceClass, Property, ResetType};
- use crate::{
--    bindings::{self, qdev_init_gpio_in, qdev_init_gpio_out, ResettableClass},
-+    bindings::{self, qdev_init_gpio_in, qdev_init_gpio_out_named, ResettableClass},
-     irq::InterruptSource,
- };
- 
-@@ -399,11 +399,17 @@ fn do_init_gpio_in(
-     }
- 
-     fn init_gpio_out(&self, pins: &[InterruptSource]) {
-+        self.init_gpio_out_named(pins, "", pins.len());
-+    }
++use std::ffi::CStr;
 +
-+    fn init_gpio_out_named(&self, pins: &[InterruptSource], name: &str, n: usize) {
-+        let c_name = CString::new(name).expect("gpio name new failed");
-         unsafe {
--            qdev_init_gpio_out(
-+            qdev_init_gpio_out_named(
-                 self.upcast().as_mut_ptr(),
-                 InterruptSource::slice_as_ptr(pins),
--                pins.len() as c_int,
-+                c_name.as_ptr(),
-+                n as c_int,
-             );
-         }
-     }
++pub use bindings::BusClass;
++use common::Opaque;
++use qom::{qom_isa, IsA, Object, ObjectDeref, ObjectType};
++
++use crate::{bindings, DeviceImpl};
++
++#[repr(transparent)]
++#[derive(Debug, common::Wrapper)]
++pub struct BusState(Opaque<bindings::BusState>);
++
++unsafe impl Send for BusState {}
++unsafe impl Sync for BusState {}
++
++unsafe impl ObjectType for BusState {
++    type Class = BusClass;
++    const TYPE_NAME: &'static std::ffi::CStr =
++        unsafe { CStr::from_bytes_with_nul_unchecked(bindings::TYPE_BUS) };
++}
++
++qom_isa!(BusState: Object);
++
++pub trait BusStateImpl: DeviceImpl + IsA<BusState> {}
++
++impl BusClass {
++    pub fn class_init<T: BusStateImpl>(self: &mut BusClass) {
++        self.parent_class.class_init::<T>();
++    }
++}
++
++pub trait BusMethods: ObjectDeref
++where
++    Self::Target: IsA<BusState>,
++{
++    // TODO: Since the bus does not currently provide services to other
++    // components, we have not implemented any functions yet.
++}
++
++impl<R: ObjectDeref> BusMethods for R where R::Target: IsA<BusState> {}
+diff --git a/rust/hw/core/src/lib.rs b/rust/hw/core/src/lib.rs
+index b40801eb84..10cc516664 100644
+--- a/rust/hw/core/src/lib.rs
++++ b/rust/hw/core/src/lib.rs
+@@ -13,3 +13,6 @@
+ 
+ mod sysbus;
+ pub use sysbus::*;
++
++mod bus;
++pub use bus::*;
 -- 
 2.43.0
 
