@@ -4,86 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24B66CCD1BF
-	for <qemu-rust@archiver.kernel.org>; Tue, 28 Oct 2025 11:26:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EAC2CCF9E0
+	for <qemu-rust@archiver.kernel.org>; Tue, 28 Oct 2025 11:29:14 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vDhqQ-0001ol-MU; Tue, 28 Oct 2025 07:26:30 -0400
+	id 1vDhst-0002qY-Pw; Tue, 28 Oct 2025 07:29:04 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vDhqP-0001o9-3C
- for qemu-rust@nongnu.org; Tue, 28 Oct 2025 07:26:29 -0400
+ id 1vDhss-0002q6-8P
+ for qemu-rust@nongnu.org; Tue, 28 Oct 2025 07:29:02 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vDhqJ-0003eI-9i
- for qemu-rust@nongnu.org; Tue, 28 Oct 2025 07:26:28 -0400
+ id 1vDhsl-0003jr-O2
+ for qemu-rust@nongnu.org; Tue, 28 Oct 2025 07:29:02 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1761650777;
+ s=mimecast20190719; t=1761650932;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=h99UIx5QtsAkeo10J4yO7C3UC8A9Nc8x78UnujJz3tc=;
- b=LvfzhrPSY6lLim5ydS5Bx4sqvatKxlCWr2WjCd7fugVaXT6J8y5+UERNgrM2mTiexVYO2l
- KF/qgUlKuXL2TGw6fTGePVKg9RYdqLqWD/ev6m/H3ln3rbdcoHA6q5loI+qWBN0RO2klBj
- A4l4FBr2kL2mxz5+9dIaTK67NvfPggo=
+ bh=uHIkPmibtwStN22OEjXI0V2cNbpyBUXkzByUfMmxahc=;
+ b=DiqS8mFs5ogmRbflkHgAy7G0Vx06yAWt+DWOVpGd4SzyEydobTqKb5jmuwU2KfyecunBqT
+ vqi7h1qv1ACr9TS+KcM+loAKk71lR5xoVW0uekgxnE8whHOVm4R9QglugkGzJCiT9MXmGX
+ YCDwrDm2o2QzCSKuonmjV/Q/lguX99s=
 Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
  [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-352-8k0gznCfNNqP1869eBUtyQ-1; Tue, 28 Oct 2025 07:26:16 -0400
-X-MC-Unique: 8k0gznCfNNqP1869eBUtyQ-1
-X-Mimecast-MFC-AGG-ID: 8k0gznCfNNqP1869eBUtyQ_1761650775
+ us-mta-160-psfGNbumOMiEP7zrVSHAMQ-1; Tue, 28 Oct 2025 07:28:51 -0400
+X-MC-Unique: psfGNbumOMiEP7zrVSHAMQ-1
+X-Mimecast-MFC-AGG-ID: psfGNbumOMiEP7zrVSHAMQ_1761650930
 Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-4256fae4b46so4659602f8f.0
- for <qemu-rust@nongnu.org>; Tue, 28 Oct 2025 04:26:15 -0700 (PDT)
+ ffacd0b85a97d-42700099ff5so6116574f8f.2
+ for <qemu-rust@nongnu.org>; Tue, 28 Oct 2025 04:28:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761650775; x=1762255575;
+ d=1e100.net; s=20230601; t=1761650930; x=1762255730;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=h99UIx5QtsAkeo10J4yO7C3UC8A9Nc8x78UnujJz3tc=;
- b=CDRyhvR1EbtWbDgBpUhhfPkFaSklWWPimYD1IkGF4VtpAHvKYe2HYRDpKwiYu39Teo
- kcCe4EGPmelCww8Rhy71Jq0rtROVPbvX+zG0bFz6tA+x+AtJTGPV0CGvvt9/HURFFxVC
- vLVnRoiiXoKLoljbNB8IWRTOJ+N//ShevAIKH7uLuiTrUJnr/mt+ZbdDzEXL3445tMPP
- igb6VIeIxWIDiSP6rmzHK7gt+RgTz+3UYUz4XG0n5wKwC/6++cvbKFQqRBQGOucOSZ93
- fW43RXl0J3Tz/kZOOO5Jij/PR6X0Yvj9LgC9HYdSS5l94A0n7Ap1JA4oAM0rLx+o/TWP
- yCXQ==
+ bh=uHIkPmibtwStN22OEjXI0V2cNbpyBUXkzByUfMmxahc=;
+ b=f3OCoeGnGydA5eZ2cyCaj4sZN0ngN5g4K5WJ7FtkQO8TxYnbi2bMC+3wJTygQjPP74
+ 4W0UCcuwYIM57HIC4RUEc3XAN2z23lO4oH9gG6MzogVtRvfb2w8H6RtQJn0myjWLdsSZ
+ nyc5kGTqPeh4ybILHwIb0rNo1zmihnWNNju9k0ZUH70bcUcIlLp1vkp5ePd1uVd+mJP8
+ myw20xKFGVPzdNux/rNboyj5TsufYocmpo3y1zlmxQ/aKhRGld6ZtPUplJqO6qm2T4jK
+ +WBytWg2YOedTFj5qj/tjqiNBqK6CKse22axdo8qAI1iBxxdJebREJk+kXXxLmEl7zgB
+ +l9g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWXg6z2GQNFHQ0bMLMujDJL724DA4d+mqAaLKf34ZApVso0Srr2nqaK8jGcC8b3Ogg27oLXDLTwSJ4=@nongnu.org
-X-Gm-Message-State: AOJu0Yzc+yAg8u2Y7qvAg32Iv39zw8GAU62XFDVHTq+bnmOa+BWCnlfI
- TQNZgt2trsFZe2uPhVbUyfpSlKjcU76rYceu2mRHh9D+EVRG5wBinw8T5PJ2A1YGmHbF7Fga3PZ
- cgJyVLPu0SvNHsjncFlzd5kdcTMoKzEzPlZHbHZ9xLdngM+kEbcIlwM3k8bdegvOhTC9xJ+nkRt
- Ad6TNF2bjf+rYjtleFLDkMQLdb3u7jJg==
-X-Gm-Gg: ASbGncvZ5N08zZ5QtPoIE/oPbHHg2qiNpjvYuhk7TDNmaHe7i+v7RUXHa4CJZx/sRVq
- cBuaNTJIU5uB+IuWkZNL2/HpdbfLw77OkKn2NlEi1AF19/voq4YxMaEuRuNjjExCWd9DG+jA/BT
- l68jTTzZ4Ef/DC63Affpq1EIgyHRQd7vlSrBhuRYG3ssci3paTTsWECmh6v8HLbEg1d38lA0jyf
- Y10Z4vXkR1gn0a3PX4/NAv4dGPAXQKUfudiLeW2Vfvt86IHJSKC8UHZYiht
-X-Received: by 2002:a05:6000:1786:b0:426:fb28:7962 with SMTP id
- ffacd0b85a97d-429a7e86fdfmr2928272f8f.61.1761650774551; 
- Tue, 28 Oct 2025 04:26:14 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGETdkF66wnM/c6tdOrhBxuzOwc3yOBlYJznoC3hIKtlaNeiI1lra6JkwvXW2aYr0luCfwf0Nojvl5BfiA25S4=
-X-Received: by 2002:a05:6000:1786:b0:426:fb28:7962 with SMTP id
- ffacd0b85a97d-429a7e86fdfmr2928235f8f.61.1761650773954; Tue, 28 Oct 2025
- 04:26:13 -0700 (PDT)
+ AJvYcCU8DfemjrJKznzr66GCSlj0gCa488IgFcXm4gdkL9n1x4YmVK8ZdCY3yQgDApk8r5DbVFoxhtq57Ak=@nongnu.org
+X-Gm-Message-State: AOJu0YzG3Sf/NEFjrmoEVj8LOM7wwRHkjB37fBj4RhnZnXSXCWegBBj+
+ 5fFAqzV2IupTZJSmtZ7jZ7nG94rBFTgQ+Xs56thdPJK3WewrSxvPGVClVAEUWpnp29ms73Y54Ho
+ uqSpQU0cPBuKySiF64uD9/R4zeiNep18VZu65odjitp7WVKVRUJa2g9U7gxYUE/uX2TzPkHMjve
+ +YL0b47Vdos9pNwc1M+GsRacBtOpSkXA==
+X-Gm-Gg: ASbGncvyiXbylPY6gr0GuFlbcXLXt1Cv2GmxyACQfei6KSMfhUxSnhepNnoin9+uy/8
+ mWvS9HjXudidprFd/UDUiVYlVkc7JQOBpL+jHCK1V7hvFhpw6ca13cu1q61QlpKsRu0YjxjuI++
+ +O/gO0saT+y9VkqTtJE0Gh3cdk+PfQwYIa6MINVRHhSY3EAgg9RNsUV5CfYGLfxCA5lQJnU/OXk
+ lV4WltZg8uef6G458YU06N0BcyZne4gKNPPe7B8W6C19Hc5pzEiFsUGj8fE
+X-Received: by 2002:a5d:5f94:0:b0:425:7406:d298 with SMTP id
+ ffacd0b85a97d-429a7e35cf6mr3344366f8f.5.1761650929900; 
+ Tue, 28 Oct 2025 04:28:49 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGuLhOoG7p7dNcptWEv8psw5Y9KKpqGHu0MMUmgiLFzkj/7E/dVHul0xgQAU9S8SOvuI20rHlavxHoouTbzFM0=
+X-Received: by 2002:a5d:5f94:0:b0:425:7406:d298 with SMTP id
+ ffacd0b85a97d-429a7e35cf6mr3344337f8f.5.1761650929519; Tue, 28 Oct 2025
+ 04:28:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <ec836b4e6e7521806eba90c4218593c144b103a7.1761644606.git.chenmiao@openatom.club>
-In-Reply-To: <ec836b4e6e7521806eba90c4218593c144b103a7.1761644606.git.chenmiao@openatom.club>
+References: <db9abfc03f0dbc953ef314ff7f13ff19298efa7d.1761644606.git.chenmiao@openatom.club>
+ <CABgObfaBbf9Hq7RRLkhsa5n0-J+boe1T4guEakOEXDHFrc=4AQ@mail.gmail.com>
+ <c1d55488-71e2-498f-a845-d8a336c46f07@openatom.club>
+In-Reply-To: <c1d55488-71e2-498f-a845-d8a336c46f07@openatom.club>
 From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 28 Oct 2025 12:26:01 +0100
-X-Gm-Features: AWmQ_bk57Fe8YiJd2x8AJj_hDnuIZI0hYlxxuUi6zJGKkjg-qoDVQH6od6V8OUI
-Message-ID: <CABgObfYiUkoS=0f603T-Aqs732j+2_VqopvgRFe-4Q6DJbrK-g@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 5/5] rust/hw/gpio: Add the the first gpio device
- pcf8574
-To: chenmiao <chenmiao@openatom.club>
+Date: Tue, 28 Oct 2025 12:28:35 +0100
+X-Gm-Features: AWmQ_bmKe4jB2VpFgrvi05USuxtVXHc_MRiuBnzhwWqFITPGp6L5PeM1JFNI-W4
+Message-ID: <CABgObfYbJ0jmnRkM=R9JN_SYZx1ybYxt3Y7dxDx0oJFG5BNf6Q@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 2/5] rust/hw/core: Add rust bindings/funcs for i2c
+ bus
+To: Chen Miao <chenmiao@openatom.club>
 Cc: zhao1.liu@intel.com, manos.pitsidianakis@linaro.org, 
  richard.henderson@linaro.org, philmd@linaro.org, chao.liu@openatom.club, 
  qemu-rust@nongnu.org, qemu-devel@nongnu.org, 
  hust-os-kernel-patches@googlegroups.com
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: eKu8S082812AOTXxgAEOFSZXRwg3fQcWJkpSDVNvwQY_1761650775
+X-Mimecast-MFC-PROC-ID: bZZMR-Uip09vWIa6GojbuwdhoI9bCV9tDlf7ziv9iTw_1761650930
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -112,375 +114,86 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Tue, Oct 28, 2025 at 11:19=E2=80=AFAM chenmiao <chenmiao@openatom.club> =
-wrote:
+On Tue, Oct 28, 2025 at 12:18=E2=80=AFPM Chen Miao <chenmiao@openatom.club>=
+ wrote:
 >
-> After implementing the I2CBus and I2CSlave, we proceeded to implement a b=
-asic
-> GPIO device =E2=80=94 the PCF8574 =E2=80=94 which depends on I2CSlave.
+> On 10/28/2025 6:45 PM, Paolo Bonzini wrote:
+> > On Tue, Oct 28, 2025 at 11:18=E2=80=AFAM chenmiao <chenmiao@openatom.cl=
+ub> wrote:
+> >> During the implementation process, we found that the current two parad=
+igms in
+> >> Rust =E2=80=94 bindings and impl =E2=80=94 are extremely complex and l=
+ack comprehensive
+> >> documentation. There is no clear explanation as to why Bus and Device =
+models
+> >> need to be implemented using different approaches.
+> > I don't think they need to be implemented using different approaches.
+> > The difference between the two is that:
+> >
+> > - the currently implemented devices do not expose any bus, they stay
+> > on a bus. This means the bus is never a child of the device
+> >
+> > - the currently implemented buses are all in C code, whereas there are
+> > devices implemented in Rust.
+> >
+> > I agree that the Rust-to-C bridge code is complex, but it does have
+> > documentation, much more so than the C versions in fact.  If there are
+> > specific aspects of the documentation that you would like to see
+> > improved, you can help by explaining what problems and sources of
+> > confusion you encountered.
+>
+> That makes sense to me. Since buses are mainly implemented in C, the curr=
+ent
+> focus of Rust is on porting the device layer. Rust-implemented devices ar=
+e
+> consumers and do not create any child objects.
+>
+> I think our previous confusion stemmed from the assumption that Rust was
+> porting the entire hierarchy, when in fact Rust is currently only impleme=
+nting
+> the device layer.
+>
+> >> +/// A safe wrapper around [`bindings::I2CBus`].
+> >> +#[repr(transparent)]
+> >> +#[derive(Debug, common::Wrapper)]
+> >> +pub struct I2CBus(Opaque<bindings::I2CBus>);
+> >> +
+> >> +unsafe impl Send for I2CBus {}
+> >> +unsafe impl Sync for I2CBus {}
+> >> +
+> >> +unsafe impl ObjectType for I2CBus {
+> >> +    type Class =3D BusClass;
+> >> +    const TYPE_NAME: &'static CStr =3D
+> >> +        unsafe { CStr::from_bytes_with_nul_unchecked(bindings::TYPE_I=
+2C_BUS) };
+> >> +}
+> >> +
+> >> +qom_isa!(I2CBus: BusState, Object);
+> >> +
+> >> +// TODO: add virtual methods
+> >> +pub trait I2CBusImpl: DeviceImpl + IsA<I2CBus> {}
+> >> +/// Trait for methods of [`I2CBus`] and its subclasses.
+> >> +pub trait I2CBusMethods: ObjectDeref
+> >> +where
+> >> +    Self::Target: IsA<I2CBus>
+> >
+> > There are no virtual methods, and therefore I2CBus does not have
+> > subclasses.  Therefore you don't need these traits and you can
+> > implement the functions directly on I2CBus.
+>
+> For this part, we directly referred to the implementation of SysBus.
 
-Yes, this is a good choice.
+I see. The difference is that:
 
-> The most significant insight I gained during this process is that the cur=
-rent
-> approach in Rust appears to be more complex and harder to understand than=
- its
-> C counterpart. This trend poses a substantial barrier for developers inte=
-rested
-> in Rust for QEMU, preventing them from efficiently, quickly, and safely m=
-odeling
-> QEMU devices in Rust. In my opinion, this deviates from the original inte=
-nt of
-> adopting Rust.
+- in sysbus there are virtual methods, but Rust does not let you override t=
+hem
 
-If you were implementing a new serial device, for example, you would
-just write a new directory in rust/hw/char.
+- in I2C there are no virtual methods added (and in fact you have
+"type Class =3D BusClass").
 
-Even in that case, creating the meson.build file is more complex than
-in C; I'm working on simplifying that by adding new features to Meson.
+> I'll revise all the points you have raised later.
 
-In other words, you're not wrong at all but note that you are not
-seeing the code from the point of view of someone implementing the
-Rust-to-C bridges, not someone implementing a new device, because
-there are no I2C devices yet in QEMU that are written in Rust. I agree
-that this is a relatively large work, on the other it only has to be
-done once.
-
-> Moreover, the mechanisms of bindings and wrappers are overly redundant, a=
-nd
-> there is no clear indication that they are mandatory. These constructs ge=
-nerate
-> a large number of similar structures in the final compilation artifacts. =
-Could
-> we design a more generic approach to bindings and wrappers?
-
-Bindings are redundant across crates, indeed. It is probably possible
-to improve how they work.
-
-> Additionally, vmstate has not been fully implemented for the PCF8574 (to =
-be
-> precise, it is not yet complete). During the implementation, I encountere=
-d an
-> issue: initially, I tried to directly transliterate the C struct =E2=80=
-=94 that is, I
-> attempted to configure vmstate and handle other aspects directly via fiel=
-d
-> mappings. However, I eventually found that some internal APIs were incomp=
-atible.
-> To make it work, I had to isolate those "potentially mutable values" into=
- a
-> separate structure, akin to something like a "PL011Register", in order fo=
-r it
-> to function correctly.
-
-This is correct and intended. It isolates the interior-mutable parts
-of the struct and in the future it can be used to support
-multi-threaded devices too.
-
-> +// impl_vmstate_struct!(
-> +//     I2CSlave,
-> +//     VMStateDescriptionBuilder::<I2CSlave>::new()
-> +//         .name(c"I2CSlave")
-> +//         .version_id(1)
-> +//         .minimum_version_id(1)
-> +//         .post_load(&I2CSlave::post_load)
-> +//         .fields(vmstate_fields! {
-> +//             vmstate_of!(I2CSlave, address),
-> +//         })
-> +//         .build()
-> +// );
-
-This is not needed, instead you can implement VMState for I2CSlave:
-
-impl_vmstate_c_struct!(I2CSlave, bindings::vmstate_i2c_slave);
-
-> +bilge =3D { version =3D "0.2.0" }
-> +bilge-impl =3D { version =3D "0.2.0" }
-> +chardev =3D { path =3D "../../../chardev" }
-
-You don't need these.
-
-> +_libpcf8574_bindings_inc_rs =3D rust.bindgen(
-> +  input: 'wrapper.h',
-> +  dependencies: common_ss.all_dependencies(),
-> +  output: 'bindings.inc.rs',
-> +  include_directories: bindings_incdir,
-> +  bindgen_version: ['>=3D0.60.0'],
-> +  args: bindgen_args_common,
-> +  c_args: bindgen_c_args,
-> +)
-
-You also don't need bindgen for this simple device...
-
-> +_libpcf8574_rs =3D static_library(
-> +  'pcf8574',
-> +  structured_sources(
-> +    [
-> +      'src/lib.rs',
-> +      'src/bindings.rs',
-> +      'src/device.rs',
-> +    ],
-> +    {'.' : _libpcf8574_bindings_inc_rs},
-
-... and therefore you don't need structured_sources, just 'src/lib.rs'.
-
-> +    bilge_rs,
-> +    bilge_impl_rs,
-> +    chardev_rs,
-
-Also remove unneeded crates from here.
-
-> --- /dev/null
-> +++ b/rust/hw/gpio/pcf8574/src/device.rs
-> @@ -0,0 +1,180 @@
-> +// Copyright 2025 HUST OpenAtom Open Source Club.
-> +// Author(s): Chen Miao <chenmiao@openatom.club>
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +use std::slice::from_ref;
-> +
-> +// use common::static_assert;
-> +use bql::BqlRefCell;
-> +use hwcore::{
-> +    bindings, DeviceClass, DeviceImpl, DeviceMethods, DeviceState, I2CSl=
-ave, I2CSlaveImpl,
-> +    InterruptSource, ResetType, ResettablePhasesImpl,
-> +};
-> +use migration::{
-> +    self, impl_vmstate_struct, vmstate_fields, vmstate_of, VMStateDescri=
-ption,
-> +    VMStateDescriptionBuilder,
-> +};
-> +use qom::{qom_isa, IsA, Object, ObjectImpl, ObjectType, ParentField};
-> +use util::Result;
-> +
-> +const PORTS_COUNT: usize =3D 8;
-> +
-> +#[repr(C)]
-> +#[derive(Debug, Default)]
-> +pub struct PCF8574StateInner {
-> +    pub lastrq: u8,
-> +    pub input: u8,
-> +    pub output: u8,
-> +}
-
-This is small and simple enough that it can be Copy.
-
-> +#[repr(C)]
-> +#[derive(qom::Object, hwcore::Device)]
-> +pub struct PCF8574State {
-> +    pub parent_obj: ParentField<I2CSlave>,
-> +    pub inner: BqlRefCell<PCF8574StateInner>,
-> +    pub handler: [InterruptSource; PORTS_COUNT],
-> +    pub intrq: InterruptSource,
-> +}
-> +
-> +// static_assert!(size_of::<PCF8574State>() <=3D size_of::<crate::bindin=
-gs::PCF8574State>());
-> +
-> +qom_isa!(PCF8574State: I2CSlave, DeviceState, Object);
-> +
-> +#[allow(dead_code)]
-> +trait PCF8574Impl: I2CSlaveImpl + IsA<PCF8574State> {}
-> +
-> +unsafe impl ObjectType for PCF8574State {
-> +    type Class =3D DeviceClass;
-> +    const TYPE_NAME: &'static std::ffi::CStr =3D crate::TYPE_PCF8574;
-> +}
-> +
-> +impl PCF8574Impl for PCF8574State {}
-> +
-> +impl ObjectImpl for PCF8574State {
-> +    type ParentType =3D I2CSlave;
-> +    const CLASS_INIT: fn(&mut Self::Class) =3D Self::Class::class_init::=
-<Self>;
-> +}
-> +
-> +impl DeviceImpl for PCF8574State {
-> +    const VMSTATE: Option<migration::VMStateDescription<Self>> =3D Some(=
-VMSTATE_PCF8574);
-> +    const REALIZE: Option<fn(&Self) -> util::Result<()>> =3D Some(Self::=
-realize);
-> +}
-> +
-> +impl ResettablePhasesImpl for PCF8574State {
-> +    const HOLD: Option<fn(&Self, ResetType)> =3D Some(Self::reset_hold);
-> +}
-> +
-> +impl I2CSlaveImpl for PCF8574State {
-> +    const SEND: Option<fn(&Self, data: u8) -> util::Result<bool>> =3D So=
-me(Self::send);
-> +    const RECV: Option<fn(&Self) -> util::Result<bool>> =3D Some(Self::r=
-ecv);
-> +    const SEND_ASYNC: Option<fn(&Self, data: u8)> =3D None;
-> +    const EVENT: Option<fn(&Self, event: hwcore::I2CEvent) -> util::Resu=
-lt<hwcore::I2CEvent>> =3D
-> +        None;
-> +    const MATCH_AND_ADD: Option<
-> +        fn(
-> +            &Self,
-> +            address: u8,
-> +            broadcast: bool,
-> +            current_devs: *mut bindings::I2CNodeList,
-> +        ) -> Result<bool>,
-> +    > =3D None;
-
-You don't need to redeclare the ones that are "None".
-
-> +}
-> +
-> +impl PCF8574State {
-> +    fn send(&self, data: u8) -> Result<bool> {
-> +        let prev =3D self.line_state();
-> +        self.inner.borrow_mut().output =3D data;
-
-I think you can use a function like
-
-impl PCF8574Inner {
-    pub fn line_state(&self) {
-         self.input & self.output
-    }
-
-    pub fn set_outputs(&mut self, data: u32) -> PCF8574Inner {
-         let prev =3D self.line_state();
-         self.output =3D data;
-         let actual =3D self.line_state();
-         self
-     }
-}
-
-by making PCF8574Inner "Copy". This removes a lot of the borrows you need b=
-elow.
-
-> +        let actual =3D self.line_state();
-> +
-> +        let mut diff =3D actual ^ prev;
-> +        while diff !=3D 0 {
-> +            let line =3D diff.trailing_zeros() as u8;
-> +            if let Some(handler) =3D self.handler.get(line as usize) {
-> +                if handler.get() {
-> +                    handler.set((actual >> line) & 1 =3D=3D 1);
-> +                }
-
-There's no need to check if a GPIO line is connected, InterruptSource
-handles it. (This can also be changed in the C version).
-
-> +    fn recv(&self) -> Result<bool> {
-> +        let line_state =3D self.line_state();
-> +        if self.inner.borrow().lastrq !=3D line_state {
-> +            self.inner.borrow_mut().lastrq =3D line_state;
-
-Same here, part of the logic can be moved to PCF8574Inner:
-
-    pub fn receive(&mut self, data: u32) -> (bool, u32) {
-         let prev =3D self.lastrq;
-         let actual =3D self.line_state();
-         self.lastrq =3D actual;
-         (prev !=3D actual, actual)
-     }
-
-The second element of the tuple is needed because...
-
-> +            if self.intrq.get() {
-> +                self.intrq.raise();
-> +            }
-> +        }
-> +
-> +        Ok(true)
-
-... RECV should return a byte, not a bool.
-
-> +    }
-> +
-> +    fn realize(&self) -> util::Result<()> {
-> +        self.init_gpio_in(self.handler_size(), PCF8574State::gpio_set);
-> +        self.init_gpio_out(from_ref(&self.handler[0]));
-> +        self.init_gpio_out_named(from_ref(&self.intrq), "nINT", 1);
-> +        Ok(())
-> +        // unsafe {
-> +        //   bindings::qdev_init_gpio_in(addr_of_mut!(*self), Self::gpio=
-_set, Self::handler_size as c_int);
-> +        //   bindings::qdev_init_gpio_out(addr_of_mut!(*self), Interrupt=
-Source::slice_as_ptr(self.handler), Self::handler_size as c_int);
-> +        //   bindings::qdev_init_gpio_out_named(addr_of_mut!(*self), sel=
-f.intrq, c"nINT", 1);
-> +        // }
-> +    }
-> +
-> +    fn gpio_set(&self, line: u32, level: u32) {
-> +        assert!(line < self.handler_size());
-> +
-> +        match level {
-> +            0 =3D> self.inner.borrow_mut().input &=3D !(1 << line),
-> +            _ =3D> self.inner.borrow_mut().input |=3D 1 << line,
-> +        }
-
-Again, move this to PCF8574Inner. deposit is in
-common::bitops::IntegerExt and lets you write this:
-
-    pub fn set_input(&mut self, n: u32, value: u32) -> bool {
-         self.input =3D self.input.deposit(n, 1, value);
-         self.line_state() !=3D self.lastrq
-     }
-
-> +        if self.line_state() !=3D self.inner.borrow().lastrq && self.int=
-rq.get() {
-> +            self.intrq.raise();
-> +        }
-> +    }
-> +
-> +    fn handler_size(&self) -> u32 {
-> +        self.handler.len() as u32
-> +    }
-> +!(
-> +    fn line_state(&self) -> u8 {
-> +        let inner =3D self.inner.borrow();
-> +        inner.input & inner.output
-> +    }
-> +
-> +    fn reset_hold(&self, _type: ResetType) {}
-
-This should clear PCF8574Inner (it can be another method in there).
-
-> +}
-> +
-> +impl_vmstate_struct!(
-> +    PCF8574StateInner,
-> +    VMStateDescriptionBuilder::<PCF8574StateInner>::new()
-> +        .name(c"pcf8574/inner")
-> +        .version_id(0)
-> +        .minimum_version_id(0)
-> +        .fields(vmstate_fields! {
-> +            vmstate_of!(PCF8574StateInner, lastrq),
-> +            vmstate_of!(PCF8574StateInner, input),
-> +            vmstate_of!(PCF8574StateInner, output),
-> +        })
-> +        .build()
-> +);
-> +
-> +pub const VMSTATE_PCF8574: VMStateDescription<PCF8574State> =3D
-> +    VMStateDescriptionBuilder::<PCF8574State>::new()
-> +        .name(c"pcf8574")
-> +        .version_id(0)
-> +        .minimum_version_id(0)
-> +        .fields(vmstate_fields! {
-> +            // TODO
-> +            // vmstate_of!(PCF8574State, parent_obj),
-
-You're right, for this to work you'll need to add
-
-impl_vmstate_transparent!(ParentField<T> where T: VMState);
-
-to rust/qom/src/qom.rs and
-
-impl_vmstate_transparent!(std::mem::ManuallyDrop<T> where T: VMState);
-
-to rust/migration/src/vmstate.rs.  I'll send a patch for this.
-
-But really -- not a bad job at all!  Thanks very much for trying,
-remember that Zhao and Manos and myself have been working on this for
-over a year.  Your experience and your suggestions will be precious,
-so please let us know what can be done better.
+Thank you!
 
 Paolo
 
