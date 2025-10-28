@@ -4,99 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06574CCF9E0
-	for <qemu-rust@archiver.kernel.org>; Tue, 28 Oct 2025 10:50:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60CD9CCD1BF
+	for <qemu-rust@archiver.kernel.org>; Tue, 28 Oct 2025 11:19:14 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vDhHV-0003oF-D8; Tue, 28 Oct 2025 06:50:25 -0400
+	id 1vDhjK-00068M-Bl; Tue, 28 Oct 2025 07:19:11 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vDhH4-0003Ni-Q3
- for qemu-rust@nongnu.org; Tue, 28 Oct 2025 06:49:59 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vDhH1-0006CH-NR
- for qemu-rust@nongnu.org; Tue, 28 Oct 2025 06:49:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1761648593;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=nDKu8X/vzeqsKQ1aJgCzOFxraw+oSqhkt9VP9fNBAjw=;
- b=XY3nPPRWV5UAWbjqMoZz71wNxJomFdhSYxhLRIu+0kSpgRWjn4p3Rre/7qsF8YaXwUAFmz
- JAkXoJORJbKlDpR1QdJvkFrs1WQhc9lImfpN6B2hrBxNEbDR/EOjhwDSh4FDOFizvLW8QK
- eoNAoEsJBxhZLm55EMrQIpmPkIyvWNk=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-2-9YvSyApOOlS8_10RNguNng-1; Tue, 28 Oct 2025 06:49:52 -0400
-X-MC-Unique: 9YvSyApOOlS8_10RNguNng-1
-X-Mimecast-MFC-AGG-ID: 9YvSyApOOlS8_10RNguNng_1761648591
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-475da25c4c4so17318535e9.0
- for <qemu-rust@nongnu.org>; Tue, 28 Oct 2025 03:49:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761648591; x=1762253391;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nDKu8X/vzeqsKQ1aJgCzOFxraw+oSqhkt9VP9fNBAjw=;
- b=qzQShO+xN2MEoet7MKm6JYf0oRvw380pEcn9eyFBAQrZVuUBF7S4qCpr+ITuKksAx1
- amgH+r70GtvvFcGCUyRRk7itpalonyb8Jn0Lfe7jr8hjz4ye9mk0oPVsQR/Sj8yAAOrE
- m2VW7kk0SQdNLyXiAUoEr+T8s+RPu2GyZCmiurbd8A962CtWr7fNqRiFxdZh4uALS8J9
- ITuOr3NN0rvhJrq3n7R/GW1Lb34JFwpfEoPwpv6iIV+lXQJ0H79BNhhpQxNR9AY19hsJ
- AC8/PpBsefyVe5xIGJr8IKv9tS0P2m+MrU5xMjzJqLjyZC6DsqVj1T139ypVjOQJ1AfR
- YOkA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV7kBTBFHx28gGzi7hp9FAgoRXxMkHLWdsMbaXJz717jbBluMyX87U+N3MtNe4fCFo4c7gl0N5zXVg=@nongnu.org
-X-Gm-Message-State: AOJu0Yx2iSgvHhwhy0ojKRCE8XQMT+pw2tPsTNwV1KHhrH3i4SGByk4K
- qHI7g8xtP+7XzmS7V6sCAN0tqqa6FWn+aBnGdtuI6peURrenVlVjfjWpxfIZ0VsAtn9MkJ+H6sz
- IPmb8wXsaJt7aPC3j2miKH84kR9eMh+04Jb4n93roZHK8+fPS1A2Oi+tyBay3rqjRKGex3OIOzt
- c4JyVJPQLfV9vZRWpvDXoVda0f07XuPg==
-X-Gm-Gg: ASbGncuZ28C+sTYhJKKMs0kewTzPCzUY8Xd9D2SWgwZvolq+o9qoLXqLpgXGbTKK0JD
- V7wE2V4XSmReLapUS+NxQWQrK5n9tn+VlwsSYk7igHZ+KNCBUtN606WYKsnaEOeXzFrewL7fHCC
- 04d2tuIFxgGyDyRLWwP4c0bOV0ARVXRaQyGvJrYy+FxIzc4KleQiOtrNOYAlzLv3c1MrxYXlwBb
- V0+RDOjLtbuHZpVYf6aiNQeDaMKesTym3fnW1ckmMt7Bd2hrpPny2uq5aEb
-X-Received: by 2002:a05:600c:620a:b0:46e:7247:cbc0 with SMTP id
- 5b1f17b1804b1-47717e0aa72mr24971735e9.18.1761648590690; 
- Tue, 28 Oct 2025 03:49:50 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGWEY3Fi4wag+xBCLIssc77LyvOrOfMbZOrzQ2hllJ1vPTmYHJB401bprx5nGCb9UKLuO1tZi1XrMwR7G5rVoc=
-X-Received: by 2002:a05:600c:620a:b0:46e:7247:cbc0 with SMTP id
- 5b1f17b1804b1-47717e0aa72mr24971515e9.18.1761648590294; Tue, 28 Oct 2025
- 03:49:50 -0700 (PDT)
-MIME-Version: 1.0
-References: <45032bb11a9006cb7a6e1c30ca6299d40cef614c.1761644606.git.chenmiao@openatom.club>
-In-Reply-To: <45032bb11a9006cb7a6e1c30ca6299d40cef614c.1761644606.git.chenmiao@openatom.club>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 28 Oct 2025 11:49:38 +0100
-X-Gm-Features: AWmQ_bncIPp5h9_69AGsQpcKIQnL71jq-cW22OH3deNdatCTdOkGumP8EzX_9Mw
-Message-ID: <CABgObfbeka+fKixBH8F_Fkprvk8oi+dTss21Vn5kYgm4sY0A8g@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 4/5] rust/hw/core: Provide some interfaces for the
- GPIO device
-To: chenmiao <chenmiao@openatom.club>
-Cc: zhao1.liu@intel.com, manos.pitsidianakis@linaro.org, 
- richard.henderson@linaro.org, philmd@linaro.org, chao.liu@openatom.club, 
- qemu-rust@nongnu.org, qemu-devel@nongnu.org, 
- hust-os-kernel-patches@googlegroups.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 0qkXhNqpOBtcvYBE3flT2BhaKakrtgg0yg7fKSxwzII_1761648591
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+ (Exim 4.90_1) (envelope-from <chenmiao@openatom.club>)
+ id 1vDhjI-00066P-HK
+ for qemu-rust@nongnu.org; Tue, 28 Oct 2025 07:19:08 -0400
+Received: from sg-1-37.ptr.blmpb.com ([118.26.132.37])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <chenmiao@openatom.club>)
+ id 1vDhj6-0002QY-2c
+ for qemu-rust@nongnu.org; Tue, 28 Oct 2025 07:19:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=openatom-club.20200927.dkim.feishu.cn; t=1761650318;
+ h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=C9O2EX66xTbz0xtPCbTnhydl/i/4nh2R4sB9bd1aZ4o=;
+ b=ZM2S3rHmVtIABA21AvRRD6AOtUEAJ5QG2rcRj3HKU7xQJN+8pHw2fhbB+k/bVXXA8HmHdf
+ NQCoE6LF/I9hrRDnFyqQuU2h/OlWpkMwIbdCEPYhbKqGizsu75nuafzJ5aceeVW7SDwivx
+ kE7hq0cPQnmfp+LEBVTwEUvRqtryLucW67iyAwx3RxV3osdFMXrh5iesvwX3m0StUPdMAv
+ ejJxfDCbecKn09nMEZRtY7g48zQzvdWk/qZJdr/yEHko23kd9M5YogM+sl7EQU5ji8f9Qd
+ cqDtbN7ZUM3koCgwBKv/ZbQx0HBCDX+ToaRrmgsBAx8oS5VDELdOCvRxJcXSfA==
+Cc: <zhao1.liu@intel.com>, <manos.pitsidianakis@linaro.org>, 
+ <richard.henderson@linaro.org>, <philmd@linaro.org>, 
+ <chao.liu@openatom.club>, <qemu-rust@nongnu.org>, 
+ <qemu-devel@nongnu.org>, <hust-os-kernel-patches@googlegroups.com>
+In-Reply-To: <CABgObfaBbf9Hq7RRLkhsa5n0-J+boe1T4guEakOEXDHFrc=4AQ@mail.gmail.com>
+Message-Id: <c1d55488-71e2-498f-a845-d8a336c46f07@openatom.club>
+Mime-Version: 1.0
+To: "Paolo Bonzini" <pbonzini@redhat.com>
+Subject: Re: [RFC PATCH v2 2/5] rust/hw/core: Add rust bindings/funcs for i2c
+ bus
+X-Original-From: Chen Miao <chenmiao@openatom.club>
+Content-Type: text/plain; charset=UTF-8
+Received: from [198.18.0.1] ([114.249.194.57]) by smtp.feishu.cn with ESMTPS;
+ Tue, 28 Oct 2025 19:18:35 +0800
+User-Agent: Mozilla Thunderbird
+From: "Chen Miao" <chenmiao@openatom.club>
+Date: Tue, 28 Oct 2025 19:18:34 +0800
+References: <db9abfc03f0dbc953ef314ff7f13ff19298efa7d.1761644606.git.chenmiao@openatom.club>
+ <CABgObfaBbf9Hq7RRLkhsa5n0-J+boe1T4guEakOEXDHFrc=4AQ@mail.gmail.com>
+X-Lms-Return-Path: <lba+26900a68c+f19f90+nongnu.org+chenmiao@openatom.club>
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+Received-SPF: pass client-ip=118.26.132.37;
+ envelope-from=chenmiao@openatom.club; helo=sg-1-37.ptr.blmpb.com
+X-Spam_score_int: -18
+X-Spam_score: -1.9
+X-Spam_bar: -
+X-Spam_report: (-1.9 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, MSGID_FROM_MTA_HEADER=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -112,65 +75,225 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Tue, Oct 28, 2025 at 11:18=E2=80=AFAM chenmiao <chenmiao@openatom.club> =
-wrote:
+On 10/28/2025 6:45 PM, Paolo Bonzini wrote:
+> On Tue, Oct 28, 2025 at 11:18=E2=80=AFAM chenmiao <chenmiao@openatom.club=
+> wrote:
+>> During the implementation process, we found that the current two paradig=
+ms in
+>> Rust =E2=80=94 bindings and impl =E2=80=94 are extremely complex and lac=
+k comprehensive
+>> documentation. There is no clear explanation as to why Bus and Device mo=
+dels
+>> need to be implemented using different approaches.
+> I don't think they need to be implemented using different approaches.
+> The difference between the two is that:
 >
-> In irq.rs, we added a new get method for the InterruptSource type to dete=
-rmine
-> whether an InterruptSource is null. This eliminates the need to repeatedl=
-y
-> call self.cell.get().is_null() for null checks during comparisons.
-> Additionally, we exposed the slice_as_ptrmethod to support external usage=
- with
-> the &[InterruptSource]type.
+> - the currently implemented devices do not expose any bus, they stay
+> on a bus. This means the bus is never a child of the device
 >
-> In qdev.rs, we implemented the init_gpio_out_namedfunction, which corresp=
-onds
-> to the C function qdev_init_gpio_out_named. We also refactored the
-> init_gpio_outfunction to reuse the init_gpio_out_namedinterface.
+> - the currently implemented buses are all in C code, whereas there are
+> devices implemented in Rust.
 >
-> Signed-off-by: chenmiao <chenmiao@openatom.club>
-> ---
->  rust/hw/core/src/irq.rs  |  6 +++++-
->  rust/hw/core/src/qdev.rs | 12 +++++++++---
->  2 files changed, 14 insertions(+), 4 deletions(-)
->
-> diff --git a/rust/hw/core/src/irq.rs b/rust/hw/core/src/irq.rs
-> index e0d7784d97..dd5d0cadbc 100644
-> --- a/rust/hw/core/src/irq.rs
-> +++ b/rust/hw/core/src/irq.rs
-> @@ -71,6 +71,10 @@ pub fn pulse(&self) {
->      pub fn raise(&self) {
->          self.set(true);
->      }
-> +
-> +    pub fn get(&self) -> bool {
-> +        !self.cell.get().is_null()
-> +    }
+> I agree that the Rust-to-C bridge code is complex, but it does have
+> documentation, much more so than the C versions in fact.  If there are
+> specific aspects of the documentation that you would like to see
+> improved, you can help by explaining what problems and sources of
+> confusion you encountered.
 
-This should not be get(), but "is_connected()". Also it should be
-implemented for any T, therefore in the "impl<T> InterruptSource<T>"
-block below.
+That makes sense to me. Since buses are mainly implemented in C, the curren=
+t=20
+focus of Rust is on porting the device layer. Rust-implemented devices are=
+=20
+consumers and do not create any child objects.
 
->  }
->
->  impl<T> InterruptSource<T>
-> @@ -91,7 +95,7 @@ pub(crate) const fn as_ptr(&self) -> *mut *mut bindings=
-::IRQState {
->          self.cell.as_ptr()
->      }
->
-> -    pub(crate) const fn slice_as_ptr(slice: &[Self]) -> *mut *mut bindin=
-gs::IRQState {
-> +    pub const fn slice_as_ptr(slice: &[Self]) -> *mut *mut bindings::IRQ=
-State {
->          assert!(!slice.is_empty());
->          slice[0].as_ptr()
->      }
+I think our previous confusion stemmed from the assumption that Rust was=20
+porting the entire hierarchy, when in fact Rust is currently only implement=
+ing=20
+the device layer.
 
-Since you are not using this, you don't need to expose it outside the crate=
+>> +/// A safe wrapper around [`bindings::I2CBus`].
+>> +#[repr(transparent)]
+>> +#[derive(Debug, common::Wrapper)]
+>> +pub struct I2CBus(Opaque<bindings::I2CBus>);
+>> +
+>> +unsafe impl Send for I2CBus {}
+>> +unsafe impl Sync for I2CBus {}
+>> +
+>> +unsafe impl ObjectType for I2CBus {
+>> +    type Class =3D BusClass;
+>> +    const TYPE_NAME: &'static CStr =3D
+>> +        unsafe { CStr::from_bytes_with_nul_unchecked(bindings::TYPE_I2C=
+_BUS) };
+>> +}
+>> +
+>> +qom_isa!(I2CBus: BusState, Object);
+>> +
+>> +// TODO: add virtual methods
+>> +pub trait I2CBusImpl: DeviceImpl + IsA<I2CBus> {}
+>> +/// Trait for methods of [`I2CBus`] and its subclasses.
+>> +pub trait I2CBusMethods: ObjectDeref
+>> +where
+>> +    Self::Target: IsA<I2CBus>
+>
+> There are no virtual methods, and therefore I2CBus does not have
+> subclasses.  Therefore you don't need these traits and you can
+> implement the functions directly on I2CBus.
+For this part, we directly referred to the implementation of SysBus.
+>> +{
+>> +    /// # Safety
+>> +    ///
+>> +    /// Initialize an I2C bus
+>> +    fn init_bus(&self, parent: &DeviceState, name: &str) -> *mut bindin=
+gs::I2CBus {
+>> +        assert!(bql::is_locked());
+>> +        unsafe { bindings::i2c_init_bus(parent.as_mut_ptr(), name.as_pt=
+r().cast()) }
+>> +    }
+> This should return an Owned<I2CBus>.
+Yes, I'll fix it later.
+>
+>> +    /// Sets the I2C bus master.
+>> +    ///
+>> +    /// # Safety
+>> +    ///
+>> +    /// This function is unsafe because:
+>> +    /// - `bh` must be a valid pointer to a `QEMUBH`.
+>> +    /// - The caller must ensure that `self` is in a valid state.
+>> +    /// - The caller must guarantee no data races occur during executio=
+n.
+>> +    ///
+>> +    /// TODO: `bindings:QEMUBH` should be wrapped by Opaque<>.
+>> +    unsafe fn set_master(&self, bh: *mut bindings::QEMUBH) {
+>> +        assert!(bql::is_locked());
+>> +        unsafe { bindings::i2c_bus_master(self.upcast().as_mut_ptr(), b=
+h) }
+>> +    }
+> I agree with Zhao, I would leave out this completely. You can add a
+> TODO ("i2c_bus_master missing until QEMUBH is wrapped").
+>
+>> +    /// # Safety
+>> +    ///
+>> +    /// Release an I2C bus
+>> +    fn release(&self) {
+>> +        assert!(bql::is_locked());
+>> +        unsafe { bindings::i2c_bus_release(self.upcast().as_mut_ptr()) =
+}
+>> +    }
+> Same for this, which is the counterpart of i2c_bus_master. In Rust, in
+> fact, release() should be done with an RAII guard returned by
+> set_master.
+>
+>> +unsafe impl ObjectType for I2CSlave {
+>> +    type Class =3D I2CSlaveClass;
+>> +    const TYPE_NAME: &'static CStr =3D
+>> +        unsafe { CStr::from_bytes_with_nul_unchecked(bindings::TYPE_I2C=
+_SLAVE) };
+>> +}
+>> +
+>> +qom_isa!(I2CSlave: DeviceState, Object);
+>> +
+>> +// TODO: add virtual methods
+>> +pub trait I2CSlaveImpl: DeviceImpl + IsA<I2CSlave> {
+>> +    /// Master to slave. Returns non-zero for a NAK, 0 for success.
+>> +    const SEND: Option<fn(&Self, data: u8) -> Result<bool>> =3D None;
+> Make it return an "enum I2CResult { Ack, Nack };" instead of a Result.
+> Likewise other function pointers here do not need a Result<>.
+>> +    /// Master to slave (asynchronous). Receiving slave must call `i2c_=
+ack()`.
+>> +    const SEND_ASYNC: Option<fn(&Self, data: u8)> =3D None;
+> This requires the bottom half machinery. Leave it out.
+>> +/// Trait for methods of [`I2CSlave`] and its subclasses.
+>> +pub trait I2CSlaveMethods: ObjectDeref
+>> +where
+>> +    Self::Target: IsA<I2CSlave>,
+>> +{
+>> +    /// Create an I2C slave device on the heap.
+>> +    ///
+>> +    /// # Arguments
+>> +    /// * `name` - a device type name
+>> +    /// * `addr` - I2C address of the slave when put on a bus
+>> +    ///
+>> +    /// This only initializes the device state structure and allows
+>> +    /// properties to be set. Type `name` must exist. The device still
+>> +    /// needs to be realized.
+>> +    fn init_new(name: &str, addr: u8) -> Owned<I2CSlave> {
+>> +        assert!(bql::is_locked());
+>> +        unsafe {
+>> +            let slave =3D bindings::i2c_slave_new(name.as_ptr().cast(),=
+ addr);
+>> +            Owned::from(I2CSlave::from_raw(slave))
+>> +        }
+>> +    }
+>> +
+>> +    /// Create and realize an I2C slave device on the heap.
+>> +    ///
+>> +    /// # Arguments
+>> +    /// * `bus` - I2C bus to put it on
+>> +    /// * `name` - I2C slave device type name
+>> +    /// * `addr` - I2C address of the slave when put on a bus
+>> +    ///
+>> +    /// Create the device state structure, initialize it, put it on the
+>> +    /// specified `bus`, and drop the reference to it (the device is re=
+alized).
+>> +    fn create_simple(&self, bus: &I2CBus, name: &str, addr: u8) -> Owne=
+d<I2CSlave> {
+>> +        assert!(bql::is_locked());
+>> +        unsafe {
+>> +            let slave =3D
+>> +                bindings::i2c_slave_create_simple(bus.as_mut_ptr(), nam=
+e.as_ptr().cast(), addr);
+>> +            Owned::from(I2CSlave::from_raw(slave))
+>> +        }
+>> +    }
+>> +
+>> +    /// Set the I2C bus address of a slave device
+>> +    ///
+>> +    /// # Arguments
+>> +    /// * `address` - I2C address of the slave when put on a bus
+>> +    fn set_address(&self, address: u8) {
+>> +        assert!(bql::is_locked());
+>> +        unsafe { bindings::i2c_slave_set_address(self.upcast().as_mut_p=
+tr(), address) }
+>> +    }
+> These three are used by boards, which we don't model. We can keep the
+> code simple by leaving them off (in addition, init_new and
+> create_simple would be *class* methods, as visible from the fact that
+> they don't use self at all).
+>
+>> +    /// Get the I2C bus address of a slave device
+>> +    fn get_address(&self) -> u8 {
+>> +        assert!(bql::is_locked());
+>> +        // SAFETY: the BQL ensures that no one else writes to the I2CSl=
+ave structure,
+>> +        // and the I2CSlave must be initialized to get an IsA<I2CSlave>=
 .
+>> +        let slave =3D unsafe { *self.upcast().as_ptr() };
+>> +        slave.address
+>> +    }
+>> +}
+>> +
+>> +impl<R: ObjectDeref> I2CSlaveMethods for R where R::Target: IsA<I2CSlav=
+e> {}
+>> +
+>> +/// Enum representing I2C events
+>> +#[repr(i32)]
+>> +#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+>> +pub enum I2CEvent {
+>> +    StartRecv =3D 0,
+>> +    StartSend =3D 1,
+>> +    StartSendAsync =3D 2,
+>> +    Finish =3D 3,
+>> +    Nack =3D 4,
+>> +}
+> Make it "=3D bindings::I2C_START_RECV" etc. You can then use
+> #[derive(common::TryInto)] instead of implementing by hand the From
+> traits.
+>
+> Paolo
 
-Paolo
+I'll revise all the points you have raised later.
 
+Thanks,
+
+Chen Miao
 
