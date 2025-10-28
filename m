@@ -4,89 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0213CCF9EE
-	for <qemu-rust@archiver.kernel.org>; Tue, 28 Oct 2025 10:47:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06574CCF9E0
+	for <qemu-rust@archiver.kernel.org>; Tue, 28 Oct 2025 10:50:30 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vDhER-0000HQ-Ph; Tue, 28 Oct 2025 06:47:16 -0400
+	id 1vDhHV-0003oF-D8; Tue, 28 Oct 2025 06:50:25 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vDhE1-0008DC-Bj
- for qemu-rust@nongnu.org; Tue, 28 Oct 2025 06:46:51 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1vDhH4-0003Ni-Q3
+ for qemu-rust@nongnu.org; Tue, 28 Oct 2025 06:49:59 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vDhDw-0005u3-NW
- for qemu-rust@nongnu.org; Tue, 28 Oct 2025 06:46:48 -0400
+ id 1vDhH1-0006CH-NR
+ for qemu-rust@nongnu.org; Tue, 28 Oct 2025 06:49:58 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1761648401;
+ s=mimecast20190719; t=1761648593;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=oqswuCohGI/O8Z9pOr54ZNHujtz9Cg9VUJQ0QE3M9/s=;
- b=BFZG75Fw+zx4jGaH5TQp6zF57ZSFDKky6GLIkf1OQbYzqXeaSKBjJ+ni8J5YqdPiAVOKTb
- +uwtLlx3eiJ9/QhyEkxf9dpiyLGjAOMU1cYDOWlN833DoHDdT9+kv1uZqe+S6VfibyOI1Y
- +tv+9OtITeSuzvagVDuDBJBWi6j9jiQ=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=nDKu8X/vzeqsKQ1aJgCzOFxraw+oSqhkt9VP9fNBAjw=;
+ b=XY3nPPRWV5UAWbjqMoZz71wNxJomFdhSYxhLRIu+0kSpgRWjn4p3Rre/7qsF8YaXwUAFmz
+ JAkXoJORJbKlDpR1QdJvkFrs1WQhc9lImfpN6B2hrBxNEbDR/EOjhwDSh4FDOFizvLW8QK
+ eoNAoEsJBxhZLm55EMrQIpmPkIyvWNk=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-287-yaDFPYRRPJGe4moecqS2RA-1; Tue, 28 Oct 2025 06:46:40 -0400
-X-MC-Unique: yaDFPYRRPJGe4moecqS2RA-1
-X-Mimecast-MFC-AGG-ID: yaDFPYRRPJGe4moecqS2RA_1761648399
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-426feed0016so1906055f8f.3
- for <qemu-rust@nongnu.org>; Tue, 28 Oct 2025 03:46:40 -0700 (PDT)
+ us-mta-2-9YvSyApOOlS8_10RNguNng-1; Tue, 28 Oct 2025 06:49:52 -0400
+X-MC-Unique: 9YvSyApOOlS8_10RNguNng-1
+X-Mimecast-MFC-AGG-ID: 9YvSyApOOlS8_10RNguNng_1761648591
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-475da25c4c4so17318535e9.0
+ for <qemu-rust@nongnu.org>; Tue, 28 Oct 2025 03:49:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761648399; x=1762253199;
+ d=1e100.net; s=20230601; t=1761648591; x=1762253391;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=oqswuCohGI/O8Z9pOr54ZNHujtz9Cg9VUJQ0QE3M9/s=;
- b=h7LAOKETUkZCaBanuYrYacceQPzW8o2KlLui02UvQ5BsUy5hqOoywl6teoi6oOOOwN
- +I5meTEJN7bHi1Y93bn/upQZgx+ocwkfhrmHokM+pueF51F0lIIQ3KxB8DOxoXKsDgBp
- ssvAOvGKrKspNh4XNgZ7rvFU+QjCW04fbiXRq+y6NsqRGoqGf5CNH6C9OHUwj2MxPgd3
- phTsBkdwkrsjNODjrey3Xc49TfuuZpS6/Ks2agReWyueDbsuCe0g4gW0qGukPlaM64I+
- GX1HfKWHOfFD3wxxtfq6UBBl2UXtKAiHjTHQs14rARlV3W+boktUZbFnCm8oveXCC/sB
- 0BhQ==
+ bh=nDKu8X/vzeqsKQ1aJgCzOFxraw+oSqhkt9VP9fNBAjw=;
+ b=qzQShO+xN2MEoet7MKm6JYf0oRvw380pEcn9eyFBAQrZVuUBF7S4qCpr+ITuKksAx1
+ amgH+r70GtvvFcGCUyRRk7itpalonyb8Jn0Lfe7jr8hjz4ye9mk0oPVsQR/Sj8yAAOrE
+ m2VW7kk0SQdNLyXiAUoEr+T8s+RPu2GyZCmiurbd8A962CtWr7fNqRiFxdZh4uALS8J9
+ ITuOr3NN0rvhJrq3n7R/GW1Lb34JFwpfEoPwpv6iIV+lXQJ0H79BNhhpQxNR9AY19hsJ
+ AC8/PpBsefyVe5xIGJr8IKv9tS0P2m+MrU5xMjzJqLjyZC6DsqVj1T139ypVjOQJ1AfR
+ YOkA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUcG5PyADy/M1EYjezvR+FwWYgpvQYfKC/eIm7Y+HwRL+yEt1kWBvbJPPpbpBCcslJv17PnC/NnBAg=@nongnu.org
-X-Gm-Message-State: AOJu0Yw0U5kkqRaFs6qemBYaNv8jhmy3qTwdk0c2npRHapzS7oZL/IOb
- yOtrkZqUrenLVUuAoNTlZ6Fp59kvEqO6rrmZwijBpiS2ggBEcdYFosRmdT8b42EbhUPE2eHOaVK
- iD1cdl2chZoHdJFLcLubx6JFxRu2lwOS5DYgFTlruCYxQC6Orjl7UqxT+A9A4u24dszSA+VR0lC
- AhPHXkWLKPjmiFvgHoIfB720M6CXAVSQ==
-X-Gm-Gg: ASbGncuLOSKvTUEof3zppXeaQouq0Y3XceJWsQzday6v2ZWIYkD1YuojNAcmZ9VvdF8
- Z8DvBfrAB/ct17/pHFAaS6GASDEN88I2XPHnQLufPV4kf36n2WdjDdBwdzWpjt17BW2lFw1tTAx
- 23IdbKZiiXRll50SXRRL8fbGXuDLQELIy1GG7PyKFlCOyQEU4+CaDRQW6uNyIVvIBLGe1Z7w4h1
- W8m7O+60EsG7aVKV9bwAa5olHXJKf+0n/7BDVN2EQzcCSZDT/mvrAy8knnV
-X-Received: by 2002:a05:6000:290c:b0:427:7ad:466f with SMTP id
- ffacd0b85a97d-429a7e83a78mr2445401f8f.39.1761648398969; 
- Tue, 28 Oct 2025 03:46:38 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGPWkS17TzLd/QE4SHuRoKCUtw0TrWEdmtuZ6c5g7w+i8DEOEeGCmi1GFQB+A9ScnDHNzxOp1Q8i+I/v0UfXOk=
-X-Received: by 2002:a05:6000:290c:b0:427:7ad:466f with SMTP id
- ffacd0b85a97d-429a7e83a78mr2445365f8f.39.1761648398504; Tue, 28 Oct 2025
- 03:46:38 -0700 (PDT)
+ AJvYcCV7kBTBFHx28gGzi7hp9FAgoRXxMkHLWdsMbaXJz717jbBluMyX87U+N3MtNe4fCFo4c7gl0N5zXVg=@nongnu.org
+X-Gm-Message-State: AOJu0Yx2iSgvHhwhy0ojKRCE8XQMT+pw2tPsTNwV1KHhrH3i4SGByk4K
+ qHI7g8xtP+7XzmS7V6sCAN0tqqa6FWn+aBnGdtuI6peURrenVlVjfjWpxfIZ0VsAtn9MkJ+H6sz
+ IPmb8wXsaJt7aPC3j2miKH84kR9eMh+04Jb4n93roZHK8+fPS1A2Oi+tyBay3rqjRKGex3OIOzt
+ c4JyVJPQLfV9vZRWpvDXoVda0f07XuPg==
+X-Gm-Gg: ASbGncuZ28C+sTYhJKKMs0kewTzPCzUY8Xd9D2SWgwZvolq+o9qoLXqLpgXGbTKK0JD
+ V7wE2V4XSmReLapUS+NxQWQrK5n9tn+VlwsSYk7igHZ+KNCBUtN606WYKsnaEOeXzFrewL7fHCC
+ 04d2tuIFxgGyDyRLWwP4c0bOV0ARVXRaQyGvJrYy+FxIzc4KleQiOtrNOYAlzLv3c1MrxYXlwBb
+ V0+RDOjLtbuHZpVYf6aiNQeDaMKesTym3fnW1ckmMt7Bd2hrpPny2uq5aEb
+X-Received: by 2002:a05:600c:620a:b0:46e:7247:cbc0 with SMTP id
+ 5b1f17b1804b1-47717e0aa72mr24971735e9.18.1761648590690; 
+ Tue, 28 Oct 2025 03:49:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGWEY3Fi4wag+xBCLIssc77LyvOrOfMbZOrzQ2hllJ1vPTmYHJB401bprx5nGCb9UKLuO1tZi1XrMwR7G5rVoc=
+X-Received: by 2002:a05:600c:620a:b0:46e:7247:cbc0 with SMTP id
+ 5b1f17b1804b1-47717e0aa72mr24971515e9.18.1761648590294; Tue, 28 Oct 2025
+ 03:49:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <90746cd6a57c0df971158f604c422a23d750e0b4.1761644606.git.chenmiao@openatom.club>
-In-Reply-To: <90746cd6a57c0df971158f604c422a23d750e0b4.1761644606.git.chenmiao@openatom.club>
+References: <45032bb11a9006cb7a6e1c30ca6299d40cef614c.1761644606.git.chenmiao@openatom.club>
+In-Reply-To: <45032bb11a9006cb7a6e1c30ca6299d40cef614c.1761644606.git.chenmiao@openatom.club>
 From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 28 Oct 2025 11:46:26 +0100
-X-Gm-Features: AWmQ_bnsVmMuJKLz4wLLnF7FNTgdlpPIZ7-XG8OEzdCH4xAw5wUwlTwvFMjUwjU
-Message-ID: <CABgObfZEm7nu1gRPHQnYc-WJ2PHrBa40VX6Qv2bRTWBYt2BsOA@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 3/5] hw/gpio: Move the pcf8574 struct to header
+Date: Tue, 28 Oct 2025 11:49:38 +0100
+X-Gm-Features: AWmQ_bncIPp5h9_69AGsQpcKIQnL71jq-cW22OH3deNdatCTdOkGumP8EzX_9Mw
+Message-ID: <CABgObfbeka+fKixBH8F_Fkprvk8oi+dTss21Vn5kYgm4sY0A8g@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 4/5] rust/hw/core: Provide some interfaces for the
+ GPIO device
 To: chenmiao <chenmiao@openatom.club>
 Cc: zhao1.liu@intel.com, manos.pitsidianakis@linaro.org, 
  richard.henderson@linaro.org, philmd@linaro.org, chao.liu@openatom.club, 
  qemu-rust@nongnu.org, qemu-devel@nongnu.org, 
  hust-os-kernel-patches@googlegroups.com
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Hy_wAwxhz-pYAQ1i0PUL8zKCSePEsaGmX2FPe6p6vAY_1761648399
+X-Mimecast-MFC-PROC-ID: 0qkXhNqpOBtcvYBE3flT2BhaKakrtgg0yg7fKSxwzII_1761648591
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
@@ -114,115 +115,62 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 On Tue, Oct 28, 2025 at 11:18=E2=80=AFAM chenmiao <chenmiao@openatom.club> =
 wrote:
 >
-> To better implement the Rust PCF8574 bindings, move its struct definition=
- to
-> the header file.
-
-This should not be needed, the struct is entirely hidden within the C
-implementation and the same should be true for the Rust one.
-
-Paolo
-
+> In irq.rs, we added a new get method for the InterruptSource type to dete=
+rmine
+> whether an InterruptSource is null. This eliminates the need to repeatedl=
+y
+> call self.cell.get().is_null() for null checks during comparisons.
+> Additionally, we exposed the slice_as_ptrmethod to support external usage=
+ with
+> the &[InterruptSource]type.
+>
+> In qdev.rs, we implemented the init_gpio_out_namedfunction, which corresp=
+onds
+> to the C function qdev_init_gpio_out_named. We also refactored the
+> init_gpio_outfunction to reuse the init_gpio_out_namedinterface.
+>
 > Signed-off-by: chenmiao <chenmiao@openatom.club>
 > ---
->  hw/gpio/pcf8574.c         | 32 --------------------------------
->  include/hw/gpio/pcf8574.h | 36 ++++++++++++++++++++++++++++++++++++
->  2 files changed, 36 insertions(+), 32 deletions(-)
+>  rust/hw/core/src/irq.rs  |  6 +++++-
+>  rust/hw/core/src/qdev.rs | 12 +++++++++---
+>  2 files changed, 14 insertions(+), 4 deletions(-)
 >
-> diff --git a/hw/gpio/pcf8574.c b/hw/gpio/pcf8574.c
-> index 274b44bb61..670fc006bb 100644
-> --- a/hw/gpio/pcf8574.c
-> +++ b/hw/gpio/pcf8574.c
-> @@ -15,38 +15,6 @@
->  #include "qemu/module.h"
->  #include "qom/object.h"
+> diff --git a/rust/hw/core/src/irq.rs b/rust/hw/core/src/irq.rs
+> index e0d7784d97..dd5d0cadbc 100644
+> --- a/rust/hw/core/src/irq.rs
+> +++ b/rust/hw/core/src/irq.rs
+> @@ -71,6 +71,10 @@ pub fn pulse(&self) {
+>      pub fn raise(&self) {
+>          self.set(true);
+>      }
+> +
+> +    pub fn get(&self) -> bool {
+> +        !self.cell.get().is_null()
+> +    }
+
+This should not be get(), but "is_connected()". Also it should be
+implemented for any T, therefore in the "impl<T> InterruptSource<T>"
+block below.
+
+>  }
 >
-> -/*
-> - * PCF8574 and compatible chips incorporate quasi-bidirectional
-> - * IO. Electrically it means that device sustain pull-up to line
-> - * unless IO port is configured as output _and_ driven low.
-> - *
-> - * IO access is implemented as simple I2C single-byte read
-> - * or write operation. So, to configure line to input user write 1
-> - * to corresponding bit. To configure line to output and drive it low
-> - * user write 0 to corresponding bit.
-> - *
-> - * In essence, user can think of quasi-bidirectional IO as
-> - * open-drain line, except presence of builtin rising edge acceleration
-> - * embedded in PCF8574 IC
-> - *
-> - * PCF8574 has interrupt request line, which is being pulled down when
-> - * port line state differs from last read. Port read operation clears
-> - * state and INT line returns to high state via pullup.
-> - */
-> -
-> -OBJECT_DECLARE_SIMPLE_TYPE(PCF8574State, PCF8574)
-> -
-> -#define PORTS_COUNT (8)
-> -
-> -struct PCF8574State {
-> -    I2CSlave parent_obj;
-> -    uint8_t  lastrq;     /* Last requested state. If changed - assert ir=
-q */
-> -    uint8_t  input;      /* external electrical line state */
-> -    uint8_t  output;     /* Pull-up (1) or drive low (0) on bit */
-> -    qemu_irq handler[PORTS_COUNT];
-> -    qemu_irq intrq;      /* External irq request */
-> -};
-> -
->  static void pcf8574_reset(DeviceState *dev)
->  {
->      PCF8574State *s =3D PCF8574(dev);
-> diff --git a/include/hw/gpio/pcf8574.h b/include/hw/gpio/pcf8574.h
-> index 3291d7dbbc..fe1ce891b7 100644
-> --- a/include/hw/gpio/pcf8574.h
-> +++ b/include/hw/gpio/pcf8574.h
-> @@ -10,6 +10,42 @@
->  #ifndef _HW_GPIO_PCF8574
->  #define _HW_GPIO_PCF8574
+>  impl<T> InterruptSource<T>
+> @@ -91,7 +95,7 @@ pub(crate) const fn as_ptr(&self) -> *mut *mut bindings=
+::IRQState {
+>          self.cell.as_ptr()
+>      }
 >
-> +#include "qemu/osdep.h"
-> +#include "hw/i2c/i2c.h"
-> +#include "qom/object.h"
-> +
->  #define TYPE_PCF8574 "pcf8574"
->
-> +/*
-> + * PCF8574 and compatible chips incorporate quasi-bidirectional
-> + * IO. Electrically it means that device sustain pull-up to line
-> + * unless IO port is configured as output _and_ driven low.
-> + *
-> + * IO access is implemented as simple I2C single-byte read
-> + * or write operation. So, to configure line to input user write 1
-> + * to corresponding bit. To configure line to output and drive it low
-> + * user write 0 to corresponding bit.
-> + *
-> + * In essence, user can think of quasi-bidirectional IO as
-> + * open-drain line, except presence of builtin rising edge acceleration
-> + * embedded in PCF8574 IC
-> + *
-> + * PCF8574 has interrupt request line, which is being pulled down when
-> + * port line state differs from last read. Port read operation clears
-> + * state and INT line returns to high state via pullup.
-> + */
-> +
-> +OBJECT_DECLARE_SIMPLE_TYPE(PCF8574State, PCF8574)
-> +
-> +#define PORTS_COUNT (8)
-> +
-> +struct PCF8574State {
-> +    I2CSlave parent_obj;
-> +    uint8_t  lastrq;     /* Last requested state. If changed - assert ir=
-q */
-> +    uint8_t  input;      /* external electrical line state */
-> +    uint8_t  output;     /* Pull-up (1) or drive low (0) on bit */
-> +    qemu_irq handler[PORTS_COUNT];
-> +    qemu_irq intrq;      /* External irq request */
-> +};
-> +
->  #endif /* _HW_GPIO_PCF8574 */
-> --
-> 2.43.0
->
+> -    pub(crate) const fn slice_as_ptr(slice: &[Self]) -> *mut *mut bindin=
+gs::IRQState {
+> +    pub const fn slice_as_ptr(slice: &[Self]) -> *mut *mut bindings::IRQ=
+State {
+>          assert!(!slice.is_empty());
+>          slice[0].as_ptr()
+>      }
+
+Since you are not using this, you don't need to expose it outside the crate=
+.
+
+Paolo
 
 
