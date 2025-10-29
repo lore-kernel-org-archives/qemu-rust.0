@@ -4,102 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02A6ACCD1BF
-	for <qemu-rust@archiver.kernel.org>; Tue, 28 Oct 2025 12:23:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC650CCF9EB
+	for <qemu-rust@archiver.kernel.org>; Wed, 29 Oct 2025 15:18:59 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vDiiv-0004SW-Gw; Tue, 28 Oct 2025 08:22:49 -0400
+	id 1vE7wR-0002QQ-KS; Wed, 29 Oct 2025 11:18:28 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vDiip-0004Rk-67
- for qemu-rust@nongnu.org; Tue, 28 Oct 2025 08:22:43 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vE7wQ-0002QB-4x; Wed, 29 Oct 2025 11:18:26 -0400
+Received: from mgamail.intel.com ([198.175.65.18])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vDiil-00035i-0f
- for qemu-rust@nongnu.org; Tue, 28 Oct 2025 08:22:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1761654155;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=rQxrJjaHdmIGxVZ+mnSLk1J/7v+mV75WnBz1eoEkNS4=;
- b=dUMfJqwEQf8xUI+QK3bcTkBHM6OgxtyduHGBHLgDJiUNd44q2JFbt3XleaLLFmD9YjdUHR
- UqkCSRul+nDxGycdPnvSjJStckTkLQqK38hpVG4ME2EzAf+aqCA1aAZZNrcuZJdVsyokn5
- TZ4/X17zL0g4Ed8TrBAIBPUZKPUTOcQ=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-380-exYfr1iGMyeOSMkLi3y91g-1; Tue, 28 Oct 2025 08:22:32 -0400
-X-MC-Unique: exYfr1iGMyeOSMkLi3y91g-1
-X-Mimecast-MFC-AGG-ID: exYfr1iGMyeOSMkLi3y91g_1761654151
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-4278c82dce6so3533927f8f.3
- for <qemu-rust@nongnu.org>; Tue, 28 Oct 2025 05:22:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761654151; x=1762258951;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rQxrJjaHdmIGxVZ+mnSLk1J/7v+mV75WnBz1eoEkNS4=;
- b=pCN+DspGrtuV+NW3/Xf5e2CJp2ChBzQy+fEWrBCVH9VkcL/qu+X+co0Bec/iq0Tnc9
- zuxACGuCB5fJLZXvyO98XYBw2dqC8gA0W3Yg5Zg1XxNsUGnUH0SLaDvUZhvBTzDT6o+F
- gQjA5N0eCpJzuG61VLJs8uO4HB8Qk6qNZ7xO2cT/efvlqVnEpodgXzjlzJjU3/l0rJjy
- 4Nr5M6uqwLOpueff7sgLY2OubPJ3w9Y6Z29HTR+GK5rmETDuZoacu2HcfK9s1EmDFQLd
- c3cW45D+cx47ziYELIG/Hg9nQMizcxReOblRYAYAgqOPhI3IZXaDZ8I7BZ9LSnbxzgfH
- rFYw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX/nKG/EEsV4J/qymVcPa4x/meZUzPTNDGf79GjASLF9VMVSwjTfeU8ubEhUrJGm5cGo92fAscSS+4=@nongnu.org
-X-Gm-Message-State: AOJu0YxRDKP+S6y2yl1SFy+AQSd52fqKF6NzUXB3kJkCWTF/j8iuNHbh
- c/GrVOfLONuIH4/2DGeYX9wfz/g29e/w1xs9m4VVOIKqts2FZy3VIRUgI36JrhShVxOz5EAoio0
- Ywp6t2aO9hRRzhfSwhaHki4LTdyaLrP0jue+VsL6GD6jZSfQFcr02oTlwr04AmmZ8L8KJz1A6Dp
- vqgpovxVISmw4tausBi22P8jLzjZ68lQ==
-X-Gm-Gg: ASbGncse7wBKnO7j8QYlhxISM7UD7IEA0Yh4unoLJ7uXNXx05YropWO9HsR+4+AMLc1
- akoO37XQaZTIdt82SGv9Tm2raAcPNQUP3RIcanQqKU5ibuvKgGiJvrdHny6N/IigReuDXFFtJ64
- P2R5dZ0OyZKoWwgx5S8OdDw+l1/zQWAUXYzbJgZttN240xpWLVVcerpaFlz75qGqExGGgvq9150
- 4K/GhpU7N3pB34nY5fWWMq8bgoWj3SQ1+wbIEsDwdaDuBYLDFvS5VB3bxBs
-X-Received: by 2002:a5d:5f51:0:b0:429:8bd9:571f with SMTP id
- ffacd0b85a97d-429a7e52b12mr2368714f8f.23.1761654151016; 
- Tue, 28 Oct 2025 05:22:31 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHYzSJCo8HU8c/HjVqDhOwZezdkZQGyl7gHbiinR/87QAgWCA93Rg3NOk5kzOjx/z8Jre7QkhRw6bzGS637JCk=
-X-Received: by 2002:a5d:5f51:0:b0:429:8bd9:571f with SMTP id
- ffacd0b85a97d-429a7e52b12mr2368691f8f.23.1761654150630; Tue, 28 Oct 2025
- 05:22:30 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vE7wI-0006LF-A2; Wed, 29 Oct 2025 11:18:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1761751099; x=1793287099;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=8gnk/JL9+0eiIcvncW15/r0QIK0NWbFUOmXoj2Ye8kY=;
+ b=QQzjZK4skYQag37jpVKlYJgku+tLAjYYKLDXisS7OuoQU1a9oDs1WHe2
+ mK2r2mS69qIdhbU3wJQPaB74KuzkJmZqPXXDFiCK+eeqcOCExGCGmrisg
+ sZhWBedNF/lgOe0cY/ZvGBxTHeqadLvQccmcs/9vrzwjN+gZwMcHcyu7K
+ FuletAkHXXUooSxYGwgGJvnyt3eTvmGHYhI2Gy7n2Znp2+evCdR5bem1a
+ TNKs+9LsvrH4uIBEuH8sA9FzeC2hMQ2eDv3NxcgLWnRQ8Iv21E5l02Y3F
+ iWA169JJalmSe0kuulX5DRUFMaCo+8QYQ3p/3aImNzk7aeLVFQKo0vFX1 A==;
+X-CSE-ConnectionGUID: UPqrWcJPSbiCmLSUeDEYmQ==
+X-CSE-MsgGUID: QY4at45MRGy8HWSWlXFpWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11597"; a="63915906"
+X-IronPort-AV: E=Sophos;i="6.19,264,1754982000"; d="scan'208";a="63915906"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2025 08:18:10 -0700
+X-CSE-ConnectionGUID: DWtbGhXeSWm5tdqGDD5wnw==
+X-CSE-MsgGUID: dAW/SJ/cSWqhcvqpMB0hFg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,264,1754982000"; d="scan'208";a="190866879"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa004.fm.intel.com with ESMTP; 29 Oct 2025 08:18:08 -0700
+Date: Wed, 29 Oct 2025 23:40:20 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
+ Chen Miao <chenmiao@openatom.club>
+Subject: Re: [PATCH] rust: migration: allow passing ParentField<> to
+ vmstate_of!
+Message-ID: <aQI1ZCwbp3mkIzs+@intel.com>
+References: <20251028113821.1736215-1-pbonzini@redhat.com>
 MIME-Version: 1.0
-References: <ec836b4e6e7521806eba90c4218593c144b103a7.1761644606.git.chenmiao@openatom.club>
- <CABgObfYiUkoS=0f603T-Aqs732j+2_VqopvgRFe-4Q6DJbrK-g@mail.gmail.com>
- <CABgObfZLCMEqvFyT+SL=_8tJRvcj6+XX8Yd4ZgLuToO45Siv0g@mail.gmail.com>
- <b4da05f2-b9eb-46f2-9117-9b3989083a9f@openatom.club>
-In-Reply-To: <b4da05f2-b9eb-46f2-9117-9b3989083a9f@openatom.club>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 28 Oct 2025 13:22:18 +0100
-X-Gm-Features: AWmQ_bl8B8AiH-UHcoylqEquLVAVQkSYu0u1rPQnIVp5Dquptmlr0-_WpTCRCSU
-Message-ID: <CABgObfbXGC8gnp6EJC5f1wC22n6FXds5t6E-M306jjBnBz5+5g@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 5/5] rust/hw/gpio: Add the the first gpio device
- pcf8574
-To: Chen Miao <chenmiao@openatom.club>
-Cc: zhao1.liu@intel.com, manos.pitsidianakis@linaro.org, 
- richard.henderson@linaro.org, philmd@linaro.org, chao.liu@openatom.club, 
- qemu-rust@nongnu.org, qemu-devel@nongnu.org, 
- hust-os-kernel-patches@googlegroups.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: tI7O9e6sX3NGeKbjgoLFTMUrFozZ1qne8h3f_VI6hqk_1761654151
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251028113821.1736215-1-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.18; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -115,32 +82,36 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Tue, Oct 28, 2025 at 1:19=E2=80=AFPM Chen Miao <chenmiao@openatom.club> =
-wrote:
->
-> On 10/28/2025 8:14 PM, Paolo Bonzini wrote:
-> > On Tue, Oct 28, 2025 at 12:26=E2=80=AFPM Paolo Bonzini <pbonzini@redhat=
-.com> wrote:
-> >> If you were implementing a new serial device, for example, you would
-> >> just write a new directory in rust/hw/char.
-> >>
-> >> Even in that case, creating the meson.build file is more complex than
-> >> in C; I'm working on simplifying that by adding new features to Meson.
-> >>
-> >> In other words, you're not wrong at all but note that you are not
-> > Very important typo: you are *now* seeing the code from the point of
-> > view of someone implementing the Rust-to-C bridges.
-> >
-> > Paolo
->
-> Yes, I' ve come to realize this very clearly; I' ve found that many of th=
-e
-> suggestions you gave actually stem from my failure to fully grasp the
-> underlying design principles!
+On Tue, Oct 28, 2025 at 12:38:21PM +0100, Paolo Bonzini wrote:
+> Date: Tue, 28 Oct 2025 12:38:21 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH] rust: migration: allow passing ParentField<> to vmstate_of!
+> X-Mailer: git-send-email 2.51.1
+> 
+> The common superclass for devices could have its own migration state;
+> for it to be included in the subclass's VMState, ParentField<> must
+> implement the VMState trait.
+> 
+> Reported-by: Chen Miao <chenmiao@openatom.club>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  roms/opensbi                  | 2 +-
+>  rust/migration/src/vmstate.rs | 3 ++-
+>  rust/qom/src/qom.rs           | 3 ++-
+>  3 files changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/roms/opensbi b/roms/opensbi
+> index a32a9106911..43cace6c367 160000
+> --- a/roms/opensbi
+> +++ b/roms/opensbi
+> @@ -1 +1 @@
+> -Subproject commit a32a91069119e7a5aa31e6bc51d5e00860be3d80
+> +Subproject commit 43cace6c3671e5172d0df0a8963e552bb04b7b20
 
-Even more than that, you thought that the work would be easy. :)  The
-good news is that you were still able to do it.
+nit: rebase error?
 
-Paolo
+Others,
+
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
