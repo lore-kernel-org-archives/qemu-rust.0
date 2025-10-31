@@ -4,84 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51900CCF9F8
-	for <qemu-rust@archiver.kernel.org>; Fri, 31 Oct 2025 15:27:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46261CCF9F8
+	for <qemu-rust@archiver.kernel.org>; Fri, 31 Oct 2025 15:27:30 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vEr1l-0001WF-3P; Fri, 31 Oct 2025 11:26:57 -0400
+	id 1vEr0y-00018s-3C; Fri, 31 Oct 2025 11:26:08 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vEr1j-0001Vg-1h
- for qemu-rust@nongnu.org; Fri, 31 Oct 2025 11:26:55 -0400
+ id 1vEr0w-00017z-Pt
+ for qemu-rust@nongnu.org; Fri, 31 Oct 2025 11:26:07 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vEr1b-0000uo-Ph
- for qemu-rust@nongnu.org; Fri, 31 Oct 2025 11:26:54 -0400
+ id 1vEr0r-0000oy-ET
+ for qemu-rust@nongnu.org; Fri, 31 Oct 2025 11:26:06 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1761924405;
+ s=mimecast20190719; t=1761924357;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=04RuWmhgEhZPNHkjGGD1OovzSe5jaThhHam1mzKieug=;
- b=iYO71VEGvEwWx6IGB6Ko7eQkLNuRqjbqdC6icjjyHaJpnQfIRU/mEJh4f1qv526qgb3dGg
- azWAk+3GZlLn26AWumkzaKtoT9IZRhv23BHW2bqJp9zV0s+Lh593DULFZ9hTnD+ypSTCfI
- bp5MAmq5nQPAmJ6UgLPN4l97SlFDBiU=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=y54ade2XN2F/JSqNfaUsi9myG2OIy0vlK46SL95guqc=;
+ b=iVH+Pab7iIx3iEzwmcSIEyiUPtrwXSLSPbjuupn9JAz5Xi47faEenq9lgolzXnw48awWPs
+ yyub73Lzc+P2lcyBPC/OCuM7/+dJv8hg5hg7RLkZTAHTbt/PvqkUV9HqI2+wL+YmL9C5dB
+ nGqJ4yCWa3cJCWRL4MxTY2K+ZtcFWHE=
 Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
  [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-599-xTCinXxYOsuk0NIWhKeJoA-1; Fri, 31 Oct 2025 11:26:44 -0400
-X-MC-Unique: xTCinXxYOsuk0NIWhKeJoA-1
-X-Mimecast-MFC-AGG-ID: xTCinXxYOsuk0NIWhKeJoA_1761924403
+ us-mta-189-FYGwMGEiOLOlxOzhCxuP1A-1; Fri, 31 Oct 2025 11:25:56 -0400
+X-MC-Unique: FYGwMGEiOLOlxOzhCxuP1A-1
+X-Mimecast-MFC-AGG-ID: FYGwMGEiOLOlxOzhCxuP1A_1761924355
 Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-477212937eeso16036865e9.2
- for <qemu-rust@nongnu.org>; Fri, 31 Oct 2025 08:26:44 -0700 (PDT)
+ 5b1f17b1804b1-47113538d8cso12431245e9.1
+ for <qemu-rust@nongnu.org>; Fri, 31 Oct 2025 08:25:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761924402; x=1762529202;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=04RuWmhgEhZPNHkjGGD1OovzSe5jaThhHam1mzKieug=;
- b=O/aMBfFwltjdc/mL0c3qvjg4EZS9Uo23UDgcclWUC+a+2I+lWFY7XvmJj8AQkqPMQl
- z1uxAD61YMKbze5uh/2AkZIhtM5WoeWCs//1xHrAj5TxLL/nVSkWc7kw1RAetGlLM7TQ
- r8EYO9vB6VKMk7DG9OoulpqHQCDPpqZETgUAL2bTYW2Vrlh7VsPJqUR19NrzQ6Ps8BTJ
- b4sH4LSxYSAJyrOtNX5b1uU0fLQGVHcw6TDPl4XQNrsU9TXQw1HlGGk5UtZrgd+6/icO
- AAmr0zcX908iUgnauLc3FyGlM7jflajbIj4WAKODK56Z8cnv+MqU//p2pfs3o1IxkJhx
- ok5Q==
-X-Gm-Message-State: AOJu0YykiblFyc+Zbo470EXVc8EZcuanyBpoFLUHrGjmxDF1veZTVrtq
- 02aIWHJGgFQjFdtqROwn64tasdERulN6wOwHkan5fSpIQrhrUB3HuQ1IuQGrf5Gs0yRTV1CK0DG
- Gl2ZBmhft/JPjVEi+QRrK2ItsW/Y6rSNtwvsVc6J5o2gmUSqzgi79a0a3WTY3vrU=
-X-Gm-Gg: ASbGncvv1o8Y6Dgm/alSQEIRbLGunbjnvMZ0UYHNjShp7n2xySnLYQ5gV6pFUNC9FO8
- Jhn8h/3U0IYJs1tWrSZ7pu63u2Y24FnT6PyiLI60afu1QtcWNjp2zVDI0MJX8kLqb5rtSoaMMTv
- 7+MVw4flBFy6935LZEYdnGNiXERg3a1R2/0CfhO+OpTi/EVtmNMO9rPKu0dcYLptmAhH5gXLg0A
- kksKEduBeqne4LoI5/QwNhEzU7ijHLbv4+9rCcU8p8fHIc55sMLdJd6iH9VZMZK/OXOab0W8JPb
- fwDmUZcdHaDhK2vBQcU+OGkyhIGuoAaSoiPBatXALbNYIaDFZ0AvUQjC6VxUzcRtbktP2yx4I6l
- p+4HuiJOgXc84GOdsC5PGpZ68XFLrVpZNI6cbHWJvz5rX11x5swIHFhBR8uQ0hh3PWq4tdaedgK
- hXjP8s
-X-Received: by 2002:a05:600c:524e:b0:475:dd8d:2f52 with SMTP id
- 5b1f17b1804b1-4773089c6a2mr41277535e9.32.1761924402023; 
- Fri, 31 Oct 2025 08:26:42 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHTetH5W0AcN5wpDJ7Jh8nSwU82xs3Ht1saY6yXNhq0YCYqZqrNgudLkNudJkQ0l+f8Z0Z3rw==
-X-Received: by 2002:a05:600c:524e:b0:475:dd8d:2f52 with SMTP id
- 5b1f17b1804b1-4773089c6a2mr41277115e9.32.1761924401565; 
- Fri, 31 Oct 2025 08:26:41 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1761924354; x=1762529154;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=y54ade2XN2F/JSqNfaUsi9myG2OIy0vlK46SL95guqc=;
+ b=ctnP0H2LAOjKJg7AbUDGxX/UWAi8hUL7wLMFMYl2A9W7F6F6NoqQoKhP6qeS44dIAG
+ sQZBKDvLU35E6B7u6fb6Y0T4fdEfoaRVEjmTzOOE11KmzhLzZZuIrLnvC/uYXPZLVaAd
+ R63eZ82HpveDoqD8m/cE7c1lu/Z3nbP+wifhWRMLx/8DdcWKWb1StY32q2V7deqanthm
+ 4g/kIvjN8hiJJexueIbzjcQBQbiK5gVvXy/CON7PeBVhUSqcHr6BMMXhgoRhwSXK0bGt
+ IOgzoPELPDpPXKHDyPpylRN+DQgdj2h4P+yqgVi93bttXkbU4y7SxixwnWXbSgpKRuwH
+ PeZw==
+X-Gm-Message-State: AOJu0YyiLgdy/uy8Co0JGKnzKoCIo7jcGc8H4T67cPsxC/xiBJTZyrNr
+ f6jSCWzC84Ydt7+68MIrMKE7/g0knzRapoX+Wsvq2Vszhabk6GOlz9A3qzP/c/gK7OuoiWcVNyG
+ jLWcKJolC+Sd5AeCmCuCReu8k/IGWDqn9CMpUcjT+fgTaz9JevDKqP+10+QWE7UE=
+X-Gm-Gg: ASbGnctOofZE3pOEX0/HX31xzsbyxDcSAmOy+OEoTNqU/or5EYn+w8QFYPT7lCd5Y0i
+ du3xHaUAf/opJb6wZ4j9HrmfMRMhvQnBVIaaRznplkU1BgqWxZETY9FPJP+doUl8MF51fUD+D+U
+ m7iGFw8N1uFA+Xq3eYPnOHCkUKgVqMCw+qbio452wlBRaRFWdOTbk2oei30pL9o8shxn7Ao0UXp
+ x4uPY5pRpJqUDEMXfEInmSXaFCu8a4rrVdpkyrB2WfUemgd2DHusodt4ySjBYYRz6bMPiq6KPfu
+ qcdLH6z/BxVg8LN0T6a2bO0FopvVYL/W5c5WGkRyRGa9XG+QxV4phv4vjxk0J54SYLAghqNml4l
+ kyxrQVPMFoHNXvgVJp6vC7LJosimS5UcSwi7svUM6Of7pehB2ct0GLFjgU4kXzc7VDyEL8bwnn4
+ LPukkn
+X-Received: by 2002:a05:600c:8b32:b0:46e:37af:f90e with SMTP id
+ 5b1f17b1804b1-4773bfd5c53mr4646775e9.6.1761924354447; 
+ Fri, 31 Oct 2025 08:25:54 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHiF9cLOwqTbhei6ZD8E5j2VEgtk6DkFVBUlIx/9wGnm5I0w+yDV9H7hne6mXSLPf5FKO68nA==
+X-Received: by 2002:a05:600c:8b32:b0:46e:37af:f90e with SMTP id
+ 5b1f17b1804b1-4773bfd5c53mr4646495e9.6.1761924354023; 
+ Fri, 31 Oct 2025 08:25:54 -0700 (PDT)
 Received: from [192.168.10.48] ([151.95.110.222])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4773c48daa0sm2122045e9.3.2025.10.31.08.26.40
+ 5b1f17b1804b1-4773c383ba6sm2721745e9.10.2025.10.31.08.25.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Oct 2025 08:26:40 -0700 (PDT)
+ Fri, 31 Oct 2025 08:25:53 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
-Subject: [PATCH] rust: add back to Ubuntu 22.04 jobs
-Date: Fri, 31 Oct 2025 16:26:39 +0100
-Message-ID: <20251031152639.294034-1-pbonzini@redhat.com>
+Subject: [PATCH 4/4] rust: pull error_fatal out of
+ SysbusDeviceMethods::sysbus_realize
+Date: Fri, 31 Oct 2025 16:25:39 +0100
+Message-ID: <20251031152540.293293-5-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20251031152540.293293-1-pbonzini@redhat.com>
+References: <20251031152540.293293-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: VR8zhcMSkJzoMLWPUPYTM-A50PdYdv1DVBWu11yLwKU_1761924403
+X-Mimecast-MFC-PROC-ID: OZSfU_Un_76mmscWS3ln2VW5USYwA3Wof6xaawZAX_Q_1761924355
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -94,7 +98,7 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_PASS=-0.001, T_SPF_HELO_TEMPERROR=0.01 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -110,138 +114,136 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Ubuntu is now including updated versions of Rust (up to 1.85) for
-its LTS releases.  Adjust the CI containers and re-add --enable-rust
-to the Ubuntu jobs.
+Return a Result<()> from the method, and "unwrap" it into error_fatal
+in the caller.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- docs/about/build-platforms.rst                   | 10 +++++-----
- .gitlab-ci.d/buildtest.yml                       |  2 +-
- scripts/ci/setup/ubuntu/ubuntu-2404-aarch64.yaml |  2 +-
- scripts/ci/setup/ubuntu/ubuntu-2404-s390x.yaml   |  2 +-
- tests/docker/dockerfiles/ubuntu2204.docker       |  6 +++---
- tests/lcitool/mappings.yml                       |  4 ++--
- tests/lcitool/refresh                            |  4 ++--
- 7 files changed, 15 insertions(+), 15 deletions(-)
+ rust/hw/char/pl011/src/device.rs |  4 ++--
+ rust/hw/core/src/sysbus.rs       | 13 ++++++-------
+ rust/util/src/error.rs           | 31 ++++++++++++++++++++++++++++++-
+ rust/util/src/lib.rs             |  2 +-
+ 4 files changed, 39 insertions(+), 11 deletions(-)
 
-diff --git a/docs/about/build-platforms.rst b/docs/about/build-platforms.rst
-index fc2743658d4..e95784cdb55 100644
---- a/docs/about/build-platforms.rst
-+++ b/docs/about/build-platforms.rst
-@@ -117,14 +117,14 @@ Rust build dependencies
-   a newer version using ``cargo install bindgen-cli``.
+diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
+index 5e9b13fdf92..26be6ef57f2 100644
+--- a/rust/hw/char/pl011/src/device.rs
++++ b/rust/hw/char/pl011/src/device.rs
+@@ -17,7 +17,7 @@
+ };
+ use qom::{prelude::*, ObjectImpl, Owned, ParentField, ParentInit};
+ use system::{hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder};
+-use util::{log::Log, log_mask_ln};
++use util::{ResultExt, log::Log, log_mask_ln};
  
-   QEMU requires Rust 1.83.0.  This is available on all supported platforms
--  with two exception: Ubuntu LTS releases 22.04 and 24.04, and the
--  ``mips64el`` architecture on Debian bookworm.  For all other
-+  except for the ``mips64el`` architecture on Debian bookworm.  For all other
-   architectures, Debian bookworm provides a new-enough Rust compiler
-   in the ``rustc-web`` package.
+ use crate::registers::{self, Interrupt, RegisterOffset};
  
--  It is expected that in the future Ubuntu will provide updated packages
--  like the existing ``rustc-1.82`` package.  The path to ``rustc`` and
--  ``rustdoc`` will have to be provided manually to the configure script.
-+  For Ubuntu 22.04 ("Jammy") and 24.04 ("Noble") updated versions of
-+  Rust are available through packages such as ``rustc-1.83`` package;
-+  the path to ``rustc`` and ``rustdoc`` has to be provided manually to
-+  the configure script.
+@@ -697,7 +697,7 @@ pub fn post_load(&self, _version_id: u8) -> Result<(), migration::InvalidError>
+         let chr = unsafe { Owned::<Chardev>::from(&*chr) };
+         dev.prop_set_chr("chardev", &chr);
+     }
+-    dev.sysbus_realize();
++    dev.sysbus_realize().unwrap_fatal();
+     dev.mmio_map(0, addr);
+     dev.connect_irq(0, &irq);
  
-   Some distros prefer to avoid vendored crate sources, and instead use
-   local sources from e.g. ``/usr/share/cargo/registry``.  QEMU includes a
-diff --git a/.gitlab-ci.d/buildtest.yml b/.gitlab-ci.d/buildtest.yml
-index 21f6d7e96fe..44df116139b 100644
---- a/.gitlab-ci.d/buildtest.yml
-+++ b/.gitlab-ci.d/buildtest.yml
-@@ -39,7 +39,7 @@ build-system-ubuntu:
-     - job: amd64-ubuntu2204-container
-   variables:
-     IMAGE: ubuntu2204
--    CONFIGURE_ARGS: --enable-docs
-+    CONFIGURE_ARGS: --enable-docs --enable-rust
-     TARGETS: alpha-softmmu microblazeel-softmmu mips64el-softmmu
-     MAKE_CHECK_ARGS: check-build
+diff --git a/rust/hw/core/src/sysbus.rs b/rust/hw/core/src/sysbus.rs
+index 282315fce99..68165e89295 100644
+--- a/rust/hw/core/src/sysbus.rs
++++ b/rust/hw/core/src/sysbus.rs
+@@ -4,12 +4,13 @@
  
-diff --git a/scripts/ci/setup/ubuntu/ubuntu-2404-aarch64.yaml b/scripts/ci/setup/ubuntu/ubuntu-2404-aarch64.yaml
-index ce632d97108..8c4b71b5942 100644
---- a/scripts/ci/setup/ubuntu/ubuntu-2404-aarch64.yaml
-+++ b/scripts/ci/setup/ubuntu/ubuntu-2404-aarch64.yaml
-@@ -119,7 +119,7 @@ packages:
-   - python3-wheel
-   - python3-yaml
-   - rpm2cpio
--  - rustc-1.77
-+  - rustc-1.83
-   - sed
-   - socat
-   - sparse
-diff --git a/scripts/ci/setup/ubuntu/ubuntu-2404-s390x.yaml b/scripts/ci/setup/ubuntu/ubuntu-2404-s390x.yaml
-index f45f75c9602..2758f55e5a2 100644
---- a/scripts/ci/setup/ubuntu/ubuntu-2404-s390x.yaml
-+++ b/scripts/ci/setup/ubuntu/ubuntu-2404-s390x.yaml
-@@ -117,7 +117,7 @@ packages:
-   - python3-wheel
-   - python3-yaml
-   - rpm2cpio
--  - rustc-1.77
-+  - rustc-1.83
-   - sed
-   - socat
-   - sparse
-diff --git a/tests/docker/dockerfiles/ubuntu2204.docker b/tests/docker/dockerfiles/ubuntu2204.docker
-index b393db55a8c..602d4196249 100644
---- a/tests/docker/dockerfiles/ubuntu2204.docker
-+++ b/tests/docker/dockerfiles/ubuntu2204.docker
-@@ -124,7 +124,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
-                       python3-wheel \
-                       python3-yaml \
-                       rpm2cpio \
--                      rustc-1.77 \
-+                      rustc-1.83 \
-                       sed \
-                       socat \
-                       sparse \
-@@ -155,8 +155,8 @@ ENV LANG "en_US.UTF-8"
- ENV MAKE "/usr/bin/make"
- ENV NINJA "/usr/bin/ninja"
- ENV PYTHON "/usr/bin/python3"
--ENV RUSTC=/usr/bin/rustc-1.77
--ENV RUSTDOC=/usr/bin/rustdoc-1.77
-+ENV RUSTC=/usr/bin/rustc-1.83
-+ENV RUSTDOC=/usr/bin/rustdoc-1.83
- ENV CARGO_HOME=/usr/local/cargo
- ENV PATH=$CARGO_HOME/bin:$PATH
- RUN DEBIAN_FRONTEND=noninteractive eatmydata \
-diff --git a/tests/lcitool/mappings.yml b/tests/lcitool/mappings.yml
-index 8f0e95e1c56..a749cf8c515 100644
---- a/tests/lcitool/mappings.yml
-+++ b/tests/lcitool/mappings.yml
-@@ -70,8 +70,8 @@ mappings:
+ //! Bindings to access `sysbus` functionality from Rust.
  
-   rust:
-     Debian12: rustc-web
--    Ubuntu2204: rustc-1.77
--    Ubuntu2404: rustc-1.77
-+    Ubuntu2204: rustc-1.83
-+    Ubuntu2404: rustc-1.83
+-use std::{ffi::CStr, ptr::addr_of_mut};
++use std::ffi::CStr;
  
- pypi_mappings:
-   # Request more recent version
-diff --git a/tests/lcitool/refresh b/tests/lcitool/refresh
-index 056cfb6e9d7..273fb534cdd 100755
---- a/tests/lcitool/refresh
-+++ b/tests/lcitool/refresh
-@@ -152,8 +152,8 @@ fedora_rustup_nightly_extras = [
- ]
+ pub use bindings::SysBusDeviceClass;
+ use common::Opaque;
+ use qom::{prelude::*, Owned};
+ use system::MemoryRegion;
++use util::{Error, Result};
  
- ubuntu2204_rust_extras = [
--    "ENV RUSTC=/usr/bin/rustc-1.77\n",
--    "ENV RUSTDOC=/usr/bin/rustdoc-1.77\n",
-+    "ENV RUSTC=/usr/bin/rustc-1.83\n",
-+    "ENV RUSTDOC=/usr/bin/rustdoc-1.83\n",
-     "ENV CARGO_HOME=/usr/local/cargo\n",
-     'ENV PATH=$CARGO_HOME/bin:$PATH\n',
-     "RUN DEBIAN_FRONTEND=noninteractive eatmydata \\\n",
+ use crate::{
+     bindings,
+@@ -107,14 +108,12 @@ fn connect_irq(&self, id: u32, irq: &Owned<IRQState>) {
+         }
+     }
+ 
+-    fn sysbus_realize(&self) {
+-        // TODO: return an Error
++    fn sysbus_realize(&self) -> Result<()> {
+         assert!(bql::is_locked());
+         unsafe {
+-            bindings::sysbus_realize(
+-                self.upcast().as_mut_ptr(),
+-                addr_of_mut!(util::bindings::error_fatal),
+-            );
++            Error::with_errp(|errp| {
++                bindings::sysbus_realize(self.upcast().as_mut_ptr(), errp);
++            })
+         }
+     }
+ }
+diff --git a/rust/util/src/error.rs b/rust/util/src/error.rs
+index 346577e2e53..4edceff42f3 100644
+--- a/rust/util/src/error.rs
++++ b/rust/util/src/error.rs
+@@ -38,7 +38,8 @@
+     ffi::{c_char, c_int, c_void, CStr},
+     fmt::{self, Display},
+     ops::Deref,
+-    panic, ptr,
++    panic,
++    ptr::{self, addr_of_mut},
+ };
+ 
+ use foreign::{prelude::*, OwnedPointer};
+@@ -231,6 +232,34 @@ pub unsafe fn with_errp<T, F: FnOnce(&mut *mut bindings::Error) -> T>(f: F) -> R
+     }
+ }
+ 
++/// Extension trait for `std::result::Result`, providing extra
++/// methods when the error type can be converted into a QEMU
++/// Error.
++pub trait ResultExt {
++    /// The success type `T` in `Result<T, E>`.
++    type OkType;
++
++    /// Report a fatal error and exit QEMU, or return the success value.
++    /// Note that, unlike [`unwrap()`](std::result::Result::unwrap), this
++    /// is not an abort and can be used for user errors.
++    fn unwrap_fatal(self) -> Self::OkType;
++}
++
++impl<T, E> ResultExt for std::result::Result<T, E>
++where
++    Error: From<E>,
++{
++    type OkType = T;
++
++    fn unwrap_fatal(self) -> T {
++        // SAFETY: errp is valid
++        self.map_err(|err| unsafe {
++            Error::from(err).propagate(addr_of_mut!(bindings::error_fatal))
++        })
++        .unwrap()
++    }
++}
++
+ impl FreeForeign for Error {
+     type Foreign = bindings::Error;
+ 
+diff --git a/rust/util/src/lib.rs b/rust/util/src/lib.rs
+index 16c89b95174..d14aa14ca77 100644
+--- a/rust/util/src/lib.rs
++++ b/rust/util/src/lib.rs
+@@ -6,4 +6,4 @@
+ pub mod module;
+ pub mod timer;
+ 
+-pub use error::{Error, Result};
++pub use error::{Error, Result, ResultExt};
 -- 
 2.51.1
 
