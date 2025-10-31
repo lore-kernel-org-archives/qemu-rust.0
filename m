@@ -4,140 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEEDCCCF9F8
-	for <qemu-rust@archiver.kernel.org>; Thu, 30 Oct 2025 17:13:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 482BCCCF9F8
+	for <qemu-rust@archiver.kernel.org>; Fri, 31 Oct 2025 15:26:11 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vEWDR-0007QM-L4; Thu, 30 Oct 2025 13:13:37 -0400
+	id 1vEr0r-00012p-Br; Fri, 31 Oct 2025 11:26:01 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vEWDQ-0007Ow-Ft
- for qemu-rust@nongnu.org; Thu, 30 Oct 2025 13:13:36 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1vEr0p-00010r-02
+ for qemu-rust@nongnu.org; Fri, 31 Oct 2025 11:25:59 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vEWDE-0007Gk-OM
- for qemu-rust@nongnu.org; Thu, 30 Oct 2025 13:13:34 -0400
+ id 1vEr0g-0000nR-Dx
+ for qemu-rust@nongnu.org; Fri, 31 Oct 2025 11:25:58 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1761844393;
+ s=mimecast20190719; t=1761924346;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pxp0GDrxujX1f7L9fk6ABXcsntN8ED26xv8wcHnLuJw=;
- b=d5lE+xxBuDXvuG8E0mu3IyKkcyQ/Z9mGf0Q9LwZtFdHCzjQvS22RLFwebT7XSb0eInGuPx
- vGwLf0XqRYdjIn4Kl/NOtM6GsBbZOYpjH+9YHmnpo7WZggvdE1WZI387B5rRjUtcSHAb6q
- fgFuB013oq2DBEPKfrFNB1iRHpIiA2k=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding;
+ bh=uj2/fxHWeywKmqC1Hm2LMSVtzUGKw7GtsYSGWCXlH34=;
+ b=Kb1yrIFXDIhUn7kTxMm9QbKs5uqtff6dfdV7awBmg6HoRDHIAj4kM0u+vMXGpiiqZ2zERo
+ kXe4VeYEj7J2QVZnHXT9KK4+nBscpueTe80esR0IV3F7AQxtoNNHXZ+hXeiMpTsTThmuAK
+ OjWPzsPbc1vvrGILpE5r+F4FoNP8A7k=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-125-K-fYpV-pN5uKUxLOuzMqxg-1; Thu, 30 Oct 2025 13:13:11 -0400
-X-MC-Unique: K-fYpV-pN5uKUxLOuzMqxg-1
-X-Mimecast-MFC-AGG-ID: K-fYpV-pN5uKUxLOuzMqxg_1761844389
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-b5fcada9d24so136467766b.1
- for <qemu-rust@nongnu.org>; Thu, 30 Oct 2025 10:13:10 -0700 (PDT)
+ us-mta-680-DhkVPLuoP0-gf7XdiA3L6Q-1; Fri, 31 Oct 2025 11:25:44 -0400
+X-MC-Unique: DhkVPLuoP0-gf7XdiA3L6Q-1
+X-Mimecast-MFC-AGG-ID: DhkVPLuoP0-gf7XdiA3L6Q_1761924343
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-476b8c02445so20452445e9.1
+ for <qemu-rust@nongnu.org>; Fri, 31 Oct 2025 08:25:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761844389; x=1762449189;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1761924343; x=1762529143;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=pxp0GDrxujX1f7L9fk6ABXcsntN8ED26xv8wcHnLuJw=;
- b=JDJEhG+sX1fQNXklIlN7DcKZ8Jn8KqmpX00lRWmGzjaQtaQ4IA5Hpw01UX+XeE4xiV
- FOG9g1hwJJEyb1s1IL+J4N9+CqAgKrBdxY21DbQq2FQT3RR80Pwgo2CDUQuujEZaJESI
- c4edZ4/0y+ImbylaPFHg1B3INGfAi1t2Yr1eiS5kwLCgRL+A/fSzqN8UAgPGAwH/+Sr4
- c2IXhfP8whCSNqtq244LjAEVuXzedzvpXBLKztyMk3+nXQMC45ROoPOM9sFPcfR2IodM
- o4buj2VgwVYkozGTCzNBUJ1sBeHuYu32kCo1/cFCOL4BRMQXyBmyxehIw+cXus642c1R
- REMw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWuR9FifxDMlomdGlZEVXhuZLVtF01To4egk2gCPJ2RA7bcf/zOg/St4wUU6GPJw6p8AtU9WQ2N7lw=@nongnu.org
-X-Gm-Message-State: AOJu0YxAp1Mx2/cKZFEAcrn2Cj7VEj+cUaEtyN57u4UN1nV6PHjsiRJZ
- meYwlDwBFAwsUDzWVOIULV9pYWYNjfEJeNV2nKMlOnlhqFZZbDR+EW6NTMg/rBDacdrq8eV21Lm
- QYc/53mnK0ZSIAL4r72QCc+CDj2m6ialbhlVMif3mLnGRwnsPf/qKcKo=
-X-Gm-Gg: ASbGncuwYRZVEr0qluncklD02rPliMSxfo8lEv5pHHgZoKG8nW7mMEcAregc/HM30YO
- 7A+HhbKhcEu4MNMjqC7t6D7fhLjs4tkFfwdZityuCItGMt1MKnBb3U9f3z536eWUjOfJCacftDM
- GLS45nyaStlKhJO9RIC/A3drhsRHp/CmafF6x6HE5rdctKUjkVwebWxEmu3FqzH9R6BDPweI1wv
- PDzm2ZW0jjyfPKZtJUHtWT2gguXdUHluMSNf1+XZ7NpDdVmIavUKVwMegg542K4A5XdKBAGoiC7
- 8602GRP8eIjgCPkFvYgICRuQDL89N/qC6hE+x6ocdkaojToQs0Qh0f+nl+CvskGMRMbovkY2euf
- t7A79+sQqtgD9q2CkGKqzTbguqAFc1O2qu9zKiad7AWUicudaSpMKQWeytn988+1kmmbpLqA2vD
- UddN8k
-X-Received: by 2002:a17:907:1c0f:b0:b4f:ee15:8ae8 with SMTP id
- a640c23a62f3a-b707085aef8mr25500666b.58.1761844389363; 
- Thu, 30 Oct 2025 10:13:09 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEeCg3DMGcwzgoV4JArb+0WpZz4jQwCEHJsAUuEZlO1I4VwQiXdTzYd2vqCoxoTHL+HVJLK6g==
-X-Received: by 2002:a17:907:1c0f:b0:b4f:ee15:8ae8 with SMTP id
- a640c23a62f3a-b707085aef8mr25496666b.58.1761844388897; 
- Thu, 30 Oct 2025 10:13:08 -0700 (PDT)
+ bh=uj2/fxHWeywKmqC1Hm2LMSVtzUGKw7GtsYSGWCXlH34=;
+ b=IndxKdKhplvPga1NyaEOquW/6TvIPc0uiT8yi6nH9eH3FX5kokyc0CSZbVI0HvTk4a
+ P4sAoMGJ9emyUdOcEgR8DSm9j4nN68U6QRC7jWeeKPpzyFjk/UfOUT17myA0k1gABc+T
+ /vK6X3N9urTq5rMUzCIrtqoTRaDqe1+Uuo63VvsONT9cQyN+korpxFy31vlbpzyOlJJs
+ ZJtiKQ/QSXX8Qmpy/hPBA8nUmHrRzF/XGIbTHztulkcPQmzp1B4nF3AY+QhIQFbw794j
+ Kgm2Bx/+Se5swv877IsQRHBE/xupx20zsZYj8/Xx6ddtAc2Jh/g6h6rYSRjVDoo8SVZE
+ K2LQ==
+X-Gm-Message-State: AOJu0Ywy2FtrD3424B4/qYw5r4wQPUKFnFo32KLWipwRWk2mO/7RjLFl
+ JWhekuZLc3U6tF/O8I6eeBYxoRKffdMIu0ZQkamWzgAVbgveeDQZJ64S1ExwUtpYs5JpYRo2KLc
+ XzlJhngW3HP2q8mxdtwlASaWiQtfPbQ4ZaRLJg820oKz7rYi7KoQQc8Tl/VwxKBk=
+X-Gm-Gg: ASbGncvXv9n01clGxXtM1tpyhuFf+RGPbngkeNVkWQhJVpg7GxTdzKly717cOtWOzwR
+ 4bbelVIE78gi2evEYDKSZSId5Nley6BLGuomlstIxK3ejUCekCvqgD2wVmpMUzezo2bO+7EU9iY
+ XNMNvAgaQ14fDfY6czeP6g6HGsY9s4eixUCf97m82jo0LBrhybLdULnlWW0QbYeT+0JiEzwCfH6
+ 1RTSWL8CR8LfmZQtTGH7xgOp3b84YjPjGfIByDuDBVcGIAIMJzJFchVWLnzMZo+ZkuVM/eauWC4
+ jtr4zSKRLF7rij0Zad/+8IYkVGiURWJQR85OFhm2GmrpaaXScz8Hr+4ljizFe8XLGhTBLfsPqNF
+ GcaDVaZnqGsxj8O5oXfbvBWjF5aMqAiV+m9hzRhqC/c9ufQG6nCP8iQoqCctq3H2jBbOU7hKZ7c
+ pCLZGL
+X-Received: by 2002:a5d:64e7:0:b0:3e7:45c7:828e with SMTP id
+ ffacd0b85a97d-429bd6a4bc8mr3703663f8f.33.1761924342890; 
+ Fri, 31 Oct 2025 08:25:42 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGszhu8xvVmUXg56hTW6ajlY+QMIjTgUhutkZIzqxDTkpQi2rFzK5izEHH41Qv5LZJPfze+5w==
+X-Received: by 2002:a5d:64e7:0:b0:3e7:45c7:828e with SMTP id
+ ffacd0b85a97d-429bd6a4bc8mr3703640f8f.33.1761924342479; 
+ Fri, 31 Oct 2025 08:25:42 -0700 (PDT)
 Received: from [192.168.10.48] ([151.95.110.222])
- by smtp.googlemail.com with ESMTPSA id
- a640c23a62f3a-b6d853c664asm1803842666b.42.2025.10.30.10.13.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Oct 2025 10:13:08 -0700 (PDT)
-Message-ID: <f9259ce1-8026-4190-b69d-b899428306ca@redhat.com>
-Date: Thu, 30 Oct 2025 18:13:05 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/19] rust: QObject and QAPI bindings
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4773c48ee52sm2283185e9.2.2025.10.31.08.25.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Oct 2025 08:25:41 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
-Cc: armbru@redhat.com, marcandre.lureau@redhat.com, qemu-rust@nongnu.org
-References: <20251010151006.791038-1-pbonzini@redhat.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <20251010151006.791038-1-pbonzini@redhat.com>
+Cc: qemu-rust@nongnu.org
+Subject: [PATCH 0/4] rust: improvements to errors
+Date: Fri, 31 Oct 2025 16:25:35 +0100
+Message-ID: <20251031152540.293293-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.51.1
+MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: CMtzPG5Pb5M6fjExyffhPHFr064yW5TIL1zAvEk8pB8_1761844389
+X-Mimecast-MFC-PROC-ID: Nx7j2sYTTfedMXYQNdM7igZvs6r_4GGBPTxJoO1_Nes_1761924343
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001,
- T_SPF_TEMPERROR=0.01 autolearn=unavailable autolearn_force=no
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -153,56 +110,29 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 10/10/25 17:09, Paolo Bonzini wrote:
-> This adds two related parts of the Rust bindings:
-> 
-> - QAPI code generator that creates Rust structs from the JSON
->    description.  The structs are *not* ABI compatible with the
->    C ones, instead they use native Rust data types.
-> 
-> - QObject bindings and (de)serialization support, which can be used to
->    convert QObjects to and from QAPI structs.
-> 
-> Unfortunately Rust code is not able to use visitors, other than by
-> creating an intermediate QObject.  This is because of the different
-> architecture of serde vs. QAPI visitors, and because visitor's
-> dual-purpose functions, where the same function is used by both input and
-> output visitors, rely heavily on the structs using the same representation
-> as the visitor arguments (for example NUL-terminated strings).
-> 
-> The serde format implementation was co-authored by me and Marc-André.
-> Marc-André did all the bug fixing and integration testing.
-> 
-> As an example of how this would be used, the marshaling functions for
-> QMP commands would look like this:
-> 
-> fn qmp_marshal_query_stats(args: *mut QDict,
->      retp: *mut *mut QObject, errp: *mut *mut Error)
-> {
->      let qobj = unsafe { QObject::cloned_from_raw(args.cast()) };
-> 
->      let result = from_qobject::<StatsFilter>(qobj)
->           .map_err(anyhow::Error::from)
->           .and_then(qmp_query_stats)
->           .and_then(|ret| to_qobject::<Vec<StatsResult>>(ret).map_err(anyhow::Error::from));
-> 
->      match qmp_marshal_query_stats_rs(qobj) {
->          Ok(ret) => unsafe { *retp = ret.into_raw(); },
->          Err(e) => unsafe { crate::Error::from(e).propagate(errp) },
->      }
-> }
-> 
-> As a small extra, patches 1 and 2 rework a bit the error implementation
-> so that it is possible to convert any Rust error into a QEMU one.  This
-> is because we noticed that we had to add several From<> implementations
-> to convert e.g. NulError or serde errors into util::Error.
-> 
-> The price is that it's a bit harder to convert *strings* into errors;
-> therefore, the first patch adds a macro wrapper for
-> "if !cond { return Err(...) }", where the dots build an error from a
-> formatted string.
-Ping.
+The first three patches are extracted from the serde work; as to the
+fourth, I was thinking about it for a while - it provides an extension
+trait for Result that makes it easy to use &error_fatal.  The main
+advantage is to make it clear how errors are handled.
 
 Paolo
+
+Paolo Bonzini (4):
+  rust/util: add ensure macro
+  rust/util: use anyhow's native chaining capabilities
+  rust/util: replace Error::err_or_unit/err_or_else with
+    Error::with_errp
+  rust: pull error_fatal out of SysbusDeviceMethods::sysbus_realize
+
+ rust/hw/char/pl011/src/device.rs |   4 +-
+ rust/hw/core/src/sysbus.rs       |  13 +-
+ rust/hw/timer/hpet/src/device.rs |  21 ++-
+ rust/hw/timer/hpet/src/fw_cfg.rs |   7 +-
+ rust/util/src/error.rs           | 272 ++++++++++++++++++-------------
+ rust/util/src/lib.rs             |   2 +-
+ 6 files changed, 183 insertions(+), 136 deletions(-)
+
+-- 
+2.51.1
 
 
