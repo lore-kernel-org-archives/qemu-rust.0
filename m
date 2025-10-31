@@ -4,84 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 482BCCCF9F8
-	for <qemu-rust@archiver.kernel.org>; Fri, 31 Oct 2025 15:26:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A598CCF9FE
+	for <qemu-rust@archiver.kernel.org>; Fri, 31 Oct 2025 15:26:18 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vEr0r-00012p-Br; Fri, 31 Oct 2025 11:26:01 -0400
+	id 1vEr0r-000159-Vp; Fri, 31 Oct 2025 11:26:02 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vEr0p-00010r-02
- for qemu-rust@nongnu.org; Fri, 31 Oct 2025 11:25:59 -0400
+ id 1vEr0r-00014J-EC
+ for qemu-rust@nongnu.org; Fri, 31 Oct 2025 11:26:01 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vEr0g-0000nR-Dx
- for qemu-rust@nongnu.org; Fri, 31 Oct 2025 11:25:58 -0400
+ id 1vEr0i-0000nt-Bg
+ for qemu-rust@nongnu.org; Fri, 31 Oct 2025 11:26:00 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1761924346;
+ s=mimecast20190719; t=1761924349;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=uj2/fxHWeywKmqC1Hm2LMSVtzUGKw7GtsYSGWCXlH34=;
- b=Kb1yrIFXDIhUn7kTxMm9QbKs5uqtff6dfdV7awBmg6HoRDHIAj4kM0u+vMXGpiiqZ2zERo
- kXe4VeYEj7J2QVZnHXT9KK4+nBscpueTe80esR0IV3F7AQxtoNNHXZ+hXeiMpTsTThmuAK
- OjWPzsPbc1vvrGILpE5r+F4FoNP8A7k=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=yq29Dg28MtHToBMDyjMkNHHVvYBx9/maalG2F5iiQUk=;
+ b=SZd8Lg28Tm8KxcZYnt2upRxwTMI5XkalUIdxF9Ymb75208VMNHpTGwMh83hXwauroezQsJ
+ EOtPo6MWjRlRvXPVBsJBCs96zVddVl+dXctuI4iKlLiyvH7fultxlXgKJybg/QwGkssPGG
+ Y5Ifg7RDRcT9jswa+Ph6Eqj0al/oncY=
 Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
  [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-680-DhkVPLuoP0-gf7XdiA3L6Q-1; Fri, 31 Oct 2025 11:25:44 -0400
-X-MC-Unique: DhkVPLuoP0-gf7XdiA3L6Q-1
-X-Mimecast-MFC-AGG-ID: DhkVPLuoP0-gf7XdiA3L6Q_1761924343
+ us-mta-108--uFN44nYNT22hranGxwuDg-1; Fri, 31 Oct 2025 11:25:48 -0400
+X-MC-Unique: -uFN44nYNT22hranGxwuDg-1
+X-Mimecast-MFC-AGG-ID: -uFN44nYNT22hranGxwuDg_1761924347
 Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-476b8c02445so20452445e9.1
- for <qemu-rust@nongnu.org>; Fri, 31 Oct 2025 08:25:44 -0700 (PDT)
+ 5b1f17b1804b1-476b8c02445so20452785e9.1
+ for <qemu-rust@nongnu.org>; Fri, 31 Oct 2025 08:25:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761924343; x=1762529143;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uj2/fxHWeywKmqC1Hm2LMSVtzUGKw7GtsYSGWCXlH34=;
- b=IndxKdKhplvPga1NyaEOquW/6TvIPc0uiT8yi6nH9eH3FX5kokyc0CSZbVI0HvTk4a
- P4sAoMGJ9emyUdOcEgR8DSm9j4nN68U6QRC7jWeeKPpzyFjk/UfOUT17myA0k1gABc+T
- /vK6X3N9urTq5rMUzCIrtqoTRaDqe1+Uuo63VvsONT9cQyN+korpxFy31vlbpzyOlJJs
- ZJtiKQ/QSXX8Qmpy/hPBA8nUmHrRzF/XGIbTHztulkcPQmzp1B4nF3AY+QhIQFbw794j
- Kgm2Bx/+Se5swv877IsQRHBE/xupx20zsZYj8/Xx6ddtAc2Jh/g6h6rYSRjVDoo8SVZE
- K2LQ==
-X-Gm-Message-State: AOJu0Ywy2FtrD3424B4/qYw5r4wQPUKFnFo32KLWipwRWk2mO/7RjLFl
- JWhekuZLc3U6tF/O8I6eeBYxoRKffdMIu0ZQkamWzgAVbgveeDQZJ64S1ExwUtpYs5JpYRo2KLc
- XzlJhngW3HP2q8mxdtwlASaWiQtfPbQ4ZaRLJg820oKz7rYi7KoQQc8Tl/VwxKBk=
-X-Gm-Gg: ASbGncvXv9n01clGxXtM1tpyhuFf+RGPbngkeNVkWQhJVpg7GxTdzKly717cOtWOzwR
- 4bbelVIE78gi2evEYDKSZSId5Nley6BLGuomlstIxK3ejUCekCvqgD2wVmpMUzezo2bO+7EU9iY
- XNMNvAgaQ14fDfY6czeP6g6HGsY9s4eixUCf97m82jo0LBrhybLdULnlWW0QbYeT+0JiEzwCfH6
- 1RTSWL8CR8LfmZQtTGH7xgOp3b84YjPjGfIByDuDBVcGIAIMJzJFchVWLnzMZo+ZkuVM/eauWC4
- jtr4zSKRLF7rij0Zad/+8IYkVGiURWJQR85OFhm2GmrpaaXScz8Hr+4ljizFe8XLGhTBLfsPqNF
- GcaDVaZnqGsxj8O5oXfbvBWjF5aMqAiV+m9hzRhqC/c9ufQG6nCP8iQoqCctq3H2jBbOU7hKZ7c
- pCLZGL
-X-Received: by 2002:a5d:64e7:0:b0:3e7:45c7:828e with SMTP id
- ffacd0b85a97d-429bd6a4bc8mr3703663f8f.33.1761924342890; 
- Fri, 31 Oct 2025 08:25:42 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGszhu8xvVmUXg56hTW6ajlY+QMIjTgUhutkZIzqxDTkpQi2rFzK5izEHH41Qv5LZJPfze+5w==
-X-Received: by 2002:a5d:64e7:0:b0:3e7:45c7:828e with SMTP id
- ffacd0b85a97d-429bd6a4bc8mr3703640f8f.33.1761924342479; 
- Fri, 31 Oct 2025 08:25:42 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1761924346; x=1762529146;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=yq29Dg28MtHToBMDyjMkNHHVvYBx9/maalG2F5iiQUk=;
+ b=h6bvOAii249nYww9c6FO1C9Z+yuPfLhObeyUGZuqQZqwiL4ZmhA50NqoWJ67ttLmZn
+ Ij4/nZpZvnNWeUudHPCG4IY+TSqb6KcMFkII42W74eCRMcIRhchKSV+YzPHUrIwUJUpv
+ /fSjMRnbvR/3WfcezZRJzYiAGkddqnbVJ8V6tqKR/0+iE3dZMDYLfbg4reZTghBrSCWz
+ Gz+zr3HV8Uo2q6hZ8/cX5Oftf6YC25ZE0is40T0lKQVf1QYSmzlg6kNP/kAN7fnr9gWH
+ CQe+GOp5OUqaWqogs/kARQ+nI/CdL6upjfPMt/YB3UqPMt7YUs+EGw5tFrlv+NCJqCUQ
+ XC3A==
+X-Gm-Message-State: AOJu0Yw07Kom30UvwLxifRg4880r51EIxGl2Y0QmCum3nUkBm12lTnxX
+ O46W/6Wek1YjDAFjy2SZoF8KKo+8SK5fJUxARM391zphaY1xplC9srgXn7IARF6aSqMcV7H7Xz5
+ oUIQsW0r1pXrHa6Z4i+UVFKmFcIHthbmc+pXHYX7cfTDD6NoD7KCLwvd5PiLaJ+E=
+X-Gm-Gg: ASbGnctSgngM3PnvTKk/60KwJxcuTQiT2Ht4SC/Sz2Cb4sGbpdu8sPiNYyLLfVEXNj2
+ spUIvJH9bPfxZsPE+zHd4xX8Apucaa8D8Mkmw3V6OvgNCZKqk3PggA94/ytomlYb0i3uYA8LMv1
+ OUvzM7NO5aowXsO8yDYXn7KHxU138pSrxdHqdyo77zu92dZd+n+PiEhCx2DSEN/ads3xHEoQ5h9
+ JscQ4b//G5/7K6QS3+SKgLoXnLMqdFh1hbAHCVI9Mx24dDoy3NjbG1ocOa99VXvnmVUOs7FYJVf
+ Y6OlzriQK/4CJGlYydDt9KdFqLBzkxa6O71TBLRAYABgrdCBty9LtfXUIqGrM+89pkhL7kDpbGu
+ Zlx9MadhkseA+YoaasdxaBvPehlTMbfL2HgrKHyZ/vYwN8PftGGUR/5+2EN4EGdLwDKHLarYYTk
+ Uh0FBk
+X-Received: by 2002:a05:6000:178d:b0:429:b6e2:1ecf with SMTP id
+ ffacd0b85a97d-429bd682973mr3607039f8f.22.1761924346455; 
+ Fri, 31 Oct 2025 08:25:46 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG+AE6S2+Hnk6TlxexEo9pNzi7wHPxmlDA3dLqnAnfopUDJHyzaRgkMPQVjDKCi6dc3ADB8/A==
+X-Received: by 2002:a05:6000:178d:b0:429:b6e2:1ecf with SMTP id
+ ffacd0b85a97d-429bd682973mr3607011f8f.22.1761924345963; 
+ Fri, 31 Oct 2025 08:25:45 -0700 (PDT)
 Received: from [192.168.10.48] ([151.95.110.222])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4773c48ee52sm2283185e9.2.2025.10.31.08.25.41
+ ffacd0b85a97d-429c13f1d4csm3735435f8f.39.2025.10.31.08.25.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Oct 2025 08:25:41 -0700 (PDT)
+ Fri, 31 Oct 2025 08:25:43 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
-Subject: [PATCH 0/4] rust: improvements to errors
-Date: Fri, 31 Oct 2025 16:25:35 +0100
-Message-ID: <20251031152540.293293-1-pbonzini@redhat.com>
+Subject: [PATCH 1/4] rust/util: add ensure macro
+Date: Fri, 31 Oct 2025 16:25:36 +0100
+Message-ID: <20251031152540.293293-2-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20251031152540.293293-1-pbonzini@redhat.com>
+References: <20251031152540.293293-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Nx7j2sYTTfedMXYQNdM7igZvs6r_4GGBPTxJoO1_Nes_1761924343
+X-Mimecast-MFC-PROC-ID: wK1WLoIFXTKjX1Ocmj0rD1sbUuPx_4Pqaw-zFtmtnrM_1761924347
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -94,7 +97,7 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_PASS=-0.001, T_SPF_HELO_TEMPERROR=0.01 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -110,28 +113,184 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-The first three patches are extracted from the serde work; as to the
-fourth, I was thinking about it for a while - it provides an extension
-trait for Result that makes it easy to use &error_fatal.  The main
-advantage is to make it clear how errors are handled.
+The macro is similar to anyhow::ensure but uses QEMU's variation
+on anyhow::Error.  It can be used to easily check a condition
+and format an error message.
 
-Paolo
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ rust/hw/timer/hpet/src/device.rs | 21 ++++++----
+ rust/hw/timer/hpet/src/fw_cfg.rs |  7 ++--
+ rust/util/src/error.rs           | 71 ++++++++++++++++++++++++++++++++
+ 3 files changed, 86 insertions(+), 13 deletions(-)
 
-Paolo Bonzini (4):
-  rust/util: add ensure macro
-  rust/util: use anyhow's native chaining capabilities
-  rust/util: replace Error::err_or_unit/err_or_else with
-    Error::with_errp
-  rust: pull error_fatal out of SysbusDeviceMethods::sysbus_realize
-
- rust/hw/char/pl011/src/device.rs |   4 +-
- rust/hw/core/src/sysbus.rs       |  13 +-
- rust/hw/timer/hpet/src/device.rs |  21 ++-
- rust/hw/timer/hpet/src/fw_cfg.rs |   7 +-
- rust/util/src/error.rs           | 272 ++++++++++++++++++-------------
- rust/util/src/lib.rs             |   2 +-
- 6 files changed, 183 insertions(+), 136 deletions(-)
-
+diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
+index 23f2eefd1cd..3564aa79c6e 100644
+--- a/rust/hw/timer/hpet/src/device.rs
++++ b/rust/hw/timer/hpet/src/device.rs
+@@ -25,7 +25,10 @@
+     bindings::{address_space_memory, address_space_stl_le, hwaddr},
+     MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder, MEMTXATTRS_UNSPECIFIED,
+ };
+-use util::timer::{Timer, CLOCK_VIRTUAL, NANOSECONDS_PER_SECOND};
++use util::{
++    ensure,
++    timer::{Timer, CLOCK_VIRTUAL, NANOSECONDS_PER_SECOND},
++};
+ 
+ use crate::fw_cfg::HPETFwConfig;
+ 
+@@ -728,14 +731,14 @@ fn post_init(&self) {
+     }
+ 
+     fn realize(&self) -> util::Result<()> {
+-        if self.num_timers < HPET_MIN_TIMERS || self.num_timers > HPET_MAX_TIMERS {
+-            Err(format!(
+-                "hpet.num_timers must be between {HPET_MIN_TIMERS} and {HPET_MAX_TIMERS}"
+-            ))?;
+-        }
+-        if self.int_route_cap == 0 {
+-            Err("hpet.hpet-intcap property not initialized")?;
+-        }
++        ensure!(
++            (HPET_MIN_TIMERS..=HPET_MAX_TIMERS).contains(&self.num_timers),
++            "hpet.num_timers must be between {HPET_MIN_TIMERS} and {HPET_MAX_TIMERS}"
++        );
++        ensure!(
++            self.int_route_cap != 0,
++            "hpet.hpet-intcap property not initialized"
++        );
+ 
+         self.hpet_id.set(HPETFwConfig::assign_hpet_id()?);
+ 
+diff --git a/rust/hw/timer/hpet/src/fw_cfg.rs b/rust/hw/timer/hpet/src/fw_cfg.rs
+index bb4ea8909ad..777fc8ef45e 100644
+--- a/rust/hw/timer/hpet/src/fw_cfg.rs
++++ b/rust/hw/timer/hpet/src/fw_cfg.rs
+@@ -5,6 +5,7 @@
+ use std::ptr::addr_of_mut;
+ 
+ use common::Zeroable;
++use util::{self, ensure};
+ 
+ /// Each `HPETState` represents a Event Timer Block. The v1 spec supports
+ /// up to 8 blocks. QEMU only uses 1 block (in PC machine).
+@@ -36,7 +37,7 @@ unsafe impl Zeroable for HPETFwConfig {}
+ };
+ 
+ impl HPETFwConfig {
+-    pub(crate) fn assign_hpet_id() -> Result<usize, &'static str> {
++    pub(crate) fn assign_hpet_id() -> util::Result<usize> {
+         assert!(bql::is_locked());
+         // SAFETY: all accesses go through these methods, which guarantee
+         // that the accesses are protected by the BQL.
+@@ -47,9 +48,7 @@ pub(crate) fn assign_hpet_id() -> Result<usize, &'static str> {
+             fw_cfg.count = 0;
+         }
+ 
+-        if fw_cfg.count == 8 {
+-            Err("Only 8 instances of HPET are allowed")?;
+-        }
++        ensure!(fw_cfg.count != 8, "Only 8 instances of HPET are allowed");
+ 
+         let id: usize = fw_cfg.count.into();
+         fw_cfg.count += 1;
+diff --git a/rust/util/src/error.rs b/rust/util/src/error.rs
+index bfa5a8685bc..2a57c7fd5fd 100644
+--- a/rust/util/src/error.rs
++++ b/rust/util/src/error.rs
+@@ -86,6 +86,19 @@ fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+     }
+ }
+ 
++impl From<Cow<'static, str>> for Error {
++    #[track_caller]
++    fn from(msg: Cow<'static, str>) -> Self {
++        let location = panic::Location::caller();
++        Error {
++            msg: Some(msg),
++            cause: None,
++            file: location.file(),
++            line: location.line(),
++        }
++    }
++}
++
+ impl From<String> for Error {
+     #[track_caller]
+     fn from(msg: String) -> Self {
+@@ -126,6 +139,17 @@ fn from(error: anyhow::Error) -> Self {
+ }
+ 
+ impl Error {
++    #[track_caller]
++    #[doc(hidden)]
++    pub fn format(args: fmt::Arguments) -> Self {
++        if let Some(msg) = args.as_str() {
++            Self::from(msg)
++        } else {
++            let msg = fmt::format(args);
++            Self::from(msg)
++        }
++    }
++
+     /// Create a new error, prepending `msg` to the
+     /// description of `cause`
+     #[track_caller]
+@@ -311,6 +335,53 @@ unsafe fn cloned_from_foreign(c_error: *const bindings::Error) -> Self {
+     }
+ }
+ 
++/// Ensure that a condition is true, returning an error if it is false.
++///
++/// This macro is similar to [`anyhow::ensure`] but returns a QEMU [`Result`].
++/// If the condition evaluates to `false`, the macro returns early with an error
++/// constructed from the provided message.
++///
++/// # Examples
++///
++/// ```
++/// # use util::{ensure, Result};
++/// # fn check_positive(x: i32) -> Result<()> {
++/// ensure!(x > 0, "value must be positive");
++/// #   Ok(())
++/// # }
++/// ```
++///
++/// ```
++/// # use util::{ensure, Result};
++/// # const MIN: i32 = 123;
++/// # const MAX: i32 = 456;
++/// # fn check_range(x: i32) -> Result<()> {
++/// ensure!(
++///     x >= MIN && x <= MAX,
++///     "{} not between {} and {}",
++///     x,
++///     MIN,
++///     MAX
++/// );
++/// #   Ok(())
++/// # }
++/// ```
++#[macro_export]
++macro_rules! ensure {
++    ($cond:expr, $fmt:literal, $($arg:tt)*) => {
++        if !$cond {
++            let e = $crate::Error::format(format_args!($fmt, $($arg)*));
++            return $crate::Result::Err(e);
++        }
++    };
++    ($cond:expr, $err:expr $(,)?) => {
++        if !$cond {
++            let s = ::std::borrow::Cow::<'static, str>::from($err);
++            return $crate::Result::Err(s.into());
++        }
++    };
++}
++
+ #[cfg(test)]
+ mod tests {
+     use std::ffi::CStr;
 -- 
 2.51.1
 
