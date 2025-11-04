@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00A3BCCF9E3
-	for <qemu-rust@archiver.kernel.org>; Tue,  4 Nov 2025 14:55:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D9BECCF9E3
+	for <qemu-rust@archiver.kernel.org>; Tue,  4 Nov 2025 15:08:59 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vGIR9-00072H-DZ; Tue, 04 Nov 2025 09:55:07 -0500
+	id 1vGIeX-0003G5-1K; Tue, 04 Nov 2025 10:08:57 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vGIR7-0006z9-KN; Tue, 04 Nov 2025 09:55:05 -0500
-Received: from mgamail.intel.com ([192.198.163.13])
+ id 1vGIeV-0003Bz-6n; Tue, 04 Nov 2025 10:08:55 -0500
+Received: from mgamail.intel.com ([198.175.65.17])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vGIR4-0006nm-AZ; Tue, 04 Nov 2025 09:55:04 -0500
+ id 1vGIeS-0004pI-8V; Tue, 04 Nov 2025 10:08:54 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762268102; x=1793804102;
+ t=1762268932; x=1793804932;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=UHXQA57NYh2LnGk/aGlDAcKR0v/Pbs6y2zU90VC71tU=;
- b=d4bMlYpq0hEVUuwl5F8L55CeFXvj1hzE7i6TZpnO3Ukd06FMk50GOmU/
- TysN+LTUf1MsT5rxuUusgeF6CrjiTm69wFMmfS2eIeYI1H1QXu672B81h
- txDABSnFSoNJ9aP3YM5LD7Z1uNBbPyxDFsMp0LwlVFvWihh7LrVMQB8FB
- rWayupksfH85q1wY5JGvHB2AyJZCloJVplp6OLrZUcy47zkrRVHU26BeI
- T9vIgofOLBiP5Ohf/MFRaR55JLzD5t+224dEF26GEFEz4JqA1W4/Mi7qD
- cWYmboV/vES5e4JMqftOYGEPOcB4+cQGCgetT6sNmi94FUorXmwn2Pei/ A==;
-X-CSE-ConnectionGUID: YmHwl/3FT52tVZ8cNsl4UA==
-X-CSE-MsgGUID: baruhOpXQHC5dq9YcWD05A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11602"; a="66978370"
-X-IronPort-AV: E=Sophos;i="6.19,279,1754982000"; d="scan'208";a="66978370"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2025 06:54:59 -0800
-X-CSE-ConnectionGUID: yvI8qxDJRcOFWjLJKxEHUw==
-X-CSE-MsgGUID: X1bXNLKuQN2X16akIm4OBg==
+ bh=KpJRVZW+6EbG9bYu9D7ISGWrEf8TMPCUQSWjm8yEhOQ=;
+ b=FkLZM7D+1rNAL5sMV0+BWTgAVw2N/5OGK5u6gLXmSt8boY640ukrrM5T
+ 205cbZupptMgikxFSE+K0+ufbPAdQQsH0D0BQ0tcqEbIDQgbzVxJtLnwv
+ jThTplvwm45tjoRvX6mpyzGEG/pfjuhdXBuwny7SuY0W8O4qOMbaAU1IO
+ Wv+4oumhYS7hYpJu61SSRPkQnNCCdK7Fl7vqzqS+tt1kijnEo/6jHSdCs
+ Ld1R0t+GZltiexZKN491xrv9YRyT4TXXvL0lyKzNau0UvQq4hzIXaZ62d
+ qEjpUCs+ccHLdYi4pyn57XDlhIG3XE6GWF6LvHvUHV+tRkXo04D5SmrrM A==;
+X-CSE-ConnectionGUID: u/3iEa5lR0qv6e8h6ueLow==
+X-CSE-MsgGUID: Gz4/57ZKQeWzd44ZgNtxIw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="64292482"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="64292482"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2025 07:08:49 -0800
+X-CSE-ConnectionGUID: T7+vRJonRRG901vmdr5t8A==
+X-CSE-MsgGUID: 1Hf29rBUTLSqWsqMHU0m3A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,279,1754982000"; d="scan'208";a="186416781"
+X-IronPort-AV: E=Sophos;i="6.19,279,1754982000"; d="scan'208";a="187034932"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa006.jf.intel.com with ESMTP; 04 Nov 2025 06:54:58 -0800
-Date: Tue, 4 Nov 2025 23:17:11 +0800
+ by fmviesa006.fm.intel.com with ESMTP; 04 Nov 2025 07:08:48 -0800
+Date: Tue, 4 Nov 2025 23:31:02 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 1/4] rust/util: add ensure macro
-Message-ID: <aQoY9zEKNPKQhV5J@intel.com>
+Subject: Re: [PATCH 2/4] rust/util: use anyhow's native chaining capabilities
+Message-ID: <aQocNkSa/xJtjkdE@intel.com>
 References: <20251031152540.293293-1-pbonzini@redhat.com>
- <20251031152540.293293-2-pbonzini@redhat.com>
+ <20251031152540.293293-3-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251031152540.293293-2-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.13; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20251031152540.293293-3-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.17; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -51
 X-Spam_score: -5.2
@@ -81,24 +81,26 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Fri, Oct 31, 2025 at 04:25:36PM +0100, Paolo Bonzini wrote:
-> Date: Fri, 31 Oct 2025 16:25:36 +0100
+On Fri, Oct 31, 2025 at 04:25:37PM +0100, Paolo Bonzini wrote:
+> Date: Fri, 31 Oct 2025 16:25:37 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 1/4] rust/util: add ensure macro
+> Subject: [PATCH 2/4] rust/util: use anyhow's native chaining capabilities
 > X-Mailer: git-send-email 2.51.1
 > 
-> The macro is similar to anyhow::ensure but uses QEMU's variation
-> on anyhow::Error.  It can be used to easily check a condition
-> and format an error message.
+> This simplifies conversions, making it possible to convert any error
+> into a QEMU util::Error with ".into()" (and therefore with "?").
+> 
+> The cost is having a separate constructor for when the error is a simple
+> string, but that is made easier by the ensure! macro.  If necessary,
+> another macro similar to "anyhow!" can be returned, but for now there
+> is no need for that.
 > 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  rust/hw/timer/hpet/src/device.rs | 21 ++++++----
->  rust/hw/timer/hpet/src/fw_cfg.rs |  7 ++--
->  rust/util/src/error.rs           | 71 ++++++++++++++++++++++++++++++++
->  3 files changed, 86 insertions(+), 13 deletions(-)
+>  rust/util/src/error.rs | 160 +++++++++++++++--------------------------
+>  1 file changed, 59 insertions(+), 101 deletions(-)
 
-Good!
+LGTM,
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
