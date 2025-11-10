@@ -4,72 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7058CCFA1A
-	for <qemu-rust@archiver.kernel.org>; Sun,  9 Nov 2025 13:59:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6815DCCFA13
+	for <qemu-rust@archiver.kernel.org>; Mon, 10 Nov 2025 13:56:25 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vI5vx-00070O-6J; Sun, 09 Nov 2025 08:58:21 -0500
+	id 1vISMg-0000PK-Gq; Mon, 10 Nov 2025 08:55:26 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
- id 1vI5v3-0006GD-GM
- for qemu-rust@nongnu.org; Sun, 09 Nov 2025 08:57:26 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
- id 1vI5uz-0003GB-VL
- for qemu-rust@nongnu.org; Sun, 09 Nov 2025 08:57:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1762696640;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=s4NQAtf7TbdXclJV1DiwxB4R+oO7azwdGGte+itj1sw=;
- b=OQ6bLBRSaVIS/+DhZOk8CxLvKsvxYhK9cKiYqhCGGlWEPXNZ78fQeBTmhCRN03f47pWjni
- EgTiKWEOVn5V9+AhcRgxZfeQoE8pqIJ6X+j/DftdCJStdOIlNQZ1ysQI6Y98/B1dsVdEVi
- IR3KcYtiplgf6W7JiS8TxtN5B5/ZFRQ=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-299-a6iYOrxgPJabp4T-rS3JwQ-1; Sun,
- 09 Nov 2025 08:57:17 -0500
-X-MC-Unique: a6iYOrxgPJabp4T-rS3JwQ-1
-X-Mimecast-MFC-AGG-ID: a6iYOrxgPJabp4T-rS3JwQ_1762696636
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 0F69D1956089; Sun,  9 Nov 2025 13:57:16 +0000 (UTC)
-Received: from localhost (unknown [10.2.16.10])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 965B930001B9; Sun,  9 Nov 2025 13:57:15 +0000 (UTC)
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Zhao Liu <zhao1.liu@intel.com>, Paolo Bonzini <pbonzini@redhat.com>,
- qemu-rust@nongnu.org, Stefan Hajnoczi <stefanha@redhat.com>
-Subject: [PATCH 2/2] rust/hpet: add trace events
-Date: Thu,  6 Nov 2025 16:56:06 -0500
-Message-ID: <20251106215606.36598-3-stefanha@redhat.com>
-In-Reply-To: <20251106215606.36598-1-stefanha@redhat.com>
-References: <20251106215606.36598-1-stefanha@redhat.com>
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1vISHm-0003DL-9q
+ for qemu-rust@nongnu.org; Mon, 10 Nov 2025 08:50:22 -0500
+Received: from mail-ej1-x632.google.com ([2a00:1450:4864:20::632])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
+ id 1vISHj-0006PQ-Hr
+ for qemu-rust@nongnu.org; Mon, 10 Nov 2025 08:50:22 -0500
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-b3c2c748bc8so381373466b.2
+ for <qemu-rust@nongnu.org>; Mon, 10 Nov 2025 05:50:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1762782617; x=1763387417; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mXCEtuBybIWNkH8OqUFYjuZlPwZp9AyCadxRNtAQ1Fk=;
+ b=FdrH05DFq7RV2j5NXlZA46PVDmNILtkho/sWLPXeZNtU51roQPbcvywh1yp9dVcvfC
+ 2R4RVNljM8U5CdvUCyDw6FFwIeslcTMxWPshznpsPf2rH6VfBi5ZhccAsJ7HAdPyQHmH
+ OPQXoPUX5okSmr3aasLHO4Tzy5ywKAmyvEVUPIARux2yjNKeLE0TPKcU5imRX3ainDvE
+ CfKpyW8U+N3PsxkbyHUsAt0mb2q/Ih4bIJwCy2+fbkYsi7J/WlpOXyMBE7d1SPWMnKyN
+ /N6+3dv3fhs+u8KzBfIPihxMVbTuBW2gi8Rv4Gy10BSLw18FwSSgTCJZSH2gYgJCm70v
+ IdUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762782617; x=1763387417;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=mXCEtuBybIWNkH8OqUFYjuZlPwZp9AyCadxRNtAQ1Fk=;
+ b=dLnKksSXkhyfr2GZGHxZCIG+nSZPUAfAWWEB3EpQtJ0cikR7ovNSjQyoSz7Dwa6sef
+ Kf78XfvlxX/8glDbhDShm3M8PbpXVnGvIMf92fvjgHIiBdAA380W3GJ7OeoRsGFiA3kJ
+ 54nUBPwGORaYWntJpOgRnd7ksFQrn23q7p/BLZV3wLYzjwmmCM+TFQfXoqZkFgIJlQjj
+ 37x+KpSzFNVPsEmKzONx0TRKcD1vtDnoinmJ3cjo0SGEM8qICJw865nLGrEUpJlbpC/v
+ VgCPQqiKbPxHbKsXOdoSQVCV/Rbe+EBwqmuPde1erq1yKEItDUyh+ryJh067AFzkAdZR
+ 1Hog==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWWZU2EPOlc/s/kJQVOLkiFqa/56kdFw1Tf2Tv7zw1MqiflN5jQoKInNgOuJf+fcdy5goX/I4IIZRQ=@nongnu.org
+X-Gm-Message-State: AOJu0YxFL11eXfdJcEVlQEUVFzEgzXUvS6lJckGxvmI2671MaLqXJGyI
+ 54ferd3mHRAvgxJudhu+6ywFC/sYqoPMxf8MWapqkojz3PbhDECltad50kkJ14EzJVJ7O38JNc8
+ ikN5KmEe6EAIXmAJIhyozKnlRwayvrXcJxQSa6CUm8Q==
+X-Gm-Gg: ASbGncuAjUbLWU1VJ7gzSEuUUDMcALOI6YlVgbRObu8fAMAuDGwjzebpgsaNeih40cy
+ eb58OI++JFhvTEpBPtZvGCiR4+qJzoQsEJGvTigLfsQF6Hk777o9kaA5OI9NJ3+qF+l+f6CLlu8
+ EJFXHxaimdt4mwdx84G2xxqlnGAaYD3Pwqdj1HN7sPGh6S0dm32pLD9H4c7u3mwJEhkcPDxespY
+ ZyONiIL10gTrAuANuL+kFt5bKpga0BDhznQGo05hiLbyLYIhw1I1T6OXvAYKYFcrveA
+X-Google-Smtp-Source: AGHT+IE/JOFksAxd4GP0WJpLJIQ0n3ZDNisPdGVey7S5iYT2Plwz8uGkMIsJzhC55C1yOSG2bl+48zbs1DI9K8nGifY=
+X-Received: by 2002:a17:907:60d1:b0:b70:bc2e:a6f0 with SMTP id
+ a640c23a62f3a-b72e02b3521mr716652666b.5.1762782617332; Mon, 10 Nov 2025
+ 05:50:17 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=stefanha@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
+References: <20251106215606.36598-1-stefanha@redhat.com>
+ <20251106215606.36598-2-stefanha@redhat.com>
+In-Reply-To: <20251106215606.36598-2-stefanha@redhat.com>
+From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Date: Mon, 10 Nov 2025 15:49:50 +0200
+X-Gm-Features: AWmQ_bnZzqS7WMrJ7s44Zlwk6qf7OzRpa8-8ZzodONy_k1hmIh955cAMABSYzUw
+Message-ID: <CAAjaMXaXgsHK2z-f81x_baUSZcaSsfRpBo1=s1TsgPeoPi3GSg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] hpet: remove unused trace events
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: qemu-devel@nongnu.org, Zhao Liu <zhao1.liu@intel.com>, 
+ Paolo Bonzini <pbonzini@redhat.com>, qemu-rust@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::632;
+ envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ej1-x632.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -85,188 +98,42 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Implement the same trace events as the C implementation.
+On Sun, Nov 9, 2025 at 3:57=E2=80=AFPM Stefan Hajnoczi <stefanha@redhat.com=
+> wrote:
+>
+> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> ---
 
-Notes:
-- Keep order of hpet_ram_write_invalid_tn_cmp and hpet_ram_write_tn_cmp
-  the same as the C implementation.
-- Put hpet_ram_write_timer_id in HPETTimer::write() instead of
-  HPETState::decode() so that reads can be excluded.
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
 
-Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
----
- rust/hw/timer/hpet/Cargo.toml    |  1 +
- rust/hw/timer/hpet/meson.build   |  1 +
- rust/hw/timer/hpet/src/device.rs | 45 +++++++++++++++++++-------------
- 3 files changed, 29 insertions(+), 18 deletions(-)
-
-diff --git a/rust/hw/timer/hpet/Cargo.toml b/rust/hw/timer/hpet/Cargo.toml
-index f781b28d8b..5567eefda4 100644
---- a/rust/hw/timer/hpet/Cargo.toml
-+++ b/rust/hw/timer/hpet/Cargo.toml
-@@ -18,6 +18,7 @@ bql = { path = "../../../bql" }
- qom = { path = "../../../qom" }
- system = { path = "../../../system" }
- hwcore = { path = "../../../hw/core" }
-+trace = { path = "../../../trace" }
- 
- [lints]
- workspace = true
-diff --git a/rust/hw/timer/hpet/meson.build b/rust/hw/timer/hpet/meson.build
-index bb64b96672..465995bb5a 100644
---- a/rust/hw/timer/hpet/meson.build
-+++ b/rust/hw/timer/hpet/meson.build
-@@ -11,6 +11,7 @@ _libhpet_rs = static_library(
-     qom_rs,
-     system_rs,
-     hwcore_rs,
-+    trace_rs
-   ],
- )
- 
-diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
-index 3564aa79c6..90b0ae927c 100644
---- a/rust/hw/timer/hpet/src/device.rs
-+++ b/rust/hw/timer/hpet/src/device.rs
-@@ -32,6 +32,8 @@
- 
- use crate::fw_cfg::HPETFwConfig;
- 
-+::trace::include_trace!("hw_timer");
-+
- /// Register space for each timer block (`HPET_BASE` is defined in hpet.h).
- const HPET_REG_SPACE_LEN: u64 = 0x400; // 1024 bytes
- 
-@@ -402,7 +404,8 @@ fn del_timer(&mut self) {
- 
-     /// Configuration and Capability Register
-     fn set_tn_cfg_reg(&mut self, shift: u32, len: u32, val: u64) {
--        // TODO: Add trace point - trace_hpet_ram_write_tn_cfg(addr & 4)
-+        trace::trace_hpet_ram_write_tn_cfg((shift / 8).try_into().unwrap());
-+
-         let old_val: u64 = self.config;
-         let mut new_val: u64 = old_val.deposit(shift, len, val);
-         new_val = hpet_fixup_reg(new_val, old_val, HPET_TN_CFG_WRITE_MASK);
-@@ -435,17 +438,18 @@ fn set_tn_cmp_reg(&mut self, shift: u32, len: u32, val: u64) {
-         let mut length = len;
-         let mut value = val;
- 
--        // TODO: Add trace point - trace_hpet_ram_write_tn_cmp(addr & 4)
-         if self.is_32bit_mod() {
-             // High 32-bits are zero, leave them untouched.
-             if shift != 0 {
--                // TODO: Add trace point - trace_hpet_ram_write_invalid_tn_cmp()
-+                trace::trace_hpet_ram_write_invalid_tn_cmp();
-                 return;
-             }
-             length = 64;
-             value = u64::from(value as u32); // truncate!
-         }
- 
-+        trace::trace_hpet_ram_write_tn_cmp((shift / 8).try_into().unwrap());
-+
-         if !self.is_periodic() || self.is_valset_enabled() {
-             self.cmp = self.cmp.deposit(shift, length, value);
-         }
-@@ -512,6 +516,9 @@ const fn read(&self, reg: TimerRegister) -> u64 {
- 
-     fn write(&mut self, reg: TimerRegister, value: u64, shift: u32, len: u32) {
-         use TimerRegister::*;
-+
-+        trace::trace_hpet_ram_write_timer_id(self.index as u64);
-+
-         match reg {
-             CFG => self.set_tn_cfg_reg(shift, len, value),
-             CMP => self.set_tn_cmp_reg(shift, len, value),
-@@ -689,15 +696,13 @@ fn set_int_status_reg(&self, shift: u32, _len: u32, val: u64) {
-     /// Main Counter Value Register
-     fn set_counter_reg(&self, shift: u32, len: u32, val: u64) {
-         if self.is_hpet_enabled() {
--            // TODO: Add trace point -
--            // trace_hpet_ram_write_counter_write_while_enabled()
--            //
-             // HPET spec says that writes to this register should only be
-             // done while the counter is halted. So this is an undefined
-             // behavior. There's no need to forbid it, but when HPET is
-             // enabled, the changed counter value will not affect the
-             // tick count (i.e., the previously calculated offset will
-             // not be changed as well).
-+            trace::trace_hpet_ram_write_counter_write_while_enabled();
-         }
-         self.counter
-             .set(self.counter.get().deposit(shift, len, val));
-@@ -787,11 +792,10 @@ fn decode(&self, mut addr: hwaddr, size: u32) -> HPETAddrDecode<'_> {
-         } else {
-             let timer_id: usize = ((addr - 0x100) / 0x20) as usize;
-             if timer_id < self.num_timers {
--                // TODO: Add trace point - trace_hpet_ram_[read|write]_timer_id(timer_id)
-                 TimerRegister::try_from(addr & 0x18)
-                     .map(|reg| HPETRegister::Timer(&self.timers[timer_id], reg))
-             } else {
--                // TODO: Add trace point -  trace_hpet_timer_id_out_of_range(timer_id)
-+                trace::trace_hpet_timer_id_out_of_range(timer_id.try_into().unwrap());
-                 Err(addr)
-             }
-         };
-@@ -803,7 +807,8 @@ fn decode(&self, mut addr: hwaddr, size: u32) -> HPETAddrDecode<'_> {
-     }
- 
-     fn read(&self, addr: hwaddr, size: u32) -> u64 {
--        // TODO: Add trace point - trace_hpet_ram_read(addr)
-+        trace::trace_hpet_ram_read(addr);
-+
-         let HPETAddrDecode { shift, reg, .. } = self.decode(addr, size);
- 
-         use GlobalRegister::*;
-@@ -814,16 +819,21 @@ fn read(&self, addr: hwaddr, size: u32) -> u64 {
-             Global(CFG) => self.config.get(),
-             Global(INT_STATUS) => self.int_status.get(),
-             Global(COUNTER) => {
--                // TODO: Add trace point
--                // trace_hpet_ram_read_reading_counter(addr & 4, cur_tick)
--                if self.is_hpet_enabled() {
-+                let cur_tick = if self.is_hpet_enabled() {
-                     self.get_ticks()
-                 } else {
-                     self.counter.get()
--                }
-+                };
-+
-+                trace::trace_hpet_ram_read_reading_counter(
-+                    (addr & 4) as u8,
-+                    cur_tick
-+                );
-+
-+                cur_tick
-             }
-             Unknown(_) => {
--                // TODO: Add trace point- trace_hpet_ram_read_invalid()
-+                trace::trace_hpet_ram_read_invalid();
-                 0
-             }
-         }) >> shift
-@@ -832,7 +842,8 @@ fn read(&self, addr: hwaddr, size: u32) -> u64 {
-     fn write(&self, addr: hwaddr, value: u64, size: u32) {
-         let HPETAddrDecode { shift, len, reg } = self.decode(addr, size);
- 
--        // TODO: Add trace point - trace_hpet_ram_write(addr, value)
-+        trace::trace_hpet_ram_write(addr, value);
-+
-         use GlobalRegister::*;
-         use HPETRegister::*;
-         match reg {
-@@ -841,9 +852,7 @@ fn write(&self, addr: hwaddr, value: u64, size: u32) {
-             Global(CFG) => self.set_cfg_reg(shift, len, value),
-             Global(INT_STATUS) => self.set_int_status_reg(shift, len, value),
-             Global(COUNTER) => self.set_counter_reg(shift, len, value),
--            Unknown(_) => {
--                // TODO: Add trace point - trace_hpet_ram_write_invalid()
--            }
-+            Unknown(_) => trace::trace_hpet_ram_write_invalid(),
-         }
-     }
- 
--- 
-2.51.1
-
+>  hw/timer/trace-events | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/hw/timer/trace-events b/hw/timer/trace-events
+> index 2bb51f95ea..f3fca6fc9b 100644
+> --- a/hw/timer/trace-events
+> +++ b/hw/timer/trace-events
+> @@ -112,7 +112,6 @@ sh_timer_write(uint64_t offset, uint64_t value) "tmu0=
+12_write 0x%" PRIx64 " 0x%0
+>
+>  # hpet.c
+>  hpet_timer_id_out_of_range(uint8_t timer_id) "timer id out of range: 0x%=
+" PRIx8
+> -hpet_invalid_hpet_cfg(uint8_t reg_off) "invalid HPET_CFG + %u" PRIx8
+>  hpet_ram_read(uint64_t addr) "enter hpet_ram_readl at 0x%" PRIx64
+>  hpet_ram_read_reading_counter(uint8_t reg_off, uint64_t cur_tick) "readi=
+ng counter + %" PRIu8 " =3D 0x%" PRIx64
+>  hpet_ram_read_invalid(void) "invalid hpet_ram_readl"
+> @@ -123,4 +122,3 @@ hpet_ram_write_tn_cmp(uint8_t reg_off) "hpet_ram_writ=
+el HPET_TN_CMP + %" PRIu8
+>  hpet_ram_write_invalid_tn_cmp(void) "invalid HPET_TN_CMP + 4 write"
+>  hpet_ram_write_invalid(void) "invalid hpet_ram_writel"
+>  hpet_ram_write_counter_write_while_enabled(void) "Writing counter while =
+HPET enabled!"
+> -hpet_ram_write_counter_written(uint8_t reg_off, uint64_t value, uint64_t=
+ counter) "HPET counter + %" PRIu8 "written. crt =3D 0x%" PRIx64 " -> 0x%" =
+PRIx64
+> --
+> 2.51.1
+>
 
