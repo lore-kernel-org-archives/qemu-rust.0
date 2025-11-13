@@ -4,90 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C92FCD5BCC
-	for <qemu-rust@archiver.kernel.org>; Thu, 13 Nov 2025 11:25:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D428BCD6E6C
+	for <qemu-rust@archiver.kernel.org>; Thu, 13 Nov 2025 14:37:16 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vJVSX-0006Mx-P7; Thu, 13 Nov 2025 06:25:50 -0500
+	id 1vJYRV-0008Rd-QT; Thu, 13 Nov 2025 09:36:57 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vJVR6-0004wX-6V
- for qemu-rust@nongnu.org; Thu, 13 Nov 2025 06:24:20 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1vJYKu-0002P0-OM
+ for qemu-rust@nongnu.org; Thu, 13 Nov 2025 09:30:09 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vJVR3-0004jT-AV
- for qemu-rust@nongnu.org; Thu, 13 Nov 2025 06:24:19 -0500
+ id 1vJYKr-0001A9-Sh
+ for qemu-rust@nongnu.org; Thu, 13 Nov 2025 09:30:08 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1763033054;
+ s=mimecast20190719; t=1763044203;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8Z2rsvFsRHtNo5+guLuIKBXUqNmxGpadym/vy8UXaCI=;
- b=WW9M2qoOwOgG6IJfUt1fEHTnNo/ksYQSRe2+sHcdzLZHQ4oGr0dwbKFDflIGb+ODUBiDD0
- OfDB1UklPPA9tRAPchDoJjUHkJuvYMpt7Fk9fvUtlu7LjNbJWV215kAFnFkcZ9gv/a8zfK
- ol9Sj/2UG0ilDIqEnbgiWP9vW5sTei4=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=1qr20ZyZERt2gMXdQ/W6asiXmbcaJ9I0n9I3WfoiU8Q=;
+ b=I/g3TbZrV4sfbUUke2m68QtrtpVWACXDV3Zrtb+9aYKlCwSYzY89FC7WldmGzZcM5EXBRP
+ VYeY/Kd9lJKjB+RVm45Es7G7k7RgtJ9uWZ7Bz9fc8UmhLQV3gd8dnUNAAcv4xLeFU9ycQ/
+ k7w8W2dbnCNQCgk+NPCEooEph5Qc0J0=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-100-4hfF4g0kNPaxllBP_pitFg-1; Thu, 13 Nov 2025 06:24:11 -0500
-X-MC-Unique: 4hfF4g0kNPaxllBP_pitFg-1
-X-Mimecast-MFC-AGG-ID: 4hfF4g0kNPaxllBP_pitFg_1763033050
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-42b352355a1so880188f8f.1
- for <qemu-rust@nongnu.org>; Thu, 13 Nov 2025 03:24:11 -0800 (PST)
+ us-mta-311-Q7vpJgqCOBeA3M4lebRjWg-1; Thu, 13 Nov 2025 09:30:02 -0500
+X-MC-Unique: Q7vpJgqCOBeA3M4lebRjWg-1
+X-Mimecast-MFC-AGG-ID: Q7vpJgqCOBeA3M4lebRjWg_1763044201
+Received: by mail-ej1-f72.google.com with SMTP id
+ a640c23a62f3a-b73586b1195so48566766b.3
+ for <qemu-rust@nongnu.org>; Thu, 13 Nov 2025 06:30:01 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763033050; x=1763637850;
+ d=1e100.net; s=20230601; t=1763044201; x=1763649001;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8Z2rsvFsRHtNo5+guLuIKBXUqNmxGpadym/vy8UXaCI=;
- b=OnGklJqPS8aEjpZoAuid59Q2k8KSEzUy263buCIWpaRbvc3FY4+7LtWM5OawrlM12m
- npbsl3Yc2EpUGD3yBxMzu6eOFVj1vQfLdwGvN2oXggOoIxVIy/xGLtj0X+I81qudO3Dj
- kDll++f9bNKtXzi07P32jkLf0SXwgfu0C8npMjrhwnmBgpp7xE6JUh9r2xMdALZf1J7O
- mTgX13LxY6oqZYR14gmki3k+sNXhdrujmiCZPC9PlPoVDtIuLAVT5oSRM2FByc77ipuJ
- RLgBW6eizcEWtcT0FLrpxQwK+RNeKJ6o/4rSkJoas7RiD/z3dBzcYN8ZA7qFyPN1BK9V
- wzDA==
+ bh=1qr20ZyZERt2gMXdQ/W6asiXmbcaJ9I0n9I3WfoiU8Q=;
+ b=LIBgc995Abdh4UIKtpwmm3NV2rL0OFuwTiLLa2I64WrDHExsbBGVePJeFCTRc9onBV
+ PBgDmkCwStRFy3IVx/h3ys3RVU3lxfylAz6xVxbOvpAdMKAFAvLVq2VmO1sqBixQ8+gY
+ bMhmwdcYajvhNZocBxyRoYZ+KWCkt0fB2UYY1REQ8uhOxzkV1jOKCkcDYqhTlUu1CuNB
+ 5cfWUIeuJdogQDrGYSunQwa/4mbRw0yeMrL47m2dAQMNJOzvfx2HnThOKeAOrstNjXRB
+ Ko6ir6A7oZOLcEZGrYXmrdV+tbMjTXisENQ3bikzPzvbN454HapMUsi21KhjjS5cDymP
+ fhzA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUJBvzH9kC++bNdpRDMv75PnXd0vwI7yh0hA6No8NudEmYtBuchKuZNv0366unrZtyG5yVbnaCSGBY=@nongnu.org
-X-Gm-Message-State: AOJu0YwC96+s7UbmGSjwxMBH8xUQmbbRExer4Z3UldsVj9eWi6uGWTmv
- tIh4OV/Q57YQzjDmVnjZhAgAo0YX0gdc/6aikFvP8mkXl0iH7CNF/exNoDjg/rHpex/kA1s28Xp
- GIyUcvhBvYSbnIMjIxDfmBMUUQLkS4MDkSyqeTP5JGt7CH503hYbcH44=
-X-Gm-Gg: ASbGnctcUsKIVy5NsZ5woe7ZNAUL9MYsep004ZwdBBGoCtp0mP6LiSHxmCUfznOnJzU
- OzscC3dnvCdAVn1XY0b4lzermLDGSTn0BRebIqGly5pKeeU6DipNyg3vQUbHs/AUw69MGfiCzDx
- j9NsC1g4T3obggRZTARAt1TBDPa19lwWQ2hMAhzOwN5jEAW/FHy+fChuQXuXrKcvl5rDsqwlDds
- KXv1MrxkiZZIFIuvggj5ZPP5tWc7rTzRNCRbkiW2g898RG0SzV9YS1tON+BdO0OGZXvywWcwdwy
- V8mnI4PpaOF04X7qcdJxmVLc/1ewzZEJhvyzJelYg02D+1aNOQxjc8nOQdaEOEqqlLJ1GUsI0lS
- aNHmBiQE2gZmUAldkoCxeROAHf7y+jZ4DfDJwkqccDdR6X2KJnMMBkSJrOXzgT4DCyu9LSsE6zH
- uOeCrB
-X-Received: by 2002:a05:6000:2889:b0:407:d776:4434 with SMTP id
- ffacd0b85a97d-42b52845265mr2838980f8f.30.1763033049649; 
- Thu, 13 Nov 2025 03:24:09 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGsENULbT24iZNKgIUmRxnPeMntc+zfqzKc8S+B4+fVTnyqFquPrw4c1VoElDvkknoJN/e3Tw==
-X-Received: by 2002:a05:6000:2889:b0:407:d776:4434 with SMTP id
- ffacd0b85a97d-42b52845265mr2838940f8f.30.1763033049103; 
- Thu, 13 Nov 2025 03:24:09 -0800 (PST)
+ AJvYcCXoDClDWKpHk+ivN8yBD0TOTUlVkm/Ydim+puSl5+oWcHYBjB+YpKzmXt5ub14NNPMgsQJ5YyyirY4=@nongnu.org
+X-Gm-Message-State: AOJu0YwMre9dRrtz70IBGfV8FVNhRQKORBJ38tN12IPTzI9vL8U7GjZY
+ BoEcR64oGjjPkzZRsYuzbBxFCL9l1nDFF6aGsgyaLlNsY5j41iD1ZE7OK+cII1XQGWkuyBaIyXN
+ VitfmaBv6nlWvgwIUnQdtEdVUH6idZvNaQOfXqMcaWmkLkmHsoLSs0wE=
+X-Gm-Gg: ASbGnctVd7v0ZVM5V1HpYWJMcqbnNdxBUv68ugj4goHg2hFSaz9i91oFdsckxHeZT4a
+ O/TU0I0mrUjINKyHIpO8wVY7U6DjHBVnbmEWhEeIetk31Wu3/eE2yia8Rcyc+nx/w/NM9c9WeEW
+ gJzcDJw4LhMGx2x+8hm8CBcgVA7AuCd710Pruf7wP7mPDL7p6SnMWRbDNSV9oBvCQBJ4z48eV1D
+ 1NtsZhrIwvvcrUT2BXLYYOwqdAdRDhzEYZ6c2VUwHmgctmyINF/Qi3LZUOMjChlR09+zLjPHyrv
+ Oqs6S0gRtbaC4PQwZLyjYiaV2/ufc6u+xMVIvJmob6FtTNd9H6UvPpulhp4e3lvjxrVtSQiw8IH
+ ZYy8kIbdzan0cQOn13FFEj18ZX3Z8oM6XLPmhgD7476xJlC+khehO3RJUyMRmw6Yy+Dy4O5nxUV
+ gqEgb7
+X-Received: by 2002:a17:907:9493:b0:b73:1b11:2ac2 with SMTP id
+ a640c23a62f3a-b7331b3bd59mr789858966b.63.1763044200791; 
+ Thu, 13 Nov 2025 06:30:00 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGPtf/Dl9N11d3a4qffn/l4s3DdirNqKWzR/S+5rVaL2MZ/+PDbFQAXehJbnDBmu7OcsacRXQ==
+X-Received: by 2002:a17:907:9493:b0:b73:1b11:2ac2 with SMTP id
+ a640c23a62f3a-b7331b3bd59mr789856966b.63.1763044200389; 
+ Thu, 13 Nov 2025 06:30:00 -0800 (PST)
 Received: from [192.168.10.81] ([176.206.119.13])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-42b53e7ae47sm3317190f8f.4.2025.11.13.03.24.07
+ a640c23a62f3a-b734fd809fasm175926166b.45.2025.11.13.06.29.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Nov 2025 03:24:08 -0800 (PST)
-Message-ID: <12e93226-b70d-4c9c-bf8a-db7e0e05b585@redhat.com>
-Date: Thu, 13 Nov 2025 12:24:07 +0100
+ Thu, 13 Nov 2025 06:29:59 -0800 (PST)
+Message-ID: <6ed6a959-fe49-4635-9051-b9bbc91dd2e4@redhat.com>
+Date: Thu, 13 Nov 2025 15:29:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/22] rust/hpet: Abstract HPETTimerRegisters struct
+Subject: Re: [PATCH 22/22] rust/hpet: Enable lockless IO
 To: Zhao Liu <zhao1.liu@intel.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>
 Cc: Igor Mammedov <imammedo@redhat.com>, qemu-devel@nongnu.org,
  qemu-rust@nongnu.org
 References: <20251113051937.4017675-1-zhao1.liu@intel.com>
- <20251113051937.4017675-11-zhao1.liu@intel.com>
+ <20251113051937.4017675-23-zhao1.liu@intel.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -124,14 +124,14 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20251113051937.4017675-11-zhao1.liu@intel.com>
+In-Reply-To: <20251113051937.4017675-23-zhao1.liu@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: WLS7LSxpHgL8vnVIImBIaXZTpp3d3uWq2CrBO7x7yGY_1763033050
+X-Mimecast-MFC-PROC-ID: Av1nRtm0evWwJOLysVpUQb2xQtgDfkqGDZnSQIT1Ryk_1763044201
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
@@ -139,8 +139,8 @@ X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -157,358 +157,56 @@ Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 On 11/13/25 06:19, Zhao Liu wrote:
-> Place all timer N's registers in a HPETTimerRegisters struct.
+> Enable lockless IO for HPET to allow BQL free MMIO access.
 > 
-> This allows all Timer N registers to be grouped together with global
-> registers and managed using a single lock (BqlRefCell or Mutex) in
-> future. And this makes it easier to apply ToMigrationState macro.
+> But BQL context is still needed for some cases during MMIO:
+>   * IRQ handling:
+> 
+>     Like C version of HPET did (commit d99041a20328 ("hpet: guard IRQ
+>     handling with BQL"), BQL context is needed during IRQ handling.
+> 
+>     But Rust HPET has an extra reason that InterruptSource is placed in
+>     BqlCell, which requires BQL context explicitly. (This also shows
+>     that the BQL limitation in the design of the InterruptSource binding
+>     is reasonable.)
 
-This is pretty much the crucial patch in the series and it's the only
-one that needs more work, or some fixup at the end.
+Thanks, this is helpful.  It shows some complications that I honestly 
+hadn't thought about.  So many more things to be precise about, compared 
+to C...  but I have an idea which I'll mention below. :)
 
-In particular, more fields of HPETTimer need to be moved to the
-HPETTimerRegisters.  It's possible that it would be a problem to move
-the timer itself inside the mutex but, at least, the HPETTimer could be
-changed to just
+>   * BqlCell/BqlRefCell access.
+> 
+>     Except InterruptSource, HPETState has other BqlCell and BqlRefCell:
+>     hpet_offset (BqlCell<u64>), rtc_irq_level (BqlCell<u32>) and timers
+>     ([BqlRefCell<HPETTimer>; HPET_MAX_TIMERS]).
+> 
+>     Their data may change during runtime, so the atomic context is
+>     required.
 
-pub struct HPETTimer {
-     timer: QemuTimer,
-     state: NonNull<HPETState>,
-     index: u8,
-}
+I have already mentioned HPETTimer in the other email, but I would also 
+move hpet_offset to HPETRegisters if possible.  It doesn't seem hard.
 
-as in the patch included at the end (compile-tested only).  Then, the
-BqlRefCell<HPETTimer> can be changed to just HPETTimer because all the
-fields handle their interior-mutable fields.
+And as an aside, I wonder if you really need to pass MutexGuard and not 
+&mut HPETRegisters.  Once you don't have BQL dependencies, you can just 
+remove the assert!(bql::is_locked()) without switching to MutexGuard<>.
 
-Preserving the old migration format can then be solved in two ways:
+In the meanwhile, even if they are not perfect (especially due to 
+migration), I think touching patches 1-19 further is too messy, so I'll 
+rebase on top of Stefan's tracing patches and push them to rust-next. 
+Let's start from there and I'll take a look tomorrow maybe on how to fix 
+migration.  Migratable<HPETTimer> looks like a powerful tool for that.
 
-1) with a handwritten ToMigrationStateShared implementation for
-HPETTimer (and marking the tn_regs array as #[migration_state(omit)])
+Then the new problem is that we have to figure out a way to handle IRQs. 
+They are also messy for PL011 compared to the C version, and that will 
+make it possible to enable lockless IO.
 
-2) by also adding num_timers_save and the timer's expiration to
-HPETRegisters and HPETTimerRegisters, respectively.
-
-I think I prefer the former, but I haven't written the code so it's
-not my choice. :)
-
-I'm okay with doing these changes on top of these patches as well.
+The crazy idea that just came to mind, is a Latched<u32> that is 
+something like an (AtomicU32, BqlCell<u32>) tuple.  Then we set the 
+individual bits outside the BQL and update IRQs at the end of the MMIO 
+in a bql::with_guard() block.  Maybe if you have some time you can 
+prototype that for PL011 (even without generics, you could just do 
+LatchedU32 for a start)?
 
 Paolo
-
-diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
-index 75a6fd8a050..5ff02c01539 100644
---- a/rust/hw/timer/hpet/src/device.rs
-+++ b/rust/hw/timer/hpet/src/device.rs
-@@ -172,7 +172,7 @@ const fn deactivating_bit(old: u64, new: u64, shift: usize) -> bool {
-  }
-  
-  fn timer_handler(timer_cell: &BqlRefCell<HPETTimer>) {
--    let mut t = timer_cell.borrow_mut();
-+    let t = timer_cell.borrow();
-      // SFAETY: state field is valid after timer initialization.
-      let mut regs = unsafe { t.state.as_ref() }.regs.lock().unwrap();
-      t.callback(&mut regs)
-@@ -181,6 +181,9 @@ fn timer_handler(timer_cell: &BqlRefCell<HPETTimer>) {
-  #[repr(C)]
-  #[derive(Debug, Default, ToMigrationState)]
-  pub struct HPETTimerRegisters {
-+    // Only needed for migration
-+    index: u8,
-+
-      // Memory-mapped, software visible timer registers
-      /// Timer N Configuration and Capability Register
-      config: u64,
-@@ -188,9 +191,35 @@ pub struct HPETTimerRegisters {
-      cmp: u64,
-      /// Timer N FSB Interrupt Route Register
-      fsb: u64,
-+
-+    // Hidden register state
-+    /// comparator (extended to counter width)
-+    cmp64: u64,
-+    /// Last value written to comparator
-+    period: u64,
-+    /// timer pop will indicate wrap for one-shot 32-bit
-+    /// mode. Next pop will be actual timer expiration.
-+    wrap_flag: u8,
-+    /// last value armed, to avoid timer storms
-+    last: u64,
-  }
-  
-  impl HPETTimerRegisters {
-+    /// calculate next value of the general counter that matches the
-+    /// target (either entirely, or the low 32-bit only depending on
-+    /// the timer mode).
-+    fn update_cmp64(&mut self, cur_tick: u64) {
-+        self.cmp64 = if self.is_32bit_mod() {
-+            let mut result: u64 = cur_tick.deposit(0, 32, self.cmp);
-+            if result < cur_tick {
-+                result += 0x100000000;
-+            }
-+            result
-+        } else {
-+            self.cmp
-+        }
-+    }
-+
-      const fn is_fsb_route_enabled(&self) -> bool {
-          self.config & (1 << HPET_TN_CFG_FSB_ENABLE_SHIFT) != 0
-      }
-@@ -235,17 +264,6 @@ pub struct HPETTimer {
-      qemu_timer: Timer,
-      /// timer block abstraction containing this timer
-      state: NonNull<HPETState>,
--
--    // Hidden register state
--    /// comparator (extended to counter width)
--    cmp64: u64,
--    /// Last value written to comparator
--    period: u64,
--    /// timer pop will indicate wrap for one-shot 32-bit
--    /// mode. Next pop will be actual timer expiration.
--    wrap_flag: u8,
--    /// last value armed, to avoid timer storms
--    last: u64,
-  }
-  
-  // SAFETY: Sync is not automatically derived due to the `state` field,
-@@ -260,10 +278,6 @@ fn new(index: u8, state: *const HPETState) -> HPETTimer {
-              // is initialized below.
-              qemu_timer: unsafe { Timer::new() },
-              state: NonNull::new(state.cast_mut()).unwrap(),
--            cmp64: 0,
--            period: 0,
--            wrap_flag: 0,
--            last: 0,
-          }
-      }
-  
-@@ -291,22 +305,6 @@ fn is_int_active(&self, regs: &HPETRegisters) -> bool {
-          regs.is_timer_int_active(self.index.into())
-      }
-  
--    /// calculate next value of the general counter that matches the
--    /// target (either entirely, or the low 32-bit only depending on
--    /// the timer mode).
--    fn calculate_cmp64(&self, regs: &MutexGuard<HPETRegisters>, cur_tick: u64, target: u64) -> u64 {
--        let tn_regs = &regs.tn_regs[self.index as usize];
--        if tn_regs.is_32bit_mod() {
--            let mut result: u64 = cur_tick.deposit(0, 32, target);
--            if result < cur_tick {
--                result += 0x100000000;
--            }
--            result
--        } else {
--            target
--        }
--    }
--
-      fn get_int_route(&self, regs: &MutexGuard<HPETRegisters>) -> usize {
-          if self.index <= 1 && regs.is_legacy_mode() {
-              // If LegacyReplacement Route bit is set, HPET specification requires
-@@ -371,35 +369,34 @@ fn update_irq(&self, regs: &mut MutexGuard<HPETRegisters>, set: bool) {
-          self.set_irq(regs, set);
-      }
-  
--    fn arm_timer(&mut self, regs: &MutexGuard<HPETRegisters>, tick: u64) {
--        let tn_regs = &regs.tn_regs[self.index as usize];
-+    fn arm_timer(&self, tn_regs: &mut HPETTimerRegisters, tick: u64) {
-          let mut ns = self.get_state().get_ns(tick);
-  
-          // Clamp period to reasonable min value (1 us)
--        if tn_regs.is_periodic() && ns - self.last < 1000 {
--            ns = self.last + 1000;
-+        if tn_regs.is_periodic() && ns - tn_regs.last < 1000 {
-+            ns = tn_regs.last + 1000;
-          }
-  
--        self.last = ns;
--        self.qemu_timer.modify(self.last);
-+        tn_regs.last = ns;
-+        self.qemu_timer.modify(tn_regs.last);
-      }
-  
--    fn set_timer(&mut self, regs: &MutexGuard<HPETRegisters>) {
--        let tn_regs = &regs.tn_regs[self.index as usize];
-+    fn set_timer(&self, regs: &mut MutexGuard<HPETRegisters>) {
-+        let tn_regs = &mut regs.tn_regs[self.index as usize];
-          let cur_tick: u64 = self.get_state().get_ticks();
-  
--        self.wrap_flag = 0;
--        self.cmp64 = self.calculate_cmp64(regs, cur_tick, tn_regs.cmp);
-+        tn_regs.wrap_flag = 0;
-+        tn_regs.update_cmp64(cur_tick);
-          if tn_regs.is_32bit_mod() {
-              // HPET spec says in one-shot 32-bit mode, generate an interrupt when
-              // counter wraps in addition to an interrupt with comparator match.
--            if !tn_regs.is_periodic() && self.cmp64 > hpet_next_wrap(cur_tick) {
--                self.wrap_flag = 1;
--                self.arm_timer(regs, hpet_next_wrap(cur_tick));
-+            if !tn_regs.is_periodic() && tn_regs.cmp64 > hpet_next_wrap(cur_tick) {
-+                tn_regs.wrap_flag = 1;
-+                self.arm_timer(tn_regs, hpet_next_wrap(cur_tick));
-                  return;
-              }
-          }
--        self.arm_timer(regs, self.cmp64);
-+        self.arm_timer(tn_regs, tn_regs.cmp64);
-      }
-  
-      fn del_timer(&self, regs: &mut MutexGuard<HPETRegisters>) {
-@@ -440,7 +437,7 @@ fn prepare_tn_cfg_reg_new(
-  
-      /// Configuration and Capability Register
-      fn set_tn_cfg_reg(
--        &mut self,
-+        &self,
-          regs: &mut MutexGuard<HPETRegisters>,
-          shift: u32,
-          len: u32,
-@@ -462,7 +459,7 @@ fn set_tn_cfg_reg(
-          let tn_regs = &mut regs.tn_regs[self.index as usize];
-          if tn_regs.is_32bit_mod() {
-              tn_regs.cmp = u64::from(tn_regs.cmp as u32); // truncate!
--            self.period = u64::from(self.period as u32); // truncate!
-+            tn_regs.period = u64::from(tn_regs.period as u32); // truncate!
-          }
-  
-          if regs.is_hpet_enabled() {
-@@ -472,7 +469,7 @@ fn set_tn_cfg_reg(
-  
-      /// Comparator Value Register
-      fn set_tn_cmp_reg(
--        &mut self,
-+        &self,
-          regs: &mut MutexGuard<HPETRegisters>,
-          shift: u32,
-          len: u32,
-@@ -499,7 +496,7 @@ fn set_tn_cmp_reg(
-          }
-  
-          if tn_regs.is_periodic() {
--            self.period = self.period.deposit(shift, length, value);
-+            tn_regs.period = tn_regs.period.deposit(shift, length, value);
-          }
-  
-          tn_regs.clear_valset();
-@@ -520,10 +517,11 @@ fn set_tn_fsb_route_reg(
-          tn_regs.fsb = tn_regs.fsb.deposit(shift, len, val);
-      }
-  
--    fn reset(&mut self, regs: &mut MutexGuard<HPETRegisters>) {
-+    fn reset(&self, regs: &mut MutexGuard<HPETRegisters>) {
-          self.del_timer(regs);
-  
-          let tn_regs = &mut regs.tn_regs[self.index as usize];
-+        tn_regs.index = self.index;
-          tn_regs.cmp = u64::MAX; // Comparator Match Registers reset to all 1's.
-          tn_regs.config = (1 << HPET_TN_CFG_PERIODIC_CAP_SHIFT) | (1 << HPET_TN_CFG_SIZE_CAP_SHIFT);
-          if self.get_state().has_msi_flag() {
-@@ -532,29 +530,28 @@ fn reset(&mut self, regs: &mut MutexGuard<HPETRegisters>) {
-          // advertise availability of ioapic int
-          tn_regs.config |=
-              (u64::from(self.get_state().int_route_cap)) << HPET_TN_CFG_INT_ROUTE_CAP_SHIFT;
--        self.period = 0;
--        self.wrap_flag = 0;
-+        tn_regs.period = 0;
-+        tn_regs.wrap_flag = 0;
-      }
-  
-      /// timer expiration callback
--    fn callback(&mut self, regs: &mut MutexGuard<HPETRegisters>) {
-+    fn callback(&self, regs: &mut MutexGuard<HPETRegisters>) {
-          let tn_regs = &mut regs.tn_regs[self.index as usize];
--        let period: u64 = self.period;
-          let cur_tick: u64 = self.get_state().get_ticks();
-  
--        if tn_regs.is_periodic() && period != 0 {
--            while hpet_time_after(cur_tick, self.cmp64) {
--                self.cmp64 += period;
-+        if tn_regs.is_periodic() && tn_regs.period != 0 {
-+            while hpet_time_after(cur_tick, tn_regs.cmp64) {
-+                tn_regs.cmp64 += tn_regs.period;
-              }
-              if tn_regs.is_32bit_mod() {
--                tn_regs.cmp = u64::from(self.cmp64 as u32); // truncate!
-+                tn_regs.cmp = u64::from(tn_regs.cmp64 as u32); // truncate!
-              } else {
--                tn_regs.cmp = self.cmp64;
-+                tn_regs.cmp = tn_regs.cmp64;
-              }
--            self.arm_timer(regs, self.cmp64);
--        } else if self.wrap_flag != 0 {
--            self.wrap_flag = 0;
--            self.arm_timer(regs, self.cmp64);
-+            self.arm_timer(tn_regs, tn_regs.cmp64);
-+        } else if tn_regs.wrap_flag != 0 {
-+            tn_regs.wrap_flag = 0;
-+            self.arm_timer(tn_regs, tn_regs.cmp64);
-          }
-          self.update_irq(regs, true);
-      }
-@@ -571,7 +568,7 @@ fn read(&self, target: TimerRegister, regs: &MutexGuard<HPETRegisters>) -> u64 {
-      }
-  
-      fn write(
--        &mut self,
-+        &self,
-          target: TimerRegister,
-          regs: &mut MutexGuard<HPETRegisters>,
-          value: u64,
-@@ -731,7 +728,7 @@ fn set_cfg_reg(&self, regs: &mut MutexGuard<HPETRegisters>, shift: u32, len: u32
-              for timer in self.timers.iter().take(self.num_timers) {
-                  // Protect timer in lockless IO case which would not lock BQL.
-                  bql::with_guard(|| {
--                    let mut t = timer.borrow_mut();
-+                    let t = timer.borrow_mut();
-                      let id = t.index as usize;
-                      let tn_regs = &regs.tn_regs[id];
-  
-@@ -992,15 +989,14 @@ fn pre_save(&self) -> Result<(), migration::Infallible> {
-      }
-  
-      fn post_load(&self, _version_id: u8) -> Result<(), migration::Infallible> {
--        let regs = self.regs.lock().unwrap();
-+        let mut regs = self.regs.lock().unwrap();
-+        let cnt = regs.counter;
-  
--        for timer in self.timers.iter().take(self.num_timers) {
--            let mut t = timer.borrow_mut();
--            let cnt = regs.counter;
--            let cmp = regs.tn_regs[t.index as usize].cmp;
-+        for index in 0..self.num_timers {
-+            let tn_regs = &mut regs.tn_regs[index];
-  
--            t.cmp64 = t.calculate_cmp64(&regs, cnt, cmp);
--            t.last = CLOCK_VIRTUAL.get_ns() - NANOSECONDS_PER_SECOND;
-+            tn_regs.update_cmp64(cnt);
-+            tn_regs.last = CLOCK_VIRTUAL.get_ns() - NANOSECONDS_PER_SECOND;
-          }
-  
-          // Recalculate the offset between the main counter and guest time
-@@ -1072,9 +1068,12 @@ impl ObjectImpl for HPETState {
-          .version_id(1)
-          .minimum_version_id(1)
-          .fields(vmstate_fields! {
-+            vmstate_of!(HPETTimerRegistersMigration, index),
-              vmstate_of!(HPETTimerRegistersMigration, config),
-              vmstate_of!(HPETTimerRegistersMigration, cmp),
-              vmstate_of!(HPETTimerRegistersMigration, fsb),
-+            vmstate_of!(HPETTimerRegistersMigration, period),
-+            vmstate_of!(HPETTimerRegistersMigration, wrap_flag),
-          })
-          .build()
-  );
-@@ -1085,9 +1084,6 @@ impl ObjectImpl for HPETState {
-          .version_id(2)
-          .minimum_version_id(2)
-          .fields(vmstate_fields! {
--            vmstate_of!(HPETTimer, index),
--            vmstate_of!(HPETTimer, period),
--            vmstate_of!(HPETTimer, wrap_flag),
-              vmstate_of!(HPETTimer, qemu_timer),
-          })
-          .build();
 
 
