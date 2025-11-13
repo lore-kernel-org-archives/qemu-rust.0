@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEE43CD4F2F
-	for <qemu-rust@archiver.kernel.org>; Thu, 13 Nov 2025 05:00:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0849CCFA18
+	for <qemu-rust@archiver.kernel.org>; Thu, 13 Nov 2025 05:00:29 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vJPPD-0004vF-Mk; Wed, 12 Nov 2025 23:58:02 -0500
+	id 1vJPQY-00074y-Et; Wed, 12 Nov 2025 23:59:22 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vJPOx-0004lP-H7; Wed, 12 Nov 2025 23:57:43 -0500
+ id 1vJPPr-0005St-Uw; Wed, 12 Nov 2025 23:58:40 -0500
 Received: from mgamail.intel.com ([192.198.163.13])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vJPOs-0001c6-K6; Wed, 12 Nov 2025 23:57:40 -0500
+ id 1vJPPq-0001cQ-Aw; Wed, 12 Nov 2025 23:58:39 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763009859; x=1794545859;
+ t=1763009918; x=1794545918;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=zX1b/fem+6Jay0PpoUE7oh0H74VaN7d+HT2mFzMS8QA=;
- b=JSW5tEzMifHC2dr/Zn1gNtnx/b8Xm0gNndPVUhOnipXW72re5eFUN6aR
- NSwztqL+9S9OEwXwPx25gX5rkwVNQGaT6JShH0uiO9TZEGRpp6R/znXUt
- /CS6PyPjQWxEGMcDXUw2NpxW4cryMPsx7BYBhrZT83wrdhei98+ws1bqa
- 2soXkJlDfXSoVN6sS4pnuO05pEq8MIH81IX473dtMbY0vasBD9eyQrw3o
- Bq7qRUGem5RfulmZmAuK7PfT/wOzMRcH+FC+b3HfIEZZ9Fl2rLE6TgLkn
- HeSLCBUJ+GcgXiRciLcLWMaKqbi/vFOgXzLyHVI/inn5y8bsLAvBcZdWU Q==;
-X-CSE-ConnectionGUID: 4QgGMFKOS5K6H4dnZ/i9Mg==
-X-CSE-MsgGUID: LRcxAtDCRbqAWVvEO9+nhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11611"; a="67682079"
-X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; d="scan'208,217";a="67682079"
+ bh=193x3cEaO/W8kqPWarKPTbJLO0e1R1MsTOdBlF+JlVs=;
+ b=SozMra+rrd9GSmNxOwnKyGaOjEhN4XWWN0xxZbX/VIKrmTHz483EvEVo
+ GefGiFUP9Adm987df9uiuWVWFZT6S8SVGTWRf+CPl9Q43bhsolV3Q92m3
+ /YrOG/oU5MGLfmHjLxmZM8gActC7bjxULkuLu5GMsE2PTGJGVlQ9wD2Jo
+ 5xtq6VYxgKtlT6NtY9kJ72QVEQ5c87DHr8oUPLhPEoyN91WkuKX5Acemr
+ hxOmZx9UstitpflOyxT3yGJcURbTUjPRASYW4WwJw8y3DVw/DRcfu5dkk
+ 75ZJykiXmI526XWIo8KrftDC7Sux7/MGZk2+1DyYLrI74LKt75Ru6sN5x g==;
+X-CSE-ConnectionGUID: SLqfU5ZwSia9GjunceJePQ==
+X-CSE-MsgGUID: M+N4W89sRkyJ9D2eXeD2cw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11611"; a="67682172"
+X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; d="scan'208";a="67682172"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2025 20:57:34 -0800
-X-CSE-ConnectionGUID: HAwCeUqDTg2mOu5CSWUuFQ==
-X-CSE-MsgGUID: Y4wtPsrZT++8QW+/HdOE8g==
+ 12 Nov 2025 20:58:04 -0800
+X-CSE-ConnectionGUID: MIinsMTLTLyyjQLXC4FnZg==
+X-CSE-MsgGUID: AEFg1L/CR1G4/wZZbloVew==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; 
- d="scan'208,217";a="193663241"
+X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; d="scan'208";a="193663482"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa005.fm.intel.com with ESMTP; 12 Nov 2025 20:57:32 -0800
+ by fmviesa005.fm.intel.com with ESMTP; 12 Nov 2025 20:58:02 -0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
 Cc: Igor Mammedov <imammedo@redhat.com>, qemu-devel@nongnu.org,
  qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 06/22] rust/memory: Add enable_lockless_io binding
-Date: Thu, 13 Nov 2025 13:19:21 +0800
-Message-Id: <20251113051937.4017675-7-zhao1.liu@intel.com>
+Subject: [PATCH 20/22] rust/hpet: Apply Migratable<> wrapper and
+ ToMigrationState for HPETRegisters
+Date: Thu, 13 Nov 2025 13:19:35 +0800
+Message-Id: <20251113051937.4017675-21-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251113051937.4017675-1-zhao1.liu@intel.com>
 References: <20251113051937.4017675-1-zhao1.liu@intel.com>
@@ -83,54 +83,107 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Directly wrap the memory_region_enable_lockless_io() in
-MemoryRegion::enable_lockless_io.
+Before using Mutex<> to protect HPETRegisters, it's necessary to apply
+Migratable<> wrapper and ToMigrationState first since there's no
+pre-defined VMState for Mutex<>.
 
-Although memory_region_enable_lockless_io() just sets 2 fields at C
-side, it's not necessary to totally implement it at Rust side, instead,
-simply wrap and reuse existing C interfaces.
-
-This will save some effort when modifying the interface in the future
-(changes are likely to occur, as there is a TODO in the C code).
+Though HPETRegistersMigration and HPETTimerRegistersMigration structs are
+generated by ToMigrationState macro, their VMStates still need to be
+implemented by hand.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- rust/system/src/memory.rs | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ rust/hw/timer/hpet/src/device.rs | 32 +++++++++++++++++---------------
+ 1 file changed, 17 insertions(+), 15 deletions(-)
 
-diff --git a/rust/system/src/memory.rs b/rust/system/src/memory.rs
-index 4b3316bf767f..e4bfbed1febe 100644
---- a/rust/system/src/memory.rs
-+++ b/rust/system/src/memory.rs
-@@ -12,7 +12,9 @@
- use common::{callbacks::FnCall, uninit::MaybeUninitField, zeroable::Zeroable, Opaque};
- use qom::prelude::*;
- 
--use crate::bindings::{self, device_endian, memory_region_init_io};
-+use crate::bindings::{
-+    self, device_endian, memory_region_enable_lockless_io, memory_region_init_io,
-+};
- pub use crate::bindings::{hwaddr, MemTxAttrs};
- 
- pub struct MemoryRegionOps<T>(
-@@ -172,6 +174,17 @@ pub fn init_io<T: IsA<Object>>(
-             );
-         }
-     }
-+
-+    /// Enable lockless (BQL free) acceess.
-+    ///
-+    /// Enable BQL-free access for devices that are well prepared to handle
-+    /// locking during I/O themselves: either by doing fine grained locking or
-+    /// by providing lock-free I/O schemes.
-+    pub fn enable_lockless_io(&self) {
-+        // SAFETY: MemoryRegion is wrapped by Opaque<>, it's safe to get a
-+        // raw pointer as *mut MemoryRegion.
-+        unsafe { memory_region_enable_lockless_io(self.as_mut_ptr()) }
-+    }
+diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
+index 73a1c87abd95..42e2e8d070c3 100644
+--- a/rust/hw/timer/hpet/src/device.rs
++++ b/rust/hw/timer/hpet/src/device.rs
+@@ -18,7 +18,7 @@
+ };
+ use migration::{
+     self, impl_vmstate_struct, vmstate_fields, vmstate_of, vmstate_subsections, vmstate_validate,
+-    VMStateDescription, VMStateDescriptionBuilder,
++    Migratable, ToMigrationState, VMStateDescription, VMStateDescriptionBuilder,
+ };
+ use qom::{prelude::*, ObjectImpl, ParentField, ParentInit};
+ use system::{
+@@ -184,7 +184,7 @@ fn timer_handler(timer_cell: &BqlRefCell<HPETTimer>) {
  }
  
- unsafe impl ObjectType for MemoryRegion {
+ #[repr(C)]
+-#[derive(Debug, Default)]
++#[derive(Debug, Default, ToMigrationState)]
+ pub struct HPETTimerRegisters {
+     // Memory-mapped, software visible timer registers
+     /// Timer N Configuration and Capability Register
+@@ -663,7 +663,7 @@ fn write(
+ }
+ 
+ #[repr(C)]
+-#[derive(Default)]
++#[derive(Default, ToMigrationState)]
+ pub struct HPETRegisters {
+     // HPET block Registers: Memory-mapped, software visible registers
+     /// General Capabilities and ID Register
+@@ -701,7 +701,7 @@ fn is_timer_int_active(&self, index: usize) -> bool {
+ pub struct HPETState {
+     parent_obj: ParentField<SysBusDevice>,
+     iomem: MemoryRegion,
+-    regs: BqlRefCell<HPETRegisters>,
++    regs: Migratable<BqlRefCell<HPETRegisters>>,
+ 
+     // Internal state
+     /// Capabilities that QEMU HPET supports.
+@@ -1120,16 +1120,17 @@ impl ObjectImpl for HPETState {
+         })
+         .build();
+ 
++// HPETTimerRegistersMigration is generated by ToMigrationState macro.
+ impl_vmstate_struct!(
+-    HPETTimerRegisters,
+-    VMStateDescriptionBuilder::<HPETTimerRegisters>::new()
++    HPETTimerRegistersMigration,
++    VMStateDescriptionBuilder::<HPETTimerRegistersMigration>::new()
+         .name(c"hpet_timer/regs")
+         .version_id(1)
+         .minimum_version_id(1)
+         .fields(vmstate_fields! {
+-            vmstate_of!(HPETTimerRegisters, config),
+-            vmstate_of!(HPETTimerRegisters, cmp),
+-            vmstate_of!(HPETTimerRegisters, fsb),
++            vmstate_of!(HPETTimerRegistersMigration, config),
++            vmstate_of!(HPETTimerRegistersMigration, cmp),
++            vmstate_of!(HPETTimerRegistersMigration, fsb),
+         })
+         .build()
+ );
+@@ -1151,17 +1152,18 @@ impl ObjectImpl for HPETState {
+ 
+ const VALIDATE_TIMERS_NAME: &CStr = c"num_timers must match";
+ 
++// HPETRegistersMigration is generated by ToMigrationState macro.
+ impl_vmstate_struct!(
+-    HPETRegisters,
+-    VMStateDescriptionBuilder::<HPETRegisters>::new()
++    HPETRegistersMigration,
++    VMStateDescriptionBuilder::<HPETRegistersMigration>::new()
+         .name(c"hpet/regs")
+         .version_id(2)
+         .minimum_version_id(2)
+         .fields(vmstate_fields! {
+-            vmstate_of!(HPETRegisters, config),
+-            vmstate_of!(HPETRegisters, int_status),
+-            vmstate_of!(HPETRegisters, counter),
+-            vmstate_of!(HPETRegisters, tn_regs),
++            vmstate_of!(HPETRegistersMigration, config),
++            vmstate_of!(HPETRegistersMigration, int_status),
++            vmstate_of!(HPETRegistersMigration, counter),
++            vmstate_of!(HPETRegistersMigration, tn_regs),
+         })
+         .build()
+ );
 -- 
 2.34.1
 
