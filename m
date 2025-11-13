@@ -4,104 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DC99CCFA1A
-	for <qemu-rust@archiver.kernel.org>; Tue, 11 Nov 2025 08:23:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D2BCCCFA18
+	for <qemu-rust@archiver.kernel.org>; Thu, 13 Nov 2025 04:57:56 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vIjf2-0007Sr-H7; Tue, 11 Nov 2025 03:23:32 -0500
+	id 1vJPP8-0004pQ-J8; Wed, 12 Nov 2025 23:57:54 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vIjev-0007OW-0v
- for qemu-rust@nongnu.org; Tue, 11 Nov 2025 03:23:25 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vJPOp-0004jo-AZ; Wed, 12 Nov 2025 23:57:40 -0500
+Received: from mgamail.intel.com ([192.198.163.13])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vIjet-0005AN-4h
- for qemu-rust@nongnu.org; Tue, 11 Nov 2025 03:23:24 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1762849400;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
- b=VMjEvhVl4UECRNXBGAidzn9yhSJwHsVcmNbbbZLMtTSJJjjTo6MiypKoHzFnqcb1ZdY5W0
- CqHAKgdRsCbnrXucMHGD7ocLNcba6Irs4raaxdvavDlQtNBwNA/vJ5hJ9hENVo/81+X380
- RPyuAIoKpfN/Wg+7OJEZZB6Jfkj8I5M=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-61-cehWBbNPNmmdempbpgBXxQ-1; Tue, 11 Nov 2025 03:23:19 -0500
-X-MC-Unique: cehWBbNPNmmdempbpgBXxQ-1
-X-Mimecast-MFC-AGG-ID: cehWBbNPNmmdempbpgBXxQ_1762849398
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4775d110fabso30034355e9.1
- for <qemu-rust@nongnu.org>; Tue, 11 Nov 2025 00:23:19 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762849398; x=1763454198;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
- b=OZZZWOg7nAvEKVlmP/0Ct6B8m0B5DUrxEt1erVxluUAIaUH3vQD2CjMTIDEBzJsEYC
- Z1358iUXtjUOrsNq7/CoHjxOStRtqBY3r23O5k44/GgTSq7rh43wjQNzpZ2xNi9SWS8Y
- YJweX+Xefw+vd3a+reFRFdGkrKX/FFN4HInth8lvusj/Q9BceSofvgXk8oArS93hiojc
- 9KcSQ+KRhif3+yrLX+TSNOVqZFfDQOkDRBbGkPXZwqFA45eztTh7m8cBMOFZl8odHNhf
- cNEDeCU8XLfLmPahHj6w/qZMyjGIDnqsHONMVk2EsKWVa5lwUHj50rW9IOjhFEC0GXGD
- 4Wvg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXOfo0QyyGhXBsfgEHlRLdfcEkwEHfLR7b7erS5RtR9CZnXow0zvkI0nAjKa5Nb98tlVEOSBSOwGYQ=@nongnu.org
-X-Gm-Message-State: AOJu0YxxoUycWWvr4rzqbwiBWeIuBcLI9YJiCp3i1G23JcEXFt287SJF
- b2suG7HYXTW5tlvGhbD0oqLba4R6G7tHqOp1IZjFTIVs/8dwgP4nE36kUVSra1EqQ06Y4vZyGh9
- P3NTfYKK0ctb6UIUkIF8S9VguW8UZ5KtCOGzFl/oNvPEa9uXUYfDQM18=
-X-Gm-Gg: ASbGncsE1MzbOsibF2RrhDr0u7ANSRh2rQ3ui2/I0L7wVzLX9GE56pesKV3acNKK9qQ
- 8P5wsfMbPu1F147PEnjHEpCM2Eg+7xbR5Wx0h3voaNqRKYgzbEsoI9Vnx3ViFQJqXCfH7/87lY+
- e2JNCxMjFQu4+OJI2nAheDXQ6oR6BByb3IP+en5+PL+RM8fiv5+jsGhK5xTnJXpSdetG5hi8q5/
- 5KkWpOF5aq/CmjHDucV/Zp2o61x4x4DMkGXYkJJk6rCHQTnrWyE1KZHaqF4RgDAdQaGP4q1C+/G
- CHhtlCy7q9LmJ/7tcTqxP+yPSPng+ksQGjRKbou2hBUiOu6NhPyZa+aJPR/cRxE1Q+GciVD9YZt
- kMTnc8C4PSqxuGtH6n1q8MkbhPu2oqx5vb6rZrXYet9tE0p9iAhfWQw0oNhSO+Zk4qhYleAbfpP
- /t0Elb9w==
-X-Received: by 2002:a05:600c:2297:b0:46e:4a30:2b0f with SMTP id
- 5b1f17b1804b1-47773465fc0mr74951805e9.29.1762849398112; 
- Tue, 11 Nov 2025 00:23:18 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEaPHyFWp36Iv7gT3TVS0tlJIb5FjOTceTB1p5zykIFjyiPFpzDthJFRBzTAeXIsf8xVn76GQ==
-X-Received: by 2002:a05:600c:2297:b0:46e:4a30:2b0f with SMTP id
- 5b1f17b1804b1-47773465fc0mr74951635e9.29.1762849397718; 
- Tue, 11 Nov 2025 00:23:17 -0800 (PST)
-Received: from [192.168.10.48] ([176.206.111.214])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477789f3f0esm138597975e9.6.2025.11.11.00.23.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Nov 2025 00:23:17 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: qemu-devel@nongnu.org,
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vJPOi-0001cQ-P3; Wed, 12 Nov 2025 23:57:32 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1763009849; x=1794545849;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=y/Z27usq9NO6Gx7PFhdqImE5l1fhD5PaRWTiCqUeEvA=;
+ b=lwBJcJhgpS5MYkqvArLq/cMzbPcONPe2zVhNK3sZENWztgyxmBHct16M
+ X+s2wpRRvLhSQNHE7+gAf8G0T1ZXV23DHX4whz5/kVyu3jY5Wd0QwFQvp
+ FbCUORtY1NEvTv7K01toOnzmKzhtcZler/+FjL550gdR3ZXYkb4KHt0nF
+ uDnrN5IGBfNs3fHQuHROWV99CKCZZWiTMLq0w6+zDZAGHgVCECnqpqUJY
+ 87K594t0n86fqMvdvo3vHuF0EoWQdpHJ0WcWfVLxrVP4PQ4h95U7ahVqm
+ Zp8AZTWNHa51uCQyrAJStMkRS3VnOJFODM9m6ghZdA9lSdBsxpxl2O8G2 g==;
+X-CSE-ConnectionGUID: K2YArIYARR2QDopMwmSdZQ==
+X-CSE-MsgGUID: 8AdaWV7pSmCC7xNI4n5DNA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11611"; a="67682064"
+X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; d="scan'208";a="67682064"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2025 20:57:27 -0800
+X-CSE-ConnectionGUID: u+7KslJrTmqe+3Kv3s9kjQ==
+X-CSE-MsgGUID: cZlBZ7KgQ7eISp8U0fI/7A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; d="scan'208";a="193663226"
+Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
+ by fmviesa005.fm.intel.com with ESMTP; 12 Nov 2025 20:57:25 -0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Zhao Liu <zhao1.liu@intel.com>, qemu-rust@nongnu.org
-Subject: Re: [PATCH 0/2] rust/hpet: add trace events
-Date: Tue, 11 Nov 2025 09:23:14 +0100
-Message-ID: <20251111082314.24152-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20251106215606.36598-1-stefanha@redhat.com>
-References: 
+ =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
+Cc: Igor Mammedov <imammedo@redhat.com>, qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
+Subject: [PATCH 02/22] rust/migration: Fix missing name in the VMSD of
+ Migratable<>
+Date: Thu, 13 Nov 2025 13:19:17 +0800
+Message-Id: <20251113051937.4017675-3-zhao1.liu@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20251113051937.4017675-1-zhao1.liu@intel.com>
+References: <20251113051937.4017675-1-zhao1.liu@intel.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: FhMLZY4nQdMgVNPIygAkISQ4F5dwUPj-AgMfpLixGoQ_1762849398
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+Received-SPF: pass client-ip=192.198.163.13; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -117,8 +83,40 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Queued, thanks.
+The VMStateDescription of Migratable<T> missed the name field, and this
+casused segmentation fault in vmstate_save_state_v() when it tries to
+write name field by json_writer_str().
 
-Paolo
+Due to the limitation of const, a custom name based on type would be
+more difficult. Instead, a straightforward and simple approach is to
+have all Migratable<T> instances use the same VMSD name -
+"migratable-wrapper".
+
+This is availiable because Migratable<T> is always a field within a
+VMSD, and its parent VMSD should have a distinct name.
+
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+---
+ rust/migration/src/migratable.rs | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/rust/migration/src/migratable.rs b/rust/migration/src/migratable.rs
+index 5c47c7d1c2fa..76e524774a3c 100644
+--- a/rust/migration/src/migratable.rs
++++ b/rust/migration/src/migratable.rs
+@@ -421,7 +421,11 @@ impl<T: 'static + ToMigrationStateShared> Migratable<T> {
+         Migratable::<T>::FIELD
+     };
+ 
++    // All Migratable<T> instances share the same name. This is fine because
++    // Migratable<T> is always a field within a VMSD. The parent VMSD has the
++    // different name to distinguish child Migratable<T>.
+     const VMSD: &'static bindings::VMStateDescription = VMStateDescriptionBuilder::<Self>::new()
++        .name(c"migratable-wrapper")
+         .version_id(1)
+         .minimum_version_id(1)
+         .pre_save(&Self::pre_save)
+-- 
+2.34.1
 
 
