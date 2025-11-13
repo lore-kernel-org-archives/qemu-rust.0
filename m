@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2B7ECD5BA6
-	for <qemu-rust@archiver.kernel.org>; Thu, 13 Nov 2025 09:11:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E0FCD5BBB
+	for <qemu-rust@archiver.kernel.org>; Thu, 13 Nov 2025 11:15:45 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vJTKm-0006CS-Ur; Thu, 13 Nov 2025 04:09:42 -0500
+	id 1vJVIe-0003za-LZ; Thu, 13 Nov 2025 06:15:36 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vJTKe-00066b-CG; Thu, 13 Nov 2025 04:09:32 -0500
-Received: from mgamail.intel.com ([198.175.65.10])
+ id 1vJVHh-0003QL-Fk; Thu, 13 Nov 2025 06:14:41 -0500
+Received: from mgamail.intel.com ([192.198.163.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vJTKb-0006XY-RX; Thu, 13 Nov 2025 04:09:32 -0500
+ id 1vJVHe-0007Tn-PH; Thu, 13 Nov 2025 06:14:37 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763024970; x=1794560970;
+ t=1763032475; x=1794568475;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=HYtCHLm1VjKvp+3jFbMACUA6QhmvWqyHyieoy5nfuNQ=;
- b=L0iFoAl88u4JEPipOjj9Axt95j7YALuIJaqb2cEW5yzm5H45M10g1pqX
- czt4I32UyIZU18CF8fffKlnpGlocRYM7bDfl/xmWnwJQscCUFnAs9bst8
- SfPmVZi+nJLqhNXCM8POfjellhttJjtnP1HOG0wq7I0rNkBdpNNKVqMQW
- L8mhaT+yWW1YBaWX4Usdp/yvN1Zd1xhEO7lWJ8tk9MgIMz+NFySrddvR1
- CBafk9fxJfd8m+z2Mibch+OPIpMjcwd+7AlQjrnCMA1pnNYzYkhC7tFvh
- O9znx/zZ52lUySzOndspevm47JfL3X//03ZlcQ9uOkTF3IA7tPK637n/i w==;
-X-CSE-ConnectionGUID: rIJdX/0+Q7SnT6dj9GHiGw==
-X-CSE-MsgGUID: uRlSkbKMSiOpkNTQsY4T4w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11611"; a="82497238"
-X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; d="scan'208";a="82497238"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 01:09:27 -0800
-X-CSE-ConnectionGUID: e0O417TxTm+/v9dmWx/8yA==
-X-CSE-MsgGUID: NJmPzYYESI6XcC2je1xoDw==
+ bh=E15EvPAB9mcWDFyZnYUCrN4uc2YHoLzwasy+C5WvUdw=;
+ b=P7t2pOYZdgKRiFfOrn0hD+bhIpXZbwTxnpmpKa+qAcG2tNBwy0YyS8KY
+ idXrc2CieYbhaCPV2rw9/CFou3IinixpdfrxfGJJtoU9RXApsSnUtcg7V
+ v+FuoL9vKGjP6YrHLRTIuRSX35S2Fy9uJLJGHdVhWxmaG/7mRRPD52OrO
+ nKxtM8fFcXYnKpsfRICh51ZhQh5Y1+hVmjEuhTJOw1RXQLwrDVAP4kIfM
+ nBvX2UgNF/a6lmR4b4V60WoBM9VK1qIGEsttvhKeJ1E5CZ9vIuTLAK2WI
+ 9Gk4S9jFB+1TR6fk4Zvql3GoLsNbF1pnJpbOtoPWGCFLbSLzEE5oX5ZGG g==;
+X-CSE-ConnectionGUID: aiqaZ2zdRUWvIK/RFPZjMg==
+X-CSE-MsgGUID: evXVPTTlQCer5Zj9HmyGfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11611"; a="52672491"
+X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; d="scan'208";a="52672491"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 03:14:30 -0800
+X-CSE-ConnectionGUID: txyJsHcgQXGWOv6/h9W/zw==
+X-CSE-MsgGUID: H8srIgstSeWnboVpOLXKUQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; d="scan'208";a="190210044"
+X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; d="scan'208";a="189276762"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa010.fm.intel.com with ESMTP; 13 Nov 2025 01:09:24 -0800
-Date: Thu, 13 Nov 2025 17:31:42 +0800
+ by orviesa009.jf.intel.com with ESMTP; 13 Nov 2025 03:14:28 -0800
+Date: Thu, 13 Nov 2025 19:36:44 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- =?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>
+ =?utf-8?B?TWFyYy1BbmRy77+9?= Lureau <marcandre.lureau@redhat.com>
 Cc: Igor Mammedov <imammedo@redhat.com>, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org
+ qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
 Subject: Re: [PATCH 21/22] rust/hpet: Replace BqlRefCell<HPETRegisters> with
  Mutex<HPETRegisters>
-Message-ID: <aRWlfgShnpNbiLAP@intel.com>
+Message-ID: <aRXCzNrv9d7vZHzN@intel.com>
 References: <20251113051937.4017675-1-zhao1.liu@intel.com>
  <20251113051937.4017675-22-zhao1.liu@intel.com>
+ <aRWlfgShnpNbiLAP@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251113051937.4017675-22-zhao1.liu@intel.com>
-Received-SPF: pass client-ip=198.175.65.10; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <aRWlfgShnpNbiLAP@intel.com>
+Received-SPF: pass client-ip=192.198.163.16; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -85,30 +86,92 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-> @@ -179,8 +180,8 @@ const fn deactivating_bit(old: u64, new: u64, shift: usize) -> bool {
->  fn timer_handler(timer_cell: &BqlRefCell<HPETTimer>) {
->      let mut t = timer_cell.borrow_mut();
->      // SFAETY: state field is valid after timer initialization.
-> -    let regs = &mut unsafe { t.state.as_mut() }.regs.borrow_mut();
-> -    t.callback(regs)
-> +    let mut regs = unsafe { t.state.as_ref() }.regs.lock().unwrap();
-> +    t.callback(&mut regs)
->  }
+On Thu, Nov 13, 2025 at 05:31:42PM +0800, Zhao Liu wrote:
+> Date: Thu, 13 Nov 2025 17:31:42 +0800
+> From: Zhao Liu <zhao1.liu@intel.com>
+> Subject: Re: [PATCH 21/22] rust/hpet: Replace BqlRefCell<HPETRegisters>
+>  with Mutex<HPETRegisters>
+> 
+> > @@ -179,8 +180,8 @@ const fn deactivating_bit(old: u64, new: u64, shift: usize) -> bool {
+> >  fn timer_handler(timer_cell: &BqlRefCell<HPETTimer>) {
+> >      let mut t = timer_cell.borrow_mut();
+> >      // SFAETY: state field is valid after timer initialization.
+> > -    let regs = &mut unsafe { t.state.as_mut() }.regs.borrow_mut();
+> > -    t.callback(regs)
+> > +    let mut regs = unsafe { t.state.as_ref() }.regs.lock().unwrap();
+> > +    t.callback(&mut regs)
+> >  }
+> 
+> callback()
+>  -> arm_timer(): access timer N register
+>  -> update_irq(): modify global register (int_status or "isr" in C code)
+> 
+> So timer handler needs to lock Mutex. But this may cause deadlock:
+> 
+> timer_hanlder -> lock BQL   -> try to lock Mutex
+> MMIO access   -> lock Mutex -> try to lock BQL
+> 
+> C HPET doesn't have such deadlock issue since it doesn't lock Mutex in
+> timer handler.
+> 
+> I think it seems necessay to lock Mutex in timer handler since there's
+> no guarantee to avoid data race...
 
-callback()
- -> arm_timer(): access timer N register
- -> update_irq(): modify global register (int_status or "isr" in C code)
+One possible way may be to introduce lockless timer callback, but at
+Rust side, this needs to extract timers from BqlRefCell and add extra
+Muetx to protect timer state.
 
-So timer handler needs to lock Mutex. But this may cause deadlock:
+So a simple way is to just unlock bql before acquiring Mutex in timer
+handler, which give a chance for MMIO to acquire BQL. And this way could
+fix locking order in timer handler.
 
-timer_hanlder -> lock BQL   -> try to lock Mutex
-MMIO access   -> lock Mutex -> try to lock BQL
+Code example:
 
-C HPET doesn't have such deadlock issue since it doesn't lock Mutex in
-timer handler.
+diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
+index f96dfe1ebd06..389eb9b49eb6 100644
+--- a/rust/hw/timer/hpet/src/device.rs
++++ b/rust/hw/timer/hpet/src/device.rs
+@@ -178,10 +178,35 @@ const fn deactivating_bit(old: u64, new: u64, shift: usize) -> bool {
+ }
 
-I think it seems necessay to lock Mutex in timer handler since there's
-no guarantee to avoid data race...
+ fn timer_handler(timer_cell: &BqlRefCell<HPETTimer>) {
+-    let mut t = timer_cell.borrow_mut();
+-    // SFAETY: state field is valid after timer initialization.
+-    let mut regs = unsafe { t.state.as_ref() }.regs.lock().unwrap();
+-    t.callback(&mut regs)
++    let state_p = {
++        let t = timer_cell.borrow();
++        t.state
++    };
++
++    // Release BQL first and acquire Mutex instead. This avoids deadlock
++    // since lockless IO will lock Mutex first and then try to acquire
++    // BQL.
++    //
++    // SAFETY: BQL free context only locks Mutex and will do nothing else.
++    unsafe {
++        bql::unlock();
++    }
++
++    // SAFETY: state_p is valid and we just access Mutex and don't touch
++    // other fields. Mutex could guarantee the registers access is safe
++    // during BQL is unlocked.
++    let mut regs = unsafe { state_p.as_ref() }.regs.lock().unwrap();
++
++    // After Mutex is locked, lock BQL again. This ensures both timer
++    // handler and MMIO have the same locking order.
++    //
++    // SAFETY: BQL context is expected for timer handler and now the
++    // correct locking order eliminates deadlock.
++    unsafe {
++        bql::lock();
++    }
++
++    timer_cell.borrow_mut().callback(&mut regs);
+ }
+
+ #[repr(C)]
+
 
 Thanks,
 Zhao
