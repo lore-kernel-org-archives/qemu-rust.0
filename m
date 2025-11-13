@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 029A8CCFA18
-	for <qemu-rust@archiver.kernel.org>; Thu, 13 Nov 2025 04:58:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80113CCFA18
+	for <qemu-rust@archiver.kernel.org>; Thu, 13 Nov 2025 04:59:34 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vJPPB-0004sp-54; Wed, 12 Nov 2025 23:57:57 -0500
+	id 1vJPPd-0005AO-LU; Wed, 12 Nov 2025 23:58:28 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vJPOt-0004kA-Mr; Wed, 12 Nov 2025 23:57:41 -0500
+ id 1vJPP1-0004mv-Gb; Wed, 12 Nov 2025 23:57:50 -0500
 Received: from mgamail.intel.com ([192.198.163.13])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vJPOq-0001cQ-0I; Wed, 12 Nov 2025 23:57:38 -0500
+ id 1vJPOy-0001c6-5e; Wed, 12 Nov 2025 23:57:46 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763009856; x=1794545856;
+ t=1763009864; x=1794545864;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Vrtq2f7EYKo1Y2JQdaB4jUwdVNa0g270/cI5G1Tsp7g=;
- b=JrwDsB3ki9F1i3/jHgDA7+uxeHpTnmQDyXAQv3B3k1lO9NbBDkrSWMCt
- AHuo/mLOhsSxMrnLZmGHpyRmA7/mRoF+NGrhomZEuI1z7tuyUdW6ZecmW
- 3YnXT4To6dLvKPBmdF/SJywvPe89fo+w+8eZGDw6VwI3Ks4Iiz+p+3z+e
- 2z3Qj/8do/NohiZ4hqMvPcqH7uQN9vWsFasdwUyVijRTlBZeNxFJPBuGk
- cvxy1JMa3234Pn14d6OcYxE9xRQIBDaZiQHerCxJPkaj1j/StxFcTRxro
- P8SqS8PC2gaH8DSR2eHFbV78vr1lOTSx2EopeR9trrKEQDdLMQtvNpKCM A==;
-X-CSE-ConnectionGUID: EWY9WMAZRWu7am9sh8+24g==
-X-CSE-MsgGUID: ZJ97oRYtTqe1a8ZTTNDvfg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11611"; a="67682075"
-X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; d="scan'208";a="67682075"
+ bh=xYpyItzvU+U1U89xSQkA8t3JXUFuUyTI1WKek/jbLis=;
+ b=SYARrW0vkfLqs6KnuK2sM5oqdXmncrTf9f22K8dTGWJdHzoAvabcLkzX
+ 8zQP/6mVgn13v85g/sFmRPYfkOahgeWJ6s6hReH6QlPxqZBJ0EBaMSyOz
+ xaLG0E8Z+6m/JQOYYq5zG3l6OZ6ZDPbqk+RtoWo6AOriefK0ieyPAL4xQ
+ kVxTOYTkIcAdS2HJjmSz0VQA4Zsp2QKqpFJq0RVdcTOs+5B7l42+4EPEp
+ i1ph8vzRS4ap7DzPGLFnwbj47fpb5rYjFcp11zcbgINt/v1UtbwXkxj9S
+ LlasqJLLORHB1SiToJRLDZwc6G6aVbCVKYorNKAUwH2V9tnR7Prt4B5/6 g==;
+X-CSE-ConnectionGUID: P2PNvTh9TC2VxzrbyOxmKA==
+X-CSE-MsgGUID: wdmg2CwsQOyZ7hQVygRVeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11611"; a="67682095"
+X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; d="scan'208";a="67682095"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2025 20:57:32 -0800
-X-CSE-ConnectionGUID: d2DXnVfyTFmTkX6QMweQGg==
-X-CSE-MsgGUID: jGDTgdXUQIaqiroSR4HDlg==
+ 12 Nov 2025 20:57:40 -0800
+X-CSE-ConnectionGUID: zrsWifUPSGaI2GHmhZpYbQ==
+X-CSE-MsgGUID: qx5Ng6GAQ4KR/B1Y0spvjA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; d="scan'208";a="193663238"
+X-IronPort-AV: E=Sophos;i="6.19,301,1754982000"; d="scan'208";a="193663255"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa005.fm.intel.com with ESMTP; 12 Nov 2025 20:57:30 -0800
+ by fmviesa005.fm.intel.com with ESMTP; 12 Nov 2025 20:57:38 -0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
 Cc: Igor Mammedov <imammedo@redhat.com>, qemu-devel@nongnu.org,
  qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH 05/22] rust/bql: Ensure BQL locked early at BqlRefCell
- borrowing
-Date: Thu, 13 Nov 2025 13:19:20 +0800
-Message-Id: <20251113051937.4017675-6-zhao1.liu@intel.com>
+Subject: [PATCH 09/22] rust/hpet: Rename decoded "reg" enumeration to "target"
+Date: Thu, 13 Nov 2025 13:19:24 +0800
+Message-Id: <20251113051937.4017675-10-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251113051937.4017675-1-zhao1.liu@intel.com>
 References: <20251113051937.4017675-1-zhao1.liu@intel.com>
@@ -83,85 +82,121 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-At present, BqlRefCell checks whether BQL is locked when it blocks BQL
-unlock (in bql_block_unlock).
+HPETAddrDecode has a `reg` field so that there're many variables named
+"reg" in MMIO read/write/decode functions.
 
-But the such check should be done earlier - at the beginning of
-BqlRefCell borrowing.
+In the future, there'll be other HPETRegisters/HPETTimerRegisters
+structs containing values of HPET registers, and related variables or
+arguments will be named as "regs".
 
-So convert BqlRefCell::borrow field from Cell<> to BqlCell<>, to
-guarantee BQL is locked from the beginning when someone is trying to
-borrow BqlRefCell.
+To avoid potential confusion between many "reg" and "regs", rename
+HPETAddrDecode::reg to HPETAddrDecode::target, and rename decoding
+related variables from "reg" to "target".
+
+"target" is picked as the name since this clearly reflects the field or
+variable is the target decoded register.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- rust/bql/src/cell.rs | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ rust/hw/timer/hpet/src/device.rs | 32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
 
-diff --git a/rust/bql/src/cell.rs b/rust/bql/src/cell.rs
-index 8ade7db629cf..0a436f7eb431 100644
---- a/rust/bql/src/cell.rs
-+++ b/rust/bql/src/cell.rs
-@@ -141,8 +141,10 @@
- //! Multiple immutable borrows are allowed via [`borrow`](BqlRefCell::borrow),
- //! or a single mutable borrow via [`borrow_mut`](BqlRefCell::borrow_mut).  The
- //! thread will panic if these rules are violated or if the BQL is not held.
-+#[cfg(feature = "debug_cell")]
-+use std::cell::Cell;
- use std::{
--    cell::{Cell, UnsafeCell},
-+    cell::UnsafeCell,
-     cmp::Ordering,
-     fmt,
-     marker::PhantomData,
-@@ -377,7 +379,7 @@ pub struct BqlRefCell<T> {
-     // for std::cell::BqlRefCell), so that we can use offset_of! on it.
-     // UnsafeCell and repr(C) both prevent usage of niches.
-     value: UnsafeCell<T>,
--    borrow: Cell<BorrowFlag>,
-+    borrow: BqlCell<BorrowFlag>,
-     // Stores the location of the earliest currently active borrow.
-     // This gets updated whenever we go from having zero borrows
-     // to having a single borrow. When a borrow occurs, this gets included
-@@ -426,7 +428,7 @@ impl<T> BqlRefCell<T> {
-     pub const fn new(value: T) -> BqlRefCell<T> {
-         BqlRefCell {
-             value: UnsafeCell::new(value),
--            borrow: Cell::new(UNUSED),
-+            borrow: BqlCell::new(UNUSED),
-             #[cfg(feature = "debug_cell")]
-             borrowed_at: Cell::new(None),
+diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
+index c76f52a374de..2105538cffe6 100644
+--- a/rust/hw/timer/hpet/src/device.rs
++++ b/rust/hw/timer/hpet/src/device.rs
+@@ -142,7 +142,7 @@ enum DecodedRegister<'a> {
+ struct HPETAddrDecode<'a> {
+     shift: u32,
+     len: u32,
+-    reg: DecodedRegister<'a>,
++    target: DecodedRegister<'a>,
+ }
+ 
+ const fn hpet_next_wrap(cur_tick: u64) -> u64 {
+@@ -501,18 +501,18 @@ fn callback(&mut self) {
+         self.update_irq(true);
+     }
+ 
+-    const fn read(&self, reg: TimerRegister) -> u64 {
++    const fn read(&self, target: TimerRegister) -> u64 {
+         use TimerRegister::*;
+-        match reg {
++        match target {
+             CFG => self.config, // including interrupt capabilities
+             CMP => self.cmp,    // comparator register
+             ROUTE => self.fsb,
          }
-@@ -688,12 +690,12 @@ fn from(t: T) -> BqlRefCell<T> {
- }
+     }
  
- struct BorrowRef<'b> {
--    borrow: &'b Cell<BorrowFlag>,
-+    borrow: &'b BqlCell<BorrowFlag>,
- }
+-    fn write(&mut self, reg: TimerRegister, value: u64, shift: u32, len: u32) {
++    fn write(&mut self, target: TimerRegister, value: u64, shift: u32, len: u32) {
+         use TimerRegister::*;
+-        match reg {
++        match target {
+             CFG => self.set_tn_cfg_reg(shift, len, value),
+             CMP => self.set_tn_cmp_reg(shift, len, value),
+             ROUTE => self.set_tn_fsb_route_reg(shift, len, value),
+@@ -782,34 +782,34 @@ fn decode(&self, mut addr: hwaddr, size: u32) -> HPETAddrDecode<'_> {
+         let len = std::cmp::min(size * 8, 64 - shift);
  
- impl<'b> BorrowRef<'b> {
-     #[inline]
--    fn new(borrow: &'b Cell<BorrowFlag>) -> Option<BorrowRef<'b>> {
-+    fn new(borrow: &'b BqlCell<BorrowFlag>) -> Option<BorrowRef<'b>> {
-         let b = borrow.get().wrapping_add(1);
-         if !is_reading(b) {
-             // Incrementing borrow can result in a non-reading value (<= 0) in these cases:
-@@ -789,12 +791,12 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
- }
+         addr &= !4;
+-        let reg = if (0..=0xff).contains(&addr) {
++        let target = if (0..=0xff).contains(&addr) {
+             GlobalRegister::try_from(addr).map(DecodedRegister::Global)
+         } else {
+             let timer_id: usize = ((addr - 0x100) / 0x20) as usize;
+             if timer_id < self.num_timers {
+                 // TODO: Add trace point - trace_hpet_ram_[read|write]_timer_id(timer_id)
+                 TimerRegister::try_from(addr & 0x18)
+-                    .map(|reg| DecodedRegister::Timer(&self.timers[timer_id], reg))
++                    .map(|target| DecodedRegister::Timer(&self.timers[timer_id], target))
+             } else {
+                 // TODO: Add trace point -  trace_hpet_timer_id_out_of_range(timer_id)
+                 Err(addr)
+             }
+         };
  
- struct BorrowRefMut<'b> {
--    borrow: &'b Cell<BorrowFlag>,
-+    borrow: &'b BqlCell<BorrowFlag>,
- }
+-        // reg is now a Result<DecodedRegister, hwaddr>
++        // `target` is now a Result<DecodedRegister, hwaddr>
+         // convert the Err case into DecodedRegister as well
+-        let reg = reg.unwrap_or_else(DecodedRegister::Unknown);
+-        HPETAddrDecode { shift, len, reg }
++        let target = target.unwrap_or_else(DecodedRegister::Unknown);
++        HPETAddrDecode { shift, len, target }
+     }
  
- impl<'b> BorrowRefMut<'b> {
-     #[inline]
--    fn new(borrow: &'b Cell<BorrowFlag>) -> Option<BorrowRefMut<'b>> {
-+    fn new(borrow: &'b BqlCell<BorrowFlag>) -> Option<BorrowRefMut<'b>> {
-         // There must currently be no existing references when borrow_mut() is
-         // called, so we explicitly only allow going from UNUSED to UNUSED - 1.
-         match borrow.get() {
+     fn read(&self, addr: hwaddr, size: u32) -> u64 {
+         // TODO: Add trace point - trace_hpet_ram_read(addr)
+-        let HPETAddrDecode { shift, reg, .. } = self.decode(addr, size);
++        let HPETAddrDecode { shift, target, .. } = self.decode(addr, size);
+ 
+         use GlobalRegister::*;
+         use DecodedRegister::*;
+-        (match reg {
+-            Timer(timer, tn_reg) => timer.borrow_mut().read(tn_reg),
++        (match target {
++            Timer(timer, tn_target) => timer.borrow_mut().read(tn_target),
+             Global(CAP) => self.capability.get(), /* including HPET_PERIOD 0x004 */
+             Global(CFG) => self.config.get(),
+             Global(INT_STATUS) => self.int_status.get(),
+@@ -830,13 +830,13 @@ fn read(&self, addr: hwaddr, size: u32) -> u64 {
+     }
+ 
+     fn write(&self, addr: hwaddr, value: u64, size: u32) {
+-        let HPETAddrDecode { shift, len, reg } = self.decode(addr, size);
++        let HPETAddrDecode { shift, len, target } = self.decode(addr, size);
+ 
+         // TODO: Add trace point - trace_hpet_ram_write(addr, value)
+         use GlobalRegister::*;
+         use DecodedRegister::*;
+-        match reg {
+-            Timer(timer, tn_reg) => timer.borrow_mut().write(tn_reg, value, shift, len),
++        match target {
++            Timer(timer, tn_target) => timer.borrow_mut().write(tn_target, value, shift, len),
+             Global(CAP) => {} // General Capabilities and ID Register: Read Only
+             Global(CFG) => self.set_cfg_reg(shift, len, value),
+             Global(INT_STATUS) => self.set_int_status_reg(shift, len, value),
 -- 
 2.34.1
 
