@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D454DCDE00A
-	for <qemu-rust@archiver.kernel.org>; Fri, 14 Nov 2025 04:16:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 791B3CDB464
+	for <qemu-rust@archiver.kernel.org>; Fri, 14 Nov 2025 06:17:30 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vJlE1-0004Kh-2e; Thu, 13 Nov 2025 23:15:53 -0500
+	id 1vJn7O-0004ZS-J1; Fri, 14 Nov 2025 01:17:10 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vJlDs-0004IA-Cg; Thu, 13 Nov 2025 23:15:45 -0500
-Received: from mgamail.intel.com ([192.198.163.18])
+ id 1vJn7M-0004Xk-ES; Fri, 14 Nov 2025 01:17:08 -0500
+Received: from mgamail.intel.com ([198.175.65.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vJlDp-0005IJ-7G; Thu, 13 Nov 2025 23:15:43 -0500
+ id 1vJn7J-0006oi-D0; Fri, 14 Nov 2025 01:17:08 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763093741; x=1794629741;
+ t=1763101026; x=1794637026;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=v95B4pMzUV5GxDaF4MSD491zoTSmZN/+twEGJCME1sk=;
- b=lvikJvoEofkvmdRp4mVVot+ll5vcpAe+Gq5R9+2lewtZptGwX60z/hOQ
- LoRSAfU/7iw3J88cQPS6/Vl7muhi8D3g3pj/K5Qsbd7gqdAD/+lEOEXES
- yZBk55RaN+nZ2+p2gNf9IvSFMVnHkCs4rYVl3lTRSxG66Fy3F91IGP2iq
- OB1Gm14JdlAcQb3ll9OJTJvXaH+RUfS8z1KAJa1nV46e+g8c1zcHLK8TS
- AAkBjEtIvV9s4iuJQkrDq1TxUzWWOiJKZTHhRaeasIxIjApJrq8G2fTvZ
- i7ACNt4sTrv/Y/dNscoGqG3kcn/DajS8EW7iGigpkPmSwk7vMu34Uk3eW Q==;
-X-CSE-ConnectionGUID: Jk4izkl9RUC5r3PSjmAisA==
-X-CSE-MsgGUID: YCFshpKDQMCjaCRC/nXljQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="64389620"
-X-IronPort-AV: E=Sophos;i="6.19,303,1754982000"; d="scan'208";a="64389620"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 20:15:38 -0800
-X-CSE-ConnectionGUID: /Fwn3Pp2RoG7evC20wlCjg==
-X-CSE-MsgGUID: 9TlJLg5XTMC6nDNtJ+W6Ng==
+ bh=VV0UpawImWFH3xZGjVbej/CWiDter091wmFQqpUYUr8=;
+ b=mmLWVo4iYnF9xAAtF+XGkqlgRXKuuFlHu4PgAqRSiqP+a2/IgxpljQM1
+ 1c+SPUSdeR5IjDa1tuc3sDuSKAb+UAossmvh1s/ndCOxQ00Y7lyAVxUdq
+ QXBLTSyL4ytrkd9a7WP2t958brNVUbuSDH+0ru6HCk7cvdXP2o6oyprZQ
+ h4Ok+8OMco2pzi75G5MbQMjc6qWLlIScfXC7a8FoGObku43wiMv/cEqh6
+ xnn4BGWgX48WKEp6QTTBt3nKfi29IFq0HVX2OivUhY9vuZtMjd5qppRve
+ X/KoY3j/rFAFl1ilu4OgrbK32LQBHuh8PbGZlTMgAObyMipld7Wt2qifd A==;
+X-CSE-ConnectionGUID: +ay4EyeJScil0eSmDl+PMw==
+X-CSE-MsgGUID: lzMxUFUsS6OWGDpvwMPYfg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="65351054"
+X-IronPort-AV: E=Sophos;i="6.19,304,1754982000"; d="scan'208";a="65351054"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 22:16:55 -0800
+X-CSE-ConnectionGUID: 0u2Ct5K/RtKPc/lRIdcFDA==
+X-CSE-MsgGUID: OPxAToSFQEKeHRcC+goM3g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,303,1754982000"; d="scan'208";a="189870695"
+X-IronPort-AV: E=Sophos;i="6.19,304,1754982000"; d="scan'208";a="188987084"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa008.jf.intel.com with ESMTP; 13 Nov 2025 20:15:36 -0800
-Date: Fri, 14 Nov 2025 12:37:53 +0800
+ by orviesa010.jf.intel.com with ESMTP; 13 Nov 2025 22:16:53 -0800
+Date: Fri, 14 Nov 2025 14:39:10 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  =?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>,
  Igor Mammedov <imammedo@redhat.com>, qemu-devel@nongnu.org,
  qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: Re: [PATCH 10/22] rust/hpet: Abstract HPETTimerRegisters struct
-Message-ID: <aRayIQYzGkUK4Emv@intel.com>
+Subject: Re: [PATCH 22/22] rust/hpet: Enable lockless IO
+Message-ID: <aRbOjuDk3USq2RLK@intel.com>
 References: <20251113051937.4017675-1-zhao1.liu@intel.com>
- <20251113051937.4017675-11-zhao1.liu@intel.com>
- <12e93226-b70d-4c9c-bf8a-db7e0e05b585@redhat.com>
+ <20251113051937.4017675-23-zhao1.liu@intel.com>
+ <6ed6a959-fe49-4635-9051-b9bbc91dd2e4@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <12e93226-b70d-4c9c-bf8a-db7e0e05b585@redhat.com>
-Received-SPF: pass client-ip=192.198.163.18; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <6ed6a959-fe49-4635-9051-b9bbc91dd2e4@redhat.com>
+Received-SPF: pass client-ip=198.175.65.16; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -85,76 +85,108 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Thu, Nov 13, 2025 at 12:24:07PM +0100, Paolo Bonzini wrote:
-> Date: Thu, 13 Nov 2025 12:24:07 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: Re: [PATCH 10/22] rust/hpet: Abstract HPETTimerRegisters struct
-> 
-> On 11/13/25 06:19, Zhao Liu wrote:
-> > Place all timer N's registers in a HPETTimerRegisters struct.
+> >   * BqlCell/BqlRefCell access.
 > > 
-> > This allows all Timer N registers to be grouped together with global
-> > registers and managed using a single lock (BqlRefCell or Mutex) in
-> > future. And this makes it easier to apply ToMigrationState macro.
+> >     Except InterruptSource, HPETState has other BqlCell and BqlRefCell:
+> >     hpet_offset (BqlCell<u64>), rtc_irq_level (BqlCell<u32>) and timers
+> >     ([BqlRefCell<HPETTimer>; HPET_MAX_TIMERS]).
+> > 
+> >     Their data may change during runtime, so the atomic context is
+> >     required.
 > 
-> This is pretty much the crucial patch in the series and it's the only
-> one that needs more work, or some fixup at the end.
-> 
-> In particular, more fields of HPETTimer need to be moved to the
-> HPETTimerRegisters. It's possible that it would be a problem to move
-> the timer itself inside the mutex but, at least, the HPETTimer could be
-> changed to just
-> 
-> pub struct HPETTimer {
->     timer: QemuTimer,
->     state: NonNull<HPETState>,
->     index: u8,
-> }
+> I have already mentioned HPETTimer in the other email, but I would also move
+> hpet_offset to HPETRegisters if possible.  It doesn't seem hard.
 
-Good idea!
+Yeah, it can.
 
-> as in the patch included at the end (compile-tested only).  Then, the
-> BqlRefCell<HPETTimer> can be changed to just HPETTimer because all the
-> fields handle their interior-mutable fields.
+> And as an aside, I wonder if you really need to pass MutexGuard and not &mut
+> HPETRegisters.  Once you don't have BQL dependencies, you can just remove
+> the assert!(bql::is_locked()) without switching to MutexGuard<>.
 
-Yes, this will reduce BQL context in lockless IO a lot. And I'll based
-on your patch to extract HPETTimer from BqlRefCell.
+The main reason for using MutexGuard at present is to explicitly
+indicate that it is protected by a Mutex. Because I considered that
+get_mut() in the timer handler could bypass the lock(). But get_mut
+depends on the unsafe code `unsafe { t.state.as_mut() }` which always
+needs careful check and review.
 
-> Preserving the old migration format can then be solved in two ways:
-> 
-> 1) with a handwritten ToMigrationStateShared implementation for
-> HPETTimer (and marking the tn_regs array as #[migration_state(omit)])
+So yes, we can use &mut HPETRegisters directly.
 
-Yes, compared with 2), I also this is the better choice, which looks
-more common and could be an good example for other device.
+> In the meanwhile, even if they are not perfect (especially due to
+> migration), I think touching patches 1-19 further is too messy, so I'll
+> rebase on top of Stefan's tracing patches and push them to rust-next. Let's
+> start from there and I'll take a look tomorrow maybe on how to fix
+> migration.  Migratable<HPETTimer> looks like a powerful tool for that.
 
-> 2) by also adding num_timers_save and the timer's expiration to
-> HPETRegisters and HPETTimerRegisters, respectively.
-> 
-> I think I prefer the former, but I haven't written the code so it's
-> not my choice. :)
-> 
-> I'm okay with doing these changes on top of these patches as well.
+Thank you! 
 
-Thank you!
+> Then the new problem is that we have to figure out a way to handle IRQs.
+> They are also messy for PL011 compared to the C version, and that will make
+> it possible to enable lockless IO.
+>
+> The crazy idea that just came to mind, is a Latched<u32> that is something
+> like an (AtomicU32, BqlCell<u32>) tuple.  Then we set the individual bits
+> outside the BQL and update IRQs at the end of the MMIO in a
+> bql::with_guard() block.
 
-The code attached looks good. Only a minor question below:
- 
-> @@ -181,6 +181,9 @@ fn timer_handler(timer_cell: &BqlRefCell<HPETTimer>) {
->  #[repr(C)]
->  #[derive(Debug, Default, ToMigrationState)]
->  pub struct HPETTimerRegisters {
-> +    // Only needed for migration
-> +    index: u8,
+This is an interesting idea and sounds like a "RCU" (write-copy-update)?
 
-I didn't get the point why we need to migrate this "index" instead of
-HPETTimer::index?
+HMM, what does u32 mean, irq number? I understand the bql::with_guard()
+is after Muext locking, i.e., after writing registers.
 
-Anyway, if we continue to keep index in HPETTimerRegisters, we can make
-it have usize type with a "#[migration_state(try_into(u8))]" property.
+At that point, we need to know which irq should be operated (this is the
+u32 but we also have pit_enabled), and what operation should we do now.
 
-If we just HPETTimer::index for migration, I think it's possible to do
-type convertion in handwritten ToMigrationStateShared.
+I'm not sure whether a tuple is enough... because there may be multiple
+IRQ operations during Mutex locking:
+
+fn set_cfg_reg(&self, regs: &mut MutexGuard<HPETRegisters>, shift: u32, len: u32, val: u64) {
+    ...
+    // i8254 and RTC output pins are disabled when HPET is in legacy mode
+    if activating_bit(old_val, new_val, HPET_CFG_LEG_RT_SHIFT) {
+        bql::with_guard(|| {
+            self.pit_enabled.set(false);
+            self.irqs[0].lower();
+            self.irqs[RTC_ISA_IRQ].lower();
+        });
+    } else if deactivating_bit(old_val, new_val, HPET_CFG_LEG_RT_SHIFT) {
+        bql::with_guard(|| {
+            // TODO: Add irq binding: qemu_irq_lower(s->irqs[0])
+            self.irqs[0].lower();
+            self.pit_enabled.set(true);
+            self.irqs[RTC_ISA_IRQ].set(self.rtc_irq_level.get() != 0);
+        });
+    }
+}
+
+So do we need a lockless queue to store IrqOps during Mutex locking?
+
+pub enum HPETIrqOp {
+    Lower(usize), // usize is index in HPETState::irqs[]
+    Pulse(usize),
+    Raise(usize),
+    Set(usize, bool),
+    PitSet(bool), // HPETState::pit_enabled
+}
+
+Another point I'm considerring is: the IRQ ops is cached in MMIO Mutex,
+while its execution occurs in the MMIO BQL. If a timer handler (which
+acquires BQL and then Mutex) is present between MMIO Mutex and MMIO BQL,
+and also performs an IRQ op, this seems possible a "reordering" issue
+for IRQ ops. Is this ok?
+
+I guess it's ok, since even hardware may also can't guarantee that
+register operation and irq operation is atomic...
+
+Then with your idea, this could fix deadlock I mentioned in patch 21 and
+we don't need the fix to unlock bql in timer handler anymore...
+
+BTW, but, shouldn't C HPET also lock the mutex in the timer handler?
+
+> Maybe if you have some time you can prototype that
+> for PL011 (even without generics, you could just do LatchedU32 for a start)?
+
+I guess you mean HPET? PL011 is also Ok but it hasn't reached the
+lockless stage yet.
 
 Thanks,
 Zhao
