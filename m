@@ -4,100 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C10E5CE8D6B
-	for <qemu-rust@archiver.kernel.org>; Mon, 17 Nov 2025 07:44:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D9ACCEACEF
+	for <qemu-rust@archiver.kernel.org>; Mon, 17 Nov 2025 08:03:59 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vKttj-0003Xt-6b; Mon, 17 Nov 2025 02:43:39 -0500
+	id 1vKuDD-0003Gg-G9; Mon, 17 Nov 2025 03:03:52 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vKtsx-0003Ri-B8
- for qemu-rust@nongnu.org; Mon, 17 Nov 2025 02:42:51 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vKtsu-0005un-Nr
- for qemu-rust@nongnu.org; Mon, 17 Nov 2025 02:42:51 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1763365367;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=A3DOmTTtUlRI29oyMtkqRVQpm1BCXvndErwb6vVQTDc=;
- b=BMEDirMjV8FymV9TnCXbFWMG4Tl+L6XwxdFSC1cXkPGn1HW60etbrLKIzL9hVWDXbf0cvL
- p1nXZyPr5FLyFsUBypoK7altYR8yg8fpLyszPebaPkemcNgxdEzhXdwF785QJmn2w8bdX7
- dc9iYqXUFMlyILwbJmciiBXGZZyZMX0=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-250-nE7aN-goP4Ok9bXSX4pHrg-1; Mon, 17 Nov 2025 02:42:46 -0500
-X-MC-Unique: nE7aN-goP4Ok9bXSX4pHrg-1
-X-Mimecast-MFC-AGG-ID: nE7aN-goP4Ok9bXSX4pHrg_1763365365
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-4779da35d27so10053235e9.3
- for <qemu-rust@nongnu.org>; Sun, 16 Nov 2025 23:42:46 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <marcandre.lureau@gmail.com>)
+ id 1vKuD0-0003F5-S4
+ for qemu-rust@nongnu.org; Mon, 17 Nov 2025 03:03:36 -0500
+Received: from mail-qt1-x836.google.com ([2607:f8b0:4864:20::836])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <marcandre.lureau@gmail.com>)
+ id 1vKuCz-0000cD-7q
+ for qemu-rust@nongnu.org; Mon, 17 Nov 2025 03:03:34 -0500
+Received: by mail-qt1-x836.google.com with SMTP id
+ d75a77b69052e-4ed7a7ddc27so38240781cf.2
+ for <qemu-rust@nongnu.org>; Mon, 17 Nov 2025 00:03:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1763366611; x=1763971411; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fjFReJ1BvPs1hCi3Zf26yZK75FTL99oEHwatPqkodao=;
+ b=hoxUGV6YI/xia+PEEowoHzZ44DbzyJhl4sFEMqTQUftIGmLr5qakQsY/sp0xQ2OlI7
+ uV69ZkYJ2AYCKnEWjZkxSkjLgnNuoPnBGO2qqnb2x7Kg/l8afYFfrksEav9vMgsJf9Ps
+ w3zWgDeczDEYvPBV60l4SUtIGnsC9fi2HShMJ7XEEsaSK2V8tSMTeeG+Kp6VMSqxb8ss
+ bTdEPxz/WQrzisc/G40iQSA1kvpU67GQySMkKJUu+kw+Nta+2a9MoWgE5n3Lmj5Bu7KS
+ RiA7SRWmUK7dwL8befILRhiLHpIOx6lAaDlThQFztfqVUBfNUXvGEgL0slmsGZXXOGtg
+ eZ7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763365364; x=1763970164;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20230601; t=1763366611; x=1763971411;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=A3DOmTTtUlRI29oyMtkqRVQpm1BCXvndErwb6vVQTDc=;
- b=s/tB/Isj8CDOuUloIrpdIvpVd54GHAV24Q96HDQcRLfLVQgToruKcscDtFqRu+SVqw
- Mw2sRBiuBSfm+3VmnxZea3LM/pxEr3azSsLxzvloztda3/wKYjMyZJ0O7Z2agjav4D/s
- OyRwUSwtJ5+7Qa4BQFq0gls7RYVfYVSo/HTnhaiwCUImiax8h9R3+FG6++JLmPOfkdD5
- fTVum3t/TQ5SiKGzNoHhorIxSMKvnIKQXUwbW4n8r95jVX/ikWBoBO1e0mu30zzFrgmZ
- FiOtoCNbACL93JsWdMORRuBBCSdn1dBxPrqp4XlPbbVVn4rDsi/vwpQnlgp3AalIg8OK
- DtHw==
-X-Gm-Message-State: AOJu0YyrFU4p+WEyhoZ4udoEKS4d0P/kzxOn0CnYIYz3nCoHfRly/FrP
- 7IBhyBFxm+0t8ITDHW1FDpn+5yf1kVcDyhZI6dBiTw/CToz+5QcG4OGJuABNE9Q9vjCL8SL0nav
- Q1qDl2Meu6bwETCgKuPgcDwNvRF2kcfEZFGBTdxjjKAIsKr0EWuYpOBROuiJpsl0=
-X-Gm-Gg: ASbGnct8imfwf6+Icyd93pZ4BCExKHYN8FvOtXU1jJuMtNvXfndgP2x6YSfH12RxiR5
- ZNsTaF3j7uucHqm9pqUTboaWPgCUCPOIELwe4ZnevRZwmQG3zoWH77LMfR2hAH8xescUvnXnegj
- KA56pOKyt1W6hnTfJ7XxT7j6niexN5gVmH4jsTPrN6hHyiE86x+lP1kKHxSZBmlhETKyNCJLUP5
- D8wCKntQpmgSiM+Vaz8lUFFTyVIkJuacTNLSBt1vloAoeyzUWZ0mFSzCYqnxzodRzoXkKbrjZuH
- OVOI7OxbJmNjEjA36epsQuhdejwNhRmabCWaxQa0GCGGqyC50/mcU+b21y8GRhKDzry1vzkuAzC
- pmedjjUnETQCJCK7P09qJCLhA0bILQQyHU+LGzWlRNzatj3fhuW0yqaR7OPoMeHkVuRjRZFMG9V
- KQQYCl
-X-Received: by 2002:a05:600c:c4a1:b0:475:dd7f:f6cd with SMTP id
- 5b1f17b1804b1-4778fe96c46mr94795735e9.35.1763365364167; 
- Sun, 16 Nov 2025 23:42:44 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFSxxfwKIqmVC45rPVAwvXfEMRLb+nGUQiQ9mYHEyIDE8dNbU1NYcZ49MsAqNBzM+bIaH1UnQ==
-X-Received: by 2002:a05:600c:c4a1:b0:475:dd7f:f6cd with SMTP id
- 5b1f17b1804b1-4778fe96c46mr94795525e9.35.1763365363713; 
- Sun, 16 Nov 2025 23:42:43 -0800 (PST)
-Received: from [192.168.10.48] ([176.206.119.13])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4779973ddcfsm116793655e9.15.2025.11.16.23.42.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Nov 2025 23:42:42 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org
-Subject: [PATCH 1/8] util: add prelude
-Date: Mon, 17 Nov 2025 08:42:31 +0100
-Message-ID: <20251117074239.190424-2-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20251117074239.190424-1-pbonzini@redhat.com>
-References: <20251117074239.190424-1-pbonzini@redhat.com>
+ bh=fjFReJ1BvPs1hCi3Zf26yZK75FTL99oEHwatPqkodao=;
+ b=w5XG0yPPlp0NUeORjQS3XfxWn9QhUElgjwCjvN4txFTZ4JniZNsKpxHr5xles56gp0
+ cA9PvcfoUlKH6qqox7dHizbibAUNGnNsM8K9Z5JwxK6sY3D/IGVrnzwh3Omz1MhENd0S
+ B+bnyPKfMumFP/DdQzVCi4Z1UDn4SwlZvMMB34UDpe6pTNfFDL1StpZIMAywMPVsW1pJ
+ a9ldr1rCZZc7v6tAW5M5H2OdO8B5prGAlZvq9FCVz1RYd6i9BNGNNpXF43OZ/UWyVqh+
+ 6Sq3zXzTs/mIA8xsjX8EUhnstznF1hg5QirUU9kJe2eKDNPd45ZLWOT3F3mSbqIAiR81
+ 2qzw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXLhPAW8fp8tzL415KTWiiAImS4m53GTbsUlJpAc2aIrNCghYwXE9Bz1Nt7+RuFcnnMwI1pgc3hYSw=@nongnu.org
+X-Gm-Message-State: AOJu0YxjlZkCRaO2YDo6AGZ0HrbjAZHhTrmhqGw9/ffW2961IddwoyvR
+ xEfq338ZEYOCLxIIKQdepRw0NYR4n3+nXy45XPWVnVYb8vuLKONW+Dsn4CNuph6LKGbumDhJMfI
+ 1jMKAGDMmU982J52/TYlLIFhQU0T9c4E=
+X-Gm-Gg: ASbGncvP4hc052W3seg+6UUL/QksTFM39FTxuKNBoMk/qIFmwFhcXDk/DIgB9lhY2DT
+ BDpJLaukGM4krm2Zk9vV6Ly8tBd5YF4FdxEiuOL1gIqcdNfQZnO6oFlrZY4e0n0YN4RlvRzaZm0
+ te7/nQxBAiCADi03qXmCGJ54o5Yn1uKXTAAbGPeMZvSvGxuJTY6UqaSAW8Dtg3X8eG+z966KfC+
+ p/1u9eujaMw/HLZ4VjumK+Xr+gkgt2+uetDLiPZz3LjOdFQzQhoJzKqDm1MgCiimffrHtJ022y7
+ i0iVk5m5X+HTXcUU1rLb7urE0PmrgZlKZchAxg==
+X-Google-Smtp-Source: AGHT+IEGdohugtR2sb53+frPUxwa7GRUs9J6xVF0AE8w1j/27wyTjC07rYDFt9AdZzKF1BYEYiKeI8EPFnRyu/xt1yk=
+X-Received: by 2002:ac8:5d05:0:b0:4e8:aff9:a7a8 with SMTP id
+ d75a77b69052e-4edf20ece1dmr167518001cf.52.1763366611104; Mon, 17 Nov 2025
+ 00:03:31 -0800 (PST)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: gsyAXnZIniilkBwdibU_qCnYAMaxju7npbJjK53qZPE_1763365365
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
+References: <20251117074239.190424-1-pbonzini@redhat.com>
+In-Reply-To: <20251117074239.190424-1-pbonzini@redhat.com>
+From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>
+Date: Mon, 17 Nov 2025 12:03:19 +0400
+X-Gm-Features: AWmQ_blJ8Dh6cFlaacYtNgW9LxgrUL2vN5MfkWtzj1cufTPkvVTAlZB0sqjEIMY
+Message-ID: <CAJ+F1C+B1amkaS0ZVJZFp42g1e9shdhnmjQYx8CDuv3vQ+Jzwg@mail.gmail.com>
+Subject: Re: [PATCH 0/8] rust: add preludes to all crates
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2607:f8b0:4864:20::836;
+ envelope-from=marcandre.lureau@gmail.com; helo=mail-qt1-x836.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=-0.01, RCVD_IN_MSPIKE_WL=-0.01,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -113,105 +97,91 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- rust/hw/char/pl011/src/device.rs |  2 +-
- rust/hw/timer/hpet/src/device.rs |  5 +----
- rust/hw/timer/hpet/src/fw_cfg.rs |  2 +-
- rust/util/meson.build            |  1 +
- rust/util/src/lib.rs             |  5 +++++
- rust/util/src/prelude.rs         | 11 +++++++++++
- 6 files changed, 20 insertions(+), 6 deletions(-)
- create mode 100644 rust/util/src/prelude.rs
+Hi
 
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index 04155dabe1a..18f40fdc58b 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -17,7 +17,7 @@
- };
- use qom::{prelude::*, ObjectImpl, Owned, ParentField, ParentInit};
- use system::{hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder};
--use util::{log::Log, log_mask_ln, ResultExt};
-+use util::prelude::*;
- 
- use crate::registers::{self, Interrupt, RegisterOffset};
- 
-diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
-index 3564aa79c6e..6e9c004ecae 100644
---- a/rust/hw/timer/hpet/src/device.rs
-+++ b/rust/hw/timer/hpet/src/device.rs
-@@ -25,10 +25,7 @@
-     bindings::{address_space_memory, address_space_stl_le, hwaddr},
-     MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder, MEMTXATTRS_UNSPECIFIED,
- };
--use util::{
--    ensure,
--    timer::{Timer, CLOCK_VIRTUAL, NANOSECONDS_PER_SECOND},
--};
-+use util::prelude::*;
- 
- use crate::fw_cfg::HPETFwConfig;
- 
-diff --git a/rust/hw/timer/hpet/src/fw_cfg.rs b/rust/hw/timer/hpet/src/fw_cfg.rs
-index 777fc8ef45e..ad80acd998c 100644
---- a/rust/hw/timer/hpet/src/fw_cfg.rs
-+++ b/rust/hw/timer/hpet/src/fw_cfg.rs
-@@ -5,7 +5,7 @@
- use std::ptr::addr_of_mut;
- 
- use common::Zeroable;
--use util::{self, ensure};
-+use util::{self, prelude::*};
- 
- /// Each `HPETState` represents a Event Timer Block. The v1 spec supports
- /// up to 8 blocks. QEMU only uses 1 block (in PC machine).
-diff --git a/rust/util/meson.build b/rust/util/meson.build
-index 8ad344dccbd..da5d0f779d1 100644
---- a/rust/util/meson.build
-+++ b/rust/util/meson.build
-@@ -34,6 +34,7 @@ _util_rs = static_library(
-       'src/error.rs',
-       'src/log.rs',
-       'src/module.rs',
-+      'src/prelude.rs',
-       'src/timer.rs',
-     ],
-     {'.': _util_bindings_inc_rs}
-diff --git a/rust/util/src/lib.rs b/rust/util/src/lib.rs
-index d14aa14ca77..7d2de3ed811 100644
---- a/rust/util/src/lib.rs
-+++ b/rust/util/src/lib.rs
-@@ -4,6 +4,11 @@
- pub mod error;
- pub mod log;
- pub mod module;
-+
-+// preserve one-item-per-"use" syntax, it is clearer
-+// for prelude-like modules
-+#[rustfmt::skip]
-+pub mod prelude;
- pub mod timer;
- 
- pub use error::{Error, Result, ResultExt};
-diff --git a/rust/util/src/prelude.rs b/rust/util/src/prelude.rs
-new file mode 100644
-index 00000000000..f52e7100e9f
---- /dev/null
-+++ b/rust/util/src/prelude.rs
-@@ -0,0 +1,11 @@
-+//! Essential types and traits intended for blanket imports.
-+
-+pub use crate::error::ResultExt;
-+pub use crate::log::Log;
-+pub use crate::timer::Timer;
-+pub use crate::timer::CLOCK_VIRTUAL;
-+pub use crate::timer::NANOSECONDS_PER_SECOND;
-+
-+// Re-export commonly used macros
-+pub use crate::ensure;
-+pub use crate::log_mask_ln;
--- 
-2.51.1
+On Mon, Nov 17, 2025 at 11:43=E2=80=AFAM Paolo Bonzini <pbonzini@redhat.com=
+> wrote:
+>
+> This series adds a prelude module to all crates, so that
+> it becomes possible to import from each crate with either
+> of the following
+>
+>    use XYZ::prelude::*;
+>    use XYZ::{self, prelude::*};
+>
+> The latter is used for items that have a "too common"
+> name to be put in the prelude: util::Error, util::Result,
+> migration::Infallible.
 
+In my experience, "preludes" are not so ubiquitous (except the std
+library). The use of wildcard imports is not encouraged, and may
+result in conflicts. Also, it's often subjective what you put there or
+not.
+
+I don't think we should encourage it, having explicit import of what
+is used is often clearer.
+
+>
+> Thanks,
+>
+> Paolo
+>
+> Paolo Bonzini (8):
+>   util: add prelude
+>   common: add prelude
+>   hwcore: add prelude
+>   migration: add prelude
+>   chardev: add prelude
+>   bql: add prelude
+>   system: add prelude
+>   qom: add more to the prelude
+>
+>  rust/bql/meson.build              |  1 +
+>  rust/bql/src/lib.rs               |  5 +++++
+>  rust/bql/src/prelude.rs           |  4 ++++
+>  rust/chardev/meson.build          |  1 +
+>  rust/chardev/src/chardev.rs       |  2 +-
+>  rust/chardev/src/lib.rs           |  5 +++++
+>  rust/chardev/src/prelude.rs       |  5 +++++
+>  rust/common/meson.build           | 13 +------------
+>  rust/common/src/lib.rs            |  5 +++++
+>  rust/common/src/prelude.rs        |  9 +++++++++
+>  rust/hw/char/pl011/src/device.rs  | 22 ++++++++--------------
+>  rust/hw/core/meson.build          |  1 +
+>  rust/hw/core/src/lib.rs           |  5 +++++
+>  rust/hw/core/src/prelude.rs       | 14 ++++++++++++++
+>  rust/hw/core/src/qdev.rs          |  2 +-
+>  rust/hw/core/src/sysbus.rs        |  2 +-
+>  rust/hw/core/tests/tests.rs       |  8 ++++----
+>  rust/hw/timer/hpet/src/device.rs  | 26 +++++++++-----------------
+>  rust/hw/timer/hpet/src/fw_cfg.rs  |  2 +-
+>  rust/migration/meson.build        |  1 +
+>  rust/migration/src/lib.rs         |  5 +++++
+>  rust/migration/src/migratable.rs  |  2 +-
+>  rust/migration/src/prelude.rs     | 19 +++++++++++++++++++
+>  rust/qom/src/prelude.rs           |  4 ++++
+>  rust/system/meson.build           |  1 +
+>  rust/system/src/lib.rs            |  5 +++++
+>  rust/system/src/prelude.rs        |  8 ++++++++
+>  rust/tests/tests/vmstate_tests.rs |  7 +++----
+>  rust/util/meson.build             |  1 +
+>  rust/util/src/lib.rs              |  5 +++++
+>  rust/util/src/prelude.rs          | 11 +++++++++++
+>  31 files changed, 145 insertions(+), 56 deletions(-)
+>  create mode 100644 rust/bql/src/prelude.rs
+>  create mode 100644 rust/chardev/src/prelude.rs
+>  create mode 100644 rust/common/src/prelude.rs
+>  create mode 100644 rust/hw/core/src/prelude.rs
+>  create mode 100644 rust/migration/src/prelude.rs
+>  create mode 100644 rust/system/src/prelude.rs
+>  create mode 100644 rust/util/src/prelude.rs
+>
+> --
+> 2.51.1
+>
+>
+
+
+--=20
+Marc-Andr=C3=A9 Lureau
 
