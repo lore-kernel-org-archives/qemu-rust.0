@@ -4,86 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D9F1CE8D6B
-	for <qemu-rust@archiver.kernel.org>; Mon, 17 Nov 2025 08:37:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9289CEACEF
+	for <qemu-rust@archiver.kernel.org>; Mon, 17 Nov 2025 08:48:21 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vKujD-0004zq-JL; Mon, 17 Nov 2025 03:36:51 -0500
+	id 1vKuu4-00041n-DN; Mon, 17 Nov 2025 03:48:07 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vKujA-0004wT-Kw
- for qemu-rust@nongnu.org; Mon, 17 Nov 2025 03:36:48 -0500
+ id 1vKuu2-000402-8o
+ for qemu-rust@nongnu.org; Mon, 17 Nov 2025 03:48:02 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vKuj8-0005Zg-S7
- for qemu-rust@nongnu.org; Mon, 17 Nov 2025 03:36:48 -0500
+ id 1vKuu0-00070Z-2M
+ for qemu-rust@nongnu.org; Mon, 17 Nov 2025 03:48:01 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1763368605;
+ s=mimecast20190719; t=1763369278;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Snd5dpE1c/1fq4z3opAqdonNA4kWh1wLIwKMHTA2U/0=;
- b=Fy4mF88PZ6PB7ISo0ALv0sQwDg6733zgSc1+I04Avf7VJtQ/5tdc1cs+HmHza42wuGtM+J
- Na/pGWSgwYOMOvNgVJTQyKrmv9gd9Hkx8LBQA79K92cE+h8Xd8oWJ3cQvEyyq7APjWzDgf
- uwjr8pZAe2/g1zRiBvaI316GkPg6oWQ=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding;
+ bh=zj1nInfR3UeZsM3aae0qLP9sPE2mkuL4wOLQLqCpPY4=;
+ b=dcXWNI4zQgHZ0i1Nbnk9R7k2eoSaA17Jwqfre0MMNRjY5x51URre4lBv4FTvdw7pRCWk/K
+ 9mFWaDDN0QOCB0UvtU7RYpxPMHA5QHt9TtOTLYlERXltxKXsgYsNOn4fLsdPdJoz2uUFHF
+ YyyxLpZqevdgAMDvOhcYlaQiues2JHk=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-466-LBKWnfn9MYqfseF_uJUGYw-1; Mon, 17 Nov 2025 03:36:43 -0500
-X-MC-Unique: LBKWnfn9MYqfseF_uJUGYw-1
-X-Mimecast-MFC-AGG-ID: LBKWnfn9MYqfseF_uJUGYw_1763368603
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-42b487cda00so1900120f8f.3
- for <qemu-rust@nongnu.org>; Mon, 17 Nov 2025 00:36:43 -0800 (PST)
+ us-mta-30-89h0cfOFMd6C2CQ5MMNdaA-1; Mon, 17 Nov 2025 03:47:56 -0500
+X-MC-Unique: 89h0cfOFMd6C2CQ5MMNdaA-1
+X-Mimecast-MFC-AGG-ID: 89h0cfOFMd6C2CQ5MMNdaA_1763369275
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-429cceeeb96so1727197f8f.1
+ for <qemu-rust@nongnu.org>; Mon, 17 Nov 2025 00:47:56 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763368601; x=1763973401;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Snd5dpE1c/1fq4z3opAqdonNA4kWh1wLIwKMHTA2U/0=;
- b=KY5gSz3ydB6vlVK/4gJvFH6z1FomB+fnOMJ7LtlpDJz9NlrQ/xnkbdVWErXwcvrt2O
- qt5UiK7KH9n3ha7SdBe7HA8J+mbWIdkZ88SKefQ/sv4AZZmNCtEDgp9qZYFWYl99AX5c
- m399XmBT8jSaHFUHRWQ+ukagPrnp0bMGQfB4ifxHl1kR65rXfJ7puJQZAi/3MnzlgMVV
- oMonYAlTDjA1HuY7AHbz6s+VW+Nt3mxtqr9Seynt/0qgcMhRNfod42UhAwd//hH7gWqM
- L8+Z60yXriuo99hBZ1VnN/DAUVdAiA/7iM3ZI+QLihSwC3bIS2xlbtR5nM0XI/npgJlg
- WQ8g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWmCyGz/Q1MBQ3Q40jT8ds8faFwenuhqPfQTAAxPEh5DopHFA3nPZIWrh2fpbBhXGVgxmGxoP4Imv4=@nongnu.org
-X-Gm-Message-State: AOJu0YyKBZMA08a1Z3aGPL1TZesuuATZZpExJufsjxnoA/IC9Pm/K7n9
- +xfg2/HmCUSdAehGLoTPikI4ynqyMv1Huysj6iGnsApLVs5tcXlndD9Bow/DAMdXaIS0vSEIFkF
- VJJvKSU7Mv/xSPOSLhl3llWazgAvoVjIukIu7DLYWgHPz2Jqy//VNzMKxTmF94QjIy7jjx6EMdj
- M4FVuSeeBF7kPSr8ygv6Mwa/YfW5cnf1d3Zi3kFnuF
-X-Gm-Gg: ASbGncsSG5DLAIpRkOr2c7Ee0XFPS2V+n7gCU2N0S1GJk6y1jSVmFDgMA0LmczriXOy
- 701Wx+p5zuFoBmafOwjgt01XWH3jvF/Br9BLvgYV85Hoze4gYlwzdFistgMEFOInf67jexw/a9x
- OkhR1w+zy1mLTvnsfqUJ+otRfejyT/nvd0EQlrlPnu689UzvUQ2TFiagQnSP3oE8Xx/RfTm+VCx
- 0h+C01EzJQU+TXjPDNq9gMooLCkwqsBeoVuTzrCULcydj/xiuj+a4ABuPfe
-X-Received: by 2002:a05:6000:2f85:b0:42b:30f9:79b6 with SMTP id
- ffacd0b85a97d-42b5938a9a1mr11165551f8f.58.1763368601524; 
- Mon, 17 Nov 2025 00:36:41 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFjV3uHWjABRuwu7nZ6NEzQ/NPivrgsyqz/npqBHCRENysdFAEq8JY8mCrT9uX68IVAThPJ1IJu4fWC9fUF1iI=
-X-Received: by 2002:a05:6000:2f85:b0:42b:30f9:79b6 with SMTP id
- ffacd0b85a97d-42b5938a9a1mr11165522f8f.58.1763368601051; Mon, 17 Nov 2025
- 00:36:41 -0800 (PST)
-MIME-Version: 1.0
-References: <20251117074239.190424-1-pbonzini@redhat.com>
- <CAJ+F1C+B1amkaS0ZVJZFp42g1e9shdhnmjQYx8CDuv3vQ+Jzwg@mail.gmail.com>
-In-Reply-To: <CAJ+F1C+B1amkaS0ZVJZFp42g1e9shdhnmjQYx8CDuv3vQ+Jzwg@mail.gmail.com>
+ d=1e100.net; s=20230601; t=1763369275; x=1763974075;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zj1nInfR3UeZsM3aae0qLP9sPE2mkuL4wOLQLqCpPY4=;
+ b=g12cPafngCvH35uVDu6BBzl/h6gZzC0JQtis7X8GGHTT0PC5aA/MXlSqKh3hunWSVu
+ KKvmQ2iXTI52LYTOOY0Y6iX81N8GIq4ObWU8Z7lvKgFcDLTuLDAys0hCq4v7jl65OXro
+ 9uolE8iL0dVHH/XEl0Sj9EuuoB97Ish7LSU8Q/mEDUuih3+isqu+t6A6u/5J+mvhGsTe
+ aazK2gu1CLlChbxHJ3fs6vLrMIx+wwJVbYr7LqYSTYiNr6eIlT2+tD3Uliwk9IWEWnSI
+ u1nJJYNtTu63XHmRGgiN7q5eRV6u5IrNgzNX+UqP1EQ2emPj88268Of3tf242lHV3oPE
+ LuAg==
+X-Gm-Message-State: AOJu0YzsEQh8fJgao/oBk97XqVhlg+G4TPgYDhGNnMiN5d4EyMl3sjf6
+ +8fBfJXCV4Dyyn5LCOqKWd6W18jph3At+QU5m6KOIpfibMTzPpgi4X/fGk9hH4jkQDqryoZl53w
+ 66LawmXD3k10rLzF6tSMYx0MnI73D4DbfKtVoM82SsW51MFFLW293TJo=
+X-Gm-Gg: ASbGnctZ4NHrbgdR6uVYx34CfSHzC9OSSb8WwSNmxH8Dlj2TtBeC2W78Hx2RrT/6SSH
+ 1R8GfGgR5EOngOnjKKQQBqEEpxLUddziOtKvPcAfTp3/4yjlvxf7JiQW5Lhbgfm88712uNpsYMf
+ VVOpAAi9nwNNO+JH2w0tX8eUvWb2BEcGQ5w3DIEu3OTOOAk5T3Bp3bst1EupG0GJT3ND3T+WnUO
+ RS8D/Jbn58ShD48JDzzKzrkcMuGf2/hJ6TEO25loOGDqVqElHBpxT+4fL4lzVdXO2meW5mndpqh
+ E/pVSHcy0zy6Q961BVrBYeYF7hsYUsWZPTZ1qLYmqA8KYtXNTqsWyhwfjSlhtFTH+qaJ/YxcOz0
+ 8puSwo4F05yY9R6IyhNz0GEVglELPnZ3jB7k8PayPmiuza/fALgb/uXawTlVu/hNpKIfJYJU8zr
+ TxxAaH
+X-Received: by 2002:a05:6000:2083:b0:42b:3867:b39c with SMTP id
+ ffacd0b85a97d-42b593745c4mr10653762f8f.34.1763369275259; 
+ Mon, 17 Nov 2025 00:47:55 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHLS2FixPcIcpTS6ZXVj6ShIviFsRbRGTqL7Hk7+jFgEEjYIgwEIycjfWFHHRNMi+JWxaTBiA==
+X-Received: by 2002:a05:6000:2083:b0:42b:3867:b39c with SMTP id
+ ffacd0b85a97d-42b593745c4mr10653744f8f.34.1763369274798; 
+ Mon, 17 Nov 2025 00:47:54 -0800 (PST)
+Received: from [192.168.10.48] ([176.206.119.13])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42b53e845bdsm24187986f8f.12.2025.11.17.00.47.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Nov 2025 00:47:54 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Mon, 17 Nov 2025 09:36:26 +0100
-X-Gm-Features: AWmQ_bncGOB71UIM0goHWRuJ162_nbYEVhvXJWM6uSkwjWkrWi_XMoQziET-hKY
-Message-ID: <CABgObfaoTEaOO78+s+ZhqUT62=iS=sVUOFiahwAYkL1EuuW6_A@mail.gmail.com>
-Subject: Re: [PATCH 0/8] rust: add preludes to all crates
-To: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org,
+	zhao1.liu@intel.com
+Subject: [PATCH 0/5] rust/hpet: complete moving state out of HPETTimer
+Date: Mon, 17 Nov 2025 09:47:47 +0100
+Message-ID: <20251117084752.203219-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.51.1
+MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: -vTc1aVX4gLsRC12iD5zwAB0-w3AvZ8pL-VKbc4T25Q_1763368603
+X-Mimecast-MFC-PROC-ID: Q-fVowgxYsaTKhg8vpHxZDjwkgbsKcfocpEzCwhNPKA_1763369275
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
@@ -109,64 +111,50 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, Nov 17, 2025 at 9:03=E2=80=AFAM Marc-Andr=C3=A9 Lureau
-<marcandre.lureau@gmail.com> wrote:
->
-> Hi
->
-> On Mon, Nov 17, 2025 at 11:43=E2=80=AFAM Paolo Bonzini <pbonzini@redhat.c=
-om> wrote:
-> >
-> > This series adds a prelude module to all crates, so that
-> > it becomes possible to import from each crate with either
-> > of the following
-> >
-> >    use XYZ::prelude::*;
-> >    use XYZ::{self, prelude::*};
-> >
-> > The latter is used for items that have a "too common"
-> > name to be put in the prelude: util::Error, util::Result,
-> > migration::Infallible.
->
-> In my experience, "preludes" are not so ubiquitous (except the std
-> library). The use of wildcard imports is not encouraged, and may
-> result in conflicts.
+This state continues the cleanups of the HPET state, moving fields out of
+BqlCells and into HPETRegisters and HPETTimerRegisters.  It also restores
+the old migration format and shows an interesting trick: HPETTimer is now
+a very simple object that handles the "unsafe" backreference from the
+timer to the HPETState, but it also implements ToMigrationStateShared
+and is stored in the HPETState as Migratable<[HPETTimer; N]>.  I find
+it pretty cool that the composition works naturally.
 
-Yes, I agree with this.  On the other hand, we already have lists of
-imports that are two-three lines long and I'm afraid that people would
-prefer to just import migration::* for example.  While we can block
-them with -Dclippy::wildcard_imports, the problem is real.
+The less beautiful part is that I had to modify Timer::init_full for
+this to compile.  It's probably time to work on the final design for
+initialization, because this is becoming very ad hoc and the differences
+between timer, MemoryRegion and Clock initialization have no real
+justification.
 
-So I was a bit undecided and went looking for examples of crates that
-do have a prelude. I first noticed that bevy has a similar system,
-with each of its crates providing a prelude.  IMO QEMU is a similar
-case to bevy, where most of the code will use structs from the QEMU
-crates more than std, so it makes sense to have them. Futures and
-Tokio also have a prelude, and they also fit the idea of crates that
-provide a programming environment.
+I'm leaving out the conversion to Mutex because, as Zhao noticed, it
+has a deadlock - the timer callback tries to grab the HPET mutex inside
+the BQL, where as the vCPU tries to grab the BQL inside the HPET mutex.
+This is not present in the C code only because... it doesn't take the
+lock at all in places where it should.  In particular hpet_timer() reads
+and writes t->cmp and t->cmp64 outside the lock, while hpet_ram_write()
+does so within the lock via hpet_set_timer().
 
-Preludes let you import libraries with a level of detail similar to C
-includes.  For simple library crates that offer two-three types it's
-not necessary to have one, but as the complexity and number of crates
-increase, they provide more clarity.
+Patch 4 ("rust: migration: implement ToMigrationState for Timer") is
+still incomplete, and provided here as a starting point.
 
-Another thing to notice is that the QOM bindings work a lot with
-extension traits implemented on all types.  There should be no need
-for users to know the difference between DeviceState, DeviceMethods
-and DeviceClassMethods. Preludes help with that.
-
-> Also, it's often subjective what you put there or not.
-
-Right - for now I just defined what should *never* be in a prelude:
-the rule was simply "do not include anything that can conflict with
-std".  This should not be that bad, otherwise we'd have similar
-problems with C includes as mentioned above.
-
-Another thing that should not be in the preludes without extremely
-good reasons is enum variants; Ok/Err and Some/None are the only
-exceptions in the standard library prelude, and they should probably
-remain the only ones.
+Please review!
 
 Paolo
+
+Paolo Bonzini (4):
+  rust/hpet: move hidden registers to HPETTimerRegisters
+  rust/hpet: move hpet_offset to HPETRegisters
+  rust/hpet: remove BqlRefCell around HPETTimer
+  rust: migration: implement ToMigrationState for Timer
+
+Zhao Liu (1):
+  rust/hpet: Apply Migratable<> wrapper and ToMigrationState
+
+ rust/hw/timer/hpet/src/device.rs | 377 ++++++++++++++++++-------------
+ rust/migration/src/migratable.rs |  31 +++
+ rust/util/src/timer.rs           |  22 +-
+ 3 files changed, 264 insertions(+), 166 deletions(-)
+
+-- 
+2.51.1
 
 
