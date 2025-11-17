@@ -4,87 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27488CE8D6B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1FAFCEACEF
 	for <qemu-rust@archiver.kernel.org>; Mon, 17 Nov 2025 07:44:40 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vKttk-0003ZE-H3; Mon, 17 Nov 2025 02:43:40 -0500
+	id 1vKttj-0003YH-FM; Mon, 17 Nov 2025 02:43:39 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vKttI-0003TH-0M
- for qemu-rust@nongnu.org; Mon, 17 Nov 2025 02:43:15 -0500
+ id 1vKtsx-0003Rk-OT
+ for qemu-rust@nongnu.org; Mon, 17 Nov 2025 02:42:55 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vKttE-0005yE-5p
- for qemu-rust@nongnu.org; Mon, 17 Nov 2025 02:43:11 -0500
+ id 1vKtsw-0005uv-2L
+ for qemu-rust@nongnu.org; Mon, 17 Nov 2025 02:42:51 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1763365387;
+ s=mimecast20190719; t=1763365369;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=LYpXvQqc4dVmIfdFRG0SX4W7X90x8XVMn1XK0b+T/Is=;
- b=PHMrzzMbZ7QDy6/QwqxhampxTv+jjdFElnP26UnZcK26875MgvoKVELtHO+Yx9ofWDL5gc
- hzNEF6NuB3zwLw+YaKp4CtfyxBQPqml0kQxPtILHndvciGHVbuqhqYGF4Y8mQJhlHeEpHi
- QrTxofKH7EIu5J0P5oOmCbK8SUPqgC4=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=WXWNBS5VhaBDKMLiYRt/qNQXMDrMpUmP4CgRsLrhNMs=;
+ b=UmIttLuD/ZtDssCzfn3Ozwq3+jLXel2xfUkEWlqrjXUu+kaeL10jg5BMrY00yw39KajTIN
+ LWOCcy56n0WNLiRHuEH1PyfTTnWeL128D1oiMTBsmDolsQa7pzRUr3cmn03TqGVZL5p+Pv
+ qg5w07e7Z48ao+LINrfPjDb9zuvnTWY=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-618-YBSOLCP-Mny4xg8ZYcOkrw-1; Mon, 17 Nov 2025 02:42:52 -0500
-X-MC-Unique: YBSOLCP-Mny4xg8ZYcOkrw-1
-X-Mimecast-MFC-AGG-ID: YBSOLCP-Mny4xg8ZYcOkrw_1763365371
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-4779b3749a8so9935345e9.1
- for <qemu-rust@nongnu.org>; Sun, 16 Nov 2025 23:42:52 -0800 (PST)
+ us-mta-694-KVr6UufRNfW-u2FK4vD-9A-1; Mon, 17 Nov 2025 02:42:48 -0500
+X-MC-Unique: KVr6UufRNfW-u2FK4vD-9A-1
+X-Mimecast-MFC-AGG-ID: KVr6UufRNfW-u2FK4vD-9A_1763365367
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-42b30184be7so1711176f8f.2
+ for <qemu-rust@nongnu.org>; Sun, 16 Nov 2025 23:42:47 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763365370; x=1763970170;
+ d=1e100.net; s=20230601; t=1763365366; x=1763970166;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=LYpXvQqc4dVmIfdFRG0SX4W7X90x8XVMn1XK0b+T/Is=;
- b=l4fvCEx/jERwVLHBecahtbCzzckA0aZDKFCeYomDQCe8V20nc/cQcLOroLe9+OS7uU
- 1qALI+BCG82gVA+kK/era848Degp3lXOjzIzw2aK8hwQjYFTUkP65YNoF+u3zvmXIzdL
- HmlOhNEDEn6jM+z1HhN+D90hou7p5rXu4zFd+rPZ+GzuOTyXFY+iyIGoJRCU6WKpFUM2
- Xts/yQLumO2iYodfg/SXdnTED2Re8dWVc1KwjKIEu1uPblV1CMpt3jW+UT0a0rbrlpoe
- qi4Z1dj5lAzsWBNpdZKn2PVMDQuqj8gbWi7uxYdGbYSOplph+jVO1IFIGLHRpl6kei2T
- WZKA==
-X-Gm-Message-State: AOJu0YxrTVisJe5dE0DblbRRnnK5vE1FLp3vIqemGFVYIlanAWGfHV1D
- Aohps/slpJYyzEP8iCg8NTmdVWdybi8zkqYwJOjXcFwuJEaE4QcFjnhWJja1dIc7IIqo14rik3Z
- Thz5B6/YIyDtlSaGRf4GaIR/Ln/3GvJhjgvkFgLcM4WSM77fbywUgZq0rnFOQj08=
-X-Gm-Gg: ASbGncvE2rSw/2myyO1n+KWRNBioi7YjjfrECUDQgv/GZ/RDhtwnm4FEcO+a9wNyNdv
- I1L/GJ4OrJoSaiEcibsBjkG1alDOU3DPy9aR5tnvXTRTDdZ7nZ0l8mJqwwPbGCA9WERL9LqMkt1
- rBeFXQJsWsKYM4KLV4545sgFtfKf6lJGWvIFqvzPk9JVVWmBruZysoe6PvfPqdJh3wwFh23WVKe
- tHFbrfoTG9yXbniHBaC8bcD1aakMsLGQoJCe7MHPmkJ0SrtOhRO8n3G1iLYCzTITbHyjkVZj53x
- UAQaRHrSmtooEoc74D63mrLL0dQqsvFVBdyRI9748qGDMn61Q7wjiI6nWLHcK7BsAksJN7/DxrG
- alHFPW0jEgta7R/sEDLIiKzEW4zMAcq+3zxGHJT8HAU8z9/jRJ/jcH+HkYpychmZJ3BudPDEsWU
- HfpEsy
-X-Received: by 2002:a05:600c:1f0f:b0:471:1774:3003 with SMTP id
- 5b1f17b1804b1-4778feb51f6mr97242825e9.29.1763365370563; 
- Sun, 16 Nov 2025 23:42:50 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGvfpiujz2PjslU/fzkxoftfg1QXzoLa0wphtavKXdIOKrErzSsZ1Uo4oa3poXjHmecuuDvtA==
-X-Received: by 2002:a05:600c:1f0f:b0:471:1774:3003 with SMTP id
- 5b1f17b1804b1-4778feb51f6mr97242645e9.29.1763365370084; 
- Sun, 16 Nov 2025 23:42:50 -0800 (PST)
+ bh=WXWNBS5VhaBDKMLiYRt/qNQXMDrMpUmP4CgRsLrhNMs=;
+ b=GaL+iDGrIs/vQpskJJ2oRpj68vWK9xw6Ub/Phy/9XVLUHbzkQhY/K9mDf+QExT7TA/
+ /IjtvCAL88ko3Mo+7drgqLQzjqzb5+MZWoczWSrYYKdrZlFNw+61upWFH/YhWpr1+87N
+ hW+V4KksZZFCEy3Fs4eFDs3IUvrEPu15gpLKlPdr7N9MiWk4/vDFcTKusdlUmP84hxqg
+ k+wS0VUw8EN6VyUWsGARY2p3SgxD1tnXdXkwYLcQB03/6wNWyaleuLrtHNM+55VBA0F0
+ XiGdi1aYRlqg+LL8/ZgBNaU7wvF/5LUAqeWxhlm0U/rIFY1T8Ak1/aBk2LdorLeObVTD
+ PQrg==
+X-Gm-Message-State: AOJu0Yxt4ymBUpS4ubxkkYShZhNs9HYRXXXSjMNQyLT9YEcdaG40KSum
+ +xf7a+xy9WYDZjR/FTtEGaEPof8VRtjuqvhO9G7Pq2il3tMO+GQv71iODN0UOFGQlZzPOmz6MJz
+ ML3rCKJID87F0WAxeia3QYGPUhEEzm7fhfnwO1++2up2djMLqyF02zpdn2BD63Ls=
+X-Gm-Gg: ASbGncuU5kZSaRkcECDZYZlXWWCqwU3x4BS+1f2hPAL+kDbh6jkD1cxlaKGar0L7U91
+ YJgrxzxxe4UpbdE99n81KJzTAymA1nV99G4csJUTv7TcoJc+9qT+YhJD50LzDutNc1KG76nLDQZ
+ nCdPqM+u2lUhSkZKaKUvS8Sb/36Vu7/cXRSBslAdqS8UkJJOjHcIAN7eT7xEkUR/qKkiIKA6BCD
+ h/Hx+b3BJCk5ZYG7OwlFWIFwMW7xGVpy6wry1ev6yjOWGXqCdvog7NG/vQxp4fEpSXKXRon0xRD
+ i+HEvc1dX6lMr9nGDYRJ1olxoRbwe2YrRdITFtJj9DWZYclWplwxj0qAwYkX5FjhM7Eam6Oe6im
+ kWqg0AtBhBBF+y0Y68ht/61Owe+tTKs7Mx9uBkRWHSC+3Y6XCprk8Ij9uLmFFdtZVgiESYPzuDh
+ xYJT4T
+X-Received: by 2002:a5d:584e:0:b0:42b:3cd2:e9bb with SMTP id
+ ffacd0b85a97d-42b5936c3dbmr10875002f8f.32.1763365366358; 
+ Sun, 16 Nov 2025 23:42:46 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFgORTIIi371fjt9Hr2AMNjaMxZheQOLEx6qGofV9948hnrMsOWalG76zVd2wtQ7zmbDeALqA==
+X-Received: by 2002:a5d:584e:0:b0:42b:3cd2:e9bb with SMTP id
+ ffacd0b85a97d-42b5936c3dbmr10874984f8f.32.1763365365876; 
+ Sun, 16 Nov 2025 23:42:45 -0800 (PST)
 Received: from [192.168.10.48] ([176.206.119.13])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47799768409sm123528535e9.3.2025.11.16.23.42.48
+ ffacd0b85a97d-42b53e7ae47sm24204521f8f.4.2025.11.16.23.42.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Nov 2025 23:42:48 -0800 (PST)
+ Sun, 16 Nov 2025 23:42:44 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
-Subject: [PATCH 4/8] migration: add prelude
-Date: Mon, 17 Nov 2025 08:42:34 +0100
-Message-ID: <20251117074239.190424-5-pbonzini@redhat.com>
+Subject: [PATCH 2/8] common: add prelude
+Date: Mon, 17 Nov 2025 08:42:32 +0100
+Message-ID: <20251117074239.190424-3-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251117074239.190424-1-pbonzini@redhat.com>
 References: <20251117074239.190424-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: cgX-fyzliaPnIhnMRxI4X_sDBoAi6NnB7PcPLg0fAwA_1763365371
+X-Mimecast-MFC-PROC-ID: 7vOyxh7T5JF3HwH4KYmJwB9ACOsS5qu23HpMAyeMfy8_1763365367
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -97,7 +97,7 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=-0.01, RCVD_IN_MSPIKE_WL=-0.01,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -115,141 +115,95 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/chardev/src/prelude.rs       |  3 +++
- rust/hw/char/pl011/src/device.rs  |  5 +----
- rust/hw/core/tests/tests.rs       |  2 +-
- rust/hw/timer/hpet/src/device.rs  |  5 +----
- rust/migration/meson.build        |  1 +
- rust/migration/src/lib.rs         |  5 +++++
- rust/migration/src/prelude.rs     | 19 +++++++++++++++++++
- rust/tests/tests/vmstate_tests.rs |  5 ++---
- 8 files changed, 33 insertions(+), 12 deletions(-)
- create mode 100644 rust/chardev/src/prelude.rs
- create mode 100644 rust/migration/src/prelude.rs
+ rust/common/meson.build          | 13 +------------
+ rust/common/src/lib.rs           |  5 +++++
+ rust/common/src/prelude.rs       |  9 +++++++++
+ rust/hw/char/pl011/src/device.rs |  2 +-
+ rust/hw/timer/hpet/src/device.rs |  2 +-
+ 5 files changed, 17 insertions(+), 14 deletions(-)
+ create mode 100644 rust/common/src/prelude.rs
 
-diff --git a/rust/chardev/src/prelude.rs b/rust/chardev/src/prelude.rs
-new file mode 100644
-index 00000000000..9f0b561bfab
---- /dev/null
-+++ b/rust/chardev/src/prelude.rs
-@@ -0,0 +1,3 @@
-+//! Essential types and traits intended for blanket imports.
-+
-+pub use crate::chardev::{Chardev, CharFrontend, Event};
-\ No newline at end of file
-diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
-index 164f27d5bb2..2e4ccc9b231 100644
---- a/rust/hw/char/pl011/src/device.rs
-+++ b/rust/hw/char/pl011/src/device.rs
-@@ -8,10 +8,7 @@
- use chardev::{CharFrontend, Chardev, Event};
- use common::prelude::*;
- use hwcore::{prelude::*, ClockEvent, IRQState};
--use migration::{
--    self, impl_vmstate_forward, impl_vmstate_struct, vmstate_fields, vmstate_of,
--    vmstate_subsections, vmstate_unused, VMStateDescription, VMStateDescriptionBuilder,
--};
-+use migration::{self, prelude::*};
- use qom::{prelude::*, ObjectImpl, Owned, ParentField, ParentInit};
- use system::{hwaddr, MemoryRegion, MemoryRegionOps, MemoryRegionOpsBuilder};
- use util::prelude::*;
-diff --git a/rust/hw/core/tests/tests.rs b/rust/hw/core/tests/tests.rs
-index b39d1501d5b..f38376d0016 100644
---- a/rust/hw/core/tests/tests.rs
-+++ b/rust/hw/core/tests/tests.rs
-@@ -6,7 +6,7 @@
+diff --git a/rust/common/meson.build b/rust/common/meson.build
+index aff601d1df2..db1365dbe0d 100644
+--- a/rust/common/meson.build
++++ b/rust/common/meson.build
+@@ -4,18 +4,7 @@ _common_cfg = run_command(rustc_args,
  
- use bql::BqlCell;
- use hwcore::prelude::*;
--use migration::{VMStateDescription, VMStateDescriptionBuilder};
-+use migration::prelude::*;
- use qom::{prelude::*, ObjectImpl, ParentField};
- use util::bindings::{module_call_init, module_init_type};
- 
-diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
-index 7ab9897cdfb..4ff1779a3d2 100644
---- a/rust/hw/timer/hpet/src/device.rs
-+++ b/rust/hw/timer/hpet/src/device.rs
-@@ -13,10 +13,7 @@
- use bql::{BqlCell, BqlRefCell};
- use common::prelude::*;
- use hwcore::prelude::*;
--use migration::{
--    self, impl_vmstate_struct, vmstate_fields, vmstate_of, vmstate_subsections, vmstate_validate,
--    VMStateDescription, VMStateDescriptionBuilder,
--};
-+use migration::{self, prelude::*};
- use qom::{prelude::*, ObjectImpl, ParentField, ParentInit};
- use system::{
-     bindings::{address_space_memory, address_space_stl_le, hwaddr},
-diff --git a/rust/migration/meson.build b/rust/migration/meson.build
-index 444494700ad..d7af2129490 100644
---- a/rust/migration/meson.build
-+++ b/rust/migration/meson.build
-@@ -32,6 +32,7 @@ _migration_rs = static_library(
-       'src/lib.rs',
-       'src/bindings.rs',
-       'src/migratable.rs',
-+      'src/prelude.rs',
-       'src/vmstate.rs',
-     ],
-     {'.' : _migration_bindings_inc_rs},
-diff --git a/rust/migration/src/lib.rs b/rust/migration/src/lib.rs
-index c9bdf0d4133..32e182e716a 100644
---- a/rust/migration/src/lib.rs
-+++ b/rust/migration/src/lib.rs
-@@ -7,5 +7,10 @@
- pub mod migratable;
- pub use migratable::*;
+ _common_rs = static_library(
+   'common',
+-  structured_sources(
+-    [
+-      'src/lib.rs',
+-      'src/assertions.rs',
+-      'src/bitops.rs',
+-      'src/callbacks.rs',
+-      'src/errno.rs',
+-      'src/opaque.rs',
+-      'src/uninit.rs',
+-      'src/zeroable.rs',
+-    ],
+-  ),
++  'src/lib.rs',
+   override_options: ['rust_std=2021', 'build.rust_std=2021'],
+   rust_abi: 'rust',
+   rust_args: _common_cfg,
+diff --git a/rust/common/src/lib.rs b/rust/common/src/lib.rs
+index 8311bf945da..6093d01a388 100644
+--- a/rust/common/src/lib.rs
++++ b/rust/common/src/lib.rs
+@@ -15,6 +15,11 @@
+ pub mod opaque;
+ pub use opaque::{Opaque, Wrapper};
  
 +// preserve one-item-per-"use" syntax, it is clearer
 +// for prelude-like modules
 +#[rustfmt::skip]
 +pub mod prelude;
 +
- pub mod vmstate;
- pub use vmstate::*;
-diff --git a/rust/migration/src/prelude.rs b/rust/migration/src/prelude.rs
+ pub mod uninit;
+ pub use uninit::MaybeUninitField;
+ 
+diff --git a/rust/common/src/prelude.rs b/rust/common/src/prelude.rs
 new file mode 100644
-index 00000000000..797e7ec59d1
+index 00000000000..7d38ea12055
 --- /dev/null
-+++ b/rust/migration/src/prelude.rs
-@@ -0,0 +1,19 @@
++++ b/rust/common/src/prelude.rs
+@@ -0,0 +1,9 @@
 +//! Essential types and traits intended for blanket imports.
 +
-+// Core migration traits and types
-+pub use crate::vmstate::VMState;
-+pub use crate::vmstate::VMStateDescription;
-+pub use crate::vmstate::VMStateDescriptionBuilder;
++pub use crate::bitops::IntegerExt;
++pub use crate::uninit::MaybeUninitField;
 +
-+// Migratable wrappers
-+pub use crate::migratable::Migratable;
-+pub use crate::ToMigrationState;
-+
-+// Commonly used macros
-+pub use crate::impl_vmstate_forward;
-+pub use crate::impl_vmstate_struct;
-+pub use crate::vmstate_fields;
-+pub use crate::vmstate_of;
-+pub use crate::vmstate_subsections;
-+pub use crate::vmstate_unused;
-+pub use crate::vmstate_validate;
-diff --git a/rust/tests/tests/vmstate_tests.rs b/rust/tests/tests/vmstate_tests.rs
-index fa9bbd6a122..c3f9e1c7436 100644
---- a/rust/tests/tests/vmstate_tests.rs
-+++ b/rust/tests/tests/vmstate_tests.rs
-@@ -16,9 +16,8 @@
-         vmstate_info_bool, vmstate_info_int32, vmstate_info_int64, vmstate_info_int8,
-         vmstate_info_uint64, vmstate_info_uint8, vmstate_info_unused_buffer, VMStateFlags,
-     },
--    impl_vmstate_forward, impl_vmstate_struct,
--    vmstate::{VMStateDescription, VMStateDescriptionBuilder, VMStateField},
--    vmstate_fields, vmstate_of, vmstate_unused, vmstate_validate,
-+    prelude::*,
-+    vmstate::VMStateField,
++// Re-export commonly used macros
++pub use crate::static_assert;
++pub use crate::uninit_field_mut;
++pub use qemu_macros::TryInto;
+diff --git a/rust/hw/char/pl011/src/device.rs b/rust/hw/char/pl011/src/device.rs
+index 18f40fdc58b..b7e8e393d2e 100644
+--- a/rust/hw/char/pl011/src/device.rs
++++ b/rust/hw/char/pl011/src/device.rs
+@@ -6,7 +6,7 @@
+ 
+ use bql::BqlRefCell;
+ use chardev::{CharFrontend, Chardev, Event};
+-use common::{static_assert, uninit_field_mut};
++use common::prelude::*;
+ use hwcore::{
+     Clock, ClockEvent, DeviceImpl, DeviceMethods, DeviceState, IRQState, InterruptSource,
+     ResetType, ResettablePhasesImpl, SysBusDevice, SysBusDeviceImpl, SysBusDeviceMethods,
+diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
+index 6e9c004ecae..e9c7afa24d5 100644
+--- a/rust/hw/timer/hpet/src/device.rs
++++ b/rust/hw/timer/hpet/src/device.rs
+@@ -11,7 +11,7 @@
  };
  
- const FOO_ARRAY_MAX: usize = 3;
+ use bql::{BqlCell, BqlRefCell};
+-use common::{bitops::IntegerExt, uninit_field_mut};
++use common::prelude::*;
+ use hwcore::{
+     DeviceImpl, DeviceMethods, DeviceState, InterruptSource, ResetType, ResettablePhasesImpl,
+     SysBusDevice, SysBusDeviceImpl, SysBusDeviceMethods,
 -- 
 2.51.1
 
