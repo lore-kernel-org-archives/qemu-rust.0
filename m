@@ -4,60 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC006CF34C9
-	for <qemu-rust@archiver.kernel.org>; Wed, 19 Nov 2025 15:09:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 268C9CF34DA
+	for <qemu-rust@archiver.kernel.org>; Wed, 19 Nov 2025 15:37:39 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vLjo1-0007NH-CX; Wed, 19 Nov 2025 10:09:13 -0500
+	id 1vLkFT-0004Sh-Ho; Wed, 19 Nov 2025 10:37:35 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vLjnz-0007Ls-LH; Wed, 19 Nov 2025 10:09:11 -0500
-Received: from mgamail.intel.com ([192.198.163.18])
+ id 1vLkFR-0004Rr-5c; Wed, 19 Nov 2025 10:37:33 -0500
+Received: from mgamail.intel.com ([198.175.65.11])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vLjnx-0001Xb-0D; Wed, 19 Nov 2025 10:09:11 -0500
+ id 1vLkFP-0000EM-DF; Wed, 19 Nov 2025 10:37:32 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763564949; x=1795100949;
+ t=1763566652; x=1795102652;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=cVX6Lue/ibCk9IL1OhzCw2UyYAsUVDE0KQnDCnBkaHA=;
- b=AM4MM3YQCsyuustLIZmD7cOhUNk+mGf1649OUrnjmSt5nU8BX2KSD7fv
- GQymovTTTfbYpFXEIu/eeWrG5ROYbDvJu5WgDnNfeGSVzmVlGUo0eMmf5
- TiekTur/EZ6kfYXJPjA9zz6fVvOw+cEzwkR7/+d5VvUb9szKbqTjfPNVY
- Ut38dpz9zKyoI2a7PmbP4uGznthUtsqJ5IDkS8MW2kf2RYXfAkM/YJacI
- 0s8stXbcxFkZ1czBaI0OvC1AB5Mtsqv4W9snMQJHiSJrOVkPUJVhiYZ0y
- v1NtnklE2cRgYPAZP48BGIErDGHjTup4/hPS/16F3swCVgPp3OR7peAHY A==;
-X-CSE-ConnectionGUID: zD0b3JXGQ8OBU2BbSNxYaA==
-X-CSE-MsgGUID: aOjA1mUlSvOx/wBA/yRX1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11618"; a="64805557"
-X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="64805557"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2025 07:09:04 -0800
-X-CSE-ConnectionGUID: 4rwafDXQTESpPbTI5xmvmA==
-X-CSE-MsgGUID: 28Ie5qvuSBe9LYmRooFB+A==
+ bh=U1Cbs/dBqo8E/y7M+ZKP5CPf3bCsrxw04UQ6VD+I5iU=;
+ b=XDEe5mnqB4Wy7vMeSAX95L5Z44UFOoPCE7A5SUR0wErieyQZmP8rngNo
+ wJNtAfbgd3gbhegJfDW1jGQVWIMKnWdin/q0KW9EnvmSRvA2dms5PHOkV
+ G2byX1uRc09V1o18hhmeHyN31t4FEqJSKAcgUsmoqXRhR7LMVI5z/cSQv
+ 40vKK8POYfVMux2xU/TfWFth02z56VM7pxVBtXp4rVJZZCO6EdL0ysBg8
+ ahB8DToTzJ/3xmZpiGSpqGVuuK4r2KtakA58a+khhwQFjFoUJ1VOukU2f
+ 0WRI28w2k9EKui37r10eWUlG/7RG81uIJGyXXOlsaiBUiMk8I9aFOOREx g==;
+X-CSE-ConnectionGUID: Cp8JAlQlQLOEZ89Cki+aVg==
+X-CSE-MsgGUID: PcLKnquqQju02FC1eJn3hg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11618"; a="75939192"
+X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="75939192"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2025 07:37:28 -0800
+X-CSE-ConnectionGUID: SPmAQJjhRaW5H3pF61pHCA==
+X-CSE-MsgGUID: 3rVW5UpNS5muPbVbZqwFlg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="191878222"
+X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="190896620"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa010.fm.intel.com with ESMTP; 19 Nov 2025 07:09:03 -0800
-Date: Wed, 19 Nov 2025 23:31:23 +0800
+ by fmviesa006.fm.intel.com with ESMTP; 19 Nov 2025 07:37:27 -0800
+Date: Wed, 19 Nov 2025 23:59:46 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 5/5] rust/hpet: Apply Migratable<> wrapper and
- ToMigrationState
-Message-ID: <aR3iyyWXDJoBEfMq@intel.com>
+Subject: Re: [PATCH 0/5] rust/hpet: complete moving state out of HPETTimer
+Message-ID: <aR3pcja8gtkH0Eb/@intel.com>
 References: <20251117084752.203219-1-pbonzini@redhat.com>
- <20251117084752.203219-6-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251117084752.203219-6-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.18; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20251117084752.203219-1-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.11; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -82,46 +80,43 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, Nov 17, 2025 at 09:47:52AM +0100, Paolo Bonzini wrote:
-> Date: Mon, 17 Nov 2025 09:47:52 +0100
+On Mon, Nov 17, 2025 at 09:47:47AM +0100, Paolo Bonzini wrote:
+> Date: Mon, 17 Nov 2025 09:47:47 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 5/5] rust/hpet: Apply Migratable<> wrapper and
->  ToMigrationState
+> Subject: [PATCH 0/5] rust/hpet: complete moving state out of HPETTimer
 > X-Mailer: git-send-email 2.51.1
 > 
-> From: Zhao Liu <zhao1.liu@intel.com>
+> This state continues the cleanups of the HPET state, moving fields out of
+> BqlCells and into HPETRegisters and HPETTimerRegisters.  It also restores
+> the old migration format and shows an interesting trick: HPETTimer is now
+> a very simple object that handles the "unsafe" backreference from the
+> timer to the HPETState, but it also implements ToMigrationStateShared
+> and is stored in the HPETState as Migratable<[HPETTimer; N]>.  I find
+> it pretty cool that the composition works naturally.
 > 
-> Before using Mutex<> to protect HPETRegisters, it's necessary to apply
-> Migratable<> wrapper and ToMigrationState first since there's no
-> pre-defined VMState for Mutex<>.
-> 
-> In addition, this allows to move data from HPETTimerRegisters to
-> HPETTimer,
+> The less beautiful part is that I had to modify Timer::init_full for
+> this to compile.  It's probably time to work on the final design for
+> initialization, because this is becoming very ad hoc and the differences
+> between timer, MemoryRegion and Clock initialization have no real
+> justification.
 
-Typo? move data from HPETTimerRegisters' vmstate to HPETTimer's vmstate
+<Just some rough thoughts/understanding>
 
-> so as to preserve the original migration format of the C
-> implementation.  To do that, HPETTimer is wrapped with Migratable<>
-> as well but the implementation of ToMigrationStateShared is
-> hand-written.
-> 
-> Note that even though the HPETRegistersMigration struct is
-> generated by ToMigrationState macro, its VMState still needs to be
-> implemented by hand.
->
-> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
-> Link: https://lore.kernel.org/r/20251113051937.4017675-21-zhao1.liu@intel.com
-> [Added HPETTimer implementation and restored compatible migration format. - Paolo]
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/hw/timer/hpet/src/device.rs | 139 +++++++++++++++++++++++--------
->  1 file changed, 102 insertions(+), 37 deletions(-)
+Yes, Timer requires Pin<> and it seems MemoryRegion also should requires
+it because of callback...
 
-yes, the fully hand-written ToMigrationStateShared is really powerful -
-it can keep the vmstate layout unchanged even when the struct (
-HPETTimerRegisters) has such big changes.
+MemoryRegion requires MaybeUninitField, but it would be not necessary
+for HPET, since HPETTimer has already initialized its other field before
+calling init_full(). But as a general interface, MaybeUninitField could
+be also useful for Timer, as we can't require how device initialize its
+field.
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+Clock's ParentInit<> is also different. We don't need to require
+Timer::init_full must be called in init(). MemoryRegion may also don't
+need it And some C device even calls memory_region_init_io() in
+realize().
 
+Regards,
+Zhao
 
 
