@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B7D5CEDD86
-	for <qemu-rust@archiver.kernel.org>; Tue, 18 Nov 2025 13:33:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D50C9CF34C3
+	for <qemu-rust@archiver.kernel.org>; Wed, 19 Nov 2025 14:55:56 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vLLpB-0003Yb-F9; Tue, 18 Nov 2025 08:32:50 -0500
+	id 1vLjao-0004WE-2P; Wed, 19 Nov 2025 09:55:34 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vLLp3-0003UC-4J; Tue, 18 Nov 2025 08:32:41 -0500
-Received: from mgamail.intel.com ([198.175.65.13])
+ id 1vLjad-0004TQ-9u; Wed, 19 Nov 2025 09:55:23 -0500
+Received: from mgamail.intel.com ([198.175.65.9])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vLLoz-0007XL-FX; Tue, 18 Nov 2025 08:32:40 -0500
+ id 1vLjaZ-00070J-Jq; Wed, 19 Nov 2025 09:55:23 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763472758; x=1795008758;
+ t=1763564120; x=1795100120;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=L+JSarzF7sKmTXc+TZOqxikZUGWBSZQTkNsnoJg2wKQ=;
- b=N9TlNUuUTO26WLeAsdcpcbAh9IRO42dyFSy+tC4ODh+zmVWVbJROgdyI
- k204u9FtjdxmDdKuVte7ISTUuOlbdKeT5dzrcdykkDm1H3Py/ANGkqD5/
- DqxV2ZMXHMVr4EGM0J9smC/jsT++PF+fpKnTy2Z+EXCNVnZHqvOm/53SH
- XrWk6nd1F9kB9d7aHrUlAbILju/U1GrVAnYOuvBNtXzcOYcYAeqvcuO2L
- RZR+k0niRNeW8KWOpiTUkT8+MsRffsnEbEXilM8P+X9e7N8EHwkX8sTv9
- 6YmKNdHrTrYKXwdgNxn3nATMNrX54B+9RvD+z+eR9guw9AAQ+hT1nFTR5 g==;
-X-CSE-ConnectionGUID: x+4pQZdtRMqHEtD6wY/eVQ==
-X-CSE-MsgGUID: ftsWssmLRICikMQeY3Lg2Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11616"; a="76595822"
-X-IronPort-AV: E=Sophos;i="6.19,314,1754982000"; d="scan'208";a="76595822"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2025 05:32:24 -0800
-X-CSE-ConnectionGUID: /R4elfTlRWSYpSL1ufl+dg==
-X-CSE-MsgGUID: LuRXDS+BSQidQAuTB7G+oA==
+ bh=BvWoA0vcaVwNEvekTuM6kdC7rccVbQxYMtHbR62Pfk0=;
+ b=LyhDf1n0TQjUY1WvT8DxgK4bXE9vGYNEoJf7BLHTb4ouvFYgoCp8uCYY
+ xcDK00PnU53OZ7O+Na4KYXhd2aBmxAPHQCn0s0HCIbcBWLbx4k195zaPt
+ ZmtZ3zCGPdY2Zmoz7S/Cz7TJsQvby87yQuDdy0wZPPzUq8BGwydV3vEzd
+ kA6nWQ5K+v8sCcPdZfANzbNRashNF67DepkzPf7Hrj7WioUPFy4Dg6hXn
+ VHS+pguzZimrOF+IiCu6aMiON1xhsE/DLD/UQmRcmlZsBvgXv/SCsG8Bc
+ wZUc8+udqve1nKxmDjOyR/TISyj7L0zPCr1uQQe9L1NOyWmXQ6LJODGXL g==;
+X-CSE-ConnectionGUID: XKOy1T8qSXesxOqJJC/rTA==
+X-CSE-MsgGUID: fbGYCpVrS0CtrAJBq+yAhA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11618"; a="88260010"
+X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="88260010"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2025 06:55:11 -0800
+X-CSE-ConnectionGUID: FSTV/1J0Tn+xunJeWROH+g==
+X-CSE-MsgGUID: HySRJuYnSiKj7csWUwh7rw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,314,1754982000"; d="scan'208";a="191533474"
+X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="191108678"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa010.fm.intel.com with ESMTP; 18 Nov 2025 05:32:23 -0800
-Date: Tue, 18 Nov 2025 21:54:42 +0800
+ by orviesa007.jf.intel.com with ESMTP; 19 Nov 2025 06:55:08 -0800
+Date: Wed, 19 Nov 2025 23:17:26 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 2/5] rust/hpet: move hpet_offset to HPETRegisters
-Message-ID: <aRx6orZnNELKYPsE@intel.com>
+Subject: Re: [PATCH 3/5] rust/hpet: remove BqlRefCell around HPETTimer
+Message-ID: <aR3fhvpIsXRnQcj8@intel.com>
 References: <20251117084752.203219-1-pbonzini@redhat.com>
- <20251117084752.203219-3-pbonzini@redhat.com>
+ <20251117084752.203219-4-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251117084752.203219-3-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.13; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20251117084752.203219-4-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.9; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -81,62 +81,85 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, Nov 17, 2025 at 09:47:49AM +0100, Paolo Bonzini wrote:
-> Date: Mon, 17 Nov 2025 09:47:49 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 2/5] rust/hpet: move hpet_offset to HPETRegisters
-> X-Mailer: git-send-email 2.51.1
-> 
-> Likewise, do not separate hpet_offset from the other registers.
-> However, because it is migrated in a subsection it is necessary
-> to copy it out of HPETRegisters and into a BqlCell<>.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  rust/hw/timer/hpet/src/device.rs | 63 ++++++++++++++++++--------------
->  1 file changed, 35 insertions(+), 28 deletions(-)
-
-,,,
-
-> +        let mut next_tick: u64 = tn_regs.cmp64;
->          if tn_regs.is_32bit_mod() {
->              // HPET spec says in one-shot 32-bit mode, generate an interrupt when
->              // counter wraps in addition to an interrupt with comparator match.
->              if !tn_regs.is_periodic() && tn_regs.cmp64 > hpet_next_wrap(cur_tick) {
->                  tn_regs.wrap_flag = 1;
-> -                self.arm_timer(tn_regs, hpet_next_wrap(cur_tick));
-> -                return;
-> +                next_tick = hpet_next_wrap(cur_tick);
->              }
->          }
-> -        self.arm_timer(tn_regs, tn_regs.cmp64);
-> +        self.arm_timer(regs, next_tick);
+> -    fn init_timer_with_cell(cell: &BqlRefCell<Self>) {
+> -        let mut timer = cell.borrow_mut();
+> -        // SAFETY: HPETTimer is only used as part of HPETState, which is
+> -        // always pinned.
+> -        let qemu_timer = unsafe { Pin::new_unchecked(&mut timer.qemu_timer) };
+> -        qemu_timer.init_full(None, CLOCK_VIRTUAL, Timer::NS, 0, timer_handler, cell);
+> +    fn init_timer(timer: Pin<&mut Self>) {
+> +        Timer::init_full(
+> +            timer,
+> +            None,
+> +            CLOCK_VIRTUAL,
+> +            Timer::NS,
+> +            0,
+> +            timer_handler,
+> +            |t| &mut t.qemu_timer,
+> +        );
 >      }
 
-Good! This saves a arm_timer().
+I find this way could also work for BqlRefCell case:
+
+    fn init_timer_with_cell(cell: &mut BqlRefCell<Self>) {
+        // SAFETY: HPETTimer is only used as part of HPETState, which is
+        // always pinned.
+        let timer = unsafe { Pin::new_unchecked(cell) };
+        Timer::init_full(
+            timer,
+            None,
+            CLOCK_VIRTUAL,
+            Timer::NS,
+            0,
+            timer_handler,
+            |t| {
+                assert!(bql::is_locked());
+                &mut t.get_mut().qemu_timer
+            },
+        );
+    }
+
+
+So any other non-lockless timer can also use this interface to
+initialize their BqlRefCell<>.
+
+(BTW, I find BqlRefCell::get_mut() / as_ref() missed bql::is_locked().
+ right?)
 
 ...
 
->  impl HPETRegisters {
-> +    fn get_ticks(&self) -> u64 {
-> +        // Protect hpet_offset in lockless IO case which would not lock BQL.
+> diff --git a/rust/util/src/timer.rs b/rust/util/src/timer.rs
+> index c6b3e4088ec..829f52d111e 100644
+> --- a/rust/util/src/timer.rs
+> +++ b/rust/util/src/timer.rs
+> @@ -45,14 +45,14 @@ impl Timer {
+>      }
+>  
+>      /// Create a new timer with the given attributes.
+> -    pub fn init_full<'timer, 'opaque: 'timer, T, F>(
+> -        self: Pin<&'timer mut Self>,
+> +    pub fn init_full<T, F>(
+> +        opaque: Pin<&mut T>,
+>          timer_list_group: Option<&TimerListGroup>,
+>          clk_type: ClockType,
+>          scale: u32,
+>          attributes: u32,
+>          _cb: F,
+> -        opaque: &'opaque T,
+> +        field: impl FnOnce(&mut T) -> &mut Self,
+>      ) where
+>          F: for<'a> FnCall<(&'a T,)>,
 
-Just nit, this comment seems not much necessary, since currently there's
-no Mutex lock to represent "Protect". But it's up to you to keep it or
-not.
 
-> +        ns_to_ticks(CLOCK_VIRTUAL.get_ns() + self.hpet_offset)
-> +    }
-> +
-> +    fn get_ns(&self, tick: u64) -> u64 {
-> +        // Protect hpet_offset in lockless IO case which would not lock BQL.
+This is more tricky than I previously imaged. Good solution!
 
-Ditto.
+Another way to handle this kind of 'self reference' issue would probably
+be to consider passing raw pointers as opaque parameters... but that's
+definitely not as clean/idiomatic as the current approach.
 
-> +        ticks_to_ns(tick) - self.hpet_offset
-> +    }
+I think it may be better to add doc about how to use this for
+BqlRefCell<> case since there'll be no example after this patch.
 
-LGTM,
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
