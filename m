@@ -4,67 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 268C9CF34DA
-	for <qemu-rust@archiver.kernel.org>; Wed, 19 Nov 2025 15:37:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CDD1CF58C6
+	for <qemu-rust@archiver.kernel.org>; Wed, 19 Nov 2025 18:18:51 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vLkFT-0004Sh-Ho; Wed, 19 Nov 2025 10:37:35 -0500
+	id 1vLmlN-0006sR-MX; Wed, 19 Nov 2025 13:18:41 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vLkFR-0004Rr-5c; Wed, 19 Nov 2025 10:37:33 -0500
-Received: from mgamail.intel.com ([198.175.65.11])
+ (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
+ id 1vLmlL-0006rb-Ss
+ for qemu-rust@nongnu.org; Wed, 19 Nov 2025 13:18:39 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vLkFP-0000EM-DF; Wed, 19 Nov 2025 10:37:32 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763566652; x=1795102652;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=U1Cbs/dBqo8E/y7M+ZKP5CPf3bCsrxw04UQ6VD+I5iU=;
- b=XDEe5mnqB4Wy7vMeSAX95L5Z44UFOoPCE7A5SUR0wErieyQZmP8rngNo
- wJNtAfbgd3gbhegJfDW1jGQVWIMKnWdin/q0KW9EnvmSRvA2dms5PHOkV
- G2byX1uRc09V1o18hhmeHyN31t4FEqJSKAcgUsmoqXRhR7LMVI5z/cSQv
- 40vKK8POYfVMux2xU/TfWFth02z56VM7pxVBtXp4rVJZZCO6EdL0ysBg8
- ahB8DToTzJ/3xmZpiGSpqGVuuK4r2KtakA58a+khhwQFjFoUJ1VOukU2f
- 0WRI28w2k9EKui37r10eWUlG/7RG81uIJGyXXOlsaiBUiMk8I9aFOOREx g==;
-X-CSE-ConnectionGUID: Cp8JAlQlQLOEZ89Cki+aVg==
-X-CSE-MsgGUID: PcLKnquqQju02FC1eJn3hg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11618"; a="75939192"
-X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="75939192"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2025 07:37:28 -0800
-X-CSE-ConnectionGUID: SPmAQJjhRaW5H3pF61pHCA==
-X-CSE-MsgGUID: 3rVW5UpNS5muPbVbZqwFlg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="190896620"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa006.fm.intel.com with ESMTP; 19 Nov 2025 07:37:27 -0800
-Date: Wed, 19 Nov 2025 23:59:46 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 0/5] rust/hpet: complete moving state out of HPETTimer
-Message-ID: <aR3pcja8gtkH0Eb/@intel.com>
-References: <20251117084752.203219-1-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <stefanha@redhat.com>)
+ id 1vLmlI-0004c1-Dc
+ for qemu-rust@nongnu.org; Wed, 19 Nov 2025 13:18:39 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1763576315;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=bPVg0lnz8xV6VXZjZjb7CK3vZojyEUgPOveKOrAj4bA=;
+ b=JMkCzermmn7xlsPgzJ3rSb84tx6YN5Gl93BmcFWmtJoGajfOm7dDE3jYgqE6NHHSIHIHlE
+ ZioUG13WoOtG2uYtZjvn/vxsQjJFKhNxGYS5madD5FzyMsIvtDz7Wmh867dpZJGsJ+kryu
+ 29G0/f5FQVNzITa7WsTWfnTUHUYXko8=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-207-UCZnwXi1OcKIg0kD5Ed1Aw-1; Wed,
+ 19 Nov 2025 13:18:29 -0500
+X-MC-Unique: UCZnwXi1OcKIg0kD5Ed1Aw-1
+X-Mimecast-MFC-AGG-ID: UCZnwXi1OcKIg0kD5Ed1Aw_1763576308
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id A816619560B2; Wed, 19 Nov 2025 18:18:27 +0000 (UTC)
+Received: from localhost (unknown [10.2.16.175])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 3DC4B30001A4; Wed, 19 Nov 2025 18:18:27 +0000 (UTC)
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Mads Ynddal <mads@ynddal.dk>,
+ qemu-rust@nongnu.org, Josh Stone <jistone@redhat.com>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Stefan Hajnoczi <stefanha@redhat.com>, Thomas Huth <thuth@redhat.com>,
+ =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+Subject: [PATCH 2/2] tracetool: add Rust DTrace/SystemTap SDT support
+Date: Wed, 19 Nov 2025 13:18:21 -0500
+Message-ID: <20251119181821.154833-3-stefanha@redhat.com>
+In-Reply-To: <20251119181821.154833-1-stefanha@redhat.com>
+References: <20251119181821.154833-1-stefanha@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251117084752.203219-1-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.11; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=stefanha@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -80,43 +88,549 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, Nov 17, 2025 at 09:47:47AM +0100, Paolo Bonzini wrote:
-> Date: Mon, 17 Nov 2025 09:47:47 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 0/5] rust/hpet: complete moving state out of HPETTimer
-> X-Mailer: git-send-email 2.51.1
-> 
-> This state continues the cleanups of the HPET state, moving fields out of
-> BqlCells and into HPETRegisters and HPETTimerRegisters.  It also restores
-> the old migration format and shows an interesting trick: HPETTimer is now
-> a very simple object that handles the "unsafe" backreference from the
-> timer to the HPETState, but it also implements ToMigrationStateShared
-> and is stored in the HPETState as Migratable<[HPETTimer; N]>.  I find
-> it pretty cool that the composition works naturally.
-> 
-> The less beautiful part is that I had to modify Timer::init_full for
-> this to compile.  It's probably time to work on the final design for
-> initialization, because this is becoming very ad hoc and the differences
-> between timer, MemoryRegion and Clock initialization have no real
-> justification.
+Implement DTrace/SystemTap SDT by emitting the following:
+- The probe crate's probe!() macro is used to emit a DTrace/SystemTap
+  SDT probe.
+- Every trace event gets a corresponding trace_<name>_enabled() -> bool
+  generated function that Rust code can use to avoid expensive
+  computation when a trace event is disabled. This API works for other
+  trace backends too.
 
-<Just some rough thoughts/understanding>
+`#[allow(dead_code)]` additions are necessary for QEMU's dstate in
+generated trace-<dir>.rs files since they are unused by the dtrace
+backend. `./configure --enable-trace-backends=` can enable multiple
+backends, so keep it simple and just silence the warning instead of
+trying to detect the condition when generating the dstate code can be
+skipped.
 
-Yes, Timer requires Pin<> and it seems MemoryRegion also should requires
-it because of callback...
+The tracetool tests are updated. Take a look at
+tests/tracetool/dtrace.rs to see what the new generated code looks like.
 
-MemoryRegion requires MaybeUninitField, but it would be not necessary
-for HPET, since HPETTimer has already initialized its other field before
-calling init_full(). But as a general interface, MaybeUninitField could
-be also useful for Timer, as we can't require how device initialize its
-field.
+Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+---
+I'm not sure if Cargo.toml, Cargo.lock, and meson.build are in
+sync/consistent, but it builds successfully. I find the Rust build
+system integration confusing because I'm not an expert in cargo or
+meson. Please review the build system changes carefully.
+---
+ rust/Cargo.lock                     |  6 +++
+ rust/hw/char/pl011/meson.build      |  1 +
+ rust/hw/timer/hpet/meson.build      |  1 +
+ rust/trace/Cargo.toml               |  1 +
+ rust/trace/meson.build              |  2 +-
+ scripts/tracetool/__init__.py       |  1 +
+ scripts/tracetool/backend/dtrace.py | 32 ++++++++++++++
+ scripts/tracetool/format/rs.py      | 27 ++++++++++--
+ tests/tracetool/dtrace.rs           | 65 +++++++++++++++++++++++++++++
+ tests/tracetool/ftrace.rs           | 21 ++++++++++
+ tests/tracetool/log.rs              | 21 ++++++++++
+ tests/tracetool/simple.rs           | 21 ++++++++++
+ tests/tracetool/syslog.rs           | 21 ++++++++++
+ tests/tracetool/tracetool-test.py   |  2 +-
+ 14 files changed, 216 insertions(+), 6 deletions(-)
+ create mode 100644 tests/tracetool/dtrace.rs
 
-Clock's ParentInit<> is also different. We don't need to require
-Timer::init_full must be called in init(). MemoryRegion may also don't
-need it And some C device even calls memory_region_init_io() in
-realize().
-
-Regards,
-Zhao
+diff --git a/rust/Cargo.lock b/rust/Cargo.lock
+index 0c1df625df..5bd768cb0d 100644
+--- a/rust/Cargo.lock
++++ b/rust/Cargo.lock
+@@ -144,6 +144,7 @@ dependencies = [
+  "migration",
+  "qom",
+  "system",
++ "trace",
+  "util",
+ ]
+ 
+@@ -229,6 +230,10 @@ dependencies = [
+  "util",
+ ]
+ 
++[[package]]
++name = "probe"
++version = "0.5.2"
++
+ [[package]]
+ name = "proc-macro-error"
+ version = "1.0.4"
+@@ -429,6 +434,7 @@ name = "trace"
+ version = "0.1.0"
+ dependencies = [
+  "libc",
++ "probe",
+ ]
+ 
+ [[package]]
+diff --git a/rust/hw/char/pl011/meson.build b/rust/hw/char/pl011/meson.build
+index 33b91f2191..5b6ea274a2 100644
+--- a/rust/hw/char/pl011/meson.build
++++ b/rust/hw/char/pl011/meson.build
+@@ -37,6 +37,7 @@ _libpl011_rs = static_library(
+     util_rs,
+     migration_rs,
+     bql_rs,
++    probe_rs,
+     qom_rs,
+     chardev_rs,
+     system_rs,
+diff --git a/rust/hw/timer/hpet/meson.build b/rust/hw/timer/hpet/meson.build
+index 465995bb5a..4e95754b20 100644
+--- a/rust/hw/timer/hpet/meson.build
++++ b/rust/hw/timer/hpet/meson.build
+@@ -8,6 +8,7 @@ _libhpet_rs = static_library(
+     util_rs,
+     migration_rs,
+     bql_rs,
++    probe_rs,
+     qom_rs,
+     system_rs,
+     hwcore_rs,
+diff --git a/rust/trace/Cargo.toml b/rust/trace/Cargo.toml
+index fc81bce580..11e27f8d28 100644
+--- a/rust/trace/Cargo.toml
++++ b/rust/trace/Cargo.toml
+@@ -14,6 +14,7 @@ rust-version.workspace = true
+ 
+ [dependencies]
+ libc = { workspace = true }
++probe = "0.5"
+ 
+ [lints]
+ workspace = true
+diff --git a/rust/trace/meson.build b/rust/trace/meson.build
+index adca57e550..cf6b0355a8 100644
+--- a/rust/trace/meson.build
++++ b/rust/trace/meson.build
+@@ -12,7 +12,7 @@ _trace_rs = static_library(
+   lib_rs,
+   trace_rs_targets,         # List of generated `.rs` custom targets
+   override_options: ['rust_std=2021', 'build.rust_std=2021'],
+-  dependencies: [libc_rs],
++  dependencies: [libc_rs, probe_rs],
+   rust_abi: 'rust',
+ )
+ 
+diff --git a/scripts/tracetool/__init__.py b/scripts/tracetool/__init__.py
+index 74062d21a7..61ba6f1ba8 100644
+--- a/scripts/tracetool/__init__.py
++++ b/scripts/tracetool/__init__.py
+@@ -461,6 +461,7 @@ def formats(self):
+ 
+     QEMU_TRACE               = "trace_%(name)s"
+     QEMU_TRACE_TCG           = QEMU_TRACE + "_tcg"
++    QEMU_RUST_DSTATE         = "trace_%(name)s_enabled"
+     QEMU_DSTATE              = "_TRACE_%(NAME)s_DSTATE"
+     QEMU_BACKEND_DSTATE      = "TRACE_%(NAME)s_BACKEND_DSTATE"
+     QEMU_EVENT               = "_TRACE_%(NAME)s_EVENT"
+diff --git a/scripts/tracetool/backend/dtrace.py b/scripts/tracetool/backend/dtrace.py
+index b4af403025..548e228c81 100644
+--- a/scripts/tracetool/backend/dtrace.py
++++ b/scripts/tracetool/backend/dtrace.py
+@@ -70,3 +70,35 @@ def generate_h(event, group):
+ def generate_h_backend_dstate(event, group):
+     out('    QEMU_%(uppername)s_ENABLED() || \\',
+         uppername=event.name.upper())
++
++
++def generate_rs_begin(events, group):
++    out('use probe::probe;',
++        'use std::cell::UnsafeCell;',
++        '',
++        'extern "C" {')
++    # These are the Rust declarations of the .probes section semaphores
++    # generated by dtrace(1) in its .o file output.
++    for e in events:
++        if 'disable' in e.properties:
++            continue
++        out('    #[allow(dead_code)]',
++            f'    static qemu_{e.name}_semaphore: UnsafeCell<u16>;')
++    out('}',
++        '')
++
++
++def generate_rs(event, group):
++    args = event.args.rust_call_extern()
++    if args:
++        args = ', ' + args
++
++    out(f'    probe!(qemu, {event.name}{args});')
++
++
++def generate_rs_backend_dstate(event, group):
++    # Rust does not have access to the <provider>_<name>_ENABLED() macro from
++    # the dtrace(1) generated .h file. Use the matching semaphore declarations
++    # generated by generate_rs_begin() instead.
++    out('    (unsafe {qemu_%(n)s_semaphore.get().read_volatile()}) != 0 ||',
++        n=event.name)
+diff --git a/scripts/tracetool/format/rs.py b/scripts/tracetool/format/rs.py
+index 32ac4e5977..7d9af7edfe 100644
+--- a/scripts/tracetool/format/rs.py
++++ b/scripts/tracetool/format/rs.py
+@@ -24,25 +24,43 @@ def generate(events, backend, group):
+         '#[allow(unused_imports)]',
+         'use util::bindings;',
+         '',
++        '#[allow(dead_code)]',
+         '#[inline(always)]',
+         'fn trace_event_state_is_enabled(dstate: u16) -> bool {',
+         '    (unsafe { trace_events_enabled_count }) != 0 && dstate != 0',
+         '}',
+         '',
+         'extern "C" {',
++        '    #[allow(dead_code)]',
+         '    static mut trace_events_enabled_count: u32;',
+         '}',)
+ 
+     out('extern "C" {')
+ 
+     for e in events:
+-        out('    static mut %s: u16;' % e.api(e.QEMU_DSTATE))
+-    out('}')
++        out('    #[allow(dead_code)]',
++            '    static mut %s: u16;' % e.api(e.QEMU_DSTATE))
++    out('}',
++        '')
+ 
+     backend.generate_begin(events, group)
+ 
+     for e in events:
+-        out('',
++        out('#[inline(always)]',
++            '#[allow(dead_code)]',
++            'pub fn %(api)s() -> bool',
++            '{',
++            api=e.api(e.QEMU_RUST_DSTATE))
++
++        if "disable" not in e.properties:
++            backend.generate_backend_dstate(e, group)
++            if backend.check_trace_event_get_state:
++                out('    trace_event_state_is_enabled(unsafe { _%(event_id)s_DSTATE}) ||',
++                    event_id = 'TRACE_' + e.name.upper())
++
++        out('    false',
++            '}',
++            '',
+             '#[inline(always)]',
+             '#[allow(dead_code)]',
+             'pub fn %(api)s(%(args)s)',
+@@ -59,6 +77,7 @@ def generate(events, backend, group):
+                     api=e.api())
+                 backend.generate(e, group, check_trace_event_get_state=True)
+                 out('    }')
+-        out('}')
++        out('}',
++            '')
+ 
+     backend.generate_end(events, group)
+diff --git a/tests/tracetool/dtrace.rs b/tests/tracetool/dtrace.rs
+new file mode 100644
+index 0000000000..233c2ef159
+--- /dev/null
++++ b/tests/tracetool/dtrace.rs
+@@ -0,0 +1,65 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++// This file is @generated by tracetool, do not edit.
++
++#[allow(unused_imports)]
++use std::ffi::c_char;
++#[allow(unused_imports)]
++use util::bindings;
++
++#[allow(dead_code)]
++#[inline(always)]
++fn trace_event_state_is_enabled(dstate: u16) -> bool {
++    (unsafe { trace_events_enabled_count }) != 0 && dstate != 0
++}
++
++extern "C" {
++    #[allow(dead_code)]
++    static mut trace_events_enabled_count: u32;
++}
++extern "C" {
++    #[allow(dead_code)]
++    static mut _TRACE_TEST_BLAH_DSTATE: u16;
++    #[allow(dead_code)]
++    static mut _TRACE_TEST_WIBBLE_DSTATE: u16;
++}
++
++use probe::probe;
++use std::cell::UnsafeCell;
++
++extern "C" {
++    #[allow(dead_code)]
++    static qemu_test_blah_semaphore: UnsafeCell<u16>;
++    #[allow(dead_code)]
++    static qemu_test_wibble_semaphore: UnsafeCell<u16>;
++}
++
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_blah_enabled() -> bool
++{
++    (unsafe {qemu_test_blah_semaphore.get().read_volatile()}) != 0 ||
++    false
++}
++
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_blah(_context: *mut (), _filename: &std::ffi::CStr)
++{
++    probe!(qemu, test_blah, _context, _filename.as_ptr());
++}
++
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_wibble_enabled() -> bool
++{
++    (unsafe {qemu_test_wibble_semaphore.get().read_volatile()}) != 0 ||
++    false
++}
++
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_wibble(_context: *mut (), _value: std::ffi::c_int)
++{
++    probe!(qemu, test_wibble, _context, _value);
++}
++
+diff --git a/tests/tracetool/ftrace.rs b/tests/tracetool/ftrace.rs
+index 07b9259cf2..34f6600490 100644
+--- a/tests/tracetool/ftrace.rs
++++ b/tests/tracetool/ftrace.rs
+@@ -6,19 +6,31 @@
+ #[allow(unused_imports)]
+ use util::bindings;
+ 
++#[allow(dead_code)]
+ #[inline(always)]
+ fn trace_event_state_is_enabled(dstate: u16) -> bool {
+     (unsafe { trace_events_enabled_count }) != 0 && dstate != 0
+ }
+ 
+ extern "C" {
++    #[allow(dead_code)]
+     static mut trace_events_enabled_count: u32;
+ }
+ extern "C" {
++    #[allow(dead_code)]
+     static mut _TRACE_TEST_BLAH_DSTATE: u16;
++    #[allow(dead_code)]
+     static mut _TRACE_TEST_WIBBLE_DSTATE: u16;
+ }
+ 
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_blah_enabled() -> bool
++{
++    trace_event_state_is_enabled(unsafe { _TRACE_TEST_BLAH_DSTATE}) ||
++    false
++}
++
+ #[inline(always)]
+ #[allow(dead_code)]
+ pub fn trace_test_blah(_context: *mut (), _filename: &std::ffi::CStr)
+@@ -29,6 +41,14 @@ pub fn trace_test_blah(_context: *mut (), _filename: &std::ffi::CStr)
+     }
+ }
+ 
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_wibble_enabled() -> bool
++{
++    trace_event_state_is_enabled(unsafe { _TRACE_TEST_WIBBLE_DSTATE}) ||
++    false
++}
++
+ #[inline(always)]
+ #[allow(dead_code)]
+ pub fn trace_test_wibble(_context: *mut (), _value: std::ffi::c_int)
+@@ -38,3 +58,4 @@ pub fn trace_test_wibble(_context: *mut (), _value: std::ffi::c_int)
+         unsafe {bindings::ftrace_write(format_string.as_ptr() as *const c_char, _context /* as *mut () */, _value /* as std::ffi::c_int */);}
+     }
+ }
++
+diff --git a/tests/tracetool/log.rs b/tests/tracetool/log.rs
+index c191895c8f..770758611d 100644
+--- a/tests/tracetool/log.rs
++++ b/tests/tracetool/log.rs
+@@ -6,19 +6,31 @@
+ #[allow(unused_imports)]
+ use util::bindings;
+ 
++#[allow(dead_code)]
+ #[inline(always)]
+ fn trace_event_state_is_enabled(dstate: u16) -> bool {
+     (unsafe { trace_events_enabled_count }) != 0 && dstate != 0
+ }
+ 
+ extern "C" {
++    #[allow(dead_code)]
+     static mut trace_events_enabled_count: u32;
+ }
+ extern "C" {
++    #[allow(dead_code)]
+     static mut _TRACE_TEST_BLAH_DSTATE: u16;
++    #[allow(dead_code)]
+     static mut _TRACE_TEST_WIBBLE_DSTATE: u16;
+ }
+ 
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_blah_enabled() -> bool
++{
++    trace_event_state_is_enabled(unsafe { _TRACE_TEST_BLAH_DSTATE}) ||
++    false
++}
++
+ #[inline(always)]
+ #[allow(dead_code)]
+ pub fn trace_test_blah(_context: *mut (), _filename: &std::ffi::CStr)
+@@ -31,6 +43,14 @@ pub fn trace_test_blah(_context: *mut (), _filename: &std::ffi::CStr)
+     }
+ }
+ 
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_wibble_enabled() -> bool
++{
++    trace_event_state_is_enabled(unsafe { _TRACE_TEST_WIBBLE_DSTATE}) ||
++    false
++}
++
+ #[inline(always)]
+ #[allow(dead_code)]
+ pub fn trace_test_wibble(_context: *mut (), _value: std::ffi::c_int)
+@@ -42,3 +62,4 @@ pub fn trace_test_wibble(_context: *mut (), _value: std::ffi::c_int)
+         }
+     }
+ }
++
+diff --git a/tests/tracetool/simple.rs b/tests/tracetool/simple.rs
+index 9ee39495e3..92f896ef17 100644
+--- a/tests/tracetool/simple.rs
++++ b/tests/tracetool/simple.rs
+@@ -6,19 +6,31 @@
+ #[allow(unused_imports)]
+ use util::bindings;
+ 
++#[allow(dead_code)]
+ #[inline(always)]
+ fn trace_event_state_is_enabled(dstate: u16) -> bool {
+     (unsafe { trace_events_enabled_count }) != 0 && dstate != 0
+ }
+ 
+ extern "C" {
++    #[allow(dead_code)]
+     static mut trace_events_enabled_count: u32;
+ }
+ extern "C" {
++    #[allow(dead_code)]
+     static mut _TRACE_TEST_BLAH_DSTATE: u16;
++    #[allow(dead_code)]
+     static mut _TRACE_TEST_WIBBLE_DSTATE: u16;
+ }
+ 
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_blah_enabled() -> bool
++{
++    trace_event_state_is_enabled(unsafe { _TRACE_TEST_BLAH_DSTATE}) ||
++    false
++}
++
+ #[inline(always)]
+ #[allow(dead_code)]
+ pub fn trace_test_blah(_context: *mut (), _filename: &std::ffi::CStr)
+@@ -29,6 +41,14 @@ pub fn trace_test_blah(_context: *mut (), _filename: &std::ffi::CStr)
+     }
+ }
+ 
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_wibble_enabled() -> bool
++{
++    trace_event_state_is_enabled(unsafe { _TRACE_TEST_WIBBLE_DSTATE}) ||
++    false
++}
++
+ #[inline(always)]
+ #[allow(dead_code)]
+ pub fn trace_test_wibble(_context: *mut (), _value: std::ffi::c_int)
+@@ -38,3 +58,4 @@ pub fn trace_test_wibble(_context: *mut (), _value: std::ffi::c_int)
+         unsafe { _simple_trace_test_wibble(_context, _value); }
+     }
+ }
++
+diff --git a/tests/tracetool/syslog.rs b/tests/tracetool/syslog.rs
+index 9d3675a0b5..378d03d34b 100644
+--- a/tests/tracetool/syslog.rs
++++ b/tests/tracetool/syslog.rs
+@@ -6,19 +6,31 @@
+ #[allow(unused_imports)]
+ use util::bindings;
+ 
++#[allow(dead_code)]
+ #[inline(always)]
+ fn trace_event_state_is_enabled(dstate: u16) -> bool {
+     (unsafe { trace_events_enabled_count }) != 0 && dstate != 0
+ }
+ 
+ extern "C" {
++    #[allow(dead_code)]
+     static mut trace_events_enabled_count: u32;
+ }
+ extern "C" {
++    #[allow(dead_code)]
+     static mut _TRACE_TEST_BLAH_DSTATE: u16;
++    #[allow(dead_code)]
+     static mut _TRACE_TEST_WIBBLE_DSTATE: u16;
+ }
+ 
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_blah_enabled() -> bool
++{
++    trace_event_state_is_enabled(unsafe { _TRACE_TEST_BLAH_DSTATE}) ||
++    false
++}
++
+ #[inline(always)]
+ #[allow(dead_code)]
+ pub fn trace_test_blah(_context: *mut (), _filename: &std::ffi::CStr)
+@@ -29,6 +41,14 @@ pub fn trace_test_blah(_context: *mut (), _filename: &std::ffi::CStr)
+     }
+ }
+ 
++#[inline(always)]
++#[allow(dead_code)]
++pub fn trace_test_wibble_enabled() -> bool
++{
++    trace_event_state_is_enabled(unsafe { _TRACE_TEST_WIBBLE_DSTATE}) ||
++    false
++}
++
+ #[inline(always)]
+ #[allow(dead_code)]
+ pub fn trace_test_wibble(_context: *mut (), _value: std::ffi::c_int)
+@@ -38,3 +58,4 @@ pub fn trace_test_wibble(_context: *mut (), _value: std::ffi::c_int)
+         unsafe {::trace::syslog(::trace::LOG_INFO, format_string.as_ptr() as *const c_char, _context /* as *mut () */, _value /* as std::ffi::c_int */);}
+     }
+ }
++
+diff --git a/tests/tracetool/tracetool-test.py b/tests/tracetool/tracetool-test.py
+index 786083ad7f..30006a9919 100755
+--- a/tests/tracetool/tracetool-test.py
++++ b/tests/tracetool/tracetool-test.py
+@@ -14,7 +14,7 @@ def get_formats(backend):
+         "c",
+         "h",
+     ]
+-    if backend in {"ftrace", "log", "simple", "syslog"}:
++    if backend in {"dtrace", "ftrace", "log", "simple", "syslog"}:
+         formats += ["rs"]
+     if backend == "dtrace":
+         formats += [
+-- 
+2.51.1
 
 
