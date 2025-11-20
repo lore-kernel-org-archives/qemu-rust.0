@@ -4,140 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7B37CF6486
-	for <qemu-rust@archiver.kernel.org>; Wed, 19 Nov 2025 22:29:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43E13CF8861
+	for <qemu-rust@archiver.kernel.org>; Thu, 20 Nov 2025 14:09:49 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vLqfR-0006TQ-Ho; Wed, 19 Nov 2025 17:28:50 -0500
+	id 1vM5Lv-000305-Qu; Thu, 20 Nov 2025 09:09:40 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vLqfP-0006T5-2I
- for qemu-rust@nongnu.org; Wed, 19 Nov 2025 17:28:47 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vM5Lu-0002zZ-Bt; Thu, 20 Nov 2025 09:09:38 -0500
+Received: from mgamail.intel.com ([198.175.65.12])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vLqfN-00010i-13
- for qemu-rust@nongnu.org; Wed, 19 Nov 2025 17:28:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1763591322;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=N/Cm/PV/41Zna1tQB0q52TvZpnbnsrwm38rZij0xfl0=;
- b=BNyPoVqZ40f0/G9KpCfKKQpjc/XHfxyMtsBMwIyqnHbn2AD9aJ17KvfmaTUttIQYr9Y4If
- Qe95gb+6+yIU/0MGSxC0n3HWenw/WayEDTOWoXJp6adgTK0JTCdVfEWbjwqCyDmwrk6lwI
- 1ObshjBDpiImuEzz19M3x1NoqFfwJ+Y=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-647-DN4GAX94MkOE7Km8A4dAaQ-1; Wed, 19 Nov 2025 17:28:39 -0500
-X-MC-Unique: DN4GAX94MkOE7Km8A4dAaQ-1
-X-Mimecast-MFC-AGG-ID: DN4GAX94MkOE7Km8A4dAaQ_1763591319
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-42b570776a3so95168f8f.3
- for <qemu-rust@nongnu.org>; Wed, 19 Nov 2025 14:28:39 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763591319; x=1764196119;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=N/Cm/PV/41Zna1tQB0q52TvZpnbnsrwm38rZij0xfl0=;
- b=VpC6Zto1+QEpV/OlBQ97Ya41oIrtx1Vz9sX86Uo8tJIGbea+IMbqEo255CxCGeUCYZ
- 8Zf2521diTHFVR4FE5gyyGSl2a8kMt5eFxOTfWLyeFv91b+O27H9ZQse50KWSp5pojbx
- BXnjkYxJUNExKkqHXt2+wsK8mGR6BwuIK76qtWakD+DDCZ1jSTmoONKA+5jp8bOX8iQ/
- M/bZZVzuI9rZwaR5TPl+j0i9rZFDL622HGZLHfO93mx6XP1Eg7M7+xAh+uZTnidiGUaG
- TP6baAzpUD06kb9ehNxQegxdiD5v75queK9H6NTMFnsbX2cweEJ3CL/6LoDz09B3At0c
- zpNg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW+PegLCajoe2SYL6WOVSvFB2MXHHt5lmw1PUkcZNIyS08yvsy75t8eyqXneIzYS/lqV9WU7BsV2GY=@nongnu.org
-X-Gm-Message-State: AOJu0Yxb26jRmylKMDQksdWNJU9m/HoHGknKF0SXBqxgbiRbAcVTuckL
- mrKVJntGYh32rn5ulokoby8YgoSA0AO/1JiK/WQNYURS98PWHTu1PIDw9RqI/YuOhNxHEvf16gK
- mF445qx/+jUxYtBJZkWtHtDj7m4qQRdm2lkEGWZSY5srbPS1gmMWArq0=
-X-Gm-Gg: ASbGncuZ1s7ywzbQ7eK5Y4OCahos1sQbGltk+PTmyo2coT4i4eYxO9iYRDKK+FYOn5A
- ZuU9fYIP5zjOhAcJsnUbX7TExhmiZ/piSyQFRZf0xUiECXHZ3H0Ec0WqcLwRkLmg/wLDEzNByJ4
- 12jrrh8KjVgI/8wshEgpol4DAU3aw/ATFLVujOfRPJilP450vkeQX8SuxES2fdgLNH+LPc+1JLF
- g+neZ0o623hcfZBNz2zD4ahGh+bY6BYlY3tnddEoj9cFlFLudZtSXBQcOFNhZJQK1XTFmXfAFtg
- QGz3CkUCBQoT0Qzg3nZFGs+t0ITRswGNEiyW8HJrRgNwN8GysoHKi0JX45XYRty2sXDYlEq7ESr
- 2uXNSFgYMmMwzbZ9OUTRYGwVAvqDHYnBEfvZCfmq/MxWZHKLBdGNeJnTUhgZQCasaG4oGzkSNr+
- gCvlx97iztzivMxlo=
-X-Received: by 2002:a05:6000:2385:b0:42b:41dc:1b5d with SMTP id
- ffacd0b85a97d-42cb9a0bdf0mr360310f8f.25.1763591318782; 
- Wed, 19 Nov 2025 14:28:38 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEUv9WjeaAxngoexi4ww9b7KWOrfXw/ZpMWF9C6McfRh4wRXJElDz62UUL7iTkrYl+kIXO8Hw==
-X-Received: by 2002:a05:6000:2385:b0:42b:41dc:1b5d with SMTP id
- ffacd0b85a97d-42cb9a0bdf0mr360295f8f.25.1763591318406; 
- Wed, 19 Nov 2025 14:28:38 -0800 (PST)
-Received: from [192.168.10.81] ([176.206.119.13])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-42cb7fd8baesm1478117f8f.39.2025.11.19.14.28.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Nov 2025 14:28:37 -0800 (PST)
-Message-ID: <91bf0b22-33c4-46f7-95fa-f634eb069ea7@redhat.com>
-Date: Wed, 19 Nov 2025 23:28:31 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] rust/hpet: remove BqlRefCell around HPETTimer
-To: Zhao Liu <zhao1.liu@intel.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vM5Lr-0001zT-Rm; Thu, 20 Nov 2025 09:09:38 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1763647776; x=1795183776;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Q8KeSbdWaGONmhL/JAY67x/dYgup8wjYuXIA5QQXZyQ=;
+ b=dvvjcxFNeotUvrBht1gOUKkcRomhD1XHHhlvUKqsWaVdO4Dv165shYGH
+ uTaDdWVl9aIIbDBrkB8xdiIV7TRYXzc7DR9hm9YJlXodgvDJNuBdSyRJS
+ G3ww4/MWERHdRoq1L4vudrKdAp3OY3WLn3l3xdiFhBfKBBSsLuKMpu7YP
+ IA/JKX9+A3Z2wKh58J/VJtvxJO5ah9ldLCKym3NNtMAbxdhbsco25pst2
+ /vnTuLdgsY0WYSq9V+4wNRQ8G2lLNLLtO5HuSLnqOGMJAibxLTt0yg4xD
+ YvvzTUv8i1YR6ojb5Mb2jnMLB0PAU+kNUUMgfcDbIsnyvPQG7KLuSKDYm Q==;
+X-CSE-ConnectionGUID: C+zEj1dJTnKjtmiTavXumA==
+X-CSE-MsgGUID: 9bfR1u7nTl27Bm8ERGLIxg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11619"; a="77185545"
+X-IronPort-AV: E=Sophos;i="6.20,213,1758610800"; d="scan'208";a="77185545"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2025 06:09:32 -0800
+X-CSE-ConnectionGUID: VVO3mw4KTHO6SfZ7l8tBmg==
+X-CSE-MsgGUID: c9OHG9NLQMSsHndYMuJAbg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,213,1758610800"; d="scan'208";a="228682253"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by orviesa001.jf.intel.com with ESMTP; 20 Nov 2025 06:09:30 -0800
+Date: Thu, 20 Nov 2025 22:31:50 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH 4/5] rust: migration: implement ToMigrationState for Timer
+Message-ID: <aR8mVll8OeclCBxs@intel.com>
 References: <20251117084752.203219-1-pbonzini@redhat.com>
- <20251117084752.203219-4-pbonzini@redhat.com> <aR3fhvpIsXRnQcj8@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <aR3fhvpIsXRnQcj8@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: DgRryYdfRcy-NjbYhd5nY8IT3WzSGVTEz_PAYsI19Oc_1763591319
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ <20251117084752.203219-5-pbonzini@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251117084752.203219-5-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.12; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -153,64 +81,138 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 11/19/25 16:17, Zhao Liu wrote:
->> -    fn init_timer_with_cell(cell: &BqlRefCell<Self>) {
->> -        let mut timer = cell.borrow_mut();
->> -        // SAFETY: HPETTimer is only used as part of HPETState, which is
->> -        // always pinned.
->> -        let qemu_timer = unsafe { Pin::new_unchecked(&mut timer.qemu_timer) };
->> -        qemu_timer.init_full(None, CLOCK_VIRTUAL, Timer::NS, 0, timer_handler, cell);
->> +    fn init_timer(timer: Pin<&mut Self>) {
->> +        Timer::init_full(
->> +            timer,
->> +            None,
->> +            CLOCK_VIRTUAL,
->> +            Timer::NS,
->> +            0,
->> +            timer_handler,
->> +            |t| &mut t.qemu_timer,
->> +        );
->>       }
+On Mon, Nov 17, 2025 at 09:47:51AM +0100, Paolo Bonzini wrote:
+> Date: Mon, 17 Nov 2025 09:47:51 +0100
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH 4/5] rust: migration: implement ToMigrationState for Timer
+> X-Mailer: git-send-email 2.51.1
 > 
-> I find this way could also work for BqlRefCell case:
+> Timer is a complex struct, allow adding it to a struct that
+> uses #[derive(ToMigrationState)]; similar to vmstate_timer, only
+> the expiration time has to be preserved.
 > 
->      fn init_timer_with_cell(cell: &mut BqlRefCell<Self>) {
->          // SAFETY: HPETTimer is only used as part of HPETState, which is
->          // always pinned.
->          let timer = unsafe { Pin::new_unchecked(cell) };
->          Timer::init_full(
->              timer,
->              None,
->              CLOCK_VIRTUAL,
->              Timer::NS,
->              0,
->              timer_handler,
->              |t| {
->                  assert!(bql::is_locked());
->                  &mut t.get_mut().qemu_timer
->              },
->          );
->      }
-
-Yes, but I'm still not sure what the final shape will be... I don't like 
-this too much.
-
+> In fact, because it is thread-safe, ToMigrationStateShared can
+> also be implemented without needing a cell or mutex that wraps
+> the timer.
 > 
-> So any other non-lockless timer can also use this interface to
-> initialize their BqlRefCell<>.
-> 
-> (BTW, I find BqlRefCell::get_mut() / as_ref() missed bql::is_locked().
->   right?)
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  rust/hw/timer/hpet/src/device.rs |  1 -
+>  rust/migration/src/migratable.rs | 31 +++++++++++++++++++++++++++++++
+>  rust/util/src/timer.rs           | 10 +++++++++-
+>  3 files changed, 40 insertions(+), 2 deletions(-)
 
-as_ptr() doesn't need it because the pointer can be dereferenced later.
+I just, based on previous discussion, try to complete the timer's
+ToMigrationState - use modify_ns() instead of modify(). This is on top
+of this series.
 
-As to get_mut()... I think if you are the only owner, you should have 
-the guarantee of being able to modify the content freely.  This is true 
-even if your &mut came from interior mutability.
+From eb8b99a45ffccba7e0508141553c2c24c5efa410 Mon Sep 17 00:00:00 2001
+From: Zhao Liu <zhao1.liu@intel.com>
+Date: Thu, 20 Nov 2025 22:26:35 +0800
+Subject: [PATCH] rust/timer: Use modify_ns() in restore_migrated_state()
 
-So, in the above case you only need &mut t.get_mut().qemu_timer.
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+---
+ include/qemu/timer.h             | 11 +++++++++++
+ rust/migration/src/migratable.rs |  2 +-
+ rust/util/src/timer.rs           | 21 +++++++++++++++++----
+ util/qemu-timer.c                |  4 ++++
+ 4 files changed, 33 insertions(+), 5 deletions(-)
 
-> I think it may be better to add doc about how to use this for
-> BqlRefCell<> case since there'll be no example after this patch.
+diff --git a/include/qemu/timer.h b/include/qemu/timer.h
+index 8b561cd6960b..4c6a51d600fb 100644
+--- a/include/qemu/timer.h
++++ b/include/qemu/timer.h
+@@ -392,6 +392,17 @@ int64_t timerlistgroup_deadline_ns(QEMUTimerListGroup *tlg);
+  * QEMUTimer
+  */
+
++/**
++ * timer_get_scale
++ * @ts: the timer to be accessed
++ *
++ * Get the scale value of the specified timer. The scale represents
++ * the number of nanoseconds per unit of time for this timer.
++ *
++ * Returns: the scale of the timer (nanoseconds per unit)
++ */
++int timer_get_scale(QEMUTimer *ts);
++
+ /**
+  * timer_init_full:
+  * @ts: the timer to be initialised
+diff --git a/rust/migration/src/migratable.rs b/rust/migration/src/migratable.rs
+index c82a6b9a7cf2..7748aac2f27d 100644
+--- a/rust/migration/src/migratable.rs
++++ b/rust/migration/src/migratable.rs
+@@ -260,7 +260,7 @@ fn restore_migrated_state(
+ impl ToMigrationStateShared for util::timer::Timer {
+     fn restore_migrated_state(&self, source: i64, _version_id: u8) -> Result<(), InvalidError> {
+         if source >= 0 {
+-            self.modify(source as u64);
++            self.modify_ns(source as u64);
+         } else {
+             self.delete();
+         }
+diff --git a/rust/util/src/timer.rs b/rust/util/src/timer.rs
+index 4109d84c398a..6114892f084f 100644
+--- a/rust/util/src/timer.rs
++++ b/rust/util/src/timer.rs
+@@ -10,8 +10,8 @@
+ use common::{callbacks::FnCall, Opaque};
+
+ use crate::bindings::{
+-    self, qemu_clock_get_ns, timer_del, timer_expire_time_ns, timer_init_full, timer_mod,
+-    QEMUClockType,
++    self, qemu_clock_get_ns, timer_del, timer_expire_time_ns, timer_get_scale, timer_init_full,
++    timer_mod_ns, QEMUClockType,
+ };
+
+ /// A safe wrapper around [`bindings::QEMUTimer`].
+@@ -96,10 +96,23 @@ pub fn expire_time_ns(&self) -> Option<i64> {
+         i64::try_from(ret).ok()
+     }
+
+-    pub fn modify(&self, expire_time: u64) {
++    fn scale(&self) -> u32 {
++        // SAFETY: the only way to obtain a Timer safely is via methods that
++        // take a Pin<&mut Self>, therefore the timer is pinned. And when Timer
++        // is created, its fields (including scale) are initialized to zero.
++        unsafe { timer_get_scale(self.as_mut_ptr()) }
++            .try_into()
++            .unwrap()
++    }
++
++    pub fn modify_ns(&self, expire_time: u64) {
+         // SAFETY: the only way to obtain a Timer safely is via methods that
+         // take a Pin<&mut Self>, therefore the timer is pinned
+-        unsafe { timer_mod(self.as_mut_ptr(), expire_time as i64) }
++        unsafe { timer_mod_ns(self.as_mut_ptr(), expire_time.try_into().unwrap()) }
++    }
++
++    pub fn modify(&self, expire_time: u64) {
++        self.modify_ns(expire_time * u64::from(self.scale()))
+     }
+
+     pub fn delete(&self) {
+diff --git a/util/qemu-timer.c b/util/qemu-timer.c
+index 2a6be4c7f958..233fdb2aa847 100644
+--- a/util/qemu-timer.c
++++ b/util/qemu-timer.c
+@@ -346,6 +346,10 @@ int qemu_poll_ns(GPollFD *fds, guint nfds, int64_t timeout)
+ #endif
+ }
+
++int timer_get_scale(QEMUTimer *ts)
++{
++    return ts->scale;
++}
+
+ void timer_init_full(QEMUTimer *ts,
+                      QEMUTimerListGroup *timer_list_group, QEMUClockType type,
+--
+2.34.1
+
+
 
 
