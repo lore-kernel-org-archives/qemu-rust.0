@@ -4,108 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C33BCFA765
-	for <qemu-rust@archiver.kernel.org>; Fri, 21 Nov 2025 10:03:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C19CBCFD31C
+	for <qemu-rust@archiver.kernel.org>; Mon, 24 Nov 2025 08:33:19 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vMNz2-0004YO-8X; Fri, 21 Nov 2025 05:03:17 -0500
+	id 1vNS0T-00081h-Pp; Mon, 24 Nov 2025 03:33:09 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vMNyx-0004XF-TS
- for qemu-rust@nongnu.org; Fri, 21 Nov 2025 05:03:12 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vNS0R-0007zu-Cs; Mon, 24 Nov 2025 03:33:07 -0500
+Received: from mgamail.intel.com ([198.175.65.18])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vMNyn-0007qe-Av
- for qemu-rust@nongnu.org; Fri, 21 Nov 2025 05:03:07 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1763719362;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=AWbf9BxMySjmKWS0gWktivL2wpZp7NPQlvDq4R6tsZ4=;
- b=BbBZpNiJMBaQvsem9KGfCnoR1OYc1/lyJluw1HiFK9B91rkatad6FQSD5ZiQyw1FF5awsy
- m673rdXmhqiVAhiH7zq4MxmOtx+q725cVDkQP2rgOL2WD+Dmo7+FkULpvjDyf4u2JpLnZV
- TmZ+D/RUedoMt+UkusMZXgpvCAsP7OQ=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-66-XTOhv3DqP0Wif0EHcdpQLw-1; Fri, 21 Nov 2025 05:02:40 -0500
-X-MC-Unique: XTOhv3DqP0Wif0EHcdpQLw-1
-X-Mimecast-MFC-AGG-ID: XTOhv3DqP0Wif0EHcdpQLw_1763719360
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-477a0ddd1d4so21880045e9.0
- for <qemu-rust@nongnu.org>; Fri, 21 Nov 2025 02:02:40 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763719360; x=1764324160;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=AWbf9BxMySjmKWS0gWktivL2wpZp7NPQlvDq4R6tsZ4=;
- b=eDc6gCJ4okKzL0E5LSDyo6Ydq3OEHzEeuKB0FIGjbc/BBlYWN2zJRGE329+ySLTchi
- 5alauvzBnZrLKyDhFuZ78J3Xti7zDSIB3IoD2PxeTZqsR9VvpvPzfpKBaot6ciY+y3gs
- n3Wzlg8+fW+sNhngvXrGKD/zAp38TKI3kf03iuTN/WoA34392wEABopSeF10gtlLnF2B
- NIFLQFrEV778tkbfPq/zT/3npBdTEb1aeJLENHTajOyeMFtL7pEzseDGu/I7uKA+PpWA
- pfWLDhmstqto4zwvpbMeSHcSB3H7RgEEhFulYouYgHW1Yz0A8d0F60GSeNF9Y3i4q48f
- mUdw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVGBoPwZ1j/gSHnuOKplFgZopTbISHnuEKp/TBOhLC58faI+f4l0ujulIKNE3TlLzthsDz/ZVk5hGg=@nongnu.org
-X-Gm-Message-State: AOJu0Yz0vHCnKaqK1s5/EOKepJI3L3uSiKN5PMUBSVRj4braEFOXiKrN
- 6XneCamF4UAHgsABMaW3eA/0hBr0v9z+apHKUj1n+/jWfoQ/+t7PgWElbY6W6eJWe8aGFUWyg4u
- Usl8abE+GdvreZsSBWmBgVNjlM3xVqDeZv4FSL1nbkkEzAmgKtL6Qzao=
-X-Gm-Gg: ASbGncuFK7vBfAc/eiT453sFKZRecIQ3L75fbCwmhepSPiRxdvIz4J/tHV2S87QdSvR
- 80SPnZkLy8LcP5uBtSblHQWSi3zFaOjm9fonuoFHDAgRwOSlyx2cvo8Ccb4nh0nEToB326+8Hk8
- KytKnzMpal05hm0oaAdz6XxWmWpYYgMI5WLwncJOX/o5G7kFcaIWCbz2bjGeAHqyi1Q7HaUdPU6
- l2GdJm4n38t7D04bTyzS45+Imz2L1znHPSGGNW+UlElSmS6KTnGOLmize8mVDA4u/zGPiAZ7u28
- ZUX866XUq2iK6R4FgjkOwyHPIrDtxG1PJqyx0WWH3mR88/3aJ47YD8RKv/gTnipJtNWkpyezeK9
- 0iUioB02b8NHPo5iTy4I/qwdYJiv+eei+/koF/zafTr09SPn6DZ9/Jz0qJhL7+b/5UPEZjJp5fW
- ix/MZtwuTrezaGa7U=
-X-Received: by 2002:a05:600c:6296:b0:477:5cc6:7e44 with SMTP id
- 5b1f17b1804b1-477c10d7013mr16283455e9.11.1763719359393; 
- Fri, 21 Nov 2025 02:02:39 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGXk43274RwMsJ/7Oqom2j5zOONjQYKaP058GIvdAhktRkxM2A42YCKBZVO9LPhuGvBDt/X8A==
-X-Received: by 2002:a05:600c:6296:b0:477:5cc6:7e44 with SMTP id
- 5b1f17b1804b1-477c10d7013mr16283075e9.11.1763719358975; 
- Fri, 21 Nov 2025 02:02:38 -0800 (PST)
-Received: from [192.168.10.48] ([176.206.119.13])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477bf355933sm36925915e9.2.2025.11.21.02.02.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Nov 2025 02:02:38 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: qemu-devel@nongnu.org,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- qemu-rust@nongnu.org, Mads Ynddal <mads@ynddal.dk>,
- Thomas Huth <thuth@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Josh Stone <jistone@redhat.com>
-Subject: Re: [PATCH v2 0/4] trace: add Rust DTrace/SystemTap SDT support
-Date: Fri, 21 Nov 2025 11:02:20 +0100
-Message-ID: <20251121100219.654238-2-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20251119205200.173170-1-stefanha@redhat.com>
-References: 
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vNS0O-0002NH-VQ; Mon, 24 Nov 2025 03:33:07 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1763973185; x=1795509185;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=lKn1v3RIQpy9ZDsxyrygs9oCqvZ1gmzfEIZFFC8Bx2o=;
+ b=h6M/mW251PY3YeES5cOWPViCD8HDZIwDtgawAUBYYc13bHlt8Y1L6Yii
+ Kq9eG/FwXSGO5Uiuqvjw5/V131aTjHkaku1VdFXpswVWLIDsXd2tYa9uz
+ NudMiz0eFwOcBnesHOveUXTqykjvoNpe+x9MhlI6lSyE5rPYQ9wIXTvvw
+ dC7D9HRWWC/n3NpKKKLtdgS6IM4jE4Zy2YgRmpWZPTs6B3QcvOkjWWBVf
+ 7n4pKAEj5WdRDbr8VUcUkp8l8N6KqjJ7q/W5p/8LMhe0svey/KdW72rWR
+ /9bacl5uVkVJt0lLO/YrCrjhQrQU6j512xgw6EWoHo3040Pd3SYyEJ9S3 g==;
+X-CSE-ConnectionGUID: KGCb+PvZR5uNeV8cG96cOQ==
+X-CSE-MsgGUID: bTBCEutSTzmHPunQ16g4/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11622"; a="65996614"
+X-IronPort-AV: E=Sophos;i="6.20,222,1758610800"; d="scan'208";a="65996614"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2025 00:33:01 -0800
+X-CSE-ConnectionGUID: S5dlRhqxQ16qR5w/6NMZfQ==
+X-CSE-MsgGUID: OfF92MbdSCePj+4n8egshA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,222,1758610800"; d="scan'208";a="215619877"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa002.fm.intel.com with ESMTP; 24 Nov 2025 00:32:59 -0800
+Date: Mon, 24 Nov 2025 16:57:38 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH 2/5] rust/hpet: move hpet_offset to HPETRegisters
+Message-ID: <aSQeAjvtU9Ggb+Pl@intel.com>
+References: <20251117084752.203219-1-pbonzini@redhat.com>
+ <20251117084752.203219-3-pbonzini@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: jsmxDeDxl5xY_27KEeTK4goOotnTjXj2CvUDwMoLcaY_1763719360
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251117084752.203219-3-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.18; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -45
+X-Spam_score: -4.6
+X-Spam_bar: ----
+X-Spam_report: (-4.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.161,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -121,12 +81,84 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-> v2:
-> - Re-export probe::probe!() from the trace crate to avoid the explicit probe
->   crate dependency from hpet, pl011, etc. [Paolo]
+> @@ -596,11 +598,11 @@ fn callback(&self, regs: &mut HPETRegisters) {
+>              } else {
+>                  tn_regs.cmp = tn_regs.cmp64;
+>              }
+> -            self.arm_timer(tn_regs, tn_regs.cmp64);
+>          } else if tn_regs.wrap_flag != 0 {
+>              tn_regs.wrap_flag = 0;
+> -            self.arm_timer(tn_regs, tn_regs.cmp64);
+>          }
+> +        let next_tick = tn_regs.cmp64;
+> +        self.arm_timer(regs, next_tick);
 
-Queued to rust-next, thanks.
+I didn't notice this in previous review... arming timer unconditionally
+is wrong, since the code block is:
 
-Paolo
+if tn_regs.is_periodic() && tn_regs.period != 0 {
+    ...
+    self.arm_timer(tn_regs, tn_regs.cmp64);
+} else if tn_regs.wrap_flag != 0 {
+    ...
+    self.arm_timer(tn_regs, tn_regs.cmp64);
+}
+
+So one-shot mode (with wrap_flag == 0) shouldn't arm timer again,
+(otherwise, the guest will hang).
+
+---
+diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
+index 19676af74bc6..179bd18e2045 100644
+--- a/rust/hw/timer/hpet/src/device.rs
++++ b/rust/hw/timer/hpet/src/device.rs
+@@ -586,23 +586,33 @@ fn callback(&self, regs: &mut HPETRegisters) {
+         // Mutex<HPETRegisters>.
+         assert!(bql::is_locked());
+
+-        let cur_tick: u64 = regs.get_ticks();
+-        let tn_regs = &mut regs.tn_regs[self.index as usize];
++        let next_tick = {
++            let cur_tick: u64 = regs.get_ticks();
++            let tn_regs = &mut regs.tn_regs[self.index as usize];
+
+-        if tn_regs.is_periodic() && tn_regs.period != 0 {
+-            while hpet_time_after(cur_tick, tn_regs.cmp64) {
+-                tn_regs.cmp64 += tn_regs.period;
+-            }
+-            if tn_regs.is_32bit_mod() {
+-                tn_regs.cmp = u64::from(tn_regs.cmp64 as u32); // truncate!
++            if tn_regs.is_periodic() && tn_regs.period != 0 {
++                while hpet_time_after(cur_tick, tn_regs.cmp64) {
++                    tn_regs.cmp64 += tn_regs.period;
++                }
++                if tn_regs.is_32bit_mod() {
++                    tn_regs.cmp = u64::from(tn_regs.cmp64 as u32); // truncate!
++                } else {
++                    tn_regs.cmp = tn_regs.cmp64;
++                }
++
++                Some(tn_regs.cmp64)
++            } else if tn_regs.wrap_flag != 0 {
++                tn_regs.wrap_flag = 0;
++
++                Some(tn_regs.cmp64)
+             } else {
+-                tn_regs.cmp = tn_regs.cmp64;
++                None
+             }
+-        } else if tn_regs.wrap_flag != 0 {
+-            tn_regs.wrap_flag = 0;
++        };
++
++        if let Some(t) = next_tick {
++            self.arm_timer(regs, t);
+         }
+-        let next_tick = tn_regs.cmp64;
+-        self.arm_timer(regs, next_tick);
+         self.update_irq(regs, true);
+     }
+
+
 
 
