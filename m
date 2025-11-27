@@ -4,87 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A54E7D111A8
-	for <qemu-rust@archiver.kernel.org>; Thu, 27 Nov 2025 13:22:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27E02D11183
+	for <qemu-rust@archiver.kernel.org>; Thu, 27 Nov 2025 13:22:13 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vObwF-0007JS-Db; Thu, 27 Nov 2025 08:21:35 -0500
+	id 1vObwC-0006iN-92; Thu, 27 Nov 2025 08:21:32 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vObvj-0005dN-VZ
- for qemu-rust@nongnu.org; Thu, 27 Nov 2025 08:21:10 -0500
+ id 1vObva-0005V6-N9
+ for qemu-rust@nongnu.org; Thu, 27 Nov 2025 08:20:55 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vObvg-00027x-Jb
- for qemu-rust@nongnu.org; Thu, 27 Nov 2025 08:21:03 -0500
+ id 1vObvY-00025v-1W
+ for qemu-rust@nongnu.org; Thu, 27 Nov 2025 08:20:54 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1764249658;
+ s=mimecast20190719; t=1764249651;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=35cW+AZMPXzQdRbMH+IdIxqC+JST8jSEuSl2qWTOWks=;
- b=H8pgTpBxCej/xtEtKAMk/iF2hmCj7znJ9PZp5Co/SfO1ye4J9AcTV2xLHdYSngeYeiLxR8
- sUDJ2Itwn217io1cTH24ywmoKDMrxBq7wwrvvmDPoF+gjiXnSuafG7c6afyiONjJM/aaQN
- hdCKnPnwoYs3YRoRHWo6Nl8OXKTNvuI=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=isO8fa7O3c4qBfTQUgy/eZ5GTanVVaRH/3OOX9kLqXA=;
+ b=SuzAwemnwFkOGmJNAVwIdkLvPtEFQUL26nflB6XXV/PMP8/iCZamQcCbC0GZpuoM3/Bf9b
+ pFdYakLnVbQBTAoU4dQQnbfM2ey8eaWH9JaNa5mCr1MnHoTOdDojXHuWU2UDjb975sxWEi
+ zhB2xtCfvNs8G4sJL6nYjH48O5RVlG4=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-659-m98CStFnPoGGhLyK0DbYYQ-1; Thu, 27 Nov 2025 08:20:56 -0500
-X-MC-Unique: m98CStFnPoGGhLyK0DbYYQ-1
-X-Mimecast-MFC-AGG-ID: m98CStFnPoGGhLyK0DbYYQ_1764249655
-Received: by mail-ej1-f69.google.com with SMTP id
- a640c23a62f3a-b767784598dso63606366b.3
- for <qemu-rust@nongnu.org>; Thu, 27 Nov 2025 05:20:56 -0800 (PST)
+ us-mta-341--2NEzxdsMr2S-BI4QnfH6g-1; Thu, 27 Nov 2025 08:20:50 -0500
+X-MC-Unique: -2NEzxdsMr2S-BI4QnfH6g-1
+X-Mimecast-MFC-AGG-ID: -2NEzxdsMr2S-BI4QnfH6g_1764249649
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-b735efd650fso98408066b.0
+ for <qemu-rust@nongnu.org>; Thu, 27 Nov 2025 05:20:49 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764249655; x=1764854455;
+ d=1e100.net; s=20230601; t=1764249648; x=1764854448;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=35cW+AZMPXzQdRbMH+IdIxqC+JST8jSEuSl2qWTOWks=;
- b=A2Mi6T+SS95yFlch4By92Ig1LUCDptxgic0evadY94PFQMwrSZcoU9Nn5sLnwyFyKb
- leoX549xHd1BfM35fb098AwAC0/N+Pi/rZ5Ucayc24l5hJTNG0hNxXXnmOF8m98F3sgL
- zHJW57vC5TnNu4WrhGHDgWG41MjbZH+FVI7MgOYN1tWrXMQY1f5hsotu+Rlikj7Nj0Fa
- wyr4IXLNKIpmXn0dpZ8fj1j6+6EX2XP2OUgmreWHeYrrvhXVfrW7gLG0s9kd0oP8PFyE
- 0R6QNI71+pmUIZmM6ME0cSN4rpp+KbZ4RPM+syN4j+VT45qulPVxvrg6uzFIkUaH5Uro
- S1xg==
-X-Gm-Message-State: AOJu0YxBh2HEeTRI4r1S+k7EMWpzCAFNTVlBkxSSOyaVWC2IWAL4Frhh
- Zsxofba8vZdQn01KIamAWjdbGpK9rphAynWcq7Tdracwij7gBpssrNKJDJopQf3zvEWdmnfGWNo
- lJ71zBNvWSNcbqzYPy6ieOPn4SXcl+eVpfbU2dgwNqd/Nym16H/vQkjlU9yHEG7g=
-X-Gm-Gg: ASbGnctXu3ZB7sSNYUfbZanNS0Tk4ZqpkNbuOgVbSixvr+bDRcAjqxm8XuCm6X28qIM
- 6FipgIyn7HFkePAaJCfrA7dWSKRcLQsLiTh+LkBkBMDbw/WFMS97zDWdsQi43EzZ4G3TKyF/qjt
- /YQ1cnKfVfHpsRhSFu26r5ABxQG8nE5a8zRVU7GEySLUdd/J4L6+2uovlbjVxGhSPtNwwmG/wnt
- UxPL0e9lUirEOwqctJtSPqlsvaBS1aeh7YV9wxbrFOHhEmeCGaKPN/D/T4urrz4YLUDBNhkRN+E
- 4bi7iHF9opu6W2oogdSqAS+FWr6oj50563VrlYRsl/MRJkGRgOXSBuoXAIMY96N5KwFKfn8D2Ty
- gaH8+4ln9a5SO4KwstRMQDFi7QT24mfU5ezJQo9ObVSq45+Hq57zBLDOinZSIXErQi3mrarWg2X
- O2JCt0Dinm/GAvvEE=
-X-Received: by 2002:a17:907:2d11:b0:b73:853d:540e with SMTP id
- a640c23a62f3a-b767170c823mr2707245066b.30.1764249655027; 
- Thu, 27 Nov 2025 05:20:55 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGLkSAX/ex76yeg+naPEWLopgu3EY8SdxOS3m/Q7KCanmYDR6Wnsq+TcIYxujg2u6gn2qQCRQ==
-X-Received: by 2002:a17:907:2d11:b0:b73:853d:540e with SMTP id
- a640c23a62f3a-b767170c823mr2707242666b.30.1764249654592; 
- Thu, 27 Nov 2025 05:20:54 -0800 (PST)
+ bh=isO8fa7O3c4qBfTQUgy/eZ5GTanVVaRH/3OOX9kLqXA=;
+ b=M5bJUeAe5wpcOSwP3bexlIybS0x3k0yoZLiynmonOryAeo5/BvOeHkx3yid+r0XCS9
+ w4/JOX5/YnjdnQI+OievxRgW/f/ZKARCcKYitRtyswWywtW92hanjpc1vUwWUO70vUQO
+ LAppQ3I4BhmozRmHK5+u0u3RDmxzw/vdgrzQbvmUggxXWvOwYwNCKZsYDl3/sVAV0KNc
+ s/5ZTwQ0SeagFF800C48FAaJ7glO6B71N51rqXRCiuUnTATWGzKUq1e+mQex0e0IZS5B
+ Va9ETaftrtXGszsbyD8gLUHtH+qI1xtYDrlZF+uIEt9ZSi+XFlLsThg3mrfthbtXr+rF
+ 2+vQ==
+X-Gm-Message-State: AOJu0YzD4+y4mJYYIXAiaMAsTzbMGuUbbjkgh/kTxa1Uz60KdIfOxNP/
+ 74j0adODLWkvUAFlkRGJZ5yZz8ulTZ/2bLthEaYaCwW6TlzuvSkbuYvr7iZlysano797e5ESkB1
+ Jb5bH7wg3pnIEAk19tNe7X0qRap52D9A3R1gwtZKd1Ln65438ZOkLR5bmrTLiTgY=
+X-Gm-Gg: ASbGncv7+zzguwFYtFxpuwqVm5L+cPkXAdZWazCDX+NUrfAqshiQnwqNbP75iXpLy7Q
+ ECwaI/sHg8JXR31zKNCwEWaAVDqvXbS/1d9mVE2r35LhG2FqFLP06lGOyK+sbKZcEOf/EKz2D0K
+ b7PHUb/mxPJhnn1/ySVRW4UGWzJ7P16uUwxVd+onfk63bXbCrZypFE8g9dQATrWSdXlL3nuo0F1
+ o6Hz+xyq5xNo4hrXM2ugpfUjoSqSLEjJeDNFhmtsA4LpdL0t1j+QkVpCFtSEkK8vjdvVgmT7OVR
+ +CMbzc6aFdk+TVs1TwRQMkZiklYfLKqsJHGtge5KBWyRfKgfU0tL9d9ZO2s4gQ3pi9u55cC4y59
+ RDV0FO0HGFd7AdbBQMApTqoY/twBCq+flzagcrT63tnulxqrs1FJDaG9QF9jOOEIdVnxl5mFSo+
+ pXkM7goAtBP7/5Ihk=
+X-Received: by 2002:a17:907:72c2:b0:b71:29f7:47ef with SMTP id
+ a640c23a62f3a-b7671b50083mr2523412466b.61.1764249647894; 
+ Thu, 27 Nov 2025 05:20:47 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHduIIPVflFvWbNu/AZ34V1zSPZQ34GTNbBQlkL01K9Sx9DaVcBqCjb3AXVG16DZAv3yyCx7w==
+X-Received: by 2002:a17:907:72c2:b0:b71:29f7:47ef with SMTP id
+ a640c23a62f3a-b7671b50083mr2523409466b.61.1764249647514; 
+ Thu, 27 Nov 2025 05:20:47 -0800 (PST)
 Received: from [192.168.10.48] ([176.206.119.13])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b76f5162c5csm168898566b.6.2025.11.27.05.20.52
+ 4fb4d7f45d1cf-64750a6ea41sm1586055a12.7.2025.11.27.05.20.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Nov 2025 05:20:53 -0800 (PST)
+ Thu, 27 Nov 2025 05:20:44 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
-Subject: [PATCH 7/9] rust: move strict lints handling to meson.build
-Date: Thu, 27 Nov 2025 14:20:34 +0100
-Message-ID: <20251127132036.84384-8-pbonzini@redhat.com>
+Subject: [PATCH 4/9] rust/bql: make bindings public
+Date: Thu, 27 Nov 2025 14:20:31 +0100
+Message-ID: <20251127132036.84384-5-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251127132036.84384-1-pbonzini@redhat.com>
 References: <20251127132036.84384-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: XZgjwvVEL49TvnKiLa9jxhrfobPac_VouniSgXIAuhs_1764249655
+X-Mimecast-MFC-PROC-ID: NCZyAq7TKnLx9QiPylmxober--XrthRl8n4p92pyFms_1764249649
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -113,99 +113,25 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Simplify rustc_args.py, and align its code with what Meson's own Cargo.toml
-translator does in v1.10.
-
-Bump unknown_lints to "forbid", so that it will certainly override Cargo.toml's
-"allow" level.
+For consistency with other crates.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- meson.build                |  7 +++----
- scripts/rust/rustc_args.py | 20 ++------------------
- 2 files changed, 5 insertions(+), 22 deletions(-)
+ rust/bql/src/lib.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meson.build b/meson.build
-index 270181038bf..e6a11cefdb7 100644
---- a/meson.build
-+++ b/meson.build
-@@ -128,14 +128,13 @@ if have_rust
-   rustc_args = [find_program('scripts/rust/rustc_args.py'),
-     '--rustc-version', rustc.version(),
-     '--workspace', meson.project_source_root() / 'rust']
--  if get_option('strict_rust_lints')
--    rustc_args += ['--strict-lints']
--  endif
--
-   rustfmt = find_program('rustfmt', required: false)
+diff --git a/rust/bql/src/lib.rs b/rust/bql/src/lib.rs
+index ef08221e9c1..2cdc551e21e 100644
+--- a/rust/bql/src/lib.rs
++++ b/rust/bql/src/lib.rs
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
  
-   rustc_lint_args = run_command(rustc_args, '--lints',
-      capture: true, check: true).stdout().strip().splitlines()
-+  if get_option('strict_rust_lints')
-+    rustc_lint_args += ['-Dwarnings', '-Funknown_lints']
-+  endif
+-mod bindings;
++pub mod bindings;
+ use bindings::{bql_block_unlock, bql_locked, rust_bql_mock_lock};
  
-   # Apart from procedural macros, our Rust executables will often link
-   # with C code, so include all the libraries that C code needs.  This
-diff --git a/scripts/rust/rustc_args.py b/scripts/rust/rustc_args.py
-index 63b0748e0d3..8fb77785350 100644
---- a/scripts/rust/rustc_args.py
-+++ b/scripts/rust/rustc_args.py
-@@ -35,8 +35,6 @@
- except ImportError:
-     import tomli as tomllib
- 
--STRICT_LINTS = {"unknown_lints", "warnings"}
--
- 
- class CargoTOML:
-     tomldata: Mapping[Any, Any]
-@@ -82,7 +80,7 @@ class LintFlag:
-     priority: int
- 
- 
--def generate_lint_flags(cargo_toml: CargoTOML, strict_lints: bool) -> Iterable[str]:
-+def generate_lint_flags(cargo_toml: CargoTOML) -> Iterable[str]:
-     """Converts Cargo.toml lints to rustc -A/-D/-F/-W flags."""
- 
-     toml_lints = cargo_toml.lints
-@@ -104,13 +102,6 @@ def generate_lint_flags(cargo_toml: CargoTOML, strict_lints: bool) -> Iterable[s
-             else:
-                 raise Exception(f"invalid level {level} for {prefix}{lint}")
- 
--            if not (strict_lints and lint in STRICT_LINTS):
--                lint_list.append(LintFlag(flags=[flag, prefix + lint], priority=priority))
--
--    if strict_lints:
--        for lint in STRICT_LINTS:
--            lint_list.append(LintFlag(flags=["-D", lint], priority=1000000))
--
-     lint_list.sort(key=lambda x: x.priority)
-     for lint in lint_list:
-         yield from lint.flags
-@@ -187,13 +178,6 @@ def main() -> None:
-         required=False,
-         default="1.0.0",
-     )
--    parser.add_argument(
--        "--strict-lints",
--        action="store_true",
--        dest="strict_lints",
--        help="apply stricter checks (for nightly Rust)",
--        default=False,
--    )
-     args = parser.parse_args()
-     if args.verbose:
-         logging.basicConfig(level=logging.DEBUG)
-@@ -207,7 +191,7 @@ def main() -> None:
-         cargo_toml = CargoTOML(args.cargo_toml, None)
- 
-     if args.lints:
--        for tok in generate_lint_flags(cargo_toml, args.strict_lints):
-+        for tok in generate_lint_flags(cargo_toml):
-             print(tok)
- 
-     if rustc_version >= (1, 80):
+ mod cell;
 -- 
 2.51.1
 
