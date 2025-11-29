@@ -4,60 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01061D116EA
-	for <qemu-rust@archiver.kernel.org>; Sat, 29 Nov 2025 14:29:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D83E1D116F6
+	for <qemu-rust@archiver.kernel.org>; Sat, 29 Nov 2025 14:29:39 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vPLww-00024M-Nj; Sat, 29 Nov 2025 09:29:25 -0500
+	id 1vPLx1-000254-Et; Sat, 29 Nov 2025 09:29:33 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <chenmiao@openatom.club>)
- id 1vPLwN-0001yu-Tb
- for qemu-rust@nongnu.org; Sat, 29 Nov 2025 09:28:48 -0500
+ id 1vPLwQ-0001z6-UY
+ for qemu-rust@nongnu.org; Sat, 29 Nov 2025 09:28:53 -0500
 Received: from sg-1-12.ptr.blmpb.com ([118.26.132.12])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <chenmiao@openatom.club>)
- id 1vPLwJ-0000wY-Ic
- for qemu-rust@nongnu.org; Sat, 29 Nov 2025 09:28:47 -0500
+ id 1vPLwJ-0000w2-IZ
+ for qemu-rust@nongnu.org; Sat, 29 Nov 2025 09:28:49 -0500
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=openatom-club.20200927.dkim.feishu.cn; t=1764426511;
+ s=s1; d=openatom-club.20200927.dkim.feishu.cn; t=1764426506;
  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
  reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=Q7GAq65ALZiNekqSL+tWMcLPurYu/ToQPTuazfohejU=;
- b=sQ1H6NXT1WD6WUCnLbd+ZDIBk9/Q+uwHxkwPxguiQK7Z+hiUwKHVkTL178yvkz4+Y6Gppu
- aXTza6QMbg5ssqmvisBSeILzKVmft3fSHYYnCLyWTYEI00Y0DHp5iaGUfRPwh8wFkw950Z
- euxF+u4S7On97rpassuqnd+RMqoQ3TcM5PA2faKawrMiYaaHmvYelBWGDa1cVtIlfR8i6t
- BUzn42Zk6TupjFJXq2u9ZTW1szWacpOvvsg7c+7gGbBdg+5d7Mui//Ht/fTzFf1o8pcCl4
- k3OuSgDyY8sGb2HgLiO5zEMI/+/DpYm/G0OO7GrIK2uVCJjwD3dcQdWzNVGSzQ==
+ bh=2WiHlMuUSvjmJ0Vv67Hg/mnuUYeHDimKZMo7xovJsEM=;
+ b=2GD+wy7kXeIn8hzkZBAyJg0sXmv/EyvcD6Gpbe0rvJSMq522L/Sjhrr2OLd4oY1nUUYv/0
+ dL8cHK4jADspQpg9e4r/kTmmltNi5e+hylF/ORyzWamr2p874fMFqLuRAVAEtXv+NwGLXM
+ CjW/FveIZoaDlz7UEWLAt+8JNkMvGhnId4ieUxYTiRtwyAV3O5ztO5FVgYwEs2cvYpDyAc
+ sxqGtUPgZzhGrlY0osE1ff4a9Vzgh5Yq6FxlrxwMw+RA/LCsAvSGSFNc/uxT3e0Tg8VG8l
+ lNFEg8nmkJSc9geuOwR88yQVnAhzlkPhQUnuhSPNX5OsOx6vdJHY1JxzA37FIw==
+From: "Chen Miao" <chenmiao@openatom.club>
+X-Mailer: git-send-email 2.43.0
+Mime-Version: 1.0
 To: <zhao1.liu@intel.com>, <pbonzini@redhat.com>, 
  <manos.pitsidianakis@linaro.org>, <richard.henderson@linaro.org>, 
  <philmd@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Mime-Version: 1.0
-Cc: <chao.liu@openatom.club>, <dzm91@openatom.club>, <qemu-rust@nongnu.org>, 
- <qemu-devel@nongnu.org>, <hust-os-kernel-patches@googlegroups.com>, 
- "chenmiao" <chenmiao@openatom.club>
-From: "Chen Miao" <chenmiao@openatom.club>
-X-Original-From: Chen Miao <chenmiao@openatom.club>
-Message-Id: <69e22b6002d411a8edee3f589c568ce8217c2f37.1764426204.git.chenmiao@openatom.club>
+Subject: [RFC PATCH V3 0/4] rust/hw: Add the I2C and the first GPIO device
+X-Lms-Return-Path: <lba+2692b0308+adfaf0+nongnu.org+chenmiao@openatom.club>
 Received: from nyaos.localdomain ([114.249.49.233]) by smtp.feishu.cn with
- ESMTPS; Sat, 29 Nov 2025 22:28:28 +0800
+ ESMTPS; Sat, 29 Nov 2025 22:28:23 +0800
 Content-Transfer-Encoding: 7bit
-X-Mailer: git-send-email 2.43.0
-X-Lms-Return-Path: <lba+2692b030d+f03c2d+nongnu.org+chenmiao@openatom.club>
-Subject: [RFC PATCH V3 3/4] rust/hw/core: Provide some interfaces for the GPIO
- device
-Date: Sat, 29 Nov 2025 14:28:21 +0000
+Cc: <chao.liu@openatom.club>, <dzm91@openatom.club>, <qemu-rust@nongnu.org>, 
+ <qemu-devel@nongnu.org>, <hust-os-kernel-patches@googlegroups.com>
+Message-Id: <cover.1764426204.git.chenmiao@openatom.club>
+X-Original-From: Chen Miao <chenmiao@openatom.club>
+Date: Sat, 29 Nov 2025 14:28:18 +0000
+Content-Type: text/plain; charset=UTF-8
 Received-SPF: pass client-ip=118.26.132.12;
  envelope-from=chenmiao@openatom.club; helo=sg-1-12.ptr.blmpb.com
 X-Spam_score_int: -18
 X-Spam_score: -1.9
 X-Spam_bar: -
 X-Spam_report: (-1.9 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, MSGID_FROM_MTA_HEADER=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ DKIM_VALID=-0.1, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -73,55 +71,53 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: chenmiao <chenmiao@openatom.club>
+We have implemented I2C and the first GPIO device in Rust for QEMU.
+Additionally, in the respective patches, we have shared our insights and
+experiences regarding the use of Rust for device modeling within QEMU.
 
-In qdev.rs, we implemented the init_gpio_out_named function, which corresponds
-to the C function qdev_init_gpio_out_named. We also refactored the
-init_gpio_out function to reuse the init_gpio_out_named interface.
+1. The first patch implements the BusState for the I2CBus infrastructure.
+2. The second patch implements the I2CBus and I2CSlave infrastructure, along
+   with a discussion of the challenges encountered during the implementation.
+3. The third patch provides a set of necessary helper functions for the PCF8574
+   GPIO device.
+4. The fourth patch implements the PCF8574 GPIO device, along with a discussion
+   of the issues and considerations addressed during the implementation.
 
 Signed-off-by: Chen Miao <chenmiao@openatom.club>
----
- rust/hw/core/src/qdev.rs | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+Signed-off-by: Chao Liu <chao.liu@openatom.club>
 
-diff --git a/rust/hw/core/src/qdev.rs b/rust/hw/core/src/qdev.rs
-index c3097a284d..28da94dd0a 100644
---- a/rust/hw/core/src/qdev.rs
-+++ b/rust/hw/core/src/qdev.rs
-@@ -17,7 +17,7 @@
- 
- pub use crate::bindings::{ClockEvent, DeviceClass, Property, ResetType};
- use crate::{
--    bindings::{self, qdev_init_gpio_in, qdev_init_gpio_out, ResettableClass},
-+    bindings::{self, qdev_init_gpio_in, qdev_init_gpio_out_named, ResettableClass},
-     irq::InterruptSource,
- };
- 
-@@ -399,11 +399,22 @@ fn do_init_gpio_in(
-     }
- 
-     fn init_gpio_out(&self, pins: &[InterruptSource]) {
-+        self.init_gpio_out_named(pins, "unnamed-gpio-out", pins.len());
-+    }
-+
-+    fn init_gpio_out_named(&self, pins: &[InterruptSource], name: &str, n: usize) {
-+        let c_name = if name.is_empty() {
-+            CString::new("unnamed-gpio-out").unwrap()
-+        } else {
-+            CString::new(name).unwrap()
-+        };
-+
-         unsafe {
--            qdev_init_gpio_out(
-+            qdev_init_gpio_out_named(
-                 self.upcast().as_mut_ptr(),
-                 InterruptSource::slice_as_ptr(pins),
--                pins.len() as c_int,
-+                c_name.as_ptr(),
-+                n as c_int,
-             );
-         }
-     }
+chenmiao (4):
+  rust/hw/core: Add the BusState of rust version
+  rust/hw/core: Add rust bindings/funcs for i2c bus
+  rust/hw/core: Provide some interfaces for the GPIO device
+  rust/hw/gpio: Add the the first gpio device pcf8574
+
+ hw/gpio/Kconfig                  |   5 +
+ hw/gpio/meson.build              |   2 +-
+ rust/Cargo.lock                  |  18 +-
+ rust/Cargo.toml                  |   1 +
+ rust/hw/Kconfig                  |   1 +
+ rust/hw/core/meson.build         |   2 +
+ rust/hw/core/src/bus.rs          |  44 +++++
+ rust/hw/core/src/i2c.rs          | 303 +++++++++++++++++++++++++++++++
+ rust/hw/core/src/lib.rs          |   6 +
+ rust/hw/core/src/qdev.rs         |  17 +-
+ rust/hw/core/wrapper.h           |   1 +
+ rust/hw/gpio/Kconfig             |   2 +
+ rust/hw/gpio/meson.build         |   1 +
+ rust/hw/gpio/pcf8574/Cargo.toml  |  28 +++
+ rust/hw/gpio/pcf8574/meson.build |  37 ++++
+ rust/hw/gpio/pcf8574/src/lib.rs  | 178 ++++++++++++++++++
+ rust/hw/meson.build              |   1 +
+ 17 files changed, 642 insertions(+), 5 deletions(-)
+ create mode 100644 rust/hw/core/src/bus.rs
+ create mode 100644 rust/hw/core/src/i2c.rs
+ create mode 100644 rust/hw/gpio/Kconfig
+ create mode 100644 rust/hw/gpio/meson.build
+ create mode 100644 rust/hw/gpio/pcf8574/Cargo.toml
+ create mode 100644 rust/hw/gpio/pcf8574/meson.build
+ create mode 100644 rust/hw/gpio/pcf8574/src/lib.rs
+
 -- 
 2.43.0
 
