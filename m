@@ -4,97 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 620F6D116EA
-	for <qemu-rust@archiver.kernel.org>; Fri, 28 Nov 2025 09:42:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A83AD116F1
+	for <qemu-rust@archiver.kernel.org>; Sat, 29 Nov 2025 14:29:38 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vOv0A-0003dU-7Y; Fri, 28 Nov 2025 04:42:54 -0500
+	id 1vPLwf-00022B-H8; Sat, 29 Nov 2025 09:29:06 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vOv09-0003dA-JC
- for qemu-rust@nongnu.org; Fri, 28 Nov 2025 04:42:53 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vOv07-0007ym-Je
- for qemu-rust@nongnu.org; Fri, 28 Nov 2025 04:42:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1764322969;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=KAbRuebQpS5YcNDD4J2eZLQvWeeGyNZf76fc2t913LI=;
- b=MZ70a8FgGj+zFSNljsV8lKG6yPAReOu9CikQDNpg+ByggA6Q5X96bLwEPfPl0Rvwvjlkl7
- SUkOv3dy8RDJGFfLfL9bGgW+S865bNdgj7M23TrTEAPty9QkBkiDFoh/5TmqAW3v6STRAZ
- I/4v5gTCh6am3RGPXelc/PmzpfGgTck=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-7-qov_QfVtNqaoIe736dDigA-1; Fri, 28 Nov 2025 04:42:48 -0500
-X-MC-Unique: qov_QfVtNqaoIe736dDigA-1
-X-Mimecast-MFC-AGG-ID: qov_QfVtNqaoIe736dDigA_1764322967
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-b735eea0bddso115570066b.2
- for <qemu-rust@nongnu.org>; Fri, 28 Nov 2025 01:42:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764322966; x=1764927766;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KAbRuebQpS5YcNDD4J2eZLQvWeeGyNZf76fc2t913LI=;
- b=TsunNGA8FQtFL5lYJlM5EpUBrqLIqKofEmziMdbOS3EPqVwcGo4SR2zESAgSIRO8oS
- XtaY7xxECtXEjgEuOsFMP7kJF2JlMflX1jaN1dTD7wzWDLsQ1yuxIXZiTFli93ZMJdbR
- kdUNNv4DRIA3gUkFD5WrGjEy25K3FIAfw61E2d6B3MJJm/5wBnzuNWWBmRAGdFjtORhp
- mtn4jv/Fd4QjBbaKwljFZkm/4ROq6f5yfvIbui0Aq4F5jouUJigCWgTvld+P3UvAYEb8
- jQnBRYeOzqALuMW1lCyi0eaykyf9t+7+GFlARQURJTCDdZpWNdvXEHpjWqQaKd4vNKe2
- /4VA==
-X-Gm-Message-State: AOJu0YyWa9gttqMRuIGkiMdPhNow2wu9fmeMze9CJKR2qE+mBiSNY9OY
- HEhRXh2iLu0z656Uif40RODb+5LuimC+LrdvPwMry3osqeBOORr68wfdgARIzMXmL/pDmBPs3z8
- 9mUsLxt+u1vdt4XC7Q0kE29PtDSQPLK40VDk1ALXFqKhLj650mQ26HCSx7Zh6D2Q=
-X-Gm-Gg: ASbGncu9oRxlva7OzfM2dg9zxSaeDbwF1aau9zf/HMNozcZF4yc601nKRW9NverF2RN
- /6+YiKYyW6zzrvvtXXtwVjNZNBr/dQPqrSy7hxU+Ml0UuWwDZFd2DOEWFIy9UXWF80AzPqTDBYX
- 1+qzycyGZCQvWudq2W2pHtuXYu3mvntpDn20WAum7xQnl98aEOFIhbpO8ao3bnagyzs5s0MRCEJ
- DJjDcgU4+FG+wuui1yvEhjC0hme5NQTnby5tM6Zo9MwHkfpg7JRvMTe8GQIBnfhgYXSFxvczfDX
- bhVwGHwvc/Iciu/ASwRwFhwY/tLEP/CPgbvpaiI1dQETQ2zkPbOCsVhLDFaLFx9PmOTq6w8UtRq
- iqkrPCnfzK266/OS4TMJ3ZNrG3j5kLDNH+pubM6VO7xFSR5QXdjHpi1xoxZ3a41z2bs4NA5kgG1
- SCvuuYu9DKoExpFis=
-X-Received: by 2002:a17:907:2d20:b0:b73:8bdd:eec9 with SMTP id
- a640c23a62f3a-b7671558a7dmr3102719866b.5.1764322966491; 
- Fri, 28 Nov 2025 01:42:46 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGIOzOUuiiWm3D2OJnQklqF1IDhiXRoxgpcyZMJlR+oeevanI4Z3+lfcQasy5HljeJd8hSNSQ==
-X-Received: by 2002:a17:907:2d20:b0:b73:8bdd:eec9 with SMTP id
- a640c23a62f3a-b7671558a7dmr3102717066b.5.1764322965975; 
- Fri, 28 Nov 2025 01:42:45 -0800 (PST)
-Received: from [192.168.10.48] ([176.206.119.13])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b76f59aebecsm390140966b.39.2025.11.28.01.42.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Nov 2025 01:42:45 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org
-Subject: [PATCH] rust: workaround compilation failures with Meson <1.10
-Date: Fri, 28 Nov 2025 10:42:44 +0100
-Message-ID: <20251128094244.208571-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.51.1
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 7A-BMrHPCsQ8sq4-8v0KspK3rtRjhqcqlrskeqXWr1A_1764322967
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -22
-X-Spam_score: -2.3
-X-Spam_bar: --
-X-Spam_report: (-2.3 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.224,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ (Exim 4.90_1) (envelope-from <chenmiao@openatom.club>)
+ id 1vPLwQ-0001zA-V4
+ for qemu-rust@nongnu.org; Sat, 29 Nov 2025 09:28:53 -0500
+Received: from sg-1-14.ptr.blmpb.com ([118.26.132.14])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <chenmiao@openatom.club>)
+ id 1vPLwJ-0000wB-Ib
+ for qemu-rust@nongnu.org; Sat, 29 Nov 2025 09:28:49 -0500
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=openatom-club.20200927.dkim.feishu.cn; t=1764426507;
+ h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=TYQYrBtyfKJUAHag5BzfJ2Xcf0l0PHjigYu6ruxK0gU=;
+ b=UWjMfHyNcLEeXvUzvZuR3QRFLggkvuMCpQhNTy/t5olhFfbKwn96SB0IZh/jOLRccfvLLv
+ OClSmTNczu44+gKVnOCGIxGWSqqZQFMM0y354z03Uilg/VJBU4UHjLDYMAdK/msHjQpCLf
+ afKSBi3bVMcoajk2gZXELrjXv3SNT3YgPjZBZ1DLCjo3L+0M5J213E6N+9N7MvHOr8tvPp
+ K76eMpQ7oSpLB5kf7JqFs4Nw4SrvRvHDRikv4WIricyx8XaPbykS7+Ud1AQ4230LCCae+Y
+ MEqp1Wqz3aRYzrpSoypE9XDr768vhYprF8gJDEe91Po5zdx1gaSQx0ZPhsZBJQ==
+To: <zhao1.liu@intel.com>, <pbonzini@redhat.com>, 
+ <manos.pitsidianakis@linaro.org>, <richard.henderson@linaro.org>, 
+ <philmd@linaro.org>
+From: "Chen Miao" <chenmiao@openatom.club>
+Subject: [RFC PATCH V3 1/4] rust/hw/core: Add the BusState of rust version
+X-Mailer: git-send-email 2.43.0
+Cc: <chao.liu@openatom.club>, <dzm91@openatom.club>, <qemu-rust@nongnu.org>, 
+ <qemu-devel@nongnu.org>, <hust-os-kernel-patches@googlegroups.com>, 
+ "chenmiao" <chenmiao@openatom.club>
+Date: Sat, 29 Nov 2025 14:28:19 +0000
+Message-Id: <4e3b8548a26867260f137c719d3c26a24d7954bd.1764426204.git.chenmiao@openatom.club>
+X-Original-From: Chen Miao <chenmiao@openatom.club>
+X-Lms-Return-Path: <lba+2692b0309+90d328+nongnu.org+chenmiao@openatom.club>
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Received: from nyaos.localdomain ([114.249.49.233]) by smtp.feishu.cn with
+ ESMTPS; Sat, 29 Nov 2025 22:28:24 +0800
+Received-SPF: pass client-ip=118.26.132.14;
+ envelope-from=chenmiao@openatom.club; helo=sg-1-14.ptr.blmpb.com
+X-Spam_score_int: -18
+X-Spam_score: -1.9
+X-Spam_bar: -
+X-Spam_report: (-1.9 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, MSGID_FROM_MTA_HEADER=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -110,36 +72,93 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Prior to Meson 1.10, if the config-host.h dependency of qemuutil ends up
-as the first source file, it can be passed to rustc---which gets rather
-confused because config-host.h looks nothing like Rust code.
+From: chenmiao <chenmiao@openatom.club>
 
-While this can usually be avoided in the individual targets, a simple
-and universal workaround is to remove the sources (and C compile
-arguments, while at it) from the "util_rs" dependency.  This hides
-config-host.h from the Rust targets---and they don't need it anyway.
+A Rust version implementation has been designed for BusState,
+which will be used for the subsequent I2CBus implementation.
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Signed-off-by: Chen Miao <chenmiao@openatom.club>
+Signed-off-by: Chao Liu <chao.liu@openatom.club>
 ---
- rust/util/meson.build | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ rust/hw/core/meson.build |  1 +
+ rust/hw/core/src/bus.rs  | 44 ++++++++++++++++++++++++++++++++++++++++
+ rust/hw/core/src/lib.rs  |  3 +++
+ 3 files changed, 48 insertions(+)
+ create mode 100644 rust/hw/core/src/bus.rs
 
-diff --git a/rust/util/meson.build b/rust/util/meson.build
-index 95aa211ef0b..2aa32a233eb 100644
---- a/rust/util/meson.build
-+++ b/rust/util/meson.build
-@@ -41,7 +41,9 @@ _util_rs = static_library(
-   dependencies: [anyhow_rs, libc_rs, foreign_rs, glib_sys_rs, common_rs],
- )
+diff --git a/rust/hw/core/meson.build b/rust/hw/core/meson.build
+index 1560dd20c6..efcda50fef 100644
+--- a/rust/hw/core/meson.build
++++ b/rust/hw/core/meson.build
+@@ -50,6 +50,7 @@ _hwcore_rs = static_library(
+     [
+       'src/lib.rs',
+       'src/bindings.rs',
++      'src/bus.rs',
+       'src/irq.rs',
+       'src/qdev.rs',
+       'src/sysbus.rs',
+diff --git a/rust/hw/core/src/bus.rs b/rust/hw/core/src/bus.rs
+new file mode 100644
+index 0000000000..d3fbf519d4
+--- /dev/null
++++ b/rust/hw/core/src/bus.rs
+@@ -0,0 +1,44 @@
++// Copyright 2025 HUST OpenAtom Open Source Club.
++// Author(s): Chen Miao <chenmiao@openatom.club>
++// SPDX-License-Identifier: GPL-2.0-or-later
++
++use std::ffi::CStr;
++
++pub use bindings::BusClass;
++use common::Opaque;
++use qom::{qom_isa, IsA, Object, ObjectDeref, ObjectType};
++
++use crate::{bindings, DeviceImpl};
++
++#[repr(transparent)]
++#[derive(Debug, common::Wrapper)]
++pub struct BusState(Opaque<bindings::BusState>);
++
++unsafe impl Send for BusState {}
++unsafe impl Sync for BusState {}
++
++unsafe impl ObjectType for BusState {
++    type Class = BusClass;
++    const TYPE_NAME: &'static std::ffi::CStr =
++        unsafe { CStr::from_bytes_with_nul_unchecked(bindings::TYPE_BUS) };
++}
++
++qom_isa!(BusState: Object);
++
++pub trait BusStateImpl: DeviceImpl + IsA<BusState> {}
++
++impl BusClass {
++    pub fn class_init<T: BusStateImpl>(self: &mut BusClass) {
++        self.parent_class.class_init::<T>();
++    }
++}
++
++pub trait BusMethods: ObjectDeref
++where
++    Self::Target: IsA<BusState>,
++{
++    // TODO: Since the bus does not currently provide services to other
++    // components, we have not implemented any functions yet.
++}
++
++impl<R: ObjectDeref> BusMethods for R where R::Target: IsA<BusState> {}
+diff --git a/rust/hw/core/src/lib.rs b/rust/hw/core/src/lib.rs
+index b40801eb84..10cc516664 100644
+--- a/rust/hw/core/src/lib.rs
++++ b/rust/hw/core/src/lib.rs
+@@ -13,3 +13,6 @@
  
--util_rs = declare_dependency(link_with: [_util_rs], dependencies: [qemuutil, qom])
-+util_rs = declare_dependency(link_with: [_util_rs], dependencies: [
-+  qemuutil.partial_dependency(links: true, link_args: true),
-+  qom])
- 
- rust.test('rust-util-tests', _util_rs,
-           dependencies: [qemuutil, qom],
+ mod sysbus;
+ pub use sysbus::*;
++
++mod bus;
++pub use bus::*;
 -- 
-2.51.1
-
+2.43.0
 
