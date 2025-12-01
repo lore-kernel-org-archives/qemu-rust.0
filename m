@@ -4,82 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00A90D116F1
-	for <qemu-rust@archiver.kernel.org>; Mon,  1 Dec 2025 13:12:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E29D0D116F1
+	for <qemu-rust@archiver.kernel.org>; Mon,  1 Dec 2025 18:26:56 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vQ3hX-0007en-JD; Mon, 01 Dec 2025 08:12:23 -0500
+	id 1vQ8bh-0004pd-GE; Mon, 01 Dec 2025 13:26:41 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vQ3hT-0007bP-GZ
- for qemu-rust@nongnu.org; Mon, 01 Dec 2025 08:12:21 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vQ3hP-0006mI-K9
- for qemu-rust@nongnu.org; Mon, 01 Dec 2025 08:12:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1764594734;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bdZCcNebu58rRAcq7dcItAh2rzu+RqOqYxDStj16jN4=;
- b=hZVpQ/6XzfH1znLigkn+KTOArJ9j0gbgn3AzjTo5Bf7PfDqc2X/MGpdRXIFPKssKz3QZJL
- iVK5AQKSZnNrVun2FBMnh8LV1iUAUUNZ7CpM4R+2ZH/3Y1D2uW5oYzoHwVR3bqyHuBXKe4
- AgAJVHSMh5q0xd2DiqpUobXUVKBPR9Q=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-497-d-IW7-W9PxW01VVmKDNetg-1; Mon,
- 01 Dec 2025 08:12:11 -0500
-X-MC-Unique: d-IW7-W9PxW01VVmKDNetg-1
-X-Mimecast-MFC-AGG-ID: d-IW7-W9PxW01VVmKDNetg_1764594729
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id A3C65195608D; Mon,  1 Dec 2025 13:12:09 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.45.242.7])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id E7573180047F; Mon,  1 Dec 2025 13:12:08 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 0139D21E6A27; Mon, 01 Dec 2025 14:12:05 +0100 (CET)
-From: Markus Armbruster <armbru@redhat.com>
-To: marcandre.lureau@redhat.com
-Cc: qemu-devel@nongnu.org,  Gerd Hoffmann <kraxel@redhat.com>,  Thomas Huth
- <huth@tuxfamily.org>,  Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
- Alexandre Ratchov <alex@caoua.org>,  dirty.ice.hu@gmail.com,  Christian
- Schoenebeck <qemu_oss@crudebyte.com>,  Philippe =?utf-8?Q?Mathieu-Daud?=
- =?utf-8?Q?=C3=A9?= <philmd@linaro.org>,  Volker =?utf-8?Q?R=C3=BCmelin?=
- <vr_qemu@t-online.de>,  Eric Blake
- <eblake@redhat.com>,  Manos Pitsidianakis
- <manos.pitsidianakis@linaro.org>,  qemu-rust@nongnu.org (open
- list:Rust-related patc...)
-Subject: Re: [RFC 24/24] WIP: rust/audio: add GStreamer backend
-In-Reply-To: <20251201112309.4163921-25-marcandre.lureau@redhat.com>
- (marcandre lureau's message of "Mon, 1 Dec 2025 15:23:05 +0400")
+ (Exim 4.90_1) (envelope-from <marcandre.lureau@gmail.com>)
+ id 1vQ8bQ-0004nl-TK
+ for qemu-rust@nongnu.org; Mon, 01 Dec 2025 13:26:25 -0500
+Received: from mail-qt1-x830.google.com ([2607:f8b0:4864:20::830])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <marcandre.lureau@gmail.com>)
+ id 1vQ8bN-0003df-7G
+ for qemu-rust@nongnu.org; Mon, 01 Dec 2025 13:26:24 -0500
+Received: by mail-qt1-x830.google.com with SMTP id
+ d75a77b69052e-4ed82ee9e57so58001531cf.0
+ for <qemu-rust@nongnu.org>; Mon, 01 Dec 2025 10:26:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1764613579; x=1765218379; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JN01+63+EeTohwdDreZ2DzDX4iyn1BgZN3+b0Y3x1b0=;
+ b=FGJMiyZqqmV6ALJ1kLyJzER437WvW5jdmTkNGiq2beFi/FLQv5EEEv1LK2CMODj58P
+ UnHO0TA3CXwpKxJMK3F4e1B59Z4dENApY+HHTEd1mujtm1q0bQUhFRyr2/BP1Qs+PMW4
+ 5cAPpDfnTQx4SbpcQL3LgDFGvr7NYFAXx0N+vKxu02dn2PmwT8lRjhk1lDeAC+BfS+Xi
+ FJRsYvdcXHMSk3th/210G2qeCEVwQ4po/pE9799N6MXDPHIAIzhF5hX/IDc/3SXBbxxo
+ 910yt51qh3YeYzWecRUjNjsDOEj4SaaLy/yW2+HIyghhg43EPfmWTMBjvm0MWrlZmGkX
+ mD7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764613579; x=1765218379;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=JN01+63+EeTohwdDreZ2DzDX4iyn1BgZN3+b0Y3x1b0=;
+ b=ejuQDSWTAJvHzIKtqW0rsSwf3ZbijPbDlFy2N/0Wt5XgFEnC4DwNi8f5yU3x9/YWjc
+ OXagVuFD2eXEW9DrKAmmYCEVG6NUe4GfAObewuVFGrQ/RDFVuOH10S4tlYhVJ7FPiH+T
+ IyitK/uzvKme/XxNbzsPtDefdD6XHPj8AFUBzKsE8BYC+HMNOkN0/w3rlUfV8i5IKR+e
+ 8auzjihokjYg3B0/8F5MC8P8vrJHkR6EAYUiuHssAk7vM+5FYqW0QKKIzyqhCDvfAozy
+ anakpF+ngkt4V7Gt+CRq26MhFa2soW+KRz4awWYqtxwD9mD+NM6U5x8MKbOVc4G8bHYt
+ 3JIw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUThi/xoNot0fyfnAq905vpdBZyvx59/nXPYNmWPeUOHRjvU5ujHD+GSIYTPW29ugK0UkXtoJvv5h8=@nongnu.org
+X-Gm-Message-State: AOJu0YzR4JkYgLbANjGSywJ567gZZxXsn8/NqFKBnwjyEeHYjTo4ejjE
+ W6OZjNXzGcw78xK0htTttvpkWWYldGhilPXc6bAjBfHEIBcr82WlEm8FLdB7AMsWKtbeKA6T4Dt
+ On5979tmZA8Px0fS17Ze/bjw7NI2PJ+E=
+X-Gm-Gg: ASbGncsN2Hd2Boz/Bo4vWDy3D11Ku7g8AEZ5lOl9wQJLutxuFB8Uu9hXrZvPk5xyFVr
+ tGNLdUXE/dO1fMEt9jsogB9lK7ksiFN0CG7muNjjACcP8Vl/zamGWs3wqSjYEYoHqQctS8BC84e
+ DjxrNvdMxDVLX1zOv2csVlbcfjXBFf1HtKkf6fEBTOpd3R0gxCMOT78fGkIoTlZAsMew/d5cPrH
+ qmvP73dzY4A+/DYOwptG48fOGzV/0/Ww9OOSH+MAY+OXt2lp123hYTTmgDBKFg2Yst7VlQ/4cLM
+ zbHd8yRSLHoOybnWDt4mrh/J6EA=
+X-Google-Smtp-Source: AGHT+IHqvg+pQ5RNToGbvd2Mcg68+D2n/p+B9o2jWnTn4/o1aEfTseoylYxlumqFd89zPO5CZxhqrI52J9RfQT1XsWo=
+X-Received: by 2002:a05:622a:409:b0:4ee:296c:c7cf with SMTP id
+ d75a77b69052e-4ee58af74dbmr570189691cf.71.1764613578438; Mon, 01 Dec 2025
+ 10:26:18 -0800 (PST)
+MIME-Version: 1.0
 References: <20251201112309.4163921-1-marcandre.lureau@redhat.com>
  <20251201112309.4163921-25-marcandre.lureau@redhat.com>
-Date: Mon, 01 Dec 2025 14:12:05 +0100
-Message-ID: <87pl8y1h3u.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+ <87pl8y1h3u.fsf@pond.sub.org>
+In-Reply-To: <87pl8y1h3u.fsf@pond.sub.org>
+From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>
+Date: Mon, 1 Dec 2025 22:26:06 +0400
+X-Gm-Features: AWmQ_blgNSDHhT49ceRMHDXcMYNnXObve2BdY3atX99zcSMn5CAIVNKBXYaoLmE
+Message-ID: <CAJ+F1C+w+eGs+1YNCL1ZxsFxu29zz_Ef+Fr=7SzUEpjdoONpSQ@mail.gmail.com>
+Subject: Re: [RFC 24/24] WIP: rust/audio: add GStreamer backend
+To: Markus Armbruster <armbru@redhat.com>
+Cc: qemu-devel@nongnu.org, Gerd Hoffmann <kraxel@redhat.com>, 
+ Thomas Huth <huth@tuxfamily.org>, Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+ Alexandre Ratchov <alex@caoua.org>, dirty.ice.hu@gmail.com, 
+ Christian Schoenebeck <qemu_oss@crudebyte.com>,
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+ =?UTF-8?Q?Volker_R=C3=BCmelin?= <vr_qemu@t-online.de>, 
+ Eric Blake <eblake@redhat.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
+ "open list:Rust-related patc..." <qemu-rust@nongnu.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
+Received-SPF: pass client-ip=2607:f8b0:4864:20::830;
+ envelope-from=marcandre.lureau@gmail.com; helo=mail-qt1-x830.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -95,151 +107,168 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-marcandre.lureau@redhat.com writes:
+Hi Markus
 
-> From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+On Mon, Dec 1, 2025 at 5:13=E2=80=AFPM Markus Armbruster <armbru@redhat.com=
+> wrote:
 >
-> This patch introduce a rust/audio crate that replaces QEMU audio/
-> mixing/resampling code with GStreamer and Rust. It could potentially
-> remove the need for all the system-specific audio API implementation,
-> since GStreamer has audio elements for
-> ALSA/Pipewire/PulseAudio/jack/OSX/WASAPI etc (removing ~10k loc).
+> marcandre.lureau@redhat.com writes:
 >
-> TODO:
-> - test on various system, with various configuration to see if this
->   backend can replace the other QEMU audio backends
-> - add a spicesink/spicesrc to handle spice, or rewrite spice to use
->   the capture approach used by VNC code. Or drop capture support, and
->   use custom qemusrc/qemusink for both Spice and VNC, lowering the feature
->   and behaviour disparity.
-> - build-sys: make gstreamer optional
-> - build-sys: loadable module support
-> - investigate dropping get_buffer_size_out()
-> - investigate improving emulated devices to not require regular
->   timers (appsrc need-data is called once)
-> - add generic audio backend tests
-> - more tests for the mixing/liveadder behaviour (synchronization)
-> - other: replace audio/dbus with a rust implementation (not using gstream=
-er)
+> > From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+> >
+> > This patch introduce a rust/audio crate that replaces QEMU audio/
+> > mixing/resampling code with GStreamer and Rust. It could potentially
+> > remove the need for all the system-specific audio API implementation,
+> > since GStreamer has audio elements for
+> > ALSA/Pipewire/PulseAudio/jack/OSX/WASAPI etc (removing ~10k loc).
+> >
+> > TODO:
+> > - test on various system, with various configuration to see if this
+> >   backend can replace the other QEMU audio backends
+> > - add a spicesink/spicesrc to handle spice, or rewrite spice to use
+> >   the capture approach used by VNC code. Or drop capture support, and
+> >   use custom qemusrc/qemusink for both Spice and VNC, lowering the feat=
+ure
+> >   and behaviour disparity.
+> > - build-sys: make gstreamer optional
+> > - build-sys: loadable module support
+> > - investigate dropping get_buffer_size_out()
+> > - investigate improving emulated devices to not require regular
+> >   timers (appsrc need-data is called once)
+> > - add generic audio backend tests
+> > - more tests for the mixing/liveadder behaviour (synchronization)
+> > - other: replace audio/dbus with a rust implementation (not using gstre=
+amer)
+> >
+> > Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+> > ---
+> >  qapi/audio.json               |   29 +
+> >  audio/audio-driver_template.h |    2 +
+> >  rust/audio/wrapper.h          |   27 +
+> >  audio/audio.c                 |    5 +
+> >  Cargo.lock                    |  572 ++++++++++++++++--
+> >  Cargo.toml                    |    6 +
+> >  audio/trace-events            |    5 +
+> >  rust/audio/Cargo.toml         |   29 +
+> >  rust/audio/build.rs           |   49 ++
+> >  rust/audio/meson.build        |   75 +++
+> >  rust/audio/src/audio.rs       |  516 ++++++++++++++++
+> >  rust/audio/src/bindings.rs    |   32 +
+> >  rust/audio/src/gstreamer.rs   | 1070 +++++++++++++++++++++++++++++++++
+> >  rust/audio/src/lib.rs         |   99 +++
+> >  rust/meson.build              |    6 +
+> >  15 files changed, 2467 insertions(+), 55 deletions(-)
+> >  create mode 100644 rust/audio/wrapper.h
+> >  create mode 100644 rust/audio/Cargo.toml
+> >  create mode 100644 rust/audio/build.rs
+> >  create mode 100644 rust/audio/meson.build
+> >  create mode 100644 rust/audio/src/audio.rs
+> >  create mode 100644 rust/audio/src/bindings.rs
+> >  create mode 100644 rust/audio/src/gstreamer.rs
+> >  create mode 100644 rust/audio/src/lib.rs
+> >
+> > diff --git a/qapi/audio.json b/qapi/audio.json
+> > index 2df87b9710..76dc7cbfa6 100644
+> > --- a/qapi/audio.json
+> > +++ b/qapi/audio.json
+> > @@ -128,6 +128,33 @@
+> >      '*out':       'AudiodevAlsaPerDirectionOptions',
+> >      '*threshold': 'uint32' } }
+> >
+> > +    ##
+> > +    # @AudiodevGStreamerOptions:
+> > +    #
+> > +    # Options of the GStreamer audio backend.
+> > +    #
+> > +    # @in: options of the capture stream
+> > +    #
+> > +    # @out: options of the playback stream
+> > +    #
+> > +    # @sink: the name of the GStreamer sink element to use
+> > +    #        (default 'autoaudiosink')
+> > +    #
+> > +    # @source: the name of the GStreamer source element to use
+> > +    #        (default 'autoaudiosrc')
 >
-> Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
-> ---
->  qapi/audio.json               |   29 +
->  audio/audio-driver_template.h |    2 +
->  rust/audio/wrapper.h          |   27 +
->  audio/audio.c                 |    5 +
->  Cargo.lock                    |  572 ++++++++++++++++--
->  Cargo.toml                    |    6 +
->  audio/trace-events            |    5 +
->  rust/audio/Cargo.toml         |   29 +
->  rust/audio/build.rs           |   49 ++
->  rust/audio/meson.build        |   75 +++
->  rust/audio/src/audio.rs       |  516 ++++++++++++++++
->  rust/audio/src/bindings.rs    |   32 +
->  rust/audio/src/gstreamer.rs   | 1070 +++++++++++++++++++++++++++++++++
->  rust/audio/src/lib.rs         |   99 +++
->  rust/meson.build              |    6 +
->  15 files changed, 2467 insertions(+), 55 deletions(-)
->  create mode 100644 rust/audio/wrapper.h
->  create mode 100644 rust/audio/Cargo.toml
->  create mode 100644 rust/audio/build.rs
->  create mode 100644 rust/audio/meson.build
->  create mode 100644 rust/audio/src/audio.rs
->  create mode 100644 rust/audio/src/bindings.rs
->  create mode 100644 rust/audio/src/gstreamer.rs
->  create mode 100644 rust/audio/src/lib.rs
+> Are 'autoaudiosink' and 'autoaudiosrc' well-known GStreamer names, or
+> arbitrary?
+
+Yes, they are well-known elements from the base plugins.
+
 >
-> diff --git a/qapi/audio.json b/qapi/audio.json
-> index 2df87b9710..76dc7cbfa6 100644
-> --- a/qapi/audio.json
-> +++ b/qapi/audio.json
-> @@ -128,6 +128,33 @@
->      '*out':       'AudiodevAlsaPerDirectionOptions',
->      '*threshold': 'uint32' } }
->=20=20
-> +    ##
-> +    # @AudiodevGStreamerOptions:
-> +    #
-> +    # Options of the GStreamer audio backend.
-> +    #
-> +    # @in: options of the capture stream
-> +    #
-> +    # @out: options of the playback stream
-> +    #
-> +    # @sink: the name of the GStreamer sink element to use
-> +    #        (default 'autoaudiosink')
-> +    #
-> +    # @source: the name of the GStreamer source element to use
-> +    #        (default 'autoaudiosrc')
+> > +    #
+> > +    # Since: 11.0
+> > +    ##
+> > +    { 'struct': 'AudiodevGStreamerOptions',
+> > +      'data': {
+> > +        '*in':        'AudiodevPerDirectionOptions',
+> > +        '*out':       'AudiodevPerDirectionOptions',
+> > +        '*sink':      'str',
+> > +        '*source':    'str'
+> > +      }
+> > +    }
+>
+> Unindent by four, and format the doc comment like this:
+>
+> ##
+> # @AudiodevGStreamerOptions:
+> #
+> # Options of the GStreamer audio backend.
+> #
+> # @in: options of the capture stream
+> #
+> # @out: options of the playback stream
+> #
+> # @sink: the name of the GStreamer sink element to use
+> #     (default 'autoaudiosink')
+> #
+> # @source: the name of the GStreamer source element to use
+> #     (default 'autoaudiosrc')
+> #
+> # Since: 11.0
+> ##
+>
+>
+> > +
+> > +
+> >  ##
+> >  # @AudiodevSndioOptions:
+> >  #
+> > @@ -484,6 +511,7 @@
+> >              { 'name': 'sdl', 'if': 'CONFIG_AUDIO_SDL' },
+> >              { 'name': 'sndio', 'if': 'CONFIG_AUDIO_SNDIO' },
+> >              { 'name': 'spice', 'if': 'CONFIG_SPICE' },
+> > +            { 'name': 'gstreamer' },
+>
+> Short form suffices:
+>
+>                'gstreamer',
+>
+> >              'wav' ] }
+> >
+> >  ##
+> > @@ -530,6 +558,7 @@
+> >                     'if': 'CONFIG_AUDIO_SNDIO' },
+> >      'spice':     { 'type': 'AudiodevGenericOptions',
+> >                     'if': 'CONFIG_SPICE' },
+> > +    'gstreamer': { 'type': 'AudiodevGStreamerOptions' },
+>
+> Short form suffices:
+>
+>        'gstreamer': 'AudiodevGStreamerOptions',
+>
+> >      'wav':       'AudiodevWavOptions' } }
+> >
+> >  ##
+>
+> [...]
+>
+>
 
-Are 'autoaudiosink' and 'autoaudiosrc' well-known GStreamer names, or
-arbitrary?
+Thanks for the early check, I will likely have to update the schema in
+future revision, for making GStreamer optional & module to the very
+least.
 
-> +    #
-> +    # Since: 11.0
-> +    ##
-> +    { 'struct': 'AudiodevGStreamerOptions',
-> +      'data': {
-> +        '*in':        'AudiodevPerDirectionOptions',
-> +        '*out':       'AudiodevPerDirectionOptions',
-> +        '*sink':      'str',
-> +        '*source':    'str'
-> +      }
-> +    }
-
-Unindent by four, and format the doc comment like this:
-
-##
-# @AudiodevGStreamerOptions:
-#
-# Options of the GStreamer audio backend.
-#
-# @in: options of the capture stream
-#
-# @out: options of the playback stream
-#
-# @sink: the name of the GStreamer sink element to use
-#     (default 'autoaudiosink')
-#
-# @source: the name of the GStreamer source element to use
-#     (default 'autoaudiosrc')
-#
-# Since: 11.0
-##
-
-
-> +
-> +
->  ##
->  # @AudiodevSndioOptions:
->  #
-> @@ -484,6 +511,7 @@
->              { 'name': 'sdl', 'if': 'CONFIG_AUDIO_SDL' },
->              { 'name': 'sndio', 'if': 'CONFIG_AUDIO_SNDIO' },
->              { 'name': 'spice', 'if': 'CONFIG_SPICE' },
-> +            { 'name': 'gstreamer' },
-
-Short form suffices:
-
-               'gstreamer',
-
->              'wav' ] }
->=20=20
->  ##
-> @@ -530,6 +558,7 @@
->                     'if': 'CONFIG_AUDIO_SNDIO' },
->      'spice':     { 'type': 'AudiodevGenericOptions',
->                     'if': 'CONFIG_SPICE' },
-> +    'gstreamer': { 'type': 'AudiodevGStreamerOptions' },
-
-Short form suffices:
-
-       'gstreamer': 'AudiodevGStreamerOptions',
-
->      'wav':       'AudiodevWavOptions' } }
->=20=20
->  ##
-
-[...]
-
+--=20
+Marc-Andr=C3=A9 Lureau
 
