@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 260ACD12694
-	for <qemu-rust@archiver.kernel.org>; Wed,  3 Dec 2025 10:01:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48142D12691
+	for <qemu-rust@archiver.kernel.org>; Wed,  3 Dec 2025 10:12:56 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vQjfY-0002mh-E0; Wed, 03 Dec 2025 05:01:09 -0500
+	id 1vQjqr-0001fX-Q2; Wed, 03 Dec 2025 05:12:50 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vQjfU-0002kb-Be; Wed, 03 Dec 2025 05:01:04 -0500
-Received: from mgamail.intel.com ([198.175.65.16])
+ id 1vQjqq-0001eT-L3; Wed, 03 Dec 2025 05:12:48 -0500
+Received: from mgamail.intel.com ([192.198.163.10])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vQjfQ-0002Of-BE; Wed, 03 Dec 2025 05:01:04 -0500
+ id 1vQjqo-0006t2-Re; Wed, 03 Dec 2025 05:12:48 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764756060; x=1796292060;
+ t=1764756766; x=1796292766;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=Ku70nufJQx0eQBUG06gbsOebWWRJL5iKL0yAKzmgETM=;
- b=jeY3iv3XixmPkAvST2NQwpXv67TNNdXgZiLDCqUe7zEbNiy6ivLgHnK0
- pTO4/ItnMiwN/kRXttMPh3mYb9IQiPXzVNl4F31PqyANXcT2LvGQOpFwM
- fYrNHbrKZEg6ZDxTdpS1462Qeqbs04XQrjZlbchHUZkre6/rvorbU+Xwp
- NRof7fJi6VGosi3ZTjr6R1zIaKnfSmRaWTtIA6NNMgdGQ3tnFidvnd2ER
- S6NsQcTW2eJG27N3m55A9aBlMvT1FFe6M9QjyxPF/7VtbkQTOqoj62+6F
- tTxnyK8ewsJh2xIHJt1CktqzSmSjJ6FNihqj8VjeDu6TvUisfc9j45cz8 w==;
-X-CSE-ConnectionGUID: 91VGYHYbQk+8LJ4s2/QrXg==
-X-CSE-MsgGUID: ZIhWjLlnSmua5NH6wSUFMQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11631"; a="66909002"
-X-IronPort-AV: E=Sophos;i="6.20,245,1758610800"; d="scan'208";a="66909002"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2025 02:00:56 -0800
-X-CSE-ConnectionGUID: 5HfLKTtzQQ6LZquzi3jj+Q==
-X-CSE-MsgGUID: KkCaO/uYTjGtR+l+7FHmhA==
+ bh=FkEWYu/LFqLXmzn8xqFCuuGWPigZO4lD3Iq7Kru3ZV4=;
+ b=GTyXbuEBjZYS+cAFyk+1tHXV03xyj9YHS8Rvd2rtIB30Ud1Qy0J/g5RB
+ E0XeZMiT8oDF8ENaDdXCUckOoUDcjDm+kHCPC0doMq3ep0aEuSi/avzSC
+ UZYXf9OfBeFGC2u3FN+M8L/ae5qIBkj9S9U3u28iejfuLwKvlXOFRByhx
+ 30/xRwtJi0k9Yghhv7rJGauRWK8emne8++2Tc/xwuSTalW52A2d1CI0fR
+ bG/DQtjtJjj/8MuxjwQfNFOQctSho4MiaSrpNC9moLPfs5iBn3Ci/+nRk
+ mN0mRXItmP0rbsNqHKR0/kPALSV3kTmLHN4lCB4EV1Vn/p6RMLgumWcPa Q==;
+X-CSE-ConnectionGUID: b/jR1+EERrOcsoAuUxf4VQ==
+X-CSE-MsgGUID: LzYuDfZgQS2pILnahAg+/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11631"; a="78093266"
+X-IronPort-AV: E=Sophos;i="6.20,245,1758610800"; d="scan'208";a="78093266"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2025 02:12:43 -0800
+X-CSE-ConnectionGUID: ZttNxyiyS6qwtfWciAW/JQ==
+X-CSE-MsgGUID: cf/i6aevTl2QppZVYXHW/A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,245,1758610800"; d="scan'208";a="194535386"
+X-IronPort-AV: E=Sophos;i="6.20,245,1758610800"; d="scan'208";a="194317330"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa006.fm.intel.com with ESMTP; 03 Dec 2025 02:00:54 -0800
-Date: Wed, 3 Dec 2025 18:25:37 +0800
+ by fmviesa007.fm.intel.com with ESMTP; 03 Dec 2025 02:12:42 -0800
+Date: Wed, 3 Dec 2025 18:37:25 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-Subject: Re: [PATCH 2/9] rust: remove unused --cfg arguments
-Message-ID: <aTAQIb2pm1Ozau5J@intel.com>
+Subject: Re: [PATCH 3/9] rust: remove unnecessary repetitive options
+Message-ID: <aTAS5TgA3Xc9pCsu@intel.com>
 References: <20251127132036.84384-1-pbonzini@redhat.com>
- <20251127132036.84384-3-pbonzini@redhat.com>
+ <20251127132036.84384-4-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251127132036.84384-3-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.16; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20251127132036.84384-4-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.10; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -81,19 +81,27 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Thu, Nov 27, 2025 at 02:20:29PM +0100, Paolo Bonzini wrote:
-> Date: Thu, 27 Nov 2025 14:20:29 +0100
+On Thu, Nov 27, 2025 at 02:20:30PM +0100, Paolo Bonzini wrote:
+> Date: Thu, 27 Nov 2025 14:20:30 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 2/9] rust: remove unused --cfg arguments
+> Subject: [PATCH 3/9] rust: remove unnecessary repetitive options
 > X-Mailer: git-send-email 2.51.1
 > 
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  rust/qemu-macros/meson.build                                 | 5 -----
->  subprojects/packagefiles/bilge-impl-0.2-rs/meson.build       | 3 ---
->  subprojects/packagefiles/proc-macro-error-1-rs/meson.build   | 1 -
->  .../packagefiles/proc-macro-error-attr-1-rs/meson.build      | 3 ---
->  4 files changed, 12 deletions(-)
+>  meson.build                  | 3 ++-
+>  rust/bits/meson.build        | 2 --
+>  rust/bql/meson.build         | 2 --
+>  rust/chardev/meson.build     | 2 --
+>  rust/common/meson.build      | 2 --
+>  rust/migration/meson.build   | 2 --
+>  rust/qemu-macros/meson.build | 1 -
+>  rust/qom/meson.build         | 2 --
+>  rust/system/meson.build      | 2 --
+>  rust/tests/meson.build       | 1 -
+>  rust/trace/meson.build       | 2 --
+>  rust/util/meson.build        | 2 --
+>  12 files changed, 2 insertions(+), 21 deletions(-)
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
