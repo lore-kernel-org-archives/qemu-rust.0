@@ -4,97 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79A7BD1F9B5
-	for <qemu-rust@archiver.kernel.org>; Thu,  4 Dec 2025 10:50:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8AC1D20698
+	for <qemu-rust@archiver.kernel.org>; Thu,  4 Dec 2025 13:51:36 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vR6un-0002BU-Cj; Thu, 04 Dec 2025 05:50:25 -0500
+	id 1vR9js-00022D-Pr; Thu, 04 Dec 2025 08:51:20 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vR6um-0002B9-FY
- for qemu-rust@nongnu.org; Thu, 04 Dec 2025 05:50:24 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vR9jq-00021G-5N; Thu, 04 Dec 2025 08:51:18 -0500
+Received: from mgamail.intel.com ([198.175.65.10])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vR6uk-0002Ch-Tz
- for qemu-rust@nongnu.org; Thu, 04 Dec 2025 05:50:24 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1764845421;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=i2L2bDIgJyo5amVCwiaT61QyiIDHFyCTXAFJ7ANy4bs=;
- b=Wf+WPrrL0kC4Auc8ZMNgA2v77TFUlbu8NmySygH0JmHW/iGH697tvJKCROvAa0FXVvQLe+
- Z3w0mFqrjrbRWan1exP/s36SGltvOV5mmVqptB5OoxFZ/2zReNqn49R4+Y40G9d3mngdKt
- dDhTD6cHNUyB/anKcfEOEmBTbYRRJL4=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-197-LHQM0b6uM8K8OMNzKqFdxg-1; Thu, 04 Dec 2025 05:50:20 -0500
-X-MC-Unique: LHQM0b6uM8K8OMNzKqFdxg-1
-X-Mimecast-MFC-AGG-ID: LHQM0b6uM8K8OMNzKqFdxg_1764845419
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-42e2d5e833fso429546f8f.1
- for <qemu-rust@nongnu.org>; Thu, 04 Dec 2025 02:50:20 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764845419; x=1765450219;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=i2L2bDIgJyo5amVCwiaT61QyiIDHFyCTXAFJ7ANy4bs=;
- b=o0DF6aIXqEzvv6nIWxcusrMj4p7JqGNjubvC3FjrrbwhnZe1gGWIS2VmQ7s90TJcH3
- eOPx1uDqlYgnDOTHsVKTjqtDKbsHUt+HZHUfB22On4RYrcALxrRYXI82gvB6k7HBwfja
- jjeOGHdc4IS6CA7Jjhg+NjRd5INviWfZmAepZNIEOBdT+3zw3l/64SZTwBp+19BYxqkm
- wJ2AL+POv+A/sl+UtJgZm3/Pku4iKnD9/N2W7SwVqMbFcu+hq9xQVXOZDkvEVTcz6ste
- 5bK0eQKQV2ed1qnIWd1mSVylnjN7LZNLSnEIm3wLFPueLKZCg1FjBT9ojHWIjg/jZ6O1
- uQjQ==
-X-Gm-Message-State: AOJu0YwYxUofchSRDjsg/D3AoEr2gNl0p8Di3/+K/sm8ygpZyVBF3YKX
- NRYLI6PeC7epJIxfKIuxxzkwmo1+ml9xGKdbk4MioDAvPFtJagO9prl1VXob/b9Ve9NFYlCtIvR
- PF/xsMaUDQzN927rlKjsE87iplNZ1GQbDUQDUqtGsh8kko78DsFbmZ+Y=
-X-Gm-Gg: ASbGnctCK6XTaVkIqmaf0PQZ9x26BVrMNN0QN6LFmxsBYAimvmxb0SIcnamNFQXKePL
- tiGJF/e7mIRQpK7UMT24vEgi8uAvchY3l48owl5ducoZlS3tBOh6asDIqn2aKPsyGKRNgk3C13G
- lpBJPNglF4IfdQV6s2u6+8pMMA8KX3bk5vL2pug281EwFSnDeTAOR1kY5MkSP3+C65e58VbN4zi
- BdxWXo6bZoMJtVWpB97nPXWJHfrgJXXjhGPV2qb2HBTa8B+iKYVmWy1pQ7WQ/1q+kT92a7BIIJx
- 9diSj7JYTT891fdiLfxkc7143crfw4F0/UH1IiYpJ9Sa9COKHLnL/UcSbpxk0nhJDlJYjDlvYHb
- x48IsEKttL6LZxbMGhliB1KracN9J85SR55y4VTD/VNG/FYP0K+M4JKxsRAzt2OBp/HS8wei2Oj
- +4yraKuFjse+KhIBM=
-X-Received: by 2002:a05:6000:c0b:b0:42b:3eb2:1b97 with SMTP id
- ffacd0b85a97d-42f731905a9mr4635234f8f.9.1764845419304; 
- Thu, 04 Dec 2025 02:50:19 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGDKn6k/gpAIcrJEUW+zOk2+lqPffW0oRy2X2l0v6uJLA8SVYJGfQjNXnX1w+WnrsPN5Wj8Eg==
-X-Received: by 2002:a05:6000:c0b:b0:42b:3eb2:1b97 with SMTP id
- ffacd0b85a97d-42f731905a9mr4635216f8f.9.1764845418878; 
- Thu, 04 Dec 2025 02:50:18 -0800 (PST)
-Received: from [192.168.10.48] ([176.206.119.13])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7d331aeasm2455317f8f.37.2025.12.04.02.50.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Dec 2025 02:50:18 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org
-Subject: [PATCH] rust: hide panicking default associated constants from rustdoc
-Date: Thu,  4 Dec 2025 11:50:17 +0100
-Message-ID: <20251204105017.2564277-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.52.0
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vR9jn-0008Ns-Lu; Thu, 04 Dec 2025 08:51:17 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764856275; x=1796392275;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=EGGGVaj2kauQb09SV9MFwvcfUD+qnSno1YOd+Dsuhq0=;
+ b=fpk9gMCqrp6Jp2RcSAWVnvLRleudiPj0r58PgqhlyUuJOcInYKHpZvgN
+ x0Fhuo1ex90enC1PdeXF/kXBeuzeA5f+ZZEonJSRGW/UkS9zU26v5wLlb
+ f+4Dj4D7g/MR6w8A5Tnc8cipQpteJxOdV1t8ldBrP4PdjYIvTF1Y0PPcz
+ xafoBoVQlCOI+uVbgE4bOE+ucBkewCzzS+OqIfyrYAb7Cl3deN3NzruPX
+ sx+abvwGzpoJd3OTgwm4IvJ3Vn9O9Mld0KHt/UVRdw1HhKuaStnrDd6oo
+ dVKiwBjT37B0eZCp9yw8zwC++tAsXPzatSCG5t9T+TC6hkhCYRw/vjiNG A==;
+X-CSE-ConnectionGUID: qypG80ONSsmuREDebzFe2w==
+X-CSE-MsgGUID: 2+xONj9TTNGD4W5iESPFdQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11632"; a="84271516"
+X-IronPort-AV: E=Sophos;i="6.20,249,1758610800"; d="scan'208";a="84271516"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Dec 2025 05:51:11 -0800
+X-CSE-ConnectionGUID: k9CJq4nuTDeuSzvBpscQKQ==
+X-CSE-MsgGUID: TlB+1gqcSpGxp7lzcUCXcg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,249,1758610800"; d="scan'208";a="195413000"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa009.fm.intel.com with ESMTP; 04 Dec 2025 05:51:10 -0800
+Date: Thu, 4 Dec 2025 22:15:53 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, armbru@redhat.com,
+ marcandre.lureau@redhat.com
+Subject: Re: [PATCH 02/14] rust: add basic QObject bindings
+Message-ID: <aTGXmfbzug5cQAbV@intel.com>
+References: <20251001075005.1041833-1-pbonzini@redhat.com>
+ <20251001080051.1043944-3-pbonzini@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ZdPjFR8_zAek2aM-0B3B20ii-09lndS1fS5wbJ20vIw_1764845419
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251001080051.1043944-3-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.10; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -110,40 +82,227 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Work around rustdoc issue that panics while trying to evaluate
-the constants.
+> diff --git a/rust/util/src/qobject/mod.rs b/rust/util/src/qobject/mod.rs
+> new file mode 100644
+> index 00000000000..f43d87a3b66
+> --- /dev/null
+> +++ b/rust/util/src/qobject/mod.rs
+> @@ -0,0 +1,309 @@
+> +//! `QObject` bindings
+> +//!
+> +//! This module implements bindings for QEMU's `QObject` data structure.
+> +//! The bindings integrate with `serde`, which take the role of visitors
+> +//! in Rust code.
+> +
+> +#![deny(clippy::unwrap_used)]
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- rust/hw/core/src/qdev.rs      | 1 +
- rust/migration/src/vmstate.rs | 1 +
- 2 files changed, 2 insertions(+)
+Are there are any specific considerations for this lint rule?
 
-diff --git a/rust/hw/core/src/qdev.rs b/rust/hw/core/src/qdev.rs
-index 4e983da28b7..c2ca17f6ce0 100644
---- a/rust/hw/core/src/qdev.rs
-+++ b/rust/hw/core/src/qdev.rs
-@@ -132,6 +132,7 @@ pub trait ResettablePhasesImpl {
- /// [`bindings::PropertyInfo`] pointer for the trait implementation to be safe.
- pub unsafe trait QDevProp {
-     const BASE_INFO: *const bindings::PropertyInfo;
-+    #[doc(hidden)] // https://github.com/rust-lang/rust/issues/149635
-     const BIT_INFO: *const bindings::PropertyInfo = {
-         panic!("invalid type for bit property");
-     };
-diff --git a/rust/migration/src/vmstate.rs b/rust/migration/src/vmstate.rs
-index 267f9c8e053..f9d9f335b98 100644
---- a/rust/migration/src/vmstate.rs
-+++ b/rust/migration/src/vmstate.rs
-@@ -101,6 +101,7 @@ pub unsafe trait VMState {
-     /// type for the length (i.e. if it is not `u8`, `u16`, `u32`), using it
-     /// in a call to [`vmstate_of!`](crate::vmstate_of) will cause a
-     /// compile-time error.
-+    #[doc(hidden)] // https://github.com/rust-lang/rust/issues/149635
-     const VARRAY_FLAG: VMStateFlags = {
-         panic!("invalid type for variable-sized array");
-     };
--- 
-2.52.0
+> +use std::{
+> +    cell::UnsafeCell,
+> +    ffi::{c_char, CString},
+> +    mem::ManuallyDrop,
+> +    ptr::{addr_of, addr_of_mut},
+> +    sync::atomic::{AtomicUsize, Ordering},
+> +};
+> +
+> +use common::assert_field_type;
+> +
+> +use crate::bindings;
+> +
+> +/// A wrapper for a C `QObject`.
+> +///
+> +/// Because `QObject` is not thread-safe, the safety of these bindings
+> +/// right now hinges on treating them as immutable.  It is part of the
+> +/// contract with the `QObject` constructors that the Rust struct is
+> +/// only built after the contents are stable.
+> +///
+> +/// Only a bare bones API is public; production and consumption of `QObject`
+> +/// generally goes through `serde`.
+> +pub struct QObject(&'static UnsafeCell<bindings::QObject>);
+
+It seems Opaque<> feels more natural than UnsafeCell<>.
+
+Opaque::from_raw() requires *mut T, but QObject::from_raw() and
+QObject::clone_from_raw() mainly play with C bindings which usually use
+*mut pointer. So it seems unnecessary to convert *mut to *const in the
+middle.
+
+And furthermore, I think QObject(Opaque<bindings::QObject>) is better
+than QObject(&'static Opaque<bindings::QObject>). From a semantic view,
+C's QObject is a struct, while Rust's QObject is a reference, which seems
+somewhat mismatched.
+
+I'm not sure yet if there may be gaps when remove &'static, but it
+looks like using &'static Opaque<> instead of &'static UnsafeCell<> is
+Okay in code?
+
+> +    /// Construct a [`QObject`] from a C `QObject` pointer.
+> +    /// The caller *does not* cede its reference to the returned struct.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// The `QObjectBase` must not be changed from C code while
+> +    /// the Rust `QObject` lives
+> +    unsafe fn cloned_from_base(p: *const bindings::QObjectBase_) -> Self {
+> +        let orig = unsafe { ManuallyDrop::new(QObject::from_base(p)) };
+> +        (*orig).clone()
+> +    }
+> +
+> +    /// Construct a [`QObject`] from a C `QObject` pointer.
+> +    /// The caller *does not* cede its reference to the returned struct.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// The `QObject` must not be changed from C code while
+> +    /// the Rust `QObject` lives
+> +    pub unsafe fn cloned_from_raw(p: *const bindings::QObject) -> Self {
+> +        let orig = unsafe { ManuallyDrop::new(QObject::from_raw(p)) };
+> +        (*orig).clone()
+> +    }
+
+These 2 methods are the clone, but it seems they're actually similar to
+Owned<>, i.e., increase refcnt when Rust side wants to "own" or ensure
+to use this safely.
+
+However, there indeed isn't a non-object version of Owned for now, so I
+think this kind of clone should be okay. Hmm, for long-term, is it
+valuable to consider a more generic Owned<>?
+
+> +impl<A> FromIterator<A> for QObject
+> +where
+> +    Self: From<A>,
+> +{
+> +    fn from_iter<I: IntoIterator<Item = A>>(it: I) -> Self {
+
+nit: maybe the name "iter" is better than "it"?
+
+> +        let qlist = unsafe { &mut *bindings::qlist_new() };
+> +        for elem in it {
+> +            let elem: QObject = elem.into();
+> +            let elem: *mut bindings::QObject = elem.0.get();
+> +            unsafe {
+> +                bindings::qlist_append_obj(qlist, elem);
+> +            }
+> +        }
+> +        unsafe { QObject::from_base(addr_of!(qlist.base)) }
+> +    }
+> +}
+> +
+> +impl<A> FromIterator<(CString, A)> for QObject
+> +where
+> +    Self: From<A>,
+> +{
+> +    fn from_iter<I: IntoIterator<Item = (CString, A)>>(it: I) -> Self {
+
+ditto.
+
+> +        let qdict = unsafe { &mut *bindings::qdict_new() };
+> +        for (key, val) in it {
+> +            let val: QObject = val.into();
+> +            let val = val.into_raw();
+> +            unsafe {
+> +                bindings::qdict_put_obj(qdict, key.as_ptr().cast::<c_char>(), val);
+> +            }
+> +        }
+> +        unsafe { QObject::from_base(addr_of!(qdict.base)) }
+> +    }
+> +}
+
+I think these the mappings of qdict and qlist look quite good.
+
+> +#[allow(unused)]
+> +macro_rules! match_qobject {
+> +    (@internal ($qobj:expr) =>
+> +        $(() => $unit:expr,)?
+> +        $(bool($boolvar:tt) => $bool:expr,)?
+> +        $(i64($i64var:tt) => $i64:expr,)?
+> +        $(u64($u64var:tt) => $u64:expr,)?
+> +        $(f64($f64var:tt) => $f64:expr,)?
+> +        $(CStr($cstrvar:tt) => $cstr:expr,)?
+> +        $(QList($qlistvar:tt) => $qlist:expr,)?
+> +        $(QDict($qdictvar:tt) => $qdict:expr,)?
+> +        $(_ => $other:expr,)?
+> +    ) => {
+> +        loop {
+> +            let qobj_ = $qobj.0.get();
+> +            match unsafe { &* qobj_ }.base.type_ {
+> +                $($crate::bindings::QTYPE_QNULL => break $unit,)?
+> +                $($crate::bindings::QTYPE_QBOOL => break {
+> +                    let qbool__: *mut $crate::bindings::QBool = qobj_.cast();
+> +                    let $boolvar = unsafe { (&*qbool__).value };
+> +                    $bool
+> +                },)?
+> +                $crate::bindings::QTYPE_QNUM => {
+> +                    let qnum__: *mut $crate::bindings::QNum = qobj_.cast();
+> +                    let qnum__ = unsafe { &*qnum__ };
+> +                    match qnum__.kind {
+> +                        $crate::bindings::QNUM_I64 |
+> +                        $crate::bindings::QNUM_U64 |
+> +                        $crate::bindings::QNUM_DOUBLE => {}
+> +                        _ => {
+> +                            panic!("unreachable");
+> +                        }
+> +                    }
+> +
+> +                    match qnum__.kind {
+> +                        $($crate::bindings::QNUM_I64 => break {
+> +                            let $i64var = unsafe { qnum__.u.i64_ };
+> +                            $i64
+> +                        },)?
+> +                        $($crate::bindings::QNUM_U64 => break {
+> +                            let $u64var = unsafe { qnum__.u.u64_ };
+> +                            $u64
+> +                        },)?
+> +                        $($crate::bindings::QNUM_DOUBLE => break {
+> +                            let $f64var = unsafe { qnum__.u.dbl };
+> +                            $f64
+> +                        },)?
+> +                        _ => {}
+
+I think this doesn't handle a special case: qobj's QNUM type doesn't
+macth the value type, for example, qobj is QNUM_U64 but value is i64.
+
+Though external code won't use this macro, I think panic may be better
+than {}?
+
+> +                    }
+
+Thurther, there're 2 match blocks. Could we merge them as one?
+
+diff --git a/rust/util/src/qobject/mod.rs b/rust/util/src/qobject/mod.rs
+index 292a3c9c2385..4053a3b7610d 100644
+--- a/rust/util/src/qobject/mod.rs
++++ b/rust/util/src/qobject/mod.rs
+@@ -280,14 +280,6 @@ macro_rules! match_qobject {
+                 $crate::bindings::QTYPE_QNUM => {
+                     let qnum__: *mut $crate::bindings::QNum = qobj_.cast();
+                     let qnum__ = unsafe { &*qnum__ };
+-                    match qnum__.kind {
+-                        $crate::bindings::QNUM_I64 |
+-                        $crate::bindings::QNUM_U64 |
+-                        $crate::bindings::QNUM_DOUBLE => {}
+-                        _ => {
+-                            panic!("unreachable");
+-                        }
+-                    }
+
+                     match qnum__.kind {
+                         $($crate::bindings::QNUM_I64 => break {
+@@ -302,7 +294,9 @@ macro_rules! match_qobject {
+                             let $f64var = unsafe { qnum__.u.dbl };
+                             $f64
+                         },)?
+-                        _ => {}
++                        _ => {
++                            panic!("unreachable");
++                        }
+                     }
+                 },
+                 $($crate::bindings::QTYPE_QSTRING => break {
+
+
+Regards,
+Zhao
 
 
