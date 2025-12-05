@@ -4,61 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3606D2E008
-	for <qemu-rust@archiver.kernel.org>; Fri,  5 Dec 2025 06:05:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5756AD2E00E
+	for <qemu-rust@archiver.kernel.org>; Fri,  5 Dec 2025 07:14:08 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vROwf-0000iH-UA; Fri, 05 Dec 2025 01:05:34 -0500
+	id 1vRQ0q-0000l2-Rq; Fri, 05 Dec 2025 02:13:57 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vROwX-0000dq-Cb; Fri, 05 Dec 2025 01:05:26 -0500
-Received: from mgamail.intel.com ([198.175.65.13])
+ id 1vRQ0Z-0000bA-F6; Fri, 05 Dec 2025 02:13:42 -0500
+Received: from mgamail.intel.com ([198.175.65.15])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vROwU-0003hm-WA; Fri, 05 Dec 2025 01:05:25 -0500
+ id 1vRQ0X-0004iC-AG; Fri, 05 Dec 2025 02:13:39 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764914723; x=1796450723;
+ t=1764918817; x=1796454817;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=6hK2yJ3ej5c9kSN5m5/VeTFATwCnDQwtzLFWqdLNsf4=;
- b=k+M7inteHO+mCp+ORe7Q63kfffK5J26nb3N3NiM+6Hw8rRBV2P4Y+1vS
- y/SCeQKxadnMtj/siHoKJlJPggXgemjMS4I6WqUC+fCu7r3vWSnjhaSi4
- zUiWrRt5XyJ66qBy/UmSeAso4VjrSyi2Pd0j4Q1BJgsy7pw2jhm0duKes
- IG1YjSCcV2hQFMeVwd6kHsYfHalNtZ83vblPbStlhzkqdo/YwiwXApubH
- eJHQ7PsttjX0bnaaFQrTwjJfcTe1Uiy612zWM2BrcCmEuz50UgmhpWZC5
- k8nrXdfyj8hcTvsQCrvVO3Vdtbl70tW3UOvVLMkF3oPP9AwAqY9Ij41w0 w==;
-X-CSE-ConnectionGUID: XdSpDPU6S+WSBIiRBZSZ7A==
-X-CSE-MsgGUID: h1THoOCXSrCdkZr3qJWrHA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11632"; a="78057197"
-X-IronPort-AV: E=Sophos;i="6.20,251,1758610800"; d="scan'208";a="78057197"
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=w3Buc0Ps7o9i/SjFHREmo0voDOT2uY6Lid8xV3QUcqk=;
+ b=StgiC5J4jvnQ9lyiCqztjaoZefBWFs9+rQtTk8fUVLwI0JiNir/TopyR
+ xVpt6kI8lCeUaJHL+T6X0Udc1JKq/a5+wDcgyNCt4GhfBhLHnm7KKWLt4
+ TSfNU3NhqtrGJZWd4X3GIxRcyNRzQH6lAwPvLuFVu7t5MAs79EIcdBl5T
+ MPWs5Ukf0TY4ldVkK8kuIEggM7yAbhfmQibXzg+Y4FR+104JT5bWq+3CF
+ xuneUdz0xRhLrSwUmB8oKvS/Sludb0ltWqcHofv07TSu6A8DXSpa6yKWW
+ VRXWpjNbmPaQUc7Gf5iBJhmx9Ihk8KUYhhOeJE8nu6vnYYJl9i9YjE/vl A==;
+X-CSE-ConnectionGUID: 7Jvu16G2S3+c1EXfljocew==
+X-CSE-MsgGUID: cCO1Yh+ZTfuaWZRgr+rWGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11632"; a="70569583"
+X-IronPort-AV: E=Sophos;i="6.20,251,1758610800"; d="scan'208";a="70569583"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2025 22:05:18 -0800
-X-CSE-ConnectionGUID: 2qzI66wVQ4KyATTWdidQUA==
-X-CSE-MsgGUID: MR56snghS/qz3UolNHY3eQ==
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Dec 2025 23:13:34 -0800
+X-CSE-ConnectionGUID: qwVBAMkDSra50/dDv7oETg==
+X-CSE-MsgGUID: rmkcl3IJQT6WBXcUfk/7+g==
 X-ExtLoop1: 1
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa003.fm.intel.com with ESMTP; 04 Dec 2025 22:05:17 -0800
-Date: Fri, 5 Dec 2025 14:30:01 +0800
+ by fmviesa003.fm.intel.com with ESMTP; 04 Dec 2025 23:13:32 -0800
+Date: Fri, 5 Dec 2025 15:38:16 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, armbru@redhat.com,
  marcandre.lureau@redhat.com
-Subject: Re: [PATCH 02/14] rust: add basic QObject bindings
-Message-ID: <aTJ76Ufe0vs3aKPL@intel.com>
+Subject: Re: [PATCH 04/14] rust: add Serialize implementation for QObject
+Message-ID: <aTKL6FaZ9bNfWETG@intel.com>
 References: <20251001075005.1041833-1-pbonzini@redhat.com>
- <20251001080051.1043944-3-pbonzini@redhat.com>
- <aTGXmfbzug5cQAbV@intel.com>
- <382ef69e-50b7-4a7f-aa9d-63c076a737f3@redhat.com>
+ <20251001080051.1043944-5-pbonzini@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <382ef69e-50b7-4a7f-aa9d-63c076a737f3@redhat.com>
-Received-SPF: pass client-ip=198.175.65.13; envelope-from=zhao1.liu@intel.com;
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20251001080051.1043944-5-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.15; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -83,50 +82,61 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-> > > +pub struct QObject(&'static UnsafeCell<bindings::QObject>);
-> > 
-> > It seems Opaque<> feels more natural than UnsafeCell<>.
-> > 
-> > Opaque::from_raw() requires *mut T, but QObject::from_raw() and
-> > QObject::clone_from_raw() mainly play with C bindings which usually use
-> > *mut pointer. So it seems unnecessary to convert *mut to *const in the
-> > middle.
-> > 
-> > And furthermore, I think QObject(Opaque<bindings::QObject>) is better
-> > than QObject(&'static Opaque<bindings::QObject>). From a semantic view,
-> > C's QObject is a struct, while Rust's QObject is a reference, which seems
-> > somewhat mismatched.
-> > 
-> > I'm not sure yet if there may be gaps when remove &'static, but it
-> > looks like using &'static Opaque<> instead of &'static UnsafeCell<> is
-> > Okay in code?
+On Wed, Oct 01, 2025 at 10:00:41AM +0200, Paolo Bonzini wrote:
+> Date: Wed,  1 Oct 2025 10:00:41 +0200
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH 04/14] rust: add Serialize implementation for QObject
+> X-Mailer: git-send-email 2.51.0
 > 
-> I am using UnsafeCell because the QObject here is always valid, i.e.
-> MaybeUninit is explicitly not necessary.  Opaque explicitly allows it to be
-> invalid, here instead the API is "create via C code or FFI and only then
-> create the QObject".
+> This allows QObject to be converted to other formats, for example
+> JSON via serde_json.
+> 
+> This is not too useful, since QObjects are consumed by
+> C code or deserialized into structs, but it can be used for testing
+> and it is part of the full implementation of a serde format.
+> 
+> Co-authored-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  rust/Cargo.lock                    |  1 +
+>  rust/util/Cargo.toml               |  1 +
+>  rust/util/meson.build              |  3 +-
+>  rust/util/src/qobject/mod.rs       |  4 +-
+>  rust/util/src/qobject/serialize.rs | 59 ++++++++++++++++++++++++++++++
+>  5 files changed, 65 insertions(+), 3 deletions(-)
+>  create mode 100644 rust/util/src/qobject/serialize.rs
 
-Just want to clarify the use for Opaque, we've already used Opaque<>::from_raw()
-for the case "create via C code or FFI and only then create the" something? In
-DeviceState::init_clock_[in|out](), and ObjectClassMethods::new().
+...
 
-But I also agree, for this case MaybeUninit is not necessary. And PhantomPinned
-is simply replaced by &'static.
+> +impl Serialize for QObject {
+> +    #[inline]
+> +    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+> +    where
+> +        S: ::serde::Serializer,
+> +    {
+> +        match_qobject! { (self) =>
+> +            () => serializer.serialize_unit(),
+> +            bool(b) => serializer.serialize_bool(b),
+> +            i64(i) => serializer.serialize_i64(i),
+> +            u64(u) => serializer.serialize_u64(u),
+> +            f64(f) => serializer.serialize_f64(f),
+> +            CStr(cstr) => cstr.to_str().map_or_else(
+> +                |_| Err(ser::Error::custom("invalid UTF-8 in QString")),
+> +                |s| serializer.serialize_str(s),
+> +            ),
+> +            QList(l) => {
+> +                let mut node_ptr = unsafe { l.head.tqh_first };
+> +                let mut state = serializer.serialize_seq(None)?;
+> +                while !node_ptr.is_null() {
+> +                    let node = unsafe { &*node_ptr };
+> +                    let elem = unsafe { ManuallyDrop::new(QObject::from_raw(addr_of!(*node.value))) };
+> +                    state.serialize_element(&*elem)?;
 
-> However, while it is possible to use Opaque<> instead of UnsafeCell<>, it is
-> not possible to make this a simple wrapper because QObject is unmovable and
-> reference counted.  That is, QObject is the equivalent of (for example)
-> Owned<DeviceState>.
+QObject here is always valid so it's not necessary to concern about it
+is destroied by C side, and so that it's not necessary to use
+cloned_from_raw here.
 
-Got it, if Rust owns data by QObject(Opaque<>) but without Owned<>, this
-can't work since it's no way to handle refcnt.
-
-So &'static UnsafeCell<> is the simplest way to meet both unmovable &
-refcnt rquirements.
-
-I'm good with this design. Thanks!
-
-Regards,
-Zhao
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
