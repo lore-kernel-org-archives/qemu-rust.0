@@ -4,62 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C56D4D2F7C2
-	for <qemu-rust@archiver.kernel.org>; Fri,  5 Dec 2025 08:48:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC792D2F7C6
+	for <qemu-rust@archiver.kernel.org>; Fri,  5 Dec 2025 09:30:36 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vRRUM-00019j-An; Fri, 05 Dec 2025 03:48:31 -0500
+	id 1vRS8s-0002Vi-S1; Fri, 05 Dec 2025 04:30:24 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vRRUK-00014l-7Z; Fri, 05 Dec 2025 03:48:28 -0500
-Received: from mgamail.intel.com ([198.175.65.13])
+ id 1vRS8q-0002UZ-Da; Fri, 05 Dec 2025 04:30:20 -0500
+Received: from mgamail.intel.com ([192.198.163.13])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vRRUH-00007D-MS; Fri, 05 Dec 2025 03:48:27 -0500
+ id 1vRS8o-0003NP-Iv; Fri, 05 Dec 2025 04:30:20 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764924504; x=1796460504;
+ t=1764927018; x=1796463018;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=ZoowBp/+fqf4cU//YJtklxyItMkc7kAUBkJoMq3oo/0=;
- b=LWavgd+6m2tnZe/UV8vRsu3GLhSzek9jnkWelF5palh/URXYnM9jTJCV
- SYzrDcDZo3xytpZNbl2i3I3n+CH7J5wpL2plh+kGj5w8AjlM8pedR73KV
- hpM8PYkIoTEAPp16hfSMPHkLssKrKlhxAswCGpDLTchSkKhaHaIAP9jdn
- VzSDTirvoGxiAGVE8jxyloEZ7ZA8k5midKEzmbc6HlRoSaezWZIMKdEhk
- I5Agy5Rb5IfrGPw37anJ0cxJQ8Klj6ekQzpv0Fs6N1Pm8mZWXLXV8YLJE
- pb4ydhW8DUbPtqNFdjcxC0jL96w+TCsPoMD4lIr42juWcaorQSNgXHDqi g==;
-X-CSE-ConnectionGUID: n6geb9nqQHijozemU4Q20Q==
-X-CSE-MsgGUID: TxMYy5kjRiibaCoVdXU9AQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11632"; a="78068209"
-X-IronPort-AV: E=Sophos;i="6.20,251,1758610800"; d="scan'208";a="78068209"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2025 00:48:18 -0800
-X-CSE-ConnectionGUID: yPzmA4VgQQG2+9KFKqi/Dw==
-X-CSE-MsgGUID: FrkOlmO0TmKg/kACBzJvkg==
+ bh=bXhnoCKrPvnz5fpUNMS3NxozDccefiop93z/URA4KqA=;
+ b=Eg+Kfjpy9ryDzrGvPUDtperteeQoaTr+hrWfdEYEBgRqbI1ro/5mugUV
+ 6ZEpzbyTzqbshyzD9bAt6LSP1qVF8bauxsFqBOUYR05czXqFGUbqCTlVN
+ 2xow8Y1v9ncmphRypo4iRHvW/4SK4F+EQHrT002aGgNRsl4cAwpoE7oWX
+ yz30X0CmaZmI5sLA7iMPVIfBFq2USHHhokYAzkIQoJ0Pj1HmCLq+ZMe0s
+ ZUWN3EF+itCmk2ZD2e/Gt9ZShrILzh9gFCR69oq/m130WEVRwJy2P2OMm
+ WoStq+k1V2F7RLw5hlwn+1AyspupMl4rKEjNEb6HgNPvwOz6IRwkU1ziM g==;
+X-CSE-ConnectionGUID: 37Kz9vHmT/2jWsqMoHKSjg==
+X-CSE-MsgGUID: YezY33jfSjCMlD25S+rD4g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11632"; a="69552903"
+X-IronPort-AV: E=Sophos;i="6.20,251,1758610800"; d="scan'208";a="69552903"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2025 01:30:15 -0800
+X-CSE-ConnectionGUID: ZxWR96hDT/CN28uhSGt6WA==
+X-CSE-MsgGUID: 7JyG4rO5RYmCpr4+q6fDgQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,251,1758610800"; d="scan'208";a="194898947"
+X-IronPort-AV: E=Sophos;i="6.20,251,1758610800"; d="scan'208";a="195281968"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by fmviesa007.fm.intel.com with ESMTP; 05 Dec 2025 00:48:18 -0800
-Date: Fri, 5 Dec 2025 17:13:02 +0800
+ by orviesa007.jf.intel.com with ESMTP; 05 Dec 2025 01:30:14 -0800
+Date: Fri, 5 Dec 2025 17:54:57 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, armbru@redhat.com,
  marcandre.lureau@redhat.com
-Subject: Re: [PATCH 05/14] rust: add Serializer (to_qobject) implementation
- for QObject
-Message-ID: <aTKiHjOZxwZextt6@intel.com>
+Subject: Re: [PATCH 06/14] rust: add Deserialize implementation for QObject
+Message-ID: <aTKr8RD3pdHwqk7q@intel.com>
 References: <20251001075005.1041833-1-pbonzini@redhat.com>
- <20251001080051.1043944-6-pbonzini@redhat.com>
+ <20251001080051.1043944-7-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20251001080051.1043944-6-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.13; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20251001080051.1043944-7-pbonzini@redhat.com>
+Received-SPF: pass client-ip=192.198.163.13; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
 X-Spam_score_int: -43
 X-Spam_score: -4.4
@@ -84,28 +83,28 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Wed, Oct 01, 2025 at 10:00:42AM +0200, Paolo Bonzini wrote:
-> Date: Wed,  1 Oct 2025 10:00:42 +0200
+On Wed, Oct 01, 2025 at 10:00:43AM +0200, Paolo Bonzini wrote:
+> Date: Wed,  1 Oct 2025 10:00:43 +0200
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 05/14] rust: add Serializer (to_qobject) implementation for
->  QObject
+> Subject: [PATCH 06/14] rust: add Deserialize implementation for QObject
 > X-Mailer: git-send-email 2.51.0
 > 
-> This allows creating QObject from any serializable data structure.
+> This allows QObject to be created from any serializable format, for
+> example JSON via serde_json.
+> 
+> This is not too useful, since QObjects are produced by
+> C code or by serializing structs, but it can be used for testing
+> and it is part of the full implementation of a serde format.
 > 
 > Co-authored-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 > Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  rust/util/meson.build               |   2 +
->  rust/util/src/qobject/error.rs      |  52 +++
->  rust/util/src/qobject/mod.rs        |   4 +
->  rust/util/src/qobject/serializer.rs | 585 ++++++++++++++++++++++++++++
->  4 files changed, 643 insertions(+)
->  create mode 100644 rust/util/src/qobject/error.rs
->  create mode 100644 rust/util/src/qobject/serializer.rs
-
-Good implementation,
+>  rust/util/meson.build                |   1 +
+>  rust/util/src/qobject/deserialize.rs | 134 +++++++++++++++++++++++++++
+>  rust/util/src/qobject/mod.rs         |   1 +
+>  3 files changed, 136 insertions(+)
+>  create mode 100644 rust/util/src/qobject/deserialize.rs
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
