@@ -4,74 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00444D2E038
-	for <qemu-rust@archiver.kernel.org>; Fri,  5 Dec 2025 08:31:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C56D4D2F7C2
+	for <qemu-rust@archiver.kernel.org>; Fri,  5 Dec 2025 08:48:38 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vRRDe-00057n-BV; Fri, 05 Dec 2025 03:31:14 -0500
+	id 1vRRUM-00019j-An; Fri, 05 Dec 2025 03:48:31 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vRRDY-00052B-Qa
- for qemu-rust@nongnu.org; Fri, 05 Dec 2025 03:31:10 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vRRUK-00014l-7Z; Fri, 05 Dec 2025 03:48:28 -0500
+Received: from mgamail.intel.com ([198.175.65.13])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vRRDR-0004Ot-7U
- for qemu-rust@nongnu.org; Fri, 05 Dec 2025 03:31:07 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1764923459;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lKjopovoklbPgqNYHdBlODD/1g1OFvddnabaDvP1j1c=;
- b=WI51UryuY1NJnTTmSZPHmwar1qCyPMSxdCN4I2zmN3a9bzIhmnPlZN0Cap/xijvdqIl5AK
- 0vBU3ggraXorBSgF7w4q86NTiuGP2BzObTsJNLDVCNI5TgnvJY62+xxG9iaCPNwCTlpOum
- SoEZboCDGWuG8k+lsR1iTJIJ5lk3LnY=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-54-s9wc7IogMKCMKZrEZsUkgA-1; Fri,
- 05 Dec 2025 03:30:57 -0500
-X-MC-Unique: s9wc7IogMKCMKZrEZsUkgA-1
-X-Mimecast-MFC-AGG-ID: s9wc7IogMKCMKZrEZsUkgA_1764923457
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id EB9941801375; Fri,  5 Dec 2025 08:30:56 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.45.242.7])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 6C3121800577; Fri,  5 Dec 2025 08:30:56 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 8856821E6A27; Fri, 05 Dec 2025 09:30:53 +0100 (CET)
-From: Markus Armbruster <armbru@redhat.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1vRRUH-00007D-MS; Fri, 05 Dec 2025 03:48:27 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764924504; x=1796460504;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=ZoowBp/+fqf4cU//YJtklxyItMkc7kAUBkJoMq3oo/0=;
+ b=LWavgd+6m2tnZe/UV8vRsu3GLhSzek9jnkWelF5palh/URXYnM9jTJCV
+ SYzrDcDZo3xytpZNbl2i3I3n+CH7J5wpL2plh+kGj5w8AjlM8pedR73KV
+ hpM8PYkIoTEAPp16hfSMPHkLssKrKlhxAswCGpDLTchSkKhaHaIAP9jdn
+ VzSDTirvoGxiAGVE8jxyloEZ7ZA8k5midKEzmbc6HlRoSaezWZIMKdEhk
+ I5Agy5Rb5IfrGPw37anJ0cxJQ8Klj6ekQzpv0Fs6N1Pm8mZWXLXV8YLJE
+ pb4ydhW8DUbPtqNFdjcxC0jL96w+TCsPoMD4lIr42juWcaorQSNgXHDqi g==;
+X-CSE-ConnectionGUID: n6geb9nqQHijozemU4Q20Q==
+X-CSE-MsgGUID: TxMYy5kjRiibaCoVdXU9AQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11632"; a="78068209"
+X-IronPort-AV: E=Sophos;i="6.20,251,1758610800"; d="scan'208";a="78068209"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2025 00:48:18 -0800
+X-CSE-ConnectionGUID: yPzmA4VgQQG2+9KFKqi/Dw==
+X-CSE-MsgGUID: FrkOlmO0TmKg/kACBzJvkg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,251,1758610800"; d="scan'208";a="194898947"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa007.fm.intel.com with ESMTP; 05 Dec 2025 00:48:18 -0800
+Date: Fri, 5 Dec 2025 17:13:02 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, marcandre.lureau@redhat.com, qemu-rust@nongnu.org
-Subject: Re: [PATCH 03/19] rust: do not add qemuutil to Rust crates
-In-Reply-To: <20251010151006.791038-4-pbonzini@redhat.com> (Paolo Bonzini's
- message of "Fri, 10 Oct 2025 17:09:48 +0200")
-References: <20251010151006.791038-1-pbonzini@redhat.com>
- <20251010151006.791038-4-pbonzini@redhat.com>
-Date: Fri, 05 Dec 2025 09:30:53 +0100
-Message-ID: <87ldjhz5xe.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, armbru@redhat.com,
+ marcandre.lureau@redhat.com
+Subject: Re: [PATCH 05/14] rust: add Serializer (to_qobject) implementation
+ for QObject
+Message-ID: <aTKiHjOZxwZextt6@intel.com>
+References: <20251001075005.1041833-1-pbonzini@redhat.com>
+ <20251001080051.1043944-6-pbonzini@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20251001080051.1043944-6-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.13; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -87,52 +84,29 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Paolo Bonzini <pbonzini@redhat.com> writes:
-
-> This fails due to https://github.com/mesonbuild/meson/pull/15076.
-> The config-host.h file from the qemuutil dependency ends up on the
-> rustc command line for targets that do not use structured sources.
->
-> It will be reverted once Meson 1.9.2 is released, or replaced with
-> an update of the minimum supported version of Meson if 1.9.2 is
-> released sooner.
-
-I tend to put reminder comments next to such temporary workarounds, so I
-don't forget to revert them.
-
-> Reported-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+On Wed, Oct 01, 2025 at 10:00:42AM +0200, Paolo Bonzini wrote:
+> Date: Wed,  1 Oct 2025 10:00:42 +0200
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH 05/14] rust: add Serializer (to_qobject) implementation for
+>  QObject
+> X-Mailer: git-send-email 2.51.0
+> 
+> This allows creating QObject from any serializable data structure.
+> 
+> Co-authored-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  rust/chardev/meson.build | 2 +-
->  rust/util/meson.build    | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/rust/chardev/meson.build b/rust/chardev/meson.build
-> index d365d8dd0f4..36ada7c4546 100644
-> --- a/rust/chardev/meson.build
-> +++ b/rust/chardev/meson.build
-> @@ -39,4 +39,4 @@ _chardev_rs =3D static_library(
->    dependencies: [glib_sys_rs, common_rs, qemu_macros],
->  )
->=20=20
-> -chardev_rs =3D declare_dependency(link_with: [_chardev_rs], dependencies=
-: [chardev, qemuutil])
-> +chardev_rs =3D declare_dependency(link_with: [_chardev_rs], dependencies=
-: [chardev])
-> diff --git a/rust/util/meson.build b/rust/util/meson.build
-> index b0b75e93ff6..8ad344dccbd 100644
-> --- a/rust/util/meson.build
-> +++ b/rust/util/meson.build
-> @@ -43,7 +43,7 @@ _util_rs =3D static_library(
->    dependencies: [anyhow_rs, libc_rs, foreign_rs, glib_sys_rs, common_rs,=
- qom, qemuutil],
->  )
->=20=20
-> -util_rs =3D declare_dependency(link_with: [_util_rs], dependencies: [qem=
-uutil, qom])
-> +util_rs =3D declare_dependency(link_with: [_util_rs])
->=20=20
->  rust.test('rust-util-tests', _util_rs,
->            dependencies: [qemuutil, qom],
+>  rust/util/meson.build               |   2 +
+>  rust/util/src/qobject/error.rs      |  52 +++
+>  rust/util/src/qobject/mod.rs        |   4 +
+>  rust/util/src/qobject/serializer.rs | 585 ++++++++++++++++++++++++++++
+>  4 files changed, 643 insertions(+)
+>  create mode 100644 rust/util/src/qobject/error.rs
+>  create mode 100644 rust/util/src/qobject/serializer.rs
+
+Good implementation,
+
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
