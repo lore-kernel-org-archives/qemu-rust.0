@@ -4,90 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B98D2F7DD
-	for <qemu-rust@archiver.kernel.org>; Fri,  5 Dec 2025 11:30:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0E6AD2F7E7
+	for <qemu-rust@archiver.kernel.org>; Fri,  5 Dec 2025 12:07:34 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vRU0x-0003RU-D1; Fri, 05 Dec 2025 06:30:19 -0500
+	id 1vRUai-0006eL-MF; Fri, 05 Dec 2025 07:07:16 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vRU0v-0003Qt-PA
- for qemu-rust@nongnu.org; Fri, 05 Dec 2025 06:30:17 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1vRUae-0006aM-Da
+ for qemu-rust@nongnu.org; Fri, 05 Dec 2025 07:07:12 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vRU0t-0005pd-VQ
- for qemu-rust@nongnu.org; Fri, 05 Dec 2025 06:30:17 -0500
+ id 1vRUac-0006Ci-9Z
+ for qemu-rust@nongnu.org; Fri, 05 Dec 2025 07:07:11 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1764934214;
+ s=mimecast20190719; t=1764936427;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=x60H//1z3cO5nwTrgatopeBQx6fItdRMdgG+KGBioNA=;
- b=f9wl05TSCf315Duu05CxRfXp9ONz2MhYrB6gtT7gs8VIQyceP9M93sYWnQ1dQK5PlgCj8B
- zRjCqZwXn3iwDfHwxf6/NxfnfMXhBrWU3QncqrNGyVHQkmkWV7hqP2N2X7G/2b3+fHP4u6
- Sa2+tsteT4wscq4aM7gAC8vYtr/9yU4=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=QiSSodrK156D8ElT+QlnCe1HXfdYFutHWcKpRoV/rI8=;
+ b=Q8NS9Td/OxZtKMYfjxBParsAGJRhvu1NVSohSS3SSICcqPuFLGltblXviqwjoZpgfWG/7n
+ oS+7rPej8T9reawXBv0yGicNHvjqHxFKaZ6uH5EXCb7q177qYxRKxGLE5lvXfOz20LWhNK
+ KUXU/Yh9S6vz3eFgoY4v8uds5WNazZA=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-632-bdTL8hUeMk2DS4lQ5KraqQ-1; Fri, 05 Dec 2025 06:30:13 -0500
-X-MC-Unique: bdTL8hUeMk2DS4lQ5KraqQ-1
-X-Mimecast-MFC-AGG-ID: bdTL8hUeMk2DS4lQ5KraqQ_1764934212
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-42e1e1ca008so1708642f8f.0
- for <qemu-rust@nongnu.org>; Fri, 05 Dec 2025 03:30:13 -0800 (PST)
+ us-mta-263-ZP7sl-H9N1qn_N4qbGNJCA-1; Fri, 05 Dec 2025 07:07:06 -0500
+X-MC-Unique: ZP7sl-H9N1qn_N4qbGNJCA-1
+X-Mimecast-MFC-AGG-ID: ZP7sl-H9N1qn_N4qbGNJCA_1764936425
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-42e2e3c3e1aso1077853f8f.1
+ for <qemu-rust@nongnu.org>; Fri, 05 Dec 2025 04:07:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764934212; x=1765539012;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20230601; t=1764936425; x=1765541225;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=x60H//1z3cO5nwTrgatopeBQx6fItdRMdgG+KGBioNA=;
- b=sf0qVL0DPn+U5RpH+TjQ84oSrs1FpbLGAjRLlDv9o4rbHKPoqKZHzYobN4Bk9V2O13
- 59rxfe4XzhcQEB/qZFfT6tSBhrZCpZXOBsCcV8dD3P2YlOndDOsUl0XXAZWOLHC8bLf/
- J9ET42nBpvN/js2U/i9pXL13oYOr1Yd+x7SzuVFc1n+qcMAFX7NFOtQfz8GX5rba2AEW
- kkdSXMWcy9Xb0efepBh/ff9WdmmnFKcx6rRhJ1ZDiGReW2hmpdCisEdvKKJ4mKKX/lVx
- SwE9lUqdFwY7PO3W1pqUYHsdqJ6xFSOdCDdYtujyUC4qWVx9cdQAd8NEael5vEsjqWp0
- r8Qg==
+ bh=QiSSodrK156D8ElT+QlnCe1HXfdYFutHWcKpRoV/rI8=;
+ b=PYxVoQBF4ikOQA2qVnJ4iK5WD5M5/LezZwjk6Herm/oHDrjsw7yr30XpEgXTNdNOft
+ a6IOn1XtDRIz0F4woW4SH/ECjymd5MC02aRTPlrCvYBUuSq8z/mDpywNw1xreiSwbTut
+ 01fWGsh/RzP/ZJ6pi5KcKnbPJkcWh6i1KdUb7lH+/cOszdhN6yELAX2tAZxEuN5YTV/h
+ x3UtvyZsaY4TIlEV3oJxLxxyQXSnDz3Rhr+QfAKF4wvsjNPorm0gSylGmd+I8HhOzd+z
+ 9CJu6gAkZaPR131tm6IeKeDn2UaFOMiTNhOhi4cso1Jm/Bi3HvBQFCESv9HOxc+hy7ek
+ 5PAw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXfdbDNP2Nlpbtzlq8jamR927CZ+IFcZ8F9/Q0m/r+lp8eJLZqlDYTnFpVCNdnb+DtGHpw//FnNWeU=@nongnu.org
-X-Gm-Message-State: AOJu0YxizyfQEE7AwwnDp66yrLlt+dG+ojO739w3/2xZOgUo1X7fK+8q
- BZzUEpGUgQUVh4d6Qom94Aj+g2rttl5ZVuC0ybwxIOEepCGwQCFmWtBA6Pkgq3DCCqhW9ZcVj5q
- QplfjTUDmKwVWCEV0UAIXK5C/5jZchk10GpCqxfyBOt/FTXXPTUF8MWw=
-X-Gm-Gg: ASbGncvyHwD0opg4sn1Wtr3Gp5F4YKDPTpqdwEyNwSFXtY1zrWbaGCAWIFFoyIn5out
- 7WL+4Bz9JRaUt73jzJaGdQHPSaf0vdijMqxT8UPJkh6zxUHbq+qBQfIa09OXqwDHVWf3g5IraOc
- 9MoYhYJiToblGTRRckbpaYoCYx0UXov67W7oquolvVxsWMYitLw6daoyNsYb645tsG/HoS//QkD
- X5zOL78wlvZN6a0808nQJsbpZBvOzMs5yMzYK7W+FV3LRjBUviyl+pYq/f5cAYiNbd4C/JUeMBs
- 0um66jtUjXQP5VGzXn1a6ueEIE8qNmrnDsw2HWYHkL4jfRzhAn4dhLV8Umamn7Ebx8zwK45s48y
- F3NpgFa+HQTXF2MtqkRCI/HKViIbN6rjsah35OE0m3GRSaSmtssf+c1rWwIpuUFvBkGeRcSmNkk
- 2Y/rFaZHeYhgcHQU8=
-X-Received: by 2002:a05:600c:a07:b0:477:9890:9ab8 with SMTP id
- 5b1f17b1804b1-4792eb10ddcmr63074845e9.3.1764934212344; 
- Fri, 05 Dec 2025 03:30:12 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEVk4Sk3ZH8EZ7nLY0EfKsXpUeYumaLoiZzPfJIfkt92k7CRko8I5Tw/cPt6bXDTJ3JrWlj/Q==
-X-Received: by 2002:a05:600c:a07:b0:477:9890:9ab8 with SMTP id
- 5b1f17b1804b1-4792eb10ddcmr63074515e9.3.1764934211730; 
- Fri, 05 Dec 2025 03:30:11 -0800 (PST)
+ AJvYcCW0lcrGoqvULyziFSAng3Csbl4NAjzTzuKOMP9zIiAi7FmunpWCPcdt5u1RygBpsvc2VLbXtpwkpQ8=@nongnu.org
+X-Gm-Message-State: AOJu0YzghZGf5QZ1I+QYbsUK12dayT11NJntGHnbFgxm3l3ZCyfG7pvf
+ mucPlxIQ6HezUpCMWHMp3hw2l3k97JOMN25FKJbOjvAlz9t6JJVlUgSqqfoeH5H+LLDBINJwq0f
+ LoOoFcwnnPpeGdtdnwZi44brkcOVxMGuzjr8bBr7xA4FhSkYPp4Cpqn8=
+X-Gm-Gg: ASbGncvoG5AysrphFdsSxeNdDo5fXsGEYkEJ2Pvwff6FEB/aJ57x0l7vbX3YLR3Qu6I
+ 48zGMjHaCDPq6Gp5O9UEWLvRsXRWL4Ddwxa7MQwqGg/knP1ymkDGcy2Q7+3w0m6WJhiEdh4xmNa
+ qDQW19WSp/v3RK7KN+OSbJUdSvRDsYpp2DVeVA/p1SfDVNOFX2D+xn34HxpK/HltNoqUyYuN7sf
+ Sp2kVq4AVoALBjIXOKYW8nRs3/NuRLgh4GGmEcKTDTq4Z5XqbhCinruJF2kZcyyG7+tibzYcE/l
+ 9Szs33jhoqXjlfncLZFqAiRHUyjud7v8U6ZWjJVHRV9ychs4pznQmTUOefzA90YN5tINdm16bGt
+ csZUo1JXYHSKZcgBIVgiQbJ5R6jtMx5ZOp3PpUKtTR7d+f4MKZYYmIO5f/xXuf7BgFjssD3vshu
+ IT7gdcuJOWDYawAvM=
+X-Received: by 2002:a05:6000:18a3:b0:42b:3272:c4a7 with SMTP id
+ ffacd0b85a97d-42f731a2e9amr10341133f8f.29.1764936424835; 
+ Fri, 05 Dec 2025 04:07:04 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHZmi2fvSL69gQzd78JkZaXjxZbXG0wqMt02wFm8bhvC2iXYuQnzuOUJKPyeS+4GxVNJJCfMw==
+X-Received: by 2002:a05:6000:18a3:b0:42b:3272:c4a7 with SMTP id
+ ffacd0b85a97d-42f731a2e9amr10341091f8f.29.1764936424345; 
+ Fri, 05 Dec 2025 04:07:04 -0800 (PST)
 Received: from [192.168.10.48] ([176.206.119.13])
  by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-47930c7473bsm125829785e9.10.2025.12.05.03.30.10
+ ffacd0b85a97d-42f7d331df0sm8833874f8f.36.2025.12.05.04.07.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Dec 2025 03:30:11 -0800 (PST)
-Message-ID: <27641d41-010d-4239-a84e-4b7724f3c30a@redhat.com>
-Date: Fri, 5 Dec 2025 12:30:10 +0100
+ Fri, 05 Dec 2025 04:07:03 -0800 (PST)
+Message-ID: <25df019b-62ad-4f38-bf79-000ba1a7d750@redhat.com>
+Date: Fri, 5 Dec 2025 13:07:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/14] rust: add basic QObject bindings
+Subject: Re: [PATCH 03/19] rust: do not add qemuutil to Rust crates
+To: Markus Armbruster <armbru@redhat.com>
+Cc: qemu-devel@nongnu.org, marcandre.lureau@redhat.com, qemu-rust@nongnu.org
+References: <20251010151006.791038-1-pbonzini@redhat.com>
+ <20251010151006.791038-4-pbonzini@redhat.com> <87ldjhz5xe.fsf@pond.sub.org>
 From: Paolo Bonzini <pbonzini@redhat.com>
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, armbru@redhat.com,
- marcandre.lureau@redhat.com
-References: <20251001075005.1041833-1-pbonzini@redhat.com>
- <20251001080051.1043944-3-pbonzini@redhat.com> <aTGXmfbzug5cQAbV@intel.com>
- <382ef69e-50b7-4a7f-aa9d-63c076a737f3@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
  CxXPkIBTvYY+ZPkoTh5xF9oS1jqI8iRLzouzF8yXs3QjQIZ2SfuCxSVwlV65jotcjD2FTN04
@@ -123,23 +121,23 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <382ef69e-50b7-4a7f-aa9d-63c076a737f3@redhat.com>
+In-Reply-To: <87ldjhz5xe.fsf@pond.sub.org>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: t0qNPWDx6Z5M2HcET1CQsWOPeVikhImbYR2YkuRg19U_1764934212
+X-Mimecast-MFC-PROC-ID: 2lK2Jsql8pFNWTMAYEnF1xFeTNgrrekR5-5SL06IT44_1764936425
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -155,102 +153,59 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 12/4/25 15:18, Paolo Bonzini wrote:
-> On 12/4/25 15:15, Zhao Liu wrote:
->>> diff --git a/rust/util/src/qobject/mod.rs b/rust/util/src/qobject/mod.rs
->>> new file mode 100644
->>> index 00000000000..f43d87a3b66
->>> --- /dev/null
->>> +++ b/rust/util/src/qobject/mod.rs
->>> @@ -0,0 +1,309 @@
->>> +//! `QObject` bindings
->>> +//!
->>> +//! This module implements bindings for QEMU's `QObject` data 
->>> structure.
->>> +//! The bindings integrate with `serde`, which take the role of 
->>> visitors
->>> +//! in Rust code.
->>> +
->>> +#![deny(clippy::unwrap_used)]
->>
->> Are there are any specific considerations for this lint rule?
+On 12/5/25 09:30, Markus Armbruster wrote:
+> Paolo Bonzini <pbonzini@redhat.com> writes:
 > 
-> It ensures that all conversion errors (e.g. from try_into()) are 
-> propagated.
-> 
->>> +pub struct QObject(&'static UnsafeCell<bindings::QObject>);
+>> This fails due to https://github.com/mesonbuild/meson/pull/15076.
+>> The config-host.h file from the qemuutil dependency ends up on the
+>> rustc command line for targets that do not use structured sources.
 >>
->> It seems Opaque<> feels more natural than UnsafeCell<>.
->>
->> Opaque::from_raw() requires *mut T, but QObject::from_raw() and
->> QObject::clone_from_raw() mainly play with C bindings which usually use
->> *mut pointer. So it seems unnecessary to convert *mut to *const in the
->> middle.
->>
->> And furthermore, I think QObject(Opaque<bindings::QObject>) is better
->> than QObject(&'static Opaque<bindings::QObject>). From a semantic view,
->> C's QObject is a struct, while Rust's QObject is a reference, which seems
->> somewhat mismatched.
->>
->> I'm not sure yet if there may be gaps when remove &'static, but it
->> looks like using &'static Opaque<> instead of &'static UnsafeCell<> is
->> Okay in code?
+>> It will be reverted once Meson 1.9.2 is released, or replaced with
+>> an update of the minimum supported version of Meson if 1.9.2 is
+>> released sooner.
 > 
-> I am using UnsafeCell because the QObject here is always valid, i.e. 
-> MaybeUninit is explicitly not necessary.  Opaque explicitly allows it to 
-> be invalid, here instead the API is "create via C code or FFI and only 
-> then create the QObject".
-> 
-> However, while it is possible to use Opaque<> instead of UnsafeCell<>, 
-> it is not possible to make this a simple wrapper because QObject is 
-> unmovable and reference counted.  That is, QObject is the equivalent of 
-> (for example) Owned<DeviceState>.
-> 
->> These 2 methods are the clone, but it seems they're actually similar to
->> Owned<>, i.e., increase refcnt when Rust side wants to "own" or ensure
->> to use this safely.
->>
->> However, there indeed isn't a non-object version of Owned for now, so I
->> think this kind of clone should be okay. Hmm, for long-term, is it
->> valuable to consider a more generic Owned<>?
-> 
-> Linux has ARef<> I think.  But it seems overkill for now.
-> 
->>> +impl<A> FromIterator<A> for QObject
->>> +where
->>> +    Self: From<A>,
->>> +{
->>> +    fn from_iter<I: IntoIterator<Item = A>>(it: I) -> Self {
->>
->> nit: maybe the name "iter" is better than "it"?
-> 
-> Sure.
-> 
->>> +                    match qnum__.kind {
->>> +                        $($crate::bindings::QNUM_I64 => break {
->>> +                            let $i64var = unsafe { qnum__.u.i64_ };
->>> +                            $i64
->>> +                        },)?
->>> +                        $($crate::bindings::QNUM_U64 => break {
->>> +                            let $u64var = unsafe { qnum__.u.u64_ };
->>> +                            $u64
->>> +                        },)?
->>> +                        $($crate::bindings::QNUM_DOUBLE => break {
->>> +                            let $f64var = unsafe { qnum__.u.dbl };
->>> +                            $f64
->>> +                        },)?
->>> +                        _ => {}
->>
->> I think this doesn't handle a special case: qobj's QNUM type doesn't
->> macth the value type, for example, qobj is QNUM_U64 but value is i64.
->>
->> Though external code won't use this macro, I think panic may be better
->> than {}?> Thurther, there're 2 match blocks. Could we merge them as one?
+> I tend to put reminder comments next to such temporary workarounds, so I
+> don't forget to revert them.
 
-Just one thing: it's not returning {}, it's returning the value 
-expressed in $(_ => $other:expr,)?.  So I think it's better to keep it 
-this way.
+It turns out it wasn't temporary 
+(https://lore.kernel.org/qemu-devel/20251127132036.84384-9-pbonzini@redhat.com). 
+  I'll post a separate update-meson-and-clean-up-rust/ series once Meson 
+1.10 is out (which is soon, and I've already tested the rc with QEMU).
 
 Paolo
+
+>> Reported-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+>> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+>> ---
+>>   rust/chardev/meson.build | 2 +-
+>>   rust/util/meson.build    | 2 +-
+>>   2 files changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/rust/chardev/meson.build b/rust/chardev/meson.build
+>> index d365d8dd0f4..36ada7c4546 100644
+>> --- a/rust/chardev/meson.build
+>> +++ b/rust/chardev/meson.build
+>> @@ -39,4 +39,4 @@ _chardev_rs = static_library(
+>>     dependencies: [glib_sys_rs, common_rs, qemu_macros],
+>>   )
+>>   
+>> -chardev_rs = declare_dependency(link_with: [_chardev_rs], dependencies: [chardev, qemuutil])
+>> +chardev_rs = declare_dependency(link_with: [_chardev_rs], dependencies: [chardev])
+>> diff --git a/rust/util/meson.build b/rust/util/meson.build
+>> index b0b75e93ff6..8ad344dccbd 100644
+>> --- a/rust/util/meson.build
+>> +++ b/rust/util/meson.build
+>> @@ -43,7 +43,7 @@ _util_rs = static_library(
+>>     dependencies: [anyhow_rs, libc_rs, foreign_rs, glib_sys_rs, common_rs, qom, qemuutil],
+>>   )
+>>   
+>> -util_rs = declare_dependency(link_with: [_util_rs], dependencies: [qemuutil, qom])
+>> +util_rs = declare_dependency(link_with: [_util_rs])
+>>   
+>>   rust.test('rust-util-tests', _util_rs,
+>>             dependencies: [qemuutil, qom],
+> 
+> 
+> 
 
 
