@@ -4,88 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 390C4D2F7DE
-	for <qemu-rust@archiver.kernel.org>; Fri,  5 Dec 2025 11:28:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B98D2F7DD
+	for <qemu-rust@archiver.kernel.org>; Fri,  5 Dec 2025 11:30:21 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vRTyu-0002WM-Pz; Fri, 05 Dec 2025 06:28:13 -0500
+	id 1vRU0x-0003RU-D1; Fri, 05 Dec 2025 06:30:19 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vRTyl-0002V5-LO
- for qemu-rust@nongnu.org; Fri, 05 Dec 2025 06:28:04 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1vRU0v-0003Qt-PA
+ for qemu-rust@nongnu.org; Fri, 05 Dec 2025 06:30:17 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vRTyj-0005FO-SI
- for qemu-rust@nongnu.org; Fri, 05 Dec 2025 06:28:03 -0500
+ id 1vRU0t-0005pd-VQ
+ for qemu-rust@nongnu.org; Fri, 05 Dec 2025 06:30:17 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1764934080;
+ s=mimecast20190719; t=1764934214;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3elSILCrnUUvEOvxtQ+/2L+9hNstJFqtaNLm9nLBghs=;
- b=VmskSINAMA31op46IhZ+ACvNAoUbxex126HEWVyZNikZ/JLFazEV9TmLeTHdmPB67cLhq5
- isldzUQPONTphciy/Eu5bSySIL6sZfyJ+nPxOYFTqVYGJNHfhmQMFGOtvowUFypIhab2uP
- 98iVpGladRXttbvXJmDBUfB/rs81i6k=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=x60H//1z3cO5nwTrgatopeBQx6fItdRMdgG+KGBioNA=;
+ b=f9wl05TSCf315Duu05CxRfXp9ONz2MhYrB6gtT7gs8VIQyceP9M93sYWnQ1dQK5PlgCj8B
+ zRjCqZwXn3iwDfHwxf6/NxfnfMXhBrWU3QncqrNGyVHQkmkWV7hqP2N2X7G/2b3+fHP4u6
+ Sa2+tsteT4wscq4aM7gAC8vYtr/9yU4=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-91-KNEea_vIPXe96jahUINGyw-1; Fri, 05 Dec 2025 06:27:58 -0500
-X-MC-Unique: KNEea_vIPXe96jahUINGyw-1
-X-Mimecast-MFC-AGG-ID: KNEea_vIPXe96jahUINGyw_1764934078
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-42e2973a812so1222672f8f.0
- for <qemu-rust@nongnu.org>; Fri, 05 Dec 2025 03:27:58 -0800 (PST)
+ us-mta-632-bdTL8hUeMk2DS4lQ5KraqQ-1; Fri, 05 Dec 2025 06:30:13 -0500
+X-MC-Unique: bdTL8hUeMk2DS4lQ5KraqQ-1
+X-Mimecast-MFC-AGG-ID: bdTL8hUeMk2DS4lQ5KraqQ_1764934212
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-42e1e1ca008so1708642f8f.0
+ for <qemu-rust@nongnu.org>; Fri, 05 Dec 2025 03:30:13 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764934077; x=1765538877;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20230601; t=1764934212; x=1765539012;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :references:cc:to:from:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3elSILCrnUUvEOvxtQ+/2L+9hNstJFqtaNLm9nLBghs=;
- b=Di6qD+O76bJyaBxg+ZBdvNlJtAdW81oEmQGfv2mY2jZkHp0TxqJDqB/dLnw/SI0CRR
- R+aocVrqOfdwbiFuok3OfmsSgyIYuc6LEKYcEYAUryVqQUmOYuS1b+nIBwN+HLMET4MA
- gzVptJYQi2X0v6w/pps34tTaNUrrZszfjJjMHI9uyHrYg0lH1kxl+Tl/p3GdvGhM8Ym+
- VRcWONx9kgds/4iiQF/09RL1CjKptd0nXbKOPwBClEwVLPc3kjKJ5LMn0Pw/MAlZnnFs
- nprVGAD0jgPqWFddA6s6rC+msxKbGmKUzd5DHGTaJYbZBDIGd+x37gabrd1dzh2uWdu2
- 6VDg==
+ bh=x60H//1z3cO5nwTrgatopeBQx6fItdRMdgG+KGBioNA=;
+ b=sf0qVL0DPn+U5RpH+TjQ84oSrs1FpbLGAjRLlDv9o4rbHKPoqKZHzYobN4Bk9V2O13
+ 59rxfe4XzhcQEB/qZFfT6tSBhrZCpZXOBsCcV8dD3P2YlOndDOsUl0XXAZWOLHC8bLf/
+ J9ET42nBpvN/js2U/i9pXL13oYOr1Yd+x7SzuVFc1n+qcMAFX7NFOtQfz8GX5rba2AEW
+ kkdSXMWcy9Xb0efepBh/ff9WdmmnFKcx6rRhJ1ZDiGReW2hmpdCisEdvKKJ4mKKX/lVx
+ SwE9lUqdFwY7PO3W1pqUYHsdqJ6xFSOdCDdYtujyUC4qWVx9cdQAd8NEael5vEsjqWp0
+ r8Qg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU2nBXJAp8ILjr4PjkJAd+/z7ZgDgDgkSC2uPqWOo0w2voZSVBGeqa130lTdK9BWhzdnYI70mXO2Yc=@nongnu.org
-X-Gm-Message-State: AOJu0YwGVtX+r/i48SvRYbV9pxh9Sgq9eOBgOFOv+mJ1hJCUUdx+kd+B
- if2hQPSVQpEwHGklVphOY3vKZNxlkhtElB+bIaJGdFn7Ke/aXi1HrbkuALjCB92FkL0Ba4ZKGRa
- 6vqyUqX/ZtpStxVACrSy7Vv3BjdwIsGMBd78TUlXDNm+11cX1qSY1gV0=
-X-Gm-Gg: ASbGncuwST0XDGe1CXPq8AwhjJ79/5ZaF6a5lwk7Kfmj3Wtr7Twr3APDmdR0XrwIT2z
- +ZXclrf1Rbl2FogxQ54qOBaPQI98T0OiAjvJ/YkNBWymNqlk17Uhj9DnWjNRjoZX8+Vc0BDGXX3
- ZMDFqWbJlmAxN0RaqQvM70QU7n+CvUgo5QVsKSPUuwJo87+cXx3RrZXlylOByMgVXC1RiVa9L4J
- pXLJL0x8zO3PzXN+zoOOxBx9yX+pdzKmfx1Jjie0AeVeMMT6Z5bc8Fu4TMmK3rRCDRAYpHHH/Wg
- DhJEzMwxb7ZH07iLSCs8dEHEUZBaGAWU10kCmZVwg4R4aJkRf8yfSAl9+YyQBGr+ZeOu04Pgv+K
- gDGqzUuhI4gRTiy/wOd/hMQh3wfmvGUzYChuDRtQ7lWl0ycFFgPrO6Q7DXyd1dBnGtR6teJTGbG
- 0ZE1x1OGFm22ocw9I=
-X-Received: by 2002:a05:6000:250f:b0:429:bfbb:5dae with SMTP id
- ffacd0b85a97d-42f7887666emr7875834f8f.17.1764934077470; 
- Fri, 05 Dec 2025 03:27:57 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGSOh3Wxd/9Z+449LSH+xeSXpmA3c585g0tYMNVNAhE9zhX07/pvvygTYkpp1QspvqM8s0v8Q==
-X-Received: by 2002:a05:6000:250f:b0:429:bfbb:5dae with SMTP id
- ffacd0b85a97d-42f7887666emr7875810f8f.17.1764934076990; 
- Fri, 05 Dec 2025 03:27:56 -0800 (PST)
+ AJvYcCXfdbDNP2Nlpbtzlq8jamR927CZ+IFcZ8F9/Q0m/r+lp8eJLZqlDYTnFpVCNdnb+DtGHpw//FnNWeU=@nongnu.org
+X-Gm-Message-State: AOJu0YxizyfQEE7AwwnDp66yrLlt+dG+ojO739w3/2xZOgUo1X7fK+8q
+ BZzUEpGUgQUVh4d6Qom94Aj+g2rttl5ZVuC0ybwxIOEepCGwQCFmWtBA6Pkgq3DCCqhW9ZcVj5q
+ QplfjTUDmKwVWCEV0UAIXK5C/5jZchk10GpCqxfyBOt/FTXXPTUF8MWw=
+X-Gm-Gg: ASbGncvyHwD0opg4sn1Wtr3Gp5F4YKDPTpqdwEyNwSFXtY1zrWbaGCAWIFFoyIn5out
+ 7WL+4Bz9JRaUt73jzJaGdQHPSaf0vdijMqxT8UPJkh6zxUHbq+qBQfIa09OXqwDHVWf3g5IraOc
+ 9MoYhYJiToblGTRRckbpaYoCYx0UXov67W7oquolvVxsWMYitLw6daoyNsYb645tsG/HoS//QkD
+ X5zOL78wlvZN6a0808nQJsbpZBvOzMs5yMzYK7W+FV3LRjBUviyl+pYq/f5cAYiNbd4C/JUeMBs
+ 0um66jtUjXQP5VGzXn1a6ueEIE8qNmrnDsw2HWYHkL4jfRzhAn4dhLV8Umamn7Ebx8zwK45s48y
+ F3NpgFa+HQTXF2MtqkRCI/HKViIbN6rjsah35OE0m3GRSaSmtssf+c1rWwIpuUFvBkGeRcSmNkk
+ 2Y/rFaZHeYhgcHQU8=
+X-Received: by 2002:a05:600c:a07:b0:477:9890:9ab8 with SMTP id
+ 5b1f17b1804b1-4792eb10ddcmr63074845e9.3.1764934212344; 
+ Fri, 05 Dec 2025 03:30:12 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEVk4Sk3ZH8EZ7nLY0EfKsXpUeYumaLoiZzPfJIfkt92k7CRko8I5Tw/cPt6bXDTJ3JrWlj/Q==
+X-Received: by 2002:a05:600c:a07:b0:477:9890:9ab8 with SMTP id
+ 5b1f17b1804b1-4792eb10ddcmr63074515e9.3.1764934211730; 
+ Fri, 05 Dec 2025 03:30:11 -0800 (PST)
 Received: from [192.168.10.48] ([176.206.119.13])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-42f7d331092sm8389468f8f.30.2025.12.05.03.27.55
+ 5b1f17b1804b1-47930c7473bsm125829785e9.10.2025.12.05.03.30.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Dec 2025 03:27:56 -0800 (PST)
-Message-ID: <c99be3c6-7301-4230-aacf-deeef4b99885@redhat.com>
-Date: Fri, 5 Dec 2025 12:27:54 +0100
+ Fri, 05 Dec 2025 03:30:11 -0800 (PST)
+Message-ID: <27641d41-010d-4239-a84e-4b7724f3c30a@redhat.com>
+Date: Fri, 5 Dec 2025 12:30:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/19] rust/qobject: add basic bindings
-To: Markus Armbruster <armbru@redhat.com>
-Cc: qemu-devel@nongnu.org, marcandre.lureau@redhat.com, qemu-rust@nongnu.org
-References: <20251010151006.791038-1-pbonzini@redhat.com>
- <20251010151006.791038-5-pbonzini@redhat.com> <875xalz2y6.fsf@pond.sub.org>
+Subject: Re: [PATCH 02/14] rust: add basic QObject bindings
 From: Paolo Bonzini <pbonzini@redhat.com>
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, armbru@redhat.com,
+ marcandre.lureau@redhat.com
+References: <20251001075005.1041833-1-pbonzini@redhat.com>
+ <20251001080051.1043944-3-pbonzini@redhat.com> <aTGXmfbzug5cQAbV@intel.com>
+ <382ef69e-50b7-4a7f-aa9d-63c076a737f3@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
  CxXPkIBTvYY+ZPkoTh5xF9oS1jqI8iRLzouzF8yXs3QjQIZ2SfuCxSVwlV65jotcjD2FTN04
@@ -121,23 +123,23 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <875xalz2y6.fsf@pond.sub.org>
+In-Reply-To: <382ef69e-50b7-4a7f-aa9d-63c076a737f3@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: M1-3YfCamHOfvUdiQE-yWyAAvgG4Rze-2hQJpERCOSU_1764934078
+X-Mimecast-MFC-PROC-ID: t0qNPWDx6Z5M2HcET1CQsWOPeVikhImbYR2YkuRg19U_1764934212
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -153,178 +155,101 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 12/5/25 10:35, Markus Armbruster wrote:
->> +/// A wrapper for a C `QObject`.
->> +///
->> +/// Because `QObject` is not thread-safe, the safety of these bindings
->> +/// right now hinges on treating them as immutable.  It is part of the
->> +/// contract with the `QObject` constructors that the Rust struct is
->> +/// only built after the contents are stable.
->> +///
->> +/// Only a bare bones API is public; production and consumption of `QObject`
->> +/// generally goes through `serde`.
->> +pub struct QObject(&'static UnsafeCell<bindings::QObject>);
+On 12/4/25 15:18, Paolo Bonzini wrote:
+> On 12/4/25 15:15, Zhao Liu wrote:
+>>> diff --git a/rust/util/src/qobject/mod.rs b/rust/util/src/qobject/mod.rs
+>>> new file mode 100644
+>>> index 00000000000..f43d87a3b66
+>>> --- /dev/null
+>>> +++ b/rust/util/src/qobject/mod.rs
+>>> @@ -0,0 +1,309 @@
+>>> +//! `QObject` bindings
+>>> +//!
+>>> +//! This module implements bindings for QEMU's `QObject` data 
+>>> structure.
+>>> +//! The bindings integrate with `serde`, which take the role of 
+>>> visitors
+>>> +//! in Rust code.
+>>> +
+>>> +#![deny(clippy::unwrap_used)]
+>>
+>> Are there are any specific considerations for this lint rule?
 > 
-> This defines the Rust QObject.  All it contains is a reference (wrapped
-> in UnsafeCell) self.0 to the C QObject.  Correct?
-
-Correct.
-
->> +
->> +// SAFETY: the QObject API are not thread-safe other than reference counting;
->> +// but the Rust struct is only created once the contents are stable, and
->> +// therefore it obeys the aliased XOR mutable invariant.
+> It ensures that all conversion errors (e.g. from try_into()) are 
+> propagated.
 > 
-> In other words, we promise never to change a QObject while Rust code
-> holds a reference, except for the reference counts.  Correct?
+>>> +pub struct QObject(&'static UnsafeCell<bindings::QObject>);
+>>
+>> It seems Opaque<> feels more natural than UnsafeCell<>.
+>>
+>> Opaque::from_raw() requires *mut T, but QObject::from_raw() and
+>> QObject::clone_from_raw() mainly play with C bindings which usually use
+>> *mut pointer. So it seems unnecessary to convert *mut to *const in the
+>> middle.
+>>
+>> And furthermore, I think QObject(Opaque<bindings::QObject>) is better
+>> than QObject(&'static Opaque<bindings::QObject>). From a semantic view,
+>> C's QObject is a struct, while Rust's QObject is a reference, which seems
+>> somewhat mismatched.
+>>
+>> I'm not sure yet if there may be gaps when remove &'static, but it
+>> looks like using &'static Opaque<> instead of &'static UnsafeCell<> is
+>> Okay in code?
 > 
-> The reference count is the mutable part of an otherwise immutable
-> object.  Not mentioned here: it is atomic.  Therefore, concurrent
-> updates cannot mess it up.  Nothing depends on its value except
-> deallocation when the last reference drops.  I figure that's why the
-> exception to "aliased XOR mutable" is fine.  Correct?
-
-Yes, it's one of a few exceptions to "aliased XOR mutable" including:
-
-- Mutex (because only one guy can access it at all anyway)
-
-- RefCell (enforces aliased XOR mutable at run-time, enforces 
-single-thread usage at compile-time)
-
-- atomics (a mini mutex)
-
-- Cell (Mutex:RefCell = atomics:Cell, in other words every access is 
-independent but also single-thread usage is checked at compile time)
-
->> +unsafe impl Send for QObject {}
->> +unsafe impl Sync for QObject {}
->> +
->> +// Since a QObject can be a floating-point value, and potentially a NaN,
->> +// do not implement Eq
->> +impl PartialEq for QObject {
->> +    fn eq(&self, other: &Self) -> bool {
->> +        unsafe { bindings::qobject_is_equal(self.0.get(), other.0.get()) }
->> +    }
->> +}
->> +
->> +impl QObject {
->> +    /// Construct a [`QObject`] from a C `QObjectBase` pointer.
+> I am using UnsafeCell because the QObject here is always valid, i.e. 
+> MaybeUninit is explicitly not necessary.  Opaque explicitly allows it to 
+> be invalid, here instead the API is "create via C code or FFI and only 
+> then create the QObject".
 > 
-> It's spelled QObjectBase_.  More of the same below, not flagging again.
+> However, while it is possible to use Opaque<> instead of UnsafeCell<>, 
+> it is not possible to make this a simple wrapper because QObject is 
+> unmovable and reference counted.  That is, QObject is the equivalent of 
+> (for example) Owned<DeviceState>.
 > 
-> Comment next to its definition:
+>> These 2 methods are the clone, but it seems they're actually similar to
+>> Owned<>, i.e., increase refcnt when Rust side wants to "own" or ensure
+>> to use this safely.
+>>
+>> However, there indeed isn't a non-object version of Owned for now, so I
+>> think this kind of clone should be okay. Hmm, for long-term, is it
+>> valuable to consider a more generic Owned<>?
 > 
->      /* Not for use outside include/qobject/ */
+> Linux has ARef<> I think.  But it seems overkill for now.
 > 
-> We're using it outside now.  Do we really need to?
-
-It's because we're defining equivalents of inline functions in 
-include/qobject.
-
-I can however replace uses of from_base with a macro similar to QOBJECT()
->> +    /// Obtain a raw C pointer from a reference. `self` is consumed
->> +    /// and the C `QObject` pointer is leaked.
+>>> +impl<A> FromIterator<A> for QObject
+>>> +where
+>>> +    Self: From<A>,
+>>> +{
+>>> +    fn from_iter<I: IntoIterator<Item = A>>(it: I) -> Self {
+>>
+>> nit: maybe the name "iter" is better than "it"?
 > 
-> What exactly do you mean by "leaked"?
-
-s/and the.*/without decreasing the reference count, thus transferring 
-the reference to the `*mut bindings::QOjbect`/
-
->> +    pub fn into_raw(self) -> *mut bindings::QObject {
->> +        let src = ManuallyDrop::new(self);
->> +        src.0.get()
->> +    }
->> +
->> +    /// Construct a [`QObject`] from a C `QObject` pointer.
+> Sure.
 > 
-> Pasto?  Isn't it QObjectBase_ here?
+>>> +                    match qnum__.kind {
+>>> +                        $($crate::bindings::QNUM_I64 => break {
+>>> +                            let $i64var = unsafe { qnum__.u.i64_ };
+>>> +                            $i64
+>>> +                        },)?
+>>> +                        $($crate::bindings::QNUM_U64 => break {
+>>> +                            let $u64var = unsafe { qnum__.u.u64_ };
+>>> +                            $u64
+>>> +                        },)?
+>>> +                        $($crate::bindings::QNUM_DOUBLE => break {
+>>> +                            let $f64var = unsafe { qnum__.u.dbl };
+>>> +                            $f64
+>>> +                        },)?
+>>> +                        _ => {}
+>>
+>> I think this doesn't handle a special case: qobj's QNUM type doesn't
+>> macth the value type, for example, qobj is QNUM_U64 but value is i64.
+>>
+>> Though external code won't use this macro, I think panic may be better
+>> than {}?> Thurther, there're 2 match blocks. Could we merge them as one?
 
-Yes.
-
->> +impl From<()> for QObject {
->> +    fn from(_null: ()) -> Self {
->> +        unsafe { QObject::cloned_from_base(addr_of!(bindings::qnull_.base)) }
-> 
-> qnull_ is not meant for use outside qnull.[ch] and its unit test
-> check-qnull.c.  Could we use qnull()?
-
-Same as above---it's inline.  The above is a translation of
-
-static inline QNull *qnull(void)
-{
-     return qobject_ref(&qnull_);
-}
-
->> +macro_rules! from_double {
->> +    ($t:ty) => {
->> +        impl From<$t> for QObject {
->> +            fn from(n: $t) -> Self {
->> +                let qobj = unsafe { &*bindings::qnum_from_double(n.into()) };
->> +                unsafe { QObject::from_base(addr_of!(qobj.base)) }
->> +            }
->> +        }
->> +    };
->> +}
->> +
->> +from_double!(f32);
-> 
-> Uh, isn't the double in from_double misleading?
-
-It's a reference to the function that it calls (qnum_from_double).  Can 
-rename it to impl_from_returning_qnum_double.
-
->> +from_double!(f64);
-> 
-> Can you briefly explain why we need more than i64, u64, and double?
-
-Because Rust doesn't do automatic casts.  So it's nicer (and also less 
-error prone) if the subsequent patches do not have to always convert to 
-u64 or i64.
-
-> Skipping the remainder, it's too much macro magic for poor, ignorant me
-> :)
-
-It's not really hard.  The thing to the left of => effectively defines a 
-parser. Each thing of the shape $IDENT:RULE matches a piece of Rust 
-grammar; expr is expression an tt is token tree (either a single token 
-or a parenthesized group).  To access $IDENT that appears within $(...)? 
-on the left of => you must have a similar $(...)? on the right, and the 
-whole $(...)? on the right will be skipped if the left-side wasn't there.
-
-The macro is used like this:
-
-         match_qobject! { (self) =>
-             () => Unexpected::Unit,
-             bool(b) => Unexpected::Bool(b),
-             i64(n) => Unexpected::Signed(n),
-             u64(n) => Unexpected::Unsigned(n),
-             f64(n) => Unexpected::Float(n),
-             CStr(s) => s.to_str().map_or_else(
-                 |_| Unexpected::Other("string with invalid UTF-8"),
-                 Unexpected::Str),
-             QList(_) => Unexpected::Seq,
-             QDict(_) => Unexpected::Map,
-         }
-
-And it produces a "switch" on QObject types, where each "case" extracts 
-the datum, places it in the variable to the left of "=>" (such as "b" 
-for bool), and returns the value on the right of "=>" (such as 
-"Unexpected::Bool(b)"):
-
-
->> +    ) => {
->> +        loop {
->> +            let qobj_ = $qobj.0.get();
->> +            match unsafe { &* qobj_ }.base.type_ {
->> +                $($crate::bindings::QTYPE_QNULL => break $unit,)?
->> +                $($crate::bindings::QTYPE_QBOOL => break {
->> +                    let qbool__: *mut $crate::bindings::QBool = qobj_.cast();
->> +                    let $boolvar = unsafe { (&*qbool__).value };
->> +                    $bool
->> +                },)?
-
-(The loop/break is just a syntactic convenience---the loop never rolls 
-more than once).
+Just one thing: it's not returning {}, it's returning the value 
+expressed in $(_ => $other:expr,)?.  So I think it's better to keep it 
+this way.
 
 Paolo
 
