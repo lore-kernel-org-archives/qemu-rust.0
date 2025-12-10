@@ -4,87 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2871D3C928
-	for <qemu-rust@archiver.kernel.org>; Wed, 10 Dec 2025 17:20:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 912F2D3C933
+	for <qemu-rust@archiver.kernel.org>; Wed, 10 Dec 2025 17:28:38 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vTNqu-0005uX-Kc; Wed, 10 Dec 2025 12:19:50 -0500
+	id 1vTNzB-0007QV-6l; Wed, 10 Dec 2025 12:28:21 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vTNqs-0005u5-2N
- for qemu-rust@nongnu.org; Wed, 10 Dec 2025 12:19:46 -0500
+ id 1vTNz8-0007Q3-39
+ for qemu-rust@nongnu.org; Wed, 10 Dec 2025 12:28:18 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vTNqq-0007sG-0H
- for qemu-rust@nongnu.org; Wed, 10 Dec 2025 12:19:45 -0500
+ id 1vTNz5-0000z4-FN
+ for qemu-rust@nongnu.org; Wed, 10 Dec 2025 12:28:17 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1765387181;
+ s=mimecast20190719; t=1765387694;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=n/bi4hXd77xtlzpxZSweyBsCJ2kB442lBr797cluk9U=;
- b=AU/pnRkkQwRpwUIIn7xcYgc90j2zicrzif1Ev/tJbQXuSpChqNzfosxBoIJsiO4a9V86vV
- QaGx8QeNlFeJ+abz65gamNRgFKrWQ3ZwYpaoxyvOu02vr8wqevF9Jnfnze+Lfyih6bm4DN
- X9HxTOkYR3Tdpxp33lXECL+YiJqsgG0=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=seOC9xRpd8BpHlM1BeEq/huCWh/CEHy2JsXLZ/0hH9w=;
+ b=Gjwm1uF7VPJv3OK7R0oFSaLvm6poH/PXFu5y76KLGSf49fflaCGEyRSzdsoJiNCBFJBw/3
+ PcRQLIPBraRcGPBwiBZEYnPOCZJxFoV24bV30gBlVWWA+FqRWTI7V2GjQF+4Rs+eS+dACn
+ Fb9IfiCIWTW5vahZyErTR+/bLKTUT6o=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-266-x0kmrR_aMRewzkgsw5AiLQ-1; Wed, 10 Dec 2025 12:19:40 -0500
-X-MC-Unique: x0kmrR_aMRewzkgsw5AiLQ-1
-X-Mimecast-MFC-AGG-ID: x0kmrR_aMRewzkgsw5AiLQ_1765387179
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-42f9e62b4feso32338f8f.0
- for <qemu-rust@nongnu.org>; Wed, 10 Dec 2025 09:19:40 -0800 (PST)
+ us-mta-398-H4Ul9WF2PcaR8mkG3auxdQ-1; Wed, 10 Dec 2025 12:28:12 -0500
+X-MC-Unique: H4Ul9WF2PcaR8mkG3auxdQ-1
+X-Mimecast-MFC-AGG-ID: H4Ul9WF2PcaR8mkG3auxdQ_1765387691
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-42f9ece3849so1429304f8f.1
+ for <qemu-rust@nongnu.org>; Wed, 10 Dec 2025 09:28:12 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765387179; x=1765991979;
+ d=1e100.net; s=20230601; t=1765387691; x=1765992491;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=n/bi4hXd77xtlzpxZSweyBsCJ2kB442lBr797cluk9U=;
- b=Mw6g4ZoT9LqMfcWB7JUQdKgD1X7ojrnzK3+O8h/7bDu9dlYsDbFjiRx4itihIvy8kk
- ynDbdCrdrMqTTmo+9T5SRp7v0NpdZOydQ5mMNxESpYJp+ulYb0diouvzeVNyHlsomGjG
- QWHvb3Vi32TQdRuIWxkVsvimHhQk6fGNoXKff2wTzBzy8xZw1eZh1xHw0AkdGW0jdWQJ
- 3PasO/FxzEjs6+4yKTFJTpXwttWWvru/M5bnNexCvdYU0haqvOwgspGJRazsAErM1M1c
- IGTAEm39SX/lQUXnwsHnZ0NHtFxE4JECujZLJVYahMHYgGdt2yLmqVabKmLdNCyWRrrM
- H69A==
+ bh=seOC9xRpd8BpHlM1BeEq/huCWh/CEHy2JsXLZ/0hH9w=;
+ b=t+kT5FGTZd5yzSYB3VdHyHxcCloN916mbcEFOBgobheV4fQ/3UNNtc3TWn865u00HU
+ SVyHO5Kvv7aWjVpCtCkHwMxpIcFQtgTnruGCuD7/ObmAukJtEWlyKCkdxMJtCSd4/lkc
+ Hr6SRKcfpMVkgk272D3+gX5CdJg7HvoycLfgSGp47QUVMq/5pEAL3NolVLfj/U4KanwY
+ 3nEj3xJNnLicUPpAkmCD1z/CoApseoBpThru3GKpkd5la/TmMgPWfzD36SJ/Wlb3uy6Q
+ Nm1+1HlD/JOed/ryGGXSSQKlrtTDIolgfkDdMLnPNXtgpzM14QBF0OFErwGnqB2pMBFw
+ 1RvQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWC8CsTg3ppyZgutc2iPD8XP9wgk67rBNWYMqtNDfpaRcE5bNHFBoYynxqu9DJWV4g1p+/iV4i240M=@nongnu.org
-X-Gm-Message-State: AOJu0YykGSLlGi49oNn5vfs+4pzfoJRP75rWjG3wXntgbg27GHOslT/r
- mSIjFCK/U1rcM/iuSuwmmitqVOguKihXSD9IAU7aMnCwCazEO3oR/Vaw+M7ojlcyklB0RcKCn86
- f9O/J7DGU0yZsJVDNvcFOKvh1lTVett1Sh0u+hN7YojwnkzWZ3T44L5w=
-X-Gm-Gg: AY/fxX67NegQFhu5XnVDeQEH/KO/YQYIcp9lSzji9jwoI/0NsqrkZ50sL6JwlJSY2+c
- /C+NiDp58ECyyGWX2/9Ufc5tFgadziTH8qlMjiP8n3NmKe9ywNKEi3vKv5EOqsF+tQpuuG9bcA0
- zfW2M5vX76RlrY2UHXfdMx6vFRxjIxVECC2efFff/d8723Qzl0vRoxP2IlSezjabNhTOhGp8b+h
- c0JCi3tT/cEwTEDP2Fb0SWLvjOTsoxl926HLjLXj/sUNhnsNIoz52RVdLSUrj9WMwJ6kReg4nnk
- fIxTW3DdPad0DAdMTiqPbhuRpOvkneUR5ODCuGD8DwxPL2gICdqEbKk1Z27H5gpd1H66V4Wz+Y2
- E92c/h7x5Yn8suWaCfYOGRkebMPl4JfIl9FY5NOJ3MFm+4L/YcQXOB64FJsCAptnmStuHKy1xE7
- YJEvkBc2lXpHbhWCE=
-X-Received: by 2002:a05:6000:186b:b0:42b:3455:e4a1 with SMTP id
- ffacd0b85a97d-42fa89ec4a8mr215123f8f.15.1765387179277; 
- Wed, 10 Dec 2025 09:19:39 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFkAKahCwN0k6df8RMeBvgFidiJdlAa8mo4FMWukQK0sxXiNj84d4mzykYjbpQ4dzBiOu0BZg==
-X-Received: by 2002:a05:6000:186b:b0:42b:3455:e4a1 with SMTP id
- ffacd0b85a97d-42fa89ec4a8mr215086f8f.15.1765387178806; 
- Wed, 10 Dec 2025 09:19:38 -0800 (PST)
+ AJvYcCXiTOEo8K7VbTVFgad/12FNqr2ErFOnwCsHDlEhyyStM0eZmfu81TB4x4rw3+bp5EwNxsn04tZ9Xi8=@nongnu.org
+X-Gm-Message-State: AOJu0YytMu4jCGqaRu+NKaLTYu11z9+9DinqJZkVtpsIoGXdYhxAoVz7
+ TV/GXPTAK/XbMMGmgny1sGHtkW/QHaA3FxZ8h8zlIY3kOjFQzsSF8qsZ7MYk6csv5Jw4kITh+SZ
+ zkj9NY0dHzXv95SWN1I+9gGrxBjw2IYSTbxMG3G9PvDsJiRcWDiMpxIc=
+X-Gm-Gg: AY/fxX5AZJjvVla/MPqRS9pB7GqMX+OpUCh3wv31tqtp9hYi0uELsrsUxsP5E9pbjjR
+ 1uSFp/IfAq4clK4rEGVD9pkCLupVZ4O+5duxIH5yDb8aWfYXGCNNQH1i+Jd0OoK+MsB2qGKXJrq
+ UHFBrlgcdXmgBU6xtiOxNZyTeMzQoWQonvahqWdtJ80WWr+o1QOSk5MRR8E6LV2NPQQpWL1dR/P
+ 5GuuZeCKtIYG1QEBGomLN95TELuTZhkik8jmVtyBPgfoXDrz6NVa+Ml206BXXvm3DZZD6tU0F6r
+ Sta6/AUsEo/qTiuozZkOgvHvjNKSKN3GNz1hVp+yQyed3jsSVuwXDgd+IGK5l3eIqvlXEsjRmj9
+ /PuUNHBztvt7/uDmVYiICW3koGiFE+/N93L7hLRRUqGT5PsK1Z/1Ym2j+hohwckbahEvqJbSXAc
+ FMaTJGDW58eSJ9PAs=
+X-Received: by 2002:a5d:54d1:0:b0:42b:300f:7d8d with SMTP id
+ ffacd0b85a97d-42fa3afe612mr2263739f8f.34.1765387691375; 
+ Wed, 10 Dec 2025 09:28:11 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFPxZmF/tQg9EWhcRSsJu5G7NLxSNy3ZzJzMz5UvsZwSNpc1YMwxDvZ8HoZBwyBbB1+Nop+Hw==
+X-Received: by 2002:a5d:54d1:0:b0:42b:300f:7d8d with SMTP id
+ ffacd0b85a97d-42fa3afe612mr2263721f8f.34.1765387690910; 
+ Wed, 10 Dec 2025 09:28:10 -0800 (PST)
 Received: from [192.168.10.81] ([151.95.145.106])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-42fa8a70394sm146572f8f.14.2025.12.10.09.19.38
+ ffacd0b85a97d-42fa8b85fcesm149592f8f.25.2025.12.10.09.28.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Dec 2025 09:19:38 -0800 (PST)
-Message-ID: <239ea6cb-de87-48b7-8ef0-71158bf5ae70@redhat.com>
-Date: Wed, 10 Dec 2025 18:19:37 +0100
+ Wed, 10 Dec 2025 09:28:10 -0800 (PST)
+Message-ID: <cf58760b-db53-4201-b75d-40f94ce2c543@redhat.com>
+Date: Wed, 10 Dec 2025 18:28:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/19] rust/qobject: add Serialize implementation
+Subject: Re: [PATCH 16/19] scripts/qapi: strip trailing whitespaces
 To: Markus Armbruster <armbru@redhat.com>
 Cc: qemu-devel@nongnu.org, marcandre.lureau@redhat.com, qemu-rust@nongnu.org
 References: <20251010151006.791038-1-pbonzini@redhat.com>
- <20251010151006.791038-7-pbonzini@redhat.com> <87a4zx5kgm.fsf@pond.sub.org>
+ <20251010151006.791038-17-pbonzini@redhat.com> <87jyyw59dm.fsf@pond.sub.org>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -121,13 +121,13 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <87a4zx5kgm.fsf@pond.sub.org>
+In-Reply-To: <87jyyw59dm.fsf@pond.sub.org>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: MMXZ5wTm-J2-0mtPNE5imbeEgBLYv8Q5g07tLpdaxpk_1765387179
+X-Mimecast-MFC-PROC-ID: h3cEPPpzAxiKOFg12hvKRAG7Sdbo38smkpWzGgIbQYQ_1765387691
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
@@ -153,21 +153,57 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 12/5/25 10:47, Markus Armbruster wrote:
->> +        match_qobject! { (self) =>
->> +            () => serializer.serialize_unit(),
->> +            bool(b) => serializer.serialize_bool(b),
->> +            i64(i) => serializer.serialize_i64(i),
->> +            u64(u) => serializer.serialize_u64(u),
->> +            f64(f) => serializer.serialize_f64(f),
->> +            CStr(cstr) => cstr.to_str().map_or_else(
->> +                |_| Err(ser::Error::custom("invalid UTF-8 in QString")),
+On 12/9/25 09:48, Markus Armbruster wrote:
+> Paolo Bonzini <pbonzini@redhat.com> writes:
 > 
-> Could this be a programming error?  Like flawed input validation?
+>> From: Marc-André Lureau <marcandre.lureau@redhat.com>
+>>
+>> This help workaround a rustfmt issue.
+> 
+> Which one?  Pointer suffices.
+> 
+>>
+>> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+>> Link: https://lore.kernel.org/r/20210907121943.3498701-16-marcandre.lureau@redhat.com
+>> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+>> ---
+>>   scripts/qapi/gen.py | 6 +++++-
+>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/scripts/qapi/gen.py b/scripts/qapi/gen.py
+>> index 0c9b8db3b02..c9721545ea7 100644
+>> --- a/scripts/qapi/gen.py
+>> +++ b/scripts/qapi/gen.py
+>> @@ -58,7 +58,11 @@ def add(self, text: str) -> None:
+>>           self._body += text
+>>   
+>>       def get_content(self) -> str:
+>> -        return self._top() + self._preamble + self._body + self._bottom()
+>> +        content = self._top() + self._preamble + self._body + self._bottom()
+>> +        # delete trailing white-spaces (working around
+>> +        # https://github.com/rust-lang/rustfmt/issues/4248)
+>> +        content = re.sub(r'\s+$', '\n', content, 0, re.M)
+>> +        return content
+>>   
+>>       def _top(self) -> str:
+>>           # pylint: disable=no-self-use
+> 
+> This doesn't just delete trailing whitespace, it also collapses multiple
+> blank lines into one: \s matches newlines.
+> 
+> We lose the ability to generate multiple blank lines for all generators
+> based on QAPIGen: C (.c and .h), trace events, Rust.  Hmm.
+> 
+> Is collapsing blank lines necessary for working around the rustfmt
+> issue?
+> 
+> The generators other than the Rust generator do not emit trailing
+> whitespace.  Would that be practical for the Rust generator, too?
 
-Possibly, but given that you have to create a custom error type anyway, 
-I'd rather not special case this into the only abort (see the 
-"#![deny(clippy::unwrap_used)]" in patch 4).
+The main source is stuff like %(cfg)s and %(serde_skip_if)s.  Rust's 
+syntax makes it more natural to write in this style, compared to C where 
+you have "#ifdef"..."#endif", but it results in empty lines.  I'll see 
+if there's another way to clean up the output.
 
 Paolo
 
