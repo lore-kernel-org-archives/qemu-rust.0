@@ -4,87 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0180D3C90D
-	for <qemu-rust@archiver.kernel.org>; Wed, 10 Dec 2025 14:13:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 748C4D3C912
+	for <qemu-rust@archiver.kernel.org>; Wed, 10 Dec 2025 14:39:20 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vTKw3-0000Xj-O2; Wed, 10 Dec 2025 09:12:55 -0500
+	id 1vTLLS-0005M7-8A; Wed, 10 Dec 2025 09:39:12 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vTKw2-0000XU-CX
- for qemu-rust@nongnu.org; Wed, 10 Dec 2025 09:12:54 -0500
+ id 1vTLLJ-0005HR-Bj
+ for qemu-rust@nongnu.org; Wed, 10 Dec 2025 09:39:02 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vTKvz-0001Ar-Oi
- for qemu-rust@nongnu.org; Wed, 10 Dec 2025 09:12:54 -0500
+ id 1vTLLG-0001R4-Ie
+ for qemu-rust@nongnu.org; Wed, 10 Dec 2025 09:39:00 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1765375970;
+ s=mimecast20190719; t=1765377536;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=bD7VQpcxs+TbhrRDYM1QFHTonaft9S0aXPWes5+S7Xg=;
- b=KJbTMsNEZMT0yULL4WWPE3xQGdXkP8AI/hLstIrXoYQAVn/3yHjZmZ2yFUz1U5FOIn2Hhr
- q6t/31hMRAi5x9CBmV1GGhmVl8h3YTyHsRKPbHABu7IswK2XXEvboJI+eJzZFPaCalZztV
- zzyz0hMj7A9aorRJb3qcurx6XsO+sZ8=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=hrE41cTYSlP7BLdB5AcGAZxkSuBX+V7/2OvidQylAPc=;
+ b=DWpHvebxtV1CVJ5CnO+RGsnFYf+BHxZ3GFKpxmwEpg7g8peW0Eg0PjQjgBOUHk687n9pNB
+ 6vI0xfUVJ8xuCCiOQnNpiwQczkw4HHDgopZOTFAe/V0gCRcSFSCfEz6Y7Vg7uFlgbxhBGd
+ zmaWrYi2iTViCxS8luMHYrRF2gFuvOk=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-348-Km_HCqDzNpiLpKe7FZwaaA-1; Wed, 10 Dec 2025 09:12:38 -0500
-X-MC-Unique: Km_HCqDzNpiLpKe7FZwaaA-1
-X-Mimecast-MFC-AGG-ID: Km_HCqDzNpiLpKe7FZwaaA_1765375957
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4779981523fso59285105e9.2
- for <qemu-rust@nongnu.org>; Wed, 10 Dec 2025 06:12:38 -0800 (PST)
+ us-mta-606-6z5l2cbdPxWc-Yv79MTO8A-1; Wed, 10 Dec 2025 09:38:55 -0500
+X-MC-Unique: 6z5l2cbdPxWc-Yv79MTO8A-1
+X-Mimecast-MFC-AGG-ID: 6z5l2cbdPxWc-Yv79MTO8A_1765377534
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-4779da35d27so67082715e9.3
+ for <qemu-rust@nongnu.org>; Wed, 10 Dec 2025 06:38:55 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765375957; x=1765980757;
+ d=1e100.net; s=20230601; t=1765377534; x=1765982334;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bD7VQpcxs+TbhrRDYM1QFHTonaft9S0aXPWes5+S7Xg=;
- b=mIu6eUlLPCawSHV+9zysgqf+pPwyNBUaxz1+47Kr0ZLLjFMUxZQT+NnnKTDNmZ3MBb
- x47UU62g1tAucGMVKUIkAktXPrq3fTTiH/yRnbUZAoaJgIl6XfzyziJtPy+AcD8/LpBA
- MvIeDBlOzMGUSY8V7/cK/EJu2+0MeaLUFJCilnIQKdzztme1/8+DoWtuMowMjYlTicfr
- bWhwt+rNoh28wfGr+FejIUgYIwtNSpeosRgJm8CYpXohY+zA4AwAjRT2tcrFjGqpU0Al
- 7jjKwWdcj6e+Fqd1Hz/hOYHGCe7QTtucqv2JVFffxuF7kvVXJ3QXxaygwxhuv8gdolGJ
- FvWw==
+ bh=hrE41cTYSlP7BLdB5AcGAZxkSuBX+V7/2OvidQylAPc=;
+ b=tPkPciIdrPRUDHUD7wr7nsVuV+qTlKwD8I38IcRXbNrSJIhZOYcYGbVGc+sVRPgTj5
+ vY57fs0Xp/JfhSJzFapB2adeCTN824lq2QpA/pUfzG1fB8jbCKL2EXWZ+nHpXP9/NDUl
+ RMh9RnX54Xgsg/5xZZnbNfr7a8bT5VQaeV6YdsyVvw8q6AANQ1UmvFaomDB7RPzOocin
+ TUZkiyf3DwFC26fxuM2ntgBc+p3OTGUSzwzJ1OzLp4W1bszwzAW/mn3+ArOgoFMHHvjI
+ mHKR9qVlPWSKCSGOq3xySfcaX7CmCLFvMNyWWGYNmaCKAz4U48MiMQpsVTov0q18a2h+
+ wD8Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXVjIBGhXqZlMJmN/NUWSec3v6tIMLK7A2uml9qAPIWs6zDyBSQAGg6TOD2ddrqn6tmykQH4oSaRkY=@nongnu.org
-X-Gm-Message-State: AOJu0YwbJFwHWRIFpd8VL720cBjTT8b9V6ahOlylLpGWiMLJqKDhrpLF
- JGXFRftWORfXu6PixDnsMvdm2UbXpokVnw/6xuuua1h2tgXXnn14JS+vYJ+YuqLA3gSjhHWmMJ9
- OouzsmZMTZnePyfeLlLKpDX+j7vmZfL1cQsw/REWeWq9UF9b95FSw50c=
-X-Gm-Gg: ASbGncvIh3Rp8kPIiWwm6CdWUAt7Lrpl7efMGztZTjcw5evng7i6nhqh0OodGZ5ADXj
- t2VyHk9W3B6NNd505vNYIqef3zuFzYrJdhDuu8ph6vsw+co594rdkoxU8ReOOTWoHIPX9tp27Xf
- o7c89iCb940aq/NLA3WNYQmZcp3VFL+ZbMYmB3Be1U6F3P3fnXex9QJ2NN0+tuqJkAK4oHyPeaK
- iyZzb5Lw3ki7kzQpdk16r1GjA+lMry78UHPx+M4z2+29PZVUv7WyI05ch3tTxXqpRbhdGC4NlvX
- QuxbyBCqJ1LicU9sxdCS0Q8pyxS1JGSedCrP6fn0zFtycTCgmFztl6rQ3qe0vgVkSvKf/8CrNPx
- vtVCGdbCJtm55XAzZXjrBhQ7DnPmtxTNAdw5Awnn4hEAPkKUT1P/ji+QOJMeByibdlFwuEO0ZXx
- 5Wb+83NTjoZRcMQkg=
-X-Received: by 2002:a05:600c:5254:b0:46e:37fe:f0e6 with SMTP id
- 5b1f17b1804b1-47a8379c0fbmr27781475e9.30.1765375957463; 
- Wed, 10 Dec 2025 06:12:37 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHhiVwTChDd/3XDYLxr+06OGfpaN/2udr1vtiMW39shQvpLPhuHFYoR62rkwb0oFfxPP7jr6Q==
-X-Received: by 2002:a05:600c:5254:b0:46e:37fe:f0e6 with SMTP id
- 5b1f17b1804b1-47a8379c0fbmr27781255e9.30.1765375957044; 
- Wed, 10 Dec 2025 06:12:37 -0800 (PST)
+ AJvYcCUf1wec41MvUFLpjmR1SXdoWO0H5BxAxCcRw+xnIScCEr8FbB078tnlYR7kXCmb18xkuXQoeDG6Upc=@nongnu.org
+X-Gm-Message-State: AOJu0Yyt5QBfHYpkwGOUdbLWDkJmsnN39/1jNdWUPfnICLD9x4XhjF/s
+ CLsgN6Fbw+OvZkxzsNdjYiqJOSvIG9vue4LMxJuDkmAcO9sILET6giUG2utGHULMqS+/j5d6imF
+ lNxs+63WSG4FTRsvqPk7Fx1iEa+R0NHiyUsCiMCxQu3dxxag+2Qp+nkk=
+X-Gm-Gg: ASbGncu77gb+fjlX9mtFqqA7uzP1HeoG+nTwqf2546WvPizAWXqzXxwqapwcbMr61QR
+ JSypVc5psflI2IvI7oYS9StUHvmOZ9vICtnaxi8SMR2y2wq2e10tJCDcsXIzrC7sDCUbW0yHgoF
+ +wLpvvnnpMhXuZ6XJCM+8i2sM4pgXLdy3Z6hYZL8aPHwylY3gjzSbFxBy28TlYQVg7G8MtL9YZB
+ +sYlb/GLPITd4ypUucJSgMTZflQJnoKMOCZNsXF61oR6jzfyAU7LFOHgatk4k4INFtppen3H3Q+
+ OLDbt+ktF0ecGdliJmFHdXwpCyw/wnIvxlgH6t+MxRY06jOAX4KTSg71hxbyIILZL+89lfSfRkb
+ GK24kNdESmpqGfHMViTIMdA+KJDlzvodoWK4oDSktjl3zYiD4JF2OhhFeDdjEXR9JdxaMhe+w5c
+ cJuX6DGKTRt7+Fcq4=
+X-Received: by 2002:a05:600c:1389:b0:477:54cd:2030 with SMTP id
+ 5b1f17b1804b1-47a8384375fmr25741555e9.21.1765377534107; 
+ Wed, 10 Dec 2025 06:38:54 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHnNtaOMoLqEXR//7xOSV++X5EpFOwMTyvW/RyKa06/YowGXC/fo/t4yh9bXjemf4oTDWV4aA==
+X-Received: by 2002:a05:600c:1389:b0:477:54cd:2030 with SMTP id
+ 5b1f17b1804b1-47a8384375fmr25741355e9.21.1765377533640; 
+ Wed, 10 Dec 2025 06:38:53 -0800 (PST)
 Received: from [192.168.10.81] ([151.95.145.106])
  by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-47a7d35713asm43967835e9.1.2025.12.10.06.12.35
+ 5b1f17b1804b1-47a82d72f68sm51635535e9.3.2025.12.10.06.38.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Dec 2025 06:12:36 -0800 (PST)
-Message-ID: <525d2198-5d6f-43a0-88cd-78eae0042d27@redhat.com>
-Date: Wed, 10 Dec 2025 15:12:35 +0100
+ Wed, 10 Dec 2025 06:38:53 -0800 (PST)
+Message-ID: <f8b03a16-d957-4968-a7c8-38fec0b01a88@redhat.com>
+Date: Wed, 10 Dec 2025 15:38:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/19] rust: QObject and QAPI bindings
+Subject: Re: [PATCH 14/19] scripts/qapi: generate high-level Rust bindings
 To: Markus Armbruster <armbru@redhat.com>
 Cc: qemu-devel@nongnu.org, marcandre.lureau@redhat.com, qemu-rust@nongnu.org
 References: <20251010151006.791038-1-pbonzini@redhat.com>
- <87tsy52ftl.fsf@pond.sub.org> <87zf7s5h3k.fsf@pond.sub.org>
+ <20251010151006.791038-15-pbonzini@redhat.com> <87v7ig3rc2.fsf@pond.sub.org>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -121,9 +121,9 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <87zf7s5h3k.fsf@pond.sub.org>
+In-Reply-To: <87v7ig3rc2.fsf@pond.sub.org>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Di3VgLiWimm4Zfe8otzwUzHT8t8q6BfDeM0YXAoE3ew_1765375957
+X-Mimecast-MFC-PROC-ID: -SgoNlO3TW7HaFB9nnoFed347Vz13kbLABKMNTPMd3Y_1765377534
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -137,7 +137,7 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -153,52 +153,77 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 12/9/25 07:01, Markus Armbruster wrote:
-> Markus Armbruster <armbru@redhat.com> writes:
+On 12/9/25 11:03, Markus Armbruster wrote:
+> * Why is util::qobject::QObject needed?
 > 
->> I applied, ran make, and it didn't create qapi-types.rs and
->> test-qapi-types.rs for me.  What am I missing?
-> 
-> Looks like I have to run with -B qapi.backend.QAPIRsBackend.
-> 
-> -B is meant for out-of-tree backends.  Commit dde279925c9 explains:
-> 
->      qapi: pluggable backend code generators
->      
->      The 'qapi.backend.QAPIBackend' class defines an API contract for code
->      generators. The current generator is put into a new class
->      'qapi.backend.QAPICBackend' and made to be the default impl.
->      
->      A custom generator can be requested using the '-k' arg which takes a
->      fully qualified python class name
->      
->         qapi-gen.py -B the.python.module.QAPIMyBackend
->      
->      This allows out of tree code to use the QAPI generator infrastructure
->      to create new language bindings for QAPI schemas. This has the caveat
->      that the QAPI generator APIs are not guaranteed stable, so consumers
->      of this feature may have to update their code to be compatible with
->      future QEMU releases.
-> 
-> Using it for the in-tree Rust backend is fine for a prototype.
-> Mentioning it in a commit message or the cover letter would've saved me
-> some digging.
+> * NONE is an error value, not a valid QType.  Having such error values
+>    in enums isn't unusual in C.  What about idiomatic Rust?  Even if it's
+>    unusual there, we may elect to do it anyway, just to keep generated
+>    Rust closer to C.  But it should be a conscious decision, not a blind
+>    port from C to Rust.
 
-Well, it wasn't intentional - right now it does this:
+For QType we don't need to keep it closer, but actually ABI-compatible: 
+QType is defined by QAPI but is used (almost exclusively) by QObject. 
+We use the C version in the QObject bindings, for example:
 
-test_qapi_rs_files = custom_target('QAPI Rust',
-   output: 'test-qapi-types.rs',
-   input: [ files(meson.project_source_root() + 
-'/tests/qapi-schema/qapi-schema-test.json') ],
-   command: [ qapi_gen, '-o', meson.current_build_dir(), '-b', 
-'@INPUT0@', '-B', 'qapi.backend.QAPIRsBackend', '-p', 'test-' ],
-   depend_files: [ qapi_inputs, qapi_gen_depends ])
+                 $($crate::bindings::QTYPE_QNULL => break $unit,)?
 
-so "make rust/tests/test-qapi-types.rs" will work, and so will "make" if 
-you have --enable-rust.
+> * "Default for QType" is NONE.  In C, it's zero bytes, which boils down
+>    to QTYPE_NONE.
+> 
+> * QTYPE__MAX is a bit of a headache in C.  It's not a valid enum value.
+>    We make it one only because we need to know the largest valid enum
+>    value, e.g. to size arrays, and the easiest way to get that value is
+>    adding an invalid one to the enum.  Same for all the other generated
+>    enums.  Could we avoid it in Rust?
 
-Let us know what you'd prefer and we'll switch.  Alternatively, 
-retconning -B's meaning so that it applies to Rust will work too. :)
+Yes, I think so.
+
+> * C has a file comment of the form
+> 
+>      /*
+>       * One-line description of the file's purpose
+>       *
+>       * Copyright lines
+>       *
+>       * License blurb
+>       */
+> 
+>    I think Rust could use such a comment, too.
+
+Ok.
+
+> * C has built-in types like QType in qapi-builtin-types.h, generated
+>    only with -b.  This is a somewhat crude way to let code generated for
+>    multiple schemas coexist: pass -b for exactly one of them.  If we
+>    generated code for built-in types unconditionally into qapi-types.h,
+>    the C compiler would choke on duplicate definitions.  Why is this not
+>    a problem with Rust?
+
+Because there's better namespacing, so it's okay to define the builtin 
+types in more than one place.  However, do we need at all the builtin 
+types in Rust?  QType is only defined in QAPI to have the nice enum 
+lookup tables, and we can get it via FFI bindings.  Lists, as you say 
+below, are not needed, and they are also a part of qapi-builtin-types.h.
+
+So I think Rust does not need built-in types at all, which I think 
+solves all your problems here (other than _MAX which can be removed).
+
+> 
+> * The Rust version doesn't have deallocation boilerplate.  Deallocation
+>    just works there, I guess.
+> 
+> * The Rust version doesn't have the List type.  Lists just work there, I
+>    guess.
+
+Yep.
+
+> * The Rust version doesn't have the implicit type q_obj_my_command_arg,
+>    which is the arguments of my-command as a struct type.  C needs it for
+>    marshaling / unmarshaling with visitors.  Rust doesn't, because we use
+>    serde.  Correct?
+
+Commands are not supported at all yet.
 
 Paolo
 
