@@ -4,75 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67FF9D3E79A
-	for <qemu-rust@archiver.kernel.org>; Thu, 11 Dec 2025 07:25:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD946D59D99
+	for <qemu-rust@archiver.kernel.org>; Mon, 15 Dec 2025 07:50:25 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vTb35-0001x0-0m; Thu, 11 Dec 2025 02:25:15 -0500
+	id 1vV3LS-0000XS-7b; Mon, 15 Dec 2025 02:50:14 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vTb33-0001wJ-RV
- for qemu-rust@nongnu.org; Thu, 11 Dec 2025 02:25:13 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1vV3LQ-0000UX-FY
+ for qemu-rust@nongnu.org; Mon, 15 Dec 2025 02:50:12 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vTb32-0006l1-CP
- for qemu-rust@nongnu.org; Thu, 11 Dec 2025 02:25:13 -0500
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1vV3LO-0000j7-2c
+ for qemu-rust@nongnu.org; Mon, 15 Dec 2025 02:50:12 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1765437911;
+ s=mimecast20190719; t=1765785009;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=tE5PY0BetNsc4otVFzIqb9k9pZiLPC1jdETfe0pWfgA=;
- b=MyfYr1YHRwfpImewCELmraY9QF+QnKEpCD5oaLzzjLIOCWSxJVdHVjlCFpfpvqiEnbF7La
- jrSpqQps+OaGzbs5juJ2S5Q8UziiKXnCDP5o2yOyN4laTHPBqgGYzdqGGaTI1jpEhqx23Y
- i0noYqidHQIcC9BKf3oX5WtthzTf6Wo=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-594-aUUXubzxPSqDU6_WSIhcsA-1; Thu,
- 11 Dec 2025 02:25:08 -0500
-X-MC-Unique: aUUXubzxPSqDU6_WSIhcsA-1
-X-Mimecast-MFC-AGG-ID: aUUXubzxPSqDU6_WSIhcsA_1765437907
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id C6FCB18002C0; Thu, 11 Dec 2025 07:25:07 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.45.242.7])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 8230C1953984; Thu, 11 Dec 2025 07:25:07 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id EA94F21E6A27; Thu, 11 Dec 2025 08:25:04 +0100 (CET)
-From: Markus Armbruster <armbru@redhat.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Markus Armbruster <armbru@redhat.com>,  qemu-devel@nongnu.org,
- marcandre.lureau@redhat.com,  qemu-rust@nongnu.org
-Subject: Re: [PATCH 14/19] scripts/qapi: generate high-level Rust bindings
-In-Reply-To: <f8b03a16-d957-4968-a7c8-38fec0b01a88@redhat.com> (Paolo
- Bonzini's message of "Wed, 10 Dec 2025 15:38:51 +0100")
-References: <20251010151006.791038-1-pbonzini@redhat.com>
- <20251010151006.791038-15-pbonzini@redhat.com>
- <87v7ig3rc2.fsf@pond.sub.org>
- <f8b03a16-d957-4968-a7c8-38fec0b01a88@redhat.com>
-Date: Thu, 11 Dec 2025 08:25:04 +0100
-Message-ID: <87345h5vlb.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ bh=nDqBb+howVc6cd7uGoknJH0PjirYFJJey/1eAuvkVIA=;
+ b=ayw4Jh+Gx9RVxagfqlY58W0twyzj1yzg0UW64PNoABFcbWk//UoEZXqL0vTgVmOIMOA5Yy
+ b+IJvRtS7pHtIBMfdJkm0DCFcUfwd9lQbjbIYXLdOg43KajZkIWRss1xZAPvqT0WQPW0yo
+ TkyQpgAQZ6KKf0yavhSJ37U+EYlGSRA=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-59-J_8zDk1OODKeuJgbftY7QQ-1; Mon, 15 Dec 2025 02:50:07 -0500
+X-MC-Unique: J_8zDk1OODKeuJgbftY7QQ-1
+X-Mimecast-MFC-AGG-ID: J_8zDk1OODKeuJgbftY7QQ_1765785006
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-47904cdb9bbso23912925e9.1
+ for <qemu-rust@nongnu.org>; Sun, 14 Dec 2025 23:50:07 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765785006; x=1766389806;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=nDqBb+howVc6cd7uGoknJH0PjirYFJJey/1eAuvkVIA=;
+ b=e3cChqdCTgUgSd1VH2EPbkBRbxPNUGyJKYunVMn1eI6SjgTm+fKWhIQhcwJwwtJ8Nq
+ lvoh0NrK/zWV9HDjWNarQavc0CPsCNZszk2LoEwDtSr/ASIqMVU/i18K08wWDUCW5Sen
+ 9hrVY2YCKZYR0tx1dI02cX5/eGjuFfX3wjOq/3aKaX0AIZX1ZZedtAUe4JP4pM4I0X6Q
+ STNaF8YjuZPIdRdOxf0QYcPowejUVNMAlWb9P/EB/0HmxWc8ClJhTXagnDH40Zo3d7LI
+ +JOHyMuluNGEnC9sNHyhuK8Zq5OxGSksOTdJ1H9L0daTAxRuBOlOj5hnQtBj7XivLcJr
+ v5zg==
+X-Gm-Message-State: AOJu0Yxi7REqizo1Q6fvnbJwwM4WMK14IRQa20wNYlbXmM6k42vAKKgZ
+ 1Kjuf+za7JxU0R8a1yCgkCNZVYY+3aqXFlTZ0kvnulyYzBeF9r6ThJS47WfH0mv7UnaKtd6DEfb
+ /FbdncwxKuBw/5CcNPNJTQxhTC5a7vHQyY0CiK/GKFX4htG25YHNhrlk=
+X-Gm-Gg: AY/fxX6Yrro7hR/Hjw4bFLgo/4M9Mep0yT1lq2TkIXdrP9MfVfcsFVEP744NbhWyjYH
+ CsdnnIh7jrt9YXnrrw/gz/oG2XUKzoBsM3QNpv29st3UjfxjHTBbV8etcaAwF7vcAGbiRGiyHml
+ IoI/jKiI0k8wLueTKYHrTcaZTxtGbHnh5W9zPTL+aEP1MLaXLRokZtVRX0KYe6zUh+ZaOHpZ/yS
+ ItShoFyQffMLZCEuInOywz8zGeWXvQFKoZ2r83ORxYnlOEhzlWqcwkCFITrLXHu4ra+2YrusVVz
+ Z1qXUkSItdn2XDc0OFYerxNqPh27RuArCL0S3ozIlX4kQyFX6fKVA0jyF0tpwjHl75FgS0iZU79
+ 2MsAUsukhp6ZvFdYH/WZj/dnqIY2LBtNqCy5mYIRpdyga0SlZRnb1/qQ6U1bExBSG4H2CfWEySY
+ Hrnl0rvlxjNt9G1cc=
+X-Received: by 2002:a05:600c:64cf:b0:479:255f:8805 with SMTP id
+ 5b1f17b1804b1-47a8f094212mr102922205e9.4.1765785006274; 
+ Sun, 14 Dec 2025 23:50:06 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGK5Tx7FwVTie0aYHr7X4g2Hd6jxuowd5CtqTlTxD975RhZae7JhLVuvENqmdxDLBd482PFmw==
+X-Received: by 2002:a05:600c:64cf:b0:479:255f:8805 with SMTP id
+ 5b1f17b1804b1-47a8f094212mr102921985e9.4.1765785005828; 
+ Sun, 14 Dec 2025 23:50:05 -0800 (PST)
+Received: from [192.168.10.48] ([151.95.145.106])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47a8f6e58c1sm169877695e9.12.2025.12.14.23.50.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 14 Dec 2025 23:50:05 -0800 (PST)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org,
+	marcandre.lureau@redhat.com
+Subject: [PATCH 02/11] tests/meson: do not reuse migration_files variable
+Date: Mon, 15 Dec 2025 08:49:51 +0100
+Message-ID: <20251215075000.335043-3-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20251215075000.335043-1-pbonzini@redhat.com>
+References: <20251215075000.335043-1-pbonzini@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: RzAbA6OPx4x6yTB0BwjQ3OMZ_Lf9tZKAFeHdlNwWItw_1765785006
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.01,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -88,85 +114,45 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Paolo Bonzini <pbonzini@redhat.com> writes:
+The variable is defined in migration/meson.build, reusing it is confusing.
 
-> On 12/9/25 11:03, Markus Armbruster wrote:
->> * Why is util::qobject::QObject needed?
->> 
->> * NONE is an error value, not a valid QType.  Having such error values
->>    in enums isn't unusual in C.  What about idiomatic Rust?  Even if it's
->>    unusual there, we may elect to do it anyway, just to keep generated
->>    Rust closer to C.  But it should be a conscious decision, not a blind
->>    port from C to Rust.
->
-> For QType we don't need to keep it closer, but actually ABI-compatible: 
-> QType is defined by QAPI but is used (almost exclusively) by QObject. 
-> We use the C version in the QObject bindings, for example:
->
->                  $($crate::bindings::QTYPE_QNULL => break $unit,)?
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ tests/qtest/meson.build | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-I see.  Worth a comment.
-
->> * "Default for QType" is NONE.  In C, it's zero bytes, which boils down
->>    to QTYPE_NONE.
->> 
->> * QTYPE__MAX is a bit of a headache in C.  It's not a valid enum value.
->>    We make it one only because we need to know the largest valid enum
->>    value, e.g. to size arrays, and the easiest way to get that value is
->>    adding an invalid one to the enum.  Same for all the other generated
->>    enums.  Could we avoid it in Rust?
->
-> Yes, I think so.
->
->> * C has a file comment of the form
->> 
->>      /*
->>       * One-line description of the file's purpose
->>       *
->>       * Copyright lines
->>       *
->>       * License blurb
->>       */
->> 
->>    I think Rust could use such a comment, too.
->
-> Ok.
->
->> * C has built-in types like QType in qapi-builtin-types.h, generated
->>    only with -b.  This is a somewhat crude way to let code generated for
->>    multiple schemas coexist: pass -b for exactly one of them.  If we
->>    generated code for built-in types unconditionally into qapi-types.h,
->>    the C compiler would choke on duplicate definitions.  Why is this not
->>    a problem with Rust?
->
-> Because there's better namespacing, so it's okay to define the builtin 
-> types in more than one place.  However, do we need at all the builtin 
-> types in Rust?  QType is only defined in QAPI to have the nice enum 
-> lookup tables, and we can get it via FFI bindings.  Lists, as you say 
-> below, are not needed, and they are also a part of qapi-builtin-types.h.
->
-> So I think Rust does not need built-in types at all, which I think 
-> solves all your problems here (other than _MAX which can be removed).
-
-Let's try this.
-
->> * The Rust version doesn't have deallocation boilerplate.  Deallocation
->>    just works there, I guess.
->> 
->> * The Rust version doesn't have the List type.  Lists just work there, I
->>    guess.
->
-> Yep.
->
->> * The Rust version doesn't have the implicit type q_obj_my_command_arg,
->>    which is the arguments of my-command as a struct type.  C needs it for
->>    marshaling / unmarshaling with visitors.  Rust doesn't, because we use
->>    serde.  Correct?
->
-> Commands are not supported at all yet.
->
-> Paolo
-
-Thanks!
+diff --git a/tests/qtest/meson.build b/tests/qtest/meson.build
+index 669d07c06bd..08fba9695b9 100644
+--- a/tests/qtest/meson.build
++++ b/tests/qtest/meson.build
+@@ -343,7 +343,7 @@ endif
+ 
+ tpmemu_files = ['tpm-emu.c', 'tpm-util.c', 'tpm-tests.c']
+ 
+-migration_files = [files(
++test_migration_files = [files(
+   'migration/bootfile.c',
+   'migration/framework.c',
+   'migration/migration-qmp.c',
+@@ -377,7 +377,7 @@ qtests = {
+                              'migration/migration-util.c') + dbus_vmstate1,
+   'erst-test': files('erst-test.c'),
+   'ivshmem-test': [rt, '../../contrib/ivshmem-server/ivshmem-server.c'],
+-  'migration-test': migration_files + migration_tls_files,
++  'migration-test': test_migration_files + migration_tls_files,
+   'pxe-test': files('boot-sector.c'),
+   'pnv-xive2-test': files('pnv-xive2-common.c', 'pnv-xive2-flush-sync.c',
+                           'pnv-xive2-nvpg_bar.c'),
+@@ -389,7 +389,7 @@ qtests = {
+   'tpm-tis-i2c-test': [io, tpmemu_files, 'qtest_aspeed.c'],
+   'tpm-tis-device-swtpm-test': [io, tpmemu_files, 'tpm-tis-util.c'],
+   'tpm-tis-device-test': [io, tpmemu_files, 'tpm-tis-util.c'],
+-  'virtio-net-failover': migration_files,
++  'virtio-net-failover': test_migration_files,
+   'vmgenid-test': files('boot-sector.c', 'acpi-utils.c'),
+   'netdev-socket': files('netdev-socket.c', '../unit/socket-helpers.c'),
+ }
+-- 
+2.52.0
 
 
