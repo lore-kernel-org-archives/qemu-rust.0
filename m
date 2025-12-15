@@ -4,88 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E623D41D74
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 772B9D59D99
 	for <qemu-rust@archiver.kernel.org>; Mon, 15 Dec 2025 07:51:00 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vV3Lj-0000ds-U8; Mon, 15 Dec 2025 02:50:33 -0500
+	id 1vV3LS-0000YJ-Mc; Mon, 15 Dec 2025 02:50:14 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vV3LZ-0000bJ-BW
- for qemu-rust@nongnu.org; Mon, 15 Dec 2025 02:50:23 -0500
+ id 1vV3LQ-0000Uj-Qw
+ for qemu-rust@nongnu.org; Mon, 15 Dec 2025 02:50:12 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vV3LX-0000mG-PC
- for qemu-rust@nongnu.org; Mon, 15 Dec 2025 02:50:21 -0500
+ id 1vV3LO-0000j9-M3
+ for qemu-rust@nongnu.org; Mon, 15 Dec 2025 02:50:12 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1765785019;
+ s=mimecast20190719; t=1765785009;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=DPzOYGOdSS2nqdUVmE3Appt8FioAsNxMPjypO5wkIkE=;
- b=KvkEpXyMrJIT7CTyJ/fU1tPy91EAsn5h8susXSNBSr7Z2K2B/G5HKESGslSkZVH4JwZ9gW
- mKRtC5wtCsyGEzDnggaifJ/yiG4IdNDHlLSkQD/WXxn37oaxDnvZvx44JyQJVJ0tzNFAlD
- 3CqMcM4emINRZse2Gah1EnzAYZ5ARQA=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=jkqwtBez6ruMhapFvtBLLST/9OLLA0Ok8S5sc7t4FZ8=;
+ b=LGaBMqfvCtQQgZAQWZ5Wx2Y0JWxF+PWbmTnxDUyJy3WgrroBOSsIe8qeTgV1N2sw60Ri2E
+ 2JWAkFei5GrEkhfn8A4a2QT3f3SJm0ObvE2Pso+kIWFNkGR5aUSG0pilZeCKroFTXVFNJI
+ uzEFFvrS6SuOGv4oIudGv4tHB0sy1mA=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-335-nafcANRuOLuvOVBMbx0jPw-1; Mon, 15 Dec 2025 02:50:17 -0500
-X-MC-Unique: nafcANRuOLuvOVBMbx0jPw-1
-X-Mimecast-MFC-AGG-ID: nafcANRuOLuvOVBMbx0jPw_1765785016
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-42b2ad29140so1490159f8f.0
- for <qemu-rust@nongnu.org>; Sun, 14 Dec 2025 23:50:17 -0800 (PST)
+ us-mta-517-7fQlt8vAMxuaWc3EL9l6DA-1; Mon, 15 Dec 2025 02:50:07 -0500
+X-MC-Unique: 7fQlt8vAMxuaWc3EL9l6DA-1
+X-Mimecast-MFC-AGG-ID: 7fQlt8vAMxuaWc3EL9l6DA_1765785006
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-430fd96b440so218918f8f.1
+ for <qemu-rust@nongnu.org>; Sun, 14 Dec 2025 23:50:07 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765785016; x=1766389816;
+ d=1e100.net; s=20230601; t=1765785006; x=1766389806;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=DPzOYGOdSS2nqdUVmE3Appt8FioAsNxMPjypO5wkIkE=;
- b=ekTr+1f/FrB+1AVFhizVWfa5ODxMUlSsmQs63OByGVVmII5x6//iP6p194q0D4rODS
- 5uS/SkmI+qs5F2lZonO1bxNvFnc3oCCt1ip7i77KII2wwYlXrB6K3GriMtmPmaOCWqkv
- mTVJCsMq8M2BYaRMOrrvyvChUhL5i0Proi7eik5M7MgBhilzOrVjQXgnwniiaKdQqCPA
- c4Y5GmBiaqsed3V/1sDF/qtS3PQLcSWONCoYYrjOnj+8tDx4R9pLYrrpCt9Mg8/nx8IQ
- QMZiLjcAPy3bAMs5HlupaRIAYykK8hTGh1pQcmes6SmdToATusOHYMcgfzNRipIVNb5H
- Cyzg==
-X-Gm-Message-State: AOJu0YwgrRt8P6me5SEi8DAgvPPwSUHNTjEt3Aopag5vxnkM5hZdiFKZ
- ELh+uCBlRJYiZH8wl1eq5wXUmGVRb02r9pS4IUhohLpHPqmEvbZVUmOcg3WRe7t5I9tEG3bD+lS
- e/Rg27J6gaGes+fPhsfdIjiiIaElfkjDfrDw+F0ajCmeAyM0R6iAZ51g=
-X-Gm-Gg: AY/fxX5CW7MBtC7xMD0had5GgdB0X0RI+aMX9yRCV9RUW3SS7eNhXZJprBe3ad/9TOQ
- ZCE/1Kh8eesJQObN+wVBOXhPW0Wa/4FG2Md+Ze+Hhs4IJlmIR2BjgzpP6jr9kBgHyaA8xNlqoPq
- agLkwPa56cdi4ZQLIA5mg2IGzlB5oFd3JMdPQGwckeKFUoLEYQTH3neD2l6X0IxeQAWZaoq+54W
- 7cjtl5Qa+qSwPI9zJkKT3pu4L5BsMYXFA+6h/pJAUsRgXDDiXckpHE30fmNpYAYMdzQqHANJG8i
- UmyvY6vWK2sGUv5y8jVlve4sbL/8XCEGTCuI+5pk7pjHqgPRKH7UzNk+EpUM8pVXu9ei/N0xZ5p
- eWONq9yky0TZxpUgn9eOd0b7Hwm7ZECmPB7dF3KG0qnVqmrzORhBB01FI+Td9rACbR+0VuCd8UX
- bv8/8a3P/hxnP7qxY=
-X-Received: by 2002:a5d:5f91:0:b0:431:53:1f49 with SMTP id
- ffacd0b85a97d-431005325c2mr859099f8f.41.1765785016205; 
- Sun, 14 Dec 2025 23:50:16 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEVf+fWNJzbUzqsCwn5/tL5jAU1Nzlfoy2ugnNqNplrJxc7rJ26wxp+hA28DEWucIkVMS2sQQ==
-X-Received: by 2002:a5d:5f91:0:b0:431:53:1f49 with SMTP id
- ffacd0b85a97d-431005325c2mr859076f8f.41.1765785015766; 
- Sun, 14 Dec 2025 23:50:15 -0800 (PST)
+ bh=jkqwtBez6ruMhapFvtBLLST/9OLLA0Ok8S5sc7t4FZ8=;
+ b=WErkap/rpQvwq8J9Z4CRjjgwXuR/nPsV6MsYbCatoKQ6QIrbBMghmxOt0ail54H8fT
+ zyiFiS3+42SluUYuQE0LrZMdJ/vayLRRRo+ql2EP9UXPghLZp2A86QKqkkeTnrrRxN7T
+ 8QcPPe9dWon5tc1tk5SDw9hCwGw+Rlw27dVq5qgTW1xJmsoH47IZmgpGJ45XXMR2C2hc
+ f6R5qpioWqiNm7KqXuU2jDPs/VZXj1TaZdOCcFpNdbtvnlLHv9CmEKn+OOKRRgte8KAz
+ yRCTEIH/Zz22PUYm/ooxcL2pJ0Yah40DaiP3qkF+jq3E+zw9VpjF9BycsQMvmaL1lvRp
+ 99Kw==
+X-Gm-Message-State: AOJu0YybSrD7xjntClDp66L7/YHLo2I8qbELKZs5i6R88YuZmnQVER3R
+ vnR6r2+CPLa3YFb6Li65VOPbnZJpw5KWRmc9geHrUWwf94FbQUusTfDUkiCglR66An2jkpiWmmh
+ /cWiHNLkoDp5DnW5RaK58oP54Nk+Y9IShya+D2tNIGxaJiBgmnLGAFMI=
+X-Gm-Gg: AY/fxX7xRnzXgNgzhBXsJO+AYMjg/FDV7m/lgAC343aYQ545z33XIn9ZE3Kvj3SSdtt
+ OYvmWLdlmyboaHpLlGwLVvJPvFOMSk1EL61n3JPqkOQ05o+ULZKQEq5uIS4QX/h7IFzhs+pnC0f
+ lVhs/h7DIYAz3J+dnuJY/h5HJo/LeVb+B5VslSuH7nqP8wcU3IVBPcLQmZPU+m86veEmExELzy/
+ /TEjMm3KkJVpyCjcllfkh8lR5iu6IRfHub3uOC42vvSMUVGKLJxFd4dkrq+Kfyo7adgFGkNTD2Q
+ OcP43pD3hwTX4xaf5fL02n1ksS3U7VeyevG1erIx6Nf9MGr/Fft5zagxbxDVuoX2BJRt2ukMRSF
+ ZPSC0y5F3u6FuFYAQ+3RpPBrwHEEJfXVh1T0d2APiQMXlwVLr7fFdjpJ5Vunm+Ya3KUa+W/bdJ/
+ ZZK3hqn6CGg8hsBho=
+X-Received: by 2002:a05:6000:1843:b0:42f:760a:7661 with SMTP id
+ ffacd0b85a97d-42fb44ed4eamr10745115f8f.38.1765785006267; 
+ Sun, 14 Dec 2025 23:50:06 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFk4kX/SIpFBJ6y9yNuduCLcQAXhQ0xCZpg2XdRSPw4uXX5qcx2fxE6WAxDCAvSC0YFRy0YJg==
+X-Received: by 2002:a05:6000:1843:b0:42f:760a:7661 with SMTP id
+ ffacd0b85a97d-42fb44ed4eamr10745006f8f.38.1765785004324; 
+ Sun, 14 Dec 2025 23:50:04 -0800 (PST)
 Received: from [192.168.10.48] ([151.95.145.106])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-430f268d459sm12450206f8f.32.2025.12.14.23.50.14
+ ffacd0b85a97d-42fb0fc8d5fsm20155160f8f.2.2025.12.14.23.50.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Dec 2025 23:50:14 -0800 (PST)
+ Sun, 14 Dec 2025 23:50:03 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org,
 	marcandre.lureau@redhat.com
-Subject: [PATCH 05/11] rust: only link the Rust part of the code into devices
-Date: Mon, 15 Dec 2025 08:49:54 +0100
-Message-ID: <20251215075000.335043-6-pbonzini@redhat.com>
+Subject: [PATCH 01/11] build: do not include @block.syms/@qemu.sys with
+ modules disabled
+Date: Mon, 15 Dec 2025 08:49:50 +0100
+Message-ID: <20251215075000.335043-2-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251215075000.335043-1-pbonzini@redhat.com>
 References: <20251215075000.335043-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Pj-F9eLNBl_7jvu9-pKdsbBmywr3rDS_b_a23v0ISK4_1765785016
+X-Mimecast-MFC-PROC-ID: DcIOg6tp3c1TrAMTSQCZ02EQ6ETxcQjCBlhdtAt1odk_1765785006
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -114,86 +115,49 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Do not include libqemuutil in the device crates for the same
-reason as in the previous commit.  Static libraries like qemuutil
-are sensitive to their position on the command line and rustc does not
-always get it right.
-
-If rustc places the library too early on the command line, the stubs
-are included in the final link product, which results in duplicate
-symbols.
+Including specific symbols used by modules is not necessary for
+monolithic executables.  This avoids a failure where emcc does not
+support @file syntax inside a response file---which in turn breaks
+the WebAssembly build if the command line is long enough that meson
+decides to use a response file.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/hw/char/pl011/meson.build | 18 ++++++++++--------
- rust/hw/timer/hpet/meson.build | 18 +++++++++---------
- 2 files changed, 19 insertions(+), 17 deletions(-)
+ meson.build | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/rust/hw/char/pl011/meson.build b/rust/hw/char/pl011/meson.build
-index 33b91f21911..9c0e8290e9a 100644
---- a/rust/hw/char/pl011/meson.build
-+++ b/rust/hw/char/pl011/meson.build
-@@ -28,20 +28,22 @@ _libpl011_rs = static_library(
-   ),
-   override_options: ['rust_std=2021', 'build.rust_std=2021'],
-   rust_abi: 'rust',
-+  link_with: [
-+    _util_rs,
-+    _migration_rs,
-+    _bql_rs,
-+    _qom_rs,
-+    _chardev_rs,
-+    _system_rs,
-+    _hwcore_rs,
-+    _trace_rs
-+  ],
-   dependencies: [
-     bilge_rs,
-     bilge_impl_rs,
-     bits_rs,
-     common_rs,
-     glib_sys_rs,
--    util_rs,
--    migration_rs,
--    bql_rs,
--    qom_rs,
--    chardev_rs,
--    system_rs,
--    hwcore_rs,
--    trace_rs
-   ],
- )
+diff --git a/meson.build b/meson.build
+index e6a11cefdb7..02738c9765f 100644
+--- a/meson.build
++++ b/meson.build
+@@ -4270,7 +4270,7 @@ foreach target : target_dirs
  
-diff --git a/rust/hw/timer/hpet/meson.build b/rust/hw/timer/hpet/meson.build
-index 9a3dd62caa3..3bb7ce2a6ca 100644
---- a/rust/hw/timer/hpet/meson.build
-+++ b/rust/hw/timer/hpet/meson.build
-@@ -3,16 +3,16 @@ _libhpet_rs = static_library(
-   files('src/lib.rs'),
-   override_options: ['rust_std=2021', 'build.rust_std=2021'],
-   rust_abi: 'rust',
--  dependencies: [
--    common_rs,
--    util_rs,
--    migration_rs,
--    bql_rs,
--    qom_rs,
--    system_rs,
--    hwcore_rs,
--    trace_rs,
-+  link_with: [
-+    _util_rs,
-+    _migration_rs,
-+    _bql_rs,
-+    _qom_rs,
-+    _system_rs,
-+    _hwcore_rs,
-+    _trace_rs,
-   ],
-+  dependencies: [common_rs],
- )
+     c_args += ['-DCONFIG_DEVICES="@0@-config-devices.h"'.format(target)]
+     arch_srcs += config_devices_h[target]
+-    link_args += ['@block.syms', '@qemu.syms']
++    link_args += enable_modules ? ['@block.syms', '@qemu.syms'] : []
+   else
+     abi = config_target['TARGET_ABI_DIR']
+     target_type='user'
+@@ -4499,14 +4499,15 @@ if xkbcommon.found()
+ endif
  
- rust_devices_ss.add(when: 'CONFIG_X_HPET_RUST', if_true: [declare_dependency(
+ if have_tools
++  link_args = enable_modules ? ['@block.syms'] : []
+   qemu_img = executable('qemu-img', [files('qemu-img.c'), hxdep],
+-             link_args: '@block.syms', link_depends: block_syms,
++             link_args: link_args, link_depends: block_syms,
+              dependencies: [authz, block, crypto, io, qom, qemuutil], install: true)
+   qemu_io = executable('qemu-io', files('qemu-io.c'),
+-             link_args: '@block.syms', link_depends: block_syms,
++             link_args: link_args, link_depends: block_syms,
+              dependencies: [block, qemuutil], install: true)
+   qemu_nbd = executable('qemu-nbd', files('qemu-nbd.c'),
+-               link_args: '@block.syms', link_depends: block_syms,
++               link_args: link_args, link_depends: block_syms,
+                dependencies: [blockdev, qemuutil, selinux],
+                install: true)
+ 
 -- 
 2.52.0
 
