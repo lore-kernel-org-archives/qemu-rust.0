@@ -4,101 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EE21D41D74
-	for <qemu-rust@archiver.kernel.org>; Mon, 15 Dec 2025 07:52:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76738D5B16F
+	for <qemu-rust@archiver.kernel.org>; Mon, 15 Dec 2025 13:02:39 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vV3MA-0000nu-IZ; Mon, 15 Dec 2025 02:50:58 -0500
+	id 1vV8DW-0002Pi-CH; Mon, 15 Dec 2025 08:02:29 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vV3Li-0000dC-FI
- for qemu-rust@nongnu.org; Mon, 15 Dec 2025 02:50:31 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vV3Lg-0000nV-0Q
- for qemu-rust@nongnu.org; Mon, 15 Dec 2025 02:50:30 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1765785027;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=DpAQdRPaPKRyiOmMwXXRBfnRYyd2O+ap7Xt42yFHf5I=;
- b=Ec1tAFtVaRD9oLEG7yc2TABf/trqJ23MYRbkkmu6Akz9BThkTu79auEdIu3SJmpUQO4Nsj
- 41l/w/KWHsMhkhXRG+1Yioq0jeO+UzrCFkXNa7KdzDR3CMS5OacYVH4IthYKEAh92Nfs+f
- eCE7eAZshAizRtHwikFkc1MPjgkRAZw=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-528-OSszlp9pNwW7glXY70sP_Q-1; Mon, 15 Dec 2025 02:50:25 -0500
-X-MC-Unique: OSszlp9pNwW7glXY70sP_Q-1
-X-Mimecast-MFC-AGG-ID: OSszlp9pNwW7glXY70sP_Q_1765785024
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-430857e8450so901554f8f.0
- for <qemu-rust@nongnu.org>; Sun, 14 Dec 2025 23:50:25 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
+ id 1vV8DC-0002LP-Hw
+ for qemu-rust@nongnu.org; Mon, 15 Dec 2025 08:02:02 -0500
+Received: from mail-wm1-x332.google.com ([2a00:1450:4864:20::332])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <alex.bennee@linaro.org>)
+ id 1vV8DA-0008MZ-GN
+ for qemu-rust@nongnu.org; Mon, 15 Dec 2025 08:02:02 -0500
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-477ba2c1ca2so39115765e9.2
+ for <qemu-rust@nongnu.org>; Mon, 15 Dec 2025 05:02:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1765803718; x=1766408518; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=L7SIixOVId63ggZC847lYkwu/ghQyJOIoFY+mLl1Nlc=;
+ b=My6osA4mJm9eXcLeOkrH6JRHlX80q982OYmGXxc98IU5lz2mR9eSBVb7Ejq1tsOxgm
+ ts9jGCB4P+vwsyxb3V5Mi2wh2iejOerTGHE7aCtGk8D5Mn/a1xKjfQSpgJtzzdcH5KNY
+ rm0mskjIjBLSMZHiypDmfD42RLRSM8k+zjc76L5PfZm0O9ne96fOcDy2S+kU1xgUUx0s
+ NZtSL2acAc8JQb4olTGpQyAj0xI6KAJ/foUN5zjt7kcnpaHIkZF7fCIf30Zn4R6ZXbN3
+ I3FLSB/y2kUKVvignL0olsHpPznKudz0qmCiG+2fsNG0v5wDefaS3DuLgRv2Yg9tNadP
+ NMgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765785024; x=1766389824;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=DpAQdRPaPKRyiOmMwXXRBfnRYyd2O+ap7Xt42yFHf5I=;
- b=hJpECWrwmNi14MktAGLHqxwUuJNyH+i9vlU0XCzxcDde9dBgotaPas27/ecw8oKbb6
- niNITMdaOAMFEHO/XCCSNZ/lwOpmAI7w4J+sKi7GJWY+3PbxNPFczXPACZBZGz22GqeL
- JclmImyTFZ7t81wKIsvpsHOtXtxhOovQv/mfSpGfosrqem1zoBVdEUMs2MlljtIc3mXi
- cnMBnzMC9t9WwjwEBzEjwSMjE7EnXhXdiacT6V9aHcoTpjRbiV7EfTqygIjnl4FAI5YO
- NNqwkk2kMvsXfB1MrB0PhFsZTtwLw59+y2TLjTYOJbf1y7kRRa41WjPghOmNNxVjlrKv
- cfzQ==
-X-Gm-Message-State: AOJu0YzP+bskMCFJCMtiEh8F3HLVkWpQEuz30oGu0mYTMtRJshT3KdRE
- n26/vA7OY0pXaTVRPZ/m8n0oaIdmD6DYcucD4jYff2+9/CrJPWRqMVBVKSoEFR6BRCteMTLz96G
- cH0xFlepA0AU+EOkRgY4IAAo0AVLmlVF3i44IycC/8rXt/C/DlIr7W/g=
-X-Gm-Gg: AY/fxX5lMrDx59B9n6Upgk+5wIphQuWwKVIPzxjBhOTh85IDrQKMnyUikRmW3mxcz34
- 3uIHM63SQ54cg4qVYP6sRz+IcIBFjWXaHFUNOEbb1a6hHqUDn7oo0VrgwYIFhaKYtA4cgSdTAPt
- kCMbA4UVP8/aJOPgVUiTaN46NXIpQ3e79PXhiS4XiA3Ymsya5++sm1wnEefYwpAGDfHEI9nXnGE
- cZu8z4wxdPCcqnnTe5JnAJaVKvjPxeDq4r+3XcXliwozoJnRUbHUnx1wTQZuaEi9wKoHlpnXPh/
- 6Hqc+GIrYepXbNVE7xP6VtOMqy2dmn0VtzJttluw0OBIhAZoMwt0cNadyGQVcLegE4aON3FjhBw
- MjRym4fDPSLSy5G9hRfnReAyh+uFAcdnhrh/ONVcGkl78CP4+q+1ZI9rIhGlz0rbal4vfPRNGsx
- QG0xxt8xJVMuZuOEI=
-X-Received: by 2002:a05:6000:40e0:b0:429:ca7f:8d6f with SMTP id
- ffacd0b85a97d-42fb3eb7fcemr11515247f8f.15.1765785024263; 
- Sun, 14 Dec 2025 23:50:24 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFzr4Qa7z823ZKf6NrADTVTA3K6/TM8v0csmwqncT5+jfA6CptT+1C3N2l/7wFRzF/o7SAK/g==
-X-Received: by 2002:a05:6000:40e0:b0:429:ca7f:8d6f with SMTP id
- ffacd0b85a97d-42fb3eb7fcemr11515224f8f.15.1765785023871; 
- Sun, 14 Dec 2025 23:50:23 -0800 (PST)
-Received: from [192.168.10.48] ([151.95.145.106])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-430f1fa232csm13332149f8f.6.2025.12.14.23.50.21
+ d=1e100.net; s=20230601; t=1765803718; x=1766408518;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=L7SIixOVId63ggZC847lYkwu/ghQyJOIoFY+mLl1Nlc=;
+ b=XiNlNwl1EsYP5uCLw7tWPZwdIiNcnT4t2tOd3wcw+EOkbyn+6Anji+XXWsK5PBN8nO
+ OmiHfqU/WR3WTg403TKxWqT2DceT0tDzkhjXtif+Omkx6rE5roN0Wf8wUWHiHwwoyHIp
+ B2nkcqvsSz9yAAIQkvv1/M/jk2VVen4LuexpErlEPzyGpmguKtCf+RRb57MFfXp5mT2a
+ UdVs+Z8kS5LuHPF6u/fhzgQROsQU0sNYoVdmQ0V92/ruLAmK+d7Wj5jdhiV71mbxBuqp
+ jzndtLxy42HWQ2lCxjqbYBHwHubNRbipfT8vRW5Ce84eJv81xUsmaEtlioMtx0QeUorI
+ EL1g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWGmBsLRuuCZ2A/4/wcZjwtNbPP9zVfZ8YC9riaX4afr/OPSpnV/956qOzShbTmQp6zGBiFGz5RNa4=@nongnu.org
+X-Gm-Message-State: AOJu0YwdbmIseRz7RLZX0mBAA6T5+I8Y4P01axGZl5nV2CpUtgw3co8R
+ fhe/cEwd4xD8YG+KZxFOzCGVxFqSRHSBm0QmZkbVjh/7v03AWKibB0sE811xousI688=
+X-Gm-Gg: AY/fxX7JooNgD3zMHxKZpUILLgAGDfPqIdsgramJ6MOwoby7LaSVSYxFVnoFlD0NI0+
+ 3Lq1yTfyL43W8PYWguQiH7P4EzOPBQF6HkmoPgfEMQy2pDDGQ3EO+j35NwD21n3aX5FAXlOhimY
+ LlVYIcCwu2LCk8RwYJIMBdmAphjHvYcz///nUnWxY5QCyVx74ugWzRAb1tZOcuOlRI0InSvsnlS
+ YTrOYupvSq7YHCiTgjdt3MwcSaJ3ncJGq0Zoj9V67JXwXDFPRD501pWKOkUMh/FVAEfxTVxlj3K
+ H4tSOkxxSqa52+ntE88T/W+hzAB1lrDw9i9nmXGe41THAcZfkDnysmK7VtWWlibVvxgx8xMKY1+
+ qSSSO10EQoXrcRvEkKap1i0IzFkOO5EOHuJfQ8w5ECxvpfUHnxRA/E5iJOGEG+o4LR4FiKtkONt
+ wWuC10vDAaxtU=
+X-Google-Smtp-Source: AGHT+IFOTi219ZbYr0naXrQG6S3EOdFNEDsQtxvRPKyJgU5yIcnMeFdt9qIolcep9MFzBsaiCR1ZWg==
+X-Received: by 2002:a05:600c:8b6d:b0:479:3a87:2093 with SMTP id
+ 5b1f17b1804b1-47a8f914528mr101240095e9.37.1765803717890; 
+ Mon, 15 Dec 2025 05:01:57 -0800 (PST)
+Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47a8f4f4150sm185956455e9.11.2025.12.15.05.01.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Dec 2025 23:50:21 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org,
-	marcandre.lureau@redhat.com
-Subject: [PATCH 08/11] rust: skip compilation if there are no system emulators
-Date: Mon, 15 Dec 2025 08:49:57 +0100
-Message-ID: <20251215075000.335043-9-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20251215075000.335043-1-pbonzini@redhat.com>
+ Mon, 15 Dec 2025 05:01:57 -0800 (PST)
+Received: from draig (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id 44B575F856;
+ Mon, 15 Dec 2025 13:01:55 +0000 (GMT)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, marcandre.lureau@redhat.com
+Subject: Re: [PATCH 09/11] lcitool: enable Rust for Windows cross targets
+In-Reply-To: <20251215075000.335043-10-pbonzini@redhat.com> (Paolo Bonzini's
+ message of "Mon, 15 Dec 2025 08:49:58 +0100")
 References: <20251215075000.335043-1-pbonzini@redhat.com>
+ <20251215075000.335043-10-pbonzini@redhat.com>
+User-Agent: mu4e 1.12.14-pre3; emacs 30.1
+Date: Mon, 15 Dec 2025 13:01:55 +0000
+Message-ID: <87zf7jnbjw.fsf@draig.linaro.org>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 5sXDp3XlJYsa5Wml4cjF3VaRYRFOUc7wV5AYnLVZX5A_1765785024
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2a00:1450:4864:20::332;
+ envelope-from=alex.bennee@linaro.org; helo=mail-wm1-x332.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=-0.01, RCVD_IN_MSPIKE_WL=-0.01,
- RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -114,38 +107,15 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Otherwise, the Rust crates require the corresponding C code
-(e.g. migration/ for rust/migration/) but the dependencies of
-that C code, for example the trace files, have not been built.
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- rust/meson.build | 7 +++++++
- 1 file changed, 7 insertions(+)
+> The issue that is mentioned in the comment has been fixed.
+>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-diff --git a/rust/meson.build b/rust/meson.build
-index afbeeeb47a7..bacb7879102 100644
---- a/rust/meson.build
-+++ b/rust/meson.build
-@@ -1,3 +1,9 @@
-+if not have_system
-+  subdir_done()
-+else
-+  message('Rust enabled but it is only used by system emulators.')
-+endif
-+
- subproject('anyhow-1-rs', required: true)
- subproject('bilge-0.2-rs', required: true)
- subproject('bilge-impl-0.2-rs', required: true)
-@@ -30,6 +36,7 @@ subdir('qemu-macros')
- 
- subdir('common')
- subdir('bits')
-+
- subdir('util')
- subdir('bql')
- subdir('migration')
--- 
-2.52.0
+Acked-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
 
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
 
