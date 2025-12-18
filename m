@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDB8BD6E2D1
-	for <qemu-rust@archiver.kernel.org>; Thu, 18 Dec 2025 18:19:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7341ED6E2CC
+	for <qemu-rust@archiver.kernel.org>; Thu, 18 Dec 2025 18:19:59 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vWIaH-0006OI-Ry; Thu, 18 Dec 2025 13:18:46 -0500
+	id 1vWIau-0006UZ-Ds; Thu, 18 Dec 2025 13:19:20 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vWIZy-0006NH-HW
- for qemu-rust@nongnu.org; Thu, 18 Dec 2025 13:18:25 -0500
-Received: from mail-wm1-x344.google.com ([2a00:1450:4864:20::344])
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vWIaM-0006OZ-3t
+ for qemu-rust@nongnu.org; Thu, 18 Dec 2025 13:18:54 -0500
+Received: from mail-wr1-x443.google.com ([2a00:1450:4864:20::443])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vWIZs-0002xP-Jh
- for qemu-rust@nongnu.org; Thu, 18 Dec 2025 13:18:19 -0500
-Received: by mail-wm1-x344.google.com with SMTP id
- 5b1f17b1804b1-4779cc419b2so6765805e9.3
- for <qemu-rust@nongnu.org>; Thu, 18 Dec 2025 10:18:15 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vWIaA-0002zC-Vh
+ for qemu-rust@nongnu.org; Thu, 18 Dec 2025 13:18:39 -0500
+Received: by mail-wr1-x443.google.com with SMTP id
+ ffacd0b85a97d-42e2e3c0dccso550995f8f.2
+ for <qemu-rust@nongnu.org>; Thu, 18 Dec 2025 10:18:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1766081894; x=1766686694; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Dw4q2naf2RC86eEOqnqVmtV2ZylVV7dCJMCaQlNiUTI=;
- b=WTElRp1LJ+wUfftgpajnndb1Q6hyDi8gXhatIXsV4Xxr53xuIVdQasX/d9TILlf6DG
- RD3MrauZP04VUvyLANb2NxacKZocnLeYfQ4eCfEH3SYA77S0ShTWuSQw0/iAE+z1CK6l
- k9TlGbNxGJlw++IfuMsx+f9kbQPwpsyuU5Qxi4wgPjcU5eF1UYxnccpxWs1+p2/H4RoJ
- MC0KvVrkXZMmpWuJCtWeQacES5SJ4hm6p6hWJt2L/dCteREO0RsvnFyI0g1zcVo61tYY
- b3FRAO6zIeHcgiFEFDqR70yxePbvE5buZoKHN4iB/6zIDzLg8gEkRAPckJXAUvcXAs1V
- M0xA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766081894; x=1766686694;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=linaro.org; s=google; t=1766081909; x=1766686709; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Dw4q2naf2RC86eEOqnqVmtV2ZylVV7dCJMCaQlNiUTI=;
- b=CM2CjYF1C/EKeFarN8gbExGhe+gJr+BtOfsFszc7cBcryjC7ebx8P86T9/4ZnsK74I
- 8YMZvtOSsNhRc8aYUnjq/rRoDRTC7WtTocZOsYcTEGWw+J5AvTRLWOagFCjtDRjN/i76
- j/+7XUWfDzzR5Vf+Ky4qtzar/ldtmqoiN5n9otKSbfCxJxJIVGAfb8INMpOn251YD8gn
- VRrR4kmeDxIukZ7hai8Sh6xi6WWWBdP6A1Vo+mieU8phB2lFMqOJ7SND3c0ByYZAEwTi
- 3y9K2Z+hDAtaYg888A442GK/5p4IMvypAM6X9R1ZQiNtXsuncDUbLsXh809iARqOBpNX
- bXwA==
+ bh=Q2jzZ6rMbXeUMPOwWK0Noq7Cc0GkvQldGamqYQfCrH0=;
+ b=FBhttFlhM5kfbnIfdiW/hsoU6NC6lCOgkK8XjF0Ayu5gxiF2f55OzKwLT/4tfc3ktO
+ Wu21vY4FDDvCXntT1SvCO/KoqcvnmXaNOdUU5ENjnyZS+f+ERxah5xKEjMYlfiKDnGNf
+ e5ol+3uHcv8rdRqIpz2+1X5KzV67uteJvetuyEB44nQwY5y5iJFAdBDp74NchyUJr+mf
+ JL57oo2iQ8AILMY5jDZLbj8Iyva6YBrL/G3rMPUkmuadE14WF/RUolvjN8KLuqCCKxCP
+ 5GS1v25HEEbWLuxRRyIlQE/GkOj7he9vS56DO0YGD7WOF2iFFpyxcs4JNFsQRrPvneVj
+ ApLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766081909; x=1766686709;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Q2jzZ6rMbXeUMPOwWK0Noq7Cc0GkvQldGamqYQfCrH0=;
+ b=ljymk9+bQvsaCSgGD7X6H/oxwntbXoUcSOAQeFVWQ7p89/T7r+vBxuxa/Ba1GKuzh6
+ TeexgccbJB2X5AYAm5ykyIWyazBNfVsgjv4ttEwLPpTRjCSvLUwb/QZnhCqKdQBsrdz0
+ npvn/b3grw4ppGGMVCcMmcR+MpTUJK3gvaAX7eabBiH6CL8jIPnIY4omKmipEACA/hvI
+ GhqqNWiqz+ltgvUd9iNxhqDwDFaVLjPrapvYJ8iEBmG/9g2WFCgtHY/NwYh1EYfaAdWX
+ GQpOLyfNIWpHxwF5CrEtCBcazyijMsHot3zJLG1KAweirgwOdKxig33xKxPIZ72CN+Oa
+ 9Q1w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXtabz3QjBL8dd6DgU7pMf9GlEhKX5oopN6x+PTh1+tFhFLj8JLdWPgHts8J/zaq5tfMzjcGktWHv0=@nongnu.org
-X-Gm-Message-State: AOJu0Yy8e9rBlDIqbBKUtPyHUAfbf8M9qdmnBmyZ5XvVSIz3tQI6vIcc
- kPg1pBaqsP7fi/iIVBc1FxidA2VwqRSw950NTfl+dBqw/+qxIs7RmVmqTNh2BiZg1Ck=
-X-Gm-Gg: AY/fxX4lzUQOZn9qdTbI1Hsm4+j1l8ubFGc0I2wUcT+NvDgnk6vn3L8ZIfdymgOV/uc
- /caaWNzwdfyeukYdaGvh6sFHlO8/lQWDwNaRySHzeruPriCsbVhAP89iej+X+hmSMBHrhOMj+r9
- DB9HaDNT4JgBWNC0OcPavavRG4rn7r+w8rRZZz37AdBsmMgLBEaGjd58/QY0ekN8w/eZrjAhHGx
- Yvbp6eRokfl3nWcUWqFqts5DVnkw36gGhHqu4d1JJNbY2TPFFcvzHcft1Fre7KPGkdNe04tTLBO
- zwI4jdmQg1LNQ8+Y7V0CeqIHp2hgjtefr1OQATB8DJGFzZVfejTySKglA5bitvty0sunjqUtOX0
- TCKnnaKCUqrAl4ySIY7jcPKhNUsrn+yM1YKNGdSuMKG/B9mjgfsC7EbLlEzGwj7/dIAwdkrw8tH
- rBiAK+vahwxqpWpvBQsTk24Ca0EEmEt3U8XWXuzeFpEwXKjStrI3fTxo+/lrbX
-X-Google-Smtp-Source: AGHT+IFt3I/PPxUr2BEmKrZ7ygpqyt2KZOxFv9uczbyIybgLHrJfKrapY8KpeMlDkyMUJ89/CJOvFA==
-X-Received: by 2002:a05:600c:3b9d:b0:459:db7b:988e with SMTP id
- 5b1f17b1804b1-47d19555e07mr1067575e9.13.1766081894494; 
- Thu, 18 Dec 2025 10:18:14 -0800 (PST)
+ AJvYcCVTITNZbCLwTEy+P2U4eWeQL+adLx0TP0Pk80WlPOIDvh8kCBvr/qXC8hXL2NRtrs85gBkp/5SwvHw=@nongnu.org
+X-Gm-Message-State: AOJu0YzEys9In3ysqn1vSeZ4zbysaBz51m8F5Pj2jc+RauIOb6YzHzS3
+ MYHC5sexwFHvVQe1BoHbhI+PJwXIv9in6BqdhWF+z1bZM+jUE6l5cDhhhPz/RQvbwuU=
+X-Gm-Gg: AY/fxX7BEe2XxBtUpYp+IiQBWxmOGixgFyjFDW6A3p80acvj5sScunfprxi584R4I3q
+ 56JPGm5skToorASeHlik1nqcVvPHwenRy5+fsG+Dc9pXui3IX8Swhwo7UkXgaHAKFGvcPA/4wgo
+ /tgksv/r6oGF0t6OsCKWFMXTc6kJnctkvciQXWknqdiney5S8OctUIZTIcTrsi1fCUxPrBtswiJ
+ MUtQQDnb+Eec2xesnNz3xSfFgmNXaa+TbSmynJW8HsrfCMU5zK2IjEM2cfNSmX4BDTfI+5H6/bF
+ 3ofSGiJQG0ZSRh5fprAHGkLHrTlYt/6cGOYA8R2nH37ZnRYGc3sj4oAsB7pYpsL5W7hJ0sTaylw
+ qUVT96DwhpEHloHTuA+Y+21PDmFFiUtt2ycNKPaECzR9y4eR1kgI0bz3xDqPSK7IzcSuCwy/32D
+ 5g6Yn/k5MszjsTMw9ozs1LoUqMGiyMMTaXPB1v6QTEU1e81/D8eMYkEDFx89It
+X-Google-Smtp-Source: AGHT+IEAW5huNZELbZIqdkHfWdDcXAGjayFL02oMUq8eWGUy3O/rAQUyNE/GfTGxZLtaQgaaZuRg6w==
+X-Received: by 2002:a5d:5d0e:0:b0:430:f58d:40df with SMTP id
+ ffacd0b85a97d-4324e4c7132mr487404f8f.10.1766081908907; 
+ Thu, 18 Dec 2025 10:18:28 -0800 (PST)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324eaa64cesm200859f8f.35.2025.12.18.10.18.12
+ ffacd0b85a97d-4324eab2a94sm185691f8f.43.2025.12.18.10.18.27
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 18 Dec 2025 10:18:13 -0800 (PST)
+ Thu, 18 Dec 2025 10:18:27 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
@@ -73,16 +74,18 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
  qemu-rust@nongnu.org,
  =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH 0/6] hw: Preparatory cleanups previous to remove
- DEVICE_NATIVE_ENDIAN
-Date: Thu, 18 Dec 2025 19:18:05 +0100
-Message-ID: <20251218181812.58363-1-philmd@linaro.org>
+Subject: [PATCH 2/6] hw/net/opencores: Clarify MMIO read/write handlers expect
+ 32-bit access
+Date: Thu, 18 Dec 2025 19:18:07 +0100
+Message-ID: <20251218181812.58363-3-philmd@linaro.org>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20251218181812.58363-1-philmd@linaro.org>
+References: <20251218181812.58363-1-philmd@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::344;
- envelope-from=philmd@linaro.org; helo=mail-wm1-x344.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::443;
+ envelope-from=philmd@linaro.org; helo=mail-wr1-x443.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -105,33 +108,70 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-We want to remove the bogus DEVICE_NATIVE_ENDIAN definition,
-by making it explicit (either big or little).
+The read/write handlers access array of 32-bit register by index:
 
-I'll follow with one series for each architecture. These
-devices seem used by more than one, so I took them apart.
+ 277 struct OpenEthState {
+  ..
+ 287     uint32_t regs[REG_MAX];
+  ..
+ 291 };
 
-Also remove from rust API ASAP.
+ 546 static uint64_t open_eth_reg_read(void *opaque,
+ 547                                   hwaddr addr, unsigned int size)
+ 548 {
+  ..
+ 551     OpenEthState *s = opaque;
+ 552     unsigned idx = addr / 4;
+  ..
+ 559             v = s->regs[idx];
+  ..
+ 563     return v;
+ 564 }
 
-Philippe Mathieu-Daudé (6):
-  hw/char/serial: Let compiler pick serial_mm_ops[] array length
-  hw/net/opencores: Clarify MMIO read/write handlers expect 32-bit
-    access
-  hw/display/ati: Access host memory as little-endian
-  hw/timer/hpet: Mark implementation as being little-endian
-  hw/char/pl011: Mark implementation as being little-endian
-  rust/system: Stop exposing bogus DEVICE_NATIVE_ENDIAN symbol
+This is a 32-bit implementation. Make that explicit in the
+MemoryRegionOps structure (this doesn't change the maximum
+access size, which -- being unset -- is 64-bit).
 
- hw/char/pl011.c                  |  2 +-
- hw/char/serial-mm.c              |  2 +-
- hw/display/ati_2d.c              |  2 +-
- hw/net/opencores_eth.c           | 15 +++++++++------
- hw/timer/hpet.c                  |  2 +-
- rust/hw/char/pl011/src/device.rs |  2 +-
- rust/hw/timer/hpet/src/device.rs |  2 +-
- rust/system/src/memory.rs        |  6 ------
- 8 files changed, 15 insertions(+), 18 deletions(-)
+Move the structure just after the handlers to ease code review.
 
+Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+---
+ hw/net/opencores_eth.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/hw/net/opencores_eth.c b/hw/net/opencores_eth.c
+index 7e955c01322..bc4565a9a49 100644
+--- a/hw/net/opencores_eth.c
++++ b/hw/net/opencores_eth.c
+@@ -682,6 +682,15 @@ static void open_eth_reg_write(void *opaque,
+     }
+ }
+ 
++static const MemoryRegionOps open_eth_reg_ops = {
++    .read = open_eth_reg_read,
++    .write = open_eth_reg_write,
++    .impl = {
++        .min_access_size = 4,
++        .max_access_size = 4,
++    },
++};
++
+ static uint64_t open_eth_desc_read(void *opaque,
+         hwaddr addr, unsigned int size)
+ {
+@@ -705,12 +714,6 @@ static void open_eth_desc_write(void *opaque,
+     open_eth_check_start_xmit(s);
+ }
+ 
+-
+-static const MemoryRegionOps open_eth_reg_ops = {
+-    .read = open_eth_reg_read,
+-    .write = open_eth_reg_write,
+-};
+-
+ static const MemoryRegionOps open_eth_desc_ops = {
+     .read = open_eth_desc_read,
+     .write = open_eth_desc_write,
 -- 
 2.52.0
 
