@@ -4,68 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EC51D68BE2
-	for <qemu-rust@archiver.kernel.org>; Thu, 18 Dec 2025 06:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDB8BD6E2D1
+	for <qemu-rust@archiver.kernel.org>; Thu, 18 Dec 2025 18:19:04 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vW7tw-0004WF-MA; Thu, 18 Dec 2025 01:54:16 -0500
+	id 1vWIaH-0006OI-Ry; Thu, 18 Dec 2025 13:18:46 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vW7tu-0004Sc-DK; Thu, 18 Dec 2025 01:54:14 -0500
-Received: from mgamail.intel.com ([192.198.163.13])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vW7ts-0000aa-Tk; Thu, 18 Dec 2025 01:54:14 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1766040853; x=1797576853;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ZB4ZU7ml6vgpu7Yu6GFeyg/UyU/aZ2mFDMJjxmBM/Eg=;
- b=KesECpLXEYbf/iVgiJ/IZi0JzQIfzwVH9bSlzqiAzHG597IDGVA73HH1
- IUcKBWl83QJkrYKA/Fm/KKJ69CpQLkUvVTv99LSeBGqASxmbUG8+0wkPq
- iAtHjypBccICQ4krCcglmIMs6uD5VgpmuU/90dCreUbKh5d6mC6nscwBX
- ++ROU0IBMdzGFklR5RKBrqT+L7G8zY2pCwUc5YhnmTg5etAgQOA1i8vqK
- H1Jq/c0Dmi1AHkgBVp1WQnGfdrSPYLAtRag/6Xsp3IvlfKyc7Ei8WVCVV
- b/WqoP2tdGRY/xbe2h+CnuhTjwLXEWbtZVOUf4KZ5sRea5VACPRJhQhxH Q==;
-X-CSE-ConnectionGUID: WjJc5LQiSGmYcLMaQOO+Qg==
-X-CSE-MsgGUID: C7g/kPofT3q3Y1JI+ntE5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11645"; a="70564841"
-X-IronPort-AV: E=Sophos;i="6.21,156,1763452800"; d="scan'208";a="70564841"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2025 22:54:11 -0800
-X-CSE-ConnectionGUID: RG0V+tjiROSxSvNfmjsICw==
-X-CSE-MsgGUID: VzVjqmEmQQqWoDoDI0Ayhg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,156,1763452800"; d="scan'208";a="198586094"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa008.jf.intel.com with ESMTP; 17 Dec 2025 22:54:08 -0800
-Date: Thu, 18 Dec 2025 15:18:57 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
-	marcandre.lureau@redhat.com
-Subject: Re: [PATCH 03/11] bump meson wheel to 1.10.0
-Message-ID: <aUOq4aW7RJ0uZjb3@intel.com>
-References: <20251215075000.335043-1-pbonzini@redhat.com>
- <20251215075000.335043-4-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vWIZy-0006NH-HW
+ for qemu-rust@nongnu.org; Thu, 18 Dec 2025 13:18:25 -0500
+Received: from mail-wm1-x344.google.com ([2a00:1450:4864:20::344])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vWIZs-0002xP-Jh
+ for qemu-rust@nongnu.org; Thu, 18 Dec 2025 13:18:19 -0500
+Received: by mail-wm1-x344.google.com with SMTP id
+ 5b1f17b1804b1-4779cc419b2so6765805e9.3
+ for <qemu-rust@nongnu.org>; Thu, 18 Dec 2025 10:18:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1766081894; x=1766686694; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Dw4q2naf2RC86eEOqnqVmtV2ZylVV7dCJMCaQlNiUTI=;
+ b=WTElRp1LJ+wUfftgpajnndb1Q6hyDi8gXhatIXsV4Xxr53xuIVdQasX/d9TILlf6DG
+ RD3MrauZP04VUvyLANb2NxacKZocnLeYfQ4eCfEH3SYA77S0ShTWuSQw0/iAE+z1CK6l
+ k9TlGbNxGJlw++IfuMsx+f9kbQPwpsyuU5Qxi4wgPjcU5eF1UYxnccpxWs1+p2/H4RoJ
+ MC0KvVrkXZMmpWuJCtWeQacES5SJ4hm6p6hWJt2L/dCteREO0RsvnFyI0g1zcVo61tYY
+ b3FRAO6zIeHcgiFEFDqR70yxePbvE5buZoKHN4iB/6zIDzLg8gEkRAPckJXAUvcXAs1V
+ M0xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766081894; x=1766686694;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Dw4q2naf2RC86eEOqnqVmtV2ZylVV7dCJMCaQlNiUTI=;
+ b=CM2CjYF1C/EKeFarN8gbExGhe+gJr+BtOfsFszc7cBcryjC7ebx8P86T9/4ZnsK74I
+ 8YMZvtOSsNhRc8aYUnjq/rRoDRTC7WtTocZOsYcTEGWw+J5AvTRLWOagFCjtDRjN/i76
+ j/+7XUWfDzzR5Vf+Ky4qtzar/ldtmqoiN5n9otKSbfCxJxJIVGAfb8INMpOn251YD8gn
+ VRrR4kmeDxIukZ7hai8Sh6xi6WWWBdP6A1Vo+mieU8phB2lFMqOJ7SND3c0ByYZAEwTi
+ 3y9K2Z+hDAtaYg888A442GK/5p4IMvypAM6X9R1ZQiNtXsuncDUbLsXh809iARqOBpNX
+ bXwA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXtabz3QjBL8dd6DgU7pMf9GlEhKX5oopN6x+PTh1+tFhFLj8JLdWPgHts8J/zaq5tfMzjcGktWHv0=@nongnu.org
+X-Gm-Message-State: AOJu0Yy8e9rBlDIqbBKUtPyHUAfbf8M9qdmnBmyZ5XvVSIz3tQI6vIcc
+ kPg1pBaqsP7fi/iIVBc1FxidA2VwqRSw950NTfl+dBqw/+qxIs7RmVmqTNh2BiZg1Ck=
+X-Gm-Gg: AY/fxX4lzUQOZn9qdTbI1Hsm4+j1l8ubFGc0I2wUcT+NvDgnk6vn3L8ZIfdymgOV/uc
+ /caaWNzwdfyeukYdaGvh6sFHlO8/lQWDwNaRySHzeruPriCsbVhAP89iej+X+hmSMBHrhOMj+r9
+ DB9HaDNT4JgBWNC0OcPavavRG4rn7r+w8rRZZz37AdBsmMgLBEaGjd58/QY0ekN8w/eZrjAhHGx
+ Yvbp6eRokfl3nWcUWqFqts5DVnkw36gGhHqu4d1JJNbY2TPFFcvzHcft1Fre7KPGkdNe04tTLBO
+ zwI4jdmQg1LNQ8+Y7V0CeqIHp2hgjtefr1OQATB8DJGFzZVfejTySKglA5bitvty0sunjqUtOX0
+ TCKnnaKCUqrAl4ySIY7jcPKhNUsrn+yM1YKNGdSuMKG/B9mjgfsC7EbLlEzGwj7/dIAwdkrw8tH
+ rBiAK+vahwxqpWpvBQsTk24Ca0EEmEt3U8XWXuzeFpEwXKjStrI3fTxo+/lrbX
+X-Google-Smtp-Source: AGHT+IFt3I/PPxUr2BEmKrZ7ygpqyt2KZOxFv9uczbyIybgLHrJfKrapY8KpeMlDkyMUJ89/CJOvFA==
+X-Received: by 2002:a05:600c:3b9d:b0:459:db7b:988e with SMTP id
+ 5b1f17b1804b1-47d19555e07mr1067575e9.13.1766081894494; 
+ Thu, 18 Dec 2025 10:18:14 -0800 (PST)
+Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4324eaa64cesm200859f8f.35.2025.12.18.10.18.12
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 18 Dec 2025 10:18:13 -0800 (PST)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+ Peter Maydell <peter.maydell@linaro.org>, Jason Wang <jasowang@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ qemu-arm@nongnu.org, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ qemu-rust@nongnu.org,
+ =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+Subject: [PATCH 0/6] hw: Preparatory cleanups previous to remove
+ DEVICE_NATIVE_ENDIAN
+Date: Thu, 18 Dec 2025 19:18:05 +0100
+Message-ID: <20251218181812.58363-1-philmd@linaro.org>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251215075000.335043-4-pbonzini@redhat.com>
-Received-SPF: pass client-ip=192.198.163.13; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=2a00:1450:4864:20::344;
+ envelope-from=philmd@linaro.org; helo=mail-wm1-x344.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -82,23 +105,34 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, Dec 15, 2025 at 08:49:52AM +0100, Paolo Bonzini wrote:
-> Date: Mon, 15 Dec 2025 08:49:52 +0100
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH 03/11] bump meson wheel to 1.10.0
-> X-Mailer: git-send-email 2.52.0
-> 
-> This version includes several improvements and bugfixes for Rust.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  configure                                   |   4 ++--
->  python/scripts/vendor.py                    |   4 ++--
->  python/wheels/meson-1.10.0-py3-none-any.whl | Bin 0 -> 1057029 bytes
->  pythondeps.toml                             |   4 ++--
->  4 files changed, 6 insertions(+), 6 deletions(-)
->  create mode 100644 python/wheels/meson-1.10.0-py3-none-any.whl
+We want to remove the bogus DEVICE_NATIVE_ENDIAN definition,
+by making it explicit (either big or little).
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+I'll follow with one series for each architecture. These
+devices seem used by more than one, so I took them apart.
+
+Also remove from rust API ASAP.
+
+Philippe Mathieu-Daudé (6):
+  hw/char/serial: Let compiler pick serial_mm_ops[] array length
+  hw/net/opencores: Clarify MMIO read/write handlers expect 32-bit
+    access
+  hw/display/ati: Access host memory as little-endian
+  hw/timer/hpet: Mark implementation as being little-endian
+  hw/char/pl011: Mark implementation as being little-endian
+  rust/system: Stop exposing bogus DEVICE_NATIVE_ENDIAN symbol
+
+ hw/char/pl011.c                  |  2 +-
+ hw/char/serial-mm.c              |  2 +-
+ hw/display/ati_2d.c              |  2 +-
+ hw/net/opencores_eth.c           | 15 +++++++++------
+ hw/timer/hpet.c                  |  2 +-
+ rust/hw/char/pl011/src/device.rs |  2 +-
+ rust/hw/timer/hpet/src/device.rs |  2 +-
+ rust/system/src/memory.rs        |  6 ------
+ 8 files changed, 15 insertions(+), 18 deletions(-)
+
+-- 
+2.52.0
 
 
