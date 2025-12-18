@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1E54D6E2D1
-	for <qemu-rust@archiver.kernel.org>; Thu, 18 Dec 2025 18:21:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F4E8D6E2D1
+	for <qemu-rust@archiver.kernel.org>; Thu, 18 Dec 2025 18:21:13 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vWIau-0006UL-A9; Thu, 18 Dec 2025 13:19:20 -0500
+	id 1vWIaq-0006TK-NZ; Thu, 18 Dec 2025 13:19:16 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vWIae-0006Q1-DA
- for qemu-rust@nongnu.org; Thu, 18 Dec 2025 13:19:07 -0500
-Received: from mail-wm1-x342.google.com ([2a00:1450:4864:20::342])
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vWIaB-0006O6-9m
+ for qemu-rust@nongnu.org; Thu, 18 Dec 2025 13:18:40 -0500
+Received: from mail-wm1-x329.google.com ([2a00:1450:4864:20::329])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vWIab-000344-97
- for qemu-rust@nongnu.org; Thu, 18 Dec 2025 13:19:03 -0500
-Received: by mail-wm1-x342.google.com with SMTP id
- 5b1f17b1804b1-4775e891b5eso4206115e9.2
- for <qemu-rust@nongnu.org>; Thu, 18 Dec 2025 10:18:59 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vWIa0-0002yE-DX
+ for qemu-rust@nongnu.org; Thu, 18 Dec 2025 13:18:31 -0500
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-47796a837c7so7610775e9.0
+ for <qemu-rust@nongnu.org>; Thu, 18 Dec 2025 10:18:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1766081938; x=1766686738; darn=nongnu.org;
+ d=linaro.org; s=google; t=1766081902; x=1766686702; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KVD7KeNHSoZXyk7/Vq+5GFFpep3i4V4TnIDs7GSc+Ig=;
- b=PJ1fLip4iN0iWvuoPWWWMS76ALLXbphvsg/5iZeBJMvco/8GFsIYnio2t2Bi1V5w0c
- 7HCtowB8DoTUxsYOacbGnBdIcWXOfHvsxUap/UfeqmhPNhxAM6hs8poQ/LvZirhuiLva
- lcyC44ERb3iEpRqOUvJiii8VVN+UmQQXO/Y0kd6fQFzyLHGtE8+1bt5/4M2BpSBfoJzs
- u3KnGApmVjc4Q/vruH23SAIu4MR6yAYRl9vDbSDvuydretMBQ8IVKb0VHjkTN05oW1Re
- lwgdIc60ejwgKtxFh1c1SzJmo62DzOZdCFBbZBGs4H1Gh32NLTLkeeT5X7o1OZkO7GM6
- 9muA==
+ bh=8Fw9wiW8eGiYc4imf57ZBrS/UxIVjWCdGG1Tt5+MH7Y=;
+ b=DK4sxOgFDcz0j3Ug6SMlaqCbOj6OJjQS4BHT7yvspOJnxB4DSQ7mEAyEX61MoBQcxN
+ /ml++01sZJ+Qvd9SIAE48XpRtRZq2uz++3trcx1lxcbUc/XrfKprAn9L64uyg/vgODHb
+ NtJD4isRJ46IcfSnXDJDU7bFDtzTwIS/dmZIUHHggQNa4BU7bhoEgYKqoMmOnib0PlaE
+ O+qnSnGXUBEBbLa258kaos5GyHTlIcQrFrYbnUmbRA4HKJGfxRbioaF4vI6BhkVhNCqM
+ ZBvTlpZ1goD7HSFv5zGFnfngUppA8r66fQeWhKFdHC2mceeKKpRCyc9W1lePyBVUO96Y
+ 5cmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766081938; x=1766686738;
+ d=1e100.net; s=20230601; t=1766081902; x=1766686702;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=KVD7KeNHSoZXyk7/Vq+5GFFpep3i4V4TnIDs7GSc+Ig=;
- b=GDImFTYcOVsWMO4bxcazQJQo9idrrrVHuy9VyMrfs8JHsMbrGxHoL4uyBSt32dCusr
- GzSOq+SBat7vujjN4l+cAIpcXXzKbIZZPJ8ovO1XwH6PhmV2v7swho5OmJArg+jxTLbt
- niq6O39QDXyEv6rtmXDV7I8qWtSE95q6wGeyVwN+O55SviX27bc5uYBMVHiCZMbNJdwC
- fAxJNzmrzg/fdBNzLhT9mG+TZq315teoEDFNgQz1yPwcdLQFuxPcZhxuxDGCyrr8mSgF
- +32yLnFv9GGVEks4+MiREek3e9NgYqN53B2hPWgY3T5XLDXm4DmRXMFsG6EZ5Vuffp3z
- 5SvA==
+ bh=8Fw9wiW8eGiYc4imf57ZBrS/UxIVjWCdGG1Tt5+MH7Y=;
+ b=GTzx8nqPCwpzZbIZneZSRguOZ6Xp8AvNIFpTJQA3iqB44hO1MILiZPHAVSbC4jBgsT
+ urW9NYBF3yE2SNBVOegq5ukQ7TWsRhFGNezy4vJ4I7Xdjnno30md5ZjPN5JmbiNLri+C
+ Gb8EHIZg7KvZnfR+OHPvttTdV4b9YV+/2KnM2mtNYJQ0isT6w+zWCZLFXN6r2SapQCLx
+ 5rQ0MOolIzHVGNYrqAeA/nw1iyQ28Wcf7s6m2vA6cZ0hpGKOxX7fkzLHUjKOzdjNz2/i
+ yulySkVpFSI+B/CTjHAsR0Y7kVuuN+nMOuLIdZ1Aye9Za0ofcSEm0iDY99xdw3sSYIaD
+ CgSQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVu3DJ6f5SmelW7Eoy9ck4mYbEiGV6xyrJKpJhCFDl243OwGbcCofkDQYUg7cvtYbuRPJc/fZbRgIA=@nongnu.org
-X-Gm-Message-State: AOJu0YwRVoNpz2FonI/JX7H/XhKsTpSfElKA9hj999rZEaNoPmzEGLTF
- /EJs6K5lAeCoNMmEi4Mxf+wRBdPdCZRTQdp7hNTQFlA3JY+k3uuv1hTi/YpHONh9kk4=
-X-Gm-Gg: AY/fxX72i5/cbSCyBCsISRYq3RJvyW/20RLdyK62uhW71x46DG35TZg09vdNjCPWe3S
- 7aqF8pLH4s3D6nk8csCy6xerPWLYdlZMD9cINg0g2XENjUNhosT80eR3sAviN7Ody68PkYao3Sf
- MOMOSRSMW0MvUxxtYuaPDGXlE3YAjdk8Z5V+3EXB4fr9RRqkGWC/Xv/q8CECQTvO1gIvGexH8WU
- l3lF8VizCwXqqJgmfSzGSJSdmwpOlBEAc6MZ072/8qkrf88JZe4gUQWq0lAStqXSYV9m4vIfn/2
- U+Wf4G37x/dqRFxAAnqDBrT767GtfdCKE4zvH9juc61lYGCxxyd0twf/2qo9tFo6dFDrFC7cbT1
- bRKhpk4xTjrz3x5s2kf2cpVT6M6Od2in26yAMQxGyl/FEnXPKdEh+SFFvQsxDRtlUBQ/qBcQmvo
- PptzsX/X3CGugMlHyAFAjb79RvKNxOgKRnncbeWb6CqsWECOmcUaeeAutEEUFT
-X-Google-Smtp-Source: AGHT+IEQS04J5k9ys7VUrixvOqoIfqYL77w/GAjeUbl8nGYnPKg+ydshN38AfVjuXuWkE2AFDKoNcw==
-X-Received: by 2002:a05:600c:3489:b0:479:2a09:9262 with SMTP id
- 5b1f17b1804b1-47d1953dabamr1379125e9.9.1766081938576; 
- Thu, 18 Dec 2025 10:18:58 -0800 (PST)
+ AJvYcCX4rNb9Apm2n8zDDBJQ5rTt4q2UQ1qoMJScpOhFC4THdvHEOjZxjOQJmkKKEYm+II4XFDZt8w/tX2U=@nongnu.org
+X-Gm-Message-State: AOJu0YwJiRUn3ItIU9PIN3WNpxCi45bM18Ce6QjtxsrZEX6WJ9/wLJHF
+ X+9N7ZgMUAjYve4xzVFk+3qsmjyZQiLQDVBa2JYDEbXuh62VkFm/iwCWD+nuohpdpmdro7+3LT8
+ fJphmPBA=
+X-Gm-Gg: AY/fxX5ES3hvh3mn4MO0aEq6xe8KPxsUwSjXq1C2A3LB5BBb/cIaOP1xHzktg4oidpR
+ NN/KWpFefQcwn/oHEUWnYnG3sM/6t/dQC/xyq9FcnCtp0wd5y6yCmbp6dfLQG4ib43hf83Wbnn/
+ UPAAuVTLCmkq+KTupeWkuRNMxyQiIIPxH3t+OV65F+SFatruTFnIaFHy3jOyWVJBLd8pS6Kyjv9
+ ahHB46yw45tseiJcXhTPrclvipjx8lpDnlABKIYuLuRGn9sOg/UmKseyDHMdoL4XMQJwqiqdr9y
+ TGPJG8nU46DFQOdaghdRzHfmbCsJ5ZeS/kWgRRwZmyIS3Dt9JjvydtsNLG+s4SC8OIOo9ZlJOhN
+ wqUxcdrTTre4KYaC852loPBuoWhoq/Fq+4oJKgIdLwOvh3GJQFm/qC17X10YFaieZoHWdosCg6Z
+ 0ZV6g4GKVGw0hjnk4FhJmsZOdWpGE4FCF/dqUM2Bm6SyCfONMtVWNabhqoCWDlLcgx0827EWw=
+X-Google-Smtp-Source: AGHT+IHqA+vzL5VfowrzPMh4sMwFeuxieIhnO+m2qRQLOkWuGZXOGkqq7f16yyX5dRTnLIeRTkV5vg==
+X-Received: by 2002:a05:600c:4e8f:b0:477:df7:b020 with SMTP id
+ 5b1f17b1804b1-47d1957da79mr976125e9.18.1766081901671; 
+ Thu, 18 Dec 2025 10:18:21 -0800 (PST)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47be2723d19sm62333055e9.2.2025.12.18.10.18.57
+ 5b1f17b1804b1-47d19346e48sm3223475e9.2.2025.12.18.10.18.20
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 18 Dec 2025 10:18:57 -0800 (PST)
+ Thu, 18 Dec 2025 10:18:20 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
@@ -74,18 +75,18 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
  qemu-rust@nongnu.org,
  =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH 6/6] rust/system: Stop exposing bogus DEVICE_NATIVE_ENDIAN
- symbol
-Date: Thu, 18 Dec 2025 19:18:11 +0100
-Message-ID: <20251218181812.58363-7-philmd@linaro.org>
+Subject: [PATCH 1/6] hw/char/serial: Let compiler pick serial_mm_ops[] array
+ length
+Date: Thu, 18 Dec 2025 19:18:06 +0100
+Message-ID: <20251218181812.58363-2-philmd@linaro.org>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251218181812.58363-1-philmd@linaro.org>
 References: <20251218181812.58363-1-philmd@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::342;
- envelope-from=philmd@linaro.org; helo=mail-wm1-x342.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::329;
+ envelope-from=philmd@linaro.org; helo=mail-wm1-x329.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
@@ -108,32 +109,29 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-We want to remove the bogus DEVICE_NATIVE_ENDIAN definition
-(by only having it explicit, either big or little one). Stop
-exposing it to rust devices to avoid it spreading further.
+No need to enforce the MemoryRegionOps array length.
+We index by device_endian enum, the compiler will easily
+pick the correct length. Besides, this allow further
+adjustments in the device_endian enum itself.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- rust/system/src/memory.rs | 6 ------
- 1 file changed, 6 deletions(-)
+ hw/char/serial-mm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/rust/system/src/memory.rs b/rust/system/src/memory.rs
-index 4b3316bf767..4e06c16a0b5 100644
---- a/rust/system/src/memory.rs
-+++ b/rust/system/src/memory.rs
-@@ -78,12 +78,6 @@ pub const fn little_endian(mut self) -> Self {
-         self
-     }
+diff --git a/hw/char/serial-mm.c b/hw/char/serial-mm.c
+index 13aba780ec5..ce5b589c3fd 100644
+--- a/hw/char/serial-mm.c
++++ b/hw/char/serial-mm.c
+@@ -44,7 +44,7 @@ static void serial_mm_write(void *opaque, hwaddr addr,
+     serial_io_ops.write(&s->serial, addr >> s->regshift, value, 1);
+ }
  
--    #[must_use]
--    pub const fn native_endian(mut self) -> Self {
--        self.0.endianness = device_endian::DEVICE_NATIVE_ENDIAN;
--        self
--    }
--
-     #[must_use]
-     pub const fn valid_sizes(mut self, min: u32, max: u32) -> Self {
-         self.0.valid.min_access_size = min;
+-static const MemoryRegionOps serial_mm_ops[3] = {
++static const MemoryRegionOps serial_mm_ops[] = {
+     [DEVICE_NATIVE_ENDIAN] = {
+         .read = serial_mm_read,
+         .write = serial_mm_write,
 -- 
 2.52.0
 
