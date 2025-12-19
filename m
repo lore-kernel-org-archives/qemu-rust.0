@@ -4,94 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4626CD6E2CC
-	for <qemu-rust@archiver.kernel.org>; Thu, 18 Dec 2025 18:21:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9AD8D711D2
+	for <qemu-rust@archiver.kernel.org>; Fri, 19 Dec 2025 01:15:09 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vWIaq-0006TL-Ny; Thu, 18 Dec 2025 13:19:16 -0500
+	id 1vWP4j-0000EU-LU; Thu, 18 Dec 2025 20:14:33 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vWIaW-0006PB-74
- for qemu-rust@nongnu.org; Thu, 18 Dec 2025 13:19:03 -0500
-Received: from mail-wr1-x442.google.com ([2a00:1450:4864:20::442])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vWIaT-00031C-9M
- for qemu-rust@nongnu.org; Thu, 18 Dec 2025 13:18:55 -0500
-Received: by mail-wr1-x442.google.com with SMTP id
- ffacd0b85a97d-430f9ffd4e8so1042222f8f.0
- for <qemu-rust@nongnu.org>; Thu, 18 Dec 2025 10:18:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1766081924; x=1766686724; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Bvj1AJund8BJzCKIAsZJhSHjk28uN32H7UcwVRZ2KTY=;
- b=v33p0i4VKUWoTrO5d25jBdmpuJ/6wkvkpqkZpouGO52lZpi6RRDN3mPlsMxjhehcu5
- JXv+3BTR6qsS3Q+YXKOGNtY85jciKbHGbdYJEfTg8GqiJl9aGBpfc3wKj5GwlbKOnsvw
- FoDUOE/N2gD+lkMsquR279yJiloaNjZ0eOio5poMBokTxvtzUQCU9/ZW2AwZD2sFh+SX
- MTmaaRLVZCi3zHg2dE6ug+5TSEFJX71Nfb6H2cUDqjbkm9ptrv62S9oamIo+p/49OpV2
- vdhSDaKE52miIfGdOI5HhaUU/xYTBIBLpSkc+rfIyKf9wlF3inXo1kRB5Aze5DXGc10/
- HDuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766081924; x=1766686724;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Bvj1AJund8BJzCKIAsZJhSHjk28uN32H7UcwVRZ2KTY=;
- b=oA3zj6qjqJTRCAa0xUauWzuz0bFiFpzY6ESNSJkQ+9aW6p0dIwh5KHd3vR7Y3Vaz00
- 9JB5+zZveqnIiH6dxuH54s2tE71BwipxsgjXsCBLQMbRh8HxEP/cC/5owSf3epP1ruHj
- vT3H/dPZ9JUB2gjIUbUcxmoEqfpeqBuyTbA5/t/a2gUCvQM2WPvbXH9GvH0hcChA3Jfc
- hP9Wh9qOtitaz7bSS3rGVxl3Y4HWLqMhbDk7OIxbyNwsI2iXzbflBVM2hsmJ2c1ZhxEM
- lY71GTLi8m6qpz83ypkB2tjLR5kcohCJn5GPukugOpTmlvkISzNTMG+5cz6c7W8OmQJa
- svJg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX5VPZLH6PfJ02AbDHfzal6pG2+cXpCoqf5rxDynjjteBoGxVusgGqZkvGnmquMAYDML2tIvqth78w=@nongnu.org
-X-Gm-Message-State: AOJu0Yym6QQYEtTQHyJnCwuseQUJPXuB9UIZYTzD5aTC1LQWb6TPF1hw
- NEZW+mDInvjefhqqjfHiE7pmPl+jVmVQwjsD01NCkoWaPwsAqogrY9fdBxV2slfxKD4=
-X-Gm-Gg: AY/fxX6lNxSsaxB5KcDT01swacdkPHaSWWUPzMx/kQLeHJuCBBRfm+XhsRei7WW5DNV
- KQX9em5hFgFcjnEe52LUt8YwCcWMKjhUSQsZkA9r+Va3TIpJAwlrdmCCS3WoEwTFrtmmMSb9Hl/
- ih0I6FBDmyxCo/lIniphLpqxU0p26qBBa9h3Dq92cOHUSXwY8jd84LAAoW8aLDXBTJTsYY/mzDA
- ifX6ia2th0CchsS+Q+XxyxMEB5z7Tx9KdizA4aoIwJmGOO0CwJc2fGOSm7E9080qWtJMvPBggF+
- vfg6kYxlEJffFECZ7EJlAYhEAjQkCj/WBA5OrATu1HGI3cSUEiKI6oi4Xlg8CDcrCGYzRJHSJ7w
- XBhiCX0tycgV2ZXf0qSUYntjIbfqV4+Lr4MB4tyqjvYX1rhh5O7MWXzKsBmbqvVNiQJjaB612GN
- YholQ03ZuEpVFZ9Z2UZvrfFMgN2PyiWIX0VrKHGajuhfqzCS/Qbv4X+YoQQWOg
-X-Google-Smtp-Source: AGHT+IHHuTTKYx9RGCYajCMCUuN820Kiap/GpFsIBYAXwUF34Sg0U5YEuJQg4DCduJdHoGUzZRCizQ==
-X-Received: by 2002:a05:6000:250d:b0:430:fa12:3b6e with SMTP id
- ffacd0b85a97d-432448bf55emr4584653f8f.24.1766081924100; 
- Thu, 18 Dec 2025 10:18:44 -0800 (PST)
-Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324eaa08efsm199771f8f.29.2025.12.18.10.18.42
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 18 Dec 2025 10:18:42 -0800 (PST)
-From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-To: qemu-devel@nongnu.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>, Jason Wang <jasowang@redhat.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Max Filippov <jcmvbkbc@gmail.com>,
- qemu-arm@nongnu.org, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- qemu-rust@nongnu.org,
- =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH 4/6] hw/timer/hpet: Mark implementation as being little-endian
-Date: Thu, 18 Dec 2025 19:18:09 +0100
-Message-ID: <20251218181812.58363-5-philmd@linaro.org>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20251218181812.58363-1-philmd@linaro.org>
+ (Exim 4.90_1) (envelope-from <balaton@eik.bme.hu>)
+ id 1vWP4f-0000DY-96; Thu, 18 Dec 2025 20:14:30 -0500
+Received: from zero.eik.bme.hu ([152.66.115.2])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <balaton@eik.bme.hu>)
+ id 1vWP4c-0000FS-3U; Thu, 18 Dec 2025 20:14:28 -0500
+Received: from localhost (localhost [127.0.0.1])
+ by zero.eik.bme.hu (Postfix) with ESMTP id 3BC15596A3F;
+ Fri, 19 Dec 2025 02:14:20 +0100 (CET)
+X-Virus-Scanned: amavis at eik.bme.hu
+Received: from zero.eik.bme.hu ([127.0.0.1])
+ by localhost (zero.eik.bme.hu [127.0.0.1]) (amavis, port 10028) with ESMTP
+ id whChqbyBlYtu; Fri, 19 Dec 2025 02:14:18 +0100 (CET)
+Received: by zero.eik.bme.hu (Postfix, from userid 432)
+ id 3B1C4596A10; Fri, 19 Dec 2025 02:14:18 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by zero.eik.bme.hu (Postfix) with ESMTP id 38D525969FB;
+ Fri, 19 Dec 2025 02:14:18 +0100 (CET)
+Date: Fri, 19 Dec 2025 02:14:18 +0100 (CET)
+From: BALATON Zoltan <balaton@eik.bme.hu>
+To: =?ISO-8859-15?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>
+cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, 
+ Peter Maydell <peter.maydell@linaro.org>, Jason Wang <jasowang@redhat.com>, 
+ "Michael S. Tsirkin" <mst@redhat.com>, Max Filippov <jcmvbkbc@gmail.com>, 
+ qemu-arm@nongnu.org, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
+ qemu-rust@nongnu.org, 
+ =?ISO-8859-15?Q?Marc-Andr=E9_Lureau?= <marcandre.lureau@redhat.com>
+Subject: Re: [PATCH 3/6] hw/display/ati: Access host memory as
+ little-endian
+In-Reply-To: <20251218181812.58363-4-philmd@linaro.org>
+Message-ID: <1cdc2735-d9e0-27c1-90e3-e250bb73cad6@eik.bme.hu>
 References: <20251218181812.58363-1-philmd@linaro.org>
+ <20251218181812.58363-4-philmd@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::442;
- envelope-from=philmd@linaro.org; helo=mail-wr1-x442.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+Content-Type: multipart/mixed;
+ boundary="3866299591-506663333-1766106858=:43259"
+Received-SPF: pass client-ip=152.66.115.2; envelope-from=balaton@eik.bme.hu;
+ helo=zero.eik.bme.hu
+X-Spam_score_int: -18
+X-Spam_score: -1.9
+X-Spam_bar: -
+X-Spam_report: (-1.9 / 5.0 requ) BAYES_00=-1.9,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -107,45 +71,48 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-The HPET component is only built / used by X86 targets, which
-are only built in little endianness. Thus we only ever built
-as little endian, never testing the big-endian possibility of
-the DEVICE_NATIVE_ENDIAN definition. Simplify by only keeping
-the little endian variant.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
----
- hw/timer/hpet.c                  | 2 +-
- rust/hw/timer/hpet/src/device.rs | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+--3866299591-506663333-1766106858=:43259
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8BIT
 
-diff --git a/hw/timer/hpet.c b/hw/timer/hpet.c
-index 1acba4fa9db..bfad626d5e1 100644
---- a/hw/timer/hpet.c
-+++ b/hw/timer/hpet.c
-@@ -648,7 +648,7 @@ static const MemoryRegionOps hpet_ram_ops = {
-         .min_access_size = 4,
-         .max_access_size = 8,
-     },
--    .endianness = DEVICE_NATIVE_ENDIAN,
-+    .endianness = DEVICE_LITTLE_ENDIAN,
- };
- 
- static void hpet_reset(DeviceState *d)
-diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
-index 3564aa79c6e..4f4be84115e 100644
---- a/rust/hw/timer/hpet/src/device.rs
-+++ b/rust/hw/timer/hpet/src/device.rs
-@@ -708,7 +708,7 @@ unsafe fn init(mut this: ParentInit<Self>) {
-             MemoryRegionOpsBuilder::<HPETState>::new()
-                 .read(&HPETState::read)
-                 .write(&HPETState::write)
--                .native_endian()
-+                .little_endian()
-                 .valid_sizes(4, 8)
-                 .impl_sizes(4, 8)
-                 .build();
--- 
-2.52.0
+On Thu, 18 Dec 2025, Philippe Mathieu-Daudé wrote:
+> ati_2d.c is part of the ATI_VGA component, being built with
+> the hw/display/ati.c file. Commit 339534d4025 ("ati-vga: Fix
+> indexed access to video memory") made access to host memory
+> using little-endian order. Assume the same order is used for
+> the 2D component.
+>
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> ---
+> hw/display/ati_2d.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/hw/display/ati_2d.c b/hw/display/ati_2d.c
+> index 309bb5ccb6c..72fde6b8008 100644
+> --- a/hw/display/ati_2d.c
+> +++ b/hw/display/ati_2d.c
+> @@ -221,7 +221,7 @@ void ati_2d_blt(ATIVGAState *s)
+>             for (y = 0; y < s->regs.dst_height; y++) {
+>                 i = dst_x * bypp + (dst_y + y) * dst_pitch;
+>                 for (x = 0; x < s->regs.dst_width; x++, i += bypp) {
+> -                    stn_he_p(&dst_bits[i], bypp, filler);
+> +                    stn_le_p(&dst_bits[i], bypp, filler);
 
+I don't think this is correct as it would swap filler and thus break 
+colors. This should just write the value as it is to dst_bits[i] location 
+so if you want to remove stn_he_n then maybe inline it and make it a 
+switch that casts to the right size and assigns the value. The stn_he_p is 
+just used here as a short form instead of that switch.
+
+Regards,
+BALATON Zoltan
+
+>                 }
+>             }
+>         }
+>
+--3866299591-506663333-1766106858=:43259--
 
