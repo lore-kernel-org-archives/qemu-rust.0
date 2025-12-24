@@ -4,93 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF336E77361
-	for <qemu-rust@archiver.kernel.org>; Wed, 24 Dec 2025 14:27:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE4E4E77361
+	for <qemu-rust@archiver.kernel.org>; Wed, 24 Dec 2025 15:56:19 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vYPpu-000424-RF; Wed, 24 Dec 2025 09:27:38 -0500
+	id 1vYRDE-0004Na-2A; Wed, 24 Dec 2025 10:55:45 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1vYPoY-0003VH-TB
- for qemu-rust@nongnu.org; Wed, 24 Dec 2025 09:26:15 -0500
-Received: from mail-ed1-x532.google.com ([2a00:1450:4864:20::532])
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vYRD9-0004Jl-Ea
+ for qemu-rust@nongnu.org; Wed, 24 Dec 2025 10:55:39 -0500
+Received: from mail-wm1-x336.google.com ([2a00:1450:4864:20::336])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1vYPoT-0006Kw-N3
- for qemu-rust@nongnu.org; Wed, 24 Dec 2025 09:26:07 -0500
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-64b4b35c812so8147118a12.0
- for <qemu-rust@nongnu.org>; Wed, 24 Dec 2025 06:26:04 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vYRD7-0004nO-V0
+ for qemu-rust@nongnu.org; Wed, 24 Dec 2025 10:55:39 -0500
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-477770019e4so51058195e9.3
+ for <qemu-rust@nongnu.org>; Wed, 24 Dec 2025 07:55:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1766586364; x=1767191164; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=A372ZdRxGvYCj4eLyeuk2dNu7PCYAJNxfaa506SwjbQ=;
- b=ZQc2AJzAxSjTU5CFQc/BGANA7Ylgl7o9xGutqBb7Hgsxzowp7VzKf581nMG5ZYdL9Q
- 2nQhBSR/E0u7lLCIgHMWAtl+hFuj7DHkNocnvlc2HhHUfVXp7JZanSzVYgC6ULq85vxv
- po2qHloUioTWcTfSoQp9D7GvUkJ7dky0Efsdu2uhtz4F6lXQlB+4Yh+vvPERreoKJykw
- zjYJ1WrKeghb+CkCymHdP/gDnGNF035JBPFCWqvPqzu3+PzMkQKnSzKfO1j9rsPoDMTx
- yRhkj7OJ3aZBRt0GhLG3ysJLfXdkZ60V3p3NyBViOsR0WjyzH7svMBdy5kt6F1vvEO9b
- j/KQ==
+ d=linaro.org; s=google; t=1766591736; x=1767196536; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=npEbExO2NPwcQFEpbQtKNlF6vQFYnvhFMMub0gaojOc=;
+ b=qCKZ+6FrBgMeiAOHndLjNjB7WrOj1ctFr28PSQwwL6XV9by2laHpuOZ9ONBiZCFpCh
+ Ndp6Ewth71VjhS/lnngkBZaq+ftOtlItuklP6XC1TlW/4De6mQesVQMRT223hJy0SvE9
+ yrLpupWOXcpu+WMCEblfbmy7J3WUKlvLQKS006W3moCITus8vRhaz4RItC5RsosCTYnB
+ dYOGV+lmhgeyUCowICKT0fcH3cd1MnaOuvzXMG3q2Z7x+NnAAFi1QWRPGlQzL9JeD87+
+ 5xCO8cRR0dsMFZO+ljGRZtyGDXg+vXyBPamee70o40uSBNj9HiCaz1ElleWHdYEJTSKT
+ 3w2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766586364; x=1767191164;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=A372ZdRxGvYCj4eLyeuk2dNu7PCYAJNxfaa506SwjbQ=;
- b=d+wsEgpnX3Pb7bpBkz2XYu2DPlnpiGwIlPpC2IZySjZZiYIdtMpX687W4kE8LSYtOz
- YratPXG/FYnE+mDl8ZqsrxsXjpntFSdxQPYSiadgMbS8Bl7Ad9zEyvXffm/bku4O0heS
- mKVPbBVXmrDzVtbZJyGhscRKhhh0Wr6oaX9YJsYwIyq1DgIsUaK/ZQvWV8Wk++HId80a
- tv09aUmZsy9bDk4xY62YRhY1QpNXxFZkfTZRSOR7k5pLxMXGksQGRw516aRshxFWmBOE
- fqpK6mkpTeEH/o1tNSUh2Vj/13DZrKt8AranhZppjtWVddU3953Yn47V9zRbHgTy5O6E
- /mFA==
+ d=1e100.net; s=20230601; t=1766591736; x=1767196536;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=npEbExO2NPwcQFEpbQtKNlF6vQFYnvhFMMub0gaojOc=;
+ b=DS+WAQbGMN+1x6PsL5cL/MvyBO3m7X8dDp2SfS3MswkdZffRNsjYsUO260O2TggxWP
+ tWxbSqsmmubclerulPIvlp9GFC/Esq8UfDpEDHkMlW5XxT/MSYBP+YhT/VaUj2fWKQ0P
+ UHuaJTP9jDW3Zkj+3G2XJlUsCO05Cu0HT4pfW0kjBKmAQlvXLNnIW0bdauhfBETKXim2
+ jwc8+9FlnnWhLsOgn0Db8t3++9w7V06MDs4JIYKccNsDijYJwfvTGtv0erHBc2k87Fkw
+ 7dmzqwBmdX84jwuujTvIgUwKebO4H7wACQaWfoCtkU1UwXL82ULe4VE416bg8hjWuGix
+ qDzg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXDIjEQWep1FVVNfIv4OS9e5xRbmlfaAyo8qLmudsCHqhJuMpfXaSz70+4tf38jXi2V5cL8KZA3ahs=@nongnu.org
-X-Gm-Message-State: AOJu0YzStv4dFaDPIF2MoYrDFFBlA12xN+gQj3mLGBlGMRrjXseNGfR3
- x8++XzrmuYngEd2FNjvsGqYpUYpUmH1AKGnUlmUpXvJS5F4QdQZ35cj/0IepVzWv7PMmMzEfpHy
- Trif0CWBgCYRFqOQu3p7VNZuB5V0BPBiGhIIYiuFfKA==
-X-Gm-Gg: AY/fxX4r8YPv7UUgYc4sKv2fsWqubjRF3eEMxPdd9zbTGBeBLDrauSaYnS8HlGP1tYC
- Ny/TAN/5iQve2Wre4cCi+Y5S94vLa0BUcvf0fSrCVbc+fHG9nVyNwvx7uR6+cOcPAiZ52YsfJTc
- W+0r3Q56auVn1ekoMREoUTxIdD8BuDvIKVXNrThS4DtVIcC0AvwF3nESiiCMDj2xVa/HcjKqg0W
- cG+GN96wlt/peBTfLCDUJXNK9l++6EMyB5rs8ExFFIh/mRteRlPFvEFXTOSlQKokGRBd6k=
-X-Google-Smtp-Source: AGHT+IHN1AN67Pz+zD7Jpd4dklo7bAm7KW+3LcjnhS09W90R6ohBEvbQ85seWLRV4mIOFsAahr/jysodY/a0jnDXbpY=
-X-Received: by 2002:a17:906:c145:b0:b79:f984:1557 with SMTP id
- a640c23a62f3a-b8037180307mr1894445366b.46.1766586363567; Wed, 24 Dec 2025
- 06:26:03 -0800 (PST)
+ AJvYcCV5VY2McRBXkVaVYWsQtMHCeLVf0NwWqqOUazvgCGdlzn1oADjNL2zb5zkFkwCrl/I/tNlkJNfa9gw=@nongnu.org
+X-Gm-Message-State: AOJu0Yz+ZvmbQoyTD/q+e/KsBWgfHzsiegeZqS/D67+OWCQHZK2gsjk4
+ GaA0YkswFJnSsiGgG6qwGaduAAj8U+bm2l5jthOQ340B+OkreA6KAZOYa6+V92JzHE0=
+X-Gm-Gg: AY/fxX6hKJ7W/zkhS9LaFmB81pXXGSlCuNdPzbE/7XIC2aiCDDh27nocc1PDu630H5Q
+ 2rly0neGk/ESOwHZrpS+75JfImkdS0hRlXSdHQqbM+hBrHqkdWyd7pEmMQHqEZMlcwig5tmi5C4
+ BwptQ9vVFrmh2wDYlMNhs9CsFShj53jc2fgbt0mxnprgFXqdN+GTpUDPZOtTPSI0E5cMn0ja0qX
+ qgWZWSUC104M5+nhPapbJA2Ed3HNBNMoeHLgqEuAAgh+wl+YfOm78EmBMkMfveXxHPSG1sTURNe
+ 91Pjy6kgeBObqYzL7u7L4Dr8QDGsv4mmztokj+NK/6sfebZLPh4Nx2R1jpa13ZhVX/fq5nEM09p
+ nEgIarSEWlVrYz6iJiEzz4vlXPYag9lPOt09KQGLNSKW2pcb6B4hhgSfAAzHRsukCcT0L6Q1eOI
+ ajKutlWcFWSUqUGDkUoNkVO58s/lKwI0qryeRrp8cUyl+J
+X-Google-Smtp-Source: AGHT+IH6YrP0J7OoNLwUVIhNEOOPWCTfWqIOTI8ZSx8Bpr7EAFysGzuq3ZWayQGGhbHdz1UWTDjoaA==
+X-Received: by 2002:a05:600c:35c1:b0:477:8b77:155e with SMTP id
+ 5b1f17b1804b1-47d19553912mr223584775e9.15.1766591735986; 
+ Wed, 24 Dec 2025 07:55:35 -0800 (PST)
+Received: from [10.156.6.66] (188.171.88.92.rev.sfr.net. [92.88.171.188])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47be2723d19sm381168325e9.2.2025.12.24.07.55.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 24 Dec 2025 07:55:35 -0800 (PST)
+Message-ID: <16ed1aa3-ada4-4c66-8e22-8d1a2fcf6b62@linaro.org>
+Date: Wed, 24 Dec 2025 16:55:31 +0100
 MIME-Version: 1.0
-References: <20251224134644.85582-1-philmd@linaro.org>
- <20251224134644.85582-8-philmd@linaro.org>
-In-Reply-To: <20251224134644.85582-8-philmd@linaro.org>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Wed, 24 Dec 2025 16:25:37 +0200
-X-Gm-Features: AQt7F2p0MVL9vho_iDpnT9577RMEKAoVCeoNLltHU_qLfFiQ39NNbHXXPh9IZdc
-Message-ID: <CAAjaMXZiYtyc1ucfs5hqxwqVFNNE-ebJeQvd4KZfZwdrBTegXg@mail.gmail.com>
-Subject: Re: [PATCH v2 7/8] rust/system: Stop exposing bogus
- DEVICE_NATIVE_ENDIAN symbol
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>
-Cc: qemu-devel@nongnu.org, Jason Wang <jasowang@redhat.com>,
- qemu-rust@nongnu.org, 
- Peter Maydell <peter.maydell@linaro.org>, Anton Johansson <anjo@rev.ng>, 
- Max Filippov <jcmvbkbc@gmail.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
- =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/8] hw/misc/pvpanic: Expose MMIO interface as
+ little-endian
+Content-Language: en-US
+To: qemu-devel@nongnu.org, Alexander Graf <graf@amazon.com>,
+ Phil Dennis-Jordan <phil@philjordan.eu>
+Cc: Jason Wang <jasowang@redhat.com>, qemu-rust@nongnu.org,
+ Peter Maydell <peter.maydell@linaro.org>, Anton Johansson <anjo@rev.ng>,
+ Max Filippov <jcmvbkbc@gmail.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
  Pierrick Bouvier <pierrick.bouvier@linaro.org>,
- Brian Cain <brian.cain@oss.qualcomm.com>, 
- qemu-arm@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, 
- Richard Henderson <richard.henderson@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::532;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-ed1-x532.google.com
+ Brian Cain <brian.cain@oss.qualcomm.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-arm@nongnu.org,
+ Paolo Bonzini <pbonzini@redhat.com>
+References: <20251224134644.85582-1-philmd@linaro.org>
+ <20251224134644.85582-5-philmd@linaro.org>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20251224134644.85582-5-philmd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=2a00:1450:4864:20::336;
+ envelope-from=philmd@linaro.org; helo=mail-wm1-x336.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -106,40 +113,29 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Wed, Dec 24, 2025 at 3:47=E2=80=AFPM Philippe Mathieu-Daud=C3=A9
-<philmd@linaro.org> wrote:
->
-> We want to remove the bogus DEVICE_NATIVE_ENDIAN definition
-> (by only having it explicit, either big or little one). Stop
-> exposing it to rust devices to avoid it spreading further.
->
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
-> Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
++Alex/Phil
+
+On 24/12/25 14:46, Philippe Mathieu-Daudé wrote:
+> Make the PVPanic MMIO interface behave like the ISA and PCI
+> variants: access it using little endianness.
+> 
+> Fixes: a89607c4d0e ("hw/misc/pvpanic: Add MMIO interface")
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 > ---
+>   hw/misc/pvpanic.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/hw/misc/pvpanic.c b/hw/misc/pvpanic.c
+> index c83247c4087..3e60b226e18 100644
+> --- a/hw/misc/pvpanic.c
+> +++ b/hw/misc/pvpanic.c
+> @@ -62,6 +62,7 @@ static void pvpanic_write(void *opaque, hwaddr addr, uint64_t val,
+>   }
+>   
+>   static const MemoryRegionOps pvpanic_ops = {
+> +    .endianness = DEVICE_LITTLE_ENDIAN,
+>       .read = pvpanic_read,
+>       .write = pvpanic_write,
+>       .impl = {
 
-Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-
->  rust/system/src/memory.rs | 6 ------
->  1 file changed, 6 deletions(-)
->
-> diff --git a/rust/system/src/memory.rs b/rust/system/src/memory.rs
-> index 4b3316bf767..4e06c16a0b5 100644
-> --- a/rust/system/src/memory.rs
-> +++ b/rust/system/src/memory.rs
-> @@ -78,12 +78,6 @@ pub const fn little_endian(mut self) -> Self {
->          self
->      }
->
-> -    #[must_use]
-> -    pub const fn native_endian(mut self) -> Self {
-> -        self.0.endianness =3D device_endian::DEVICE_NATIVE_ENDIAN;
-> -        self
-> -    }
-> -
->      #[must_use]
->      pub const fn valid_sizes(mut self, min: u32, max: u32) -> Self {
->          self.0.valid.min_access_size =3D min;
-> --
-> 2.52.0
->
 
