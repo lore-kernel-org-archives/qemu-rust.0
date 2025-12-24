@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8D34E75458
-	for <qemu-rust@archiver.kernel.org>; Wed, 24 Dec 2025 13:48:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32DFEE75453
+	for <qemu-rust@archiver.kernel.org>; Wed, 24 Dec 2025 13:48:14 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vYPD6-0006HP-HN; Wed, 24 Dec 2025 08:47:29 -0500
+	id 1vYPD1-0006Fj-1b; Wed, 24 Dec 2025 08:47:23 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vYPD2-0006G8-SB
- for qemu-rust@nongnu.org; Wed, 24 Dec 2025 08:47:25 -0500
-Received: from mail-wr1-x430.google.com ([2a00:1450:4864:20::430])
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vYPCu-0006DV-19
+ for qemu-rust@nongnu.org; Wed, 24 Dec 2025 08:47:16 -0500
+Received: from mail-wm1-x32a.google.com ([2a00:1450:4864:20::32a])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vYPD1-0003hz-Eq
- for qemu-rust@nongnu.org; Wed, 24 Dec 2025 08:47:24 -0500
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-4327778df7fso82118f8f.3
- for <qemu-rust@nongnu.org>; Wed, 24 Dec 2025 05:47:22 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vYPCs-0003hK-HW
+ for qemu-rust@nongnu.org; Wed, 24 Dec 2025 08:47:15 -0500
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-477a219dbcaso49216285e9.3
+ for <qemu-rust@nongnu.org>; Wed, 24 Dec 2025 05:47:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1766584041; x=1767188841; darn=nongnu.org;
+ d=linaro.org; s=google; t=1766584033; x=1767188833; darn=nongnu.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wYWAkKrgLGKLEJzBNF2mvdemi8iXnGeEWzBQwxd6OM4=;
- b=qe4MMcACgyp19BAGesYEO1eojGdxgZqAA283DX/gzrLy95CU/DyisRd60j7HIIhAUh
- vfbcqhm9uTNlcPSWkMfW9mce7z1wM05fr8T7NGmmtfuJokVXx2LK/dsSBxe2RZ0KWb3v
- tbv0h9PsRNw0Msop40aSzTQbQ0Bv5qblM2nfLPiyXd68OUyq0gKey1ELEVIvXDeJIyhM
- 8e5+OLdrRpgTZ8Ngt/Wb7mfRRIGfN3PXYTxDoKrCxqOr6LpXchSLa5nxb55LSqedeCTa
- cN7XYMcWjDvV05pv9IvtdvY6eUQlQE48bil3Ku30jb6NOl8qszu6pGP3AQARybZlXFVN
- w3Vw==
+ bh=mzJWK1Pwrz6pQgzGHNT2SkE91x5BTAmZmkQLDY1djl8=;
+ b=yuWtnNVk/QEW//KsTPyLWokD5+V1NVxlELmtPAT/RYO9KqqpM36ggK2i3nqhVwlmOp
+ MRWi5fPINios6HrWKXeNwUTo52IfX45gFrExHqiwFCrcpXQvgd+z/nuY0XLBL65VJ7Nr
+ GYoPXtIrHOV3f6n17UFuWHJaiMUw+FPbWExIFXlEaskmcbuqvlP+C4ryY402SJApnCz4
+ icl+FGJn5Ouz5aPQL7TWEbA509DUBeU77t0Jo/p1p27/vsrICzw4vU/1NZEMwoVWustW
+ GDW1c5FDT8wLK9RKtTCRbPrPPt5gtRaePT4RWYpsTYpSSUYlMjanKLToAUCfNDEMiHuE
+ ZgJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766584041; x=1767188841;
+ d=1e100.net; s=20230601; t=1766584033; x=1767188833;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=wYWAkKrgLGKLEJzBNF2mvdemi8iXnGeEWzBQwxd6OM4=;
- b=Ro1QUNOGf6Q99KW5cCa3Y+gEt+WMqByxhXYoLPM2rS82/kYFv7Z/uKpagWjdQmnqo9
- 5sjWq/z1tKr0i9focSgglnWpT8Q3KKdqMVxtly0ajoYcsIQ7FX3UOhp0UTNFisNbywud
- DB2YmIwJpxLZBuYKuoxwA+nYOy+Py0Wn4wGKu7kx1w24wX1hSBQMWSKMjZMbhu/a5amW
- T3A53/DV8LLupWS/Yb3wdJh5yVJpjyeGh3GHb9xUtzP9IXVBhnbEZHBFWnDVMstl8aU9
- wwEuyECZ0R9/D1powXbSnRITiJsODVRZ1SGsCVYfijSrt+oCp5kmsk+Vb7kJo4qiXcKg
- aZsA==
+ bh=mzJWK1Pwrz6pQgzGHNT2SkE91x5BTAmZmkQLDY1djl8=;
+ b=t9oiGExYVjLJGkPB2cU4f1NZUS3UsJiubEgM7khJsrlPSzHBpgcBAT08ayWINl/yVX
+ jKAK4etINvpvbF9CGbAvRNHsi1YXs/xKv5Hnf0TWHT2ywY8vlcaGW7xw8ZSJogQ5cMIG
+ bL07YWsGyaw0tx1mfE8L369DxGTRLnpQU9v2rezZ04IOfV0yHTX9YY7guehBPn/dyk3/
+ imkA+MyRARhiLiWBQtM3DvrMuDPxX79zMk1GnQnK0QH8cOo0nNT9R+P+DkkIElZ7UMQO
+ wJIvIH6bRopV5pO8UNTMIXGqJYpg0qOZV19QCyY/QQaI/ZzUlABsu8rzRWz2hjI/nIZG
+ QQMQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUA+rqhpuCAJDa+hEPW9hvb8WxLLGtHy4faNGImdAZjZESaarxwHxcv1umpVGDuzth8GSaVIyo5fhY=@nongnu.org
-X-Gm-Message-State: AOJu0YzyfxK2a6OOTPpID04KK7gOyziCOWt2qYaXgvGRgvPQVfCoM5P4
- j3QUDcfyHcdIXGDFR5k3mUPVcRkVyho7jyLekYU7u92+C6rV5GmsHOSW+igw7lDqsfY=
-X-Gm-Gg: AY/fxX5tcsRAxuPhD/ekSEXude2AXwjVAY4oyqfpUYGmk6A2ZWFQrG+Oqx/zW0ElM57
- RKImPLA5EH+PEsyNGIOxTkY/TpSUTPUverKwOOHZrAR6n54rpp90fSt7WFYvadhZunHJZiJdG3J
- +j4upfiml9x9OLj34cF1A/7wsLkS4oOyVhceH3i28j637u740lzXo20u7YC+04N+ApJzzCDCIeE
- RvX0QyeD6R8aMoGeRSGv9yVxylO9dVgpCPo/IfdIQll6Dp+dn1F5a3uWC93hyjlhfhxBhNLd7UI
- 6hXHyXkRafTkSK4KxeAqns1gEl2YRKSPpxMxC9NUWjHqs3pt+sDFRRxsz/byW+icCy0b+5Wgpz6
- 6keItlMxT56wZeDYQ2TywW12AgISonuKYUJ3xHN7St6OpiH7bjmURPmB+UjP++IMzhRD5sUcEHM
- DHCtFB10Jkj1yzmaBuNRWt5U093ZTneAbhhbtB+Gl65vus0uA8o1XNLkzfFqfv
-X-Google-Smtp-Source: AGHT+IGpRKcg+SvCUKQRGP5OhocSibsnsK6aqxmEiszVTN8Sq1AhPQpiR+QXZPhejGYSZFJevKjHgg==
-X-Received: by 2002:a05:6000:2305:b0:431:316:920a with SMTP id
- ffacd0b85a97d-4324e4c1519mr17318370f8f.8.1766584041532; 
- Wed, 24 Dec 2025 05:47:21 -0800 (PST)
+ AJvYcCVqfTee5vt1ApCwngKNB8GvOtHVpZUBDSDKD3iR3wqEhwsdnJZ6Eau+LC6MXYCK/AC3j6EVDgjTXJw=@nongnu.org
+X-Gm-Message-State: AOJu0YyoKp+nRvI2H7RUo5PmZg21wP3ebex0D9Sas0VBZHeriLdkTb2K
+ 3ATBzyp7+bm7Yj5OFCCcm9YsBH0ShGT/rcqVDELukGpGvZOW6p/AkVPASGQEXZXOiyc=
+X-Gm-Gg: AY/fxX5sygvl32CHRKYMYsuqcWSUvbiVonrf/yb2yv6a06VhfQfZYcQVEB+xFI4f0np
+ 7UrJ1VtpAdYk9TEQWm/+/5o603unHCujMZhPs3wz3wJcb58ERyjJ3ihqteJjOzVmOQi9cfPNjkV
+ 8cX27C+SeYe5V+sJSHcSbGUMz31p74x5eyE6CaOttBdMjH9EMkVz/dR3H1bf8QK5QkTs1DGJ6Jo
+ 08VyNTOXyVRDePo0vvB71Ps3uVj0r8pwefhCm9wxHZNaSAawzVJgk4yKxZHrn///JLGzCoV8kvz
+ +ccvf8nnIS9b+/fNWiRwYdeqPpqnpXBvSJsGW223QRXti0IQoT/yJMP9LEM6xhMbukprsw+325p
+ f2CMY0yNc/83MceGFJaEgFtbGbdVmebcsg1pWVBVslg+Ekg3CTAJYBm6Dp1d7lYp5Phw/IPrBsF
+ wb80zOHsImC57Ot9hz3moPzrhV070SaJeHuvb+akOrG0QVcGB8wNOpi5skM7B/
+X-Google-Smtp-Source: AGHT+IE6d2LSdC6q+oqc6RwJA1fiu6p4LVLRShJBs9yHrS2whS8MUQ6qgmixDn44iQOJcXVuaAbG2Q==
+X-Received: by 2002:a05:600c:4e15:b0:46e:1fb7:a1b3 with SMTP id
+ 5b1f17b1804b1-47d276f8addmr143618495e9.23.1766584033124; 
+ Wed, 24 Dec 2025 05:47:13 -0800 (PST)
 Received: from localhost.localdomain (218.170.88.92.rev.sfr.net.
  [92.88.170.218]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324eab2ebfsm33933748f8f.40.2025.12.24.05.47.19
+ 5b1f17b1804b1-47be2723b2bsm345661975e9.3.2025.12.24.05.47.11
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 24 Dec 2025 05:47:21 -0800 (PST)
+ Wed, 24 Dec 2025 05:47:12 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Jason Wang <jasowang@redhat.com>, qemu-rust@nongnu.org,
@@ -75,25 +75,27 @@ Cc: Jason Wang <jasowang@redhat.com>, qemu-rust@nongnu.org,
  Brian Cain <brian.cain@oss.qualcomm.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-arm@nongnu.org,
  Paolo Bonzini <pbonzini@redhat.com>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH v2 4/8] hw/misc/pvpanic: Expose MMIO interface as little-endian
-Date: Wed, 24 Dec 2025 14:46:40 +0100
-Message-ID: <20251224134644.85582-5-philmd@linaro.org>
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Richard Henderson <richard.henderson@linaro.org>
+Subject: [PATCH v2 3/8] hw/char/serial: Let compiler pick serial_mm_ops[]
+ array length
+Date: Wed, 24 Dec 2025 14:46:39 +0100
+Message-ID: <20251224134644.85582-4-philmd@linaro.org>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251224134644.85582-1-philmd@linaro.org>
 References: <20251224134644.85582-1-philmd@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2a00:1450:4864:20::430;
- envelope-from=philmd@linaro.org; helo=mail-wr1-x430.google.com
+Received-SPF: pass client-ip=2a00:1450:4864:20::32a;
+ envelope-from=philmd@linaro.org; helo=mail-wm1-x32a.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -109,27 +111,30 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Make the PVPanic MMIO interface behave like the ISA and PCI
-variants: access it using little endianness.
+No need to enforce the MemoryRegionOps array length.
+We index by device_endian enum, the compiler will easily
+pick the correct length. Besides, this allow further
+adjustments in the device_endian enum itself.
 
-Fixes: a89607c4d0e ("hw/misc/pvpanic: Add MMIO interface")
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 ---
- hw/misc/pvpanic.c | 1 +
- 1 file changed, 1 insertion(+)
+ hw/char/serial-mm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/hw/misc/pvpanic.c b/hw/misc/pvpanic.c
-index c83247c4087..3e60b226e18 100644
---- a/hw/misc/pvpanic.c
-+++ b/hw/misc/pvpanic.c
-@@ -62,6 +62,7 @@ static void pvpanic_write(void *opaque, hwaddr addr, uint64_t val,
+diff --git a/hw/char/serial-mm.c b/hw/char/serial-mm.c
+index 13aba780ec5..ce5b589c3fd 100644
+--- a/hw/char/serial-mm.c
++++ b/hw/char/serial-mm.c
+@@ -44,7 +44,7 @@ static void serial_mm_write(void *opaque, hwaddr addr,
+     serial_io_ops.write(&s->serial, addr >> s->regshift, value, 1);
  }
  
- static const MemoryRegionOps pvpanic_ops = {
-+    .endianness = DEVICE_LITTLE_ENDIAN,
-     .read = pvpanic_read,
-     .write = pvpanic_write,
-     .impl = {
+-static const MemoryRegionOps serial_mm_ops[3] = {
++static const MemoryRegionOps serial_mm_ops[] = {
+     [DEVICE_NATIVE_ENDIAN] = {
+         .read = serial_mm_read,
+         .write = serial_mm_write,
 -- 
 2.52.0
 
