@@ -4,91 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6021CD185EF
-	for <qemu-rust@archiver.kernel.org>; Thu,  8 Jan 2026 13:11:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A4D0D185F1
+	for <qemu-rust@archiver.kernel.org>; Thu,  8 Jan 2026 13:11:34 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vdpnJ-0007eK-SX; Thu, 08 Jan 2026 08:11:17 -0500
+	id 1vdpnC-0007aN-Pa; Thu, 08 Jan 2026 08:11:10 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vdpnI-0007dL-Ge
- for qemu-rust@nongnu.org; Thu, 08 Jan 2026 08:11:16 -0500
+ id 1vdpnB-0007Zt-Ee
+ for qemu-rust@nongnu.org; Thu, 08 Jan 2026 08:11:09 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vdpnG-00081d-P7
- for qemu-rust@nongnu.org; Thu, 08 Jan 2026 08:11:16 -0500
+ id 1vdpn8-0007zu-9j
+ for qemu-rust@nongnu.org; Thu, 08 Jan 2026 08:11:08 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1767877874;
+ s=mimecast20190719; t=1767877865;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0E5oaa3MQAn5B2LP1tawJrB7fiKlLEpjdtNPCmWmE88=;
- b=INrbDS7S2XeSkDQAKWZnjeyzU2IPmY7K5seSLYebWQe8/aaxi1EMXNfvzywS5AAX+8Dpwm
- kuxpN5qEUD5kUSpwdoD48xKhnGkDkjt0UpogZyXm+3163yKV2jdFkt2PTTRv9bwBwRy7UD
- ibeceA9FpANUhQ7bPsUJM4Kv9P4b5zY=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=IXUBvQcaMsRwI/b+BszJt6nG9jA/4L5XWgG62HdNUNU=;
+ b=LjCWa124+0s6Hzq5zI9w8pwTfXIHx1nZ/OeV6BwiKUaYAMWhoEbimvnXCAXS9eVFWtoWhC
+ V6Yo3tFBcCPp2RWLRra8rghBlGS9qmaJNkEvsVhxWAiJHx2kPHW31g/LJiY9V3/RS3asGR
+ t7UWg7omVDd9HRhebhAJ9jEQH0r/QKE=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-94-hB10VBY4OHqdKWestmgOuQ-1; Thu, 08 Jan 2026 08:11:12 -0500
-X-MC-Unique: hB10VBY4OHqdKWestmgOuQ-1
-X-Mimecast-MFC-AGG-ID: hB10VBY4OHqdKWestmgOuQ_1767877871
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-47d62cc05daso19598575e9.3
- for <qemu-rust@nongnu.org>; Thu, 08 Jan 2026 05:11:12 -0800 (PST)
+ us-mta-670-kPW49MWzOky6NwNFf4rJEg-1; Thu, 08 Jan 2026 08:11:04 -0500
+X-MC-Unique: kPW49MWzOky6NwNFf4rJEg-1
+X-Mimecast-MFC-AGG-ID: kPW49MWzOky6NwNFf4rJEg_1767877863
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-4325b182e3cso1539622f8f.2
+ for <qemu-rust@nongnu.org>; Thu, 08 Jan 2026 05:11:04 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767877871; x=1768482671;
+ d=1e100.net; s=20230601; t=1767877863; x=1768482663;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=0E5oaa3MQAn5B2LP1tawJrB7fiKlLEpjdtNPCmWmE88=;
- b=aD6aSpIVkOBJOLJ+sO1r/MHp5gfTLbSbDWBu+A8jDFH+LBV5hIwHAnkvcp6TNrI1e4
- ZwJGyRtimg62uCnwxK8NCysvWaa6lO55VpX1byl76AkeP5bGAJR30Qd76btaKIjmVPtX
- Ekvv+f9ZJb3MpYzJkmwqwVARQO0Gd6/n2is41eoNDgRFPwy9DjlMiKHk6P7nIcV1t/UQ
- oTJgKNVLKvddQvOSk/5tQCSynAA9JyF+EVmb/L2HU9IIzQ6h0GlQ3GYApn74CmLtotqM
- bgsfz8LHTESjrnUsN7ONoj4BXPBaLOOh0OTkcinGJgetr/SIdnNuthlje9a8CuRl7V4L
- jxYg==
+ bh=IXUBvQcaMsRwI/b+BszJt6nG9jA/4L5XWgG62HdNUNU=;
+ b=GojVTU3XdV2vS2eVbeOcGKopIRc0gxHiEJxogcVEGKzzrUsOEPYgRXsYR+DaSK4bzA
+ IdokoRN6K/JpmI9d5puxN7xPCcxvdxcTc99OAn2Vlx6wscsKrLr4I0+yT1Mn8vAN5ndf
+ +bnWxydlfOtMlDEpanTUXn7f4giQuJk2z5W6yrA/SKSol4OF4A5j7w2vSr3/uUX0RpsM
+ RfgspZ/18dVjAzWjENstMltbtQBDOtlpYmZcv1sLd6cg2BwgAwoWOAw1WYdWVTgUwyqX
+ 33xD5cyuLi8oVImTFWjGz12apM3hKChcTyIen+mSQyY+5tVjHYPtajkLkHgxhfDj706V
+ 4XvA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXCNSl5tgz7FZN32Vc4czMW9gX/ueDZ4TimkGbF+zR0BlrO1/2KdXhBfxID9XHH8Wy5Eii8cohySEU=@nongnu.org
-X-Gm-Message-State: AOJu0YwIbZIk2rljNzVUYZP5jdfnpNNtDzB5RWd34OL+57r20JRCrJ7r
- qsuS1oTuBfzB67MzC1cdtO49Yawuoca0y1ohmy4NGw9kF/Pm8feWxHJ22ZsdzxFE0ETmSlvUOsT
- Ag3fRr/lBk6QO7W+LOfbmvX0MgH/UTgWUJQ3Nz8X3RmuPgTf406zow+eUbd2pRnU=
-X-Gm-Gg: AY/fxX7hxvBf+YJZXefAIUB20jByxzVUT9wI993R/u7OJC3GCJfajdrsjC7gCY7DJrw
- JJ2AxPA0lWLz4776zpZFFDMnYYU1A5RLyE0c8U/VsESEXVglPNoN5Pqe+c1OrNtrPT5Vyfqbxkc
- ZJD6U3EtwmFxRW/78iEPf9DuwCuMA/NuJPZnc9xKER1krggNnn0MccvRuKCM3oPQgFIla/TrRFA
- ri86dfquZuoktsnwaRHXcHQmqkjwM4qRkFQ6OtAnZgq00/DUgjH78EkAJQJzzQ7mLIgJ6tjpn81
- 4WyfK6nD//6KzHWDmSZF9UUs9qbAgcFMl+m6UB1sikPvu0oc7igwUdjxZjOxM08awEGr1wuO4hL
- FPxISmnVkt2QrO5XRysBp5XfQBO4ydZdlrtK1UrSsmuVqIeKg41DZNxbBBuooTwObkWfSZ7caAp
- I93uXpzexekCfvdg==
-X-Received: by 2002:a05:600c:3110:b0:47d:3ffa:980e with SMTP id
- 5b1f17b1804b1-47d84b4101dmr63206505e9.28.1767877871123; 
- Thu, 08 Jan 2026 05:11:11 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEORBF3pH9Z8JBQv2ifgXj4MTlDYGlTPRH00T6XtzFVSNi6ECYe8urA1hTRN7/M++9RelRR7g==
-X-Received: by 2002:a05:600c:3110:b0:47d:3ffa:980e with SMTP id
- 5b1f17b1804b1-47d84b4101dmr63206255e9.28.1767877870746; 
- Thu, 08 Jan 2026 05:11:10 -0800 (PST)
+ AJvYcCUTh7/ewkl7EYsDe8Tro4gqykl1HuekBTk1+WdDqZijUqF1rwmxkYeM9sOswl9A9UU1oNqlojJgWOk=@nongnu.org
+X-Gm-Message-State: AOJu0YzY0D5gCFsPKnrp4JZ9E30ESG9LT47cxC4vmEwXReEIpbSepKU4
+ NyAuor4Dl77BAcdtOGkVJWI6RtyTiAi2TL/YuIR5z+IJ0OxCxXmRa7xE1FKaLT2SRHrMyfcDQne
+ hTr/gidd+/3OUtC4fjhs38E99ZlEtRZC04ac4d8Z2CI/z0nU/GqE1TLc=
+X-Gm-Gg: AY/fxX7KNmkgUnZBtCIfeCwb1WEVEPIAO4p9ccmI994i0r4JX+TjpezE0lkwLhIz1ki
+ 9arLHZ7EKSnWr28hb7bXOw89i669V/7qSuk7LHRyVB1YyroYohP03Is7jXZ5icQYPdhsdPEJrjT
+ s5rOueaifWQmzdC6qB8t+TE41yHhUvAJLSBeqTbAONr6APRV5JJ0ppPRcRZoHSj45+/B5Icmn2k
+ n9vjBPqw+ao2MmjGRhzoRpzdGrjowbMQqwKQOPXLjRigrOswJjikdW4kb7kdnSdF0akEOxQRsak
+ Mv45r4yCnzGyuQ1tWDM2VOwFwIxJcMsc6CLuYmJzRI7XhuY3B4uh2gH36VZ1Dg5YARyRG6xHi10
+ +vNBBq/wXaTUhPOywmQ+g8c3wDL/C5Mg7A+gI9KxsT2BtI3cJapN8Me88UHLn5uSHbSE0efioGe
+ 2pVpOgtHJrR8Ye+A==
+X-Received: by 2002:a05:6000:240f:b0:431:864:d4a9 with SMTP id
+ ffacd0b85a97d-432c3772035mr6376939f8f.8.1767877862897; 
+ Thu, 08 Jan 2026 05:11:02 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHMG9a3naAy2kMCjipFCfNO9dOnznFl+BkKm3U0MQO1tS54K1Cs53sXUMyf9MSr/updpapoLA==
+X-Received: by 2002:a05:6000:240f:b0:431:864:d4a9 with SMTP id
+ ffacd0b85a97d-432c3772035mr6376911f8f.8.1767877862360; 
+ Thu, 08 Jan 2026 05:11:02 -0800 (PST)
 Received: from [192.168.10.48] ([151.61.26.160])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d87189e54sm36061825e9.12.2026.01.08.05.11.08
+ ffacd0b85a97d-432bd5ee870sm16250175f8f.36.2026.01.08.05.11.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Jan 2026 05:11:09 -0800 (PST)
+ Thu, 08 Jan 2026 05:11:00 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: armbru@redhat.com,
  =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
- qemu-rust@nongnu.org
-Subject: [PATCH v2 09/16] scripts/qapi: add QAPISchemaIfCond.rsgen()
-Date: Thu,  8 Jan 2026 14:10:36 +0100
-Message-ID: <20260108131043.490084-10-pbonzini@redhat.com>
+ qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
+Subject: [PATCH v2 06/16] rust/qobject: add Deserializer (from_qobject)
+ implementation
+Date: Thu,  8 Jan 2026 14:10:33 +0100
+Message-ID: <20260108131043.490084-7-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260108131043.490084-1-pbonzini@redhat.com>
 References: <20260108131043.490084-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: cN2qtLsvUf5mCjxK92avGGIvjaf8ECdnwyy-ZqYJsVc_1767877871
+X-Mimecast-MFC-PROC-ID: ErWkbzmsh2CJB3tfzxIWJvp4XrnfO76_47i6Rlbp8Ws_1767877863
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -117,73 +118,470 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Marc-André Lureau <marcandre.lureau@redhat.com>
+This allows creating any serializable data structure from QObject.
+The purpose of all the code is to typecheck each variant in the
+serde data model and check that it's one of the corresponding
+QObject data types.
 
-Generate Rust #[cfg(...)] guards from QAPI 'if' conditions; it
-turns out that they are very similar, with both of them using
-not/any/all, so just walk the tree.
-
-The next commit will put it to use.
-
+Co-authored-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-Link: https://lore.kernel.org/r/20210907121943.3498701-15-marcandre.lureau@redhat.com
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- scripts/qapi/common.py | 19 +++++++++++++++++++
- scripts/qapi/schema.py |  4 ++++
- 2 files changed, 23 insertions(+)
+ docs/devel/rust.rst                   |   1 +
+ rust/util/meson.build                 |   1 +
+ rust/util/src/qobject/deserializer.rs | 371 ++++++++++++++++++++++++++
+ rust/util/src/qobject/error.rs        |   8 +-
+ rust/util/src/qobject/mod.rs          |   2 +
+ 5 files changed, 382 insertions(+), 1 deletion(-)
+ create mode 100644 rust/util/src/qobject/deserializer.rs
 
-diff --git a/scripts/qapi/common.py b/scripts/qapi/common.py
-index d7c8aa3365c..14d5dd259c4 100644
---- a/scripts/qapi/common.py
-+++ b/scripts/qapi/common.py
-@@ -199,6 +199,25 @@ def guardend(name: str) -> str:
-                  name=c_fname(name).upper())
+diff --git a/docs/devel/rust.rst b/docs/devel/rust.rst
+index 79c26d9d165..c7f3a496a25 100644
+--- a/docs/devel/rust.rst
++++ b/docs/devel/rust.rst
+@@ -162,6 +162,7 @@ module                     status
+ ``util::error``            stable
+ ``util::log``              proof of concept
+ ``util::module``           complete
++``util::qobject``          stable
+ ``util::timer``            stable
+ ========================== ======================
  
+diff --git a/rust/util/meson.build b/rust/util/meson.build
+index 4621932fdcb..92d27957eda 100644
+--- a/rust/util/meson.build
++++ b/rust/util/meson.build
+@@ -40,6 +40,7 @@ _util_rs = static_library(
+     {'.': _util_bindings_inc_rs,
+     'qobject': [
+       'src/qobject/mod.rs',
++      'src/qobject/deserializer.rs',
+       'src/qobject/deserialize.rs',
+       'src/qobject/error.rs',
+       'src/qobject/serializer.rs',
+diff --git a/rust/util/src/qobject/deserializer.rs b/rust/util/src/qobject/deserializer.rs
+new file mode 100644
+index 00000000000..b0f8aa23773
+--- /dev/null
++++ b/rust/util/src/qobject/deserializer.rs
+@@ -0,0 +1,371 @@
++//! `QObject` deserializer
++//!
++//! This module implements a [`Deserializer`](serde::de::Deserializer) that
++//! consumes `QObject`s, allowing them to be turned into deserializable data
++//! structures (such as primitive data types, or structs that implement
++//! `Deserialize`).
++
++use std::ffi::CStr;
++
++use serde::de::{
++    self, value::StrDeserializer, DeserializeSeed, Expected, IntoDeserializer, MapAccess,
++    SeqAccess, Unexpected, Visitor,
++};
++
++use super::{
++    error::{Error, Result},
++    match_qobject, QObject,
++};
++use crate::bindings;
++
++impl QObject {
++    #[cold]
++    fn invalid_type<E>(&self, exp: &dyn Expected) -> E
++    where
++        E: serde::de::Error,
++    {
++        serde::de::Error::invalid_type(self.unexpected(), exp)
++    }
++
++    #[cold]
++    fn unexpected(&self) -> Unexpected<'_> {
++        match_qobject! { (self) =>
++            () => Unexpected::Unit,
++            bool(b) => Unexpected::Bool(b),
++            i64(n) => Unexpected::Signed(n),
++            u64(n) => Unexpected::Unsigned(n),
++            f64(n) => Unexpected::Float(n),
++            CStr(s) => s.to_str().map_or_else(
++                |_| Unexpected::Other("string with invalid UTF-8"),
++                Unexpected::Str),
++            QList(_) => Unexpected::Seq,
++            QDict(_) => Unexpected::Map,
++        }
++    }
++}
++
++fn visit_qlist_ref<'de, V>(qlist: &'de bindings::QList, visitor: V) -> Result<V::Value>
++where
++    V: Visitor<'de>,
++{
++    struct QListDeserializer(*mut bindings::QListEntry, usize);
++
++    impl<'de> SeqAccess<'de> for QListDeserializer {
++        type Error = Error;
++
++        fn next_element_seed<T>(&mut self, seed: T) -> Result<Option<T::Value>>
++        where
++            T: DeserializeSeed<'de>,
++        {
++            if self.0.is_null() {
++                return Ok(None);
++            }
++
++            let e = unsafe { &*self.0 };
++            // increment the reference count because deserialize consumes `value`.
++            let value = unsafe { QObject::cloned_from_raw(e.value.cast_const()) };
++            let result = seed.deserialize(value);
++            self.0 = unsafe { e.next.tqe_next };
++            self.1 += 1;
++            result.map(Some)
++        }
++    }
++
++    let mut deserializer = QListDeserializer(unsafe { qlist.head.tqh_first }, 0);
++    let seq = visitor.visit_seq(&mut deserializer)?;
++    if deserializer.0.is_null() {
++        Ok(seq)
++    } else {
++        Err(serde::de::Error::invalid_length(
++            deserializer.1,
++            &"fewer elements in array",
++        ))
++    }
++}
++
++fn visit_qdict_ref<'de, V>(qdict: &'de bindings::QDict, visitor: V) -> Result<V::Value>
++where
++    V: Visitor<'de>,
++{
++    struct QDictDeserializer(*mut bindings::QDict, *const bindings::QDictEntry);
++
++    impl<'de> MapAccess<'de> for QDictDeserializer {
++        type Error = Error;
++
++        fn next_key_seed<T>(&mut self, seed: T) -> Result<Option<T::Value>>
++        where
++            T: DeserializeSeed<'de>,
++        {
++            if self.1.is_null() {
++                return Ok(None);
++            }
++
++            let e = unsafe { &*self.1 };
++            let key = unsafe { CStr::from_ptr(e.key) };
++            let key_de = StrDeserializer::new(key.to_str()?);
++            seed.deserialize(key_de).map(Some)
++        }
++
++        fn next_value_seed<T>(&mut self, seed: T) -> Result<T::Value>
++        where
++            T: DeserializeSeed<'de>,
++        {
++            if self.1.is_null() {
++                panic!("next_key must have returned None");
++            }
++
++            let e = unsafe { &*self.1 };
++            // increment the reference count because deserialize consumes `value`.
++            let value = unsafe { QObject::cloned_from_raw(e.value) };
++            let result = seed.deserialize(value);
++            self.1 = unsafe { bindings::qdict_next(self.0, self.1) };
++            result
++        }
++    }
++
++    let qdict = (qdict as *const bindings::QDict).cast_mut();
++    let e = unsafe { bindings::qdict_first(qdict) };
++    let mut deserializer = QDictDeserializer(qdict, e);
++    let map = visitor.visit_map(&mut deserializer)?;
++    if deserializer.1.is_null() {
++        Ok(map)
++    } else {
++        Err(serde::de::Error::invalid_length(
++            unsafe { bindings::qdict_size(qdict) },
++            &"fewer elements in map",
++        ))
++    }
++}
++
++fn visit_qnum_ref<'de, V>(qnum: QObject, visitor: V) -> Result<V::Value>
++where
++    V: Visitor<'de>,
++{
++    match_qobject! { (qnum) =>
++        i64(n) => visitor.visit_i64(n),
++        u64(n) => visitor.visit_u64(n),
++        f64(n) => visitor.visit_f64(n),
++        _ => Err(qnum.invalid_type(&"number")),
++    }
++}
++
++macro_rules! deserialize_number {
++    ($method:ident) => {
++        fn $method<V>(self, visitor: V) -> Result<V::Value>
++        where
++            V: Visitor<'de>,
++        {
++            visit_qnum_ref(self, visitor)
++        }
++    };
++}
++
++impl<'de> serde::Deserializer<'de> for QObject {
++    type Error = Error;
++
++    fn deserialize_any<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            () => visitor.visit_unit(),
++            bool(v) => visitor.visit_bool(v),
++            i64(n) => visitor.visit_i64(n),
++            u64(n) => visitor.visit_u64(n),
++            f64(n) => visitor.visit_f64(n),
++            CStr(cstr) => visitor.visit_str(cstr.to_str()?),
++            QList(qlist) => visit_qlist_ref(qlist, visitor),
++            QDict(qdict) => visit_qdict_ref(qdict, visitor),
++        }
++    }
++
++    deserialize_number!(deserialize_i8);
++    deserialize_number!(deserialize_i16);
++    deserialize_number!(deserialize_i32);
++    deserialize_number!(deserialize_i64);
++    deserialize_number!(deserialize_i128);
++    deserialize_number!(deserialize_u8);
++    deserialize_number!(deserialize_u16);
++    deserialize_number!(deserialize_u32);
++    deserialize_number!(deserialize_u64);
++    deserialize_number!(deserialize_u128);
++    deserialize_number!(deserialize_f32);
++    deserialize_number!(deserialize_f64);
++
++    fn deserialize_option<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            () => visitor.visit_none(),
++            _ => visitor.visit_some(self),
++        }
++    }
++
++    fn deserialize_enum<V>(
++        self,
++        _name: &'static str,
++        _variants: &'static [&'static str],
++        visitor: V,
++    ) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            CStr(cstr) => visitor.visit_enum(cstr.to_str()?.into_deserializer()),
++            _ => Err(self.invalid_type(&"string")),
++        }
++    }
++
++    fn deserialize_newtype_struct<V>(self, _name: &'static str, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        visitor.visit_newtype_struct(self)
++    }
++
++    fn deserialize_bool<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            bool(v) => visitor.visit_bool(v),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_char<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_str(visitor)
++    }
++
++    fn deserialize_str<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            CStr(cstr) => visitor.visit_str(cstr.to_str()?),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_string<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_str(visitor)
++    }
++
++    fn deserialize_bytes<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            CStr(cstr) => visitor.visit_str(cstr.to_str()?),
++            QList(qlist) => visit_qlist_ref(qlist, visitor),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_byte_buf<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_bytes(visitor)
++    }
++
++    fn deserialize_unit<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            () => visitor.visit_unit(),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_unit_struct<V>(self, _name: &'static str, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_unit(visitor)
++    }
++
++    fn deserialize_seq<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            QList(qlist) => visit_qlist_ref(qlist, visitor),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_tuple<V>(self, _len: usize, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_seq(visitor)
++    }
++
++    fn deserialize_tuple_struct<V>(
++        self,
++        _name: &'static str,
++        _len: usize,
++        visitor: V,
++    ) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_seq(visitor)
++    }
++
++    fn deserialize_map<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            QDict(qdict) => visit_qdict_ref(qdict, visitor),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_struct<V>(
++        self,
++        _name: &'static str,
++        _fields: &'static [&'static str],
++        visitor: V,
++    ) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            QList(qlist) => visit_qlist_ref(qlist, visitor),
++            QDict(qdict) => visit_qdict_ref(qdict, visitor),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_identifier<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_str(visitor)
++    }
++
++    fn deserialize_ignored_any<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        visitor.visit_unit()
++    }
++}
++
++pub fn from_qobject<T>(value: QObject) -> Result<T>
++where
++    T: de::DeserializeOwned,
++{
++    T::deserialize(value)
++}
+diff --git a/rust/util/src/qobject/error.rs b/rust/util/src/qobject/error.rs
+index 5212e65c4f7..2d7c180187a 100644
+--- a/rust/util/src/qobject/error.rs
++++ b/rust/util/src/qobject/error.rs
+@@ -6,7 +6,7 @@
+     str::Utf8Error,
+ };
  
-+def rsgen_ifcond(ifcond: Optional[Union[str, Dict[str, Any]]]) -> str:
-+
-+    def cfg(ifcond: Union[str, Dict[str, Any]]) -> str:
-+        if isinstance(ifcond, str):
-+            return ifcond
-+        assert isinstance(ifcond, dict) and len(ifcond) == 1
-+        if 'not' in ifcond:
-+            oper = 'not'
-+            arg = cfg(ifcond['not'])
-+        else:
-+            oper, operands = next(iter(ifcond.items()))
-+            arg = ', '.join([cfg(c) for c in operands])
-+        return f'{oper}({arg})'
-+
-+    if not ifcond:
-+        return ''
-+    return '#[cfg(%s)]' % cfg(ifcond)
-+
-+
- def gen_ifcond(ifcond: Optional[Union[str, Dict[str, Any]]],
-                cond_fmt: str, not_fmt: str,
-                all_operator: str, any_operator: str) -> str:
-diff --git a/scripts/qapi/schema.py b/scripts/qapi/schema.py
-index 8d88b40de2e..848a7401251 100644
---- a/scripts/qapi/schema.py
-+++ b/scripts/qapi/schema.py
-@@ -37,6 +37,7 @@
-     docgen_ifcond,
-     gen_endif,
-     gen_if,
-+    rsgen_ifcond,
- )
- from .error import QAPIError, QAPISemError, QAPISourceError
- from .expr import check_exprs
-@@ -63,6 +64,9 @@ def gen_endif(self) -> str:
-     def docgen(self) -> str:
-         return docgen_ifcond(self.ifcond)
+-use serde::ser;
++use serde::{de, ser};
  
-+    def rsgen(self) -> str:
-+        return rsgen_ifcond(self.ifcond)
+ #[derive(Debug)]
+ pub enum Error {
+@@ -23,6 +23,12 @@ fn custom<T: Display>(msg: T) -> Self {
+     }
+ }
+ 
++impl de::Error for Error {
++    fn custom<T: Display>(msg: T) -> Self {
++        Error::Custom(msg.to_string())
++    }
++}
 +
-     def is_present(self) -> bool:
-         return bool(self.ifcond)
+ impl From<NulError> for Error {
+     fn from(_: NulError) -> Self {
+         Error::NulEncountered
+diff --git a/rust/util/src/qobject/mod.rs b/rust/util/src/qobject/mod.rs
+index c0c16f28049..b95dddddedc 100644
+--- a/rust/util/src/qobject/mod.rs
++++ b/rust/util/src/qobject/mod.rs
+@@ -7,6 +7,7 @@
+ #![deny(clippy::unwrap_used)]
+ 
+ mod deserialize;
++mod deserializer;
+ mod error;
+ mod serialize;
+ mod serializer;
+@@ -20,6 +21,7 @@
+ };
+ 
+ use common::assert_field_type;
++pub use deserializer::from_qobject;
+ pub use error::{Error, Result};
+ pub use serializer::to_qobject;
  
 -- 
 2.52.0
