@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D8F2D1D478
-	for <qemu-rust@archiver.kernel.org>; Thu,  8 Jan 2026 17:06:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B6A0D1D478
+	for <qemu-rust@archiver.kernel.org>; Thu,  8 Jan 2026 17:07:01 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vdtRp-00073b-PT; Thu, 08 Jan 2026 12:05:21 -0500
+	id 1vdtSD-0007su-6i; Thu, 08 Jan 2026 12:05:45 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vdtRj-0006NW-NO
- for qemu-rust@nongnu.org; Thu, 08 Jan 2026 12:05:15 -0500
+ id 1vdtS0-0007Wu-28
+ for qemu-rust@nongnu.org; Thu, 08 Jan 2026 12:05:32 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vdtRf-0007E7-6F
- for qemu-rust@nongnu.org; Thu, 08 Jan 2026 12:05:12 -0500
+ id 1vdtRy-0007M7-Cx
+ for qemu-rust@nongnu.org; Thu, 08 Jan 2026 12:05:31 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1767891910;
+ s=mimecast20190719; t=1767891929;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YUNxW4PcR6hawl1xpe2B+vmbdO3+qUfJD+dE7lqYFtM=;
- b=iRQKOIgrrFwEoEKoMGdLGCl+suquHe//f6ekQU7ujBRrBB98PulEVdSS5PlDRBnd+GYhra
- 07v1fhcfXulxLmzsHtYVG/kER3a+AukouySUgaYQfwLJ7IlnzD+f7eeqFWxdhFQMwQtzwz
- I19Mag5JmdHodnaj9A2mCkOacLnIUxE=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ bh=hs7w5e8PYkWEToas8zAGloctBGVW9BJyZ/k9qigqvuY=;
+ b=LYTOGJVgyFrJOty0bNom8xZLrB64ov0nqJ0bubzE7XZUGZ3TzyZyyaT6hsAOgSpOy0oIZH
+ cSXXuOjk/qzO2bAIqwNM85XS6ZekaefEWhPhSxLKxjCE/N77OLOHezhwwPa4d0boz1bHIa
+ OhS8uf4n2qDT1LJKBNXx6N7rXpyCVhM=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-411-VYdDTknFPbqwgzi_l2-peA-1; Thu,
- 08 Jan 2026 12:05:07 -0500
-X-MC-Unique: VYdDTknFPbqwgzi_l2-peA-1
-X-Mimecast-MFC-AGG-ID: VYdDTknFPbqwgzi_l2-peA_1767891905
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-677-XMtLEhKDOjOfc2P8lVtwiw-1; Thu,
+ 08 Jan 2026 12:05:25 -0500
+X-MC-Unique: XMtLEhKDOjOfc2P8lVtwiw-1
+X-Mimecast-MFC-AGG-ID: XMtLEhKDOjOfc2P8lVtwiw_1767891922
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id AB5B019560AA; Thu,  8 Jan 2026 17:05:05 +0000 (UTC)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id AB6C21956050; Thu,  8 Jan 2026 17:05:22 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.42.28.44])
  by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 8CDC419560BA; Thu,  8 Jan 2026 17:05:01 +0000 (UTC)
+ id CB24E19560A2; Thu,  8 Jan 2026 17:05:18 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
@@ -61,9 +61,10 @@ Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  Markus Armbruster <armbru@redhat.com>, Stefan Weil <sw@weilnetz.de>,
  Kevin Wolf <kwolf@redhat.com>,
  Richard Henderson <richard.henderson@linaro.org>
-Subject: [PATCH v5 18/24] util: fix interleaving of error prefixes
-Date: Thu,  8 Jan 2026 17:03:32 +0000
-Message-ID: <20260108170338.2693853-19-berrange@redhat.com>
+Subject: [PATCH v5 22/24] util: add support for formatting a program name in
+ messages
+Date: Thu,  8 Jan 2026 17:03:36 +0000
+Message-ID: <20260108170338.2693853-23-berrange@redhat.com>
 In-Reply-To: <20260108170338.2693853-1-berrange@redhat.com>
 References: <20260108170338.2693853-1-berrange@redhat.com>
 MIME-Version: 1.0
@@ -95,43 +96,193 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-The vreport() function will optionally emit an prefix for error
-messages which is output to stderr incrementally. In the event
-that two vreport() calls execute concurrently, there is a risk
-that the prefix output will interleave. To address this it is
-required to take a lock on 'stderr' when outputting errors.
+The error_report function can include the program name in any
+messages it prints. The qemu_log function has no equivalent
+behaviour.
 
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+This introduces support for a "program name" in the new
+messages API, which will be included by default for all
+binaries.
+
+This change tweaks the output of the error_report function,
+adding a space between the program name and the location
+info. The qemu_log function will gain the program name. This
+can be easily seen with the 'log' trace backend, and how it
+is now more closely matching error_report output.
+
+Before:
+
+  # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish -d 'trace:qcrypto*'
+  qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x5584e13937f0 dir=fish
+  qcrypto_tls_creds_get_path TLS creds path creds=0x5584e13937f0 filename=ca-cert.pem path=<none>
+  qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: No such file or directory
+
+After:
+
+  # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish -d 'trace:qcrypto*'
+  qemu-system-x86_64: qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x5584e13937f0 dir=fish
+  qemu-system-x86_64: qcrypto_tls_creds_get_path TLS creds path creds=0x5584e13937f0 filename=ca-cert.pem path=<none>
+  qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: No such file or directory
+
+When adding this the '-msg program-name=on|off' option is
+introduced, so that the program name (which is enabled by
+default) can be supressed if desired. This could be useful
+if '-msg guest-name=on' is being used as a more informative
+identifier.
+
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- util/error-report.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ include/qemu/message.h         |  1 +
+ qemu-options.hx                |  9 +++++++--
+ system/vl.c                    | 11 ++++++++++-
+ tests/unit/test-error-report.c |  5 +++--
+ util/error-report.c            |  4 ----
+ util/message.c                 | 10 +++++++++-
+ 6 files changed, 30 insertions(+), 10 deletions(-)
 
-diff --git a/util/error-report.c b/util/error-report.c
-index 14b170ca4c..46ea9ededa 100644
---- a/util/error-report.c
-+++ b/util/error-report.c
-@@ -226,6 +226,8 @@ static void vreport(report_type type, const char *fmt, va_list ap)
+diff --git a/include/qemu/message.h b/include/qemu/message.h
+index cfc3c92648..b8518d06be 100644
+--- a/include/qemu/message.h
++++ b/include/qemu/message.h
+@@ -6,6 +6,7 @@
+ enum QMessageFormatFlags {
+     QMESSAGE_FORMAT_TIMESTAMP = (1 << 0),
+     QMESSAGE_FORMAT_WORKLOAD_NAME = (1 << 1),
++    QMESSAGE_FORMAT_PROGRAM_NAME = (1 << 2),
+ };
  
-     if (monitor_cur_is_hmp()) {
-         cur = monitor_cur();
-+    } else {
-+        qemu_flockfile(stderr);
-     }
+ /**
+diff --git a/qemu-options.hx b/qemu-options.hx
+index e8057fdcc9..e58b55d1f7 100644
+--- a/qemu-options.hx
++++ b/qemu-options.hx
+@@ -5515,13 +5515,15 @@ ERST
  
-     if (message_with_timestamp && !cur) {
-@@ -254,6 +256,10 @@ static void vreport(report_type type, const char *fmt, va_list ap)
+ DEF("msg", HAS_ARG, QEMU_OPTION_msg,
+     "-msg [timestamp=on|off][,guest-name=on|off]\n"
++    "     [,program-name=on|off]\n"
+     "                control error message format\n"
+     "                timestamp=on enables timestamps (default: off)\n"
+     "                guest-name=on enables guest name prefix but only if\n"
+-    "                              -name guest option is set (default: off)\n",
++    "                              -name guest option is set (default: off)\n"
++    "                program-name=off disables program name prefix (default: on)\n",
+     QEMU_ARCH_ALL)
+ SRST
+-``-msg [timestamp=on|off][,guest-name=on|off]``
++``-msg [timestamp=on|off][,guest-name=on|off][,program-name=on|off]``
+     Control error message format.
  
-     error_vprintf_mon(cur, fmt, ap);
-     error_printf_mon(cur, "\n");
+     ``timestamp=on|off``
+@@ -5530,6 +5532,9 @@ SRST
+     ``guest-name=on|off``
+         Prefix messages with guest name but only if -name guest option is set
+         otherwise the option is ignored. Default is off.
 +
-+    if (!cur) {
-+        qemu_funlockfile(stderr);
++    ``program-name=on|off``
++        Prefix messages with the program name. Default is on.
+ ERST
+ 
+ DEF("dump-vmstate", HAS_ARG, QEMU_OPTION_dump_vmstate,
+diff --git a/system/vl.c b/system/vl.c
+index 5f3b5436a6..503b0dcc24 100644
+--- a/system/vl.c
++++ b/system/vl.c
+@@ -381,6 +381,12 @@ static QemuOptsList qemu_msg_opts = {
+             .help = "Prepends guest name for error messages but only if "
+                     "-name guest is set otherwise option is ignored\n",
+         },
++        {
++            .name = "program-name",
++            .type = QEMU_OPT_BOOL,
++            .help = "Prepends program name for error messages (enabled "
++                    "by default)\n",
++        },
+         { /* end of list */ }
+     },
+ };
+@@ -819,13 +825,16 @@ static void realtime_init(void)
+ 
+ static void configure_msg(QemuOpts *opts)
+ {
+-    int flags = 0;
++    int flags = QMESSAGE_FORMAT_PROGRAM_NAME;
+     if (qemu_opt_get_bool(opts, "timestamp", false)) {
+         flags |= QMESSAGE_FORMAT_TIMESTAMP;
+     }
+     if (qemu_opt_get_bool(opts, "guest-name", false)) {
+         flags |= QMESSAGE_FORMAT_WORKLOAD_NAME;
+     }
++    if (!qemu_opt_get_bool(opts, "program-name", true)) {
++        flags &= ~QMESSAGE_FORMAT_PROGRAM_NAME;
 +    }
+     qmessage_set_format(flags);
  }
  
- /*
+diff --git a/tests/unit/test-error-report.c b/tests/unit/test-error-report.c
+index 9c63019694..714eafc51e 100644
+--- a/tests/unit/test-error-report.c
++++ b/tests/unit/test-error-report.c
+@@ -47,7 +47,7 @@ test_error_report_loc(void)
+     g_test_trap_subprocess(NULL, 0, 0);
+     g_test_trap_assert_passed();
+     g_test_trap_assert_stderr("\
+-test-error-report:some-file.c:7717: test error1*\
++test-error-report: some-file.c:7717: test error1*\
+ test-error-report: test error2*\
+ ");
+ }
+@@ -90,7 +90,8 @@ static void
+ test_error_report_timestamp(void)
+ {
+     if (g_test_subprocess()) {
+-        qmessage_set_format(QMESSAGE_FORMAT_TIMESTAMP);
++        qmessage_set_format(QMESSAGE_FORMAT_TIMESTAMP |
++                            QMESSAGE_FORMAT_PROGRAM_NAME);
+         warn_report("warn");
+         error_report("err");
+         return;
+diff --git a/util/error-report.c b/util/error-report.c
+index 313c2d6055..4c82d10a36 100644
+--- a/util/error-report.c
++++ b/util/error-report.c
+@@ -176,10 +176,6 @@ static void print_loc(Monitor *cur)
+     int i;
+     const char *const *argp;
+ 
+-    if (!cur && g_get_prgname()) {
+-        fprintf(stderr, "%s:", g_get_prgname());
+-        sep = " ";
+-    }
+     switch (cur_loc->kind) {
+     case LOC_CMDLINE:
+         argp = cur_loc->ptr;
+diff --git a/util/message.c b/util/message.c
+index fb2c947153..dd01bf7462 100644
+--- a/util/message.c
++++ b/util/message.c
+@@ -5,7 +5,7 @@
+ #include "qemu/message.h"
+ #include "monitor/monitor.h"
+ 
+-static int message_format;
++static int message_format = QMESSAGE_FORMAT_PROGRAM_NAME;
+ static char *message_workloadname;
+ 
+ void qmessage_set_format(int flags)
+@@ -32,4 +32,12 @@ void qmessage_context_print(FILE *fp)
+         fputs(message_workloadname, fp);
+         fputc(' ', fp);
+     }
++
++    if (message_format & QMESSAGE_FORMAT_PROGRAM_NAME) {
++        const char *pgnamestr = g_get_prgname();
++        if (pgnamestr) {
++            fputs(pgnamestr, fp);
++            fputs(": ", fp);
++        }
++    }
+ }
 -- 
 2.52.0
 
