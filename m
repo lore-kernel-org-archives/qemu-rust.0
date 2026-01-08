@@ -4,91 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F8EAD185F1
-	for <qemu-rust@archiver.kernel.org>; Thu,  8 Jan 2026 13:12:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FE1CD185F2
+	for <qemu-rust@archiver.kernel.org>; Thu,  8 Jan 2026 13:12:52 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vdpnF-0007bb-Ly; Thu, 08 Jan 2026 08:11:13 -0500
+	id 1vdpnW-0007z5-CY; Thu, 08 Jan 2026 08:11:30 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vdpnE-0007b2-HO
- for qemu-rust@nongnu.org; Thu, 08 Jan 2026 08:11:12 -0500
+ id 1vdpnV-0007t6-8x
+ for qemu-rust@nongnu.org; Thu, 08 Jan 2026 08:11:29 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vdpnC-00080G-A9
- for qemu-rust@nongnu.org; Thu, 08 Jan 2026 08:11:12 -0500
+ id 1vdpnT-00083R-AO
+ for qemu-rust@nongnu.org; Thu, 08 Jan 2026 08:11:28 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1767877867;
+ s=mimecast20190719; t=1767877886;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=24uu20SH0A5RmWohW/685UZSc7h5TVZr0Shnp1cHoEY=;
- b=h+OX5kplFyAIe1cydItuNbA8J7zJt5luSID42alqwlwsQ+Z/ar01IKYdu1XUXRfjpDOmqz
- /dMeOqn+2ebDa9tjMJfCb0V0Eo6rm90O+hjZ5DDpWTK801GRLpR8Jjp1M0lDjc86Ky1YTC
- X6imECWTIzz01PxoH23IIjNXn5hOue0=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=69DigzWj4ZfxAoDrRrcKXKL2TbKieDPgsraALABmsSU=;
+ b=Uu+juvI3ghaA7HGEpD1vbOcQ2NLRyOWvnhBD0eWt6XyI8hjnyDvbsQZC+/iIfW41M4/nna
+ V+YGdlBNCODQE8MUKMpamEts9YfoO672kUVnWjhRvcPlg+Uxq3f2GiVNzPEnZs/dvJFZ8p
+ P/9gO4UgdlfVl3yS1bIjS3/GxV0uqWw=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-591-ubYsHu2wMSG5mdHZOjxBPQ-1; Thu, 08 Jan 2026 08:11:06 -0500
-X-MC-Unique: ubYsHu2wMSG5mdHZOjxBPQ-1
-X-Mimecast-MFC-AGG-ID: ubYsHu2wMSG5mdHZOjxBPQ_1767877865
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-432a9ef3d86so1678714f8f.2
- for <qemu-rust@nongnu.org>; Thu, 08 Jan 2026 05:11:06 -0800 (PST)
+ us-mta-223-QZkxtLkSNfOLDrugcq40Ng-1; Thu, 08 Jan 2026 08:11:25 -0500
+X-MC-Unique: QZkxtLkSNfOLDrugcq40Ng-1
+X-Mimecast-MFC-AGG-ID: QZkxtLkSNfOLDrugcq40Ng_1767877884
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-477cf2230c8so30186135e9.0
+ for <qemu-rust@nongnu.org>; Thu, 08 Jan 2026 05:11:25 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767877865; x=1768482665;
+ d=1e100.net; s=20230601; t=1767877882; x=1768482682;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=24uu20SH0A5RmWohW/685UZSc7h5TVZr0Shnp1cHoEY=;
- b=bQ2RnWtL2h+1Zlf/+JLes+ItR3BFRhf3fkRHefUeR4ryAkAdsOIvVX0eYCeckuqO+q
- c31poyJzF9miKiYvK/PtLJcE58LrbOZWXv65exQIwUvRygG9+ZwTMZLLRWqXOHi3H+3q
- qdyct9dQd3Ahd435KjLVHKpd1rx7YkR2xaS2huAEWhdHWapDc/NyotnWyiVAdDfjpKDh
- M+DAsGp8yjrvmWUuqzVb1Lzx2le5ORRrso/mTCBfnTjGcHxEecUytPlNHTHGzQV8bcM3
- 4cwNb9nU997E9aY+tRCrzHtET+B78lh1bROgXDgfYv7fePE607MbRcmiMQJBl/aBUBaP
- D2mg==
+ bh=69DigzWj4ZfxAoDrRrcKXKL2TbKieDPgsraALABmsSU=;
+ b=faPEU4XHlQpOQRjTGpAIkVyG1ebyryZPcN7OJucpc58MdD1mGPQA2ttLqS7LvjwO7S
+ VfYxerr7yjhiOIJeEMt74dpFDibjqjapjz8pP6AfxH62GVp1hLNKJKXmUgUg9YOlmAXO
+ JbrA99/qoB2DB5nnphJTW9fZ+0MjO/imY0SsFb54wRsxoJupr2jyU2hpgUa+KrptzOgt
+ UkPIPdmDsevTK5V/KYeJbZDg8JBxeRhSqHe6mYSrP8NOQn38/tFr97tUKmkFO/1vYBLH
+ MzZMn/TkBfP6ucKbEnyT0pS2ciaQvYOTVas+pUuKP6guwT0RrYKkSoARufrxa1L0/won
+ zEUg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVwZ1uCiJv2AoLGbhzNSbbZ5v0nmnS1sPzUmrFkcC7Tmnow/DSGTOYUhLztWXQf5Y7WVoCosWLJV8Y=@nongnu.org
-X-Gm-Message-State: AOJu0Yx5l3Hpy8mnY66QsiZ8FjvjaQinZ47BTPyNa5MQ0Vo46/hv6yCH
- rxMRzOQEKY4oph98akgFezoepjiuuQZOXj2caGwXFfWvQ8BqvnnczENJrMrsKupbuSZbiWa4XGD
- JLHhYjxeCCO166lli1qH9uqnp9tngijTKEcU2DSX2cxcPr+1Kbg5M2vs=
-X-Gm-Gg: AY/fxX7/0vCFJDC50lzlcg3ET5NdPqPjcnTwjkjZZyhoealFNIH40UF9CLElijdFzXR
- JqLnaUHLFqfG4Dip+4cDCiiFF6PLZTneyZcmJN9hedKvJkaK8hII7nXDcH0XnfrwzCuafqANDEv
- RcXXVaie+wsySETggMyC10iZs3rL+XySesYYKyIcflM0NcWlJJ1yqxMlTNe0T6v19VcjInO9Fn3
- Vbglb/zkdmBbsS3ivcA13x3HOhmxpnFdbd6Yh/kRuYTCOWShcWiHTalkzLKsOXs8oKBO1yXrwCK
- qth5ywCCZPRJQk5ZRzGZxrVCSPW9ZgR/LdWq6MhjhKGA+rAj6JHRe4NO25VxQGxsacnTrgDOzuO
- T10Py973OvzGf4O3pAg5DjZHpUXpCB6dDqHk5bjjjO/KHOv/eL5t00Tc0Ci981PwOZHZ4hfK+l+
- pKj7yy2wRdgfNGDw==
-X-Received: by 2002:a05:6000:4024:b0:431:808:2d50 with SMTP id
- ffacd0b85a97d-432c3628270mr7910114f8f.13.1767877865126; 
- Thu, 08 Jan 2026 05:11:05 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGvittNCdbmpfD2E/UnLYDT9eFkNlLTgyzUxBRwqQaAyJ/ztD9DUB9Z6TDup7+DvYUKcUJ6Uw==
-X-Received: by 2002:a05:6000:4024:b0:431:808:2d50 with SMTP id
- ffacd0b85a97d-432c3628270mr7910093f8f.13.1767877864765; 
- Thu, 08 Jan 2026 05:11:04 -0800 (PST)
+ AJvYcCWJ25ZlJpulI8oSSTr2E8hpJZyWgNmReV7bbZPkrpeDczX8u8oaybB5T0VkeyOFv+iy9uVcd3/PzmA=@nongnu.org
+X-Gm-Message-State: AOJu0YyacTKOi4u3gk38OGnh4+2YtyMP1/7CyVeEa6ki55ti66HQzbwA
+ 0jg0dZFhSrVzv6WJh3p1eoDkEKBIj2HqLZ93rYW0u1ITs6Cwh2PemO4hS81xT8LmqkFd3T0IZj8
+ BJ9xhF0HNbGYvpKkyEPRdK8hCLYk7Ojh3ssfc5meo0/UNwtuM359zrk4=
+X-Gm-Gg: AY/fxX5HCfH8tzOS2uaAes2SKHxinaleL/9mSCAHoF029aLEZiYQNaJcgT/zJ/+gUX4
+ 3uNwsgWr6XlDgetS6AaATfteTWJ/GoX/icVJpWTDYr4BYDrnHXbkwFDhr3n4s87ss8SyqOkAbCD
+ Ul2oFIOh+EN+toeh1EaBiIdMf4b9EjGXGGiBtJ4HkE3cnWkWnPJg4fWUp2QGuu+a58MVYMypG9G
+ n0SpwdX7cbzmP7AZNsRdASYfXjgXzA9yt9RjE2/Ru+R8vNDyuDZdbzKB61RyE7cPLIvah/fZ9fv
+ 5bP+1VK/XC76M0kwQCNBWQuBINkYqkCRbmw/xrHAkTuI/u69QKzsIJGphuKZ/aVbprQOiVEYKuX
+ 8fO+WtCfI50UJhkaS0lbxUCMBhXeBZuw+BlJD8CNG/keIXd7QV6F1r+zY00nrL6a2bD2Fe8kPtH
+ bKJl5tAwVtWH0ltg==
+X-Received: by 2002:a05:600c:630f:b0:47d:5d27:2a7f with SMTP id
+ 5b1f17b1804b1-47d84b38534mr67895455e9.26.1767877882362; 
+ Thu, 08 Jan 2026 05:11:22 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEZRkwS4JBE3z+OEyFzuopJCLYfolNYNYO+oOKcKdPqfFgMR4KlXOfmyc7/a34yqGzdx8kYEA==
+X-Received: by 2002:a05:600c:630f:b0:47d:5d27:2a7f with SMTP id
+ 5b1f17b1804b1-47d84b38534mr67895205e9.26.1767877881966; 
+ Thu, 08 Jan 2026 05:11:21 -0800 (PST)
 Received: from [192.168.10.48] ([151.61.26.160])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432d286cdecsm2534047f8f.7.2026.01.08.05.11.02
+ 5b1f17b1804b1-47d7f410c6csm163484795e9.1.2026.01.08.05.11.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Jan 2026 05:11:03 -0800 (PST)
+ Thu, 08 Jan 2026 05:11:20 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: armbru@redhat.com,
  =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
  qemu-rust@nongnu.org
-Subject: [PATCH v2 07/16] rust/qobject: add from/to JSON bindings for QObject
-Date: Thu,  8 Jan 2026 14:10:34 +0100
-Message-ID: <20260108131043.490084-8-pbonzini@redhat.com>
+Subject: [PATCH v2 13/16] scripts/rustc_args: add --no-strict-cfg
+Date: Thu,  8 Jan 2026 14:10:40 +0100
+Message-ID: <20260108131043.490084-14-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260108131043.490084-1-pbonzini@redhat.com>
 References: <20260108131043.490084-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ZdCbx5KI3eJd0FeqklGhQLhq_ayKjEP7DdLZJWlHr-Q_1767877865
+X-Mimecast-MFC-PROC-ID: DE9Gim25tHC8wO-lkDU3Km4f1nnj2yJBJu_F2lJNEJk_1767877884
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -101,7 +101,7 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -117,61 +117,66 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-These are used by tests.  However it could even be an idea to use
-serde_json + transcoding and get rid of the C version...
+From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-Co-authored-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+Allow to generate all --cfg flags, regardless of Cargo.toml content.
+We can't easily list and include all the features used by QAPI types.
+Access via #[cfg()] then requires #![allow(unexpected_cfgs)].
+
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/util/wrapper.h          |  1 +
- rust/util/src/qobject/mod.rs | 17 +++++++++++++++++
- 2 files changed, 18 insertions(+)
+ scripts/rust/rustc_args.py | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/rust/util/wrapper.h b/rust/util/wrapper.h
-index 0907dd59142..c88820a5e5b 100644
---- a/rust/util/wrapper.h
-+++ b/rust/util/wrapper.h
-@@ -37,3 +37,4 @@ typedef enum memory_order {
- #include "qobject/qobject.h"
- #include "qobject/qlist.h"
- #include "qobject/qdict.h"
-+#include "qobject/qjson.h"
-diff --git a/rust/util/src/qobject/mod.rs b/rust/util/src/qobject/mod.rs
-index b95dddddedc..95d41cec4f1 100644
---- a/rust/util/src/qobject/mod.rs
-+++ b/rust/util/src/qobject/mod.rs
-@@ -23,6 +23,7 @@
- use common::assert_field_type;
- pub use deserializer::from_qobject;
- pub use error::{Error, Result};
-+use foreign::prelude::*;
- pub use serializer::to_qobject;
+diff --git a/scripts/rust/rustc_args.py b/scripts/rust/rustc_args.py
+index 8098053720a..6a156b9608e 100644
+--- a/scripts/rust/rustc_args.py
++++ b/scripts/rust/rustc_args.py
+@@ -108,7 +108,7 @@ def generate_lint_flags(cargo_toml: CargoTOML) -> Iterable[str]:
+         yield from lint.flags
  
- use crate::bindings;
-@@ -112,6 +113,22 @@ fn refcnt(&self) -> &AtomicUsize {
-         let qobj = self.0.get();
-         unsafe { AtomicUsize::from_ptr(addr_of_mut!((*qobj).base.refcnt)) }
-     }
-+
-+    pub fn to_json(&self) -> String {
-+        let qobj = self.0.get();
-+        unsafe {
-+            let json = bindings::qobject_to_json(qobj);
-+            glib_sys::g_string_free(json, glib_sys::GFALSE).into_native()
-+        }
-+    }
-+
-+    pub fn from_json(json: &str) -> std::result::Result<Self, crate::Error> {
-+        let c_json = std::ffi::CString::new(json)?;
-+        unsafe {
-+            crate::Error::with_errp(|errp| bindings::qobject_from_json(c_json.as_ptr(), errp))
-+                .map(|qobj| QObject::from_raw(qobj))
-+        }
-+    }
- }
  
- /// Rust equivalent of the C `QOBJECT` macro; for internal use only, because
+-def generate_cfg_flags(header: str, cargo_toml: CargoTOML) -> Iterable[str]:
++def generate_cfg_flags(header: str, cargo_toml: Optional[CargoTOML]) -> Iterable[str]:
+     """Converts defines from config[..].h headers to rustc --cfg flags."""
+ 
+     with open(header, encoding="utf-8") as cfg:
+@@ -117,8 +117,9 @@ def generate_cfg_flags(header: str, cargo_toml: CargoTOML) -> Iterable[str]:
+     cfg_list = []
+     for cfg in config:
+         name = cfg[0]
+-        if f'cfg({name})' not in cargo_toml.check_cfg:
+-            continue
++        if cargo_toml:
++            if f'cfg({name})' not in cargo_toml.check_cfg:
++                continue
+         if len(cfg) >= 2 and cfg[1] != "1":
+             continue
+         cfg_list.append("--cfg")
+@@ -179,6 +180,13 @@ def main() -> None:
+         required=False,
+         default="1.0.0",
+     )
++    parser.add_argument(
++        "--no-strict-cfg",
++        help="only generate expected cfg",
++        action="store_false",
++        dest="strict_cfg",
++        default=True,
++    )
+     args = parser.parse_args()
+     if args.verbose:
+         logging.basicConfig(level=logging.DEBUG)
+@@ -209,7 +217,7 @@ def main() -> None:
+                     print(f'cfg(feature,values("{feature}"))')
+ 
+     for header in args.config_headers:
+-        for tok in generate_cfg_flags(header, cargo_toml):
++        for tok in generate_cfg_flags(header, cargo_toml if args.strict_cfg else None):
+             print(tok)
+ 
+ 
 -- 
 2.52.0
 
