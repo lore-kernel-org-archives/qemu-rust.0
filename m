@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D42A1D1D483
-	for <qemu-rust@archiver.kernel.org>; Thu,  8 Jan 2026 17:05:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3A6AD1D482
+	for <qemu-rust@archiver.kernel.org>; Thu,  8 Jan 2026 17:06:20 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vdtSG-000067-S0; Thu, 08 Jan 2026 12:05:48 -0500
+	id 1vdtQg-0003rv-U8; Thu, 08 Jan 2026 12:04:10 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vdtSB-0007l6-2v
- for qemu-rust@nongnu.org; Thu, 08 Jan 2026 12:05:43 -0500
+ id 1vdtQd-0003l7-2E
+ for qemu-rust@nongnu.org; Thu, 08 Jan 2026 12:04:07 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vdtS8-0007Or-Tj
- for qemu-rust@nongnu.org; Thu, 08 Jan 2026 12:05:42 -0500
+ id 1vdtQb-0006rO-Kv
+ for qemu-rust@nongnu.org; Thu, 08 Jan 2026 12:04:06 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1767891940;
+ s=mimecast20190719; t=1767891845;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=68Kp+6aWoHRH5lpTuDrXemE8tPoiTCechYjeJaXvG8k=;
- b=XU1PrXm3vHsYWF9VbNQmhuchHL08mR/UZM7HD8O6zzx/LfdFdVQkF8rhisbCq549AzVUjk
- YXE8zL/uM3+5e/krv6eUwkD75NVE1zpTpTia22ItsE/qvrlzzx8tQCyuYXaSl9e/UeJFoi
- q8QIzcH+l/wH3E66z+hcE2Xxm3fMoVc=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=VtFPI6vVXa2ox707p91yDXfVumBlXkpusbUwLIynWCc=;
+ b=JrThNT27O5cfPhC6jfS4dyUZgijE0ZeGGo38i+R2ZI3W7xI8YzF11R+4FZDGeDbuXxjejR
+ EK3CDSHYAMxl69YxnNBzf5IZDFG0FY6y8mCsQjSmNoGKa+5tsd9J3tIlO3bJCoZivscAKN
+ EOlcGLLLuPq+qEa6s+FJ4PGg0KgVqCY=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-252-E8iZWTFWPBOQdk7piui9rQ-1; Thu,
- 08 Jan 2026 12:05:35 -0500
-X-MC-Unique: E8iZWTFWPBOQdk7piui9rQ-1
-X-Mimecast-MFC-AGG-ID: E8iZWTFWPBOQdk7piui9rQ_1767891932
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-542-_VYh9_zhNe-y6nSlJbwTsQ-1; Thu,
+ 08 Jan 2026 12:04:00 -0500
+X-MC-Unique: _VYh9_zhNe-y6nSlJbwTsQ-1
+X-Mimecast-MFC-AGG-ID: _VYh9_zhNe-y6nSlJbwTsQ_1767891838
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id E26311800378; Thu,  8 Jan 2026 17:05:31 +0000 (UTC)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 8D8BB1956095; Thu,  8 Jan 2026 17:03:58 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.42.28.44])
  by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 5DCBB1955F1C; Thu,  8 Jan 2026 17:05:27 +0000 (UTC)
+ id C3A2C19560B4; Thu,  8 Jan 2026 17:03:54 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
@@ -61,10 +61,9 @@ Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  Markus Armbruster <armbru@redhat.com>, Stefan Weil <sw@weilnetz.de>,
  Kevin Wolf <kwolf@redhat.com>,
  Richard Henderson <richard.henderson@linaro.org>
-Subject: [PATCH v5 24/24] util: add brackets around guest name in message
- context
-Date: Thu,  8 Jan 2026 17:03:38 +0000
-Message-ID: <20260108170338.2693853-25-berrange@redhat.com>
+Subject: [PATCH v5 03/24] monitor: initialize global data from a constructor
+Date: Thu,  8 Jan 2026 17:03:17 +0000
+Message-ID: <20260108170338.2693853-4-berrange@redhat.com>
 In-Reply-To: <20260108170338.2693853-1-berrange@redhat.com>
 References: <20260108170338.2693853-1-berrange@redhat.com>
 MIME-Version: 1.0
@@ -80,7 +79,7 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -96,46 +95,68 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-The message context can optionally include the guest name if the
-argument '-msg guest-name=on' is given. The formatting, however,
-does not look good if the guest name contains whitespace. Change
-the output to include square brackets to demarcate the name.
+Some monitor functions, most notably, monitor_cur() rely on global
+data being initialized by 'monitor_init_globals()'. The latter is
+called relatively late in startup. If code triggers error_report()
+before monitor_init_globals() is called, QEMU will abort when
+accessing the uninitialized monitor mutex.
 
-Before:
+The critical monitor global data must be initialized from a
+constructor function, to improve the guarantee that it is done
+before any possible calls to monitor_cur(). Not only that, but
+the constructor must be marked to run before the default
+constructor in case any of them trigger error reporting.
 
-  # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish -d 'trace:qcrypto*' -msg guest-name=on -name "fish food"
-  fish food qemu-system-x86_64: (1146846:main): qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x55657e94e690 dir=fish
-  fish food qemu-system-x86_64: (1146846:main): qcrypto_tls_creds_get_path TLS creds path creds=0x55657e94e690 filename=ca-cert.pem path=<none>
-  fish food qemu-system-x86_64: (1146846:main): Unable to access credentials fish/ca-cert.pem: No such file or directory
+Note in particular that the RCU constructor will spawn a background
+thread so we might even have non-constructor QEMU code running
+concurrently with other constructors.
 
-After:
-
-  # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish -d 'trace:qcrypto*' -msg guest-name=on -name "fish food"
-  [fish food] qemu-system-x86_64: (1144713:main): qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x5604ada2c950 dir=fish
-  [fish food] qemu-system-x86_64: (1144713:main): qcrypto_tls_creds_get_path TLS creds path creds=0x5604ada2c950 filename=ca-cert.pem path=<none>
-  [fish food] qemu-system-x86_64: (1144713:main): Unable to access credentials fish/ca-cert.pem: No such file or directory
+As a general note, constructors should be extrememly careful
+about what QEMU code they invoke, as it cannot be guaranteed that
+the process is fully initialized and so not all normal QEMU API
+rules apply.
 
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+Reviewed-by: Dr. David Alan Gilbert <dave@treblig.org>
+Reviewed-by: Markus Armbruster <armbru@redhat.com>
+Fixes: e69ee454b5f9 (monitor: Make current monitor a per-coroutine property)
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- util/message.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ monitor/monitor.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/util/message.c b/util/message.c
-index 9bf640c8c4..73af8e8ca4 100644
---- a/util/message.c
-+++ b/util/message.c
-@@ -29,8 +29,9 @@ void qmessage_context_print(FILE *fp)
- 
-     if ((message_format & QMESSAGE_FORMAT_WORKLOAD_NAME) &&
-         message_workloadname) {
-+        fputc('[', fp);
-         fputs(message_workloadname, fp);
--        fputc(' ', fp);
-+        fputs("] ", fp);
+diff --git a/monitor/monitor.c b/monitor/monitor.c
+index 1273eb7260..dd2c45ded0 100644
+--- a/monitor/monitor.c
++++ b/monitor/monitor.c
+@@ -708,18 +708,22 @@ void monitor_cleanup(void)
      }
+ }
  
-     if (message_format & QMESSAGE_FORMAT_PROGRAM_NAME) {
+-static void monitor_qapi_event_init(void)
++/*
++ * Initialize static vars that have no deps on external
++ * module initialization, and are required for external
++ * functions to call things like monitor_cur()
++ */
++static void __attribute__((__constructor__(QEMU_CONSTRUCTOR_EARLY)))
++monitor_init_static(void)
+ {
++    qemu_mutex_init(&monitor_lock);
++    coroutine_mon = g_hash_table_new(NULL, NULL);
+     monitor_qapi_event_state = g_hash_table_new(qapi_event_throttle_hash,
+                                                 qapi_event_throttle_equal);
+ }
+ 
+ void monitor_init_globals(void)
+ {
+-    monitor_qapi_event_init();
+-    qemu_mutex_init(&monitor_lock);
+-    coroutine_mon = g_hash_table_new(NULL, NULL);
+-
+     /*
+      * The dispatcher BH must run in the main loop thread, since we
+      * have commands assuming that context.  It would be nice to get
 -- 
 2.52.0
 
