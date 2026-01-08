@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5863FD1D478
-	for <qemu-rust@archiver.kernel.org>; Thu,  8 Jan 2026 17:05:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BE10D1D478
+	for <qemu-rust@archiver.kernel.org>; Thu,  8 Jan 2026 17:05:46 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vdtR5-0004g2-U3; Thu, 08 Jan 2026 12:04:35 -0500
+	id 1vdtRk-0006RH-Gy; Thu, 08 Jan 2026 12:05:16 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vdtQy-0004R3-6l
- for qemu-rust@nongnu.org; Thu, 08 Jan 2026 12:04:28 -0500
+ id 1vdtRT-0005zI-8L
+ for qemu-rust@nongnu.org; Thu, 08 Jan 2026 12:05:01 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vdtQw-0006vq-Iu
- for qemu-rust@nongnu.org; Thu, 08 Jan 2026 12:04:27 -0500
+ id 1vdtRQ-0006zx-8f
+ for qemu-rust@nongnu.org; Thu, 08 Jan 2026 12:04:57 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1767891865;
+ s=mimecast20190719; t=1767891895;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=lE1EdAR5TOYWlHIJcWjnUVb3ph2s51JydubRi351Nx4=;
- b=Y29n4eaiwq11dfOk41qgaN6JXQz3OUSrR2vbZ2XdADLd9nkyUrMFs+jiafC6GBmnl91JPN
- DyLWj4UxQjRYi7sD5BZFR2tVi0gn1lJJw66KJjFwan3qjTmchE/gZ8BfEZ4wPJ0V3tPKRf
- V4zFohk7dJnTGvFKYXXSkfJ62dGuPsU=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ bh=M1duE9W+YwZQh+SUbRd4DXBvtZgWpQ2DjJcNRbX6my0=;
+ b=hqZuQPST9bQiZv7g9PgxI3ACgc1hjALQluKv3r2XJjjSeGWAWLWVDElZjD0AWAThj6redP
+ oyEuQeQIIXHajXdJI0TUqKhxmuXTnVWRgjpzFImCQVOfiB7JKun1QGctAJdV+UCTOtJ9xr
+ BSyrEoKMfuSKa8/mu2CnaQzbktRkeHg=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-315-ETS0T5apO0-jlD89AKwWpw-1; Thu,
- 08 Jan 2026 12:04:22 -0500
-X-MC-Unique: ETS0T5apO0-jlD89AKwWpw-1
-X-Mimecast-MFC-AGG-ID: ETS0T5apO0-jlD89AKwWpw_1767891861
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-515-uAE3cU_YNP-fZ63kTUVGig-1; Thu,
+ 08 Jan 2026 12:04:51 -0500
+X-MC-Unique: uAE3cU_YNP-fZ63kTUVGig-1
+X-Mimecast-MFC-AGG-ID: uAE3cU_YNP-fZ63kTUVGig_1767891888
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 269E519560A1; Thu,  8 Jan 2026 17:04:21 +0000 (UTC)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id D850519541B3; Thu,  8 Jan 2026 17:04:47 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.42.28.44])
  by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id C6CE419560B4; Thu,  8 Jan 2026 17:04:16 +0000 (UTC)
+ id A15CF19560A2; Thu,  8 Jan 2026 17:04:43 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
@@ -60,10 +60,11 @@ Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  devel@lists.libvirt.org, qemu-block@nongnu.org, qemu-rust@nongnu.org,
  Markus Armbruster <armbru@redhat.com>, Stefan Weil <sw@weilnetz.de>,
  Kevin Wolf <kwolf@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>
-Subject: [PATCH v5 08/24] util: add API to fetch the current thread name
-Date: Thu,  8 Jan 2026 17:03:22 +0000
-Message-ID: <20260108170338.2693853-9-berrange@redhat.com>
+ Richard Henderson <richard.henderson@linaro.org>,
+ Eric Blake <eblake@redhat.com>
+Subject: [PATCH v5 14/24] monitor: move error_vprintf back to error-report.c
+Date: Thu,  8 Jan 2026 17:03:28 +0000
+Message-ID: <20260108170338.2693853-15-berrange@redhat.com>
 In-Reply-To: <20260108170338.2693853-1-berrange@redhat.com>
 References: <20260108170338.2693853-1-berrange@redhat.com>
 MIME-Version: 1.0
@@ -79,7 +80,7 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -95,205 +96,143 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-This will be used to include the thread name in error reports
-in a later patch. It returns a const string stored in a thread
-local to avoid memory allocation when it is called repeatedly
-in a single thread. The thread name should be set at the very
-start of the thread execution, which is the case when using
-qemu_thread_create.
+The current unit tests rely on monitor.o not being linked, such
+that the monitor stubs get linked instead. Since error_vprintf
+is in monitor.o this allows a stub error_vprintf impl to be used
+that calls g_test_message.
 
+This takes a different approach, with error_vprintf moving
+back to error-report.c such that it is always linked into the
+tests. The monitor_vprintf() stub is then changed to use
+g_test_message if QTEST_SILENT_ERRORS is set, otherwise it will
+return -1 and trigger error_vprintf to call vfprintf.
+
+The end result is functionally equivalent for the purposes of
+the unit tests.
+
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+Reviewed-by: Eric Blake <eblake@redhat.com>
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- include/qemu/thread.h    |  1 +
- meson.build              | 21 +++++++++++++++++
- util/qemu-thread-posix.c | 33 ++++++++++++++++++++++++++-
- util/qemu-thread-win32.c | 49 ++++++++++++++++++++++++++++++++++++----
- 4 files changed, 99 insertions(+), 5 deletions(-)
+ monitor/monitor.c    | 15 ---------------
+ stubs/error-printf.c | 18 ------------------
+ stubs/meson.build    |  1 -
+ stubs/monitor-core.c | 14 +++++++++++++-
+ util/error-report.c  | 15 +++++++++++++++
+ 5 files changed, 28 insertions(+), 35 deletions(-)
+ delete mode 100644 stubs/error-printf.c
 
-diff --git a/include/qemu/thread.h b/include/qemu/thread.h
-index 27b888ab0a..98cc5c41ac 100644
---- a/include/qemu/thread.h
-+++ b/include/qemu/thread.h
-@@ -216,6 +216,7 @@ void qemu_thread_get_self(QemuThread *thread);
- bool qemu_thread_is_self(QemuThread *thread);
- G_NORETURN void qemu_thread_exit(void *retval);
- void qemu_thread_set_name(const char *name);
-+const char *qemu_thread_get_name(void);
- 
- struct Notifier;
- /**
-diff --git a/meson.build b/meson.build
-index db87358d62..eb27aca329 100644
---- a/meson.build
-+++ b/meson.build
-@@ -2874,6 +2874,27 @@ config_host_data.set('CONFIG_PTHREAD_SET_NAME_NP', cc.links(osdep_prefix + '''
-     pthread_set_name_np(thread, "QEMU");
-     return 0;
-   }''', dependencies: threads))
-+
-+config_host_data.set('CONFIG_PTHREAD_GETNAME_NP', cc.links(osdep_prefix + '''
-+  #include <pthread.h>
-+
-+  int main(void)
-+  {
-+    char buf[16];
-+    pthread_getname_np(pthread_self(), buf, sizeof(buf));
-+    return 0;
-+  }''', dependencies: threads))
-+config_host_data.set('CONFIG_PTHREAD_GET_NAME_NP', cc.links(osdep_prefix + '''
-+  #include <pthread.h>
-+  #include <pthread_np.h>
-+
-+  int main(void)
-+  {
-+    char buf[16];
-+    pthread_get_name_np(pthread_self(), buf, sizeof(buf));
-+    return 0;
-+  }''', dependencies: threads))
-+
- config_host_data.set('CONFIG_PTHREAD_CONDATTR_SETCLOCK', cc.links(osdep_prefix + '''
-   #include <pthread.h>
- 
-diff --git a/util/qemu-thread-posix.c b/util/qemu-thread-posix.c
-index afeac9ecad..47156b60ce 100644
---- a/util/qemu-thread-posix.c
-+++ b/util/qemu-thread-posix.c
-@@ -18,7 +18,7 @@
- #include "qemu/tsan.h"
- #include "qemu/bitmap.h"
- 
--#ifdef CONFIG_PTHREAD_SET_NAME_NP
-+#if defined(CONFIG_PTHREAD_SET_NAME_NP) || defined(CONFIG_PTHREAD_GET_NAME_NP)
- #include <pthread_np.h>
- #endif
- 
-@@ -532,3 +532,34 @@ void *qemu_thread_join(QemuThread *thread)
-     }
-     return ret;
+diff --git a/monitor/monitor.c b/monitor/monitor.c
+index 627a59b23e..6dc5a7016d 100644
+--- a/monitor/monitor.c
++++ b/monitor/monitor.c
+@@ -268,21 +268,6 @@ void monitor_printc(Monitor *mon, int c)
+     monitor_printf(mon, "'");
  }
-+
-+/*
-+ * This is not defined on Linux, but the man page indicates
-+ * the buffer must be at least 16 bytes, including the NUL
-+ * terminator
-+ */
-+#ifndef PTHREAD_MAX_NAMELEN_NP
-+#define PTHREAD_MAX_NAMELEN_NP 16
-+#endif
-+
-+static __thread char namebuf[PTHREAD_MAX_NAMELEN_NP];
-+
-+const char *qemu_thread_get_name(void)
+ 
+-int error_vprintf(const char *fmt, va_list ap)
+-{
+-    Monitor *cur_mon = monitor_cur();
+-    /*
+-     * This will return -1 if 'cur_mon' is NULL, or is QMP.
+-     * IOW this will only print if in HMP, otherwise we
+-     * fallback to stderr for QMP / no-monitor scenarios.
+-     */
+-    int ret = monitor_vprintf(cur_mon, fmt, ap);
+-    if (ret == -1) {
+-        ret = vfprintf(stderr, fmt, ap);
+-    }
+-    return ret;
+-}
+-
+ static MonitorQAPIEventConf monitor_qapi_event_conf[QAPI_EVENT__MAX] = {
+     /* Limit guest-triggerable events to 1 per second */
+     [QAPI_EVENT_RTC_CHANGE]        = { 1000 * SCALE_MS },
+diff --git a/stubs/error-printf.c b/stubs/error-printf.c
+deleted file mode 100644
+index 1afa0f62ca..0000000000
+--- a/stubs/error-printf.c
++++ /dev/null
+@@ -1,18 +0,0 @@
+-#include "qemu/osdep.h"
+-#include "qemu/error-report.h"
+-#include "monitor/monitor.h"
+-
+-int error_vprintf(const char *fmt, va_list ap)
+-{
+-    int ret;
+-
+-    if (g_test_initialized() && !g_test_subprocess() &&
+-        getenv("QTEST_SILENT_ERRORS")) {
+-        char *msg = g_strdup_vprintf(fmt, ap);
+-        g_test_message("%s", msg);
+-        ret = strlen(msg);
+-        g_free(msg);
+-        return ret;
+-    }
+-    return vfprintf(stderr, fmt, ap);
+-}
+diff --git a/stubs/meson.build b/stubs/meson.build
+index 0b2778c568..3d77458a3f 100644
+--- a/stubs/meson.build
++++ b/stubs/meson.build
+@@ -3,7 +3,6 @@
+ # below, so that it is clear who needs the stubbed functionality.
+ 
+ stub_ss.add(files('cpu-get-clock.c'))
+-stub_ss.add(files('error-printf.c'))
+ stub_ss.add(files('fdset.c'))
+ stub_ss.add(files('iothread-lock.c'))
+ stub_ss.add(files('is-daemonized.c'))
+diff --git a/stubs/monitor-core.c b/stubs/monitor-core.c
+index 1894cdfe1f..a7c32297c9 100644
+--- a/stubs/monitor-core.c
++++ b/stubs/monitor-core.c
+@@ -18,5 +18,17 @@ void qapi_event_emit(QAPIEvent event, QDict *qdict)
+ 
+ int monitor_vprintf(Monitor *mon, const char *fmt, va_list ap)
+ {
+-    abort();
++    /*
++     * Pretend 'g_test_message' is our monitor console to
++     * stop the caller sending messages to stderr
++     */
++    if (g_test_initialized() && !g_test_subprocess() &&
++        getenv("QTEST_SILENT_ERRORS")) {
++        char *msg = g_strdup_vprintf(fmt, ap);
++        g_test_message("%s", msg);
++        size_t ret = strlen(msg);
++        g_free(msg);
++        return ret;
++    }
++    return -1;
+ }
+diff --git a/util/error-report.c b/util/error-report.c
+index 1b17c11de1..b262ad01cb 100644
+--- a/util/error-report.c
++++ b/util/error-report.c
+@@ -29,6 +29,21 @@ bool message_with_timestamp;
+ bool error_with_guestname;
+ const char *error_guest_name;
+ 
++int error_vprintf(const char *fmt, va_list ap)
 +{
-+    int rv;
-+    if (namebuf[0] != '\0') {
-+        return namebuf;
++    Monitor *cur_mon = monitor_cur();
++    /*
++     * This will return -1 if 'cur_mon' is NULL, or is QMP.
++     * IOW this will only print if in HMP, otherwise we
++     * fallback to stderr for QMP / no-monitor scenarios.
++     */
++    int ret = monitor_vprintf(cur_mon, fmt, ap);
++    if (ret == -1) {
++        ret = vfprintf(stderr, fmt, ap);
 +    }
-+
-+# if defined(CONFIG_PTHREAD_GETNAME_NP)
-+    rv = pthread_getname_np(pthread_self(), namebuf, sizeof(namebuf));
-+# elif defined(CONFIG_PTHREAD_GET_NAME_NP)
-+    rv = pthread_get_name_np(pthread_self(), namebuf, sizeof(namebuf));
-+# else
-+    rv = -1;
-+# endif
-+    if (rv != 0) {
-+        g_strlcpy(namebuf, "unnamed", G_N_ELEMENTS(namebuf));
-+    }
-+    return namebuf;
++    return ret;
 +}
-diff --git a/util/qemu-thread-win32.c b/util/qemu-thread-win32.c
-index 8ca6429ad3..082a38c7d5 100644
---- a/util/qemu-thread-win32.c
-+++ b/util/qemu-thread-win32.c
-@@ -19,7 +19,10 @@
- 
- typedef HRESULT (WINAPI *pSetThreadDescription) (HANDLE hThread,
-                                                  PCWSTR lpThreadDescription);
-+typedef HRESULT (WINAPI *pGetThreadDescription) (HANDLE hThread,
-+                                                 PWSTR *lpThreadDescription);
- static pSetThreadDescription SetThreadDescriptionFunc;
-+static pGetThreadDescription GetThreadDescriptionFunc;
- static HMODULE kernel32_module;
- 
- static void __attribute__((__constructor__(QEMU_CONSTRUCTOR_EARLY)))
-@@ -28,7 +31,7 @@ qemu_thread_init(void)
-     qemu_thread_set_name("main");
- }
- 
--static bool load_set_thread_description(void)
-+static bool load_thread_description(void)
++
+ int error_printf(const char *fmt, ...)
  {
-     static gsize _init_once = 0;
- 
-@@ -38,14 +41,17 @@ static bool load_set_thread_description(void)
-             SetThreadDescriptionFunc =
-                 (pSetThreadDescription)GetProcAddress(kernel32_module,
-                                                       "SetThreadDescription");
--            if (!SetThreadDescriptionFunc) {
-+            GetThreadDescriptionFunc =
-+                (pGetThreadDescription)GetProcAddress(kernel32_module,
-+                                                      "GetThreadDescription");
-+            if (!SetThreadDescriptionFunc || !GetThreadDescriptionFunc) {
-                 FreeLibrary(kernel32_module);
-             }
-         }
-         g_once_init_leave(&_init_once, 1);
-     }
- 
--    return !!SetThreadDescriptionFunc;
-+    return (SetThreadDescriptionFunc && GetThreadDescriptionFunc);
- }
- 
- static void error_exit(int err, const char *msg)
-@@ -331,7 +337,7 @@ void qemu_thread_set_name(const char *name)
- {
-     g_autofree wchar_t *namew = NULL;
- 
--    if (!load_set_thread_description()) {
-+    if (!load_thread_description()) {
-         return;
-     }
- 
-@@ -415,3 +421,38 @@ bool qemu_thread_is_self(QemuThread *thread)
- {
-     return GetCurrentThreadId() == thread->tid;
- }
-+
-+static __thread char namebuf[64];
-+
-+const char *qemu_thread_get_name(void)
-+{
-+    HRESULT hr;
-+    wchar_t *namew = NULL;
-+    g_autofree char *name = NULL;
-+
-+    if (namebuf[0] != '\0') {
-+        return namebuf;
-+    }
-+
-+    if (!load_thread_description()) {
-+        goto error;
-+    }
-+
-+    hr = GetThreadDescriptionFunc(GetCurrentThread(), &namew);
-+    if (!SUCCEEDED(hr)) {
-+        goto error;
-+    }
-+
-+    name = g_utf16_to_utf8(namew, -1, NULL, NULL, NULL);
-+    LocalFree(namew);
-+    if (!name) {
-+        goto error;
-+    }
-+
-+    g_strlcpy(namebuf, name, G_N_ELEMENTS(namebuf));
-+    return namebuf;
-+
-+ error:
-+    g_strlcpy(namebuf, "unnamed", G_N_ELEMENTS(namebuf));
-+    return namebuf;
-+}
+     va_list ap;
 -- 
 2.52.0
 
