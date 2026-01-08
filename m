@@ -4,91 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61011D185F1
-	for <qemu-rust@archiver.kernel.org>; Thu,  8 Jan 2026 13:13:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C37FD185F1
+	for <qemu-rust@archiver.kernel.org>; Thu,  8 Jan 2026 13:13:09 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vdpn8-0007Yy-If; Thu, 08 Jan 2026 08:11:06 -0500
+	id 1vdpnX-00084C-D4; Thu, 08 Jan 2026 08:11:31 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vdpn7-0007Ya-Gb
- for qemu-rust@nongnu.org; Thu, 08 Jan 2026 08:11:05 -0500
+ id 1vdpnT-0007qW-86
+ for qemu-rust@nongnu.org; Thu, 08 Jan 2026 08:11:29 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vdpn5-0007zQ-Ib
- for qemu-rust@nongnu.org; Thu, 08 Jan 2026 08:11:05 -0500
+ id 1vdpnP-000833-MB
+ for qemu-rust@nongnu.org; Thu, 08 Jan 2026 08:11:26 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1767877862;
+ s=mimecast20190719; t=1767877882;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=JUVnHGR4WXXh17z+7zB0yfXoO4945f0W6/gfPFC9GIg=;
- b=MP9OmlAeLTc/D//1+kgkF8ksml0JDmbR0sBrs1QwjlaKRjTNZaxlc9V+Pz40NyqVhjyvLv
- xtMLda+yrq23xfadiTXGFM1RpydPbPnhkCLlYsi74307GRDiqNJmVRt/0PwUWNiXd6c0wi
- wMLB2awMHcIy11ZcbxqCtkKrbQ2zgfY=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=RLf8C04HThWu7hxDLSyEOaJNCSCBlM6N9D2NQTVosRM=;
+ b=CgUW5olmEFfbYO6PZzukPBy6BPo4wsfusGhuO+B8FtL4WqSwCII+xFVTLswwUflT94dr8y
+ uL+1EA/JM4TU27K/R0fJSPa3NzNaSVPvcm6ElDbe5/LGm6u4YNRLb67qMkYWZFatplbMDx
+ efHmvZvVucfU2YRyjH4+VMk2BoFsZoo=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-677-yD546ZtYM6iFJTUmfsD1AA-1; Thu, 08 Jan 2026 08:11:01 -0500
-X-MC-Unique: yD546ZtYM6iFJTUmfsD1AA-1
-X-Mimecast-MFC-AGG-ID: yD546ZtYM6iFJTUmfsD1AA_1767877861
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-477b8a667bcso35632055e9.2
- for <qemu-rust@nongnu.org>; Thu, 08 Jan 2026 05:11:01 -0800 (PST)
+ us-mta-363-mckhJfM6Mku-a3IuuTm4gw-1; Thu, 08 Jan 2026 08:11:21 -0500
+X-MC-Unique: mckhJfM6Mku-a3IuuTm4gw-1
+X-Mimecast-MFC-AGG-ID: mckhJfM6Mku-a3IuuTm4gw_1767877880
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-430f8866932so2394701f8f.1
+ for <qemu-rust@nongnu.org>; Thu, 08 Jan 2026 05:11:21 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767877860; x=1768482660;
+ d=1e100.net; s=20230601; t=1767877880; x=1768482680;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=JUVnHGR4WXXh17z+7zB0yfXoO4945f0W6/gfPFC9GIg=;
- b=DxFKeVV8OQTLMnBdTMPfkqpd7GBX1rCvMzLgQ6zsR0NE+rAiGmA2ZFajcsLNsr136u
- OMSug1PZj1t9sT/REsf5qJ3k1XOFduVyJLsb/2tH7Wy5tQ2fsTLqSUZA4fW8YBlxWqSC
- HplrH1cQYorm9i3UjYeFFTXkGVmFdXAoiCQpSBzyU0CGS2mRNkKYBDQ6Obr0TT+nyYId
- wcuw5Laz7VrQKxM3Kd2uKDHd6uCmlOP/EqFQyBqIddBM+KCJbORaxn9Yms9Z18Aze5BM
- 4EHlXVcPMP188RW7bhj1RDb1kWfso+q0i4Qv9HAKEJFLKgDizJbVBHI7AE28+YEsNh7e
- YPYA==
+ bh=RLf8C04HThWu7hxDLSyEOaJNCSCBlM6N9D2NQTVosRM=;
+ b=UpeDjUi98uEVewFwUrPl0IPQdby+g43YuEscrTIygHorRT6l9sBLtWZYM3K/IZDXY5
+ swK/XPZ0sF7RysDMI6mQGrMlcn4M5CZ6bUjQWhVuQ7poowFDaE0dD4AKKsCT0/eoRiaY
+ 3SyEzjyy0XAXODntDAXkO8w6AmNDKSpUb3B5/Tv7yLXrqNAQketpdazhjb+o7qXPGGPB
+ LTeRkNqNie0kyQe5X/a8UC6no5rJnpfweTh3BrbfMxMTSdAeQ1awHQlPIW2t6wLV6oh+
+ CcJgTz6FjPb9SBqSLAGgYDbKE+uXaopFsVHzMYfDFhmOQGMSwU4f3zJlQ+HK7z4uRhBh
+ edOg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW5ENB/AvEm4QOG9gdOVDuyb4Sa5FtthQ0Lu8S1DwKy36FDsgSf1C+WnNDw9wcnk14IPeLTsZkenyI=@nongnu.org
-X-Gm-Message-State: AOJu0Yy4VaLUe+1/xb5YlrZhG+AKWtv2Fl36Uwwn/4j8Q0tZh6+4Egh5
- rCGKRI9c8mINof6Gb1NfrWbN0ZmLXFJZXJftWdZYTz2WmzEp2J3i29bVe5TNIWBy+v1og9sQJpc
- l8PT6u6r+kipZGt790G9Hd9nvOc1hDjYqfXSNCv00/mwNG7cn2tJBV1Q=
-X-Gm-Gg: AY/fxX4ivCNREnT6AqeYjEXkCc8djlsywleZR6wFu3OSiIjJQCXfvVD9V80kR8AVZyg
- V89T/s6QmZotMi/sA83Vy0yMQJTBAvqYii5Q0xDb3y62Y3vGnSQwme9X23zEqneCtk/TfvtoGbM
- P+l8s9d0oV/lPTaDGXEir62U4D0AqnlVcqSDlKZ9stOUI/XAOY+QnsAUKWAxrVR4//JayjCtNl3
- Jrx8T1G6kAHsmmxArA+FZlsfknTQdCRx4KPgjIGAaWL5WFgpM502rgG0ItsfRzjJ/TUBLClKdsX
- wvdrW8NsPF0Ut9T7O2mRN5Du5AjBGo3RpkfSbiXT7tiEcLbyAbzRP++sgmTVi9wjjEb2iaQYIyN
- +yHfqluG4hLuaq7IdwAjB/wv07antbp5fq2mA/BH/OQi9CCBBF84BhPn7Aabco8w2BlqUwwPnD2
- 69a+piUqWKR3a8HA==
-X-Received: by 2002:a05:6000:2311:b0:42f:b707:56dd with SMTP id
- ffacd0b85a97d-432c37c878bmr8054234f8f.33.1767877860402; 
- Thu, 08 Jan 2026 05:11:00 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHuepepjI/T31qaZs/s9jAakQ0H5Cxp4VxpWUG1QPLKG0DFtNRa1vnCXidolxpt29rZB0GTeQ==
-X-Received: by 2002:a05:6000:2311:b0:42f:b707:56dd with SMTP id
- ffacd0b85a97d-432c37c878bmr8054210f8f.33.1767877859960; 
- Thu, 08 Jan 2026 05:10:59 -0800 (PST)
+ AJvYcCXrqcQpMrmJXIvUqAGR6CwaOEzf2rf94PdDq/ChNTT55c/ZcAuyXW7u6qY7moS75pZQ06KQ086lvK4=@nongnu.org
+X-Gm-Message-State: AOJu0Yzfue4S2TzMrkm7TKoEgFqMKONlxicC08ybVf3ep+OnYOLmJ6gJ
+ Dn1lRyhTwozmlnim/2V4WbhSrrAwYb4haMMAOQqdF7yM0zaffNvHTgW4mH27Pxkpz+Xg4CNkA+m
+ D1wyRcAaZgBPj6BFWVMJT9V7dqgo8nDQleHATELH/fqrldH2Cg5Y62PY=
+X-Gm-Gg: AY/fxX7Mmw/H8lOw02SujAoDj6KrXsUKqDfVdhrAvo3zrayl2s9zbLc32YzZzAm4tw4
+ mrwiZydI2s3BJnE5LjFAcA5F2RIFqIT8aNcnyh5zrzwhJgbH0AZ9yErvDQbp8Q2TLdXGRu3qydx
+ dED4bfc8dA3yNjc957NcH9jHGzHRHCa3H6Z/arp3jm/zcdzYEps+RXuZUG1Ziq6N6kOtcr680r8
+ ol6octEc8B1nBlDZG5X0Kx7Ys++BB3PLqthb4hlreuJvkRM7GXXZFDOS8gk7cjUFnKQCyHFXrpn
+ +Fay5/9jlymI63mH+LIqna4kiET2S2mxF3WEjHkApc6jV16OiBTv+65kaOANTfvydT9Uo+ZIlrl
+ ZLptio7Rmad7PIocBCFuXrZNNRPDP8PJdDVj93M+CcG7qlZ0F4Oc6/3pYMkzIoy5Swf3+G5lxOM
+ UTYEtzEJwsibzhfg==
+X-Received: by 2002:a05:6000:2908:b0:431:a38:c2f7 with SMTP id
+ ffacd0b85a97d-432c37a7d86mr7165456f8f.59.1767877879690; 
+ Thu, 08 Jan 2026 05:11:19 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHIBPHXJGQY+rvLsf+AbhuQcxem2L+UpS2wdfb1SS+pCtTPKnI+J60VkjZFNDBpeX7UKeSWpA==
+X-Received: by 2002:a05:6000:2908:b0:431:a38:c2f7 with SMTP id
+ ffacd0b85a97d-432c37a7d86mr7165423f8f.59.1767877879040; 
+ Thu, 08 Jan 2026 05:11:19 -0800 (PST)
 Received: from [192.168.10.48] ([151.61.26.160])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd5dfa07sm16274775f8f.25.2026.01.08.05.10.56
+ ffacd0b85a97d-432bd5ee870sm16251504f8f.36.2026.01.08.05.11.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Jan 2026 05:10:57 -0800 (PST)
+ Thu, 08 Jan 2026 05:11:17 -0800 (PST)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: armbru@redhat.com,
  =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
- qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH v2 05/16] rust/qobject: add Deserialize implementation
-Date: Thu,  8 Jan 2026 14:10:32 +0100
-Message-ID: <20260108131043.490084-6-pbonzini@redhat.com>
+ qemu-rust@nongnu.org
+Subject: [PATCH v2 12/16] scripts/qapi: generate high-level Rust bindings
+Date: Thu,  8 Jan 2026 14:10:39 +0100
+Message-ID: <20260108131043.490084-13-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260108131043.490084-1-pbonzini@redhat.com>
 References: <20260108131043.490084-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ahwfJsGfClG68sUOP6bA674YHnR6KDG1GF397xXemQc_1767877861
+X-Mimecast-MFC-PROC-ID: 9Zlz7pDk7E0ba2UhTrBH1G7PbArjIFawl2ONBRR8F9U_1767877880
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -117,191 +117,751 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-This allows QObject to be created from any serializable format, for
-example JSON via serde_json.
+From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-This is not too useful, since QObjects are produced by
-C code or by serializing structs, but it can be used for testing
-and it is part of the full implementation of a serde format.
+Generate high-level native Rust declarations for the QAPI types.
 
-It is relatively simple and similar to the Serializer, just with
-the extra indirection of a Visitor.
+- char* is mapped to String, scalars to there corresponding Rust types
 
-Co-authored-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+- enums use #[repr(u32)] and can be transmuted to their C counterparts
+
+- has_foo/foo members are mapped to Option<T>
+
+- lists are represented as Vec<T>
+
+- structures map fields 1:1 to Rust
+
+- alternate are represented as Rust enum, each variant being a 1-element
+  tuple
+
+- unions are represented in a similar way as in C: a struct S with a "u"
+  member (since S may have extra 'base' fields). The discriminant
+  isn't a member of S, since Rust enum already include it, but it can be
+  recovered with "mystruct.u.into()"
+
+Anything that includes a recursive struct puts it in a Box.  Lists are
+not considered recursive, because Vec breaks the recursion (it's possible
+to construct an object containing an empty Vec of its own type).
+
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+Link: https://lore.kernel.org/r/20210907121943.3498701-21-marcandre.lureau@redhat.com
+[Paolo: rewrite conversion of schema types to Rust types]
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/util/meson.build                |   1 +
- rust/util/src/qobject/deserialize.rs | 134 +++++++++++++++++++++++++++
- rust/util/src/qobject/mod.rs         |   1 +
- 3 files changed, 136 insertions(+)
- create mode 100644 rust/util/src/qobject/deserialize.rs
+ meson.build              |   4 +-
+ scripts/qapi/backend.py  |  25 +++
+ scripts/qapi/common.py   |  43 +++++
+ scripts/qapi/rs.py       |  61 +++++++
+ scripts/qapi/rs_types.py | 373 +++++++++++++++++++++++++++++++++++++++
+ scripts/qapi/schema.py   |  59 +++++--
+ 6 files changed, 546 insertions(+), 19 deletions(-)
+ create mode 100644 scripts/qapi/rs.py
+ create mode 100644 scripts/qapi/rs_types.py
 
-diff --git a/rust/util/meson.build b/rust/util/meson.build
-index 7829364c09a..4621932fdcb 100644
---- a/rust/util/meson.build
-+++ b/rust/util/meson.build
-@@ -40,6 +40,7 @@ _util_rs = static_library(
-     {'.': _util_bindings_inc_rs,
-     'qobject': [
-       'src/qobject/mod.rs',
-+      'src/qobject/deserialize.rs',
-       'src/qobject/error.rs',
-       'src/qobject/serializer.rs',
-       'src/qobject/serialize.rs',
-diff --git a/rust/util/src/qobject/deserialize.rs b/rust/util/src/qobject/deserialize.rs
+diff --git a/meson.build b/meson.build
+index db87358d62d..4228792f0f6 100644
+--- a/meson.build
++++ b/meson.build
+@@ -3540,11 +3540,13 @@ qapi_gen_depends = [ meson.current_source_dir() / 'scripts/qapi/__init__.py',
+                      meson.current_source_dir() / 'scripts/qapi/introspect.py',
+                      meson.current_source_dir() / 'scripts/qapi/main.py',
+                      meson.current_source_dir() / 'scripts/qapi/parser.py',
++                     meson.current_source_dir() / 'scripts/qapi/rs_types.py',
+                      meson.current_source_dir() / 'scripts/qapi/schema.py',
+                      meson.current_source_dir() / 'scripts/qapi/source.py',
+                      meson.current_source_dir() / 'scripts/qapi/types.py',
+                      meson.current_source_dir() / 'scripts/qapi/visit.py',
+-                     meson.current_source_dir() / 'scripts/qapi-gen.py'
++                     meson.current_source_dir() / 'scripts/qapi-gen.py',
++                     meson.current_source_dir() / 'scripts/qapi/rs.py',
+ ]
+ 
+ tracetool = [
+diff --git a/scripts/qapi/backend.py b/scripts/qapi/backend.py
+index 49ae6ecdd33..8023acce0d6 100644
+--- a/scripts/qapi/backend.py
++++ b/scripts/qapi/backend.py
+@@ -7,6 +7,7 @@
+ from .events import gen_events
+ from .features import gen_features
+ from .introspect import gen_introspect
++from .rs_types import gen_rs_types
+ from .schema import QAPISchema
+ from .types import gen_types
+ from .visit import gen_visit
+@@ -63,3 +64,27 @@ def generate(self,
+         gen_commands(schema, output_dir, prefix, gen_tracing)
+         gen_events(schema, output_dir, prefix)
+         gen_introspect(schema, output_dir, prefix, unmask)
++
++
++class QAPIRsBackend(QAPIBackend):
++    # pylint: disable=too-few-public-methods
++
++    def generate(self,
++                 schema: QAPISchema,
++                 output_dir: str,
++                 prefix: str,
++                 unmask: bool,
++                 builtins: bool,
++                 gen_tracing: bool) -> None:
++        """
++        Generate Rust code for the given schema into the target directory.
++
++        :param schema_file: The primary QAPI schema file.
++        :param output_dir: The output directory to store generated code.
++        :param prefix: Optional C-code prefix for symbol names.
++        :param unmask: Expose non-ABI names through introspection?
++        :param builtins: Generate code for built-in types?
++
++        :raise QAPIError: On failures.
++        """
++        gen_rs_types(schema, output_dir, prefix)
+diff --git a/scripts/qapi/common.py b/scripts/qapi/common.py
+index c75396a01b5..e9261a3411e 100644
+--- a/scripts/qapi/common.py
++++ b/scripts/qapi/common.py
+@@ -64,6 +64,13 @@ def camel_to_upper(value: str) -> str:
+     return ret.upper()
+ 
+ 
++def camel_to_lower(value: str) -> str:
++    """
++    Converts CamelCase to camel_case.
++    """
++    return camel_to_upper(value).lower()
++
++
+ def c_enum_const(type_name: str,
+                  const_name: str,
+                  prefix: Optional[str] = None) -> str:
+@@ -129,6 +136,42 @@ def c_name(name: str, protect: bool = True) -> str:
+     return name
+ 
+ 
++def rs_name(name: str) -> str:
++    """
++    Map @name to a valid, possibly raw Rust identifier.
++    """
++    name = re.sub(r'[^A-Za-z0-9_]', '_', name)
++    if name[0].isnumeric():
++        name = '_' + name
++    # based from the list:
++    # https://doc.rust-lang.org/reference/keywords.html
++    if name in ('Self', 'abstract', 'as', 'async',
++                'await', 'become', 'box', 'break',
++                'const', 'continue', 'crate', 'do',
++                'dyn', 'else', 'enum', 'extern',
++                'false', 'final', 'fn', 'for',
++                'if', 'impl', 'in', 'let',
++                'loop', 'macro', 'match', 'mod',
++                'move', 'mut', 'override', 'priv',
++                'pub', 'ref', 'return', 'self',
++                'static', 'struct', 'super', 'trait',
++                'true', 'try', 'type', 'typeof',
++                'union', 'unsafe', 'unsized', 'use',
++                'virtual', 'where', 'while', 'yield'):
++        name = 'r#' + name
++    # avoid some clashes with the standard library
++    if name in ('String',):
++        name = 'Qapi' + name
++
++    return name
++
++
++def to_camel_case(value: str) -> str:
++    return ''.join('_' + word if word[0].isdigit()
++                   else word[:1].upper() + word[1:]
++                   for word in filter(None, re.split("[-_]+", value)))
++
++
+ class Indentation:
+     """
+     Indentation level management.
+diff --git a/scripts/qapi/rs.py b/scripts/qapi/rs.py
 new file mode 100644
-index 00000000000..280a577b6be
+index 00000000000..2cf0c0e07f1
 --- /dev/null
-+++ b/rust/util/src/qobject/deserialize.rs
-@@ -0,0 +1,134 @@
-+//! `QObject` deserialization
++++ b/scripts/qapi/rs.py
+@@ -0,0 +1,61 @@
++# This work is licensed under the terms of the GNU GPL, version 2.
++# See the COPYING file in the top-level directory.
++"""
++QAPI Rust generator
++"""
++
++import os
++import re
++import subprocess
++import sys
++
++from .common import mcgen as mcgen_common
++from .gen import QAPIGen
++from .schema import QAPISchemaVisitor
++
++
++def mcgen(s: str, **kwds: object) -> str:
++    s = mcgen_common(s, **kwds)
++    return re.sub(r'(?: *\n)+', '\n', s)
++
++
++class QAPIGenRs(QAPIGen):
++    def __init__(self, fname: str, blurb: str, pydoc: str):
++        super().__init__(fname)
++        self._blurb = blurb
++        self._copyright = '\n//! '.join(re.findall(r'^Copyright .*', pydoc,
++                                                   re.MULTILINE))
++
++    def _top(self) -> str:
++        return mcgen('''
++// @generated by qapi-gen, DO NOT EDIT
++
 +//!
-+//! This module implements the [`Deserialize`] trait for `QObject`,
-+//! allowing it to be created from any serializable format, for
-+//! example JSON.
++//! Schema-defined QAPI types
++//!
++//! %(copyright)s
++//!
++//! This work is licensed under the terms of the GNU LGPL, version 2.1 or
++//! later. See the COPYING.LIB file in the top-level directory.
 +
-+use core::fmt;
-+use std::ffi::CString;
++''',
++                     tool=os.path.basename(sys.argv[0]),
++                     blurb=self._blurb, copyright=self._copyright)
 +
-+use serde::de::{self, Deserialize, MapAccess, SeqAccess, Visitor};
 +
-+use super::{to_qobject, QObject};
++class QAPISchemaRsVisitor(QAPISchemaVisitor):
 +
-+impl<'de> Deserialize<'de> for QObject {
-+    #[inline]
-+    fn deserialize<D>(deserializer: D) -> Result<QObject, D::Error>
-+    where
-+        D: serde::Deserializer<'de>,
-+    {
-+        struct ValueVisitor;
++    def __init__(self, prefix: str, what: str,
++                 blurb: str, pydoc: str):
++        super().__init__()
++        self._prefix = prefix
++        self._what = what
++        self._gen = QAPIGenRs(self._prefix + self._what + '.rs', blurb, pydoc)
 +
-+        impl<'de> Visitor<'de> for ValueVisitor {
-+            type Value = QObject;
++    def write(self, output_dir: str) -> None:
++        self._gen.write(output_dir)
 +
-+            fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
-+                formatter.write_str("any valid JSON value")
-+            }
++        try:
++            subprocess.check_call(['rustfmt', self._gen.fname], cwd=output_dir)
++        except FileNotFoundError:
++            pass
+diff --git a/scripts/qapi/rs_types.py b/scripts/qapi/rs_types.py
+new file mode 100644
+index 00000000000..64702eb54ae
+--- /dev/null
++++ b/scripts/qapi/rs_types.py
+@@ -0,0 +1,373 @@
++# This work is licensed under the terms of the GNU GPL, version 2.
++# See the COPYING file in the top-level directory.
++"""
++QAPI Rust types generator
 +
-+            #[inline]
-+            fn visit_bool<E>(self, value: bool) -> Result<QObject, E> {
-+                Ok(value.into())
-+            }
++Copyright (c) 2025 Red Hat, Inc.
 +
-+            #[inline]
-+            fn visit_i64<E>(self, value: i64) -> Result<QObject, E> {
-+                Ok(value.into())
-+            }
++This work is licensed under the terms of the GNU GPL, version 2.
++See the COPYING file in the top-level directory.
++"""
 +
-+            fn visit_i128<E>(self, value: i128) -> Result<QObject, E>
-+            where
-+                E: serde::de::Error,
-+            {
-+                to_qobject(value).map_err(|_| de::Error::custom("number out of range"))
-+            }
++from typing import List, Optional, Set
 +
-+            #[inline]
-+            fn visit_u64<E>(self, value: u64) -> Result<QObject, E> {
-+                Ok(value.into())
-+            }
++from .common import (
++    camel_to_lower,
++    camel_to_upper,
++    rs_name,
++    to_camel_case,
++)
++from .rs import QAPISchemaRsVisitor, mcgen
++from .schema import (
++    QAPISchema,
++    QAPISchemaAlternateType,
++    QAPISchemaEnumMember,
++    QAPISchemaFeature,
++    QAPISchemaIfCond,
++    QAPISchemaObjectType,
++    QAPISchemaObjectTypeMember,
++    QAPISchemaType,
++    QAPISchemaVariants,
++)
++from .source import QAPISourceInfo
 +
-+            fn visit_u128<E>(self, value: u128) -> Result<QObject, E>
-+            where
-+                E: serde::de::Error,
-+            {
-+                to_qobject(value).map_err(|_| de::Error::custom("number out of range"))
-+            }
 +
-+            #[inline]
-+            fn visit_f64<E>(self, value: f64) -> Result<QObject, E> {
-+                Ok(value.into())
-+            }
++objects_seen = set()
 +
-+            #[inline]
-+            fn visit_str<E>(self, value: &str) -> Result<QObject, E>
-+            where
-+                E: serde::de::Error,
-+            {
-+                CString::new(value)
-+                    .map_err(|_| de::Error::custom("NUL character in string"))
-+                    .map(QObject::from)
-+            }
 +
-+            #[inline]
-+            fn visit_string<E>(self, value: String) -> Result<QObject, E>
-+            where
-+                E: serde::de::Error,
-+            {
-+                CString::new(value)
-+                    .map_err(|_| de::Error::custom("NUL character in string"))
-+                    .map(QObject::from)
-+            }
++def gen_rs_variants_to_tag(name: str,
++                           ifcond: QAPISchemaIfCond,
++                           variants: QAPISchemaVariants) -> str:
++    ret = mcgen('''
 +
-+            #[inline]
-+            fn visit_none<E>(self) -> Result<QObject, E> {
-+                Ok(().into())
-+            }
++%(cfg)s
++impl From<&%(rs_name)sVariant> for %(tag)s {
++    fn from(e: &%(rs_name)sVariant) -> Self {
++        match e {
++''',
++                cfg=ifcond.rsgen(),
++                rs_name=rs_name(name),
++                tag=variants.tag_member.type.rs_type())
 +
-+            #[inline]
-+            fn visit_some<D>(self, deserializer: D) -> Result<QObject, D::Error>
-+            where
-+                D: serde::Deserializer<'de>,
-+            {
-+                Deserialize::deserialize(deserializer)
-+            }
++    for var in variants.variants:
++        type_name = var.type.name
++        tag_name = var.name
++        patt = '(_)'
++        if type_name == 'q_empty':
++            patt = ''
++        ret += mcgen('''
++            %(cfg)s
++            %(rs_name)sVariant::%(var_name)s%(patt)s => Self::%(tag_name)s,
++''',
++                     cfg=var.ifcond.rsgen(),
++                     rs_name=rs_name(name),
++                     tag_name=rs_name(camel_to_upper(tag_name)),
++                     var_name=rs_name(to_camel_case(tag_name)),
++                     patt=patt)
 +
-+            #[inline]
-+            fn visit_unit<E>(self) -> Result<QObject, E> {
-+                Ok(().into())
-+            }
-+
-+            #[inline]
-+            fn visit_seq<V>(self, mut visitor: V) -> Result<QObject, V::Error>
-+            where
-+                V: SeqAccess<'de>,
-+            {
-+                // TODO: insert elements one at a time
-+                let mut vec = Vec::<QObject>::new();
-+
-+                while let Some(elem) = visitor.next_element()? {
-+                    vec.push(elem);
-+                }
-+                Ok(QObject::from_iter(vec))
-+            }
-+
-+            fn visit_map<V>(self, mut visitor: V) -> Result<QObject, V::Error>
-+            where
-+                V: MapAccess<'de>,
-+            {
-+                // TODO: insert elements one at a time
-+                let mut vec = Vec::<(CString, QObject)>::new();
-+
-+                if let Some(first_key) = visitor.next_key()? {
-+                    vec.push((first_key, visitor.next_value()?));
-+                    while let Some((key, value)) = visitor.next_entry()? {
-+                        vec.push((key, value));
-+                    }
-+                }
-+                Ok(QObject::from_iter(vec))
-+            }
++    ret += mcgen('''
 +        }
-+
-+        deserializer.deserialize_any(ValueVisitor)
 +    }
 +}
-diff --git a/rust/util/src/qobject/mod.rs b/rust/util/src/qobject/mod.rs
-index bfa3e9e34bb..c0c16f28049 100644
---- a/rust/util/src/qobject/mod.rs
-+++ b/rust/util/src/qobject/mod.rs
-@@ -6,6 +6,7 @@
++''')
++    return ret
++
++
++def gen_rs_variants(name: str,
++                    ifcond: QAPISchemaIfCond,
++                    variants: QAPISchemaVariants) -> str:
++    ret = mcgen('''
++
++%(cfg)s
++#[derive(Clone, Debug, PartialEq)]
++pub enum %(rs_name)sVariant {
++''',
++                cfg=ifcond.rsgen(),
++                rs_name=rs_name(name))
++
++    for var in variants.variants:
++        type_name = var.type.name
++        var_name = rs_name(to_camel_case(var.name))
++        if type_name == 'q_empty':
++            ret += mcgen('''
++    %(cfg)s
++    %(var_name)s,
++''',
++                         cfg=var.ifcond.rsgen(),
++                         var_name=var_name)
++        else:
++            ret += mcgen('''
++    %(cfg)s
++    %(var_name)s(%(rs_type)s),
++''',
++                         cfg=var.ifcond.rsgen(),
++                         var_name=var_name,
++                         rs_type=var.type.rs_type())
++
++    ret += mcgen('''
++}
++''')
++
++    ret += gen_rs_variants_to_tag(name, ifcond, variants)
++
++    return ret
++
++
++def gen_rs_members(members: List[QAPISchemaObjectTypeMember],
++                   exclude: Optional[List[str]] = None) -> List[str]:
++    exclude = exclude or []
++    return [f"{m.ifcond.rsgen()} {rs_name(camel_to_lower(m.name))}"
++            for m in members if m.name not in exclude]
++
++
++def has_recursive_type(memb: QAPISchemaType,
++                       name: str,
++                       visited: Set[str]) -> bool:
++    # pylint: disable=too-many-return-statements
++    if name == memb.name:
++        return True
++    if memb.name in visited:
++        return False
++    visited.add(memb.name)
++    if isinstance(memb, QAPISchemaObjectType):
++        if memb.base and has_recursive_type(memb.base, name, visited):
++            return True
++        if memb.branches and \
++                any(has_recursive_type(m.type, name, visited)
++                    for m in memb.branches.variants):
++            return True
++        if any(has_recursive_type(m.type, name, visited)
++               for m in memb.members):
++            return True
++        return any(has_recursive_type(m.type, name, visited)
++                   for m in memb.local_members)
++    if isinstance(memb, QAPISchemaAlternateType):
++        return any(has_recursive_type(m.type, name, visited)
++                   for m in memb.alternatives.variants)
++    return False
++
++
++def gen_struct_members(members: List[QAPISchemaObjectTypeMember],
++                       name: str) -> str:
++    ret = ''
++    for memb in members:
++        typ = memb.type.rs_type()
++        if has_recursive_type(memb.type, name, set()):
++            typ = 'Box<%s>' % typ
++        if memb.optional:
++            typ = 'Option<%s>' % typ
++        ret += mcgen('''
++    %(cfg)s
++    pub %(rs_name)s: %(rs_type)s,
++''',
++                     cfg=memb.ifcond.rsgen(),
++                     rs_type=typ,
++                     rs_name=rs_name(camel_to_lower(memb.name)))
++    return ret
++
++
++def gen_rs_object(name: str,
++                  ifcond: QAPISchemaIfCond,
++                  base: Optional[QAPISchemaObjectType],
++                  members: List[QAPISchemaObjectTypeMember],
++                  variants: Optional[QAPISchemaVariants]) -> str:
++    if name in objects_seen:
++        return ''
++
++    if variants:
++        members = [m for m in members
++                   if m.name != variants.tag_member.name]
++
++    ret = ''
++    objects_seen.add(name)
++
++    if variants:
++        ret += gen_rs_variants(name, ifcond, variants)
++
++    ret += mcgen('''
++
++%(cfg)s
++#[derive(Clone, Debug, PartialEq)]
++pub struct %(rs_name)s {
++''',
++                 cfg=ifcond.rsgen(),
++                 rs_name=rs_name(name))
++
++    if base:
++        if not base.is_implicit():
++            ret += mcgen('''
++    // Members inherited:
++''',
++                         c_name=base.c_name())
++        base_members = base.members
++        if variants:
++            base_members = [m for m in base.members
++                            if m.name != variants.tag_member.name]
++        ret += gen_struct_members(base_members, name)
++        if not base.is_implicit():
++            ret += mcgen('''
++    // Own members:
++''')
++
++    ret += gen_struct_members(members, name)
++
++    if variants:
++        ret += mcgen('''
++    pub u: %(rs_type)sVariant,
++''', rs_type=rs_name(name))
++    ret += mcgen('''
++}
++''')
++    return ret
++
++
++def gen_rs_enum(name: str,
++                ifcond: QAPISchemaIfCond,
++                members: List[QAPISchemaEnumMember]) -> str:
++    ret = mcgen('''
++
++%(cfg)s
++#[derive(Copy, Clone, Debug, PartialEq)]
++''',
++                cfg=ifcond.rsgen())
++
++    if members:
++        ret += '''#[repr(u32)]
++#[derive(common::TryInto)]
++'''
++    ret += mcgen('''
++pub enum %(rs_name)s {
++''',
++                 rs_name=rs_name(name))
++
++    for member in members:
++        ret += mcgen('''
++    %(cfg)s
++    %(c_enum)s,
++''',
++                     cfg=member.ifcond.rsgen(),
++                     c_enum=rs_name(camel_to_upper(member.name)))
++    ret += '''}
++
++'''
++
++    # pick the first, since that's what malloc0 does
++    if members:
++        default = rs_name(camel_to_upper(members[0].name))
++        ret += mcgen('''
++%(cfg)s
++impl Default for %(rs_name)s {
++    #[inline]
++    fn default() -> %(rs_name)s {
++        Self::%(default)s
++    }
++}
++''',
++                     cfg=ifcond.rsgen(),
++                     rs_name=rs_name(name),
++                     default=default)
++    return ret
++
++
++def gen_rs_alternate(name: str,
++                     ifcond: QAPISchemaIfCond,
++                     variants: QAPISchemaVariants) -> str:
++    if name in objects_seen:
++        return ''
++
++    ret = ''
++    objects_seen.add(name)
++
++    ret += mcgen('''
++%(cfg)s
++#[derive(Clone, Debug, PartialEq)]
++pub enum %(rs_name)s {
++''',
++                 cfg=ifcond.rsgen(),
++                 rs_name=rs_name(name))
++
++    for var in variants.variants:
++        if var.type.name == 'q_empty':
++            continue
++        typ = var.type.rs_type()
++        if has_recursive_type(var.type, name, set()):
++            typ = 'Box<%s>' % typ
++        ret += mcgen('''
++        %(cfg)s
++        %(mem_name)s(%(rs_type)s),
++''',
++                     cfg=var.ifcond.rsgen(),
++                     rs_type=typ,
++                     mem_name=rs_name(to_camel_case(var.name)))
++
++    ret += mcgen('''
++}
++''')
++    return ret
++
++
++class QAPISchemaGenRsTypeVisitor(QAPISchemaRsVisitor):
++    _schema: Optional[QAPISchema]
++
++    def __init__(self, prefix: str) -> None:
++        super().__init__(prefix, 'qapi-types',
++                         'Schema-defined QAPI types', __doc__)
++
++    def visit_begin(self, schema: QAPISchema) -> None:
++        self._schema = schema
++        objects_seen.add(schema.the_empty_object_type.name)
++
++        self._gen.preamble_add(
++            mcgen('''
++#![allow(unexpected_cfgs)]
++#![allow(non_camel_case_types)]
++#![allow(clippy::empty_structs_with_brackets)]
++#![allow(clippy::large_enum_variant)]
++#![allow(clippy::pub_underscore_fields)]
++
++// Because QAPI structs can contain float, for simplicity we never
++// derive Eq.  Clippy however would complain for those structs
++// that *could* be Eq too.
++#![allow(clippy::derive_partial_eq_without_eq)]
++
++use util::qobject::QObject;
++'''))
++
++    def visit_object_type(self,
++                          name: str,
++                          info: Optional[QAPISourceInfo],
++                          ifcond: QAPISchemaIfCond,
++                          features: List[QAPISchemaFeature],
++                          base: Optional[QAPISchemaObjectType],
++                          members: List[QAPISchemaObjectTypeMember],
++                          branches: Optional[QAPISchemaVariants]) -> None:
++        assert self._schema is not None
++        if self._schema.is_predefined(name) or name.startswith('q_'):
++            return
++        self._gen.add(gen_rs_object(name, ifcond, base, members, branches))
++
++    def visit_enum_type(self,
++                        name: str,
++                        info: Optional[QAPISourceInfo],
++                        ifcond: QAPISchemaIfCond,
++                        features: List[QAPISchemaFeature],
++                        members: List[QAPISchemaEnumMember],
++                        prefix: Optional[str]) -> None:
++        assert self._schema is not None
++        if self._schema.is_predefined(name):
++            return
++        self._gen.add(gen_rs_enum(name, ifcond, members))
++
++    def visit_alternate_type(self,
++                             name: str,
++                             info: Optional[QAPISourceInfo],
++                             ifcond: QAPISchemaIfCond,
++                             features: List[QAPISchemaFeature],
++                             alternatives: QAPISchemaVariants) -> None:
++        self._gen.add(gen_rs_alternate(name, ifcond, alternatives))
++
++
++def gen_rs_types(schema: QAPISchema, output_dir: str, prefix: str) -> None:
++    vis = QAPISchemaGenRsTypeVisitor(prefix)
++    schema.visit(vis)
++    vis.write(output_dir)
+diff --git a/scripts/qapi/schema.py b/scripts/qapi/schema.py
+index 15f5d97418f..a65b25141fa 100644
+--- a/scripts/qapi/schema.py
++++ b/scripts/qapi/schema.py
+@@ -37,6 +37,7 @@
+     docgen_ifcond,
+     gen_endif,
+     gen_if,
++    rs_name,
+     rsgen_ifcond,
+ )
+ from .error import QAPIError, QAPISemError, QAPISourceError
+@@ -341,6 +342,11 @@ def c_param_type(self) -> str:
+     def c_unboxed_type(self) -> str:
+         return self.c_type()
  
- #![deny(clippy::unwrap_used)]
++    # Return the Rust type for common use
++    @abstractmethod
++    def rs_type(self) -> str:
++        pass
++
+     @abstractmethod
+     def json_type(self) -> str:
+         pass
+@@ -382,11 +388,12 @@ def describe(self) -> str:
+ class QAPISchemaBuiltinType(QAPISchemaType):
+     meta = 'built-in'
  
-+mod deserialize;
- mod error;
- mod serialize;
- mod serializer;
+-    def __init__(self, name: str, json_type: str, c_type: str):
++    def __init__(self, name: str, json_type: str, rs_type: str, c_type: str):
+         super().__init__(name, None, None)
+         assert json_type in ('string', 'number', 'int', 'boolean', 'null',
+                              'value')
+         self._json_type_name = json_type
++        self._rs_type_name = rs_type
+         self._c_type_name = c_type
+ 
+     def c_name(self) -> str:
+@@ -406,6 +413,9 @@ def json_type(self) -> str:
+     def doc_type(self) -> str:
+         return self.json_type()
+ 
++    def rs_type(self) -> str:
++        return self._rs_type_name
++
+     def visit(self, visitor: QAPISchemaVisitor) -> None:
+         super().visit(visitor)
+         visitor.visit_builtin_type(self.name, self.info, self.json_type())
+@@ -449,6 +459,9 @@ def is_implicit(self) -> bool:
+     def c_type(self) -> str:
+         return c_name(self.name)
+ 
++    def rs_type(self) -> str:
++        return rs_name(self.name)
++
+     def member_names(self) -> List[str]:
+         return [m.name for m in self.members]
+ 
+@@ -498,6 +511,9 @@ def is_implicit(self) -> bool:
+     def c_type(self) -> str:
+         return c_name(self.name) + POINTER_SUFFIX
+ 
++    def rs_type(self) -> str:
++        return 'Vec<%s>' % self.element_type.rs_type()
++
+     def json_type(self) -> str:
+         return 'array'
+ 
+@@ -630,6 +646,9 @@ def c_type(self) -> str:
+     def c_unboxed_type(self) -> str:
+         return c_name(self.name)
+ 
++    def rs_type(self) -> str:
++        return rs_name(self.name)
++
+     def json_type(self) -> str:
+         return 'object'
+ 
+@@ -711,6 +730,9 @@ def c_type(self) -> str:
+     def json_type(self) -> str:
+         return 'value'
+ 
++    def rs_type(self) -> str:
++        return rs_name(self.name)
++
+     def visit(self, visitor: QAPISchemaVisitor) -> None:
+         super().visit(visitor)
+         visitor.visit_alternate_type(
+@@ -1234,9 +1256,10 @@ def _def_include(self, expr: QAPIExpression) -> None:
+             QAPISchemaInclude(self._make_module(include), expr.info))
+ 
+     def _def_builtin_type(
+-        self, name: str, json_type: str, c_type: str
++        self, name: str, json_type: str, rs_type: str, c_type: str
+     ) -> None:
+-        self._def_definition(QAPISchemaBuiltinType(name, json_type, c_type))
++        builtin = QAPISchemaBuiltinType(name, json_type, rs_type, c_type)
++        self._def_definition(builtin)
+         # Instantiating only the arrays that are actually used would
+         # be nice, but we can't as long as their generated code
+         # (qapi-builtin-types.[ch]) may be shared by some other
+@@ -1255,21 +1278,21 @@ def is_predefined(self, name: str) -> bool:
+         return False
+ 
+     def _def_predefineds(self) -> None:
+-        for t in [('str',    'string',  'char' + POINTER_SUFFIX),
+-                  ('number', 'number',  'double'),
+-                  ('int',    'int',     'int64_t'),
+-                  ('int8',   'int',     'int8_t'),
+-                  ('int16',  'int',     'int16_t'),
+-                  ('int32',  'int',     'int32_t'),
+-                  ('int64',  'int',     'int64_t'),
+-                  ('uint8',  'int',     'uint8_t'),
+-                  ('uint16', 'int',     'uint16_t'),
+-                  ('uint32', 'int',     'uint32_t'),
+-                  ('uint64', 'int',     'uint64_t'),
+-                  ('size',   'int',     'uint64_t'),
+-                  ('bool',   'boolean', 'bool'),
+-                  ('any',    'value',   'QObject' + POINTER_SUFFIX),
+-                  ('null',   'null',    'QNull' + POINTER_SUFFIX)]:
++        for t in [('str',    'string',  'String',  'char' + POINTER_SUFFIX),
++                  ('number', 'number',  'f64',     'double'),
++                  ('int',    'int',     'i64',     'int64_t'),
++                  ('int8',   'int',     'i8',      'int8_t'),
++                  ('int16',  'int',     'i16',     'int16_t'),
++                  ('int32',  'int',     'i32',     'int32_t'),
++                  ('int64',  'int',     'i64',     'int64_t'),
++                  ('uint8',  'int',     'u8',      'uint8_t'),
++                  ('uint16', 'int',     'u16',     'uint16_t'),
++                  ('uint32', 'int',     'u32',     'uint32_t'),
++                  ('uint64', 'int',     'u64',     'uint64_t'),
++                  ('size',   'int',     'u64',     'uint64_t'),
++                  ('bool',   'boolean', 'bool',    'bool'),
++                  ('any',    'value',   'QObject', 'QObject' + POINTER_SUFFIX),
++                  ('null',   'null',    '()',      'QNull' + POINTER_SUFFIX)]:
+             self._def_builtin_type(*t)
+         self.the_empty_object_type = QAPISchemaObjectType(
+             'q_empty', None, None, None, None, None, [], None)
 -- 
 2.52.0
 
