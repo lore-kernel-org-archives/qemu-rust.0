@@ -4,84 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D39B2D16818
-	for <qemu-rust@archiver.kernel.org>; Fri,  9 Jan 2026 11:40:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67B69D16819
+	for <qemu-rust@archiver.kernel.org>; Fri,  9 Jan 2026 11:45:24 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1veAqg-0003Ly-0T; Fri, 09 Jan 2026 06:40:10 -0500
+	id 1veAvc-0005da-H4; Fri, 09 Jan 2026 06:45:16 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1veAqe-0003IS-EC
- for qemu-rust@nongnu.org; Fri, 09 Jan 2026 06:40:08 -0500
+ id 1veAvX-0005cn-Mq
+ for qemu-rust@nongnu.org; Fri, 09 Jan 2026 06:45:13 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1veAqc-00041E-Ht
- for qemu-rust@nongnu.org; Fri, 09 Jan 2026 06:40:08 -0500
+ id 1veAvV-0005GN-Fp
+ for qemu-rust@nongnu.org; Fri, 09 Jan 2026 06:45:11 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1767958804;
+ s=mimecast20190719; t=1767959108;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=QdtT3iLWCNiZEL+sr7lr9EuyG+96Mm3NSFljLQbYzgg=;
- b=YdqrywATVK9MgPWJNbTNyvCs5DDj2DmMocJtz1/PoBeUFgk5Siqll1n/tRl1bXbGtb9LBa
- ex2O0wgQ0rgpvCwq2HfftXDvhANslR0xxi2vy8bZ6KZL+m8RVS/MBrS+10E1Bq1leW4crb
- 4KFpATvQ2dQIYYBIwN4i0kXsoIMYaRg=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=QM1RdZGzRe4uG8Rksl6ygiHz7KGi+nKBhe9Ml2QARXU=;
+ b=HW2Oa7jt0W3kFLzAft57G7D6+uVV9cWnuy4agr5wcVxIJJDCMhEYUZM4vixTeXvZ6WBhnH
+ WZPGbOSL0/gyVD8bm1TzvdsmTKjGzUZ1bB7PPA8Ib+gsr/xFCYSrWuSX05ZZeK/gZk2WU/
+ L6nxkwdkHEGt9peYsfwPEeU055c9X8U=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-6-iglSfbzAPNOe1iCtemop8A-1; Fri, 09 Jan 2026 06:40:03 -0500
-X-MC-Unique: iglSfbzAPNOe1iCtemop8A-1
-X-Mimecast-MFC-AGG-ID: iglSfbzAPNOe1iCtemop8A_1767958803
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-4779d8fd4ecso17807355e9.1
- for <qemu-rust@nongnu.org>; Fri, 09 Jan 2026 03:40:03 -0800 (PST)
+ us-mta-648-_JtVsjWdP0ukVZDyezlyCQ-1; Fri, 09 Jan 2026 06:45:07 -0500
+X-MC-Unique: _JtVsjWdP0ukVZDyezlyCQ-1
+X-Mimecast-MFC-AGG-ID: _JtVsjWdP0ukVZDyezlyCQ_1767959106
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-43102ac1da8so3061358f8f.2
+ for <qemu-rust@nongnu.org>; Fri, 09 Jan 2026 03:45:06 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767958802; x=1768563602;
+ d=1e100.net; s=20230601; t=1767959106; x=1768563906;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QdtT3iLWCNiZEL+sr7lr9EuyG+96Mm3NSFljLQbYzgg=;
- b=UqGWpoXzJVCN5ZEktk2Bw1z2WjfahKQKjl+3BMFnT39wb1wkQNHmM8wiPUZz99Oumt
- HHV1Eyv2u1U9+O0FVVQI0bB2L1qkDMY85pHVJ04FG8QHjgOaM19HOd2hXMNZOyzNBBFC
- JUX3U7vhhoGIhlSDkTPWLm6RcKNtgbBbNpfQBwv0MKUbtt0qo8uqOxf13LyuE4RnKIEK
- RXB0b8PR9lBZSeHLR3y71n4GWaWxlE8ZSpypah7eQb++FW/EQfMnoMQzsiBv6IrHA+Ot
- /BO9eq23qOY9YeQbP57eR8lBbleZbGyfmFRW5z/UonZ+Al2LqxC+P9O+Npb3Ia27EPhA
- UmPA==
+ bh=QM1RdZGzRe4uG8Rksl6ygiHz7KGi+nKBhe9Ml2QARXU=;
+ b=RQkLIap7TqE8B9HSnH4sqt0iVbn+i4BbtudRM2tHwHyqWIpX5iFIDmhQ7NCxFwR31A
+ NLv9THRy8OG/iqT4o990Nn/Yx8B6h74NQsItQQbNQsuTYXU0AIKARyY5efY/q2WP7TTZ
+ Z83e+7BfkfSeAHq1jjIi7jzxhPlJHZKbZHHV0BJzM66nTB0VyyAnpRafzWQfr/8sNgTJ
+ LRQutmY4y7LbWv1sDq4QYk5BGXxGbbvyG4eLl0zfK8R4ftPcEhCx1DIB6H5hJXBuHIvk
+ BD7x+/CrOwdm0cDnMr7heSWHYFSw4dOBziShZK3EpHSv2UqcC/opIBTQO0Wn4SD+Gki0
+ H9SQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUwqsa7Ks5a0FElJllRnBhqcvzdTBCuNAWroFqvTp0EFf5JzDvZK+OA7fPGOuNrqttkVaIC6DqvJnc=@nongnu.org
-X-Gm-Message-State: AOJu0YyCYDh/wOLqArKv9dl09ILCo9PtU8UgLDOvYGdkdZ/qRDTRP1wC
- 8/be2prgQ5+PRmEl49VnY5rC2LTnAqOBdHb6FjGgalpzez8OIRbDEy0nL3/scCTz4bQAUFbAojv
- +4uzyOKDZ7FwgunBe8qfVzZ794v6wFy0b5Z3K2TiMVGk078Zf63Tg190=
-X-Gm-Gg: AY/fxX6pKLnRiKrZSjmxth7uR0wgscOSZOW3IsnqgBoryYaRtzglhoXcP0xQgdhfNmW
- ucoEoRZzUWUDaCiReGs0jCflm7x5NacAhbBurzqz+sXfHTpeSfehqIR1Huvf/7W4pDG2Cf62VtA
- Phsz1XQ5yFyQDt9uKaQ4eiaiq08jPV9ZMmij52AQVetvA8YjI4Njk5cBL8EVvUuw0kDzp86Clvc
- iDK2usW8YTZCnEGHR84KtZ+uLTvXNgn+WLxe6dFuYGmrTLK8DbCXLv72qAhjgsIiiCKRDMikNkm
- Z1CT2V8nEn2tM/9WF0opvYTnaELAgME9wBFnm0txXC9u2ROPRjZ9WqeuK/X323SzPtkqIowKD3g
- +VosmtIzw97woO7SZiP7s/AzrM6g5nW76b4KtU9yHaKknD7qohxTRZoxeP6bug9HWUC31lkY5z0
- 1cAEAuHQJK3UCAwg==
-X-Received: by 2002:a05:600c:4f54:b0:475:d9de:952e with SMTP id
- 5b1f17b1804b1-47d8483cc51mr98956585e9.1.1767958802563; 
- Fri, 09 Jan 2026 03:40:02 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHHH+2yW5f3T/7EapiKt5UV7eZjV9H0zPiB8mevhX/d0SMGre9ZDMkbeQKQoXKHQhyqODffvg==
-X-Received: by 2002:a05:600c:4f54:b0:475:d9de:952e with SMTP id
- 5b1f17b1804b1-47d8483cc51mr98956265e9.1.1767958802114; 
- Fri, 09 Jan 2026 03:40:02 -0800 (PST)
+ AJvYcCVICWFkugAb4QFSj4NrHYzvHExkv2wW7BN2FovpsPbOVNY/rfbwQohccV85Xl7U22IC7ZknOAGAEzQ=@nongnu.org
+X-Gm-Message-State: AOJu0Yy3djvquyR4Jhlxyw8Lax4HbJBSFyklP/LDO2+AkQdY7unE3cZM
+ ecY3QLumtZHvtQJofO8/EQanq2+1QjPP7agklRZc9bVGG8pfB9h/QmbvCRzXF7zZfGMBNu3pGm3
+ rGTeZxZk9xnXIgBI3SPi0w6PNdEO7fP+CuvVMlT8wkBu4Bzt4iUFpIGs=
+X-Gm-Gg: AY/fxX7B83i3+Vjp4zbeucVVfe+IInTqdrwjfRudwxRVo3kUrNAgjZxbvczowMxs5U6
+ tULSdgt3Vv+c8ornaXyD24WOquqAB4kc23Q32cDVyTTzlJFBpxaigNtkwZDy2IHvISgn1RbLKmM
+ aSI0/bTnHaHunplfaGw3kx+Kab61WKv77OVc0+4SLfmxkRGd/pACJUDyJ10SyjljeyrS7U3AwEl
+ TV90JV5pyb8C/xJOausNnkClBTs2UajB+DKiwWedzfj7sJ6DTcDoFfu/gK+pziJTJ1Y+3lGVh8r
+ Ice18gR8AI2UWfxlVdwBlY/oSKoOzuoOKbMaUD195YVOHCdmjEEN3N+JFwa63pwBFvQUkF7pk3e
+ GQA78/pSsgXGU6DWrho3q9y77qTa5GtnRqZBgxfOVqpcjyiAMjI1q2e6yWr77PpRlb/SfNDdKe3
+ gG6PWWTskqr8GBUg==
+X-Received: by 2002:a05:6000:288f:b0:42f:b9c6:c89b with SMTP id
+ ffacd0b85a97d-432c379f286mr12324553f8f.50.1767959105697; 
+ Fri, 09 Jan 2026 03:45:05 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFs8qwNwtGLMqmOFoVVJPuJyM+zbpODowggbSi6EBK1Oi8MmiKZOsb05UgnOM/dVVHyGkgTbg==
+X-Received: by 2002:a05:6000:288f:b0:42f:b9c6:c89b with SMTP id
+ ffacd0b85a97d-432c379f286mr12324520f8f.50.1767959105306; 
+ Fri, 09 Jan 2026 03:45:05 -0800 (PST)
 Received: from [192.168.10.48] ([151.61.26.160])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-432bd0e1adbsm22635380f8f.17.2026.01.09.03.40.00
+ ffacd0b85a97d-432bd0e19bfsm21566505f8f.18.2026.01.09.03.45.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jan 2026 03:40:01 -0800 (PST)
-Message-ID: <d3ca3fb5-e972-4446-b32c-f20fd8825cca@redhat.com>
-Date: Fri, 9 Jan 2026 12:39:59 +0100
+ Fri, 09 Jan 2026 03:45:04 -0800 (PST)
+Message-ID: <5cbc1f80-aef8-4bcd-beeb-af9c54eea3c8@redhat.com>
+Date: Fri, 9 Jan 2026 12:45:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 02/24] include: define constant for early constructor
- priority
+Subject: Re: [PATCH v5 07/24] util: set the name for the 'main' thread
 To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
  qemu-devel@nongnu.org
 Cc: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
@@ -95,7 +94,7 @@ Cc: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  Kevin Wolf <kwolf@redhat.com>,
  Richard Henderson <richard.henderson@linaro.org>
 References: <20260108170338.2693853-1-berrange@redhat.com>
- <20260108170338.2693853-3-berrange@redhat.com>
+ <20260108170338.2693853-8-berrange@redhat.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -132,9 +131,9 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <20260108170338.2693853-3-berrange@redhat.com>
+In-Reply-To: <20260108170338.2693853-8-berrange@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 5rXTALLj5t7J_wMFQ9pNNbBwxV3g2dwR3RDBcU6YW5I_1767958803
+X-Mimecast-MFC-PROC-ID: 4hx-7fbVLVyxRp6eDcCnxe_s_cETp__SW9QTeb4gLxI_1767959106
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -165,58 +164,60 @@ Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 On 1/8/26 18:03, Daniel P. Berrangé wrote:
-> Functions marked with __attribute__((__constructor__)) will be
-> invoked in linker order. In theory this is well defined, but
-> in practice, it is hard to determine what this order will be
-> with the layers of indirection through meson, ninja and the
-> static libraries QEMU builds.
-> 
-> Notably, the order currently appears different between Linux
-> and Windows (as tested with Wine on Linux). This can cause
-> problems when certain QEMU constructors have a dependancy on
-> other QEMU constructors.
+> The default main thread name is undefined, so use a constructor to
+> explicitly set it to 'main'. This constructor is marked to run early
+> as the thread name is intended to be used in error reporting / logs
+> which may be triggered very early in QEMU execution.
 
-What dependency are you seeing, or introducing?
+At least on Linux I don't think we want to call the pthread function.
 
-In theory QEMU constructors should not have any dependency, as we only 
-use them to initialize static data structures (such as the various 
-*_init macros).
-
-Not an objection, but I'd like to understand this better.
+Since pthread_setname_np writes to /proc/self/task/tid/comm, wouldn't 
+that cause ps to show qemu processes as "main" instead of "qemu" or 
+"qemu-kvm"?
 
 Paolo
 
-> To address this define a QEMU_CONSTRUCTOR_EARLY constant which
-> provides a priority value that will run before other default
-> constructors. This is to be used for QEMU constructors that
-> are themselves self-contained, but may be relied upon by other
-> constructors.
-> 
 > Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 > Reviewed-by: Dr. David Alan Gilbert <dave@treblig.org>
 > Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 > ---
->   include/qemu/compiler.h | 8 ++++++++
->   1 file changed, 8 insertions(+)
+>   util/qemu-thread-posix.c | 6 ++++++
+>   util/qemu-thread-win32.c | 6 ++++++
+>   2 files changed, 12 insertions(+)
 > 
-> diff --git a/include/qemu/compiler.h b/include/qemu/compiler.h
-> index 1c2b673c05..4c49f52eb0 100644
-> --- a/include/qemu/compiler.h
-> +++ b/include/qemu/compiler.h
-> @@ -194,6 +194,14 @@
->   # define QEMU_USED
+> diff --git a/util/qemu-thread-posix.c b/util/qemu-thread-posix.c
+> index b1c127dbe3..afeac9ecad 100644
+> --- a/util/qemu-thread-posix.c
+> +++ b/util/qemu-thread-posix.c
+> @@ -22,6 +22,12 @@
+>   #include <pthread_np.h>
 >   #endif
 >   
-> +/*
-> + * A priority for __attribute__((constructor(...))) that
-> + * will run earlier than the default constructors. Must
-> + * only be used for functions that have no dependency
-> + * on global initialization of other QEMU subsystems.
-> + */
-> +#define QEMU_CONSTRUCTOR_EARLY 101
+> +static void __attribute__((__constructor__(QEMU_CONSTRUCTOR_EARLY)))
+> +qemu_thread_init(void)
+> +{
+> +    qemu_thread_set_name("main");
+> +}
 > +
->   /*
->    * Disable -ftrivial-auto-var-init on a local variable.
->    *
+>   static void error_exit(int err, const char *msg)
+>   {
+>       fprintf(stderr, "qemu: %s: %s\n", msg, strerror(err));
+> diff --git a/util/qemu-thread-win32.c b/util/qemu-thread-win32.c
+> index 4d2d663a9a..8ca6429ad3 100644
+> --- a/util/qemu-thread-win32.c
+> +++ b/util/qemu-thread-win32.c
+> @@ -22,6 +22,12 @@ typedef HRESULT (WINAPI *pSetThreadDescription) (HANDLE hThread,
+>   static pSetThreadDescription SetThreadDescriptionFunc;
+>   static HMODULE kernel32_module;
+>   
+> +static void __attribute__((__constructor__(QEMU_CONSTRUCTOR_EARLY)))
+> +qemu_thread_init(void)
+> +{
+> +    qemu_thread_set_name("main");
+> +}
+> +
+>   static bool load_set_thread_description(void)
+>   {
+>       static gsize _init_once = 0;
 
 
