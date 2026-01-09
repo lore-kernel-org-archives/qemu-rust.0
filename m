@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B066D1681B
-	for <qemu-rust@archiver.kernel.org>; Fri,  9 Jan 2026 11:52:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6B99D1681C
+	for <qemu-rust@archiver.kernel.org>; Fri,  9 Jan 2026 11:56:37 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1veB2b-0000XR-5s; Fri, 09 Jan 2026 06:52:29 -0500
+	id 1veB6H-00023u-OM; Fri, 09 Jan 2026 06:56:17 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1veB2Z-0000Wq-RH
- for qemu-rust@nongnu.org; Fri, 09 Jan 2026 06:52:27 -0500
+ id 1veB6G-00023g-PV
+ for qemu-rust@nongnu.org; Fri, 09 Jan 2026 06:56:16 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1veB2Y-0006Ca-1R
- for qemu-rust@nongnu.org; Fri, 09 Jan 2026 06:52:27 -0500
+ id 1veB6E-0007EG-Nr
+ for qemu-rust@nongnu.org; Fri, 09 Jan 2026 06:56:16 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1767959545;
+ s=mimecast20190719; t=1767959773;
  h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QVRgaeKonoKn6lhkHfRgySFdZ4nAAtsJRQcAee3k77M=;
- b=HyqMJ+YN6n9To19Kjx2ypvkFZ9cv+zn++UA2tuOIHKNfmYLtDZKNny0Ws9Zri4SURfnOoV
- Mdspd1rtfWY7cMqE45tXt8R3uRC935cMkk8NQ+ltfmh4LPJPd6Be9c+YBcoAv1oZHc+K40
- CrC6SbYjV8e7EKFr4piG5LzGx1RMb3o=
+ bh=4C4I1J6SoR+YIV2n1pCrAF1KDjlu1OfubiAeGfDU8jk=;
+ b=B3Uyw5qnegUdz5y3HvtSx8Iw0TVGjMa6GWkxObYgT4TNZL4imJ/Aouhs/EA497vsTepcja
+ l4laAVHjRazW1LMu8ZzPkX9dADPrMZ1/cHn1pB44cqjA6x23MdLInilnaQL1mvu+5ui3F9
+ b+4H9E9iDm/WbkJL6VAers1YVvCZ3sU=
 Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-573-8nHoPoNjMaa_YoA7kDtE7g-1; Fri,
- 09 Jan 2026 06:52:22 -0500
-X-MC-Unique: 8nHoPoNjMaa_YoA7kDtE7g-1
-X-Mimecast-MFC-AGG-ID: 8nHoPoNjMaa_YoA7kDtE7g_1767959540
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-307-aeXoD25VNiuYOqdu9Nrz9A-1; Fri,
+ 09 Jan 2026 06:56:11 -0500
+X-MC-Unique: aeXoD25VNiuYOqdu9Nrz9A-1
+X-Mimecast-MFC-AGG-ID: aeXoD25VNiuYOqdu9Nrz9A_1767959769
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 2A28A18005A7; Fri,  9 Jan 2026 11:52:20 +0000 (UTC)
+ id 67FF5180057E; Fri,  9 Jan 2026 11:56:09 +0000 (UTC)
 Received: from redhat.com (unknown [10.42.28.39])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id D030030002D1; Fri,  9 Jan 2026 11:52:12 +0000 (UTC)
-Date: Fri, 9 Jan 2026 11:52:08 +0000
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id B01C21800285; Fri,  9 Jan 2026 11:56:03 +0000 (UTC)
+Date: Fri, 9 Jan 2026 11:56:00 +0000
 From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org,
@@ -62,18 +62,18 @@ Cc: qemu-devel@nongnu.org,
  qemu-rust@nongnu.org, Markus Armbruster <armbru@redhat.com>,
  Stefan Weil <sw@weilnetz.de>, Kevin Wolf <kwolf@redhat.com>,
  Richard Henderson <richard.henderson@linaro.org>
-Subject: Re: [PATCH v5 07/24] util: set the name for the 'main' thread
-Message-ID: <aWDr6Fpbp_oDNylt@redhat.com>
+Subject: Re: [PATCH v5 08/24] util: add API to fetch the current thread name
+Message-ID: <aWDs0OMLdap9q70B@redhat.com>
 References: <20260108170338.2693853-1-berrange@redhat.com>
- <20260108170338.2693853-8-berrange@redhat.com>
- <5cbc1f80-aef8-4bcd-beeb-af9c54eea3c8@redhat.com>
+ <20260108170338.2693853-9-berrange@redhat.com>
+ <8867bff0-227f-46b9-b0c6-938fc0d6f625@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <5cbc1f80-aef8-4bcd-beeb-af9c54eea3c8@redhat.com>
+In-Reply-To: <8867bff0-227f-46b9-b0c6-938fc0d6f625@redhat.com>
 User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
@@ -100,83 +100,28 @@ Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Fri, Jan 09, 2026 at 12:45:03PM +0100, Paolo Bonzini wrote:
+On Fri, Jan 09, 2026 at 12:49:20PM +0100, Paolo Bonzini wrote:
 > On 1/8/26 18:03, Daniel P. Berrangé wrote:
-> > The default main thread name is undefined, so use a constructor to
-> > explicitly set it to 'main'. This constructor is marked to run early
-> > as the thread name is intended to be used in error reporting / logs
-> > which may be triggered very early in QEMU execution.
+> > +static __thread char namebuf[PTHREAD_MAX_NAMELEN_NP];
 > 
-> At least on Linux I don't think we want to call the pthread function.
+> ... you can instead of the previous patch, add a constructor here that just
+> sets namebuf to "main" with strcpy.
+
+How about just a static initializer
+
+  static __thread char namebuf[PTHREAD_MAX_NAMELEN_NP] = { 'm', 'a', 'i', 'n', '\0' };
+
+or is there some interaction with __thread that makes that undesirable ?
+
+The downside is that I wanted the nice thread names to appear in GDB
+too, but I guess we can live with the main thread being unnamed in
+GDB.
+
 > 
-> Since pthread_setname_np writes to /proc/self/task/tid/comm, wouldn't that
-> cause ps to show qemu processes as "main" instead of "qemu" or "qemu-kvm"?
-
-Hmmm, it depends on the 'ps' options you use:
-
-$ ./build/qemu-system-x86_64  &
-[3] 3859009
-
-⚙️ [oci:fedora-43 qemu]$ ps  | grep 3859009
-3859009 pts/10   00:00:04 main
-⚙️ [oci:fedora-43 qemu]$ ps -a | grep 3859009
-3859009 pts/10   00:00:03 main
-⚙️ [oci:fedora-43 qemu]$ ps -ax | grep 3859009
-3859009 pts/10   Sl     0:03 ./build/qemu-system-x86_64
-⚙️ [oci:fedora-43 qemu]$ ps -au | grep 3859009
-berrange 3859009  8.6  0.1 3893224 123700 pts/10 Sl   11:49   0:04 ./build/qemu-system-x86_64
-⚙️ [oci:fedora-43 qemu]$ ps -af | grep 3859009
-berrange 3859009 2085609  8 11:49 pts/10   00:00:04 ./build/qemu-system-x86_64
-⚙️ [oci:fedora-43 qemu]$ ps -axuwf | grep 3859009
-berrange 3859009 53.4  0.1 3905536 124108 pts/10 Sl   11:49   0:03  |       \_ ./build/qemu-system-x86_64
-
-
-and I hadn't noticed since I always use one of the latter
-sets of options that give the true name.
-
+> For Windows on the other hand it should be okay to call SetThreadDescription
+> if available.
 > 
 > Paolo
-> 
-> > Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-> > Reviewed-by: Dr. David Alan Gilbert <dave@treblig.org>
-> > Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-> > ---
-> >   util/qemu-thread-posix.c | 6 ++++++
-> >   util/qemu-thread-win32.c | 6 ++++++
-> >   2 files changed, 12 insertions(+)
-> > 
-> > diff --git a/util/qemu-thread-posix.c b/util/qemu-thread-posix.c
-> > index b1c127dbe3..afeac9ecad 100644
-> > --- a/util/qemu-thread-posix.c
-> > +++ b/util/qemu-thread-posix.c
-> > @@ -22,6 +22,12 @@
-> >   #include <pthread_np.h>
-> >   #endif
-> > +static void __attribute__((__constructor__(QEMU_CONSTRUCTOR_EARLY)))
-> > +qemu_thread_init(void)
-> > +{
-> > +    qemu_thread_set_name("main");
-> > +}
-> > +
-> >   static void error_exit(int err, const char *msg)
-> >   {
-> >       fprintf(stderr, "qemu: %s: %s\n", msg, strerror(err));
-> > diff --git a/util/qemu-thread-win32.c b/util/qemu-thread-win32.c
-> > index 4d2d663a9a..8ca6429ad3 100644
-> > --- a/util/qemu-thread-win32.c
-> > +++ b/util/qemu-thread-win32.c
-> > @@ -22,6 +22,12 @@ typedef HRESULT (WINAPI *pSetThreadDescription) (HANDLE hThread,
-> >   static pSetThreadDescription SetThreadDescriptionFunc;
-> >   static HMODULE kernel32_module;
-> > +static void __attribute__((__constructor__(QEMU_CONSTRUCTOR_EARLY)))
-> > +qemu_thread_init(void)
-> > +{
-> > +    qemu_thread_set_name("main");
-> > +}
-> > +
-> >   static bool load_set_thread_description(void)
-> >   {
-> >       static gsize _init_once = 0;
 > 
 
 With regards,
