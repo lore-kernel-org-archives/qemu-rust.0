@@ -4,83 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AE30D185DC
-	for <qemu-rust@archiver.kernel.org>; Fri,  9 Jan 2026 12:05:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C13CD1D485
+	for <qemu-rust@archiver.kernel.org>; Fri,  9 Jan 2026 12:11:17 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1veBEt-0004U5-PC; Fri, 09 Jan 2026 07:05:11 -0500
+	id 1veBJb-0005zc-7W; Fri, 09 Jan 2026 07:10:03 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1veBEo-0004Kw-2D
- for qemu-rust@nongnu.org; Fri, 09 Jan 2026 07:05:06 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1veBJ8-0005hb-Kr
+ for qemu-rust@nongnu.org; Fri, 09 Jan 2026 07:09:41 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1veBEl-00007i-Vy
- for qemu-rust@nongnu.org; Fri, 09 Jan 2026 07:05:05 -0500
+ id 1veBJ4-0001B8-Sk
+ for qemu-rust@nongnu.org; Fri, 09 Jan 2026 07:09:34 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1767960302;
+ s=mimecast20190719; t=1767960568;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pANelp+kxJ30dMI0tV/ozwY+uDmGE6AR288lDx3jrbM=;
- b=cZBQnWW9z6i24tYvo2d3v9GVa2IoCzszDtGGhtcmXh7U9YHKKBZGucPjdXUWBaE/5pLvO9
- NIsFVeZf3RDWWgCgTluKEhdp7fu0rbndIj2h5IF7CV5nLcz8tmJGxT6fpSYyXJn7zy6VD2
- z2vNSg4KJYXAEMTSxOMaqBlGuSDx9yY=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=z8Oy2HdKz+jorEMRBnm2EuOPjz+pXynn9DkCLEKOX9I=;
+ b=COV6AmfiMiHmXIqhEECkLQBVCcp7vGt/S9MNqT7oeGlcrWwVe0CPhCEfYK5LaYJT92W+id
+ VKwakwyxUuBLMuy73LOtUQwtB4Lg2yTFss7KPwu9mbWgdSXh+Y8vOCgKZTAeLzqu4UEQ5m
+ O8kqSvAC+OTTz52flcpohykkY5kpzHY=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-98-dapG2QqKMnGlAkSCcyw0Rg-1; Fri, 09 Jan 2026 07:05:01 -0500
-X-MC-Unique: dapG2QqKMnGlAkSCcyw0Rg-1
-X-Mimecast-MFC-AGG-ID: dapG2QqKMnGlAkSCcyw0Rg_1767960300
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4776079ada3so40262785e9.1
- for <qemu-rust@nongnu.org>; Fri, 09 Jan 2026 04:05:00 -0800 (PST)
+ us-mta-171-ajByzkROMqCs7SEywlvEmQ-1; Fri, 09 Jan 2026 07:09:26 -0500
+X-MC-Unique: ajByzkROMqCs7SEywlvEmQ-1
+X-Mimecast-MFC-AGG-ID: ajByzkROMqCs7SEywlvEmQ_1767960566
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-430ffc4dc83so3468401f8f.3
+ for <qemu-rust@nongnu.org>; Fri, 09 Jan 2026 04:09:26 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767960300; x=1768565100;
+ d=1e100.net; s=20230601; t=1767960566; x=1768565366;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=pANelp+kxJ30dMI0tV/ozwY+uDmGE6AR288lDx3jrbM=;
- b=WKNP6PJafgblnOuiLgZls18wAiuodnYvMb1+UVls6SWF8bQ4B3Yb5DP2Hc6mC9C/v3
- rCafiSua/zfEdGCEG+1d5wbWyJtfc+cH5oxHo1M1E/6gtog3UPPKUSLlTnCXYjWizrl8
- C7IHoqpAWQx1vlFSHlcXNjYngYClrm5lp7PYuq4QtApyDPN4TBhz/JXaDLGBK9ZMVyKf
- uB/4ZkT5CpFAFAPbaRYghHd2xrU2bG7go8M+wATYcl1cdx+dJD82mIEu9cJV8lra7jgj
- 3aA7mJ8hemBkcgn+54QXXSJ+RSKRKDlwt22LMHqGdwAUfbR55bGXTt2KLgZVTdSNccvs
- Bezw==
+ bh=z8Oy2HdKz+jorEMRBnm2EuOPjz+pXynn9DkCLEKOX9I=;
+ b=g7Z/W26xGoov6QNl9qtgFld0YtrK6+ZZ9ciOMeBlfUrtA1Q33yMTdOwLBdwxauSwq5
+ r9OxeIkr6VDKB+OL9hZHroMpYp4CS9ItfYLZwJbfLXAMS/BZBwR5Ev2aYGfO2siqy5Kj
+ +3SxDY18mS2j64/KUv++8IkP4KA0nnJguvq5TF/USR1LEfRr6r0+Czh2dASaTKifFi44
+ FIzNLpkzTcehtReisU9l3YBg4fAYTV6dVQQ8wQXW4lEA0SqyCE9RrLj9RRpP7q3elTNl
+ 5/g0DyYkgHOgJ05nxQo5c7ezcJ3x10b64ITGbTatIMjhFMr85bUfUl6MzjKuG+7py4BK
+ rdzw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXApbiUZe+3fk/oGr0MUJprYKe4IVpS48NZYdW0vKZmhdJzw3MWduaq7FDAfBfGWxxs0MOzDniIHt8=@nongnu.org
-X-Gm-Message-State: AOJu0YxfOJRont8M3mb/74cICr3quR8RpjBCNSNmMFZbEq7FMJhlPmBy
- g+JMZCeqx9KrBlFwsixMAP0VS/b+J6wHiBE0Ylc61Rat2+iwme98p5yWdlWDkNUpKRXmpHQLhUQ
- RlklntTwRrYkdH+jCIBtx2Ev8SnXMgq8/60nDSlsVW9Ch3R+LYA/CmuU=
-X-Gm-Gg: AY/fxX5FRsf2tts/u3Hu867zuGGxSw4ajE7hs6FWL2ibgZ9qtdMoxLOl4UQwvkxsat0
- 6tnuPdXQ6CDnobNtuNpJxq9eJq8+4FjNaR39f/LQFIKasfn4Z5wKLgxPKImpZD696X6xn67EjwV
- KFdZCT5EnzLY8EJCXo7yCn8J1WDEsoV3/ViEAdYXniPgDpFeEXIQ90xMNVkRz0SxJg7pIfxZkL6
- ZyR/khQZisgDWjBazCG6/hzBMC0eLGahMv8cAGqmYjfdiPyEnhN+WJ8qD8/0Vwqr06IU3s13vbm
- nuzV5rqP2PmLEIzBIwYhORS8QOPvgaCrkNplrRW4Pivz2gPnO8SMMcMu5L7vya5UvDPVvttAOoV
- wwktVyG3lIdd/adVhW7419e8SdgC2uRxnRg+37BnWulmA6gadX+nFSpdq5+uKKoBx29ECcdrhmz
- ciHrGHKL/H6z7yYg==
-X-Received: by 2002:a05:600d:103:b0:47d:403e:9cd5 with SMTP id
- 5b1f17b1804b1-47d84b1fce2mr83952535e9.11.1767960299841; 
- Fri, 09 Jan 2026 04:04:59 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHGquHI8EWZPHsosFFWo2Jcu7TdevgLT/7LPFwtFrSkyPsVZnZeihiLQg8dyT5W6JYr9et6lg==
-X-Received: by 2002:a05:600d:103:b0:47d:403e:9cd5 with SMTP id
- 5b1f17b1804b1-47d84b1fce2mr83952245e9.11.1767960299450; 
- Fri, 09 Jan 2026 04:04:59 -0800 (PST)
+ AJvYcCXYRUduP3UA69utDR2LL8tSZR2/FLDWxkzUXn5YVNM2snxuWKvWdXin5pktpU/SVGgFYKRs+m9Ggqg=@nongnu.org
+X-Gm-Message-State: AOJu0Yw7fza7S4uAptNbz+6tNonH7BDG/CTmc5l92uRohyZpcuu3BPj1
+ lTyv7r/H5fb2o3GItNs93kc0+XZVHiU5Vuk5k69OF7Re3Dm8R7OxL8sckGRP4xc4itUEV5X6Z9f
+ M+e451qj49Y49h88Tt3a8/Kd0ieoThvxzwwz+eSodI+aDl0JyctPjK7Q=
+X-Gm-Gg: AY/fxX56b6N5D4Oj8QyB7gTbx5cxzjxRsNiEBepvUZQejDf9emGjwKYZ1bwq5hMu3Q/
+ ifXAvwCsFdWauauGwPGr3G77Ix87KMlCTAgldWexnFyZ/t4ye9SsiJhnIAyjOrZ110klPUgM38S
+ XozjbBiSYjSsG/jZZdbs9sYHjmE1zosMf4T3AvBDm/gLAEiA0wWNjZrllbDe5n5becaUQIhCIf6
+ Wc3ZH+9McZpVud/RgrUy/qzhNwkO1VeJ7wY2Glx5EzXQi/bVXp/2f/VOoBoDPdK5FWWOids4xeB
+ /TdImOApfJkmjqLmxVC0ISpQbyLKf6focfybdk0S0jT31kpxnE8Np7P74moZVfwcV8HvNgMFxqT
+ 9iqGCas2XZWkPYog4R6Prk98qlMP6ZwrU1mQplh5Wbs4/J1Hus17k5Fo3SIDaduAhVtsrPxiihD
+ SnRQRwiWl/uxq7EQ==
+X-Received: by 2002:a05:600c:a317:b0:477:9976:9e1a with SMTP id
+ 5b1f17b1804b1-47d85bf063cmr82502005e9.6.1767960565692; 
+ Fri, 09 Jan 2026 04:09:25 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFzZDIiD3YTzKPpn5Kla0oSBx1QdyE0RX/8yKlMy8hjF+QysLqxEFtDaZ7aLL0IU1D2f2yn8g==
+X-Received: by 2002:a05:600c:a317:b0:477:9976:9e1a with SMTP id
+ 5b1f17b1804b1-47d85bf063cmr82501675e9.6.1767960565300; 
+ Fri, 09 Jan 2026 04:09:25 -0800 (PST)
 Received: from [192.168.10.48] ([151.61.26.160])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-432bd0e6784sm22171017f8f.19.2026.01.09.04.04.58
+ 5b1f17b1804b1-47d7f68f4ddsm213412155e9.2.2026.01.09.04.09.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jan 2026 04:04:58 -0800 (PST)
-Message-ID: <c4c863aa-45f1-4f4c-8cfd-526c14a6d511@redhat.com>
-Date: Fri, 9 Jan 2026 13:04:56 +0100
+ Fri, 09 Jan 2026 04:09:24 -0800 (PST)
+Message-ID: <6e60a89f-6798-4ea5-bbd0-553130786cec@redhat.com>
+Date: Fri, 9 Jan 2026 13:09:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 07/24] util: set the name for the 'main' thread
+Subject: Re: [PATCH v5 02/24] include: define constant for early constructor
+ priority
 To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
 Cc: qemu-devel@nongnu.org, =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?=
  <philmd@linaro.org>, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
@@ -93,9 +94,9 @@ Cc: qemu-devel@nongnu.org, =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?=
  Kevin Wolf <kwolf@redhat.com>,
  Richard Henderson <richard.henderson@linaro.org>
 References: <20260108170338.2693853-1-berrange@redhat.com>
- <20260108170338.2693853-8-berrange@redhat.com>
- <5cbc1f80-aef8-4bcd-beeb-af9c54eea3c8@redhat.com>
- <aWDr6Fpbp_oDNylt@redhat.com>
+ <20260108170338.2693853-3-berrange@redhat.com>
+ <d3ca3fb5-e972-4446-b32c-f20fd8825cca@redhat.com>
+ <aWDqie0eYZ8GeQHF@redhat.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
 Autocrypt: addr=pbonzini@redhat.com; keydata=
  xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
@@ -132,23 +133,23 @@ Autocrypt: addr=pbonzini@redhat.com; keydata=
  JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
  dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
  b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
-In-Reply-To: <aWDr6Fpbp_oDNylt@redhat.com>
+In-Reply-To: <aWDqie0eYZ8GeQHF@redhat.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: zwt4b0xaKCxilaGyLxiI2ecGgfleOhjO-aXVZsKjTmE_1767960300
+X-Mimecast-MFC-PROC-ID: OOvhizHPpm39Woz_-OTYSGa7JrwySOBbLd9FPPIBXrE_1767960566
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -164,55 +165,16 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 1/9/26 12:52, Daniel P. Berrangé wrote:
-> On Fri, Jan 09, 2026 at 12:45:03PM +0100, Paolo Bonzini wrote:
->> On 1/8/26 18:03, Daniel P. Berrangé wrote:
->>> The default main thread name is undefined, so use a constructor to
->>> explicitly set it to 'main'. This constructor is marked to run early
->>> as the thread name is intended to be used in error reporting / logs
->>> which may be triggered very early in QEMU execution.
->>
->> At least on Linux I don't think we want to call the pthread function.
->>
->> Since pthread_setname_np writes to /proc/self/task/tid/comm, wouldn't that
->> cause ps to show qemu processes as "main" instead of "qemu" or "qemu-kvm"?
-> 
-> Hmmm, it depends on the 'ps' options you use:
-> 
-> $ ./build/qemu-system-x86_64  &
-> [3] 3859009
-> 
-> ⚙️ [oci:fedora-43 qemu]$ ps  | grep 3859009
-> 3859009 pts/10   00:00:04 main
-> ⚙️ [oci:fedora-43 qemu]$ ps -a | grep 3859009
-> 3859009 pts/10   00:00:03 main
-> ⚙️ [oci:fedora-43 qemu]$ ps -ax | grep 3859009
-> 3859009 pts/10   Sl     0:03 ./build/qemu-system-x86_64
-> ⚙️ [oci:fedora-43 qemu]$ ps -au | grep 3859009
-> berrange 3859009  8.6  0.1 3893224 123700 pts/10 Sl   11:49   0:04 ./build/qemu-system-x86_64
-> ⚙️ [oci:fedora-43 qemu]$ ps -af | grep 3859009
-> berrange 3859009 2085609  8 11:49 pts/10   00:00:04 ./build/qemu-system-x86_64
-> ⚙️ [oci:fedora-43 qemu]$ ps -axuwf | grep 3859009
-> berrange 3859009 53.4  0.1 3905536 124108 pts/10 Sl   11:49   0:03  |       \_ ./build/qemu-system-x86_64
-> 
-> 
-> and I hadn't noticed since I always use one of the latter
-> sets of options that give the true name.
+On 1/9/26 12:46, Daniel P. Berrangé wrote:
+> IMHO the root problem is that it is pretty dubious for us to be
+> spawning the RCU thread from a constructor. Constructors should
+> be limited to minimal initialization of state. Spawning threads
+> is outside the boundary of what I'd consider reasonable for
+> a constructor todo. I didn't want try to tackle refactoring the
+> RCU thread creation though, hence this gross workaround.
 
-FWIW "top" also changes its process name to "main"; there's precedent 
-for Firefox *not* changing it:
-
-$ ps -o "%c" $(pidof firefox)
-COMMAND
-firefox
-forkserver
-Socket Process
-Privileged Cont
-...
-
-Since we can't really know how the COMM is being used by monitoring 
-tools, and there's a simple workaround within QEMU, I'd prefer avoiding 
-this.  Sorry for not spotting it earlier.
+I see.  Maybe we could (just as gross but smaller) do the RCU 
+constructor late.  Not something that you need to do now, of course.
 
 Paolo
 
