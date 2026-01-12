@@ -4,67 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FAC8D25051
-	for <qemu-rust@archiver.kernel.org>; Mon, 12 Jan 2026 08:44:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B89FFD25050
+	for <qemu-rust@archiver.kernel.org>; Mon, 12 Jan 2026 08:56:23 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vfDX8-0003Nx-8E; Mon, 12 Jan 2026 03:44:18 -0500
+	id 1vfDii-00024z-4V; Mon, 12 Jan 2026 03:56:19 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vfDWe-00033u-EJ; Mon, 12 Jan 2026 03:43:50 -0500
-Received: from mgamail.intel.com ([192.198.163.15])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1vfDia-00023H-SW
+ for qemu-rust@nongnu.org; Mon, 12 Jan 2026 03:56:09 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vfDWb-0001eZ-9Q; Mon, 12 Jan 2026 03:43:47 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768207425; x=1799743425;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=ta6YHQYRgdlu3FrMPwXAQRDcDHrGwmOxazdaftjMxFQ=;
- b=ilAGOQMK4IJfq/hYrswd+62za3wrLO8UBJSnYXh1ik97zsIiPJqWYLQR
- /9Cq2ZzUeByjrO0KhDhq1eMOJVMjE+fRwjSl8B6x4AxtrcpcnerusBBQE
- AVR2zZxK3UHOIGSPnhKquHLiebxQgYkVCu6kXYNE5gSxER7cutVz26uNs
- zKEzmWy/nqem/HLyH43hCCS6SDkognfoSb3250lq4/YVbFFf8fgrbodqQ
- WPgXqo00bm5Af6XqRhBj4h3aHhRISgw0+1yHDyu09V/tTNHnfC6NAvAYX
- pY7IsXA1ARRToVjglMfnCsHhI/0BSpi8SkWiJx/mlCrWgc3czg3nrYpli Q==;
-X-CSE-ConnectionGUID: bbqCJ2EXQgK9QCqk1fi6/g==
-X-CSE-MsgGUID: ekdvbzqKQxCi6BbXRlKrIA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11668"; a="69553598"
-X-IronPort-AV: E=Sophos;i="6.21,219,1763452800"; d="scan'208";a="69553598"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2026 00:43:40 -0800
-X-CSE-ConnectionGUID: NTnVGIHVTJOiqmHs+U629A==
-X-CSE-MsgGUID: GnUeMNsrSpCc5/IHLrLp1g==
-X-ExtLoop1: 1
-Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa003.fm.intel.com with ESMTP; 12 Jan 2026 00:43:38 -0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1vfDiZ-0003wI-Eg
+ for qemu-rust@nongnu.org; Mon, 12 Jan 2026 03:56:08 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1768208165;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+ b=EXQ4zyu0sRJp77mRZXa4lRx69mJNUBHg/Q7ddVSqLZOyFVvYeu/4UgpGUI0LREP5r0D2kq
+ h63cAFGCB91rVNx6CNmZheUsJh6KH+jl1Optm8en+wDOwzz7BMvPYDlqeMo130MZRCIYbi
+ LvycrwNUcaRLZoEP7tAWehdPZgfYeeY=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-3-EWUWBJZsPa6GfUkcSIfOfw-1; Mon, 12 Jan 2026 03:56:03 -0500
+X-MC-Unique: EWUWBJZsPa6GfUkcSIfOfw-1
+X-Mimecast-MFC-AGG-ID: EWUWBJZsPa6GfUkcSIfOfw_1768208163
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-430fc153d50so4530579f8f.1
+ for <qemu-rust@nongnu.org>; Mon, 12 Jan 2026 00:56:03 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768208162; x=1768812962;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+ b=WZfn4yivuwp5huCEuSSrtwYDNvZV5jA7cryiK9Msl376JswPibLdT6a/NiJ0fvcMOQ
+ NQQWtLbJj1Sb1L7iFPwhCQh7RfesVnbIVYm7SVghkH7GBQ6EccE6UxIhmZtlM8cha9ns
+ 8vD1WUjk0T6GaZBb8pfh5L6Z/qcKHlt71b+qsEP5MlxKiR2+bXqTCZXkC8gf5U2VfoHS
+ rzUolj2SDzkGdBcGtZzKowjnXzB0fJMO81OCOL4Mp4CqYUVagOl+JYUCcuMs/E7g1pGN
+ kVUpu+ou9ghoF9RpZ30nljZIzgo1rS4uk0+9bMmwVJRQWeKj1mksurA/CKyVSCjF5Lgl
+ HmYQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVErYRDqeYxxjFvxVgeuCnvilwaoNV8Ubzu2Ok4bY080HUjDWoiCZ6WiD/PaO10Z651jMrlxpl7pr4=@nongnu.org
+X-Gm-Message-State: AOJu0YyPAp/hoXCD7cCDcqFoSbISHyOx1zWBrXk7fJ4WyWhkrJ0bdYzY
+ DUV+X2CPzIALFdyvgh6x52QN2mFelTuLY68xRpoElAdhCzD/0tS03KojbhLnixiKCGc3AMxOk7E
+ ABfnmu/U1mhNHaK9A/9458FtZFyonK9ZKOlp6mM0Vsh0C+1gjTraACwg=
+X-Gm-Gg: AY/fxX7ZHnPqnjPgUjFJVi4xACIcsOBojCZDKeLUpfJrc90TT/w6o6wTGZNsDUQizlZ
+ l1sZ0x7N2itK66ZyrAQBsDIZOJ5Q89QnayrxUWNbmecwgAUzBra0I8jMTr7cZG5tuRNbdzRAKBq
+ 5CeU1gbs3fDVD6yQz/dl8X3Wvxvi/tIcBufs3j0cBjkZMWcgq/6UiNnbJoIOkD7G/J87y6fgR3z
+ k30cYWpnCzqffRyCu4YUHOFVQ52FofLjVMXcjvGvET+a+chq6ocGSJsNwlKn/7lu3OeTqkP+DBc
+ 6DufRnb2j+gKT+B4kpjULuJ2gmIVv37xJA49oTmBc71843buWFZstD1fZ4zD3gB5HZl6ut7ewEs
+ /JMGwdxLt3xF2iHud2EG9TMU2BSsrM3YZxlWgemnqam6oMMI5B9EvmYANNejy7/I6Se1elGcbtj
+ pitImIbCUNDVNovQ==
+X-Received: by 2002:a05:6000:2f83:b0:432:e00b:8675 with SMTP id
+ ffacd0b85a97d-432e00b8b3bmr10116353f8f.62.1768208162632; 
+ Mon, 12 Jan 2026 00:56:02 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGiwsQGTghOpZ5ozc2SUNPeWVHaYaQncDaxPOa165BSrGGrvwKqpMbwP/6KmRQl7FsOgUbRUQ==
+X-Received: by 2002:a05:6000:2f83:b0:432:e00b:8675 with SMTP id
+ ffacd0b85a97d-432e00b8b3bmr10116326f8f.62.1768208162286; 
+ Mon, 12 Jan 2026 00:56:02 -0800 (PST)
+Received: from [192.168.10.48] ([151.61.26.160])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-432dfa6dc4esm15652199f8f.23.2026.01.12.00.56.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Jan 2026 00:56:01 -0800 (PST)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Richard Henderson <richard.henderson@linaro.org>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH] rust: Update Cargo.lock
-Date: Mon, 12 Jan 2026 17:09:00 +0800
-Message-Id: <20260112090900.880621-1-zhao1.liu@intel.com>
-X-Mailer: git-send-email 2.34.1
+ Richard Henderson <richard.henderson@linaro.org>, qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org
+Subject: Re: [PATCH] rust: Update Cargo.lock
+Date: Mon, 12 Jan 2026 09:55:59 +0100
+Message-ID: <20260112085559.953611-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260112090900.880621-1-zhao1.liu@intel.com>
+References: 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: DWLTCKPM1sO_xjJQQIBDPPmk39j2ZvN0XJY3tJbHxs4_1768208163
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=192.198.163.15; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001, SPF_PASS=-0.001,
- T_FILL_THIS_FORM_SHORT=0.01 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.01,
+ RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -80,44 +118,8 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-`cargo +nightly build` updates Cargo.lock file.
+Queued, thanks.
 
-Reported-by: Philippe Mathieu-Daudé <philmd@linaro.org> 
-Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
----
- rust/Cargo.lock | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/rust/Cargo.lock b/rust/Cargo.lock
-index 42ae857fe533..78452c3db9b4 100644
---- a/rust/Cargo.lock
-+++ b/rust/Cargo.lock
-@@ -1,6 +1,6 @@
- # This file is automatically @generated by Cargo.
- # It is not intended for manual editing.
--version = 3
-+version = 4
- 
- [[package]]
- name = "anyhow"
-@@ -233,6 +233,8 @@ dependencies = [
- [[package]]
- name = "probe"
- version = "0.5.2"
-+source = "registry+https://github.com/rust-lang/crates.io-index"
-+checksum = "136558b6e1ebaecc92755d0ffaf9421f519531bed30cc2ad23b22cb00965cc5e"
- 
- [[package]]
- name = "proc-macro-error"
-@@ -392,7 +394,6 @@ dependencies = [
-  "migration",
-  "qom",
-  "system",
-- "trace",
-  "util",
- ]
- 
--- 
-2.34.1
+Paolo
 
 
