@@ -4,105 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B89FFD25050
-	for <qemu-rust@archiver.kernel.org>; Mon, 12 Jan 2026 08:56:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43B5FD29DE0
+	for <qemu-rust@archiver.kernel.org>; Tue, 13 Jan 2026 07:48:00 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vfDii-00024z-4V; Mon, 12 Jan 2026 03:56:19 -0500
+	id 1vfZ7o-00013g-KF; Tue, 13 Jan 2026 02:47:36 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vfDia-00023H-SW
- for qemu-rust@nongnu.org; Mon, 12 Jan 2026 03:56:09 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vfZ7n-000135-2R
+ for qemu-rust@nongnu.org; Tue, 13 Jan 2026 02:47:35 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vfDiZ-0003wI-Eg
- for qemu-rust@nongnu.org; Mon, 12 Jan 2026 03:56:08 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vfZ7l-0000pR-Jo
+ for qemu-rust@nongnu.org; Tue, 13 Jan 2026 02:47:34 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1768208165;
+ s=mimecast20190719; t=1768290452;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
- b=EXQ4zyu0sRJp77mRZXa4lRx69mJNUBHg/Q7ddVSqLZOyFVvYeu/4UgpGUI0LREP5r0D2kq
- h63cAFGCB91rVNx6CNmZheUsJh6KH+jl1Optm8en+wDOwzz7BMvPYDlqeMo130MZRCIYbi
- LvycrwNUcaRLZoEP7tAWehdPZgfYeeY=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-3-EWUWBJZsPa6GfUkcSIfOfw-1; Mon, 12 Jan 2026 03:56:03 -0500
-X-MC-Unique: EWUWBJZsPa6GfUkcSIfOfw-1
-X-Mimecast-MFC-AGG-ID: EWUWBJZsPa6GfUkcSIfOfw_1768208163
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-430fc153d50so4530579f8f.1
- for <qemu-rust@nongnu.org>; Mon, 12 Jan 2026 00:56:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768208162; x=1768812962;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
- b=WZfn4yivuwp5huCEuSSrtwYDNvZV5jA7cryiK9Msl376JswPibLdT6a/NiJ0fvcMOQ
- NQQWtLbJj1Sb1L7iFPwhCQh7RfesVnbIVYm7SVghkH7GBQ6EccE6UxIhmZtlM8cha9ns
- 8vD1WUjk0T6GaZBb8pfh5L6Z/qcKHlt71b+qsEP5MlxKiR2+bXqTCZXkC8gf5U2VfoHS
- rzUolj2SDzkGdBcGtZzKowjnXzB0fJMO81OCOL4Mp4CqYUVagOl+JYUCcuMs/E7g1pGN
- kVUpu+ou9ghoF9RpZ30nljZIzgo1rS4uk0+9bMmwVJRQWeKj1mksurA/CKyVSCjF5Lgl
- HmYQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVErYRDqeYxxjFvxVgeuCnvilwaoNV8Ubzu2Ok4bY080HUjDWoiCZ6WiD/PaO10Z651jMrlxpl7pr4=@nongnu.org
-X-Gm-Message-State: AOJu0YyPAp/hoXCD7cCDcqFoSbISHyOx1zWBrXk7fJ4WyWhkrJ0bdYzY
- DUV+X2CPzIALFdyvgh6x52QN2mFelTuLY68xRpoElAdhCzD/0tS03KojbhLnixiKCGc3AMxOk7E
- ABfnmu/U1mhNHaK9A/9458FtZFyonK9ZKOlp6mM0Vsh0C+1gjTraACwg=
-X-Gm-Gg: AY/fxX7ZHnPqnjPgUjFJVi4xACIcsOBojCZDKeLUpfJrc90TT/w6o6wTGZNsDUQizlZ
- l1sZ0x7N2itK66ZyrAQBsDIZOJ5Q89QnayrxUWNbmecwgAUzBra0I8jMTr7cZG5tuRNbdzRAKBq
- 5CeU1gbs3fDVD6yQz/dl8X3Wvxvi/tIcBufs3j0cBjkZMWcgq/6UiNnbJoIOkD7G/J87y6fgR3z
- k30cYWpnCzqffRyCu4YUHOFVQ52FofLjVMXcjvGvET+a+chq6ocGSJsNwlKn/7lu3OeTqkP+DBc
- 6DufRnb2j+gKT+B4kpjULuJ2gmIVv37xJA49oTmBc71843buWFZstD1fZ4zD3gB5HZl6ut7ewEs
- /JMGwdxLt3xF2iHud2EG9TMU2BSsrM3YZxlWgemnqam6oMMI5B9EvmYANNejy7/I6Se1elGcbtj
- pitImIbCUNDVNovQ==
-X-Received: by 2002:a05:6000:2f83:b0:432:e00b:8675 with SMTP id
- ffacd0b85a97d-432e00b8b3bmr10116353f8f.62.1768208162632; 
- Mon, 12 Jan 2026 00:56:02 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGiwsQGTghOpZ5ozc2SUNPeWVHaYaQncDaxPOa165BSrGGrvwKqpMbwP/6KmRQl7FsOgUbRUQ==
-X-Received: by 2002:a05:6000:2f83:b0:432:e00b:8675 with SMTP id
- ffacd0b85a97d-432e00b8b3bmr10116326f8f.62.1768208162286; 
- Mon, 12 Jan 2026 00:56:02 -0800 (PST)
-Received: from [192.168.10.48] ([151.61.26.160])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432dfa6dc4esm15652199f8f.23.2026.01.12.00.56.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Jan 2026 00:56:01 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Richard Henderson <richard.henderson@linaro.org>, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org
-Subject: Re: [PATCH] rust: Update Cargo.lock
-Date: Mon, 12 Jan 2026 09:55:59 +0100
-Message-ID: <20260112085559.953611-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260112090900.880621-1-zhao1.liu@intel.com>
-References: 
+ bh=Uk2DvBMeDH+4higvhPHQQN4vMxKEX3rfQeorzb6Ytdk=;
+ b=DvdhY23t8rUlquroRP7sBWxZYsc46CXzChu1Z73/w4KSkLKUFAynj2TunASZkIA7QCvE1z
+ /RX0QxI3m5dwKQl9UPCPQdRQBOcAu8+cST4XooB7xPk4MCvufXRBdWMqOkFsh9G+R+jh6r
+ 3bu+7jKTxJJAtscwQGmm1inmjv8j+cQ=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-383-CIxiExBhPKCYViicveNb0w-1; Tue,
+ 13 Jan 2026 02:47:29 -0500
+X-MC-Unique: CIxiExBhPKCYViicveNb0w-1
+X-Mimecast-MFC-AGG-ID: CIxiExBhPKCYViicveNb0w_1768290448
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 5D6501956059; Tue, 13 Jan 2026 07:47:27 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.32])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 412A018004D8; Tue, 13 Jan 2026 07:47:26 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id D8A5A21E66C9; Tue, 13 Jan 2026 08:47:23 +0100 (CET)
+From: Markus Armbruster <armbru@redhat.com>
+To: Daniel P. =?utf-8?Q?Berrang=C3=A9?= <berrange@redhat.com>
+Cc: qemu-devel@nongnu.org,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
+ <philmd@linaro.org>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,  Hanna Reitz
+ <hreitz@redhat.com>,  Gerd Hoffmann <kraxel@redhat.com>,  Paolo Bonzini
+ <pbonzini@redhat.com>,  Christian Schoenebeck <qemu_oss@crudebyte.com>,
+ "Dr. David Alan Gilbert" <dave@treblig.org>,  =?utf-8?Q?Marc-Andr=C3=A9?=
+ Lureau <marcandre.lureau@redhat.com>,  devel@lists.libvirt.org,
+ qemu-block@nongnu.org,  qemu-rust@nongnu.org,  Stefan Weil
+ <sw@weilnetz.de>,  Kevin Wolf <kwolf@redhat.com>,  Richard Henderson
+ <richard.henderson@linaro.org>
+Subject: Re: [PATCH v5 01/24] qemu-options: remove extraneous [] around arg
+ values
+In-Reply-To: <20260108170338.2693853-2-berrange@redhat.com> ("Daniel
+ P. =?utf-8?Q?Berrang=C3=A9=22's?= message of "Thu, 8 Jan 2026 17:03:15
+ +0000")
+References: <20260108170338.2693853-1-berrange@redhat.com>
+ <20260108170338.2693853-2-berrange@redhat.com>
+Date: Tue, 13 Jan 2026 08:47:23 +0100
+Message-ID: <87ldi2ar90.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: DWLTCKPM1sO_xjJQQIBDPPmk39j2ZvN0XJY3tJbHxs4_1768208163
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=-0.01,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -118,8 +98,18 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Queued, thanks.
+Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
 
-Paolo
+> There are quite a few inappropriate uses of [...] around argument
+> values. The [] are intended to indicate optionality, but in some
+> cases it is used to wrap a set of enum values. In other cases it
+> is being used to show the value is entirely optional, which was
+> common behaviour for boolean values in the past. QEMU has deprecated
+> short-form boolean options for quite a while though, and we should
+> thus not advertize this possibility in the docs.
+>
+> Signed-off-by: Daniel P. Berrang=C3=A9 <berrange@redhat.com>
+
+Reviewed-by: Markus Armbruster <armbru@redhat.com>
 
 
