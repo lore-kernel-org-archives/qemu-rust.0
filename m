@@ -4,83 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43B5FD29DE0
-	for <qemu-rust@archiver.kernel.org>; Tue, 13 Jan 2026 07:48:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E03FDD29DEF
+	for <qemu-rust@archiver.kernel.org>; Tue, 13 Jan 2026 09:09:58 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vfZ7o-00013g-KF; Tue, 13 Jan 2026 02:47:36 -0500
+	id 1vfaK8-0004Am-JF; Tue, 13 Jan 2026 04:04:24 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vfZ7n-000135-2R
- for qemu-rust@nongnu.org; Tue, 13 Jan 2026 02:47:35 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vfaK7-0004A2-7X
+ for qemu-rust@nongnu.org; Tue, 13 Jan 2026 04:04:23 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vfZ7l-0000pR-Jo
- for qemu-rust@nongnu.org; Tue, 13 Jan 2026 02:47:34 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vfaK5-0005Rm-Lc
+ for qemu-rust@nongnu.org; Tue, 13 Jan 2026 04:04:22 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1768290452;
+ s=mimecast20190719; t=1768295059;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Uk2DvBMeDH+4higvhPHQQN4vMxKEX3rfQeorzb6Ytdk=;
- b=DvdhY23t8rUlquroRP7sBWxZYsc46CXzChu1Z73/w4KSkLKUFAynj2TunASZkIA7QCvE1z
- /RX0QxI3m5dwKQl9UPCPQdRQBOcAu8+cST4XooB7xPk4MCvufXRBdWMqOkFsh9G+R+jh6r
- 3bu+7jKTxJJAtscwQGmm1inmjv8j+cQ=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=l8Bj1cPBbkXfFCwtKKTyzWwDQn6lMBjXkZH37hqQwH0=;
+ b=IgoMhOkvPZVHNJVHdp/z4gjg4daEyHA9vuhmZSPElgITPcbdeNfHMw0twzLeL05lq7a8ZJ
+ vTO0xUyqRjudd18EOdhmmHZt4K6Tq4ZzH/G6grR67T8QQ6iNL6qGk0RZB0FCksHk07PSaS
+ +/SOBJtsqPHZTp57ImDsvxXPhbOaTIc=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-383-CIxiExBhPKCYViicveNb0w-1; Tue,
- 13 Jan 2026 02:47:29 -0500
-X-MC-Unique: CIxiExBhPKCYViicveNb0w-1
-X-Mimecast-MFC-AGG-ID: CIxiExBhPKCYViicveNb0w_1768290448
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-286-f9zTZFoJO_SmINoWE69ojg-1; Tue,
+ 13 Jan 2026 04:04:16 -0500
+X-MC-Unique: f9zTZFoJO_SmINoWE69ojg-1
+X-Mimecast-MFC-AGG-ID: f9zTZFoJO_SmINoWE69ojg_1768295055
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 5D6501956059; Tue, 13 Jan 2026 07:47:27 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 79BB318005BD; Tue, 13 Jan 2026 09:04:14 +0000 (UTC)
 Received: from blackfin.pond.sub.org (unknown [10.45.242.32])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 412A018004D8; Tue, 13 Jan 2026 07:47:26 +0000 (UTC)
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 5C5FA1956048; Tue, 13 Jan 2026 09:04:13 +0000 (UTC)
 Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id D8A5A21E66C9; Tue, 13 Jan 2026 08:47:23 +0100 (CET)
+ id E6E5621E66C9; Tue, 13 Jan 2026 10:04:10 +0100 (CET)
 From: Markus Armbruster <armbru@redhat.com>
-To: Daniel P. =?utf-8?Q?Berrang=C3=A9?= <berrange@redhat.com>
-Cc: qemu-devel@nongnu.org,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
- <philmd@linaro.org>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,  Hanna Reitz
- <hreitz@redhat.com>,  Gerd Hoffmann <kraxel@redhat.com>,  Paolo Bonzini
- <pbonzini@redhat.com>,  Christian Schoenebeck <qemu_oss@crudebyte.com>,
- "Dr. David Alan Gilbert" <dave@treblig.org>,  =?utf-8?Q?Marc-Andr=C3=A9?=
- Lureau <marcandre.lureau@redhat.com>,  devel@lists.libvirt.org,
- qemu-block@nongnu.org,  qemu-rust@nongnu.org,  Stefan Weil
- <sw@weilnetz.de>,  Kevin Wolf <kwolf@redhat.com>,  Richard Henderson
- <richard.henderson@linaro.org>
-Subject: Re: [PATCH v5 01/24] qemu-options: remove extraneous [] around arg
- values
-In-Reply-To: <20260108170338.2693853-2-berrange@redhat.com> ("Daniel
- P. =?utf-8?Q?Berrang=C3=A9=22's?= message of "Thu, 8 Jan 2026 17:03:15
- +0000")
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Daniel P. =?utf-8?Q?Berrang=C3=A9?= <berrange@redhat.com>,
+ qemu-devel@nongnu.org,
+ Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,  Manos
+ Pitsidianakis
+ <manos.pitsidianakis@linaro.org>,  Hanna Reitz <hreitz@redhat.com>,  Gerd
+ Hoffmann <kraxel@redhat.com>,  Christian Schoenebeck
+ <qemu_oss@crudebyte.com>,  "Dr. David Alan Gilbert" <dave@treblig.org>,
+ =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
+ devel@lists.libvirt.org,  qemu-block@nongnu.org,  qemu-rust@nongnu.org,
+ Stefan Weil <sw@weilnetz.de>,  Kevin Wolf <kwolf@redhat.com>,  Richard
+ Henderson <richard.henderson@linaro.org>
+Subject: Re: [PATCH v5 02/24] include: define constant for early constructor
+ priority
+In-Reply-To: <6e60a89f-6798-4ea5-bbd0-553130786cec@redhat.com> (Paolo
+ Bonzini's message of "Fri, 9 Jan 2026 13:09:23 +0100")
 References: <20260108170338.2693853-1-berrange@redhat.com>
- <20260108170338.2693853-2-berrange@redhat.com>
-Date: Tue, 13 Jan 2026 08:47:23 +0100
-Message-ID: <87ldi2ar90.fsf@pond.sub.org>
+ <20260108170338.2693853-3-berrange@redhat.com>
+ <d3ca3fb5-e972-4446-b32c-f20fd8825cca@redhat.com>
+ <aWDqie0eYZ8GeQHF@redhat.com>
+ <6e60a89f-6798-4ea5-bbd0-553130786cec@redhat.com>
+Date: Tue, 13 Jan 2026 10:04:10 +0100
+Message-ID: <87h5spc29h.fsf@pond.sub.org>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
@@ -98,18 +101,27 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-> There are quite a few inappropriate uses of [...] around argument
-> values. The [] are intended to indicate optionality, but in some
-> cases it is used to wrap a set of enum values. In other cases it
-> is being used to show the value is entirely optional, which was
-> common behaviour for boolean values in the past. QEMU has deprecated
-> short-form boolean options for quite a while though, and we should
-> thus not advertize this possibility in the docs.
+> On 1/9/26 12:46, Daniel P. Berrang=C3=A9 wrote:
+>> IMHO the root problem is that it is pretty dubious for us to be
+>> spawning the RCU thread from a constructor. Constructors should
+>> be limited to minimal initialization of state.
+
+Yes!  Discussed in review of v3:
+
+    https://lore.kernel.org/qemu-devel/87frck1dds.fsf@pond.sub.org/
+    Message-ID: <87frck1dds.fsf@pond.sub.org>
+
+>>                                                Spawning threads
+>> is outside the boundary of what I'd consider reasonable for
+>> a constructor todo. I didn't want try to tackle refactoring the
+>> RCU thread creation though, hence this gross workaround.
 >
-> Signed-off-by: Daniel P. Berrang=C3=A9 <berrange@redhat.com>
+> I see.  Maybe we could (just as gross but smaller) do the RCU constructor=
+ late.  Not something that you need to do now, of course.
 
-Reviewed-by: Markus Armbruster <armbru@redhat.com>
+Could we use an old-fashioned initialization function instead of a
+constructor for RCU?
 
 
