@@ -4,85 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D426CD29FF9
-	for <qemu-rust@archiver.kernel.org>; Wed, 14 Jan 2026 12:47:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 839CCD2A005
+	for <qemu-rust@archiver.kernel.org>; Wed, 14 Jan 2026 12:53:59 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vg0Gy-0005lY-Uc; Wed, 14 Jan 2026 07:46:53 -0500
+	id 1vg0Nb-0001IA-5E; Wed, 14 Jan 2026 07:53:48 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vg0Gh-0005j6-Nh
- for qemu-rust@nongnu.org; Wed, 14 Jan 2026 07:46:48 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vg0ND-0001Ek-Tc
+ for qemu-rust@nongnu.org; Wed, 14 Jan 2026 07:53:21 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vg0Gd-00028B-59
- for qemu-rust@nongnu.org; Wed, 14 Jan 2026 07:46:34 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vg0NA-00033K-5h
+ for qemu-rust@nongnu.org; Wed, 14 Jan 2026 07:53:19 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1768394789;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
+ s=mimecast20190719; t=1768395195;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fmdKhxQO5sJ7ePl8AF/0z76V997rSx7Gzmlf+EId7hg=;
- b=YBQ7auQvFYvA44XesS36F7MWusa/Ytp18V8X7Dk7aKxPPnF7aBWAcRZ9jbLku7z3MGLOSK
- A9p+tV6QQN8NpkTCR5WZO62gZeUNfrUmz8OfpvMMCiLqQfplKYK+vDwTmNgQWDxd98mPA1
- BFNQwyZIYCyFBe7TpqFhg+J0oEWx+w8=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ bh=aZgBvPtSls1neXDeFffgJHJxieERvA4B6ga+aPABvRk=;
+ b=IQvP8LRqyULyrhGA66ISbta571R4rv54ziG+gJ5qWDGjmQPU4X4h6Vs8kOjVBoCNTgscG3
+ HsSQPKmH09peZ6sSRBJ5ED3Wb6BJAbXindwR2AD7byvA1hwujfgGHhZWIeeXavZRRpMYWM
+ zru3eoAEwANZ61Ib8PKMoTDL0EJvmwg=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-9-MH967anxOui4sJRcFJgMJA-1; Wed,
- 14 Jan 2026 07:46:26 -0500
-X-MC-Unique: MH967anxOui4sJRcFJgMJA-1
-X-Mimecast-MFC-AGG-ID: MH967anxOui4sJRcFJgMJA_1768394784
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-52-BnEgrLeVNyuvpAhTfh9A9g-1; Wed,
+ 14 Jan 2026 07:53:12 -0500
+X-MC-Unique: BnEgrLeVNyuvpAhTfh9A9g-1
+X-Mimecast-MFC-AGG-ID: BnEgrLeVNyuvpAhTfh9A9g_1768395191
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id ECC3F180057E; Wed, 14 Jan 2026 12:46:23 +0000 (UTC)
-Received: from redhat.com (unknown [10.42.28.41])
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id C275C1800371; Wed, 14 Jan 2026 12:53:10 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.32])
  by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 8B2471956048; Wed, 14 Jan 2026 12:46:17 +0000 (UTC)
-Date: Wed, 14 Jan 2026 12:46:13 +0000
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Markus Armbruster <armbru@redhat.com>
-Cc: qemu-devel@nongnu.org,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Hanna Reitz <hreitz@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Christian Schoenebeck <qemu_oss@crudebyte.com>,
- "Dr. David Alan Gilbert" <dave@treblig.org>,
- =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
- devel@lists.libvirt.org, qemu-block@nongnu.org,
- qemu-rust@nongnu.org, Stefan Weil <sw@weilnetz.de>,
- Kevin Wolf <kwolf@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>
-Subject: Re: [PATCH v5 15/24] monitor: introduce monitor_cur_is_hmp() helper
-Message-ID: <aWeQFT9r333oCtZT@redhat.com>
+ id 496821956053; Wed, 14 Jan 2026 12:53:10 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id D57F721E692D; Wed, 14 Jan 2026 13:53:07 +0100 (CET)
+From: Markus Armbruster <armbru@redhat.com>
+To: Daniel P. =?utf-8?Q?Berrang=C3=A9?= <berrange@redhat.com>
+Cc: qemu-devel@nongnu.org,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
+ <philmd@linaro.org>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,  Hanna Reitz
+ <hreitz@redhat.com>,  Gerd Hoffmann <kraxel@redhat.com>,  Paolo Bonzini
+ <pbonzini@redhat.com>,  Christian Schoenebeck <qemu_oss@crudebyte.com>,
+ "Dr. David Alan Gilbert" <dave@treblig.org>,  =?utf-8?Q?Marc-Andr=C3=A9?=
+ Lureau <marcandre.lureau@redhat.com>,  devel@lists.libvirt.org,
+ qemu-block@nongnu.org,  qemu-rust@nongnu.org,  Stefan Weil
+ <sw@weilnetz.de>,  Kevin Wolf <kwolf@redhat.com>,  Richard Henderson
+ <richard.henderson@linaro.org>
+Subject: Re: [PATCH v5 16/24] util: don't skip error prefixes when QMP is
+ active
+In-Reply-To: <20260108170338.2693853-17-berrange@redhat.com> ("Daniel
+ P. =?utf-8?Q?Berrang=C3=A9=22's?= message of "Thu, 8 Jan 2026 17:03:30
+ +0000")
 References: <20260108170338.2693853-1-berrange@redhat.com>
- <20260108170338.2693853-16-berrange@redhat.com>
- <874iop8ssa.fsf@pond.sub.org>
+ <20260108170338.2693853-17-berrange@redhat.com>
+Date: Wed, 14 Jan 2026 13:53:07 +0100
+Message-ID: <87ecns2w5o.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <874iop8ssa.fsf@pond.sub.org>
-User-Agent: Mutt/2.2.14 (2025-02-20)
+Content-Transfer-Encoding: quoted-printable
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
@@ -97,140 +95,76 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Tue, Jan 13, 2026 at 03:57:09PM +0100, Markus Armbruster wrote:
-> Daniel P. Berrangé <berrange@redhat.com> writes:
-> 
-> > Note that this is not simply the inverse of monitor_cur_is_qmp(),
-> > as both helpers require that monitor_cur() is first non-NULL.
-> >
-> > Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-> > Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-> > ---
-> >  include/monitor/monitor.h      |  1 +
-> >  monitor/monitor.c              | 10 ++++++++++
-> >  stubs/monitor-core.c           |  6 ++++++
-> >  tests/unit/test-util-sockets.c |  1 +
-> >  4 files changed, 18 insertions(+)
-> >
-> > diff --git a/include/monitor/monitor.h b/include/monitor/monitor.h
-> > index 296690e1f1..9c71e6cf3c 100644
-> > --- a/include/monitor/monitor.h
-> > +++ b/include/monitor/monitor.h
-> > @@ -16,6 +16,7 @@ extern QemuOptsList qemu_mon_opts;
-> >  Monitor *monitor_cur(void);
-> >  Monitor *monitor_set_cur(Coroutine *co, Monitor *mon);
-> >  bool monitor_cur_is_qmp(void);
-> > +bool monitor_cur_is_hmp(void);
-> >  
-> >  void monitor_init_globals(void);
-> >  void monitor_init_globals_core(void);
-> > diff --git a/monitor/monitor.c b/monitor/monitor.c
-> > index 6dc5a7016d..b81cc7d2ed 100644
-> > --- a/monitor/monitor.c
-> > +++ b/monitor/monitor.c
-> > @@ -116,6 +116,16 @@ bool monitor_cur_is_qmp(void)
-> >      return cur_mon && monitor_is_qmp(cur_mon);
-> >  }
-> >  
-> > +/**
-> > + * Is the current monitor, if any, a HMP monitor?
-> 
-> "an HMP"?  Not a native speaker...
+Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
 
-Not that I know the rules either really, but I think
-it does sound better as "an" :-)
+> The vreport() function will print to HMP if available, otherwise
+> to stderr. In the event that vreport() is called during execution
+> of a QMP command, it will print to stderr, but mistakenly omit the
+> message prefixes (timestamp, guest name, program name).
+>
+> Signed-off-by: Daniel P. Berrang=C3=A9 <berrange@redhat.com>
+> ---
+>  util/error-report.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/util/error-report.c b/util/error-report.c
+> index b262ad01cb..872158ad90 100644
+> --- a/util/error-report.c
+> +++ b/util/error-report.c
+> @@ -159,7 +159,7 @@ static void print_loc(void)
+   /*
+    * Print current location to current monitor if we have one, else to std=
+err.
 
-> > + */
-> > +bool monitor_cur_is_hmp(void)
-> > +{
-> > +    Monitor *cur_mon = monitor_cur();
-> > +
-> > +    return cur_mon && !monitor_is_qmp(cur_mon);
-> > +}
-> > +
-> 
-> The only use at the end of this series looks like this:
-> 
->     Monitor *cur = NULL;
-> 
->     if (monitor_cur_is_hmp()) {
->         cur = monitor_cur();
->     } else {
->         // some stderr code
->     }
-> 
-> Meh.  Could do
-> 
->     Monitor *cur = monitor_cur();
-> 
->     if (monitor_cur_is_qmp(cur)) {
->         cur = NULL;
->         // some stderr code
->     }
-> 
-> Or with a helper returning the HMP monitor, we could have something like
-> 
->     cur = monitor_cur_hmp();
-> 
->     if (!cur) {
->         // some stderr code
->     }
-> 
-> Doesn't mirror monitor_cur_is_qmp() then.  But I just pointed out in
-> reply to PATCH 11 that we don't actually need monitor_cur_is_qmp()>
+This comment is now wrong.  Obvious fix: "to current HMP monitor".
 
-I'll do the middle option here. It is pointless churn to delete
-monitor_cur_is_qmp and then add monitor_cur_is_hmp or monitor_cur_hmp,
-so i'll just use monitor_cur_is_qmp
+Losely related: "[PATCH 0/3] Doc fixes around "current monitor" printing".
 
-> 
-> Ideas, not demands.
-> 
-> >  /**
-> >   * Is @mon is using readline?
-> >   * Note: not all HMP monitors use readline, e.g., gdbserver has a
-> > diff --git a/stubs/monitor-core.c b/stubs/monitor-core.c
-> > index a7c32297c9..674211f48f 100644
-> > --- a/stubs/monitor-core.c
-> > +++ b/stubs/monitor-core.c
-> > @@ -7,6 +7,12 @@ Monitor *monitor_cur(void)
-> >      return NULL;
-> >  }
-> >  
-> > +bool monitor_cur_is_hmp(void)
-> > +{
-> > +    /* since monitor_cur() above returns NULL, this can't be true */
-> 
-> Maybe
-> 
->        /* We can't have a monitor, let alone an HMP monitor */
+    */
+   static void print_loc(void)
+   {
+       const char *sep =3D "";
+>      int i;
+>      const char *const *argp;
+>=20=20
+> -    if (!monitor_cur() && g_get_prgname()) {
+> +    if (!monitor_cur_is_hmp() && g_get_prgname()) {
+>          error_printf("%s:", g_get_prgname());
+>          sep =3D " ";
+>      }
+> @@ -203,14 +203,14 @@ static void vreport(report_type type, const char *f=
+mt, va_list ap)
+   /*
+    * Print a message to current monitor if we have one, else to stderr.
 
-Sure.
+Likewise.
 
-
-> > diff --git a/tests/unit/test-util-sockets.c b/tests/unit/test-util-sockets.c
-> > index ee66d727c3..4b7f408902 100644
-> > --- a/tests/unit/test-util-sockets.c
-> > +++ b/tests/unit/test-util-sockets.c
-> > @@ -74,6 +74,7 @@ int monitor_get_fd(Monitor *mon, const char *fdname, Error **errp)
-> >  Monitor *monitor_cur(void) { return cur_mon; }
-> >  Monitor *monitor_set_cur(Coroutine *co, Monitor *mon) { abort(); }
-> >  int monitor_vprintf(Monitor *mon, const char *fmt, va_list ap) { abort(); }
-> > +bool monitor_cur_is_hmp(void) { return false; }
-> 
-> Fine.  abort() would also be fine.  Matter of taste.
-
-I tested abort is ok here .
-
-With regards,
-Daniel
--- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
+    * @report_type is the type of message: error, warning or informational.
+    * Format arguments like vsprintf().  The resulting message should be
+    * a single phrase, with no newline or trailing punctuation.
+    * Prepend the current location and append a newline.
+    */
+   G_GNUC_PRINTF(2, 0)
+   static void vreport(report_type type, const char *fmt, va_list ap)
+>  {
+>      gchar *timestr;
+>=20=20
+> -    if (message_with_timestamp && !monitor_cur()) {
+> +    if (message_with_timestamp && !monitor_cur_is_hmp()) {
+>          timestr =3D real_time_iso8601();
+>          error_printf("%s ", timestr);
+>          g_free(timestr);
+>      }
+>=20=20
+>      /* Only prepend guest name if -msg guest-name and -name guest=3D... =
+are set */
+> -    if (error_with_guestname && error_guest_name && !monitor_cur()) {
+> +    if (error_with_guestname && error_guest_name && !monitor_cur_is_hmp(=
+)) {
+>          error_printf("%s ", error_guest_name);
+>      }
 
 
