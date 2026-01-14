@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A5D7D37E20
-	for <qemu-rust@archiver.kernel.org>; Wed, 14 Jan 2026 13:01:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC55CD37E2A
+	for <qemu-rust@archiver.kernel.org>; Wed, 14 Jan 2026 13:14:48 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vg0Ue-0007BQ-It; Wed, 14 Jan 2026 08:01:01 -0500
+	id 1vg0hi-0001SA-KI; Wed, 14 Jan 2026 08:14:34 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vg0UY-00073F-GJ
- for qemu-rust@nongnu.org; Wed, 14 Jan 2026 08:00:56 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vg0hM-0001N6-BY
+ for qemu-rust@nongnu.org; Wed, 14 Jan 2026 08:14:13 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vg0UW-0004Ta-3W
- for qemu-rust@nongnu.org; Wed, 14 Jan 2026 08:00:53 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vg0hK-0002cg-HR
+ for qemu-rust@nongnu.org; Wed, 14 Jan 2026 08:14:07 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1768395651;
+ s=mimecast20190719; t=1768396445;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=mU+sDDwabNoFz6mM0jvwgmYqz2ZD0GuEAIbrjRwxeog=;
- b=PGvIL2UuoaiBZM16sZfleZNUbIu/FutFhMDhs/FxynyqcCc3avfBb6vpguR4DVg6rU0GH+
- +dFUE8pMVOKLJCea1CjDALJWX6L0Pns7gzQdnxfTONlA5yMRLmMVdj2b3WA5b7yJttKL4w
- /wZrfWcBHrGRtDdtP1DVgdE7dwTg5jE=
+ bh=VF+4CofWT/uDPWbqrNbk5YpetW+t8sgEb1VGTugRRMs=;
+ b=XDtTBR0zkyjBm9feq6kRg15Cpi6axhGdbpMws6RmhP92kx6cCx7BFa0cdfZo5UZrc6BL90
+ olPXPUxqqk5xQJHbt+pwIGcMEnclSfpulTr3fCawkBsFhdzgdeOV6wNGy5oN1QuBzoswZS
+ OFnP3VMB0wUtFHAYUSTc6/shhEkcq7Y=
 Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-564-mC6IrrukP7av2MSDAYgeUQ-1; Wed,
- 14 Jan 2026 08:00:47 -0500
-X-MC-Unique: mC6IrrukP7av2MSDAYgeUQ-1
-X-Mimecast-MFC-AGG-ID: mC6IrrukP7av2MSDAYgeUQ_1768395645
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-594-fWxIxb9LOr6tZvlaOw0JCw-1; Wed,
+ 14 Jan 2026 08:14:02 -0500
+X-MC-Unique: fWxIxb9LOr6tZvlaOw0JCw-1
+X-Mimecast-MFC-AGG-ID: fWxIxb9LOr6tZvlaOw0JCw_1768396441
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 511401954B0B; Wed, 14 Jan 2026 13:00:45 +0000 (UTC)
+ id D195F19560A5; Wed, 14 Jan 2026 13:14:00 +0000 (UTC)
 Received: from blackfin.pond.sub.org (unknown [10.45.242.32])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 68BE21800285; Wed, 14 Jan 2026 13:00:44 +0000 (UTC)
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 527DE19560A7; Wed, 14 Jan 2026 13:14:00 +0000 (UTC)
 Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id F0EFA21E692D; Wed, 14 Jan 2026 14:00:41 +0100 (CET)
+ id D670521E692D; Wed, 14 Jan 2026 14:13:57 +0100 (CET)
 From: Markus Armbruster <armbru@redhat.com>
 To: Daniel P. =?utf-8?Q?Berrang=C3=A9?= <berrange@redhat.com>
 Cc: qemu-devel@nongnu.org,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
@@ -58,20 +58,22 @@ Cc: qemu-devel@nongnu.org,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
  Lureau <marcandre.lureau@redhat.com>,  devel@lists.libvirt.org,
  qemu-block@nongnu.org,  qemu-rust@nongnu.org,  Stefan Weil
  <sw@weilnetz.de>,  Kevin Wolf <kwolf@redhat.com>,  Richard Henderson
- <richard.henderson@linaro.org>
-Subject: Re: [PATCH v5 17/24] util: fix interleaving of error & trace output
-In-Reply-To: <20260108170338.2693853-18-berrange@redhat.com> ("Daniel
- P. =?utf-8?Q?Berrang=C3=A9=22's?= message of "Thu, 8 Jan 2026 17:03:31
- +0000")
+ <richard.henderson@linaro.org>,  Eric Blake <eblake@redhat.com>
+Subject: Re: [PATCH v5 14/24] monitor: move error_vprintf back to
+ error-report.c
+In-Reply-To: <aWeHlpz7m4hpPQCA@redhat.com> ("Daniel P. =?utf-8?Q?Berrang?=
+ =?utf-8?Q?=C3=A9=22's?= message of
+ "Wed, 14 Jan 2026 12:09:58 +0000")
 References: <20260108170338.2693853-1-berrange@redhat.com>
- <20260108170338.2693853-18-berrange@redhat.com>
-Date: Wed, 14 Jan 2026 14:00:41 +0100
-Message-ID: <87a4yg2vt2.fsf@pond.sub.org>
+ <20260108170338.2693853-15-berrange@redhat.com>
+ <87jyxl8wfo.fsf@pond.sub.org> <aWeHlpz7m4hpPQCA@redhat.com>
+Date: Wed, 14 Jan 2026 14:13:57 +0100
+Message-ID: <87sec81gmi.fsf@pond.sub.org>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
@@ -81,7 +83,7 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,293 +101,70 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
 
-> The monitor_cur_hmp() function will acquire/release mutex locks, which
-> will trigger trace probes, which can in turn trigger qemu_log() calls.
-> vreport() calls monitor_cur() multiple times through its execution
-> both directly and indirectly via error_vprintf().
+> On Tue, Jan 13, 2026 at 02:38:19PM +0100, Markus Armbruster wrote:
+>> Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
+>>=20
+>> > The current unit tests rely on monitor.o not being linked, such
+>> > that the monitor stubs get linked instead. Since error_vprintf
+>> > is in monitor.o this allows a stub error_vprintf impl to be used
+>> > that calls g_test_message.
+>> >
+>> > This takes a different approach, with error_vprintf moving
+>> > back to error-report.c such that it is always linked into the
+>> > tests. The monitor_vprintf() stub is then changed to use
+>> > g_test_message if QTEST_SILENT_ERRORS is set, otherwise it will
+>> > return -1 and trigger error_vprintf to call vfprintf.
+>> >
+>> > The end result is functionally equivalent for the purposes of
+>> > the unit tests.
+>> >
+>> > Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+>> > Reviewed-by: Eric Blake <eblake@redhat.com>
+>> > Signed-off-by: Daniel P. Berrang=C3=A9 <berrange@redhat.com>
+
+[...]
+
+>> Without stubs, no change in behavior.
+>>=20
+>> With both stubs, before the patch:
+>>=20
+>>     monitor_vprintf() is not supposed to run, and aborts
+>>=20
+>>     error_vprintf() calls g_test_message() for tests, else vfprintf()
+>>=20
+>> afterwards:
+>>=20
+>>     monitor_vprintf() calls g_test_message() and succeeds in tests, else
+>>     fails
+>>=20
+>>     error_vprintf() calls monitor_printf(), and when it fails falls back
+>>     to vfprintf().
+>>=20
+>> Alright, error_vprintf() behaves the same as before.
+>>=20
+>> monitor_vprintf() no longer aborts.  Hmm.  What if we somehow acquire
+>> calls?  In tests, they'll go to g_test_message(), which is fine, I
+>> guess.  Outside tests, they'll fail.  So does the non-stub version
+>> unless the current monitor is HMP.  Also fine, I guess.
+>>=20
+>> Is it possible to link just one of the stubs?
 >
-> The result is that the prefix information printed by vreport() gets
-> interleaved with qemu_log() output, when run outside the context of
-> an HMP command dispatcher. This can be seen with:
+> There is only 1 stub after this patch - for monitor_vprintf().
+> error_vprintf() is never stubbed anymore.
 >
->  $ qemu-system-x86_64 \
->      -msg timestamp=3Don,guest-name=3Don \
->      -display none \
->      -object tls-creds-x509,id=3Df,dir=3Dfish \
->      -name fish \
->      -d trace:qemu_mutex*
->    2025-09-10T16:30:42.514374Z qemu_mutex_unlock released mutex 0x560b033=
-9b4c0 (/var/home/berrange/src/virt/qemu/include/qemu/lockable.h:56)
->    2025-09-10T16:30:42.514400Z qemu_mutex_lock waiting on mutex 0x560b033=
-983e0 (/var/home/berrange/src/virt/qemu/include/qemu/lockable.h:56)
->    2025-09-10T16:30:42.514402Z qemu_mutex_locked taken mutex 0x560b033983=
-e0 (/var/home/berrange/src/virt/qemu/include/qemu/lockable.h:56)
->    2025-09-10T16:30:42.514404Z qemu_mutex_unlock released mutex 0x560b033=
-983e0 (/var/home/berrange/src/virt/qemu/include/qemu/lockable.h:56)
->    2025-09-10T16:30:42.516716Z qemu_mutex_lock waiting on mutex 0x560b033=
-98560 (../monitor/monitor.c:91)
->    2025-09-10T16:30:42.516723Z qemu_mutex_locked taken mutex 0x560b033985=
-60 (../monitor/monitor.c:91)
->    2025-09-10T16:30:42.516726Z qemu_mutex_unlock released mutex 0x560b033=
-98560 (../monitor/monitor.c:96)
->    2025-09-10T16:30:42.516728Z qemu_mutex_lock waiting on mutex 0x560b033=
-98560 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842057Z qemu_mutex_locked taken mutex 0x564f5e4015=
-60 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842058Z qemu_mutex_unlock released mutex 0x564f5e4=
-01560 (../monitor/monitor.c:96)
->    2025-09-10T16:31:04.842055Z 2025-09-10T16:31:04.842060Z qemu_mutex_loc=
-k waiting on mutex 0x564f5e401560 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842061Z qemu_mutex_locked taken mutex 0x564f5e4015=
-60 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842062Z qemu_mutex_unlock released mutex 0x564f5e4=
-01560 (../monitor/monitor.c:96)
->    2025-09-10T16:31:04.842064Z qemu_mutex_lock waiting on mutex 0x564f5e4=
-01560 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842065Z qemu_mutex_locked taken mutex 0x564f5e4015=
-60 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842066Z qemu_mutex_unlock released mutex 0x564f5e4=
-01560 (../monitor/monitor.c:96)
->    fish 2025-09-10T16:31:04.842068Z qemu_mutex_lock waiting on mutex 0x56=
-4f5e401560 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842069Z qemu_mutex_locked taken mutex 0x564f5e4015=
-60 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842070Z qemu_mutex_unlock released mutex 0x564f5e4=
-01560 (../monitor/monitor.c:96)
->    2025-09-10T16:31:04.842072Z qemu_mutex_lock waiting on mutex 0x564f5e4=
-01560 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842097Z qemu_mutex_locked taken mutex 0x564f5e4015=
-60 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842099Z qemu_mutex_unlock released mutex 0x564f5e4=
-01560 (../monitor/monitor.c:96)
->    qemu-system-x86_64:2025-09-10T16:31:04.842100Z qemu_mutex_lock waiting=
- on mutex 0x564f5e401560 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842102Z qemu_mutex_locked taken mutex 0x564f5e4015=
-60 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842103Z qemu_mutex_unlock released mutex 0x564f5e4=
-01560 (../monitor/monitor.c:96)
->     2025-09-10T16:31:04.842105Z qemu_mutex_lock waiting on mutex 0x564f5e=
-401560 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842106Z qemu_mutex_locked taken mutex 0x564f5e4015=
-60 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842107Z qemu_mutex_unlock released mutex 0x564f5e4=
-01560 (../monitor/monitor.c:96)
->    Unable to access credentials fish/ca-cert.pem: No such file or directo=
-ry2025-09-10T16:31:04.842109Z qemu_mutex_lock waiting on mutex 0x564f5e4015=
-60 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842110Z qemu_mutex_locked taken mutex 0x564f5e4015=
-60 (../monitor/monitor.c:91)
->    2025-09-10T16:31:04.842111Z qemu_mutex_unlock released mutex 0x564f5e4=
-01560 (../monitor/monitor.c:96)
+> The interesting scenario outside there tests is the non-system emulator
+> binaries.
 >
-> To avoid this interleaving (as well as reduce the huge number of
-> mutex lock/unlock calls) we need to ensure that monitor_cur_is_hmp()
-> is only called once at the start of vreport(), and if no HMP is
-> present, no further monitor APIs can be called.
+> Those will not have the monitor code, so will get the monitor_vprintf
+> stub. That will report g_test_initialized() =3D=3D false, and so the stub
+> will return -1.  error_vprintf() will see this -1 return value and
+> thus call to vfprintf().
 >
-> This implies error_[v]printf() cannot be called from vreport().
-> Instead we must introduce error_[v]printf_mon() which accept a
-> pre-acquired Monitor object. In some cases, however, fprintf
-> can be called directly as output will never be directed to the
-> monitor.
->
->  $ qemu-system-x86_64 \
->      -msg timestamp=3Don,guest-name=3Don \
->      -display none \
->      -object tls-creds-x509,id=3Df,dir=3Dfish \
->      -name fish \
->      -d trace:qemu_mutex*
->    2025-09-10T16:31:22.701691Z qemu_mutex_unlock released mutex 0x5626fd3=
-b84c0 (/var/home/berrange/src/virt/qemu/include/qemu/lockable.h:56)
->    2025-09-10T16:31:22.701728Z qemu_mutex_lock waiting on mutex 0x5626fd3=
-b53e0 (/var/home/berrange/src/virt/qemu/include/qemu/lockable.h:56)
->    2025-09-10T16:31:22.701730Z qemu_mutex_locked taken mutex 0x5626fd3b53=
-e0 (/var/home/berrange/src/virt/qemu/include/qemu/lockable.h:56)
->    2025-09-10T16:31:22.701732Z qemu_mutex_unlock released mutex 0x5626fd3=
-b53e0 (/var/home/berrange/src/virt/qemu/include/qemu/lockable.h:56)
->    2025-09-10T16:31:22.703989Z qemu_mutex_lock waiting on mutex 0x5626fd3=
-b5560 (../monitor/monitor.c:91)
->    2025-09-10T16:31:22.703996Z qemu_mutex_locked taken mutex 0x5626fd3b55=
-60 (../monitor/monitor.c:91)
->    2025-09-10T16:31:22.703999Z qemu_mutex_unlock released mutex 0x5626fd3=
-b5560 (../monitor/monitor.c:96)
->    2025-09-10T16:31:22.704000Z fish qemu-system-x86_64: Unable to access =
-credentials fish/ca-cert.pem: No such file or directory
->
-> Signed-off-by: Daniel P. Berrang=C3=A9 <berrange@redhat.com>
-> ---
->  util/error-report.c | 67 +++++++++++++++++++++++++++++++--------------
->  1 file changed, 46 insertions(+), 21 deletions(-)
->
-> diff --git a/util/error-report.c b/util/error-report.c
-> index 872158ad90..14b170ca4c 100644
-> --- a/util/error-report.c
-> +++ b/util/error-report.c
-> @@ -29,9 +29,12 @@ bool message_with_timestamp;
->  bool error_with_guestname;
->  const char *error_guest_name;
->=20=20
-> -int error_vprintf(const char *fmt, va_list ap)
-> +/*
-> + * Print to current monitor if we have one, else to stderr.
-> + */
+> So the behaviour is again the same as before this patch AFAICT for all
+> linkage scenarios.
 
-Wrong.  Suggest "to current HMP monitor if we have one".  Or drop the
-comment.
+Thank you!
 
-> +static int G_GNUC_PRINTF(2, 0)
-> +error_vprintf_mon(Monitor *cur_mon, const char *fmt, va_list ap)
-
-Call the argument @hmp_mon?
-
->  {
-> -    Monitor *cur_mon =3D monitor_cur();
->      /*
->       * This will return -1 if 'cur_mon' is NULL, or is QMP.
->       * IOW this will only print if in HMP, otherwise we
-> @@ -44,13 +47,30 @@ int error_vprintf(const char *fmt, va_list ap)
->      return ret;
->  }
->=20=20
-
-If error_vprintf_mon() deserves a function comment, then
-error_printf_mon() deserves one, too.
-
-> +static int G_GNUC_PRINTF(2, 3)
-> +error_printf_mon(Monitor *cur_mon, const char *fmt, ...)
-> +{
-> +    va_list ap;
-> +    int ret;
-> +
-> +    va_start(ap, fmt);
-> +    ret =3D error_vprintf_mon(cur_mon, fmt, ap);
-> +    va_end(ap);
-> +    return ret;
-> +}
-> +
-> +int error_vprintf(const char *fmt, va_list ap)
-> +{
-> +    return error_vprintf_mon(monitor_cur(), fmt, ap);
-> +}
-> +
->  int error_printf(const char *fmt, ...)
->  {
->      va_list ap;
->      int ret;
->=20=20
->      va_start(ap, fmt);
-> -    ret =3D error_vprintf(fmt, ap);
-> +    ret =3D error_vprintf_mon(monitor_cur(), fmt, ap);
->      va_end(ap);
->      return ret;
->  }
-> @@ -153,34 +173,34 @@ void loc_set_file(const char *fname, int lno)
->  /*
->   * Print current location to current monitor if we have one, else to std=
-err.
-
-Not this patch's fault: this comment is inaccurate.  Fixed in my "[PATCH
-0/3] Doc fixes around "current monitor" printing".
-
->   */
-> -static void print_loc(void)
-> +static void print_loc(Monitor *cur)
-
-Call the argument @hmp_mon?
-
->  {
->      const char *sep =3D "";
->      int i;
->      const char *const *argp;
->=20=20
-> -    if (!monitor_cur_is_hmp() && g_get_prgname()) {
-> -        error_printf("%s:", g_get_prgname());
-> +    if (!cur && g_get_prgname()) {
-> +        fprintf(stderr, "%s:", g_get_prgname());
->          sep =3D " ";
->      }
->      switch (cur_loc->kind) {
->      case LOC_CMDLINE:
->          argp =3D cur_loc->ptr;
->          for (i =3D 0; i < cur_loc->num; i++) {
-> -            error_printf("%s%s", sep, argp[i]);
-> +            error_printf_mon(cur, "%s%s", sep, argp[i]);
->              sep =3D " ";
->          }
-> -        error_printf(": ");
-> +        error_printf_mon(cur, ": ");
->          break;
->      case LOC_FILE:
-> -        error_printf("%s:", (const char *)cur_loc->ptr);
-> +        error_printf_mon(cur, "%s:", (const char *)cur_loc->ptr);
->          if (cur_loc->num) {
-> -            error_printf("%d:", cur_loc->num);
-> +            error_printf_mon(cur, "%d:", cur_loc->num);
->          }
-> -        error_printf(" ");
-> +        error_printf_mon(cur, " ");
->          break;
->      default:
-> -        error_printf("%s", sep);
-> +        error_printf_mon(cur, "%s", sep);
->      }
->  }
->=20=20
-> @@ -201,34 +221,39 @@ real_time_iso8601(void)
->  G_GNUC_PRINTF(2, 0)
->  static void vreport(report_type type, const char *fmt, va_list ap)
->  {
-> +    Monitor *cur =3D NULL;
->      gchar *timestr;
->=20=20
-> -    if (message_with_timestamp && !monitor_cur_is_hmp()) {
-> +    if (monitor_cur_is_hmp()) {
-> +        cur =3D monitor_cur();
-> +    }
-
-See my review of PATCH 15.
-
-Rename @cur to @hmp_mon?
-
-> +
-> +    if (message_with_timestamp && !cur) {
->          timestr =3D real_time_iso8601();
-> -        error_printf("%s ", timestr);
-> +        fprintf(stderr, "%s ", timestr);
->          g_free(timestr);
->      }
->=20=20
->      /* Only prepend guest name if -msg guest-name and -name guest=3D... =
-are set */
-> -    if (error_with_guestname && error_guest_name && !monitor_cur_is_hmp(=
-)) {
-> -        error_printf("%s ", error_guest_name);
-> +    if (error_with_guestname && error_guest_name && !cur) {
-> +        fprintf(stderr, "%s ", error_guest_name);
->      }
->=20=20
-> -    print_loc();
-> +    print_loc(cur);
->=20=20
->      switch (type) {
->      case REPORT_TYPE_ERROR:
->          break;
->      case REPORT_TYPE_WARNING:
-> -        error_printf("warning: ");
-> +        error_printf_mon(cur, "warning: ");
->          break;
->      case REPORT_TYPE_INFO:
-> -        error_printf("info: ");
-> +        error_printf_mon(cur, "info: ");
->          break;
->      }
->=20=20
-> -    error_vprintf(fmt, ap);
-> -    error_printf("\n");
-> +    error_vprintf_mon(cur, fmt, ap);
-> +    error_printf_mon(cur, "\n");
->  }
->=20=20
->  /*
+Reviewed-by: Markus Armbruster <armbru@redhat.com>
 
 
