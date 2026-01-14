@@ -4,90 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE40FD29FEF
-	for <qemu-rust@archiver.kernel.org>; Wed, 14 Jan 2026 11:20:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABA55D29FEC
+	for <qemu-rust@archiver.kernel.org>; Wed, 14 Jan 2026 11:28:28 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vfyvh-0002ve-1G; Wed, 14 Jan 2026 06:20:49 -0500
+	id 1vfz2p-0000Uy-5o; Wed, 14 Jan 2026 06:28:13 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vfyvK-0002gh-0D
- for qemu-rust@nongnu.org; Wed, 14 Jan 2026 06:20:28 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1vfz2g-0000SV-GD
+ for qemu-rust@nongnu.org; Wed, 14 Jan 2026 06:28:03 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vfyvI-00058n-6A
- for qemu-rust@nongnu.org; Wed, 14 Jan 2026 06:20:25 -0500
+ id 1vfz2e-0000rO-SI
+ for qemu-rust@nongnu.org; Wed, 14 Jan 2026 06:28:02 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1768389621;
+ s=mimecast20190719; t=1768390080;
  h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=/ZxN4qlSuAsgdFGGeaTTomtCoLJk88bqi5H3ND7X1xU=;
- b=gZ1echt4C2BWoVYBjiIh+85qSsMtJghXhF/2Y77kTX36B3hj9XxXQKgrKwuHxee55dMuaT
- qSJDsaOEL345nC0fhOgcy/pDWdCt/J0v+H1WWn/xej3bx5/c/ZIlR96zoklbPixWFgK45b
- o0lrEFwl7utVldffzMZXll7HBsujPaw=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=8y9AEIef1rowFJV/3ySioCDHzjuQYFwC8MfG4kDGyE0=;
+ b=eGlhLjCkKHYi8Irrx6JyqAwKkRLuStssDB2/5sN4vcoeC1S/4AsCel4U01cTiXfMfAvpz2
+ zDQIYegVV6+BNX4IKR6GUQdy88bbe7n1IU5lm+9R8eOk+ce3HDZJkFNAmZiUXSF6kgLQhZ
+ O3UyuB9jqE/c5Z34cOxS/6w3dRjDJ4Q=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-288-T5R0upUeNRaHZXKDklGjeg-1; Wed,
- 14 Jan 2026 06:20:17 -0500
-X-MC-Unique: T5R0upUeNRaHZXKDklGjeg-1
-X-Mimecast-MFC-AGG-ID: T5R0upUeNRaHZXKDklGjeg_1768389616
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-43-_fMqKwwwOlSUzvxvzJY9fA-1; Wed,
+ 14 Jan 2026 06:27:57 -0500
+X-MC-Unique: _fMqKwwwOlSUzvxvzJY9fA-1
+X-Mimecast-MFC-AGG-ID: _fMqKwwwOlSUzvxvzJY9fA_1768390075
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id E556618005B5; Wed, 14 Jan 2026 11:20:15 +0000 (UTC)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id F31171956046; Wed, 14 Jan 2026 11:27:54 +0000 (UTC)
 Received: from redhat.com (unknown [10.42.28.41])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 690E130001A2; Wed, 14 Jan 2026 11:20:06 +0000 (UTC)
-Date: Wed, 14 Jan 2026 11:20:00 +0000
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 1B9DE1800240; Wed, 14 Jan 2026 11:27:49 +0000 (UTC)
+Date: Wed, 14 Jan 2026 11:27:46 +0000
 From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Markus Armbruster <armbru@redhat.com>, qemu-devel <qemu-devel@nongnu.org>,
+To: Markus Armbruster <armbru@redhat.com>
+Cc: qemu-devel@nongnu.org,
  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Hanna Reitz <hreitz@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
  Christian Schoenebeck <qemu_oss@crudebyte.com>,
  "Dr. David Alan Gilbert" <dave@treblig.org>,
  =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
- devel@lists.libvirt.org,
- "open list:Block layer core" <qemu-block@nongnu.org>,
- "open list:Rust-related patc..." <qemu-rust@nongnu.org>,
- Stefan Weil <sw@weilnetz.de>, Kevin Wolf <kwolf@redhat.com>,
+ devel@lists.libvirt.org, qemu-block@nongnu.org,
+ qemu-rust@nongnu.org, Stefan Weil <sw@weilnetz.de>,
+ Kevin Wolf <kwolf@redhat.com>,
  Richard Henderson <richard.henderson@linaro.org>
-Subject: Re: [PATCH v5 02/24] include: define constant for early constructor
- priority
-Message-ID: <aWd74K3eQTf1y91E@redhat.com>
+Subject: Re: [PATCH v5 08/24] util: add API to fetch the current thread name
+Message-ID: <aWd9sn9LZ3w02fY6@redhat.com>
 References: <20260108170338.2693853-1-berrange@redhat.com>
- <20260108170338.2693853-3-berrange@redhat.com>
- <d3ca3fb5-e972-4446-b32c-f20fd8825cca@redhat.com>
- <aWDqie0eYZ8GeQHF@redhat.com>
- <6e60a89f-6798-4ea5-bbd0-553130786cec@redhat.com>
- <87h5spc29h.fsf@pond.sub.org>
- <CABgObfZn753g5Ve4AHi4gX0DtKdDBWV8aCuRSha5ySv9Y_4OGg@mail.gmail.com>
+ <20260108170338.2693853-9-berrange@redhat.com>
+ <878qe1c17b.fsf@pond.sub.org> <aWYXt9YckvZmFCia@redhat.com>
+ <874iopacr0.fsf@pond.sub.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABgObfZn753g5Ve4AHi4gX0DtKdDBWV8aCuRSha5ySv9Y_4OGg@mail.gmail.com>
+In-Reply-To: <874iopacr0.fsf@pond.sub.org>
 User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
@@ -106,53 +102,51 @@ Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Tue, Jan 13, 2026 at 10:32:48AM +0100, Paolo Bonzini wrote:
-> Il mar 13 gen 2026, 10:04 Markus Armbruster <armbru@redhat.com> ha scritto:
+On Tue, Jan 13, 2026 at 02:00:35PM +0100, Markus Armbruster wrote:
+> Daniel P. Berrangé <berrange@redhat.com> writes:
 > 
-> > Paolo Bonzini <pbonzini@redhat.com> writes:
+> > On Tue, Jan 13, 2026 at 10:27:04AM +0100, Markus Armbruster wrote:
+> >> Daniel P. Berrangé <berrange@redhat.com> writes:
+> >> 
+> >> > This will be used to include the thread name in error reports
+> >> > in a later patch. It returns a const string stored in a thread
+> >> > local to avoid memory allocation when it is called repeatedly
+> >> > in a single thread. The thread name should be set at the very
+> >> > start of the thread execution, which is the case when using
+> >> > qemu_thread_create.
+> >> >
+> >> > Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+> >> > ---
+> >> >  include/qemu/thread.h    |  1 +
+> >> >  meson.build              | 21 +++++++++++++++++
+> >> >  util/qemu-thread-posix.c | 33 ++++++++++++++++++++++++++-
+> >> >  util/qemu-thread-win32.c | 49 ++++++++++++++++++++++++++++++++++++----
+> >> >  4 files changed, 99 insertions(+), 5 deletions(-)
+> >> 
+> >> Tempted to store the thread name in TLS and call it a day.
 > >
-> > > On 1/9/26 12:46, Daniel P. Berrangé wrote:
-> > >> IMHO the root problem is that it is pretty dubious for us to be
-> > >> spawning the RCU thread from a constructor. Constructors should
-> > >> be limited to minimal initialization of state.
-> >
-> > Yes!  Discussed in review of v3:
-> >
-> >     https://lore.kernel.org/qemu-devel/87frck1dds.fsf@pond.sub.org/
-> >     Message-ID: <87frck1dds.fsf@pond.sub.org>
-> >
-> > >>                                                Spawning threads
-> > >> is outside the boundary of what I'd consider reasonable for
-> > >> a constructor todo. I didn't want try to tackle refactoring the
-> > >> RCU thread creation though, hence this gross workaround.
-> > >
-> > > I see.  Maybe we could (just as gross but smaller) do the RCU
-> > constructor late.  Not something that you need to do now, of course.
-> >
-> > Could we use an old-fashioned initialization function instead of a
-> > constructor for RCU?
-> >
+> > Using the official APIs in this way ensures that the thread name is
+> > visible outside QEMU. For example when debugging in GDB, which IMHO
+> > is an important benefit.
 > 
-> You have to do it in all main()s, which make it unwieldy for tests etc.
+> I didn't mean to suggest not to set the "official" thread name.
 > 
-> Another possibility is to do it lazily on first call_rcu, and just clear
-> the flag in the atfork callbacks.
+> This patch retrieves the "official" thread name back.  Takes a bit of
+> system-specific code, including Meson magic.  We could instead hold on
+> to our own copy, and just use that.
 
-I'd be concerned that we would not be able to rationalize what thread is
-starting the RCU thread. It will probably be the main thread, but proving
-that will be difficult. A thread which is not the main thread may have
-undesirable CPU affinity set which we don't have the RCU thread to inherit.
+That would mean we don't get any names for threads which are spawned
+indirectly.  There are quite a lot of libraries that QEMU can use,
+which can spawn threads behind QEMU's back, and these threads can
+still be running QEMU code through callbacks. spice, gstreamer,
+jack and librbd are some I know that spawn threads, but there are
+likely quite a few more. In the the jack case we hook into its thread
+creation to set a name ourselves, but we can't rely on that in general,
+and these libraries may well have set thread names we should use. 
 
-IMHO if we remove the constructor, then we need to have a strong guarantee
-that it is spawned from the main() method and not from any other background
-thread.
-
-I wouldn't rule our doing it manually from every main() method. We could
-probably come up with something to make it less of a burden for test
-programs.
-
-eg replace g_test_init() with q_test_init() which combines g_test_init
-with RCU thread creation.
+I want to maximise the cases where we can retrieve a thread name.
+While the code is more verbose than I'd like, it exists now so I
+don't think its good to throw it away to put into a worse solution.
 
 With regards,
 Daniel
