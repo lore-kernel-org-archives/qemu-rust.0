@@ -4,84 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC55CD37E2A
-	for <qemu-rust@archiver.kernel.org>; Wed, 14 Jan 2026 13:14:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 139F0D37E33
+	for <qemu-rust@archiver.kernel.org>; Wed, 14 Jan 2026 13:49:40 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vg0hi-0001SA-KI; Wed, 14 Jan 2026 08:14:34 -0500
+	id 1vg1Fe-0008G0-F9; Wed, 14 Jan 2026 08:49:34 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vg0hM-0001N6-BY
- for qemu-rust@nongnu.org; Wed, 14 Jan 2026 08:14:13 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1vg1Fa-0008CE-30
+ for qemu-rust@nongnu.org; Wed, 14 Jan 2026 08:49:31 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vg0hK-0002cg-HR
- for qemu-rust@nongnu.org; Wed, 14 Jan 2026 08:14:07 -0500
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1vg1FW-0002FO-57
+ for qemu-rust@nongnu.org; Wed, 14 Jan 2026 08:49:29 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1768396445;
+ s=mimecast20190719; t=1768398564;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VF+4CofWT/uDPWbqrNbk5YpetW+t8sgEb1VGTugRRMs=;
- b=XDtTBR0zkyjBm9feq6kRg15Cpi6axhGdbpMws6RmhP92kx6cCx7BFa0cdfZo5UZrc6BL90
- olPXPUxqqk5xQJHbt+pwIGcMEnclSfpulTr3fCawkBsFhdzgdeOV6wNGy5oN1QuBzoswZS
- OFnP3VMB0wUtFHAYUSTc6/shhEkcq7Y=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-594-fWxIxb9LOr6tZvlaOw0JCw-1; Wed,
- 14 Jan 2026 08:14:02 -0500
-X-MC-Unique: fWxIxb9LOr6tZvlaOw0JCw-1
-X-Mimecast-MFC-AGG-ID: fWxIxb9LOr6tZvlaOw0JCw_1768396441
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id D195F19560A5; Wed, 14 Jan 2026 13:14:00 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.45.242.32])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 527DE19560A7; Wed, 14 Jan 2026 13:14:00 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id D670521E692D; Wed, 14 Jan 2026 14:13:57 +0100 (CET)
-From: Markus Armbruster <armbru@redhat.com>
-To: Daniel P. =?utf-8?Q?Berrang=C3=A9?= <berrange@redhat.com>
-Cc: qemu-devel@nongnu.org,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
- <philmd@linaro.org>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,  Hanna Reitz
- <hreitz@redhat.com>,  Gerd Hoffmann <kraxel@redhat.com>,  Paolo Bonzini
- <pbonzini@redhat.com>,  Christian Schoenebeck <qemu_oss@crudebyte.com>,
- "Dr. David Alan Gilbert" <dave@treblig.org>,  =?utf-8?Q?Marc-Andr=C3=A9?=
- Lureau <marcandre.lureau@redhat.com>,  devel@lists.libvirt.org,
- qemu-block@nongnu.org,  qemu-rust@nongnu.org,  Stefan Weil
- <sw@weilnetz.de>,  Kevin Wolf <kwolf@redhat.com>,  Richard Henderson
- <richard.henderson@linaro.org>,  Eric Blake <eblake@redhat.com>
-Subject: Re: [PATCH v5 14/24] monitor: move error_vprintf back to
- error-report.c
-In-Reply-To: <aWeHlpz7m4hpPQCA@redhat.com> ("Daniel P. =?utf-8?Q?Berrang?=
- =?utf-8?Q?=C3=A9=22's?= message of
- "Wed, 14 Jan 2026 12:09:58 +0000")
-References: <20260108170338.2693853-1-berrange@redhat.com>
- <20260108170338.2693853-15-berrange@redhat.com>
- <87jyxl8wfo.fsf@pond.sub.org> <aWeHlpz7m4hpPQCA@redhat.com>
-Date: Wed, 14 Jan 2026 14:13:57 +0100
-Message-ID: <87sec81gmi.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ content-transfer-encoding:content-transfer-encoding;
+ bh=qFvkqXPWeaOIwcBw6au0M5/7JA1wjvaARX5VBdGvL3g=;
+ b=OPCwb8RT4eiK/u6AruE4Y88LzFUWor3eLB+l0iu5SyimPMZ/uDNu+r9wKmJKO1zH/fB+Uk
+ 7UKwRDti+HSqVDvEFPARd9o8Pv19Cy9yG9bCr8WYq1PM1/DxRGfC6lbarJ8+SUzC8f822c
+ aguzzh4NJLc7X8mhR+AfB7F8iV6ilMY=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-335-tI1m9gu_N2y3L8RSL6sFVw-1; Wed, 14 Jan 2026 08:49:23 -0500
+X-MC-Unique: tI1m9gu_N2y3L8RSL6sFVw-1
+X-Mimecast-MFC-AGG-ID: tI1m9gu_N2y3L8RSL6sFVw_1768398562
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-4779edba8f3so67659615e9.3
+ for <qemu-rust@nongnu.org>; Wed, 14 Jan 2026 05:49:22 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768398562; x=1769003362;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qFvkqXPWeaOIwcBw6au0M5/7JA1wjvaARX5VBdGvL3g=;
+ b=buPoa3qSr4v9DJYtN3NhGRILfWZFl68CxO20FGoMsTbUxc0Px/Be0RoXA8U0Wv2P5F
+ MiUcQAuBn2BoIyq+hD4Oxvzi5g5GSpctij/Amv4etw2G30hc+s/YRMPHlcBAbKtyy2dj
+ 9bi6RVVQZsqqPyExQuKyOoQjnyC4MHKxKULlYFpeuuPa0PLObxck5Um2t38b1fhGrBq0
+ RhZOmkmsHpkOxdDaP7yfMC5c+GW2/YH1F6oRsFx0Y8jYuFlxjiiCLMHd2xI0IUMZ1I4N
+ Z4bcyqmkyYxGMKi8RGzz9oROHbRwQYDt+vyziWwEx07d82E9tMr/iP4LRLjvEIBozkYG
+ M5XQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVcngE6n9Nnb1VZCREE8JUNqwAW882ocjOxITlbdEOcGb65JMc065OZXg/XX4SCtYRn6Sj+orf5+c8=@nongnu.org
+X-Gm-Message-State: AOJu0YxnHBnUCkPLVwQsOAj8ImBB8fgkO2CPqVEAP1z24qT27VP3O3bo
+ Y5mhqb/05ZOG3gLqQ91U380zsTKlU+9mpTfZFSxfhDojVcCXe7SiXt5SOKkF1ojQCmHiOvlxw9n
+ 9GoTgdNl0P+uXmxMUWdC/dxqOrArCmGcWXP1sivTABaCb+1rgF+lYrMQ=
+X-Gm-Gg: AY/fxX7KObtPk2UemDMeNPQgFhXauZpSm4ocLPgUhOYez32/3G8YuWnH1brUohiPpra
+ tNBetQWWZnbhsObgJCVyGJWsyQe1u+mTBM3VHkG3x6f01Hd+m+uKK4UT4VgrOouJsSY0x5iqRD8
+ 9TBI6LxAMKToZYE87tqKbaqSDU67Ss4srfRYZ7rZCveUEd4dtZys1p2t9E9WJQiUpShpzR2NGjV
+ Vl0NYDQUXaVEe9koFnC7LKZYPh2+x7/4OpZuD7XlhFHTZ6eEWhf8eN1gv37cX5IXEHULVdvEKlW
+ MSDCGZbTiWtRTWbOt3GDrgKwlRspjz0BKzh53kD8+u1dBVdR0M5OgKhiBXmVs6ZsgmLas1E7OmA
+ mOTgRnn7Yw0aMSjtsJfMD20xUnaf3QGemOvbRzl8vcCzDddOQrGF6oSqJ0DsDRxpIaqUBwm6iTi
+ wec64MagJ2qypzmw==
+X-Received: by 2002:a05:600c:811a:b0:477:3e0b:c0e3 with SMTP id
+ 5b1f17b1804b1-47ee4833c16mr21688365e9.32.1768398561827; 
+ Wed, 14 Jan 2026 05:49:21 -0800 (PST)
+X-Received: by 2002:a05:600c:811a:b0:477:3e0b:c0e3 with SMTP id
+ 5b1f17b1804b1-47ee4833c16mr21688115e9.32.1768398561381; 
+ Wed, 14 Jan 2026 05:49:21 -0800 (PST)
+Received: from [192.168.10.48] ([151.61.26.160])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47ee7d58f09sm18225835e9.12.2026.01.14.05.49.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Jan 2026 05:49:20 -0800 (PST)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: thuth@redhat.com,
+	qemu-rust@nongnu.org,
+	marcandre.lureau@redhat.com
+Subject: [PATCH 0/3] rust: reorganize binding generation, fix msys2 linking
+Date: Wed, 14 Jan 2026 14:49:16 +0100
+Message-ID: <20260114134919.1476518-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: UJdSvZ0FGo1vyLSx9t_kKiQFi5766KaSXLcOSqsT-8g_1768398562
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
@@ -99,72 +113,181 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
+Yet another joint work between Marc-André and myself, moving raw FFI
+bindings generation to separate crates and finally getting the Rust
+crate organization in a more-or-less definitive shape.
 
-> On Tue, Jan 13, 2026 at 02:38:19PM +0100, Markus Armbruster wrote:
->> Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
->>=20
->> > The current unit tests rely on monitor.o not being linked, such
->> > that the monitor stubs get linked instead. Since error_vprintf
->> > is in monitor.o this allows a stub error_vprintf impl to be used
->> > that calls g_test_message.
->> >
->> > This takes a different approach, with error_vprintf moving
->> > back to error-report.c such that it is always linked into the
->> > tests. The monitor_vprintf() stub is then changed to use
->> > g_test_message if QTEST_SILENT_ERRORS is set, otherwise it will
->> > return -1 and trigger error_vprintf to call vfprintf.
->> >
->> > The end result is functionally equivalent for the purposes of
->> > the unit tests.
->> >
->> > Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
->> > Reviewed-by: Eric Blake <eblake@redhat.com>
->> > Signed-off-by: Daniel P. Berrang=C3=A9 <berrange@redhat.com>
+This makes it possible to reuse bindgen declarations for a header file
+in its dependencies (this was not the case before this change), while
+keeping multiple -sys crates to avoid rebuilding all the code whenever
+something changes.
 
-[...]
+Because a script is now needed to handle bindgen command line
+generation, I took the occasion to move the various output tweak
+arguments (--rustified-enum, etc.) to Cargo.toml's metadata section.
+This removes the need to touch meson.build files for this customization.
+ 
+Also, because the -sys crates are generated in dependency order, this
+also enforces that the crates are organized in something that resembles
+the dependencies between C headers.  This highlights a mismatch between
+dependency ordering on the C and Rust sides, which also causes a link
+failure on msys2.  The mismatch has to be fixed by the reorganization of
+the -sys crates, and patch 3 applies the same change to the high-level
+bindings.
 
->> Without stubs, no change in behavior.
->>=20
->> With both stubs, before the patch:
->>=20
->>     monitor_vprintf() is not supposed to run, and aborts
->>=20
->>     error_vprintf() calls g_test_message() for tests, else vfprintf()
->>=20
->> afterwards:
->>=20
->>     monitor_vprintf() calls g_test_message() and succeeds in tests, else
->>     fails
->>=20
->>     error_vprintf() calls monitor_printf(), and when it fails falls back
->>     to vfprintf().
->>=20
->> Alright, error_vprintf() behaves the same as before.
->>=20
->> monitor_vprintf() no longer aborts.  Hmm.  What if we somehow acquire
->> calls?  In tests, they'll go to g_test_message(), which is fine, I
->> guess.  Outside tests, they'll fail.  So does the non-stub version
->> unless the current monitor is HMP.  Also fine, I guess.
->>=20
->> Is it possible to link just one of the stubs?
->
-> There is only 1 stub after this patch - for monitor_vprintf().
-> error_vprintf() is never stubbed anymore.
->
-> The interesting scenario outside there tests is the non-system emulator
-> binaries.
->
-> Those will not have the monitor code, so will get the monitor_vprintf
-> stub. That will report g_test_initialized() =3D=3D false, and so the stub
-> will return -1.  error_vprintf() will see this -1 return value and
-> thus call to vfprintf().
->
-> So the behaviour is again the same as before this patch AFAICT for all
-> linkage scenarios.
+While the new approach has more source code lines, IMO that's balanced
+by the many advantages (extra checks on dependency orders, more clarity
+from placing bindgen tweaks in Cargo.toml, correctness brought by the
+shared types, and compilation speed improvements).
 
-Thank you!
+Paolo
 
-Reviewed-by: Markus Armbruster <armbru@redhat.com>
+
+Marc-André Lureau (1):
+  rust: move binding generation to bindings/
+
+Paolo Bonzini (2):
+  rust: move class_init to an extension trait
+  rust: move hwcore::sysbus to system crate
+
+ docs/devel/rust.rst                           |  57 ++++++
+ meson.build                                   |   3 +-
+ rust/bindings/chardev-sys/wrapper.h           |  12 ++
+ rust/bindings/hwcore-sys/wrapper.h            |  30 ++++
+ rust/bindings/migration-sys/wrapper.h         |  10 ++
+ rust/bindings/qom-sys/wrapper.h               |  17 ++
+ rust/bindings/system-sys/wrapper.h            |  21 +++
+ rust/bindings/util-sys/wrapper.h              |  39 +++++
+ rust/bql/wrapper.h                            |  27 ---
+ rust/chardev/wrapper.h                        |  28 ---
+ rust/hw/core/wrapper.h                        |  32 ----
+ rust/migration/wrapper.h                      |  51 ------
+ rust/qom/wrapper.h                            |  27 ---
+ rust/system/wrapper.h                         |  29 ----
+ rust/util/wrapper.h                           |  32 ----
+ rust/Cargo.lock                               |  68 ++++++++
+ rust/{util => bindings}/build.rs              |  30 ++--
+ rust/bindings/chardev-sys/Cargo.toml          |  28 +++
+ rust/bindings/chardev-sys/build.rs            |   1 +
+ .../chardev-sys/lib.rs}                       |   7 +-
+ rust/bindings/chardev-sys/meson.build         |  12 ++
+ rust/bindings/generate_bindgen_args.py        | 163 ++++++++++++++++++
+ rust/bindings/hwcore-sys/Cargo.toml           |  32 ++++
+ rust/bindings/hwcore-sys/build.rs             |   1 +
+ .../hwcore-sys/lib.rs}                        |  17 +-
+ rust/bindings/hwcore-sys/meson.build          |  12 ++
+ rust/bindings/meson.build                     |  37 ++++
+ rust/bindings/migration-sys/Cargo.toml        |  28 +++
+ rust/bindings/migration-sys/build.rs          |   1 +
+ rust/bindings/migration-sys/lib.rs            | 125 ++++++++++++++
+ rust/bindings/migration-sys/meson.build       |  12 ++
+ rust/bindings/qom-sys/Cargo.toml              |  25 +++
+ rust/bindings/qom-sys/build.rs                |   1 +
+ .../bindings.rs => bindings/qom-sys/lib.rs}   |   4 +
+ rust/bindings/qom-sys/meson.build             |  12 ++
+ rust/bindings/system-sys/Cargo.toml           |  30 ++++
+ rust/bindings/system-sys/build.rs             |   1 +
+ .../system-sys/lib.rs}                        |   4 +-
+ rust/bindings/system-sys/meson.build          |  12 ++
+ rust/bindings/util-sys/Cargo.toml             |  25 +++
+ rust/bindings/util-sys/build.rs               |   1 +
+ .../bindings.rs => bindings/util-sys/lib.rs}  |   2 +-
+ rust/bindings/util-sys/meson.build            |  12 ++
+ rust/bql/Cargo.toml                           |   1 +
+ rust/bql/build.rs                             |   1 -
+ rust/bql/meson.build                          |  30 +---
+ rust/bql/src/bindings.rs                      |  27 ---
+ rust/bql/src/lib.rs                           |   3 +-
+ rust/chardev/Cargo.toml                       |   1 +
+ rust/chardev/build.rs                         |   1 -
+ rust/chardev/meson.build                      |  37 +---
+ rust/chardev/src/lib.rs                       |   2 +-
+ rust/hw/char/pl011/build.rs                   |   2 +-
+ rust/hw/char/pl011/meson.build                |  21 +--
+ rust/hw/char/pl011/src/bindings.rs            |   7 +-
+ rust/hw/core/Cargo.toml                       |   2 +-
+ rust/hw/core/build.rs                         |   1 -
+ rust/hw/core/meson.build                      |  62 +------
+ rust/hw/core/src/irq.rs                       |   4 +-
+ rust/hw/core/src/lib.rs                       |   6 +-
+ rust/hw/core/src/prelude.rs                   |   6 +-
+ rust/hw/core/src/qdev.rs                      |  31 ++--
+ rust/hw/core/tests/tests.rs                   |   4 +-
+ rust/meson.build                              |   3 +-
+ rust/migration/Cargo.toml                     |   1 +
+ rust/migration/build.rs                       |   1 -
+ rust/migration/meson.build                    |  40 +----
+ rust/migration/src/bindings.rs                |  49 ------
+ rust/migration/src/lib.rs                     |   3 +-
+ rust/migration/src/vmstate.rs                 |  73 --------
+ rust/qom/Cargo.toml                           |   1 +
+ rust/qom/build.rs                             |   1 -
+ rust/qom/meson.build                          |  29 +---
+ rust/qom/src/lib.rs                           |   3 +-
+ rust/qom/src/prelude.rs                       |   1 +
+ rust/qom/src/qom.rs                           |   8 +-
+ rust/system/Cargo.toml                        |   4 +
+ rust/system/build.rs                          |   1 -
+ rust/system/meson.build                       |  39 +----
+ rust/system/src/lib.rs                        |   5 +-
+ rust/system/src/memory.rs                     |   2 +-
+ rust/system/src/prelude.rs                    |   5 +
+ rust/{hw/core => system}/src/sysbus.rs        |  36 ++--
+ rust/util/Cargo.toml                          |   1 +
+ rust/util/meson.build                         |  42 +----
+ rust/util/src/lib.rs                          |   3 +-
+ 86 files changed, 965 insertions(+), 753 deletions(-)
+ create mode 100644 rust/bindings/chardev-sys/wrapper.h
+ create mode 100644 rust/bindings/hwcore-sys/wrapper.h
+ create mode 100644 rust/bindings/migration-sys/wrapper.h
+ create mode 100644 rust/bindings/qom-sys/wrapper.h
+ create mode 100644 rust/bindings/system-sys/wrapper.h
+ create mode 100644 rust/bindings/util-sys/wrapper.h
+ delete mode 100644 rust/bql/wrapper.h
+ delete mode 100644 rust/chardev/wrapper.h
+ delete mode 100644 rust/hw/core/wrapper.h
+ delete mode 100644 rust/migration/wrapper.h
+ delete mode 100644 rust/qom/wrapper.h
+ delete mode 100644 rust/system/wrapper.h
+ delete mode 100644 rust/util/wrapper.h
+ rename rust/{util => bindings}/build.rs (55%)
+ create mode 100644 rust/bindings/chardev-sys/Cargo.toml
+ create mode 120000 rust/bindings/chardev-sys/build.rs
+ rename rust/{chardev/src/bindings.rs => bindings/chardev-sys/lib.rs} (84%)
+ create mode 100644 rust/bindings/chardev-sys/meson.build
+ create mode 100644 rust/bindings/generate_bindgen_args.py
+ create mode 100644 rust/bindings/hwcore-sys/Cargo.toml
+ create mode 120000 rust/bindings/hwcore-sys/build.rs
+ rename rust/{hw/core/src/bindings.rs => bindings/hwcore-sys/lib.rs} (71%)
+ create mode 100644 rust/bindings/hwcore-sys/meson.build
+ create mode 100644 rust/bindings/meson.build
+ create mode 100644 rust/bindings/migration-sys/Cargo.toml
+ create mode 120000 rust/bindings/migration-sys/build.rs
+ create mode 100644 rust/bindings/migration-sys/lib.rs
+ create mode 100644 rust/bindings/migration-sys/meson.build
+ create mode 100644 rust/bindings/qom-sys/Cargo.toml
+ create mode 120000 rust/bindings/qom-sys/build.rs
+ rename rust/{qom/src/bindings.rs => bindings/qom-sys/lib.rs} (85%)
+ create mode 100644 rust/bindings/qom-sys/meson.build
+ create mode 100644 rust/bindings/system-sys/Cargo.toml
+ create mode 120000 rust/bindings/system-sys/build.rs
+ rename rust/{system/src/bindings.rs => bindings/system-sys/lib.rs} (88%)
+ create mode 100644 rust/bindings/system-sys/meson.build
+ create mode 100644 rust/bindings/util-sys/Cargo.toml
+ create mode 120000 rust/bindings/util-sys/build.rs
+ rename rust/{util/src/bindings.rs => bindings/util-sys/lib.rs} (88%)
+ create mode 100644 rust/bindings/util-sys/meson.build
+ delete mode 120000 rust/bql/build.rs
+ delete mode 100644 rust/bql/src/bindings.rs
+ delete mode 120000 rust/chardev/build.rs
+ delete mode 120000 rust/hw/core/build.rs
+ delete mode 120000 rust/migration/build.rs
+ delete mode 100644 rust/migration/src/bindings.rs
+ delete mode 120000 rust/qom/build.rs
+ delete mode 120000 rust/system/build.rs
+ rename rust/{hw/core => system}/src/sysbus.rs (76%)
+
+-- 
+2.52.0
 
 
