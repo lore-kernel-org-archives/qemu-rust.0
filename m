@@ -4,67 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D566ED44C40
-	for <qemu-rust@archiver.kernel.org>; Thu, 15 Jan 2026 12:54:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 068ACCA5FF1
+	for <qemu-rust@archiver.kernel.org>; Mon, 19 Jan 2026 06:33:34 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vgMrh-0004uZ-Dl; Thu, 15 Jan 2026 07:54:20 -0500
+	id 1vhipG-0002YY-GP; Mon, 19 Jan 2026 01:33:22 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vgMrd-0004rw-6l; Thu, 15 Jan 2026 07:54:13 -0500
-Received: from mgamail.intel.com ([198.175.65.15])
+ id 1vhip8-0002WT-Pz; Mon, 19 Jan 2026 01:33:15 -0500
+Received: from mgamail.intel.com ([198.175.65.20])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vgMrb-0004zW-Dr; Thu, 15 Jan 2026 07:54:12 -0500
+ id 1vhip6-0003Y3-1z; Mon, 19 Jan 2026 01:33:14 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768481652; x=1800017652;
+ t=1768804392; x=1800340392;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=fwge3zK8SEsQODkGXwBAwwKTKvpbQl8D/iyb9Pa5KYM=;
- b=Q/Wc2tpSgnDX4Xd7tmQyNfOrEqT5mmURxa6blzFI/pPPoC2GhkESXN4v
- gPaT0Lr/qToaxc9rytfAk8ol4eBQHectwkIimimmmW5KTa26FUBLPFXSE
- ZQLuzknGSuK+61g4T5lfil8mawmYcUU5aaWYTA9PXAPmQ2WnReKBIOVyc
- 0tkNn1nKXIXwNPJUna/6011A/GuG1ptNJ6Zd8WPCyH69vMamxHx/oPDyi
- foZu6LVOABJb/BZFa+Z+Oza646PUaPTjmusAxVoNIB5Oc8LXzyoDkHtVc
- qd/8x+li/bjlSY3F/wliY7yS6DMIDJcxANmOcX+fGWQF0PJfmD99p3UW2 g==;
-X-CSE-ConnectionGUID: S6xcR+WCTwWQoibFy1fmBQ==
-X-CSE-MsgGUID: eXzq7lOiR2+MV9uL9KgXxA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11671"; a="73418483"
-X-IronPort-AV: E=Sophos;i="6.21,228,1763452800"; d="scan'208";a="73418483"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jan 2026 04:54:09 -0800
-X-CSE-ConnectionGUID: FWlDDYORQ46TOu+QIXDv2A==
-X-CSE-MsgGUID: tGQAaSQLT9mKJnubJr6DKA==
+ bh=f1zvckxP1sVfN4GVJ77Bja0O4O0419dYbsdVoL/Nih8=;
+ b=RPNQFCVTjZ7uQ5xxSUvYxsG2qnXTTiYI9VldpESPLUSsgea8jLxUr+FM
+ tNdOQUw+y6N2xiMaPb3MaI0Hxo0/vZUT9HP7kWE9mjpDyDRT69CYS0peN
+ PmTD8aePW2VX8MQQweBh4U0sgaabBWzC7HSP4T02m/cYN0CIEhXQqi37t
+ x2z54Z98LIIad0VDQ/ovbM2Em31GUQiRPdrV7UoRT32esencJEWfmkluI
+ SPE6UIUuaTCrTpFBFOcD17B0J8OW2ovrBiQMWAsNBTFN4Pu4OXJNPy1t4
+ Yg4g9dKZ4v6Q0A2wBK1gTTd80UNIr1qfc0w9DSzq9fLiSKYh1TwO9xsZj g==;
+X-CSE-ConnectionGUID: QS2DTBJlTZaKEHULdEid6w==
+X-CSE-MsgGUID: TigeSfakTTKFgU953qFtLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11675"; a="69743819"
+X-IronPort-AV: E=Sophos;i="6.21,237,1763452800"; d="scan'208";a="69743819"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2026 22:33:07 -0800
+X-CSE-ConnectionGUID: KKIutbL3TZKANG3sAYim0g==
+X-CSE-MsgGUID: hA1eP+9gRguGD6+qzQSkSQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,228,1763452800"; d="scan'208";a="209461095"
 Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
  ([10.239.160.39])
- by orviesa004.jf.intel.com with ESMTP; 15 Jan 2026 04:54:07 -0800
-Date: Thu, 15 Jan 2026 21:19:36 +0800
+ by fmviesa003.fm.intel.com with ESMTP; 18 Jan 2026 22:33:05 -0800
+Date: Mon, 19 Jan 2026 14:58:36 +0800
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, armbru@redhat.com,
  =?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>,
  qemu-rust@nongnu.org
-Subject: Re: [PATCH v2 08/16] rust/qobject: add Display/Debug
-Message-ID: <aWjpaNwzXf178Vq+@intel.com>
+Subject: Re: [PATCH v2 09/16] scripts/qapi: add QAPISchemaIfCond.rsgen()
+Message-ID: <aW3WHPutY/4raiMX@intel.com>
 References: <20260108131043.490084-1-pbonzini@redhat.com>
- <20260108131043.490084-9-pbonzini@redhat.com>
+ <20260108131043.490084-10-pbonzini@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260108131043.490084-9-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.15; envelope-from=zhao1.liu@intel.com;
+In-Reply-To: <20260108131043.490084-10-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.20; envelope-from=zhao1.liu@intel.com;
  helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
+X-Spam_score_int: -44
+X-Spam_score: -4.5
 X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+X-Spam_report: (-4.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.077,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
  RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_NONE=0.001,
@@ -84,19 +83,37 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Thu, Jan 08, 2026 at 02:10:35PM +0100, Paolo Bonzini wrote:
-> Date: Thu,  8 Jan 2026 14:10:35 +0100
+On Thu, Jan 08, 2026 at 02:10:36PM +0100, Paolo Bonzini wrote:
+> Date: Thu,  8 Jan 2026 14:10:36 +0100
 > From: Paolo Bonzini <pbonzini@redhat.com>
-> Subject: [PATCH v2 08/16] rust/qobject: add Display/Debug
+> Subject: [PATCH v2 09/16] scripts/qapi: add QAPISchemaIfCond.rsgen()
 > X-Mailer: git-send-email 2.52.0
 > 
 > From: Marc-André Lureau <marcandre.lureau@redhat.com>
 > 
+> Generate Rust #[cfg(...)] guards from QAPI 'if' conditions; it
+> turns out that they are very similar, with both of them using
+> not/any/all, so just walk the tree.
+> 
+> The next commit will put it to use.
+> 
 > Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+> Link: https://lore.kernel.org/r/20210907121943.3498701-15-marcandre.lureau@redhat.com
 > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  rust/util/src/qobject/mod.rs | 28 ++++++++++++++++++++++++++++
->  1 file changed, 28 insertions(+)
+>  scripts/qapi/common.py | 19 +++++++++++++++++++
+>  scripts/qapi/schema.py |  4 ++++
+>  2 files changed, 23 insertions(+)
+> 
+> diff --git a/scripts/qapi/common.py b/scripts/qapi/common.py
+> index d7c8aa3365c..14d5dd259c4 100644
+> --- a/scripts/qapi/common.py
+> +++ b/scripts/qapi/common.py
+> @@ -199,6 +199,25 @@ def guardend(name: str) -> str:
+>                   name=c_fname(name).upper())
+>  
+
+LGTM,
 
 Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
