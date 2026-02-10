@@ -4,105 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89646D2D8D4
-	for <qemu-rust@archiver.kernel.org>; Tue, 27 Jan 2026 10:15:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77E5AEB26EC
+	for <qemu-rust@archiver.kernel.org>; Tue, 10 Feb 2026 17:13:53 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vkg6u-00034J-KS; Tue, 27 Jan 2026 05:15:48 -0500
+	id 1vprIm-0003Id-G1; Tue, 10 Feb 2026 12:13:29 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vkg6q-0002yl-Pb
- for qemu-rust@nongnu.org; Tue, 27 Jan 2026 05:15:46 -0500
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1vprIj-0003Hc-6t
+ for qemu-rust@nongnu.org; Tue, 10 Feb 2026 12:13:25 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vkg6o-0007Oh-Co
- for qemu-rust@nongnu.org; Tue, 27 Jan 2026 05:15:44 -0500
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1vprIf-0000c4-Uo
+ for qemu-rust@nongnu.org; Tue, 10 Feb 2026 12:13:24 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1769508938;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=sX+4voRz0h257AvS8I2TlRjQpjGKCKa2c0/YQN5XchI=;
- b=OC/ffUVie+RFDNIBcoSve2KIt5S1CEBrc5OhxPnzOwQbPvOYDXfzDAJ6jsl2FKkHtVO7lS
- gtrA+ygw4s54NhNlAtzxoox0kpEUxoUUcLtaLunW8ZS3uoNQ9Eiff91XsJcK8S/szBhMqf
- 0m1S0718l4NLlzzr6XG9rtJlle+OOKU=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-590-rZ8aauA1NFexx9_or1Rorw-1; Tue, 27 Jan 2026 05:15:36 -0500
-X-MC-Unique: rZ8aauA1NFexx9_or1Rorw-1
-X-Mimecast-MFC-AGG-ID: rZ8aauA1NFexx9_or1Rorw_1769508935
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4801d21c280so35972885e9.1
- for <qemu-rust@nongnu.org>; Tue, 27 Jan 2026 02:15:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769508935; x=1770113735;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=sX+4voRz0h257AvS8I2TlRjQpjGKCKa2c0/YQN5XchI=;
- b=eQedM2iEFNlx+77Cp/6UCxaNDvQQUyzGhWzwsYNgDvqJDe0peiWXI0vPJkfXEDR+ye
- oTs0vTgQLm7wM5o3Dgz89hSiiea+mWUCsHviuqEDApOExLvR393tHxTSTSBL6ip+VHUD
- 0m+OFZpix2EqxBDBOYHTLOrd1uJq07hapUWLVyTuBC+2FlE1HLJbT5B7qpRFZrf/CmqU
- fvW7G0gr0kt8XPBvsCEPtxcn/E/j5k+mL8yFvlXLjvApK9clat2m/TPGTDxlgjXrJFCA
- tz8qVjn3B+d95KAUuGFbVX1wIkGl9i0Gf+43+WfjWqUxZGG2oiMqmrCDA7BOPusXZrgz
- 21cw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWx6C+McslwLccNNkUDxozVXHZQFAQf4hSkHmymPFs37zyZACdInG05WziUOkhQJb3TfMHr0CcsdhA=@nongnu.org
-X-Gm-Message-State: AOJu0YxL7a7yN8TSbvEQqlZYH2GtZLL6EOVskkwxQbj2hpF2AnjV4FY6
- cmHVeYUlH7FlTfwnmPx4OkdRarp2NxRYrUZdUsskEBEU5EdDAAtrAzyUr7bL8tCpOe3Fwub2Uu1
- tpU+6tHKdnCQPZJIataqBhw660HhjC0YW7ktiuoxLWI0GqWhRYzpyO5M=
-X-Gm-Gg: AZuq6aJEnC9OlOYsNM6zO5w4PiQGu/yD9oBe3nYR8dq+0/f5Jaiw6YK/1df7ZoiqzZ5
- eqBsPLqerDCTTQLUgz5eH/E5/lFwK3URkzdPrazhocJeCCoZpz3upshKkcXwvVWp2j4C/0iP+TQ
- piDFTNngjOkSCB+DnNhTYbsmwNDkP+PcOkaGfA++eDeSU6sxPCGZB0qWDoHBVuTsox0M1DsHbOq
- zbRpk13rPF9NBoB7lyntslb+jqPjPlZ/HotIwcH9za/DYKRoBh1Ke2d8WRAD19Utu2RMTfIQ2ya
- VMrmdUKJYAh6CC+QUyStxDcJwcAgA/F8niOCyOI/5aucqh1LJKEakqbKhlvjhZN8nj31/lXJOYq
- FIXJbbxDK3ZxzdgczCHBZX54Kf1M1sBkOLlQpgaTXTMRBvJesD2TrNpF7fS6jtuz0UH95tmtXOY
- vYsCK/Y3Hft8QG3Q==
-X-Received: by 2002:a05:600c:1992:b0:47f:f952:d207 with SMTP id
- 5b1f17b1804b1-48069c487a1mr14951625e9.19.1769508934977; 
- Tue, 27 Jan 2026 02:15:34 -0800 (PST)
-X-Received: by 2002:a05:600c:1992:b0:47f:f952:d207 with SMTP id
- 5b1f17b1804b1-48069c487a1mr14951205e9.19.1769508934357; 
- Tue, 27 Jan 2026 02:15:34 -0800 (PST)
-Received: from [192.168.10.48] ([151.61.26.160])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48068eb9397sm37242035e9.11.2026.01.27.02.15.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Jan 2026 02:15:33 -0800 (PST)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
- =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ s=mimecast20190719; t=1770743601;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=0T0KGA73IKFHQqZv0vuFmKfRG9p8FzZZAyXAe72A/s0=;
+ b=JPba10xUIkIZCFYhJfJCgOn8O2HSkfLEOCq4ZvWNA4Cl5D2zg3veFP/L9RGuSLKJER7Qoq
+ sa5Fz3a+Xi0yjfTeztXL59Dz4UZSOH9705UFManofGki7wTepazi8NK2ydOGFBSoVN+0dd
+ qs0JRQ+z2FprcWVbHPlZhRv6LlJpO08=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-146-GBa1GXRPOi6MS4IRJ87Qjw-1; Tue,
+ 10 Feb 2026 12:13:18 -0500
+X-MC-Unique: GBa1GXRPOi6MS4IRJ87Qjw-1
+X-Mimecast-MFC-AGG-ID: GBa1GXRPOi6MS4IRJ87Qjw_1770743595
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id DB8861955F24; Tue, 10 Feb 2026 17:13:14 +0000 (UTC)
+Received: from redhat.com (unknown [10.44.34.137])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 9169A1956056; Tue, 10 Feb 2026 17:13:09 +0000 (UTC)
+Date: Tue, 10 Feb 2026 17:13:05 +0000
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Markus Armbruster <armbru@redhat.com>
+Cc: qemu-devel@nongnu.org,
+ Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Hanna Reitz <hreitz@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Christian Schoenebeck <qemu_oss@crudebyte.com>,
+ "Dr. David Alan Gilbert" <dave@treblig.org>,
+ =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
+ devel@lists.libvirt.org, qemu-block@nongnu.org,
+ qemu-rust@nongnu.org, Stefan Weil <sw@weilnetz.de>,
  Kevin Wolf <kwolf@redhat.com>,
- =?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
- Stefan Hajnoczi <stefanha@redhat.com>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Peter Maydell <peter.maydell@linaro.org>,
- =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
- Martin Kletzander <mkletzan@redhat.com>
-Subject: Rust in QEMU update, January 2026
-Date: Tue, 27 Jan 2026 11:15:30 +0100
-Message-ID: <20260127101531.369519-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.52.0
+ Richard Henderson <richard.henderson@linaro.org>
+Subject: Re: [PATCH v5 05/24] util: expose qemu_thread_set_name
+Message-ID: <aYtnIT1s2pS7S4YL@redhat.com>
+References: <20260108170338.2693853-1-berrange@redhat.com>
+ <20260108170338.2693853-6-berrange@redhat.com>
+ <87cy3dc1pl.fsf@pond.sub.org>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 0G3zF8E5PbAAQ6ESLJW4lxa8Ld1rmsqsgOfz9q3Bte0_1769508935
+In-Reply-To: <87cy3dc1pl.fsf@pond.sub.org>
+User-Agent: Mutt/2.2.14 (2025-02-20)
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Mimecast-MFC-PROC-ID: ylTViVyCMFVHyOmtO93tYnn5WIu0uM0BEAMADAKvX9Y_1770743595
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -115,154 +99,176 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Summary
-'''''''
+On Tue, Jan 13, 2026 at 10:16:06AM +0100, Markus Armbruster wrote:
+> Daniel P. Berrangé <berrange@redhat.com> writes:
+> 
+> > The ability to set the thread name needs to be used in a number
+> > of places, so expose the current impls as public methods.
+> >
+> > Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+> > Reviewed-by: Dr. David Alan Gilbert <dave@treblig.org>
+> > Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> > Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+> > ---
+> >  include/qemu/thread.h    |  1 +
+> >  util/qemu-thread-posix.c | 26 ++++++++++++++++----------
+> >  util/qemu-thread-win32.c | 13 ++++++++-----
+> >  3 files changed, 25 insertions(+), 15 deletions(-)
+> >
+> > diff --git a/include/qemu/thread.h b/include/qemu/thread.h
+> > index 3a286bb3ef..27b888ab0a 100644
+> > --- a/include/qemu/thread.h
+> > +++ b/include/qemu/thread.h
+> > @@ -215,6 +215,7 @@ void *qemu_thread_join(QemuThread *thread);
+> >  void qemu_thread_get_self(QemuThread *thread);
+> >  bool qemu_thread_is_self(QemuThread *thread);
+> >  G_NORETURN void qemu_thread_exit(void *retval);
+> > +void qemu_thread_set_name(const char *name);
+> >  
+> >  struct Notifier;
+> >  /**
+> > diff --git a/util/qemu-thread-posix.c b/util/qemu-thread-posix.c
+> > index 7c985b5d38..b1c127dbe3 100644
+> > --- a/util/qemu-thread-posix.c
+> > +++ b/util/qemu-thread-posix.c
+> > @@ -329,6 +329,21 @@ static void qemu_thread_atexit_notify(void *arg)
+> >      notifier_list_notify(&thread_exit, NULL);
+> >  }
+> >  
+> > +void qemu_thread_set_name(const char *name)
+> > +{
+> > +    /*
+> > +     * Attempt to set the threads name; note that this is for debug, so
+> > +     * we're not going to fail if we can't set it.
+> > +     */
+> > +# if defined(CONFIG_PTHREAD_SETNAME_NP_W_TID)
+> > +    pthread_setname_np(pthread_self(), name);
+> > +# elif defined(CONFIG_PTHREAD_SETNAME_NP_WO_TID)
+> > +    pthread_setname_np(name);
+> > +# elif defined(CONFIG_PTHREAD_SET_NAME_NP)
+> > +    pthread_set_name_np(pthread_self(), name);
+> > +# endif
+> > +}
+> > +
+> >  typedef struct {
+> >      void *(*start_routine)(void *);
+> >      void *arg;
+> > @@ -342,17 +357,8 @@ static void *qemu_thread_start(void *args)
+> >      void *arg = qemu_thread_args->arg;
+> >      void *r;
+> >  
+> > -    /* Attempt to set the threads name; note that this is for debug, so
+> > -     * we're not going to fail if we can't set it.
+> > -     */
+> >      if (qemu_thread_args->name) {
+> > -# if defined(CONFIG_PTHREAD_SETNAME_NP_W_TID)
+> > -        pthread_setname_np(pthread_self(), qemu_thread_args->name);
+> > -# elif defined(CONFIG_PTHREAD_SETNAME_NP_WO_TID)
+> > -        pthread_setname_np(qemu_thread_args->name);
+> > -# elif defined(CONFIG_PTHREAD_SET_NAME_NP)
+> > -        pthread_set_name_np(pthread_self(), qemu_thread_args->name);
+> > -# endif
+> > +        qemu_thread_set_name(qemu_thread_args->name);
+> >      }
+> >      QEMU_TSAN_ANNOTATE_THREAD_NAME(qemu_thread_args->name);
+> >      g_free(qemu_thread_args->name);
+> 
+> qemu_thread_set_name() is factored out.  No change in behavior.
+> 
+> > diff --git a/util/qemu-thread-win32.c b/util/qemu-thread-win32.c
+> > index 9595a5b090..4d2d663a9a 100644
+> > --- a/util/qemu-thread-win32.c
+> > +++ b/util/qemu-thread-win32.c
+> > @@ -225,6 +225,7 @@ struct QemuThreadData {
+> >      void             *arg;
+> >      short             mode;
+> >      NotifierList      exit;
+> > +    char             *name;
+> >  
+> >      /* Only used for joinable threads. */
+> >      bool              exited;
+> > @@ -266,6 +267,10 @@ static unsigned __stdcall win32_start_routine(void *arg)
+> >      void *(*start_routine)(void *) = data->start_routine;
+> >      void *thread_arg = data->arg;
+> >  
+> > +    if (data->name) {
+> > +        qemu_thread_set_name(data->name);
+> > +        g_clear_pointer(&data->name, g_free);
+> > +    }
+> >      qemu_thread_data = data;
+> >      qemu_thread_exit(start_routine(thread_arg));
+> >      abort();
+> > @@ -316,7 +321,7 @@ void *qemu_thread_join(QemuThread *thread)
+> >      return ret;
+> >  }
+> >  
+> > -static void set_thread_description(HANDLE h, const char *name)
+> > +void qemu_thread_set_name(const char *name)
+> >  {
+> >      g_autofree wchar_t *namew = NULL;
+> >  
+> > @@ -329,7 +334,7 @@ static void set_thread_description(HANDLE h, const char *name)
+> >          return;
+> >      }
+> >  
+> > -    SetThreadDescriptionFunc(h, namew);
+> > +    SetThreadDescriptionFunc(GetCurrentThread(), namew);
+> >  }
+> >  
+> >  void qemu_thread_create(QemuThread *thread, const char *name,
+> > @@ -344,6 +349,7 @@ void qemu_thread_create(QemuThread *thread, const char *name,
+> >      data->arg = arg;
+> >      data->mode = mode;
+> >      data->exited = false;
+> > +    data->name = g_strdup(name);
+> >      notifier_list_init(&data->exit);
+> >  
+> >      if (data->mode != QEMU_THREAD_DETACHED) {
+> > @@ -355,9 +361,6 @@ void qemu_thread_create(QemuThread *thread, const char *name,
+> >      if (!hThread) {
+> >          error_exit(GetLastError(), __func__);
+> >      }
+> > -    if (name) {
+> > -        set_thread_description(hThread, name);
+> > -    }
+> >      CloseHandle(hThread);
+> >  
+> >      thread->data = data;
+> 
+> This delays setting the thread name until the thread runs.  Fine, I
+> guess, but I'd mention it in the commit message.
 
-Achievements
-  Further improved code structure; initial bindings for QAPI merged;
-  IOMMU support complete in rust-vmm; Rust enabled in CI for more host
-  operating systems; dtrace support
+Returning to this, the change is arguably /not/ delaying setting the
+thread name, but in fact fixing a race condition when settnig the
+thread name.
 
-Ongoing work for 11.0
-  Mostly work on the Meson side to finish Cargo integration
+This existing 'set_thread_description' call is taking place in the
+parent thread, and at this point in the time the child thread has
+potentially already been scheduled to run.  So if the parent thread
+was unscheduled, it is possible the child was running without having
+it name set. This change eliminates that race.
 
-Future work
-  QMP commands; GStreamer backend; enable by default?
+This distinction is important enough that I think I'll move this
+specific change out into its own self-contained commit.
 
+> 
+> The new QemuThreadData member @name is non-null only between thread
+> creation and thread name setting, unlike the other members under
+> /* Passed to win32_start_routine.  */  Worth a comment?  Keep it alive
+> until the thread dies?  Entirely up to you.
+> 
+> Reviewed-by: Markus Armbruster <armbru@redhat.com>
+> 
 
-Table of contents
-'''''''''''''''''
-
-* Status in QEMU 11.0
-* Improvements and cleanups
-* Other work in progress
-* Next steps
-
-
-Status in QEMU 11.0
-'''''''''''''''''''
-
-The project is still experimental but is taking a more definite shape.
-Some new code is waiting for review, but most of the effort over the
-last few months was in consolidating what we have.
-
-The minimum supported Rust version is fixed at 1.83, supported on
-all platforms except Debian bookworm mips64el.  In particular Ubuntu
-LTS is now packaging the version of Rust that is required.  Together
-with fixes to Meson bugs, which were released in version 1.10, all
-targets can now enable Rust in CI.  Meson 1.10 also makes it possible
-to use rustc to link emulator binaries, which makes the resulting
-executable smaller and the build system a bit simpler.
-
-Support for tracing with the ``dtrace`` crate is now available through
-the ``probe`` crate.  For ``ust``, the plan is to deprecate it, though
-no step in that direction has been taken.  UST is able to work with
-probes placed by the ``dtrace`` backend.
-
-With these improvements, there is already a practical benefit to writing
-*new* devices in Rust, especially if you don't need other APIs than those
-with bindings.  The build system boilerplate is still substantial
-for the time being, but this is a temporary issue; in the meanwhile, the
-existing pl011 and HPET devices provide a model that is easy to follow.
-
-If any devices are contributed that are written in Rust and do not have
-a C counterpart, it may be worth splitting "enable Rust" from "enable
-all devices written in Rust".  This way, the C versions of the pl011
-and HPET devices can remain available until all platforms have a new-enough
-compiler version and no build system issues.
-
-
-Improvements and cleanups
-'''''''''''''''''''''''''
-
-Migration support was improved to support thread-safe (non-BQL)
-devices, and Zhao looked at how to make HPET BQL-free, as is the case
-for the C version.  This work was stopped, at least temporarily, because
-we found some deadlocks... and discovered that the C code is simply not
-taking a required lock. :/  More work, not tied to adoption of Rust,
-is needed to understand what help is needed from common code in order
-to avoid deadlocks between the BQL and device-specific locks.
-
-However, the same HPET device is already using these same migration
-improvements to achieve compatibility with the C device's migration
-format, despite very different organization of the code.
-
-Version 10.2 split the Rust<->C bridges across multiple crates,
-each linking to the corresponding C code; this is now extended to
-bindgen-generated code.
-
-As mentioned in the earlier updates, in parallel to QEMU work I'm
-looking at improvements to Meson's support for Cargo and Rust.
-The Meson language extensions are now finalized and were approved
-by Meson's BDFL.  For more information:
-
-- https://github.com/mesonbuild/meson/issues/14639 (specification)
-
-- https://github.com/mesonbuild/meson/pull/15223 (implementation)
-
-- https://gitlab.com/bonzini/libblkio/-/commit/b14230d59 (using it
-  in libblkio)
-
-
-
-Other work in progress
-''''''''''''''''''''''
-
-Marc-André tried using Rust to develop a GStreamer backend for the
-audio subsystem.  His prototype is available at
-https://lore.kernel.org/qemu-devel/20251201112309.4163921-25-marcandre.lureau@redhat.com/.
-
-Martin Kletzander has started to look at using pin-init to replace the
-unsafe implementation of instance_init.  It's notable that Rust itself
-is considering several solutions to this problem, and tracking it as an
-"experiment" (https://github.com/rust-lang/lang-team/issues/336).  The
-two top contenders are
-
-- init expressions (https://hackmd.io/@aliceryhl/BJutRcPblx), directly
-  based on pin-init
-
-- &out references (https://hackmd.io/awB-GOYJRlua9Cuc0a3G-Q)
-
-Personally I'd put my vote on the latter, which has the advantage
-of better lifetime tracking.  Anyway, this is very early and for now
-we will have to use macros to emulate the native language support.
-
-Kevin Wolf had posted some work on the block layer last year.
-Improvements to the build system since then probably would simplify some
-parts of it.
-
-While there are no Rust summer of code projects planned this year, there
-are still a few days left to propose them (the deadline is February 7th).
-
-Next steps
-''''''''''
-
-``vm-memory`` integration
-  Last year, Zhao looked into using the ``vm-memory`` crate in QEMU.
-  Because of QEMU's support for IOMMUs, this required changes to the
-  crate.  Hanna Czenczek's work on IOMMU support for rust-vmm was now
-  released, and work on ``vm-memory`` integration can continue.
-
-Improving Meson support for cross-compiling Rust
-  Orthogonally to the Cargo work, I looked at adding Meson support
-  for build-machine subprojects.  Right now, each subproject needs to
-  declare whether it builds host- or build-machine targets.  The
-  changes at https://github.com/mesonbuild/meson/pull/15404 allow
-  a procedural macro crate, depending for example on itertools, to
-  request that the dependency be built for the build machine.
-
-Integration of QObject and QAPI with serde
-  The first step is under review and is mostly ready.  Future work
-  includes modular builds (splitting bindings across multiple
-  source files or even crates, to reduce the cost of recompilation),
-  support for QMP commands, and support for QOM properties.
-
-I2C support
-  This was posted on the list and is on its way towards being
-  updated, posted and integrated in QEMU.  With it, a third device
-  (a GPIO expander) was converted to Rust.
+With regards,
+Daniel
+-- 
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
 
 
