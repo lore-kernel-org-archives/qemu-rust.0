@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FF82E9E31F
-	for <qemu-rust@archiver.kernel.org>; Wed, 11 Feb 2026 15:27:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 396C4E9E311
+	for <qemu-rust@archiver.kernel.org>; Wed, 11 Feb 2026 15:27:39 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vqC7l-0007l7-MC; Wed, 11 Feb 2026 10:27:30 -0500
+	id 1vqC5t-0004Rr-G2; Wed, 11 Feb 2026 10:25:33 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vqC7f-0007HI-8j
- for qemu-rust@nongnu.org; Wed, 11 Feb 2026 10:27:26 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1vqC5p-0004Q6-MI
+ for qemu-rust@nongnu.org; Wed, 11 Feb 2026 10:25:30 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vqC7c-00065O-Ba
- for qemu-rust@nongnu.org; Wed, 11 Feb 2026 10:27:23 -0500
+ id 1vqC5o-0005Xl-9K
+ for qemu-rust@nongnu.org; Wed, 11 Feb 2026 10:25:29 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1770823638;
+ s=mimecast20190719; t=1770823527;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=skHP4pTjXRgohkxWEwFUDHKfYizotJdlGmYSDlwigUI=;
- b=KLyVjVCuufTs2VTjqnbldpevtfoRFMbb9RKBCWZ/44gLPK8sL5qDGpc0z33MDMBTsrMRB7
- CpDNjQ2ZLBakEc04a2+5w2yCb872mc8txX/Kc2YBTrsT3XQFDEGD/4HQRd3I9kCkal4ulk
- TjudKXYh8pi1meGW5AO5+ikqyoDau7I=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=XaKfS+2R4T8oElRoS9wVjz31759POV1QCguEEkq0KoQ=;
+ b=TUp1Fl8CH+05bUYLabkMRsdFMPJFFIjTmaqTdtK2KM2iXCJ4YZRA8G3823ZH0PU6jO3OVx
+ Fhf0QjRJ0nRiG0MAU1/ZW5aLXAISM2Zb/dKUN6SASdNivsRJuEdYMrw3lTIPM4oXXMfWqs
+ DEdtbaLclm9DdlFqU9N/j1+hN0ifLbY=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-456-BRL-aCMlN9G42B_0iH0fgw-1; Wed,
- 11 Feb 2026 10:27:17 -0500
-X-MC-Unique: BRL-aCMlN9G42B_0iH0fgw-1
-X-Mimecast-MFC-AGG-ID: BRL-aCMlN9G42B_0iH0fgw_1770823635
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-627-leivwDvAMD2G1_sN-QHPeA-1; Wed,
+ 11 Feb 2026 10:25:24 -0500
+X-MC-Unique: leivwDvAMD2G1_sN-QHPeA-1
+X-Mimecast-MFC-AGG-ID: leivwDvAMD2G1_sN-QHPeA_1770823522
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 7E74D19560B0; Wed, 11 Feb 2026 15:27:15 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 514E518002FB; Wed, 11 Feb 2026 15:25:22 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.45.227.9])
  by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 84B7730002D5; Wed, 11 Feb 2026 15:27:10 +0000 (UTC)
+ id D3ED130002D5; Wed, 11 Feb 2026 15:25:15 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
@@ -61,27 +61,28 @@ Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
  Christian Schoenebeck <qemu_oss@crudebyte.com>,
  Richard Henderson <richard.henderson@linaro.org>
-Subject: [PATCH v6 21/27] util: fix interleaving of error prefixes
-Date: Wed, 11 Feb 2026 15:25:02 +0000
-Message-ID: <20260211152508.732487-22-berrange@redhat.com>
+Subject: [PATCH v6 01/27] meson: don't access 'cxx' object without checking
+ cpp lang
+Date: Wed, 11 Feb 2026 15:24:42 +0000
+Message-ID: <20260211152508.732487-2-berrange@redhat.com>
 In-Reply-To: <20260211152508.732487-1-berrange@redhat.com>
 References: <20260211152508.732487-1-berrange@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: Z10QXvgD1CH-CA3lloO2medtP4EDBeIvs8tQ34NwETI_1770823635
+X-Mimecast-MFC-PROC-ID: 874YAzuW_f4siTb2c3UWaHW9UAGkrOxpk1Kq2-Sa2UY_1770823522
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -97,46 +98,24 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-The vreport() function will optionally emit an prefix for error
-messages which is output to stderr incrementally. In the event
-that two vreport() calls execute concurrently, there is a risk
-that the prefix output will interleave. To address this it is
-required to take a lock on 'stderr' when outputting errors.
-
-Reported-by: Markus Armbruster <armbru@redhat.com>
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-Reviewed-by: Markus Armbruster <armbru@redhat.com>
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- util/error-report.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/util/error-report.c b/util/error-report.c
-index 052f0f68b8..516d323ffe 100644
---- a/util/error-report.c
-+++ b/util/error-report.c
-@@ -234,6 +234,9 @@ static void vreport(report_type type, const char *fmt, va_list ap)
-     if (monitor_cur_is_qmp()) {
-         cur = NULL;
-     }
-+    if (!cur) {
-+        qemu_flockfile(stderr);
-+    }
+diff --git a/meson.build b/meson.build
+index 2d114e9018..9ad16d1998 100644
+--- a/meson.build
++++ b/meson.build
+@@ -3194,7 +3194,7 @@ if host_os == 'windows'
+ endif
  
-     if (message_with_timestamp && !cur) {
-         timestr = real_time_iso8601();
-@@ -261,6 +264,10 @@ static void vreport(report_type type, const char *fmt, va_list ap)
- 
-     error_vprintf_mon(cur, fmt, ap);
-     error_printf_mon(cur, "\n");
-+
-+    if (!cur) {
-+        qemu_funlockfile(stderr);
-+    }
- }
- 
- /*
+ # Detect if ConvertStringToBSTR has been defined in _com_util namespace
+-if host_os == 'windows'
++if host_os == 'windows' and 'cpp' in all_languages
+   has_convert_string_to_bstr = cxx.links('''
+     #include <comutil.h>
+     int main() {
 -- 
 2.53.0
 
