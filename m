@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDD23E9E311
-	for <qemu-rust@archiver.kernel.org>; Wed, 11 Feb 2026 15:26:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B1DE9E311
+	for <qemu-rust@archiver.kernel.org>; Wed, 11 Feb 2026 15:26:08 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vqC6H-0004jG-2d; Wed, 11 Feb 2026 10:25:57 -0500
+	id 1vqC6G-0004hp-Ip; Wed, 11 Feb 2026 10:25:56 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vqC64-0004Xs-CL
- for qemu-rust@nongnu.org; Wed, 11 Feb 2026 10:25:46 -0500
+ id 1vqC67-0004Yx-I6
+ for qemu-rust@nongnu.org; Wed, 11 Feb 2026 10:25:48 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vqC61-0005e5-Q4
- for qemu-rust@nongnu.org; Wed, 11 Feb 2026 10:25:44 -0500
+ id 1vqC66-0005gz-1u
+ for qemu-rust@nongnu.org; Wed, 11 Feb 2026 10:25:47 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1770823539;
+ s=mimecast20190719; t=1770823545;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4nNBnkbdOoq/TO93m2/cqfU9S+qOIByL3MN/2Z5FSuM=;
- b=iXoGSfe8RSvL6NuNB7iiz9IHM3IF4xqtFQSGNxrz/wnm+e4VHxEbhwSTOXJaM39BnPLpp0
- MKQ/anZdbmFlVcN8ATs8ODIIb4c7PtSJKSws9bj+UOdLTg6D1/EGmcLKeThr+xtMvEVvR0
- Uk+S2IrwXH1cIN9GGCQfU5/qJqQVzFk=
+ bh=kAnXty8ojb0QvYCAJwvtMMolNwPYeQ0lJZK1O5DK5TM=;
+ b=QKz8q5XFWLjR2oLZEAvrONPPku1KI8R88ibDKfILHbDxHMTEEyHlQaUzxgRjeYPA4aAisH
+ cqtETbdL7aHa4EHUghD46ygjCba6kolP3e5DA3n1aTVHtqRIQ68bOW6rhuCxH1XnwtmhY7
+ 5mr+iQ8dRou/5NijjMtWBoI+rqxxDNo=
 Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-74-FTCQmgAGPwSyASZ7_ncZEw-1; Wed,
- 11 Feb 2026 10:25:35 -0500
-X-MC-Unique: FTCQmgAGPwSyASZ7_ncZEw-1
-X-Mimecast-MFC-AGG-ID: FTCQmgAGPwSyASZ7_ncZEw_1770823533
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-594-uSHY1e4TMZiN01Zdm3jaxg-1; Wed,
+ 11 Feb 2026 10:25:41 -0500
+X-MC-Unique: uSHY1e4TMZiN01Zdm3jaxg-1
+X-Mimecast-MFC-AGG-ID: uSHY1e4TMZiN01Zdm3jaxg_1770823539
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 97A8618003F5; Wed, 11 Feb 2026 15:25:33 +0000 (UTC)
+ id 0D93F180034A; Wed, 11 Feb 2026 15:25:39 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.45.227.9])
  by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 5E77430001A8; Wed, 11 Feb 2026 15:25:28 +0000 (UTC)
+ id 125A130001A8; Wed, 11 Feb 2026 15:25:33 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
@@ -61,15 +61,14 @@ Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
  Christian Schoenebeck <qemu_oss@crudebyte.com>,
  Richard Henderson <richard.henderson@linaro.org>
-Subject: [PATCH v6 03/27] include: define constant for early constructor
- priority
-Date: Wed, 11 Feb 2026 15:24:44 +0000
-Message-ID: <20260211152508.732487-4-berrange@redhat.com>
+Subject: [PATCH v6 04/27] monitor: initialize global data from a constructor
+Date: Wed, 11 Feb 2026 15:24:45 +0000
+Message-ID: <20260211152508.732487-5-berrange@redhat.com>
 In-Reply-To: <20260211152508.732487-1-berrange@redhat.com>
 References: <20260211152508.732487-1-berrange@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: 3ATpQESpeiaoIgpPq4FOWXf0ZmH6etNMHuvmIGcVuaY_1770823533
+X-Mimecast-MFC-PROC-ID: K9QQR0SW2QvPHoSk7-H1Mul0MLHaHhc-jVJ52Gc8RrM_1770823539
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -82,7 +81,7 @@ X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -98,49 +97,68 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Functions marked with __attribute__((__constructor__)) will be
-invoked in linker order. In theory this is well defined, but
-in practice, it is hard to determine what this order will be
-with the layers of indirection through meson, ninja and the
-static libraries QEMU builds.
+Some monitor functions, most notably, monitor_cur() rely on global
+data being initialized by 'monitor_init_globals()'. The latter is
+called relatively late in startup. If code triggers error_report()
+before monitor_init_globals() is called, QEMU will abort when
+accessing the uninitialized monitor mutex.
 
-Notably, the order currently appears different between Linux
-and Windows (as tested with Wine on Linux). This can cause
-problems when certain QEMU constructors have a dependancy on
-other QEMU constructors.
+The critical monitor global data must be initialized from a
+constructor function, to improve the guarantee that it is done
+before any possible calls to monitor_cur(). Not only that, but
+the constructor must be marked to run before the default
+constructor in case any of them trigger error reporting.
 
-To address this define a QEMU_CONSTRUCTOR_EARLY constant which
-provides a priority value that will run before other default
-constructors. This is to be used for QEMU constructors that
-are themselves self-contained, but may be relied upon by other
-constructors.
+Note in particular that the RCU constructor will spawn a background
+thread so we might even have non-constructor QEMU code running
+concurrently with other constructors.
+
+As a general note, constructors should be extrememly careful
+about what QEMU code they invoke, as it cannot be guaranteed that
+the process is fully initialized and so not all normal QEMU API
+rules apply.
 
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 Reviewed-by: Dr. David Alan Gilbert <dave@treblig.org>
+Reviewed-by: Markus Armbruster <armbru@redhat.com>
+Fixes: e69ee454b5f9 (monitor: Make current monitor a per-coroutine property)
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- include/qemu/compiler.h | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ monitor/monitor.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/include/qemu/compiler.h b/include/qemu/compiler.h
-index 1c2b673c05..4c49f52eb0 100644
---- a/include/qemu/compiler.h
-+++ b/include/qemu/compiler.h
-@@ -194,6 +194,14 @@
- # define QEMU_USED
- #endif
+diff --git a/monitor/monitor.c b/monitor/monitor.c
+index 1273eb7260..dd2c45ded0 100644
+--- a/monitor/monitor.c
++++ b/monitor/monitor.c
+@@ -708,18 +708,22 @@ void monitor_cleanup(void)
+     }
+ }
  
+-static void monitor_qapi_event_init(void)
 +/*
-+ * A priority for __attribute__((constructor(...))) that
-+ * will run earlier than the default constructors. Must
-+ * only be used for functions that have no dependency
-+ * on global initialization of other QEMU subsystems.
++ * Initialize static vars that have no deps on external
++ * module initialization, and are required for external
++ * functions to call things like monitor_cur()
 + */
-+#define QEMU_CONSTRUCTOR_EARLY 101
-+
- /*
-  * Disable -ftrivial-auto-var-init on a local variable.
-  *
++static void __attribute__((__constructor__(QEMU_CONSTRUCTOR_EARLY)))
++monitor_init_static(void)
+ {
++    qemu_mutex_init(&monitor_lock);
++    coroutine_mon = g_hash_table_new(NULL, NULL);
+     monitor_qapi_event_state = g_hash_table_new(qapi_event_throttle_hash,
+                                                 qapi_event_throttle_equal);
+ }
+ 
+ void monitor_init_globals(void)
+ {
+-    monitor_qapi_event_init();
+-    qemu_mutex_init(&monitor_lock);
+-    coroutine_mon = g_hash_table_new(NULL, NULL);
+-
+     /*
+      * The dispatcher BH must run in the main loop thread, since we
+      * have commands assuming that context.  It would be nice to get
 -- 
 2.53.0
 
