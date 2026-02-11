@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4946E9E31F
-	for <qemu-rust@archiver.kernel.org>; Wed, 11 Feb 2026 15:26:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF26AE9E311
+	for <qemu-rust@archiver.kernel.org>; Wed, 11 Feb 2026 15:26:44 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vqC6S-0004vc-6e; Wed, 11 Feb 2026 10:26:08 -0500
+	id 1vqC6M-0004rU-UQ; Wed, 11 Feb 2026 10:26:03 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vqC6Q-0004ur-KZ
- for qemu-rust@nongnu.org; Wed, 11 Feb 2026 10:26:06 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1vqC6K-0004oY-Rj
+ for qemu-rust@nongnu.org; Wed, 11 Feb 2026 10:26:00 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vqC6N-0005o1-Vt
- for qemu-rust@nongnu.org; Wed, 11 Feb 2026 10:26:06 -0500
+ id 1vqC6J-0005mn-C5
+ for qemu-rust@nongnu.org; Wed, 11 Feb 2026 10:26:00 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1770823563;
+ s=mimecast20190719; t=1770823558;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=eCtbl4tBYedLw5VjumdC/3noLHo9zL17FOSsYm0GecI=;
- b=K/t9cXPSW7Yo+S3+ZeFqSDjElpC0KDxf+rWSRUHFRr+RtVfcbMudOJurVAmSOHkWWTwrQB
- 02eLPq/9sG3Ef4syc2BIMMsvgxpNTBr80x7pquRtkD0PTBIl5jHSo09p43ysaw1mB0Hb+m
- sl9uSx7KLZ8mJhVwMeOE52lAQXvoFI4=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ bh=9ZUN9qo2kVOayeNkrm7meCbsEZa6wbphY9wEaykh81U=;
+ b=dU2vegMag2FHfFtpZHPLHSwUIURyjp02ifxq6SEPg+qEE6MRXCl63fMkkmSqP7QX9XVbn1
+ f/itRNbxblxP2EfaneAB7cQYoQootySF/ezxnT3JpZQ2xYNEtbbZ4RJQ7ogkUlp/bjrOtn
+ gn2Vem33OMqw2Qe2eDMYDK6APuAE5FM=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-372-d9x-ZiElN9Oad3NURlkNtA-1; Wed,
- 11 Feb 2026 10:25:58 -0500
-X-MC-Unique: d9x-ZiElN9Oad3NURlkNtA-1
-X-Mimecast-MFC-AGG-ID: d9x-ZiElN9Oad3NURlkNtA_1770823557
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-317-vxqbIMosMR-SGpEGceCnzg-1; Wed,
+ 11 Feb 2026 10:25:55 -0500
+X-MC-Unique: vxqbIMosMR-SGpEGceCnzg-1
+X-Mimecast-MFC-AGG-ID: vxqbIMosMR-SGpEGceCnzg_1770823551
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 099A91955F28; Wed, 11 Feb 2026 15:25:57 +0000 (UTC)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 6619C19560B2; Wed, 11 Feb 2026 15:25:51 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.45.227.9])
  by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id D510C30002D8; Wed, 11 Feb 2026 15:25:51 +0000 (UTC)
+ id 0057530001A8; Wed, 11 Feb 2026 15:25:45 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
@@ -61,25 +61,25 @@ Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
  Christian Schoenebeck <qemu_oss@crudebyte.com>,
  Richard Henderson <richard.henderson@linaro.org>
-Subject: [PATCH v6 07/27] util: expose qemu_thread_set_name
-Date: Wed, 11 Feb 2026 15:24:48 +0000
-Message-ID: <20260211152508.732487-8-berrange@redhat.com>
+Subject: [PATCH v6 06/27] util: fix race setting thread name on Win32
+Date: Wed, 11 Feb 2026 15:24:47 +0000
+Message-ID: <20260211152508.732487-7-berrange@redhat.com>
 In-Reply-To: <20260211152508.732487-1-berrange@redhat.com>
 References: <20260211152508.732487-1-berrange@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: hf_dBWaoXY_PHzoDgamQkd3_wE910JxZnhvjoq--SZM_1770823557
+X-Mimecast-MFC-PROC-ID: ztcG1r-EhnTqjD0kHrlGgy3FnuZU8F9Jly-SKYlz3cs_1770823551
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
@@ -97,8 +97,11 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-The ability to set the thread name needs to be used in a number
-of places, so expose the current impls as public methods.
+The call to set the thread name on Win32 platforms is done by the parent
+thread, after _beginthreadex() returns. At this point the new child
+thread is potentially already executing its start method. To ensure the
+thread name is guaranteed to be set before any "interesting" code starts
+executing, it must be done in the start method of the child thread itself.
 
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 Reviewed-by: Dr. David Alan Gilbert <dave@treblig.org>
@@ -106,99 +109,77 @@ Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 Reviewed-by: Markus Armbruster <armbru@redhat.com>
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- include/qemu/thread.h    |  1 +
- util/qemu-thread-posix.c | 26 ++++++++++++++++----------
- util/qemu-thread-win32.c |  6 ++----
- 3 files changed, 19 insertions(+), 14 deletions(-)
+ util/qemu-thread-win32.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/include/qemu/thread.h b/include/qemu/thread.h
-index 3a286bb3ef..27b888ab0a 100644
---- a/include/qemu/thread.h
-+++ b/include/qemu/thread.h
-@@ -215,6 +215,7 @@ void *qemu_thread_join(QemuThread *thread);
- void qemu_thread_get_self(QemuThread *thread);
- bool qemu_thread_is_self(QemuThread *thread);
- G_NORETURN void qemu_thread_exit(void *retval);
-+void qemu_thread_set_name(const char *name);
- 
- struct Notifier;
- /**
-diff --git a/util/qemu-thread-posix.c b/util/qemu-thread-posix.c
-index 7c985b5d38..b1c127dbe3 100644
---- a/util/qemu-thread-posix.c
-+++ b/util/qemu-thread-posix.c
-@@ -329,6 +329,21 @@ static void qemu_thread_atexit_notify(void *arg)
-     notifier_list_notify(&thread_exit, NULL);
- }
- 
-+void qemu_thread_set_name(const char *name)
-+{
-+    /*
-+     * Attempt to set the threads name; note that this is for debug, so
-+     * we're not going to fail if we can't set it.
-+     */
-+# if defined(CONFIG_PTHREAD_SETNAME_NP_W_TID)
-+    pthread_setname_np(pthread_self(), name);
-+# elif defined(CONFIG_PTHREAD_SETNAME_NP_WO_TID)
-+    pthread_setname_np(name);
-+# elif defined(CONFIG_PTHREAD_SET_NAME_NP)
-+    pthread_set_name_np(pthread_self(), name);
-+# endif
-+}
-+
- typedef struct {
-     void *(*start_routine)(void *);
-     void *arg;
-@@ -342,17 +357,8 @@ static void *qemu_thread_start(void *args)
-     void *arg = qemu_thread_args->arg;
-     void *r;
- 
--    /* Attempt to set the threads name; note that this is for debug, so
--     * we're not going to fail if we can't set it.
--     */
-     if (qemu_thread_args->name) {
--# if defined(CONFIG_PTHREAD_SETNAME_NP_W_TID)
--        pthread_setname_np(pthread_self(), qemu_thread_args->name);
--# elif defined(CONFIG_PTHREAD_SETNAME_NP_WO_TID)
--        pthread_setname_np(qemu_thread_args->name);
--# elif defined(CONFIG_PTHREAD_SET_NAME_NP)
--        pthread_set_name_np(pthread_self(), qemu_thread_args->name);
--# endif
-+        qemu_thread_set_name(qemu_thread_args->name);
-     }
-     QEMU_TSAN_ANNOTATE_THREAD_NAME(qemu_thread_args->name);
-     g_free(qemu_thread_args->name);
 diff --git a/util/qemu-thread-win32.c b/util/qemu-thread-win32.c
-index 255c88571f..31ec305a73 100644
+index 9595a5b090..255c88571f 100644
 --- a/util/qemu-thread-win32.c
 +++ b/util/qemu-thread-win32.c
-@@ -22,8 +22,6 @@ typedef HRESULT (WINAPI *pSetThreadDescription) (HANDLE hThread,
+@@ -22,6 +22,8 @@ typedef HRESULT (WINAPI *pSetThreadDescription) (HANDLE hThread,
  static pSetThreadDescription SetThreadDescriptionFunc;
  static HMODULE kernel32_module;
  
--static void set_thread_description(const char *name);
--
++static void set_thread_description(const char *name);
++
  static bool load_set_thread_description(void)
  {
      static gsize _init_once = 0;
-@@ -270,7 +268,7 @@ static unsigned __stdcall win32_start_routine(void *arg)
+@@ -225,6 +227,7 @@ struct QemuThreadData {
+     void             *arg;
+     short             mode;
+     NotifierList      exit;
++    char             *name; /* Freed in win32_start_routine */
+ 
+     /* Only used for joinable threads. */
+     bool              exited;
+@@ -266,6 +269,10 @@ static unsigned __stdcall win32_start_routine(void *arg)
+     void *(*start_routine)(void *) = data->start_routine;
      void *thread_arg = data->arg;
  
-     if (data->name) {
--        set_thread_description(data->name);
-+        qemu_thread_set_name(data->name);
-         g_clear_pointer(&data->name, g_free);
-     }
++    if (data->name) {
++        set_thread_description(data->name);
++        g_clear_pointer(&data->name, g_free);
++    }
      qemu_thread_data = data;
-@@ -323,7 +321,7 @@ void *qemu_thread_join(QemuThread *thread)
+     qemu_thread_exit(start_routine(thread_arg));
+     abort();
+@@ -316,7 +323,7 @@ void *qemu_thread_join(QemuThread *thread)
      return ret;
  }
  
--static void set_thread_description(const char *name)
-+void qemu_thread_set_name(const char *name)
+-static void set_thread_description(HANDLE h, const char *name)
++static void set_thread_description(const char *name)
  {
      g_autofree wchar_t *namew = NULL;
  
+@@ -329,7 +336,7 @@ static void set_thread_description(HANDLE h, const char *name)
+         return;
+     }
+ 
+-    SetThreadDescriptionFunc(h, namew);
++    SetThreadDescriptionFunc(GetCurrentThread(), namew);
+ }
+ 
+ void qemu_thread_create(QemuThread *thread, const char *name,
+@@ -344,6 +351,7 @@ void qemu_thread_create(QemuThread *thread, const char *name,
+     data->arg = arg;
+     data->mode = mode;
+     data->exited = false;
++    data->name = g_strdup(name);
+     notifier_list_init(&data->exit);
+ 
+     if (data->mode != QEMU_THREAD_DETACHED) {
+@@ -355,9 +363,6 @@ void qemu_thread_create(QemuThread *thread, const char *name,
+     if (!hThread) {
+         error_exit(GetLastError(), __func__);
+     }
+-    if (name) {
+-        set_thread_description(hThread, name);
+-    }
+     CloseHandle(hThread);
+ 
+     thread->data = data;
 -- 
 2.53.0
 
