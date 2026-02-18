@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B2E1E9A03E
-	for <qemu-rust@archiver.kernel.org>; Wed, 18 Feb 2026 09:22:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B41CCE9A03B
+	for <qemu-rust@archiver.kernel.org>; Wed, 18 Feb 2026 09:39:27 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vsdlZ-0002ef-Jx; Wed, 18 Feb 2026 04:22:41 -0500
+	id 1vse1H-0000QL-0f; Wed, 18 Feb 2026 04:38:55 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vsdlW-0002dk-Et
- for qemu-rust@nongnu.org; Wed, 18 Feb 2026 04:22:38 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vse1F-0000PK-Mh
+ for qemu-rust@nongnu.org; Wed, 18 Feb 2026 04:38:53 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vsdlU-0001Es-Fm
- for qemu-rust@nongnu.org; Wed, 18 Feb 2026 04:22:38 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vse1E-0005dD-4K
+ for qemu-rust@nongnu.org; Wed, 18 Feb 2026 04:38:53 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1771406555;
+ s=mimecast20190719; t=1771407530;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AxyR/szqaDMb8G1mQAo+COLyvgnIVNiooI0b8VOEs44=;
- b=br3Ax4WcGO/rFDFXdCGoJ42HTPBgxhAEf1kN+867+Esm/SygLQK5SvvI/bEdOfOkim9LGe
- gJ+aUw0tY6j6bKR+OkA2tLpjTIEgmd2w0xCsQUpeMvhUSB5rqX30mPqprIgXe/s37HUMau
- aYVfE+ULL8uQwas9OgIbbLd+tB9LtAg=
+ bh=8FACGrT2kuAXrNVhN9C22rlNJMEUj7m0iCIiYMfnx7E=;
+ b=cjrP0eg5UzhMCP2SIvvpdYZjaUcxcXwoUYA1joFu7BduOMYyCeSvwjCGq9Yl0fu+bFp2Vz
+ uxPIv/sBPVzudBOkHX/081Wxb6N4t7R+VKQZsuZUv9Qv3+wazVYyGIcvy8xLoTlU0nCK1W
+ 0Ld/hU3eb/8OLXsDu3MY6kls/NMNhP4=
 Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-684-bkfG5EEROLOSXxl39HcyZg-1; Wed,
- 18 Feb 2026 04:22:32 -0500
-X-MC-Unique: bkfG5EEROLOSXxl39HcyZg-1
-X-Mimecast-MFC-AGG-ID: bkfG5EEROLOSXxl39HcyZg_1771406551
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-576-I0NIWcD1Mou9wU4oqgSZUA-1; Wed,
+ 18 Feb 2026 04:38:47 -0500
+X-MC-Unique: I0NIWcD1Mou9wU4oqgSZUA-1
+X-Mimecast-MFC-AGG-ID: I0NIWcD1Mou9wU4oqgSZUA_1771407525
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 85E55195608A; Wed, 18 Feb 2026 09:22:30 +0000 (UTC)
+ id 15D4E1933FA6; Wed, 18 Feb 2026 09:38:45 +0000 (UTC)
 Received: from blackfin.pond.sub.org (unknown [10.45.242.14])
  by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id AC2C91800361; Wed, 18 Feb 2026 09:22:29 +0000 (UTC)
+ id 3CA161800361; Wed, 18 Feb 2026 09:38:44 +0000 (UTC)
 Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 4C37321E692D; Wed, 18 Feb 2026 10:22:27 +0100 (CET)
+ id E6F7421E692D; Wed, 18 Feb 2026 10:38:41 +0100 (CET)
 From: Markus Armbruster <armbru@redhat.com>
 To: Daniel P. =?utf-8?Q?Berrang=C3=A9?= <berrange@redhat.com>
 Cc: qemu-devel@nongnu.org,  Manos Pitsidianakis
@@ -60,19 +60,18 @@ Cc: qemu-devel@nongnu.org,  Manos Pitsidianakis
  Paolo Bonzini <pbonzini@redhat.com>,  Gerd Hoffmann <kraxel@redhat.com>,
  Christian Schoenebeck <qemu_oss@crudebyte.com>,  Richard Henderson
  <richard.henderson@linaro.org>
-Subject: Re: [PATCH v6 03/27] include: define constant for early constructor
- priority
-In-Reply-To: <20260211152508.732487-4-berrange@redhat.com> ("Daniel
- P. =?utf-8?Q?Berrang=C3=A9=22's?= message of "Wed, 11 Feb 2026 15:24:44
+Subject: Re: [PATCH v6 11/27] util: introduce some API docs for logging APIs
+In-Reply-To: <20260211152508.732487-12-berrange@redhat.com> ("Daniel
+ P. =?utf-8?Q?Berrang=C3=A9=22's?= message of "Wed, 11 Feb 2026 15:24:52
  +0000")
 References: <20260211152508.732487-1-berrange@redhat.com>
- <20260211152508.732487-4-berrange@redhat.com>
-Date: Wed, 18 Feb 2026 10:22:27 +0100
-Message-ID: <87342yflt8.fsf@pond.sub.org>
+ <20260211152508.732487-12-berrange@redhat.com>
+Date: Wed, 18 Feb 2026 10:38:41 +0100
+Message-ID: <87y0kqe6hq.fsf@pond.sub.org>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-X-Mimecast-MFC-PROC-ID: buMud4zZQuTQsdn5V8vSorB4fuUs_Db8mguZHH-ppHI_1771406551
+X-Mimecast-MFC-PROC-ID: sWZBtEiXcZRN3dD9nBHqJ1yI8VyMkbryaZxnMLQwF5k_1771407525
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -104,53 +103,22 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
 
-> Functions marked with __attribute__((__constructor__)) will be
-> invoked in linker order. In theory this is well defined, but
-> in practice, it is hard to determine what this order will be
-> with the layers of indirection through meson, ninja and the
-> static libraries QEMU builds.
+> There is a gotcha with qemu_log() usage in a threaded process.
+> If fragments of a log message are output via qemu_log() it is
+> possible for messages from two threads to get mixed up. To
+> prevent this qemu_log_trylock() should be used, along with
+> fprintf(f) calls.
 >
-> Notably, the order currently appears different between Linux
-> and Windows (as tested with Wine on Linux). This can cause
-> problems when certain QEMU constructors have a dependancy on
-> other QEMU constructors.
+> This is a subtle problem that needs to be explained in the
+> API docs to ensure correct usage.
 >
-> To address this define a QEMU_CONSTRUCTOR_EARLY constant which
-> provides a priority value that will run before other default
-> constructors. This is to be used for QEMU constructors that
-> are themselves self-contained, but may be relied upon by other
-> constructors.
+> In the Rust code, the log_mask_ln method which is conceptually
+> equivalent to the C qemu_log() call will unconditionally append
+> a newline so must only ever be used for complete log messages.
 >
-> Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-> Reviewed-by: Dr. David Alan Gilbert <dave@treblig.org>
+> Reported-by: Markus Armbruster <armbru@redhat.com>
 > Signed-off-by: Daniel P. Berrang=C3=A9 <berrange@redhat.com>
 
-I'm no fan of doing non-trivial work in constructors.  We discussed
-possible alternatives in review of v5.  This is an opinion, not a
-demand.  And Paolo's opinion counts a lot more here.
-
-> ---
->  include/qemu/compiler.h | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/include/qemu/compiler.h b/include/qemu/compiler.h
-> index 1c2b673c05..4c49f52eb0 100644
-> --- a/include/qemu/compiler.h
-> +++ b/include/qemu/compiler.h
-> @@ -194,6 +194,14 @@
->  # define QEMU_USED
->  #endif
-> =20
-> +/*
-> + * A priority for __attribute__((constructor(...))) that
-> + * will run earlier than the default constructors. Must
-> + * only be used for functions that have no dependency
-> + * on global initialization of other QEMU subsystems.
-> + */
-> +#define QEMU_CONSTRUCTOR_EARLY 101
-> +
->  /*
->   * Disable -ftrivial-auto-var-init on a local variable.
->   *
+Reviewed-by: Markus Armbruster <armbru@redhat.com>
 
 
