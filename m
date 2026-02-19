@@ -4,89 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9863E9A03B
-	for <qemu-rust@archiver.kernel.org>; Thu, 19 Feb 2026 10:17:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1CF1E9A03B
+	for <qemu-rust@archiver.kernel.org>; Thu, 19 Feb 2026 10:24:15 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vt15v-0000n9-1S; Thu, 19 Feb 2026 05:17:15 -0500
+	id 1vt1CK-00037Q-D7; Thu, 19 Feb 2026 05:23:52 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vt15p-0000i7-Jo
- for qemu-rust@nongnu.org; Thu, 19 Feb 2026 05:17:10 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vt15o-0008MM-0f
- for qemu-rust@nongnu.org; Thu, 19 Feb 2026 05:17:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1771496227;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lVaqHOzttXBSGiuxth1DU9gorE/hdHkNprKgTe50Pw8=;
- b=OxafewH5xU9Zz3q0BlM7IxLtWndzDZlcM9f7zEWTtmyS7PRdc5SNIGn92ROnVP0q5gLZmS
- XGGT1G1RdgPAqkw7w+l/6q93Is2UtzljGCPMAzK82G9SHbhsB6EEIgoJbm14zRJAGJJVNe
- h6+CxF5vFM7hZMe/pbtUZogzf/n7ffE=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-614-rAP4gi25M_W4Zo62fmuGeg-1; Thu,
- 19 Feb 2026 05:17:05 -0500
-X-MC-Unique: rAP4gi25M_W4Zo62fmuGeg-1
-X-Mimecast-MFC-AGG-ID: rAP4gi25M_W4Zo62fmuGeg_1771496223
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 47E0C195609E; Thu, 19 Feb 2026 10:17:03 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.45.242.14])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 3DB4C1954111; Thu, 19 Feb 2026 10:17:02 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id CB7B021E692D; Thu, 19 Feb 2026 11:16:59 +0100 (CET)
-From: Markus Armbruster <armbru@redhat.com>
-To: Daniel P. =?utf-8?Q?Berrang=C3=A9?= <berrange@redhat.com>
-Cc: qemu-devel@nongnu.org,  Manos Pitsidianakis
- <manos.pitsidianakis@linaro.org>,  Stefan Weil <sw@weilnetz.de>,  "Dr.
- David Alan Gilbert" <dave@treblig.org>,  Pierrick Bouvier
- <pierrick.bouvier@linaro.org>,  devel@lists.libvirt.org,  Philippe
- =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,  =?utf-8?Q?Marc-Andr?=
- =?utf-8?Q?=C3=A9?= Lureau
- <marcandre.lureau@redhat.com>,  Hanna Reitz <hreitz@redhat.com>,  Kevin
- Wolf <kwolf@redhat.com>,  qemu-block@nongnu.org,  qemu-rust@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>,  Gerd Hoffmann <kraxel@redhat.com>,
- Christian Schoenebeck <qemu_oss@crudebyte.com>,  Richard Henderson
- <richard.henderson@linaro.org>
-Subject: Re: [PATCH v6 27/27] util: add brackets around guest name in
- message context
-In-Reply-To: <20260211152508.732487-28-berrange@redhat.com> ("Daniel
- P. =?utf-8?Q?Berrang=C3=A9=22's?= message of "Wed, 11 Feb 2026 15:25:08
- +0000")
-References: <20260211152508.732487-1-berrange@redhat.com>
- <20260211152508.732487-28-berrange@redhat.com>
-Date: Thu, 19 Feb 2026 11:16:59 +0100
-Message-ID: <87a4x53un8.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1vt1CJ-00036L-IM
+ for qemu-rust@nongnu.org; Thu, 19 Feb 2026 05:23:51 -0500
+Received: from mail-yx1-xb132.google.com ([2607:f8b0:4864:20::b132])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1vt1CH-0000yT-72
+ for qemu-rust@nongnu.org; Thu, 19 Feb 2026 05:23:51 -0500
+Received: by mail-yx1-xb132.google.com with SMTP id
+ 956f58d0204a3-649e97f1e1eso493109d50.1
+ for <qemu-rust@nongnu.org>; Thu, 19 Feb 2026 02:23:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771496627; cv=none;
+ d=google.com; s=arc-20240605;
+ b=gek85dCuKovtLTAWs9HVtv3Qze98eSbnfnBgp5mpjkJ5VpEqneYcS/Y0dz/5caiKTn
+ BYzjSk2UD/pJWd4uTh4izRDW+0fwpawfhu3h+99o2RrBZc0iFGKLFyDmUBTc8cv5MxYW
+ YzwHcDTmBnwu7an1UMIW5qHg3Qxa2RnLmGSgC48h3nS7FdJ2quJf3sYyszzt6nIvuVq3
+ lLbDRz93Xn1hH0tLeRJYWtVJdpmMTkZnBAsX/9a+erBXpd1v7pcjzJzQjDyPpWGlWMBF
+ 35IVJk+Kz6nLwvcnBX3A+P/y8v8ei7m/Bu/7ooyCGZtNpInnUw3Wu2mOwkDMEdDLSidc
+ rliA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=jQYXw6sx10gUEwJLfbA+ICno0L/ffvARi0dVcJmefc8=;
+ fh=5zmPVDrIZPsVznCwIMxussCoX8Q94iM4uMjDHUM/DPE=;
+ b=K4PpJIXbnD4BeO/nrzMkAv9dqNHzVFJ0SBcU91ZeCx3nuAmJZ0bC+AuUIn9FEWyy0o
+ Kimsl/3ECG3rW5HjKBiEiTiwoFQ5z2+13nMTKpWfbbGtQCmpHTNZo41lyWkuZRCblv6O
+ JQUrtFkz8NqSgzzyU1OiFtu5Q1zPoogIuH+KUm9BPs279L8L8J6BfBiv6D7Qvzrj7MTx
+ 3S5ZfOHItEjxdw+eMzpBJxBt+PUR2mVfeAWLuxe9vRis+84xBPwfkDKwr/0MRKrhu97z
+ KjdaY0JNul8YBy1Z1e3Z51hxWL5tf+c3UhPn83aynuIyCH055qWDAzb2eQXgJ5znrOzR
+ avSw==; darn=nongnu.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1771496627; x=1772101427; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jQYXw6sx10gUEwJLfbA+ICno0L/ffvARi0dVcJmefc8=;
+ b=q+v9gGTGbHgUOpM8NAJsqXAV+sE2fcXgvWBKEOekw6aCOVbnriM3IPdbK1OqMU7qdf
+ dx+Qva1MwR8+5+kI74YgKoi/WDMSLgrO6kevuX8m/uL2AYRwadEqOZYzZUa9w974Bsl3
+ i6NyfN/yqyFPiSp/yQtxWQse85yPr6MIRt+7a5Nvws2pd4JaH2WmaDB7Jk19Qx2jy4ur
+ cVUpWCXFkN1VH99ye5Hm4TnmkH7z30LdgGIgJMKV9dsCoKtc5NdvorJ1qLKZ4jSF1it3
+ A4K2y7ulqkLo6pbJhC2ct/vKpnv1U8SwrfGF6fGPg8QOlxjQPHgaSDjJdpSL5gerOdU/
+ pyGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1771496627; x=1772101427;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=jQYXw6sx10gUEwJLfbA+ICno0L/ffvARi0dVcJmefc8=;
+ b=BYZ6f+csx648dj7j20nS1ldQZ89tdGpKaMcYAa14z/T2Qs8iAd/dh401ZG0jrvWW1p
+ GoC/BKY3nzNqypr3NBFsJQXLvdnjb6UPq5EUbknBIZYWfDCuTAt1042UUvqlME4cKoxz
+ MfEQSzA3ncV2UScVi8nmozbEaDdOT3O+9FX94pwkwDEPyD8ZGqQGhS5BXkICL4bdtSqu
+ yLbrNhVVT70VYUiObb1aUCcjfQHW56k6CGDog/lNUzaIch12Bwi/0FJ62ITkDr+0fiR7
+ bGIDOFfzILPWT51VSR7CDv1V89K2CUcbqfpFDk+USdjp0QXTgquTSynmiyXXq1W4r4Dr
+ aBwQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUnkJSIvmoqVlzpILc9adbTkEuGXvm6keHdiChPOH+ja+KG3Q9kCC29fBt/k8Rlkb2BkToR2QESewA=@nongnu.org
+X-Gm-Message-State: AOJu0Yyvzhd2Hj/JhkEM0KXtcz+uhFAoRpfS1fT8g8U89MJ0Y1fmTp0P
+ Hr/GFBICZroTzOHVRZYspkWckc3pEQxUshIx66xbU6swJB2nhrEtnxz9Cm3UMnWk5Og8K6RR2Q1
+ yFvffLvznkOTAEf6s0M04LwfYY9iT6qvUpnogDPji3w==
+X-Gm-Gg: AZuq6aLs6ggXcBLwz8UJoeZHNqw9kbaMsCIglwX35IX13FUWmRwhkIiHMO3IiJw6B8d
+ ZIuViRkbFpSZaKxWFLuyPQgeHqSXXezZXsbGRLOxKNIxHp/wN1arPLELxrRHto+VBi02wa9JX/s
+ 5uFbYo4stIZiyBodM1pLnDhC0z6T7pkTsevvZUwl8RZyGP6yBrTQtKZJ1zwTPsw0dwK66IA34Ah
+ 5xFHpo6Z5///zzLgJ+86CYV0x5prJe9cx0wmb0I1KkfyQAZIL0QdfqC3LZIrhkE2Fx2fT4mUonl
+ yAaa9KZmiPuTbAIiRPqQB/y9pr4bMCH+vhrbQfZUnTB2aMsG6LZkJjLj0qZYnJyz9HzpOBM4bIK
+ Iog==
+X-Received: by 2002:a05:690e:160a:b0:649:429a:4577 with SMTP id
+ 956f58d0204a3-64c14debf24mr12756476d50.86.1771496627301; Thu, 19 Feb 2026
+ 02:23:47 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: AehbygAu6d9K4ADTuzmyPvWF-pbrcSumFn8oqOtHSfA_1771496223
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+References: <20260211152508.732487-1-berrange@redhat.com>
+ <20260211152508.732487-26-berrange@redhat.com>
+In-Reply-To: <20260211152508.732487-26-berrange@redhat.com>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Thu, 19 Feb 2026 10:23:36 +0000
+X-Gm-Features: AZwV_QgQBFllVjmt3-GtQ5RGuFq4ljBu7_zazL_LwSjZEMHOtS5KTQskYwLhdZI
+Message-ID: <CAFEAcA-6XMp6B-V2X+=25Q7XKwy5JuOpGj9RNpN+mTNxm71wpQ@mail.gmail.com>
+Subject: Re: [PATCH v6 25/27] util: add support for formatting a program name
+ in messages
+To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
+Cc: qemu-devel@nongnu.org, 
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Stefan Weil <sw@weilnetz.de>, "Dr. David Alan Gilbert" <dave@treblig.org>,
+ Pierrick Bouvier <pierrick.bouvier@linaro.org>, devel@lists.libvirt.org, 
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
+ =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>, 
+ Hanna Reitz <hreitz@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
+ qemu-block@nongnu.org, 
+ qemu-rust@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, 
+ Markus Armbruster <armbru@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Christian Schoenebeck <qemu_oss@crudebyte.com>,
+ Richard Henderson <richard.henderson@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -13
-X-Spam_score: -1.4
-X-Spam_bar: -
-X-Spam_report: (-1.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.043,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- GB_FAKE_RF=0.754, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001,
- RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_PASS=-0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+Received-SPF: pass client-ip=2607:f8b0:4864:20::b132;
+ envelope-from=peter.maydell@linaro.org; helo=mail-yx1-xb132.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -102,62 +131,59 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
-
-> The message context can optionally include the guest name if the
-> argument '-msg guest-name=3Don' is given. The formatting, however,
-> does not look good if the guest name contains whitespace. Change
-> the output to include square brackets to demarcate the name.
+On Wed, 11 Feb 2026 at 15:29, Daniel P. Berrang=C3=A9 <berrange@redhat.com>=
+ wrote:
+>
+> The error_report function can include the program name in any
+> messages it prints. The qemu_log function has no equivalent
+> behaviour.
+>
+> This introduces support for a "program name" in the new
+> messages API, which will be included by default for all
+> binaries.
+>
+> This change tweaks the output of the error_report function,
+> adding a space between the program name and the location
+> info. The qemu_log function will gain the program name. This
+> can be easily seen with the 'log' trace backend, and how it
+> is now more closely matching error_report output.
 >
 > Before:
 >
 >   # qemu-system-x86_64 -object tls-creds-x509,id=3Dt0,dir=3Dfish -d 'trac=
-e:qcrypto*' -msg guest-name=3Don -name "fish food"
->   fish food qemu-system-x86_64: (1146846:main): qcrypto_tls_creds_x509_lo=
-ad TLS creds x509 load creds=3D0x55657e94e690 dir=3Dfish
->   fish food qemu-system-x86_64: (1146846:main): qcrypto_tls_creds_get_pat=
-h TLS creds path creds=3D0x55657e94e690 filename=3Dca-cert.pem path=3D<none=
->
->   fish food qemu-system-x86_64: (1146846:main): Unable to access credenti=
-als fish/ca-cert.pem: No such file or directory
+e:qcrypto*'
+>   qcrypto_tls_creds_x509_load TLS creds x509 load creds=3D0x5584e13937f0 =
+dir=3Dfish
+>   qcrypto_tls_creds_get_path TLS creds path creds=3D0x5584e13937f0 filena=
+me=3Dca-cert.pem path=3D<none>
+>   qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: No s=
+uch file or directory
 >
 > After:
 >
 >   # qemu-system-x86_64 -object tls-creds-x509,id=3Dt0,dir=3Dfish -d 'trac=
-e:qcrypto*' -msg guest-name=3Don -name "fish food"
->   [fish food] qemu-system-x86_64: (1144713:main): qcrypto_tls_creds_x509_=
-load TLS creds x509 load creds=3D0x5604ada2c950 dir=3Dfish
->   [fish food] qemu-system-x86_64: (1144713:main): qcrypto_tls_creds_get_p=
-ath TLS creds path creds=3D0x5604ada2c950 filename=3Dca-cert.pem path=3D<no=
-ne>
->   [fish food] qemu-system-x86_64: (1144713:main): Unable to access creden=
-tials fish/ca-cert.pem: No such file or directory
->
-> Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-> Signed-off-by: Daniel P. Berrang=C3=A9 <berrange@redhat.com>
-> ---
->  util/message.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/util/message.c b/util/message.c
-> index 9bf640c8c4..73af8e8ca4 100644
-> --- a/util/message.c
-> +++ b/util/message.c
-> @@ -29,8 +29,9 @@ void qmessage_context_print(FILE *fp)
-> =20
->      if ((message_format & QMESSAGE_FORMAT_WORKLOAD_NAME) &&
->          message_workloadname) {
-> +        fputc('[', fp);
->          fputs(message_workloadname, fp);
-> -        fputc(' ', fp);
-> +        fputs("] ", fp);
+e:qcrypto*'
+>   qemu-system-x86_64: qcrypto_tls_creds_x509_load TLS creds x509 load cre=
+ds=3D0x5584e13937f0 dir=3Dfish
+>   qemu-system-x86_64: qcrypto_tls_creds_get_path TLS creds path creds=3D0=
+x5584e13937f0 filename=3Dca-cert.pem path=3D<none>
+>   qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: No s=
+uch file or directory
 
-Again, I'd go for
+On the other hand if you're using the logs for debugging
+then you now have an extra big pointless prefix on them that
+you have to turn off. Especially if you're logging to a file
+that's a lot of extra garbage in the output. I'm not really
+looking forward to now having to give QEMU an extra long
+and unwieldy command line argument every time I want to
+do debug or tracepoint logging.
 
-           fprintf(fp, "[%s] ", message_workloadname);
+Why do we care about the qemu_log output matching the
+error-report output? The logs are expected to be
+quite frequent, to only be there if you've explicitly
+turned them on, and to be usually directed to a log file.
+The error reporting is more likely to be infrequent, to
+be on stdout, and to be important/fatal things.
 
->      }
-> =20
->      if (message_format & QMESSAGE_FORMAT_PROGRAM_NAME) {
-
+-- PMM
 
