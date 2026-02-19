@@ -4,117 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C536E9A03B
-	for <qemu-rust@archiver.kernel.org>; Thu, 19 Feb 2026 10:30:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50E28E9A048
+	for <qemu-rust@archiver.kernel.org>; Thu, 19 Feb 2026 13:40:10 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vt1It-0005Ij-O7; Thu, 19 Feb 2026 05:30:39 -0500
+	id 1vt4GB-00035Y-Oh; Thu, 19 Feb 2026 08:40:04 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1vt1IV-0005Fi-DB
- for qemu-rust@nongnu.org; Thu, 19 Feb 2026 05:30:18 -0500
-Received: from mail-yw1-x112e.google.com ([2607:f8b0:4864:20::112e])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1vt1IQ-00051Y-2L
- for qemu-rust@nongnu.org; Thu, 19 Feb 2026 05:30:13 -0500
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-794719afcd4so7520577b3.1
- for <qemu-rust@nongnu.org>; Thu, 19 Feb 2026 02:30:09 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1771497009; cv=none;
- d=google.com; s=arc-20240605;
- b=AtbT7CIjFx8SUFNo+VdE20ssa5owrKhgfyAM5u0OxiExkVVE43gBTtnISNziccHFiw
- Brvm/8D9znOLdTRjMl582C6CLE+ePaR5gbPHIm6DHUWjOs3XvahozJHi2AvUzIMJbEY4
- 2bfdhcCwU69VwbwJsWsp7nkelnUn9Pu551ZuJC+NyzVaG28HY+7BykxKBeDUBxlmbyby
- wL5kBivz7YtCjhKMBgzmAAXzZQhRY0TxBLsyMQXWvaE6tFpZKMaLKQIkqru+Ojn3JWQj
- VCkDWmst5YcWIhvos+Z+ro8RQOzoiRvZLSOwq7g+50oZyxJIYYAhIuzLzaNY0L/0KfJX
- kazg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=+ebn6tOBtZqV9fwgzMapnao6wcIVQllIFXvo/tE4RGk=;
- fh=yYqdJA+vO8wDT4inJ/vhT3J/FX1ySCFcFoFJnFk64G4=;
- b=aV+knBJTBONt2AL+/PRwuALHH+FLeIxylv/WNpdn2Q/01oA/PbKCn87Vb+Px93lk9O
- kUG+SLz9cvxFqY1NqD94hIiOrqV/JGj2krB3uYTl1lz80CtnvjNExv6//UjON0SEsG+V
- hIGC7L+P4j3U03d1gW7e28m9p/KhXoomvUjYZh+4QwDE6g8uQqDZlgNErHVi34A26eCm
- P2FovLyOCkmIy6L3ZlHJmVXwFIuEAuBThF3d8JUgjEkzgoGcv3g52cc4LQd5hPG9cDJO
- Dd2fLrBg3XvWDPQBJrji8QgrT7jWU4ARgyB2GXIfY3OCYOlDar6U2l7lSd+yvrUiaLjs
- qO7Q==; darn=nongnu.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1771497009; x=1772101809; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+ebn6tOBtZqV9fwgzMapnao6wcIVQllIFXvo/tE4RGk=;
- b=LACkprfClg4RZ55oNDnluo7+3zvj/BeK6JYiS87cJsltkiCWFbvw/UTum9BTsk/wCg
- Ltl713eaGQVjao0FSs0qVYWbOnm4fGwYF+hOTUptAk8XonNYHZS9oSJAKRPO59nDIdhE
- d2wMq6gPn1HAXbqDtogu8r/jIJwmZpySvweSvloehXlA0XTEY158IiKhyWNX96Eb4bX9
- /z7LKeoymYXX1ylvw8fFkEHNr8YMSzH/rEntZBqo1tZYDdvENzmGT9v7ZNzBePk6R3yL
- xL6yAV2Fwxxdu6WZcrSgu/0uOWaG0RyMUi4oJ8es2sTu0U6lNIsq63fjBIFjlCFGb6kG
- MmEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771497009; x=1772101809;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=+ebn6tOBtZqV9fwgzMapnao6wcIVQllIFXvo/tE4RGk=;
- b=j3cCkxallOPtv12clvvvED7DhlWllF5SYOqrfNh9zsSqk1y5WpY4erG3+KN2GbCCK9
- rkuBE4lkNQCveOTnjiVORwnmWyej9GtVoLwwZP3zFGXpwHjlRbP7pNzn2NmRtUCD0E+/
- RYCHG5pOaSNd6JGLKwyJhReV6MTROkKFhgjLaSS7nNlXlbZ2eJmwwf+Kg9i/KIuJzddC
- oAkY4A8bK8PrR79M8jVLJvDdMYRALqGAzOUKB5ZQQU1bBFkd9OF7MeuHCrGOtA0cSEmQ
- jkqN8le2VpRdNYwiQrB1hmA0vVktdVoU/CHMnrM5Izbq2C2XPqWFSe4NMIy6x/2KlAmM
- VpEA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVMLZfeFXzc88cbWDLxvUhWldiEDeWrB85SmvLptX2gTL5wbCF4uEeo0dqTTFC8ZNcjLTiLO/7kbBg=@nongnu.org
-X-Gm-Message-State: AOJu0YxZvuBNJBVF8FykXLR3LzXJqBBNPS7MPh5LPP3IZq+wN3InUMru
- L4txD3NtUYIG6b/04/KrF67FPBls8vCHwgUrTd4PDUshML6dXnngUs2nWlsgaW3balWu61oN4SL
- 5411Nnz9mJbDjC+G8KGbgmK6fKqvJKoxkGlx0J13cYA==
-X-Gm-Gg: AZuq6aL2dz2JCal1dJDa+K47M8KIPntQr61hnwBvpsWoZGk4ZcoAGJoQ+tKVdo+gpJV
- KvSSnNDkQ2/dW3wBOhwckJQrra8LLH5XBPHC05u0n5PjbCzFTaQBFgqVyYO3Mh6X6IQX0BsqmtF
- SrAF4CPy18Z8feHNS6sJJB/7M95YlsI4+PlgCCduOvlBCKQGUeuWzru0r3vbOv1IiCHnBN5pFTq
- LXAWnvyD1teEf952q++gf3iFwIpnhYvzDubEJ8qxKKjY66HGKB5eV0goOJb5KnV1uVZfKWc9g6W
- ZHFTfimOcUXBotCO02U1CsWHtvUDN0Qsx9V9xk1Y+bJfxCw9KocuRcrTqhmyfSRIW1g=
-X-Received: by 2002:a05:690e:d58:b0:64a:d35e:d356 with SMTP id
- 956f58d0204a3-64c198c72e3mr14198316d50.30.1771497008664; Thu, 19 Feb 2026
- 02:30:08 -0800 (PST)
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vt4G3-00034Z-PN
+ for qemu-rust@nongnu.org; Thu, 19 Feb 2026 08:39:55 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vt4G0-0007nT-4n
+ for qemu-rust@nongnu.org; Thu, 19 Feb 2026 08:39:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1771508390;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5IwWZAnFc3mSrbeYfJE1CD79hrM4WjHyRsZDkW5qTP8=;
+ b=Ku23RmN9qLOKAnOSjr7N5VzpYlV2d67MTAcwN0P47MbQbBKxky94IJSqv9pw6wp4HdNnf7
+ 9fYPWzPaLcSp8eVc6FVEuQCN8OpyTDMilqPba64GUgcakZgUK+HEd/lG28HFTFlgtrNDaZ
+ DEHUgQ+PQE2fDlMdFO5TbjYlsiITWow=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-266-luGsydmJM8mg6WYdfBKfeQ-1; Thu,
+ 19 Feb 2026 08:39:46 -0500
+X-MC-Unique: luGsydmJM8mg6WYdfBKfeQ-1
+X-Mimecast-MFC-AGG-ID: luGsydmJM8mg6WYdfBKfeQ_1771508386
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id A6E5F1800451; Thu, 19 Feb 2026 13:39:45 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.14])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 49FA51954112; Thu, 19 Feb 2026 13:39:45 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id B8CD321E692D; Thu, 19 Feb 2026 14:39:42 +0100 (CET)
+From: Markus Armbruster <armbru@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org,  armbru@redhat.com,  =?utf-8?Q?Marc-Andr=C3=A9?=
+ Lureau <marcandre.lureau@redhat.com>,  qemu-rust@nongnu.org
+Subject: Re: [PATCH v2 00/16] rust: QObject and QAPI bindings
+In-Reply-To: <20260108131043.490084-1-pbonzini@redhat.com> (Paolo Bonzini's
+ message of "Thu, 8 Jan 2026 14:10:27 +0100")
+References: <20260108131043.490084-1-pbonzini@redhat.com>
+Date: Thu, 19 Feb 2026 14:39:42 +0100
+Message-ID: <877bs8rgwx.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-References: <20260211152508.732487-1-berrange@redhat.com>
- <20260211152508.732487-27-berrange@redhat.com>
-In-Reply-To: <20260211152508.732487-27-berrange@redhat.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Thu, 19 Feb 2026 10:29:56 +0000
-X-Gm-Features: AZwV_Qg_axfkx92o_MWe_VehT43BwlY0PdtMBFZkMa4fmyQ0hFJFoyCHoR5sUdk
-Message-ID: <CAFEAcA-08J-_dn22s858QtUPV32VM4OuAEgBV-WdmGGxvJSu0w@mail.gmail.com>
-Subject: Re: [PATCH v6 26/27] util: add support for formatting thread info in
- messages
-To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
-Cc: qemu-devel@nongnu.org, 
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Stefan Weil <sw@weilnetz.de>, "Dr. David Alan Gilbert" <dave@treblig.org>,
- Pierrick Bouvier <pierrick.bouvier@linaro.org>, devel@lists.libvirt.org, 
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
- =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>, 
- Hanna Reitz <hreitz@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
- qemu-block@nongnu.org, 
- qemu-rust@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, 
- Markus Armbruster <armbru@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Christian Schoenebeck <qemu_oss@crudebyte.com>,
- Richard Henderson <richard.henderson@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Mimecast-MFC-PROC-ID: _hs9FfK-jW5hCSCJnho066Bv_AxvY1wEjMORRBy4hC0_1771508386
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2607:f8b0:4864:20::112e;
- envelope-from=peter.maydell@linaro.org; helo=mail-yw1-x112e.google.com
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.045,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -130,24 +89,68 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Wed, 11 Feb 2026 at 15:29, Daniel P. Berrang=C3=A9 <berrange@redhat.com>=
- wrote:
-> After:
+Paolo Bonzini <pbonzini@redhat.com> writes:
+
+> This adds two related parts of the Rust bindings:
 >
->   # qemu-system-x86_64 -object tls-creds-x509,id=3Dt0,dir=3Dfish -d 'trac=
-e:qcrypto*'
->   qemu-system-x86_64: (772366:main): qcrypto_tls_creds_x509_load TLS cred=
-s x509 load creds=3D0x560db818e080 dir=3Dfish
->   qemu-system-x86_64: (772366:main): qcrypto_tls_creds_get_path TLS creds=
- path creds=3D0x560db818e080 filename=3Dca-cert.pem path=3D<none>
->   qemu-system-x86_64: (772366:main): Unable to access credentials fish/ca=
--cert.pem: No such file or directory
+> - QAPI code generator that creates Rust structs from the JSON
+>   description.  The structs are *not* ABI compatible with the
+>   C ones, instead they use native Rust data types.
+>
+> - QObject bindings and (de)serialization support, which can be used to
+>   convert QObjects to and from QAPI structs.
 
-Even more output enabled by default that is pretty useless for most
-uses of tracepoints and debug logging :-(
+To and from generated Rust structs, I presume.
 
-Please can we have this stuff all off-by-default? People
-who want this extra info can enable it.
+> Unfortunately Rust code is not able to use visitors, other than by
+> creating an intermediate QObject.  This is because of the different
+> architecture of serde vs. QAPI visitors, and because visitor's
+> dual-purpose functions, where the same function is used by both input and
+> output visitors, rely heavily on the structs using the same representatio=
+n
+> as the visitor arguments (for example NUL-terminated strings).
 
--- PMM
+Prior discussion of some aspects:
+
+    Subject: Re: [PATCH preview 0/3] reviving minimal QAPI generation from =
+2021
+    Date: Mon, 23 Jun 2025 14:52:46 +0200
+    Message-ID: <877c1262n5.fsf@pond.sub.org>
+    https://lore.kernel.org/qemu-devel/877c1262n5.fsf@pond.sub.org/
+
+> The serde format implementation was co-authored by me and Marc-Andr=C3=A9=
+.
+> Marc-Andr=C3=A9 did all the bug fixing and integration testing.
+>
+> As an example of how this would be used, the marshaling functions for
+> QMP commands would look like this:
+>
+> fn qmp_marshal_query_stats(args: *mut QDict,
+>     retp: *mut *mut QObject, errp: *mut *mut Error)
+> {
+>     let qobj =3D unsafe { QObject::cloned_from_raw(args.cast()) };
+>
+>     let result =3D from_qobject::<StatsFilter>(qobj)
+>          .map_err(anyhow::Error::from)
+>          .and_then(qmp_query_stats)
+>          .and_then(|ret| to_qobject::<Vec<StatsResult>>(ret).map_err(anyh=
+ow::Error::from));
+>
+>     match qmp_marshal_query_stats_rs(qobj) {
+>         Ok(ret) =3D> unsafe { *retp =3D ret.into_raw(); },
+>         Err(e) =3D> unsafe { crate::Error::from(e).propagate(errp) },
+>     }
+> }
+
+Scoring 0.23 UOUPNBL (uses of unsafe per non-blank line).  SCNR!
+
+> Despite the long v1->v2, the changes are mostly cosmetic; there are a few
+> small differences in the detection of types to be wrapped with Box<>,
+> because Vec<> is now considered to break cycles.
+>
+> Available at branch rust-next of https://gitlab.com/bonzini/qemu (which
+> is now almost empty other than this series, yay).
+>
+> Paolo
+
 
