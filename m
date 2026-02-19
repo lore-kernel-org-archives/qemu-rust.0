@@ -4,93 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD5B4E9A03B
-	for <qemu-rust@archiver.kernel.org>; Thu, 19 Feb 2026 03:39:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C0D8E9A03B
+	for <qemu-rust@archiver.kernel.org>; Thu, 19 Feb 2026 10:09:14 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vsusl-0005du-E8; Wed, 18 Feb 2026 22:39:15 -0500
+	id 1vt0xw-0006lD-50; Thu, 19 Feb 2026 05:09:00 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <richard.henderson@linaro.org>)
- id 1vsuse-0005co-CA
- for qemu-rust@nongnu.org; Wed, 18 Feb 2026 22:39:08 -0500
-Received: from mail-pg1-x52e.google.com ([2607:f8b0:4864:20::52e])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <richard.henderson@linaro.org>)
- id 1vsusb-00027g-QP
- for qemu-rust@nongnu.org; Wed, 18 Feb 2026 22:39:07 -0500
-Received: by mail-pg1-x52e.google.com with SMTP id
- 41be03b00d2f7-c7059b9df33so252112a12.0
- for <qemu-rust@nongnu.org>; Wed, 18 Feb 2026 19:39:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1771472344; x=1772077144; darn=nongnu.org;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=2kMJJp1Ay+vZ6BV9uMuIB+sg9ZroJe3b/ivrbyxfHXg=;
- b=lCN15oDA00Qdf0HxoxOTY8u62nEJKNFgs54jLhkNPS6ijAty2C5A9Y+BsCjmNXjDZ7
- FbT0mwBbXa3c18paMLevhoff9qgR/canr0uVtLbWBddDjj839jpcds3h+4jEBK1/HBMV
- X5JB18gzzqk2aWJ4+X8LsR5E8eEpl8Pb/Wps3vC4XRUe99ydHW/bdRXDzZoS/sWSnTf5
- OD/+HwpynYF3lH8mCI2y4Wq1wbNA9inrz4gzsx9m/rEJ56ririhPdForUFf/64PwNwsU
- ReKv6wToJ0zUgKD8PkCdGTslLJNlALiEfosiuy5wLOZcjSJWNj3cUG2Eo+KetN0hWzZ+
- jOxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771472344; x=1772077144;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=2kMJJp1Ay+vZ6BV9uMuIB+sg9ZroJe3b/ivrbyxfHXg=;
- b=ubW0rDfGtKT5sPYlX+m5gukFcjVMIgWi2tpBi/HoCBEfC/iXVTyCbnKox2YGlmScyD
- s5cy9HU6dnBdZnehqv+IMQ2Mcyp/BMcwXSIxuUoyhHmxTyF26tH5kcBvhNz64Xrr1cMS
- LWq7jYhvkvs/jKBXNlQalSlSAtoOdu0VWbA7OCCKs+MD9arbzMRPr5FXPPYnQ3zKvsBw
- BXvLZ69y0hQwbtdTL3Sv092pu2zuCwejnmbKB57M+WeqjuBS2GCi8q7aCTs0A0v6Ba/m
- KpubXBaF9aWVIiUhGJ+N9CQqhkxAGVbqFceKYNuzvPM3PoHRfAyk6NSQuZDIR0Ym5hVM
- t6JA==
-X-Gm-Message-State: AOJu0YymnRSbSGXlQGeYPphYWzOI8J3mjsw+l5ISQ/yCA/DZc2CZQoWG
- /mmAZqV3RZUc1H1IKDxXjLrgf6s37GwKm2/pcANYw6oo5ZSX8jjqLg/jWHkcDQXrIyY=
-X-Gm-Gg: AZuq6aLbhndMA5papkrf4+sgo2iYHlYEGdnyFcmbrAtOrAYSYLIMgX+GI+bMqpBjpPl
- lrmfE+dxv8sOCnNk3+XdlZXmpqWaDeDLYEmKiikS1t7ND5jK6Ek8ZcehhWeQst8sBgNtgZnyruJ
- bIDlTxCT9VabiyiOqAdHexjEG+mSSrzdZLx/JLjQP0yicGzFq5LZBbAfF4a0Qp8ACrEhfi2m9hy
- GxSrZIOV0b11FcwAUPGtCU+QpL+YNTjvmqiIOPjXFFPfqeRWhCLzZaHYNcw0dilQHngECk8v6kB
- 9ys03bm53HG5Pmi3p0feRctWveUJCAZkJYG1bI25E2/JczYWDhXHUyQARB5TTHRVz3hV3IQrFQb
- D3nsk1bzGMIEV/Q5ceP0Qm74SFj/J88eE3cpSLeC0nHR1RofqwLJit3CX0SUYUamDcgFvYJQPXt
- eY8ABcRbLh3p98v3j81FHYH054bli+uVRrHJnQW00X4BgwP1kOnOOSyOFvo4UxQFU/QxfVu6ifC
- 6rm4JHjNBWDJHFkrirzOGdFsLj2D+/GmALYmeii7cH9qASEKUS3MqIpnJpnrI4bUKUU
-X-Received: by 2002:a05:6a21:489:b0:38d:ec17:180 with SMTP id
- adf61e73a8af0-39517c6e7fbmr508415637.5.1771472344159; 
- Wed, 18 Feb 2026 19:39:04 -0800 (PST)
-Received: from ?IPV6:2403:580b:742d:0:a224:e0c2:669c:b307?
- (2403-580b-742d-0-a224-e0c2-669c-b307.ip6.aussiebb.net.
- [2403:580b:742d:0:a224:e0c2:669c:b307])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c6e52fe2e75sm13803232a12.10.2026.02.18.19.39.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Feb 2026 19:39:03 -0800 (PST)
-Message-ID: <118306d2-8c7f-4b8d-bba7-bf4529c3cc9b@linaro.org>
-Date: Thu, 19 Feb 2026 13:38:57 +1000
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vt0xu-0006kX-Kc
+ for qemu-rust@nongnu.org; Thu, 19 Feb 2026 05:08:58 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vt0xs-0007GI-S7
+ for qemu-rust@nongnu.org; Thu, 19 Feb 2026 05:08:58 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1771495735;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=HJWtWOij5kqJDGKkuNkM74Y6CD4Ke1WY1t4YFenkbec=;
+ b=ITHHCY1Yxjwnhu3JAHTefxj03BYuXv91aB/7h2dXD6gDOqA1hSCrx7Cd4+VEQfr1ZUHb7G
+ GaSU+DQ5lUS7JWnZ6lKkb+QD8qHKo+fBnFbxSXDqCBYLqY8OyrSO4rQZaISaXcYuyfU27s
+ 4j/KBmt4yrc2wVX1JlUoIqVWjIG3sLY=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-625-gbiC7Y9AOxq9_cevmG1lTA-1; Thu,
+ 19 Feb 2026 05:08:52 -0500
+X-MC-Unique: gbiC7Y9AOxq9_cevmG1lTA-1
+X-Mimecast-MFC-AGG-ID: gbiC7Y9AOxq9_cevmG1lTA_1771495730
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 8FDAF195605F; Thu, 19 Feb 2026 10:08:49 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.14])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 72553195410F; Thu, 19 Feb 2026 10:08:48 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id EFEAB21E692D; Thu, 19 Feb 2026 11:08:45 +0100 (CET)
+From: Markus Armbruster <armbru@redhat.com>
+To: Daniel P. =?utf-8?Q?Berrang=C3=A9?= <berrange@redhat.com>
+Cc: qemu-devel@nongnu.org,  Manos Pitsidianakis
+ <manos.pitsidianakis@linaro.org>,  Stefan Weil <sw@weilnetz.de>,  "Dr.
+ David Alan Gilbert" <dave@treblig.org>,  Pierrick Bouvier
+ <pierrick.bouvier@linaro.org>,  devel@lists.libvirt.org,  Philippe
+ =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,  =?utf-8?Q?Marc-Andr?=
+ =?utf-8?Q?=C3=A9?= Lureau
+ <marcandre.lureau@redhat.com>,  Hanna Reitz <hreitz@redhat.com>,  Kevin
+ Wolf <kwolf@redhat.com>,  qemu-block@nongnu.org,  qemu-rust@nongnu.org,
+ Paolo Bonzini <pbonzini@redhat.com>,  Gerd Hoffmann <kraxel@redhat.com>,
+ Christian Schoenebeck <qemu_oss@crudebyte.com>,  Richard Henderson
+ <richard.henderson@linaro.org>
+Subject: Re: [PATCH v6 25/27] util: add support for formatting a program
+ name in messages
+In-Reply-To: <20260211152508.732487-26-berrange@redhat.com> ("Daniel
+ P. =?utf-8?Q?Berrang=C3=A9=22's?= message of "Wed, 11 Feb 2026 15:25:06
+ +0000")
+References: <20260211152508.732487-1-berrange@redhat.com>
+ <20260211152508.732487-26-berrange@redhat.com>
+Date: Thu, 19 Feb 2026 11:08:45 +0100
+Message-ID: <87ikbt3v0y.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] rust: use checked_div to make clippy happy
-To: John Snow <jsnow@redhat.com>, qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-References: <20260218192444.658046-1-jsnow@redhat.com>
- <20260218192444.658046-2-jsnow@redhat.com>
-From: Richard Henderson <richard.henderson@linaro.org>
-Content-Language: en-US
-In-Reply-To: <20260218192444.658046-2-jsnow@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=2607:f8b0:4864:20::52e;
- envelope-from=richard.henderson@linaro.org; helo=mail-pg1-x52e.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Mimecast-MFC-PROC-ID: aAWIGdqGUifHl7sXp-Q-dYBOIRLUBOHCUTTrbHF8U3w_1771495730
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -13
+X-Spam_score: -1.4
+X-Spam_bar: -
+X-Spam_report: (-1.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.043,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ GB_FAKE_RF=0.754, RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001,
+ RCVD_IN_MSPIKE_WL=0.001, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.001,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.001, SPF_HELO_PASS=-0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -106,47 +102,57 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 2/19/26 05:24, John Snow wrote:
-> When upgrading from Fedora 41 to Fedora 43 for CI tests, clippy begins
-> complaining about not using checked_div instead of manually checking
-> divisors. Make clippy happy and use checked_div() instead.
-> 
-> Signed-off-by: John Snow <jsnow@redhat.com>
-> ---
->   rust/hw/core/src/qdev.rs | 14 ++++++--------
->   1 file changed, 6 insertions(+), 8 deletions(-)
-> 
-> diff --git a/rust/hw/core/src/qdev.rs b/rust/hw/core/src/qdev.rs
-> index 145e20a984f..c4a7312168f 100644
-> --- a/rust/hw/core/src/qdev.rs
-> +++ b/rust/hw/core/src/qdev.rs
-> @@ -425,18 +425,16 @@ pub const fn period_from_ns(ns: u64) -> u64 {
->       }
->   
->       pub const fn period_from_hz(hz: u64) -> u64 {
-> -        if hz == 0 {
-> -            0
-> -        } else {
-> -            Self::PERIOD_1SEC / hz
-> +        match Self::PERIOD_1SEC.checked_div(hz) {
-> +            Some(value) => value,
-> +            None => 0,
->           }
->       }
->   
->       pub const fn period_to_hz(period: u64) -> u64 {
-> -        if period == 0 {
-> -            0
-> -        } else {
-> -            Self::PERIOD_1SEC / period
-> +        match period.checked_div(Self::PERIOD_1SEC) {
-> +            Some(value) => value,
-> +            None => 0,
->           }
->       }
->   
+Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
 
-These conversions are inconsistent about the placement of divisor and dividend.
+> The error_report function can include the program name in any
+> messages it prints. The qemu_log function has no equivalent
+> behaviour.
+>
+> This introduces support for a "program name" in the new
+> messages API, which will be included by default for all
+> binaries.
+>
+> This change tweaks the output of the error_report function,
+> adding a space between the program name and the location
+> info.
 
-r~
+Why?
+
+>       The qemu_log function will gain the program name. This
+> can be easily seen with the 'log' trace backend, and how it
+> is now more closely matching error_report output.
+>
+> Before:
+>
+>   # qemu-system-x86_64 -object tls-creds-x509,id=3Dt0,dir=3Dfish -d 'trac=
+e:qcrypto*'
+>   qcrypto_tls_creds_x509_load TLS creds x509 load creds=3D0x5584e13937f0 =
+dir=3Dfish
+>   qcrypto_tls_creds_get_path TLS creds path creds=3D0x5584e13937f0 filena=
+me=3Dca-cert.pem path=3D<none>
+>   qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: No s=
+uch file or directory
+>
+> After:
+>
+>   # qemu-system-x86_64 -object tls-creds-x509,id=3Dt0,dir=3Dfish -d 'trac=
+e:qcrypto*'
+>   qemu-system-x86_64: qcrypto_tls_creds_x509_load TLS creds x509 load cre=
+ds=3D0x5584e13937f0 dir=3Dfish
+>   qemu-system-x86_64: qcrypto_tls_creds_get_path TLS creds path creds=3D0=
+x5584e13937f0 filename=3Dca-cert.pem path=3D<none>
+>   qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: No s=
+uch file or directory
+>
+> When adding this the '-msg program-name=3Don|off' option is
+> introduced, so that the program name (which is enabled by
+> default) can be supressed if desired. This could be useful
+> if '-msg guest-name=3Don' is being used as a more informative
+> identifier.
+
+Separate patch?
+
+> Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+> Signed-off-by: Daniel P. Berrang=C3=A9 <berrange@redhat.com>
+
 
