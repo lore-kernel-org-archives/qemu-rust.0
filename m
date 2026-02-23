@@ -4,96 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE3A4EC1102
-	for <qemu-rust@archiver.kernel.org>; Mon, 23 Feb 2026 16:12:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FFE7EC1105
+	for <qemu-rust@archiver.kernel.org>; Mon, 23 Feb 2026 16:25:24 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vuYXe-000206-6I; Mon, 23 Feb 2026 11:12:14 -0500
+	id 1vuYkH-0005q9-K6; Mon, 23 Feb 2026 11:25:17 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vuYXb-0001z7-7Y
- for qemu-rust@nongnu.org; Mon, 23 Feb 2026 11:12:12 -0500
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1vuYkE-0005gY-Qs
+ for qemu-rust@nongnu.org; Mon, 23 Feb 2026 11:25:15 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vuYXZ-0005Xf-0s
- for qemu-rust@nongnu.org; Mon, 23 Feb 2026 11:12:10 -0500
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1vuYkC-0000qC-QI
+ for qemu-rust@nongnu.org; Mon, 23 Feb 2026 11:25:14 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1771863125;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ s=mimecast20190719; t=1771863910;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Ze/An/SOFIjsOjs+x6ZwwPrH9WzszpFw6b9TfdTWBjw=;
- b=V6l80I4rjT6kzuLhGIm6dEZ8dZKFflSdVXKKMdupSk2C7iued9+noTAcyMNauJYjwQaXFU
- CV0+LymHYNG2ZveFSFChJCW6Vl/C5gzB25EXOE2d0r+9gXrR/re+dN6eRvDLbYI9lGh+zP
- fvb1DUyejViqnDeXofO9vtsZIWUXUmI=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-307-hKp-n5ccPp6c3B_YR-M4yw-1; Mon, 23 Feb 2026 11:12:04 -0500
-X-MC-Unique: hKp-n5ccPp6c3B_YR-M4yw-1
-X-Mimecast-MFC-AGG-ID: hKp-n5ccPp6c3B_YR-M4yw_1771863123
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-b8842248611so661575966b.0
- for <qemu-rust@nongnu.org>; Mon, 23 Feb 2026 08:12:04 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771863123; x=1772467923;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Ze/An/SOFIjsOjs+x6ZwwPrH9WzszpFw6b9TfdTWBjw=;
- b=IfrLCxhISiKFnlZzwmZHGOR2NXHTSKLhxgCStc8wqMBCs9SAe1yZkHfjWfmdX57jfJ
- M/2bUDgv/u8aghSAzW6iSy4fjR2A9X910Kz8XgI2RVn3EKANKJDKOA2/onE30SwAujYX
- aLRkvd94skRTSl2g96FcWs/pMAU9QaUdJZRSKLKHrdUETbbz4SebZlsvkcVFi7ae5y1I
- GRJ8tvhGFDQiGBLec7W/zgwiyr9j9qmI5jcJK6n28VJMWV80rTOVUTmqGSQYBE9gFPIV
- ThMq5DLnY/VFgPGTBUtYFhSAtBzUAnIkKxy8xIP3zHATKnUW5+u4Nk2r0qyWhONA9v18
- D7bQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW6/QyuK9ZTTF1hltORrE1qedkJq0gcF+UzhbnvM0K1jfA0r8LnV+F1xfNZREnFfL/jThzxmjvDvto=@nongnu.org
-X-Gm-Message-State: AOJu0YwrJQP40b1gVIRlIKwx3ASlKiZQFyS2f54ZLqCJDUHLQ3rbu8hB
- MPGSXobyIHIcIVfdlnshqiZd4/juzk30zq2oSymzJHN0rwnDfYkDThbZfJlQLUhdq+UsEyGCsx1
- TwDPCA6tMPEusf2BeMu5vzVd737RbEq6dNeHRAZ1ZLw5BXfORh4pT8EY=
-X-Gm-Gg: AZuq6aIhYk5puDvW6ZuaPxW9/j7QnhGpYBrzzMXWKEc7NlOVKA9EoqgfqlKggXoZ9AR
- 1q3bB86iz0Jown1xJk2o8xefqz9zA9Od1DP2QM9ssn/h8jG/JCBSz4fdFbyUzEiVRL2pu+wpCrc
- qcNyfHqkUjlrri8HDclZEs33/G4qLjRXtXdmY1hhltC9YBGsYGS7vhaS9Zt57gxLZ93t+iZB8qQ
- CoBbdJKTML9eXUa7obZ0L53M/UwUQaC5BLg101JIbt4zzLJ6gqtjDyvl56PpAIC1kHPtnszXPYj
- Fwt5wsw5w+SRiFIc0TgVU0wZpWmtp0DZGizq1/qyoiRRrUXkL0aylMa7T2ceJyFcgVOC83059Gg
- FUkMPZpl1tWNvec6yuD9krTa3jMqrqDo5QspBB8A+2MglZYM47tK4aI2MM65j7wwkCPdZa1jQhs
- j+EEyof8nfUzZtKqbv8n2tMW8WTGQ=
-X-Received: by 2002:a17:906:fe4d:b0:b43:b7ec:b8a1 with SMTP id
- a640c23a62f3a-b9081a4b105mr542935966b.24.1771863122846; 
- Mon, 23 Feb 2026 08:12:02 -0800 (PST)
-X-Received: by 2002:a17:906:fe4d:b0:b43:b7ec:b8a1 with SMTP id
- a640c23a62f3a-b9081a4b105mr542933566b.24.1771863122350; 
- Mon, 23 Feb 2026 08:12:02 -0800 (PST)
-Received: from [192.168.10.48] ([151.95.144.138])
- by smtp.googlemail.com with ESMTPSA id
- a640c23a62f3a-b9084eb912dsm345905066b.55.2026.02.23.08.12.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Feb 2026 08:12:01 -0800 (PST)
-Message-ID: <80366391-ad17-4ed8-82d4-79a6168e374e@redhat.com>
-Date: Mon, 23 Feb 2026 17:11:59 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/16] scripts/qapi: generate high-level Rust bindings
-To: Markus Armbruster <armbru@redhat.com>
-Cc: qemu-devel@nongnu.org, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
- <marcandre.lureau@redhat.com>, qemu-rust@nongnu.org
+ bh=6SWX5bxNN8QwbIb2BzT3lRnyYI6WRdyTch9E/k+gcl4=;
+ b=A7z+c6jMd6Ch9OPnq04jNDaTAbvrS8o3IoNU0cZtlLV+1rcvCQXn7AiW/kwVCr04+YH1De
+ vOgAKXWESuiv6pNs/0cnWJ8i2es1MFDaEYROvXZ7SeyupliVxU/YUC7XEDOhsWWx6KkxK0
+ e+W05fhqvSdkTR9xv4nzFf1VPCDPVw4=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-371-B7anA2ZrPI-N_gOYWYbdXQ-1; Mon,
+ 23 Feb 2026 11:25:06 -0500
+X-MC-Unique: B7anA2ZrPI-N_gOYWYbdXQ-1
+X-Mimecast-MFC-AGG-ID: B7anA2ZrPI-N_gOYWYbdXQ_1771863906
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 9EB6C180034D; Mon, 23 Feb 2026 16:25:05 +0000 (UTC)
+Received: from redhat.com (unknown [10.45.226.11])
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 7A7B619560A3; Mon, 23 Feb 2026 16:25:03 +0000 (UTC)
+Date: Mon, 23 Feb 2026 16:24:59 +0000
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, armbru@redhat.com,
+ =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
+ qemu-rust@nongnu.org
+Subject: Re: [PATCH v2 00/16] rust: QObject and QAPI bindings
+Message-ID: <aZx_Wy1-eBsTEB1s@redhat.com>
 References: <20260108131043.490084-1-pbonzini@redhat.com>
- <20260108131043.490084-13-pbonzini@redhat.com> <87ms0z7i33.fsf@pond.sub.org>
-From: Paolo Bonzini <pbonzini@redhat.com>
-In-Reply-To: <87ms0z7i33.fsf@pond.sub.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: oWFA2fMtbJfbnwfmmUWG56g9Dy99Yp_ja7p5eB-ToWo_1771863123
+ <aZwjpfu-qCCSoHdx@redhat.com>
+ <bedbf511-c46a-4468-bf65-cc452c621765@redhat.com>
+MIME-Version: 1.0
+In-Reply-To: <bedbf511-c46a-4468-bf65-cc452c621765@redhat.com>
+User-Agent: Mutt/2.2.14 (2025-02-20)
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-Mimecast-MFC-PROC-ID: 3vRZ2VUhqTfVZUSCe-m3mUPkV_88niDOhazvSEJTtEs_1771863906
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -1
 X-Spam_score: -0.2
@@ -115,54 +90,88 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 2/23/26 13:36, Markus Armbruster wrote:
-> Paolo Bonzini <pbonzini@redhat.com> writes:
+On Mon, Feb 23, 2026 at 04:54:07PM +0100, Paolo Bonzini wrote:
+> On 2/23/26 10:53, Daniel P. Berrangé wrote:
+> > On Thu, Jan 08, 2026 at 02:10:27PM +0100, Paolo Bonzini wrote:
+> > > This adds two related parts of the Rust bindings:
+> > > 
+> > > - QAPI code generator that creates Rust structs from the JSON
+> > >    description.  The structs are *not* ABI compatible with the
+> > >    C ones, instead they use native Rust data types.
+> > > 
+> > > - QObject bindings and (de)serialization support, which can be used to
+> > >    convert QObjects to and from QAPI structs.
+> > > 
+> > > Unfortunately Rust code is not able to use visitors, other than by
+> > > creating an intermediate QObject.  This is because of the different
+> > > architecture of serde vs. QAPI visitors, and because visitor's
+> > > dual-purpose functions, where the same function is used by both input and
+> > > output visitors, rely heavily on the structs using the same representation
+> > > as the visitor arguments (for example NUL-terminated strings).
+> > > 
+> > > The serde format implementation was co-authored by me and Marc-André.
+> > > Marc-André did all the bug fixing and integration testing.
+> > > 
+> > > As an example of how this would be used, the marshaling functions for
+> > > QMP commands would look like this:
+> > 
+> > Can you give more of the big picture about what follows this ?  From
+> > this example you're showing, are you suggesting that you'll be soon
+> > moving QMP command impls from C to Rust ?
 > 
->> From: Marc-André Lureau <marcandre.lureau@redhat.com>
->>
->> Generate high-level native Rust declarations for the QAPI types.
->>
->> - char* is mapped to String, scalars to there corresponding Rust types
->>
->> - enums use #[repr(u32)] and can be transmuted to their C counterparts
->>
->> - has_foo/foo members are mapped to Option<T>
->>
->> - lists are represented as Vec<T>
->>
->> - structures map fields 1:1 to Rust
->>
->> - alternate are represented as Rust enum, each variant being a 1-element
->>    tuple
->>
->> - unions are represented in a similar way as in C: a struct S with a "u"
->>    member (since S may have extra 'base' fields). The discriminant
->>    isn't a member of S, since Rust enum already include it, but it can be
->>    recovered with "mystruct.u.into()"
->>
->> Anything that includes a recursive struct puts it in a Box.  Lists are
->> not considered recursive, because Vec breaks the recursion (it's possible
->> to construct an object containing an empty Vec of its own type).
->>
->> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
->> Link: https://lore.kernel.org/r/20210907121943.3498701-21-marcandre.lureau@redhat.com
->> [Paolo: rewrite conversion of schema types to Rust types]
->> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> The reasons for Marc-André and I to do this was just as an exploration. The
+> patches show a different way to do what he had already tackled in 2022, and
+> allow a direct comparison the relative benefits between a more Rust-focused
+> approach and a more direct translation of QEMU's C code.
 > 
-> Please mention how to actually generate Rust, because it's anything but
-> obvious: pass -B qapi.backend.QAPIRsBackend to qapi-gen.py.  Recommend
-> to mention it again in the cover letter.
+> Marc-André indeed had command implementations in Rust and that would be an
+> obvious next step to continue on the QAPI side.  On the other hand, the
+> QObject part (without QAPI structs) also works as a step towards more QOM
+> integration, especially with respect to properties and backends.  Having a
+> full-blown QObject implementation to move around bools is perhaps
+> over-engineered, but is also an easy way to make a generic implementation
+> that works for all QAPI types.
 > 
-> Additionally, state that this is a hack we'll want to replace both in
-> the commit message and a TODO comment.  See review of v1's cover letter
-> for why.
+> The block layer also needs QAPI for option parsing, so Kevin's work on block
+> layer bindings would also benefit from having this integration.
+> 
+> In other words, there is no real big picture from me other than "someone
+> needs to do the hard part for others": QOM, QAPI and the build system are
+> the three central components from which all other bindings branch out.  Zhao
+> and Marc-André have helped a lot with this work, and they also showed how to
+> use these hard parts (see Zhao's vm-memory work and Marc-André's GStreamer
+> backend), now it's also time for others to try and to take inspiration from
+> Rust for improving the C side of things.
 
-Yes, the TODO comment is in patch 14 where the thing actually gets used. 
-  I can make it more prominent.
+I guess the thing I'm wondering about when I ask about the big picture
+is to understand tne interoperability implications of this impl approach,
+given the starting point that the Rust & C structs are *not* ABI compatible.
 
-Paolo
+
+If we're anticipating that the Rust usage flows up from a Rust QMP command
+handler, then the data is in the Rust struct right from the entry point
+and perhaps the interoperability needs are reduced in scope.
+
+If we're anticipating a calls back & forth between C & Rust code, that
+directly handle the deserialized structs, then we have an open interop
+question. Is the implication that we round-trip via JSON every time we
+need to swap between a Rust struct and C struct for a given type ? Or
+will we have a direct struct<->struct conversion mechanism ? Or is there
+something else entirely ?
+
+I feel a bit lost in how to evaluate this series without seeing some
+real world usage, in a way that exposes the possible implications of
+the lack of C/Rust ABI compat in the structs.
+
+With regards,
+Daniel
+-- 
+|: https://berrange.com       ~~        https://hachyderm.io/@berrange :|
+|: https://libvirt.org          ~~          https://entangle-photo.org :|
+|: https://pixelfed.art/berrange   ~~    https://fstop138.berrange.com :|
 
 
