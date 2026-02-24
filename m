@@ -4,65 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D261E9B269
-	for <qemu-rust@archiver.kernel.org>; Tue, 24 Feb 2026 14:07:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1406F4BB63
+	for <qemu-rust@archiver.kernel.org>; Tue, 24 Feb 2026 17:29:29 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vut47-00066p-Ny; Tue, 24 Feb 2026 09:07:07 -0500
+	id 1vuwDj-0001QP-VD; Tue, 24 Feb 2026 12:29:16 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vut45-00065G-AY
- for qemu-rust@nongnu.org; Tue, 24 Feb 2026 09:07:05 -0500
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1vuwDc-0001Os-SE
+ for qemu-rust@nongnu.org; Tue, 24 Feb 2026 12:29:10 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vut43-0004Ss-SD
- for qemu-rust@nongnu.org; Tue, 24 Feb 2026 09:07:05 -0500
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1vuwDW-0001XS-93
+ for qemu-rust@nongnu.org; Tue, 24 Feb 2026 12:29:06 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1771942023;
+ s=mimecast20190719; t=1771954135;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WMG90nQw2aKOpn7s/SXrczV3b7uDI8IcAUu+zIU60o0=;
- b=bB+ghTOJCt3sZ7RFBs86k4MSqpP+iHCZJwQ4bNQpof9T0dCVxfmwO6o2IQqIuAR4h9aLhd
- Pbqtlfzv8cHnyv6Hnu05IZMBAnkByeHty6OIHzbN5CdLIrqJhPNZn+UG3WEp7OfcXDX5CX
- sX63fqyhgE8nOOOUCiJLTfD9RBZZzm4=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-684-CLlUFe9WOxC0Y_6-3jF6jw-1; Tue,
- 24 Feb 2026 09:06:59 -0500
-X-MC-Unique: CLlUFe9WOxC0Y_6-3jF6jw-1
-X-Mimecast-MFC-AGG-ID: CLlUFe9WOxC0Y_6-3jF6jw_1771942018
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 965FE1800639; Tue, 24 Feb 2026 14:06:58 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.45.242.13])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 545731955F43; Tue, 24 Feb 2026 14:06:58 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id D767421E692D; Tue, 24 Feb 2026 15:06:55 +0100 (CET)
-From: Markus Armbruster <armbru@redhat.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org,  =?utf-8?Q?Marc-Andr=C3=A9?= Lureau
- <marcandre.lureau@redhat.com>, qemu-rust@nongnu.org
-Subject: Re: [PATCH v2 00/16] rust: QObject and QAPI bindings
-In-Reply-To: <20260108131043.490084-1-pbonzini@redhat.com> (Paolo Bonzini's
- message of "Thu, 8 Jan 2026 14:10:27 +0100")
-References: <20260108131043.490084-1-pbonzini@redhat.com>
-Date: Tue, 24 Feb 2026 15:06:55 +0100
-Message-ID: <87tsv6z14w.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ bh=66/kj0p3LqDSHbvWB/4yLzeyq6l4dm9MLx1rsWxqgqQ=;
+ b=Xl/QMr+OxknaMoMSJhRsxT16DzqN3hZO4fGt2eDtECAzR5KW6d4mb7DFesgP6oWMW+Id0N
+ Xa37sP3DJESOvrPu8lmSyDPOxIar1scZxyT/MIU9Ihm3F6Ng5tEZWCw114PNVvMKGI4cHA
+ MfY5S05ciGwsDjkl1de60NEUPqYoqfQ=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-614-HfrbfdYSMZqZG7IOB8FAsA-1; Tue, 24 Feb 2026 12:28:53 -0500
+X-MC-Unique: HfrbfdYSMZqZG7IOB8FAsA-1
+X-Mimecast-MFC-AGG-ID: HfrbfdYSMZqZG7IOB8FAsA_1771954132
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-48378df3469so157925e9.1
+ for <qemu-rust@nongnu.org>; Tue, 24 Feb 2026 09:28:53 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1771954132; x=1772558932;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=66/kj0p3LqDSHbvWB/4yLzeyq6l4dm9MLx1rsWxqgqQ=;
+ b=kWJ9AM5dKleibu70an8K6W1y+3zRE27+l/8Vn05brMZmbTFsZmy5lE1S8TI51c268h
+ QhDcB3Jk9VfLHcGQXtTk6TsgyS+GEN68jKPnpZoak1/UQtKnHBjg/ZjhcaCOk4JpYeNr
+ RbZ6i0ZfRuweIjHt0lhPYrdQJUv7vNegLdIfwoXRGHBu+SJJpNqLQyMN0uO+UYlBtkpa
+ u2cARIJBXavnVdd3TcMgU+UxWYhaPTzbEXKrOSta50YD1gCH89MMoPsudMyEOWSV5sUN
+ vzZEcQyiCuRyhgkHUQ8VI2qNiiuhJj5WL1kfVyPHVqBb2XqUjwc+EcFTtZj3a6PpbAHD
+ IAOg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXiLRE735TSpWvOAVE/6Fz5Cao2auxdOeWo1acKDLtMS/njL9DpngrDH+Xc9OoErGQXR3nuPHB8t5Q=@nongnu.org
+X-Gm-Message-State: AOJu0Yys8JlYJf4eRWzrXoHPMOTGhKMSoIFxJu5sP/Jof7nkLn3BYGxd
+ Tpi2b6KE16CqR44wcIbMbU+UNtYlu/AN4kUJbA07o7GPSCfsUZ52getbLtFhGpttBgVc9rqNQN0
+ WF2WQVIFPQ3xgLwwS6aWE9gCSQO8p4ZsbdBRXqMr1C8Ew+x1SUYovyys=
+X-Gm-Gg: AZuq6aJ8znKiSehGnnnRyBAj1KhKXZpbQUJwiC2jD5eOWWqVrfZRHeTUzlAXPE1L13L
+ XIJx+ObWdg5TDuNuXlu67YEEpvuXaKUPabUOIIvDWzLArDTqlF1r51C2X9Eo4FQSDS3NxnxdfKq
+ xfdqxlW6Fapv8Aj8tLJXp9k+hG4ROHH01feHmW+fM2/+KIQwDjmlkA5PEWdOhQKk08rXA21f6rl
+ UF1Hqew2zCZMIeudFJX9m6egoLGZCQR9fBhXcH9P2Cd9UZF7bOsx/Up80xrZCTbuxUjSdRhAS3W
+ LnOwyxbkKLoCWRYBC6+VPfl1m97XkFi6slPW6uL0V38aothMz/3KxcTuc1PY40m4TQ+ikHDFCn8
+ jZWQ7n3k+urpstyU4atrgZkIfg+YkkOlWE5eyb1FXyoixl7XcXVveRk9BN/qKnSziPXSpfq9Nnk
+ mHPNHxW8V4AG3coMKg3C+a6vhmPOY=
+X-Received: by 2002:a05:600c:818d:b0:47d:6c36:a125 with SMTP id
+ 5b1f17b1804b1-483bd75e25fmr12198015e9.17.1771954131989; 
+ Tue, 24 Feb 2026 09:28:51 -0800 (PST)
+X-Received: by 2002:a05:600c:818d:b0:47d:6c36:a125 with SMTP id
+ 5b1f17b1804b1-483bd75e25fmr12197455e9.17.1771954131167; 
+ Tue, 24 Feb 2026 09:28:51 -0800 (PST)
+Received: from [192.168.10.81] ([151.95.144.138])
+ by smtp.googlemail.com with ESMTPSA id
+ 5b1f17b1804b1-483bd68826asm22295365e9.0.2026.02.24.09.28.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Feb 2026 09:28:50 -0800 (PST)
+Message-ID: <e9abc154-9219-4d7e-b711-0a68bfe62845@redhat.com>
+Date: Tue, 24 Feb 2026 18:28:49 +0100
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: 3n_uS5MyYOax7z0iV2BYHyMFGHdh_PNUuU6WGL1585k_1771942018
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/16] rust: QObject and QAPI bindings
+To: Markus Armbruster <armbru@redhat.com>
+Cc: qemu-devel@nongnu.org, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
+ <marcandre.lureau@redhat.com>, qemu-rust@nongnu.org
+References: <20260108131043.490084-1-pbonzini@redhat.com>
+ <87tsv6z14w.fsf@pond.sub.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
+In-Reply-To: <87tsv6z14w.fsf@pond.sub.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: d6X0KBzI2CDrcFqelhRm0ZO70Ieo2HIO6IzcsjqsTIw_1771954132
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -10
 X-Spam_score: -1.1
@@ -87,41 +118,60 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Paolo Bonzini <pbonzini@redhat.com> writes:
+On 2/24/26 15:06, Markus Armbruster wrote:
+> Paolo Bonzini <pbonzini@redhat.com> writes:
+> 
+>> This adds two related parts of the Rust bindings:
+> 
+> [...]
+> 
+>>   docs/devel/rust.rst                           |   1 +
+>>   meson.build                                   |   4 +-
+>>   include/qobject/qobject.h                     |   5 +-
+>>   rust/util/wrapper.h                           |   8 +
+>>   qapi/meson.build                              |   9 +
+>>   rust/Cargo.lock                               |   2 +
+>>   rust/Cargo.toml                               |   2 +
+>>   rust/meson.build                              |   4 +
+>>   rust/tests/meson.build                        |  21 +-
+>>   rust/tests/tests/integration.rs               |   2 +
+>>   rust/tests/tests/qapi.rs                      | 444 +++++++++++++
+>>   rust/util/Cargo.toml                          |   2 +
+>>   rust/util/meson.build                         |  30 +-
+>>   rust/util/src/lib.rs                          |   4 +
+>>   rust/util/src/qobject/deserialize.rs          | 134 ++++
+>>   rust/util/src/qobject/deserializer.rs         | 371 +++++++++++
+> 
+> Are you sure having two source filenames differ in just one character is
+> a good idea?
+> 
+>>   rust/util/src/qobject/error.rs                |  58 ++
+>>   rust/util/src/qobject/mod.rs                  | 383 ++++++++++++
+>>   rust/util/src/qobject/serialize.rs            |  59 ++
+>>   rust/util/src/qobject/serializer.rs           | 585 ++++++++++++++++++
+> 
+> Likewise.
 
-> This adds two related parts of the Rust bindings:
+I feel and share your pain...  That's how serde calls the things ("-er" 
+for the struct and verb for the trait) and I cannot really thing of a 
+different naming for files.
 
-[...]
+I thought of renaming serializer.rs to to_qobject.rs, and 
+deserializer.rs to from_qobject.rs.  However, that doesn't work out 
+because I want  "qobject::to_object" to be the function, not the module 
+containing to_qobject() and Serializer.
 
->  docs/devel/rust.rst                           |   1 +
->  meson.build                                   |   4 +-
->  include/qobject/qobject.h                     |   5 +-
->  rust/util/wrapper.h                           |   8 +
->  qapi/meson.build                              |   9 +
->  rust/Cargo.lock                               |   2 +
->  rust/Cargo.toml                               |   2 +
->  rust/meson.build                              |   4 +
->  rust/tests/meson.build                        |  21 +-
->  rust/tests/tests/integration.rs               |   2 +
->  rust/tests/tests/qapi.rs                      | 444 +++++++++++++
->  rust/util/Cargo.toml                          |   2 +
->  rust/util/meson.build                         |  30 +-
->  rust/util/src/lib.rs                          |   4 +
->  rust/util/src/qobject/deserialize.rs          | 134 ++++
->  rust/util/src/qobject/deserializer.rs         | 371 +++++++++++
+serde_json places the struct and trait in the same file (e.g. 
+https://github.com/serde-rs/json/blob/master/src/value/ser.rs).  I can 
+do that if you prefer it that way.
 
-Are you sure having two source filenames differ in just one character is
-a good idea?
+Paolo
 
->  rust/util/src/qobject/error.rs                |  58 ++
->  rust/util/src/qobject/mod.rs                  | 383 ++++++++++++
->  rust/util/src/qobject/serialize.rs            |  59 ++
->  rust/util/src/qobject/serializer.rs           | 585 ++++++++++++++++++
-
-Likewise.
-
-These caused a bit of friction in review already...
-
-[...]
+> These caused a bit of friction in review already...
+> 
+> [...]
+> 
+> 
+> 
 
 
