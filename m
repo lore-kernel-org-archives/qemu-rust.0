@@ -4,76 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3024DE9B260
-	for <qemu-rust@archiver.kernel.org>; Tue, 24 Feb 2026 13:46:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D261E9B269
+	for <qemu-rust@archiver.kernel.org>; Tue, 24 Feb 2026 14:07:51 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vuskK-0006Uo-9q; Tue, 24 Feb 2026 08:46:43 -0500
+	id 1vut47-00066p-Ny; Tue, 24 Feb 2026 09:07:07 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vuskE-0006Qi-1q
- for qemu-rust@nongnu.org; Tue, 24 Feb 2026 08:46:35 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vut45-00065G-AY
+ for qemu-rust@nongnu.org; Tue, 24 Feb 2026 09:07:05 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vuskB-0007va-R7
- for qemu-rust@nongnu.org; Tue, 24 Feb 2026 08:46:33 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vut43-0004Ss-SD
+ for qemu-rust@nongnu.org; Tue, 24 Feb 2026 09:07:05 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1771940791;
+ s=mimecast20190719; t=1771942023;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZSRnmCNSwuYoeJQkt/CIBoB4Gx3bzAKi6WZ4rDhZKx8=;
- b=XCCQLV8cGY1irA+7DY/NqGiWwze+t3S2+sUla/Bz7QRf1DmpFggo9idrYCzt2A3sLhK05i
- Quict5SqoqGlgeyJyBwnNUkd8yMrrhmldRTIpyhNvGBNHHZk9awCLgFffcw3n8OiZefhFE
- 35i3Z9Kq2bP+ncRQWNyzmjtYB6p5DVI=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (54.186.198.63 [54.186.198.63]) by relay.mimecast.com with ESMTP with
- STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-413-1UT4S2PfOjS-29UX0oSqBA-1; Tue, 24 Feb 2026 08:46:28 -0500
-X-MC-Unique: 1UT4S2PfOjS-29UX0oSqBA-1
-X-Mimecast-MFC-AGG-ID: 1UT4S2PfOjS-29UX0oSqBA_1771940782
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ bh=WMG90nQw2aKOpn7s/SXrczV3b7uDI8IcAUu+zIU60o0=;
+ b=bB+ghTOJCt3sZ7RFBs86k4MSqpP+iHCZJwQ4bNQpof9T0dCVxfmwO6o2IQqIuAR4h9aLhd
+ Pbqtlfzv8cHnyv6Hnu05IZMBAnkByeHty6OIHzbN5CdLIrqJhPNZn+UG3WEp7OfcXDX5CX
+ sX63fqyhgE8nOOOUCiJLTfD9RBZZzm4=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-684-CLlUFe9WOxC0Y_6-3jF6jw-1; Tue,
+ 24 Feb 2026 09:06:59 -0500
+X-MC-Unique: CLlUFe9WOxC0Y_6-3jF6jw-1
+X-Mimecast-MFC-AGG-ID: CLlUFe9WOxC0Y_6-3jF6jw_1771942018
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 4149F1956052; Tue, 24 Feb 2026 13:46:22 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 965FE1800639; Tue, 24 Feb 2026 14:06:58 +0000 (UTC)
 Received: from blackfin.pond.sub.org (unknown [10.45.242.13])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id F337F30001BB; Tue, 24 Feb 2026 13:46:21 +0000 (UTC)
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 545731955F43; Tue, 24 Feb 2026 14:06:58 +0000 (UTC)
 Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 6AC8321E692D; Tue, 24 Feb 2026 14:46:19 +0100 (CET)
+ id D767421E692D; Tue, 24 Feb 2026 15:06:55 +0100 (CET)
 From: Markus Armbruster <armbru@redhat.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org,  =?utf-8?Q?Marc-Andr=C3=A9?= Lureau
  <marcandre.lureau@redhat.com>, qemu-rust@nongnu.org
-Subject: Re: [PATCH v2 12/16] scripts/qapi: generate high-level Rust bindings
-In-Reply-To: <80366391-ad17-4ed8-82d4-79a6168e374e@redhat.com> (Paolo
- Bonzini's message of "Mon, 23 Feb 2026 17:11:59 +0100")
+Subject: Re: [PATCH v2 00/16] rust: QObject and QAPI bindings
+In-Reply-To: <20260108131043.490084-1-pbonzini@redhat.com> (Paolo Bonzini's
+ message of "Thu, 8 Jan 2026 14:10:27 +0100")
 References: <20260108131043.490084-1-pbonzini@redhat.com>
- <20260108131043.490084-13-pbonzini@redhat.com>
- <87ms0z7i33.fsf@pond.sub.org>
- <80366391-ad17-4ed8-82d4-79a6168e374e@redhat.com>
-Date: Tue, 24 Feb 2026 14:46:19 +0100
-Message-ID: <87jyw21cgk.fsf@pond.sub.org>
+Date: Tue, 24 Feb 2026 15:06:55 +0100
+Message-ID: <87tsv6z14w.fsf@pond.sub.org>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: WDZqhxtrnbns4u4HA_DF4dplDqCa2HwmPOhl5rXBdl4_1771940782
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Mimecast-MFC-PROC-ID: 3n_uS5MyYOax7z0iV2BYHyMFGHdh_PNUuU6WGL1585k_1771942018
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
+Content-Type: text/plain
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -10
 X-Spam_score: -1.1
 X-Spam_bar: -
 X-Spam_report: (-1.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.358, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.659,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
@@ -93,59 +89,39 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 Paolo Bonzini <pbonzini@redhat.com> writes:
 
-> On 2/23/26 13:36, Markus Armbruster wrote:
->> Paolo Bonzini <pbonzini@redhat.com> writes:
->>=20
->>> From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
->>>
->>> Generate high-level native Rust declarations for the QAPI types.
->>>
->>> - char* is mapped to String, scalars to there corresponding Rust types
->>>
->>> - enums use #[repr(u32)] and can be transmuted to their C counterparts
->>>
->>> - has_foo/foo members are mapped to Option<T>
->>>
->>> - lists are represented as Vec<T>
->>>
->>> - structures map fields 1:1 to Rust
->>>
->>> - alternate are represented as Rust enum, each variant being a 1-elemen=
-t
->>>    tuple
->>>
->>> - unions are represented in a similar way as in C: a struct S with a "u=
-"
->>>    member (since S may have extra 'base' fields). The discriminant
->>>    isn't a member of S, since Rust enum already include it, but it can =
-be
->>>    recovered with "mystruct.u.into()"
->>>
->>> Anything that includes a recursive struct puts it in a Box.  Lists are
->>> not considered recursive, because Vec breaks the recursion (it's possib=
-le
->>> to construct an object containing an empty Vec of its own type).
->>>
->>> Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
->>> Link: https://lore.kernel.org/r/20210907121943.3498701-21-marcandre.lur=
-eau@redhat.com
->>> [Paolo: rewrite conversion of schema types to Rust types]
->>> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
->>=20
->> Please mention how to actually generate Rust, because it's anything but
->> obvious: pass -B qapi.backend.QAPIRsBackend to qapi-gen.py.  Recommend
->> to mention it again in the cover letter.
->>=20
->> Additionally, state that this is a hack we'll want to replace both in
->> the commit message and a TODO comment.  See review of v1's cover letter
->> for why.
->
-> Yes, the TODO comment is in patch 14 where the thing actually gets used.=
-=20
->   I can make it more prominent.
+> This adds two related parts of the Rust bindings:
 
-I missed the comment, because I looked for it here, and not in PATCH 14.
-The comment is fine as is.  However, we could have another comment near
-QAPIRsBackend in this patch.
+[...]
+
+>  docs/devel/rust.rst                           |   1 +
+>  meson.build                                   |   4 +-
+>  include/qobject/qobject.h                     |   5 +-
+>  rust/util/wrapper.h                           |   8 +
+>  qapi/meson.build                              |   9 +
+>  rust/Cargo.lock                               |   2 +
+>  rust/Cargo.toml                               |   2 +
+>  rust/meson.build                              |   4 +
+>  rust/tests/meson.build                        |  21 +-
+>  rust/tests/tests/integration.rs               |   2 +
+>  rust/tests/tests/qapi.rs                      | 444 +++++++++++++
+>  rust/util/Cargo.toml                          |   2 +
+>  rust/util/meson.build                         |  30 +-
+>  rust/util/src/lib.rs                          |   4 +
+>  rust/util/src/qobject/deserialize.rs          | 134 ++++
+>  rust/util/src/qobject/deserializer.rs         | 371 +++++++++++
+
+Are you sure having two source filenames differ in just one character is
+a good idea?
+
+>  rust/util/src/qobject/error.rs                |  58 ++
+>  rust/util/src/qobject/mod.rs                  | 383 ++++++++++++
+>  rust/util/src/qobject/serialize.rs            |  59 ++
+>  rust/util/src/qobject/serializer.rs           | 585 ++++++++++++++++++
+
+Likewise.
+
+These caused a bit of friction in review already...
+
+[...]
 
 
