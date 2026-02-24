@@ -4,67 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89EBBE9B258
-	for <qemu-rust@archiver.kernel.org>; Tue, 24 Feb 2026 13:42:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3024DE9B260
+	for <qemu-rust@archiver.kernel.org>; Tue, 24 Feb 2026 13:46:53 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vusfo-0005eh-Vq; Tue, 24 Feb 2026 08:42:01 -0500
+	id 1vuskK-0006Uo-9q; Tue, 24 Feb 2026 08:46:43 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vusfn-0005eH-G3
- for qemu-rust@nongnu.org; Tue, 24 Feb 2026 08:41:59 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vuskE-0006Qi-1q
+ for qemu-rust@nongnu.org; Tue, 24 Feb 2026 08:46:35 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vusfm-000783-0U
- for qemu-rust@nongnu.org; Tue, 24 Feb 2026 08:41:59 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vuskB-0007va-R7
+ for qemu-rust@nongnu.org; Tue, 24 Feb 2026 08:46:33 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1771940516;
+ s=mimecast20190719; t=1771940791;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xPW7AGomSnNXp68ndgyHZG/Y+NeveapmR4BmjTTnC4w=;
- b=CshPd5fDhDTVhr1tYJlvcXX1qJavDx82BOfEF3n1CaIWzPrEC19QJTQID8VSrQciQEabAg
- YyKppJ+zGcWWF9gsALxbI4rdusHojvB/DxkwJBWpFRT9v2TGWiAag5Uu2ExsWPJFR1uHBu
- gkPz7BsR+4rbcJBrtfkN7YaCdK1bp40=
+ bh=ZSRnmCNSwuYoeJQkt/CIBoB4Gx3bzAKi6WZ4rDhZKx8=;
+ b=XCCQLV8cGY1irA+7DY/NqGiWwze+t3S2+sUla/Bz7QRf1DmpFggo9idrYCzt2A3sLhK05i
+ Quict5SqoqGlgeyJyBwnNUkd8yMrrhmldRTIpyhNvGBNHHZk9awCLgFffcw3n8OiZefhFE
+ 35i3Z9Kq2bP+ncRQWNyzmjtYB6p5DVI=
 Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-501-Z1wEdxeSPymu3lLCBk_fbw-1; Tue,
- 24 Feb 2026 08:41:51 -0500
-X-MC-Unique: Z1wEdxeSPymu3lLCBk_fbw-1
-X-Mimecast-MFC-AGG-ID: Z1wEdxeSPymu3lLCBk_fbw_1771940510
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ (54.186.198.63 [54.186.198.63]) by relay.mimecast.com with ESMTP with
+ STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-413-1UT4S2PfOjS-29UX0oSqBA-1; Tue, 24 Feb 2026 08:46:28 -0500
+X-MC-Unique: 1UT4S2PfOjS-29UX0oSqBA-1
+X-Mimecast-MFC-AGG-ID: 1UT4S2PfOjS-29UX0oSqBA_1771940782
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 28C931956079; Tue, 24 Feb 2026 13:41:50 +0000 (UTC)
+ id 4149F1956052; Tue, 24 Feb 2026 13:46:22 +0000 (UTC)
 Received: from blackfin.pond.sub.org (unknown [10.45.242.13])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id A84A619560A2; Tue, 24 Feb 2026 13:41:49 +0000 (UTC)
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id F337F30001BB; Tue, 24 Feb 2026 13:46:21 +0000 (UTC)
 Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 4F81B21E692D; Tue, 24 Feb 2026 14:41:47 +0100 (CET)
+ id 6AC8321E692D; Tue, 24 Feb 2026 14:46:19 +0100 (CET)
 From: Markus Armbruster <armbru@redhat.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org,  =?utf-8?Q?Marc-Andr=C3=A9?= Lureau
- <marcandre.lureau@redhat.com>,
- qemu-rust@nongnu.org,  Zhao Liu <zhao1.liu@intel.com>
-Subject: Re: [PATCH v2 03/16] rust/qobject: add Serialize implementation
-In-Reply-To: <a7521b49-432a-4e60-8446-93338c61caff@redhat.com> (Paolo
- Bonzini's message of "Tue, 24 Feb 2026 11:48:08 +0100")
+ <marcandre.lureau@redhat.com>, qemu-rust@nongnu.org
+Subject: Re: [PATCH v2 12/16] scripts/qapi: generate high-level Rust bindings
+In-Reply-To: <80366391-ad17-4ed8-82d4-79a6168e374e@redhat.com> (Paolo
+ Bonzini's message of "Mon, 23 Feb 2026 17:11:59 +0100")
 References: <20260108131043.490084-1-pbonzini@redhat.com>
- <20260108131043.490084-4-pbonzini@redhat.com>
- <87ecma4ep2.fsf@pond.sub.org>
- <a7521b49-432a-4e60-8446-93338c61caff@redhat.com>
-Date: Tue, 24 Feb 2026 14:41:47 +0100
-Message-ID: <87qzqa1co4.fsf@pond.sub.org>
+ <20260108131043.490084-13-pbonzini@redhat.com>
+ <87ms0z7i33.fsf@pond.sub.org>
+ <80366391-ad17-4ed8-82d4-79a6168e374e@redhat.com>
+Date: Tue, 24 Feb 2026 14:46:19 +0100
+Message-ID: <87jyw21cgk.fsf@pond.sub.org>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-X-Mimecast-MFC-PROC-ID: mcikuFjYQ7fGpdXajQN2U6U47sLJcJoqrfdYLyGUPvc_1771940510
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Mimecast-MFC-PROC-ID: WDZqhxtrnbns4u4HA_DF4dplDqCa2HwmPOhl5rXBdl4_1771940782
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -95,85 +93,59 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 Paolo Bonzini <pbonzini@redhat.com> writes:
 
-> On 2/24/26 11:29, Markus Armbruster wrote:
+> On 2/23/26 13:36, Markus Armbruster wrote:
 >> Paolo Bonzini <pbonzini@redhat.com> writes:
 >>=20
->>> This allows QObject to be converted to other formats, for example
->>> JSON via serde_json.
+>>> From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
 >>>
->>> This is not too useful, since QObjects are consumed by
->>> C code or deserialized into structs, but it can be used for testing
->>> and it is part of the full implementation of a serde format.
+>>> Generate high-level native Rust declarations for the QAPI types.
 >>>
->>> Co-authored-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+>>> - char* is mapped to String, scalars to there corresponding Rust types
+>>>
+>>> - enums use #[repr(u32)] and can be transmuted to their C counterparts
+>>>
+>>> - has_foo/foo members are mapped to Option<T>
+>>>
+>>> - lists are represented as Vec<T>
+>>>
+>>> - structures map fields 1:1 to Rust
+>>>
+>>> - alternate are represented as Rust enum, each variant being a 1-elemen=
+t
+>>>    tuple
+>>>
+>>> - unions are represented in a similar way as in C: a struct S with a "u=
+"
+>>>    member (since S may have extra 'base' fields). The discriminant
+>>>    isn't a member of S, since Rust enum already include it, but it can =
+be
+>>>    recovered with "mystruct.u.into()"
+>>>
+>>> Anything that includes a recursive struct puts it in a Box.  Lists are
+>>> not considered recursive, because Vec breaks the recursion (it's possib=
+le
+>>> to construct an object containing an empty Vec of its own type).
+>>>
 >>> Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
->>> Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+>>> Link: https://lore.kernel.org/r/20210907121943.3498701-21-marcandre.lur=
+eau@redhat.com
+>>> [Paolo: rewrite conversion of schema types to Rust types]
 >>> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 >>=20
->> [...]
+>> Please mention how to actually generate Rust, because it's anything but
+>> obvious: pass -B qapi.backend.QAPIRsBackend to qapi-gen.py.  Recommend
+>> to mention it again in the cover letter.
 >>=20
->>> diff --git a/rust/util/src/qobject/serialize.rs b/rust/util/src/qobject=
-/serialize.rs
->>> new file mode 100644
->>> index 00000000000..34ec3847c1d
->>> --- /dev/null
->>> +++ b/rust/util/src/qobject/serialize.rs
->>> @@ -0,0 +1,59 @@
->>> +//! `QObject` serialization
->>> +//!
->>> +//! This module implements the [`Serialize`] trait for `QObject`,
->>> +//! allowing it to be converted to other formats, for example
->>> +//! JSON.
->>> +
->>> +use std::{ffi::CStr, mem::ManuallyDrop, ptr::addr_of};
->>> +
->>> +use serde::ser::{self, Serialize, SerializeMap, SerializeSeq};
->>> +
->>> +use super::{match_qobject, QObject};
->>> +use crate::bindings;
->>> +
->>> +impl Serialize for QObject {
->>> +    #[inline]
->>> +    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
->>> +    where
->>> +        S: ::serde::Serializer,
->>> +    {
->>> +        match_qobject! { (self) =3D>
->>> +            () =3D> serializer.serialize_unit(),
->>> +            bool(b) =3D> serializer.serialize_bool(b),
->>> +            i64(i) =3D> serializer.serialize_i64(i),
->>> +            u64(u) =3D> serializer.serialize_u64(u),
->>> +            f64(f) =3D> serializer.serialize_f64(f),
->>> +            CStr(cstr) =3D> cstr.to_str().map_or_else(
->>> +                |_| Err(ser::Error::custom("invalid UTF-8 in QString")=
-),
->>=20
->> .to_str() fails when its argument is invalid UTF-8.  It returns "an
->> error with details of where UTF-8 validation failed."[1]
->>=20
->> Why are we replacing this error with a custom one?  I guess we add the
->> clue "in QString".  We also lose the details of where.  Feels like a
->> questionable trade.
+>> Additionally, state that this is a hack we'll want to replace both in
+>> the commit message and a TODO comment.  See review of v1's cover letter
+>> for why.
 >
-> Changing the error is required in order to return an S::Error (that is,=
+> Yes, the TODO comment is in patch 14 where the thing actually gets used.=
 =20
-> the serializer asks for a type of error that it understands).  I can=20
-> also preserve the message with "|e| Err(ser::Error::custom(e))" or=20
-> something like that.
+>   I can make it more prominent.
 
-If it's not too much trouble...
-
-> While it is undoubtedly a programming error, I didn't like that the=20
-> error (and thus the panic) happens in a different place than where the=20
-> QString is constructed.  I like panicking for *my* programming errors,=20
-> but not for someone else's :) especially if I can recover easily.
-
-I ruthlessly panic when I find invariants violated, preconditions like
-this one very much included.
-
-If you'd rather not panic here, please make it locally obvious that the
-error is not supposed to happen.  Suggest to put it into the error
-message, so increase the likelihood of the programming error actually
-getting fixed if it ever triggers.
+I missed the comment, because I looked for it here, and not in PATCH 14.
+The comment is fine as is.  However, we could have another comment near
+QAPIRsBackend in this patch.
 
 
