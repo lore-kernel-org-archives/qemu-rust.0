@@ -4,106 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B20E9EFD206
-	for <qemu-rust@archiver.kernel.org>; Wed, 25 Feb 2026 08:05:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84D81EFD209
+	for <qemu-rust@archiver.kernel.org>; Wed, 25 Feb 2026 08:32:59 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vv9ti-0005lJ-79; Wed, 25 Feb 2026 03:05:30 -0500
+	id 1vvAJr-0005uy-Kf; Wed, 25 Feb 2026 03:32:31 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vv9tg-0005gl-5I
- for qemu-rust@nongnu.org; Wed, 25 Feb 2026 03:05:28 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vvAJr-0005ue-04
+ for qemu-rust@nongnu.org; Wed, 25 Feb 2026 03:32:31 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vv9te-0000su-DA
- for qemu-rust@nongnu.org; Wed, 25 Feb 2026 03:05:27 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vvAJj-0004ue-ID
+ for qemu-rust@nongnu.org; Wed, 25 Feb 2026 03:32:25 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772006725;
+ s=mimecast20190719; t=1772008340;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=2Ikyzkts721L5JCueYlPHhLJIrBzi/Gft4KsIokRrZY=;
- b=jGTSMDs61A37vXsX+DvAuG9xq2X6gZ7izzEumHuaOhmWOl6pZxYkLO9xt2UO/vgMkbbUAp
- zm/nCL3TMNQYrothV5Chzc1iAKQTVqbbUGjLPIwDDDK9qJ+FVOIdGFA11IpX3W3KseTmdv
- x5Udv0QxwxiM8Eos0L3dJPlhSWtIw9c=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-690-eqxKZk-JNjy3QglRFDhnAg-1; Wed, 25 Feb 2026 03:05:23 -0500
-X-MC-Unique: eqxKZk-JNjy3QglRFDhnAg-1
-X-Mimecast-MFC-AGG-ID: eqxKZk-JNjy3QglRFDhnAg_1772006723
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-4836bf1a920so63833545e9.3
- for <qemu-rust@nongnu.org>; Wed, 25 Feb 2026 00:05:23 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772006723; x=1772611523;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=2Ikyzkts721L5JCueYlPHhLJIrBzi/Gft4KsIokRrZY=;
- b=De95x/pAYMBhiXA7aDfIhnsvZJArQWQyaO0JvMtTyI9NN0dPqlppo6S7IDZGIilmmR
- X6+08Ptz4SxWY8KRMPEQnc7dxxMRbaoHdxzk6cssFu0IjE+xaLcHe7Ia0Dkg8VLtMJpS
- cLa0lXvdleS0rQhTkV4I/ToFsxlhc3UV0y5bjb7f448CnZ8IVLgXdhoRAs0b1q1Ub23D
- Ve2F0vX8ROwNIpQZVSZLbBwSL459c/w20HlnE/0wIi6Dxc7CIR1mL5JnkW1UWI91LFQz
- UyOI+r9hOBvkwRl7s+76hgnWO5dBsleEvDTb6DNLHQUhOQqCb4j3jhHv/Cww0frNtvQM
- DF6A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUzgMkr1lipPzD0rscscGaPfYfAQqnuq5SWQlQjR21S5dqzpV6OlFhf72ZSM9aNedXohiq54OHPqp4=@nongnu.org
-X-Gm-Message-State: AOJu0YydS8jZc7iqfn/zCkDLOb92md8v5GW7SyZo1eJLsqV/v1EnQPpg
- H/LVyoegzsSHuvql5TbX+nGuiJQxeHjeH6v+vklM5jtqeIEx1rXsUPk3CEBmxAxC95O7Aw2g5qB
- RPZJwmi8wFIUid0eIHU6o93vJCJ6DL13R9pf0V+YLsZNzSLXiNBbG5/Y=
-X-Gm-Gg: ATEYQzz7z+1PjtCgdz94FsU+x6XzyxT7DSkHPX6zXZpCVc0Z8A5+CDb97e0qQdZ4rOR
- zSv82cPwInxeNJaHgya7hSZnTMfhqBmOAYyqAf0G81f0fGIZLFhjVtOw0IlaJTh4mzwNwbIMsSv
- GxXnVs0318Jl2piG+KUpYoF3szLUkhf54WZnCHkLtSaL6i5C4BOLtTCPCKDoBd61IbD6lKFuP3k
- GZlrFTFJr1nsYFqAc5REvngU6yhJLYNE9DGxusYvqXe4JxQlBEK1P5zkBeEWo2JkH1FtmaM1zFn
- SobfNp017miKG4NBTtokQ0ry7BcHGxUkXZjhz5dAaF6l1QT8uSPhTwe96llPn63cI3qtZ84ko75
- WN3IqBFIaN6fHTnJBxBFlQKTDs1jWiMn7wYe1kxfdMP9dl0qjYO8A5PEgsTn5APB+uAhFRH7P6r
- lmcNWkCpNm4AlOY7UqyS8eGj6FhXk=
-X-Received: by 2002:a05:600c:5289:b0:480:1b65:b744 with SMTP id
- 5b1f17b1804b1-483bef5c44fmr23389825e9.28.1772006722610; 
- Wed, 25 Feb 2026 00:05:22 -0800 (PST)
-X-Received: by 2002:a05:600c:5289:b0:480:1b65:b744 with SMTP id
- 5b1f17b1804b1-483bef5c44fmr23389235e9.28.1772006722035; 
- Wed, 25 Feb 2026 00:05:22 -0800 (PST)
-Received: from [192.168.10.81] ([151.95.144.138])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-483bfb296bfsm8894595e9.0.2026.02.25.00.05.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Feb 2026 00:05:21 -0800 (PST)
-Message-ID: <e88e3a0f-6b15-4967-8e9c-613ecf537b5e@redhat.com>
-Date: Wed, 25 Feb 2026 09:05:20 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/16] rust/qobject: add basic bindings
-To: Markus Armbruster <armbru@redhat.com>
-Cc: qemu-devel@nongnu.org, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
- <marcandre.lureau@redhat.com>, qemu-rust@nongnu.org,
- Zhao Liu <zhao1.liu@intel.com>
+ bh=vUWCjVpDyEb31j/plPeG31w09E9+irjHP0hsKczQ1DE=;
+ b=PCYHFO9cMr2J2xpom+iUpQdX6Gr+yljGqFtkxlWdsnSL3VMMElx1zJJiW8SD9PeMPHVnmU
+ TLxQhRolCfkOWY3y1zB3D46fltxBHw+F+yIch4uKdmlMo6amWPt3xiW4BXs3sSs3CBsfrb
+ atMPoj6pt4/4h6MGAGHnMzrt6aFj9lY=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-595-59Zf58FJMYmWJmHhTza6gg-1; Wed,
+ 25 Feb 2026 03:32:16 -0500
+X-MC-Unique: 59Zf58FJMYmWJmHhTza6gg-1
+X-Mimecast-MFC-AGG-ID: 59Zf58FJMYmWJmHhTza6gg_1772008335
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 8F8AB1800259; Wed, 25 Feb 2026 08:32:15 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.13])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 4D8921800666; Wed, 25 Feb 2026 08:32:15 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 0184221E692D; Wed, 25 Feb 2026 09:32:12 +0100 (CET)
+From: Markus Armbruster <armbru@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org,  =?utf-8?Q?Marc-Andr=C3=A9?= Lureau
+ <marcandre.lureau@redhat.com>, qemu-rust@nongnu.org
+Subject: Re: [PATCH v2 11/16] scripts/qapi: pull c_name from camel_to_upper
+ to caller
+In-Reply-To: <20260108131043.490084-12-pbonzini@redhat.com> (Paolo Bonzini's
+ message of "Thu, 8 Jan 2026 14:10:38 +0100")
 References: <20260108131043.490084-1-pbonzini@redhat.com>
- <20260108131043.490084-2-pbonzini@redhat.com> <87jyw24fw5.fsf@pond.sub.org>
- <58720d10-5613-4235-b47f-939e9a8d3096@redhat.com>
- <87y0ki1d21.fsf@pond.sub.org>
-From: Paolo Bonzini <pbonzini@redhat.com>
-In-Reply-To: <87y0ki1d21.fsf@pond.sub.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Z2_2ZXPuzKuvJtiFxH3sZeJ12BZWUKr8z1IgaZVf9zY_1772006723
+ <20260108131043.490084-12-pbonzini@redhat.com>
+Date: Wed, 25 Feb 2026 09:32:12 +0100
+Message-ID: <87wm01w7eb.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Mimecast-MFC-PROC-ID: gyMsShvsreBzodKJ5VHZY5oUPCp8RPOqBdUZWkJEuwE_1772008335
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Content-Type: text/plain
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -10
 X-Spam_score: -1.1
 X-Spam_bar: -
 X-Spam_report: (-1.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.358, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.659,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
@@ -121,51 +89,75 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 2/24/26 14:33, Markus Armbruster wrote:
-> Paolo Bonzini <pbonzini@redhat.com> writes:
-> 
->> On 2/24/26 11:03, Markus Armbruster wrote:
->>>> diff --git a/rust/util/wrapper.h b/rust/util/wrapper.h
->>>> index b9ed68a01d8..0907dd59142 100644
->>>> --- a/rust/util/wrapper.h
->>>> +++ b/rust/util/wrapper.h
->>>> @@ -30,3 +30,10 @@ typedef enum memory_order {
->>>>   #include "qemu/log.h"
->>>>   #include "qemu/module.h"
->>>>   #include "qemu/timer.h"
->>>> +#include "qobject/qnull.h"
->>>> +#include "qobject/qbool.h"
->>>> +#include "qobject/qnum.h"
->>>> +#include "qobject/qstring.h"
->>>> +#include "qobject/qobject.h"
->>>> +#include "qobject/qlist.h"
->>>> +#include "qobject/qdict.h"
->>>
->>> Is this file just for bindgen, and never actually fed to the C compiler?
->>
->> Yes.
-> 
-> Thanks!
-> 
->>>> +impl From<()> for QObject {
->>>> +    fn from(_null: ()) -> Self {
->>>> +        // Conversion of the C inline `qnull` function
->>>> +        unsafe { QObject::cloned_from_base(addr_of!(bindings::qnull_.base)) }
->>>> +    }
->>>> +}
->>>
->>> Could we call C qnull() instead of using qnull_.base?
->>
->> See v1 review - no, because qnull() is inline.  I can make it not
->> inline, of course.
-> 
-> I feel making it inline was a bit silly.  Perhaps I had a non-silly
-> reason back then, but I can't see it anymore.
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-Maybe it was, but qnull_ is also used by tests/unit/check-qnull.c; and 
-it would also be silly to make qnull() extern while keeping the global 
-qnull_.  In doubt, I'd leave it as is.
+> Allow using it for other languages too.
+>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  scripts/qapi/common.py | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/scripts/qapi/common.py b/scripts/qapi/common.py
+> index 14d5dd259c4..c75396a01b5 100644
+> --- a/scripts/qapi/common.py
+> +++ b/scripts/qapi/common.py
+> @@ -61,7 +61,7 @@ def camel_to_upper(value: str) -> str:
+>          ret += ch
+>          upc = ch.isupper()
+>  
+> -    return c_name(ret.upper()).lstrip('_')
+> +    return ret.upper()
+>  
+>  
+>  def c_enum_const(type_name: str,
+> @@ -75,7 +75,7 @@ def c_enum_const(type_name: str,
+>      :param prefix: Optional, prefix that overrides the type_name.
+>      """
+>      if prefix is None:
+> -        prefix = camel_to_upper(type_name)
+> +        prefix = c_name(camel_to_upper(type_name)).lstrip('_')
+>      return prefix + '_' + c_name(const_name, False).upper()
 
-Paolo
+No change in behavior, because this is the only use of camel_to_upper().
+
+The move of c_name() out of camel_to_upper() is clearly wanted to make
+it usable for other languages.
+
+What about .lstrip('_')?  I wonder why we even have it.  Goes back all
+the way to commit 6299659f544 (qapi script: code move for
+generate_enum_name()) from 2014.  It seems to affect just
+tests/qapi-schema/qapi-schema-test.json's
+
+    { 'enum': '__org.qemu_x-Enum', 'data': [ '__org.qemu_x-value' ] }
+
+This tests a downstream extension prefix __RFQDN_.
+
+As is, we generate
+
+    typedef enum __org_qemu_x_Enum {
+        ORG_QEMU_X_ENUM___ORG_QEMU_X_VALUE,
+        ORG_QEMU_X_ENUM__MAX,
+    } __org_qemu_x_Enum;
+
+Without the .lstrip('_'), we'd generate
+
+    typedef enum __org_qemu_x_Enum {
+        __ORG_QEMU_X_ENUM___ORG_QEMU_X_VALUE,
+        __ORG_QEMU_X_ENUM__MAX,
+    } __org_qemu_x_Enum;
+
+Meh.
+
+Turns out this isn't on purpose.  Back then, the loop to map camel to
+upper worked differently, and produced unwanted leading '_'.  For
+instance, it mapped 'AbraCadabra' to '_ABRA_CADABRA'.  The .lstrip()
+made the function produce 'ABRA_CADABRA'.  It also makes it eat
+downstream extensions' leading '__'.  Oopsie.
+
+By moving it, we insulate Rust from this accident.  Okay.
+
+We could delete it instead.  Might inconvenience downstreams.  Not a
+demand; you may wish to keep this series focused on Rust.
 
 
