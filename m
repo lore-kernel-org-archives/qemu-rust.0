@@ -4,96 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1406F4BB63
-	for <qemu-rust@archiver.kernel.org>; Tue, 24 Feb 2026 17:29:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26309F55435
+	for <qemu-rust@archiver.kernel.org>; Wed, 25 Feb 2026 06:49:10 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vuwDj-0001QP-VD; Tue, 24 Feb 2026 12:29:16 -0500
+	id 1vv8hf-0001pF-5i; Wed, 25 Feb 2026 01:48:59 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vuwDc-0001Os-SE
- for qemu-rust@nongnu.org; Tue, 24 Feb 2026 12:29:10 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vv8hd-0001p2-Ss
+ for qemu-rust@nongnu.org; Wed, 25 Feb 2026 01:48:57 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vuwDW-0001XS-93
- for qemu-rust@nongnu.org; Tue, 24 Feb 2026 12:29:06 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vv8hc-00079d-5H
+ for qemu-rust@nongnu.org; Wed, 25 Feb 2026 01:48:57 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1771954135;
+ s=mimecast20190719; t=1772002135;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=66/kj0p3LqDSHbvWB/4yLzeyq6l4dm9MLx1rsWxqgqQ=;
- b=Xl/QMr+OxknaMoMSJhRsxT16DzqN3hZO4fGt2eDtECAzR5KW6d4mb7DFesgP6oWMW+Id0N
- Xa37sP3DJESOvrPu8lmSyDPOxIar1scZxyT/MIU9Ihm3F6Ng5tEZWCw114PNVvMKGI4cHA
- MfY5S05ciGwsDjkl1de60NEUPqYoqfQ=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-614-HfrbfdYSMZqZG7IOB8FAsA-1; Tue, 24 Feb 2026 12:28:53 -0500
-X-MC-Unique: HfrbfdYSMZqZG7IOB8FAsA-1
-X-Mimecast-MFC-AGG-ID: HfrbfdYSMZqZG7IOB8FAsA_1771954132
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-48378df3469so157925e9.1
- for <qemu-rust@nongnu.org>; Tue, 24 Feb 2026 09:28:53 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771954132; x=1772558932;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=66/kj0p3LqDSHbvWB/4yLzeyq6l4dm9MLx1rsWxqgqQ=;
- b=kWJ9AM5dKleibu70an8K6W1y+3zRE27+l/8Vn05brMZmbTFsZmy5lE1S8TI51c268h
- QhDcB3Jk9VfLHcGQXtTk6TsgyS+GEN68jKPnpZoak1/UQtKnHBjg/ZjhcaCOk4JpYeNr
- RbZ6i0ZfRuweIjHt0lhPYrdQJUv7vNegLdIfwoXRGHBu+SJJpNqLQyMN0uO+UYlBtkpa
- u2cARIJBXavnVdd3TcMgU+UxWYhaPTzbEXKrOSta50YD1gCH89MMoPsudMyEOWSV5sUN
- vzZEcQyiCuRyhgkHUQ8VI2qNiiuhJj5WL1kfVyPHVqBb2XqUjwc+EcFTtZj3a6PpbAHD
- IAOg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXiLRE735TSpWvOAVE/6Fz5Cao2auxdOeWo1acKDLtMS/njL9DpngrDH+Xc9OoErGQXR3nuPHB8t5Q=@nongnu.org
-X-Gm-Message-State: AOJu0Yys8JlYJf4eRWzrXoHPMOTGhKMSoIFxJu5sP/Jof7nkLn3BYGxd
- Tpi2b6KE16CqR44wcIbMbU+UNtYlu/AN4kUJbA07o7GPSCfsUZ52getbLtFhGpttBgVc9rqNQN0
- WF2WQVIFPQ3xgLwwS6aWE9gCSQO8p4ZsbdBRXqMr1C8Ew+x1SUYovyys=
-X-Gm-Gg: AZuq6aJ8znKiSehGnnnRyBAj1KhKXZpbQUJwiC2jD5eOWWqVrfZRHeTUzlAXPE1L13L
- XIJx+ObWdg5TDuNuXlu67YEEpvuXaKUPabUOIIvDWzLArDTqlF1r51C2X9Eo4FQSDS3NxnxdfKq
- xfdqxlW6Fapv8Aj8tLJXp9k+hG4ROHH01feHmW+fM2/+KIQwDjmlkA5PEWdOhQKk08rXA21f6rl
- UF1Hqew2zCZMIeudFJX9m6egoLGZCQR9fBhXcH9P2Cd9UZF7bOsx/Up80xrZCTbuxUjSdRhAS3W
- LnOwyxbkKLoCWRYBC6+VPfl1m97XkFi6slPW6uL0V38aothMz/3KxcTuc1PY40m4TQ+ikHDFCn8
- jZWQ7n3k+urpstyU4atrgZkIfg+YkkOlWE5eyb1FXyoixl7XcXVveRk9BN/qKnSziPXSpfq9Nnk
- mHPNHxW8V4AG3coMKg3C+a6vhmPOY=
-X-Received: by 2002:a05:600c:818d:b0:47d:6c36:a125 with SMTP id
- 5b1f17b1804b1-483bd75e25fmr12198015e9.17.1771954131989; 
- Tue, 24 Feb 2026 09:28:51 -0800 (PST)
-X-Received: by 2002:a05:600c:818d:b0:47d:6c36:a125 with SMTP id
- 5b1f17b1804b1-483bd75e25fmr12197455e9.17.1771954131167; 
- Tue, 24 Feb 2026 09:28:51 -0800 (PST)
-Received: from [192.168.10.81] ([151.95.144.138])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-483bd68826asm22295365e9.0.2026.02.24.09.28.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Feb 2026 09:28:50 -0800 (PST)
-Message-ID: <e9abc154-9219-4d7e-b711-0a68bfe62845@redhat.com>
-Date: Tue, 24 Feb 2026 18:28:49 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/16] rust: QObject and QAPI bindings
-To: Markus Armbruster <armbru@redhat.com>
-Cc: qemu-devel@nongnu.org, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
+ bh=n4QTztTb5KHeK3/zINMHJVLwtDwqe/cO1bfJ9WdM9dU=;
+ b=RTAU0S33T6BUhXM4sRvLASS0CJjPUTneaOdrheiwIkOTb+fw7UVWaOX79w7UYPGszoY26v
+ ViAr76GbZWx5JEfTu8nWiYJzCMYLG0+LHJ6U4D7KBysNv350aTwzp1l3cY+I4rmC/ry+Yp
+ bdvs6GDxtYqdD/NoxuU+PtvYc8jh7qQ=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-622-LTzPNs4NOy-QvL684Cam_A-1; Wed,
+ 25 Feb 2026 01:48:53 -0500
+X-MC-Unique: LTzPNs4NOy-QvL684Cam_A-1
+X-Mimecast-MFC-AGG-ID: LTzPNs4NOy-QvL684Cam_A_1772002132
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 149101800349; Wed, 25 Feb 2026 06:48:52 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.13])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 883501800668; Wed, 25 Feb 2026 06:48:51 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 0603F21E692D; Wed, 25 Feb 2026 07:48:49 +0100 (CET)
+From: Markus Armbruster <armbru@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org,  =?utf-8?Q?Marc-Andr=C3=A9?= Lureau
  <marcandre.lureau@redhat.com>, qemu-rust@nongnu.org
+Subject: Re: [PATCH v2 09/16] scripts/qapi: add QAPISchemaIfCond.rsgen()
+In-Reply-To: <20260108131043.490084-10-pbonzini@redhat.com> (Paolo Bonzini's
+ message of "Thu, 8 Jan 2026 14:10:36 +0100")
 References: <20260108131043.490084-1-pbonzini@redhat.com>
- <87tsv6z14w.fsf@pond.sub.org>
-From: Paolo Bonzini <pbonzini@redhat.com>
-In-Reply-To: <87tsv6z14w.fsf@pond.sub.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: d6X0KBzI2CDrcFqelhRm0ZO70Ieo2HIO6IzcsjqsTIw_1771954132
+ <20260108131043.490084-10-pbonzini@redhat.com>
+Date: Wed, 25 Feb 2026 07:48:48 +0100
+Message-ID: <87pl5txqr3.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Mimecast-MFC-PROC-ID: f5jJX8s7M6DLSqqALpZaZX-l0BohjZfum6MzsjyCX8w_1772002132
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -10
 X-Spam_score: -1.1
@@ -118,60 +90,136 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 2/24/26 15:06, Markus Armbruster wrote:
-> Paolo Bonzini <pbonzini@redhat.com> writes:
-> 
->> This adds two related parts of the Rust bindings:
-> 
-> [...]
-> 
->>   docs/devel/rust.rst                           |   1 +
->>   meson.build                                   |   4 +-
->>   include/qobject/qobject.h                     |   5 +-
->>   rust/util/wrapper.h                           |   8 +
->>   qapi/meson.build                              |   9 +
->>   rust/Cargo.lock                               |   2 +
->>   rust/Cargo.toml                               |   2 +
->>   rust/meson.build                              |   4 +
->>   rust/tests/meson.build                        |  21 +-
->>   rust/tests/tests/integration.rs               |   2 +
->>   rust/tests/tests/qapi.rs                      | 444 +++++++++++++
->>   rust/util/Cargo.toml                          |   2 +
->>   rust/util/meson.build                         |  30 +-
->>   rust/util/src/lib.rs                          |   4 +
->>   rust/util/src/qobject/deserialize.rs          | 134 ++++
->>   rust/util/src/qobject/deserializer.rs         | 371 +++++++++++
-> 
-> Are you sure having two source filenames differ in just one character is
-> a good idea?
-> 
->>   rust/util/src/qobject/error.rs                |  58 ++
->>   rust/util/src/qobject/mod.rs                  | 383 ++++++++++++
->>   rust/util/src/qobject/serialize.rs            |  59 ++
->>   rust/util/src/qobject/serializer.rs           | 585 ++++++++++++++++++
-> 
-> Likewise.
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-I feel and share your pain...  That's how serde calls the things ("-er" 
-for the struct and verb for the trait) and I cannot really thing of a 
-different naming for files.
+> From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+>
+> Generate Rust #[cfg(...)] guards from QAPI 'if' conditions; it
+> turns out that they are very similar, with both of them using
+> not/any/all, so just walk the tree.
+>
+> The next commit will put it to use.
+>
+> Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+> Link: https://lore.kernel.org/r/20210907121943.3498701-15-marcandre.lurea=
+u@redhat.com
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  scripts/qapi/common.py | 19 +++++++++++++++++++
+>  scripts/qapi/schema.py |  4 ++++
+>  2 files changed, 23 insertions(+)
+>
+> diff --git a/scripts/qapi/common.py b/scripts/qapi/common.py
+> index d7c8aa3365c..14d5dd259c4 100644
+> --- a/scripts/qapi/common.py
+> +++ b/scripts/qapi/common.py
+> @@ -199,6 +199,25 @@ def guardend(name: str) -> str:
+>                   name=3Dc_fname(name).upper())
+> =20
+> =20
+> +def rsgen_ifcond(ifcond: Optional[Union[str, Dict[str, Any]]]) -> str:
+> +
+> +    def cfg(ifcond: Union[str, Dict[str, Any]]) -> str:
+> +        if isinstance(ifcond, str):
+> +            return ifcond
+> +        assert isinstance(ifcond, dict) and len(ifcond) =3D=3D 1
+> +        if 'not' in ifcond:
+> +            oper =3D 'not'
+> +            arg =3D cfg(ifcond['not'])
+> +        else:
+> +            oper, operands =3D next(iter(ifcond.items()))
+> +            arg =3D ', '.join([cfg(c) for c in operands])
+> +        return f'{oper}({arg})'
+> +
+> +    if not ifcond:
+> +        return ''
+> +    return '#[cfg(%s)]' % cfg(ifcond)
+> +
+> +
 
-I thought of renaming serializer.rs to to_qobject.rs, and 
-deserializer.rs to from_qobject.rs.  However, that doesn't work out 
-because I want  "qobject::to_object" to be the function, not the module 
-containing to_qobject() and Serializer.
+Why not reuse the existing tree walker?  See appended diff.
 
-serde_json places the struct and trait in the same file (e.g. 
-https://github.com/serde-rs/json/blob/master/src/value/ser.rs).  I can 
-do that if you prefer it that way.
+>  def gen_ifcond(ifcond: Optional[Union[str, Dict[str, Any]]],
+>                 cond_fmt: str, not_fmt: str,
+>                 all_operator: str, any_operator: str) -> str:
+> diff --git a/scripts/qapi/schema.py b/scripts/qapi/schema.py
+> index 8d88b40de2e..848a7401251 100644
+> --- a/scripts/qapi/schema.py
+> +++ b/scripts/qapi/schema.py
+> @@ -37,6 +37,7 @@
+>      docgen_ifcond,
+>      gen_endif,
+>      gen_if,
+> +    rsgen_ifcond,
+>  )
+>  from .error import QAPIError, QAPISemError, QAPISourceError
+>  from .expr import check_exprs
+> @@ -63,6 +64,9 @@ def gen_endif(self) -> str:
+>      def docgen(self) -> str:
+>          return docgen_ifcond(self.ifcond)
+> =20
+> +    def rsgen(self) -> str:
+> +        return rsgen_ifcond(self.ifcond)
+> +
+>      def is_present(self) -> bool:
+>          return bool(self.ifcond)
 
-Paolo
 
-> These caused a bit of friction in review already...
-> 
-> [...]
-> 
-> 
-> 
+diff --git a/scripts/qapi/common.py b/scripts/qapi/common.py
+index d7c8aa3365..d8accae835 100644
+--- a/scripts/qapi/common.py
++++ b/scripts/qapi/common.py
+@@ -201,7 +201,8 @@ def guardend(name: str) -> str:
+=20
+ def gen_ifcond(ifcond: Optional[Union[str, Dict[str, Any]]],
+                cond_fmt: str, not_fmt: str,
+-               all_operator: str, any_operator: str) -> str:
++               all_fmt: str, all_sep: str,
++               any_fmt: str, any_sep: str) -> str:
+=20
+     def do_gen(ifcond: Union[str, Dict[str, Any]],
+                need_parens: bool) -> str:
+@@ -211,15 +212,15 @@ def do_gen(ifcond: Union[str, Dict[str, Any]],
+         if 'not' in ifcond:
+             return not_fmt % do_gen(ifcond['not'], True)
+         if 'all' in ifcond:
+-            gen =3D gen_infix(all_operator, ifcond['all'])
++            gen =3D gen_infix(all_fmt, all_sep, ifcond['all'])
+         else:
+-            gen =3D gen_infix(any_operator, ifcond['any'])
++            gen =3D gen_infix(any_fmt, any_sep, ifcond['any'])
+         if need_parens:
+             gen =3D '(' + gen + ')'
+         return gen
+=20
+-    def gen_infix(operator: str, operands: Sequence[Any]) -> str:
+-        return operator.join([do_gen(o, True) for o in operands])
++    def gen_infix(fmt: str, sep: str, operands: Sequence[Any]) -> str:
++        return fmt % sep.join([do_gen(o, True) for o in operands])
+=20
+     if not ifcond:
+         return ''
+@@ -227,12 +228,18 @@ def gen_infix(operator: str, operands: Sequence[Any])=
+ -> str:
+=20
+=20
+ def cgen_ifcond(ifcond: Optional[Union[str, Dict[str, Any]]]) -> str:
+-    return gen_ifcond(ifcond, 'defined(%s)', '!%s', ' && ', ' || ')
++    return gen_ifcond(ifcond, 'defined(%s)', '!%s',
++                      '%s', ' && ', '%s', ' || ')
++
++
++def rsgen_ifcond(ifcond: Optional[Union[str, Dict[str, Any]]]) -> str:
++    return '#[cfg(%s)]' % gen_ifcond(ifcond, '%s', 'not(%s)',
++                                     'all(%s)', ', ', 'any(%s)', ', ')
+=20
+=20
+ def docgen_ifcond(ifcond: Optional[Union[str, Dict[str, Any]]]) -> str:
+     # TODO Doc generated for conditions needs polish
+-    return gen_ifcond(ifcond, '%s', 'not %s', ' and ', ' or ')
++    return gen_ifcond(ifcond, '%s', 'not %s', '%s', ' and ', '%s', ' or ')
+=20
+=20
+ def gen_if(cond: str) -> str:
 
 
