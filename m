@@ -4,91 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2DE3EFD205
-	for <qemu-rust@archiver.kernel.org>; Wed, 25 Feb 2026 08:01:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B20E9EFD206
+	for <qemu-rust@archiver.kernel.org>; Wed, 25 Feb 2026 08:05:57 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vv9pl-0004Xc-Uy; Wed, 25 Feb 2026 03:01:25 -0500
+	id 1vv9ti-0005lJ-79; Wed, 25 Feb 2026 03:05:30 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vv9pj-0004VH-HN
- for qemu-rust@nongnu.org; Wed, 25 Feb 2026 03:01:23 -0500
+ id 1vv9tg-0005gl-5I
+ for qemu-rust@nongnu.org; Wed, 25 Feb 2026 03:05:28 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vv9ph-0000YK-0L
- for qemu-rust@nongnu.org; Wed, 25 Feb 2026 03:01:22 -0500
+ id 1vv9te-0000su-DA
+ for qemu-rust@nongnu.org; Wed, 25 Feb 2026 03:05:27 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772006479;
+ s=mimecast20190719; t=1772006725;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=9fRQC/kwm9DBuuNV/g4K3AOseywUiLMUbpUq1B/QnJw=;
- b=QHRM4M2yjLPLpDEfHTTgD+xcwSx6Arvpn2N9ipFAdOpd04guZSGuPpJLmfiUROO/bk3lhB
- JCDasYHRb5wH6muc0FsqB8S3CeDxpDBJ/6eSkctml6Q/AxtXvA0uELiI2HRV8LGzDqh6qz
- YgCe430Lc1c4b2rIKEGC0Hy9RXmAUrE=
+ bh=2Ikyzkts721L5JCueYlPHhLJIrBzi/Gft4KsIokRrZY=;
+ b=jGTSMDs61A37vXsX+DvAuG9xq2X6gZ7izzEumHuaOhmWOl6pZxYkLO9xt2UO/vgMkbbUAp
+ zm/nCL3TMNQYrothV5Chzc1iAKQTVqbbUGjLPIwDDDK9qJ+FVOIdGFA11IpX3W3KseTmdv
+ x5Udv0QxwxiM8Eos0L3dJPlhSWtIw9c=
 Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
  [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-264-BZS1IyvFP0inZ-O6M3uaCg-1; Wed, 25 Feb 2026 03:01:18 -0500
-X-MC-Unique: BZS1IyvFP0inZ-O6M3uaCg-1
-X-Mimecast-MFC-AGG-ID: BZS1IyvFP0inZ-O6M3uaCg_1772006477
+ us-mta-690-eqxKZk-JNjy3QglRFDhnAg-1; Wed, 25 Feb 2026 03:05:23 -0500
+X-MC-Unique: eqxKZk-JNjy3QglRFDhnAg-1
+X-Mimecast-MFC-AGG-ID: eqxKZk-JNjy3QglRFDhnAg_1772006723
 Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-483786a09b1so64061745e9.3
- for <qemu-rust@nongnu.org>; Wed, 25 Feb 2026 00:01:18 -0800 (PST)
+ 5b1f17b1804b1-4836bf1a920so63833545e9.3
+ for <qemu-rust@nongnu.org>; Wed, 25 Feb 2026 00:05:23 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772006477; x=1772611277;
+ d=1e100.net; s=20230601; t=1772006723; x=1772611523;
  h=content-transfer-encoding:in-reply-to:content-language:from
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=9fRQC/kwm9DBuuNV/g4K3AOseywUiLMUbpUq1B/QnJw=;
- b=uqgoOoe8zKkg18qNMBHPuXSTZ2zW8vG5up2d+w5ZcAho6kU3xQXOy/hhe3qY5UZ/h9
- arxXcKvOzeVcJZFjByoeQvR03dIdwjFVh4N+9FJbyzWR+kK0t7DfTZTtIFjPp71Ekh7H
- kif6iK4heBaJ1djnfut9qpt93qeVnJ8nOZQ3keUUeFOlU1VuAleoG79ISS1YRBRgmDNO
- iBrZSmah55QZ1Ng/m3x+i2jCvE0GrfDz3K30YSxvij8MKYuxoFJDPlH+91ku0uOlDQEs
- obTlorGJUXWlhHGs7TS3mk6tkdylRsZO/A9P9zdJw6ezJ4VlIauslBrhojATCHpDl9g9
- mYCg==
+ bh=2Ikyzkts721L5JCueYlPHhLJIrBzi/Gft4KsIokRrZY=;
+ b=De95x/pAYMBhiXA7aDfIhnsvZJArQWQyaO0JvMtTyI9NN0dPqlppo6S7IDZGIilmmR
+ X6+08Ptz4SxWY8KRMPEQnc7dxxMRbaoHdxzk6cssFu0IjE+xaLcHe7Ia0Dkg8VLtMJpS
+ cLa0lXvdleS0rQhTkV4I/ToFsxlhc3UV0y5bjb7f448CnZ8IVLgXdhoRAs0b1q1Ub23D
+ Ve2F0vX8ROwNIpQZVSZLbBwSL459c/w20HlnE/0wIi6Dxc7CIR1mL5JnkW1UWI91LFQz
+ UyOI+r9hOBvkwRl7s+76hgnWO5dBsleEvDTb6DNLHQUhOQqCb4j3jhHv/Cww0frNtvQM
+ DF6A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXPTapp/6+I6jrnMnKoAGUoJC6aBam7aLg1Q7UDjNHdhyN9CRGlDvHMOCPmUlD6dNQpWMpLU3jU4eU=@nongnu.org
-X-Gm-Message-State: AOJu0YyLbHm1ZOiH9BMh0ghmpSSYgX31b0pJ3Mn37FzCivJc2u2KOFKi
- jnoiDv4PFHIHYuLtO5XYiXaxHhJz8puNHhUnAV0IuBf41Tm45pzcRA2KLRwKcmAxvx85BR98gYp
- qP3rxnOj/PdcD20LbqCZ3k7xGHNu/pfjZvp9snvZd8fxDx8O7qauAx50=
-X-Gm-Gg: ATEYQzxgNxhtkc368VlbKoCdwPKGyVH/i9+ja38nYWfbk1U0INrN/tKN8C5nC94eVGh
- 8pNnUODPofE2tdryU0dE5TX7R6Lw/vgwE2MFOPJf36A+yH+2qcJFQrq95n9VC437vHOhEVKso27
- 5QbqO6PdK/P4NDD+PtK3eKWNrGOd9gTtY2ypxh08PDo+lDb2gCuXjTklskxi867l7iNDBOkTQ2v
- mTEPWM4N6FeFiWYA2oaZ52BeQZ2brS3gRspMDHxgltGZJ2ZqVhvANDKvZ35T6f8SQDzlfiJZ0JO
- 2ZZXLr5vjOo6L4DUYyvFLOrn9aMj0NXWJkvf/EcALxiolNOjvMTqOACjMcpnK1spWKFfHYOMp/Z
- R6skq2xIIlMFt0ouDco3/8Trq7in7N6AECaLwLkcNEo6xDBmL/p20DQpELIrKgwgKR7T76RTfBO
- DGfWCNu3O0jOjREgRKGZOgbNgd/+g=
-X-Received: by 2002:a05:600c:8b44:b0:477:9eb8:97d2 with SMTP id
- 5b1f17b1804b1-483a95bebd8mr220916715e9.8.1772006477109; 
- Wed, 25 Feb 2026 00:01:17 -0800 (PST)
-X-Received: by 2002:a05:600c:8b44:b0:477:9eb8:97d2 with SMTP id
- 5b1f17b1804b1-483a95bebd8mr220916285e9.8.1772006476616; 
- Wed, 25 Feb 2026 00:01:16 -0800 (PST)
+ AJvYcCUzgMkr1lipPzD0rscscGaPfYfAQqnuq5SWQlQjR21S5dqzpV6OlFhf72ZSM9aNedXohiq54OHPqp4=@nongnu.org
+X-Gm-Message-State: AOJu0YydS8jZc7iqfn/zCkDLOb92md8v5GW7SyZo1eJLsqV/v1EnQPpg
+ H/LVyoegzsSHuvql5TbX+nGuiJQxeHjeH6v+vklM5jtqeIEx1rXsUPk3CEBmxAxC95O7Aw2g5qB
+ RPZJwmi8wFIUid0eIHU6o93vJCJ6DL13R9pf0V+YLsZNzSLXiNBbG5/Y=
+X-Gm-Gg: ATEYQzz7z+1PjtCgdz94FsU+x6XzyxT7DSkHPX6zXZpCVc0Z8A5+CDb97e0qQdZ4rOR
+ zSv82cPwInxeNJaHgya7hSZnTMfhqBmOAYyqAf0G81f0fGIZLFhjVtOw0IlaJTh4mzwNwbIMsSv
+ GxXnVs0318Jl2piG+KUpYoF3szLUkhf54WZnCHkLtSaL6i5C4BOLtTCPCKDoBd61IbD6lKFuP3k
+ GZlrFTFJr1nsYFqAc5REvngU6yhJLYNE9DGxusYvqXe4JxQlBEK1P5zkBeEWo2JkH1FtmaM1zFn
+ SobfNp017miKG4NBTtokQ0ry7BcHGxUkXZjhz5dAaF6l1QT8uSPhTwe96llPn63cI3qtZ84ko75
+ WN3IqBFIaN6fHTnJBxBFlQKTDs1jWiMn7wYe1kxfdMP9dl0qjYO8A5PEgsTn5APB+uAhFRH7P6r
+ lmcNWkCpNm4AlOY7UqyS8eGj6FhXk=
+X-Received: by 2002:a05:600c:5289:b0:480:1b65:b744 with SMTP id
+ 5b1f17b1804b1-483bef5c44fmr23389825e9.28.1772006722610; 
+ Wed, 25 Feb 2026 00:05:22 -0800 (PST)
+X-Received: by 2002:a05:600c:5289:b0:480:1b65:b744 with SMTP id
+ 5b1f17b1804b1-483bef5c44fmr23389235e9.28.1772006722035; 
+ Wed, 25 Feb 2026 00:05:22 -0800 (PST)
 Received: from [192.168.10.81] ([151.95.144.138])
  by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-483bfb29715sm14429015e9.0.2026.02.25.00.01.15
+ 5b1f17b1804b1-483bfb296bfsm8894595e9.0.2026.02.25.00.05.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Feb 2026 00:01:15 -0800 (PST)
-Message-ID: <21b5e0ec-d03d-4e39-a3bf-deada48243b7@redhat.com>
-Date: Wed, 25 Feb 2026 09:01:15 +0100
+ Wed, 25 Feb 2026 00:05:21 -0800 (PST)
+Message-ID: <e88e3a0f-6b15-4967-8e9c-613ecf537b5e@redhat.com>
+Date: Wed, 25 Feb 2026 09:05:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/16] scripts/qapi: add QAPISchemaType.is_predefined
+Subject: Re: [PATCH v2 01/16] rust/qobject: add basic bindings
 To: Markus Armbruster <armbru@redhat.com>
 Cc: qemu-devel@nongnu.org, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
- <marcandre.lureau@redhat.com>, qemu-rust@nongnu.org
+ <marcandre.lureau@redhat.com>, qemu-rust@nongnu.org,
+ Zhao Liu <zhao1.liu@intel.com>
 References: <20260108131043.490084-1-pbonzini@redhat.com>
- <20260108131043.490084-11-pbonzini@redhat.com> <87bjhdxooi.fsf@pond.sub.org>
+ <20260108131043.490084-2-pbonzini@redhat.com> <87jyw24fw5.fsf@pond.sub.org>
+ <58720d10-5613-4235-b47f-939e9a8d3096@redhat.com>
+ <87y0ki1d21.fsf@pond.sub.org>
 From: Paolo Bonzini <pbonzini@redhat.com>
-In-Reply-To: <87bjhdxooi.fsf@pond.sub.org>
+In-Reply-To: <87y0ki1d21.fsf@pond.sub.org>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: OKSty6g1wJY0J16EaSPHDBCwBz_d0P1e0O68kGMqe1U_1772006477
+X-Mimecast-MFC-PROC-ID: Z2_2ZXPuzKuvJtiFxH3sZeJ12BZWUKr8z1IgaZVf9zY_1772006723
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -118,94 +121,51 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 2/25/26 08:33, Markus Armbruster wrote:
+On 2/24/26 14:33, Markus Armbruster wrote:
 > Paolo Bonzini <pbonzini@redhat.com> writes:
 > 
->> It is impossible to call is_implicit on an enum type from the visitor, because
->> the QAPISchemaEnumType has already been exploded into its costituent fields.
+>> On 2/24/26 11:03, Markus Armbruster wrote:
+>>>> diff --git a/rust/util/wrapper.h b/rust/util/wrapper.h
+>>>> index b9ed68a01d8..0907dd59142 100644
+>>>> --- a/rust/util/wrapper.h
+>>>> +++ b/rust/util/wrapper.h
+>>>> @@ -30,3 +30,10 @@ typedef enum memory_order {
+>>>>   #include "qemu/log.h"
+>>>>   #include "qemu/module.h"
+>>>>   #include "qemu/timer.h"
+>>>> +#include "qobject/qnull.h"
+>>>> +#include "qobject/qbool.h"
+>>>> +#include "qobject/qnum.h"
+>>>> +#include "qobject/qstring.h"
+>>>> +#include "qobject/qobject.h"
+>>>> +#include "qobject/qlist.h"
+>>>> +#include "qobject/qdict.h"
+>>>
+>>> Is this file just for bindgen, and never actually fed to the C compiler?
+>>
+>> Yes.
 > 
-> constituent
+> Thanks!
 > 
-> Passing selected attributes instead of the entire object to its visitor
-> method limits what the visitor can do.  This is both good and bad.
-> We've run into "bad" a couple of times.  It's never been bad enough to
-> change the interface, though.
+>>>> +impl From<()> for QObject {
+>>>> +    fn from(_null: ()) -> Self {
+>>>> +        // Conversion of the C inline `qnull` function
+>>>> +        unsafe { QObject::cloned_from_base(addr_of!(bindings::qnull_.base)) }
+>>>> +    }
+>>>> +}
+>>>
+>>> Could we call C qnull() instead of using qnull_.base?
+>>
+>> See v1 review - no, because qnull() is inline.  I can make it not
+>> inline, of course.
 > 
-> Thoughts?
+> I feel making it inline was a bit silly.  Perhaps I had a non-silly
+> reason back then, but I can't see it anymore.
 
-I think that applies here, is_predefined() is a reasonable addition.
-
->> The Rust backend is also not modular (yet?) so it is not possible to filter
->> out the builtin module;
-> 
-> Really?
-> 
-> The visitors are all based on QAPISchemaVisitor.  Protocol:
-> 
->      .visit_begin()
->      for all modules:
->          .visit_module()
->          for all entities:
->              if .visit_needed():
->                  .visit_FOO()
->      .visit_end()
-> 
-> QAPISchemaModularCVisitor implements .visit_module() to generate code
-> per module.  Its .write() skips builtin modules unless opt_builtins.
-
-... because its .write() already builds multiple QAPIGen{C,H,Trace}, one 
-per module.  Here instead there is just one QAPIGenRs.
-
-Using multiple QAPIGenRs instances, one per module, would be hackish. 
-I'd rather just go modular instead of that.  I can take a look, since 
-this series will be (early) 11.1 material anyway.
+Maybe it was, but qnull_ is also used by tests/unit/check-qnull.c; and 
+it would also be silly to make qnull() extern while keeping the global 
+qnull_.  In doubt, I'd leave it as is.
 
 Paolo
-
-> QAPISchemaMonolithicCVisitor is oblivious of modules: it doesn't
-> implement .visit_module(), and writes out everything.  This is fine,
-> because we use it only to generate qapi-features.[ch] and
-> qapi-introspect.[ch].  Generating the former has no need for recognizing
-> the built-ins because there are no built-in features.  Generating the
-> latter has no need because it treats built-in stuff exactly like
-> user-defined stuff.
-> 
-> QAPISchemaRsVisitor [PATCH 12] also doesn't implement .visit_module().
-> It uses QAPISchema.is_predefined(), defined in this patch, to skip
-> built-in.  Could it rely on .visit_module() instead?
-> 
->>                          add a way to query for implicit type names without
->> having the object itself.
->>
->> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
->> ---
->>   scripts/qapi/schema.py | 11 +++++++++++
->>   1 file changed, 11 insertions(+)
->>
->> diff --git a/scripts/qapi/schema.py b/scripts/qapi/schema.py
->> index 848a7401251..15f5d97418f 100644
->> --- a/scripts/qapi/schema.py
->> +++ b/scripts/qapi/schema.py
->> @@ -1243,6 +1243,17 @@ def _def_builtin_type(
->>           # schema.
->>           self._make_array_type(name, None)
->>   
->> +    def is_predefined(self, name: str) -> bool:
->> +        # See QAPISchema._def_predefineds()
->> +        entity = self._entity_dict[name]
->> +        if isinstance(entity, QAPISchemaBuiltinType):
->> +            return True
->> +        if entity is self.the_empty_object_type:
->> +            return True
->> +        if name == 'QType':
->> +            return True
->> +        return False
->> +
->>       def _def_predefineds(self) -> None:
->>           for t in [('str',    'string',  'char' + POINTER_SUFFIX),
->>                     ('number', 'number',  'double'),
-> 
-> 
-> 
 
 
