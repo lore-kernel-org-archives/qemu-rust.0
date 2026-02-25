@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7942FD376C
-	for <qemu-rust@archiver.kernel.org>; Wed, 25 Feb 2026 16:09:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FD04FD3772
+	for <qemu-rust@archiver.kernel.org>; Wed, 25 Feb 2026 16:18:42 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vvHS0-00031e-U9; Wed, 25 Feb 2026 11:09:31 -0500
+	id 1vvHap-0005X8-SF; Wed, 25 Feb 2026 11:18:33 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vvHRl-0002zf-9z
- for qemu-rust@nongnu.org; Wed, 25 Feb 2026 11:09:11 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1vvHan-0005WG-Tl
+ for qemu-rust@nongnu.org; Wed, 25 Feb 2026 11:18:29 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vvHRh-0003De-Hn
- for qemu-rust@nongnu.org; Wed, 25 Feb 2026 11:09:08 -0500
+ id 1vvHal-0005WY-Hd
+ for qemu-rust@nongnu.org; Wed, 25 Feb 2026 11:18:29 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772035744;
+ s=mimecast20190719; t=1772036305;
  h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=LtF3wnOKrNKjrSLx2Zjy3timJyFNsRqbX2wrHtdPLDM=;
- b=DOkfAHahIkI05DlCbb419Bc4Iq1rNGOCg03CZtElwLGopYNHNclyrTrIiF8lMyRZBxcSb0
- 2h2tKJoWx3YWgwEu+/Imv8wLpdArbkRG+Z8rD0sLRfHo7YJT5zo9CV8qYX/YbvyiNnhDcJ
- MWdil2viz1ltIqKx69kSEmlpmF83twg=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=R27996lVvl/s4LVxlDfB3oEaWl5JadXUCVbdiXR9RxM=;
+ b=QNePCXgA800mVE7cLAAURdblBePVayoYUleWfQpoqo5r+5fzDXp4pUTnRCC4nUBNpbPTrV
+ hrWrvIGW4KS+7aNdsS8UWGr5IK2baMfL01evqO+0fgrSJgYG6mD932oRB8o/sy+osJBG73
+ itBfxolY1s2B5tNkXiK5Eknxm6dw26M=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-540-lHhf81eSOy-cGj09rJ53HQ-1; Wed,
- 25 Feb 2026 11:09:01 -0500
-X-MC-Unique: lHhf81eSOy-cGj09rJ53HQ-1
-X-Mimecast-MFC-AGG-ID: lHhf81eSOy-cGj09rJ53HQ_1772035739
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-327-H-NyjRDLPwev-X5gWX2SfQ-1; Wed,
+ 25 Feb 2026 11:18:15 -0500
+X-MC-Unique: H-NyjRDLPwev-X5gWX2SfQ-1
+X-Mimecast-MFC-AGG-ID: H-NyjRDLPwev-X5gWX2SfQ_1772036292
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 7FD781855148; Wed, 25 Feb 2026 16:08:36 +0000 (UTC)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 099BC1955F23; Wed, 25 Feb 2026 16:18:12 +0000 (UTC)
 Received: from redhat.com (unknown [10.45.225.165])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id A42AD19560B6; Wed, 25 Feb 2026 16:08:30 +0000 (UTC)
-Date: Wed, 25 Feb 2026 16:08:27 +0000
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id DF4761800352; Wed, 25 Feb 2026 16:18:05 +0000 (UTC)
+Date: Wed, 25 Feb 2026 16:18:02 +0000
 From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 To: Markus Armbruster <armbru@redhat.com>
 Cc: qemu-devel@nongnu.org,
@@ -62,29 +62,29 @@ Cc: qemu-devel@nongnu.org,
  Paolo Bonzini <pbonzini@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Christian Schoenebeck <qemu_oss@crudebyte.com>,
  Richard Henderson <richard.henderson@linaro.org>
-Subject: Re: [PATCH v6 14/27] ui: add proper error reporting for password
- changes
-Message-ID: <aZ8ee8lb1NeD0GcT@redhat.com>
+Subject: Re: [PATCH v6 22/27] util: introduce common helper for error-report
+ & log code
+Message-ID: <aZ8gui1kR5mRDVHx@redhat.com>
 References: <20260211152508.732487-1-berrange@redhat.com>
- <20260211152508.732487-15-berrange@redhat.com>
- <87seayckwu.fsf@pond.sub.org>
+ <20260211152508.732487-23-berrange@redhat.com>
+ <87342yb120.fsf@pond.sub.org>
 MIME-Version: 1.0
-In-Reply-To: <87seayckwu.fsf@pond.sub.org>
+In-Reply-To: <87342yb120.fsf@pond.sub.org>
 User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-X-Mimecast-MFC-PROC-ID: sBJzk6U0SpihnqTLmrho9UFNDqY0RLooX1hFwD4zlaE_1772035739
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Mimecast-MFC-PROC-ID: 8TsepjjGwsjick8k_3OH9m1oPt8Fw1j-RD0xB24Iwos_1772036292
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -5
 X-Spam_score: -0.6
 X-Spam_bar: /
 X-Spam_report: (-0.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.734, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.78,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
@@ -103,109 +103,133 @@ Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Wed, Feb 18, 2026 at 01:10:09PM +0100, Markus Armbruster wrote:
+On Wed, Feb 18, 2026 at 03:04:23PM +0100, Markus Armbruster wrote:
 > Daniel P. Berrangé <berrange@redhat.com> writes:
 > 
-> > Neither the VNC or SPICE code for password changes provides error
-> > reporting at source, leading the callers to report a largely useless
-> > generic error message.
+> > The error-report and log code both have a need to add prefixes
+> > to messages they are printing, with the current example being
+> > a timestamp.
 > >
-> > Fixing this removes one of the two remaining needs for the undesirable
-> > error_printf_unless_qmp() method.
+> > The format and configuration they use should be consistent, so
+> > providing a common helper will ensure this is always the case.
+> > Initially the helper only emits a timestamp, but future patches
+> > will expand this.
 > >
-> > While fixing this the error message hint is improved to recommend the
-> > 'password-secret' option which allows securely passing a password at
-> > startup.
+> > This takes the liberty of assigning the new file to the same
+> > maintainer as the existing error-report.c file, given it will
+> > be extracting some functionality from the latter.
+> 
+> Fair.
+> 
+> > While vreport() dynamically changes between reporting to the
+> > monitor vs stderr, depending on whether HMP is active or not,
+> > message prefixes are only ever used in the non-HMP case. Thus
+> > the helper API can take a FILE * object and not have to deal
+> > with the monitor at all.
 > >
-> > Reported-by: Markus Armbruster <armbru@redhat.com>
+> > Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 > > Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 > > ---
-> >  include/ui/console.h                 |  2 +-
-> >  include/ui/qemu-spice-module.h       |  3 ++-
-> >  tests/functional/generic/test_vnc.py |  4 ++--
-> >  ui/spice-core.c                      | 25 ++++++++++++++++++-------
-> >  ui/spice-module.c                    |  7 ++++---
-> >  ui/ui-qmp-cmds.c                     | 19 ++++++-------------
-> >  ui/vnc-stubs.c                       |  6 +++---
-> >  ui/vnc.c                             | 10 +++++++---
-> >  8 files changed, 43 insertions(+), 33 deletions(-)
-> >
-> > diff --git a/include/ui/console.h b/include/ui/console.h
-> > index 98feaa58bd..3677a9d334 100644
-> > --- a/include/ui/console.h
-> > +++ b/include/ui/console.h
-> > @@ -457,7 +457,7 @@ void qemu_display_help(void);
-> >  void vnc_display_init(const char *id, Error **errp);
-> >  void vnc_display_open(const char *id, Error **errp);
-> >  void vnc_display_add_client(const char *id, int csock, bool skipauth);
-> > -int vnc_display_password(const char *id, const char *password);
-> > +int vnc_display_password(const char *id, const char *password, Error **errp);
-> >  int vnc_display_pw_expire(const char *id, time_t expires);
-> >  void vnc_parse(const char *str);
-> >  int vnc_init_func(void *opaque, QemuOpts *opts, Error **errp);
-> > diff --git a/include/ui/qemu-spice-module.h b/include/ui/qemu-spice-module.h
-> > index 1f22d557ea..072efa0c83 100644
-> > --- a/include/ui/qemu-spice-module.h
-> > +++ b/include/ui/qemu-spice-module.h
-> > @@ -29,7 +29,8 @@ struct QemuSpiceOps {
-> >      void (*display_init)(void);
-> >      int (*migrate_info)(const char *h, int p, int t, const char *s);
-> >      int (*set_passwd)(const char *passwd,
-> > -                      bool fail_if_connected, bool disconnect_if_connected);
-> > +                      bool fail_if_connected, bool disconnect_if_connected,
-> > +                      Error **errp);
-> >      int (*set_pw_expire)(time_t expires);
-> >      int (*display_add_client)(int csock, int skipauth, int tls);
-> >  #ifdef CONFIG_SPICE
-> > diff --git a/tests/functional/generic/test_vnc.py b/tests/functional/generic/test_vnc.py
-> > index f1dd1597cf..097f858ca1 100755
-> > --- a/tests/functional/generic/test_vnc.py
-> > +++ b/tests/functional/generic/test_vnc.py
-> > @@ -48,7 +48,7 @@ def test_no_vnc_change_password(self):
-> >          self.assertEqual(set_password_response['error']['class'],
-> >                           'GenericError')
-> >          self.assertEqual(set_password_response['error']['desc'],
-> > -                         'Could not set password')
-> > +                         'No VNC display is present');
-> >  
-> >      def launch_guarded(self):
-> >          try:
-> > @@ -73,7 +73,7 @@ def test_change_password_requires_a_password(self):
-> >          self.assertEqual(set_password_response['error']['class'],
-> >                           'GenericError')
-> >          self.assertEqual(set_password_response['error']['desc'],
-> > -                         'Could not set password')
-> > +                         'VNC password authentication is disabled')
-> >  
-> >      def test_change_password(self):
-> >          self.set_machine('none')
-> > diff --git a/ui/spice-core.c b/ui/spice-core.c
-> > index 8a6050f4ae..cdcec34f67 100644
-> > --- a/ui/spice-core.c
-> > +++ b/ui/spice-core.c
-> > @@ -756,7 +756,7 @@ static void qemu_spice_init(void)
-> >                               tls_ciphers);
-> >      }
-> >      if (password) {
-> > -        qemu_spice.set_passwd(password, false, false);
-> > +        qemu_spice.set_passwd(password, false, false, NULL);
+> >  MAINTAINERS            |  2 ++
+> >  include/qemu/message.h | 28 ++++++++++++++++++++++++++++
+> >  util/meson.build       |  1 +
+> >  util/message.c         | 23 +++++++++++++++++++++++
+> >  4 files changed, 54 insertions(+)
+> >  create mode 100644 include/qemu/message.h
+> >  create mode 100644 util/message.c
+
+snip
+
+> > diff --git a/util/message.c b/util/message.c
+> > new file mode 100644
+> > index 0000000000..99a403f9d0
+> > --- /dev/null
+> > +++ b/util/message.c
+> > @@ -0,0 +1,23 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> > +
+> > +#include "qemu/osdep.h"
+> > +
+> > +#include "qemu/message.h"
+> > +#include "monitor/monitor.h"
 > 
-> qemu_spice.set_passwd is qemu_spice_set_passwd().  It's converted to
-> Error below.  That conversion doesn't replace error reporting, it only
-> adds.  Therefore, passing NULL does not lose error reporting here.
-> Good.
+> Superfluous #include.
 > 
-> However, why is ignoring errors okay here?  Not this patch's fault, of
-> course.
+> It'll become used in PATCH 26, for qemu_thread_get_name().  Should
+> include qemu/thread.h there instead.
 
-IIUC There are two scenarios qemu_spice_set_passwd can fail
+opps, yes.
 
- * The password auth method is not enabled
-     -> minor config bug, but we should report that error
- * The fail_if_conn is true and a client is connected
-     -> impossible scenario during startup, fine to ignore
+> > +
+> > +static int message_format;
+> > +
+> > +void qmessage_set_format(int flags)
+> > +{
+> > +    message_format = flags;
+> > +}
+> > +
+> > +void qmessage_context_print(FILE *fp)
+> > +{
+> > +    if (message_format & QMESSAGE_FORMAT_TIMESTAMP) {
+> > +        g_autoptr(GDateTime) dt = g_date_time_new_now_utc();
+> > +        g_autofree char *timestr = g_date_time_format_iso8601(dt);
+> > +        fputs(timestr, fp);
+> > +        fputc(' ', fp);
+> 
+> The context string is either empty, or it ends with a space, for ease of
+> use.  Okay.
+> 
+> I'd go for
+> 
+>            fprintf(fp, "%s ", timestr);
 
+Previous reviewer comments preferred fputs/c to avoid
+redundant printf string interpolation since qemu_log
+could be used in fairly hot code paths  at times.
 
+> 
+> > +    }
+> > +}
+> 
+> Alright, everybody's favorite topic: naming.
+> 
+> message.[ch] aren't about messages, but message *prefixes*.  You call
+> them "context" in qmessage_context_print().  I'm fine with "context".
+
+The use of "message" was a somewhat forward looking thing, guessing
+at possible other needs related to message ouput.
+
+In particular I think there's scope for the Location handling APIs to
+be in this file instead of error-report.c.
+
+So one could imagine  qmessage_loc_push/pop  APis later.
+
+> External symbols are prefixed with qmessage_.  I prefer such prefixes to
+> match the filename.
+
+My view is that they do match if you pretend the 'q' is implicit by
+this living inside qemu.git ;-P
+
+> Prefix in util/ overwhelmingly start with qemu_.
+
+Naturally my choice was based on what I've previously done for
+naming in io/, crypto/ and auth/, etc where all the C APIs have
+a leading 'q' to scope them to QEMU, but this is omitted in the
+directory/file names :-)
+
+> Somewhat long prefixes feel okay here, as these symbols are used only a
+> couple of times.  qemu_message_context_ might be too long, though.
+> 
+> Could use the classic technique of murdering vowels: to qemu_msg_ctxt_.
+> 
+> Thoughts?
+
+IMHO, despite the existing usage in util/, "qemu_" is overkill as a
+naming prefix.
+
+A plain 'q' prefix is most liable to clash with "Qt" library functions,
+but we don't consume that in QEMU so largely not neccessary to worry
+about unless perhaps dragged in indirectly via a 3rd party dep
 
 With regards,
 Daniel
