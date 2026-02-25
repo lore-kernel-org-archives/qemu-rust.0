@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6767FD3774
-	for <qemu-rust@archiver.kernel.org>; Wed, 25 Feb 2026 16:34:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37318FD376A
+	for <qemu-rust@archiver.kernel.org>; Wed, 25 Feb 2026 16:38:57 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vvHpe-00085w-8p; Wed, 25 Feb 2026 11:33:50 -0500
+	id 1vvHuN-0002Ff-V0; Wed, 25 Feb 2026 11:38:43 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vvHpd-00083t-Ca
- for qemu-rust@nongnu.org; Wed, 25 Feb 2026 11:33:49 -0500
+ id 1vvHuL-0002F1-Ve
+ for qemu-rust@nongnu.org; Wed, 25 Feb 2026 11:38:41 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vvHpY-0007rY-4j
- for qemu-rust@nongnu.org; Wed, 25 Feb 2026 11:33:49 -0500
+ id 1vvHuI-0000GN-Lz
+ for qemu-rust@nongnu.org; Wed, 25 Feb 2026 11:38:41 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772037223;
+ s=mimecast20190719; t=1772037515;
  h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=G/aN04mUe2svMCGil7zhSEYLpKVVEjL6+RoMnU5C2DA=;
- b=IO3O9qhIZlj4v+/0fdmKnZvevxFlFZNw4Ip8qMIV9TpAPeG+eru8tXdlqlOc88Sxu+wgj9
- pXOldT0k5LUSMRJQSlSZesFj2l5n1/LgcKRMd3Dsl24K1tOV/GI/fxFXey4t938MgsTjXM
- xYLcIdndhbm/Xce+f9o4+GLqxonUNeQ=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=VdZHvlU8W6vWLV70h737ZMrXZc3Bsg0j2kz5VPlt6Ho=;
+ b=Q+dmuVfDAeo3IR226Jwx3sNslhpFL37sVxj13R9KT4txHEqGBE49QjsMyIA/Eroun4Ef+V
+ FNXr4ZWI1NEWaI2aZciJCQNvq3O9+GXv8o4RrL2XfFJtOHmu3cyrvuasFm6bBgD0/rFxxc
+ xFbcKI4nJF98pTKbwVVjAe9VNA3oar8=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-321-kqiDfouxOZG_R6oMVV_O8A-1; Wed,
- 25 Feb 2026 11:33:39 -0500
-X-MC-Unique: kqiDfouxOZG_R6oMVV_O8A-1
-X-Mimecast-MFC-AGG-ID: kqiDfouxOZG_R6oMVV_O8A_1772037217
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-45-gnOxJW8yPIaM4znBGcZaHQ-1; Wed,
+ 25 Feb 2026 11:38:32 -0500
+X-MC-Unique: gnOxJW8yPIaM4znBGcZaHQ-1
+X-Mimecast-MFC-AGG-ID: gnOxJW8yPIaM4znBGcZaHQ_1772037510
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 0404119560A3; Wed, 25 Feb 2026 16:33:37 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id AADC41800341; Wed, 25 Feb 2026 16:38:30 +0000 (UTC)
 Received: from redhat.com (unknown [10.45.225.165])
  by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id D7A6A1955D71; Wed, 25 Feb 2026 16:33:31 +0000 (UTC)
-Date: Wed, 25 Feb 2026 16:33:28 +0000
+ id 5A7071955F43; Wed, 25 Feb 2026 16:38:25 +0000 (UTC)
+Date: Wed, 25 Feb 2026 16:38:21 +0000
 From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Markus Armbruster <armbru@redhat.com>
+To: Peter Maydell <peter.maydell@linaro.org>
 Cc: qemu-devel@nongnu.org,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Stefan Weil <sw@weilnetz.de>, "Dr. David Alan Gilbert" <dave@treblig.org>,
@@ -59,20 +59,21 @@ Cc: qemu-devel@nongnu.org,
  =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
  Hanna Reitz <hreitz@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
  qemu-block@nongnu.org, qemu-rust@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Markus Armbruster <armbru@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
  Christian Schoenebeck <qemu_oss@crudebyte.com>,
  Richard Henderson <richard.henderson@linaro.org>
-Subject: Re: [PATCH v6 26/27] util: add support for formatting thread info in
- messages
-Message-ID: <aZ8kWCkAHIbgDC4x@redhat.com>
+Subject: Re: [PATCH v6 25/27] util: add support for formatting a program name
+ in messages
+Message-ID: <aZ8lfQ8fqVAYTLAa@redhat.com>
 References: <20260211152508.732487-1-berrange@redhat.com>
- <20260211152508.732487-27-berrange@redhat.com>
- <87ecmh3uqp.fsf@pond.sub.org>
+ <20260211152508.732487-26-berrange@redhat.com>
+ <CAFEAcA-6XMp6B-V2X+=25Q7XKwy5JuOpGj9RNpN+mTNxm71wpQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <87ecmh3uqp.fsf@pond.sub.org>
+In-Reply-To: <CAFEAcA-6XMp6B-V2X+=25Q7XKwy5JuOpGj9RNpN+mTNxm71wpQ@mail.gmail.com>
 User-Agent: Mutt/2.2.14 (2025-02-20)
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: fqkJLzjFyXncjKZBDdWQl31YiDaR980QSgCObz8BgV8_1772037217
+X-Mimecast-MFC-PROC-ID: RyghYceY_KbQNKPX0gJh-iGL1xbTTSZfFwKuy_z-_ns_1772037510
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -103,31 +104,72 @@ Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Thu, Feb 19, 2026 at 11:14:54AM +0100, Markus Armbruster wrote:
-> Daniel P. Berrangé <berrange@redhat.com> writes:
-> 
-> > The message context is now extended to be able to include the
-> > thread ID and thread name, after the program name. On Linux
-> > the thread ID will match the process TID visible in /proc,
-> > while on other platforms it will merely be an integer repr
-> > of the system thread object address/ID.
+On Thu, Feb 19, 2026 at 10:23:36AM +0000, Peter Maydell wrote:
+> On Wed, 11 Feb 2026 at 15:29, Daniel P. Berrangé <berrange@redhat.com> wrote:
 > >
-> > This changes the output for both error_report and qemu_log,
-> > when running under the system emulators or the QEMU storage
-> > daemon.
+> > The error_report function can include the program name in any
+> > messages it prints. The qemu_log function has no equivalent
+> > behaviour.
+> >
+> > This introduces support for a "program name" in the new
+> > messages API, which will be included by default for all
+> > binaries.
+> >
+> > This change tweaks the output of the error_report function,
+> > adding a space between the program name and the location
+> > info. The qemu_log function will gain the program name. This
+> > can be easily seen with the 'log' trace backend, and how it
+> > is now more closely matching error_report output.
+> >
+> > Before:
+> >
+> >   # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish -d 'trace:qcrypto*'
+> >   qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x5584e13937f0 dir=fish
+> >   qcrypto_tls_creds_get_path TLS creds path creds=0x5584e13937f0 filename=ca-cert.pem path=<none>
+> >   qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: No such file or directory
+> >
+> > After:
+> >
+> >   # qemu-system-x86_64 -object tls-creds-x509,id=t0,dir=fish -d 'trace:qcrypto*'
+> >   qemu-system-x86_64: qcrypto_tls_creds_x509_load TLS creds x509 load creds=0x5584e13937f0 dir=fish
+> >   qemu-system-x86_64: qcrypto_tls_creds_get_path TLS creds path creds=0x5584e13937f0 filename=ca-cert.pem path=<none>
+> >   qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: No such file or directory
 > 
-> Yes:
+> On the other hand if you're using the logs for debugging
+> then you now have an extra big pointless prefix on them that
+> you have to turn off. Especially if you're logging to a file
+> that's a lot of extra garbage in the output. I'm not really
+> looking forward to now having to give QEMU an extra long
+> and unwieldy command line argument every time I want to
+> do debug or tracepoint logging.
 > 
->     $ qemu-system-x86_64 -object tls-creds-x509,id=t0
->     qemu-system-x86_64: (1116063:main): Missing 'dir' property value
-> 
-> I do not like this change.  The part in (parenthesis) is gobbledygook
-> for non-developers.  I feel it should be off by default.
-> 
-> Making it on by default for log message (as shown below) is fine.
+> Why do we care about the qemu_log output matching the
+> error-report output? The logs are expected to be
+> quite frequent, to only be there if you've explicitly
+> turned them on, and to be usually directed to a log file.
 
-Hmm, challenging as now we have to distiguish callers when formatting
-the message prefixes, but I can see your point.
+Personally I never use the log-to-file facility. Instead typical use
+case is relying on the trace points 'log' facility as illustrated in
+the commit message example to dump to stderr for simple debugging,
+and having consistent formatting between the logs & errors is useful
+there.
+
+In effect this patch series is implicitly viewing the error report
+output as a being a variant of log output with a level of "ERROR",
+despite us having completely separate logic for logs vs errors
+internally.
+
+In this particular patch, I didn't especially have a use case for
+the program name in the log output, it instead of fell out of the
+general goal of using the same formatting logic for both subsystems.
+
+I'll think about how to alter this.
+
+> The error reporting is more likely to be infrequent, to
+> be on stdout, and to be important/fatal things.
+> 
+> -- PMM
+> 
 
 With regards,
 Daniel
