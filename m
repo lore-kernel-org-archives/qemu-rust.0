@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DE70FC5906
-	for <qemu-rust@archiver.kernel.org>; Thu, 26 Feb 2026 07:12:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34535FC5913
+	for <qemu-rust@archiver.kernel.org>; Thu, 26 Feb 2026 09:51:44 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vvVXn-00072t-8d; Thu, 26 Feb 2026 02:12:20 -0500
+	id 1vvY21-0007SX-1w; Thu, 26 Feb 2026 04:51:41 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vvVXe-0006zo-MP
- for qemu-rust@nongnu.org; Thu, 26 Feb 2026 02:12:13 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vvY1x-0007Qr-Eo
+ for qemu-rust@nongnu.org; Thu, 26 Feb 2026 04:51:37 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vvVXb-0007Lp-VW
- for qemu-rust@nongnu.org; Thu, 26 Feb 2026 02:12:10 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vvY1v-0007Lo-52
+ for qemu-rust@nongnu.org; Thu, 26 Feb 2026 04:51:37 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772089926;
+ s=mimecast20190719; t=1772099494;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FBdUl52cQDccib0nRxMgzOcVdooF8JsO4LTwPImhd04=;
- b=D+ZrGN2OUOeRRDq1a2Sw2PeDKgKAUONNF097rDoFdnAoloSTCJewS18bt8Qi1l8SfBKTh/
- 5jeQAZVFfHcslcY3NTuJArp3y5tmZClpZ8OkV89/adNT0OcUJg77xZJpUyrS01Rn6UWaX/
- vGwutAYe7aTsIry31+AIQXwYFkqspQ8=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=rU0aKfvKOzw75Cb25bqDjXPDevHPqqpxwKjEYcpa2o8=;
+ b=S+ieZMMiwicBrKdbXFOXes1Qa4jpExirJZwMRu97pnTMH93kZAPzsaxMAMyqkCIuRNIlPv
+ h6mOdLTNLWe8+Z23XiqgYC6CnaTyezCDyirfi0zuf6Kbbs9B0ESUAGEbWCPJYXPvxEMdAv
+ Qmw8t/sC3nXo5XajJFm2QnBNh5FVEko=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-197-T9Rgry4ZPfaPSzmqrCYjrg-1; Thu,
- 26 Feb 2026 02:12:04 -0500
-X-MC-Unique: T9Rgry4ZPfaPSzmqrCYjrg-1
-X-Mimecast-MFC-AGG-ID: T9Rgry4ZPfaPSzmqrCYjrg_1772089922
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-251-rJB6MOJ3Pi6G8lipVpxcOg-1; Thu,
+ 26 Feb 2026 04:51:07 -0500
+X-MC-Unique: rJB6MOJ3Pi6G8lipVpxcOg-1
+X-Mimecast-MFC-AGG-ID: rJB6MOJ3Pi6G8lipVpxcOg_1772099465
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id D115F18005AD; Thu, 26 Feb 2026 07:12:01 +0000 (UTC)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 12BFB195609E; Thu, 26 Feb 2026 09:51:05 +0000 (UTC)
 Received: from blackfin.pond.sub.org (unknown [10.45.242.13])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 665871956053; Thu, 26 Feb 2026 07:12:00 +0000 (UTC)
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 08FEA30001A5; Thu, 26 Feb 2026 09:51:03 +0000 (UTC)
 Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id E77F121E6932; Thu, 26 Feb 2026 08:11:57 +0100 (CET)
+ id 8351A21E6932; Thu, 26 Feb 2026 10:51:01 +0100 (CET)
 From: Markus Armbruster <armbru@redhat.com>
 To: Daniel P. =?utf-8?Q?Berrang=C3=A9?= <berrange@redhat.com>
-Cc: Markus Armbruster <armbru@redhat.com>,  qemu-devel@nongnu.org,  Manos
- Pitsidianakis <manos.pitsidianakis@linaro.org>,  Stefan Weil
- <sw@weilnetz.de>,  "Dr. David Alan Gilbert" <dave@treblig.org>,  Pierrick
- Bouvier <pierrick.bouvier@linaro.org>,  devel@lists.libvirt.org,  Philippe
+Cc: qemu-devel@nongnu.org,  Manos Pitsidianakis
+ <manos.pitsidianakis@linaro.org>,  Stefan Weil <sw@weilnetz.de>,  "Dr.
+ David Alan Gilbert" <dave@treblig.org>,  Pierrick Bouvier
+ <pierrick.bouvier@linaro.org>,  devel@lists.libvirt.org,  Philippe
  =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,  =?utf-8?Q?Marc-Andr?=
  =?utf-8?Q?=C3=A9?= Lureau
  <marcandre.lureau@redhat.com>,  Hanna Reitz <hreitz@redhat.com>,  Kevin
@@ -60,33 +60,32 @@ Cc: Markus Armbruster <armbru@redhat.com>,  qemu-devel@nongnu.org,  Manos
  Paolo Bonzini <pbonzini@redhat.com>,  Gerd Hoffmann <kraxel@redhat.com>,
  Christian Schoenebeck <qemu_oss@crudebyte.com>,  Richard Henderson
  <richard.henderson@linaro.org>
-Subject: Re: [PATCH v6 25/27] util: add support for formatting a program
- name in messages
-In-Reply-To: <aZ8iSclFzGgPEH1t@redhat.com> ("Daniel P. =?utf-8?Q?Berrang?=
- =?utf-8?Q?=C3=A9=22's?= message of
- "Wed, 25 Feb 2026 16:24:41 +0000")
+Subject: Re: [PATCH v6 00/27] util: sync error_report & qemu_log output more
+ closely
+In-Reply-To: <20260211152508.732487-1-berrange@redhat.com> ("Daniel
+ P. =?utf-8?Q?Berrang=C3=A9=22's?= message of "Wed, 11 Feb 2026 15:24:41
+ +0000")
 References: <20260211152508.732487-1-berrange@redhat.com>
- <20260211152508.732487-26-berrange@redhat.com>
- <87ikbt3v0y.fsf@pond.sub.org> <aZ8iSclFzGgPEH1t@redhat.com>
-Date: Thu, 26 Feb 2026 08:11:57 +0100
-Message-ID: <871pi8htc2.fsf@pond.sub.org>
+Date: Thu, 26 Feb 2026 10:51:01 +0100
+Message-ID: <874in3hlyy.fsf@pond.sub.org>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: yKnXsIHqRdZ4WLqhgULSotouPOoXWfWUUI38UmRAwTA_1772089922
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Mimecast-MFC-PROC-ID: L4RGeQ7jqQOdhM0Xzn8VL5VknSnhcuhr0a4TOk7oS70_1772099465
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -5
-X-Spam_score: -0.6
-X-Spam_bar: /
-X-Spam_report: (-0.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+X-Spam_score_int: 27
+X-Spam_score: 2.7
+X-Spam_bar: ++
+X-Spam_report: (2.7 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.734, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.78,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=no autolearn_force=no
+ RCVD_IN_SBL_CSS=3.335, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.734,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.78, SPF_HELO_PASS=-0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -104,136 +103,155 @@ Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
 
-> On Thu, Feb 19, 2026 at 11:08:45AM +0100, Markus Armbruster wrote:
->> Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
->>=20
->> > The error_report function can include the program name in any
->> > messages it prints. The qemu_log function has no equivalent
->> > behaviour.
->> >
->> > This introduces support for a "program name" in the new
->> > messages API, which will be included by default for all
->> > binaries.
->> >
->> > This change tweaks the output of the error_report function,
->> > adding a space between the program name and the location
->> > info.
->>=20
->> Why?
+> This series is a tangent that came out of discussion in
 >
-> Looking again, arguably that is fixing a pre-existing bug
+>    https://lists.nongnu.org/archive/html/qemu-devel/2025-08/msg00903.html
+
+This was about error messages providing sufficient information both for
+users and for developers.
+
+Manos proposed to print a stack backtrace on programming errors and
+fatal errors (&error_abort and &error_fatal), enabled at configure time.
+He found this useful for debugging a use-after-free.
+
+Daniel pointed out that GDB shows better stack backtraces, and that we
+could not enable this feature in distro builds.  He wondered whether
+showing just thread names would do.
+
+> In thinking about adding thread info to error_report,
+
+I understand why that can be useful for developers in certain scenarios,
+but I feel it results in error reporting that is overly vebose and
+unwieldy for users.  I'd prefer optional, default off.
+
+>                                                       I
+> came to realize we should likely make qemu_log behave
+> consistently with error_report & friends. We already
+> honour '-msg timestamp=3Don', but don't honour 'guest-name=3Don'
+> and also don't include the binary name.
+
+I'm willing to accept a message format common to error reporting and log
+if that's useful.  Backed by shared code, obviously.
+
+Why could it be useful, and to whom?
+
+Error messages are both for users and developers.  Both need them to be
+clear and detailed enough to figure out what's gone wrong, and what to
+do about it.
+
+Developers can use additional detail.  Lots and lots of it at times.  No
+excuse for dumping it all on users.
+
+Carefully designed logs can also be for both.  Much of what QEMU can log
+is just for developers, and that's *fine*.  Sometimes developers want to
+log lots of detail per message, sometimes they don't, to keep the logs
+managable, as Peter pointed out.
+
+When the error message needs of users and developers conflict, I put
+users first.
+
+When the logging needs of users and developers conflict, I put
+developers first.
+
+> As an example of the current state, consider mixing error and
+> log output today:
+
+Having the errors in the log can clearly be useful.  The easiest way to
+have them in the log is --- wait for it --- logging them.
+
+We don't do that now.  Instead, you can log to stderr, or you can piece
+together log file contents and error messages.  The format differences
+can be inconvenient either way.
+
+Could we log errors?
+
+> - Default context:
 >
-> The current code is:
+>   # qemu-system-x86_64 -object tls-creds-x509,id=3Dt0,dir=3Dfish \
+>                        -d 'trace:qcrypto*'
+>   qcrypto_tls_creds_x509_load TLS creds x509 load creds=3D0x55ac6d97f700 =
+dir=3Dfish
+>   qcrypto_tls_creds_get_path TLS creds path creds=3D0x55ac6d97f700 filena=
+me=3Dca-cert.pem path=3D<none>
+>   qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: No s=
+uch file or directory
 >
->     if (!monitor_cur() && g_get_prgname()) {
->         error_printf("%s:", g_get_prgname());
->         sep =3D " ";
->     }
->     switch (cur_loc->kind) {
->     case LOC_CMDLINE:
->         argp =3D cur_loc->ptr;
->         for (i =3D 0; i < cur_loc->num; i++) {
->             error_printf("%s%s", sep, argp[i]);
->             sep =3D " ";
->         }
->         error_printf(": ");
->         break;
->     case LOC_FILE:
->         error_printf("%s:", (const char *)cur_loc->ptr);
->         if (cur_loc->num) {
->             error_printf("%d:", cur_loc->num);
->         }
->         error_printf(" ");
->         break;
->     default:
->         error_printf("%s", sep);
->     }
+> - Full context:
 >
+>   # qemu-system-x86_64 -object tls-creds-x509,id=3Dt0,dir=3Dfish \
+>                        -d 'trace:qcrypto*' \
+>                        -msg guest-name=3Don,timestamp=3Don \
+>                        -name "fish food"
+>   2025-08-19T20:14:16.791413Z qcrypto_tls_creds_x509_load TLS creds x509 =
+load creds=3D0x55e9a3458d10 dir=3Dfish
+>   2025-08-19T20:14:16.791429Z qcrypto_tls_creds_get_path TLS creds path c=
+reds=3D0x55e9a3458d10 filename=3Dca-cert.pem path=3D<none>
+>   2025-08-19T20:14:16.791433Z fish food qemu-system-x86_64: Unable to acc=
+ess credentials fish/ca-cert.pem: No such file or directory
 >
-> Notice how we honour "sep" for LOC_CMDLINE but ignore
-> it for LOC_FILE.
-
-This works exactly as intended.  To illustrate, add
-
-    error_report("test, ignore");
-
-to qdev_device_add(), then:
-
-    $ cat t.cfg
-    [device]
-      driver =3D "usb-kbd"
-    $ qemu-system-x86_64 -S -display none -machine usb=3Don -device usb-kbd=
- -readconfig t.cfg -monitor stdio
-    QEMU 10.2.50 monitor - type 'help' for more information
-    qemu-system-x86_64: -device usb-kbd: test, ignore
-    qemu-system-x86_64:t.cfg:2: test, ignore
-    (qemu) device_add usb-kbd
-    test, ignore
-
-The format
-
-    program:sourcefile:lineno: message
-
-conforms to the GNU Coding Standards at
-<https://www.gnu.org/prep/standards/standards.html#Errors>, and matches
-common practice.
-
-> With the program name printing moved out into a separate
-> function, the space is always printed. No change for
-> LOC_CMDLINE, but new whitespace for LOC_FILE.
+> And after this series is complete:
 >
-> Should have changed this in a separate patch.
+> - Default context:
 >
->> >       The qemu_log function will gain the program name. This
->> > can be easily seen with the 'log' trace backend, and how it
->> > is now more closely matching error_report output.
->> >
->> > Before:
->> >
->> >   # qemu-system-x86_64 -object tls-creds-x509,id=3Dt0,dir=3Dfish -d 't=
-race:qcrypto*'
->> >   qcrypto_tls_creds_x509_load TLS creds x509 load creds=3D0x5584e13937=
-f0 dir=3Dfish
->> >   qcrypto_tls_creds_get_path TLS creds path creds=3D0x5584e13937f0 fil=
-ename=3Dca-cert.pem path=3D<none>
->> >   qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: N=
-o such file or directory
->> >
->> > After:
->> >
->> >   # qemu-system-x86_64 -object tls-creds-x509,id=3Dt0,dir=3Dfish -d 't=
-race:qcrypto*'
->> >   qemu-system-x86_64: qcrypto_tls_creds_x509_load TLS creds x509 load =
-creds=3D0x5584e13937f0 dir=3Dfish
->> >   qemu-system-x86_64: qcrypto_tls_creds_get_path TLS creds path creds=
-=3D0x5584e13937f0 filename=3Dca-cert.pem path=3D<none>
->> >   qemu-system-x86_64: Unable to access credentials fish/ca-cert.pem: N=
-o such file or directory
->> >
->> > When adding this the '-msg program-name=3Don|off' option is
->> > introduced, so that the program name (which is enabled by
->> > default) can be supressed if desired. This could be useful
->> > if '-msg guest-name=3Don' is being used as a more informative
->> > identifier.
->>=20
->> Separate patch?
+>   # qemu-system-x86_64 -object tls-creds-x509,id=3Dt0,dir=3Dfish \
+>                       -d 'trace:qcrypto*'
+>   qemu-system-x86_64(1184284:main): qcrypto_tls_creds_x509_load TLS creds=
+ x509 load creds=3D0x55a24ad5cb30 dir=3Dfish
+>   qemu-system-x86_64(1184284:main): qcrypto_tls_creds_get_path TLS creds =
+path creds=3D0x55a24ad5cb30 filename=3Dca-cert.pem path=3D<none>
+>   qemu-system-x86_64(1184284:main): Unable to access credentials fish/ca-=
+cert.pem: No such file or directory
 >
-> It is a bit of a borderline decision, but I felt the knob to turn it
-> off should be in the same patch that force enables it.
-
-Peter objected to making the logs more verbose by default, and I think
-he has a point.  Perhaps having errors and logs share a general format
-is useful anyway, and perhaps making it even more configurable is as
-well.  I figure we'd need separate configuration for logs and for error
-messages.
-
-Let's get to rough consensus before we debate the finer points like this
-one.
-
->> > Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
->> > Signed-off-by: Daniel P. Berrang=C3=A9 <berrange@redhat.com>
+> - Full context:
 >
-> With regards,
-> Daniel
+>   # qemu-system-x86_64 -object tls-creds-x509,id=3Dt0,dir=3Dfish \
+>                       -d 'trace:qcrypto*' \
+>                       -msg guest-name=3Don,timestamp=3Don \
+>                       -name "fish food"
+>   2025-08-19T20:12:50.211823Z [fish food] qemu-system-x86_64(1168876:main=
+): qcrypto_tls_creds_x509_load TLS creds x509 load creds=3D0x5582183d8760 d=
+ir=3Dfish
+>   2025-08-19T20:12:50.211842Z [fish food] qemu-system-x86_64(1168876:main=
+): qcrypto_tls_creds_get_path TLS creds path creds=3D0x5582183d8760 filenam=
+e=3Dca-cert.pem
+> +path=3D<none>
+>   2025-08-19T20:12:50.211846Z [fish food] qemu-system-x86_64(1168876:main=
+): Unable to access credentials fish/ca-cert.pem: No such file or directory
+>
+> The main things to note:
+>
+>  * error_report/warn_report/qemu_log share the same
+>    output format and -msg applies to both
+
+I fear this is a bad idea.  I apologize for being so late with this.  I
+didn't think hard enough until now.
+
+Unified format with separate configuration controls and defaults could
+be okay.
+
+>  * -msg debug-threads=3Don is now unconditionally enabled
+>    and thus the param is deprecated & ignored
+
+This part just makes sense.
+
+>  * Thread ID and name are unconditionally enabled
+>
+>  * Guest name is surrounded in [...] brackets
+>
+>  * The default output lines are typically 15 chars
+>    wider given that we always include the thread
+>    ID + name now
+>
+>  * This takes the liberty of assigning the new file
+>    to the existing error-report.c maintainer (Markus)
+>    Since splitting it off into message.c instead of
+>    putting it all in error-report.c felt slightly
+>    nicer.
+>
+> One thing I didn't tackle is making the location
+> info get reported for qemu_log. This is used to
+> give context for error messages when parsing some
+> CLI args, and could be interesting for log messages
+> associated with those same CLI args.
 
 
