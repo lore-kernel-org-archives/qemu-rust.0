@@ -4,107 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6871FFCE08C
-	for <qemu-rust@archiver.kernel.org>; Thu, 26 Feb 2026 14:12:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7025EC047D
+	for <qemu-rust@archiver.kernel.org>; Tue,  3 Mar 2026 09:39:33 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vvc6c-0000bm-Aj; Thu, 26 Feb 2026 09:12:43 -0500
+	id 1vxMDx-0007Wr-Cy; Tue, 03 Mar 2026 04:39:30 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vvc6P-0000No-4h
- for qemu-rust@nongnu.org; Thu, 26 Feb 2026 09:12:32 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vxMDs-0007WO-RW
+ for qemu-rust@nongnu.org; Tue, 03 Mar 2026 04:39:25 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1vvc6N-0008GV-Ef
- for qemu-rust@nongnu.org; Thu, 26 Feb 2026 09:12:28 -0500
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vxMDq-00070p-H3
+ for qemu-rust@nongnu.org; Tue, 03 Mar 2026 04:39:24 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772115145;
+ s=mimecast20190719; t=1772530760;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZMdmJhn6ajjCgiilfFe8zLD7EDRXhtkginMPJZv1sdM=;
- b=MuWddf4fn01ArUnfWBRMemA7znhnH0XO4kU9uWwXBex/R1gMimvl+Z+KZ3m7GgogxBumCi
- 6F9jZucOz+RDlf6OLiUcypkY1Ok8pEmxVV5kXrMbILc2fGh2Xxe9JJjIyTE+8Gky2cwMH0
- bBa6lt9gyHDVknH2/HOMR1ECoMpuVrg=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-448-742d5xdCN_G6g8L75ekbNQ-1; Thu, 26 Feb 2026 09:12:23 -0500
-X-MC-Unique: 742d5xdCN_G6g8L75ekbNQ-1
-X-Mimecast-MFC-AGG-ID: 742d5xdCN_G6g8L75ekbNQ_1772115143
-Received: by mail-ej1-f70.google.com with SMTP id
- a640c23a62f3a-b934e87b1b2so92680666b.0
- for <qemu-rust@nongnu.org>; Thu, 26 Feb 2026 06:12:23 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772115142; x=1772719942;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZMdmJhn6ajjCgiilfFe8zLD7EDRXhtkginMPJZv1sdM=;
- b=riqPvMQVo4lJVjSVAh5J1j/soUi6da0hxzQSQFWVMAf4b5v/AL0gF50fiW6OGZcRHz
- 75gS9l/5ylM+Gto8w1wzPq4r2fv4AvN8OAhs5zBjIOCAelg0R1wjVsJ/3+yjIo14f4RV
- XpJhhLVKS3ZdnGpHc5kogSGqnMUpwgF69X1HEvN3T9tgwwNBqMnqhjKeOnLiXi19lKZv
- NTfH26L4EwGU2RqAcX0hbt06JX/Ql81Un6ig22druO20rlNDfShkr+LxRsw7nKPKX1m5
- GXJtWHdYF5HgRPtTe9yBKV6qUjwXrr+r1zFofheGnwovk2Fg0gVP4OgJWEbs6+XW1Wfm
- 6DYw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUgBb6x1euAl2Wgc8w0uu+vh2GCw3gW56RKpHz4EnY2H5D2tq6E4iXPoCP0Uh3SmvIGW5U3LqDYlxY=@nongnu.org
-X-Gm-Message-State: AOJu0YzTAiOcEhKhJyC3HCPBVp5LV0xcoK4msPg3ZjxD6FAT/MoKNAil
- 4pwZDKSxOh/Iu1VXrX9mGWucUheKJkbnP9PquIXzo6jtrrBjyL6yQqHxgEl9X8L6BI8W94GCHQ2
- pcbyYcT3UgqepFmzczwgvN2hxeUGI5XP6IHatOGLpr3/9dqaCB7gCgro=
-X-Gm-Gg: ATEYQzzEcvpv3khKch5FVc35XLKDvFOGGv0Bi7wvvPy13UqxNlu1jEQZG+2++J9I4lC
- ZrTTjhzfAxknqlOgf55o5Yrxecgie59E4Eq1mwVX3SLX/EWkcHN9TLdTsYDObx6r8LfoasYarG8
- x1A2XxL7qXY/An/sr0yAIyFb4jQ5/bFuzbYJhBvkP68P+vY7igy/0/UJMtvs4DGov6DsV2Mpck+
- 6kO7IhV+u84BlyvcUBswY6gZ8vy+gTbcsd3HdJw+cZC/mi+0jY+kuNOHxrrnw7Mn4tfNd+S3wiU
- /Jd2WTCFtWtElXBWB6AppnyKvyQloQVsAWNra+MTijV7sXaRsfvAevIhuKEq5bqUJI+pnJ2wrj9
- +SezVf/ImWmcmP3bx4Lqx2ZJ/ortcIlKboUldQTr1V7kwKibVU4gfIea6z6wFCXelYrszXDUiUx
- a08LE9wooit7B90w/I+5OdxGa20Ak=
-X-Received: by 2002:a17:907:3fa5:b0:b8f:b3c4:1e2 with SMTP id
- a640c23a62f3a-b9351723e7cmr261607566b.39.1772115142525; 
- Thu, 26 Feb 2026 06:12:22 -0800 (PST)
-X-Received: by 2002:a17:907:3fa5:b0:b8f:b3c4:1e2 with SMTP id
- a640c23a62f3a-b9351723e7cmr261606366b.39.1772115142075; 
- Thu, 26 Feb 2026 06:12:22 -0800 (PST)
-Received: from [192.168.10.81] ([151.95.144.138])
- by smtp.googlemail.com with ESMTPSA id
- a640c23a62f3a-b935ab13558sm65381366b.5.2026.02.26.06.12.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Feb 2026 06:12:21 -0800 (PST)
-Message-ID: <2f9d77b5-7724-4c8d-9f6d-ce82815b8501@redhat.com>
-Date: Thu, 26 Feb 2026 15:12:20 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/16] scripts/qapi: add QAPISchemaType.is_predefined
-To: Markus Armbruster <armbru@redhat.com>
-Cc: qemu-devel@nongnu.org, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
- <marcandre.lureau@redhat.com>, qemu-rust@nongnu.org
+ content-transfer-encoding:content-transfer-encoding:resent-to:
+ resent-from:resent-message-id:in-reply-to:in-reply-to:  references:references; 
+ bh=wn7j5tpduQ9yc+0kyT16p7wSEWXwdwsvIZuE8Mz4aRs=;
+ b=ZBMONnzkcYASnULp4W39NRv7Y2RhldvR+uEPOabWeG2GJ7T0RdQLfQqrFqe/S3YWz1dgaV
+ cviVF5KNz02joPv0agoWV6W9nYrZJSBaIizPLATRcruh2oURw+gl372c+QXzHRDSVPDBd6
+ sy3PKDINhWqYd8dEh8cssSch8cBuVEk=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-288-GBdnbKFROPSWVV2NIGxfHg-1; Tue,
+ 03 Mar 2026 04:39:18 -0500
+X-MC-Unique: GBdnbKFROPSWVV2NIGxfHg-1
+X-Mimecast-MFC-AGG-ID: GBdnbKFROPSWVV2NIGxfHg_1772530758
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 1137F1956072; Tue,  3 Mar 2026 09:39:18 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.30])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 83FC41800678; Tue,  3 Mar 2026 09:39:17 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 1E1FC21E692F; Tue, 03 Mar 2026 10:39:15 +0100 (CET)
+Resent-To: qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Resent-From: Markus Armbruster <armbru@redhat.com>
+Resent-Date: Tue, 03 Mar 2026 10:39:15 +0100
+Resent-Message-ID: <87ldg9ntfg.fsf@pond.sub.org>
+From: Markus Armbruster <armbru@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org,  armbru@redhat.com,  =?utf-8?Q?Marc-Andr=C3=A9?=
+ Lureau <marcandre.lureau@redhat.com>,  qemu-rust@nongnu.org
+Subject: Re: [PATCH v2 12/16] scripts/qapi: generate high-level Rust bindings
+In-Reply-To: <20260108131043.490084-13-pbonzini@redhat.com> (Paolo Bonzini's
+ message of "Thu, 8 Jan 2026 14:10:39 +0100")
 References: <20260108131043.490084-1-pbonzini@redhat.com>
- <20260108131043.490084-11-pbonzini@redhat.com> <87bjhdxooi.fsf@pond.sub.org>
- <21b5e0ec-d03d-4e39-a3bf-deada48243b7@redhat.com>
- <87ldghw6tn.fsf@pond.sub.org>
-From: Paolo Bonzini <pbonzini@redhat.com>
-In-Reply-To: <87ldghw6tn.fsf@pond.sub.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: bqaGzcFjOYs10HeAAqcwEVDB7qEIXbpkB7peJ3t9Mds_1772115143
+ <20260108131043.490084-13-pbonzini@redhat.com>
+Date: Tue, 03 Mar 2026 10:19:13 +0100
+Message-ID: <87seahnucu.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Mimecast-MFC-PROC-ID: CMAs72R0lyxpQU41P-u8XtBTHqP_L305iNnbMYI5FZQ_1772530758
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -10
-X-Spam_score: -1.1
-X-Spam_bar: -
-X-Spam_report: (-1.1 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+X-Spam_score_int: 27
+X-Spam_score: 2.7
+X-Spam_bar: ++
+X-Spam_report: (2.7 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_VALIDITY_RPBL_BLOCKED=0.306, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.668,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=no autolearn_force=no
+ RCVD_IN_SBL_CSS=3.335, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.968,
+ RCVD_IN_VALIDITY_SAFE_BLOCKED=0.495, SPF_HELO_PASS=-0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -120,65 +95,334 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 2/25/26 09:44, Markus Armbruster wrote:
-> Paolo Bonzini <pbonzini@redhat.com> writes:
-> 
->> On 2/25/26 08:33, Markus Armbruster wrote:
->>> Paolo Bonzini <pbonzini@redhat.com> writes:
->>>
->>>> It is impossible to call is_implicit on an enum type from the visitor, because
->>>> the QAPISchemaEnumType has already been exploded into its costituent fields.
->>>
->>> constituent
->>>
->>> Passing selected attributes instead of the entire object to its visitor
->>> method limits what the visitor can do.  This is both good and bad.
->>> We've run into "bad" a couple of times.  It's never been bad enough to
->>> change the interface, though.
->>>
->>> Thoughts?
->>
->> I think that applies here, is_predefined() is a reasonable addition.
->>
->>>> The Rust backend is also not modular (yet?) so it is not possible to filter
->>>> out the builtin module;
->>>
->>> Really?
->>>
->>> The visitors are all based on QAPISchemaVisitor.  Protocol:
->>>
->>>       .visit_begin()
->>>       for all modules:
->>>           .visit_module()
->>>           for all entities:
->>>               if .visit_needed():
->>>                   .visit_FOO()
->>>       .visit_end()
->>>
->>> QAPISchemaModularCVisitor implements .visit_module() to generate code
->>> per module.  Its .write() skips builtin modules unless opt_builtins.
->>
->> ... because its .write() already builds multiple QAPIGen{C,H,Trace}, one
->> per module.  Here instead there is just one QAPIGenRs.
->>
->> Using multiple QAPIGenRs instances, one per module, would be hackish.
-> 
-> I was thinking of having .visit_module() save .is_builtin_module(name)
-> in self.in_builtin_module, then use that to recognize built-ins.
-> 
->> I'd rather just go modular instead of that.  I can take a look, since
->> this series will be (early) 11.1 material anyway.
-> 
-> Modular C code generation reduces incremental build time massively.
-> Before, we suffered from "touch the schema, recompile the world".  If
-> Rust would similarly profit, then I'm all for going modular.
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-Rust compiles by crate rather than file (crate == toplevel module), so 
-it would need some benchmarking but yeah I expect that to help.  That 
-would mean something like
+> From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+>
+> Generate high-level native Rust declarations for the QAPI types.
+>
+> - char* is mapped to String, scalars to there corresponding Rust types
+>
+> - enums use #[repr(u32)] and can be transmuted to their C counterparts
+>
+> - has_foo/foo members are mapped to Option<T>
+>
+> - lists are represented as Vec<T>
+>
+> - structures map fields 1:1 to Rust
+>
+> - alternate are represented as Rust enum, each variant being a 1-element
+>   tuple
+>
+> - unions are represented in a similar way as in C: a struct S with a "u"
+>   member (since S may have extra 'base' fields). The discriminant
+>   isn't a member of S, since Rust enum already include it, but it can be
+>   recovered with "mystruct.u.into()"
+>
+> Anything that includes a recursive struct puts it in a Box.  Lists are
+> not considered recursive, because Vec breaks the recursion (it's possible
+> to construct an object containing an empty Vec of its own type).
+>
+> Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+> Link: https://lore.kernel.org/r/20210907121943.3498701-21-marcandre.lurea=
+u@redhat.com
+> [Paolo: rewrite conversion of schema types to Rust types]
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-     use qapi_block::*;
+Let's look at the generated Rust.  I'm going to ignore formatting issues
+like blank lines.  My test inputs are adapted from
+tests/qapi-schema/qapi-schema-test.json.
 
-Paolo
+=3D Boilerplate and built-in stuff =3D
+
+The qapi-types.rs generated for an empty schema is basically empty:
+
+    // @generated by qapi-gen, DO NOT EDIT
+    //!
+    //! Schema-defined QAPI types
+    //!
+    //! Copyright (c) 2025 Red Hat, Inc.
+    //!
+    //! This work is licensed under the terms of the GNU LGPL, version 2.1 =
+or
+    //! later. See the COPYING.LIB file in the top-level directory.
+    #![allow(unexpected_cfgs)]
+    #![allow(non_camel_case_types)]
+    #![allow(clippy::empty_structs_with_brackets)]
+    #![allow(clippy::large_enum_variant)]
+    #![allow(clippy::pub_underscore_fields)]
+    // Because QAPI structs can contain float, for simplicity we never
+    // derive Eq.  Clippy however would complain for those structs
+    // that *could* be Eq too.
+    #![allow(clippy::derive_partial_eq_without_eq)]
+    use util::qobject::QObject;
+
+Okay.
+
+Note we generate nothing for the built-in types.  For C, we generate
+qapi-builtin-types.[ch], which provides lists of built-in types, and
+enum QType.  Rust gives us lists for free, and QType we don't need right
+now.  Good.
+
+=3D Enum types =3D
+
+Input:
+
+    { 'enum': 'TestIfEnum',
+      'data': [ 'foo', { 'name' : 'bar', 'if': 'TEST_IF_ENUM_MEMBER' } ],
+      'if': 'TEST_IF_UNION' }
+
+Output without the boilerplate:
+
+    #[cfg(TEST_IF_UNION)]
+    #[derive(Copy, Clone, Debug, PartialEq)]
+
+Ignoring such lines for now.
+
+    #[repr(u32)]
+
+As explained in the commit message.
+
+    #[derive(common::TryInto)]
+
+Ignoring these, too.
+
+    pub enum TestIfEnum {
+
+        FOO,
+        #[cfg(TEST_IF_ENUM_MEMBER)]
+        BAR,
+    }
+
+The obvious part :)
+
+    #[cfg(TEST_IF_UNION)]
+    impl Default for TestIfEnum {
+        #[inline]
+        fn default() -> TestIfEnum {
+            Self::FOO
+        }
+    }
+
+This specifies the enum type's default value.  Hmm...  Modified input:
+
+    { 'enum': 'TestIfEnum',
+      'data': [ { 'name' : 'bar', 'if': 'TEST_IF_ENUM_MEMBER' }, 'foo' ],
+      'if': 'TEST_IF_UNION' }
+
+Output:
+
+    #[cfg(TEST_IF_UNION)]
+    #[derive(Copy, Clone, Debug, PartialEq)]
+    #[repr(u32)]
+    #[derive(common::TryInto)]
+    pub enum TestIfEnum {
+        #[cfg(TEST_IF_ENUM_MEMBER)]
+        BAR,
+
+        FOO,
+    }
+
+    #[cfg(TEST_IF_UNION)]
+    impl Default for TestIfEnum {
+        #[inline]
+        fn default() -> TestIfEnum {
+            Self::BAR
+        }
+    }
+
+If TEST_IF_ENUM_MEMBER is off, member BAR does not exist.  default()
+uses it anyway.  Bug?
+
+Not tested: enum definition's optional 'prefix' member, because Rust
+generation has no need for it and does not use it.  Good.
+
+=3D Object types =3D
+
+Input:
+
+    { 'struct': 'UserDefOne',
+      'base': 'UserDefZero',
+      'data': { 'string': 'str',
+                '*number': 'number' } }
+
+    { 'struct': 'UserDefZero',
+      'data': { 'integer': 'int' } }
+
+Output:
+
+    #[derive(Clone, Debug, PartialEq)]
+
+Ignoring such lines for now.
+
+    pub struct UserDefOne {
+        // Members inherited:
+
+        pub integer: i64,
+        // Own members:
+
+        pub string: String,
+
+        pub number: Option<f64>,
+    }
+
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UserDefZero {
+
+        pub integer: i64,
+    }
+
+Obvious enough.
+
+More input:
+
+    { 'union': 'TestIfUnion',
+      'base': { 'type': 'TestIfEnum' },
+      'discriminator': 'type',
+      'data': { 'foo': 'UserDefOne',
+                'bar': { 'type': 'UserDefZero', 'if': 'TEST_IF_ENUM_MEMBER'=
+} },
+      'if': { 'all': ['TEST_IF_UNION', 'TEST_IF_STRUCT'] } }
+
+Output:
+
+    #[cfg(all(TEST_IF_UNION, TEST_IF_STRUCT))]
+    #[derive(Clone, Debug, PartialEq)]
+    pub enum TestIfUnionVariant {
+
+Possible trouble if somebody defines a QAPI type name ending with
+'Variant'.
+
+Code generated for a QAPI schema name named 'Frob' typically defines a
+'Frob'.  Sometimes, we transform 'Frob' in (hopefully obvious) ways, say
+to adhere to naming rules.  For instance, QAPI enum member 'foo' of
+'TestIfEnum' becomes FOO in generated Rust.  This risks naming
+collisions in generated code.  Hasn't been much of a problem in
+practice.
+
+We also need names for helpers.  These we commonly derive from QAPI
+schema names, and we reserve names for the purpose:
+
+* Names beginning with 'q_'
+
+* Type names ending with 'List'
+
+* Member name 'u' and names starting with 'has_'
+
+Source: docs/devel/qapi-code-gen.rst section "Naming rules and reserved
+names".
+
+We could reserve names ending with 'Variant'.  Or we use a 'q_' prefix
+here.
+
+        Foo(UserDefOne),
+        #[cfg(TEST_IF_ENUM_MEMBER)]
+        Bar(UserDefZero),
+    }
+
+    #[cfg(all(TEST_IF_UNION, TEST_IF_STRUCT))]
+    impl From<&TestIfUnionVariant> for TestIfEnum {
+        fn from(e: &TestIfUnionVariant) -> Self {
+            match e {
+
+                TestIfUnionVariant::Foo(_) =3D> Self::FOO,
+                #[cfg(TEST_IF_ENUM_MEMBER)]
+                TestIfUnionVariant::Bar(_) =3D> Self::BAR,
+            }
+        }
+    }
+
+    #[cfg(all(TEST_IF_UNION, TEST_IF_STRUCT))]
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct TestIfUnion {
+        pub u: TestIfUnionVariant,
+    }
+
+Why do we need to wrap TestIfUnionVariant in a struct?  Hmm, we need it
+in case we have more common members.  Modified input to demonstrate:
+
+    { 'union': 'TestIfUnion',
+      'base': { 'type': 'TestIfEnum', 'common': 'int' },
+      'discriminator': 'type',
+      'data': { 'foo': 'UserDefOne',
+                'bar': { 'type': 'UserDefZero', 'if': 'TEST_IF_ENUM_MEMBER'=
+} },
+      'if': { 'all': ['TEST_IF_UNION', 'TEST_IF_STRUCT'] } }
+
+Output:
+
+    #[cfg(all(TEST_IF_UNION, TEST_IF_STRUCT))]
+    #[derive(Clone, Debug, PartialEq)]
+    pub enum TestIfUnionVariant {
+
+        Foo(UserDefOne),
+        #[cfg(TEST_IF_ENUM_MEMBER)]
+        Bar(UserDefZero),
+    }
+
+    #[cfg(all(TEST_IF_UNION, TEST_IF_STRUCT))]
+    impl From<&TestIfUnionVariant> for TestIfEnum {
+        fn from(e: &TestIfUnionVariant) -> Self {
+            match e {
+
+                TestIfUnionVariant::Foo(_) =3D> Self::FOO,
+                #[cfg(TEST_IF_ENUM_MEMBER)]
+                TestIfUnionVariant::Bar(_) =3D> Self::BAR,
+            }
+        }
+    }
+
+    #[cfg(all(TEST_IF_UNION, TEST_IF_STRUCT))]
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct TestIfUnion {
+
+        pub common: i64,
+        pub u: TestIfUnionVariant,
+    }
+
+Okay.
+
+=3D Array types =3D
+
+Input:
+
+    { 'struct': 'ArrayStruct',
+      'data': { 'integer': ['int'],
+                '*any': ['any'] } }
+
+Output:
+
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ArrayStruct {
+
+        pub integer: Vec<i64>,
+
+        pub any: Option<Vec<QObject>>,
+    }
+
+Okay.
+
+=3D Alternate types =3D
+
+Input:
+
+    { 'alternate': 'TestIfAlternate',
+      'data': { 'foo': 'int',
+                'bar': { 'type': 'UserDefZero', 'if': 'TEST_IF_ALT_MEMBER'}=
+ },
+      'if': { 'all': ['TEST_IF_ALT', 'TEST_IF_STRUCT'] } }
+
+Output:
+
+    #[cfg(all(TEST_IF_ALT, TEST_IF_STRUCT))]
+    #[derive(Clone, Debug, PartialEq)]
+    pub enum TestIfAlternate {
+
+            Foo(i64),
+            #[cfg(TEST_IF_ALT_MEMBER)]
+            Bar(UserDefZero),
+    }
+
+Doesn't use QType for the tag like C does.  Okay.
 
 
