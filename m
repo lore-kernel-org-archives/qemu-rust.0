@@ -4,69 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19DB4EC1436
-	for <qemu-rust@archiver.kernel.org>; Tue,  3 Mar 2026 12:31:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D514EC143C
+	for <qemu-rust@archiver.kernel.org>; Tue,  3 Mar 2026 13:18:05 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vxOuT-00065e-2T; Tue, 03 Mar 2026 07:31:33 -0500
+	id 1vxPdK-0005WB-OZ; Tue, 03 Mar 2026 08:17:55 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vxOuQ-000655-Lh
- for qemu-rust@nongnu.org; Tue, 03 Mar 2026 07:31:30 -0500
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1vxPdH-0005Pf-6E
+ for qemu-rust@nongnu.org; Tue, 03 Mar 2026 08:17:51 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1vxOuO-0006K1-UQ
- for qemu-rust@nongnu.org; Tue, 03 Mar 2026 07:31:30 -0500
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1vxPdE-00023M-Rz
+ for qemu-rust@nongnu.org; Tue, 03 Mar 2026 08:17:50 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772541088;
+ s=mimecast20190719; t=1772543865;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ybb11lRCy39saXn0SAVkvh1jiQvsVRtRXDy8hFM2Bmk=;
- b=FNmFyAcymikzXQwAEqNwSBveHQ5W9TzC0uFK1HJeqqVO34veZCzbjlsFPdxgPNBiliTCwS
- vy6cTin6sQWR9paCEQb7uMAUVBwS0SSeOR6+aoVxPpVxxzsVVPDSQWfjXEXIZBi6yx2svW
- 9FcrUt9pkQX5O2odkhRZ6CyDBtnG94s=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-480-pKECtL6tMlS3QjefPaG09w-1; Tue,
- 03 Mar 2026 07:31:24 -0500
-X-MC-Unique: pKECtL6tMlS3QjefPaG09w-1
-X-Mimecast-MFC-AGG-ID: pKECtL6tMlS3QjefPaG09w_1772541084
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id EEE5F1800282; Tue,  3 Mar 2026 12:31:23 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.45.242.30])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 790071956053; Tue,  3 Mar 2026 12:31:23 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 0E67F21E692F; Tue, 03 Mar 2026 13:31:21 +0100 (CET)
-From: Markus Armbruster <armbru@redhat.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Markus Armbruster <armbru@redhat.com>,  qemu-devel@nongnu.org,
- =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
- qemu-rust@nongnu.org
-Subject: Re: [PATCH v2 12/16] scripts/qapi: generate high-level Rust bindings
-In-Reply-To: <3cd5ac78-1833-4671-a866-60a57f29c3c1@redhat.com> (Paolo
- Bonzini's message of "Tue, 3 Mar 2026 11:00:42 +0100")
-References: <20260108131043.490084-1-pbonzini@redhat.com>
- <20260108131043.490084-13-pbonzini@redhat.com>
- <87jyw0khu2.fsf@pond.sub.org>
- <3cd5ac78-1833-4671-a866-60a57f29c3c1@redhat.com>
-Date: Tue, 03 Mar 2026 13:31:21 +0100
-Message-ID: <87v7fdm6w6.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ bh=mMeLeLGM3VWI7m/PqytyRwFZ9ygZG3Yk77w/eKyUnkY=;
+ b=TjGP2+4PSXJ8kC8rqzSWbQ3C02SzDzTQfB/dyDpghMANo7xLdzjcHxUOv8LBPXcn6kLOLW
+ e2xu8na79PsqAsbh5JlzpoHMuwhAxdx/BQcdFg4sUX8So0ha2Aj/k1mrw/jPbYhC10t9+n
+ EW+Zg2qj0pxdcBAUV3qtGYgwR6Ui6hk=
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-166-xe4uFdn4PG6rJNl51P1vwg-1; Tue, 03 Mar 2026 08:17:44 -0500
+X-MC-Unique: xe4uFdn4PG6rJNl51P1vwg-1
+X-Mimecast-MFC-AGG-ID: xe4uFdn4PG6rJNl51P1vwg_1772543863
+Received: by mail-ed1-f71.google.com with SMTP id
+ 4fb4d7f45d1cf-65f9536b13eso6375355a12.1
+ for <qemu-rust@nongnu.org>; Tue, 03 Mar 2026 05:17:44 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772543863; x=1773148663;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mMeLeLGM3VWI7m/PqytyRwFZ9ygZG3Yk77w/eKyUnkY=;
+ b=gkg/zoLA6YPlLwNAWLg+UCnQsGJis5OF+EypHlnzIYbyqQRb8vA9D7PbdqeEXj6E5m
+ t0Hxejwpn0t03CkqD1cfpKQUOKETgp6yqK5g8NoXov3/IW0GLFwmR1WFQvSuLhUu6EnX
+ K81DBU0mJEC3UNAjVB/8/bZcr6aD5bD9aVRf5HiqSYlAcmLVmzZF0DA0boctyPVgxJDP
+ 2Q5uBxIIO7NwqpVjJxnm5VNqbEjcz0wzZSCPCdZU5pBbnvZx+VsDozMkjKDmoZayZqoD
+ 4oYRduYHW1UQuTL3Fb9hocylKtfVmXITVA98XlOM+4kz/WgfbdQMyLzXNnb8QK/CIdmc
+ dErA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXsriEnFNIJ7vLgqlKiq5FGifbO1wnilnke7RpIYiDvzWl9DIH4TAsg9L8BzIE+LXQBSHJ6A9DSx78=@nongnu.org
+X-Gm-Message-State: AOJu0YzzLPMYni1BmbJLSTtLpTTZoFKzgepogTQRHwujbzees7i54Xpv
+ qT1jbuMeH2/5AMHj83EKlBAnrMpcV0yM7nwnqJcHF9JFMZqMKQYz4XIE0IM2U4ICQXAV+K6mkj1
+ gA974ZlXdBXY9T3h1168ArH4qhKMf8RKe1xaUXy9IE2n8xMO/PsSzv9E=
+X-Gm-Gg: ATEYQzyrQ2F6K99Xij9XN8QCi4/o/UbdMsr8j7KMuQ4aO0rpVk55LPucFKiclGiOqDR
+ 0gl6gFYtXr5n2D4Z4FY9WSii1HNBQYPd29QDNwVW5tqzRvGHx5HwJx9Gd8Qi6bzsqN1bpnFGUlr
+ 89tNl3J6FucZJ2gnRawwA9uxUuxXu7R7Z7U6UKBlLe7GUVkJ1oXAntIYRq/16p2thw70Mx0gI5U
+ z+nxpJVQfbyisDBcCWuLA07UPoW6D+bIXHZgxR2E0rRjJvF12qgYN9QTN3+PCn8keTYXJa1wXgl
+ 8j4EguVSEVV4e/Ml1B3Gg/nxoM4Gx+wr2/p+lITISf1xirXtwAODHeQeqA5Q5ZvnsmGJkz5HOpE
+ 2hmKX0OqHizUZxrXowaPpxFOrOT9NG9CTl3pJnQas14DqL17Zs6gYJUCVKLM7R3v6LESlZzdO+/
+ f6cE4g2hIoxSK/dDOefOwwVNhGJcg=
+X-Received: by 2002:a17:906:951:b0:b93:5c5c:a9ae with SMTP id
+ a640c23a62f3a-b9376511a03mr651842066b.34.1772543862826; 
+ Tue, 03 Mar 2026 05:17:42 -0800 (PST)
+X-Received: by 2002:a17:906:951:b0:b93:5c5c:a9ae with SMTP id
+ a640c23a62f3a-b9376511a03mr651839466b.34.1772543862157; 
+ Tue, 03 Mar 2026 05:17:42 -0800 (PST)
+Received: from [192.168.10.81] ([151.95.144.138])
+ by smtp.googlemail.com with ESMTPSA id
+ a640c23a62f3a-b935ae60c16sm594356066b.38.2026.03.03.05.17.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 03 Mar 2026 05:17:41 -0800 (PST)
+Message-ID: <ad122aa5-a726-4057-add5-78b3356e395a@redhat.com>
+Date: Tue, 3 Mar 2026 14:17:40 +0100
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: VE7cs7iMogrVRd2KXI1H7GRs5iRfjHGtQThy4fkSt04_1772541084
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 12/16] scripts/qapi: generate high-level Rust bindings
+To: Markus Armbruster <armbru@redhat.com>
+Cc: qemu-devel@nongnu.org, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
+ <marcandre.lureau@redhat.com>, qemu-rust@nongnu.org
+References: <20260108131043.490084-1-pbonzini@redhat.com>
+ <20260108131043.490084-13-pbonzini@redhat.com> <87seahnucu.fsf@pond.sub.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
+In-Reply-To: <87seahnucu.fsf@pond.sub.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 0mHGuwKsR8JvIqIRCJAiS0MZtmQ10jVqKQYKGaGCp-g_1772543863
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -5
 X-Spam_score: -0.6
@@ -91,121 +118,159 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Paolo Bonzini <pbonzini@redhat.com> writes:
+On 3/3/26 10:19, Markus Armbruster wrote:
+> Paolo Bonzini <pbonzini@redhat.com> writes:
+> 
+>> From: Marc-André Lureau <marcandre.lureau@redhat.com>
+>>
+>> Generate high-level native Rust declarations for the QAPI types.
+>>
+>> - char* is mapped to String, scalars to there corresponding Rust types
+>>
+>> - enums use #[repr(u32)] and can be transmuted to their C counterparts
+>>
+>> - has_foo/foo members are mapped to Option<T>
+>>
+>> - lists are represented as Vec<T>
+>>
+>> - structures map fields 1:1 to Rust
+>>
+>> - alternate are represented as Rust enum, each variant being a 1-element
+>>    tuple
+>>
+>> - unions are represented in a similar way as in C: a struct S with a "u"
+>>    member (since S may have extra 'base' fields). The discriminant
+>>    isn't a member of S, since Rust enum already include it, but it can be
+>>    recovered with "mystruct.u.into()"
+>>
+>> Anything that includes a recursive struct puts it in a Box.  Lists are
+>> not considered recursive, because Vec breaks the recursion (it's possible
+>> to construct an object containing an empty Vec of its own type).
+>>
+>> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+>> Link: https://lore.kernel.org/r/20210907121943.3498701-21-marcandre.lureau@redhat.com
+>> [Paolo: rewrite conversion of schema types to Rust types]
+>> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> 
+> Let's look at the generated Rust.  I'm going to ignore formatting issues
+> like blank lines.  My test inputs are adapted from
+> tests/qapi-schema/qapi-schema-test.json.
+> 
+> = Boilerplate and built-in stuff =
+> 
+> The qapi-types.rs generated for an empty schema is basically empty:
+> 
+>      // @generated by qapi-gen, DO NOT EDIT
+>      //!
+>      //! Schema-defined QAPI types
+>      //!
+>      //! Copyright (c) 2025 Red Hat, Inc.
+>      //!
+>      //! This work is licensed under the terms of the GNU LGPL, version 2.1 or
+>      //! later. See the COPYING.LIB file in the top-level directory.
+>      #![allow(unexpected_cfgs)]
+>      #![allow(non_camel_case_types)]
+>      #![allow(clippy::empty_structs_with_brackets)]
+>      #![allow(clippy::large_enum_variant)]
+>      #![allow(clippy::pub_underscore_fields)]
+>      // Because QAPI structs can contain float, for simplicity we never
+>      // derive Eq.  Clippy however would complain for those structs
+>      // that *could* be Eq too.
+>      #![allow(clippy::derive_partial_eq_without_eq)]
+>      use util::qobject::QObject;
+> 
+> Okay.
+> 
+> Note we generate nothing for the built-in types.  For C, we generate
+> qapi-builtin-types.[ch], which provides lists of built-in types, and
+> enum QType.  Rust gives us lists for free, and QType we don't need right
+> now.  Good.
+> 
+> = Enum types =
+> 
+> Input:
+> 
+>      { 'enum': 'TestIfEnum',
+>        'data': [ 'foo', { 'name' : 'bar', 'if': 'TEST_IF_ENUM_MEMBER' } ],
+>        'if': 'TEST_IF_UNION' }
+> 
+> Output without the boilerplate:
+> 
+>      #[cfg(TEST_IF_UNION)]
+>      #[derive(Copy, Clone, Debug, PartialEq)]
+> 
+> Ignoring such lines for now.
+> 
+>      #[repr(u32)]
+> 
+> As explained in the commit message.
+> 
+>      #[derive(common::TryInto)]
+> 
+> Ignoring these, too.
+> 
+>      pub enum TestIfEnum {
+> 
+>          FOO,
+>          #[cfg(TEST_IF_ENUM_MEMBER)]
+>          BAR,
+>      }
+> 
+> The obvious part :)
+> 
+>      #[cfg(TEST_IF_UNION)]
+>      impl Default for TestIfEnum {
+>          #[inline]
+>          fn default() -> TestIfEnum {
+>              Self::FOO
+>          }
+>      }
+> 
+> This specifies the enum type's default value.  Hmm...  Modified input:
+> 
+>      { 'enum': 'TestIfEnum',
+>        'data': [ { 'name' : 'bar', 'if': 'TEST_IF_ENUM_MEMBER' }, 'foo' ],
+>        'if': 'TEST_IF_UNION' }
+> 
+> Output:
+> 
+>      #[cfg(TEST_IF_UNION)]
+>      #[derive(Copy, Clone, Debug, PartialEq)]
+>      #[repr(u32)]
+>      #[derive(common::TryInto)]
+>      pub enum TestIfEnum {
+>          #[cfg(TEST_IF_ENUM_MEMBER)]
+>          BAR,
+> 
+>          FOO,
+>      }
+> 
+>      #[cfg(TEST_IF_UNION)]
+>      impl Default for TestIfEnum {
+>          #[inline]
+>          fn default() -> TestIfEnum {
+>              Self::BAR
+>          }
+>      }
+> 
+> If TEST_IF_ENUM_MEMBER is off, member BAR does not exist.  default()
+> uses it anyway.  Bug?
 
-> On 2/25/26 15:39, Markus Armbruster wrote:
->>> +def rs_name(name: str) -> str:
->>> +    """
->>> +    Map @name to a valid, possibly raw Rust identifier.
->>> +    """
->>> +    name = re.sub(r'[^A-Za-z0-9_]', '_', name)
->>> +    if name[0].isnumeric():
->> 
->> .isdigit()?  It's what c_name() uses...
->> 
->>> +        name = '_' + name
->> 
->> In review of v1, I pointed to "The Rust Reference"
->> 
->>         Identifiers starting with an underscore are typically used to
->>         indicate an identifier that is intentionally unused, and will
->>         silence the unused warning in rustc.
->> 
->>         https://doc.rust-lang.org/reference/identifiers.html
->> 
->> You replied "In this case it doesn't really matter: public items (such
->> as QAPI enum entries, or struct fields) do not raise the unused warning
->> anyway."
->> 
->> What gives us confidence rs_name() will only be used where it doesn't
->> really matter?
->
-> The fact that all QAPI type definitions are (more or less by design) public.
+Nice catch.  I can make it produce the first element (as in C) with a 
+tiny bit of cheating
 
-Any particular reason not to use the same 'q_' prefix as in C?
+     unsafe { ::std::mem::transmute_copy(&0u32) }
 
->>> +    # avoid some clashes with the standard library
->>> +    if name in ('String',):
->>> +        name = 'Qapi' + name
->> 
->> This hides the unwise use of 'String' in qapi/net.json from Rust.  I'd
->> rather rename that one.
->
-> Ok, BoxedString?
+or some reliance on the optimizer
 
-Works for me.
+     0.try_into().unwrap()
 
->>> +
->>> +    return name
->>> +
->>> +
->>> +def to_camel_case(value: str) -> str:
->>> +    return ''.join('_' + word if word[0].isdigit()
->>> +                   else word[:1].upper() + word[1:]
->>> +                   for word in filter(None, re.split("[-_]+", value)))
->> 
->> Please use r'...' for regular expressions always.
->> 
->> Why do you need filter()?
->
-> To handle - or _ at the beginning or ending of a string, where an empty
-> string would cause an IndexError in word[0].isdigit().
 
-Got it, thanks.
+However, I'm inclined to handle this generically.  For example, an enum 
+where the first element is configuration dependent could be usable only 
+if optional.  And then the Rust code can skip the "impl Default".  Let 
+me check how often it would trigger.
 
->> This maps 'foo-0123-bar' to 'Foo_0123Bar'.  Intentional?  I'd kind of
->> expect 'Foo0123Bar'.
->
-> Will fix (it is meant for 0123-45).  New version is:
->
->    def to_camel_case(value: str) -> str:
->        result = ''
->        for p in re.split(r'[-_]+', value):
->            if not p:
->                pass
->            elif p[0].isalpha() or (result and result[-1].isalpha()):
->                result += p[0].upper() + p[1:]
->            else:
->                result += '_' + p
->        return result
-
-Maps '0123-45' to '_0123_45'.  Is the leading '_' intentional?
-
->>> +def mcgen(s: str, **kwds: object) -> str:
->>> +    s = mcgen_common(s, **kwds)
->>> +    return re.sub(r'(?: *\n)+', '\n', s)
->> 
->> This eats trailing spaces and blank lines.  The latter is a big hammer.
->> Without it, I see unwanted blank lines generated.  With it, I see wanted
->> blank lines eaten.  For instance:
->
-> Ok, I can look into adding rstrip here and there.
->
->>> +        except FileNotFoundError:
->>> +            pass
->> 
->> This runs rustfmt to clean up the generated file.  Silently does nothing
->> if we don't have rustfmt.
->> 
->> Should we make rustfmt a hard requirement?  Please discuss this briefly
->> in the commit message.
-
-I'm fine with not running rustfmt, and I'm fine with running it always
-(makes it a hard requirement).  Running it sometimes feels like more
-trouble than it's worth.
-
-> It's unnecessary, but it does make the output look nicer.  If I add 
-> rstrip, I don't need it.
->
->>> +    # Return the Rust type for common use
->> 
->> Are the uncommon uses?
->> 
->> There are for C types, and that's why we have both .c_type(),
->> .c_param_type(), nad .c_unboxed_type().
->
-> Yes, Box<> and Vec<>.  They just don't deserve their own function unlike C.
-
-I see.
+Paolo
 
 
