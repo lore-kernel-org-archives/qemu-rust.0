@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93C61F47CA4
-	for <qemu-rust@archiver.kernel.org>; Thu,  5 Mar 2026 17:51:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99C17F47CA4
+	for <qemu-rust@archiver.kernel.org>; Thu,  5 Mar 2026 17:52:36 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vyCps-00068e-Kt; Thu, 05 Mar 2026 12:50:09 -0500
+	id 1vyCpy-0006R8-I7; Thu, 05 Mar 2026 12:50:16 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vyCpT-0005hc-Al
- for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:49:51 -0500
+ id 1vyCpi-0005kX-Me
+ for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:50:02 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vyCpR-0002JG-6j
- for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:49:43 -0500
+ id 1vyCpX-0002K3-Lw
+ for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:49:48 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772732980;
+ s=mimecast20190719; t=1772732986;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=IbVx6h7ufm4kk+pC5TYey/6wcKGTtrcPQQxztMIFIO0=;
- b=hzgMnF1ehWv05tij5XSicqYaPW/rH76iRbAK4C/BiGwNytAWyhumbxNOCeF7Usxdte8Ve2
- bRVeKtFIo3Nhbhsl8+LU+c5TlSRmbgGwYFvRosFB9UutApXw8r8sK303oNqB4LeXtSA3Nv
- /x5dHXAt25x5fUssUjkup+/fZ62cRr0=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ bh=6MgZnSu8FpgfVyxgsvWX6ruETMQfEejfRnUI7Ndvo2E=;
+ b=arBnr4vWW92X1tNJs6AmEEMkd6qHKFUtb75mH6GNY9mGS3tvYr6n3WIzacFheJ7GOxGnkw
+ BKbWX6QDJRGODIvcAeLUJaJkl+ri/A9YLKTu2FpNKnXmTS6evUFXuKDNvFiZgbgnItkLqy
+ 56AdfzPpT+8Vc9V30EQbYPM03lHe3Y4=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-679-YG1dY7hbMRyfnSWS7RSSJQ-1; Thu,
- 05 Mar 2026 12:49:37 -0500
-X-MC-Unique: YG1dY7hbMRyfnSWS7RSSJQ-1
-X-Mimecast-MFC-AGG-ID: YG1dY7hbMRyfnSWS7RSSJQ_1772732975
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-351-5P-6kx64NP6rxJ-oZgwELQ-1; Thu,
+ 05 Mar 2026 12:49:43 -0500
+X-MC-Unique: 5P-6kx64NP6rxJ-oZgwELQ-1
+X-Mimecast-MFC-AGG-ID: 5P-6kx64NP6rxJ-oZgwELQ_1772732980
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 67A52180049D; Thu,  5 Mar 2026 17:49:35 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id A7E0B1800281; Thu,  5 Mar 2026 17:49:40 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.44.34.61])
  by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 417FD1956095; Thu,  5 Mar 2026 17:49:30 +0000 (UTC)
+ id DEB6E1956095; Thu,  5 Mar 2026 17:49:35 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Markus Armbruster <armbru@redhat.com>,
@@ -62,14 +62,14 @@ Cc: Markus Armbruster <armbru@redhat.com>,
  Eduardo Habkost <eduardo@habkost.net>,
  Pierrick Bouvier <pierrick.bouvier@linaro.org>,
  Paolo Bonzini <pbonzini@redhat.com>, Stefan Weil <sw@weilnetz.de>
-Subject: [PULL 19/27] ui: remove redundant use of error_printf_unless_qmp()
-Date: Thu,  5 Mar 2026 17:47:35 +0000
-Message-ID: <20260305174743.3084606-20-berrange@redhat.com>
+Subject: [PULL 20/27] monitor: remove redundant error_[v]printf_unless_qmp
+Date: Thu,  5 Mar 2026 17:47:36 +0000
+Message-ID: <20260305174743.3084606-21-berrange@redhat.com>
 In-Reply-To: <20260305174743.3084606-1-berrange@redhat.com>
 References: <20260305174743.3084606-1-berrange@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: 26GWNbKgJnMSXknMtuIAP9pytwuQD0r11NHvjDZOIXk_1772732975
+X-Mimecast-MFC-PROC-ID: rWWyPsjkPRnUmEZLFhXRYmyRgzEj5G9ZXi6opxmW5ak_1772732980
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -98,35 +98,80 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-The vnc_display_print_local_addr() method is intended to print the VNC
-listening address on the console at startup, so the user can see the
-auto-chosen port address when using the 'to=' flag. This is only called
-by vnc_display_open() which is in the QEMU startup callpath. The check
-for not being in QMP is thus redundant and can be removed.
+The only callers of these functions have been removed. Adding any
+new usage of them is highly undesirable, so they should be entirely
+removed.
 
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 Reviewed-by: Markus Armbruster <armbru@redhat.com>
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- ui/vnc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ include/monitor/monitor.h |  3 ---
+ monitor/monitor.c         | 24 ------------------------
+ stubs/error-printf.c      |  5 -----
+ 3 files changed, 32 deletions(-)
 
-diff --git a/ui/vnc.c b/ui/vnc.c
-index 8bf14cf9a7..952976e964 100644
---- a/ui/vnc.c
-+++ b/ui/vnc.c
-@@ -3578,9 +3578,9 @@ static void vnc_display_print_local_addr(VncDisplay *vd)
-         qapi_free_SocketAddress(addr);
-         return;
-     }
--    error_printf_unless_qmp("VNC server running on %s:%s\n",
--                            addr->u.inet.host,
--                            addr->u.inet.port);
-+    error_printf("VNC server running on %s:%s\n",
-+                 addr->u.inet.host,
-+                 addr->u.inet.port);
-     qapi_free_SocketAddress(addr);
+diff --git a/include/monitor/monitor.h b/include/monitor/monitor.h
+index c3740ec616..296690e1f1 100644
+--- a/include/monitor/monitor.h
++++ b/include/monitor/monitor.h
+@@ -59,7 +59,4 @@ void monitor_register_hmp(const char *name, bool info,
+ void monitor_register_hmp_info_hrt(const char *name,
+                                    HumanReadableText *(*handler)(Error **errp));
+ 
+-int error_vprintf_unless_qmp(const char *fmt, va_list ap) G_GNUC_PRINTF(1, 0);
+-int error_printf_unless_qmp(const char *fmt, ...) G_GNUC_PRINTF(1, 2);
+-
+ #endif /* MONITOR_H */
+diff --git a/monitor/monitor.c b/monitor/monitor.c
+index dd2c45ded0..4d26cd9496 100644
+--- a/monitor/monitor.c
++++ b/monitor/monitor.c
+@@ -281,30 +281,6 @@ int error_vprintf(const char *fmt, va_list ap)
+     return vfprintf(stderr, fmt, ap);
  }
  
+-int error_vprintf_unless_qmp(const char *fmt, va_list ap)
+-{
+-    Monitor *cur_mon = monitor_cur();
+-
+-    if (!cur_mon) {
+-        return vfprintf(stderr, fmt, ap);
+-    }
+-    if (!monitor_cur_is_qmp()) {
+-        return monitor_vprintf(cur_mon, fmt, ap);
+-    }
+-    return -1;
+-}
+-
+-int error_printf_unless_qmp(const char *fmt, ...)
+-{
+-    va_list ap;
+-    int ret;
+-
+-    va_start(ap, fmt);
+-    ret = error_vprintf_unless_qmp(fmt, ap);
+-    va_end(ap);
+-    return ret;
+-}
+-
+ static MonitorQAPIEventConf monitor_qapi_event_conf[QAPI_EVENT__MAX] = {
+     /* Limit guest-triggerable events to 1 per second */
+     [QAPI_EVENT_RTC_CHANGE]        = { 1000 * SCALE_MS },
+diff --git a/stubs/error-printf.c b/stubs/error-printf.c
+index 0e326d8010..1afa0f62ca 100644
+--- a/stubs/error-printf.c
++++ b/stubs/error-printf.c
+@@ -16,8 +16,3 @@ int error_vprintf(const char *fmt, va_list ap)
+     }
+     return vfprintf(stderr, fmt, ap);
+ }
+-
+-int error_vprintf_unless_qmp(const char *fmt, va_list ap)
+-{
+-    return error_vprintf(fmt, ap);
+-}
 -- 
 2.53.0
 
