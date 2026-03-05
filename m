@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0404F47CA4
-	for <qemu-rust@archiver.kernel.org>; Thu,  5 Mar 2026 17:50:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DBCFF47CA4
+	for <qemu-rust@archiver.kernel.org>; Thu,  5 Mar 2026 17:50:08 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vyCov-0003EZ-RQ; Thu, 05 Mar 2026 12:49:09 -0500
+	id 1vyCod-0002bb-PK; Thu, 05 Mar 2026 12:48:51 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vyCos-0002zT-IU
- for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:49:06 -0500
+ id 1vyCoH-0002A2-A9
+ for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:48:31 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vyCoq-0002E7-Pd
- for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:49:06 -0500
+ id 1vyCoE-0002A2-WB
+ for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:48:28 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772732944;
+ s=mimecast20190719; t=1772732905;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Jg5VBo0tLLZdwjeqTGfROxDUEXBQx9Fo+FmYthl0C8Q=;
- b=Cw54cjIjkyRVaK6vaqyu2SagABjrClqhdduCrCYpsQwemU1I5Om0dwkj8t8/sB8g7f2qPK
- VZF9zYAmu9+y2wsiBKwXgiZgYX7a2n0PrA7ncXvey4dRfJjh++CQ4i3tG9vF7RznY2rYDN
- iU1qGiuQR9Z/TyM8JuW10xVVx8WTmCM=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=QzxKcQZIerx9h3cSC+oDOEcZgkGbOak7Y+u4U28djJA=;
+ b=iUDSiH+M/7bvVEccvyv0shj+2uaP6drztQ3h2kS4MshHinvj/tnJyc08yJXpcGFbpNV8Nw
+ tbnnzlrUOJd7DQOMo7SrCMW8Q1bWjocDs74bZwpjvuCKvUFHmXbB7tdXnHiyA610DBLka9
+ E6R/zLgAmpxrirJOkxGX7eop1dZhRNQ=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-519-TC-ll19wOLq4Cbk1hw1YDA-1; Thu,
- 05 Mar 2026 12:49:00 -0500
-X-MC-Unique: TC-ll19wOLq4Cbk1hw1YDA-1
-X-Mimecast-MFC-AGG-ID: TC-ll19wOLq4Cbk1hw1YDA_1772732938
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-107-er88v9eSOWGEK41uH8U2Sg-1; Thu,
+ 05 Mar 2026 12:48:22 -0500
+X-MC-Unique: er88v9eSOWGEK41uH8U2Sg-1
+X-Mimecast-MFC-AGG-ID: er88v9eSOWGEK41uH8U2Sg_1772732900
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 06B3C18005B4; Thu,  5 Mar 2026 17:48:58 +0000 (UTC)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 75A3719560A7; Thu,  5 Mar 2026 17:48:20 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.44.34.61])
  by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 1F7DC1956095; Thu,  5 Mar 2026 17:48:52 +0000 (UTC)
+ id 4A72E1955D71; Thu,  5 Mar 2026 17:48:15 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Markus Armbruster <armbru@redhat.com>,
@@ -61,15 +61,16 @@ Cc: Markus Armbruster <armbru@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Eduardo Habkost <eduardo@habkost.net>,
  Pierrick Bouvier <pierrick.bouvier@linaro.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Stefan Weil <sw@weilnetz.de>
-Subject: [PULL 12/27] audio: make jackaudio use qemu_thread_set_name
-Date: Thu,  5 Mar 2026 17:47:28 +0000
-Message-ID: <20260305174743.3084606-13-berrange@redhat.com>
+ Paolo Bonzini <pbonzini@redhat.com>, Stefan Weil <sw@weilnetz.de>,
+ Zhao Liu <zhao1.liu@intel.com>
+Subject: [PULL 05/27] docs: simplify DiamondRapids CPU docs
+Date: Thu,  5 Mar 2026 17:47:21 +0000
+Message-ID: <20260305174743.3084606-6-berrange@redhat.com>
 In-Reply-To: <20260305174743.3084606-1-berrange@redhat.com>
 References: <20260305174743.3084606-1-berrange@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: c0olCh84Clr2WPArxlIQ7hd2mdfF5dqBmPYbfJuoJ0o_1772732938
+X-Mimecast-MFC-PROC-ID: g9IAlze51jIQK6E_Dzj_HQJOEzD5uaMhXqaixG2D7zU_1772732900
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -98,65 +99,44 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-This has greater portability than directly call pthread_setname_np,
-which is only 1 out of 3 possible functions for pthreads that can
-set the name.
+This aligns the first line of the docs with the style used for previous
+CPU models, and simplifies the text in the remaining docs.
 
-The new API requires a trampoline function, since it can only set
-the name of the current thread.
-
-Reviewed-by: Christian Schoenebeck <qemu_oss@crudebyte.com>
+Reviewed-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- audio/jackaudio.c | 28 +++++++++++++++++++++++-----
- 1 file changed, 23 insertions(+), 5 deletions(-)
+ docs/system/cpu-models-x86.rst.inc | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
-diff --git a/audio/jackaudio.c b/audio/jackaudio.c
-index f49fd82c45..be6fb378f7 100644
---- a/audio/jackaudio.c
-+++ b/audio/jackaudio.c
-@@ -633,18 +633,36 @@ static void qjack_enable_in(HWVoiceIn *hw, bool enable)
-     ji->c.enabled = enable;
- }
+diff --git a/docs/system/cpu-models-x86.rst.inc b/docs/system/cpu-models-x86.rst.inc
+index 3605d05a8c..126c5a1972 100644
+--- a/docs/system/cpu-models-x86.rst.inc
++++ b/docs/system/cpu-models-x86.rst.inc
+@@ -72,17 +72,13 @@ compatibility is required, use the newest CPU model that is compatible
+ across all desired hosts.
  
--#if !defined(WIN32) && defined(CONFIG_PTHREAD_SETNAME_NP_W_TID)
-+#if !defined(WIN32)
-+struct QJackThreadData {
-+    void *(*function)(void *);
-+    void *arg;
-+};
-+
-+static void *qjack_thread_trampoline(void *targ)
-+{
-+    struct QJackThreadData *data = targ;
-+    void *(*function)(void *) = data->function;
-+    void *arg = data->arg;
-+
-+    g_free(data);
-+    qemu_thread_set_name("jack-client");
-+
-+    return function(arg);
-+}
-+
- static int qjack_thread_creator(jack_native_thread_t *thread,
-     const pthread_attr_t *attr, void *(*function)(void *), void *arg)
- {
--    int ret = pthread_create(thread, attr, function, arg);
-+    struct QJackThreadData *data = g_new0(struct QJackThreadData, 1);
-+    data->function = function;
-+    data->arg = arg;
-+    int ret = pthread_create(thread, attr, qjack_thread_trampoline, data);
-     if (ret != 0) {
-+        g_free(data);
-         return ret;
-     }
+ ``DiamondRapids``
+-    Intel Xeon Processor.
++    Intel Xeon Processor (DiamondRapids, 2026)
  
--    /* set the name of the thread */
--    pthread_setname_np(*thread, "jack-client");
+-    Diamond Rapids product has a topology which differs from previous Xeon
+-    products. It does not support SMT, but instead features a dual core
+-    module (DCM) architecture. It also has core building blocks (CBB - die
+-    level in CPU topology). The cache hierarchy is organized as follows:
+-    L1 i/d cache is per thread, L2 cache is per DCM, and L3 cache is per
+-    CBB. This cache topology can be emulated for DiamondRapids CPU model
+-    using the smp-cache configuration as shown below:
 -
-     return ret;
- }
- #endif
+-    Example:
++    This does not include SMT but allows the module (dual core module
++    - DCM) and die (core building block - CBB) topology levels. The
++    cache hierarchy is L1 i/d cache per thread, L2 cache per module,
++    and L3 cache per die, which can be emulated using the smp-cache
++    option:
+ 
+         ::
+ 
 -- 
 2.53.0
 
