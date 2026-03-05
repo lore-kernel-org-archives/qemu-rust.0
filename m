@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4797FF47CA4
-	for <qemu-rust@archiver.kernel.org>; Thu,  5 Mar 2026 17:53:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2995FF47CA4
+	for <qemu-rust@archiver.kernel.org>; Thu,  5 Mar 2026 17:53:26 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vyCqU-0007OB-OI; Thu, 05 Mar 2026 12:50:46 -0500
+	id 1vyCqU-0007Pb-Tl; Thu, 05 Mar 2026 12:50:46 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vyCq9-0006di-4S
- for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:50:27 -0500
+ id 1vyCpz-0006VD-M5
+ for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:50:18 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vyCq7-0002bE-Jj
- for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:50:24 -0500
+ id 1vyCpx-0002ZN-JZ
+ for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:50:15 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772733022;
+ s=mimecast20190719; t=1772733012;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HAn5uCxKHsi4ZTxZAQG+S8tZlo8bxfoEvDBRqGdtdGY=;
- b=WcNd+K295IXR0rYAAkGM485ckq8bZrl9wdP5ajUjr3rmpPPLokEiCve0vzuAW8yxEt5YNz
- FiC1KuSCD3pQnsea/NPr+2t7QYUV934Uqgsr4zPkx3M+bmAPJ7c1SEyhf1WijotVhBiUJo
- Y+pw543tBPJvEHCkfHeqgd7sbTx4ZOA=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=juZS92eO3WbOQRVO+8U3Zr/KTbezJf4zZdiWjx2+nNY=;
+ b=FBSO9nkwcl/5v5Xdli2YBpocK4qKNXY7M2H5nT3lM5HYn8wAOlYBTe0t23BI5BsZPus+YW
+ ikkByGbFbFv//O34mPqL+2WYZcTrG3FzxVI5z/NYMg6hX5ffBsehD58rUL6xmIE3phg/Dn
+ WHHLclk3koi0Sdc7lSEKjyd+zRJZWLw=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-169-TAGewmzgNOGoFnt5JOPXRw-1; Thu,
- 05 Mar 2026 12:50:19 -0500
-X-MC-Unique: TAGewmzgNOGoFnt5JOPXRw-1
-X-Mimecast-MFC-AGG-ID: TAGewmzgNOGoFnt5JOPXRw_1772733018
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-121-nerXnDoDO-aH4e7iRyO6zg-1; Thu,
+ 05 Mar 2026 12:50:08 -0500
+X-MC-Unique: nerXnDoDO-aH4e7iRyO6zg-1
+X-Mimecast-MFC-AGG-ID: nerXnDoDO-aH4e7iRyO6zg_1772733007
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id EA27E18005B9; Thu,  5 Mar 2026 17:50:17 +0000 (UTC)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 418FA19560B2; Thu,  5 Mar 2026 17:50:07 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.44.34.61])
  by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 184421956095; Thu,  5 Mar 2026 17:50:12 +0000 (UTC)
+ id 8236E1955D71; Thu,  5 Mar 2026 17:50:02 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Markus Armbruster <armbru@redhat.com>,
@@ -61,16 +61,15 @@ Cc: Markus Armbruster <armbru@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  Eduardo Habkost <eduardo@habkost.net>,
  Pierrick Bouvier <pierrick.bouvier@linaro.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Stefan Weil <sw@weilnetz.de>,
- Jon Kohler <jon@nutanix.com>
-Subject: [PULL 27/27] util/oslib-posix: increase memprealloc thread count to 32
-Date: Thu,  5 Mar 2026 17:47:43 +0000
-Message-ID: <20260305174743.3084606-28-berrange@redhat.com>
+ Paolo Bonzini <pbonzini@redhat.com>, Stefan Weil <sw@weilnetz.de>
+Subject: [PULL 25/27] util: fix interleaving of error prefixes
+Date: Thu,  5 Mar 2026 17:47:41 +0000
+Message-ID: <20260305174743.3084606-26-berrange@redhat.com>
 In-Reply-To: <20260305174743.3084606-1-berrange@redhat.com>
 References: <20260305174743.3084606-1-berrange@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: FOxir2SpzGMi2rcy85Ys5tWq7lC4cpwtjTmkXoR_ylk_1772733018
+X-Mimecast-MFC-PROC-ID: -ag_3HxS0uKnZH7tjLmffcpmxQjo7lkhQYRxYOVSXkU_1772733007
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -99,66 +98,46 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Jon Kohler <jon@nutanix.com>
+The vreport() function will optionally emit an prefix for error
+messages which is output to stderr incrementally. In the event
+that two vreport() calls execute concurrently, there is a risk
+that the prefix output will interleave. To address this it is
+required to take a lock on 'stderr' when outputting errors.
 
-Increase MAX_MEM_PREALLOC_THREAD_COUNT from 16 to 32. This was last
-touched in 2017 [1] and, since then, physical machine sizes and VMs
-therein have continue to get even bigger, both on average and on the
-extremes.
-
-For very large VMs, using 16 threads to preallocate memory can be a
-non-trivial bottleneck during VM start-up and migration. Increasing
-this limit to 32 threads reduces the time taken for these operations.
-
-Test results from quad socket Intel 8490H (4x 60 cores) show a fairly
-linear gain of 50% with the 2x thread count increase.
-
----------------------------------------------
-Idle Guest w/ 2M HugePages   | Start-up time
----------------------------------------------
-240 vCPU, 7.5TB (16 threads) | 2m41.955s
----------------------------------------------
-240 vCPU, 7.5TB (32 threads) | 1m19.404s
----------------------------------------------
-
-Note: Going above 32 threads appears to have diminishing returns at
-the point where the memory bandwidth and context switching costs
-appear to be a limiting factor to linear scaling. For posterity, on
-the same system as above:
-- 32 threads: 1m19s
-- 48 threads: 1m4s
-- 64 threads: 59s
-- 240 threads: 50s
-
-Additional thread counts also get less interesting as the amount of
-memory is to be preallocated is smaller. Putting that all together,
-32 threads appears to be a sane number with a solid speedup on fairly
-modern hardware. To go faster, we'd either need to improve the hardware
-(CPU/memory) itself or improve clear_pages_*() on the kernel side to
-be more efficient.
-
-[1] 1e356fc14bea ("mem-prealloc: reduce large guest start-up and migration time.")
-
-Signed-off-by: Jon Kohler <jon@nutanix.com>
-Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+Reported-by: Markus Armbruster <armbru@redhat.com>
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+Reviewed-by: Markus Armbruster <armbru@redhat.com>
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- util/oslib-posix.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ util/error-report.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/util/oslib-posix.c b/util/oslib-posix.c
-index 3c14b72665..dc001da66d 100644
---- a/util/oslib-posix.c
-+++ b/util/oslib-posix.c
-@@ -61,7 +61,7 @@
- #include "qemu/memalign.h"
- #include "qemu/mmap-alloc.h"
+diff --git a/util/error-report.c b/util/error-report.c
+index 6b9e592bc1..bbea49a55d 100644
+--- a/util/error-report.c
++++ b/util/error-report.c
+@@ -233,6 +233,9 @@ static void vreport(report_type type, const char *fmt, va_list ap)
+     if (monitor_cur_is_qmp()) {
+         cur = NULL;
+     }
++    if (!cur) {
++        qemu_flockfile(stderr);
++    }
  
--#define MAX_MEM_PREALLOC_THREAD_COUNT 16
-+#define MAX_MEM_PREALLOC_THREAD_COUNT 32
+     if (message_with_timestamp && !cur) {
+         timestr = real_time_iso8601();
+@@ -260,6 +263,10 @@ static void vreport(report_type type, const char *fmt, va_list ap)
  
- struct MemsetThread;
+     error_vprintf_mon(cur, fmt, ap);
+     error_printf_mon(cur, "\n");
++
++    if (!cur) {
++        qemu_funlockfile(stderr);
++    }
+ }
  
+ /*
 -- 
 2.53.0
 
