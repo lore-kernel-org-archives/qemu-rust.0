@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A249DF47CA5
-	for <qemu-rust@archiver.kernel.org>; Thu,  5 Mar 2026 17:51:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8C97F47CA4
+	for <qemu-rust@archiver.kernel.org>; Thu,  5 Mar 2026 17:51:10 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vyCqS-0007Hp-Nf; Thu, 05 Mar 2026 12:50:46 -0500
+	id 1vyCob-0002Oe-7m; Thu, 05 Mar 2026 12:48:49 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vyCpu-0006BY-AW
- for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:50:11 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1vyCo5-000232-PM
+ for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:48:23 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vyCpr-0002Kr-IV
- for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:50:09 -0500
+ id 1vyCo3-00028L-Oe
+ for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:48:17 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772732997;
+ s=mimecast20190719; t=1772732894;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+9OSKcd31lWikFWaURufmE/FEdairRVtIzQDpvvKKEY=;
- b=NGkt8VpwmhaZoXD9rAd7HMjAZFJoHFZxt8HVPPbDGTbVW6xUTT1SSrP8LdhHK8i7SwijYl
- NcYC0nQ/8LXQ1ujSv3y9XMzeYfAWBT73M7ir4NHGYkzwOem/AiOGAg3FPmimat8vVWz3VV
- WZ9NxpyQuzqXljTRZ5FeTiVcoVMgyvM=
+ bh=ZXAIQNZS/pqtB1qCR+7+99G/XLOIU4CQgEazJnNGEso=;
+ b=HoBoCdTSvTcqSxlaN2Ezykh6YiWP6doEHtKtODFYuoc5uMSka/cTmLT2kK8u4dcAE5yW3D
+ P84ZP/3zhMtEgRF0wyvQzq506s+OB7YXxgUtm/TJ7HyQq7Z35IrSXKQQGUq5F8a+XPpB2e
+ E1vs0oGTJf60GocedBopganj7PZNtJ8=
 Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-328-psvm0siEOxyWY7_FxdchnA-1; Thu,
- 05 Mar 2026 12:49:51 -0500
-X-MC-Unique: psvm0siEOxyWY7_FxdchnA-1
-X-Mimecast-MFC-AGG-ID: psvm0siEOxyWY7_FxdchnA_1772732986
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-369-M0PJpy_oMpyu5aFR4gbQkw-1; Thu,
+ 05 Mar 2026 12:48:11 -0500
+X-MC-Unique: M0PJpy_oMpyu5aFR4gbQkw-1
+X-Mimecast-MFC-AGG-ID: M0PJpy_oMpyu5aFR4gbQkw_1772732889
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id DF6621955BE1; Thu,  5 Mar 2026 17:49:45 +0000 (UTC)
+ id 5FF551956063; Thu,  5 Mar 2026 17:48:09 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.44.34.61])
  by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 2C4891956095; Thu,  5 Mar 2026 17:49:40 +0000 (UTC)
+ id 717A91955D71; Thu,  5 Mar 2026 17:48:04 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Markus Armbruster <armbru@redhat.com>,
@@ -62,25 +62,25 @@ Cc: Markus Armbruster <armbru@redhat.com>,
  Eduardo Habkost <eduardo@habkost.net>,
  Pierrick Bouvier <pierrick.bouvier@linaro.org>,
  Paolo Bonzini <pbonzini@redhat.com>, Stefan Weil <sw@weilnetz.de>
-Subject: [PULL 21/27] monitor: refactor error_vprintf()
-Date: Thu,  5 Mar 2026 17:47:37 +0000
-Message-ID: <20260305174743.3084606-22-berrange@redhat.com>
+Subject: [PULL 03/27] io: fix cleanup for TLS I/O source data on cancellation
+Date: Thu,  5 Mar 2026 17:47:19 +0000
+Message-ID: <20260305174743.3084606-4-berrange@redhat.com>
 In-Reply-To: <20260305174743.3084606-1-berrange@redhat.com>
 References: <20260305174743.3084606-1-berrange@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: NcVCYjdqTS0mJlz49_YknNNHWXmt1z1jwx6tRePrJM4_1772732986
+X-Mimecast-MFC-PROC-ID: TOinrB-mXHYGon_ejJK9VaWNlSLeZQnw6YqL8-qEsww_1772732889
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -5
 X-Spam_score: -0.6
 X-Spam_bar: /
 X-Spam_report: (-0.6 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.892, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.622,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
@@ -98,49 +98,172 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-The monitor_vprintf() code will return -1 if either the monitor
-is NULL, or the monitor is QMP. The error_vprintf() code can
-take advantage of this to avoid having to duplicate the same
-checks, and instead simply look at the return value.
+The TLS code will create a GSource for tracking completion of the
+handshake process, passing a QIOChannelTLSData struct that contains
+various data items. The data struct is freed by the callback when
+it completes, which means when a source is cancelled, nothing is
+free'ing the data struct or its contents.
 
-Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-Reviewed-by: Markus Armbruster <armbru@redhat.com>
+Switch to provide a data free callback to the GSource, which ensures
+the QIOChannelTLSData struct is always freed even when the main event
+callback never fires.
+
+Fixes: https://gitlab.com/qemu-project/qemu/-/issues/3114
+Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- monitor/monitor.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ io/channel-tls.c | 68 ++++++++++++++++++++++++++++++------------------
+ 1 file changed, 43 insertions(+), 25 deletions(-)
 
-diff --git a/monitor/monitor.c b/monitor/monitor.c
-index 4d26cd9496..64c552a047 100644
---- a/monitor/monitor.c
-+++ b/monitor/monitor.c
-@@ -269,16 +269,21 @@ void monitor_printc(Monitor *mon, int c)
- }
+diff --git a/io/channel-tls.c b/io/channel-tls.c
+index 07274c12df..940fc3c6d1 100644
+--- a/io/channel-tls.c
++++ b/io/channel-tls.c
+@@ -153,13 +153,32 @@ struct QIOChannelTLSData {
+ };
+ typedef struct QIOChannelTLSData QIOChannelTLSData;
  
- /*
-- * Print to current monitor if we have one, else to stderr.
-+ * Print to the current human monitor if we have one, else to stderr.
-  */
- int error_vprintf(const char *fmt, va_list ap)
- {
-     Monitor *cur_mon = monitor_cur();
--
--    if (cur_mon && !monitor_cur_is_qmp()) {
--        return monitor_vprintf(cur_mon, fmt, ap);
++static void qio_channel_tls_io_data_free(gpointer user_data)
++{
++    QIOChannelTLSData *data = user_data;
 +    /*
-+     * This will return -1 if 'cur_mon' is NULL, or is QMP.
-+     * IOW this will only print if in HMP, otherwise we
-+     * fallback to stderr for QMP / no-monitor scenarios.
++     * Usually 'task' will be NULL since the GSource
++     * callback will either complete the task or pass
++     * it on to a new GSource. We'll see a non-NULL
++     * task here only if the GSource was released before
++     * its callback triggers
 +     */
-+    int ret = monitor_vprintf(cur_mon, fmt, ap);
-+    if (ret == -1) {
-+        ret = vfprintf(stderr, fmt, ap);
++    if (data->task) {
++        qio_task_free(data->task);
++    }
++    if (data->context) {
++        g_main_context_unref(data->context);
++    }
++    g_free(data);
++}
++
+ static gboolean qio_channel_tls_handshake_io(QIOChannel *ioc,
+                                              GIOCondition condition,
+                                              gpointer user_data);
+ 
+-static void qio_channel_tls_handshake_task(QIOChannelTLS *ioc,
+-                                           QIOTask *task,
+-                                           GMainContext *context)
++static gboolean qio_channel_tls_handshake_task(QIOChannelTLS *ioc,
++                                               QIOTask *task,
++                                               GMainContext *context)
+ {
+     Error *err = NULL;
+     int status;
+@@ -170,8 +189,7 @@ static void qio_channel_tls_handshake_task(QIOChannelTLS *ioc,
+         trace_qio_channel_tls_handshake_fail(ioc);
+         qio_task_set_error(task, err);
+         qio_task_complete(task);
+-        qio_task_free(task);
+-        return;
++        return TRUE;
      }
--    return vfprintf(stderr, fmt, ap);
-+    return ret;
+ 
+     if (status == QCRYPTO_TLS_HANDSHAKE_COMPLETE) {
+@@ -184,7 +202,7 @@ static void qio_channel_tls_handshake_task(QIOChannelTLS *ioc,
+             trace_qio_channel_tls_credentials_allow(ioc);
+         }
+         qio_task_complete(task);
+-        qio_task_free(task);
++        return TRUE;
+     } else {
+         GIOCondition condition;
+         QIOChannelTLSData *data = g_new0(typeof(*data), 1);
+@@ -208,8 +226,9 @@ static void qio_channel_tls_handshake_task(QIOChannelTLS *ioc,
+                                        condition,
+                                        qio_channel_tls_handshake_io,
+                                        data,
+-                                       NULL,
++                                       qio_channel_tls_io_data_free,
+                                        context);
++        return FALSE;
+     }
  }
  
- static MonitorQAPIEventConf monitor_qapi_event_conf[QAPI_EVENT__MAX] = {
+@@ -225,11 +244,9 @@ static gboolean qio_channel_tls_handshake_io(QIOChannel *ioc,
+         qio_task_get_source(task));
+ 
+     tioc->hs_ioc_tag = 0;
+-    g_free(data);
+-    qio_channel_tls_handshake_task(tioc, task, context);
+-
+-    if (context) {
+-        g_main_context_unref(context);
++    if (!qio_channel_tls_handshake_task(tioc, task, context)) {
++        /* task is kept by new GSource so must not be released yet */
++        data->task = NULL;
+     }
+ 
+     return FALSE;
+@@ -252,14 +269,16 @@ void qio_channel_tls_handshake(QIOChannelTLS *ioc,
+                         func, opaque, destroy);
+ 
+     trace_qio_channel_tls_handshake_start(ioc);
+-    qio_channel_tls_handshake_task(ioc, task, context);
++    if (qio_channel_tls_handshake_task(ioc, task, context)) {
++        qio_task_free(task);
++    }
+ }
+ 
+ static gboolean qio_channel_tls_bye_io(QIOChannel *ioc, GIOCondition condition,
+                                        gpointer user_data);
+ 
+-static void qio_channel_tls_bye_task(QIOChannelTLS *ioc, QIOTask *task,
+-                                     GMainContext *context)
++static gboolean qio_channel_tls_bye_task(QIOChannelTLS *ioc, QIOTask *task,
++                                         GMainContext *context)
+ {
+     GIOCondition condition;
+     QIOChannelTLSData *data;
+@@ -272,14 +291,12 @@ static void qio_channel_tls_bye_task(QIOChannelTLS *ioc, QIOTask *task,
+         trace_qio_channel_tls_bye_fail(ioc);
+         qio_task_set_error(task, err);
+         qio_task_complete(task);
+-        qio_task_free(task);
+-        return;
++        return TRUE;
+     }
+ 
+     if (status == QCRYPTO_TLS_BYE_COMPLETE) {
+         qio_task_complete(task);
+-        qio_task_free(task);
+-        return;
++        return TRUE;
+     }
+ 
+     data = g_new0(typeof(*data), 1);
+@@ -299,7 +316,10 @@ static void qio_channel_tls_bye_task(QIOChannelTLS *ioc, QIOTask *task,
+     trace_qio_channel_tls_bye_pending(ioc, status);
+     ioc->bye_ioc_tag = qio_channel_add_watch_full(ioc->master, condition,
+                                                   qio_channel_tls_bye_io,
+-                                                  data, NULL, context);
++                                                  data,
++                                                  qio_channel_tls_io_data_free,
++                                                  context);
++    return FALSE;
+ }
+ 
+ 
+@@ -312,11 +332,9 @@ static gboolean qio_channel_tls_bye_io(QIOChannel *ioc, GIOCondition condition,
+     QIOChannelTLS *tioc = QIO_CHANNEL_TLS(qio_task_get_source(task));
+ 
+     tioc->bye_ioc_tag = 0;
+-    g_free(data);
+-    qio_channel_tls_bye_task(tioc, task, context);
+-
+-    if (context) {
+-        g_main_context_unref(context);
++    if (!qio_channel_tls_bye_task(tioc, task, context)) {
++        /* task is kept by new GSource so must not be released yet */
++        data->task = NULL;
+     }
+ 
+     return FALSE;
 -- 
 2.53.0
 
