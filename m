@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE8B2F47CA3
-	for <qemu-rust@archiver.kernel.org>; Thu,  5 Mar 2026 17:49:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77ED5F47CA3
+	for <qemu-rust@archiver.kernel.org>; Thu,  5 Mar 2026 17:49:27 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vyCof-0002hG-1A; Thu, 05 Mar 2026 12:48:53 -0500
+	id 1vyCoW-0002Fk-No; Thu, 05 Mar 2026 12:48:44 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vyCoZ-0002Lw-0Y
- for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:48:47 -0500
+ id 1vyCo1-00021r-93
+ for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:48:14 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vyCoX-0002Bz-0Q
- for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:48:46 -0500
+ id 1vyCnt-00027F-WB
+ for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:48:09 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772732924;
+ s=mimecast20190719; t=1772732884;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kAnXty8ojb0QvYCAJwvtMMolNwPYeQ0lJZK1O5DK5TM=;
- b=K0BILjEcY1apHd2yGjIVCi8ia9CUGNYSkdoCCLD0z/yE0l+n7J9jdDHweFH3wCizu8hnJj
- SrMS5eaG86d99aoYTV64uAm7qrCS7IhYdqwGuMCz7O36o3WHhdQIENCs9ANfhJ/Z/SoIAd
- KvbM1oAuLqI6brgjjYpC2fTMTz2VgUs=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=KbHFdCe59qdP2DzgI4rKvjJZw7njXW501397C37yF/k=;
+ b=JFj0KcZUqyPULofbHPJuvf3THhWfFFv6LDPUKkDEFHz/syDxdsqo00LID5wbyt8xs88LEO
+ ShOnI5YjOKof9dLzq+9K42F6rnARihpGgVpFzYiXsX/NU9YrLLfZf6FC9Qivc1y64ZEo1f
+ DVN95CR/oiSf67odEA/9hOSzbgzGjKk=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-444-V4wl-JcLOeGaH4fxp9c7fw-1; Thu,
- 05 Mar 2026 12:48:38 -0500
-X-MC-Unique: V4wl-JcLOeGaH4fxp9c7fw-1
-X-Mimecast-MFC-AGG-ID: V4wl-JcLOeGaH4fxp9c7fw_1772732916
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-262-Yd5gN8k7MmGF12UkQprOLg-1; Thu,
+ 05 Mar 2026 12:48:00 -0500
+X-MC-Unique: Yd5gN8k7MmGF12UkQprOLg-1
+X-Mimecast-MFC-AGG-ID: Yd5gN8k7MmGF12UkQprOLg_1772732878
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 9D48218005BD; Thu,  5 Mar 2026 17:48:36 +0000 (UTC)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id EEAFE19560B6; Thu,  5 Mar 2026 17:47:57 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.44.34.61])
  by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 849941956095; Thu,  5 Mar 2026 17:48:31 +0000 (UTC)
+ id 123DB1955D71; Thu,  5 Mar 2026 17:47:51 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Markus Armbruster <armbru@redhat.com>,
@@ -62,14 +62,14 @@ Cc: Markus Armbruster <armbru@redhat.com>,
  Eduardo Habkost <eduardo@habkost.net>,
  Pierrick Bouvier <pierrick.bouvier@linaro.org>,
  Paolo Bonzini <pbonzini@redhat.com>, Stefan Weil <sw@weilnetz.de>
-Subject: [PULL 08/27] monitor: initialize global data from a constructor
-Date: Thu,  5 Mar 2026 17:47:24 +0000
-Message-ID: <20260305174743.3084606-9-berrange@redhat.com>
+Subject: [PULL 01/27] scripts: detect another GPL license boilerplate variant
+Date: Thu,  5 Mar 2026 17:47:17 +0000
+Message-ID: <20260305174743.3084606-2-berrange@redhat.com>
 In-Reply-To: <20260305174743.3084606-1-berrange@redhat.com>
 References: <20260305174743.3084606-1-berrange@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: eIrsjEyBeTgKt1DD2DDdChZa9P5_obh0gErFf8uOuVQ_1772732916
+X-Mimecast-MFC-PROC-ID: 5_SjG6tlCv9452oizhXrQ5smwytB0QRdqiW7W77yK1o_1772732878
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -98,68 +98,28 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Some monitor functions, most notably, monitor_cur() rely on global
-data being initialized by 'monitor_init_globals()'. The latter is
-called relatively late in startup. If code triggers error_report()
-before monitor_init_globals() is called, QEMU will abort when
-accessing the uninitialized monitor mutex.
-
-The critical monitor global data must be initialized from a
-constructor function, to improve the guarantee that it is done
-before any possible calls to monitor_cur(). Not only that, but
-the constructor must be marked to run before the default
-constructor in case any of them trigger error reporting.
-
-Note in particular that the RCU constructor will spawn a background
-thread so we might even have non-constructor QEMU code running
-concurrently with other constructors.
-
-As a general note, constructors should be extrememly careful
-about what QEMU code they invoke, as it cannot be guaranteed that
-the process is fully initialized and so not all normal QEMU API
-rules apply.
-
-Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-Reviewed-by: Dr. David Alan Gilbert <dave@treblig.org>
-Reviewed-by: Markus Armbruster <armbru@redhat.com>
-Fixes: e69ee454b5f9 (monitor: Make current monitor a per-coroutine property)
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- monitor/monitor.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ scripts/checkpatch.pl | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/monitor/monitor.c b/monitor/monitor.c
-index 1273eb7260..dd2c45ded0 100644
---- a/monitor/monitor.c
-+++ b/monitor/monitor.c
-@@ -708,18 +708,22 @@ void monitor_cleanup(void)
-     }
- }
+diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+index 3a9557417f..45b1153a9c 100755
+--- a/scripts/checkpatch.pl
++++ b/scripts/checkpatch.pl
+@@ -373,8 +373,9 @@ our @LICENSE_BOILERPLATE = (
+ 	"under the terms of the GNU Lesser General Public",
+ 	"Permission is hereby granted, free of charge",
+ 	"GNU GPL, version 2 or later",
+-	"See the COPYING file"
+-);
++	"See the COPYING file",
++	"terms and conditions of the GNU General Public",
++    );
+ our $LICENSE_BOILERPLATE_RE = join("|", @LICENSE_BOILERPLATE);
  
--static void monitor_qapi_event_init(void)
-+/*
-+ * Initialize static vars that have no deps on external
-+ * module initialization, and are required for external
-+ * functions to call things like monitor_cur()
-+ */
-+static void __attribute__((__constructor__(QEMU_CONSTRUCTOR_EARLY)))
-+monitor_init_static(void)
- {
-+    qemu_mutex_init(&monitor_lock);
-+    coroutine_mon = g_hash_table_new(NULL, NULL);
-     monitor_qapi_event_state = g_hash_table_new(qapi_event_throttle_hash,
-                                                 qapi_event_throttle_equal);
- }
- 
- void monitor_init_globals(void)
- {
--    monitor_qapi_event_init();
--    qemu_mutex_init(&monitor_lock);
--    coroutine_mon = g_hash_table_new(NULL, NULL);
--
-     /*
-      * The dispatcher BH must run in the main loop thread, since we
-      * have commands assuming that context.  It would be nice to get
+ # Load common spelling mistakes and build regular expression list.
 -- 
 2.53.0
 
