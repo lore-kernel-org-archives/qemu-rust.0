@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B4B6F47CA5
-	for <qemu-rust@archiver.kernel.org>; Thu,  5 Mar 2026 17:49:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 609DAF47CA4
+	for <qemu-rust@archiver.kernel.org>; Thu,  5 Mar 2026 17:49:52 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vyCpE-000481-5s; Thu, 05 Mar 2026 12:49:28 -0500
+	id 1vyCpJ-0004pN-9v; Thu, 05 Mar 2026 12:49:33 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vyCpD-00041n-7F
- for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:49:27 -0500
+ id 1vyCpH-0004Xq-Gs
+ for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:49:31 -0500
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1vyCpB-0002Ge-Mj
- for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:49:26 -0500
+ id 1vyCpG-0002HN-3i
+ for qemu-rust@nongnu.org; Thu, 05 Mar 2026 12:49:31 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772732965;
+ s=mimecast20190719; t=1772732969;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BDE2PfGfue96vekIeVYQQo7bNNyRh35/o6HWgcGGENI=;
- b=BQxCv/tUvRUwYHHNr17DYfg+1KyAQcftioNVjZLzuloERMBGyM3A0pjlGs7vTCLfZUoMMD
- pPReH7UDzf2fZM3e7aLSfdmuxLIM/HfAZ3Z7mT6IzdGZGm4um7BYp0JvC+erEm+Nba/Pik
- fm2egmc1s046d0PH3n450ZjuoYS3Abo=
+ bh=K4WjNArJmbw/x7ZdiBRCsysQcHpEyeUfVGYnLBVSr0g=;
+ b=XHMa50AgD1kiG3GsGHM0lTjl/wFbhDu/lF+nNzJUaJCIOtIlakzSfZQuOLXY33CaEiwmfl
+ 3cSRvliQXCrtgnGw9e1b96ZxF48rmouyK8UVgrskCg192xIKv3FekfgOUzl75tbQpQOVls
+ cFLcBAxViIGpy276/eOe+OLVa2KOpU0=
 Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-349-kOKH7dw9MtSvCwrvK0-Hbw-1; Thu,
- 05 Mar 2026 12:49:20 -0500
-X-MC-Unique: kOKH7dw9MtSvCwrvK0-Hbw-1
-X-Mimecast-MFC-AGG-ID: kOKH7dw9MtSvCwrvK0-Hbw_1772732959
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-167-7utP3GCHNw6PkqRrA1suhg-1; Thu,
+ 05 Mar 2026 12:49:26 -0500
+X-MC-Unique: 7utP3GCHNw6PkqRrA1suhg-1
+X-Mimecast-MFC-AGG-ID: 7utP3GCHNw6PkqRrA1suhg_1772732964
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 0A916195605F; Thu,  5 Mar 2026 17:49:19 +0000 (UTC)
+ id 8BF2F1955F29; Thu,  5 Mar 2026 17:49:24 +0000 (UTC)
 Received: from toolbx.redhat.com (unknown [10.44.34.61])
  by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 45F1F1955D71; Thu,  5 Mar 2026 17:49:14 +0000 (UTC)
+ id 7CC661955D71; Thu,  5 Mar 2026 17:49:19 +0000 (UTC)
 From: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Markus Armbruster <armbru@redhat.com>,
@@ -62,14 +62,15 @@ Cc: Markus Armbruster <armbru@redhat.com>,
  Eduardo Habkost <eduardo@habkost.net>,
  Pierrick Bouvier <pierrick.bouvier@linaro.org>,
  Paolo Bonzini <pbonzini@redhat.com>, Stefan Weil <sw@weilnetz.de>
-Subject: [PULL 16/27] util: avoid repeated prefix on incremental qemu_log calls
-Date: Thu,  5 Mar 2026 17:47:32 +0000
-Message-ID: <20260305174743.3084606-17-berrange@redhat.com>
+Subject: [PULL 17/27] util/log: add missing error reporting in
+ qemu_log_trylock_with_err
+Date: Thu,  5 Mar 2026 17:47:33 +0000
+Message-ID: <20260305174743.3084606-18-berrange@redhat.com>
 In-Reply-To: <20260305174743.3084606-1-berrange@redhat.com>
 References: <20260305174743.3084606-1-berrange@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: bxlmprcm3hqPVqF1vY5i_Oizwv_I-a3x6VQLdVcRwIY_1772732959
+X-Mimecast-MFC-PROC-ID: k62JBm8T26ZMn-BzrN1r-8pZo6dMQ5S9GKppNuaR6QU_1772732964
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -98,157 +99,27 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-There are three general patterns to QEMU log output
+One codepath that could return NULL failed to populate the errp
+object.
 
- 1. Single complete message calls
-
-      qemu_log("Some message\n");
-
- 2. Direct use of fprintf
-
-      FILE *f = qemu_log_trylock()
-      fprintf(f, "...");
-      fprintf(f, "...");
-      fprintf(f, "...\n");
-      qemu_log_unlock(f)
-
- 3. Mixed use of qemu_log_trylock/qemu_log()
-
-      FILE *f = qemu_log_trylock()
-      qemu_log("....");
-      qemu_log("....");
-      qemu_log("....\n");
-      qemu_log_unlock(f)
-
-When message prefixes are enabled, the timestamp will be
-unconditionally emitted for all qemu_log() calls. This
-works fine in the 1st case, and has no effect in the 2nd
-case. In the 3rd case, however, we get the timestamp
-printed over & over in each fragment.
-
-One can suggest that pattern (3) is pointless as it is
-functionally identical to (2) but with extra indirection
-and overhead. None the less we have a fair bit of code
-that does this.
-
-The qemu_log() call itself is nothing more than a wrapper
-which does pattern (2) with a single fprintf() call.
-
-One might question whether (2) should include the message
-prefix in the same way that (1), but there are scenarios
-where this could be inappropriate / unhelpful such as the
-CPU register dumps or linux-user strace output.
-
-This patch fixes the problem in pattern (3) by keeping
-track of the call depth of qemu_log_trylock() and then
-only emitting the the prefix when the starting depth
-was zero. In doing this qemu_log_trylock_context() is
-also introduced as a variant of qemu_log_trylock()
-that emits the prefix. Callers doing to batch output
-can thus choose whether a prefix is appropriate or
-not.
-
-Fixes: 012842c07552 (log: make '-msg timestamp=on' apply to all qemu_log usage)
-Reported-by: Richard Henderson <richard.henderson@linaro.org>
+Reported-by: Markus Armbruster <armbru@redhat.com>
 Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
 ---
- include/qemu/log.h |  7 +++++++
- util/log.c         | 49 ++++++++++++++++++++++++++--------------------
- 2 files changed, 35 insertions(+), 21 deletions(-)
+ util/log.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/qemu/log.h b/include/qemu/log.h
-index b49a1a5fe3..92956e5d0f 100644
---- a/include/qemu/log.h
-+++ b/include/qemu/log.h
-@@ -70,6 +70,13 @@ bool qemu_log_separate(void);
-  */
- FILE *qemu_log_trylock(void) G_GNUC_WARN_UNUSED_RESULT;
- 
-+/**
-+ * As qemu_log_trylock(), but will also print the message
-+ * context, if any is configured and this caused the
-+ * acquisition of the FILE lock
-+ */
-+FILE *qemu_log_trylock_with_context(void) G_GNUC_WARN_UNUSED_RESULT;
-+
- /**
-  * Releases the lock on the log output, previously
-  * acquired by qemu_log_trylock().
 diff --git a/util/log.c b/util/log.c
-index c44d66b5ce..66f6dd5eec 100644
+index 66f6dd5eec..7cffbc1bf8 100644
 --- a/util/log.c
 +++ b/util/log.c
-@@ -127,13 +127,39 @@ static FILE *qemu_log_trylock_with_err(Error **errp)
-     return logfile;
- }
- 
-+/*
-+ * Zero if there's been no opening qemu_log_trylock call,
-+ * indicating the need for message context to be emitted
-+ *
-+ * Non-zero if we're in the middle of printing a message,
-+ * possibly over multiple lines and must skip further
-+ * message context
-+ */
-+static __thread unsigned int log_depth;
-+
- FILE *qemu_log_trylock(void)
- {
--    return qemu_log_trylock_with_err(NULL);
-+    FILE *f = qemu_log_trylock_with_err(NULL);
-+    log_depth++;
-+    return f;
-+}
-+
-+FILE *qemu_log_trylock_with_context(void)
-+{
-+    FILE *f = qemu_log_trylock();
-+    if (f && log_depth == 1 && message_with_timestamp) {
-+        g_autofree const char *timestr = NULL;
-+        g_autoptr(GDateTime) dt = g_date_time_new_now_utc();
-+        timestr = g_date_time_format_iso8601(dt);
-+        fprintf(f, "%s ", timestr);
-+    }
-+    return f;
- }
- 
- void qemu_log_unlock(FILE *logfile)
- {
-+    assert(log_depth);
-+    log_depth--;
-     if (logfile) {
-         fflush(logfile);
-         qemu_funlockfile(logfile);
-@@ -145,28 +171,9 @@ void qemu_log_unlock(FILE *logfile)
- 
- void qemu_log(const char *fmt, ...)
- {
--    FILE *f;
--    g_autofree const char *timestr = NULL;
--
--    /*
--     * Prepare the timestamp *outside* the logging
--     * lock so it better reflects when the message
--     * was emitted if we are delayed acquiring the
--     * mutex
--     */
--    if (message_with_timestamp) {
--        g_autoptr(GDateTime) dt = g_date_time_new_now_utc();
--        timestr = g_date_time_format_iso8601(dt);
--    }
--
--    f = qemu_log_trylock();
-+    FILE *f = qemu_log_trylock_with_context();
-     if (f) {
-         va_list ap;
--
--        if (timestr) {
--            fprintf(f, "%s ", timestr);
--        }
--
-         va_start(ap, fmt);
-         vfprintf(f, fmt, ap);
-         va_end(ap);
+@@ -118,6 +118,7 @@ static FILE *qemu_log_trylock_with_err(Error **errp)
+             logfile = qatomic_rcu_read((void **)&global_file);
+             if (!logfile) {
+                 rcu_read_unlock();
++                error_setg(errp, "Global log file output is not open");
+                 return NULL;
+             }
+         }
 -- 
 2.53.0
 
