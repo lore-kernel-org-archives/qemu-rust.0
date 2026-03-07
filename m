@@ -4,114 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26BB4F0181A
-	for <qemu-rust@archiver.kernel.org>; Fri,  6 Mar 2026 09:50:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A7ECFC9EF4
+	for <qemu-rust@archiver.kernel.org>; Sat,  7 Mar 2026 11:37:46 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vyRok-0002KQ-9u; Fri, 06 Mar 2026 04:49:58 -0500
+	id 1vypyK-0008UA-9l; Sat, 07 Mar 2026 06:37:28 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1vyRoi-0002Jp-NZ
- for qemu-rust@nongnu.org; Fri, 06 Mar 2026 04:49:56 -0500
-Received: from mail-yx1-xb133.google.com ([2607:f8b0:4864:20::b133])
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vypyA-0008SQ-5P
+ for qemu-rust@nongnu.org; Sat, 07 Mar 2026 06:37:18 -0500
+Received: from mail-wm1-x32d.google.com ([2a00:1450:4864:20::32d])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1vyRoh-0004wb-6u
- for qemu-rust@nongnu.org; Fri, 06 Mar 2026 04:49:56 -0500
-Received: by mail-yx1-xb133.google.com with SMTP id
- 956f58d0204a3-64ca6595c8aso8804681d50.0
- for <qemu-rust@nongnu.org>; Fri, 06 Mar 2026 01:49:54 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772790594; cv=none;
- d=google.com; s=arc-20240605;
- b=lJ9VkEuGpVi0tT+O2jxMNvtmhkYRABIyPJ9V9zbaOmNo75MIC7+PWCF+uowss+Z5HD
- /7n3n214p2PqPu45v4kYKUc4lHWqUZzbwUjzmbG1QcwufIIFIiOT7uAerDRe5Telvm6f
- qwaUXGZzRR6rJcFVB6hiJ6uxczHSYPMxJSnGIVJQ1f5mND1Wnm0aSm519GNt69m9kes0
- 7wQKTSQKwqZCa7EVVWp3xWr9HYik1nJn7P3i6D+kpI9B2c6s+2p1hA5hegBb+2EANuUi
- zUZ6YbUw0MlX5LqtjWHV5WkLoGp+C+81L1FyqbPAwpbmStYR2RZClzWKhWO9X1SrDyQA
- gR0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=gUn1nqn3wclmJWxblTsaUHjjS0ijVhXE2LYsDu60P1U=;
- fh=mWNiimXstvwH2eaYHGEYwiMVVcAURhwR8rb6vXF4Uv4=;
- b=REc4wBCx4TvLjCm5kyCc2TxOLsnzHNUPAx1BPWlJJpsYmtyvDINZ5Qh2/Yb/EGOoOH
- jWBfU12E/j9Xw2YcDsFM2Xi+79o24PLGqcF80VAvGnDATYkxW4FbUqyPTNhLYoFB+Bxa
- Kdol9jzbDIUA21KNLu8sUixa8w3lL2JvVjEh6GwLN67JOeMD0qq8aDoc7VNeDbPaz13i
- eR64SqijqFvjwfearXg07mLWO/wu+qqTWWWa8GWHyHAGTkkYNDfVW7V9MDUQBjiRkxyy
- H6hk24dkWX5Jbqt1tdkHsu/eiTqdYPZ4gqCLpIleKyiSdGROYsZB4Cpw/gBFJzNcUZRf
- 7KSA==; darn=nongnu.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vypy7-0007RY-9s
+ for qemu-rust@nongnu.org; Sat, 07 Mar 2026 06:37:16 -0500
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-483abed83b6so84216495e9.0
+ for <qemu-rust@nongnu.org>; Sat, 07 Mar 2026 03:37:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1772790594; x=1773395394; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gUn1nqn3wclmJWxblTsaUHjjS0ijVhXE2LYsDu60P1U=;
- b=ngzeTCmh2768q+IH2+2o/3ksmYqkbwJJpO6EMg5pCdvHCF1I3ucmbfcT+XD4i7MWIO
- a1s9jQ3TLgxmnJdrmFtlKHIyJlDjC62ix16brLhyIwA6MnF/D4THW0gLfMwrn0Ay5U5B
- kDtwje/W8tCwQqyokbDyhJpxJpOPyNi1lnEwvtfLdGD4sNkzkuqm5a/MbTn9t1YnjP/J
- aKZfEHCG6rUrd/cDiyDcHiF8BXe08XdpRvNzPBmCQ+ckDoK7ZfGbjmi9GnFREQ6GM8qx
- 0gEOkRwbqa/H4ScOzW43M48aTTnXDdlLxq6LXhuxLZ0T9T9GQNsR7uw+4q+2JYCxFQ6k
- IJfQ==
+ d=linaro.org; s=google; t=1772883432; x=1773488232; darn=nongnu.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ph3h9lg7Q2cj9fEXg9hEbgjSF7fjMUHWQscfkdIi7LI=;
+ b=gbKd5eJHKtPvmp+HyGTGL61IXr2hODSNw76LyqDhaD6qbQ0WyIZsi2QwBN0XLz/SDo
+ e/bMnhbDuNE44JucmLCIGpjzHgaf9lVaDt5QiVhque3fEFr6HfpmR3CQeQ3xdAtt26L6
+ p53dUqwdGDq9bf0LsSRw69cSnTlfLOe+f/pZglnlbscBiwAUiNT0IDrQCmDwrpMIko2f
+ 4K1TDO+kFFHM1qRqJ1nb1L0A2WOfWCfFJ92JohSleg7aeLqhSw0erg+rwXSF370n3tsj
+ oMrZwJkRUFuCmP0u4dFqU0tl0M0eFat3Tym5t5SLV3WpZP62v4pfwhK7D+vsHVdGoESO
+ Xlrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772790594; x=1773395394;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=gUn1nqn3wclmJWxblTsaUHjjS0ijVhXE2LYsDu60P1U=;
- b=A6K6n3m2M9Ld2zRwnjbsX5CK4NrHqNZJ1bQ01n9GNjo59dEL22gtWhJ/tk6o9J7RNN
- 2QBLOQLfaXIpTJOu57nYgrT2lQg6Tj1asv73hBF6d3hNtYSSqTjGnfyz1cv2XEdYBKmg
- BlBULO5S1FuDlOZ6v+cJmUnCeN3n2PewEMsMep7zgxFSKFtCmlOc4io5ah7BUZBJSYUe
- hLzOpRMVn+fDXTSTqIljrutDr0ITfjdjzmbcNaoStQxkWMxnIR7ZqQCWriFeee8VhLfi
- iv0x320hKjo/vgSpVuQhNQ8yZsC6+7Sej50lZXbRKZ+3fOSBVKpMFfgXenFKJy+ZovsM
- 6/OA==
+ d=1e100.net; s=20230601; t=1772883432; x=1773488232;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ph3h9lg7Q2cj9fEXg9hEbgjSF7fjMUHWQscfkdIi7LI=;
+ b=EKAuuMjZU3OaTfwoIDKi7AU0595YbPoMpYfE/dmPkhEb52z0QHMj9LNl8PGAF8QKGM
+ Zaex+sYOV05OXNXSb5gxafiERoonXNP74ojKM5kw3t2L2L8q9l6F0mxiSSNdWdhYmdOe
+ 5Mmexj1w+NseNyCxSAZWSpUwDvGarbNI/qAaJpNwQ8XtKg/3W340M0nT9RkDVWs6xyWY
+ ki0efEdL5yWrv79EcaLq1Bm7lITfBNwtV4MX6VS6dcmx0OhIteU1vJeKf0smHlbjjJWl
+ 78f4/V4jY/qy784mldnVi0AvNX2zKt1HmIE6eU5eFBNWjxod/diQh1IByyW4OqSHxgsk
+ MOyg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVWTk2kaXBKX0qPVuvx16XO2msqrZcoJMWD441AyoybxU7xlEQXvnfZFJ5tJRKbWccTUEwTFfpKjC4=@nongnu.org
-X-Gm-Message-State: AOJu0YxIy63sPZm2lBu+3fcIy+NaasyM+a2eTSFK9E/DfQaZ9Z4rJPhW
- knFiLP3aLxcSZySCwFrCuBAEwohcs5XSYFUKKg4dQmPqZzVjv7yzIhZYgptaRptGmBxkNW7CIL8
- NUtmaspiOymBfGw9LTPOxs30T/XXCW6kCvs3Lt+8lQg==
-X-Gm-Gg: ATEYQzwwWu7ykBrK6xWX5P+vwOkNaT5nSzgIlVldMvDEhaAtRYJB598puKjfkIDnYxk
- Nye2bUaZcCBWaOVmE33I6yOz/sXWd7HcebjL5ypVb4uV9FuJhKKGdLGU9SM+4dH6Sf2aW6Dd/EK
- ZZoXjITpH+ey8vGNmHv4TtEbp6Jzq27ZCmrcg7SLeYcmzNEyh7mbYFQvtVScf4JJiWE0mwRd/d/
- R6N0UF4uH6vulibdPxtPsrzeAEHxKXguaaAvDGlrx19MbA6A515nXyWm4sHaTy0goOAYWsc3+bI
- cNuxmfc1qvnVbZmudgCEhV6PanKr6SXsA3EUaL/ObBZ68YZzBI3SwQnK8gpT67DSfUE=
-X-Received: by 2002:a53:ee57:0:b0:64c:f4fa:4030 with SMTP id
- 956f58d0204a3-64d14147f3emr1183053d50.25.1772790593989; Fri, 06 Mar 2026
- 01:49:53 -0800 (PST)
+ AJvYcCUq356du1w8P1+FTA1DHz46LZQcyVUZHiHjG1NYZBNtzCLWFD6foNCUqGUyoYhSh5I480QVMDzeLt0=@nongnu.org
+X-Gm-Message-State: AOJu0YyceQnQZUK3cWtsYU1CxGYmVokSrOm94Jmez0gzP/iSvnve8Int
+ bE8sSCsuF69VzCVSWX/6UQ75qrOcttTe/2r6Od0w0aZV2XS6dbqFLbvpfGXJqeKCw9k=
+X-Gm-Gg: ATEYQzxI+YMNgXfrvfEZ2kgdImdQI9lC7YU5mYaNr8q64Nrhzt0zlTInKKFeGComiv/
+ g8sTSgqVg8NCqJyqh8Mr9IwikcsmP8P2UPh3hFRL6mfX1k5uAxysgS1QCqA1/kETCkdzOBWy7gQ
+ sfCAHF4KqUTYikq45xJ242voC2ZlxpTG0ORStoyknMvyyrAH1Xa2NZ660MeT2lT6WzxV2BUvKOp
+ tuD+amw3FVhNTxJXAcDLVE3GeMET2gmIjz5JQpjxKo/h2+606KT/vphcbAJ3llqAjvlGmVHhgb5
+ C7E9htuN/E/hRiAIGhh9z8Z3FEVJ3tXs+ct7E1Lp/f9mSPjvC4L89ShGvnRof9hq1Ez3ACE/hTV
+ RBs+PD9Sbq6zO8N9XQAbCAhrGfBvDB68NlI/q77YO2T+z0HRC+eqZNCy5Bqj+BK5if6sgTrMnzv
+ LNj+nUiCe9qQ+bbc2NeqzgDybs5R4aB+ER59BE4+HpSdA5JoyG0H+lIid3G2fLlgPyOSo7QMEv1
+ hxW
+X-Received: by 2002:a05:600c:3b0c:b0:480:3ad0:93bf with SMTP id
+ 5b1f17b1804b1-48526979668mr86001445e9.24.1772883431862; 
+ Sat, 07 Mar 2026 03:37:11 -0800 (PST)
+Received: from [192.168.69.201] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4851fb3666asm163949625e9.14.2026.03.07.03.37.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 07 Mar 2026 03:37:11 -0800 (PST)
+Message-ID: <5b57e5c8-8efd-42ae-a965-5b6e1c6af2ca@linaro.org>
+Date: Sat, 7 Mar 2026 12:37:10 +0100
 MIME-Version: 1.0
-References: <20260305174743.3084606-1-berrange@redhat.com>
-In-Reply-To: <20260305174743.3084606-1-berrange@redhat.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Fri, 6 Mar 2026 09:49:41 +0000
-X-Gm-Features: AaiRm53944RP3nbQCH4yDEJiFWk2oBVqmQ4IdLDYRUArj--z9TMadt_OR9s97v4
-Message-ID: <CAFEAcA8yfT_BtdF-oOtW4BJ8h2FSDwgRMdMt_HJc1g6XUjaC3g@mail.gmail.com>
-Subject: Re: [PULL v2 00/27] Misc patches queue
-To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
-Cc: qemu-devel@nongnu.org, Markus Armbruster <armbru@redhat.com>, 
- Richard Henderson <richard.henderson@linaro.org>, 
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
- devel@lists.libvirt.org, qemu-rust@nongnu.org, 
- "Dr. David Alan Gilbert" <dave@treblig.org>, Gerd Hoffmann <kraxel@redhat.com>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PULL 12/27] audio: make jackaudio use qemu_thread_set_name
+Content-Language: en-US
+To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
+ qemu-devel@nongnu.org
+Cc: Markus Armbruster <armbru@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>, devel@lists.libvirt.org,
+ qemu-rust@nongnu.org, "Dr. David Alan Gilbert" <dave@treblig.org>,
+ Gerd Hoffmann <kraxel@redhat.com>,
  Christian Schoenebeck <qemu_oss@crudebyte.com>,
- =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>, 
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>, 
+ Eduardo Habkost <eduardo@habkost.net>,
  Pierrick Bouvier <pierrick.bouvier@linaro.org>,
  Paolo Bonzini <pbonzini@redhat.com>, Stefan Weil <sw@weilnetz.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2607:f8b0:4864:20::b133;
- envelope-from=peter.maydell@linaro.org; helo=mail-yx1-xb133.google.com
+References: <20260305174743.3084606-1-berrange@redhat.com>
+ <20260305174743.3084606-13-berrange@redhat.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20260305174743.3084606-13-berrange@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=2a00:1450:4864:20::32d;
+ envelope-from=philmd@linaro.org; helo=mail-wm1-x32d.google.com
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -127,46 +114,99 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Thu, 5 Mar 2026 at 17:48, Daniel P. Berrang=C3=A9 <berrange@redhat.com> =
-wrote:
->
-> The following changes since commit 3fb456e9a0e9eef6a71d9b49bfff596a0f0046=
-e9:
->
->   Merge tag 'pull-request-2026-03-02' of https://gitlab.com/thuth/qemu in=
-to staging (2026-03-02 14:01:46 +0000)
->
-> are available in the Git repository at:
->
->   https://gitlab.com/berrange/qemu tags/next-pr-pull-request
->
-> for you to fetch changes up to ca61f91ef9b0d10333881fd0070303ea33cbc72e:
->
->   util/oslib-posix: increase memprealloc thread count to 32 (2026-03-05 1=
-7:40:24 +0000)
->
-> ----------------------------------------------------------------
-> * Increase pre-alloc max thread count to 32
-> * Fix checkpatch warning for new/removed files with --terse
-> * Detect more GPL boilerplate in checkpatch
-> * Fix lean of data in TLS/websock GSource cancellation
-> * Tweak CPU docs for DiamondRapids
-> * Unconditionally enable thread naming
-> * Fix race setting thread naming on Win32
-> * Add API docs for logging APIs
-> * Fix interleaved error/trace output
-> * Fix missing error prefixes with warn_report
-> * Add detailed error reporting for VNC passworrd changes
-> * Refactoring of error_vprintf & related funcs
->
-> ----------------------------------------------------------------
->
+Hi,
 
+On 5/3/26 18:47, Daniel P. Berrangé wrote:
+> This has greater portability than directly call pthread_setname_np,
+> which is only 1 out of 3 possible functions for pthreads that can
+> set the name.
+> 
+> The new API requires a trampoline function, since it can only set
+> the name of the current thread.
+> 
+> Reviewed-by: Christian Schoenebeck <qemu_oss@crudebyte.com>
+> Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+> ---
+>   audio/jackaudio.c | 28 +++++++++++++++++++++++-----
+>   1 file changed, 23 insertions(+), 5 deletions(-)
+> 
+> diff --git a/audio/jackaudio.c b/audio/jackaudio.c
+> index f49fd82c45..be6fb378f7 100644
+> --- a/audio/jackaudio.c
+> +++ b/audio/jackaudio.c
+> @@ -633,18 +633,36 @@ static void qjack_enable_in(HWVoiceIn *hw, bool enable)
+>       ji->c.enabled = enable;
+>   }
+>   
+> -#if !defined(WIN32) && defined(CONFIG_PTHREAD_SETNAME_NP_W_TID)
+> +#if !defined(WIN32)
 
-Applied, thanks.
+I'm getting on macOS:
 
-Please update the changelog at https://wiki.qemu.org/ChangeLog/11.0
-for any user-visible changes.
+../../audio/jackaudio.c:654:12: error: unused function 
+'qjack_thread_creator' [-Werror,-Wunused-function]
+   654 | static int qjack_thread_creator(jack_native_thread_t *thread,
+       |            ^~~~~~~~~~~~~~~~~~~~
 
--- PMM
+No clue why this isn't covered on CI. My local build:
+
+   Audio backends
+     CoreAudio support               : YES
+     PipeWire support                : NO
+     JACK support                    : YES 1.9.22
+
+> +struct QJackThreadData {
+> +    void *(*function)(void *);
+> +    void *arg;
+> +};
+> +
+> +static void *qjack_thread_trampoline(void *targ)
+> +{
+> +    struct QJackThreadData *data = targ;
+> +    void *(*function)(void *) = data->function;
+> +    void *arg = data->arg;
+> +
+> +    g_free(data);
+> +    qemu_thread_set_name("jack-client");
+> +
+> +    return function(arg);
+> +}
+> +
+>   static int qjack_thread_creator(jack_native_thread_t *thread,
+>       const pthread_attr_t *attr, void *(*function)(void *), void *arg)
+>   {
+> -    int ret = pthread_create(thread, attr, function, arg);
+> +    struct QJackThreadData *data = g_new0(struct QJackThreadData, 1);
+> +    data->function = function;
+> +    data->arg = arg;
+> +    int ret = pthread_create(thread, attr, qjack_thread_trampoline, data);
+>       if (ret != 0) {
+> +        g_free(data);
+>           return ret;
+>       }
+>   
+> -    /* set the name of the thread */
+> -    pthread_setname_np(*thread, "jack-client");
+> -
+>       return ret;
+>   }
+>   #endif
+
+Fixed adding:
+
+-- >8 --
+diff --git a/audio/jackaudio.c b/audio/jackaudio.c
+index be6fb378f72..589aecede9a 100644
+--- a/audio/jackaudio.c
++++ b/audio/jackaudio.c
+@@ -712,7 +712,7 @@ static const TypeInfo audio_types[] = {
+  static void __attribute__((__constructor__)) audio_jack_init(void)
+  {
+      qemu_mutex_init(&qjack_shutdown_lock);
+-#if !defined(WIN32) && defined(CONFIG_PTHREAD_SETNAME_NP_W_TID)
++#if !defined(WIN32)
+      jack_set_thread_creator(qjack_thread_creator);
+  #endif
+      jack_set_error_function(qjack_error);
+---
 
