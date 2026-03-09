@@ -4,75 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A943F3C266
-	for <qemu-rust@archiver.kernel.org>; Mon,  9 Mar 2026 14:16:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC828EF3718
+	for <qemu-rust@archiver.kernel.org>; Mon,  9 Mar 2026 17:24:58 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1vzbOi-0001Ti-6r; Mon, 09 Mar 2026 10:15:52 -0400
+	id 1vzeLb-0008Lr-0x; Mon, 09 Mar 2026 13:24:52 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vzbOe-0001Kz-2E; Mon, 09 Mar 2026 10:15:48 -0400
-Received: from mgamail.intel.com ([198.175.65.21])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1vzbOZ-0001Sl-Az; Mon, 09 Mar 2026 10:15:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773065744; x=1804601744;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=4Uf0GaIowuI3Reb0WRrR0HQjXNehAdybZkTQ2CN1tgs=;
- b=VUv/Ty7Hvq9LqFJB+fW/3WyALMQdX27dhGJwwdnHTXPatQFbSMkfvgLy
- 34sWaNaCw8bTR9KB0K0932wgvWO5H8zcgZ6SH2cJrR23DY3VIIpnXRgBa
- el+APgXgUmr96nOYDXUZtgegFSM5lNqzWiDfD0GMLAFn5X25ZFHV3I60S
- VitAWVIswWhig9xnl0EDHb2hjiuRQe+InQVKp219mXoPkeWsfaGADfllI
- F+D6ws5Pcs0xLIoO7UOEsGld1Mbu54qIZOumXq8B4g3K0rBm3mHCNWnFW
- sGML8ut1MbCRQqJvPXodpyNCxq+4vkhyM5UH6YbqSfsacz9atoftXZ/Xl A==;
-X-CSE-ConnectionGUID: gsFM7GoWSGefAgpIQ59hPQ==
-X-CSE-MsgGUID: Zzjv+gj9QS+5ohguKIRkzA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11723"; a="73966367"
-X-IronPort-AV: E=Sophos;i="6.23,109,1770624000"; d="scan'208";a="73966367"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2026 07:15:37 -0700
-X-CSE-ConnectionGUID: jeLL88kTROu8Oo1mAr+yPg==
-X-CSE-MsgGUID: QUG8YIQ7TMylRehx1jYLTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,109,1770624000"; d="scan'208";a="257688200"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa001.jf.intel.com with ESMTP; 09 Mar 2026 07:15:34 -0700
-Date: Mon, 9 Mar 2026 22:41:44 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Fabiano Rosas <farosas@suse.de>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
- peterx@redhat.com, qemu-devel@nongnu.org,
- Pierrick Bouvier <pierrick.bouvier@linaro.org>,
- Nicholas Piggin <npiggin@gmail.com>,
- Harsh Prateek Bora <harshpb@linux.ibm.com>,
- Peter Maydell <peter.maydell@linaro.org>,
- "open list:sPAPR (pseries)" <qemu-ppc@nongnu.org>,
- "open list:ARM TCG CPUs" <qemu-arm@nongnu.org>, qemu-rust@nongnu.org
-Subject: Re: [PATCH v3 03/18] migration: make .post_save() a void function
-Message-ID: <aa7cKDaCVmuZz9Sm@intel.com>
-References: <20260304212303.667141-1-vsementsov@yandex-team.ru>
- <20260304212303.667141-4-vsementsov@yandex-team.ru>
- <87o6l01r5z.fsf@suse.de>
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vzeLV-0008Im-Sa
+ for qemu-rust@nongnu.org; Mon, 09 Mar 2026 13:24:46 -0400
+Received: from mail-wr1-x42a.google.com ([2a00:1450:4864:20::42a])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <philmd@linaro.org>) id 1vzeLU-00076q-Cd
+ for qemu-rust@nongnu.org; Mon, 09 Mar 2026 13:24:45 -0400
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-439a89b6fd0so8625762f8f.2
+ for <qemu-rust@nongnu.org>; Mon, 09 Mar 2026 10:24:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1773077082; x=1773681882; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=djpSU6U0CqC98s8Vdl2mJmar37Sy3poebBGy1LFVZVU=;
+ b=lpPV/BR6czfl17B3RWp8Bi0reFpoMhMtLS4R2EGdv/bWUT4YKV9zRAXehqpFKAuSnV
+ cicWHOfnW9NftMoZvwI9lCdrJZLD++yhja5BqDQVEIAZmiBFRbRtu1sJQzQ5tKRErAi8
+ 8GgjRaw2oOJrBB/kM310E5q5n9oppMaSUmiACE8Y2uNnVGV9F3iT+CjVl5WaJUh9B8gx
+ JXah0IYr4/4W5jEBdnAgUdtzisuwvsVGfGS5AkKHDpdecYKjBsC7z8f5vgFv8qCLgjV6
+ LZGAc4gm9M0zIOKNdcqP2A1WfNUjB1WxkY27xVd2yHPz/QpcL5uaCRZhzpoq3NncRQzX
+ +7BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1773077082; x=1773681882;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=djpSU6U0CqC98s8Vdl2mJmar37Sy3poebBGy1LFVZVU=;
+ b=R/s42KXEtDCPQ+b7lyHm49QRvwjEu9WrmTbGuQ2bABBXxxv8zfhUuMP/gwPpzhGQly
+ bjLvycLXU57ExqmNQxFaZQgAmEp+Xkn6IeT9tuHS4rYJS0CvApLXKbzbUFG05/pGMBAs
+ EeBkYK1kF0YjE59mvI9KqygZe/0prl8EbrOheRaM0PYkAeMA5LfFQwqdbY6p/cBUUg5S
+ hgvpaYSTCUZEuZRGnCOjy49GnEGCYTXf8ZHKc1yyTPAJ1egiD4yrIg6NMf4tTLmG7Av5
+ 6unH8QVkqXaWb/NK4Z3/Xr4qgM9WaVw0k8+76MedSIGqsO3diE1rtRXgOxOw5oa4M2WM
+ gguQ==
+X-Gm-Message-State: AOJu0YypgEbyqOMCUI0WRj10yJzVFXatSLMEMUTcMJ+FnOpzzadc83Kl
+ fTlRz2Hb26lrjslugxwueoAuNS4aD455XSuewNA6nyfQsXhhExQq2aDRv3yVB9NJwxo=
+X-Gm-Gg: ATEYQzwctuaKbXsgLjDIyE75iMjuhjpGGgt6pgCsvG6T2oMKYnunRj+1kTgqXIhG/oR
+ Gpu/whZYaHoJN99jYPslsXBKDiq0sjcHq5SJMOMDLRPosjYDrI9rtsvPGgTyATDcJyCn5jZh/A/
+ zF5VrSVzqI06Ur4npvpU/urho9iI2AlulCVcflkme89YP4MCuBWjAek1Mk46kv2qmKkcZMfjuIr
+ OM1Zr8JZF4NcvM8ST6JvlB0wem13tCMHRCShJCFujW+TCU2x0yAbq3b9VHxFQKOFJy/GdmC0j3D
+ DAc9t2SJyO8XjMGGChQX/5rdGXkwXYufkIvTKpQxjrEQdzXlZxKlHVbsCOua87x8Ax6L62aD3Xa
+ SVTGeIkiHkmpUnsnZlhFtqIMhdL7vwD1TWfIFdY/vP7u6VgvHIll0o0OcT2lEbx23U/PJy/tNJq
+ +n6J9AXGDFDybnvLHsydFpLoEvrf5mPz5eeEnrpWcc/1QccAcG1BwVsvf6J/uZcsjPBQOpzJNg
+X-Received: by 2002:a05:6000:310c:b0:439:b28c:d47c with SMTP id
+ ffacd0b85a97d-439da8820eamr21854677f8f.37.1773077082371; 
+ Mon, 09 Mar 2026 10:24:42 -0700 (PDT)
+Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-439dad97abasm25731670f8f.10.2026.03.09.10.24.41
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Mon, 09 Mar 2026 10:24:41 -0700 (PDT)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>,
+ =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+Subject: [PATCH] rust: Update Cargo.lock
+Date: Mon,  9 Mar 2026 18:24:40 +0100
+Message-ID: <20260309172440.66409-1-philmd@linaro.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87o6l01r5z.fsf@suse.de>
-Received-SPF: pass client-ip=198.175.65.21; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -26
-X-Spam_score: -2.7
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=2a00:1450:4864:20::42a;
+ envelope-from=philmd@linaro.org; helo=mail-wr1-x42a.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.7 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.819,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.903, SPF_HELO_NONE=0.001,
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -89,63 +98,43 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-> +CC Paolo, Zhao
-> 
-> This change breaks the rust build:
-> https://gitlab.com/farosas/qemu/-/jobs/13393119755
-> 
->   error[E0308]: mismatched types
->      --> ../rust/migration/src/vmstate.rs:605:18
->       |
->   605 |             Some(vmstate_no_version_cb::<T, F>)
->       |             ---- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected fn pointer, found fn item
->       |             |
->       |             arguments to this enum variant are incorrect
->       |
->       = note: expected fn pointer `unsafe extern "C" fn(_) -> ()`
->                     found fn item `unsafe extern "C" fn(_) -> i32 {vmstate_no_version_cb::<T, F, impl Into<Errno>>}`
-> 
-> 
-> Is something like the following diff the right fix? It'd be nice to get
-> an ack so this series doesn't miss the freeze. (CI run:
-> https://gitlab.com/farosas/qemu/-/pipelines/2369688593)
-> 
-> -- >8 --
-> From 90a7b53d2b0d53692df1ef2cfe7607b13e4961d8 Mon Sep 17 00:00:00 2001
-> From: Fabiano Rosas <farosas@suse.de>
-> Date: Fri, 6 Mar 2026 18:53:14 -0300
-> Subject: [PATCH] fixup! migration: make .post_save() a void function
-> 
-> Signed-off-by: Fabiano Rosas <farosas@suse.de>
-> ---
->  rust/migration/src/migratable.rs |  3 +--
->  rust/migration/src/vmstate.rs    | 12 +++++++-----
->  2 files changed, 8 insertions(+), 7 deletions(-)
-> 
-> diff --git a/rust/migration/src/migratable.rs b/rust/migration/src/migratable.rs
-> index 7748aac2f2..7088c1b156 100644
-> --- a/rust/migration/src/migratable.rs
-> +++ b/rust/migration/src/migratable.rs
-> @@ -406,10 +406,9 @@ fn pre_save(&self) -> Result<(), InvalidError> {
->          Ok(())
->      }
->  
-> -    fn post_save(&self) -> Result<(), InvalidError> {
-> +    fn post_save(&self) {
->          let state = unsafe { Box::from_raw(self.migration_state.replace(ptr::null_mut())) };
->          drop(state);
-> -        Ok(())
->      }
+Update Cargo.lock on top of commit  7ecd3f71079 ("Merge tag
+'for-upstream' of https://gitlab.com/bonzini/qemu into staging").
 
-What about this?
+Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+---
+ rust/Cargo.lock | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-fn post_save(&self) {
-    let _ = unsafe { Box::from_raw(self.migration_state.replace(ptr::null_mut())) };
-}
-
-Others LGTM,
-
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
-
+diff --git a/rust/Cargo.lock b/rust/Cargo.lock
+index 801ac5f4f51..cbb3ca15f77 100644
+--- a/rust/Cargo.lock
++++ b/rust/Cargo.lock
+@@ -172,7 +172,6 @@ dependencies = [
+  "migration",
+  "qemu_macros",
+  "qom",
+- "system",
+  "util",
+ ]
+ 
+@@ -351,7 +350,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "0dca6411025b24b60bfa7ec1fe1f8e710ac09782dca409ee8237ba74b51295fd"
+ dependencies = [
+  "serde_core",
+- "serde_derive",
+ ]
+ 
+ [[package]]
+@@ -407,6 +405,7 @@ dependencies = [
+  "bql",
+  "common",
+  "glib-sys",
++ "hwcore",
+  "migration",
+  "qom",
+  "system-sys",
+-- 
+2.53.0
 
 
