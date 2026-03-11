@@ -4,70 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8B96FD0659
-	for <qemu-rust@archiver.kernel.org>; Wed, 11 Mar 2026 08:45:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5162D112584E
+	for <qemu-rust@archiver.kernel.org>; Wed, 11 Mar 2026 16:17:30 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1w0FC0-0006iI-S5; Wed, 11 Mar 2026 04:45:25 -0400
+	id 1w0MFH-0007Fs-1q; Wed, 11 Mar 2026 12:17:15 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1w0FBs-0006g0-KN; Wed, 11 Mar 2026 04:45:17 -0400
-Received: from mgamail.intel.com ([192.198.163.11])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1w0MEy-0007DL-GQ
+ for qemu-rust@nongnu.org; Wed, 11 Mar 2026 12:16:56 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1w0FBp-0005bn-9o; Wed, 11 Mar 2026 04:45:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773218713; x=1804754713;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=mMOpQWW+g/XMluBRVCg1iH8ilkZo2rzj7MAi1sLNRgQ=;
- b=RuaeKcIKUoND8K9dZCZFE0Ph4s8PVtydDZTol4p6dHLWspm5THkcRgfx
- XAnf92xagGW10mpp5LhIjRoxmZGMzq4Gb6krGLghOQkXIh/4rEVKfn20K
- JK86U9b8/t20yCFohYBuhJBS2NqXj5I2e8vZk02YD0SS1BG9uVVkhURwZ
- sKGyW20QG3e+9B8T8yaAOSkkVYaCV3e5O7W/o0yGxFp8eG7CERp6lSzGK
- o9e5MI6yVufrgI0IynVbeLnneSj6aCNjJ6Us4Fya7+1yS8hK2Fp8NqU75
- WlOu+MSWpqOxbyeEngKSik4xVPAt4sJbUzuX+gZKXFWKp6CDKzr6dHfro g==;
-X-CSE-ConnectionGUID: wa7Mo25QSLqxRTSMPhPkuQ==
-X-CSE-MsgGUID: NN1xHqzxTViwan3lzajTKg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11725"; a="84912063"
-X-IronPort-AV: E=Sophos;i="6.23,113,1770624000"; d="scan'208";a="84912063"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2026 01:45:07 -0700
-X-CSE-ConnectionGUID: iiWDx0N+Ro+r/7MFFdQsBg==
-X-CSE-MsgGUID: a6TDZtKGSoepWLJVVcJduA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,113,1770624000"; d="scan'208";a="220575290"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa007.jf.intel.com with ESMTP; 11 Mar 2026 01:45:04 -0700
-Date: Wed, 11 Mar 2026 17:11:15 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1w0MEx-0000jf-66
+ for qemu-rust@nongnu.org; Wed, 11 Mar 2026 12:16:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1773245814;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+ b=PEyo9LxZ7W74i6bsoVoHRUP0gFDBe9Uilqn582MVFw4w7AozqRejWFBbY05EcTU9bfl7VM
+ WhC257HO46Rb6zhSCoGFe7R8l1KXl7DR8DsDB5wHrLYV4KK7VJWeQCpz31AxO9+gswE55n
+ Nw6AQb49ZB31t9SvExgk24aDwSb65+Q=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-194-0GUz-cmAOLSygnt8BM3oxw-1; Wed, 11 Mar 2026 12:16:52 -0400
+X-MC-Unique: 0GUz-cmAOLSygnt8BM3oxw-1
+X-Mimecast-MFC-AGG-ID: 0GUz-cmAOLSygnt8BM3oxw_1773245812
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-4853ab1cae0so84255e9.2
+ for <qemu-rust@nongnu.org>; Wed, 11 Mar 2026 09:16:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1773245811; x=1773850611;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+ b=tr6OVbggUKSxcuJdF8Q/s731JwSbljg9LqZWxd8F4oQV9D8T8f4OdES8l67mHUO11N
+ 0Z8lzwQujJ+wMDXRdX3WzycNI8WLE+nYSKj/h45EzgGkM4cWu0cK03PsNWvTv2zPFhb3
+ NmctmeWY2UxWKiEKR79n3JCSNlxfzBSVqhnPu6QgNAfx+IpfQvTewdhKmBOmc/yUxVyv
+ myxH3/lQYQZDtWMyj3Q4mifZzNuWWCrN9I4Sw7ge9N2P35+NF+mssJxh0acOkMrR5tN3
+ gqGSpXok1TJGfr9Dbc9XuQb+0UXFDPuGIFwlH4a3WT9yfGEVIbLP1ZAmsvJtw+h+f/B0
+ DZ7g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXC96ZWqp37mda3GJ0pRU3carILJskyBwagIzqn/iQDDVMx87hQtanXubIUidGn1ry2AHIYZh4JZo8=@nongnu.org
+X-Gm-Message-State: AOJu0YxZ7FBAMSxP/iSXETYDzB2tfPFgqE7GdelSdqR+YRVdnJ74BeA8
+ rDF13jXXzM+srx8CwXHzYQmyMbTZSeLsMtAOJdHnoLXKgbMkhqbFT94LreeTBkpEHcl1hTLWOPn
+ rDcq+Px1V9RkoqkfTOtknhFH1ciEkNoIvCKY8kqJE1byQ5PgcsUQ2qWd08HRE5es=
+X-Gm-Gg: ATEYQzxNTJKIk6h2whc53H+PkOc5TtblLQQNibT7pjXSDTJfdGAqeyxTvSZGpxRQtYe
+ kLvMSBlUQw4v8Y77cWlcqMYvW0H47yRnqduHDcu2Bo02NPqxjQoky2ZvG3Hb1kZhQP3cH6FOzi0
+ MLeUXC2qLfPAsmQ9JV+tmFjDzN41AQCgzQaAPns6oxnDsSpT42xeiH426diazYucUn8W8lK4NuK
+ Wo1RSimksv7QLOPqL3r2i5PIFjulaW6rXcoTuzmiJNBiJ/kYSsIJZQ5d1eEcvo7p1fJtMxpOtGF
+ O8n4ofYG8f1j4FoFnoiT9TQMRZ5onMKteCKaQt344JFSRKXww9HnkkNo2P2noVKaAys1t9zAsLH
+ l6zZXKyOXZV42wac4NY+ihNki7cmj3uSMzT/NiyNC6owgLRj97ZkFGpxvzgVexxXToAPpGlQv3q
+ AMPAKBM3bEO1zp6E2FyVUZCd2NrCk=
+X-Received: by 2002:a05:600c:5493:b0:485:365f:b4e7 with SMTP id
+ 5b1f17b1804b1-4854b0ca47cmr57984745e9.14.1773245811125; 
+ Wed, 11 Mar 2026 09:16:51 -0700 (PDT)
+X-Received: by 2002:a05:600c:5493:b0:485:365f:b4e7 with SMTP id
+ 5b1f17b1804b1-4854b0ca47cmr57984285e9.14.1773245810733; 
+ Wed, 11 Mar 2026 09:16:50 -0700 (PDT)
+Received: from [192.168.10.48] ([151.95.144.138])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48541b7f255sm166716515e9.12.2026.03.11.09.16.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Mar 2026 09:16:50 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
- =?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>
+ Zhao Liu <zhao1.liu@intel.com>,
+ =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
 Subject: Re: [PATCH] rust: Update Cargo.lock
-Message-ID: <abExs0JTxGeTSY8U@intel.com>
-References: <20260309172440.66409-1-philmd@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Date: Wed, 11 Mar 2026 17:16:49 +0100
+Message-ID: <20260311161649.561659-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260309172440.66409-1-philmd@linaro.org>
-Received-SPF: pass client-ip=192.198.163.11; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -26
-X-Spam_score: -2.7
-X-Spam_bar: --
-X-Spam_report: (-2.7 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+References: 
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Y9_lyoiaohWIAgCT69BM15lt1F6IKwxCQlqEFT6_drI_1773245812
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -3
+X-Spam_score: -0.4
+X-Spam_bar: /
+X-Spam_report: (-0.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_MSPIKE_H2=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
  RCVD_IN_VALIDITY_RPBL_BLOCKED=0.819, RCVD_IN_VALIDITY_SAFE_BLOCKED=0.903,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -83,104 +116,8 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, Mar 09, 2026 at 06:24:40PM +0100, Philippe Mathieu-Daudé wrote:
-> Date: Mon,  9 Mar 2026 18:24:40 +0100
-> From: Philippe Mathieu-Daudé <philmd@linaro.org>
-> Subject: [PATCH] rust: Update Cargo.lock
-> X-Mailer: git-send-email 2.53.0
-> 
-> Update Cargo.lock on top of commit  7ecd3f71079 ("Merge tag
-> 'for-upstream' of https://gitlab.com/bonzini/qemu into staging").
-> 
-> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-> ---
->  rust/Cargo.lock | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+Queued, thanks.
 
-When I ran `cargo +nightly build`, I met this error:
-
-$ cargo +nightly build
-   Compiling system-sys v0.1.0 (/media/liuzhao/data/qemu-cook/rust/bindings/system-sys)
-error[E0432]: unresolved import `hwcore_sys`
-  --> bindings/system-sys/lib.rs:22:5
-   |
-22 | use hwcore_sys::{qemu_irq, DeviceClass, DeviceState};
-   |     ^^^^^^^^^^ use of unresolved module or unlinked crate `hwcore_sys`
-   |
-   = help: if you wanted to use a crate named `hwcore_sys`, use `cargo add hwcore_sys` to add it to your `Cargo.toml`
-
-For more information about this error, try `rustc --explain E0432`.
-error: could not compile `system-sys` (lib) due to 1 previous error
-
-This is because of the wrong dependency relationship in Cargo.toml of
-hwcore-sys & system-sys.
-
-But the fix for this error will bring a little more change in
-Cargo.lock (since the dependencies will change).
-
-What about fixing this build bug first before updating Cargo.lock?
-
-(That's a fix for build error I met.)
--------------------------------->8-------------------------------
-From cc96c5530f5fe75eb0a422b092dbb761547e7514 Mon Sep 17 00:00:00 2001
-From: Zhao Liu <zhao1.liu@intel.com>
-Date: Wed, 11 Mar 2026 17:00:51 +0800
-Subject: [PATCH] rust: Fix wrong dependencies for cargo
-
-There's a build error:
-
-$ cargo +nightly build
-   Compiling system-sys v0.1.0 (/media/liuzhao/data/qemu-cook/rust/bindings/system-sys)
-error[E0432]: unresolved import `hwcore_sys`
-  --> bindings/system-sys/lib.rs:22:5
-   |
-22 | use hwcore_sys::{qemu_irq, DeviceClass, DeviceState};
-   |     ^^^^^^^^^^ use of unresolved module or unlinked crate `hwcore_sys`
-   |
-   = help: if you wanted to use a crate named `hwcore_sys`, use `cargo add hwcore_sys` to add it to your `Cargo.toml`
-
-For more information about this error, try `rustc --explain E0432`.
-error: could not compile `system-sys` (lib) due to 1 previous error
-
-This is because hwcore-sys & system-sys have the wrong dependencies
-relationship in their Cargo.toml.
-
-Fix the dependencies of hwcore-sys & system-sys in Cargo.toml, aligning
-the dependencies described in their meson.build files.
-
-Fixes: commit c899071b5a86 ("rust: move binding generation to bindings/")
-Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
----
- rust/bindings/hwcore-sys/Cargo.toml | 1 -
- rust/bindings/system-sys/Cargo.toml | 1 +
- 2 files changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/rust/bindings/hwcore-sys/Cargo.toml b/rust/bindings/hwcore-sys/Cargo.toml
-index c20024e921a1..b5ae33da8ed6 100644
---- a/rust/bindings/hwcore-sys/Cargo.toml
-+++ b/rust/bindings/hwcore-sys/Cargo.toml
-@@ -21,7 +21,6 @@ chardev-sys = { path = "../chardev-sys" }
- qom-sys = { path = "../qom-sys" }
- migration-sys = { path = "../migration-sys" }
- util-sys = { path = "../util-sys" }
--system-sys = { path = "../system-sys" }
-
- [lints]
- workspace = true
-diff --git a/rust/bindings/system-sys/Cargo.toml b/rust/bindings/system-sys/Cargo.toml
-index 7e527130ff5d..bbb4eaa53db3 100644
---- a/rust/bindings/system-sys/Cargo.toml
-+++ b/rust/bindings/system-sys/Cargo.toml
-@@ -17,6 +17,7 @@ path = "lib.rs"
- [dependencies]
- glib-sys = { workspace = true }
- common = { path = "../../common" }
-+hwcore-sys = { path = "../hwcore-sys" }
- migration-sys = { path = "../migration-sys" }
- util-sys = { path = "../util-sys" }
- qom-sys = { path = "../qom-sys" }
---
-2.34.1
-
+Paolo
 
 
