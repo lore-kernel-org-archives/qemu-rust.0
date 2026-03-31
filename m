@@ -4,68 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.gnu.org (lists.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6256F506D9
-	for <qemu-rust@archiver.kernel.org>; Mon, 16 Mar 2026 14:56:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 837DDFF60CF
+	for <qemu-rust@archiver.kernel.org>; Tue, 31 Mar 2026 07:34:15 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1w29ML-0002lN-BV; Mon, 16 Mar 2026 10:55:57 -0400
+	id 1w7Tbp-0004Pb-A6; Tue, 31 Mar 2026 03:33:57 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1w29MK-0002jY-7e; Mon, 16 Mar 2026 10:55:56 -0400
-Received: from mgamail.intel.com ([198.175.65.12])
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1w7Tbn-0004O1-I7
+ for qemu-rust@nongnu.org; Tue, 31 Mar 2026 03:33:55 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1w29MG-0005Bg-Ho; Mon, 16 Mar 2026 10:55:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773672952; x=1805208952;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=BJZoEpMwSTo1UvAo3RoonQbfkW8gnYuTOP+deW7gfZ0=;
- b=ORPvhH+Z1Q3YklD3kIuWemy6BhGcez/fxVTuG4Y+hxML0HC111VNeIXK
- NSJMEBLNrkH0wbeeX1h9bd0ZnNHpucIuX/AUpIDnTw4Aa9CrcLOI8AyDE
- YPM462z55rorsnvZlO7MZ/iUVCB7Mwckepdpq9mFNS2uYNfGDiskzKNUB
- 3BDvwUy1klEXKHwXChMHLaV19pR/gYSbO44hsFjNPsU0H8VBo1RDvd+pi
- aa4oJMNgZ9Ch59/lK/6oqbvDAcyGWIXWOg/e8D4SvkZUBxn2Ynkq+kOmt
- 1U5ttNlKK8Pi6ZRbmNta2nwBFnWX4rCc4PKwmtaiipVvzbudGsTVxQNuO g==;
-X-CSE-ConnectionGUID: KePQHjO4QjaUTvCKCAR+oQ==
-X-CSE-MsgGUID: Y4NIsYgnRQmfl8NzrhnR1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11731"; a="86167182"
-X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="86167182"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2026 07:55:47 -0700
-X-CSE-ConnectionGUID: UBx9dT/tRIGJY+RgTkBTRg==
-X-CSE-MsgGUID: MkiUdba8TtGqoh9pacEsVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="226921208"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa005.jf.intel.com with ESMTP; 16 Mar 2026 07:55:46 -0700
-Date: Mon, 16 Mar 2026 23:21:59 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: Re: [PATCH 0/5] rust/hpet: complete moving state out of HPETTimer
-Message-ID: <abggFzbWA2Dfkuvm@intel.com>
-References: <20251117084752.203219-1-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
+ id 1w7Tbl-00066D-Cl
+ for qemu-rust@nongnu.org; Tue, 31 Mar 2026 03:33:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1774942431;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=T2ORMYNOJKABQyMLPdERHVyw0kVT+vCvF3miyWkY4mc=;
+ b=JeupjhnKmEcLuBrfl1AVmrS2UOnAoiYeaJcrxoWpJ4wy+KXx7tQm2nwkJpsnsz4T50JQ36
+ PHJVEepJsf8Ma7AQNe89znCGfnanVYA4UVWtXpu3D9gsV+Xkfty2GWkruHsc/vOneer7NS
+ pIv8sbKwuh9SIh3MswgUX0bD9J3FeAw=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-21-kysKOhR8OIy5wjvbUhfROQ-1; Tue,
+ 31 Mar 2026 03:33:50 -0400
+X-MC-Unique: kysKOhR8OIy5wjvbUhfROQ-1
+X-Mimecast-MFC-AGG-ID: kysKOhR8OIy5wjvbUhfROQ_1774942429
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 07C82195606A; Tue, 31 Mar 2026 07:33:49 +0000 (UTC)
+Received: from [10.44.33.100] (unknown [10.44.33.100])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 29EB130001A1; Tue, 31 Mar 2026 07:33:46 +0000 (UTC)
+Message-ID: <6edfd34c-2496-49fb-8ddd-665d244261cd@redhat.com>
+Date: Tue, 31 Mar 2026 09:33:45 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=gb2312
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20251117084752.203219-1-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.12; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -26
-X-Spam_score: -2.7
-X-Spam_bar: --
-X-Spam_report: (-2.7 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/16] scripts/qapi: pull c_name from camel_to_upper to
+ caller
+To: Markus Armbruster <armbru@redhat.com>
+Cc: qemu-devel@nongnu.org, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
+ <marcandre.lureau@redhat.com>, qemu-rust@nongnu.org
+References: <20260108131043.490084-1-pbonzini@redhat.com>
+ <20260108131043.490084-12-pbonzini@redhat.com> <87wm01w7eb.fsf@pond.sub.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+In-Reply-To: <87wm01w7eb.fsf@pond.sub.org>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Mimecast-MFC-PROC-ID: ziI-JQn02VcRYeHALgITXW4PfKi7geu9pLgCuhdPqbQ_1774942429
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: 27
+X-Spam_score: 2.7
+X-Spam_bar: ++
+X-Spam_report: (2.7 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.54,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, RCVD_IN_VALIDITY_RPBL_BLOCKED=0.819,
- RCVD_IN_VALIDITY_SAFE_BLOCKED=0.903, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_SBL_CSS=3.335,
+ RCVD_IN_VALIDITY_CERTIFIED_BLOCKED=1, RCVD_IN_VALIDITY_RPBL_BLOCKED=1,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -81,175 +126,36 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Hi,
+On 2/25/26 09:32, Markus Armbruster wrote:
+>      { 'enum': '__org.qemu_x-Enum', 'data': [ '__org.qemu_x-value' ] }
+> 
+> This tests a downstream extension prefix __RFQDN_.
+> 
+> As is, we generate
+> 
+>      typedef enum __org_qemu_x_Enum {
+>          ORG_QEMU_X_ENUM___ORG_QEMU_X_VALUE,
+>          ORG_QEMU_X_ENUM__MAX,
+>      } __org_qemu_x_Enum;
+> 
+> Without the .lstrip('_'), we'd generate
+> 
+>      typedef enum __org_qemu_x_Enum {
+>          __ORG_QEMU_X_ENUM___ORG_QEMU_X_VALUE,
+>          __ORG_QEMU_X_ENUM__MAX,
+>      } __org_qemu_x_Enum;
+> 
+> Meh.
+> 
+> Turns out this isn't on purpose.  Back then, the loop to map camel to
+> upper worked differently, and produced unwanted leading '_'.  For
+> instance, it mapped 'AbraCadabra' to '_ABRA_CADABRA'.  The .lstrip()
+> made the function produce 'ABRA_CADABRA'.  It also makes it eat
+> downstream extensions' leading '__'.  Oopsie.
 
-> I'm leaving out the conversion to Mutex because, as Zhao noticed, it
-> has a deadlock - the timer callback tries to grab the HPET mutex inside
-> the BQL, where as the vCPU tries to grab the BQL inside the HPET mutex.
-> This is not present in the C code only because... it doesn't take the
-> lock at all in places where it should.  In particular hpet_timer() reads
-> and writes t->cmp and t->cmp64 outside the lock, while hpet_ram_write()
-> does so within the lock via hpet_set_timer().
+Which would be a reserved C identifier, wouldn't it?  So it seems it 
+still has its merit, after all (but it is limited to C).
 
-About this issue, I'd like to continue previous discussion and share
-some my thoughts.
-
-
-Review the Current Issue
-========================
-
-To better explain the scope of locks and compare different options later,
-let me go over the previous issue in more detail.
-
-HPET's timer callback hpet_timer() currently does NOT hold s->lock (the
-device mutex). This is a data race bug: it modifies t->cmp64, t->cmp,
-t->wrap_flag, and calls update_irq() -- all of which race with
-hpet_ram_write().
-
-However, fixing this by adding QEMU_LOCK_GUARD(&s->lock) to hpet_timer()
-creates an AB-BA deadlock:
-
-  Path A (timer callback):  BQL ¡ú mutex
-    main_loop_wait() holds BQL
-    ¡ú qemu_clock_run_all_timers()
-      ¡ú timerlist_run_timers() 
-        ¡ú hpet_timer()
-          ¡ú QEMU_LOCK_GUARD(&s->lock)    // mutex under BQL
-
-  Path B (MMIO write):      mutex ¡ú BQL
-    lockless_io = true, so no BQL on entry
-    ¡ú hpet_ram_write()
-      ¡ú QEMU_LOCK_GUARD(&s->lock)      // mutex first
-        ¡ú update_irq()
-          ¡ú BQL_LOCK_GUARD()            // BQL under mutex
-            ¡ú qemu_set_irq()
-
-I think we could have these 3 options in hand:
- * lockless timer: unlock bql for HPET timer handler - like lockless MMIO did
- * lockless irq: implement lockless ioapic/gic/...
- * defer call: defer BQL related call outside of mutex context.
-
-Since the Rust implementations are currently mirrors of the C code, I'll use
-C-side pseudocode as the main examples.
-
-
-Option 1: Lockless timer attribute
-==================================
-
-Add a QEMU_TIMER_ATTR_LOCKLESS flag. In timerlist_run_timers(), release
-BQL before invoking a timer callback marked with this attribute, and
-re-acquire it afterward:
-
-    /* in timerlist_run_timers(), around cb(opaque) call: */
-    bool release_bql = (ts->attributes & QEMU_TIMER_ATTR_LOCKLESS)
-                       && bql_locked();
-    if (release_bql) {
-        bql_unlock();
-    }
-    cb(opaque);
-    if (release_bql) {
-        bql_lock();
-    }
-
-With this, HPET's timer callback runs without BQL, and can do:
-
-    hpet_timer() {
-        QEMU_LOCK_GUARD(&s->lock);   // mutex first, no BQL held
-        ...
-        update_irq(t, 1);            // takes BQL inside ¡ú mutex¡úBQL
-    }
-
-Both paths become mutex¡úBQL. Deadlock eliminated.
-
-This option has minimal change, and it also aligns well with the concept
-of lockless devices - its approach is consistent with lockless MMIO, i.e,
-transferring the lock-protected implementation and responsibility to the
-device itself.
-
-But I'm not sure if modifying the timer is a sufficiently general and
-thorough approach: if other types of devices also implement lockless,
-would we need to convert more callbacks to bql-free? More bql-free
-callbacks sounds a bit messy?
-
-
-Option 2: Lockless interrupt controllers (IOAPIC/PIC/GSI)
----------------------------------------------------------
-
-Make the entire GSI¡úIOAPIC/PIC path BQL-free by converting interrupt
-controller state to atomic operations or fine-grained locks. Then
-update_irq() would never need BQL, eliminating the mutex¡úBQL nesting
-in the MMIO path entirely.
-
-This refers Paolo's previous idea:
-
-https://lore.kernel.org/qemu-devel/ac058be3-274a-4896-b01d-f433d036b5d0@redhat.com/
-
-This is the most thorough solution: IRQ path becomes fully BQL-free and
-all lockless_io devices benefit automatically.
-
-I find the first blocking issue is gsi_handler() under CONFIG_XEN_EMU
-calls xen_evtchn_set_gsi() which has assert(bql_locked()). The Xen
-event channel's callback_gsi logic uses a synchronous recursive flag
-(setting_callback_gsi) that deeply depends on BQL's mutual exclusion
-semantics. This looks like it needs refactoring?
-
-I think PIC and IOAPIC also need device locks or atomic operations for
-protection, but their lockless implementations all have complexity.
-
-
-Option 3: defer_call to reorder lock acquisition in MMIO path
-=============================================================
-
-Previously, I had a POC (in Rust) to defer IRQ injection after Mutex
-context:
-https://gitlab.com/zhao.liu/qemu/-/tree/rust-hpet-lockless-v0-01-04-2026
-
-I hold it in hand and didn't post it since I thought it's not easy to
-make C side apply this method. Until I realized that QEMU actually
-already has defer call! Although what I need is still somewhat different
-(like allowing repeated calls, BQL context), the thread-local handling
-is more concise and elegant than my POC.
-
-So it's possible to use QEMU's defer_call mechanism (with some
-additional minor enhancements: allowing repeated calls, BQL context) to
-defer qemu_set_irq() calls to after the device mutex is released in the
-MMIO write path:
-
-    hpet_ram_write() {
-        defer_call_begin();
-        QEMU_LOCK_GUARD(&s->lock);
-        // state updates under mutex, record pending IRQ actions
-        defer_call(hpet_flush_irqs, s);
-        // mutex released here
-        defer_call_end();
-        // hpet_flush_irqs runs here: BQL_LOCK_GUARD() + qemu_set_irq()
-        // mutex and BQL are never nested
-    }
-
-A problem is, then the MMIO is not atomic: With lockless_io, multiple
-vCPUs can concurrently enter MMIO handlers. Between mutex release and
-defer_call_end(), another vCPU could modify state, causing the deferred
-IRQ action to operate on stale decisions.
-
-This situation is relatively rare, and I think the delayed updates in a
-few cases of state are also acceptable?
-
-This option is more complex than option 1, since for Rust side, we will
-need a defer call binding. But this option doesn't need to justify
-whether other callbacks (like timer) could or should support BQL-free.
-
-
-Discussion
-==========
-
-Overall, I think option 1 or 3 are general lockless infrastructure
-enhancements, while option 2 is an i386-specific lockless feature. So
-maybe we could choose one from options 1 and 3, decouple it from option
-2, meaning both could proceed in parallel? What do you think?
-
-Thanks and Best Regards,
-Zhao
-
-
+Paolo
 
 
