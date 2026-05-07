@@ -4,107 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9286DCD3442
-	for <qemu-rust@archiver.kernel.org>; Thu,  7 May 2026 07:13:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F01CACD343F
+	for <qemu-rust@archiver.kernel.org>; Thu,  7 May 2026 13:36:31 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wKsus-0007Iw-9p; Thu, 07 May 2026 03:13:02 -0400
+	id 1wKytk-0005F5-7s; Thu, 07 May 2026 09:36:16 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1wKsup-0007Gt-Ph
- for qemu-rust@nongnu.org; Thu, 07 May 2026 03:12:59 -0400
-Received: from mail-wr1-x434.google.com ([2a00:1450:4864:20::434])
+ (Exim 4.90_1) (envelope-from <farosas@suse.de>) id 1wKyti-0005Dw-EF
+ for qemu-rust@nongnu.org; Thu, 07 May 2026 09:36:14 -0400
+Received: from smtp-out1.suse.de ([2a07:de40:b251:101:10:150:64:1])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1wKsun-0001dU-Bu
- for qemu-rust@nongnu.org; Thu, 07 May 2026 03:12:59 -0400
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-453903ee4adso7386f8f.3
- for <qemu-rust@nongnu.org>; Thu, 07 May 2026 00:12:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778137976; cv=none;
- d=google.com; s=arc-20240605;
- b=MxtxkHiQcbv0JWYPZrX/RjrzVCzh1DsFaxy1Zev7n4CtQ7phWlqpTegaxdzNz4GKub
- wylzzZkYeUBkWJWCaNpLlsDeKRT3SFA2XL9WF3IT1J6V14lduuyujxYt851Lbr0zeFHm
- k3lgjpSC+Wan8sTzcwAzjno9RbQybK6KA3h0b/K56PyB/cGDzBbeG5K/Puj3CFkI+DIn
- XwdfxCSRPd3T27rMgN8dklIY9sQXfD4fuW9Qp+WI7c0pkefRk+xZt5/LPh7B3urcWpYo
- akm39TW/9h/NS6bc9nBvxXihC1tUi1shGkG1gmC3DT1ld4tB1ITtEeiaj9VIUtkZPpF+
- swUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=jlQXBkufNCNcZlou47vR9Rc0Rbfyjwxb/Z/znMGd+pE=;
- fh=WeNQb+H8CVV7RmOrVbj1qyrHPeyG4kXTklH4nl2WG/E=;
- b=Ch7k1FediaEOPJ1NRrzNB6SxdMPEPEjR3uZREXFCeIEgfwaEQXdS7JSSRV9CjkBcKC
- oPDzBjL1eLrDshaLQKWHtDIfRF5tvQBKYYohTyLOY+Um52dok6dDQXhWkqvUx/sgolwG
- 9NqAQzd4az7vZACVZx6FcrOipZgDaG+n+4Sq/XkcE4OgXlVat2aGRR40AYHXht7at820
- gnOLCXRtTrLoYbrvr9DWlkfr+1hX86txi/DwNjJD0wujmkDfNim/gyNHd0eLlYP1Gfde
- 1G+IIg+zA8BR5VjgaQLRvw7KqwGt8TTlIpBUHg5lCCziq2aE7NIYhacxCYEAC267kv8c
- 5LZA==; darn=nongnu.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1778137976; x=1778742776; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jlQXBkufNCNcZlou47vR9Rc0Rbfyjwxb/Z/znMGd+pE=;
- b=sKkFAbhb+2RTObbavXd1a7t03OSDji5UDLsh9QeZ5ZPf/+E3mVg6lXtJWZ54lveIUI
- Yz/sYAYVrMwOvDRo7Uu0aCz3LKh1LHIiyp/qO7rdMjV5o+RWlocAzhgGcQ8IfNOEjHhn
- leQ7HwbdkCR7lbFBHOPsJHhT4rKYhU7nasMknhb0jDQQlsVgWCw+3VSzh2dGsZDXfEum
- 2p8awS2A1BKM0uGjyY9aLsRhdvP4XXXBMTlTMBBgyKoEHDei8rV78xW2N3f6ZO5XMTrD
- yM2aqW3HBIRNbrhg7z1xTqbudPMKPIRztYlrk2XAzyNSvoIo3ZxY18h0/rfHwIN5QxV6
- Ra+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778137976; x=1778742776;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=jlQXBkufNCNcZlou47vR9Rc0Rbfyjwxb/Z/znMGd+pE=;
- b=VZyatR5VrtN4jLgcJ82t0/LNzqxWevt9MMmNuSi7G8OQ4xYcdyTpDdgjpgGYzUvoDW
- rFSChZ88ab0AgeS/2pXF7qctlAcYu2etNWH3inIb0ULiSJDA6Lh0ecugF+4NLj94WkdK
- kVeo/cvkJAS821t1vzUX3C6cvgSVAQXPKLND34g2Y55iTOxUPFm/PBjtJdXQJE+tzN7d
- CLf6maVwwrgkD/RmmGyfPkqcXEU29ExIrOG7fr1ST8/MEl8qJ9KAekrvxTww3LQDeJEG
- XjSsWfngRWQnsvIuaAyLM1Vq9j+oSKYmbIVUmenJu8O8xJvBKf5Q/VPEB76r5OyJEy8c
- fc5Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9gAL9hsgm5lLRUrAuaRgj8M37S8muzmBQ5srPVimVX1hNDpmo1QoC/7ih5Xz003ikMTQkhJ4e8/tQ=@nongnu.org
-X-Gm-Message-State: AOJu0YxlmCFg04wODNtHrVSF39cyjzHgvTzrsxuyl1pegjx4UHypNn0U
- YijCOGXXn1DDriHVVdgd+ygXnPmxs3eYdogO1I8lI4+bZ0LgMrGGEoC/tRq15VoexoZQ7iL/LUC
- jPVaOF1whjsgZJMShCFRji3Qm7vfT9YGSZito1rQmEw==
-X-Gm-Gg: AeBDietppazTFnYeCBQx79JOjcznsZoVBZnqBc0hsarsVPGa4G3V7K+B+gYdKCuSxi3
- tUID/mlT5xXlD2jP36IArk8my2iI5mc3VLsSim/ZvimdRAuqC1VMaPC/MOqTM7g2V7+zDGdaUOj
- yhxvlEkMEgP+1Fzc2Fy9quimJw5O6xLXk3t4IY3vRUOYjYOW8oskvfD7Hsv1eqzSTV6KqJ3goTX
- fLVwDW8tcRowMWCj5F3/y1Uob9hnDJAGSeVqfUGKm5aa/ra3hu3kyZD0Z6ouY0GUnF3c7wqWnC0
- wOQsMLYodF1jon0U8KPeE+RrV4Qj3nfrEp+vG+hSSYeW7f9oXIot5uRe7bl4
-X-Received: by 2002:a5d:5d08:0:b0:44e:1984:5f3e with SMTP id
- ffacd0b85a97d-4515d3dc343mr10306596f8f.31.1778137975102; Thu, 07 May 2026
- 00:12:55 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260507070228.48877-1-philmd@linaro.org>
-In-Reply-To: <20260507070228.48877-1-philmd@linaro.org>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Thu, 7 May 2026 10:12:28 +0300
-X-Gm-Features: AVHnY4K5eZwztxAtNrkwNPRb7kYoRAEYnHYWFrxFvhvucdBeCe8_4KLjCgmWTOE
-Message-ID: <CAAjaMXY579MY9P9805x8THF2UiDTben_ZHbFOFLz6JkjJ_OyuA@mail.gmail.com>
+ (Exim 4.90_1) (envelope-from <farosas@suse.de>) id 1wKytg-0001yw-I4
+ for qemu-rust@nongnu.org; Thu, 07 May 2026 09:36:14 -0400
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C1AAC6AA5E;
+ Thu,  7 May 2026 13:36:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778160970; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=C2wnQ9NnBS/ivyZIbNR1h/QvQ9VsCN0U61Rm8dFd1Zc=;
+ b=OcDFm6tYNFx7/cFiK8g85Fk8ccVXdIpPSkvUWl/uiCBKjtEonS4kuP0L/EAVujavCwVr1a
+ yPOQbAc/Qx913gVJ3O09eNGNccX9FoIogydL526e3fJSjZ7LIadFy1dRPM+pi2nzkdYBZ1
+ dDleEKxkYzyEtOdgsCCITofuZpLEUiI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778160970;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=C2wnQ9NnBS/ivyZIbNR1h/QvQ9VsCN0U61Rm8dFd1Zc=;
+ b=gdxbkClFjkqR9h7WmyjV6wWI1mr2HRBsJUeBNfI/agTF0o81AenY8b2gR0pEucAP0jx1wE
+ qBX0EbQYw2gr8tCw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778160970; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=C2wnQ9NnBS/ivyZIbNR1h/QvQ9VsCN0U61Rm8dFd1Zc=;
+ b=OcDFm6tYNFx7/cFiK8g85Fk8ccVXdIpPSkvUWl/uiCBKjtEonS4kuP0L/EAVujavCwVr1a
+ yPOQbAc/Qx913gVJ3O09eNGNccX9FoIogydL526e3fJSjZ7LIadFy1dRPM+pi2nzkdYBZ1
+ dDleEKxkYzyEtOdgsCCITofuZpLEUiI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778160970;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=C2wnQ9NnBS/ivyZIbNR1h/QvQ9VsCN0U61Rm8dFd1Zc=;
+ b=gdxbkClFjkqR9h7WmyjV6wWI1mr2HRBsJUeBNfI/agTF0o81AenY8b2gR0pEucAP0jx1wE
+ qBX0EbQYw2gr8tCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 604CC593A7;
+ Thu,  7 May 2026 13:36:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id rU2NDEqV/GnsfQAAD6G6ig
+ (envelope-from <farosas@suse.de>); Thu, 07 May 2026 13:36:10 +0000
+From: Fabiano Rosas <farosas@suse.de>
+To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ qemu-devel@nongnu.org
+Cc: Pierrick Bouvier <pierrick.bouvier@linaro.org>, qemu-rust@nongnu.org,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, Peter Xu
+ <peterx@redhat.com>, Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
+ <philmd@linaro.org>
 Subject: Re: [PATCH] migration: Remove VMS_MULTIPLY_ELEMENTS and
  VMSTATE_VARRAY_MULTIPLY()
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>
-Cc: qemu-devel@nongnu.org, Pierrick Bouvier <pierrick.bouvier@linaro.org>, 
- qemu-rust@nongnu.org, Fabiano Rosas <farosas@suse.de>,
- Peter Xu <peterx@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20260507070228.48877-1-philmd@linaro.org>
+References: <20260507070228.48877-1-philmd@linaro.org>
+Date: Thu, 07 May 2026 10:36:00 -0300
+Message-ID: <87mrybxry7.fsf@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::434;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-wr1-x434.google.com
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
+ FROM_HAS_DN(0.00)[]; MISSING_XM_UA(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_SEVEN(0.00)[7];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email, suse.de:email, suse.de:mid,
+ imap1.dmz-prg2.suse.org:helo]
+Received-SPF: pass client-ip=2a07:de40:b251:101:10:150:64:1;
+ envelope-from=farosas@suse.de; helo=smtp-out1.suse.de
 X-Spam_score_int: -20
 X-Spam_score: -2.1
 X-Spam_bar: --
 X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -120,9 +123,8 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Thu, May 7, 2026 at 10:02=E2=80=AFAM Philippe Mathieu-Daud=C3=A9
-<philmd@linaro.org> wrote:
->
+Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org> writes:
+
 > Commit c1eb3ac3468 ("target/sparc: Replace
 > VMSTATE_VARRAY_MULTIPLY -> VMSTATE_UINTTL_ARRAY") removed the
 > last use of the VMSTATE_VARRAY_MULTIPLY() macro. We can now
@@ -144,7 +146,7 @@ On Thu, May 7, 2026 at 10:02=E2=80=AFAM Philippe Mathieu-Daud=C3=A9
 > +++ b/include/migration/vmstate.h
 > @@ -105,7 +105,7 @@ enum VMStateFlags {
 >      VMS_ARRAY_OF_POINTER =3D 0x040,
->
+>=20=20
 >      /* The field is an array of variable size. The uint16_t at opaque
 > -     * + VMStateField.num_offset (subject to VMS_MULTIPLY_ELEMENTS)
 > +     * + VMStateField.num_offset
@@ -153,7 +155,7 @@ On Thu, May 7, 2026 at 10:02=E2=80=AFAM Philippe Mathieu-Daud=C3=A9
 >       * combined with VMS_ARRAY or any other VMS_VARRAY*. */
 > @@ -126,14 +126,14 @@ enum VMStateFlags {
 >      VMS_MULTIPLY         =3D 0x200,
->
+>=20=20
 >      /* The field is an array of variable size. The uint8_t at opaque +
 > -     * VMStateField.num_offset (subject to VMS_MULTIPLY_ELEMENTS)
 > +     * VMStateField.num_offset
@@ -161,7 +163,7 @@ On Thu, May 7, 2026 at 10:02=E2=80=AFAM Philippe Mathieu-Daud=C3=A9
 >       * description regarding array handling in general. May not be
 >       * combined with VMS_ARRAY or any other VMS_VARRAY*. */
 >      VMS_VARRAY_UINT8     =3D 0x400,
->
+>=20=20
 >      /* The field is an array of variable size. The uint32_t at opaque
 > -     * + VMStateField.num_offset (subject to VMS_MULTIPLY_ELEMENTS)
 > +     * + VMStateField.num_offset
@@ -171,7 +173,7 @@ On Thu, May 7, 2026 at 10:02=E2=80=AFAM Philippe Mathieu-Daud=C3=A9
 > @@ -150,12 +150,6 @@ enum VMStateFlags {
 >       * cause the individual entries to be allocated. */
 >      VMS_ALLOC            =3D 0x2000,
->
+>=20=20
 > -    /* Multiply the number of entries given by the integer at opaque +
 > -     * VMStateField.num_offset (see VMS_VARRAY*) with VMStateField.num
 > -     * to determine the number of entries in the array. Only valid in
@@ -185,7 +187,7 @@ On Thu, May 7, 2026 at 10:02=E2=80=AFAM Philippe Mathieu-Daud=C3=A9
 >      .offset     =3D vmstate_offset_2darray(_state, _field, _type, _n1, _=
 n2),  \
 >  }
->
+>=20=20
 > -#define VMSTATE_VARRAY_MULTIPLY(_field, _state, _field_num, _multiply, _=
 info, _type) { \
 > -    .name       =3D (stringify(_field)),                               \
@@ -209,7 +211,7 @@ info, _type) { \
 teField *field)
 >          n_elems =3D *(uint8_t *)(opaque + field->num_offset);
 >      }
->
+>=20=20
 > -    if (field->flags & VMS_MULTIPLY_ELEMENTS) {
 > -        n_elems *=3D field->num;
 > -    }
@@ -237,8 +239,7 @@ TIPLY_ELEMENTS.0);
 > -        self
 > -    }
 >  }
-> diff --git a/rust/migration/src/vmstate.rs b/rust/migration/src/vmstate.r=
-s
+> diff --git a/rust/migration/src/vmstate.rs b/rust/migration/src/vmstate.rs
 > index f34a36f6809..63d78b4f275 100644
 > --- a/rust/migration/src/vmstate.rs
 > +++ b/rust/migration/src/vmstate.rs
@@ -260,7 +261,7 @@ _tests.rs
 > @@ -118,34 +118,6 @@ fn test_vmstate_varray_uint16_unsafe() {
 >      assert!(foo_fields[2].field_exists.is_none());
 >  }
->
+>=20=20
 > -#[test]
 > -fn test_vmstate_varray_multiply() {
 > -    let foo_fields: &[VMStateField] =3D
@@ -301,7 +302,7 @@ ng C
 > @@ -256,33 +228,6 @@ fn test_vmstate_struct_varray_uint8() {
 >      assert!(foo_fields[2].field_exists.is_none());
 >  }
->
+>=20=20
 > -#[test]
 > -fn test_vmstate_struct_varray_uint32_multiply() {
 > -    let foo_fields: &[VMStateField] =3D
@@ -335,10 +336,6 @@ ng C
 >  #[test]
 >  fn test_vmstate_macro_array() {
 >      let foo_fields: &[VMStateField] =3D
-> --
-> 2.53.0
->
 
-Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Acked-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Reviewed-by: Fabiano Rosas <farosas@suse.de>
 
