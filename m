@@ -4,121 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04BA5CD3439
-	for <qemu-rust@archiver.kernel.org>; Thu,  7 May 2026 13:37:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BE11CD37BE
+	for <qemu-rust@archiver.kernel.org>; Mon, 11 May 2026 20:01:18 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wKyuS-0005gV-6m; Thu, 07 May 2026 09:37:00 -0400
+	id 1wMWoQ-0005Gk-OS; Mon, 11 May 2026 16:01:10 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <farosas@suse.de>) id 1wKyuQ-0005fy-P0
- for qemu-rust@nongnu.org; Thu, 07 May 2026 09:36:58 -0400
-Received: from smtp-out2.suse.de ([195.135.223.131])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <farosas@suse.de>) id 1wKyuN-00027X-ON
- for qemu-rust@nongnu.org; Thu, 07 May 2026 09:36:58 -0400
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2E46B66D2E;
- Thu,  7 May 2026 13:36:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778161014; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wMVj9-0007u8-4g
+ for qemu-rust@nongnu.org; Mon, 11 May 2026 14:51:39 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wMVj6-0002sy-Bw
+ for qemu-rust@nongnu.org; Mon, 11 May 2026 14:51:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1778525493;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=C2wnQ9NnBS/ivyZIbNR1h/QvQ9VsCN0U61Rm8dFd1Zc=;
- b=ifNVm/Mjf1u/IEletJ+e94WKOini/+ToYCHUp/1L9f4+MH3/ZlxtixYzWuS+txAxNc82mO
- pOA++Df0gmbCqyRakWmGROnrXd7TFUtGzqEsVoIlSSszTH104KsXyh0TxzmxLAIwR5EfR/
- q1WH2fbX3BUoBXmIrhM/w4Z0p8VVt0A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778161014;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=C2wnQ9NnBS/ivyZIbNR1h/QvQ9VsCN0U61Rm8dFd1Zc=;
- b=HxFRe0o+jF7d1FoImtYnz3iqHvnYOSmgC7ZlCcJMte2DQLq1mMrQ0G/i9ZcmAb16uHglBV
- UFKB9gluuRM2DbBA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="ifNVm/Mj";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=HxFRe0o+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778161014; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=C2wnQ9NnBS/ivyZIbNR1h/QvQ9VsCN0U61Rm8dFd1Zc=;
- b=ifNVm/Mjf1u/IEletJ+e94WKOini/+ToYCHUp/1L9f4+MH3/ZlxtixYzWuS+txAxNc82mO
- pOA++Df0gmbCqyRakWmGROnrXd7TFUtGzqEsVoIlSSszTH104KsXyh0TxzmxLAIwR5EfR/
- q1WH2fbX3BUoBXmIrhM/w4Z0p8VVt0A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778161014;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=C2wnQ9NnBS/ivyZIbNR1h/QvQ9VsCN0U61Rm8dFd1Zc=;
- b=HxFRe0o+jF7d1FoImtYnz3iqHvnYOSmgC7ZlCcJMte2DQLq1mMrQ0G/i9ZcmAb16uHglBV
- UFKB9gluuRM2DbBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C27AA593A7;
- Thu,  7 May 2026 13:36:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id kJSJJHWV/GklfwAAD6G6ig
- (envelope-from <farosas@suse.de>); Thu, 07 May 2026 13:36:53 +0000
-From: Fabiano Rosas <farosas@suse.de>
-To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- qemu-devel@nongnu.org
-Cc: Pierrick Bouvier <pierrick.bouvier@linaro.org>, qemu-rust@nongnu.org,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, Peter Xu
- <peterx@redhat.com>, Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
- <philmd@linaro.org>
+ bh=BZE0aHY8LTHR3vaNLyCsOVAN7ZopvEVlo3E8AOJCnxw=;
+ b=Qziwxud0a+N+xkIOBlDlp7OJz6uRoJxnGk9SibkoV7X3gs0I8DDmpql+9Q5XOPXZ9Wj+yJ
+ SM6QFo0zyTzu6bzPQHc/3zrp/74vmj7NUHBfRiALlY4CAoS4CAhRGQB+dnBVIKvDY3d+zp
+ UAXllvPSt8D4QaUXUI+PsA3qoS/D+5E=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-515-mBqMFXcaNYekUjTXJcNx_g-1; Mon, 11 May 2026 14:51:32 -0400
+X-MC-Unique: mBqMFXcaNYekUjTXJcNx_g-1
+X-Mimecast-MFC-AGG-ID: mBqMFXcaNYekUjTXJcNx_g_1778525492
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-514a182b90dso26313181cf.1
+ for <qemu-rust@nongnu.org>; Mon, 11 May 2026 11:51:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778525492; x=1779130292;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=BZE0aHY8LTHR3vaNLyCsOVAN7ZopvEVlo3E8AOJCnxw=;
+ b=ilQBSLBjCFPlqpLNVA3vPlnFSJ4rV3aORso3M50d3TO5KzpyTiYHjQpqv4/KqI5kOu
+ g+rC0DACS1R0+aP6gHzKoUoewUfGWHBhMgJgcIascA9/z80ElN2qANtSqJk1B/yPtlAb
+ OlnRQfuv7KEZqjcdeW3Rw/lPKiCd/b3//p7ExhmkxkpKv/tziJSLjjfbUEYGaJDukLzU
+ AQs7KnzETb6Xqdpei424G+kHzwwIwe5RboMFi49bG24ep6uPxU3+exRU5C/WfSKUkAX2
+ GpnWMZiRfC4ihPdL/UEQrln+2VWVvigokgNY36pJiiOR19BaRikiKOr3TXCqBNU6Tu2k
+ 3F5w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ98LMnAN8lmpY5NwLOv+k3+X3YWRW1hJFJ6XqzFB3HEWAe3SGNWvYW4DfGG/ZYxkoXHMH77enwk7sA=@nongnu.org
+X-Gm-Message-State: AOJu0YxsiNwfy7xs5+bkc47Q1WVdfEq4xNKdBxAXbAjRp6Vgk0VZk//H
+ CV6Hm9WNYtNwf+cTkseph8iH34xpjthg+ebOxV0zXn45yk1xgCCRKIU+AgwS5W8aWYTO1n1DYPY
+ /yyQmdb37pD82BAgXcL3PAs03lzxvuXxPYWhXCmVoKIkbMt/qx97ZB68=
+X-Gm-Gg: Acq92OHbXc9SqRGbGjkra9Puv/e6wVfMQh55X3VjMyy4BSZODPN4qBHQB6QH8AFF62J
+ ddxjhjtyOp1pdpuGueuv7MvHvqt4iGVBAXd7Ld3pVzv9nd3c8AO/Z8ugNvijbWAmzzbZosJoOdQ
+ E2AY+O7KUCxtnJeAs0qFyvt6ZM9ihAut5S5Zm5cOy6QyX86XD+vzUnMm3sUQ519tthjtogXJsDJ
+ 3QRU02CvFlq05mXj7pTpjLPFTuCWfvD8nRNmVAW0TFuMr3zZyBwimRfxvn2Jml/tPYuSaVNt2nu
+ Y1n9+YOV+cKXyPsA+MoVTovHsf3A9xoCf1oAaSd4FZGBjCYCklxzoQzDIpkALiCszYPwbegJ29V
+ z9eKKSOAu/wgLp+J7vTfDwCn3QbvACchhvjttO4g42C2SiAk=
+X-Received: by 2002:a05:622a:6096:b0:50d:6baa:9e9c with SMTP id
+ d75a77b69052e-51461bea15amr340975781cf.6.1778525491750; 
+ Mon, 11 May 2026 11:51:31 -0700 (PDT)
+X-Received: by 2002:a05:622a:6096:b0:50d:6baa:9e9c with SMTP id
+ d75a77b69052e-51461bea15amr340975321cf.6.1778525491136; 
+ Mon, 11 May 2026 11:51:31 -0700 (PDT)
+Received: from x1.local ([142.189.10.167]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-5148e7bef56sm97611941cf.15.2026.05.11.11.51.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 May 2026 11:51:30 -0700 (PDT)
+Date: Mon, 11 May 2026 14:51:29 -0400
+From: Peter Xu <peterx@redhat.com>
+To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+Cc: qemu-devel@nongnu.org, Pierrick Bouvier <pierrick.bouvier@linaro.org>,
+ qemu-rust@nongnu.org, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Fabiano Rosas <farosas@suse.de>
 Subject: Re: [PATCH] migration: Remove VMS_MULTIPLY_ELEMENTS and
  VMSTATE_VARRAY_MULTIPLY()
-In-Reply-To: <20260507070228.48877-1-philmd@linaro.org>
+Message-ID: <agIlMU-kwGyyfJla@x1.local>
 References: <20260507070228.48877-1-philmd@linaro.org>
-Date: Thu, 07 May 2026 10:36:51 -0300
-Message-ID: <87jytfxrws.fsf@suse.de>
 MIME-Version: 1.0
+In-Reply-To: <20260507070228.48877-1-philmd@linaro.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: lVlbwUU7g4_HRZxD_RJ5QkPjXTMmmtXaXF2BUXtrjpk_1778525492
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; MISSING_XM_UA(0.00)[];
- TO_DN_SOME(0.00)[]; RCPT_COUNT_SEVEN(0.00)[7];
- RCVD_TLS_ALL(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,suse.de:mid,linaro.org:email];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: 2E46B66D2E
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-Received-SPF: pass client-ip=195.135.223.131; envelope-from=farosas@suse.de;
- helo=smtp-out2.suse.de
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=peterx@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -24
+X-Spam_score: -2.5
+X-Spam_bar: --
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Mon, 11 May 2026 16:01:09 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,219 +113,18 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org> writes:
-
+On Thu, May 07, 2026 at 09:02:28AM +0200, Philippe Mathieu-Daudé wrote:
 > Commit c1eb3ac3468 ("target/sparc: Replace
 > VMSTATE_VARRAY_MULTIPLY -> VMSTATE_UINTTL_ARRAY") removed the
 > last use of the VMSTATE_VARRAY_MULTIPLY() macro. We can now
 > remove it as unnecessary, along with the VMS_MULTIPLY_ELEMENTS
 > flag and the associated tests.
->
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
-> ---
->  include/migration/vmstate.h        | 22 ++----------
->  migration/vmstate.c                |  4 ---
->  rust/bindings/migration-sys/lib.rs |  8 -----
->  rust/migration/src/vmstate.rs      |  3 +-
->  rust/tests/tests/vmstate_tests.rs  | 55 ------------------------------
->  5 files changed, 4 insertions(+), 88 deletions(-)
->
-> diff --git a/include/migration/vmstate.h b/include/migration/vmstate.h
-> index 28e3640e60c..0a8a2e85a63 100644
-> --- a/include/migration/vmstate.h
-> +++ b/include/migration/vmstate.h
-> @@ -105,7 +105,7 @@ enum VMStateFlags {
->      VMS_ARRAY_OF_POINTER =3D 0x040,
->=20=20
->      /* The field is an array of variable size. The uint16_t at opaque
-> -     * + VMStateField.num_offset (subject to VMS_MULTIPLY_ELEMENTS)
-> +     * + VMStateField.num_offset
->       * contains the number of entries in the array. See the VMS_ARRAY
->       * description regarding array handling in general. May not be
->       * combined with VMS_ARRAY or any other VMS_VARRAY*. */
-> @@ -126,14 +126,14 @@ enum VMStateFlags {
->      VMS_MULTIPLY         =3D 0x200,
->=20=20
->      /* The field is an array of variable size. The uint8_t at opaque +
-> -     * VMStateField.num_offset (subject to VMS_MULTIPLY_ELEMENTS)
-> +     * VMStateField.num_offset
->       * contains the number of entries in the array. See the VMS_ARRAY
->       * description regarding array handling in general. May not be
->       * combined with VMS_ARRAY or any other VMS_VARRAY*. */
->      VMS_VARRAY_UINT8     =3D 0x400,
->=20=20
->      /* The field is an array of variable size. The uint32_t at opaque
-> -     * + VMStateField.num_offset (subject to VMS_MULTIPLY_ELEMENTS)
-> +     * + VMStateField.num_offset
->       * contains the number of entries in the array. See the VMS_ARRAY
->       * description regarding array handling in general. May not be
->       * combined with VMS_ARRAY or any other VMS_VARRAY*. */
-> @@ -150,12 +150,6 @@ enum VMStateFlags {
->       * cause the individual entries to be allocated. */
->      VMS_ALLOC            =3D 0x2000,
->=20=20
-> -    /* Multiply the number of entries given by the integer at opaque +
-> -     * VMStateField.num_offset (see VMS_VARRAY*) with VMStateField.num
-> -     * to determine the number of entries in the array. Only valid in
-> -     * combination with one of VMS_VARRAY*. */
-> -    VMS_MULTIPLY_ELEMENTS =3D 0x4000,
-> -
->      /* A structure field that is like VMS_STRUCT, but uses
->       * VMStateField.struct_version_id to tell which version of the
->       * structure we are referencing to use. */
-> @@ -446,16 +440,6 @@ extern const VMStateInfo vmstate_info_qlist;
->      .offset     =3D vmstate_offset_2darray(_state, _field, _type, _n1, _=
-n2),  \
->  }
->=20=20
-> -#define VMSTATE_VARRAY_MULTIPLY(_field, _state, _field_num, _multiply, _=
-info, _type) { \
-> -    .name       =3D (stringify(_field)),                               \
-> -    .num_offset =3D vmstate_offset_value(_state, _field_num, uint32_t),\
-> -    .num        =3D (_multiply),                                       \
-> -    .info       =3D &(_info),                                          \
-> -    .size       =3D sizeof(_type),                                     \
-> -    .flags      =3D VMS_VARRAY_UINT32|VMS_MULTIPLY_ELEMENTS,           \
-> -    .offset     =3D vmstate_offset_varray(_state, _field, _type),      \
-> -}
-> -
->  #define VMSTATE_SUB_ARRAY(_field, _state, _start, _num, _version, _info,=
- _type) { \
->      .name       =3D (stringify(_field)),                               \
->      .version_id =3D (_version),                                        \
-> diff --git a/migration/vmstate.c b/migration/vmstate.c
-> index 2f13b48a37f..6fa7523f04d 100644
-> --- a/migration/vmstate.c
-> +++ b/migration/vmstate.c
-> @@ -100,10 +100,6 @@ static int vmstate_n_elems(void *opaque, const VMSta=
-teField *field)
->          n_elems =3D *(uint8_t *)(opaque + field->num_offset);
->      }
->=20=20
-> -    if (field->flags & VMS_MULTIPLY_ELEMENTS) {
-> -        n_elems *=3D field->num;
-> -    }
-> -
->      trace_vmstate_n_elems(field->name, n_elems);
->      return n_elems;
->  }
-> diff --git a/rust/bindings/migration-sys/lib.rs b/rust/bindings/migration=
--sys/lib.rs
-> index 7ee30a3f7d5..9581481e421 100644
-> --- a/rust/bindings/migration-sys/lib.rs
-> +++ b/rust/bindings/migration-sys/lib.rs
-> @@ -114,12 +114,4 @@ pub const fn with_varray_flag(mut self, flag: VMStat=
-eFlags) -> Self {
->          assert!((self.flags.0 & VMStateFlags::VMS_ARRAY.0) !=3D 0);
->          self.with_varray_flag_unchecked(flag)
->      }
-> -
-> -    #[must_use]
-> -    pub const fn with_varray_multiply(mut self, num: u32) -> Self {
-> -        assert!(num <=3D 0x7FFF_FFFFu32);
-> -        self.flags =3D VMStateFlags(self.flags.0 | VMStateFlags::VMS_MUL=
-TIPLY_ELEMENTS.0);
-> -        self.num =3D num as i32;
-> -        self
-> -    }
->  }
-> diff --git a/rust/migration/src/vmstate.rs b/rust/migration/src/vmstate.rs
-> index f34a36f6809..63d78b4f275 100644
-> --- a/rust/migration/src/vmstate.rs
-> +++ b/rust/migration/src/vmstate.rs
-> @@ -159,8 +159,7 @@ macro_rules! vmstate_of {
->              )$(.with_varray_flag($crate::call_func_with_field!(
->                      $crate::vmstate::vmstate_varray_flag,
->                      $struct_name,
-> -                    $($num).+))
-> -               $(.with_varray_multiply($factor))?)?
-> +                    $($num).+)))?
->          }
->      };
->  }
-> diff --git a/rust/tests/tests/vmstate_tests.rs b/rust/tests/tests/vmstate=
-_tests.rs
-> index 87176a80990..c2c12cfab52 100644
-> --- a/rust/tests/tests/vmstate_tests.rs
-> +++ b/rust/tests/tests/vmstate_tests.rs
-> @@ -118,34 +118,6 @@ fn test_vmstate_varray_uint16_unsafe() {
->      assert!(foo_fields[2].field_exists.is_none());
->  }
->=20=20
-> -#[test]
-> -fn test_vmstate_varray_multiply() {
-> -    let foo_fields: &[VMStateField] =3D
-> -        unsafe { slice::from_raw_parts(VMSTATE_FOOA.as_ref().fields, 5) =
-};
-> -
-> -    // 4th VMStateField ("arr_mul") in VMSTATE_FOOA (corresponding to
-> -    // VMSTATE_VARRAY_MULTIPLY)
-> -    assert_eq!(
-> -        unsafe { CStr::from_ptr(foo_fields[3].name) }.to_bytes_with_nul(=
-),
-> -        b"arr_mul\0"
-> -    );
-> -    assert_eq!(foo_fields[3].offset, 6);
-> -    assert_eq!(foo_fields[3].num_offset, 12);
-> -    assert_eq!(foo_fields[3].info, unsafe { &vmstate_info_int8 });
-> -    assert_eq!(foo_fields[3].version_id, 0);
-> -    assert_eq!(foo_fields[3].size, 1);
-> -    assert_eq!(foo_fields[3].num, 16);
-> -    assert_eq!(
-> -        foo_fields[3].flags.0,
-> -        VMStateFlags::VMS_VARRAY_UINT32.0 | VMStateFlags::VMS_MULTIPLY_E=
-LEMENTS.0
-> -    );
-> -    assert!(foo_fields[3].vmsd.is_null());
-> -    assert!(foo_fields[3].field_exists.is_none());
-> -
-> -    // The last VMStateField in VMSTATE_FOOA.
-> -    assert_eq!(foo_fields[4].flags, VMStateFlags::VMS_END);
-> -}
-> -
->  // =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D Test VMSTATE_FOOB =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->  // Test the use cases of the vmstate macro, corresponding to the followi=
-ng C
->  // macro variants:
-> @@ -256,33 +228,6 @@ fn test_vmstate_struct_varray_uint8() {
->      assert!(foo_fields[2].field_exists.is_none());
->  }
->=20=20
-> -#[test]
-> -fn test_vmstate_struct_varray_uint32_multiply() {
-> -    let foo_fields: &[VMStateField] =3D
-> -        unsafe { slice::from_raw_parts(VMSTATE_FOOB.as_ref().fields, 7) =
-};
-> -
-> -    // 4th VMStateField ("arr_a_mul") in VMSTATE_FOOB (corresponding to
-> -    // (no C version) MULTIPLY variant of VMSTATE_STRUCT_VARRAY_UINT32)
-> -    assert_eq!(
-> -        unsafe { CStr::from_ptr(foo_fields[3].name) }.to_bytes_with_nul(=
-),
-> -        b"arr_a_mul\0"
-> -    );
-> -    assert_eq!(foo_fields[3].offset, 64);
-> -    assert_eq!(foo_fields[3].num_offset, 124);
-> -    assert!(foo_fields[3].info.is_null()); // VMSTATE_STRUCT_VARRAY_UINT=
-8 doesn't set info field.
-> -    assert_eq!(foo_fields[3].version_id, 2);
-> -    assert_eq!(foo_fields[3].size, 20);
-> -    assert_eq!(foo_fields[3].num, 32);
-> -    assert_eq!(
-> -        foo_fields[3].flags.0,
-> -        VMStateFlags::VMS_STRUCT.0
-> -            | VMStateFlags::VMS_VARRAY_UINT32.0
-> -            | VMStateFlags::VMS_MULTIPLY_ELEMENTS.0
-> -    );
-> -    assert_eq!(foo_fields[3].vmsd, VMSTATE_FOOA.as_ref());
-> -    assert!(foo_fields[3].field_exists.is_none());
-> -}
-> -
->  #[test]
->  fn test_vmstate_macro_array() {
->      let foo_fields: &[VMStateField] =3D
+> 
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
-Reviewed-by: Fabiano Rosas <farosas@suse.de>
+queued, thanks.
+
+-- 
+Peter Xu
+
 
