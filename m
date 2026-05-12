@@ -4,91 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BE11CD37BE
-	for <qemu-rust@archiver.kernel.org>; Mon, 11 May 2026 20:01:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62F37CD4F24
+	for <qemu-rust@archiver.kernel.org>; Tue, 12 May 2026 14:17:47 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wMWoQ-0005Gk-OS; Mon, 11 May 2026 16:01:10 -0400
+	id 1wMnvU-0004cX-Vg; Tue, 12 May 2026 10:17:38 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wMVj9-0007u8-4g
- for qemu-rust@nongnu.org; Mon, 11 May 2026 14:51:39 -0400
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1wMnv1-0004a0-1C
+ for qemu-rust@nongnu.org; Tue, 12 May 2026 10:17:13 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wMVj6-0002sy-Bw
- for qemu-rust@nongnu.org; Mon, 11 May 2026 14:51:37 -0400
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1wMnum-0007Ui-6K
+ for qemu-rust@nongnu.org; Tue, 12 May 2026 10:17:01 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1778525493;
+ s=mimecast20190719; t=1778595409;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BZE0aHY8LTHR3vaNLyCsOVAN7ZopvEVlo3E8AOJCnxw=;
- b=Qziwxud0a+N+xkIOBlDlp7OJz6uRoJxnGk9SibkoV7X3gs0I8DDmpql+9Q5XOPXZ9Wj+yJ
- SM6QFo0zyTzu6bzPQHc/3zrp/74vmj7NUHBfRiALlY4CAoS4CAhRGQB+dnBVIKvDY3d+zp
- UAXllvPSt8D4QaUXUI+PsA3qoS/D+5E=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-515-mBqMFXcaNYekUjTXJcNx_g-1; Mon, 11 May 2026 14:51:32 -0400
-X-MC-Unique: mBqMFXcaNYekUjTXJcNx_g-1
-X-Mimecast-MFC-AGG-ID: mBqMFXcaNYekUjTXJcNx_g_1778525492
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-514a182b90dso26313181cf.1
- for <qemu-rust@nongnu.org>; Mon, 11 May 2026 11:51:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778525492; x=1779130292;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BZE0aHY8LTHR3vaNLyCsOVAN7ZopvEVlo3E8AOJCnxw=;
- b=ilQBSLBjCFPlqpLNVA3vPlnFSJ4rV3aORso3M50d3TO5KzpyTiYHjQpqv4/KqI5kOu
- g+rC0DACS1R0+aP6gHzKoUoewUfGWHBhMgJgcIascA9/z80ElN2qANtSqJk1B/yPtlAb
- OlnRQfuv7KEZqjcdeW3Rw/lPKiCd/b3//p7ExhmkxkpKv/tziJSLjjfbUEYGaJDukLzU
- AQs7KnzETb6Xqdpei424G+kHzwwIwe5RboMFi49bG24ep6uPxU3+exRU5C/WfSKUkAX2
- GpnWMZiRfC4ihPdL/UEQrln+2VWVvigokgNY36pJiiOR19BaRikiKOr3TXCqBNU6Tu2k
- 3F5w==
-X-Forwarded-Encrypted: i=1;
- AFNElJ98LMnAN8lmpY5NwLOv+k3+X3YWRW1hJFJ6XqzFB3HEWAe3SGNWvYW4DfGG/ZYxkoXHMH77enwk7sA=@nongnu.org
-X-Gm-Message-State: AOJu0YxsiNwfy7xs5+bkc47Q1WVdfEq4xNKdBxAXbAjRp6Vgk0VZk//H
- CV6Hm9WNYtNwf+cTkseph8iH34xpjthg+ebOxV0zXn45yk1xgCCRKIU+AgwS5W8aWYTO1n1DYPY
- /yyQmdb37pD82BAgXcL3PAs03lzxvuXxPYWhXCmVoKIkbMt/qx97ZB68=
-X-Gm-Gg: Acq92OHbXc9SqRGbGjkra9Puv/e6wVfMQh55X3VjMyy4BSZODPN4qBHQB6QH8AFF62J
- ddxjhjtyOp1pdpuGueuv7MvHvqt4iGVBAXd7Ld3pVzv9nd3c8AO/Z8ugNvijbWAmzzbZosJoOdQ
- E2AY+O7KUCxtnJeAs0qFyvt6ZM9ihAut5S5Zm5cOy6QyX86XD+vzUnMm3sUQ519tthjtogXJsDJ
- 3QRU02CvFlq05mXj7pTpjLPFTuCWfvD8nRNmVAW0TFuMr3zZyBwimRfxvn2Jml/tPYuSaVNt2nu
- Y1n9+YOV+cKXyPsA+MoVTovHsf3A9xoCf1oAaSd4FZGBjCYCklxzoQzDIpkALiCszYPwbegJ29V
- z9eKKSOAu/wgLp+J7vTfDwCn3QbvACchhvjttO4g42C2SiAk=
-X-Received: by 2002:a05:622a:6096:b0:50d:6baa:9e9c with SMTP id
- d75a77b69052e-51461bea15amr340975781cf.6.1778525491750; 
- Mon, 11 May 2026 11:51:31 -0700 (PDT)
-X-Received: by 2002:a05:622a:6096:b0:50d:6baa:9e9c with SMTP id
- d75a77b69052e-51461bea15amr340975321cf.6.1778525491136; 
- Mon, 11 May 2026 11:51:31 -0700 (PDT)
-Received: from x1.local ([142.189.10.167]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-5148e7bef56sm97611941cf.15.2026.05.11.11.51.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2026 11:51:30 -0700 (PDT)
-Date: Mon, 11 May 2026 14:51:29 -0400
-From: Peter Xu <peterx@redhat.com>
-To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Cc: qemu-devel@nongnu.org, Pierrick Bouvier <pierrick.bouvier@linaro.org>,
- qemu-rust@nongnu.org, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- Fabiano Rosas <farosas@suse.de>
-Subject: Re: [PATCH] migration: Remove VMS_MULTIPLY_ELEMENTS and
- VMSTATE_VARRAY_MULTIPLY()
-Message-ID: <agIlMU-kwGyyfJla@x1.local>
-References: <20260507070228.48877-1-philmd@linaro.org>
+ bh=AZ5uAvo2+W42FKAe2JI1wWFsPsN3s48Gf9a/uwm9BJg=;
+ b=iyJiPnu/h9us2wno3TG0PBAs4D2Eycg1zRVRJ9s8avWdMee5pzQazBOhSL6sPNm9gWxjWd
+ +b/XvhdZiqha+9CS5/xl6KP7yGxaQy+K0ZjcGBsSlzeaAMk9uQoCe2R8uKE8A3X1k6a2f5
+ m5FOHjY+xstgH4waQLB1O4pdFGCBox8=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-455-z8ryxKoENKSxlBy6YwohQQ-1; Tue,
+ 12 May 2026 10:16:45 -0400
+X-MC-Unique: z8ryxKoENKSxlBy6YwohQQ-1
+X-Mimecast-MFC-AGG-ID: z8ryxKoENKSxlBy6YwohQQ_1778595404
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 86F6F18002D6; Tue, 12 May 2026 14:16:44 +0000 (UTC)
+Received: from redhat.com (unknown [10.44.49.152])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 402F01955D84; Tue, 12 May 2026 14:16:42 +0000 (UTC)
+Date: Tue, 12 May 2026 16:16:39 +0200
+From: Kevin Wolf <kwolf@redhat.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Markus Armbruster <armbru@redhat.com>, qemu-devel@nongnu.org,
+ qemu-rust@nongnu.org, Hanna Czenczek <hreitz@redhat.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>
+Subject: Re: Can we make QMP commands in Rust always be coroutine safe?
+Message-ID: <agM2R2g2yXzs4k0P@redhat.com>
+References: <87tssm5jq2.fsf@pond.sub.org>
+ <424027a4-432f-441a-a53a-69e01412af07@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20260507070228.48877-1-philmd@linaro.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: lVlbwUU7g4_HRZxD_RJ5QkPjXTMmmtXaXF2BUXtrjpk_1778525492
+In-Reply-To: <424027a4-432f-441a-a53a-69e01412af07@redhat.com>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Mimecast-MFC-PROC-ID: utb2PXO4IPYAvYeEFapkn9X8KcVNFsivN1xstLlbV4k_1778595404
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=peterx@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=kwolf@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
 X-Spam_score: -2.5
@@ -98,7 +71,6 @@ X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
  SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Mon, 11 May 2026 16:01:09 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,18 +85,88 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Thu, May 07, 2026 at 09:02:28AM +0200, Philippe Mathieu-Daudé wrote:
-> Commit c1eb3ac3468 ("target/sparc: Replace
-> VMSTATE_VARRAY_MULTIPLY -> VMSTATE_UINTTL_ARRAY") removed the
-> last use of the VMSTATE_VARRAY_MULTIPLY() macro. We can now
-> remove it as unnecessary, along with the VMS_MULTIPLY_ELEMENTS
-> flag and the associated tests.
+Am 05.05.2026 um 12:51 hat Paolo Bonzini geschrieben:
+> On 5/5/26 10:44, Markus Armbruster wrote:
+> >      Coroutine safety can be hard to prove, similar to thread safety.  Common
+> >      pitfalls are:
+> > 
+> >      - The BQL isn't held across ``qemu_coroutine_yield()``, so
+> >        operations that used to assume that they execute atomically may have
+> >        to be more careful to protect against changes in the global state.
+> > 
+> >      - Nested event loops (``AIO_WAIT_WHILE()`` etc.) are problematic in
+> >        coroutine context and can easily lead to deadlocks.  They should be
+> >        replaced by yielding and reentering the coroutine when the condition
+> >        becomes false.
+> > 
+> >      Since the command handler may assume coroutine context, any callers
+> >      other than the QMP dispatcher must also call it in coroutine context.
+> >      In particular, HMP commands calling such a QMP command handler must be
+> >      marked ``.coroutine = true`` in hmp-commands.hx.
+> > 
+> >      It is an error to specify both ``'coroutine': true`` and ``'allow-oob': true``
+> >      for a command.  We don't currently have a use case for both together and
+> >      without a use case, it's not entirely clear what the semantics should
+> >      be.
+> > 
+> > Can we make commands written in Rust always coroutine safe?
 > 
-> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> We won't *ever* have mixed coroutine/non-coroutine functions in Rust.
+> Kevin's prototype used async functions (stackless coroutines) for Rust
+> yielding functions, rather than qemu_coroutine_yield()[1].  Within sucg
+> fubctuibs, yielding is much more explicit than in C (you have to write
+> ".await" explicitly at all levels of calling a yielding function).
 
-queued, thanks.
+By the way, one thing I realised only recently is that we probably don't
+have a way to implement no_coroutine_fn in Rust (or specfically the Rust
+bindings for C no_coroutine_fn functions).
 
--- 
-Peter Xu
+> But we have the BQL, and "coroutine: true" commands if I understand
+> correctly are run outside it (they run in iothread context).  So any command
+> that uses BQL-protected data cannot be coroutine safe, and that means it's
+> likely that Rust would also have coroutine: true/false.
+
+A coroutine QMP command handler runs in the main loop initially, which
+means that it holds the BQL. So I don't think you have a real reason to
+have coroutine: false.
+
+What the handler can do is move itself into a different thread later on
+using something like aio_co_reschedule_self(), and then of course, it
+can't rely on the BQL any more.
+
+My understanding is that this would normally be handled by requiring the
+Send trait for the Future in the function that hands the future off to
+another thread. However, here we're not in the context of the
+synchronous executor that works with the Future object, but in the async
+fn itself. I'm not quite sure how to encode this requirement in the
+binding for aio_co_reschedule_self() so that the calling async fn has to
+be Send for it to compile. Any ideas?
+
+> However, there are safeguards:
+> 
+> 1) it will be impossible to write yielding code in a "coroutine: false" Rust
+> command; it won't secretly start a nested event loop.
+
+Having a nested event loop in Rust isn't any harder than having it in C
+(and I needed it in some block layer bindings because of synchronous
+interfaces), so this depends on our discipline.
+
+> 2) releasing the BQL while keeping a reference to a BqlRefCell is an instant
+> panic;
+> 
+> This leaves nested event loops in "coroutine: true" commands as a potential
+> pitfall.
+
+I guess this is where a no_coroutine_fn that is understood by the
+compiler would be useful.
+
+> [1] suspension and resumption is represented respectively by futures (a
+> discriminated union of a suspension state and a result after completion) and
+> wakers.  To convert suspended async fns to qemu_coroutine_yield() calls,
+> Kevin wrapped the async fns with a loop that continues until the future as a
+> result, yielding across calls to the async fn; and to resume the suspended
+> async fn, he wrote a waker that invokes qemu_coroutine_resume().
+
+Kevin
 
 
