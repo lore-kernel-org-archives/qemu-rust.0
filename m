@@ -4,72 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62F37CD4F24
-	for <qemu-rust@archiver.kernel.org>; Tue, 12 May 2026 14:17:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66F9CCD5BA4
+	for <qemu-rust@archiver.kernel.org>; Thu, 21 May 2026 08:08:33 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wMnvU-0004cX-Vg; Tue, 12 May 2026 10:17:38 -0400
+	id 1wPyQC-0000PQ-CP; Thu, 21 May 2026 04:06:24 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1wMnv1-0004a0-1C
- for qemu-rust@nongnu.org; Tue, 12 May 2026 10:17:13 -0400
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1wPyPV-0007m0-QY
+ for qemu-rust@nongnu.org; Thu, 21 May 2026 04:05:44 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1wMnum-0007Ui-6K
- for qemu-rust@nongnu.org; Tue, 12 May 2026 10:17:01 -0400
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1wPyPO-0007BI-EA
+ for qemu-rust@nongnu.org; Thu, 21 May 2026 04:05:36 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1778595409;
+ s=mimecast20190719; t=1779350731;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AZ5uAvo2+W42FKAe2JI1wWFsPsN3s48Gf9a/uwm9BJg=;
- b=iyJiPnu/h9us2wno3TG0PBAs4D2Eycg1zRVRJ9s8avWdMee5pzQazBOhSL6sPNm9gWxjWd
- +b/XvhdZiqha+9CS5/xl6KP7yGxaQy+K0ZjcGBsSlzeaAMk9uQoCe2R8uKE8A3X1k6a2f5
- m5FOHjY+xstgH4waQLB1O4pdFGCBox8=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=pIHKHsqnJaHDv2K22vOL0LSCXHmRoUJ3evV/FwXrYyE=;
+ b=KGhHki9JGZXcdBSkSSyEAlSP8LF/cMYpl0s/BfjsNm6butsAGK5nlT4mPjSIHWA1AyILd2
+ H/Uc+PCUvAAdbcPpeNTdWStJgBt9BJuJqvdJELx9spsp8uNqnva0K0UspcCCokgHO87rJL
+ RUPxh2W6LRs93vWyT5B2UOK7RJgmf9Q=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-455-z8ryxKoENKSxlBy6YwohQQ-1; Tue,
- 12 May 2026 10:16:45 -0400
-X-MC-Unique: z8ryxKoENKSxlBy6YwohQQ-1
-X-Mimecast-MFC-AGG-ID: z8ryxKoENKSxlBy6YwohQQ_1778595404
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-357-Q8xG8UxyMOi5qba718RrSg-1; Thu,
+ 21 May 2026 04:05:24 -0400
+X-MC-Unique: Q8xG8UxyMOi5qba718RrSg-1
+X-Mimecast-MFC-AGG-ID: Q8xG8UxyMOi5qba718RrSg_1779350723
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 86F6F18002D6; Tue, 12 May 2026 14:16:44 +0000 (UTC)
-Received: from redhat.com (unknown [10.44.49.152])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 402F01955D84; Tue, 12 May 2026 14:16:42 +0000 (UTC)
-Date: Tue, 12 May 2026 16:16:39 +0200
-From: Kevin Wolf <kwolf@redhat.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Markus Armbruster <armbru@redhat.com>, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org, Hanna Czenczek <hreitz@redhat.com>,
- Stefan Hajnoczi <stefanha@redhat.com>
-Subject: Re: Can we make QMP commands in Rust always be coroutine safe?
-Message-ID: <agM2R2g2yXzs4k0P@redhat.com>
-References: <87tssm5jq2.fsf@pond.sub.org>
- <424027a4-432f-441a-a53a-69e01412af07@redhat.com>
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 32ADB1956046; Thu, 21 May 2026 08:05:23 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.44.22.2])
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id E60C91800352; Thu, 21 May 2026 08:05:22 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 7324121E64AF; Thu, 21 May 2026 10:05:12 +0200 (CEST)
+From: Markus Armbruster <armbru@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: philmd@linaro.org, pierrick.bouvier@oss.qualcomm.com,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org
+Subject: [PATCH 39/39] MAINTAINERS: Fix F: in "Rust build system integration"
+Date: Thu, 21 May 2026 10:05:11 +0200
+Message-ID: <20260521080511.999266-40-armbru@redhat.com>
+In-Reply-To: <20260521080511.999266-1-armbru@redhat.com>
+References: <20260521080511.999266-1-armbru@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <424027a4-432f-441a-a53a-69e01412af07@redhat.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: utb2PXO4IPYAvYeEFapkn9X8KcVNFsivN1xstLlbV4k_1778595404
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Mimecast-MFC-PROC-ID: m6KUR89Zsib91dRetmL03uucj3KNn9hFoidXIW9BKIw_1779350723
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=kwolf@redhat.com;
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -24
-X-Spam_score: -2.5
-X-Spam_bar: --
-X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
+X-Spam_score_int: 8
+X-Spam_score: 0.8
+X-Spam_bar: /
+X-Spam_report: (0.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_SBL_CSS=3.335, SPF_HELO_PASS=-0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -85,88 +87,31 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Am 05.05.2026 um 12:51 hat Paolo Bonzini geschrieben:
-> On 5/5/26 10:44, Markus Armbruster wrote:
-> >      Coroutine safety can be hard to prove, similar to thread safety.  Common
-> >      pitfalls are:
-> > 
-> >      - The BQL isn't held across ``qemu_coroutine_yield()``, so
-> >        operations that used to assume that they execute atomically may have
-> >        to be more careful to protect against changes in the global state.
-> > 
-> >      - Nested event loops (``AIO_WAIT_WHILE()`` etc.) are problematic in
-> >        coroutine context and can easily lead to deadlocks.  They should be
-> >        replaced by yielding and reentering the coroutine when the condition
-> >        becomes false.
-> > 
-> >      Since the command handler may assume coroutine context, any callers
-> >      other than the QMP dispatcher must also call it in coroutine context.
-> >      In particular, HMP commands calling such a QMP command handler must be
-> >      marked ``.coroutine = true`` in hmp-commands.hx.
-> > 
-> >      It is an error to specify both ``'coroutine': true`` and ``'allow-oob': true``
-> >      for a command.  We don't currently have a use case for both together and
-> >      without a use case, it's not entirely clear what the semantics should
-> >      be.
-> > 
-> > Can we make commands written in Rust always coroutine safe?
-> 
-> We won't *ever* have mixed coroutine/non-coroutine functions in Rust.
-> Kevin's prototype used async functions (stackless coroutines) for Rust
-> yielding functions, rather than qemu_coroutine_yield()[1].  Within sucg
-> fubctuibs, yielding is much more explicit than in C (you have to write
-> ".await" explicitly at all levels of calling a yielding function).
+We neglected to update MAINTAINERS when we moved rust/wrapper.h, and
+again when we split it up.  Update it now.
 
-By the way, one thing I realised only recently is that we probably don't
-have a way to implement no_coroutine_fn in Rust (or specfically the Rust
-bindings for C no_coroutine_fn functions).
+Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Cc: qemu-rust@nongnu.org
+Fixes: 1ae4ca0463 (rust: move rust.bindgen to qemu-api crate, 2025-06-13)
+Signed-off-by: Markus Armbruster <armbru@redhat.com>
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> But we have the BQL, and "coroutine: true" commands if I understand
-> correctly are run outside it (they run in iothread context).  So any command
-> that uses BQL-protected data cannot be coroutine safe, and that means it's
-> likely that Rust would also have coroutine: true/false.
-
-A coroutine QMP command handler runs in the main loop initially, which
-means that it holds the BQL. So I don't think you have a real reason to
-have coroutine: false.
-
-What the handler can do is move itself into a different thread later on
-using something like aio_co_reschedule_self(), and then of course, it
-can't rely on the BQL any more.
-
-My understanding is that this would normally be handled by requiring the
-Send trait for the Future in the function that hands the future off to
-another thread. However, here we're not in the context of the
-synchronous executor that works with the Future object, but in the async
-fn itself. I'm not quite sure how to encode this requirement in the
-binding for aio_co_reschedule_self() so that the calling async fn has to
-be Send for it to compile. Any ideas?
-
-> However, there are safeguards:
-> 
-> 1) it will be impossible to write yielding code in a "coroutine: false" Rust
-> command; it won't secretly start a nested event loop.
-
-Having a nested event loop in Rust isn't any harder than having it in C
-(and I needed it in some block layer bindings because of synchronous
-interfaces), so this depends on our discipline.
-
-> 2) releasing the BQL while keeping a reference to a BqlRefCell is an instant
-> panic;
-> 
-> This leaves nested event loops in "coroutine: true" commands as a potential
-> pitfall.
-
-I guess this is where a no_coroutine_fn that is understood by the
-compiler would be useful.
-
-> [1] suspension and resumption is represented respectively by futures (a
-> discriminated union of a suspension state and a result after completion) and
-> wakers.  To convert suspended async fns to qemu_coroutine_yield() calls,
-> Kevin wrapped the async fns with a loop that continues until the future as a
-> result, yielding across calls to the async fn; and to resume the suspended
-> async fn, he wrote a waker that invokes qemu_coroutine_resume().
-
-Kevin
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b7fe4fa58a..37bc1bab06 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4629,7 +4629,7 @@ F: scripts/rust/
+ F: rust/.gitignore
+ F: rust/Kconfig
+ F: rust/meson.build
+-F: rust/wrapper.h
++F: rust/bindings/*/wrapper.h
+ 
+ Miscellaneous
+ -------------
+-- 
+2.54.0
 
 
