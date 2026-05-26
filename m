@@ -4,100 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4635CCD5BD1
-	for <qemu-rust@archiver.kernel.org>; Tue, 26 May 2026 17:59:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79C1FCD5BC8
+	for <qemu-rust@archiver.kernel.org>; Tue, 26 May 2026 17:59:42 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wRw1q-0002OJ-Cg; Tue, 26 May 2026 13:57:22 -0400
+	id 1wRw1E-00020G-Ef; Tue, 26 May 2026 13:56:44 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1wRw1o-0002Nj-Gj
- for qemu-rust@nongnu.org; Tue, 26 May 2026 13:57:20 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ id 1wRw1D-0001zb-9h
+ for qemu-rust@nongnu.org; Tue, 26 May 2026 13:56:43 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1wRw1l-00087R-Pe
- for qemu-rust@nongnu.org; Tue, 26 May 2026 13:57:20 -0400
+ id 1wRw1A-0007wM-Ow
+ for qemu-rust@nongnu.org; Tue, 26 May 2026 13:56:42 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779818237;
+ s=mimecast20190719; t=1779818200;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=XKvlfyawLfccqJb9rJlQW6VYUC+q6lpyZRnjc/NQN9M=;
- b=DCSiFG1FeA1uZyPpC26tWHD9FX8vBErc/Jh3rJegwG0WkP0fUraEFezu6PgxlHxaUvARzv
- udcceQw+cbSRmsL4X0Z3oslrs9PfEwzJ5jVxvPvoyusKdb5Q/eOZdCFT7G8PcCo+w070Jv
- ymfflNGmKkKg4Hu2CNNPv5fNJddRS7s=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=mK4ewdpRbWjBOdfd9WIfkWHhs6P79cHSH2ERgJE6mCs=;
+ b=XS6GNStRUAZYIelJGQAI2tZQiw9mMTLz+7toEuGH6Sh1YPjWuX1mcVq9NS/aHRAeTt+7Ge
+ X/Ts01YbxSx5dusCiE+b+z4VV8NmkSU5GT0uV02eK018BR+PmvgCM+8uEGifvmtbU04PEH
+ 6Vj8elb5QkUCbCz41XMbXuDhYRwTNz0=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-564-b_M9gGVnO0GOr7pde_1Y9Q-1; Tue, 26 May 2026 13:57:15 -0400
-X-MC-Unique: b_M9gGVnO0GOr7pde_1Y9Q-1
-X-Mimecast-MFC-AGG-ID: b_M9gGVnO0GOr7pde_1Y9Q_1779818235
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-45ea19f2564so5599073f8f.2
- for <qemu-rust@nongnu.org>; Tue, 26 May 2026 10:57:15 -0700 (PDT)
+ us-mta-523-IoEyDYrxOsynpa81_-Lmow-1; Tue, 26 May 2026 13:56:38 -0400
+X-MC-Unique: IoEyDYrxOsynpa81_-Lmow-1
+X-Mimecast-MFC-AGG-ID: IoEyDYrxOsynpa81_-Lmow_1779818197
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-4904ee02e72so30937675e9.1
+ for <qemu-rust@nongnu.org>; Tue, 26 May 2026 10:56:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779818234; x=1780423034;
+ d=1e100.net; s=20251104; t=1779818197; x=1780422997;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=XKvlfyawLfccqJb9rJlQW6VYUC+q6lpyZRnjc/NQN9M=;
- b=kChyRg0nE9D/wBbmJkiPwjtZe7IfFFrFx6Yv5qP6mf6Xc4DfIk5Lv2nf6GGguMM2S/
- 60hWNbgr8aQLxHUmv6byRSj5DoC0KkAlj+81QCRU69q5WA3LFSGJzkSc/zffeUpXqm+F
- mJ/+cBn10cuhLvW318Ih1NT7qMuqbprex3Xn3o++DPBx6R0AZuVI0Q0p3rVZjkFCW6BV
- rP5TQXcM9Anrq4GnLJvQpmBoTthEDtrGkeV4QUg8QECzrjCieosprCcnyTPxvSrsxPcL
- G19vdp/Es57tlztnCIQmarjfPIlaWPsf9RWsKkqh0owDwhZ5kHhHja2ko5omvh0gbWTT
- LqrQ==
-X-Gm-Message-State: AOJu0YxqxXt3HxV8H4GZMDCUz7mcuH0qi3OMRj6uSjTUz50+eAKYix9S
- lyFDra1stUwBOAWxBur91BalhiNvl+XU1/C04jqh4fad3IfOENWI5bhy4wJ71wn3b7isFxBtqXo
- 62tcIKI+ppKzXRhhdM+D8TmeHA8nUilBYWwURLy9m5dmVFn37tkJVceY=
-X-Gm-Gg: Acq92OG7VSJOG3zomOQs+zpgSJzGhBGtuvNME3yIXJtb6vzMNosh5YE375B9+2ge2TC
- E//mSZTzNt+0fy44iA4qLvMvrWy7alkwGyTnyAXJ2wKrkAowI6tjXFdiExqd5rOu+CIRR1ICqG9
- EIx5dL3GOqDiqrkRCP4nXwc2qK09nyBGOQNksWbuz73iiDEaLMMXjgQ+CAbVUEZVVWiRUPMw2wb
- /dTf+TdflKS4Oy5iwsSmXQg0j70CKSpB0o2caK3m9bUsL6xbKvEMpZqEgwAAI18cdR+SRlvuxX6
- kfdHnSFNIGgtOgPFzb0/jeH0O1/d2037DromV4GT9cVFoX+4weR7FCmN1w+MED73rtk1Tvwqak7
- oTbea6R3GUZGOqE6cBbnQUwcIhBP792wYMW6Kx6YPybnp3tW0wdRnJm1GmF5Vh/yg/0iAhh0bPX
- SlzGFgeyRUUupVvZRH7IeAHG62K+c=
-X-Received: by 2002:a05:6000:260e:b0:45e:a0ab:8bcb with SMTP id
- ffacd0b85a97d-45eb3696a9fmr31481331f8f.15.1779818234246; 
- Tue, 26 May 2026 10:57:14 -0700 (PDT)
-X-Received: by 2002:a05:6000:260e:b0:45e:a0ab:8bcb with SMTP id
- ffacd0b85a97d-45eb3696a9fmr31481267f8f.15.1779818233774; 
- Tue, 26 May 2026 10:57:13 -0700 (PDT)
+ bh=mK4ewdpRbWjBOdfd9WIfkWHhs6P79cHSH2ERgJE6mCs=;
+ b=giX/FzeOp7l5iKKoTOJByvk1tVkgj//7E1EeIdAZ7lmGfg7XHB30Qpyv6TuoN10eOx
+ cWSJ8T/J54Kt9B0k/rKT8mfgNwPaDI6NQdfiulClJLLdwVGZDdtPdB8wTwEi2htjyYRu
+ 2QVQ6kfuHb5vJm6FW/3YYxEo/lWj9qpkSAT30JZ/pyG5SrZMDziqTGOlK0zishaR7niO
+ RpP6wNwaUNH3VffTkysRTkhRGHXaxnd8gxgouH4ctvdwS2Yq39NxaCUnFbOpjYr7MhQq
+ xK/LllC6QmWWXyECcKG94pN1o6G9Jt7NJV/S2gW3uYNHFOMddoDeyDqm7k6LjA5Fw9oo
+ GjMg==
+X-Gm-Message-State: AOJu0YyevWI/aslHTs60lp2mHUJbzRhxVKG1hZpspHTHxtBhsFdnwUX7
+ 5wG6sy1tL4zJ2a64dhRN9PKLFyBwlHspLomOiBunuQqYWmtOUnka74rpdYux1Pd2z1NZAPHDMGD
+ emhZNn8d5bq+3MoFyt3oPBOHD6TG0gg6rAdOSA+N3XecKef8T+Qzgnik=
+X-Gm-Gg: Acq92OEu8EEZKhDIvqrupjF9mqHyo79JT79kOAOjAS1FT76kK2IzjwUmp+4LJxZ4AVA
+ d1ZkVgGenI8aQy+68h+JULuv8U8xyHQbaIzbPQul8xjn+ckcPoHir8JTmweuj95LqZKOUVaZV8i
+ AnXXtwne3Xj4Z24DJAPIxwLCeE82O6T9IoXQe1jLpEEari2hGZLtl6Gl3SbTaUkusEbQ4WdQMGd
+ wCjVO9AnrF8yVklory5Krf3rXW2OKfGFmQskKmZ5Od4ln5v4gFLrERTNIC6B7cSLWSaVI43H9EA
+ nSTnP0dNFld2Xd3jTomnpq6eqp/GUMXM/4f8xb4B+7Rj7s3sOJk1tc4Fri5HQC8An0csq35MxAm
+ UOETqIue6xWt4sYkJvcJ4737uPBW14qXTOyrdpiZKkevo5jDCDQN9i0goyqlrw59U3kNDYE56a/
+ TjVhMO2/XghmjYo8JS60spQGmaBis=
+X-Received: by 2002:a05:600c:4ecc:b0:490:3d62:f5e1 with SMTP id
+ 5b1f17b1804b1-490426cbba2mr328828575e9.22.1779818196804; 
+ Tue, 26 May 2026 10:56:36 -0700 (PDT)
+X-Received: by 2002:a05:600c:4ecc:b0:490:3d62:f5e1 with SMTP id
+ 5b1f17b1804b1-490426cbba2mr328828265e9.22.1779818196276; 
+ Tue, 26 May 2026 10:56:36 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.251.208])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45eb6ccd211sm47162302f8f.10.2026.05.26.10.57.12
+ 5b1f17b1804b1-49049973b71sm100496595e9.29.2026.05.26.10.56.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2026 10:57:13 -0700 (PDT)
+ Tue, 26 May 2026 10:56:35 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
-Cc: qemu-rust@nongnu.org,
-	armbru@redhat.com,
-	marcandre.lureau@redhat.com
-Subject: [PATCH v3 19/19] rust/tests: QAPI integration tests
-Date: Tue, 26 May 2026 19:56:18 +0200
-Message-ID: <20260526175618.227743-20-pbonzini@redhat.com>
+Cc: qemu-rust@nongnu.org, armbru@redhat.com, marcandre.lureau@redhat.com,
+ Zhao Liu <zhao1.liu@intel.com>
+Subject: [PATCH v3 06/19] rust/qobject: add Deserializer (from_qobject)
+ implementation
+Date: Tue, 26 May 2026 19:56:05 +0200
+Message-ID: <20260526175618.227743-7-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260526175618.227743-1-pbonzini@redhat.com>
 References: <20260526175618.227743-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 2nFk3SjWIeqrPC3_cqZjhTq07pcTInY6I2Sz0FVbG6E_1779818235
+X-Mimecast-MFC-PROC-ID: MmZNITtYfGKPwVlK6XIopCaU3TO-rA_kIOYO9a0iLI0_1779818197
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
 X-Spam_score: -2.5
 X-Spam_bar: --
 X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H4=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -113,509 +113,458 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-From: Marc-André Lureau <marcandre.lureau@redhat.com>
+This allows creating any serializable data structure from QObject.
+The purpose of all the code is to typecheck each variant in the
+serde data model and check that it's one of the corresponding
+QObject data types.
 
+Co-authored-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- rust/tests/meson.build          |  21 +-
- rust/tests/tests/integration.rs |   2 +
- rust/tests/tests/qapi.rs        | 444 ++++++++++++++++++++++++++++++++
- 3 files changed, 464 insertions(+), 3 deletions(-)
- create mode 100644 rust/tests/tests/integration.rs
- create mode 100644 rust/tests/tests/qapi.rs
+ docs/devel/rust.rst                   |   1 +
+ rust/util/src/qobject/deserializer.rs | 371 ++++++++++++++++++++++++++
+ rust/util/src/qobject/error.rs        |   8 +-
+ rust/util/src/qobject/mod.rs          |   2 +
+ 4 files changed, 381 insertions(+), 1 deletion(-)
+ create mode 100644 rust/util/src/qobject/deserializer.rs
 
-diff --git a/rust/tests/meson.build b/rust/tests/meson.build
-index 3c5020490b0..d781b52bd78 100644
---- a/rust/tests/meson.build
-+++ b/rust/tests/meson.build
-@@ -1,10 +1,25 @@
-+test_qapi_rs_files = custom_target('QAPI Rust',
-+  output: 'test-qapi-types.rs',
-+  input: [ files(meson.project_source_root() + '/tests/qapi-schema/qapi-schema-test.json') ],
-+  command: [ qapi_gen, '-o', meson.current_build_dir(), '-b', '@INPUT0@', '-B', 'qapi.backend.QAPIRsBackend', '-p', 'test-' ],
-+  depend_files: [ qapi_inputs, qapi_gen_depends ])
-+
-+_test_qapi_rs = static_library(
-+    'test_qapi',
-+    test_qapi_rs_files,
-+    override_options: ['rust_std=2021', 'build.rust_std=2021'],
-+    rust_abi: 'rust',
-+    dependencies: [common_rs, util_rs, serde_rs, serde_derive_rs])
-+
-+test_qapi_rs = declare_dependency(link_with: [_test_qapi_rs])
-+
- test('rust-integration',
-     executable(
-         'rust-integration',
--        files('tests/vmstate_tests.rs'),
--        rust_args: ['--test'],
-+        files('tests/integration.rs'),
-+        rust_args: ['--test'] + _qapi_cfg,
-         install: false,
--        dependencies: [bql_rs, common_rs, util_rs, migration_rs, qom_rs]),
-+        dependencies: [bql_rs, common_rs, util_rs, migration_rs, qom_rs, qapi_rs, test_qapi_rs]),
-     args: [
-         '--test', '--test-threads', '1',
-         '--format', 'pretty',
-diff --git a/rust/tests/tests/integration.rs b/rust/tests/tests/integration.rs
+diff --git a/docs/devel/rust.rst b/docs/devel/rust.rst
+index 67ea84539a2..ebfa6c21883 100644
+--- a/docs/devel/rust.rst
++++ b/docs/devel/rust.rst
+@@ -162,6 +162,7 @@ module                     status
+ ``util::error``            stable
+ ``util::log``              proof of concept
+ ``util::module``           complete
++``util::qobject``          stable
+ ``util::timer``            stable
+ ========================== ======================
+ 
+diff --git a/rust/util/src/qobject/deserializer.rs b/rust/util/src/qobject/deserializer.rs
 new file mode 100644
-index 00000000000..ebc17cb5550
+index 00000000000..b0f8aa23773
 --- /dev/null
-+++ b/rust/tests/tests/integration.rs
-@@ -0,0 +1,2 @@
-+mod qapi;
-+mod vmstate_tests;
-diff --git a/rust/tests/tests/qapi.rs b/rust/tests/tests/qapi.rs
-new file mode 100644
-index 00000000000..f8a585e5802
---- /dev/null
-+++ b/rust/tests/tests/qapi.rs
-@@ -0,0 +1,444 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
++++ b/rust/util/src/qobject/deserializer.rs
+@@ -0,0 +1,371 @@
++//! `QObject` deserializer
++//!
++//! This module implements a [`Deserializer`](serde::de::Deserializer) that
++//! consumes `QObject`s, allowing them to be turned into deserializable data
++//! structures (such as primitive data types, or structs that implement
++//! `Deserialize`).
 +
-+#![allow(unexpected_cfgs)]
-+#![allow(clippy::shadow_unrelated)]
++use std::ffi::CStr;
 +
-+use util::qobject::{from_qobject, to_qobject, QObject};
++use serde::de::{
++    self, value::StrDeserializer, DeserializeSeed, Expected, IntoDeserializer, MapAccess,
++    SeqAccess, Unexpected, Visitor,
++};
 +
-+#[test]
-+fn test_char() {
-+    let json = "\"v\"";
-+    let qo = QObject::from_json(json).unwrap();
-+    let c: char = from_qobject(qo).unwrap();
-+    assert_eq!(c, 'v');
-+    assert_eq!(to_qobject(c).unwrap().to_json(), json);
++use super::{
++    error::{Error, Result},
++    match_qobject, QObject,
++};
++use crate::bindings;
 +
-+    let json = "'va'";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<char>(qo).unwrap_err();
++impl QObject {
++    #[cold]
++    fn invalid_type<E>(&self, exp: &dyn Expected) -> E
++    where
++        E: serde::de::Error,
++    {
++        serde::de::Error::invalid_type(self.unexpected(), exp)
++    }
++
++    #[cold]
++    fn unexpected(&self) -> Unexpected<'_> {
++        match_qobject! { (self) =>
++            () => Unexpected::Unit,
++            bool(b) => Unexpected::Bool(b),
++            i64(n) => Unexpected::Signed(n),
++            u64(n) => Unexpected::Unsigned(n),
++            f64(n) => Unexpected::Float(n),
++            CStr(s) => s.to_str().map_or_else(
++                |_| Unexpected::Other("string with invalid UTF-8"),
++                Unexpected::Str),
++            QList(_) => Unexpected::Seq,
++            QDict(_) => Unexpected::Map,
++        }
++    }
 +}
 +
-+#[test]
-+fn test_enum() {
-+    let json = "\"value1\"";
-+    let qo = QObject::from_json(json).unwrap();
-+    let e: test_qapi::EnumOne = from_qobject(qo).unwrap();
-+    assert_eq!(e, test_qapi::EnumOne::VALUE1);
-+    assert_eq!(to_qobject(e).unwrap().to_json(), json);
++fn visit_qlist_ref<'de, V>(qlist: &'de bindings::QList, visitor: V) -> Result<V::Value>
++where
++    V: Visitor<'de>,
++{
++    struct QListDeserializer(*mut bindings::QListEntry, usize);
++
++    impl<'de> SeqAccess<'de> for QListDeserializer {
++        type Error = Error;
++
++        fn next_element_seed<T>(&mut self, seed: T) -> Result<Option<T::Value>>
++        where
++            T: DeserializeSeed<'de>,
++        {
++            if self.0.is_null() {
++                return Ok(None);
++            }
++
++            let e = unsafe { &*self.0 };
++            // increment the reference count because deserialize consumes `value`.
++            let value = unsafe { QObject::cloned_from_raw(e.value.cast_const()) };
++            let result = seed.deserialize(value);
++            self.0 = unsafe { e.next.tqe_next };
++            self.1 += 1;
++            result.map(Some)
++        }
++    }
++
++    let mut deserializer = QListDeserializer(unsafe { qlist.head.tqh_first }, 0);
++    let seq = visitor.visit_seq(&mut deserializer)?;
++    if deserializer.0.is_null() {
++        Ok(seq)
++    } else {
++        Err(serde::de::Error::invalid_length(
++            deserializer.1,
++            &"fewer elements in array",
++        ))
++    }
 +}
 +
-+#[test]
-+fn test_struct() {
-+    let expected = test_qapi::TestStruct {
-+        integer: -42,
-+        boolean: true,
-+        string: "foo".into(),
++fn visit_qdict_ref<'de, V>(qdict: &'de bindings::QDict, visitor: V) -> Result<V::Value>
++where
++    V: Visitor<'de>,
++{
++    struct QDictDeserializer(*mut bindings::QDict, *const bindings::QDictEntry);
++
++    impl<'de> MapAccess<'de> for QDictDeserializer {
++        type Error = Error;
++
++        fn next_key_seed<T>(&mut self, seed: T) -> Result<Option<T::Value>>
++        where
++            T: DeserializeSeed<'de>,
++        {
++            if self.1.is_null() {
++                return Ok(None);
++            }
++
++            let e = unsafe { &*self.1 };
++            let key = unsafe { CStr::from_ptr(e.key) };
++            let key_de = StrDeserializer::new(key.to_str()?);
++            seed.deserialize(key_de).map(Some)
++        }
++
++        fn next_value_seed<T>(&mut self, seed: T) -> Result<T::Value>
++        where
++            T: DeserializeSeed<'de>,
++        {
++            if self.1.is_null() {
++                panic!("next_key must have returned None");
++            }
++
++            let e = unsafe { &*self.1 };
++            // increment the reference count because deserialize consumes `value`.
++            let value = unsafe { QObject::cloned_from_raw(e.value) };
++            let result = seed.deserialize(value);
++            self.1 = unsafe { bindings::qdict_next(self.0, self.1) };
++            result
++        }
++    }
++
++    let qdict = (qdict as *const bindings::QDict).cast_mut();
++    let e = unsafe { bindings::qdict_first(qdict) };
++    let mut deserializer = QDictDeserializer(qdict, e);
++    let map = visitor.visit_map(&mut deserializer)?;
++    if deserializer.1.is_null() {
++        Ok(map)
++    } else {
++        Err(serde::de::Error::invalid_length(
++            unsafe { bindings::qdict_size(qdict) },
++            &"fewer elements in map",
++        ))
++    }
++}
++
++fn visit_qnum_ref<'de, V>(qnum: QObject, visitor: V) -> Result<V::Value>
++where
++    V: Visitor<'de>,
++{
++    match_qobject! { (qnum) =>
++        i64(n) => visitor.visit_i64(n),
++        u64(n) => visitor.visit_u64(n),
++        f64(n) => visitor.visit_f64(n),
++        _ => Err(qnum.invalid_type(&"number")),
++    }
++}
++
++macro_rules! deserialize_number {
++    ($method:ident) => {
++        fn $method<V>(self, visitor: V) -> Result<V::Value>
++        where
++            V: Visitor<'de>,
++        {
++            visit_qnum_ref(self, visitor)
++        }
 +    };
-+    let json = "{\"integer\": -42, \"boolean\": true, \"string\": \"foo\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let ts: test_qapi::TestStruct = from_qobject(qo).unwrap();
-+    assert_eq!(ts, expected);
-+    assert_eq!(to_qobject(ts).unwrap().to_json(), json);
 +}
 +
-+#[test]
-+fn test_struct_nested() {
-+    let expected = test_qapi::UserDefTwo {
-+        string0: "string0".into(),
-+        dict1: test_qapi::UserDefTwoDict {
-+            string1: "string1".into(),
-+            dict2: test_qapi::UserDefTwoDictDict {
-+                userdef: test_qapi::UserDefOne {
-+                    integer: 42,
-+                    string: "string".into(),
-+                    enum1: None,
-+                },
-+                string: "string2".into(),
-+            },
-+            dict3: None,
-+        },
-+    };
-+    let json = "{\"string0\": \"string0\", \"dict1\": {\"dict2\": {\"string\": \"string2\", \
-+                \"userdef\": {\"integer\": 42, \"string\": \"string\"}}, \"string1\": \
-+                \"string1\"}}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let udt: test_qapi::UserDefTwo = from_qobject(qo).unwrap();
-+    assert_eq!(udt, expected);
-+    assert_eq!(to_qobject(udt).unwrap().to_json(), json);
++impl<'de> serde::Deserializer<'de> for QObject {
++    type Error = Error;
++
++    fn deserialize_any<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            () => visitor.visit_unit(),
++            bool(v) => visitor.visit_bool(v),
++            i64(n) => visitor.visit_i64(n),
++            u64(n) => visitor.visit_u64(n),
++            f64(n) => visitor.visit_f64(n),
++            CStr(cstr) => visitor.visit_str(cstr.to_str()?),
++            QList(qlist) => visit_qlist_ref(qlist, visitor),
++            QDict(qdict) => visit_qdict_ref(qdict, visitor),
++        }
++    }
++
++    deserialize_number!(deserialize_i8);
++    deserialize_number!(deserialize_i16);
++    deserialize_number!(deserialize_i32);
++    deserialize_number!(deserialize_i64);
++    deserialize_number!(deserialize_i128);
++    deserialize_number!(deserialize_u8);
++    deserialize_number!(deserialize_u16);
++    deserialize_number!(deserialize_u32);
++    deserialize_number!(deserialize_u64);
++    deserialize_number!(deserialize_u128);
++    deserialize_number!(deserialize_f32);
++    deserialize_number!(deserialize_f64);
++
++    fn deserialize_option<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            () => visitor.visit_none(),
++            _ => visitor.visit_some(self),
++        }
++    }
++
++    fn deserialize_enum<V>(
++        self,
++        _name: &'static str,
++        _variants: &'static [&'static str],
++        visitor: V,
++    ) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            CStr(cstr) => visitor.visit_enum(cstr.to_str()?.into_deserializer()),
++            _ => Err(self.invalid_type(&"string")),
++        }
++    }
++
++    fn deserialize_newtype_struct<V>(self, _name: &'static str, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        visitor.visit_newtype_struct(self)
++    }
++
++    fn deserialize_bool<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            bool(v) => visitor.visit_bool(v),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_char<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_str(visitor)
++    }
++
++    fn deserialize_str<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            CStr(cstr) => visitor.visit_str(cstr.to_str()?),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_string<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_str(visitor)
++    }
++
++    fn deserialize_bytes<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            CStr(cstr) => visitor.visit_str(cstr.to_str()?),
++            QList(qlist) => visit_qlist_ref(qlist, visitor),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_byte_buf<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_bytes(visitor)
++    }
++
++    fn deserialize_unit<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            () => visitor.visit_unit(),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_unit_struct<V>(self, _name: &'static str, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_unit(visitor)
++    }
++
++    fn deserialize_seq<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            QList(qlist) => visit_qlist_ref(qlist, visitor),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_tuple<V>(self, _len: usize, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_seq(visitor)
++    }
++
++    fn deserialize_tuple_struct<V>(
++        self,
++        _name: &'static str,
++        _len: usize,
++        visitor: V,
++    ) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_seq(visitor)
++    }
++
++    fn deserialize_map<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            QDict(qdict) => visit_qdict_ref(qdict, visitor),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_struct<V>(
++        self,
++        _name: &'static str,
++        _fields: &'static [&'static str],
++        visitor: V,
++    ) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        match_qobject! { (self) =>
++            QList(qlist) => visit_qlist_ref(qlist, visitor),
++            QDict(qdict) => visit_qdict_ref(qdict, visitor),
++            _ => Err(self.invalid_type(&visitor)),
++        }
++    }
++
++    fn deserialize_identifier<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        self.deserialize_str(visitor)
++    }
++
++    fn deserialize_ignored_any<V>(self, visitor: V) -> Result<V::Value>
++    where
++        V: Visitor<'de>,
++    {
++        visitor.visit_unit()
++    }
 +}
 +
-+#[test]
-+fn test_list() {
-+    let expected = [
-+        test_qapi::UserDefOne {
-+            integer: 42,
-+            string: "string0".into(),
-+            enum1: None,
-+        },
-+        test_qapi::UserDefOne {
-+            integer: 43,
-+            string: "string1".into(),
-+            enum1: None,
-+        },
-+        test_qapi::UserDefOne {
-+            integer: 44,
-+            string: "string2".into(),
-+            enum1: None,
-+        },
-+    ];
-+    let json = "[{\"integer\": 42, \"string\": \"string0\"}, {\"integer\": 43, \"string\": \
-+                \"string1\"}, {\"integer\": 44, \"string\": \"string2\"}]";
-+    let qo = QObject::from_json(json).unwrap();
-+    let ud_list: Vec<test_qapi::UserDefOne> = from_qobject(qo).unwrap();
-+    assert_eq!(ud_list, expected);
-+    assert_eq!(to_qobject(ud_list).unwrap().to_json(), json);
++pub fn from_qobject<T>(value: QObject) -> Result<T>
++where
++    T: de::DeserializeOwned,
++{
++    T::deserialize(value)
++}
+diff --git a/rust/util/src/qobject/error.rs b/rust/util/src/qobject/error.rs
+index 5212e65c4f7..2d7c180187a 100644
+--- a/rust/util/src/qobject/error.rs
++++ b/rust/util/src/qobject/error.rs
+@@ -6,7 +6,7 @@
+     str::Utf8Error,
+ };
+ 
+-use serde::ser;
++use serde::{de, ser};
+ 
+ #[derive(Debug)]
+ pub enum Error {
+@@ -23,6 +23,12 @@ fn custom<T: Display>(msg: T) -> Self {
+     }
+ }
+ 
++impl de::Error for Error {
++    fn custom<T: Display>(msg: T) -> Self {
++        Error::Custom(msg.to_string())
++    }
 +}
 +
-+#[test]
-+fn test_flat_union() {
-+    let expected = test_qapi::UserDefFlatUnion {
-+        integer: 41,
-+        string: "str".into(),
-+        u: test_qapi::UserDefFlatUnionVariant::Value1(test_qapi::UserDefA {
-+            boolean: true,
-+            a_b: None,
-+        }),
-+    };
-+    let json = "{\"integer\": 41, \"boolean\": true, \"enum1\": \"value1\", \"string\": \"str\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let ud_fu: test_qapi::UserDefFlatUnion = from_qobject(qo).unwrap();
-+    assert_eq!(ud_fu, expected);
-+    assert_eq!(to_qobject(ud_fu).unwrap().to_json(), json);
-+}
-+
-+#[test]
-+fn test_union_in_union() {
-+    let expected = test_qapi::TestUnionInUnion {
-+        u: test_qapi::TestUnionInUnionVariant::ValueA(test_qapi::TestUnionTypeA {
-+            u: test_qapi::TestUnionTypeAVariant::ValueA1(test_qapi::TestUnionTypeA1 {
-+                integer: 2,
-+                name: "fish".into(),
-+            }),
-+        }),
-+    };
-+    let json =
-+        "{\"name\": \"fish\", \"integer\": 2, \"type-a\": \"value-a1\", \"type\": \"value-a\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uu: test_qapi::TestUnionInUnion = from_qobject(qo).unwrap();
-+    assert_eq!(uu, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::TestUnionInUnion {
-+        u: test_qapi::TestUnionInUnionVariant::ValueA(test_qapi::TestUnionTypeA {
-+            u: test_qapi::TestUnionTypeAVariant::ValueA2(test_qapi::TestUnionTypeA2 {
-+                integer: 1729,
-+                size: 87539319,
-+            }),
-+        }),
-+    };
-+    let json =
-+        "{\"integer\": 1729, \"type-a\": \"value-a2\", \"size\": 87539319, \"type\": \"value-a\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uu: test_qapi::TestUnionInUnion = from_qobject(qo).unwrap();
-+    assert_eq!(uu, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::TestUnionInUnion {
-+        u: test_qapi::TestUnionInUnionVariant::ValueB(test_qapi::TestUnionTypeB {
-+            integer: 1729,
-+            onoff: true,
-+        }),
-+    };
-+    let json = "{\"integer\": 1729, \"onoff\": true, \"type\": \"value-b\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uu: test_qapi::TestUnionInUnion = from_qobject(qo).unwrap();
-+    assert_eq!(uu, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+}
-+
-+#[test]
-+fn test_alternate() {
-+    let expected = test_qapi::UserDefAlternate::I(42);
-+    let json = "42";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::UserDefAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::UserDefAlternate::E(test_qapi::EnumOne::VALUE1);
-+    let json = "\"value1\"";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::UserDefAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::UserDefAlternate::N(());
-+    let json = "null";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::UserDefAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::UserDefAlternate::Udfu(test_qapi::UserDefFlatUnion {
-+        integer: 42,
-+        string: "str".to_string(),
-+        u: test_qapi::UserDefFlatUnionVariant::Value1(test_qapi::UserDefA {
-+            boolean: true,
-+            a_b: None,
-+        }),
-+    });
-+    let json = "{\"integer\": 42, \"boolean\": true, \"enum1\": \"value1\", \"string\": \"str\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::UserDefAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::WrapAlternate {
-+        alt: test_qapi::UserDefAlternate::I(42),
-+    };
-+    let json = "{\"alt\": 42}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::WrapAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::WrapAlternate {
-+        alt: test_qapi::UserDefAlternate::E(test_qapi::EnumOne::VALUE1),
-+    };
-+    let json = "{\"alt\": \"value1\"}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::WrapAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::WrapAlternate {
-+        alt: test_qapi::UserDefAlternate::Udfu(test_qapi::UserDefFlatUnion {
-+            integer: 1,
-+            string: "str".to_string(),
-+            u: test_qapi::UserDefFlatUnionVariant::Value1(test_qapi::UserDefA {
-+                boolean: true,
-+                a_b: None,
-+            }),
-+        }),
-+    };
-+    let json = "{\"alt\": {\"integer\": 1, \"boolean\": true, \"enum1\": \"value1\", \"string\": \
-+                \"str\"}}";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::WrapAlternate = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+}
-+
-+#[test]
-+fn test_alternate_number() {
-+    let expected = test_qapi::AltEnumNum::N(42.0);
-+    let json = "42";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltEnumNum = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::AltNumEnum::N(42.0);
-+    let json = "42";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltNumEnum = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::AltEnumInt::I(42);
-+    let json = "42";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltEnumInt = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::AltListInt::I(42);
-+    let json = "42";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltListInt = from_qobject(qo).unwrap();
-+    assert_eq!(&uda, &expected);
-+    assert_eq!(to_qobject(&expected).unwrap().to_json(), json);
-+
-+    // double
-+    let json = "42.5";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::AltEnumBool>(qo).unwrap_err();
-+
-+    let expected = test_qapi::AltEnumNum::N(42.5);
-+    let json = "42.5";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltEnumNum = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let expected = test_qapi::AltNumEnum::N(42.5);
-+    let json = "42.5";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltNumEnum = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+
-+    let json = "42.5";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::AltEnumInt>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_alternate_list() {
-+    let expected = test_qapi::AltListInt::L(vec![42, 43, 44]);
-+    let json = "[42, 43, 44]";
-+    let qo = QObject::from_json(json).unwrap();
-+    let uda: test_qapi::AltListInt = from_qobject(qo).unwrap();
-+    assert_eq!(uda, expected);
-+    assert_eq!(to_qobject(expected).unwrap().to_json(), json);
-+}
-+
-+#[test]
-+fn test_errors() {
-+    let json = "{ 'integer': false, 'boolean': 'foo', 'string': -42 }";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::TestStruct>(qo).unwrap_err();
-+
-+    let json = "[ '1', '2', false, '3' ]";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<String>>(qo).unwrap_err();
-+
-+    let json = "{ 'str': 'hi' }";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::UserDefTwo>(qo).unwrap_err();
-+
-+    let json = "{}";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::WrapAlternate>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_wrong_type() {
-+    let json = "[]";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::TestStruct>(qo).unwrap_err();
-+
-+    let json = "{}";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<String>>(qo).unwrap_err();
-+
-+    let json = "1";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::TestStruct>(qo).unwrap_err();
-+
-+    let json = "{}";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<i64>(qo).unwrap_err();
-+
-+    let json = "1";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<String>>(qo).unwrap_err();
-+
-+    let json = "[]";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<i64>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_fail_struct() {
-+    let json = "{ 'integer': -42, 'boolean': true, 'string': 'foo', 'extra': 42 }";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::TestStruct>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_fail_struct_nested() {
-+    let json = "{ 'string0': 'string0', 'dict1': { 'string1': 'string1', 'dict2': { 'userdef1': { \
-+                'integer': 42, 'string': 'string', 'extra': [42, 23, {'foo':'bar'}] }, 'string2': \
-+                'string2'}}}";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<test_qapi::UserDefTwo>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_fail_struct_in_list() {
-+    let json = "[ { 'string': 'string0', 'integer': 42 }, { 'string': 'string1', 'integer': 43 }, \
-+                { 'string': 'string2', 'integer': 44, 'extra': 'ggg' } ]";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<test_qapi::UserDefOne>>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_fail_union_flat() {
-+    let json = "{ 'enum1': 'value2', 'string': 'c', 'integer': 41, 'boolean': true }";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<test_qapi::UserDefFlatUnion>>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_fail_union_flat_no_discrim() {
-+    // test situation where discriminator field ('enum1' here) is missing
-+    let json = "{ 'integer': 42, 'string': 'c', 'string1': 'd', 'string2': 'e' }";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<test_qapi::UserDefFlatUnion2>>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_fail_alternate() {
-+    let json = "3.14";
-+    let qo = QObject::from_json(json).unwrap();
-+    from_qobject::<Vec<test_qapi::UserDefAlternate>>(qo).unwrap_err();
-+}
-+
-+#[test]
-+fn test_qapi() {
-+    let expected = qapi::InetSocketAddress {
-+        host: "host-val".to_string(),
-+        port: "port-val".to_string(),
-+        numeric: None,
-+        to: None,
-+        ipv4: None,
-+        ipv6: None,
-+        keep_alive: None,
-+        #[cfg(HAVE_TCP_KEEPCNT)]
-+        keep_alive_count: None,
-+        #[cfg(HAVE_TCP_KEEPIDLE)]
-+        keep_alive_idle: Some(42),
-+        #[cfg(HAVE_TCP_KEEPINTVL)]
-+        keep_alive_interval: None,
-+        #[cfg(HAVE_IPPROTO_MPTCP)]
-+        mptcp: None,
-+    };
-+
-+    let qsa = to_qobject(&expected).unwrap();
-+    let json = qsa.to_json();
-+    assert_eq!(
-+        json,
-+        "{\"port\": \"port-val\", \"keep_alive_idle\": 42, \"host\": \"host-val\"}"
-+    );
-+    let sa: qapi::InetSocketAddress = from_qobject(qsa).unwrap();
-+    assert_eq!(sa, expected);
-+
-+    let expected = qapi::SocketAddressVariant::Inet(expected);
-+    let qsav = to_qobject(&expected).unwrap();
-+    let json = qsav.to_json();
-+    assert_eq!(
-+        json,
-+        "{\"port\": \"port-val\", \"keep_alive_idle\": 42, \"host\": \"host-val\", \"type\": \
-+         \"inet\"}"
-+    );
-+    let sav: qapi::SocketAddressVariant = from_qobject(qsav).unwrap();
-+    assert_eq!(sav, expected);
-+
-+    let expected = qapi::Qcow2BitmapInfo {
-+        name: "name-val".to_string(),
-+        granularity: 4096,
-+        flags: vec![
-+            qapi::Qcow2BitmapInfoFlags::IN_USE,
-+            qapi::Qcow2BitmapInfoFlags::AUTO,
-+        ],
-+    };
-+    let qbi = to_qobject(&expected).unwrap();
-+    let json = qbi.to_json();
-+    assert_eq!(
-+        json,
-+        "{\"flags\": [\"in-use\", \"auto\"], \"name\": \"name-val\", \"granularity\": 4096}"
-+    );
-+    let bi: qapi::Qcow2BitmapInfo = from_qobject(qbi).unwrap();
-+    assert_eq!(bi, expected);
-+}
+ impl From<NulError> for Error {
+     fn from(_: NulError) -> Self {
+         Error::NulEncountered
+diff --git a/rust/util/src/qobject/mod.rs b/rust/util/src/qobject/mod.rs
+index 6920b9d2777..76b167104d1 100644
+--- a/rust/util/src/qobject/mod.rs
++++ b/rust/util/src/qobject/mod.rs
+@@ -7,6 +7,7 @@
+ #![deny(clippy::unwrap_used)]
+ 
+ mod deserialize;
++mod deserializer;
+ mod error;
+ mod serialize;
+ mod serializer;
+@@ -20,6 +21,7 @@
+ };
+ 
+ use common::assert_field_type;
++pub use deserializer::from_qobject;
+ pub use error::{Error, Result};
+ pub use serializer::to_qobject;
+ 
 -- 
 2.54.0
 
