@@ -4,89 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47468CD5BD5
-	for <qemu-rust@archiver.kernel.org>; Tue, 26 May 2026 17:59:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35022CD6E43
+	for <qemu-rust@archiver.kernel.org>; Tue, 26 May 2026 17:59:21 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wRw1Y-00028q-Ci; Tue, 26 May 2026 13:57:04 -0400
+	id 1wRw1U-00027c-5f; Tue, 26 May 2026 13:57:00 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1wRw1X-00028U-PT
- for qemu-rust@nongnu.org; Tue, 26 May 2026 13:57:03 -0400
+ id 1wRw1S-00026U-NS
+ for qemu-rust@nongnu.org; Tue, 26 May 2026 13:56:58 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1wRw1W-00082w-6i
- for qemu-rust@nongnu.org; Tue, 26 May 2026 13:57:03 -0400
+ id 1wRw1R-0007zz-1v
+ for qemu-rust@nongnu.org; Tue, 26 May 2026 13:56:58 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779818221;
+ s=mimecast20190719; t=1779818216;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=rwl60sYUdvU2FK56rokuqANsEss1jT96qzp7KeUwX2U=;
- b=Jrs6uXXLsd/KVHJBHCIGfasdR/g3Z3LlJ/vBFfjdgav87GCS2FMA2c57zhE9UnpU+n9d7p
- vZY1AratkMc5xK8VjOTuoToi2dCj3Szai6xSYpeLViva74u1owXm1PPYW/tO5W8CBQ7sTg
- GT/kpTbPcSatzK+A/dUECasISNq0h/o=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=x3lLT2zM00XZeVcrpc+cb0TqWQYGfu4gptrjRd0nz6o=;
+ b=axJqW6mlDKqQ+z4gNnPbel/1bzCAxncS72tjTYFUpRdViN9p6YQGyJ4NF/lzR5f8QHtzRn
+ 2ZPuXiCk6xJkDKxFfqEb90z7fs30cOnlNxtZxbae961ITRo+IEf3/c+qLpjVz6+N9PqjaH
+ Vo3HEdB7Ik2dRBKx/GrKC3GDeUOTbhQ=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-336-FF9aphLkP6i7PrtM2Obohg-1; Tue, 26 May 2026 13:56:59 -0400
-X-MC-Unique: FF9aphLkP6i7PrtM2Obohg-1
-X-Mimecast-MFC-AGG-ID: FF9aphLkP6i7PrtM2Obohg_1779818219
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-49048bcbeb8so49712605e9.2
- for <qemu-rust@nongnu.org>; Tue, 26 May 2026 10:56:59 -0700 (PDT)
+ us-mta-634-GP6Gx464PPSMP-7_NB9ebw-1; Tue, 26 May 2026 13:56:54 -0400
+X-MC-Unique: GP6Gx464PPSMP-7_NB9ebw-1
+X-Mimecast-MFC-AGG-ID: GP6Gx464PPSMP-7_NB9ebw_1779818213
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-48e89faa62eso64044295e9.1
+ for <qemu-rust@nongnu.org>; Tue, 26 May 2026 10:56:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779818218; x=1780423018;
+ d=1e100.net; s=20251104; t=1779818213; x=1780423013;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=rwl60sYUdvU2FK56rokuqANsEss1jT96qzp7KeUwX2U=;
- b=TjMYlvg+dwBBZcBjInHX51UB2riHNarqm33o3FfQjeJfNudzQkukk2gg1ix3NwbKSh
- bsZRbWEVP+ITsKR+l8VkagZbMlzzmR4OxMpxULB1+e8YfE+1/yeFNTZE30oRy+8or4qd
- mhrft0Y0nXjGljj5M6GYGfbJiqNXOauUZr61yVvZPI2HT/yOMCR99HwzuyKYYHDUj7DB
- taD7MYWcOPdweLUvjdiMwpE6EwVXeGJIE/U2hKk3wcKn1aymRHGy8xSLWwraQleYmxYa
- Hk9RJgg3hCJDLqoMxd21MfeCad9bZew39b/ejc+iBs4PSjtnWPMpS9Cn9zFME9ZSI8mn
- n9TQ==
-X-Gm-Message-State: AOJu0YzYIcYj6x7HOzoyag77Eg/X+n/N7Ps59urRCIZEFNKbXfXPeH9d
- I9ilhpsOPzFU+WVTBFKNEaQoxDDTGoz4hx9wbcmtXFfdZcICQ7oqSeGuf1fPccojUEJ4xdrW1YF
- xI+8fTpKQns8Il5jdtGVueBtl/wGDI5sl5CcTHQAb7b3r5p01wj6xTkw=
-X-Gm-Gg: Acq92OHNwDyDK+m1bDBKIsBWDRq1nqCmJbmTaGX0U1MMEHCCgB0ksvjm9yuRs3yXJdF
- eIU+aKlAlN8ueSPd7wFSS8rj1j+BT4n9/TD/0yZpYN2cDjXxntCvO1bDZvQJwiEUFYO4KNr8GxI
- AGzE3KpdVHSnRRcLbG/SQx7r3+3H2ewnX8dl04UcegHp22EezLTnATDUpb4egpDdbaPAbprB9uk
- uUmS2wtzrCW1FzA8nKNKoWOpGk3blqSf6fdk1TgcMGAg5/Hs06OTNGuSAEOgraywKUTqczrj3Rz
- FTwygz22AAQJLZnKZ0Xl1zh9UIqYP3+39DI6yckwMPhkgnclRFKvi4+ULU02buzC93a12qckKDW
- pboGDedcRJNejGgbRHbUP5O+Al7y+mJbO7bqiwtIyKr5EuFjZM7wgzU1XerHaqbRy7kv3eQh6Fh
- PEihAy/fsOn78/8ZWzjmtf22mbc1E=
-X-Received: by 2002:a05:600c:818e:b0:490:58f4:ba23 with SMTP id
- 5b1f17b1804b1-4905c60ef29mr193631715e9.30.1779818218677; 
- Tue, 26 May 2026 10:56:58 -0700 (PDT)
-X-Received: by 2002:a05:600c:818e:b0:490:58f4:ba23 with SMTP id
- 5b1f17b1804b1-4905c60ef29mr193631435e9.30.1779818218325; 
- Tue, 26 May 2026 10:56:58 -0700 (PDT)
+ bh=x3lLT2zM00XZeVcrpc+cb0TqWQYGfu4gptrjRd0nz6o=;
+ b=EbJF6GCnmGDshLV/1/al4Jmwc9GhX06PgmJcWsjWykUXfxp6Xg0AxuOMp3uC8AJ03R
+ VCCBSlQ+lUFYNEBVV8xFgZRXjvBypKgeLoZtRZVFKy51GZlUY5BRzkS4Dr97W9nR19fE
+ i3bwrcS4NIz1ieYmcTkZmJ18ob52KkquY7qpC0/kt+im6mpN3PajE+UgVRXFGjiLPdzL
+ tpfT4XlBoVUVIosNxuWM0B/a2q7Ayspq8MO0I0OfrBq3D3FgraoTBQ0Vg7153LVIPYOq
+ vTFyp2cc6q7jT9Cg6PIhqdgivMDt6o4qq0DWqnDqm1d3cl1syajtIwoaWvWgOy5DUe0b
+ 5AOQ==
+X-Gm-Message-State: AOJu0YyU7fKFiebjufOvIf2e2UCRhek1QXhKGvDEiDPWu8ZcWA7YHLEs
+ zjo4PEbt5zeLtCgTLDxw5V1eCoxJWG4RBr/Lh2+Af/wM6/qWpP2seLjr9PvRD4FaBlhKx456Vga
+ Wp5l2AbzcC0yu0ajOBibV1LREiJ/W0YZgN4FZ4hd7kwoYS06PsYyAt94=
+X-Gm-Gg: Acq92OEKjAWcGT8UetOGqEFL1GSK43dcY6r9R569ggTe+tcWBh2tOsPz7SpXbYdmQ5H
+ z8gIuvvHZ1vi4J4/kQM3xx9Yq0VOndIi0vCx0sb3i7wF7mrEj8bs6HuEvSTYlWLJSn7LocLcwag
+ Q+i9zVvjJKmJfy2tmmvp+MOXdjYJJZePWmhCBGCl/FifKjhJG5gk1uX+xNhxe3pVCMkyrcOTmUE
+ P8HFpuQWvXeIpyxx7V6S9ImVE7JWo55Zm33dzmUMlihO52JKOXqBeShs9QoqDmaFiYzCIZW5/Wi
+ br0JFpVYN/KhldGuD3fg6ZbM+ZdPaQvoulPKMSVeDpLNBQObthvovIPgVFPukeHl6hzX3Q0K5hI
+ P+EnC4I8D8Ckt5TukhcTd0lKIQk2gG3ScXsDmgEvswJirHmSWwmIFUyZtwFH42U6wq7HjV/izCi
+ 2Hmk9M3VOPynHLNW/lIfOwD6RbJDE=
+X-Received: by 2002:a05:600c:8484:b0:490:3b87:be0e with SMTP id
+ 5b1f17b1804b1-490428e3362mr339037725e9.29.1779818213244; 
+ Tue, 26 May 2026 10:56:53 -0700 (PDT)
+X-Received: by 2002:a05:600c:8484:b0:490:3b87:be0e with SMTP id
+ 5b1f17b1804b1-490428e3362mr339037425e9.29.1779818212907; 
+ Tue, 26 May 2026 10:56:52 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.251.208])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490452765f5sm354517775e9.5.2026.05.26.10.56.53
+ 5b1f17b1804b1-490454a0b9asm336811565e9.11.2026.05.26.10.56.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2026 10:56:53 -0700 (PDT)
+ Tue, 26 May 2026 10:56:52 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org,
 	armbru@redhat.com,
 	marcandre.lureau@redhat.com
-Subject: [PATCH v3 13/19] scripts/qapi: pull c_name and lstrip from
- camel_to_upper to caller
-Date: Tue, 26 May 2026 19:56:12 +0200
-Message-ID: <20260526175618.227743-14-pbonzini@redhat.com>
+Subject: [PATCH v3 12/19] scripts/qapi: add QAPISchemaType.is_predefined
+Date: Tue, 26 May 2026 19:56:11 +0200
+Message-ID: <20260526175618.227743-13-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260526175618.227743-1-pbonzini@redhat.com>
 References: <20260526175618.227743-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: SauVTT-2fiDO6k_e7Ly_ynsdmCJYTp9Y5OBDTZpKbng_1779818219
+X-Mimecast-MFC-PROC-ID: EaTYHnFWdFlDLY1vS5agdggbLqd2QaHLkbxS0D4QOVA_1779818213
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -114,46 +113,39 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Allow using camel_to_upper for other languages too.
-
-In particular, the lstrip() is needed to avoid reserved C identifiers,
-for example:
-
-    typedef enum __org_qemu_x_Enum {
-        __ORG_QEMU_X_ENUM___ORG_QEMU_X_VALUE,
-        __ORG_QEMU_X_ENUM__MAX,
-    } __org_qemu_x_Enum;
-
-Insulate Rust from this, since underscores have a different meaning
-in Rust (though only for the sake of warnings).
+It is impossible to call is_implicit on an enum type from the visitor, because
+the QAPISchemaEnumType has already been exploded into its constituent fields.
+The Rust backend is also not modular (yet?) so it is not possible to filter
+out the builtin module; add a way to query for implicit type names without
+having the object itself.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- scripts/qapi/common.py | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ scripts/qapi/schema.py | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/scripts/qapi/common.py b/scripts/qapi/common.py
-index 14d5dd259c4..c75396a01b5 100644
---- a/scripts/qapi/common.py
-+++ b/scripts/qapi/common.py
-@@ -61,7 +61,7 @@ def camel_to_upper(value: str) -> str:
-         ret += ch
-         upc = ch.isupper()
+diff --git a/scripts/qapi/schema.py b/scripts/qapi/schema.py
+index 7bb9fb712cf..3459b8038e5 100644
+--- a/scripts/qapi/schema.py
++++ b/scripts/qapi/schema.py
+@@ -1255,6 +1255,17 @@ def _def_builtin_type(
+         # schema.
+         self._make_array_type(name, None)
  
--    return c_name(ret.upper()).lstrip('_')
-+    return ret.upper()
- 
- 
- def c_enum_const(type_name: str,
-@@ -75,7 +75,7 @@ def c_enum_const(type_name: str,
-     :param prefix: Optional, prefix that overrides the type_name.
-     """
-     if prefix is None:
--        prefix = camel_to_upper(type_name)
-+        prefix = c_name(camel_to_upper(type_name)).lstrip('_')
-     return prefix + '_' + c_name(const_name, False).upper()
- 
- 
++    def is_predefined(self, name: str) -> bool:
++        # See QAPISchema._def_predefineds()
++        entity = self._entity_dict[name]
++        if isinstance(entity, QAPISchemaBuiltinType):
++            return True
++        if entity is self.the_empty_object_type:
++            return True
++        if name == 'QType':
++            return True
++        return False
++
+     def _def_predefineds(self) -> None:
+         for t in [('str',    'string',  'char' + POINTER_SUFFIX),
+                   ('number', 'number',  'double'),
 -- 
 2.54.0
 
