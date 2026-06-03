@@ -4,68 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E08F8CD5BD1
-	for <qemu-rust@archiver.kernel.org>; Mon,  1 Jun 2026 14:19:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E78DCD6E4A
+	for <qemu-rust@archiver.kernel.org>; Wed,  3 Jun 2026 06:41:27 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wU3UQ-0003ty-Jk; Mon, 01 Jun 2026 10:19:39 -0400
+	id 1wUfHv-000416-T9; Wed, 03 Jun 2026 02:41:16 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1wU3UN-0003tc-HJ; Mon, 01 Jun 2026 10:19:37 -0400
-Received: from mgamail.intel.com ([198.175.65.13])
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1wUfHa-0003RU-AU
+ for qemu-rust@nongnu.org; Wed, 03 Jun 2026 02:40:58 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1wU3UI-0002Lb-Or; Mon, 01 Jun 2026 10:19:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780323570; x=1811859570;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=m4uBVnhmdsMiDwZDG3EPdF56hHk5VGvqGLyfdqMsYk0=;
- b=i1r/rIv188ZVz8EjzOYKjneZ9NAvr+0qiBBIjRF0qr/jnQq3j4hf8lyk
- LrdG1DgdOw52yexBe6nkH1lipHqSh6Gf/qLIf8nctDF9OZ65hzSvvOp+0
- eagwCd5iqnh7/HGfo2jx6ylTm18iysv6t9yHu30DQava1QYaTh2Wcmo5M
- 2rRxtPPboPxshLWmrVBAxP4RDiSyhEw+9S7yPBGZX/5/vywgykP1DZKJ0
- vJz3OhmOAA7SjGVdyGVCvnY8CHunZv/qnEIKsd+Fipno8c4ecl6kuTFrE
- supmWGLRdz63fyC7zMeYhnTY4FbM0G4beATVhUQUxNUWbaP11VBpfdMo4 w==;
-X-CSE-ConnectionGUID: yrgjoLSXQTeVVMKEOnGDnQ==
-X-CSE-MsgGUID: U4A3pOa5QRW9AeOCNwA9iw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="92194513"
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="92194513"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2026 07:19:25 -0700
-X-CSE-ConnectionGUID: GIz5AegcTOOMQdAWP/FhFA==
-X-CSE-MsgGUID: iisY+Ol5Qe2Hnrmy2u7NRg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="245407463"
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by fmviesa004.fm.intel.com with ESMTP; 01 Jun 2026 07:19:24 -0700
-Date: Mon, 1 Jun 2026 22:47:15 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, armbru@redhat.com,
- marcandre.lureau@redhat.com, zhao1.liu@intel.com
-Subject: Re: [PATCH v3 02/19] subprojects: add serde
-Message-ID: <ah2bc8Ee9FGcRCZn@intel.com>
-References: <20260526175618.227743-1-pbonzini@redhat.com>
- <20260526175618.227743-3-pbonzini@redhat.com>
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1wUfHU-0000qm-1H
+ for qemu-rust@nongnu.org; Wed, 03 Jun 2026 02:40:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1780468846;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8TFPyIxFyQt17aker64szLEViVP2c8QTG6cJlyXNFmU=;
+ b=J0RWYMAyux79ndxoKCxM4JKm+SSlaO0mIZEKXe2eNjrxdYFKFxPCF9IQeHKqSLISV/uBrC
+ Gc+MyTOqwrOZ4cRn2KBETwGk/IKOC/4Zc8qc/E6N9ImFlNHZUBwdrqB6/RH7zvsoKEKlz+
+ p9G7DD7oLg/zaZ8g3H6LjbpvEBHl8Kc=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-68-0WW9TJrNM2aeu2RKvNXx3w-1; Wed,
+ 03 Jun 2026 02:40:45 -0400
+X-MC-Unique: 0WW9TJrNM2aeu2RKvNXx3w-1
+X-Mimecast-MFC-AGG-ID: 0WW9TJrNM2aeu2RKvNXx3w_1780468844
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 3735F195608C; Wed,  3 Jun 2026 06:40:44 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.44.22.2])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id E5CC63000203; Wed,  3 Jun 2026 06:40:43 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id CE48221E64AD; Wed, 03 Jun 2026 08:40:32 +0200 (CEST)
+From: Markus Armbruster <armbru@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: philmd@mailo.com, pierrick.bouvier@oss.qualcomm.com,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org
+Subject: [PATCH v2 38/38] MAINTAINERS: Fix F: in "Rust build system
+ integration"
+Date: Wed,  3 Jun 2026 08:40:32 +0200
+Message-ID: <20260603064032.3733394-39-armbru@redhat.com>
+In-Reply-To: <20260603064032.3733394-1-armbru@redhat.com>
+References: <20260603064032.3733394-1-armbru@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260526175618.227743-3-pbonzini@redhat.com>
-Received-SPF: pass client-ip=198.175.65.13; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -47
-X-Spam_score: -4.8
-X-Spam_bar: ----
-X-Spam_report: (-4.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Mimecast-MFC-PROC-ID: JQ3D-26dyLZ8LWyKlEx6Wd66imfTgXiw9XBfVasY9H0_1780468844
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=armbru@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: 8
+X-Spam_score: 0.8
+X-Spam_bar: /
+X-Spam_report: (0.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, SPF_HELO_NONE=0.001,
- SPF_NONE=0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_SBL_CSS=3.335, SPF_HELO_PASS=-0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -81,31 +88,32 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
->  anyhow_rs = dependency('anyhow-1-rs')
->  bilge_rs = dependency('bilge-0.2-rs')
-> @@ -19,6 +21,8 @@ foreign_rs = dependency('foreign-0.3-rs')
->  glib_sys_rs = dependency('glib-sys-0.21-rs')
->  libc_rs = dependency('libc-0.2-rs')
->  probe_rs = dependency('probe-0.5-rs')
-> +serde_rs = dependency('serde-1-rs')
-> +serde_derive_rs = dependency('serde_derive-1-rs', native: true)
-                                                     ^^^^^^^^^^^^
-Here we register dependency on build system...
+We neglected to update MAINTAINERS when we moved rust/wrapper.h, and
+again when we split it up.  Update it now.
 
-> +serde_derive_dep = declare_dependency(
-> +  link_with: _serde_derive_rs,
-> +)
-> +
-> +meson.override_dependency('serde_derive-1-rs', serde_derive_dep)
+Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Cc: qemu-rust@nongnu.org
+Fixes: 1ae4ca0463 (rust: move rust.bindgen to qemu-api crate, 2025-06-13)
+Signed-off-by: Markus Armbruster <armbru@redhat.com>
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-... but here it seems we register serde_derive-1-rs to host system, so
-this may trigger error for cross-compilation.
-
-IIUC, we should have:
-
-meson.override_dependency('serde_derive-1-rs', serde_derive_dep, native: true)
-
-Regards,
-Zhao
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 2743faa1ea..a94096428f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4611,7 +4611,7 @@ F: scripts/rust/
+ F: rust/.gitignore
+ F: rust/Kconfig
+ F: rust/meson.build
+-F: rust/wrapper.h
++F: rust/bindings/*/wrapper.h
+ 
+ Miscellaneous
+ -------------
+-- 
+2.54.0
 
 
