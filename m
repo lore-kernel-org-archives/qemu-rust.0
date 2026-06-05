@@ -4,114 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B041FCD6E7D
-	for <qemu-rust@archiver.kernel.org>; Fri,  5 Jun 2026 13:25:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A49DCD6E79
+	for <qemu-rust@archiver.kernel.org>; Fri,  5 Jun 2026 13:28:29 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wVUYT-00075h-R2; Fri, 05 Jun 2026 09:25:46 -0400
+	id 1wVUb4-0008Ak-Bt; Fri, 05 Jun 2026 09:28:26 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <david@kernel.org>)
- id 1wVSXv-0001OQ-Up; Fri, 05 Jun 2026 07:17:08 -0400
-Received: from tor.source.kernel.org ([172.105.4.254])
+ (Exim 4.90_1) (envelope-from <dg@treblig.org>)
+ id 1wVUaz-00088y-MH; Fri, 05 Jun 2026 09:28:21 -0400
+Received: from mx.treblig.org ([2a00:1098:5b::1])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <david@kernel.org>)
- id 1wVSXu-0001S0-6v; Fri, 05 Jun 2026 07:17:03 -0400
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5B23A601DD;
- Fri,  5 Jun 2026 11:17:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AAA71F0089A;
- Fri,  5 Jun 2026 11:16:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780658220;
- bh=v+Y3Yj6bbgt0s0hPsfH89bzu08XBtigSYiFF6IT5TNs=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Eoy4V9OBKmzfumOqPtdBbUml8gbaeIb4xH/DKR4vtnv3DS3bKFHtwIj3dbIKPGxIq
- 7HEcS2218/NIbTnFhWyqqwJa0AEpiiLIIDLJUPl1kRsARqvqDBF1kKs0wZwlEyiGym
- AE/3i0xEsP0T4WZHMioAf/3l2mESb4fdo59Z82dYlr44D9V8+w5Qs9B5VZw93TYIYB
- YY5BE8gIQ+CJu6fxzR8SXgLctNW4fFd21PrXXqg1LQ3C33qq4nLMBW5wBXgrd2yzt/
- UIpnEugwz/6sBe2x++y5UPJ0lUizn91TlSmU7kcd5YQOfWFXSC74Eom3PkXHGsfXa4
- NoFhHIVDdI4yQ==
-Message-ID: <00427d28-3d84-4921-a4e1-145163a24b06@kernel.org>
-Date: Fri, 5 Jun 2026 13:16:52 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 03/12] system/memory: constify section arguments
-To: =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
- qemu-devel@nongnu.org
-Cc: Zhenzhong Duan <zhenzhong.duan@intel.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Peter Xu <peterx@redhat.com>, =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?=
- <philmd@mailo.com>, qemu-rust@nongnu.org, Alex Williamson
- <alex@shazbot.org>, =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>,
+ (Exim 4.90_1) (envelope-from <dg@treblig.org>)
+ id 1wVUax-0003FG-JA; Fri, 05 Jun 2026 09:28:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+ :Subject; bh=yld494QWOsUHEiHXxwJqnUvG/nKQkrdisZtXex83j+g=; b=gscinGheDUiVVSDV
+ SPywv7RayzH5tj70NydC6I4MmOTodUA3Yqz/EacZHuo4Xv/qQooNfo/hS5226Z817bLJZtZsPnMQb
+ zcqIL9Jn0TlOeoBpaOg9JyM5a3bSLAN1tU5Al/v4Dv9n9tuVDapj775MbcBo8V1bIfa+dA/VJVG9a
+ bGd/ljh252GYtgzUCg6Squ6Nkz69P9LJvZO3C+IkiXpkUq/I4rYr9fiG9cJTWB120KK5PdKpw318F
+ 9AxPiUkisj9Vqts7OUHKDyESTDBVsxRMF5ocIxjbLHrFbqYVqmwuWLZXvm+JXYbThX650jMizjY0i
+ WLtXfEtUJFumiRNIxA==;
+Received: from dg by mx.treblig.org with local (Exim 4.98.2)
+ (envelope-from <dg@treblig.org>) id 1wVUar-00000005SjV-0UQq;
+ Fri, 05 Jun 2026 13:28:13 +0000
+Date: Fri, 5 Jun 2026 13:28:13 +0000
+From: "Dr. David Alan Gilbert" <dave@treblig.org>
+To: =?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>
+Cc: qemu-devel@nongnu.org, Zhenzhong Duan <zhenzhong.duan@intel.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ David Hildenbrand <david@kernel.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
+ Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@mailo.com>,
+ qemu-rust@nongnu.org, Alex Williamson <alex@shazbot.org>,
+ =?iso-8859-1?Q?C=E9dric?= Le Goater <clg@redhat.com>,
  "Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
  Fabiano Rosas <farosas@suse.de>, Mark Kanda <mark.kanda@oracle.com>,
- Ben Chaney <bchaney@akamai.com>, Marcelo Tosatti <mtosatti@redhat.com>,
- kvm@vger.kernel.org, "Dr. David Alan Gilbert" <dave@treblig.org>,
+ Ben Chaney <bchaney@akamai.com>,
+ Marcelo Tosatti <mtosatti@redhat.com>, kvm@vger.kernel.org,
  Zhao Liu <zhao1.liu@intel.com>, Eric Blake <eblake@redhat.com>,
  Markus Armbruster <armbru@redhat.com>
+Subject: Re: [PATCH v5 12/12] RFC: monitor: add 'info ramblock-attributes'
+ command
+Message-ID: <aiLO7ZQvowWHwK63@gallifrey>
 References: <20260604-rdm5-v5-0-5768e6a0943d@redhat.com>
- <20260604-rdm5-v5-3-5768e6a0943d@redhat.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260604-rdm5-v5-3-5768e6a0943d@redhat.com>
-Content-Type: text/plain; charset=UTF-8
+ <20260604-rdm5-v5-12-5768e6a0943d@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=david@kernel.org;
- helo=tor.source.kernel.org
-X-Spam_score_int: -24
-X-Spam_score: -2.5
+In-Reply-To: <20260604-rdm5-v5-12-5768e6a0943d@redhat.com>
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.12.88+deb13-amd64 (x86_64)
+X-Uptime: 13:27:04 up 20 days, 16:39,  2 users,  load average: 0.06, 0.04, 0.00
+User-Agent: Mutt/2.2.13 (2024-03-09)
+Received-SPF: pass client-ip=2a00:1098:5b::1; envelope-from=dg@treblig.org;
+ helo=mx.treblig.org
+X-Spam_score_int: -20
+X-Spam_score: -2.1
 X-Spam_bar: --
-X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Fri, 05 Jun 2026 09:25:42 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,18 +83,187 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 6/4/26 15:43, Marc-AndrÃ© Lureau wrote:
-> The sections shouldn't be modified.
+* Marc-André Lureau (marcandre.lureau@redhat.com) wrote:
+> Add a new 'info ramblock-attributes' HMP command and the corresponding
+> 'x-query-ramblock-attributes' QMP command to display the shared/private
+> memory attributes for ram blocks.
 > 
-> Reviewed-by: Peter Xu <peterx@redhat.com>
-> Reviewed-by: CÃ©dric Le Goater <clg@redhat.com>
-> Signed-off-by: Marc-AndrÃ© Lureau <marcandre.lureau@redhat.com>
+> The QMP command returns structured data (RamBlockAttributesInfo list
+> with per-range shared/populated attributes), while HMP formats it for
+> human consumption.
+> 
+> This is useful for debugging confidential guests (TDX, SNP) to inspect
+> which memory regions are shared vs private, and their population state
+> when a RamDiscardManager is present (e.g. virtio-mem).
+> 
+> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 > ---
+>  qapi/machine.json             | 56 ++++++++++++++++++++++++++++++++++
+>  include/monitor/hmp.h         |  1 +
+>  hw/core/machine-hmp-cmds.c    | 32 +++++++++++++++++++
+>  system/ram-block-attributes.c | 71 +++++++++++++++++++++++++++++++++++++++++++
+>  hmp-commands-info.hx          | 13 ++++++++
+>  5 files changed, 173 insertions(+)
+> 
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+<snip>
 
+For HMP,
+
+Acked-by: Dr. David Alan Gilbert <dave@treblig.org>
+
+however, you might consider whether it would be better to add it
+to the existing "info ramblock"
+
+Dave
+
+> +void hmp_info_ramblock_attributes(Monitor *mon, const QDict *qdict)
+> +{
+> +    Error *err = NULL;
+> +    g_autoptr(RamBlockAttributesInfoList) list = NULL;
+> +    RamBlockAttributesInfoList *it;
+> +
+> +    list = qmp_x_query_ramblock_attributes(&err);
+> +    if (hmp_handle_error(mon, err)) {
+> +        return;
+> +    }
+> +
+> +    for (it = list; it; it = it->next) {
+> +        RamBlockAttributesInfo *rba = it->value;
+> +        RamBlockAttributeRangeList *r;
+> +
+> +        monitor_printf(mon, "%s:\n", rba->name);
+> +        for (r = rba->ranges; r; r = r->next) {
+> +            RamBlockAttributeRange *range = r->value;
+> +            const char *shared = range->shared ? "shared" : "private";
+> +            const char *pop = range->has_populated ?
+> +                (range->populated ? "+populated" : "-populated") : "";
+> +
+> +            monitor_printf(mon,
+> +                           "  0x%016" PRIx64 "-0x%016" PRIx64 " %s%s\n",
+> +                           range->start,
+> +                           range->start + range->length - 1,
+> +                           shared, pop);
+> +        }
+> +    }
+> +}
+> diff --git a/system/ram-block-attributes.c b/system/ram-block-attributes.c
+> index 59ec7a28eb0..fb657ffca35 100644
+> --- a/system/ram-block-attributes.c
+> +++ b/system/ram-block-attributes.c
+> @@ -11,6 +11,7 @@
+>  
+>  #include "qemu/osdep.h"
+>  #include "qemu/error-report.h"
+> +#include "qapi/qapi-commands-machine.h"
+>  #include "system/ramblock.h"
+>  #include "trace.h"
+>  
+> @@ -221,3 +222,73 @@ static void ram_block_attributes_class_init(ObjectClass *klass,
+>      rdsc->get_min_granularity = ram_block_attributes_rds_get_min_granularity;
+>      rdsc->is_populated = ram_block_attributes_rds_is_populated;
+>  }
+> +
+> +RamBlockAttributesInfoList *qmp_x_query_ramblock_attributes(Error **errp)
+> +{
+> +    RamBlockAttributesInfoList *head = NULL, **tail = &head;
+> +    RAMBlock *block;
+> +    size_t rba_block_size = ram_block_attributes_get_block_size();
+> +
+> +    RCU_READ_LOCK_GUARD();
+> +
+> +    RAMBLOCK_FOREACH(block) {
+> +        RamBlockAttributesInfo *rba;
+> +        RamBlockAttributeRangeList **range_tail;
+> +        RamBlockAttributes *attr = block->attributes;
+> +        RamDiscardManager *rdm;
+> +        unsigned long pos;
+> +
+> +        if (!attr) {
+> +            continue;
+> +        }
+> +
+> +        rdm = memory_region_get_ram_discard_manager(block->mr);
+> +        g_assert(rdm);
+> +
+> +        rba = g_new0(RamBlockAttributesInfo, 1);
+> +        rba->name = g_strdup(block->idstr);
+> +        range_tail = &rba->ranges;
+> +
+> +        pos = 0;
+> +        while (pos < attr->bitmap_size) {
+> +            bool is_shared = test_bit(pos, attr->bitmap);
+> +            unsigned long next;
+> +            uint64_t start_offset, length;
+> +            RamBlockAttributeRange *range;
+> +
+> +            if (is_shared) {
+> +                next = find_next_zero_bit(attr->bitmap,
+> +                                          attr->bitmap_size, pos);
+> +            } else {
+> +                next = find_next_bit(attr->bitmap,
+> +                                     attr->bitmap_size, pos);
+> +            }
+> +
+> +            start_offset = (uint64_t)pos * rba_block_size;
+> +            length = (uint64_t)(next - pos) * rba_block_size;
+> +
+> +            range = g_new0(RamBlockAttributeRange, 1);
+> +            range->start = start_offset;
+> +            range->length = length;
+> +            range->shared = is_shared;
+> +
+> +            {
+> +                MemoryRegionSection section = {
+> +                    .mr = block->mr,
+> +                    .offset_within_region = start_offset,
+> +                    .size = int128_make64(length),
+> +                };
+> +                range->has_populated = true;
+> +                range->populated =
+> +                    ram_discard_manager_is_populated(rdm, &section);
+> +            }
+> +
+> +            QAPI_LIST_APPEND(range_tail, range);
+> +            pos = next;
+> +        }
+> +
+> +        QAPI_LIST_APPEND(tail, rba);
+> +    }
+> +
+> +    return head;
+> +}
+> diff --git a/hmp-commands-info.hx b/hmp-commands-info.hx
+> index 82134eb6c21..f119b9cfebc 100644
+> --- a/hmp-commands-info.hx
+> +++ b/hmp-commands-info.hx
+> @@ -761,6 +761,19 @@ SRST
+>      Dump all the ramblocks of the system.
+>  ERST
+>  
+> +    {
+> +        .name       = "ramblock-attributes",
+> +        .args_type  = "",
+> +        .params     = "",
+> +        .help       = "Display ramblock shared/private attributes",
+> +        .cmd        = hmp_info_ramblock_attributes,
+> +    },
+> +
+> +SRST
+> +  ``info ramblock-attributes``
+> +    Display the shared/private memory attributes for ram blocks.
+> +ERST
+> +
+>      {
+>          .name       = "hotpluggable-cpus",
+>          .args_type  = "",
+> 
+> -- 
+> 2.54.0
+> 
 -- 
-Cheers,
-
-David
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
 
