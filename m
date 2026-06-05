@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 783FACD6E7C
-	for <qemu-rust@archiver.kernel.org>; Fri,  5 Jun 2026 13:25:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B041FCD6E7D
+	for <qemu-rust@archiver.kernel.org>; Fri,  5 Jun 2026 13:25:54 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wVUYW-00076M-4d; Fri, 05 Jun 2026 09:25:48 -0400
+	id 1wVUYT-00075h-R2; Fri, 05 Jun 2026 09:25:46 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <david@kernel.org>)
- id 1wVTDx-00089l-I5; Fri, 05 Jun 2026 08:00:38 -0400
-Received: from sea.source.kernel.org ([172.234.252.31])
+ id 1wVSXv-0001OQ-Up; Fri, 05 Jun 2026 07:17:08 -0400
+Received: from tor.source.kernel.org ([172.105.4.254])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <david@kernel.org>)
- id 1wVTDu-0003F2-9L; Fri, 05 Jun 2026 08:00:28 -0400
+ id 1wVSXu-0001S0-6v; Fri, 05 Jun 2026 07:17:03 -0400
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5A0C944373;
- Fri,  5 Jun 2026 12:00:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BFD81F00893;
- Fri,  5 Jun 2026 12:00:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5B23A601DD;
+ Fri,  5 Jun 2026 11:17:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AAA71F0089A;
+ Fri,  5 Jun 2026 11:16:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780660824;
- bh=/lsw7Vu/OD9Alhihp/M3Iz5wrWeqChOCjc9R7VB32y4=;
+ s=k20260515; t=1780658220;
+ bh=v+Y3Yj6bbgt0s0hPsfH89bzu08XBtigSYiFF6IT5TNs=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=h04pudwRFsCkJ6Ls+tNjoMrUlDUefOwEecM68VsnlNE3QWx/BHeKV9Qu5RgWHGHUf
- +D7/Tva5n+S0h9+AjGVs6pZBUzo+Sb75w5jKO6FXa0l/Vkx3eQfxE36JO8RAmnJfgA
- xPQXHc5kMPbDqnanh6PoWU53p1t8kv84v4TQA64OG5B24K5GVxdac+iyWV9pgGnE5b
- TIyhX/5KltSXtrE0yc5ogUafrm0X/BcvyESkpDi9zcMogctl51ax09QfxRv6KaoNnd
- THShUxWU6sgc/q5lIts5q8b970ugh7fv6CQBt1MEGp//1RmviIhAf1l7Wt1YCcc7MN
- 5KTRNQpHU4Cng==
-Message-ID: <1b9af7c6-14e4-469e-be13-d4a54b2d32ba@kernel.org>
-Date: Fri, 5 Jun 2026 14:00:16 +0200
+ b=Eoy4V9OBKmzfumOqPtdBbUml8gbaeIb4xH/DKR4vtnv3DS3bKFHtwIj3dbIKPGxIq
+ 7HEcS2218/NIbTnFhWyqqwJa0AEpiiLIIDLJUPl1kRsARqvqDBF1kKs0wZwlEyiGym
+ AE/3i0xEsP0T4WZHMioAf/3l2mESb4fdo59Z82dYlr44D9V8+w5Qs9B5VZw93TYIYB
+ YY5BE8gIQ+CJu6fxzR8SXgLctNW4fFd21PrXXqg1LQ3C33qq4nLMBW5wBXgrd2yzt/
+ UIpnEugwz/6sBe2x++y5UPJ0lUizn91TlSmU7kcd5YQOfWFXSC74Eom3PkXHGsfXa4
+ NoFhHIVDdI4yQ==
+Message-ID: <00427d28-3d84-4921-a4e1-145163a24b06@kernel.org>
+Date: Fri, 5 Jun 2026 13:16:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/12] system/ram-discard-manager: implement replay via
- is_populated iteration
+Subject: Re: [PATCH v5 03/12] system/memory: constify section arguments
 To: =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
  qemu-devel@nongnu.org
 Cc: Zhenzhong Duan <zhenzhong.duan@intel.com>,
@@ -53,7 +52,7 @@ Cc: Zhenzhong Duan <zhenzhong.duan@intel.com>,
  Zhao Liu <zhao1.liu@intel.com>, Eric Blake <eblake@redhat.com>,
  Markus Armbruster <armbru@redhat.com>
 References: <20260604-rdm5-v5-0-5768e6a0943d@redhat.com>
- <20260604-rdm5-v5-4-5768e6a0943d@redhat.com>
+ <20260604-rdm5-v5-3-5768e6a0943d@redhat.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -100,11 +99,11 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260604-rdm5-v5-4-5768e6a0943d@redhat.com>
+In-Reply-To: <20260604-rdm5-v5-3-5768e6a0943d@redhat.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=172.234.252.31; envelope-from=david@kernel.org;
- helo=sea.source.kernel.org
+Received-SPF: pass client-ip=172.105.4.254; envelope-from=david@kernel.org;
+ helo=tor.source.kernel.org
 X-Spam_score_int: -24
 X-Spam_score: -2.5
 X-Spam_bar: --
@@ -112,7 +111,7 @@ X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  SPF_HELO_NONE=0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Fri, 05 Jun 2026 09:25:43 -0400
+X-Mailman-Approved-At: Fri, 05 Jun 2026 09:25:42 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,25 +127,14 @@ Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 On 6/4/26 15:43, Marc-André Lureau wrote:
-> Replace the source-level replay wrappers with a new
-> replay_by_populated_state() helper that iterates the section at
-> min-granularity, calls is_populated() for each chunk, and aggregates
-> consecutive chunks of the same state before invoking the callback.
-> 
-> This moves the iteration logic from individual sources into the manager,
-> preparing for multi-source aggregation where the manager must combine
-> state from multiple sources anyway.
-> 
-> The replay_populated/replay_discarded vtable entries in
-> RamDiscardSourceClass are no longer called but remain in the interface
-> for now; they will be removed in follow-up commits along with the
-> now-dead source implementations.
+> The sections shouldn't be modified.
 > 
 > Reviewed-by: Peter Xu <peterx@redhat.com>
+> Reviewed-by: Cédric Le Goater <clg@redhat.com>
 > Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 > ---
 
-Acked-by: David Hildenbrand <david@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
