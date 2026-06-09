@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0B35CD8CB2
-	for <qemu-rust@archiver.kernel.org>; Tue,  9 Jun 2026 17:26:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45F29CD98C7
+	for <qemu-rust@archiver.kernel.org>; Tue,  9 Jun 2026 17:26:38 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wX0D1-0007dn-I9; Tue, 09 Jun 2026 13:25:51 -0400
+	id 1wX0D5-0007gk-80; Tue, 09 Jun 2026 13:25:55 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wX0Ch-0007O8-HS
- for qemu-rust@nongnu.org; Tue, 09 Jun 2026 13:25:33 -0400
+ (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wX0Ct-0007Yp-M3
+ for qemu-rust@nongnu.org; Tue, 09 Jun 2026 13:25:45 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wX0Cd-0001qf-DG
- for qemu-rust@nongnu.org; Tue, 09 Jun 2026 13:25:29 -0400
+ (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wX0Cr-0001wM-1y
+ for qemu-rust@nongnu.org; Tue, 09 Jun 2026 13:25:43 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1781025925;
+ s=mimecast20190719; t=1781025938;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TAvDvHwNOpZMXGaEBVC9aqY/2Ki2d+eUzFoO5QqTfx8=;
- b=PDjoUd4hBWdLqDVpJJOBVH1DbwpV/TBCPwcao/HR5vxcdxuuT4icSx7lLCp9Pzq5D7qVAB
- fsUe3K4c12Qe7KzByqCGSD/UDQ4nSytTJDb1pIpBetVUOGk4tsWnjJyCvKwcTK8zMmHRRq
- kiT7wnHYX4joiBJQJLGLmtOpqFMJMDw=
+ bh=ho/BMxX8YnQ131yrIsVBM8rRwXj38KUVhIf57yJSr4U=;
+ b=iqNNVHk5caVDGU79R69Eu+SsGZDKBMultXcibcsWNMe/9GsZXjQfs+CvzW9mWMwvI9QaKW
+ c7rOIdcZhQmJQF7duFG+B7loFzfnRYNVP+8qM9aS8yEtP+iiSeDFNXBd4RhH6CwA3LPS91
+ qLmF2iUiPy5mbXKrltGpd+hDAy32YP0=
 Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
  [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-166-xTBztgM_Ormm_qg6NFeqLQ-1; Tue, 09 Jun 2026 13:25:24 -0400
-X-MC-Unique: xTBztgM_Ormm_qg6NFeqLQ-1
-X-Mimecast-MFC-AGG-ID: xTBztgM_Ormm_qg6NFeqLQ_1781025924
+ us-mta-650-quVFKHnhN5mWVs2Ktl6C_Q-1; Tue, 09 Jun 2026 13:25:37 -0400
+X-MC-Unique: quVFKHnhN5mWVs2Ktl6C_Q-1
+X-Mimecast-MFC-AGG-ID: quVFKHnhN5mWVs2Ktl6C_Q_1781025936
 Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-51775f7b2afso124254401cf.1
- for <qemu-rust@nongnu.org>; Tue, 09 Jun 2026 10:25:24 -0700 (PDT)
+ d75a77b69052e-51760f997fdso172889771cf.2
+ for <qemu-rust@nongnu.org>; Tue, 09 Jun 2026 10:25:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781025924; x=1781630724;
+ d=1e100.net; s=20251104; t=1781025936; x=1781630736;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=TAvDvHwNOpZMXGaEBVC9aqY/2Ki2d+eUzFoO5QqTfx8=;
- b=TB5R3/PRrccc/RtFyU3SLEMShjXwNiuf2zikAobDar6RFFoVrZDz+DtKZhor7ywiBe
- Kjk0t7yxhKphSrhIP9C0LUPULJKadGMUXxBppgcIhBhgfjZ12uw4YPFchB+U9bKsSOk+
- qNzPnOZCOOA4/F11tvwOrA+1iVZ5Z39gFu5txCCUyKUJzClgPOxP4wVywrUu0PUlaqBq
- VE46YPC2DCfe2npj1pff92hSabANUVOpFePgRmf5Cw2R8IOukRKNvm4xWfd3klcAhVQw
- QgzMW0IEIS/aOcgbdzk2NBmEXQsot8qi1R1ptfacTJLzLRfFpeaGDTG+V9vyHpW4N/IL
- KTdA==
+ bh=ho/BMxX8YnQ131yrIsVBM8rRwXj38KUVhIf57yJSr4U=;
+ b=Na74NoQZUKif+YsqrV5rrG55SPh34h0k5Hn+q0wyTwK7h8yAsfyIUhDnOouibI4O20
+ g0UxAjon6+YkSrR40CxQRxTYv5txftNrV9tfxqqJagL+Iqz6mVEWRpl+x/lusI4t1zRb
+ Dfxe9YwV5Q4tlJ2XNMZsHo0cFWwEd6Ys/towGiQwZKRekDxBBQ+TCdM/BqnAU3YVmQnL
+ LvWowOxq7DtsH1TApmL2qwzTyZ7MIkNJ9AcRd7HwNKMbG2xSkB9Glz3VehBJO93gT2VD
+ ghKcWACwxRAm6Y5lJuKcjB+WuyGq/h5IGDN7DURXX+vdWe1SP4z1xvRzylJGyPBQPhN9
+ j05A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9ubvEcgQotlTQwq6mTg1PFuawt39Zpbk6DnvoLHM6hUaEjZqXGvsJhLZ0pusqpJ3YeDNIy6NwD01k=@nongnu.org
-X-Gm-Message-State: AOJu0YwF5rpGENtzeHrizS2cccg8u4OCLqCGYPRYkbRxETfDeeqt7s0Y
- RZ9kEUtgk/x73N/Ecl+O4bagdurdG2UX0brEVwz/AIpMYaTGMB4CpaQ4VIDmgWLgZBVNuJwORcG
- QoEjF/jwTSEh1GyFKld2OM76OLvUC2fSB0BQCO1pBzXp72Ebdy0vD+AQ=
-X-Gm-Gg: Acq92OHlYQ7x11q4v5huZMIfpPv1AKa6uho2dNv3x0mcZ61VqGdprZMc1kMbmiL0p67
- CMQHPkeJHv//Tqj4E4Fh5y2JJtA5xqFc/D6/hDWBRwbG6k0GG5nsIVIv5QYL4VkD5tGSbyitNGq
- PeJVJnkqkz6dQ3ExSQLl6sagLFIuy7l14m9/kvFeBo3RLl5o4wDLRgcdh42C0Gw3PQBJDLC4IzR
- YQ9Mae5yqpj5tTDhtTlxWRnIPh3PbMRwEqKBTl25AzLFYi81MhVTVdJN2esvL0z8GhwUF9/ljyG
- Sq8B47fPc3s6n9mp+nPPXTflxg6t4zhtsWeQEedCXUxGgRL/XNKkUI8gFCFnb8LaZELXQv2BRmc
- dTrjRBYILhhCt3NEzloO2/lg=
-X-Received: by 2002:a05:622a:a593:b0:517:7871:693f with SMTP id
- d75a77b69052e-51798672991mr221134761cf.8.1781025923897; 
- Tue, 09 Jun 2026 10:25:23 -0700 (PDT)
-X-Received: by 2002:a05:622a:a593:b0:517:7871:693f with SMTP id
- d75a77b69052e-51798672991mr221134161cf.8.1781025923234; 
- Tue, 09 Jun 2026 10:25:23 -0700 (PDT)
+ AFNElJ93zyfvByxg1SxIxpA412wGMrXULGYadcHcFZZN/8KcLqAXgkmaNr8cOXN/60VwpIyeIFP5/uLusBw=@nongnu.org
+X-Gm-Message-State: AOJu0Yx2IWMecF8FJX6vZXD3HDTQFfXH/88b0vmY5asx6dv8A7EnHaYQ
+ Einu8lwBzWNdGKEQ0biT4LjIJ3aQlhVB9CRMpMTIfSS+m6avhP2nPKlGMk7nAsuv4xvItGWuj1/
+ NMljdujkhAAehnWyGknTCj4RE13OlUA7DQnYCKLeois3+3P7Sk9C0NWo=
+X-Gm-Gg: Acq92OEd9AnoNMlDehWSkOHM31kNAuIVt88SWiivDYHN6hsDMrVYKAQnLTX0NKjQQpt
+ eCO0pwW3OXW/tU7b6AwzDgX3LtdBo0AXDX80cHGXSTy7UIwn0GFhAo5fhMn7HXQlNM+dYXmILtr
+ tLWe+CG6vY4O6b3nS6IiEaNB4bCOTjgv8HeTq+slKC7O4msEAZwqB/FrUrrJoT8JVwmZ+4B3PDo
+ cMxxRy4cj2yQvq+25/q1yCSS3QwVkX3JsUVSjiGYh5ZZH/8DBaJmz2xOYDJQ0GBD4CqTtu93Ta3
+ gQTUlW3ANqzR3xB46ZcUnjXO962Wj5LOtDGYT/S/XcvwzaipU2sLakGZrjsw621c95vwvYWpsZQ
+ 3Um7EbCP/Y14vEZBlGDbS80Q=
+X-Received: by 2002:a05:622a:400c:b0:517:7971:a234 with SMTP id
+ d75a77b69052e-51795b729ffmr305681401cf.4.1781025936237; 
+ Tue, 09 Jun 2026 10:25:36 -0700 (PDT)
+X-Received: by 2002:a05:622a:400c:b0:517:7971:a234 with SMTP id
+ d75a77b69052e-51795b729ffmr305680851cf.4.1781025935723; 
+ Tue, 09 Jun 2026 10:25:35 -0700 (PDT)
 Received: from x1.com ([142.189.10.167]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-51775da2c56sm187524711cf.21.2026.06.09.10.25.21
+ d75a77b69052e-51775da2c56sm187524711cf.21.2026.06.09.10.25.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jun 2026 10:25:22 -0700 (PDT)
+ Tue, 09 Jun 2026 10:25:35 -0700 (PDT)
 From: Peter Xu <peterx@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-arm@nongnu.org,
@@ -88,16 +88,15 @@ Cc: qemu-arm@nongnu.org,
  Juraj Marcin <jmarcin@redhat.com>, qemu-rust@nongnu.org,
  Markus Armbruster <armbru@redhat.com>,
  Mark Cave-Ayland <mark.caveayland@nutanix.com>
-Subject: [PATCH v2 03/10] qdev: Introduce DEFINE_PROP_*_NODEFAULT for
- bool/uint32
-Date: Tue,  9 Jun 2026 13:25:07 -0400
-Message-ID: <20260609172514.2037645-4-peterx@redhat.com>
+Subject: [PATCH v2 08/10] qom: Add object_property_add_*_ptr_def()
+Date: Tue,  9 Jun 2026 13:25:12 -0400
+Message-ID: <20260609172514.2037645-9-peterx@redhat.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260609172514.2037645-1-peterx@redhat.com>
 References: <20260609172514.2037645-1-peterx@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 8GkxCgojpNJq-hHWOu821o2ra5lH-6kc_XGt5_jOoqs_1781025924
+X-Mimecast-MFC-PROC-ID: ovD6_AWZQ0m7WFWq6cJPNWg96SVf7I_bsUevkZvpGSs_1781025936
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -109,7 +108,7 @@ X-Spam_bar: --
 X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
  RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -125,38 +124,131 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Introduce two macros that will be used in follow up patch to create qdev
-bool or uint32 properties without a default value.  Do not introduce the
-rest until they can be used.
+Add sister functions for existing pointer versions, to make it even easier
+to use by:
+
+- always make properties to be rw-able
+- allowing to specify default values
+- no retcode needed (assert on failure, always)
 
 Signed-off-by: Peter Xu <peterx@redhat.com>
 ---
- include/hw/core/qdev-properties.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ include/qom/object-property-ptr.h | 28 +++++++++++++
+ qom/object-property-ptr.c         | 67 +++++++++++++++++++++++++++++++
+ 2 files changed, 95 insertions(+)
 
-diff --git a/include/hw/core/qdev-properties.h b/include/hw/core/qdev-properties.h
-index 248bbcbba7..43878d1f9e 100644
---- a/include/hw/core/qdev-properties.h
-+++ b/include/hw/core/qdev-properties.h
-@@ -124,6 +124,9 @@ extern const PropertyInfo qdev_prop_link;
-                 .set_default = true,                         \
-                 .defval.u    = (bool)_defval)
+diff --git a/include/qom/object-property-ptr.h b/include/qom/object-property-ptr.h
+index be467c64af..ecd6f7819b 100644
+--- a/include/qom/object-property-ptr.h
++++ b/include/qom/object-property-ptr.h
+@@ -131,4 +131,32 @@ object_property_add_size_ptr(Object *obj, const char *name,
+                              const uint64_t *v,
+                              ObjectPropertyFlags flags);
  
-+#define DEFINE_PROP_BOOL_NODEFAULT(_name, _state, _field)     \
-+    DEFINE_PROP(_name, _state, _field, qdev_prop_bool, bool)
++/*
++ * Below are sister helpers of above, except that:
++ *
++ * (1) nothing is returned
++ * (2) always make the property to be both readable and writeable
++ * (3) allow setting default value
++ *
++ * Please refer to the sister functions for the documentation.
++ */
++void
++object_property_add_bool_ptr_def(Object *obj, const char *name,
++                                 const bool *v, bool def);
++void
++object_property_add_uint8_ptr_def(Object *obj, const char *name,
++                                  const uint8_t *v, uint8_t def);
++void
++object_property_add_uint16_ptr_def(Object *obj, const char *name,
++                                   const uint16_t *v, uint16_t def);
++void
++object_property_add_uint32_ptr_def(Object *obj, const char *name,
++                                   const uint32_t *v, uint32_t def);
++void
++object_property_add_uint64_ptr_def(Object *obj, const char *name,
++                                   const uint64_t *v, uint64_t def);
++void
++object_property_add_size_ptr_def(Object *obj, const char *name,
++                                 const uint64_t *v, uint64_t def);
 +
- /**
-  * The DEFINE_PROP_UINT64_CHECKMASK macro checks a user-supplied value
-  * against corresponding bitmask, rejects the value if it violates.
-@@ -201,6 +204,8 @@ extern const PropertyInfo qdev_prop_link;
-     DEFINE_PROP_UNSIGNED(_n, _s, _f, _d, qdev_prop_uint16, uint16_t)
- #define DEFINE_PROP_UINT32(_n, _s, _f, _d)                      \
-     DEFINE_PROP_UNSIGNED(_n, _s, _f, _d, qdev_prop_uint32, uint32_t)
-+#define DEFINE_PROP_UINT32_NODEFAULT(_n, _s, _f)                        \
-+    DEFINE_PROP_UNSIGNED_NODEFAULT(_n, _s, _f, qdev_prop_uint32, uint32_t)
- #define DEFINE_PROP_INT32(_n, _s, _f, _d)                      \
-     DEFINE_PROP_SIGNED(_n, _s, _f, _d, qdev_prop_int32, int32_t)
- #define DEFINE_PROP_UINT64(_n, _s, _f, _d)                      \
+ #endif
+diff --git a/qom/object-property-ptr.c b/qom/object-property-ptr.c
+index 21ceb2510d..ae9081d2d8 100644
+--- a/qom/object-property-ptr.c
++++ b/qom/object-property-ptr.c
+@@ -325,3 +325,70 @@ object_property_add_size_ptr(Object *obj, const char *name,
+     return object_property_add(obj, name, "size",
+                                getter, setter, NULL, (void *)v);
+ }
++
++void
++object_property_add_bool_ptr_def(Object *obj, const char *name,
++                                 const bool *v, bool def)
++{
++    ObjectProperty *prop;
++
++    prop = object_property_add_bool_ptr(obj, name, v,
++                                        OBJ_PROP_FLAG_READWRITE);
++    object_property_set_default_bool(prop, def);
++}
++
++
++void
++object_property_add_uint8_ptr_def(Object *obj, const char *name,
++                                  const uint8_t *v, uint8_t def)
++{
++    ObjectProperty *prop;
++
++    prop = object_property_add_uint8_ptr(obj, name, v,
++                                         OBJ_PROP_FLAG_READWRITE);
++    object_property_set_default_uint(prop, def);
++}
++
++void
++object_property_add_uint16_ptr_def(Object *obj, const char *name,
++                                   const uint16_t *v, uint16_t def)
++{
++    ObjectProperty *prop;
++
++    prop = object_property_add_uint16_ptr(obj, name, v,
++                                          OBJ_PROP_FLAG_READWRITE);
++    object_property_set_default_uint(prop, def);
++}
++
++void
++object_property_add_uint32_ptr_def(Object *obj, const char *name,
++                                   const uint32_t *v, uint32_t def)
++{
++    ObjectProperty *prop;
++
++    prop = object_property_add_uint32_ptr(obj, name, v,
++                                          OBJ_PROP_FLAG_READWRITE);
++    object_property_set_default_uint(prop, def);
++}
++
++void
++object_property_add_uint64_ptr_def(Object *obj, const char *name,
++                                   const uint64_t *v, uint64_t def)
++{
++    ObjectProperty *prop;
++
++    prop = object_property_add_uint64_ptr(obj, name, v,
++                                          OBJ_PROP_FLAG_READWRITE);
++    object_property_set_default_uint(prop, def);
++}
++
++void
++object_property_add_size_ptr_def(Object *obj, const char *name,
++                                 const uint64_t *v, uint64_t def)
++{
++    ObjectProperty *prop;
++
++    prop = object_property_add_size_ptr(obj, name, v,
++                                        OBJ_PROP_FLAG_READWRITE);
++    object_property_set_default_uint(prop, def);
++}
 -- 
 2.53.0
 
