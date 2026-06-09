@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1EBECD8CB9
-	for <qemu-rust@archiver.kernel.org>; Tue,  9 Jun 2026 17:27:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84ECBCD8CB2
+	for <qemu-rust@archiver.kernel.org>; Tue,  9 Jun 2026 17:27:25 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wX0D4-0007g3-9N; Tue, 09 Jun 2026 13:25:54 -0400
+	id 1wX0D3-0007fb-Un; Tue, 09 Jun 2026 13:25:53 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wX0Cr-0007Xg-FM
- for qemu-rust@nongnu.org; Tue, 09 Jun 2026 13:25:43 -0400
+ (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wX0Cv-0007ZK-CQ
+ for qemu-rust@nongnu.org; Tue, 09 Jun 2026 13:25:46 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wX0Cn-0001u9-33
- for qemu-rust@nongnu.org; Tue, 09 Jun 2026 13:25:40 -0400
+ (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wX0Ct-0001yV-3h
+ for qemu-rust@nongnu.org; Tue, 09 Jun 2026 13:25:44 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1781025934;
+ s=mimecast20190719; t=1781025941;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jwLp2AvTjapZW+/ErJH1EShXN1MPuQYDgyT1L5wHR6o=;
- b=Oej8B0/l/hhwIMmaDiybeTherXVB3Mq884UoA+Jh8mbnWlGSI1FIALu1wKYU1/kZHdbHNj
- ehfBS8gqKtxxzgHW1YrCZmPuIp3NG2Sz0GsK6UOPHOxhM6TNUPuIRLpTonvL/cQgBkepNo
- 3ALfdWOPsvYKf8K6SZgg22DAv6WYd34=
+ bh=ZxoWieFRl5alZGyqHw8uY/Fy15O9Y6SOJg0ST4pPYm0=;
+ b=NC8sIJiO2aveG+z0qD3rqfDC/snZAEWQcyuc2NfQcEs1qyIpRzBJjcKbnASfdevAsICnsb
+ KANdCpc4NRU2xFo+/sMIhqxQk4jND0X/f2JVmNtTuOBxkWuFf0nyzOd33kt4LSOa/VtRgj
+ CMnsaWShgTIHo4hJE0mmftfO9UyF96I=
 Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
  [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-614-Ng2tRILINlGQMDzY8OoNwA-1; Tue, 09 Jun 2026 13:25:34 -0400
-X-MC-Unique: Ng2tRILINlGQMDzY8OoNwA-1
-X-Mimecast-MFC-AGG-ID: Ng2tRILINlGQMDzY8OoNwA_1781025933
+ us-mta-692-8sLIliSKPGCYu7OQOU032w-1; Tue, 09 Jun 2026 13:25:38 -0400
+X-MC-Unique: 8sLIliSKPGCYu7OQOU032w-1
+X-Mimecast-MFC-AGG-ID: 8sLIliSKPGCYu7OQOU032w_1781025938
 Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-517a00fbac6so64193521cf.2
- for <qemu-rust@nongnu.org>; Tue, 09 Jun 2026 10:25:33 -0700 (PDT)
+ d75a77b69052e-517787172b0so89317621cf.0
+ for <qemu-rust@nongnu.org>; Tue, 09 Jun 2026 10:25:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781025933; x=1781630733;
+ d=1e100.net; s=20251104; t=1781025938; x=1781630738;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=jwLp2AvTjapZW+/ErJH1EShXN1MPuQYDgyT1L5wHR6o=;
- b=NrzB6YDkcIw6lQnLtWXpvvXsvyUVZZ38pROdDwwZJGBLmfwyJkXO+hDNwfzDzzm/LU
- N1XkfbkEmgYw16gHUdlmM4VqmDTEqv6jHQK1JCZMPk7cMpHzUFdWrNnGu3O2kY3yqvu/
- UEex0CmZAo2x+gzCnC3sIFL9fZ6NxNO6BkncNIf4GPpZLe9N3iGvBypfbk0uY0j2w0dY
- LAxdHE6Zyq4Inbu3ImCA/IZSGSNykYaslOVf5lEz9I3bzNLrE87n7+iK/04hE2t5F86B
- n7hDdZalIcQFV3+Bt4NBYDOQ5g/XRKJbt0swNnt5HwWgNOe+SvwmOOLiqIFJwc34Rsjt
- bvRg==
+ bh=ZxoWieFRl5alZGyqHw8uY/Fy15O9Y6SOJg0ST4pPYm0=;
+ b=HnmNR/Vkcscofq0kaM9OUif0i+3ALg/rRRhvY33qXjfcAlE0Avgy2ceON396dZLSlC
+ UFyzx82zka0uybY4T2DOzQp+ErRLtj+j0K4wULjT8OpIVDE0MzBzSOLMzsbATTLqlJqq
+ 2gOkafOdBe09/SY4NFJ8GM0HIGyWWj+2abocd28cNNLmgQSYqGp3jaVGlkzISR8zuboN
+ mKhsRyUCm9BBGQB4FffLNe07fC110lU77rw2q6UXxWhlTPEmasi04hbwJoGkaQoV1F4w
+ ep5ic6BcU2HNufB97i96x/SlmjuI3s/1haQMFh5W3AyICT3ybKXnb+ecM3qLd+VGGiYQ
+ N63Q==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8DJ9ih08ZjdY9k+/EdJnC68BsbUl8WoAjcVyNNqMZyyC0Oh8eM72gODSJrPxSHqkAcG2nQnip8gTs=@nongnu.org
-X-Gm-Message-State: AOJu0YyKc8yozN4fDfOK+l5f33q1+M2TX+N27yq/fLRD6slOWAkhbZPv
- xgTLert1USGO3MoqhIgr75VAJ0XHdH8wYs3rtDXwiNlIj3M/1cEQAb0jTqdraofBzj/KwyMcvdk
- Fe9oV1U81F/18kGb/io6Idyyrm8hHggITj5FI9aJQ3tcSC8eLRWMrbu8=
-X-Gm-Gg: Acq92OEJwvqv/je2I/zdbRnhaywJ01ej7UeykZAXe0yWZZE8l7GsTJIKj1PKrGNLoE8
- BYsTq/2oayo37+/pQ1tF0Um87w0ri+q15+stHvrR+JJdMZDqG9wk/yEMQbaVsnfk3iU87eiVogi
- M6f3ivmr2mhmsjkeOEGzR1mQ/MwbxtrQzsLn+uBiLKOpLd6HZq44ox+j9NjRmG5LFp1hHNo5nxG
- 1BA3Te9cSB+EgKgX/lC46y88PBYBq2cmSoRVoF21EaNfsuX6iwXRusMpmiyuNOFrA9Co72nTrWH
- tvXHwkbzm5DUTXlF9jYYlEjRKT6I42txAiO6NRzV3mxyfq3W24et9tH8BAgFdfPoOhcAc51yM7K
- wcOS5Sm2V4IbZiRaa+vWxlfM=
-X-Received: by 2002:a05:622a:460d:b0:517:a9ef:ce23 with SMTP id
- d75a77b69052e-517a9efd0c9mr162127071cf.16.1781025933172; 
- Tue, 09 Jun 2026 10:25:33 -0700 (PDT)
-X-Received: by 2002:a05:622a:460d:b0:517:a9ef:ce23 with SMTP id
- d75a77b69052e-517a9efd0c9mr162126561cf.16.1781025932578; 
- Tue, 09 Jun 2026 10:25:32 -0700 (PDT)
+ AFNElJ8f8+e6J33f2/JnG/K1GlHekBjCQCCbTurPvwc3pyQxb+2zaYckNowwa4s+iRfdvirJeGg/RE9Gh4A=@nongnu.org
+X-Gm-Message-State: AOJu0Yw/1k7I9TAqZbv2w9BVWvqYsY9rguxLwyLRV1g9U9XzjCINcf5N
+ TsboqgPjummkuISp8fmzw1k1hslRXpCadQZRrXtFBNRx4FFiWd4PjEtVHMKWr6D9yBrrxib2Cbk
+ H+fDsNlQ2Q/2KI9atBl0i3RNyHx7nSpGxo9kAdi6exPUSmmlupPDTrj8=
+X-Gm-Gg: Acq92OGA6iZNPgqVu8hUGTpdF8aPFqYmuH0wULQmTZf6z2Hzs3TE24K7jL6q26suZTu
+ LpIofSR08Cool6RG7E8spWc9/U7r0xaR4Y2PKLhg0xBrt9bFxhbKq/lPm16dFtrALYlDMj1xIN5
+ /Dnl3WLbUY8K3WqiFqfNsp9NRGtHNvDQkfFHPOJgjQNLSjBg+yD0OsfwqrrMTVm9p5hJgdOzyRg
+ gb1M/0nAYlCUS1WE21ce/Wl+a06nFWK0BU6lBpm1DyfGb8MF+VAmdl2EpjyKs3ZyPW/+j+J+S7G
+ K169gZp6y9CLu6mBSfcxW3izc0UH8enHr9nrAQcZ9VwcBseFNSquXoCsYBPdMByi20i4GdRgnGE
+ UkoaKV+BNZ9GgbMcLNkT8NlI=
+X-Received: by 2002:ac8:1342:0:b0:517:6339:41d0 with SMTP id
+ d75a77b69052e-51795bbf6c2mr213878451cf.29.1781025937799; 
+ Tue, 09 Jun 2026 10:25:37 -0700 (PDT)
+X-Received: by 2002:ac8:1342:0:b0:517:6339:41d0 with SMTP id
+ d75a77b69052e-51795bbf6c2mr213877991cf.29.1781025937264; 
+ Tue, 09 Jun 2026 10:25:37 -0700 (PDT)
 Received: from x1.com ([142.189.10.167]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-51775da2c56sm187524711cf.21.2026.06.09.10.25.26
+ d75a77b69052e-51775da2c56sm187524711cf.21.2026.06.09.10.25.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jun 2026 10:25:27 -0700 (PDT)
+ Tue, 09 Jun 2026 10:25:36 -0700 (PDT)
 From: Peter Xu <peterx@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-arm@nongnu.org,
@@ -88,15 +88,15 @@ Cc: qemu-arm@nongnu.org,
  Juraj Marcin <jmarcin@redhat.com>, qemu-rust@nongnu.org,
  Markus Armbruster <armbru@redhat.com>,
  Mark Cave-Ayland <mark.caveayland@nutanix.com>
-Subject: [PATCH v2 06/10] qom: Add object_property_add_bool_ptr()
-Date: Tue,  9 Jun 2026 13:25:10 -0400
-Message-ID: <20260609172514.2037645-7-peterx@redhat.com>
+Subject: [PATCH v2 09/10] qom: Allow default values for instance properties
+Date: Tue,  9 Jun 2026 13:25:13 -0400
+Message-ID: <20260609172514.2037645-10-peterx@redhat.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260609172514.2037645-1-peterx@redhat.com>
 References: <20260609172514.2037645-1-peterx@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 9J48C3a-QSv8qiBpAVa1hJVZHA1EfhJsHqys888nB5c_1781025933
+X-Mimecast-MFC-PROC-ID: sdR_heI-9QqObz-a41t5_3QJq0QWxs1utN-1TElUG4w_1781025938
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -124,97 +124,73 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Add a helper to set qom property via a bool pointer.
+ObjectProperty allows default value settings via proper setup of
+prop->init() and prop->defval.  It currently is only supported in class
+properties, not instance properties.
+
+However, since QOM allows class and instance properties, it should also
+allow instance to add properties during instance_init() and allow the
+default values to be applied properly for this instance only.
+
+Add the logic.  It will be useful for all kinds of pointer based properties
+because pointers are normally not accessble in a class but only when an
+instance is available.  This will be able to achieve similar function as
+what qdev properties have (which works by remembering offsets within a
+structure instead).
 
 Signed-off-by: Peter Xu <peterx@redhat.com>
 ---
- include/qom/object-property-ptr.h | 15 ++++++++++++
- qom/object-property-ptr.c         | 39 +++++++++++++++++++++++++++++++
- 2 files changed, 54 insertions(+)
+ qom/object.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-diff --git a/include/qom/object-property-ptr.h b/include/qom/object-property-ptr.h
-index 6066c377fb..9cd8600094 100644
---- a/include/qom/object-property-ptr.h
-+++ b/include/qom/object-property-ptr.h
-@@ -16,6 +16,21 @@ typedef enum {
-     OBJ_PROP_FLAG_READWRITE = (OBJ_PROP_FLAG_READ | OBJ_PROP_FLAG_WRITE),
- } ObjectPropertyFlags;
- 
-+/**
-+ * object_property_add_bool_ptr:
-+ * @obj: the object to add a property to
-+ * @name: the name of the property
-+ * @v: pointer to value
-+ * @flags: bitwise-or'd ObjectPropertyFlags
-+ *
-+ * Add a property of type 'bool' to the object.
-+ *
-+ * Returns: The newly added property on success, or %NULL on failure.
-+ */
-+ObjectProperty *
-+object_property_add_bool_ptr(Object *obj, const char *name, const bool *v,
-+                             ObjectPropertyFlags flags);
-+
- /**
-  * object_property_add_uint8_ptr:
-  * @obj: the object to add a property to
-diff --git a/qom/object-property-ptr.c b/qom/object-property-ptr.c
-index 02c01ed7f0..49f223da7b 100644
---- a/qom/object-property-ptr.c
-+++ b/qom/object-property-ptr.c
-@@ -7,6 +7,26 @@
- #include "qom/object.h"
- #include "qapi/visitor.h"
- 
-+static void property_get_bool_ptr(Object *obj, Visitor *v, const char *name,
-+                                  void *opaque, Error **errp)
-+{
-+    bool value = *(bool *)opaque;
-+    visit_type_bool(v, name, &value, errp);
-+}
-+
-+static void property_set_bool_ptr(Object *obj, Visitor *v, const char *name,
-+                                  void *opaque, Error **errp)
-+{
-+    bool *field = opaque;
-+    bool value;
-+
-+    if (!visit_type_bool(v, name, &value, errp)) {
-+        return;
-+    }
-+
-+    *field = value;
-+}
-+
- static void property_get_uint8_ptr(Object *obj, Visitor *v, const char *name,
-                                    void *opaque, Error **errp)
- {
-@@ -87,6 +107,25 @@ static void property_set_uint64_ptr(Object *obj, Visitor *v, const char *name,
-     *field = value;
+diff --git a/qom/object.c b/qom/object.c
+index fc738549dc..eaef615924 100644
+--- a/qom/object.c
++++ b/qom/object.c
+@@ -487,6 +487,20 @@ static void object_class_property_init_all(Object *obj)
+     }
  }
  
-+ObjectProperty *
-+object_property_add_bool_ptr(Object *obj, const char *name,
-+                             const bool *v, ObjectPropertyFlags flags)
++static void object_property_init_all(Object *obj)
 +{
-+    ObjectPropertyAccessor *getter = NULL;
-+    ObjectPropertyAccessor *setter = NULL;
++    GHashTableIter iter;
++    gpointer key, val;
 +
-+    if ((flags & OBJ_PROP_FLAG_READ) == OBJ_PROP_FLAG_READ) {
-+        getter = property_get_bool_ptr;
++    g_hash_table_iter_init(&iter, obj->properties);
++    while (g_hash_table_iter_next(&iter, &key, &val)) {
++        ObjectProperty *prop = val;
++        if (prop->init) {
++            prop->init(obj, prop);
++        }
 +    }
-+
-+    if ((flags & OBJ_PROP_FLAG_WRITE) == OBJ_PROP_FLAG_WRITE) {
-+        setter = property_set_bool_ptr;
-+    }
-+
-+    return object_property_add(obj, name, "bool",
-+                               getter, setter, NULL, (void *)v);
 +}
 +
- ObjectProperty *
- object_property_add_uint8_ptr(Object *obj, const char *name,
-                               const uint8_t *v,
+ static void object_initialize_with_type(Object *obj, size_t size, TypeImpl *type)
+ {
+     type_initialize(type);
+@@ -498,10 +512,22 @@ static void object_initialize_with_type(Object *obj, size_t size, TypeImpl *type
+     memset(obj, 0, type->instance_size);
+     obj->class = type->class;
+     object_ref(obj);
++    /*
++     * A few steps to initialize properties for the objects:
++     *
++     * (1) apply default values from class properties when available
++     * (2) invoke instance_init(), which may add per-instance properties,
++     *     which may further contain default values
++     * (3) apply default values from instance properties when available
++     *
++     * instance_post_init() should happen at last, after the instance is
++     * fully initialized.
++     */
+     object_class_property_init_all(obj);
+     obj->properties = g_hash_table_new_full(g_str_hash, g_str_equal,
+                                             NULL, object_property_free);
+     object_init_with_type(obj, type);
++    object_property_init_all(obj);
+     object_post_init_with_type(obj, type);
+ }
+ 
 -- 
 2.53.0
 
