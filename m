@@ -4,90 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1BF9CD8C92
-	for <qemu-rust@archiver.kernel.org>; Mon,  8 Jun 2026 13:37:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B81B3CD8CB9
+	for <qemu-rust@archiver.kernel.org>; Tue,  9 Jun 2026 17:25:49 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wWaA3-00067e-Ac; Mon, 08 Jun 2026 09:37:07 -0400
+	id 1wX0Cv-0007a0-D5; Tue, 09 Jun 2026 13:25:47 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1wWa9O-000659-08
- for qemu-rust@nongnu.org; Mon, 08 Jun 2026 09:36:24 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wX0Cd-0007Ky-Nz
+ for qemu-rust@nongnu.org; Tue, 09 Jun 2026 13:25:29 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1wWa9M-0006OF-GZ
- for qemu-rust@nongnu.org; Mon, 08 Jun 2026 09:36:21 -0400
+ (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wX0Cb-0001px-5K
+ for qemu-rust@nongnu.org; Tue, 09 Jun 2026 13:25:26 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1780925778;
+ s=mimecast20190719; t=1781025924;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cEhB5J/m8mgVV+kh6n0LLvbd+zdrpCATTf8w3l+ryfk=;
- b=UwVImoeh6xUoSLN05744L/vDT2ov6ky6OL3/W58kThQhUh/DoXPzYaJ4bqMwHH3Jh7yV+F
- L3SGEnxFuR10zKoRVnkW8qeZpuwAoIPYmGZ8Ccdcc1uqe/2DySmBAZdZFwjbqCyw+tBF0b
- F/6tSN6vUGc3MGyDGNXzFaitPuf3oxM=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-101-db76uBcRM4ufi_lJJoliUA-1; Mon,
- 08 Jun 2026 09:36:14 -0400
-X-MC-Unique: db76uBcRM4ufi_lJJoliUA-1
-X-Mimecast-MFC-AGG-ID: db76uBcRM4ufi_lJJoliUA_1780925771
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 912821955DBB; Mon,  8 Jun 2026 13:36:10 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.44.22.28])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 580581800367; Mon,  8 Jun 2026 13:36:09 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id E5DF021E6A01; Mon, 08 Jun 2026 15:36:06 +0200 (CEST)
-From: Markus Armbruster <armbru@redhat.com>
-To: "Dr. David Alan Gilbert" <dave@treblig.org>
-Cc: =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
- qemu-devel@nongnu.org,
- Zhenzhong Duan <zhenzhong.duan@intel.com>,  "Michael S. Tsirkin"
- <mst@redhat.com>,  David Hildenbrand <david@kernel.org>,  Paolo Bonzini
- <pbonzini@redhat.com>,  Peter Xu <peterx@redhat.com>,  Philippe
- =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@mailo.com>,  qemu-rust@nongnu.org,
- Alex Williamson
- <alex@shazbot.org>,  =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@redhat.com>,
- "Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,  Fabiano Rosas
- <farosas@suse.de>,  Mark Kanda <mark.kanda@oracle.com>,  Ben Chaney
- <bchaney@akamai.com>,  Marcelo Tosatti <mtosatti@redhat.com>,
- kvm@vger.kernel.org,  Zhao Liu <zhao1.liu@intel.com>,  Eric Blake
- <eblake@redhat.com>
-Subject: Re: [PATCH v5 12/12] RFC: monitor: add 'info ramblock-attributes'
- command
-In-Reply-To: <aiLO7ZQvowWHwK63@gallifrey> (David Alan Gilbert's message of
- "Fri, 5 Jun 2026 13:28:13 +0000")
-References: <20260604-rdm5-v5-0-5768e6a0943d@redhat.com>
- <20260604-rdm5-v5-12-5768e6a0943d@redhat.com>
- <aiLO7ZQvowWHwK63@gallifrey>
-Date: Mon, 08 Jun 2026 15:36:06 +0200
-Message-ID: <875x3ttard.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ bh=RTdK9UhiIM0qRwABF6UWGsM5x1elL2UrbbjIZlAcG7s=;
+ b=fy+0aOJQ2WRpXC6N/DJqi9ogHzuo3V5Oi9AScJ7AgmiDAQZr59MJQjg/oH5NdRJNG7L23Y
+ 0RizHloUKzpFiVXY1yn11v/xIRCgX5Qg0nNcfiF7UyA5wGhwkljMdyIYsAnu4bfr1g8S2H
+ RKVhtbN6yUibhIEzpYWswoYwLtMslU8=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-608-DohkVqgWOOu9DwZgiOQ9ww-1; Tue, 09 Jun 2026 13:25:22 -0400
+X-MC-Unique: DohkVqgWOOu9DwZgiOQ9ww-1
+X-Mimecast-MFC-AGG-ID: DohkVqgWOOu9DwZgiOQ9ww_1781025922
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-5175aa1a54bso125047231cf.1
+ for <qemu-rust@nongnu.org>; Tue, 09 Jun 2026 10:25:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781025922; x=1781630722;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=RTdK9UhiIM0qRwABF6UWGsM5x1elL2UrbbjIZlAcG7s=;
+ b=msrPiMxZ93oUz28DO4II7aaQ35yklGRUnV6yajWNxhdrqYlyjALRn7epvxWAr6lzfO
+ iQNe0GxPTWK5/sdqtsItztP9gEB6p0II/4ByLgvzrMcrIqjKHRwxa25uUHdq0nl1XaPK
+ G5rj+NwfvL8hYMOad0c3Kta/SVNfhifwvfo8bboxG1hJ9fkm3DA88AWc9yg+2NiG2m71
+ RDjlfp1p3oDnaDu9eZqOfmvC9X5cFPWxK8jSwGCxLfe4X74vdx7b2izpkyBzFFcS93iQ
+ lFatWWjGohvnKKMVnHcQMhGAPC8p+BzMgNV73V5CqrJhc2qBAtpwKvYgO3mbZoA2Jh3S
+ LsRA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9tSSE5ux4nCRttRf3OHlxzPP3R8duy5Wrfg/aec7Sppx7ynqXhefYiCgxpYej2NJfKajUZoqFfQ+k=@nongnu.org
+X-Gm-Message-State: AOJu0YwBgMWCMxrQDoxQI5GSejN8YbBpuunFOzlEGPOldHYMODERzCoS
+ tQeV2z4fSATwkUoPBgGDxLMTLIGnvB4mWAabwhV2byI45mOfP903D3I3yqHBUZMHoxa/vvLHys5
+ pbDktMM77hLIhEf4YFHNwS3bd4liPL2BkplVSNCAHTk76wp7aDHASEKU=
+X-Gm-Gg: Acq92OF6vZKrxJx5bAmxQAz9t4+5ao5W4hjS1NL3f5Qbc5YplNNQpWOZGu/4n/05odo
+ lLICQlUdNd1JO9MoyG/R9sCM0ELoxVddjcDDry3LEhN9xCYm4dncUMy7uTI18RHDm+YWH3BPDRV
+ 9Psjga23Lr849Qrxk2Rvy/iM/wZfARM2qHNlecENUTYSTT8xEBk7uIG3s+BP3rZliEZmLzuwzke
+ FQSeEcf3Q7jpTx7LLAAX0An8zktlEC4LpPGFJvWfUrjE0JvN4FFtGnBAM4+yK99+WkijV64u95B
+ aMQ5mNqXR437l/oILYRQbqCcdfF5bkoT1JAM1RayyqhQMKlJPK8k5oP2xf3ZqU87JIKoIWYlVIk
+ +zKbGpg4LqO6zB6imYmkk/v4=
+X-Received: by 2002:a05:622a:1b09:b0:50e:631c:c390 with SMTP id
+ d75a77b69052e-51795c5be37mr317022991cf.44.1781025922054; 
+ Tue, 09 Jun 2026 10:25:22 -0700 (PDT)
+X-Received: by 2002:a05:622a:1b09:b0:50e:631c:c390 with SMTP id
+ d75a77b69052e-51795c5be37mr317022371cf.44.1781025921523; 
+ Tue, 09 Jun 2026 10:25:21 -0700 (PDT)
+Received: from x1.com ([142.189.10.167]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-51775da2c56sm187524711cf.21.2026.06.09.10.25.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Jun 2026 10:25:21 -0700 (PDT)
+From: Peter Xu <peterx@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: qemu-arm@nongnu.org,
+ =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@redhat.com>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@mailo.com>,
+ =?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+ Fabiano Rosas <farosas@suse.de>,
+ Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ "Dr . David Alan Gilbert" <dave@treblig.org>,
+ Eric Blake <eblake@redhat.com>,
+ Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, Peter Xu <peterx@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
+ Sana Sharma <sansshar@redhat.com>,
+ =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
+ Juraj Marcin <jmarcin@redhat.com>, qemu-rust@nongnu.org,
+ Markus Armbruster <armbru@redhat.com>,
+ Mark Cave-Ayland <mark.caveayland@nutanix.com>
+Subject: [PATCH v2 02/10] qdev: Export global_props()
+Date: Tue,  9 Jun 2026 13:25:06 -0400
+Message-ID: <20260609172514.2037645-3-peterx@redhat.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260609172514.2037645-1-peterx@redhat.com>
+References: <20260609172514.2037645-1-peterx@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-MFC-PROC-ID: RozdVoV9G0hrrez1cgITdqIGFAnsL_EaVo7lsmz-o94_1780925771
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: TALJV_O7hVaqJhNfUA9WCZfdiES-tc_u368oglraYHI_1781025922
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=peterx@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: 8
-X-Spam_score: 0.8
-X-Spam_bar: /
-X-Spam_report: (0.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
+X-Spam_score_int: -24
+X-Spam_score: -2.5
+X-Spam_bar: --
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_SBL_CSS=3.335, SPF_HELO_PASS=-0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -103,54 +124,53 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-"Dr. David Alan Gilbert" <dave@treblig.org> writes:
+Make it accessible from outside (to apply -global properties).
 
-> * Marc-Andr=C3=A9 Lureau (marcandre.lureau@redhat.com) wrote:
->> Add a new 'info ramblock-attributes' HMP command and the corresponding
->> 'x-query-ramblock-attributes' QMP command to display the shared/private
->> memory attributes for ram blocks.
->>=20
->> The QMP command returns structured data (RamBlockAttributesInfo list
->> with per-range shared/populated attributes), while HMP formats it for
->> human consumption.
->>=20
->> This is useful for debugging confidential guests (TDX, SNP) to inspect
->> which memory regions are shared vs private, and their population state
->> when a RamDiscardManager is present (e.g. virtio-mem).
->>=20
->> Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
->> ---
->>  qapi/machine.json             | 56 ++++++++++++++++++++++++++++++++++
->>  include/monitor/hmp.h         |  1 +
->>  hw/core/machine-hmp-cmds.c    | 32 +++++++++++++++++++
->>  system/ram-block-attributes.c | 71 ++++++++++++++++++++++++++++++++++++=
-+++++++
->>  hmp-commands-info.hx          | 13 ++++++++
->>  5 files changed, 173 insertions(+)
->>=20
->
-> <snip>
->
-> For HMP,
->
-> Acked-by: Dr. David Alan Gilbert <dave@treblig.org>
->
-> however, you might consider whether it would be better to add it
-> to the existing "info ramblock"
+Signed-off-by: Peter Xu <peterx@redhat.com>
+---
+ include/hw/core/qdev-properties.h | 2 ++
+ hw/core/qdev-properties.c         | 2 +-
+ rust/bindings/hwcore-sys/lib.rs   | 2 +-
+ 3 files changed, 4 insertions(+), 2 deletions(-)
 
-Valid suggestion.
-
-HMP "info ramblock" wraps around QMP x-query-ramblock, which returns
-HumanReadableText.
-
-HMP "info ramblock-attributes" wraps around QMP
-x-query-ramblock-attributes, which returns a list of
-RamBlockAttributesInfo.
-
-So, basic x-query-ramblock returns unstructured text, and
-x-query-ramblock-attributes returns structured data.  Hmm.  Feels a bit
-odd.
-
-[...]
+diff --git a/include/hw/core/qdev-properties.h b/include/hw/core/qdev-properties.h
+index eba5436e53..248bbcbba7 100644
+--- a/include/hw/core/qdev-properties.h
++++ b/include/hw/core/qdev-properties.h
+@@ -321,4 +321,6 @@ void qdev_prop_allow_set_link_before_realize(const Object *obj,
+                                              const char *name,
+                                              Object *val, Error **errp);
+ 
++GPtrArray *global_props(void);
++
+ #endif
+diff --git a/hw/core/qdev-properties.c b/hw/core/qdev-properties.c
+index 34d7b26a73..1d531189ec 100644
+--- a/hw/core/qdev-properties.c
++++ b/hw/core/qdev-properties.c
+@@ -958,7 +958,7 @@ void qlist_append_link(QList *qlist, Object *obj)
+     qlist_append_str(qlist, path);
+ }
+ 
+-static GPtrArray *global_props(void)
++GPtrArray *global_props(void)
+ {
+     static GPtrArray *gp;
+ 
+diff --git a/rust/bindings/hwcore-sys/lib.rs b/rust/bindings/hwcore-sys/lib.rs
+index 8cef4a7961..85e71f5145 100644
+--- a/rust/bindings/hwcore-sys/lib.rs
++++ b/rust/bindings/hwcore-sys/lib.rs
+@@ -20,7 +20,7 @@
+ 
+ use chardev_sys::Chardev;
+ use common::Zeroable;
+-use glib_sys::GSList;
++use glib_sys::{GPtrArray, GSList};
+ use migration_sys::VMStateDescription;
+ use qom_sys::{
+     InterfaceClass, Object, ObjectClass, ObjectProperty, ObjectPropertyAccessor,
+-- 
+2.53.0
 
 
