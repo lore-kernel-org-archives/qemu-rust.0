@@ -4,90 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CB5ACD8CB2
-	for <qemu-rust@archiver.kernel.org>; Wed, 10 Jun 2026 13:57:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B278CCD8CB9
+	for <qemu-rust@archiver.kernel.org>; Wed, 10 Jun 2026 14:15:12 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wXJQt-0002iq-Hg; Wed, 10 Jun 2026 09:57:29 -0400
+	id 1wXJhn-0007gQ-WE; Wed, 10 Jun 2026 10:14:56 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1wXJQm-0002hs-Uw
- for qemu-rust@nongnu.org; Wed, 10 Jun 2026 09:57:21 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1wXJhl-0007fc-9G; Wed, 10 Jun 2026 10:14:53 -0400
+Received: from mgamail.intel.com ([198.175.65.19])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1wXJQl-0000Et-Gn
- for qemu-rust@nongnu.org; Wed, 10 Jun 2026 09:57:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1781099838;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iIEuPS2wo4+80/yaV0g/QinElNlfSlqzVMtUX6htL7Q=;
- b=WBlpEE+PsKKjBi/udnsZ8qgkg1htlBByflSX8ChC2qiLvCPmbpVN9CNwFPx+pdFKRgD0vC
- KqbAXzAAJpKCmtXhqD5xiHE2dcqwEfSdet4SgpZxMj+ATQH1aTgBqrFJgfhu3r0D0/phPV
- 6bVwX8EnUJIEFZfNb/u8bBnslJfmejg=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-538-pQqkTRhIPxyy3UvoKA4-eg-1; Wed,
- 10 Jun 2026 09:57:12 -0400
-X-MC-Unique: pQqkTRhIPxyy3UvoKA4-eg-1
-X-Mimecast-MFC-AGG-ID: pQqkTRhIPxyy3UvoKA4-eg_1781099831
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 1C0941954B17; Wed, 10 Jun 2026 13:57:10 +0000 (UTC)
-Received: from redhat.com (unknown [10.44.50.112])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id BA5731954B0C; Wed, 10 Jun 2026 13:57:02 +0000 (UTC)
-Date: Wed, 10 Jun 2026 14:56:59 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Peter Xu <peterx@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-arm@nongnu.org,
- =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@redhat.com>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@mailo.com>,
- Fabiano Rosas <farosas@suse.de>,
- Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
- Peter Maydell <peter.maydell@linaro.org>,
- "Dr . David Alan Gilbert" <dave@treblig.org>,
- Eric Blake <eblake@redhat.com>,
- Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
- Paolo Bonzini <pbonzini@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
- Sana Sharma <sansshar@redhat.com>,
- =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
- Juraj Marcin <jmarcin@redhat.com>, qemu-rust@nongnu.org,
- Markus Armbruster <armbru@redhat.com>,
- Mark Cave-Ayland <mark.caveayland@nutanix.com>
-Subject: Re: [PATCH v2 01/10] migration: Use OBJECT_DECLARE_SIMPLE_TYPE
-Message-ID: <ailtKzBXe1E14B9i@redhat.com>
-References: <20260609172514.2037645-1-peterx@redhat.com>
- <20260609172514.2037645-2-peterx@redhat.com>
+ (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
+ id 1wXJhj-0000Cd-I7; Wed, 10 Jun 2026 10:14:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781100891; x=1812636891;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=u5B2JAvem5tUT4Xhm6L6GDKFQz9xXwYqRjog62rVbns=;
+ b=KJ7kSVXfJJzl8ffY7A062do60IIN3ba9btQrEGCFsEaHZsxQvvBmwrNx
+ DDHvYECom1AxtlYBjaUSNZLBR8sKZa6tJcq/O9DKtfjHJMtRMadpK/pzN
+ h8y04vxVbccWygelT1QeEIc4Es3dukBbl08LR3NezM5/TH+/YGPji4/ch
+ PvwLjIWuIzfV8hJ9sAZkgH+EVZsEVxRqCjWeB8DDn9TdeqB5dxXl7YqmG
+ 0NetXuZ/uzM1E/8SZkMyeHBQFFC94mfWqoVyPWJFWfkGf0SxhGj7JKnTs
+ SKfGS0EwG5BSdvL8f9ft3cEJpSDTXGO2xatX1b8ZEEO6Mb2MlwcziU6u7 g==;
+X-CSE-ConnectionGUID: KPOZGWimRZm0/TQw9ZqbvA==
+X-CSE-MsgGUID: 0PwNxUdmTqOOOucSctCRYw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="81871495"
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="81871495"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 07:14:46 -0700
+X-CSE-ConnectionGUID: vF+rsnUBTNSvPjtr9pNXRQ==
+X-CSE-MsgGUID: H2wlLNRzQkif5nuhEIE/jg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="241768159"
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.39])
+ by fmviesa006.fm.intel.com with ESMTP; 10 Jun 2026 07:14:44 -0700
+Date: Wed, 10 Jun 2026 22:42:51 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, armbru@redhat.com,
+ marcandre.lureau@redhat.com
+Subject: Re: [PATCH v3 13/19] scripts/qapi: pull c_name and lstrip from
+ camel_to_upper to caller
+Message-ID: <ail369d+m8qF69DB@intel.com>
+References: <20260526175618.227743-1-pbonzini@redhat.com>
+ <20260526175618.227743-14-pbonzini@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20260609172514.2037645-2-peterx@redhat.com>
-User-Agent: Mutt/2.3.2 (2026-04-26)
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-X-Mimecast-MFC-PROC-ID: vLqRJTaNx9NN1iTSK8MmlXoulmRoStnaMYtf1PEDOB8_1781099831
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: -24
-X-Spam_score: -2.5
-X-Spam_bar: --
-X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
+In-Reply-To: <20260526175618.227743-14-pbonzini@redhat.com>
+Received-SPF: pass client-ip=198.175.65.19; envelope-from=zhao1.liu@intel.com;
+ helo=mgamail.intel.com
+X-Spam_score_int: -47
+X-Spam_score: -4.8
+X-Spam_bar: ----
+X-Spam_report: (-4.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ RCVD_IN_DNSWL_MED=-2.3, SPF_HELO_NONE=0.001,
+ SPF_NONE=0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -100,29 +79,34 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Tue, Jun 09, 2026 at 01:25:05PM -0400, Peter Xu wrote:
-> Migration object's class has nothing special, switch to the newly
-> introduced macro.
+On Tue, May 26, 2026 at 07:56:12PM +0200, Paolo Bonzini wrote:
+> Date: Tue, 26 May 2026 19:56:12 +0200
+> From: Paolo Bonzini <pbonzini@redhat.com>
+> Subject: [PATCH v3 13/19] scripts/qapi: pull c_name and lstrip from
+>  camel_to_upper to caller
+> X-Mailer: git-send-email 2.54.0
 > 
-> Suggested-by: Daniel P. Berrangé <berrange@redhat.com>
-> Signed-off-by: Peter Xu <peterx@redhat.com>
+> Allow using camel_to_upper for other languages too.
+> 
+> In particular, the lstrip() is needed to avoid reserved C identifiers,
+> for example:
+> 
+>     typedef enum __org_qemu_x_Enum {
+>         __ORG_QEMU_X_ENUM___ORG_QEMU_X_VALUE,
+>         __ORG_QEMU_X_ENUM__MAX,
+>     } __org_qemu_x_Enum;
+> 
+> Insulate Rust from this, since underscores have a different meaning
+> in Rust (though only for the sake of warnings).
+> 
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  migration/migration.h | 9 +--------
->  migration/migration.c | 7 +++----
->  2 files changed, 4 insertions(+), 12 deletions(-)
+>  scripts/qapi/common.py | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-
-
-With regards,
-Daniel
--- 
-|: https://berrange.com       ~~        https://hachyderm.io/@berrange :|
-|: https://libvirt.org          ~~          https://entangle-photo.org :|
-|: https://pixelfed.art/berrange   ~~    https://fstop138.berrange.com :|
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
 
