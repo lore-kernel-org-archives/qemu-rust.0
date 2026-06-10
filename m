@@ -4,73 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43CB5CD98CD
-	for <qemu-rust@archiver.kernel.org>; Wed, 10 Jun 2026 08:05:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CB5ACD8CB2
+	for <qemu-rust@archiver.kernel.org>; Wed, 10 Jun 2026 13:57:45 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wXDw9-0001CQ-8A; Wed, 10 Jun 2026 04:05:21 -0400
+	id 1wXJQt-0002iq-Hg; Wed, 10 Jun 2026 09:57:29 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1wXDvx-00012K-Lk
- for qemu-rust@nongnu.org; Wed, 10 Jun 2026 04:05:09 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1wXJQm-0002hs-Uw
+ for qemu-rust@nongnu.org; Wed, 10 Jun 2026 09:57:21 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1wXDvr-0000dO-Jo
- for qemu-rust@nongnu.org; Wed, 10 Jun 2026 04:05:09 -0400
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1wXJQl-0000Et-Gn
+ for qemu-rust@nongnu.org; Wed, 10 Jun 2026 09:57:20 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1781078702;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ s=mimecast20190719; t=1781099838;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nm+cv72nJfQWzkHYP1/F+qeBJ2S+3Anm7ZhuCtEmty0=;
- b=bqEMQgLblffe6XWzj9eh/64ZCHCs4XpMD8S78zDM7NflXij1xkpsspUrOkU2RDxle7VhF7
- 2Nr5u225za8WnJ7UahoMQMKmjMWSdwQqzCTHPwXBYShjj9CWvFRerkm+it5DX/3feW3PXX
- AeMzD4THwdjUTBDLqUfyxg06wWHXcXY=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=iIEuPS2wo4+80/yaV0g/QinElNlfSlqzVMtUX6htL7Q=;
+ b=WBlpEE+PsKKjBi/udnsZ8qgkg1htlBByflSX8ChC2qiLvCPmbpVN9CNwFPx+pdFKRgD0vC
+ KqbAXzAAJpKCmtXhqD5xiHE2dcqwEfSdet4SgpZxMj+ATQH1aTgBqrFJgfhu3r0D0/phPV
+ 6bVwX8EnUJIEFZfNb/u8bBnslJfmejg=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-9-Sjcs2JRsNxex3UVX4BZ9Kw-1; Wed,
- 10 Jun 2026 04:05:00 -0400
-X-MC-Unique: Sjcs2JRsNxex3UVX4BZ9Kw-1
-X-Mimecast-MFC-AGG-ID: Sjcs2JRsNxex3UVX4BZ9Kw_1781078699
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-538-pQqkTRhIPxyy3UvoKA4-eg-1; Wed,
+ 10 Jun 2026 09:57:12 -0400
+X-MC-Unique: pQqkTRhIPxyy3UvoKA4-eg-1
+X-Mimecast-MFC-AGG-ID: pQqkTRhIPxyy3UvoKA4-eg_1781099831
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 29EC01800596; Wed, 10 Jun 2026 08:04:59 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.44.22.28])
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 1C0941954B17; Wed, 10 Jun 2026 13:57:10 +0000 (UTC)
+Received: from redhat.com (unknown [10.44.50.112])
  by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id D8C131955BD4; Wed, 10 Jun 2026 08:04:58 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 43E3021E64B3; Wed, 10 Jun 2026 10:04:48 +0200 (CEST)
-From: Markus Armbruster <armbru@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: stefanha@redhat.com, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- qemu-rust@nongnu.org
-Subject: [PULL 42/42] MAINTAINERS: Fix F: in "Rust build system integration"
-Date: Wed, 10 Jun 2026 10:04:47 +0200
-Message-ID: <20260610080447.1156502-43-armbru@redhat.com>
-In-Reply-To: <20260610080447.1156502-1-armbru@redhat.com>
-References: <20260610080447.1156502-1-armbru@redhat.com>
+ id BA5731954B0C; Wed, 10 Jun 2026 13:57:02 +0000 (UTC)
+Date: Wed, 10 Jun 2026 14:56:59 +0100
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Peter Xu <peterx@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-arm@nongnu.org,
+ =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@redhat.com>,
+ Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@mailo.com>,
+ Fabiano Rosas <farosas@suse.de>,
+ Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ "Dr . David Alan Gilbert" <dave@treblig.org>,
+ Eric Blake <eblake@redhat.com>,
+ Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+ Paolo Bonzini <pbonzini@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
+ Sana Sharma <sansshar@redhat.com>,
+ =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
+ Juraj Marcin <jmarcin@redhat.com>, qemu-rust@nongnu.org,
+ Markus Armbruster <armbru@redhat.com>,
+ Mark Cave-Ayland <mark.caveayland@nutanix.com>
+Subject: Re: [PATCH v2 01/10] migration: Use OBJECT_DECLARE_SIMPLE_TYPE
+Message-ID: <ailtKzBXe1E14B9i@redhat.com>
+References: <20260609172514.2037645-1-peterx@redhat.com>
+ <20260609172514.2037645-2-peterx@redhat.com>
 MIME-Version: 1.0
+In-Reply-To: <20260609172514.2037645-2-peterx@redhat.com>
+User-Agent: Mutt/2.3.2 (2026-04-26)
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-X-Mimecast-MFC-PROC-ID: 3vdZmYNg4qvCqvzpf2h-8W2esSaMEc-O9EvOgW-oBoY_1781078699
+X-Mimecast-MFC-PROC-ID: vLqRJTaNx9NN1iTSK8MmlXoulmRoStnaMYtf1PEDOB8_1781099831
 X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
 X-Spam_score: -2.5
 X-Spam_bar: --
 X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H5=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -83,36 +100,29 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-We neglected to update MAINTAINERS when we moved rust/wrapper.h, and
-again when we split it up.  Update it now.
+On Tue, Jun 09, 2026 at 01:25:05PM -0400, Peter Xu wrote:
+> Migration object's class has nothing special, switch to the newly
+> introduced macro.
+> 
+> Suggested-by: Daniel P. Berrangé <berrange@redhat.com>
+> Signed-off-by: Peter Xu <peterx@redhat.com>
+> ---
+>  migration/migration.h | 9 +--------
+>  migration/migration.c | 7 +++----
+>  2 files changed, 4 insertions(+), 12 deletions(-)
 
-Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: qemu-rust@nongnu.org
-Fixes: 1ae4ca0463 (rust: move rust.bindgen to qemu-api crate, 2025-06-13)
-Signed-off-by: Markus Armbruster <armbru@redhat.com>
-Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Message-ID: <20260603064032.3733394-39-armbru@redhat.com>
----
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 07ab566d09..2b5b581e17 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4609,7 +4609,7 @@ F: scripts/rust/
- F: rust/.gitignore
- F: rust/Kconfig
- F: rust/meson.build
--F: rust/wrapper.h
-+F: rust/bindings/*/wrapper.h
- 
- Miscellaneous
- -------------
+
+With regards,
+Daniel
 -- 
-2.54.0
+|: https://berrange.com       ~~        https://hachyderm.io/@berrange :|
+|: https://libvirt.org          ~~          https://entangle-photo.org :|
+|: https://pixelfed.art/berrange   ~~    https://fstop138.berrange.com :|
 
 
