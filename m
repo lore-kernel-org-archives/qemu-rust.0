@@ -4,122 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4787CD8CAD
-	for <qemu-rust@archiver.kernel.org>; Tue,  9 Jun 2026 23:21:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43CB5CD98CD
+	for <qemu-rust@archiver.kernel.org>; Wed, 10 Jun 2026 08:05:37 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wX5lD-0000dN-UO; Tue, 09 Jun 2026 19:21:31 -0400
+	id 1wXDw9-0001CQ-8A; Wed, 10 Jun 2026 04:05:21 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <farosas@suse.de>) id 1wX5lB-0000ag-Pq
- for qemu-rust@nongnu.org; Tue, 09 Jun 2026 19:21:29 -0400
-Received: from smtp-out1.suse.de ([2a07:de40:b251:101:10:150:64:1])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <farosas@suse.de>) id 1wX5l9-00023n-Up
- for qemu-rust@nongnu.org; Tue, 09 Jun 2026 19:21:29 -0400
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1wXDvx-00012K-Lk
+ for qemu-rust@nongnu.org; Wed, 10 Jun 2026 04:05:09 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <armbru@redhat.com>) id 1wXDvr-0000dO-Jo
+ for qemu-rust@nongnu.org; Wed, 10 Jun 2026 04:05:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1781078702;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=nm+cv72nJfQWzkHYP1/F+qeBJ2S+3Anm7ZhuCtEmty0=;
+ b=bqEMQgLblffe6XWzj9eh/64ZCHCs4XpMD8S78zDM7NflXij1xkpsspUrOkU2RDxle7VhF7
+ 2Nr5u225za8WnJ7UahoMQMKmjMWSdwQqzCTHPwXBYShjj9CWvFRerkm+it5DX/3feW3PXX
+ AeMzD4THwdjUTBDLqUfyxg06wWHXcXY=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-9-Sjcs2JRsNxex3UVX4BZ9Kw-1; Wed,
+ 10 Jun 2026 04:05:00 -0400
+X-MC-Unique: Sjcs2JRsNxex3UVX4BZ9Kw-1
+X-Mimecast-MFC-AGG-ID: Sjcs2JRsNxex3UVX4BZ9Kw_1781078699
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1A9346A932;
- Tue,  9 Jun 2026 23:21:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781047286; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JiQT306ZsYyNGqJaI9bEIqWY1UM6yQRkTaUZ21idcrI=;
- b=uZUMebOz6fmuBtGm4beGVRFsWS35xiPAbgK2cXLG+Mx/vGxpeQSLKLo+mIj1j/fo0DclS5
- EZHST8MfIGz9tyA4LqGsmC1QOajSNUbFmPHSHi944y8iBcVXsR3Y96vVpg9wCbvm+6Mm2f
- 1pFBzIS90NOjD/V+s0xpPT0aI4qCdnM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781047286;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JiQT306ZsYyNGqJaI9bEIqWY1UM6yQRkTaUZ21idcrI=;
- b=dUAVzg8XNicLTL76NYd8UGWBxn7tT52ReSh/PUsfp0lbQWpOdhWGV8uin6E+aJsH6UKyYx
- sBTVqne3dU+SR4DA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Qz+TqjoA;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="NwJX/2NT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781047285; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JiQT306ZsYyNGqJaI9bEIqWY1UM6yQRkTaUZ21idcrI=;
- b=Qz+TqjoAjNVDjlSqpeKBz2g5oJIcy3joY/Vk4y7GaKxBoo6yYt09txahPu2XWL0QbkI17y
- +L44wCp8SjwAA2uWMK7yj/CKVgShQbw+fvEJYfCKkU7Otr0lRYnHM8YRLuH98veKcuG3WC
- HDjiOlZ/R+A3Q4U6FJbLNf0MSNrpzUE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781047285;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JiQT306ZsYyNGqJaI9bEIqWY1UM6yQRkTaUZ21idcrI=;
- b=NwJX/2NT2TV3d1bL++Ya8/Epc6ihOPUUL1Mro1PrXYsZ/GsRRmQexP8p3mLjMT+MkbGRrb
- rpJrYgFTZMVZH4Cw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AACA1779A7;
- Tue,  9 Jun 2026 23:21:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 2AEoHvSfKGoMUAAAD6G6ig
- (envelope-from <farosas@suse.de>); Tue, 09 Jun 2026 23:21:24 +0000
-From: Fabiano Rosas <farosas@suse.de>
-To: Peter Xu <peterx@redhat.com>, qemu-devel@nongnu.org
-Cc: qemu-arm@nongnu.org, =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@redhat.com>,
- Philippe
- =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@mailo.com>, =?utf-8?Q?Daniel_P_=2E?=
- =?utf-8?Q?_Berrang=C3=A9?=
- <berrange@redhat.com>, Vladimir Sementsov-Ogievskiy
- <vsementsov@yandex-team.ru>, Peter Maydell <peter.maydell@linaro.org>, "Dr
- . David Alan Gilbert" <dave@treblig.org>, Eric Blake <eblake@redhat.com>,
- Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, Peter Xu
- <peterx@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, Kevin Wolf
- <kwolf@redhat.com>, Sana Sharma <sansshar@redhat.com>, =?utf-8?Q?Marc-And?=
- =?utf-8?Q?r=C3=A9?= Lureau
- <marcandre.lureau@redhat.com>, Juraj Marcin <jmarcin@redhat.com>,
- qemu-rust@nongnu.org, Markus Armbruster <armbru@redhat.com>, Mark
- Cave-Ayland <mark.caveayland@nutanix.com>
-Subject: Re: [PATCH v2 08/10] qom: Add object_property_add_*_ptr_def()
-In-Reply-To: <20260609172514.2037645-9-peterx@redhat.com>
-References: <20260609172514.2037645-1-peterx@redhat.com>
- <20260609172514.2037645-9-peterx@redhat.com>
-Date: Tue, 09 Jun 2026 20:21:18 -0300
-Message-ID: <875x3r5mhd.fsf@suse.de>
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 29EC01800596; Wed, 10 Jun 2026 08:04:59 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.44.22.28])
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id D8C131955BD4; Wed, 10 Jun 2026 08:04:58 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 43E3021E64B3; Wed, 10 Jun 2026 10:04:48 +0200 (CEST)
+From: Markus Armbruster <armbru@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: stefanha@redhat.com, Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ qemu-rust@nongnu.org
+Subject: [PULL 42/42] MAINTAINERS: Fix F: in "Rust build system integration"
+Date: Wed, 10 Jun 2026 10:04:47 +0200
+Message-ID: <20260610080447.1156502-43-armbru@redhat.com>
+In-Reply-To: <20260610080447.1156502-1-armbru@redhat.com>
+References: <20260610080447.1156502-1-armbru@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCVD_TLS_ALL(0.00)[]; MISSING_XM_UA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[20]; MIME_TRACE(0.00)[0:+];
- TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MID_RHS_MATCH_FROM(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim,suse.de:mid];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 1A9346A932
-Received-SPF: pass client-ip=2a07:de40:b251:101:10:150:64:1;
- envelope-from=farosas@suse.de; helo=smtp-out1.suse.de
-X-Spam_score_int: -20
-X-Spam_score: -2.1
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-Mimecast-MFC-PROC-ID: 3vdZmYNg4qvCqvzpf2h-8W2esSaMEc-O9EvOgW-oBoY_1781078699
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=armbru@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -24
+X-Spam_score: -2.5
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -135,133 +86,33 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Peter Xu <peterx@redhat.com> writes:
+We neglected to update MAINTAINERS when we moved rust/wrapper.h, and
+again when we split it up.  Update it now.
 
-> Add sister functions for existing pointer versions, to make it even easier
-> to use by:
->
-> - always make properties to be rw-able
-> - allowing to specify default values
-> - no retcode needed (assert on failure, always)
->
-> Signed-off-by: Peter Xu <peterx@redhat.com>
-> ---
->  include/qom/object-property-ptr.h | 28 +++++++++++++
->  qom/object-property-ptr.c         | 67 +++++++++++++++++++++++++++++++
->  2 files changed, 95 insertions(+)
->
-> diff --git a/include/qom/object-property-ptr.h b/include/qom/object-property-ptr.h
-> index be467c64af..ecd6f7819b 100644
-> --- a/include/qom/object-property-ptr.h
-> +++ b/include/qom/object-property-ptr.h
-> @@ -131,4 +131,32 @@ object_property_add_size_ptr(Object *obj, const char *name,
->                               const uint64_t *v,
->                               ObjectPropertyFlags flags);
->  
-> +/*
-> + * Below are sister helpers of above, except that:
-> + *
-> + * (1) nothing is returned
-> + * (2) always make the property to be both readable and writeable
-> + * (3) allow setting default value
-> + *
-> + * Please refer to the sister functions for the documentation.
-> + */
-> +void
-> +object_property_add_bool_ptr_def(Object *obj, const char *name,
-> +                                 const bool *v, bool def);
-> +void
-> +object_property_add_uint8_ptr_def(Object *obj, const char *name,
-> +                                  const uint8_t *v, uint8_t def);
-> +void
-> +object_property_add_uint16_ptr_def(Object *obj, const char *name,
-> +                                   const uint16_t *v, uint16_t def);
-> +void
-> +object_property_add_uint32_ptr_def(Object *obj, const char *name,
-> +                                   const uint32_t *v, uint32_t def);
-> +void
-> +object_property_add_uint64_ptr_def(Object *obj, const char *name,
-> +                                   const uint64_t *v, uint64_t def);
-> +void
-> +object_property_add_size_ptr_def(Object *obj, const char *name,
-> +                                 const uint64_t *v, uint64_t def);
-> +
->  #endif
-> diff --git a/qom/object-property-ptr.c b/qom/object-property-ptr.c
-> index 21ceb2510d..ae9081d2d8 100644
-> --- a/qom/object-property-ptr.c
-> +++ b/qom/object-property-ptr.c
-> @@ -325,3 +325,70 @@ object_property_add_size_ptr(Object *obj, const char *name,
->      return object_property_add(obj, name, "size",
->                                 getter, setter, NULL, (void *)v);
->  }
-> +
-> +void
-> +object_property_add_bool_ptr_def(Object *obj, const char *name,
-> +                                 const bool *v, bool def)
-> +{
-> +    ObjectProperty *prop;
-> +
-> +    prop = object_property_add_bool_ptr(obj, name, v,
-> +                                        OBJ_PROP_FLAG_READWRITE);
-> +    object_property_set_default_bool(prop, def);
-> +}
-> +
-> +
-> +void
-> +object_property_add_uint8_ptr_def(Object *obj, const char *name,
-> +                                  const uint8_t *v, uint8_t def)
-> +{
-> +    ObjectProperty *prop;
-> +
-> +    prop = object_property_add_uint8_ptr(obj, name, v,
-> +                                         OBJ_PROP_FLAG_READWRITE);
-> +    object_property_set_default_uint(prop, def);
-> +}
-> +
-> +void
-> +object_property_add_uint16_ptr_def(Object *obj, const char *name,
-> +                                   const uint16_t *v, uint16_t def)
-> +{
-> +    ObjectProperty *prop;
-> +
-> +    prop = object_property_add_uint16_ptr(obj, name, v,
-> +                                          OBJ_PROP_FLAG_READWRITE);
-> +    object_property_set_default_uint(prop, def);
-> +}
-> +
-> +void
-> +object_property_add_uint32_ptr_def(Object *obj, const char *name,
-> +                                   const uint32_t *v, uint32_t def)
-> +{
-> +    ObjectProperty *prop;
-> +
-> +    prop = object_property_add_uint32_ptr(obj, name, v,
-> +                                          OBJ_PROP_FLAG_READWRITE);
-> +    object_property_set_default_uint(prop, def);
-> +}
-> +
-> +void
-> +object_property_add_uint64_ptr_def(Object *obj, const char *name,
-> +                                   const uint64_t *v, uint64_t def)
-> +{
-> +    ObjectProperty *prop;
-> +
-> +    prop = object_property_add_uint64_ptr(obj, name, v,
-> +                                          OBJ_PROP_FLAG_READWRITE);
-> +    object_property_set_default_uint(prop, def);
-> +}
-> +
-> +void
-> +object_property_add_size_ptr_def(Object *obj, const char *name,
-> +                                 const uint64_t *v, uint64_t def)
-> +{
-> +    ObjectProperty *prop;
-> +
-> +    prop = object_property_add_size_ptr(obj, name, v,
-> +                                        OBJ_PROP_FLAG_READWRITE);
-> +    object_property_set_default_uint(prop, def);
-> +}
+Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Cc: qemu-rust@nongnu.org
+Fixes: 1ae4ca0463 (rust: move rust.bindgen to qemu-api crate, 2025-06-13)
+Signed-off-by: Markus Armbruster <armbru@redhat.com>
+Reviewed-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Message-ID: <20260603064032.3733394-39-armbru@redhat.com>
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Reviewed-by: Fabiano Rosas <farosas@suse.de>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 07ab566d09..2b5b581e17 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4609,7 +4609,7 @@ F: scripts/rust/
+ F: rust/.gitignore
+ F: rust/Kconfig
+ F: rust/meson.build
+-F: rust/wrapper.h
++F: rust/bindings/*/wrapper.h
+ 
+ Miscellaneous
+ -------------
+-- 
+2.54.0
+
 
