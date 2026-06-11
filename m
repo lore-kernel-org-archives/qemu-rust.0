@@ -4,88 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03916CD98CC
-	for <qemu-rust@archiver.kernel.org>; Thu, 11 Jun 2026 14:17:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21541CD98CE
+	for <qemu-rust@archiver.kernel.org>; Thu, 11 Jun 2026 14:37:15 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wXgDx-0000v7-Tb; Thu, 11 Jun 2026 10:17:38 -0400
+	id 1wXgWi-0006Ah-FN; Thu, 11 Jun 2026 10:37:00 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1wXgDt-0000uF-Nj
- for qemu-rust@nongnu.org; Thu, 11 Jun 2026 10:17:34 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1wXgDm-000832-6M
- for qemu-rust@nongnu.org; Thu, 11 Jun 2026 10:17:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1781187444;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:in-reply-to:in-reply-to:  references:references;
- bh=5/lsoCh7xZymOLMg2olV5WjcynVfc1hleiPKtSDeibc=;
- b=hDNNjvuDNfamCuEP849bIc+qlRNAhuzDu24VZec3qM+0BbhIdeZFhsYQWqqIDKsUny6Ipx
- Zju+JCcbcmfYg8ASh4eQDHPmiS0lQ+uMyV/3hXu6WhzdfBmawMgI8CNCW1z9lvGYcpGxop
- /8ZD8Mcl/HZdGRLrjvt6yFUzekfHdzQ=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-127-eZLiFdaxNym9QTr-AEPeVQ-1; Thu,
- 11 Jun 2026 10:17:19 -0400
-X-MC-Unique: eZLiFdaxNym9QTr-AEPeVQ-1
-X-Mimecast-MFC-AGG-ID: eZLiFdaxNym9QTr-AEPeVQ_1781187437
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (Exim 4.90_1) (envelope-from <farosas@suse.de>) id 1wXgWg-0006AE-VC
+ for qemu-rust@nongnu.org; Thu, 11 Jun 2026 10:36:58 -0400
+Received: from smtp-out2.suse.de ([195.135.223.131])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <farosas@suse.de>) id 1wXgWd-0002rH-9p
+ for qemu-rust@nongnu.org; Thu, 11 Jun 2026 10:36:58 -0400
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 7495E1977034; Thu, 11 Jun 2026 14:17:16 +0000 (UTC)
-Received: from redhat.com (unknown [10.44.50.8])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id DFEDA3008B38; Thu, 11 Jun 2026 14:17:09 +0000 (UTC)
-Date: Thu, 11 Jun 2026 15:17:06 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Mark Cave-Ayland <mark.caveayland@nutanix.com>
-Cc: Peter Xu <peterx@redhat.com>, qemu-devel@nongnu.org, qemu-arm@nongnu.org,
- =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@redhat.com>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@mailo.com>,
- Fabiano Rosas <farosas@suse.de>,
- Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
- Peter Maydell <peter.maydell@linaro.org>,
- "Dr . David Alan Gilbert" <dave@treblig.org>,
- Eric Blake <eblake@redhat.com>,
- Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
- Paolo Bonzini <pbonzini@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
- Sana Sharma <sansshar@redhat.com>,
- =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
- Juraj Marcin <jmarcin@redhat.com>, qemu-rust@nongnu.org,
- Markus Armbruster <armbru@redhat.com>
-Subject: Re: [PATCH v2 09/10] qom: Allow default values for instance properties
-Message-ID: <airDYpBfCyOXqmPw@redhat.com>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4A5C175DD3;
+ Thu, 11 Jun 2026 14:36:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1781188613; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=98e91pVuWmQXgXSR9efovE49gh5elHJ4VtQUj2ALPSc=;
+ b=gSoYlhi4gmGdRBN4cf4VUternMd3qMvvOH9ATldmJOJV6GIbWKSTViY63MY8QMgV93njL9
+ s1O0ZDDfxVs9qEYGL72lZaQPHbFW0b4Z4Ny9XS0LrrBb9RCiwDYqevENTpA6ftwi35ocfP
+ ADU1gSkGPWjUgzUl9NMY6LqgJan2vQs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1781188613;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=98e91pVuWmQXgXSR9efovE49gh5elHJ4VtQUj2ALPSc=;
+ b=J46yJcOxKRRWmTeVDhPyC1+Y5w2XoVHQeQIw31Gugs8iQrXxF5q9etI+tFV5gFymxU0JOp
+ 6mvlc0m1rUPn9bCA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1781188613; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=98e91pVuWmQXgXSR9efovE49gh5elHJ4VtQUj2ALPSc=;
+ b=gSoYlhi4gmGdRBN4cf4VUternMd3qMvvOH9ATldmJOJV6GIbWKSTViY63MY8QMgV93njL9
+ s1O0ZDDfxVs9qEYGL72lZaQPHbFW0b4Z4Ny9XS0LrrBb9RCiwDYqevENTpA6ftwi35ocfP
+ ADU1gSkGPWjUgzUl9NMY6LqgJan2vQs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1781188613;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=98e91pVuWmQXgXSR9efovE49gh5elHJ4VtQUj2ALPSc=;
+ b=J46yJcOxKRRWmTeVDhPyC1+Y5w2XoVHQeQIw31Gugs8iQrXxF5q9etI+tFV5gFymxU0JOp
+ 6mvlc0m1rUPn9bCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BA9E2779A7;
+ Thu, 11 Jun 2026 14:36:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id zEH4IATIKmqYWAAAD6G6ig
+ (envelope-from <farosas@suse.de>); Thu, 11 Jun 2026 14:36:52 +0000
+From: Fabiano Rosas <farosas@suse.de>
+To: =?utf-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, Peter Xu
+ <peterx@redhat.com>
+Cc: qemu-devel@nongnu.org, qemu-arm@nongnu.org, =?utf-8?Q?C=C3=A9dric?= Le
+ Goater <clg@redhat.com>, Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
+ <philmd@mailo.com>, Vladimir
+ Sementsov-Ogievskiy <vsementsov@yandex-team.ru>, Peter Maydell
+ <peter.maydell@linaro.org>, "Dr . David Alan Gilbert" <dave@treblig.org>,
+ Eric Blake <eblake@redhat.com>, Akihiko Odaki
+ <odaki@rsg.ci.i.u-tokyo.ac.jp>, Paolo Bonzini <pbonzini@redhat.com>, Kevin
+ Wolf <kwolf@redhat.com>, Sana Sharma <sansshar@redhat.com>, =?utf-8?Q?Mar?=
+ =?utf-8?Q?c-Andr=C3=A9?=
+ Lureau <marcandre.lureau@redhat.com>, Juraj Marcin <jmarcin@redhat.com>,
+ qemu-rust@nongnu.org, Markus Armbruster <armbru@redhat.com>, Mark
+ Cave-Ayland <mark.caveayland@nutanix.com>
+Subject: Re: [PATCH v2 05/10] qom: Create object-property-ptr.[ch]
+In-Reply-To: <aiq9g60bOnvsOQOy@redhat.com>
 References: <20260609172514.2037645-1-peterx@redhat.com>
- <20260609172514.2037645-10-peterx@redhat.com>
- <e375fdb7-b4c6-4b02-b2ea-2bce06e4c025@nutanix.com>
+ <20260609172514.2037645-6-peterx@redhat.com> <aimNv51iMZ_yEgDG@redhat.com>
+ <aimvTYDsv_-Xsboy@x1.local> <aiq9g60bOnvsOQOy@redhat.com>
+Date: Thu, 11 Jun 2026 11:36:46 -0300
+Message-ID: <87h5n94001.fsf@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <e375fdb7-b4c6-4b02-b2ea-2bce06e4c025@nutanix.com>
-User-Agent: Mutt/2.3.2 (2026-04-26)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: aNwISdUqFJ6EawpJl3xMUzsfuaYnZHQZbMpYfqbGENE_1781187437
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: 8
-X-Spam_score: 0.8
-X-Spam_bar: /
-X-Spam_report: (0.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_SBL_CSS=3.335, SPF_HELO_PASS=-0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+Content-Transfer-Encoding: quoted-printable
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; MISSING_XM_UA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[19];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, gnu.org:url,
+ suse.de:mid]
+Received-SPF: pass client-ip=195.135.223.131; envelope-from=farosas@suse.de;
+ helo=smtp-out2.suse.de
+X-Spam_score_int: -43
+X-Spam_score: -4.4
+X-Spam_bar: ----
+X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_MED=-2.3, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -98,46 +131,169 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Thu, Jun 11, 2026 at 03:08:41PM +0100, Mark Cave-Ayland wrote:
-> On 09/06/2026 18:25, Peter Xu wrote:
-> 
-> > ObjectProperty allows default value settings via proper setup of
-> > prop->init() and prop->defval.  It currently is only supported in class
-> > properties, not instance properties.
-> > 
-> > However, since QOM allows class and instance properties, it should also
-> > allow instance to add properties during instance_init() and allow the
-> > default values to be applied properly for this instance only.
-> 
-> Thinking back to the earlier patches, a question that has come up before is
-> whether we should require all properties to be class properties?
+Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
 
-Ideally yes, but we have the classic QEMU problem of a big pile of technical
-debt that would need converting and always more interesting things to work
-on.
+> On Wed, Jun 10, 2026 at 02:39:09PM -0400, Peter Xu wrote:
+>> On Wed, Jun 10, 2026 at 05:15:59PM +0100, Daniel P. Berrang=C3=A9 wrote:
+>> > On Tue, Jun 09, 2026 at 01:25:09PM -0400, Peter Xu wrote:
+>> > > Create object-property-ptr.[ch] files to include all the helpers for
+>> > > object_property_add*_ptr().
+>> > >=20
+>> > > These set of helpers are handy because they look extremely familiar =
+with
+>> > > qdev-properties, allowing the caller to provide a pointer and it will
+>> > > manage all the setters and getters.
+>> > >=20
+>> > > The follow up patches may introduce more of such helpers.  Since obj=
+ect.c
+>> > > has been already too big, split that part out.
+>> >=20
+>> > The "ptr" helpers are all instance level properties which is a concept
+>> > we discourage from new usage, in favour of class level properties.
+>> >=20
+>> > I don't think we should be adding more "ptr" helpers, but rather
+>> > planning to eliminiate the (surprisingly little) usage of the
+>> > existing ones.
+>>=20
+>> The other way to do similar thing is qdev's offset way, but IMHO that's
+>> more awkward to remember an offset of a pointer then do math everytime.
+>> Essentially, from technical pov we need at least one uintptr_t to store
+>> either (1) offset, or (2) field pointer when there's a field that is bou=
+nd
+>> to a prop.  IMHO (2) can be better otherwise we'll need to do all the ma=
+ths
+>> to calculate offsets then when access we add the offset back and do a fo=
+rce
+>> cast.  It seems not necessary.
+>
+> There shouldn't be any need to play with field offsets either. Just
+> define the setters & getters to directly access the fields.
+>
+> Take some samples from the "machine_class_init" in hw/core/machine.c
+> as an example of the normal design pattern:
+>
+>     object_class_property_add_str(oc, "dumpdtb",
+>         machine_get_dumpdtb, machine_set_dumpdtb);
+>     object_class_property_set_description(oc, "dumpdtb",
+>         "Dump current dtb to a file and quit");
+>
+>    ..snip..
+>
+>     object_class_property_add_bool(oc, "dump-guest-core",
+>         machine_get_dump_guest_core, machine_set_dump_guest_core);
+>     object_class_property_set_description(oc, "dump-guest-core",
+>         "Include guest memory in a core dump");
+>
+> These are paired with:
+>
+>   static char *machine_get_dumpdtb(Object *obj, Error **errp)
+>   {
+>       MachineState *ms =3D MACHINE(obj);
+>
+>       return g_strdup(ms->dumpdtb);
+>   }
+>
+>   static void machine_set_dumpdtb(Object *obj, const char *value, Error *=
+*errp)
+>   {
+>       MachineState *ms =3D MACHINE(obj);
+>
+>       g_free(ms->dumpdtb);
+>       ms->dumpdtb =3D g_strdup(value);
+>   }
+>
+> and
+>
+>   static bool machine_get_dump_guest_core(Object *obj, Error **errp)
+>   {
+>       MachineState *ms =3D MACHINE(obj);
+>
+>       return ms->dump_guest_core;
+>   }
+>
+>   static void machine_set_dump_guest_core(Object *obj, bool value, Error =
+**errp)
+>   {
+>       MachineState *ms =3D MACHINE(obj);
+>
+>       if (!value && QEMU_MADV_DONTDUMP =3D=3D QEMU_MADV_INVALID) {
+>           error_setg(errp, "Dumping guest memory cannot be disabled on th=
+is host");
+>           return;
+>       }
+>       ms->dump_guest_core =3D value;
+>   }
+>
+>
+> and defaults (if needed) are set in  the instance init method:
+>
+>   static void machine_initfn(Object *obj)
+>   {
+>       MachineState *ms =3D MACHINE(obj);
+>       MachineClass *mc =3D MACHINE_GET_CLASS(obj);
+>
+>       ms->dump_guest_core =3D true;
+>       ms->mem_merge =3D (QEMU_MADV_MERGEABLE !=3D QEMU_MADV_INVALID);
+>       ...
+>   }
+>
 
-Most is a boring mechanical task, but there are some awkward edge cases
-around dynamically added properties.
+Thanks for the practical example. In this usage, do you think there
+would be a way to avoid having 53 getters and setters? We often run into
+this issue of the rest of QEMU having just a handful of options and
+migration having a ton. Anything we can do to streamline this would be
+good.
 
->                                                                   IIRC one of
-> the motivations for this move was to allow schema introspection, but I don't
-> immediately have a reference to the original discussion.
+>> OTOH, I still see value on non-class instance properties (that sometimes=
+ we
+>> don't even want to have some props avail for the class, but conditional =
+to
+>> some instances when created dynamically).  If that is needed, IMHO it's
+>> fine we still provide per-instance properties.
+>
+> Conditionally registering properties on instances is an anti-pattern
+> IMHO. It results in objects that cannot have all their properties
+> statically introspected.
+>
+> If a class needs different subsets of properties for different
+> scenarios, that is potentially a sign there ought to be a base
+> class and two or more specialized subclasses. Or that the
+> property needs a more explicit "unset" state in addition to
+> its other valid values.
+>
+> For introspection we hack around the use of instance properties
+> by instantiating every object in order to trigger registration of
+> instance props.  This is such a gross hack that it periodically=20
+> suffers crashes from objects not expecting to be instantiated
+> in this context and having undesired side-effects. Class props
+> are the only sane way to reliably provide introspection without
+> side-effects.
+>
+>> Is there any pointer I can read about the discussion previously on this?
+>
+> I don't know that there's a particular thread in recent times
+> that I'd point to, just my ancient series from when I introduced
+> class properties for QOM back in 2015 and started the effort to
+> convert away from instances properties.
+>
+>   https://lists.gnu.org/archive/html/qemu-devel/2015-08/msg03112.html
+>
 
-Better supporting introspection was the original key goal, but also
-reducing memory footprint for classes  which have 100s or 1000s of
-instances registering the same props over & over. Introspection against
-the class means we trivially avoid risk of side-effects from instantiating
-objects and not completing their realization.
+Anything we can do to avoid stumbling into this again? Should we add
+some words to object_property_add() discouraging instance properties?
 
-With regards,
-Daniel
--- 
-|: https://berrange.com       ~~        https://hachyderm.io/@berrange :|
-|: https://libvirt.org          ~~          https://entangle-photo.org :|
-|: https://pixelfed.art/berrange   ~~    https://fstop138.berrange.com :|
-
+>
+>
+>>=20
+>> Thanks,
+>>=20
+>> --=20
+>> Peter Xu
+>>=20
+>
+> With regards,
+> Daniel
 
