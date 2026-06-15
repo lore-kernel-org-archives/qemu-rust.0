@@ -4,114 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFE16CD98DA
-	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 09:29:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30038CD98DA
+	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 11:00:39 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wZ3co-0004f0-US; Mon, 15 Jun 2026 05:28:59 -0400
+	id 1wZ53F-0005Rn-Um; Mon, 15 Jun 2026 07:00:28 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1wZ3cl-0004e8-DW
- for qemu-rust@nongnu.org; Mon, 15 Jun 2026 05:28:56 -0400
-Received: from mail-yx1-xb12c.google.com ([2607:f8b0:4864:20::b12c])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1wZ3cj-0002cO-G8
- for qemu-rust@nongnu.org; Mon, 15 Jun 2026 05:28:55 -0400
-Received: by mail-yx1-xb12c.google.com with SMTP id
- 956f58d0204a3-66061993121so3056637d50.0
- for <qemu-rust@nongnu.org>; Mon, 15 Jun 2026 02:28:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781515732; cv=none;
- d=google.com; s=arc-20240605;
- b=FHvj/6JPN+dRRsrr2csl3Rm9qs9ENPRtAR0XalnoR1nJJO+blSyE2DWzznFliOqatY
- T6OgPjB4L2a51GBBYO3YEe8A13p7Ka2c+a0gCbB50r1pC8gvRpen2P0Gw6rQSm2xvS7S
- kPgvTzpiYviqD+iMmQdC91yoHgJXPg1Si6fpCKddfn8LLeEGqC/57pUF05hqEgb4Ii+t
- +b8HSMHxToIIy9C9xShn7EFXLTvteDOf58g9YFzC5u8a/vyE+nzou0OsFWNpNI+H77s/
- +dezekRhP7NKhQ2Xe92h9Wbc0U4Ddxba1v87oaPSBen7bY+Mq+IsBPq2CXhRklz8z66X
- BdXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=4h7z8wlbabOPsROrERBqjgdjxedmv9sWmTQBMTR5gyk=;
- fh=llnEwRWF2RA7Qz/6NwgVM8xuM65YjuVEsXi64A8QCCU=;
- b=LuNQEXeBYWi/K9/62Gcx40Cy1u5f+R7wKPub6O8LD2v7sBFnIHo7MwDMOH08j/5NM6
- 8ag6YOmhquUNHMShwLqwowU3wVaOlJoISdffsRujAPtP9SJZAStQyJNOcEhTCpD2dOVl
- qrz60FYjzqVXQOjVpw6KrqbUllQqDvmWj0QJmRJFmKizEdGuH/4nRQDS50DBBFvOW5U5
- Tjue2l6Gohr1CpYAOuhjd86vmkSbaFgvvLg42onlJOsZNrJcfcidxMnzttps6KX4wDjD
- mfdoD1JVu90fdtlgMQvlcM6wK3qQVd1RE4dMAnUNggoQWd811DtdQ0+40fFh8X/SgKvv
- IQaw==; darn=nongnu.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1781515732; x=1782120532; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4h7z8wlbabOPsROrERBqjgdjxedmv9sWmTQBMTR5gyk=;
- b=T9rJWt/6Nccx64mv9ugHg60E7DTUfUc+ikir4/1s69/7U8pBoznbbjEx5jXF+cHsrI
- GT4kTKp72TZbVu2HSbIgSXdsWmRuXoqaUwcBb1WAK7aESmULe5+ySwuMiLpeqOcWAUmO
- lTdZmU4MuTLQRphgohsdOlgsCyxMq7YeU0HETVXLJ8vNX44a5zBLXlne0jp6WIDPM9Nf
- CQa0f/bv1/CyhaABpnyQu1wcJ9MYdIW33i347xutH/WrcV6vCu2gu0xZ8kxs3NYNBPCM
- OqVh3sm2TYXT3z+7UzT3GEIX8bOh3tTQgVJpfQYovQwzMqMB/ejR9of9rqMP4FEfISCp
- qnfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781515732; x=1782120532;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=4h7z8wlbabOPsROrERBqjgdjxedmv9sWmTQBMTR5gyk=;
- b=AiudIX5oljNnShrCWPRlUynZ+kfIpqEdcO4hwwSC5HqWMuENZ+S9944d9Njmd1BuoL
- qXUcju29xVAdqnFzn4Q09eRO0/VPwsVTq2XWL5bZd/xGSlhww38CiT5bY+mkVadexzor
- 1htig+5cYkJ8zsNjoxmuuTjW6GRlAXTl1Nq42hHz9TG0R9R8jKjIOncipFqbNhnxVtoI
- GegvSDAFb+VABgf0MOrGSOTDU6YaRMZXzw7UhqQtip4H8BbomJQc6mjCdvxbKynvV2qy
- e0dANHcXRgGgmKU1pbuTqQfRTPG1O6clF3e/YA4DatAuqvioyIwYhQvctAIlrv3vBc3j
- 8qzQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+Rumbtwu8On08zY/iFdZw3tmEhKspa7H62GiNd4Z9cybXYGoScZJ+5uc9tvsjlD7gt9Lf9ZWS1h0g=@nongnu.org
-X-Gm-Message-State: AOJu0YzX5KhqUIUl/VNqGy0EMA97bTWX0eX9ovoPCeY2pkkI01utSAAr
- 3H4/k8G2i7Eug5zIkcOuZpDOaEpuhwyb2QKjPh7+W6rtaPc/9lRC0pkkzXjBlrIdMzsK3MZTAVd
- s1FkVCbTRig4O0HSWyAXcuI4nUrmpLM5+xftCF32aIw==
-X-Gm-Gg: Acq92OGHhbDHiBc87nV8ol+eaJUdVdvutlEh1zSbo/cJaXxoIMimgBHOLFcgpoozxRr
- oaviptE3Vw6cCD5b8bsIfoXNwvvV99SY9VOEKmKSPFyvtB1lSGk9nzVB+H+8TVuGCGRVBU8hchu
- 7uASmAx8yBaX1HfloVRzXa12mtqCRHmww37QU3Yek3HdBIArObl45hpgi6KcV5Eob1ri8Doro4n
- +gcpRyAuJENOVvwUZElfgKV1fNvPtyB+V6uU8+zMoScysLhKHWidhh/67PooFs1eIn2fUXE/vsu
- o7jpja5dVnWQid2FDLzhmemSTKZ2Wp5r+m0I1uQYWc3ga/fpLAjtzkd42yGPllKVR2o=
-X-Received: by 2002:a53:c146:0:b0:660:60a9:2b33 with SMTP id
- 956f58d0204a3-6628500a341mr6854412d50.53.1781515732085; Mon, 15 Jun 2026
- 02:28:52 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260615-embedded-v1-0-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
- <20260615-embedded-v1-2-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
- <ai-z14dMCK33_pis@redhat.com>
- <CAFEAcA_nFiQyXyCuvwUrJ+-0fhmGoMfswK-+KsZbxahAGatTXw@mail.gmail.com>
- <ai-5M6FF7CoJc_re@redhat.com>
-In-Reply-To: <ai-5M6FF7CoJc_re@redhat.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Mon, 15 Jun 2026 10:28:40 +0100
-X-Gm-Features: AVVi8CdPDOOgY6peJmpRd_1gRW_mhJwrpEF89DFQaVrdM0fasteTMnuqucjkq8E
-Message-ID: <CAFEAcA_52oFGv7cC11jbpj9pwBq-x2O-R_aOGkYzaRWW7t-K2g@mail.gmail.com>
-Subject: Re: [PATCH 2/2] qom: Manage references to embedded child objects
-To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
-Cc: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, qemu-devel@nongnu.org, 
- Paolo Bonzini <pbonzini@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
- qemu-rust@nongnu.org, Peter Xu <peterx@redhat.com>, 
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@mailo.com>, 
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1wZ52q-0005Oj-4t
+ for qemu-rust@nongnu.org; Mon, 15 Jun 2026 06:59:57 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
+ id 1wZ52i-0004Iu-UT
+ for qemu-rust@nongnu.org; Mon, 15 Jun 2026 06:59:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1781521188;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:in-reply-to:in-reply-to:  references:references;
+ bh=8wwHLqbzfSNkH92AfQaFNRBH8xT61SWI7BQvKQSf4ck=;
+ b=ayWCFy1mKW4aJR2Xxp0+rvR52kk8jrepNfXiVjYIbkS3stotR6tVTTaGruOanvQ+JZPH2D
+ r2qSEVSlLGeS5ZQZE+N3YVPI3yIN1fKwq5/iv5SHSiIUcvDjYBCfutcHcvvrUlT5hwvE9M
+ gKnTLK+qsyGOpUssRi5QYdw2grOTO2U=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-223-Hi0JbGCcOKu-nca26aI3rw-1; Mon,
+ 15 Jun 2026 06:59:39 -0400
+X-MC-Unique: Hi0JbGCcOKu-nca26aI3rw-1
+X-Mimecast-MFC-AGG-ID: Hi0JbGCcOKu-nca26aI3rw_1781521178
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 1F4BD1800378; Mon, 15 Jun 2026 10:59:38 +0000 (UTC)
+Received: from redhat.com (unknown [10.44.49.222])
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 566EA1955BD4; Mon, 15 Jun 2026 10:59:33 +0000 (UTC)
+Date: Mon, 15 Jun 2026 11:59:30 +0100
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ qemu-rust@nongnu.org, Peter Xu <peterx@redhat.com>,
+ Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@mailo.com>,
  Alberto Garcia <berto@igalia.com>, Kevin Wolf <kwolf@redhat.com>,
  Hanna Reitz <hreitz@redhat.com>, qemu-block@nongnu.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2607:f8b0:4864:20::b12c;
- envelope-from=peter.maydell@linaro.org; helo=mail-yx1-xb12c.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
+Subject: Re: [PATCH 2/2] qom: Manage references to embedded child objects
+Message-ID: <ai_bEg7Qo_6kQ2Zq@redhat.com>
+References: <20260615-embedded-v1-0-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
+ <20260615-embedded-v1-2-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
+MIME-Version: 1.0
+In-Reply-To: <20260615-embedded-v1-2-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
+User-Agent: Mutt/2.3.2 (2026-04-26)
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-Mimecast-MFC-PROC-ID: pUP1JmPUbUso6I-nC6TaTfihUsSl2I3McbmE-KBUhZc_1781521178
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -24
+X-Spam_score: -2.5
 X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -124,58 +88,346 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, 15 Jun 2026 at 09:35, Daniel P. Berrang=C3=A9 <berrange@redhat.com>=
- wrote:
->
-> On Mon, Jun 15, 2026 at 09:31:36AM +0100, Peter Maydell wrote:
-> > On Mon, 15 Jun 2026 at 09:13, Daniel P. Berrang=C3=A9 <berrange@redhat.=
-com> wrote:
-> > > Do we know how many examples we have of embedding objects inside
-> > > another ?
-> >
-> > It is an extremely common pattern for device and SoC model
-> > implementations; we've been recommending it for years.
-> >
-> > > I would much prefer if we forbid the embedding of objects. It is
-> > > horrible design practice to have some QOM objects which can be
-> > > freed via reference count and some which cannot.
-> >
-> > That would be a very large amount of code to rewrite to the
-> > new paradigm. I don't object inherently ("you have pointers to
-> > your child objects" works better when they might be implemented
-> > in Rust and might play better with being able to create
-> > machines and wire them up on the command line); I'm just
-> > noting how much work it would be if you wanted to make
-> > embedding forbidden.
->
-> Would it be a more tractable problem to "fix" object structure only
-> incrementally as they gain a need to be managed/reference from
-> Rust code, or does the Rust usage already implicitly extend too
-> broadly
+On Mon, Jun 15, 2026 at 01:11:07PM +0900, Akihiko Odaki wrote:
+> One concrete case is qemu-xhci: XHCIPciState embeds XHCIState as a
+> child object, and the embedded XHCIState owns the MemoryRegion used for
+> PCI BAR 0. When memory core references that region, memory_region_ref()
+> references the embedded XHCIState owner, but that does not keep the
+> containing XHCIPciState storage alive across runtime unplug.
 
-At the moment we have exactly 2 Rust devices. You can see the
-workaround we ended up with for the PL011 in commits 5b87a07e768
-and cc3d262aa93a4, where we pad out the C device struct and
-assert on the Rust side that its version isn't any bigger.
+Taking this example and looking at the patch,
 
-For that particular problem we could say "you need to refactor
-all users of device X to not embed it before creating the Rust
-version". There is I think only one embedded use of the PL011
-(I was actually expecting more). This does have the awkward
-effect that anybody wanting to do a "rewrite device in rust"
-is now forced into "do a big refactor of some old C code they
-don't care about". We would also need to actually document and
-provide some good examples of "this is how we think we should
-be writing device models that have child objects now".
+Immediately after XHCIPciState is allocated, we'll have the
+following XHCIPciState QOM state:
 
-But embedded MemoryRegions are enormously common, and devices
-that embed other devices that embed MemoryRegions are also
-pretty common. So I don't know how much of a gradual approach
-you could take for the issue descibed in this patch.
+   free == object_free
+   storage == <undefined>
+   ref == 1
+   storage_ref == 1   <up-ref from XHCIState>
 
-thanks
--- PMM
+Meanwhile XHCIState is embedded and so after construction it
+has
+
+   free == <undefined>
+   storage == ptr<XHCIPciState>
+   ref == 1
+   storage_ref == UINT32_MAX
+
+
+The simple scenario, no 3rd party refs on XHCIState, then we
+have a flow that looks like this:
+
+  object_unref(XHCIPciState)
+   => ref == 0
+       => object_finalize(XHCIPciState)
+           => object_unref(XHCIState)
+	       => ref == 0
+	       => object_storage_unref(XHCIState)
+	            => obj = obj.storage
+	            => XHCIPciState.storage_ref--
+	            => XHCIPciState.storage_ref == 0
+                    => object_free(XHCIPciState)
+       => Remainder of ...object_finalize(XHCIPciState) is
+          using free'd mem now...
+
+This doesn't seem to work AFAICS ?
+
+Now lets consider something took a reference on XHCIState
+first.
+
+  object_ref(XHCIState)
+  object_unref(XHCIPciState)
+   => ref == 0
+       => object_finalize(XHCIPciState)
+           => object_unref(XHCIState)
+	       => ref == 1
+       => object_storage_unref(XHCIPciState)
+          => storage_ref--
+          => storage_ref == 0
+              => object_free(XHCIPciState)
+
+  object_unref(XHCIState)
+   => ref == 0
+   => object_storage_unref(XHCIPciState)
+      => storage_ref == -1
+
+Again this doesn't seem to actually work as billed ?
+
+
+For the sake of argument though, lets say this storage_ref
+was handled correctly such that we delay free'ing the
+XHCIPciState memory  until *both*  XHCIPciState and
+XHCIState have hit ref == 0, and both their finalize
+methods are completed.
+
+I'm still not convinced this would actually be safe.
+
+This patch is delaying the free'ing of the memory that
+XHCIState is embedded in, but is the embedded XHCIState
+still functional enough when its parent and all sibling
+objects will have been finalized already ? That is not
+obviously ok to me. The "XHCIPciState" will have been
+finalized, but all its fields are mostly pointing to
+data that has been deinitialized. Can we really assume
+there are no dependencies between the embedded objects ?
+
+
+Conceptually it feels like finalization of XHCIPciState
+ought to be an all-or-nothing affair, rather than
+finalizing XHCIPciState and some of its embedded children
+but arbtirarily keeping other children alive. I'm not
+sure how to arrange that though - its essentially a need
+for a circular reference, but then how/when do you break
+it.
+
+> diff --git a/include/qom/object.h b/include/qom/object.h
+> index c4dcf65dcf7f..b5d656e3758c 100644
+> --- a/include/qom/object.h
+> +++ b/include/qom/object.h
+> @@ -155,8 +155,12 @@ struct Object
+>  {
+>      /* private: */
+>      ObjectClass *class;
+> -    ObjectFree *free;
+> +    union {
+> +        ObjectFree *free;
+> +        Object *storage;
+> +    };
+>      GHashTable *properties;
+> +    uint32_t storage_ref;
+>      uint32_t ref;
+>      Object *parent;
+>  };
+> @@ -613,7 +617,7 @@ struct InterfaceClass
+>   * @klass: The class to instantiate.
+>   *
+>   * This function will initialize a new object using heap allocated memory.
+> - * The returned object has a reference count of 1, and will be freed when
+> + * The returned object has a reference count of 1, and will be finalized when
+>   * the last reference is dropped.
+>   *
+>   * Returns: The newly allocated and instantiated object.
+> @@ -625,7 +629,7 @@ Object *object_new_with_class(ObjectClass *klass);
+>   * @typename: The name of the type of the object to instantiate.
+>   *
+>   * This function will initialize a new object using heap allocated memory.
+> - * The returned object has a reference count of 1, and will be freed when
+> + * The returned object has a reference count of 1, and will be finalized when
+>   * the last reference is dropped.
+>   *
+>   * Returns: The newly allocated and instantiated object.
+> @@ -641,7 +645,7 @@ Object *object_new(const char *typename);
+>   * @...: list of property names and values
+>   *
+>   * This function will initialize a new object using heap allocated memory.
+> - * The returned object has a reference count of 1, and will be freed when
+> + * The returned object has a reference count of 1, and will be finalized when
+>   * the last reference is dropped.
+>   *
+>   * The @id parameter will be used when registering the object as a
+> @@ -1120,8 +1124,8 @@ GSList *object_class_get_list_sorted(const char *implements_type,
+>   * object_ref:
+>   * @obj: the object
+>   *
+> - * Increase the reference count of a object.  A object cannot be freed as long
+> - * as a reference remains.
+> + * Increase the reference count of a object.  A object cannot be finalized as
+> + * long as a reference remains.
+>   * Returns: @obj
+>   */
+>  Object *object_ref(void *obj);
+> @@ -1130,11 +1134,30 @@ Object *object_ref(void *obj);
+>   * object_unref:
+>   * @obj: the object
+>   *
+> - * Decrease the reference count of a object.  A object cannot be freed as long
+> - * as a reference remains.
+> + * Decrease the reference count of a object.  A object cannot be finalized as
+> + * long as a reference remains.
+>   */
+>  void object_unref(void *obj);
+>  
+> +/**
+> + * object_storage_ref:
+> + * @obj: the object
+> + *
+> + * Increase the reference count of a object's storage.  A object cannot be
+> + * freed as long as its storage is referenced.
+> + * Returns: the object that provides the storage
+> + */
+> +Object *object_storage_ref(void *obj);
+> +
+> +/**
+> + * object_storage_unref:
+> + * @obj: the object
+> + *
+> + * Decrease the reference count of a object's storage.  A object cannot be
+> + * freed as long as its storage is referenced.
+> + */
+> +void object_storage_unref(void *obj);
+> +
+>  /**
+>   * object_property_try_add:
+>   * @obj: the object to add a property to
+> diff --git a/qom/object.c b/qom/object.c
+> index 761eff1337e6..0a2c7ce9710d 100644
+> --- a/qom/object.c
+> +++ b/qom/object.c
+> @@ -487,7 +487,8 @@ static void object_class_property_init_all(Object *obj)
+>      }
+>  }
+>  
+> -static void object_initialize_with_type(Object *obj, size_t size, TypeImpl *type)
+> +static void object_initialize_with_type(Object *obj, size_t size,
+> +                                        TypeImpl *type, Object *storage)
+>  {
+>      type_initialize(type);
+>  
+> @@ -496,6 +497,10 @@ static void object_initialize_with_type(Object *obj, size_t size, TypeImpl *type
+>      g_assert(size >= type->instance_size);
+>  
+>      memset(obj, 0, type->instance_size);
+> +    if (storage) {
+> +        obj->storage_ref = UINT32_MAX;
+> +        obj->storage = object_storage_ref(storage);
+> +    }
+>      obj->class = type->class;
+>      object_class_property_init_all(obj);
+>      obj->properties = g_hash_table_new_full(g_str_hash, g_str_equal,
+> @@ -508,7 +513,7 @@ void object_initialize(void *data, size_t size, const char *typename)
+>  {
+>      TypeImpl *type = type_get_or_load_by_name(typename, &error_fatal);
+>  
+> -    object_initialize_with_type(data, size, type);
+> +    object_initialize_with_type(data, size, type, NULL);
+>  }
+>  
+>  bool object_initialize_child_with_props(Object *parentobj,
+> @@ -531,14 +536,15 @@ bool object_initialize_child_with_props(Object *parentobj,
+>  bool object_initialize_child_with_propsv(Object *parentobj,
+>                                           const char *propname,
+>                                           void *childobj, size_t size,
+> -                                         const char *type,
+> +                                         const char *typename,
+>                                           Error **errp, va_list vargs)
+>  {
+> +    TypeImpl *type = type_get_or_load_by_name(typename, &error_fatal);
+>      bool ok = false;
+>      Object *obj;
+>      UserCreatable *uc;
+>  
+> -    object_initialize(childobj, size, type);
+> +    object_initialize_with_type(childobj, size, type, parentobj);
+>      obj = OBJECT(childobj);
+>  
+>      if (!object_set_propv(obj, vargs, errp)) {
+> @@ -667,9 +673,7 @@ static void object_finalize(void *data)
+>      object_deinit(obj, ti);
+>  
+>      g_assert(obj->parent == NULL);
+> -    if (obj->free) {
+> -        obj->free(obj);
+> -    }
+> +    object_storage_unref(obj);
+>  }
+>  
+>  /* Find the minimum alignment guaranteed by the system malloc. */
+> @@ -708,7 +712,7 @@ static Object *object_new_with_type(Type type)
+>          obj_free = qemu_vfree;
+>      }
+>  
+> -    object_initialize_with_type(obj, size, type);
+> +    object_initialize_with_type(obj, size, type, NULL);
+>      obj->free = obj_free;
+>  
+>      trace_object_new(obj, obj->class->type->name);
+> @@ -1334,6 +1338,46 @@ void object_unref(void *objptr)
+>      }
+>  }
+>  
+> +Object *object_storage_ref(void *objptr)
+> +{
+> +    Object *obj = OBJECT(objptr);
+> +    uint32_t ref;
+> +
+> +    if (!obj) {
+> +        return NULL;
+> +    }
+> +
+> +    while (qatomic_read(&obj->storage_ref) == UINT32_MAX) {
+> +        obj = obj->storage;
+> +    }
+> +
+> +    ref = qatomic_fetch_inc(&obj->storage_ref);
+> +    /* Assert waaay before the integer overflows */
+> +    g_assert(ref < INT_MAX);
+> +    return obj;
+> +}
+> +
+> +void object_storage_unref(void *objptr)
+> +{
+> +    Object *obj = OBJECT(objptr);
+> +    uint32_t ref;
+> +
+> +    if (!obj) {
+> +        return;
+> +    }
+> +
+> +    while (qatomic_read(&obj->storage_ref) == UINT32_MAX) {
+> +        obj = obj->storage;
+> +    }
+> +
+> +    ref = qatomic_fetch_dec(&obj->storage_ref);
+> +    g_assert(ref < INT_MAX);
+> +
+> +    if (ref == 0 && obj->free) {
+> +        obj->free(obj);
+> +    }
+> +}
+> +
+>  ObjectProperty *
+>  object_property_try_add(Object *obj, const char *name, const char *type,
+>                          ObjectPropertyAccessor *get,
+> diff --git a/rust/qom/src/qom.rs b/rust/qom/src/qom.rs
+> index cc00ddcfc988..34f7fff64083 100644
+> --- a/rust/qom/src/qom.rs
+> +++ b/rust/qom/src/qom.rs
+> @@ -809,8 +809,8 @@ impl<T: ObjectType> Owned<T> {
+>      /// # Safety
+>      ///
+>      /// The caller must indeed own a reference to the QOM object.
+> -    /// The object must not be embedded in another unless the outer
+> -    /// object is guaranteed to have a longer lifetime.
+> +    /// The object's implementation must guarantee functionality as long as it
+> +    /// is referenced.
+>      ///
+>      /// A raw pointer obtained via [`Owned::into_raw()`] can always be passed
+>      /// back to `from_raw()` (assuming the original `Owned` was valid!),
+> @@ -836,8 +836,8 @@ pub fn into_raw(src: Owned<T>) -> *mut T {
+>      ///
+>      /// # Safety
+>      ///
+> -    /// The object must not be embedded in another, unless the outer
+> -    /// object is guaranteed to have a longer lifetime.
+> +    /// The object's implementation must guarantee functionality as long as it
+> +    /// is referenced.
+>      pub unsafe fn from(obj: &T) -> Self {
+>          unsafe {
+>              object_ref(obj.as_object_mut_ptr().cast::<c_void>());
+> 
+> -- 
+> 2.54.0
+> 
+
+With regards,
+Daniel
+-- 
+|: https://berrange.com       ~~        https://hachyderm.io/@berrange :|
+|: https://libvirt.org          ~~          https://entangle-photo.org :|
+|: https://pixelfed.art/berrange   ~~    https://fstop138.berrange.com :|
+
 
