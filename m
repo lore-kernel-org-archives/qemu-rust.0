@@ -4,63 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49485CD98C5
-	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 14:02:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFF73CD98DA
+	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 20:10:37 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wZ7sq-0005sU-IP; Mon, 15 Jun 2026 10:01:48 -0400
+	id 1wZDdR-0003tj-Kr; Mon, 15 Jun 2026 16:10:17 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1wZ7sf-0005r1-EJ
- for qemu-rust@nongnu.org; Mon, 15 Jun 2026 10:01:38 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <balaton@eik.bme.hu>)
+ id 1wZDdP-0003rH-1x; Mon, 15 Jun 2026 16:10:15 -0400
+Received: from zero.eik.bme.hu ([2001:738:2001:2001::2001])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1wZ7sd-0003Fi-Bv
- for qemu-rust@nongnu.org; Mon, 15 Jun 2026 10:01:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1781532093;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VCYvyD6JCgalr+O+68KnyshiG9KqipO3rBtqI6S4UPQ=;
- b=Br4CFGEqoRXpFdX8Hq5s7GEMiyCWKk+wQrmZt8gNk8xEjO4XrpLcZSRb+I7Zb/LK9zlpOw
- GwzJ487efxG1+KT8RAf8LNsuWxPGkX9Q0SIezYpivq6PL2G+9SVXJ1hY5e257qcqqg/GLc
- uIajgyI8AZBe7hr1snhzv6rryfkpjGY=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-685-3ilvKkUSOUCzUpaIP1Umug-1; Mon,
- 15 Jun 2026 10:01:25 -0400
-X-MC-Unique: 3ilvKkUSOUCzUpaIP1Umug-1
-X-Mimecast-MFC-AGG-ID: 3ilvKkUSOUCzUpaIP1Umug_1781532081
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id E58211955E9E; Mon, 15 Jun 2026 14:01:19 +0000 (UTC)
-Received: from redhat.com (unknown [10.44.49.222])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 47A4C18005AE; Mon, 15 Jun 2026 14:01:15 +0000 (UTC)
-Date: Mon, 15 Jun 2026 15:01:11 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+ (Exim 4.90_1) (envelope-from <balaton@eik.bme.hu>)
+ id 1wZDdM-0002qD-R3; Mon, 15 Jun 2026 16:10:14 -0400
+Received: from localhost (localhost [127.0.0.1])
+ by zero.eik.bme.hu (Postfix) with ESMTP id 30740596944;
+ Mon, 15 Jun 2026 22:09:57 +0200 (CEST)
+X-Virus-Scanned: amavis at eik.bme.hu
+Received: from zero.eik.bme.hu ([127.0.0.1])
+ by localhost (zero.eik.bme.hu [127.0.0.1]) (amavis, port 10028) with ESMTP
+ id Pc0OjRH2YniV; Mon, 15 Jun 2026 22:09:54 +0200 (CEST)
+Received: by zero.eik.bme.hu (Postfix, from userid 432)
+ id B25A4596941; Mon, 15 Jun 2026 22:09:54 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by zero.eik.bme.hu (Postfix) with ESMTP id AFDDC596858;
+ Mon, 15 Jun 2026 22:09:54 +0200 (CEST)
+Date: Mon, 15 Jun 2026 22:09:54 +0200 (CEST)
+From: BALATON Zoltan <balaton@eik.bme.hu>
 To: Mark Cave-Ayland <mark.caveayland@nutanix.com>
-Cc: Peter Maydell <peter.maydell@linaro.org>,
- Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, qemu-devel@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- qemu-rust@nongnu.org, Peter Xu <peterx@redhat.com>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@mailo.com>,
- Alberto Garcia <berto@igalia.com>, Kevin Wolf <kwolf@redhat.com>,
+cc: Peter Maydell <peter.maydell@linaro.org>, 
+ =?ISO-8859-15?Q?Daniel_P=2E_Berrang=E9?= <berrange@redhat.com>, 
+ Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, qemu-devel@nongnu.org, 
+ Paolo Bonzini <pbonzini@redhat.com>, 
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org, 
+ Peter Xu <peterx@redhat.com>, 
+ =?ISO-8859-15?Q?Philippe_Mathieu-Daud=E9?= <philmd@mailo.com>, 
+ Alberto Garcia <berto@igalia.com>, Kevin Wolf <kwolf@redhat.com>, 
  Hanna Reitz <hreitz@redhat.com>, qemu-block@nongnu.org
 Subject: Re: [PATCH 2/2] qom: Manage references to embedded child objects
-Message-ID: <ajAFp14L-VeCQsym@redhat.com>
+In-Reply-To: <acb64b89-2a5f-4f7c-b5c8-8c31667908c2@nutanix.com>
+Message-ID: <117144f2-b9d2-f66b-84ea-601df4a61ed6@eik.bme.hu>
 References: <20260615-embedded-v1-0-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
  <20260615-embedded-v1-2-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
  <ai-z14dMCK33_pis@redhat.com>
@@ -69,24 +53,14 @@ References: <20260615-embedded-v1-0-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
  <CAFEAcA_52oFGv7cC11jbpj9pwBq-x2O-R_aOGkYzaRWW7t-K2g@mail.gmail.com>
  <acb64b89-2a5f-4f7c-b5c8-8c31667908c2@nutanix.com>
 MIME-Version: 1.0
-In-Reply-To: <acb64b89-2a5f-4f7c-b5c8-8c31667908c2@nutanix.com>
-User-Agent: Mutt/2.3.2 (2026-04-26)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-X-Mimecast-MFC-PROC-ID: CAm0rS1moAMgBjzN3SyH0gkUS8IAqdChY1aYU5MiaNM_1781532081
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: 8
-X-Spam_score: 0.8
-X-Spam_bar: /
-X-Spam_report: (0.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_SBL_CSS=3.335, SPF_HELO_PASS=-0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+Received-SPF: pass client-ip=2001:738:2001:2001::2001;
+ envelope-from=balaton@eik.bme.hu; helo=zero.eik.bme.hu
+X-Spam_score_int: -18
+X-Spam_score: -1.9
+X-Spam_bar: -
+X-Spam_report: (-1.9 / 5.0 requ) BAYES_00=-1.9, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -99,147 +73,36 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, Jun 15, 2026 at 02:42:10PM +0100, Mark Cave-Ayland wrote:
-> On 15/06/2026 10:28, Peter Maydell wrote:
-> 
-> > On Mon, 15 Jun 2026 at 09:35, Daniel P. Berrangé <berrange@redhat.com> wrote:
-> > > 
-> > > On Mon, Jun 15, 2026 at 09:31:36AM +0100, Peter Maydell wrote:
-> > > > On Mon, 15 Jun 2026 at 09:13, Daniel P. Berrangé <berrange@redhat.com> wrote:
-> > > > > Do we know how many examples we have of embedding objects inside
-> > > > > another ?
-> > > > 
-> > > > It is an extremely common pattern for device and SoC model
-> > > > implementations; we've been recommending it for years.
-> > > > 
-> > > > > I would much prefer if we forbid the embedding of objects. It is
-> > > > > horrible design practice to have some QOM objects which can be
-> > > > > freed via reference count and some which cannot.
-> > > > 
-> > > > That would be a very large amount of code to rewrite to the
-> > > > new paradigm. I don't object inherently ("you have pointers to
-> > > > your child objects" works better when they might be implemented
-> > > > in Rust and might play better with being able to create
-> > > > machines and wire them up on the command line); I'm just
-> > > > noting how much work it would be if you wanted to make
-> > > > embedding forbidden.
-> > > 
-> > > Would it be a more tractable problem to "fix" object structure only
-> > > incrementally as they gain a need to be managed/reference from
-> > > Rust code, or does the Rust usage already implicitly extend too
-> > > broadly
-> > 
-> > At the moment we have exactly 2 Rust devices. You can see the
-> > workaround we ended up with for the PL011 in commits 5b87a07e768
-> > and cc3d262aa93a4, where we pad out the C device struct and
-> > assert on the Rust side that its version isn't any bigger.
-> > 
-> > For that particular problem we could say "you need to refactor
-> > all users of device X to not embed it before creating the Rust
-> > version". There is I think only one embedded use of the PL011
-> > (I was actually expecting more). This does have the awkward
-> > effect that anybody wanting to do a "rewrite device in rust"
-> > is now forced into "do a big refactor of some old C code they
-> > don't care about". We would also need to actually document and
-> > provide some good examples of "this is how we think we should
-> > be writing device models that have child objects now".
-> 
-> I think given the legacy of the QEMU codebase then this will always be an
-> issue, but we've solved this in the past with the introduction of
-> MemoryRegions so there's no reason we couldn't do it again.
-> 
-> This is a similar problem to the use of non-class object properties I was
-> discussing in the thread with Daniel: it seems the general consensus is that
-> they shouldn't exist, but this hasn't been formalised anywhere. If we can
-> formalise the decision not to use embedded QOM objects, then we can start by
-> ensuring that new submissions don't use them and go from there.
-> 
-> Question: who currently should make these decisions? Is it restricted to the
-> QOM maintainers?
+On Mon, 15 Jun 2026, Mark Cave-Ayland wrote:
+>> But embedded MemoryRegions are enormously common, and devices
+>> that embed other devices that embed MemoryRegions are also
+>> pretty common. So I don't know how much of a gradual approach
+>> you could take for the issue descibed in this patch.
+>
+> Zoltan did post a patch that allowed for adding externally referenced 
+> MemoryRegions a while back: my reason for not supporting the approach was 
+> because it added yet another way of adding MemoryRegions to work around a 
+> particular legacy use case. However if there is agreement that this is the 
+> way we should do things, I suspect that the series will have solved most of 
+> the problems in this area.
 
-Ultimately it would need a docs update on object.h to declare the
-object_initialize_child related methods to be deprecated which the
-QOM maintainers would have to queue.
+That series was blocked by Paolo saying no: 
+https://lists.nongnu.org/archive/html/qemu-devel/2026-05/msg06665.html 
+without ever explaining why it should not be allowed to create ref counted 
+memory regions. even though it's documented and implemented that way 
+already, but the current memory_region_init() functions don't allow using 
+that and forces every memory region to either be embedded or leaked. I 
+still think that using QOM to manage memory region life time with ref 
+counts is useful as it also makes device models simpler and my series 
+allows incremental conversion as it only adds the functions to create QOM 
+managed memory regions leaving the exising embedded regions untouched so 
+they could be converted one by one when needed. If there's more interest 
+in this now I can update and repost it again or I'd still like to see an 
+explanation why it is not wanted.
 
-Since this impacts device maintainers in general though, IMHO we need
-broad consensus that it is a better approach & we're willing to convert
-existing code incrementally.
-
-We have ~150 devices using this for 824 children
-
-$ git grep -l  object_initialize_child  | wc -l
-150
-
-$ git grep object_initialize_child | wc -l
-824
-
-
-Where updates are desired, we'd be looking at tedious changes like
-thsi:
-
-diff --git a/hw/isa/piix.c b/hw/isa/piix.c
-index 31fa53e6a4..86757c56e5 100644
---- a/hw/isa/piix.c
-+++ b/hw/isa/piix.c
-@@ -355,16 +355,23 @@ static void pci_piix_realize(PCIDevice *dev, const char *uhci_type,
- 
-     /* USB */
-     if (d->has_usb) {
--        object_initialize_child(OBJECT(dev), "uhci", &d->uhci, uhci_type);
--        qdev_prop_set_int32(DEVICE(&d->uhci), "addr", dev->devfn + 2);
--        if (!qdev_realize(DEVICE(&d->uhci), BUS(pci_bus), errp)) {
-+        d->uhci = UHCI(object_new_with_props(
-+                           uhci_type, OBJECT(d), "uhci", errp, NULL));
-+        if (!d->uhci) {
-+            return;
-+        }
-+        qdev_prop_set_int32(DEVICE(d->uhci), "addr", dev->devfn + 2);
-+        if (!qdev_realize(DEVICE(d->uhci), BUS(pci_bus), errp)) {
-             return;
-         }
-     }
-diff --git a/hw/isa/piix.c b/hw/isa/piix.c
-index 31fa53e6a4..86757c56e5 100644
---- a/hw/isa/piix.c
-+++ b/hw/isa/piix.c
-@@ -355,16 +355,23 @@ static void pci_piix_realize(PCIDevice *dev, const char *uhci_type,
- 
-     /* USB */
-     if (d->has_usb) {
--        object_initialize_child(OBJECT(dev), "uhci", &d->uhci, uhci_type);
--        qdev_prop_set_int32(DEVICE(&d->uhci), "addr", dev->devfn + 2);
--        if (!qdev_realize(DEVICE(&d->uhci), BUS(pci_bus), errp)) {
-+        d->uhci = UHCI(object_new_with_props(
-+                           uhci_type, OBJECT(d), "uhci", errp, NULL));
-+        if (!d->uhci) {
-+            return;
-+        }
-+        qdev_prop_set_int32(DEVICE(d->uhci), "addr", dev->devfn + 2);
-+        if (!qdev_realize(DEVICE(d->uhci), BUS(pci_bus), errp)) {
-             return;
-         }
-     }
-
-
-Noting that the compiler won't complain if we forget to update any
-lines like
-
--        qdev_prop_set_int32(DEVICE(&d->uhci), "addr", dev->devfn + 2);
-+        qdev_prop_set_int32(DEVICE(d->uhci), "addr", dev->devfn + 2);
-
-because the explicit DEVICE(..) cast is hiding the type error we would
-otherwise get from using "Device **" instead of "Device *".
-
-
-With regards,
-Daniel
--- 
-|: https://berrange.com       ~~        https://hachyderm.io/@berrange :|
-|: https://libvirt.org          ~~          https://entangle-photo.org :|
-|: https://pixelfed.art/berrange   ~~    https://fstop138.berrange.com :|
-
+Regards,
+BALATON Zoltan
 
