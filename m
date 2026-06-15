@@ -4,112 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F32DCD98C5
-	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 08:32:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13223CD98DE
+	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 08:34:23 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wZ2jf-00039o-E6; Mon, 15 Jun 2026 04:31:59 -0400
+	id 1wZ2lx-0003dN-2W; Mon, 15 Jun 2026 04:34:21 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1wZ2je-00039N-Cw
- for qemu-rust@nongnu.org; Mon, 15 Jun 2026 04:31:58 -0400
-Received: from mail-yx1-xb12d.google.com ([2607:f8b0:4864:20::b12d])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
- id 1wZ2jX-0007ai-GV
- for qemu-rust@nongnu.org; Mon, 15 Jun 2026 04:31:58 -0400
-Received: by mail-yx1-xb12d.google.com with SMTP id
- 956f58d0204a3-66061993294so2905579d50.3
- for <qemu-rust@nongnu.org>; Mon, 15 Jun 2026 01:31:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781512310; cv=none;
- d=google.com; s=arc-20240605;
- b=N5eQjeeN7ALU7Qep4n0grHEGW3738A3f1C4saeVMWDPEwAENTueKe6gVZPDL2jpXsL
- wBVZUB3mZc79y4vJ8Qf4NaQIkyLf7KRgkxMQl859whnf+988iiI5PgLGMnbBHjFCK/Bz
- IVJTRI/1t+bR7UvHFMriPkk4nNAETiUWtGOnzowzJZMNALCkFU4RwoGPDbv27JqzknNe
- WL54vmg3d7bTftbonPKtN2TgwhJ7s4tKe7UpPvadF7NhJ7+h86f5UWyeAQir0d14NC+x
- Wdmy8nLbttgZ8UFMVqeAdq1tud/PX8A95Cc/9D0xEXiG4jmJllClihP/BnWcZ+qeRMxm
- MaDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=XvG3exdGiJGNjD45j3sqsnKPQTVp+Y7bsmGB6J34xnw=;
- fh=2Y46UD+xdyupr4CsP2sNmC15pH3aOjiWWbhOQYS+YgI=;
- b=OVTu5ixyx1h6yfhnRZhpV8QNw1bFaZ5DHmS6vNh1vFKbiCOIL17yJ+WHBqP1CnAWyP
- aZfgJKwf2X1ziKBnonGNPwxZK7wTnxcIvc+BWUphBY1W9hu3DqjnWFsq4kTlM2wuvckp
- lJFNGHxGK0LuVa0yAbb4ZIi2hIGM/tUsG8Q9jguAM+OW03U7tYWCdNyYWp2IkF/8GkdB
- 7SWFZsTqlQIEVt89+VQqs9tkRqhGQhd/UDzU16BHYRy32/dY5JwfSudsWJ8FqaSI9EtQ
- MzF0UdpclXCQYGbvxbqqJ2ZO7KKnwItpYxR5xL9meWvaXhETngfcfQdMYFQ+/MXu4ll5
- fyeg==; darn=nongnu.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1781512310; x=1782117110; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XvG3exdGiJGNjD45j3sqsnKPQTVp+Y7bsmGB6J34xnw=;
- b=Vhu4aC2TQEKO5bgxQiX3yV1TJA46VV2bPjOlGrEUEBZy4WH5qvW7Sq+5l20zvWeSOH
- NK9vhwuxYwLGHLY33v9wJcWBNb5poujGQJgEYn2GG4YIGmqDDiTPC5PF3UFC0u1e8C/s
- 3izpFUH8Hga90a45lv0aVbjdArGgB0aOCimbTkhSIo1c8slzOQFuqVC+1WW9iS36FSkJ
- 276+OsjQ0AghrBglJI9ddcZhJrdgk24YIZQYxfw4bfKELa0E5RDU4HV+VHsKewalT/Fs
- ApztY8ACZe4xIV8aMe5QsV3vPKsORV+Vw824oQ2Cbr+/kjT18iHDqe3LoIuF7hmWQEeG
- YG0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781512310; x=1782117110;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=XvG3exdGiJGNjD45j3sqsnKPQTVp+Y7bsmGB6J34xnw=;
- b=kB/HSsow0zuVWb+4Miv7L+o9yw7pf01zhU2pHDz2ZaATtg+MVmu+3z5T4NiomTeCz2
- Cw/CtcMKgPV4MUooovlC9pe4pwLTK9Ho6f7etHw/0IcsTs3kvhxqLUXZijBYWi94e8YQ
- YCXI1jzQVzHKb1bDGuMMn0ZH52nSOohJ7lxYrKJpIX1wZquOR1RFJDrOQpMtT9RymDmq
- f1B/T09Mat4BTojzveaijYoMehOVuQ/7sHztlKxJXllnrsRSXgf2ct9PQnDJlwPmAill
- 4IPqzjwsfjPgPjTOnR4h4+BiAXhE8/6+ooDkuW6LMfvToAhmwO+TMRdumQhhWnISw/e/
- EaVg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+tlO3Wj34HGVaZCBHveh+jHsZdjkqw8wf+Ejk5wMH/RWKLKcjxzNjU1G3auGlto+QAkRo/ZqZQTig=@nongnu.org
-X-Gm-Message-State: AOJu0Yy+t+7xqYjaSxCxNSVOSBRAov+oCwoOmUEHfdwXG2D8XRAgqVc/
- XVYjDapg8n7PSJk9vOWGBZK+8ux4bAc0v1liNauplBvoWDtSrv7VqMFnUJY54hvAguC/f4jQCAF
- YliForQdwBGoLev+36Wsk/KeNqbC4rBl9JjUNTMuH7w==
-X-Gm-Gg: Acq92OF/Og2/P55tK26qUMVdW+D3F8dWt85DO/upAkqOVO6eKsmUUGNJhDVL3kcaCWN
- ymD9dYsEaIYantabqBf2hn87F0fTxNKaHg1pucnoJE6lsY7gmf8uqEcvoYmu99ReJiLpsA6HKvV
- dhzorZEWoEZwOxgn4zP4ENKVGBD/NF9m2gRUNV0YcMNYIsmUS2kf8G1XntBrFNuA+511o0hyB8a
- NDAZ6NASE8fMprkVtfBSKDo2i4Dt+l82wB8+4AEiLHPfqOigzG5Gh3uzsan2P/ujufFfEVAmbvC
- JtvzXKX/vbZX0PRSIpH4rdTS8sRVmx0KLRKy6wYZaJaJLlbg/gNR/iJtiMAxmEbBttE=
-X-Received: by 2002:a05:690e:190c:b0:661:1be:161b with SMTP id
- 956f58d0204a3-6627837c3bbmr10865707d50.56.1781512309811; Mon, 15 Jun 2026
- 01:31:49 -0700 (PDT)
-MIME-Version: 1.0
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1wZ2lv-0003cl-7A
+ for qemu-rust@nongnu.org; Mon, 15 Jun 2026 04:34:19 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <kwolf@redhat.com>) id 1wZ2lt-00088F-JA
+ for qemu-rust@nongnu.org; Mon, 15 Jun 2026 04:34:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1781512455;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=faojN6cEMj7aLwdFTy6B0EDUbyohNWsHwTvMNUPkUqs=;
+ b=Pk/rtgDFl5ZXTQPMpvD0xGwffJHRlHRLZtpl0kwFM5EIFr3yCvxpXVcTqhOWBjgZmKtz0q
+ bow8bzxdFWVEbE5CkyvH9ij+1KXxXKzRNMDBkDPoJ6hKBZbcgbuwbTEZPldFHIhLnEnLsp
+ yAiv0ZuqpKrsmeJz0jNkiRcYLab469g=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-407-QA5RrbrRPbGZinKlZhb2vA-1; Mon,
+ 15 Jun 2026 04:34:12 -0400
+X-MC-Unique: QA5RrbrRPbGZinKlZhb2vA-1
+X-Mimecast-MFC-AGG-ID: QA5RrbrRPbGZinKlZhb2vA_1781512451
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 6BFFF1955F26; Mon, 15 Jun 2026 08:34:10 +0000 (UTC)
+Received: from redhat.com (unknown [10.44.49.210])
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id A7073180049F; Mon, 15 Jun 2026 08:34:06 +0000 (UTC)
+Date: Mon, 15 Jun 2026 10:34:03 +0200
+From: Kevin Wolf <kwolf@redhat.com>
+To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ qemu-rust@nongnu.org, Peter Xu <peterx@redhat.com>,
+ Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@mailo.com>,
+ Alberto Garcia <berto@igalia.com>, Hanna Reitz <hreitz@redhat.com>,
+ qemu-block@nongnu.org
+Subject: Re: [PATCH 1/2] qom: Reject temporary object resurrection
+Message-ID: <ai-4-0UkH0uCZwYS@redhat.com>
 References: <20260615-embedded-v1-0-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
- <20260615-embedded-v1-2-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
- <ai-z14dMCK33_pis@redhat.com>
-In-Reply-To: <ai-z14dMCK33_pis@redhat.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Mon, 15 Jun 2026 09:31:36 +0100
-X-Gm-Features: AVVi8Cc4gi7a_SUgEXm8D-PR5l4cbaN47lQ8aHYhgFhq9Vs4k4PQZLPga7J-chk
-Message-ID: <CAFEAcA_nFiQyXyCuvwUrJ+-0fhmGoMfswK-+KsZbxahAGatTXw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] qom: Manage references to embedded child objects
-To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
-Cc: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, qemu-devel@nongnu.org, 
- Paolo Bonzini <pbonzini@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
- qemu-rust@nongnu.org, Peter Xu <peterx@redhat.com>, 
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@mailo.com>, 
- Alberto Garcia <berto@igalia.com>, Kevin Wolf <kwolf@redhat.com>,
- Hanna Reitz <hreitz@redhat.com>, qemu-block@nongnu.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2607:f8b0:4864:20::b12d;
- envelope-from=peter.maydell@linaro.org; helo=mail-yx1-xb12d.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
+ <20260615-embedded-v1-1-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
+MIME-Version: 1.0
+In-Reply-To: <20260615-embedded-v1-1-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Mimecast-MFC-PROC-ID: TApGU7JDFoL3C8f0esx04KQ_iwqcAVDqHhzs5Tfi08g_1781512451
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=kwolf@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: 8
+X-Spam_score: 0.8
+X-Spam_bar: /
+X-Spam_report: (0.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ RCVD_IN_SBL_CSS=3.335, SPF_HELO_PASS=-0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -125,26 +90,54 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, 15 Jun 2026 at 09:13, Daniel P. Berrang=C3=A9 <berrange@redhat.com>=
- wrote:
-> Do we know how many examples we have of embedding objects inside
-> another ?
+Am 15.06.2026 um 06:11 hat Akihiko Odaki geschrieben:
+> If object_ref() is called during finalization, it will temporarily
+> "resurrect" the object. Although object_finalize() asserts that no
+> resurrecting reference remains before freeing the object, the assertion
+> cannot catch the case where the resurrecting reference is dropped before
+> freeing the object.
 
-It is an extremely common pattern for device and SoC model
-implementations; we've been recommending it for years.
+Ok, and why is that a problem?
 
-> I would much prefer if we forbid the embedding of objects. It is
-> horrible design practice to have some QOM objects which can be
-> freed via reference count and some which cannot.
+In the cover letter, you referred to an earlier patch you had posted:
 
-That would be a very large amount of code to rewrite to the
-new paradigm. I don't object inherently ("you have pointers to
-your child objects" works better when they might be implemented
-in Rust and might play better with being able to create
-machines and wire them up on the command line); I'm just
-noting how much work it would be if you wanted to make
-embedding forbidden.
+    The temporary object resurrection patch originated from:
+    https://lore.kernel.org/qemu-devel/20250906-mr-v2-1-2820f5a3d282@rsg.ci.i.u-tokyo.ac.jp/
+    ("[PATCH v2 1/3] qom: Do not finalize twice")
 
-thanks
--- PMM
+From that patch, it's clear that one problem is that .finalize() can be
+called multiple times, which you probably don't want. But what is the
+reason for switching from just ignoring the second .finalize() like in
+the old patch to completely forbidding a temporary refcount increase?
+
+> One way to catch this would be to add a check in object_ref() to reject
+> resurrecting references before they are created. However, object_ref()
+> is frequently called so it is better to minimize the overhead.
+
+We're talking about a single comparison with zero here. So if that's the
+worse alternative, the other one can't have any drawbacks.
+
+> To avoid adding the overhead, change how the reference count is
+> represented and let an existing assertion detect resurrection. More
+> concretely, obj->ref now stores the current reference count minus 1. The
+> stored count is therefore 0 after object_initialize(), and the final
+> object_unref() decrements it from 0 to UINT32_MAX and starts
+> finalization. A resurrecting object_ref() will then trip the existing
+> obj->ref < INT_MAX assertion.
+
+A refcount field where 0 means that a last reference is still remaining
+is highly confusing. If we do want to forbid taking a temporary new
+reference in .finalize() for some reason, the explicit check in
+object_ref() sounds much better to me.
+
+> Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+> ---
+>  include/qom/object.h            |  4 ++--
+>  block/throttle-groups.c         |  2 +-
+>  qom/object.c                    | 15 ++++++---------
+>  tests/unit/check-qom-proplist.c |  8 ++++----
+>  4 files changed, 13 insertions(+), 16 deletions(-)
+
+Kevin
+
 
