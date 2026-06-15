@@ -4,108 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B20FCD98C7
-	for <qemu-rust@archiver.kernel.org>; Thu, 11 Jun 2026 15:34:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 050E1CD98CF
+	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 04:13:44 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wXhQF-0005pr-8K; Thu, 11 Jun 2026 11:34:23 -0400
+	id 1wYyh3-0000fJ-1R; Mon, 15 Jun 2026 00:13:06 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1wXhPy-0005oe-He
- for qemu-rust@nongnu.org; Thu, 11 Jun 2026 11:34:08 -0400
-Received: from mail-wm1-x32a.google.com ([2a00:1450:4864:20::32a])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <manos.pitsidianakis@linaro.org>)
- id 1wXhPv-0006L1-49
- for qemu-rust@nongnu.org; Thu, 11 Jun 2026 11:34:05 -0400
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4908b92904fso92310285e9.0
- for <qemu-rust@nongnu.org>; Thu, 11 Jun 2026 08:34:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781192041; cv=none;
- d=google.com; s=arc-20240605;
- b=YizrBuP9snb2vn0aTELMF5r1/T4g8QxAr8xYvZGUwOL7sCmHrmTwSzKAcl9U59gMfd
- 5rgWvi2AUiPVwyn1Xrvl/W2HSNC/LdlM0ql52QQmzZopMeOMG87zf74OmLSa8B+u/sDR
- 3ll9U7kdhumlynXApukyqxRGXc1fTWh20XYYlGxYb72NGnTIOI4wilropfxxJrFho2uT
- cBfABHyVh44bt43UYchsJvcpqfM3qb0niVE3PVhV6Z96enTIfTHj8bm9hDoIkAuPhjQS
- vgtwtDYHIYmTRmODzbNk+N8oWDTTLz4ODYMd8I8oomD0li03Njzrxhqi26pAPsohTxJ2
- 1Mkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=vm4uLmChCILXYymCmAdVicUbOclpL26dmji3XQcB/Rw=;
- fh=JbhVR+QEcj5ZC73OflUEn+rvoSMFc2JWRfrCUkg48C0=;
- b=laJfa427slipkw/gUo83DTuSFj8OT/kbA1olUMyujKTKdCKhBWN5L4dacQAK1vVSAq
- TaChmZ1waya8xD6GZgsW4RIweevyWe0UBhB8RgkjRsfk8pU+NSaX4Iz5s3IJm98e1z/W
- xK8+rxRNu91rS0PKc7LookMbepz1qfJR6GtgQ1ezRFi0z9DtR2BnoQNFHsHXmRO6Izry
- nlzvunbHZ/UiIhSYaYyTS7oZDhJ5AfJp9tHmrCNBZztgVsAUQEhTpbOT25T3u6s0HRnO
- kxsM4LJBgdMj50l1S9esURI0Vz5dNFLysJdKHhOW1O1R8qL6cDoe1jolqVjsOuARWg3/
- LABg==; darn=nongnu.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1781192041; x=1781796841; darn=nongnu.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vm4uLmChCILXYymCmAdVicUbOclpL26dmji3XQcB/Rw=;
- b=McLbwcOAeFvP8jKyKC5hS8rLhimwoS4an40u/NwlqJj7oH8yxqMfHKcuwM1EPZhiT1
- pazc+P6uMSRP0yG8fj28tPrLNG0qtB/Bx8drDLEmr9zodIHbcj+vC63JyzJzSVsVgLdo
- +h6ymvLLRQJ6iyJNwqLzHueiFBM/FuwkYjtGoqtmuaNJAix8bBd6GuiiZqdliwuIsDWh
- Kb/jElfoiA/BVhiqTBQ7OTN+qYX7hNsSFWLNYv48+XraJYbuEa0RAa3L2yb4t2q1SgXR
- IN+XrKey3xFE/m0/xXaLXs1ktYLUr+1Sk+aXHld2hjHkSP5D1IG0dN6JI7atZ/zpOZ5j
- JuyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781192041; x=1781796841;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=vm4uLmChCILXYymCmAdVicUbOclpL26dmji3XQcB/Rw=;
- b=C1FRoJBwMt/xiBUw+B+o7t76/mSjR5hWAiE5k2HeaZm2W7ilCcZD2yUcDj6OgwuTqd
- yDL51CVHff2754XNpg6EowA7HB+GL/XjW6ZJwHj40D/DNt8kafzqOuBM7BU6jsv5jMRt
- 2JM1prpkSLsVLFHsTpUQm/Jm8nOr/nFdOlWgRMOOviYU/kb0WSHjpbW34EMIoxvI9id/
- ebzVBCPHwa3F0dZheeBk5moHv3Ult3ekqNstOalHz4+92Ctc3W842ZN/OK+Sn/BUw+Hh
- FNojOVRwyeaioraFLfOuEJcB5OxMC2jtnFQa9Mc47ndKUbv7qBR3X/HIA0fYzyUiP10J
- PYnA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ97NUuP4iHscRQLIM1PU3hJyaOztDKjMVjyiuX+qjSO6LBNXVYLKIKmi5wst7guMOqZryXLzbO4CmE=@nongnu.org
-X-Gm-Message-State: AOJu0YzwQgeqm6zkP20Np70L8i7UsfAxbczQn/LKSB3xN1i/UCadMC0q
- QilwO8rM27bFYrNGSfeeNFgw9d7ej0+aVQg7gYJVNHRkOrKj2AZhgv69GByIN3chvG8nYxuPY7X
- oV9exiRc8jaNi3KNaOOUNrEca3h0p0oCsvFoyXkRDZQ==
-X-Gm-Gg: Acq92OHl0WGHmoQV1aCETRy1MUbSLJrqzbozK3x5mTKvR9GeGubddCM6fZXNGBa9h53
- a5ey+nnHRbuwAfACyZJ86qX9tjqjKqPHPicPXcj8CaFXqdm1rIOmgg7um30N+Uu+9fFTKoIsHCu
- sW+8deDiO4zE8WqS8Bmjm1QC5ZyOZLY2FAXP6foyoyfOencnIBFSFEJfjosu8wR0WzJa6v7HYAK
- 59ZyRNYyGgqkluO3Rc7TDuhzVtEcwJeA1Hm3PZnJs8slHoSitGjxo5JvoV5DE/ytZYdUuO8oDPg
- SIIAXJ5RnF5/9mMlf6JizGqn13+GYIgz/AMNOLDb9WMpSadSqoZlQj5CZlhL3+EZeWcqRHcqPR6
- 8B+kU778ohzgPJXFyJuuGTGAmyowyEjOqYNAFOYs=
-X-Received: by 2002:a05:600c:c8a:b0:490:b072:1be6 with SMTP id
- 5b1f17b1804b1-490e5639bffmr48613105e9.25.1781192040590; Thu, 11 Jun 2026
- 08:34:00 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
+ id 1wYygk-0000dE-8D; Mon, 15 Jun 2026 00:12:47 -0400
+Received: from www3579.sakura.ne.jp ([49.212.243.89])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
+ id 1wYygf-0002Ut-LK; Mon, 15 Jun 2026 00:12:41 -0400
+Received: from h183.csg.ci.i.u-tokyo.ac.jp (h183.csg.ci.i.u-tokyo.ac.jp
+ [133.11.54.183]) (authenticated bits=0)
+ by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 65F4CEdf067027
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Mon, 15 Jun 2026 13:12:19 +0900 (JST)
+ (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+DKIM-Signature: a=rsa-sha256; bh=0eqFwQkqtR+nEulRgm3tM2eTrUW+AhUBLNz94eQVOCg=; 
+ c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+ h=From:Message-Id:To:Subject:Date;
+ s=rs20250326; t=1781496739; v=1;
+ b=rXn2/kcDS7Ecy55+EEIz+fg14MSKj6taMc8iuOFZ0hiD7TtgHIzu5BjrxK1e2CTA
+ Ltrt1jyNNo+6sJQFmll+kIcU0s7aKO2wu0O2utpaRFudiQ1dRjM8nggXyYng6rWF
+ m4tRx7Nw/xZn0N4MXdeCuW+HXs2dPK91tCIohB6JApP2VEL66qB/3FBcny3nZZpM
+ cvR+TpXvDzSMQFbtTIwQQzmX8NC7jbaeiCqBlwiUk2GUG1unw9EphW/XnMDOI4JV
+ TnyjFrrqavBspLRREH54AjeqEZd5kwSl0Wtk2q4MBqh67bDAW846Lh+yopB/GYpK
+ SvVpsDIJiaCgR5/qfSSBTg==
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+Date: Mon, 15 Jun 2026 13:11:06 +0900
+Subject: [PATCH 1/2] qom: Reject temporary object resurrection
 MIME-Version: 1.0
-References: <20260526175618.227743-1-pbonzini@redhat.com>
- <20260526175618.227743-16-pbonzini@redhat.com>
- <airS4hj5u/9T2T2H@intel.com>
-In-Reply-To: <airS4hj5u/9T2T2H@intel.com>
-From: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Date: Thu, 11 Jun 2026 18:33:34 +0300
-X-Gm-Features: AVVi8CeVW1MNitgtId1dt2ASjDM3W7m4AMH9_58aHVJTOr9BSJk4WsjTaly9TOc
-Message-ID: <CAAjaMXbBOpiy1PUPy+VWC7i0LDC4Vht95T5A9goWGFHeBbO9-A@mail.gmail.com>
-Subject: Re: [PATCH v3 15/19] scripts/qapi: generate high-level Rust bindings
-To: Zhao Liu <zhao1.liu@intel.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, qemu-devel@nongnu.org,
- qemu-rust@nongnu.org, armbru@redhat.com, marcandre.lureau@redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=2a00:1450:4864:20::32a;
- envelope-from=manos.pitsidianakis@linaro.org; helo=mail-wm1-x32a.google.com
-X-Spam_score_int: -20
-X-Spam_score: -2.1
-X-Spam_bar: --
-X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260615-embedded-v1-1-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
+References: <20260615-embedded-v1-0-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <20260615-embedded-v1-0-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
+To: qemu-devel@nongnu.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+ =?utf-8?q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ qemu-rust@nongnu.org, Peter Xu <peterx@redhat.com>,
+ =?utf-8?q?Philippe_Mathieu-Daud=C3=A9?= <philmd@mailo.com>,
+ Alberto Garcia <berto@igalia.com>, Kevin Wolf <kwolf@redhat.com>,
+ Hanna Reitz <hreitz@redhat.com>, qemu-block@nongnu.org,
+ Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+X-Mailer: b4 0.16-dev-16047
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6155;
+ i=odaki@rsg.ci.i.u-tokyo.ac.jp; h=from:subject:message-id;
+ bh=PeveLOKGd+DH/AQHOXNpkUVbiSMs+UHfGxxm2/E25SQ=;
+ b=owGbwMvMwCWmMbc20y1CyJDxtFoSQ5Z+9ULvu5GP78tdm2Ru9OvCMfW96fdN1qx8eqSv1dFik
+ pSQyB+mjlIWBjEuBlkxRZaUot3cGtG1nwoT4ltg5rAygQxh4OIUgIlwXWP4p/E4a+/qe0lOCzsb
+ ny0+HqXnqRueKnv4p+p0sdqqWK6SVQx/Bbu4zlcKpLbv9TPjy+j8Lzzv9tmfs6dKhkntemTxy38
+ WGwA=
+X-Developer-Key: i=odaki@rsg.ci.i.u-tokyo.ac.jp; a=openpgp;
+ fpr=AEDC03C9AF734F2EC26A7BFFA4BAEAA73536753C
+Received-SPF: pass client-ip=49.212.243.89;
+ envelope-from=odaki@rsg.ci.i.u-tokyo.ac.jp; helo=www3579.sakura.ne.jp
+X-Spam_score_int: -16
+X-Spam_score: -1.7
+X-Spam_bar: -
+X-Spam_report: (-1.7 / 5.0 requ) BAYES_00=-1.9, DKIM_INVALID=0.1,
+ DKIM_SIGNED=0.1, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -121,151 +85,158 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Thu, Jun 11, 2026 at 5:56=E2=80=AFPM Zhao Liu <zhao1.liu@intel.com> wrot=
-e:
->
-> On Tue, May 26, 2026 at 07:56:14PM +0200, Paolo Bonzini wrote:
-> > Date: Tue, 26 May 2026 19:56:14 +0200
-> > From: Paolo Bonzini <pbonzini@redhat.com>
-> > Subject: [PATCH v3 15/19] scripts/qapi: generate high-level Rust bindin=
-gs
-> > X-Mailer: git-send-email 2.54.0
-> >
-> > From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
-> >
-> > Generate high-level native Rust declarations for the QAPI types.
-> >
-> > - char* is mapped to String, scalars to there corresponding Rust types
-> >
-> > - enums use #[repr(u32)] and can be transmuted to their C counterparts
-> >
-> > - has_foo/foo members are mapped to Option<T>
-> >
-> > - lists are represented as Vec<T>
-> >
-> > - structures map fields 1:1 to Rust
-> >
-> > - alternate are represented as Rust enum, each variant being a 1-elemen=
-t
-> >   tuple
-> >
-> > - unions are represented in a similar way as in C: a struct S with a "u=
-"
-> >   member (since S may have extra 'base' fields). The discriminant
-> >   isn't a member of S, since Rust enum already include it, but it can b=
-e
-> >   recovered with "mystruct.u.into()"
-> >
-> > Anything that includes a recursive struct puts it in a Box.  Lists are
-> > not considered recursive, because Vec breaks the recursion (it's possib=
-le
-> > to construct an object containing an empty Vec of its own type).
-> >
-> > Given the experimental nature of Rust, and the incompleteness of the
-> > backend (it lacks commands and events), QAPIRsBackend is not modular
-> > and is not built together with the C and trace-event files.  It can
-> > be used by specifying "-B qapi.backend.QAPIRsBackend" on the qapi-gen
-> > command line.
-> >
-> > Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
-> > Link: https://lore.kernel.org/r/20210907121943.3498701-21-marcandre.lur=
-eau@redhat.com
-> > [Paolo: rewrite conversion of leaf types]
-> > Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> > ---
-> >  meson.build              |   4 +-
-> >  scripts/qapi/backend.py  |  25 +++
-> >  scripts/qapi/common.py   |  49 ++++++
-> >  scripts/qapi/rs.py       |  50 ++++++
-> >  scripts/qapi/rs_types.py | 372 +++++++++++++++++++++++++++++++++++++++
-> >  scripts/qapi/schema.py   |  59 +++++--
-> >  6 files changed, 540 insertions(+), 19 deletions(-)
-> >  create mode 100644 scripts/qapi/rs.py
-> >  create mode 100644 scripts/qapi/rs_types.py
->
-> [snip]
->
-> > +def rs_name(name: str) -> str:
-> > +    """
-> > +    Map @name to a valid, possibly raw Rust identifier.
-> > +    """
-> > +    name =3D re.sub(r'[^A-Za-z0-9_]', '_', name)
-> > +    if name[0].isnumeric():
-> > +        name =3D '_' + name
-> > +    # based from the list:
-> > +    # https://doc.rust-lang.org/reference/keywords.html
-> > +    if name in ('Self', 'abstract', 'as', 'async',
->                     ^^^^
-> > +                'await', 'become', 'box', 'break',
-> > +                'const', 'continue', 'crate', 'do',
->                                          ^^^^^
-> > +                'dyn', 'else', 'enum', 'extern',
-> > +                'false', 'final', 'fn', 'for',
-> > +                'if', 'impl', 'in', 'let',
-> > +                'loop', 'macro', 'match', 'mod',
-> > +                'move', 'mut', 'override', 'priv',
-> > +                'pub', 'ref', 'return', 'self',
->                                             ^^^^
-> > +                'static', 'struct', 'super', 'trait',
->                                         ^^^^^
-> > +                'true', 'try', 'type', 'typeof',
-> > +                'union', 'unsafe', 'unsized', 'use',
-> > +                'virtual', 'where', 'while', 'yield'):
-> > +        name =3D 'r#' + name
->
-> EMM, r#self, r#Self, r#crate and r#super are "RESERVED_RAW_IDENTIFIER",
-> and "It is an error to use the RESERVED_RAW_IDENTIFIER token". [*]
->
-> [*]: https://doc.rust-lang.org/reference/identifiers.html#grammar-RESERVE=
-D_RAW_IDENTIFIER
->
-> We can't use 'q_' prefix for these special case, or what about
-> name + '_'?
+If object_ref() is called during finalization, it will temporarily
+"resurrect" the object. Although object_finalize() asserts that no
+resurrecting reference remains before freeing the object, the assertion
+cannot catch the case where the resurrecting reference is dropped before
+freeing the object.
 
-This is what bindgen does also:
+One way to catch this would be to add a check in object_ref() to reject
+resurrecting references before they are created. However, object_ref()
+is frequently called so it is better to minimize the overhead.
 
-https://github.com/rust-lang/rust-bindgen/blob/2048231f45c87cd65d7891f55090=
-aac81cc0d66b/bindgen-tests/tests/headers/keywords.h
+To avoid adding the overhead, change how the reference count is
+represented and let an existing assertion detect resurrection. More
+concretely, obj->ref now stores the current reference count minus 1. The
+stored count is therefore 0 after object_initialize(), and the final
+object_unref() decrements it from 0 to UINT32_MAX and starts
+finalization. A resurrecting object_ref() will then trip the existing
+obj->ref < INT_MAX assertion.
 
-becomes:
+Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+---
+ include/qom/object.h            |  4 ++--
+ block/throttle-groups.c         |  2 +-
+ qom/object.c                    | 15 ++++++---------
+ tests/unit/check-qom-proplist.c |  8 ++++----
+ 4 files changed, 13 insertions(+), 16 deletions(-)
 
-https://github.com/rust-lang/rust-bindgen/blob/2048231f45c87cd65d7891f55090=
-aac81cc0d66b/bindgen-tests/tests/expectations/tests/keywords.rs
+diff --git a/include/qom/object.h b/include/qom/object.h
+index 11f55613fcd0..c4dcf65dcf7f 100644
+--- a/include/qom/object.h
++++ b/include/qom/object.h
+@@ -1121,7 +1121,7 @@ GSList *object_class_get_list_sorted(const char *implements_type,
+  * @obj: the object
+  *
+  * Increase the reference count of a object.  A object cannot be freed as long
+- * as its reference count is greater than zero.
++ * as a reference remains.
+  * Returns: @obj
+  */
+ Object *object_ref(void *obj);
+@@ -1131,7 +1131,7 @@ Object *object_ref(void *obj);
+  * @obj: the object
+  *
+  * Decrease the reference count of a object.  A object cannot be freed as long
+- * as its reference count is greater than zero.
++ * as a reference remains.
+  */
+ void object_unref(void *obj);
+ 
+diff --git a/block/throttle-groups.c b/block/throttle-groups.c
+index 4b1b1944c20a..3b2a89f5849d 100644
+--- a/block/throttle-groups.c
++++ b/block/throttle-groups.c
+@@ -962,7 +962,7 @@ static void throttle_group_get_limits(Object *obj, Visitor *v,
+ 
+ static bool throttle_group_can_be_deleted(UserCreatable *uc)
+ {
+-    return OBJECT(uc)->ref == 1;
++    return OBJECT(uc)->ref == 0;
+ }
+ 
+ static void throttle_group_obj_class_init(ObjectClass *klass,
+diff --git a/qom/object.c b/qom/object.c
+index 0ac201de4c15..761eff1337e6 100644
+--- a/qom/object.c
++++ b/qom/object.c
+@@ -497,7 +497,6 @@ static void object_initialize_with_type(Object *obj, size_t size, TypeImpl *type
+ 
+     memset(obj, 0, type->instance_size);
+     obj->class = type->class;
+-    object_ref(obj);
+     object_class_property_init_all(obj);
+     obj->properties = g_hash_table_new_full(g_str_hash, g_str_equal,
+                                             NULL, object_property_free);
+@@ -560,11 +559,10 @@ bool object_initialize_child_with_propsv(Object *parentobj,
+ 
+ out:
+     /*
+-     * We want @obj's reference to be 1 on success, 0 on failure.
+-     * On success, it's 2: one taken by object_initialize(), and one
+-     * by object_property_add_child().
+-     * On failure in object_initialize() or earlier, it's 1.
+-     * On failure afterwards, it's also 1: object_unparent() releases
++     * We want @obj's reference to be 0 on success, UINT32_MAX on failure.
++     * On success, it's 1: one taken by object_property_add_child().
++     * On failure in object_initialize() or earlier, it's 0.
++     * On failure afterwards, it's also 0: object_unparent() releases
+      * the reference taken by object_property_add_child().
+      */
+     object_unref(obj);
+@@ -668,7 +666,6 @@ static void object_finalize(void *data)
+     object_property_del_all(obj);
+     object_deinit(obj, ti);
+ 
+-    g_assert(obj->ref == 0);
+     g_assert(obj->parent == NULL);
+     if (obj->free) {
+         obj->free(obj);
+@@ -1329,10 +1326,10 @@ void object_unref(void *objptr)
+     if (!obj) {
+         return;
+     }
+-    g_assert(obj->ref > 0);
++    g_assert(obj->ref < INT_MAX);
+ 
+     /* parent always holds a reference to its children */
+-    if (qatomic_fetch_dec(&obj->ref) == 1) {
++    if (qatomic_fetch_dec(&obj->ref) == 0) {
+         object_finalize(obj);
+     }
+ }
+diff --git a/tests/unit/check-qom-proplist.c b/tests/unit/check-qom-proplist.c
+index 89de92b7d91f..b5527dd52afd 100644
+--- a/tests/unit/check-qom-proplist.c
++++ b/tests/unit/check-qom-proplist.c
+@@ -351,7 +351,7 @@ static void test_dummy_createv_tree(void)
+                               NULL));
+ 
+     g_assert(err == NULL);
+-    g_assert_cmpint(dobj->parent_obj.ref, ==, 1);
++    g_assert_cmpint(dobj->parent_obj.ref, ==, 0);
+     g_assert_cmpstr(dobj->sv, ==, "Hiss hiss hiss");
+     g_assert(dobj->bv == true);
+     g_assert(dobj->av == DUMMY_PLATYPUS);
+@@ -375,7 +375,7 @@ static void test_dummy_createv_parentless(void)
+                                          NULL));
+ 
+     g_assert(err == NULL);
+-    g_assert_cmpint(dobj->parent_obj.ref, ==, 1);
++    g_assert_cmpint(dobj->parent_obj.ref, ==, 0);
+     g_assert_cmpstr(dobj->sv, ==, "Hiss hiss hiss");
+     g_assert(dobj->bv == true);
+     g_assert(dobj->av == DUMMY_PLATYPUS);
+@@ -414,7 +414,7 @@ static void test_dummy_createlist_tree(void)
+                         NULL));
+ 
+     g_assert(err == NULL);
+-    g_assert_cmpint(dobj->parent_obj.ref, ==, 1);
++    g_assert_cmpint(dobj->parent_obj.ref, ==, 0);
+     g_assert_cmpstr(dobj->sv, ==, "Hiss hiss hiss");
+     g_assert(dobj->bv == true);
+     g_assert(dobj->av == DUMMY_PLATYPUS);
+@@ -450,7 +450,7 @@ static void test_dummy_createlist_parentless(void)
+                               NULL));
+ 
+     g_assert(err == NULL);
+-    g_assert_cmpint(dobj->parent_obj.ref, ==, 1);
++    g_assert_cmpint(dobj->parent_obj.ref, ==, 0);
+     g_assert_cmpstr(dobj->sv, ==, "Hiss hiss hiss");
+     g_assert(dobj->bv == true);
+     g_assert(dobj->av == DUMMY_PLATYPUS);
 
->
-> e.g.,
->
-> if name in ('self', 'Self', 'crate', 'super'):
->    name =3D name + '_'
-> elif name in (...)
->    name =3D 'r#' + name
->
-> > +
-> > +    return name
-> > +
->
-> [snip]
->
-> > @@ -502,6 +515,9 @@ def is_implicit(self) -> bool:
-> >      def c_type(self) -> str:
-> >          return c_name(self.name) + POINTER_SUFFIX
-> >
-> > +    def rs_type(self) -> str:
->
-> Only a nit, it's better to check _checked before accessing element_type
-> (just refer Markus' suggestion in v2)
->
-> assert self._checked
->
-> > +        return 'Vec<%s>' % self.element_type.rs_type()
-> > +
->
-> Regards,
-> Zhao
->
->
+-- 
+2.54.0
 
---=20
-Manos Pitsidianakis
-Emulation and Virtualization Engineer at Linaro Ltd
 
