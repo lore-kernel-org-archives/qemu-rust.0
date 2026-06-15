@@ -4,65 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56FC1CD98C5
-	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 08:51:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFE16CD98DA
+	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 09:29:22 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wZ31y-0006Jh-OY; Mon, 15 Jun 2026 04:50:59 -0400
+	id 1wZ3co-0004f0-US; Mon, 15 Jun 2026 05:28:59 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
- id 1wZ31n-0006Io-MF; Mon, 15 Jun 2026 04:50:45 -0400
-Received: from www3579.sakura.ne.jp ([49.212.243.89])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
- id 1wZ31j-00057b-RM; Mon, 15 Jun 2026 04:50:43 -0400
-Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
- (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 65F8oHsB088520
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Mon, 15 Jun 2026 17:50:17 +0900 (JST)
- (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=/8VapYLl3ShbkfOj4G7hbG3IsazqXHuxJye2UONJEPs=; 
- c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
- h=From:Message-ID:To:Subject:Date;
- s=rs20250326; t=1781513418; v=1;
- b=igxDuBvqoa1ym+n39fp27ca4/ruULn5DBvq7XsZLppw6JPKpjLq5dIGnNt7gmTDT
- VN6dCXx4b8Xwzkl7fYsdtsN2tq14CuFBCA1z3l5exu8di+N0byMya8uVIuvR8MF5
- 2YFZ7LYm6LthR8OFJbaESh1T//iz2LeSu7q5c2ycfHd94C7UMj7YYBpIdhsDioQS
- owJJT+qfitNP7ROAGE6dMGBHTsr90RRe9fV0EXjiDLmomjUDmWPOAnG/g0ti9w4s
- RHU/+aQJMWluQ719R2DFW8p8AAE5cKPMjcW7K8NXYYJEYBLkhJqJwFdEo4N8iKUh
- GwjuxUZI0mv5m95iq112HA==
-Message-ID: <23953462-9a8f-4532-93cb-500abcf36d33@rsg.ci.i.u-tokyo.ac.jp>
-Date: Mon, 15 Jun 2026 17:50:17 +0900
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1wZ3cl-0004e8-DW
+ for qemu-rust@nongnu.org; Mon, 15 Jun 2026 05:28:56 -0400
+Received: from mail-yx1-xb12c.google.com ([2607:f8b0:4864:20::b12c])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <peter.maydell@linaro.org>)
+ id 1wZ3cj-0002cO-G8
+ for qemu-rust@nongnu.org; Mon, 15 Jun 2026 05:28:55 -0400
+Received: by mail-yx1-xb12c.google.com with SMTP id
+ 956f58d0204a3-66061993121so3056637d50.0
+ for <qemu-rust@nongnu.org>; Mon, 15 Jun 2026 02:28:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781515732; cv=none;
+ d=google.com; s=arc-20240605;
+ b=FHvj/6JPN+dRRsrr2csl3Rm9qs9ENPRtAR0XalnoR1nJJO+blSyE2DWzznFliOqatY
+ T6OgPjB4L2a51GBBYO3YEe8A13p7Ka2c+a0gCbB50r1pC8gvRpen2P0Gw6rQSm2xvS7S
+ kPgvTzpiYviqD+iMmQdC91yoHgJXPg1Si6fpCKddfn8LLeEGqC/57pUF05hqEgb4Ii+t
+ +b8HSMHxToIIy9C9xShn7EFXLTvteDOf58g9YFzC5u8a/vyE+nzou0OsFWNpNI+H77s/
+ +dezekRhP7NKhQ2Xe92h9Wbc0U4Ddxba1v87oaPSBen7bY+Mq+IsBPq2CXhRklz8z66X
+ BdXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=4h7z8wlbabOPsROrERBqjgdjxedmv9sWmTQBMTR5gyk=;
+ fh=llnEwRWF2RA7Qz/6NwgVM8xuM65YjuVEsXi64A8QCCU=;
+ b=LuNQEXeBYWi/K9/62Gcx40Cy1u5f+R7wKPub6O8LD2v7sBFnIHo7MwDMOH08j/5NM6
+ 8ag6YOmhquUNHMShwLqwowU3wVaOlJoISdffsRujAPtP9SJZAStQyJNOcEhTCpD2dOVl
+ qrz60FYjzqVXQOjVpw6KrqbUllQqDvmWj0QJmRJFmKizEdGuH/4nRQDS50DBBFvOW5U5
+ Tjue2l6Gohr1CpYAOuhjd86vmkSbaFgvvLg42onlJOsZNrJcfcidxMnzttps6KX4wDjD
+ mfdoD1JVu90fdtlgMQvlcM6wK3qQVd1RE4dMAnUNggoQWd811DtdQ0+40fFh8X/SgKvv
+ IQaw==; darn=nongnu.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1781515732; x=1782120532; darn=nongnu.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4h7z8wlbabOPsROrERBqjgdjxedmv9sWmTQBMTR5gyk=;
+ b=T9rJWt/6Nccx64mv9ugHg60E7DTUfUc+ikir4/1s69/7U8pBoznbbjEx5jXF+cHsrI
+ GT4kTKp72TZbVu2HSbIgSXdsWmRuXoqaUwcBb1WAK7aESmULe5+ySwuMiLpeqOcWAUmO
+ lTdZmU4MuTLQRphgohsdOlgsCyxMq7YeU0HETVXLJ8vNX44a5zBLXlne0jp6WIDPM9Nf
+ CQa0f/bv1/CyhaABpnyQu1wcJ9MYdIW33i347xutH/WrcV6vCu2gu0xZ8kxs3NYNBPCM
+ OqVh3sm2TYXT3z+7UzT3GEIX8bOh3tTQgVJpfQYovQwzMqMB/ejR9of9rqMP4FEfISCp
+ qnfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781515732; x=1782120532;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=4h7z8wlbabOPsROrERBqjgdjxedmv9sWmTQBMTR5gyk=;
+ b=AiudIX5oljNnShrCWPRlUynZ+kfIpqEdcO4hwwSC5HqWMuENZ+S9944d9Njmd1BuoL
+ qXUcju29xVAdqnFzn4Q09eRO0/VPwsVTq2XWL5bZd/xGSlhww38CiT5bY+mkVadexzor
+ 1htig+5cYkJ8zsNjoxmuuTjW6GRlAXTl1Nq42hHz9TG0R9R8jKjIOncipFqbNhnxVtoI
+ GegvSDAFb+VABgf0MOrGSOTDU6YaRMZXzw7UhqQtip4H8BbomJQc6mjCdvxbKynvV2qy
+ e0dANHcXRgGgmKU1pbuTqQfRTPG1O6clF3e/YA4DatAuqvioyIwYhQvctAIlrv3vBc3j
+ 8qzQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+Rumbtwu8On08zY/iFdZw3tmEhKspa7H62GiNd4Z9cybXYGoScZJ+5uc9tvsjlD7gt9Lf9ZWS1h0g=@nongnu.org
+X-Gm-Message-State: AOJu0YzX5KhqUIUl/VNqGy0EMA97bTWX0eX9ovoPCeY2pkkI01utSAAr
+ 3H4/k8G2i7Eug5zIkcOuZpDOaEpuhwyb2QKjPh7+W6rtaPc/9lRC0pkkzXjBlrIdMzsK3MZTAVd
+ s1FkVCbTRig4O0HSWyAXcuI4nUrmpLM5+xftCF32aIw==
+X-Gm-Gg: Acq92OGHhbDHiBc87nV8ol+eaJUdVdvutlEh1zSbo/cJaXxoIMimgBHOLFcgpoozxRr
+ oaviptE3Vw6cCD5b8bsIfoXNwvvV99SY9VOEKmKSPFyvtB1lSGk9nzVB+H+8TVuGCGRVBU8hchu
+ 7uASmAx8yBaX1HfloVRzXa12mtqCRHmww37QU3Yek3HdBIArObl45hpgi6KcV5Eob1ri8Doro4n
+ +gcpRyAuJENOVvwUZElfgKV1fNvPtyB+V6uU8+zMoScysLhKHWidhh/67PooFs1eIn2fUXE/vsu
+ o7jpja5dVnWQid2FDLzhmemSTKZ2Wp5r+m0I1uQYWc3ga/fpLAjtzkd42yGPllKVR2o=
+X-Received: by 2002:a53:c146:0:b0:660:60a9:2b33 with SMTP id
+ 956f58d0204a3-6628500a341mr6854412d50.53.1781515732085; Mon, 15 Jun 2026
+ 02:28:52 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] qom: Reject temporary object resurrection
-To: Kevin Wolf <kwolf@redhat.com>
-Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
- =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- qemu-rust@nongnu.org, Peter Xu <peterx@redhat.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@mailo.com>,
- Alberto Garcia <berto@igalia.com>, Hanna Reitz <hreitz@redhat.com>,
- qemu-block@nongnu.org
 References: <20260615-embedded-v1-0-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
- <20260615-embedded-v1-1-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
- <ai-4-0UkH0uCZwYS@redhat.com>
-Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <ai-4-0UkH0uCZwYS@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=49.212.243.89;
- envelope-from=odaki@rsg.ci.i.u-tokyo.ac.jp; helo=www3579.sakura.ne.jp
-X-Spam_score_int: -16
-X-Spam_score: -1.7
-X-Spam_bar: -
-X-Spam_report: (-1.7 / 5.0 requ) BAYES_00=-1.9, DKIM_INVALID=0.1,
- DKIM_SIGNED=0.1, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+ <20260615-embedded-v1-2-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
+ <ai-z14dMCK33_pis@redhat.com>
+ <CAFEAcA_nFiQyXyCuvwUrJ+-0fhmGoMfswK-+KsZbxahAGatTXw@mail.gmail.com>
+ <ai-5M6FF7CoJc_re@redhat.com>
+In-Reply-To: <ai-5M6FF7CoJc_re@redhat.com>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Mon, 15 Jun 2026 10:28:40 +0100
+X-Gm-Features: AVVi8CdPDOOgY6peJmpRd_1gRW_mhJwrpEF89DFQaVrdM0fasteTMnuqucjkq8E
+Message-ID: <CAFEAcA_52oFGv7cC11jbpj9pwBq-x2O-R_aOGkYzaRWW7t-K2g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] qom: Manage references to embedded child objects
+To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
+Cc: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, qemu-devel@nongnu.org, 
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, 
+ qemu-rust@nongnu.org, Peter Xu <peterx@redhat.com>, 
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@mailo.com>, 
+ Alberto Garcia <berto@igalia.com>, Kevin Wolf <kwolf@redhat.com>,
+ Hanna Reitz <hreitz@redhat.com>, qemu-block@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2607:f8b0:4864:20::b12c;
+ envelope-from=peter.maydell@linaro.org; helo=mail-yx1-xb12c.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -78,62 +127,55 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On 2026/06/15 17:34, Kevin Wolf wrote:
-> Am 15.06.2026 um 06:11 hat Akihiko Odaki geschrieben:
->> If object_ref() is called during finalization, it will temporarily
->> "resurrect" the object. Although object_finalize() asserts that no
->> resurrecting reference remains before freeing the object, the assertion
->> cannot catch the case where the resurrecting reference is dropped before
->> freeing the object.
-> 
-> Ok, and why is that a problem?
-> 
-> In the cover letter, you referred to an earlier patch you had posted:
-> 
->      The temporary object resurrection patch originated from:
->      https://lore.kernel.org/qemu-devel/20250906-mr-v2-1-2820f5a3d282@rsg.ci.i.u-tokyo.ac.jp/
->      ("[PATCH v2 1/3] qom: Do not finalize twice")
-> 
->  From that patch, it's clear that one problem is that .finalize() can be
-> called multiple times, which you probably don't want. But what is the
-> reason for switching from just ignoring the second .finalize() like in
-> the old patch to completely forbidding a temporary refcount increase?
+On Mon, 15 Jun 2026 at 09:35, Daniel P. Berrang=C3=A9 <berrange@redhat.com>=
+ wrote:
+>
+> On Mon, Jun 15, 2026 at 09:31:36AM +0100, Peter Maydell wrote:
+> > On Mon, 15 Jun 2026 at 09:13, Daniel P. Berrang=C3=A9 <berrange@redhat.=
+com> wrote:
+> > > Do we know how many examples we have of embedding objects inside
+> > > another ?
+> >
+> > It is an extremely common pattern for device and SoC model
+> > implementations; we've been recommending it for years.
+> >
+> > > I would much prefer if we forbid the embedding of objects. It is
+> > > horrible design practice to have some QOM objects which can be
+> > > freed via reference count and some which cannot.
+> >
+> > That would be a very large amount of code to rewrite to the
+> > new paradigm. I don't object inherently ("you have pointers to
+> > your child objects" works better when they might be implemented
+> > in Rust and might play better with being able to create
+> > machines and wire them up on the command line); I'm just
+> > noting how much work it would be if you wanted to make
+> > embedding forbidden.
+>
+> Would it be a more tractable problem to "fix" object structure only
+> incrementally as they gain a need to be managed/reference from
+> Rust code, or does the Rust usage already implicitly extend too
+> broadly
 
-None. I thought merely skipping finalization is not a well-defined 
-semantics (e.g., breaking Rust safety guarantee), but, reconsidering 
-now, I think that's fine.
+At the moment we have exactly 2 Rust devices. You can see the
+workaround we ended up with for the PL011 in commits 5b87a07e768
+and cc3d262aa93a4, where we pad out the C device struct and
+assert on the Rust side that its version isn't any bigger.
 
-> 
->> One way to catch this would be to add a check in object_ref() to reject
->> resurrecting references before they are created. However, object_ref()
->> is frequently called so it is better to minimize the overhead.
-> 
-> We're talking about a single comparison with zero here. So if that's the
-> worse alternative, the other one can't have any drawbacks.
+For that particular problem we could say "you need to refactor
+all users of device X to not embed it before creating the Rust
+version". There is I think only one embedded use of the PL011
+(I was actually expecting more). This does have the awkward
+effect that anybody wanting to do a "rewrite device in rust"
+is now forced into "do a big refactor of some old C code they
+don't care about". We would also need to actually document and
+provide some good examples of "this is how we think we should
+be writing device models that have child objects now".
 
-True.
+But embedded MemoryRegions are enormously common, and devices
+that embed other devices that embed MemoryRegions are also
+pretty common. So I don't know how much of a gradual approach
+you could take for the issue descibed in this patch.
 
-> 
->> To avoid adding the overhead, change how the reference count is
->> represented and let an existing assertion detect resurrection. More
->> concretely, obj->ref now stores the current reference count minus 1. The
->> stored count is therefore 0 after object_initialize(), and the final
->> object_unref() decrements it from 0 to UINT32_MAX and starts
->> finalization. A resurrecting object_ref() will then trip the existing
->> obj->ref < INT_MAX assertion.
-> 
-> A refcount field where 0 means that a last reference is still remaining
-> is highly confusing. If we do want to forbid taking a temporary new
-> reference in .finalize() for some reason, the explicit check in
-> object_ref() sounds much better to me.
-
-The rationale here is that the field is mostly contained in qom/object.c 
-so the awkward semantics won't have a wide impact. But it's just 
-"mostly" and there are two exceptions: block/throttle-groups.c and 
-tests/unit/check-qom-proplist.c.
-
-I withdraw this patch for the drawbacks discussed above.
-
-Regards,
-Akihiko Odaki
+thanks
+-- PMM
 
