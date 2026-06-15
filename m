@@ -4,84 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5581CD98C5
-	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 08:35:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56FC1CD98C5
+	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 08:51:23 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wZ2ms-0004EF-Am; Mon, 15 Jun 2026 04:35:18 -0400
+	id 1wZ31y-0006Jh-OY; Mon, 15 Jun 2026 04:50:59 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1wZ2mq-0004DO-Fj
- for qemu-rust@nongnu.org; Mon, 15 Jun 2026 04:35:16 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ (Exim 4.90_1) (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
+ id 1wZ31n-0006Io-MF; Mon, 15 Jun 2026 04:50:45 -0400
+Received: from www3579.sakura.ne.jp ([49.212.243.89])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1wZ2mo-0008VA-Ku
- for qemu-rust@nongnu.org; Mon, 15 Jun 2026 04:35:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1781512513;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iwTJDQ9ivMhJViccX27NLDlwqfHfU1ixgeZ+ookWGt0=;
- b=OCmTZGTSII5QaHqh6jKm43XGTkayrPk5atKxrXJ375vQumQ+d699MXa0Uy4l6gogSA7Z/l
- rSJzasNaLcnUIew69PMpzJ70uf5Si58mBvS85AMCWw/ZCuYUThWo+i2hxemdFE9QZBULrz
- 7MLxZk3WvhkmUTKpcvj3SIr1UcJ3LB8=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-93-XJRfNw-MP1SaAdxaDnOGvw-1; Mon,
- 15 Jun 2026 04:35:10 -0400
-X-MC-Unique: XJRfNw-MP1SaAdxaDnOGvw-1
-X-Mimecast-MFC-AGG-ID: XJRfNw-MP1SaAdxaDnOGvw_1781512509
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 66CB51956064; Mon, 15 Jun 2026 08:35:08 +0000 (UTC)
-Received: from redhat.com (unknown [10.44.49.222])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 187A630001A1; Mon, 15 Jun 2026 08:35:02 +0000 (UTC)
-Date: Mon, 15 Jun 2026 09:34:59 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Peter Maydell <peter.maydell@linaro.org>
-Cc: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, qemu-devel@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>,
+ (Exim 4.90_1) (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
+ id 1wZ31j-00057b-RM; Mon, 15 Jun 2026 04:50:43 -0400
+Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
+ (authenticated bits=0)
+ by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 65F8oHsB088520
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Mon, 15 Jun 2026 17:50:17 +0900 (JST)
+ (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+DKIM-Signature: a=rsa-sha256; bh=/8VapYLl3ShbkfOj4G7hbG3IsazqXHuxJye2UONJEPs=; 
+ c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+ h=From:Message-ID:To:Subject:Date;
+ s=rs20250326; t=1781513418; v=1;
+ b=igxDuBvqoa1ym+n39fp27ca4/ruULn5DBvq7XsZLppw6JPKpjLq5dIGnNt7gmTDT
+ VN6dCXx4b8Xwzkl7fYsdtsN2tq14CuFBCA1z3l5exu8di+N0byMya8uVIuvR8MF5
+ 2YFZ7LYm6LthR8OFJbaESh1T//iz2LeSu7q5c2ycfHd94C7UMj7YYBpIdhsDioQS
+ owJJT+qfitNP7ROAGE6dMGBHTsr90RRe9fV0EXjiDLmomjUDmWPOAnG/g0ti9w4s
+ RHU/+aQJMWluQ719R2DFW8p8AAE5cKPMjcW7K8NXYYJEYBLkhJqJwFdEo4N8iKUh
+ GwjuxUZI0mv5m95iq112HA==
+Message-ID: <23953462-9a8f-4532-93cb-500abcf36d33@rsg.ci.i.u-tokyo.ac.jp>
+Date: Mon, 15 Jun 2026 17:50:17 +0900
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] qom: Reject temporary object resurrection
+To: Kevin Wolf <kwolf@redhat.com>
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+ =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
  qemu-rust@nongnu.org, Peter Xu <peterx@redhat.com>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@mailo.com>,
- Alberto Garcia <berto@igalia.com>, Kevin Wolf <kwolf@redhat.com>,
- Hanna Reitz <hreitz@redhat.com>, qemu-block@nongnu.org
-Subject: Re: [PATCH 2/2] qom: Manage references to embedded child objects
-Message-ID: <ai-5M6FF7CoJc_re@redhat.com>
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@mailo.com>,
+ Alberto Garcia <berto@igalia.com>, Hanna Reitz <hreitz@redhat.com>,
+ qemu-block@nongnu.org
 References: <20260615-embedded-v1-0-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
- <20260615-embedded-v1-2-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
- <ai-z14dMCK33_pis@redhat.com>
- <CAFEAcA_nFiQyXyCuvwUrJ+-0fhmGoMfswK-+KsZbxahAGatTXw@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAFEAcA_nFiQyXyCuvwUrJ+-0fhmGoMfswK-+KsZbxahAGatTXw@mail.gmail.com>
-User-Agent: Mutt/2.3.2 (2026-04-26)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: FGS5RKKtfBP0fkw5KWWT0lOK5QpKT94E-4meRhtboDI_1781512509
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=berrange@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: 8
-X-Spam_score: 0.8
-X-Spam_bar: /
-X-Spam_report: (0.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_SBL_CSS=3.335, SPF_HELO_PASS=-0.001,
+ <20260615-embedded-v1-1-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
+ <ai-4-0UkH0uCZwYS@redhat.com>
+Content-Language: en-US
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <ai-4-0UkH0uCZwYS@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=49.212.243.89;
+ envelope-from=odaki@rsg.ci.i.u-tokyo.ac.jp; helo=www3579.sakura.ne.jp
+X-Spam_score_int: -16
+X-Spam_score: -1.7
+X-Spam_bar: -
+X-Spam_report: (-1.7 / 5.0 requ) BAYES_00=-1.9, DKIM_INVALID=0.1,
+ DKIM_SIGNED=0.1, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
@@ -95,40 +75,65 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, Jun 15, 2026 at 09:31:36AM +0100, Peter Maydell wrote:
-> On Mon, 15 Jun 2026 at 09:13, Daniel P. Berrangé <berrange@redhat.com> wrote:
-> > Do we know how many examples we have of embedding objects inside
-> > another ?
+On 2026/06/15 17:34, Kevin Wolf wrote:
+> Am 15.06.2026 um 06:11 hat Akihiko Odaki geschrieben:
+>> If object_ref() is called during finalization, it will temporarily
+>> "resurrect" the object. Although object_finalize() asserts that no
+>> resurrecting reference remains before freeing the object, the assertion
+>> cannot catch the case where the resurrecting reference is dropped before
+>> freeing the object.
 > 
-> It is an extremely common pattern for device and SoC model
-> implementations; we've been recommending it for years.
+> Ok, and why is that a problem?
 > 
-> > I would much prefer if we forbid the embedding of objects. It is
-> > horrible design practice to have some QOM objects which can be
-> > freed via reference count and some which cannot.
+> In the cover letter, you referred to an earlier patch you had posted:
 > 
-> That would be a very large amount of code to rewrite to the
-> new paradigm. I don't object inherently ("you have pointers to
-> your child objects" works better when they might be implemented
-> in Rust and might play better with being able to create
-> machines and wire them up on the command line); I'm just
-> noting how much work it would be if you wanted to make
-> embedding forbidden.
+>      The temporary object resurrection patch originated from:
+>      https://lore.kernel.org/qemu-devel/20250906-mr-v2-1-2820f5a3d282@rsg.ci.i.u-tokyo.ac.jp/
+>      ("[PATCH v2 1/3] qom: Do not finalize twice")
+> 
+>  From that patch, it's clear that one problem is that .finalize() can be
+> called multiple times, which you probably don't want. But what is the
+> reason for switching from just ignoring the second .finalize() like in
+> the old patch to completely forbidding a temporary refcount increase?
 
-Would it be a more tractable problem to "fix" object structure only
-incrementally as they gain a need to be managed/reference from
-Rust code, or does the Rust usage already implicitly extend too
-broadly 
+None. I thought merely skipping finalization is not a well-defined 
+semantics (e.g., breaking Rust safety guarantee), but, reconsidering 
+now, I think that's fine.
 
-With regards,
-Daniel
--- 
-|: https://berrange.com       ~~        https://hachyderm.io/@berrange :|
-|: https://libvirt.org          ~~          https://entangle-photo.org :|
-|: https://pixelfed.art/berrange   ~~    https://fstop138.berrange.com :|
+> 
+>> One way to catch this would be to add a check in object_ref() to reject
+>> resurrecting references before they are created. However, object_ref()
+>> is frequently called so it is better to minimize the overhead.
+> 
+> We're talking about a single comparison with zero here. So if that's the
+> worse alternative, the other one can't have any drawbacks.
 
+True.
+
+> 
+>> To avoid adding the overhead, change how the reference count is
+>> represented and let an existing assertion detect resurrection. More
+>> concretely, obj->ref now stores the current reference count minus 1. The
+>> stored count is therefore 0 after object_initialize(), and the final
+>> object_unref() decrements it from 0 to UINT32_MAX and starts
+>> finalization. A resurrecting object_ref() will then trip the existing
+>> obj->ref < INT_MAX assertion.
+> 
+> A refcount field where 0 means that a last reference is still remaining
+> is highly confusing. If we do want to forbid taking a temporary new
+> reference in .finalize() for some reason, the explicit check in
+> object_ref() sounds much better to me.
+
+The rationale here is that the field is mostly contained in qom/object.c 
+so the awkward semantics won't have a wide impact. But it's just 
+"mostly" and there are two exceptions: block/throttle-groups.c and 
+tests/unit/check-qom-proplist.c.
+
+I withdraw this patch for the drawbacks discussed above.
+
+Regards,
+Akihiko Odaki
 
