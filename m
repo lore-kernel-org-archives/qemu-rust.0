@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9CFDCD98DE
-	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 08:13:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BBD4CD98DE
+	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 08:15:10 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wZ2RF-0004Si-4a; Mon, 15 Jun 2026 04:12:57 -0400
+	id 1wZ2T7-0001BI-ND; Mon, 15 Jun 2026 04:14:53 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1wZ2RD-0004Oo-NI
- for qemu-rust@nongnu.org; Mon, 15 Jun 2026 04:12:55 -0400
+ id 1wZ2T6-00013i-E4
+ for qemu-rust@nongnu.org; Mon, 15 Jun 2026 04:14:52 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1wZ2RB-0002DW-3x
- for qemu-rust@nongnu.org; Mon, 15 Jun 2026 04:12:55 -0400
+ id 1wZ2T3-0002WU-1n
+ for qemu-rust@nongnu.org; Mon, 15 Jun 2026 04:14:52 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1781511172;
+ s=mimecast20190719; t=1781511288;
  h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:in-reply-to:in-reply-to:  references:references;
- bh=jqypivbagkTNbjCV+c9t2nwVIwPsQA6zndwF6SQ876M=;
- b=dn2FooOeJB4X9YwRZIOE9Gg2r86Z5jcnAtL5tGUOgLd1kBXRCWFQYHhpGrHR9cORymNGFX
- sfrUHd7/Fmv23PzM5oSXIT+vi6sQtfYbVAdKCJ01GuYUCS5326fswF8aoUwgJT8kffTIoI
- jiH0GE0iBcXKwIg9xYY8nMI3lpkcyME=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ bh=nMcZv8TGBkIPp76V2vATEU3ePD1PG46ZBygmPNsZNGI=;
+ b=f9QEw/ZcB4TH5jptP6WD8radLv/bfDWA1uJN/yPdaDzWxU2hdZLmysEKEX47fPiVzt1wFi
+ 8QQQ1hsSIUE/B9n8veCX5xoAH3JLeUbI9fVcJXNDllEVurHcW6jeZTWa/8nXrywzGIYT/P
+ PjuFuaD2OqD2U2njF5Q2fz/TY9WouDw=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-390-NOdZBsdgOjiQaYqDoP94VQ-1; Mon,
- 15 Jun 2026 04:12:48 -0400
-X-MC-Unique: NOdZBsdgOjiQaYqDoP94VQ-1
-X-Mimecast-MFC-AGG-ID: NOdZBsdgOjiQaYqDoP94VQ_1781511167
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-360-Om2IQ_ZrMaSP0YXwbhxwqg-1; Mon,
+ 15 Jun 2026 04:14:44 -0400
+X-MC-Unique: Om2IQ_ZrMaSP0YXwbhxwqg-1
+X-Mimecast-MFC-AGG-ID: Om2IQ_ZrMaSP0YXwbhxwqg_1781511283
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 8FF711955E87; Mon, 15 Jun 2026 08:12:46 +0000 (UTC)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 95B381956065; Mon, 15 Jun 2026 08:14:42 +0000 (UTC)
 Received: from redhat.com (unknown [10.44.49.222])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 492EB3008B35; Mon, 15 Jun 2026 08:12:41 +0000 (UTC)
-Date: Mon, 15 Jun 2026 09:12:38 +0100
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 930C1180034F; Mon, 15 Jun 2026 08:14:37 +0000 (UTC)
+Date: Mon, 15 Jun 2026 09:14:34 +0100
 From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
 Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
@@ -55,15 +55,15 @@ Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@mailo.com>,
  Alberto Garcia <berto@igalia.com>, Kevin Wolf <kwolf@redhat.com>,
  Hanna Reitz <hreitz@redhat.com>, qemu-block@nongnu.org
-Subject: Re: [PATCH 2/2] qom: Manage references to embedded child objects
-Message-ID: <ai-z14dMCK33_pis@redhat.com>
+Subject: Re: [PATCH 1/2] qom: Reject temporary object resurrection
+Message-ID: <ai-0akg3wd6TRSgD@redhat.com>
 References: <20260615-embedded-v1-0-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
- <20260615-embedded-v1-2-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
+ <20260615-embedded-v1-1-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
 MIME-Version: 1.0
-In-Reply-To: <20260615-embedded-v1-2-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <20260615-embedded-v1-1-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
 User-Agent: Mutt/2.3.2 (2026-04-26)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: Ci7p44MVoRzJDX3eaYvS41OBDoXF7ATMv8JdjeUuwK8_1781511167
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Mimecast-MFC-PROC-ID: PCe1GtnlkWImCJ9MP3iGvqGwQNsVzReSZ-qUnyUOQ-A_1781511283
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -93,33 +93,167 @@ Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, Jun 15, 2026 at 01:11:07PM +0900, Akihiko Odaki wrote:
-> Problem
-> =======
-> 
-> The Rust wrapper for object_ref() is marked unsafe and has:
-> > The object must not be embedded in another unless the outer
-> > object is guaranteed to have a longer lifetime.
-> 
-> In other words, object_ref() does not work for embedded objects and
-> does not keep embedded objects alive. MemoryRegion has its own
-> memory_region_ref() helper to call object_ref() on its owner for this
-> reason.
-> 
-> However, this is insufficient to avoid calling object_ref() for all
-> embedded objects. For example, consider an embedded Device that has a
-> MemoryRegion. When referencing a MemoryRegion for guest memory access,
-> QEMU automatically references the owning Device to keep the MemoryRegion
-> alive. However, that reference is ineffective if the Device itself is
-> embedded, because object_ref() does not keep the containing storage
-> alive.
+On Mon, Jun 15, 2026 at 01:11:06PM +0900, Akihiko Odaki wrote:
+> If object_ref() is called during finalization, it will temporarily
+> "resurrect" the object. Although object_finalize() asserts that no
+> resurrecting reference remains before freeing the object, the assertion
+> cannot catch the case where the resurrecting reference is dropped before
+> freeing the object.
 
-Do we know how many examples we have of embedding objects inside
-another ?
+What's the real world problem here ? 
 
-I would much prefer if we forbid the embedding of objects. It is
-horrible design practice to have some QOM objects which can be
-freed via reference count and some which cannot.
+> 
+> One way to catch this would be to add a check in object_ref() to reject
+> resurrecting references before they are created. However, object_ref()
+> is frequently called so it is better to minimize the overhead.
+> 
+> To avoid adding the overhead, change how the reference count is
+> represented and let an existing assertion detect resurrection. More
+> concretely, obj->ref now stores the current reference count minus 1. The
+> stored count is therefore 0 after object_initialize(), and the final
+> object_unref() decrements it from 0 to UINT32_MAX and starts
+> finalization. A resurrecting object_ref() will then trip the existing
+> obj->ref < INT_MAX assertion.
+
+Please no, this is horribly surprising semantics.
+
+> 
+> Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+> ---
+>  include/qom/object.h            |  4 ++--
+>  block/throttle-groups.c         |  2 +-
+>  qom/object.c                    | 15 ++++++---------
+>  tests/unit/check-qom-proplist.c |  8 ++++----
+>  4 files changed, 13 insertions(+), 16 deletions(-)
+> 
+> diff --git a/include/qom/object.h b/include/qom/object.h
+> index 11f55613fcd0..c4dcf65dcf7f 100644
+> --- a/include/qom/object.h
+> +++ b/include/qom/object.h
+> @@ -1121,7 +1121,7 @@ GSList *object_class_get_list_sorted(const char *implements_type,
+>   * @obj: the object
+>   *
+>   * Increase the reference count of a object.  A object cannot be freed as long
+> - * as its reference count is greater than zero.
+> + * as a reference remains.
+>   * Returns: @obj
+>   */
+>  Object *object_ref(void *obj);
+> @@ -1131,7 +1131,7 @@ Object *object_ref(void *obj);
+>   * @obj: the object
+>   *
+>   * Decrease the reference count of a object.  A object cannot be freed as long
+> - * as its reference count is greater than zero.
+> + * as a reference remains.
+>   */
+>  void object_unref(void *obj);
+>  
+> diff --git a/block/throttle-groups.c b/block/throttle-groups.c
+> index 4b1b1944c20a..3b2a89f5849d 100644
+> --- a/block/throttle-groups.c
+> +++ b/block/throttle-groups.c
+> @@ -962,7 +962,7 @@ static void throttle_group_get_limits(Object *obj, Visitor *v,
+>  
+>  static bool throttle_group_can_be_deleted(UserCreatable *uc)
+>  {
+> -    return OBJECT(uc)->ref == 1;
+> +    return OBJECT(uc)->ref == 0;
+>  }
+>  
+>  static void throttle_group_obj_class_init(ObjectClass *klass,
+> diff --git a/qom/object.c b/qom/object.c
+> index 0ac201de4c15..761eff1337e6 100644
+> --- a/qom/object.c
+> +++ b/qom/object.c
+> @@ -497,7 +497,6 @@ static void object_initialize_with_type(Object *obj, size_t size, TypeImpl *type
+>  
+>      memset(obj, 0, type->instance_size);
+>      obj->class = type->class;
+> -    object_ref(obj);
+>      object_class_property_init_all(obj);
+>      obj->properties = g_hash_table_new_full(g_str_hash, g_str_equal,
+>                                              NULL, object_property_free);
+> @@ -560,11 +559,10 @@ bool object_initialize_child_with_propsv(Object *parentobj,
+>  
+>  out:
+>      /*
+> -     * We want @obj's reference to be 1 on success, 0 on failure.
+> -     * On success, it's 2: one taken by object_initialize(), and one
+> -     * by object_property_add_child().
+> -     * On failure in object_initialize() or earlier, it's 1.
+> -     * On failure afterwards, it's also 1: object_unparent() releases
+> +     * We want @obj's reference to be 0 on success, UINT32_MAX on failure.
+> +     * On success, it's 1: one taken by object_property_add_child().
+> +     * On failure in object_initialize() or earlier, it's 0.
+> +     * On failure afterwards, it's also 0: object_unparent() releases
+>       * the reference taken by object_property_add_child().
+>       */
+>      object_unref(obj);
+> @@ -668,7 +666,6 @@ static void object_finalize(void *data)
+>      object_property_del_all(obj);
+>      object_deinit(obj, ti);
+>  
+> -    g_assert(obj->ref == 0);
+>      g_assert(obj->parent == NULL);
+>      if (obj->free) {
+>          obj->free(obj);
+> @@ -1329,10 +1326,10 @@ void object_unref(void *objptr)
+>      if (!obj) {
+>          return;
+>      }
+> -    g_assert(obj->ref > 0);
+> +    g_assert(obj->ref < INT_MAX);
+>  
+>      /* parent always holds a reference to its children */
+> -    if (qatomic_fetch_dec(&obj->ref) == 1) {
+> +    if (qatomic_fetch_dec(&obj->ref) == 0) {
+>          object_finalize(obj);
+>      }
+>  }
+> diff --git a/tests/unit/check-qom-proplist.c b/tests/unit/check-qom-proplist.c
+> index 89de92b7d91f..b5527dd52afd 100644
+> --- a/tests/unit/check-qom-proplist.c
+> +++ b/tests/unit/check-qom-proplist.c
+> @@ -351,7 +351,7 @@ static void test_dummy_createv_tree(void)
+>                                NULL));
+>  
+>      g_assert(err == NULL);
+> -    g_assert_cmpint(dobj->parent_obj.ref, ==, 1);
+> +    g_assert_cmpint(dobj->parent_obj.ref, ==, 0);
+>      g_assert_cmpstr(dobj->sv, ==, "Hiss hiss hiss");
+>      g_assert(dobj->bv == true);
+>      g_assert(dobj->av == DUMMY_PLATYPUS);
+> @@ -375,7 +375,7 @@ static void test_dummy_createv_parentless(void)
+>                                           NULL));
+>  
+>      g_assert(err == NULL);
+> -    g_assert_cmpint(dobj->parent_obj.ref, ==, 1);
+> +    g_assert_cmpint(dobj->parent_obj.ref, ==, 0);
+>      g_assert_cmpstr(dobj->sv, ==, "Hiss hiss hiss");
+>      g_assert(dobj->bv == true);
+>      g_assert(dobj->av == DUMMY_PLATYPUS);
+> @@ -414,7 +414,7 @@ static void test_dummy_createlist_tree(void)
+>                          NULL));
+>  
+>      g_assert(err == NULL);
+> -    g_assert_cmpint(dobj->parent_obj.ref, ==, 1);
+> +    g_assert_cmpint(dobj->parent_obj.ref, ==, 0);
+>      g_assert_cmpstr(dobj->sv, ==, "Hiss hiss hiss");
+>      g_assert(dobj->bv == true);
+>      g_assert(dobj->av == DUMMY_PLATYPUS);
+> @@ -450,7 +450,7 @@ static void test_dummy_createlist_parentless(void)
+>                                NULL));
+>  
+>      g_assert(err == NULL);
+> -    g_assert_cmpint(dobj->parent_obj.ref, ==, 1);
+> +    g_assert_cmpint(dobj->parent_obj.ref, ==, 0);
+>      g_assert_cmpstr(dobj->sv, ==, "Hiss hiss hiss");
+>      g_assert(dobj->bv == true);
+>      g_assert(dobj->av == DUMMY_PLATYPUS);
+> 
+> -- 
+> 2.54.0
+> 
 
 With regards,
 Daniel
