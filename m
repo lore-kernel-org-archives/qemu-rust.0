@@ -4,63 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFF73CD98DA
-	for <qemu-rust@archiver.kernel.org>; Mon, 15 Jun 2026 20:10:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17104CD98EF
+	for <qemu-rust@archiver.kernel.org>; Tue, 16 Jun 2026 21:03:05 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wZDdR-0003tj-Kr; Mon, 15 Jun 2026 16:10:17 -0400
+	id 1wZave-0000Qn-Vt; Tue, 16 Jun 2026 17:02:40 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <balaton@eik.bme.hu>)
- id 1wZDdP-0003rH-1x; Mon, 15 Jun 2026 16:10:15 -0400
-Received: from zero.eik.bme.hu ([2001:738:2001:2001::2001])
+ (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wZavc-0000Q3-1k
+ for qemu-rust@nongnu.org; Tue, 16 Jun 2026 17:02:37 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <balaton@eik.bme.hu>)
- id 1wZDdM-0002qD-R3; Mon, 15 Jun 2026 16:10:14 -0400
-Received: from localhost (localhost [127.0.0.1])
- by zero.eik.bme.hu (Postfix) with ESMTP id 30740596944;
- Mon, 15 Jun 2026 22:09:57 +0200 (CEST)
-X-Virus-Scanned: amavis at eik.bme.hu
-Received: from zero.eik.bme.hu ([127.0.0.1])
- by localhost (zero.eik.bme.hu [127.0.0.1]) (amavis, port 10028) with ESMTP
- id Pc0OjRH2YniV; Mon, 15 Jun 2026 22:09:54 +0200 (CEST)
-Received: by zero.eik.bme.hu (Postfix, from userid 432)
- id B25A4596941; Mon, 15 Jun 2026 22:09:54 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by zero.eik.bme.hu (Postfix) with ESMTP id AFDDC596858;
- Mon, 15 Jun 2026 22:09:54 +0200 (CEST)
-Date: Mon, 15 Jun 2026 22:09:54 +0200 (CEST)
-From: BALATON Zoltan <balaton@eik.bme.hu>
-To: Mark Cave-Ayland <mark.caveayland@nutanix.com>
-cc: Peter Maydell <peter.maydell@linaro.org>, 
- =?ISO-8859-15?Q?Daniel_P=2E_Berrang=E9?= <berrange@redhat.com>, 
- Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>, qemu-devel@nongnu.org, 
- Paolo Bonzini <pbonzini@redhat.com>, 
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org, 
- Peter Xu <peterx@redhat.com>, 
- =?ISO-8859-15?Q?Philippe_Mathieu-Daud=E9?= <philmd@mailo.com>, 
- Alberto Garcia <berto@igalia.com>, Kevin Wolf <kwolf@redhat.com>, 
- Hanna Reitz <hreitz@redhat.com>, qemu-block@nongnu.org
-Subject: Re: [PATCH 2/2] qom: Manage references to embedded child objects
-In-Reply-To: <acb64b89-2a5f-4f7c-b5c8-8c31667908c2@nutanix.com>
-Message-ID: <117144f2-b9d2-f66b-84ea-601df4a61ed6@eik.bme.hu>
-References: <20260615-embedded-v1-0-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
- <20260615-embedded-v1-2-bb0c65bf126c@rsg.ci.i.u-tokyo.ac.jp>
- <ai-z14dMCK33_pis@redhat.com>
- <CAFEAcA_nFiQyXyCuvwUrJ+-0fhmGoMfswK-+KsZbxahAGatTXw@mail.gmail.com>
- <ai-5M6FF7CoJc_re@redhat.com>
- <CAFEAcA_52oFGv7cC11jbpj9pwBq-x2O-R_aOGkYzaRWW7t-K2g@mail.gmail.com>
- <acb64b89-2a5f-4f7c-b5c8-8c31667908c2@nutanix.com>
+ (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wZava-0001Ua-HS
+ for qemu-rust@nongnu.org; Tue, 16 Jun 2026 17:02:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1781643752;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=KZrS83FVDh7XcjY93fZM/uw3X5ANblCtiBBhJb1FQR4=;
+ b=SKOq7Rb4ooCkcBLEG0MeIccxmp2rkfXv+q/WK0GEDFfFMp/QbAIz4gmj/2oFm7q2ERSeuE
+ OWwwnoqxNms3fD4oIeG60NiLkcyhaklU+qm8b72+NXikHmHkE+YVlcx5CEMqBQcPcya0Qu
+ Hftk3LK0hEtZixURjZXtCIRaMPjtOXo=
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
+ [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-117-h9AvtQ-cNIWK1NmFO-zbYQ-1; Tue, 16 Jun 2026 17:02:31 -0400
+X-MC-Unique: h9AvtQ-cNIWK1NmFO-zbYQ-1
+X-Mimecast-MFC-AGG-ID: h9AvtQ-cNIWK1NmFO-zbYQ_1781643750
+Received: by mail-yw1-f200.google.com with SMTP id
+ 00721157ae682-7fccd214113so21569687b3.3
+ for <qemu-rust@nongnu.org>; Tue, 16 Jun 2026 14:02:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781643750; x=1782248550;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=KZrS83FVDh7XcjY93fZM/uw3X5ANblCtiBBhJb1FQR4=;
+ b=N0/qWakNEdCBOmFi6PutqUNv8BManug+eu91p6EgLchG8wGG5o7v8hrZj/dWKfqbef
+ IH/weUPUR0dGkXxVRMo2S9gkmBOe4seP96thy9DqDZe9RlD0QYKGSBI0afPb7M6QKPoV
+ LaSJSGxTSAkQRRwwJiBlv5XhQxzaCKUU7QDrxJJ3+yfQG0n5H/1xcr2yfCT6C29dGbRB
+ hmMzPJHGL3DJlhAn0T4HJo7cWkEyfhiLq6yJxQEIGz/AFNNL6Nw7HqvaceMivjcZwwLs
+ lwi7Xk9WpTdOzreJp8EP2MCfWTYAutqF1SJxnTFshwL0kv8f+IqMBpGGdMdr6NlsSwzu
+ rJPQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8T6aQZDp+qUIxS9upNNTMEVCs9SawgFXdX7W7Kk3nv+fwNYxLQkpIVV/eQgFKNE3iItw5VtmyA5NU=@nongnu.org
+X-Gm-Message-State: AOJu0Ywjh/lyhYz2Wg5pmxuYP9QGhqtAV0+cT28/mvMzdVundIWSV6l8
+ QEkgGnKO3+7pWFUrs7M+P7lE7m48SxpPq8mvVtvmM3DenWm99u9ZBxfPJ0HKPgjtk+E5zw7VKZO
+ TwkxfXuWIN97DLjMUaxVpK6D83mkcNNh+uPZFPT0T3R+q02mFPDAztqI=
+X-Gm-Gg: AfdE7ckD7VkXUJNDQRQD+K1sPUb15s7EydcTzMoLlsR3fWM4kxRdeHVTCDdr+lFqbrI
+ tCjE9Eia7MoOWUDWbeG+JPVuO7+h+f6qd88arIi677iyT+vtUreVdk2ohLkDbjQZJ95dqyrUMX5
+ o9VrSkDOnwIDOHwxo/51RtnLt63lzz9CsRN9X7+gqkMACUKbpg6b1xO3jUf0k/7/WScB48nOE7W
+ KKldvpH9O18RT6cfPDVuAE4IqGAdJdP2eIeB0PlQejpul7yQm5luv99fWwXzCO5DlDYJbvkwYv6
+ HqMs0upKHqP09crVa4OyCYR3xI4gfMBlZPIalW0I8chokDv4LJghxrfyMu4TRf8kaP1jdsJG/jX
+ ugM1qsPqI1kZtUk4=
+X-Received: by 2002:a05:690c:62c2:b0:7f0:182:b5d1 with SMTP id
+ 00721157ae682-7fe5d3ade68mr8873917b3.12.1781643750141; 
+ Tue, 16 Jun 2026 14:02:30 -0700 (PDT)
+X-Received: by 2002:a05:690c:62c2:b0:7f0:182:b5d1 with SMTP id
+ 00721157ae682-7fe5d3ade68mr8872957b3.12.1781643749479; 
+ Tue, 16 Jun 2026 14:02:29 -0700 (PDT)
+Received: from x1.local ([142.188.212.74]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8d9f5b8e73csm43683496d6.49.2026.06.16.14.02.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Jun 2026 14:02:28 -0700 (PDT)
+Date: Tue, 16 Jun 2026 17:02:26 -0400
+From: Peter Xu <peterx@redhat.com>
+To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+Cc: Fabiano Rosas <farosas@suse.de>, qemu-devel@nongnu.org,
+ qemu-arm@nongnu.org, =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@redhat.com>,
+ Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@mailo.com>,
+ Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ "Dr . David Alan Gilbert" <dave@treblig.org>,
+ Eric Blake <eblake@redhat.com>,
+ Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+ Paolo Bonzini <pbonzini@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
+ Sana Sharma <sansshar@redhat.com>,
+ =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
+ Juraj Marcin <jmarcin@redhat.com>, qemu-rust@nongnu.org,
+ Markus Armbruster <armbru@redhat.com>,
+ Mark Cave-Ayland <mark.caveayland@nutanix.com>
+Subject: Re: [PATCH v2 05/10] qom: Create object-property-ptr.[ch]
+Message-ID: <ajG54jNEs4JDBRJP@x1.local>
+References: <20260609172514.2037645-1-peterx@redhat.com>
+ <20260609172514.2037645-6-peterx@redhat.com>
+ <aimNv51iMZ_yEgDG@redhat.com> <aimvTYDsv_-Xsboy@x1.local>
+ <aiq9g60bOnvsOQOy@redhat.com> <87h5n94001.fsf@suse.de>
+ <airI3UKeVVRUdQHq@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
-Received-SPF: pass client-ip=2001:738:2001:2001::2001;
- envelope-from=balaton@eik.bme.hu; helo=zero.eik.bme.hu
-X-Spam_score_int: -18
-X-Spam_score: -1.9
-X-Spam_bar: -
-X-Spam_report: (-1.9 / 5.0 requ) BAYES_00=-1.9, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+In-Reply-To: <airI3UKeVVRUdQHq@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: HiwaQ19bLzxFR1HNpLoM1alGDJKt4FxJVa8-cFF6Orw_1781643750
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=peterx@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -24
+X-Spam_score: -2.5
+X-Spam_bar: --
+X-Spam_report: (-2.5 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
+ DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -76,33 +126,32 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, 15 Jun 2026, Mark Cave-Ayland wrote:
->> But embedded MemoryRegions are enormously common, and devices
->> that embed other devices that embed MemoryRegions are also
->> pretty common. So I don't know how much of a gradual approach
->> you could take for the issue descibed in this patch.
->
-> Zoltan did post a patch that allowed for adding externally referenced 
-> MemoryRegions a while back: my reason for not supporting the approach was 
-> because it added yet another way of adding MemoryRegions to work around a 
-> particular legacy use case. However if there is agreement that this is the 
-> way we should do things, I suspect that the series will have solved most of 
-> the problems in this area.
+On Thu, Jun 11, 2026 at 03:40:29PM +0100, Daniel P. Berrangé wrote:
+> There's nothing standard in QOM, but in patch 10 in this series
+> Peter has a DEFINE_TLS_PROP_HELPERS() which macro-ized the
+> repetitive getters/setters for the TLS string properties. The
+> duplicate code still exists in the binary of course, just hidden
+> from the source.
 
-That series was blocked by Paolo saying no: 
-https://lists.nongnu.org/archive/html/qemu-devel/2026-05/msg06665.html 
-without ever explaining why it should not be allowed to create ref counted 
-memory regions. even though it's documented and implemented that way 
-already, but the current memory_region_init() functions don't allow using 
-that and forces every memory region to either be embedded or leaked. I 
-still think that using QOM to manage memory region life time with ref 
-counts is useful as it also makes device models simpler and my series 
-allows incremental conversion as it only adds the functions to create QOM 
-managed memory regions leaving the exising embedded regions untouched so 
-they could be converted one by one when needed. If there's more interest 
-in this now I can update and repost it again or I'd still like to see an 
-explanation why it is not wanted.
+I believe we have the standard, which is qdev-properties.. which is (1)
+class properties, (2) allow variable bindings so no setter/getter needed,
+remembering them with pointer offsets.
 
-Regards,
-BALATON Zoltan
+It goes back to last version where the question becomes: whether we want to
+make qdev-properties to be official QOM API, by removing qdev specific
+changes and move them over to qom/.  Then make qdev only add its special
+things on top.
+
+Said that, considering if we want to make all things qom-set-able to
+migration in the future, another option is directly go with getter/setter
+that will do the property checks one by one. One benefit of that is we can
+then get rid of migrate_params_check() and migrate_caps_check() altogether.
+
+Maybe I should go with the latter, and forget qdev?
+
+Thanks,
+
+-- 
+Peter Xu
+
 
