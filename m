@@ -4,96 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC1B9CD98F2
-	for <qemu-rust@archiver.kernel.org>; Thu, 18 Jun 2026 20:44:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06AB0CD98F2
+	for <qemu-rust@archiver.kernel.org>; Thu, 18 Jun 2026 20:46:43 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1waJbS-0006t9-8m; Thu, 18 Jun 2026 16:44:46 -0400
+	id 1waJcx-0007CG-4T; Thu, 18 Jun 2026 16:46:19 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <philmd@oss.qualcomm.com>)
- id 1waJZD-0006B7-L3
- for qemu-rust@nongnu.org; Thu, 18 Jun 2026 16:42:27 -0400
-Received: from mx0a-0031df01.pphosted.com ([205.220.168.131])
+ id 1waJcu-0007Ae-HL
+ for qemu-rust@nongnu.org; Thu, 18 Jun 2026 16:46:16 -0400
+Received: from mx0b-0031df01.pphosted.com ([205.220.180.131])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <philmd@oss.qualcomm.com>)
- id 1waJZA-000855-Ef
- for qemu-rust@nongnu.org; Thu, 18 Jun 2026 16:42:25 -0400
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ id 1waJcs-00013d-OC
+ for qemu-rust@nongnu.org; Thu, 18 Jun 2026 16:46:16 -0400
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65IHrjp91878939
- for <qemu-rust@nongnu.org>; Thu, 18 Jun 2026 20:42:22 GMT
+ 65IKkDaH2913188
+ for <qemu-rust@nongnu.org>; Thu, 18 Jun 2026 20:46:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- bXiO34ZMw2zmryac+H2m7MzM+RESmcCs0p7xyNTLFbg=; b=m3j8H6T3xSHDlP05
- DsOXnhVYgdQkaXMAbD+dyRy+AFMOxcYEyyreXKq3pvh2a6TG65skdIExkk69fEaM
- EVDIoONshs45w32883LhC9w8I89lO4oL64ceYvqcYHYi34C5ldR31fdJhW6CF5BA
- TpEEVgPucOfEYC1r0Y7wk5N72/YU1dqrkpjDLtiO35HLprybZa0bi2ps3CIx/Y3g
- B8ZxGrJbdNVt4/9xmZEKX8AYE/Fx2ionhnYeMB7nB8ePqv5yeHKYn14BxThV6fNw
- WPkUn5lR+aOoiW158xMUl5Ke6sa70X0PHk+0UbK6JIpT1ZRWN/SwaMjBRThFwqcL
- wuDGUw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4evkvf17df-1
+ DPqnVCoHQBGATnAtyDMuVQ6Ys2cDKQ4OwKSwyl7QuWw=; b=VFDIJ00dzSZXgKTq
+ srQo7hRU2hFKEUjdVonUARfuKziuHh40POcnMjYYDMnj7995ql2kWStmofb3CrbR
+ /Y/xh2f28aA9G+bPE9Yjjj5DG59mqDCULOpf0GjW/sjsGRMrZxUhhvWw0zwb7gVI
+ gve5nNg+W1xoB6sebE6eGdihNloELVv37fvJMoO3f7fML4+WY+3iKzgrVfFqvQv3
+ Cga+MbrMO2y8PyVNqVjcCcad9Zaa210F77Aeiunx9PA8iSZIScdXpJJj/V5Ujdya
+ FMk09sc3XQY3kZBdd0LXF3RAfAiBqqZAIy2R3GWhPoebwOHfgQopEDYa87nnJJ8x
+ vXVYKg==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
+ [209.85.217.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4evm2298jq-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <qemu-rust@nongnu.org>; Thu, 18 Jun 2026 20:42:21 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-915c364ae3bso335857585a.0
- for <qemu-rust@nongnu.org>; Thu, 18 Jun 2026 13:42:21 -0700 (PDT)
+ for <qemu-rust@nongnu.org>; Thu, 18 Jun 2026 20:46:13 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id
+ ada2fe7eead31-72745cb2c3dso1611182137.0
+ for <qemu-rust@nongnu.org>; Thu, 18 Jun 2026 13:46:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781815341; x=1782420141; darn=nongnu.org;
+ d=oss.qualcomm.com; s=google; t=1781815572; x=1782420372; darn=nongnu.org;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=bXiO34ZMw2zmryac+H2m7MzM+RESmcCs0p7xyNTLFbg=;
- b=QJEedISdgY1HbY+EZ6TizOPtFTtbWX7SjXMdDaRTvVLSlLdpe85QVu9p8MU7oL5AQE
- wEqbRoVRTHYnYKrc8Q5xUxBTTWlKquDuklmWKOaD9KQ22U/xxzPw9unI2HSBsluxbVM3
- bU5+xHq3WBtdemGZspaU8rttBUls4f2eL5skKtya+DV5eL0CGBJaIzEX+Dge1WZ98JUv
- Y3+yzMvvQYahCm/QjQsoxLClNSO/79Ske6sttVi0aT1Fw7fAQkmsEzF4QljxRH+CKqsX
- j+8W5M5U+bE7SwIEnvObt1YzKCC5ZolFvV6fFhtVhm54EStCbXOzlogtC+y7TJp8ZkaB
- ggnQ==
+ bh=DPqnVCoHQBGATnAtyDMuVQ6Ys2cDKQ4OwKSwyl7QuWw=;
+ b=BqmLAb5RhCfn9IbTQJcQOavyXaIKiBpfYAaTfofSSgDHX80X/3r8J1Ib5JlPt32TEz
+ o8P+/RE39FZX2yScpNHOBSTVcIsdAN+90DA2DhxK7+Zb48R3rYAYbbw+6KaRj2DnzDl8
+ mnFRr/8OGt+r/UXL/w6j0Yl1e+u0RQR4i575PvTa0Q7610iAupiqfhy0L6YjzcPoQGKz
+ h4UtrfkHPYLu8U5fa3CA9HklJOqrrNPXsMZe26pROxIu4qvz4PyEVnwxBDS8k5wI3C1N
+ f90WpFE9PLe61TYv+CA9xEql9JftOgdmukQ344ktvQyCEAvmSh8tmO+DEmX5pvYILoQW
+ vSTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781815341; x=1782420141;
+ d=1e100.net; s=20251104; t=1781815572; x=1782420372;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=bXiO34ZMw2zmryac+H2m7MzM+RESmcCs0p7xyNTLFbg=;
- b=NnzFzVrF9nRtOdBgboqSdN4tfsdvaTVQGOz1V0E4UdIhndb0pccfDwdjUdMoD/vHcS
- 5H1zS8oXRsuYEwadxlNe3yaq2QseQRPwpf3acNeKSzznjeo/oIdSuInZ+8w4HVmPns2y
- xP3sgYRJE7z8j5H8LDVJlFHJfbUByXc7eQTZJJRtCZVf5kvHCo0jbX/Yz6BmVIeYnsQb
- o4w+2xuHg9oUO72/2HdWvQO849Taa50R8l6ow21BGhVbLcGkfMrmOi7d/xJkn9OYrj9t
- vVygdsKiYisx1wkiIWg4upRX5YadNl4CcVXzbXO/8dUnVco6DYcTMZQZH2GQCRp3nQLi
- JHlw==
+ bh=DPqnVCoHQBGATnAtyDMuVQ6Ys2cDKQ4OwKSwyl7QuWw=;
+ b=s4a3DyUdOcII9TY3fdyxDp3iPVQCMBEPVugnUEu41s74MqU+zeGGO922ISvX1AVXGm
+ Y9lzl2uYhZu2GIrROXSbvq480o6Z1S7J69+u7EdXSi6JU2yCGweJLWTf4tbifP4S8oEv
+ dKgwrrQxahPg4z6Lxh2P6WihxInOA6XrJShOtusiyQeRvVBmAJ/uROEpG4frBZ27nMOS
+ udGTOSd6royI4HK+A8xUki7z0q145bsDej9WXtFsl84zsq4RKO7TghmRkaT417NOmMs9
+ HVnrhJqslhrA2C9zERFOvs1TwAnLALK2z4v8Ca8AS5/fwKtsjTMTiyDvw/r/DqQBLoTQ
+ JmsQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9Boz//iNauf9na16Z99cZVH4oXZl7dzx6iI1WP0ykRWXs6PFBqnz/aIqpDSFWmx7E3xWoKWr30+bg=@nongnu.org
-X-Gm-Message-State: AOJu0Yw/I4sbtjeGmZyiQquQBo0FaZBPF8WCnCfZQ8lXnpWCkNKf+jD+
- ljoOvVgMjNGJ/E/G8LI3PcyyGQVxszuCdBnQrhSnv2j/uaG2rNp5X1A8VHfb9NinMVB7nzv/EIK
- NQH4tBVivpL9wTXf4DWEnYdHJntMrPGM+G8Q1p7UkMKLz9CrQzXLKVP3c
-X-Gm-Gg: AfdE7clXUDrEHalbWviD5/nG9LF4Lz2mEEpBkT6VrjBNRFq9nnVlReQiKYVQC5ONDhy
- 9V6U1NvEROMTvPo2TTRoI8LXehAwvWc2BtSn7x0hg/EiixfL/W4hVwBxZi2FHoxiYfP1NFQnuFf
- zWf+eKPtpGlq0St0wBtLmkS4BQXRHdjN8sVo/a/dZf/6OMUkXXO3Jjzj6hWB2fZ5lz1sN77a2Lc
- sUSc2MAeNs/T87GDc0wxtUrSLFtVwQH4pMcqCjzw4CgzoOng6dk9zzsjt6jNnqTi35NZpguNQug
- LDZ2t67yl0mr6ol5lmyoxzx8kk48GAYbBibB5Q7lvanRCvDM/otSPLoiUP7o1kUyGc3GS7pRyhw
- 49e2tOwyoNhyyWlQ2CMkFBDa5IzA6ahN+jtpHRI6ZGMe2DYN1vfyfchF7sq5ZNg==
-X-Received: by 2002:a05:620a:6499:b0:915:92bf:560f with SMTP id
- af79cd13be357-9208d8e4241mr111208385a.36.1781815340925; 
- Thu, 18 Jun 2026 13:42:20 -0700 (PDT)
-X-Received: by 2002:a05:620a:6499:b0:915:92bf:560f with SMTP id
- af79cd13be357-9208d8e4241mr111202485a.36.1781815340478; 
- Thu, 18 Jun 2026 13:42:20 -0700 (PDT)
+ AFNElJ8GtLunKD2s0oB5WH1wkBEmab+hqq1NqPMBZ4uypWFtLZk6CRd/5xCp2UphUwxMKkTMJXHFnGd7vDI=@nongnu.org
+X-Gm-Message-State: AOJu0Yx10d/26OGtgh7FORjq9uimBOLnDmYBQbcH7VSbfD9iIvi1Jv6p
+ 7Vmx/lcrIPOBgJscXqNFisq4gUbiwhqwqVyuvpwrD5utJlorgadUJ/BCaSfFhqdcXVRhoLlUS6n
+ lJxYw+ve36nGC8eRTt+taBKORPVb0dD6O6Ys4mCG9Cu+SYNvJDkmfydUK
+X-Gm-Gg: AfdE7ckop3FgTvKX5fz4GzZTTwgfnHf3gE9oB4hMIEU3pVdKibyuJLtccU7eVcKqasa
+ 6btK2qE+HnYKQW3S6NSUchSv2qj82o2B4KPQBn5mWVUpXTe51nwo21ijNmSP2g8+le4aMBW/fyT
+ WSzXXJwYvfq8nFRkVXzIqykh3ubgHyTEPIRfCVJpgUjQMxOufyL6q4Fry2CZM9o2GPlV7r+r9xW
+ o71ZtBwFtebQmlcejTjbnIUPEqJOhcEEIdcmkSEZrx3NeAC+P4cFLz2CxTKIUDIAU+qaYb6yM6o
+ YCejRaK1psCb/0rinSKGdZdX5B838GHKSITWyaQYJPo0gg+GksTx4ugb+6Q9LQlZyU+0l60F/a6
+ yeYml9LGvFM3YjKNZMJbq05DY70IAtx6BPBEDJ4lP82uqEJKQiz539e0Lb8Fzeg==
+X-Received: by 2002:a05:6102:2910:b0:6da:1341:1147 with SMTP id
+ ada2fe7eead31-72a1d20657cmr660272137.1.1781815572471; 
+ Thu, 18 Jun 2026 13:46:12 -0700 (PDT)
+X-Received: by 2002:a05:6102:2910:b0:6da:1341:1147 with SMTP id
+ ada2fe7eead31-72a1d20657cmr660246137.1.1781815572033; 
+ Thu, 18 Jun 2026 13:46:12 -0700 (PDT)
 Received: from [192.168.69.213] (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4650bc42a3asm1586883f8f.31.2026.06.18.13.42.19
+ 5b1f17b1804b1-4923fd1f886sm14231175e9.4.2026.06.18.13.46.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jun 2026 13:42:19 -0700 (PDT)
-Message-ID: <afe3e819-b36d-4e9b-b9bb-1c978a5b0f8a@oss.qualcomm.com>
-Date: Thu, 18 Jun 2026 22:42:18 +0200
+ Thu, 18 Jun 2026 13:46:11 -0700 (PDT)
+Message-ID: <b7c8e3d6-aa2c-468a-9a78-0aee1c8b1e85@oss.qualcomm.com>
+Date: Thu, 18 Jun 2026 22:46:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 03/12] system/memory: constify section arguments
+Subject: Re: [PATCH v5 02/12] system/memory: move RamDiscardManager to
+ separate compilation unit
 Content-Language: en-US
 To: =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
  qemu-devel@nongnu.org
@@ -110,40 +111,40 @@ Cc: Zhenzhong Duan <zhenzhong.duan@intel.com>,
  Zhao Liu <zhao1.liu@intel.com>, Eric Blake <eblake@redhat.com>,
  Markus Armbruster <armbru@redhat.com>
 References: <20260604-rdm5-v5-0-5768e6a0943d@redhat.com>
- <20260604-rdm5-v5-3-5768e6a0943d@redhat.com>
+ <20260604-rdm5-v5-2-5768e6a0943d@redhat.com>
 From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>
-In-Reply-To: <20260604-rdm5-v5-3-5768e6a0943d@redhat.com>
+In-Reply-To: <20260604-rdm5-v5-2-5768e6a0943d@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX45cUmKsMfttY
- czgWaSEEkzxUCqZsDlI23iRoY3Dc+FKWlnotI+1nkyGU76iY/fALFoXT5iZ6TR21Yx6hPOfqvO7
- zAi6dv+uZw/x+On5aE3cYSQt/18ki1w=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE4OSBTYWx0ZWRfX+WJEDn9TSLr5
- h+VewYX/5J+EzljBpInLcf4aY71R06klA5egX/GMhxO/w3FbJdUL7aTSag+aVJfoUPjt/t/Wzv7
- TKEntE+ql2C/eGv8WTOFb8eIlrOlAs0DYtlhrsjV0Hk41lIuUdV1+AbdawvR7p0Mw9Bz06sxRQL
- pERNhIjIJg3tNh09SCpNE1ac062YNIoLmYfoBsveNm+eSqdZfskcA/1MRUQRM0II4V2w0Yc6VYR
- 0RuLBxG9VFVTvq8k4OBVrWBBGJ4aLhlRPZ2N9rPvXsV290+JbudFpwhpRgcWxbKDpqYseaHEgFy
- I2rXcVrZdWunC0vgTJJMvcnmnEoZJX2+T9Lxshb1/s7geScxCtoVw2E1MXX1NFzpLuWyJgoFGnw
- be1xT/AtUgiqUuluUjCocr7SLhdti5CEDh7pZzKYEOg7RKPMQyCI0yVZu9ZR+CuBlNk/p6xa1oM
- PValex5HJs2E2hK87jQ==
-X-Authority-Analysis: v=2.4 cv=H/3rBeYi c=1 sm=1 tr=0 ts=6a34582d cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=4s3hRJSeHn4rkQlkrse1kQ==:17
+X-Authority-Analysis: v=2.4 cv=YN+vDxGx c=1 sm=1 tr=0 ts=6a345915 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=4s3hRJSeHn4rkQlkrse1kQ==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=M51BFTxLslgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=20KFwNOVAAAA:8 a=EUspDBNiAAAA:8 a=1tSEMpTH9XP_W59IOagA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: h1frqp3LIbViktTtxNAIRnTsOx11d8Fu
-X-Proofpoint-GUID: h1frqp3LIbViktTtxNAIRnTsOx11d8Fu
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=20KFwNOVAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=LzuOTfgjHi7GmFSmfN0A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-GUID: ouKpNiv-pZO_BsnFZrJanTxd55WOksm2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDE5MCBTYWx0ZWRfX+aebuhjA2rX1
+ Fo4iUGCueIDSIkxBKnLTWHihhh2Hx6q7jwxOUg2AA95JcAqc9DeQneegCD8ApD15SIh0RjSoDDB
+ mTUFYk4dUE+opMmjx/SKQ/xxZOX7hyU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDE5MCBTYWx0ZWRfX3QcQQSlryxJN
+ yl5vMIPqU0DXnFAPq/yJb3yf0TAD71axM592Wif1J5d6CiehxLgnlFDahm6hdpjAqoVHSkwh3fF
+ eRc+A/sMLkQbSJuQcHO8koROa4M/enTXvQoawoZ6j/AwJrxqTNWpui9eMK1o8k3YC41YWz1TbUj
+ gVuwu81PE0MAb2u7bIMWYzWOdAH17nhnjbV36Eb2H7TUVPvwFixIfzq1oVEynKW+Ax/0D3aTYZ3
+ AmwuCaNXczqUehdv2CZn6wSQzf+kuPTYQIDjysCZSeVJY44+q1SEkXjclYY435zuyCkcw4Vse1O
+ 2IRot2Xrrh8d8f4tq0dvY66P2DR4UlYKUqAF/SfBn5k8nRceOYYPVruVic87W8Ewaz3gf96jfj4
+ YCBuzUDtI6RGy5vy0Ri9G/lMiNEOsPJEmlCocHDiYvdnzariB3Tw6sOX6e+199qZRQ89asjNCkn
+ QiSoXE4SW2Cf2Y0GqLQ==
+X-Proofpoint-ORIG-GUID: ouKpNiv-pZO_BsnFZrJanTxd55WOksm2
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-18_03,2026-06-18_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 clxscore=1011 impostorscore=0 spamscore=0
- suspectscore=0 phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501
+ priorityscore=1501 bulkscore=0 adultscore=0 clxscore=1015 impostorscore=0
+ phishscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180189
-Received-SPF: pass client-ip=205.220.168.131;
- envelope-from=philmd@oss.qualcomm.com; helo=mx0a-0031df01.pphosted.com
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180190
+Received-SPF: pass client-ip=205.220.180.131;
+ envelope-from=philmd@oss.qualcomm.com; helo=mx0b-0031df01.pphosted.com
 X-Spam_score_int: -27
 X-Spam_score: -2.8
 X-Spam_bar: --
@@ -152,7 +153,6 @@ X-Spam_report: (-2.8 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  RCVD_IN_DNSWL_LOW=-0.7, SPF_HELO_NONE=0.001,
  SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
-X-Mailman-Approved-At: Thu, 18 Jun 2026 16:44:45 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,23 +168,119 @@ Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
 On 4/6/26 15:43, Marc-AndrÃ© Lureau wrote:
-> The sections shouldn't be modified.
+> Extract RamDiscardManager and RamDiscardSource from system/memory.c into
+> dedicated a unit.
+> 
+> This reduces coupling and allows code that only needs the
+> RamDiscardManager interface to avoid pulling in all of memory.h
+> dependencies.
+> 
+> rust-sys bindings are no longer generated for RamDiscardSourceClass at
+> this point, thus we drop the unneeded InterfaceClass use.
 > 
 > Reviewed-by: Peter Xu <peterx@redhat.com>
-> Reviewed-by: Cédric Le Goater <clg@redhat.com>
+> Acked-by: David Hildenbrand <david@kernel.org>
 > Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 > ---
->   include/hw/vfio/vfio-container.h     |  2 +-
->   include/hw/vfio/vfio-cpr.h           |  2 +-
->   include/system/ram-discard-manager.h | 14 +++++++-------
->   hw/vfio/cpr-legacy.c                 |  4 ++--
->   hw/vfio/listener.c                   | 10 +++++-----
->   hw/virtio/virtio-mem.c               | 10 +++++-----
->   migration/ram.c                      |  6 +++---
->   system/memory_mapping.c              |  4 ++--
->   system/ram-block-attributes.c        |  8 ++++----
->   system/ram-discard-manager.c         | 10 +++++-----
->   10 files changed, 35 insertions(+), 35 deletions(-)
+>   MAINTAINERS                          |   2 +
+>   include/system/memory.h              | 280 +--------------------------------
+>   include/system/ram-discard-manager.h | 297 +++++++++++++++++++++++++++++++++++
+>   system/memory.c                      | 221 --------------------------
+>   system/ram-discard-manager.c         | 240 ++++++++++++++++++++++++++++
+>   rust/bindings/system-sys/lib.rs      |   2 +-
+>   system/meson.build                   |   1 +
+>   7 files changed, 542 insertions(+), 501 deletions(-)
 
+
+> diff --git a/include/system/ram-discard-manager.h b/include/system/ram-discard-manager.h
+> new file mode 100644
+> index 00000000000..da55658169f
+> --- /dev/null
+> +++ b/include/system/ram-discard-manager.h
+> @@ -0,0 +1,297 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * RAM Discard Manager
+> + *
+> + * Copyright Red Hat, Inc. 2026
+> + */
+> +
+> +#ifndef RAM_DISCARD_MANAGER_H
+> +#define RAM_DISCARD_MANAGER_H
+> +
+> +#include "qemu/typedefs.h"
+
+Not needed, already provided in sources by "qemu/osdep.h".
+
+> +#include "qom/object.h"
+> +#include "qemu/queue.h"
+> +
+> +#define TYPE_RAM_DISCARD_MANAGER "ram-discard-manager"
+> +typedef struct RamDiscardManagerClass RamDiscardManagerClass;
+> +typedef struct RamDiscardManager RamDiscardManager;
+> +DECLARE_OBJ_CHECKERS(RamDiscardManager, RamDiscardManagerClass,
+> +                     RAM_DISCARD_MANAGER, TYPE_RAM_DISCARD_MANAGER);
+> +
+> +#define TYPE_RAM_DISCARD_SOURCE "ram-discard-source"
+> +typedef struct RamDiscardSourceClass RamDiscardSourceClass;
+> +typedef struct RamDiscardSource RamDiscardSource;
+> +DECLARE_OBJ_CHECKERS(RamDiscardSource, RamDiscardSourceClass,
+> +                     RAM_DISCARD_SOURCE, TYPE_RAM_DISCARD_SOURCE);
+> +
+> +typedef struct RamDiscardListener RamDiscardListener;
+> +typedef int (*NotifyRamPopulate)(RamDiscardListener *rdl,
+> +                                 MemoryRegionSection *section);
+> +typedef void (*NotifyRamDiscard)(RamDiscardListener *rdl,
+> +                                 MemoryRegionSection *section);
+> +
+> +struct RamDiscardListener {
+> +    /*
+> +     * @notify_populate:
+> +     *
+> +     * Notification that previously discarded memory is about to get populated.
+> +     * Listeners are able to object. If any listener objects, already
+> +     * successfully notified listeners are notified about a discard again.
+> +     *
+> +     * @rdl: the #RamDiscardListener getting notified
+> +     * @section: the #MemoryRegionSection to get populated. The section
+> +     *           is aligned within the memory region to the minimum granularity
+> +     *           unless it would exceed the registered section.
+> +     *
+> +     * Returns 0 on success. If the notification is rejected by the listener,
+> +     * an error is returned.
+> +     */
+> +    NotifyRamPopulate notify_populate;
+> +
+> +    /*
+> +     * @notify_discard:
+> +     *
+> +     * Notification that previously populated memory was discarded successfully
+> +     * and listeners should drop all references to such memory and prevent
+> +     * new population (e.g., unmap).
+> +     *
+> +     * @rdl: the #RamDiscardListener getting notified
+> +     * @section: the #MemoryRegionSection to get discarded. The section
+> +     *           is aligned within the memory region to the minimum granularity
+> +     *           unless it would exceed the registered section.
+> +     */
+> +    NotifyRamDiscard notify_discard;
+> +
+> +    MemoryRegionSection *section;
+> +    QLIST_ENTRY(RamDiscardListener) next;
+> +};
+> +
+> +static inline void ram_discard_listener_init(RamDiscardListener *rdl,
+> +                                             NotifyRamPopulate populate_fn,
+> +                                             NotifyRamDiscard discard_fn)
+> +{
+> +    rdl->notify_populate = populate_fn;
+> +    rdl->notify_discard = discard_fn;
+
+Pre-existing, this initializer doesn't justify inlining in header.
+
+Otherwise,
 Reviewed-by: Philippe Mathieu-Daudé <philmd@oss.qualcomm.com>
+
+> +}
+
 
