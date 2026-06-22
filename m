@@ -4,106 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BD87CDB466
-	for <qemu-rust@archiver.kernel.org>; Mon, 22 Jun 2026 19:28:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FEC4CDB466
+	for <qemu-rust@archiver.kernel.org>; Mon, 22 Jun 2026 20:01:07 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wbkJj-00085X-P1; Mon, 22 Jun 2026 15:28:23 -0400
+	id 1wbkp7-0008Pc-Jm; Mon, 22 Jun 2026 16:00:49 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wbkJi-000855-LC
- for qemu-rust@nongnu.org; Mon, 22 Jun 2026 15:28:22 -0400
+ (Exim 4.90_1) (envelope-from <mlureau@redhat.com>)
+ id 1wbkog-0008MK-Ip
+ for qemu-rust@nongnu.org; Mon, 22 Jun 2026 16:00:24 -0400
 Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1wbkJg-0000iM-UJ
- for qemu-rust@nongnu.org; Mon, 22 Jun 2026 15:28:22 -0400
+ (Exim 4.90_1) (envelope-from <mlureau@redhat.com>)
+ id 1wbkoe-0000Aq-GC
+ for qemu-rust@nongnu.org; Mon, 22 Jun 2026 16:00:22 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1782156499;
+ s=mimecast20190719; t=1782158419;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VG7BnIPX3GQnSpBekFs0Zvg/+BJtTZ/jPlj0eSfGCtY=;
- b=jEQs8YYMTfVdcZqU5+Rh7kautre2ukXWGfESrQZ/2ACKbjuvrMVhRQeI62+DjzvUeC6aIp
- 9Jqs7xsQWdPLv9UfFAsOsXYnaFhWn7SIY54W+960Z9rfgE0tkan8Imy3ZviBllFrYp5I/W
- /a7VZUn9sptdLTwMLM2yv1zyXcE8ntw=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=aAS3SRJgEsG/sXLm+WPk6enBbGWkMZFXlLvUcIRtis8=;
+ b=A81kJq4lpCCtXHDxAUCwW6a+BN0GFe2RdkLynfxxZwrJGgnTQF6wcu6RapCcWYe0ej2YAC
+ oNTHjlxNXGZEZg/N8K0anAI1L/ejsSsS4SQoW3YhhuNZpJAJ0Uh6AfxDajSSvYn/mNiNgL
+ 8b795KPdeuIqLVZ07NBl66Q5lIn3kFU=
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-345-WDgZ9ky9MyqH1zfiIu3cQw-1; Mon, 22 Jun 2026 15:28:16 -0400
-X-MC-Unique: WDgZ9ky9MyqH1zfiIu3cQw-1
-X-Mimecast-MFC-AGG-ID: WDgZ9ky9MyqH1zfiIu3cQw_1782156496
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-51a08feb103so50029341cf.2
- for <qemu-rust@nongnu.org>; Mon, 22 Jun 2026 12:28:16 -0700 (PDT)
+ us-mta-47-3WCRzesIM7iS5HzsDi8YAw-1; Mon, 22 Jun 2026 16:00:17 -0400
+X-MC-Unique: 3WCRzesIM7iS5HzsDi8YAw-1
+X-Mimecast-MFC-AGG-ID: 3WCRzesIM7iS5HzsDi8YAw_1782158416
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-36b982ec338so5208140a91.0
+ for <qemu-rust@nongnu.org>; Mon, 22 Jun 2026 13:00:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782156496; x=1782761296;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VG7BnIPX3GQnSpBekFs0Zvg/+BJtTZ/jPlj0eSfGCtY=;
- b=qyMtqsTH98PR9b+VC8KakVyUjsM4tG5g2R11pr9XFfGpGAHvjCLG898XrFC8xm/RFk
- Ww/NfwwmcckJAO7bkrW7Xnp02YGF99jz4yqflWRnXvP3Wng5kSkf1IoMF74EY8lDIhNO
- K6pkpxhOTmLMG2Op3FvYwBvIi9wS2Wwh+ExD9xlGAiuU5LWsAmI3ySz3CCW55mZUCN/r
- 9sWPKv1cztRIvfjKbTzS7Yq4S88NhqnZu6nswEyVH3ECCY2L7ELCKpnM8MyAAUNCcX+D
- UH/H6kxe07E9Hc5GNelGRgEtDM/NUGw8PAuMm9qWyIY+97Z2RcOvvef7gHhxFuWlaCn+
- mCig==
+ d=1e100.net; s=20251104; t=1782158416; x=1782763216;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=aAS3SRJgEsG/sXLm+WPk6enBbGWkMZFXlLvUcIRtis8=;
+ b=L4wLJsFPSRH+aT+xZU7ZhTRTSi0M/Z5pFy108LilClZg4TuKrp1c4z5V5CZ5bqHIZD
+ tDVOkUKSqgtFRaHFEhrmXj2VHQqJY9UO2zpyB6kmmcUzqnKak+c+sr5xe3mRmWrgvTam
+ P6D7X3ktS/pztm4x0WX0AMbwB0HebKf8KZRu747yXu9wJs4NesegJlM6gVxdc3bS5E+q
+ +vrXk6FkVA1AYobIlAoyfqJMynpYrKXrr6FD0BNEoY70/6JpaC5UgprNWINMuNyhExIN
+ /6UoTLQCaP+QIFzzjEIpHNknoxkq9i6zN7Qwn8MIRQb0V1na0d/3FP0+zPat/rRG671Q
+ ZZqw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8MJ7P8PnsK9qc5V82e+qcd30EGLu+iaLav7w9pG5sA5l/HOfblRZ2qJyI1+1Q8p5u6wS2x8RrpnF8=@nongnu.org
-X-Gm-Message-State: AOJu0YyYq+Bk2dgw/0B3zZye7pAabcfQurug2AIESd8EQUD5KFWPV2AP
- ZK9opGlSJPyjxqkKoSUHzhgMHdVOJIYKo4/uwvw7BOV4jFq2jgwDcn3JeovEpsOf7zohRqSg169
- L9KnYmRagZhfNvUmnFd4vDSD8JwPZ0ozUuODRtvJgA4GAkUBsA4GKHh8=
-X-Gm-Gg: AfdE7clarosD37HBTH3Avo0xon8WEvDL0kcAVS2xjZ5EVX8+upz/adsUlPeyeKvuT/C
- wdhkwzSGgyJZww/N/MsyXRxWvAZghPq274CHrQ8GKcqNFeR1F/iNH14utaFMc17Z7sj/zErpgtT
- tnBg8KoAlXiqjmOpG2DxBmY22vmw2mmqR11G1wKdn0XDI/pqXFu5LlmMnWqlmymyX0PIl6BlXjN
- eEj7jpgcX9ENbY1D1NN6RuQkRiwPRmp5GGnhIcIjig6RR8YoGTHrkvzp3wK1KhQXhOMRfw3nkUi
- rIeonkORWgA27OGZKY17/Ex/Jvt8ERiwxd+r2VqWP5gmZE2TSLEa9o+8+YYjisw2ipq7XWYG2dN
- WEqhhHXt3X5LCTg+vdxcxu8rzrUTdEwkU18C8stQ0h7FcoOvaEiAL+Ck4wZnYfU4gXpFQHHkZ
-X-Received: by 2002:a05:622a:1492:b0:517:7baa:c57f with SMTP id
- d75a77b69052e-519e4e4e50bmr239733141cf.54.1782156495809; 
- Mon, 22 Jun 2026 12:28:15 -0700 (PDT)
-X-Received: by 2002:a05:622a:1492:b0:517:7baa:c57f with SMTP id
- d75a77b69052e-519e4e4e50bmr239732491cf.54.1782156495119; 
- Mon, 22 Jun 2026 12:28:15 -0700 (PDT)
-Received: from x1.local
- (bras-vprn-aurron9134w-lp130-03-174-91-117-157.dsl.bell.ca. [174.91.117.157])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-51a51a9bca9sm5745081cf.19.2026.06.22.12.28.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Jun 2026 12:28:14 -0700 (PDT)
-Date: Mon, 22 Jun 2026 15:28:12 -0400
-From: Peter Xu <peterx@redhat.com>
-To: =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>
-Cc: qemu-devel@nongnu.org, Zhenzhong Duan <zhenzhong.duan@intel.com>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- David Hildenbrand <david@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@mailo.com>,
- qemu-rust@nongnu.org, Alex Williamson <alex@shazbot.org>,
- =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@redhat.com>,
- "Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
- Fabiano Rosas <farosas@suse.de>, Mark Kanda <mark.kanda@oracle.com>,
- Ben Chaney <bchaney@akamai.com>,
- Marcelo Tosatti <mtosatti@redhat.com>, kvm@vger.kernel.org,
- "Dr. David Alan Gilbert" <dave@treblig.org>,
- Zhao Liu <zhao1.liu@intel.com>, Eric Blake <eblake@redhat.com>,
- Markus Armbruster <armbru@redhat.com>, Xiaoyao Li <xiaoyao.li@intel.com>
-Subject: Re: [PATCH v5 00/12] Make RamDiscardManager work with multiple
- sources & virtio-mem
-Message-ID: <ajmMzMAXay65Sl7U@x1.local>
+ AHgh+RoUbrCLMlA2szs8M179+Q3fSL9nSNN8fA8oZqxfFwegu6xhzHgKBB3AsGumemoBbxOkKcSDh1bWqLs=@nongnu.org
+X-Gm-Message-State: AOJu0YyhzTI/qApxmCVlOOD0q7SQkMEQS3h5pPAXEzLgbH+NHh7WPIjS
+ L2GkF9pdxEevU3qrSm1s/3oczlpUz9dKIH/xtYfaWIjno3PloEXtYji7NKehTZvNsEVs00fbjOF
+ HYzhPpdS1GVpiAABrg5EzpFtE/n4OfZ7WoYUpeOU7OAriUE9AJDaL9ZTMKVIG2ofuzyWLwe1ybw
+ 3GflbkDVvrgBebe6QCum2Mysaju3wxlw==
+X-Gm-Gg: AfdE7cnUVxXkacCG6qbXAoHNqfgxQCEXWomvtfmdunuG0v86DWvDaRpg+SrR0tvNNIJ
+ KWz5GS2WwAXu8TD555Xqfgslxjv0ura7YHTI7zsQCHfUpbgmFRaBahN3arJgj5MHRbrrBaFqfuM
+ 1zfRst9DYjrepR1zmsEi+3f2UKZYZK6/IqQMPrxCztIOC57JJzopU6K9nPJXyt8KMNZABo9dIOE
+ 9dbwntbTdTyxk6VSazj6e9AKTsf5l0mORwNO+QG631plO1vlPKpg9XrfpAUohaPl1EtbxMHCWEi
+ LZnSTgr/iDwU
+X-Received: by 2002:a17:902:d489:b0:2be:22cc:e227 with SMTP id
+ d9443c01a7336-2c718c87b90mr172936565ad.4.1782158416342; 
+ Mon, 22 Jun 2026 13:00:16 -0700 (PDT)
+X-Received: by 2002:a17:902:d489:b0:2be:22cc:e227 with SMTP id
+ d9443c01a7336-2c718c87b90mr172936045ad.4.1782158415799; Mon, 22 Jun 2026
+ 13:00:15 -0700 (PDT)
+MIME-Version: 1.0
 References: <20260604-rdm5-v5-0-5768e6a0943d@redhat.com>
  <CAJ+F1CKRvSWDOvKC98e_7uyjgJMuXfhOHP83H0s7a=+ZrYxA1g@mail.gmail.com>
  <ajVco512NDPKDPTr@x1.local>
  <CAMxuvazRnZw4PEsdKCEBD8X1ua5LMj5K-k+-oh-J_uvXm5vT1w@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAMxuvazRnZw4PEsdKCEBD8X1ua5LMj5K-k+-oh-J_uvXm5vT1w@mail.gmail.com>
+ <ajmMzMAXay65Sl7U@x1.local>
+In-Reply-To: <ajmMzMAXay65Sl7U@x1.local>
+From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
+Date: Tue, 23 Jun 2026 00:00:04 +0400
+X-Gm-Features: AVVi8CcALnaUygDfXipA9K5Q53AEsopz0M20qNoO-DAXE4d6r2kmvEKjyvCr0e4
+Message-ID: <CAMxuvawvb-oueGsgXQsPzAtB8_ArAM+SOtpacrvOGq=4d1F2Bg@mail.gmail.com>
+Subject: Re: [PATCH v5 00/12] Make RamDiscardManager work with multiple
+ sources & virtio-mem
+To: Peter Xu <peterx@redhat.com>, Zhenzhong Duan <zhenzhong.duan@intel.com>
+Cc: qemu-devel@nongnu.org, "Michael S. Tsirkin" <mst@redhat.com>, 
+ David Hildenbrand <david@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@mailo.com>, 
+ qemu-rust@nongnu.org, Alex Williamson <alex@shazbot.org>, 
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>, 
+ "Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
+ Fabiano Rosas <farosas@suse.de>, 
+ Mark Kanda <mark.kanda@oracle.com>, Ben Chaney <bchaney@akamai.com>, 
+ Marcelo Tosatti <mtosatti@redhat.com>, kvm@vger.kernel.org, 
+ "Dr. David Alan Gilbert" <dave@treblig.org>, Zhao Liu <zhao1.liu@intel.com>,
+ Eric Blake <eblake@redhat.com>, 
+ Markus Armbruster <armbru@redhat.com>, Xiaoyao Li <xiaoyao.li@intel.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: EokYZB3FfMmGaVhF3uGWm1ernnLW5LXB1bnk3Q2TD2A_1782156496
+X-Mimecast-MFC-PROC-ID: vHWPyx-emAwxcKuebtp6v4WNYbmkRjm8apVajripOvE_1782158416
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=peterx@redhat.com;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=170.10.129.124; envelope-from=mlureau@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -24
 X-Spam_score: -2.5
@@ -127,78 +123,105 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, Jun 22, 2026 at 03:53:33PM +0400, Marc-André Lureau wrote:
-> Hi Peter
-> 
-> On Fri, Jun 19, 2026 at 7:13 PM Peter Xu <peterx@redhat.com> wrote:
+Hi Peter
+
+On Mon, Jun 22, 2026 at 11:28=E2=80=AFPM Peter Xu <peterx@redhat.com> wrote=
+:
+>
+> On Mon, Jun 22, 2026 at 03:53:33PM +0400, Marc-Andr=C3=A9 Lureau wrote:
+> > Hi Peter
 > >
-> > On Fri, Jun 19, 2026 at 12:11:48AM +0400, Marc-André Lureau wrote:
-> > > Hi
+> > On Fri, Jun 19, 2026 at 7:13=E2=80=AFPM Peter Xu <peterx@redhat.com> wr=
+ote:
 > > >
-> > > On Thu, Jun 4, 2026 at 5:46 PM Marc-André Lureau
-> > > <marcandre.lureau@redhat.com> wrote:
+> > > On Fri, Jun 19, 2026 at 12:11:48AM +0400, Marc-Andr=C3=A9 Lureau wrot=
+e:
+> > > > Hi
 > > > >
-> > > > Hi,
+> > > > On Thu, Jun 4, 2026 at 5:46=E2=80=AFPM Marc-Andr=C3=A9 Lureau
+> > > > <marcandre.lureau@redhat.com> wrote:
+> > > > >
+> > > > > Hi,
+> > > > >
+> > > > > This is an attempt to fix the incompatibility of virtio-mem with =
+confidential
+> > > > > VMs. The solution implements what was discussed earlier with D. H=
+ildenbrand:
+> > > > > https://patchwork.ozlabs.org/project/qemu-devel/patch/20250407074=
+939.18657-5-chenyi.qiang@intel.com/#3502238
+> > > > >
+> > > > > The first patches are misc cleanups. Then some code refactoring t=
+o have split a
+> > > > > manager/source. And finally, the manager learns to deal with mult=
+iple sources.
+> > > > >
+> > > > > This has been tested together with the Linux kernel series from
+> > > > > Zhenzhong Duan [1] for TDX guests.
+> > > > >
+> > > > > (help fix https://issues.redhat.com/browse/RHEL-131968)
 > > > >
-> > > > This is an attempt to fix the incompatibility of virtio-mem with confidential
-> > > > VMs. The solution implements what was discussed earlier with D. Hildenbrand:
-> > > > https://patchwork.ozlabs.org/project/qemu-devel/patch/20250407074939.18657-5-chenyi.qiang@intel.com/#3502238
-> > > >
-> > > > The first patches are misc cleanups. Then some code refactoring to have split a
-> > > > manager/source. And finally, the manager learns to deal with multiple sources.
-> > > >
-> > > > This has been tested together with the Linux kernel series from
-> > > > Zhenzhong Duan [1] for TDX guests.
-> > > >
-> > > > (help fix https://issues.redhat.com/browse/RHEL-131968)
+> > > > Can the patch 1-11 be queued or are we missing something?
+> > > > (RFC patch 12 can be dropped for now)
 > > >
-> > > Can the patch 1-11 be queued or are we missing something?
-> > > (RFC patch 12 can be dropped for now)
+> > > Likely yes.. one thing to double check with you before I do: We don't=
+ need
+> > > the kernel series, do we?  Since when unplug, I expect with the trunc=
+ation
+> > > approach that this series proposed, KVM will emit TDH.MEM.PAGE.REMOVE=
+ then
+> > > unaccept is done (?).
 > >
-> > Likely yes.. one thing to double check with you before I do: We don't need
-> > the kernel series, do we?  Since when unplug, I expect with the truncation
-> > approach that this series proposed, KVM will emit TDH.MEM.PAGE.REMOVE then
-> > unaccept is done (?).
-> 
-> > Say, what happens if we run QEMU with this series applied, but without the
-> > kernel series?
-> 
-> The kernel series is needed at least for PAGE.ACCEPT. Without it, QEMU
-> will have KVM_RUN return EIO, and finish into assert (while tearing
-> down ioeventfd).
+> > > Say, what happens if we run QEMU with this series applied, but withou=
+t the
+> > > kernel series?
+> >
+> > The kernel series is needed at least for PAGE.ACCEPT. Without it, QEMU
+> > will have KVM_RUN return EIO, and finish into assert (while tearing
+> > down ioeventfd).
+>
+> Could you elaborate a bit more on why ACCEPT would fail?
+>
+> I used to ask the event flow here:
+>
+> https://lore.kernel.org/qemu-devel/agTjb3M8ElUAlfp1@x1.local/
+>
+> If AUG existed, then why ACCEPT would fail?
+>
+> PS: I didn't read a lot of what a Linux guest would do; I know there're
+> some lazy accept approach, but IIUC it's only a matter of time to ACCEPT,
+> not correctness.  My understanding is if we properly notify these new slo=
+ts
+> with AUG, then it should be able to ACCEPT?
 
-Could you elaborate a bit more on why ACCEPT would fail?
+Yes, it will, but it needs the kernel patches to do it (or virtio-mem
+will let the guest access un-accepted pages and qemu will crash). I
+submitted a few proposals before Zhenzhong Duan proposed the last
+iteration.
 
-I used to ask the event flow here:
+> >
+> > > What confused me a bit is the dependency of this series v.s. the kern=
+el
+> > > one.  It seems to use different approaches, but then I don't understa=
+nd why
+> > > this series was tested with the kernel change.
+> >
+> > My understanding is that the kernel may perform TDG.MEM.PAGE.RELEASE.
+> > That depends on TDX config TDCS_CONFIG_PAGE_RELEASE which qemu/kvm
+> > doesnt currently control. I don't know whether this is then
+> > redundant/needless with qemu doing discard on the guest_memfd..
+>
+> The problem is if this series depends on the kernel series, should we the=
+n
+> wait for the kernel solution be accepted first in case it'll change?
 
-https://lore.kernel.org/qemu-devel/agTjb3M8ElUAlfp1@x1.local/
+I don't think qemu needs to wait for the kernel to be fixed.
+Furthermore, this series is not tdx/sev/etc specific
 
-If AUG existed, then why ACCEPT would fail?
+>
+> But obviously I still don't yet fully understand how this whole thing
+> works.. :(
 
-PS: I didn't read a lot of what a Linux guest would do; I know there're
-some lazy accept approach, but IIUC it's only a matter of time to ACCEPT,
-not correctness.  My understanding is if we properly notify these new slots
-with AUG, then it should be able to ACCEPT?
-
-> 
-> > What confused me a bit is the dependency of this series v.s. the kernel
-> > one.  It seems to use different approaches, but then I don't understand why
-> > this series was tested with the kernel change.
-> 
-> My understanding is that the kernel may perform TDG.MEM.PAGE.RELEASE.
-> That depends on TDX config TDCS_CONFIG_PAGE_RELEASE which qemu/kvm
-> doesnt currently control. I don't know whether this is then
-> redundant/needless with qemu doing discard on the guest_memfd..
-
-The problem is if this series depends on the kernel series, should we then
-wait for the kernel solution be accepted first in case it'll change?
-
-But obviously I still don't yet fully understand how this whole thing
-works.. :(
-
-Thanks,
-
--- 
-Peter Xu
+I am also slow, because I don't focus on this most of the time.
+Someone with more experience and dedication would handle it better.
 
 
