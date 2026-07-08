@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C21BC43602
-	for <qemu-rust@archiver.kernel.org>; Wed,  8 Jul 2026 07:45:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA288C44501
+	for <qemu-rust@archiver.kernel.org>; Wed,  8 Jul 2026 07:45:14 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1whMwx-00075o-HL; Wed, 08 Jul 2026 03:44:18 -0400
+	id 1whMxy-0001ko-8E; Wed, 08 Jul 2026 03:45:10 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1whMwt-0006Zc-BO; Wed, 08 Jul 2026 03:44:03 -0400
+ id 1whMxg-0001E2-Dg; Wed, 08 Jul 2026 03:44:55 -0400
 Received: from mgamail.intel.com ([198.175.65.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1whMwq-0005Eb-Fh; Wed, 08 Jul 2026 03:44:03 -0400
+ id 1whMxc-0004ox-Hj; Wed, 08 Jul 2026 03:44:50 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783496641; x=1815032641;
+ t=1783496689; x=1815032689;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rSFkOsJu2E+9YsPkkJ314w45wfR0HVp9UkR1a7Hyvls=;
- b=QE5BLkvAj00fN2nTbpVwC/JhlZTlBv/nAA/A8MQp0PS8rgc47+NK9EkA
- BymEvjgALAgllqhbjfty2LGrIp+sRNo8Q8p41h/779VTPHKwttFNyVJcC
- j24aV+I52vLARJYKGxxrYmge/vlbeoPA2SEO/mY73ydbg3/z7pt2C1Jqv
- hwiQTeUtaaTh0iX8EhJaRRP6/Jg9QXm/EuUKio++NG3czJTggDOeZ/d61
- qCMpGBxMGIEYWKc56YF0kOrozE5gsSucF+SQk7dmm24c8QAm1xl3iym+1
- +Iy9xf/OVUl+zOBnmr9eauhn62RZ6T9PzfCIu+fR7oYtJPQIEyIFuPCRr Q==;
-X-CSE-ConnectionGUID: RlsgaH3KSbinZ9Zo02vtcg==
-X-CSE-MsgGUID: 59LtsHbdR2uisKZo2i0KWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84343385"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84343385"
+ bh=a1HiUrie66+g1winFi/TX6rr3qR32JNggLRLVwW+dzc=;
+ b=Hl2bwNbKxQbkUoJKywenchZPgbzHTvYBEzAm7vnoyejpG4fRbMmwXZtJ
+ dfy7cKeQavqaSG1e/rxFeafksjauqc6G2AIaZFBeAiQzPLk1yBli+7cTJ
+ FasIF/VLSAp5y6ZAjln3IrLhD3M15CqnDox7MOvFrRMyJPz+6JzFay89y
+ tb//v+tFO9VG7B0b4RIWeZN3jmhAQkJ8yuS+1IS7scoD2FfS/rnlEkWMI
+ eLQiJgoKsHFaY5GW/2p3Ixet4rK5GkR192MKkFDHIsk+VYkuYMQV3KUs0
+ pHeC+nFjnv2ycvxgjpKTRfa0tmG+8dncX2zEvt2oaJzvDhIZR35FrflDS w==;
+X-CSE-ConnectionGUID: 0N+XMIp5Tje6tDLKv5ZLXg==
+X-CSE-MsgGUID: zfUrta/bRz2hkJ7hmJ2O5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84343480"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84343480"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 00:43:39 -0700
-X-CSE-ConnectionGUID: 6v6yH9IkQt+xweL6p1isWw==
-X-CSE-MsgGUID: HKerOMJFQPSOT+aqrQoSuA==
+ 08 Jul 2026 00:44:12 -0700
+X-CSE-ConnectionGUID: q4Ws/thgRq65AcknsPiFWQ==
+X-CSE-MsgGUID: 2alYY3AmRDmGaYRcNicr2w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="251556052"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="251556122"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa008.fm.intel.com with ESMTP; 08 Jul 2026 00:43:34 -0700
+ by fmviesa008.fm.intel.com with ESMTP; 08 Jul 2026 00:44:07 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>,
@@ -57,10 +57,9 @@ Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>,
  Dapeng Mi <dapeng1.mi@linux.intel.com>,
  Chuanxiao Dong <chuanxiao.dong@intel.com>, Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC v2 18/26] rust/system/memory: Implement
- vm_memory::GuestMemoryRegion for MemoryRegionSection
-Date: Wed,  8 Jul 2026 16:10:44 +0800
-Message-Id: <20260708081052.2276617-19-zhao1.liu@intel.com>
+Subject: [RFC v2 26/26] tests/qtest: Add HPET test case to verify FSB store
+Date: Wed,  8 Jul 2026 16:10:52 +0800
+Message-Id: <20260708081052.2276617-27-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260708081052.2276617-1-zhao1.liu@intel.com>
 References: <20260708081052.2276617-1-zhao1.liu@intel.com>
@@ -90,508 +89,115 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Although QEMU already has a native memory region abstraction (MemoryRegion),
-it supports overlapping regions. Since the vm-memory crate does not support
-overlapping memory, MemoryRegionSection is a more appropriate choice to
-implement the vm_memory::GuestMemoryRegion trait.
-
-To achieve this, implement vm_memory::GuestMemoryRegion for MemoryRegionSection,
-along with its required supertrait, GuestMemoryRegionBytes. Additionally,
-implement Bytes<(MemoryRegionAddress, MemTxAttrs)> to properly attach QEMU's
-memory transaction attributes to memory operations.
-
-Furthermore, provide low-level memory write/read/store/load bindings based
-on MemoryRegionSection, and add the necessary helpers (fuzz_dma_read() and
-is_access_allowed()).
+Add an HPET qtest case to exercise the FSB interrupt delivery path.
+This verifies the memory store logic for both the C and Rust
+implementations.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
 Changes since v1:
- * Implement GuestMemoryRegionBytes for MemoryRegionSection to satisfy
-   supertrait requirement.
- * Implement Bytes<(MemoryRegionAddress, MemTxAttrs)> to attach
-   MemTxAttrs.
- * For write/read, add an extra loop to ensure write/read are actually
-   finished within the same region.
+ * New commit.
 ---
- rust/system/src/memory.rs | 449 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 447 insertions(+), 2 deletions(-)
+ tests/qtest/hpet-test.c | 77 +++++++++++++++++++++++++++++++++++++++++
+ tests/qtest/meson.build |  1 +
+ 2 files changed, 78 insertions(+)
+ create mode 100644 tests/qtest/hpet-test.c
 
-diff --git a/rust/system/src/memory.rs b/rust/system/src/memory.rs
-index 4c258201bad7..34c7b7ce04a1 100644
---- a/rust/system/src/memory.rs
-+++ b/rust/system/src/memory.rs
-@@ -2,19 +2,38 @@
- // Author(s): Paolo Bonzini <pbonzini@redhat.com>
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
--//! Bindings for `MemoryRegion`, `MemoryRegionOps` and `MemTxAttrs`
-+//! Bindings for `MemoryRegion`, `MemoryRegionOps`, `MemTxAttrs` and
-+//! `MemoryRegionSection`.
- 
- use std::{
-     ffi::{c_uint, c_void, CStr, CString},
-+    io::ErrorKind,
-     marker::PhantomData,
-+    mem::size_of,
-+    ops::Deref,
-+    sync::atomic::Ordering,
- };
- 
- use common::{callbacks::FnCall, uninit::MaybeUninitField, zeroable::Zeroable, Opaque};
- use qom::prelude::*;
-+pub use vm_memory::GuestAddress;
-+use vm_memory::{
-+    bitmap::BS, Address, AtomicAccess, Bytes, GuestMemoryError, GuestMemoryRegion,
-+    GuestMemoryRegionBytes, GuestMemoryResult, GuestUsize, MemoryRegionAddress, ReadVolatile,
-+    WriteVolatile,
-+};
- 
--use crate::bindings::{self, device_endian, memory_region_init_io};
-+use crate::bindings::{
-+    self, device_endian, memory_region_init_io, rust_section_load, rust_section_read_continue_step,
-+    rust_section_store, rust_section_write_continue_step, section_access_allowed,
-+    section_covers_region_addr, section_fuzz_dma_read, MemTxResult,
-+};
-+// FIXME: Convert hwaddr to GuestAddress
- pub use crate::bindings::{hwaddr, MemTxAttrs};
- 
-+/// Corresponds to C `MEMTX_OK` (#define `MEMTX_OK` 0).
-+const MEMTX_OK: MemTxResult = 0;
+diff --git a/tests/qtest/hpet-test.c b/tests/qtest/hpet-test.c
+new file mode 100644
+index 000000000000..b96069e6e00f
+--- /dev/null
++++ b/tests/qtest/hpet-test.c
+@@ -0,0 +1,77 @@
++/*
++ * QTest testcase for the HPET
++ *
++ * Copyright (C) 2026 Intel Corporation.
++ *
++ * Authors:
++ *  Zhao Liu <zhao1.liu@intel.com>
++ *
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ */
 +
- pub struct MemoryRegionOps<T>(
-     bindings::MemoryRegionOps,
-     // Note: quite often you'll see PhantomData<fn(&T)> mentioned when discussing
-@@ -187,3 +206,429 @@ unsafe impl ObjectType for MemoryRegion {
-     unspecified: true,
-     ..Zeroable::ZERO
- };
++#include "qemu/osdep.h"
++#include "libqtest.h"
++#include "qemu/timer.h"
++#include "hw/timer/hpet.h"
 +
-+/// A safe wrapper around [`bindings::MemoryRegionSection`].
-+///
-+/// This struct is fundamental for integrating QEMU's memory model with
-+/// the `vm-memory` ecosystem.  It directly maps to the concept of
-+/// [`GuestMemoryRegion`] and implements that trait.
-+///
-+/// ### `MemoryRegion` vs. `MemoryRegionSection`
-+///
-+/// Although QEMU already has native memory region abstraction, this is
-+/// [`MemoryRegion`], which supports overlapping.  But `vm-memory` doesn't
-+/// support overlapped memory, so `MemoryRegionSection` is more proper
-+/// to implement [`GuestMemoryRegion`] trait.
-+///
-+/// One point should pay attention is, [`MemoryRegionAddress`] represents the
-+/// address or offset within the `MemoryRegionSection`.  But traditional C
-+/// bindings treats memory region address or offset as the offset within
-+/// `MemoryRegion`.
-+///
-+/// Therefore, it's necessary to do conversion when calling C bindings
-+/// with `MemoryRegionAddress` from the context of `MemoryRegionSection`.
-+///
-+/// ### Usage
-+///
-+/// Considerring memory access is almost always through `AddressSpace`
-+/// in QEMU, `MemoryRegionSection` is intended for **internal use only**
-+///  within the `vm-memory` backend implementation.
-+///
-+/// Device and other external users should **not** use or create
-+/// `MemoryRegionSection`s directly.  Instead, they should work with the
-+/// higher-level `MemoryRegion` API to create and manage their device's
-+/// memory.  This separation of concerns mirrors the C API and avoids
-+/// confusion about different memory abstractions.
-+#[repr(transparent)]
-+#[derive(common::Wrapper, Debug)]
-+pub struct MemoryRegionSection(Opaque<bindings::MemoryRegionSection>);
++#define HPET_TN_BASE_ADDR(n)    (HPET_TN_BASE + (n) * 0x20)
++#define HPET_TN_CFG_ADDR(n)     (HPET_TN_BASE_ADDR(n) + HPET_TN_CFG)
++#define HPET_TN_CMP_ADDR(n)     (HPET_TN_BASE_ADDR(n) + HPET_TN_CMP)
++#define HPET_TN_FSB_ADDR(n)     (HPET_TN_BASE_ADDR(n) + HPET_TN_ROUTE)
 +
-+unsafe impl Send for MemoryRegionSection {}
-+unsafe impl Sync for MemoryRegionSection {}
++/*
++ * Normally, the MSI should be written to the Local APIC address space.
++ * However, since the goal for current MSI testing is to verify
++ * memory store and load, use a RAM for simplicity.
++ */
++#define MSI_TARGET_ADDR         0x100000
++#define MSI_DATA                0x19680718U
 +
-+impl Deref for MemoryRegionSection {
-+    type Target = bindings::MemoryRegionSection;
++static void test_hpet_fsb_store(void)
++{
++    QTestState *s;
++    uint32_t got;
++    uint64_t tn_cfg;
 +
-+    fn deref(&self) -> &Self::Target {
-+        // SAFETY: Opaque<> wraps a pointer from C side. The validity
-+        // of the pointer is confirmed at the creation of Opaque<>.
-+        unsafe { &*self.0.as_ptr() }
-+    }
++    s = qtest_init("-machine pc,hpet=on -global hpet.msi=on");
++
++    qtest_writel(s, MSI_TARGET_ADDR, 0);
++    g_assert_cmphex(qtest_readl(s, MSI_TARGET_ADDR), ==, 0);
++
++    /* Ensure HPET (timer 0) supports FSB first. */
++    tn_cfg = qtest_readq(s, HPET_BASE + HPET_TN_CFG_ADDR(0));
++    g_assert(tn_cfg & HPET_TN_FSB_CAP);
++
++    /* Configure FSB for timer 0. */
++    qtest_writeq(s, HPET_BASE + HPET_TN_FSB_ADDR(0),
++                 ((uint64_t)MSI_TARGET_ADDR << 32) | MSI_DATA);
++
++    /* Enable the timer 0's interrupt and FSB (non-periodic mode). */
++    qtest_writeq(s, HPET_BASE + HPET_TN_CFG_ADDR(0),
++                 tn_cfg | HPET_TN_ENABLE | HPET_TN_FSB_ENABLE);
++
++    /*
++     * Expire time: 0x100 = 256 ticks.
++     * Considering HPET_CLK_PERIOD, it's 2560 ns.
++     */
++    qtest_writeq(s, HPET_BASE + HPET_TN_CMP_ADDR(0), 0x100);
++
++    /* Start main counter to run - arm the timer 0. */
++    qtest_writeq(s, HPET_BASE + HPET_CFG, HPET_CFG_ENABLE);
++
++    /* Advance 10000 ns, which is enough for timer 0 to expire. */
++    qtest_clock_step(s, 10000);
++
++    /* The 32-bit data must now be in guest RAM now, little-endian. */
++    got = qtest_readl(s, MSI_TARGET_ADDR);
++    g_assert_cmphex(got, ==, MSI_DATA);
++
++    qtest_quit(s);
 +}
 +
-+impl MemoryRegionSection {
-+    /// A fuzz testing hook for DMA read.
-+    ///
-+    /// When `CONFIG_FUZZ` is not set, this hook will do nothing.
-+    #[allow(dead_code)]
-+    fn fuzz_dma_read(&self, addr: GuestAddress, len: GuestUsize) -> &Self {
-+        // SAFETY: Opaque<> ensures the pointer is valid, and here it
-+        // takes into account the offset conversion between MemoryRegionSection
-+        // and MemoryRegion.
-+        unsafe {
-+            section_fuzz_dma_read(
-+                self.as_mut_ptr(),
-+                addr.checked_add(self.deref().offset_within_region)
-+                    .unwrap()
-+                    .raw_value(),
-+                len,
-+            );
-+        }
-+        self
-+    }
-+
-+    /// A helper to check if the memory access is allowed.
-+    ///
-+    /// This is needed for memory write/read.
-+    #[allow(dead_code)]
-+    fn is_access_allowed(
-+        &self,
-+        addr: MemoryRegionAddress,
-+        len: GuestUsize,
-+        attrs: MemTxAttrs,
-+    ) -> bool {
-+        // SAFETY: Opaque<> ensures the pointer is valid, and here it
-+        // takes into account the offset conversion between MemoryRegionSection
-+        // and MemoryRegion.
-+        let allowed = unsafe {
-+            section_access_allowed(
-+                self.as_mut_ptr(),
-+                attrs,
-+                addr.checked_add(self.deref().offset_within_region)
-+                    .unwrap()
-+                    .raw_value(),
-+                len,
-+            )
-+        };
-+        allowed
-+    }
++int main(int argc, char **argv)
++{
++    g_test_init(&argc, &argv, NULL);
++    qtest_add_func("/hpet/fsb-store", test_hpet_fsb_store);
++    return g_test_run();
 +}
-+
-+/// Satisfies the `Bytes<MemoryRegionAddress>` supertrait required by
-+/// `GuestMemoryRegion`.
-+///
-+/// The blanket impl fails with `HostAddressNotAvailable` because
-+/// `MemoryRegionSection` methods all go through `as_volatile_slice()` and
-+/// `get_slice()`, which by default return an error.
-+///
-+/// QEMU's real access path is always attrs-aware and reaches this section
-+/// through the `Bytes<(MemoryRegionAddress,
-+/// MemTxAttrs)>` impl below.
-+impl GuestMemoryRegionBytes for MemoryRegionSection {}
-+
-+/// The attrs-aware `Bytes` implementation that actually does the C-side
-+/// memory access for a single `MemoryRegionSection`.
-+///
-+/// This composite impl is the *only* real access path into a
-+/// `MemoryRegionSection`: QEMU always reaches it through `FlatView`
-+/// with the real `attrs`.  The blanket `GuestMemoryRegionBytes` impl above
-+/// just satisfies the `GuestMemoryRegion` supertrait bound and is never
-+/// actually  called.
-+impl Bytes<(MemoryRegionAddress, MemTxAttrs)> for MemoryRegionSection {
-+    type E = GuestMemoryError;
-+
-+    /// Write a byte buffer into guest memory at `addr`.
-+    ///
-+    /// This shouldn't be called to access memory directly; it is the
-+    /// per-region worker invoked by `FlatView`'s write path.  The transaction
-+    /// `attrs` are forwarded to the C side. And the cross-region is handled by
-+    /// `FlatView`'s write.
-+    fn write(
-+        &self,
-+        buf: &[u8],
-+        (addr, attrs): (MemoryRegionAddress, MemTxAttrs),
-+    ) -> GuestMemoryResult<usize> {
-+        let base = addr
-+            .checked_add(self.deref().offset_within_region)
-+            .unwrap()
-+            .raw_value();
-+        let total = buf.len() as u64;
-+        let mut done: u64 = 0;
-+
-+        while done < total {
-+            // `step` is the attempt size on input and the bytes actually
-+            // handled on output.
-+            let mut step = total - done;
-+
-+            // SAFETY: the pointers and reference are convertible and the
-+            // offset conversion is considered.
-+            let ret = unsafe {
-+                rust_section_write_continue_step(
-+                    self.as_mut_ptr(),
-+                    attrs,
-+                    buf[done as usize..].as_ptr(),
-+                    total - done,
-+                    base + done,
-+                    &mut step,
-+                )
-+            };
-+
-+            if ret != MEMTX_OK {
-+                return Err(GuestMemoryError::InvalidBackendAddress);
-+            }
-+
-+            // A zero-length step can never make progress.
-+            if step == 0 {
-+                break;
-+            }
-+
-+            done += step;
-+        }
-+
-+        Ok(done as usize)
-+    }
-+
-+    /// Read a byte buffer from guest memory at `addr`.
-+    ///
-+    /// This shouldn't be called to access memory directly; it is the
-+    /// per-region worker invoked by `FlatView`'s read path.  The transaction
-+    /// `attrs` are forwarded to the C side. And the cross-region is handled by
-+    /// `FlatView`'s read.
-+    fn read(
-+        &self,
-+        buf: &mut [u8],
-+        (addr, attrs): (MemoryRegionAddress, MemTxAttrs),
-+    ) -> GuestMemoryResult<usize> {
-+        let base = addr
-+            .checked_add(self.deref().offset_within_region)
-+            .unwrap()
-+            .raw_value();
-+        let total = buf.len() as u64;
-+        let mut done: u64 = 0;
-+
-+        while done < total {
-+            // `step` is the attempt size on input and the bytes actually
-+            // handled on output.
-+            let mut step = total - done;
-+
-+            // SAFETY: the pointers and reference are convertible and the
-+            // offset conversion is considered.
-+            let ret = unsafe {
-+                rust_section_read_continue_step(
-+                    self.as_mut_ptr(),
-+                    attrs,
-+                    buf[done as usize..].as_mut_ptr(),
-+                    total - done,
-+                    base + done,
-+                    &mut step,
-+                )
-+            };
-+
-+            if ret != MEMTX_OK {
-+                return Err(GuestMemoryError::InvalidBackendAddress);
-+            }
-+
-+            // A zero-length step can never make progress.
-+            if step == 0 {
-+                break;
-+            }
-+
-+            done += step;
-+        }
-+
-+        Ok(done as usize)
-+    }
-+
-+    /// Store a value into guest memory at `addr`.
-+    ///
-+    /// This function - as the low-level store implementation - is
-+    /// called by `FlatView`'s `store()`.  And it shouldn't be called to
-+    /// access memory directly.
-+    ///
-+    /// The transaction `attrs` are forwarded to the C side; the `Ordering` is
-+    /// ignored because the access is not Rust-atomic.
-+    fn store<T: AtomicAccess>(
-+        &self,
-+        val: T,
-+        (addr, attrs): (MemoryRegionAddress, MemTxAttrs),
-+        _order: Ordering,
-+    ) -> GuestMemoryResult<()> {
-+        let len = size_of::<T>();
-+
-+        if len > size_of::<u64>() {
-+            return Err(GuestMemoryError::IOError(std::io::Error::new(
-+                ErrorKind::InvalidInput,
-+                "failed to store the data more then 8 bytes",
-+            )));
-+        }
-+
-+        // Note: rust_section_store() accepts `const uint8_t *buf`.
-+        //
-+        // This is a "compromise" solution: vm-memory requires AtomicAccess
-+        // but QEMU uses uint64_t as the default type. Here we can't convert
-+        // AtomicAccess to u64, since the compiler will complain "an `as`
-+        // expression can only be used to convert between primitive types or
-+        // to coerce to a specific trait object", or other endless errors
-+        // about conversion to u64.
-+        //
-+        // Fortunately, we can use a byte array to bridge the Rust wrapper
-+        // and the C binding. This approach is not without a trade-off,
-+        // however: the rust_section_store() function requires an additional
-+        // conversion from bytes to a uint64_t for the MMIO case. This performance
-+        // overhead is considered acceptable.
-+        //
-+        // SAFETY: the pointers are convertible and the offset conversion is
-+        // considered.
-+        let res = unsafe {
-+            rust_section_store(
-+                self.as_mut_ptr(),
-+                addr.checked_add(self.deref().offset_within_region)
-+                    .unwrap()
-+                    .raw_value(),
-+                val.as_slice().as_ptr(),
-+                attrs,
-+                len as u64,
-+            )
-+        };
-+
-+        match res {
-+            MEMTX_OK => Ok(()),
-+            _ => Err(GuestMemoryError::InvalidBackendAddress),
-+        }
-+    }
-+
-+    /// Load a value from guest memory at `addr`.
-+    ///
-+    /// This function - as the low-level load implementation - is
-+    /// called by `FlatView`'s `load()`.  And it shouldn't be called to
-+    /// access memory directly.
-+    ///
-+    /// The transaction `attrs` are forwarded to the C side; the `Ordering` is
-+    /// ignored because the access is not Rust-atomic.
-+    fn load<T: AtomicAccess>(
-+        &self,
-+        (addr, attrs): (MemoryRegionAddress, MemTxAttrs),
-+        _order: Ordering,
-+    ) -> GuestMemoryResult<T> {
-+        let len = size_of::<T>();
-+
-+        if len > size_of::<u64>() {
-+            return Err(GuestMemoryError::IOError(std::io::Error::new(
-+                ErrorKind::InvalidInput,
-+                "failed to load the data more then 8 bytes",
-+            )));
-+        }
-+
-+        let mut val: T = T::zeroed();
-+
-+        // Note: rust_section_load() accepts `uint8_t *buf`.
-+        //
-+        // This is for a similar reason as store(), with the slight difference
-+        // that rust_section_load() requires an additional conversion from
-+        // uint64_t to bytes.
-+        //
-+        // SAFETY: the pointers are convertible and the offset conversion is
-+        // considered.
-+        let res = unsafe {
-+            rust_section_load(
-+                self.as_mut_ptr(),
-+                addr.checked_add(self.deref().offset_within_region)
-+                    .unwrap()
-+                    .raw_value(),
-+                val.as_mut_slice().as_mut_ptr(),
-+                attrs,
-+                size_of::<T>() as u64,
-+            )
-+        };
-+
-+        match res {
-+            MEMTX_OK => Ok(val),
-+            _ => Err(GuestMemoryError::InvalidBackendAddress),
-+        }
-+    }
-+
-+    fn write_slice(
-+        &self,
-+        _buf: &[u8],
-+        _addr: (MemoryRegionAddress, MemTxAttrs),
-+    ) -> GuestMemoryResult<()> {
-+        unimplemented!()
-+    }
-+
-+    fn read_slice(
-+        &self,
-+        _buf: &mut [u8],
-+        _addr: (MemoryRegionAddress, MemTxAttrs),
-+    ) -> GuestMemoryResult<()> {
-+        unimplemented!()
-+    }
-+
-+    fn read_volatile_from<F>(
-+        &self,
-+        _addr: (MemoryRegionAddress, MemTxAttrs),
-+        _src: &mut F,
-+        _count: usize,
-+    ) -> GuestMemoryResult<usize>
-+    where
-+        F: ReadVolatile,
-+    {
-+        unimplemented!()
-+    }
-+
-+    fn read_exact_volatile_from<F>(
-+        &self,
-+        _addr: (MemoryRegionAddress, MemTxAttrs),
-+        _src: &mut F,
-+        _count: usize,
-+    ) -> GuestMemoryResult<()>
-+    where
-+        F: ReadVolatile,
-+    {
-+        unimplemented!()
-+    }
-+
-+    fn write_volatile_to<F>(
-+        &self,
-+        _addr: (MemoryRegionAddress, MemTxAttrs),
-+        _dst: &mut F,
-+        _count: usize,
-+    ) -> GuestMemoryResult<usize>
-+    where
-+        F: WriteVolatile,
-+    {
-+        unimplemented!()
-+    }
-+
-+    fn write_all_volatile_to<F>(
-+        &self,
-+        _addr: (MemoryRegionAddress, MemTxAttrs),
-+        _dst: &mut F,
-+        _count: usize,
-+    ) -> GuestMemoryResult<()>
-+    where
-+        F: WriteVolatile,
-+    {
-+        unimplemented!()
-+    }
-+}
-+
-+impl GuestMemoryRegion for MemoryRegionSection {
-+    type B = ();
-+
-+    /// Get the memory size covered by this `MemoryRegionSection`.
-+    fn len(&self) -> GuestUsize {
-+        self.deref().size as GuestUsize
-+    }
-+
-+    /// Return the minimum (inclusive) Guest physical address managed by
-+    /// this `MemoryRegionSection`.
-+    fn start_addr(&self) -> GuestAddress {
-+        GuestAddress(self.deref().offset_within_address_space)
-+    }
-+
-+    fn bitmap(&self) -> BS<'_, Self::B> {}
-+
-+    /// Check whether the `@addr` is covered by this `MemoryRegionSection`.
-+    fn check_address(&self, addr: MemoryRegionAddress) -> Option<MemoryRegionAddress> {
-+        let region_addr = addr
-+            .checked_add(self.deref().offset_within_region)?
-+            .raw_value();
-+        // SAFETY: the pointer is convertible and the offset conversion is
-+        // considered.
-+        if unsafe { section_covers_region_addr(self.as_mut_ptr(), region_addr) } {
-+            Some(addr)
-+        } else {
-+            None
-+        }
-+    }
-+}
+diff --git a/tests/qtest/meson.build b/tests/qtest/meson.build
+index 822e0bd28697..d47d93df316d 100644
+--- a/tests/qtest/meson.build
++++ b/tests/qtest/meson.build
+@@ -111,6 +111,7 @@ qtests_i386 = \
+    config_all_devices.has_key('CONFIG_PARALLEL') ? ['bios-tables-test'] : []) +             \
+   qtests_pci +                                                                              \
+   qtests_cxl +                                                                              \
++  (config_all_devices.has_key('CONFIG_HPET') ? ['hpet-test'] : []) +                        \
+   [
+    'hd-geo-test',
+    'boot-order-test',
 -- 
 2.34.1
 
