@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAE97C43602
-	for <qemu-rust@archiver.kernel.org>; Wed,  8 Jul 2026 07:45:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4F53C43458
+	for <qemu-rust@archiver.kernel.org>; Wed,  8 Jul 2026 07:45:15 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1whMw0-00045c-85; Wed, 08 Jul 2026 03:43:08 -0400
+	id 1whMwW-0005fg-Pw; Wed, 08 Jul 2026 03:43:40 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1whMvZ-0003tH-3P; Wed, 08 Jul 2026 03:42:41 -0400
+ id 1whMwC-0004V3-Vq; Wed, 08 Jul 2026 03:43:21 -0400
 Received: from mgamail.intel.com ([198.175.65.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1whMvW-0004UJ-LV; Wed, 08 Jul 2026 03:42:40 -0400
+ id 1whMwB-0004ox-50; Wed, 08 Jul 2026 03:43:20 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783496559; x=1815032559;
+ t=1783496599; x=1815032599;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=EJsxws4yFvbKYlREJ5MdL8C6I0Dx6ZflapaTgDMsgJs=;
- b=TnVt7Q4ZKGbTzrwbUdsE9g5P62ENqGutACjKLZzHgxvUtUBxo/hGwaev
- DecvsRQNih7QkER4doXYTeQS+rbwEI5pnY13bWCz0bsWp3rikp+x/i66f
- wsx8YTV526GqS0ad39qhwTKeXSzE2JuRjozCzXB2oM3JmDnU2DU113hXp
- AuRdzWT+GCS1y+RZ9ugVyCCF8Z6ihQ+Ckph9oKGDnMIk4L0w9vowYGKkO
- ImHHQ8YvgDL03cWvNsktcgzLezUjcO+8eWvs96hXuuvUtsNmPP/qpy77w
- u9DkbbTEb5IMHcJofHaoZ0/DcUh+a/DUxcAg7xY4Xca+ZrYdt2e8IIvxV Q==;
-X-CSE-ConnectionGUID: maKVqEcOQcSWQ3Yj310RvA==
-X-CSE-MsgGUID: jO374/lwQX6caFz2pfSrWA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84343214"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84343214"
+ bh=xS9j1SfbNnXEP53X/50BOi4BX5IanNXaJwbdx5fCkPY=;
+ b=HRiCazY5ExS8t0Rx5/MoUJtjeiJ+lcoUbTpn+j1Lua71xLVpnAfOSHVb
+ +fSFO1BVt9wrlTzhH454DuwlHA0cEf1j2OaZMpoXy4SvVjDO0CTNmatf+
+ IihEbSy0/b1yqFe4/miVzt+hxh/bqIHctyNrAmUP5xEMNhLrBgq9/bovU
+ 34GWpWZ1HA4cAQsF9ulhCbA/qijZ7H/SIsfaBC37Vhsyi70Bq+9moTWzE
+ uudWLsujI8qTIIHPQ3RCV6mycoTZVy17jbRzQ7gFzxdJDMlelHzvkkLWE
+ xFlcsluSp61DGxsAKpKXVRtZDzRiZqFEAPW6Kl+YNEv2+Ux/USvW9FkCv Q==;
+X-CSE-ConnectionGUID: 77VtcnMiS+WesUYxn2sf8Q==
+X-CSE-MsgGUID: SSQjaL7XQCSf+KJy6JNX+g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84343336"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84343336"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 00:42:37 -0700
-X-CSE-ConnectionGUID: 7KXKxiDhS0mTtKJlsvKG1g==
-X-CSE-MsgGUID: BnhpTA1kSA24zktb48Nj7g==
+ 08 Jul 2026 00:43:18 -0700
+X-CSE-ConnectionGUID: m4NFgrQ4S86ij/sjZxG2Bw==
+X-CSE-MsgGUID: 0LLKhp6SReWv1r2rRw7shg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="251555916"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="251555998"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa008.fm.intel.com with ESMTP; 08 Jul 2026 00:42:33 -0700
+ by fmviesa008.fm.intel.com with ESMTP; 08 Jul 2026 00:43:14 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>,
@@ -57,9 +57,10 @@ Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>,
  Dapeng Mi <dapeng1.mi@linux.intel.com>,
  Chuanxiao Dong <chuanxiao.dong@intel.com>, Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC v2 03/26] subprojects: Add thiserror-impl crate
-Date: Wed,  8 Jul 2026 16:10:29 +0800
-Message-Id: <20260708081052.2276617-4-zhao1.liu@intel.com>
+Subject: [RFC v2 13/26] memory: Add a translation helper to return a
+ MemoryRegionSection
+Date: Wed,  8 Jul 2026 16:10:39 +0800
+Message-Id: <20260708081052.2276617-14-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260708081052.2276617-1-zhao1.liu@intel.com>
 References: <20260708081052.2276617-1-zhao1.liu@intel.com>
@@ -89,119 +90,154 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Use thiserror-impl-1 v1.0.65 for QEMU.
+The Rust side will rely on MemoryRegionSection to organize non-overlapping
+memory "region" abstractions. Therefore, it is necessary to provide a
+translation helper variant that returns a MemoryRegionSection directly.
+
+Additionally, refine and complete the documentation for the translation
+helpers.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- scripts/archive-source.sh                     |  1 +
- scripts/make-release                          |  2 +-
- subprojects/.gitignore                        |  1 +
- .../thiserror-impl-1-rs/meson.build           | 41 +++++++++++++++++++
- subprojects/thiserror-impl-1-rs.wrap          | 10 +++++
- 5 files changed, 54 insertions(+), 1 deletion(-)
- create mode 100644 subprojects/packagefiles/thiserror-impl-1-rs/meson.build
- create mode 100644 subprojects/thiserror-impl-1-rs.wrap
+ include/system/memory.h | 76 +++++++++++++++++++++++++++++++++++------
+ system/physmem.c        | 22 +++++++++---
+ 2 files changed, 84 insertions(+), 14 deletions(-)
 
-diff --git a/scripts/archive-source.sh b/scripts/archive-source.sh
-index a37acab524e0..b7f678872036 100755
---- a/scripts/archive-source.sh
-+++ b/scripts/archive-source.sh
-@@ -47,6 +47,7 @@ subprojects=(
-   proc-macro2-1-rs
-   quote-1-rs
-   syn-2-rs
-+  thiserror-impl-1-rs
-   unicode-ident-1-rs
- )
- sub_deinit=""
-diff --git a/scripts/make-release b/scripts/make-release
-index 5f54b0e7939d..0f33522f39ba 100755
---- a/scripts/make-release
-+++ b/scripts/make-release
-@@ -44,7 +44,7 @@ SUBPROJECTS="libvfio-user keycodemapdb berkeley-softfloat-3
-   bilge-impl-0.2-rs either-1-rs foreign-0.3-rs itertools-0.11-rs
-   libc-0.2-rs probe-0.5-rs proc-macro2-1-rs
-   proc-macro-error-1-rs proc-macro-error-attr-1-rs quote-1-rs
--  syn-2-rs unicode-ident-1-rs"
-+  syn-2-rs thiserror-impl-1-rs unicode-ident-1-rs"
+diff --git a/include/system/memory.h b/include/system/memory.h
+index c32e3d01f825..7e64a39662be 100644
+--- a/include/system/memory.h
++++ b/include/system/memory.h
+@@ -2609,24 +2609,80 @@ void address_space_flush_icache_range(AddressSpace *as,
+ IOMMUTLBEntry address_space_get_iotlb_entry(AddressSpace *as, hwaddr addr,
+                                             bool is_write, MemTxAttrs attrs);
  
- src="$1"
- version="$2"
-diff --git a/subprojects/.gitignore b/subprojects/.gitignore
-index 011ce4dc3b77..816bc67111c9 100644
---- a/subprojects/.gitignore
-+++ b/subprojects/.gitignore
-@@ -22,6 +22,7 @@
- /proc-macro*
- /quote-*
- /syn-*
-+/thiserror-impl-*
- /unicode-ident-*
+-/* address_space_translate: translate an address range into an address space
+- * into a MemoryRegion and an address range into that section.  Should be
+- * called from an RCU critical section, to avoid that the last reference
+- * to the returned region disappears after address_space_translate returns.
++/**
++ * flatview_translate_section: Translate a guest physical address range
++ * to the corresponding #MemoryRegionSection in a FlatView.
+  *
+- * @fv: #FlatView to be accessed
+- * @addr: address within that address space
+- * @xlat: pointer to address within the returned memory region section's
++ * Must be called within an RCU critical section to prevent the last
++ * reference to the memory region (referenced by the returned section)
++ * from disappearing after the function returns.
++ *
++ * @fv: The FlatView to be accessed.
++ * @addr: The address to be translated within the given FlatView.
++ * @xlat: The translated address offset within the returned section's
+  * #MemoryRegion.
+- * @len: pointer to length
+- * @is_write: indicates the transfer direction
+- * @attrs: memory attributes
++ * @len: Pointer to the length. On return, this will be updated to the
++ * valid read/write length of the translated address range.
++ * @is_write: Indicates the transfer direction.
++ * @attrs: Memory attributes.
++ *
++ * Returns:
++ * The #MemoryRegionSection that contains the translated address.
++ */
++MemoryRegionSection *flatview_translate_section(FlatView *fv, hwaddr addr,
++                                                hwaddr *xlat, hwaddr *len,
++                                                bool is_write, MemTxAttrs attrs);
++
++/**
++ * flatview_translate: Translate a guest physical address range
++ * to the corresponding #MemoryRegionSection in a FlatView.
++ *
++ * Must be called within an RCU critical section to prevent the last
++ * reference to the returned memory region from disappearing after
++ * the function returns.
++ *
++ * This function is a variant of flatview_translate_section(), with the
++ * difference that it returns the #MemoryRegion contained in the
++ * #MemoryRegionSection.
++ *
++ * @fv: The FlatView to be accessed.
++ * @addr: The address to be translated within the given FlatView.
++ * @xlat: The translated address offset within the returned #MemoryRegion.
++ * @len: Pointer to the length. On return, this will be updated to the
++ * valid read/write length of the translated address range.
++ * @is_write: Indicates whether the translation operation is for a write.
++ * @attrs: Memory transaction attributes.
++ *
++ * Returns:
++ * The #MemoryRegion that contains the translated address.
+  */
+ MemoryRegion *flatview_translate(FlatView *fv,
+                                  hwaddr addr, hwaddr *xlat,
+                                  hwaddr *len, bool is_write,
+                                  MemTxAttrs attrs);
  
- # Workaround for Meson v1.9.0 https://github.com/mesonbuild/meson/issues/14948
-diff --git a/subprojects/packagefiles/thiserror-impl-1-rs/meson.build b/subprojects/packagefiles/thiserror-impl-1-rs/meson.build
-new file mode 100644
-index 000000000000..cc5546264035
---- /dev/null
-+++ b/subprojects/packagefiles/thiserror-impl-1-rs/meson.build
-@@ -0,0 +1,41 @@
-+project('thiserror-impl-1-rs', 'rust',
-+ meson_version: '>=1.5.0',
-+ version: '1.0.65',
-+ license: 'MIT OR Apache-2.0',
-+ default_options: [])
++/**
++ * address_space_translate: Translate a guest physical address range
++ * to the corresponding #MemoryRegionSection in a FlatView.
++ *
++ * Must be called within an RCU critical section to prevent the last
++ * reference to the returned memory region from disappearing after
++ * the function returns.
++ *
++ * This function is a variant of flatview_translate(), with the difference
++ * that it operates on an #AddressSpace rather than a #FlatView directly.
++ *
++ * @as: The #AddressSpace to be accessed.
++ * @addr: The address to be translated within the given address space.
++ * @xlat: The translated address offset within the returned #MemoryRegion.
++ * @len: Pointer to the length. On return, this will be updated to the
++ * valid read/write length of the translated address range.
++ * @is_write: Indicates whether the translation operation is for a write.
++ * @attrs: Memory transaction attributes.
++ *
++ * Returns:
++ * The #MemoryRegion that contains the translated address.
++ */
+ static inline MemoryRegion *address_space_translate(AddressSpace *as,
+                                                     hwaddr addr, hwaddr *xlat,
+                                                     hwaddr *len, bool is_write,
+diff --git a/system/physmem.c b/system/physmem.c
+index 418fc79ff2c0..ff60ac7dd3aa 100644
+--- a/system/physmem.c
++++ b/system/physmem.c
+@@ -560,9 +560,9 @@ iotlb_fail:
+ }
+ 
+ /* Called from RCU critical section */
+-MemoryRegion *flatview_translate(FlatView *fv, hwaddr addr, hwaddr *xlat,
+-                                 hwaddr *plen, bool is_write,
+-                                 MemTxAttrs attrs)
++MemoryRegionSection *flatview_translate_section(FlatView *fv, hwaddr addr,
++                                                hwaddr *xlat, hwaddr *plen,
++                                                bool is_write, MemTxAttrs attrs)
+ {
+     MemoryRegion *mr;
+     MemoryRegionSection *section;
+@@ -580,7 +580,21 @@ MemoryRegion *flatview_translate(FlatView *fv, hwaddr addr, hwaddr *xlat,
+         *plen = MIN(page, *plen);
+     }
+ 
+-    return mr;
++    return section;
++}
 +
-+subproject('quote-1-rs', required: true)
-+subproject('syn-2-rs', required: true)
-+subproject('proc-macro2-1-rs', required: true)
++/* Called from RCU critical section */
++MemoryRegion *flatview_translate(FlatView *fv, hwaddr addr, hwaddr *xlat,
++                                 hwaddr *plen, bool is_write,
++                                 MemTxAttrs attrs)
++{
++    MemoryRegionSection *section;
 +
-+quote_dep = dependency('quote-1-rs', native: true)
-+syn_dep = dependency('syn-2-rs', native: true)
-+proc_macro2_dep = dependency('proc-macro2-1-rs', native: true)
++    /* This can be MMIO, so setup MMIO bit. */
++    section = flatview_translate_section(fv, addr, xlat, plen,
++                                         is_write, attrs);
 +
-+rust = import('rust')
-+
-+_thiserror_impl_rs = rust.proc_macro(
-+  'thiserror_impl',
-+  files('src/lib.rs'),
-+  override_options: ['rust_std=2021', 'build.rust_std=2021'],
-+  rust_args: [
-+    '--cfg', 'feature="proc-macro"',
-+    '--cfg', 'feature="clone-impls"',
-+    '--cfg', 'feature="derive"',
-+    '--cfg', 'feature="extra-traits"',
-+    '--cfg', 'feature="full"',
-+    '--cfg', 'feature="parsing"',
-+    '--cfg', 'feature="printing"',
-+  ],
-+  dependencies: [
-+    quote_dep,
-+    syn_dep,
-+    proc_macro2_dep
-+  ],
-+)
-+
-+thiserror_impl_dep = declare_dependency(
-+  link_with: _thiserror_impl_rs,
-+)
-+
-+meson.override_dependency('thiserror-impl-1-rs', thiserror_impl_dep)
-diff --git a/subprojects/thiserror-impl-1-rs.wrap b/subprojects/thiserror-impl-1-rs.wrap
-new file mode 100644
-index 000000000000..0f2ca85b8590
---- /dev/null
-+++ b/subprojects/thiserror-impl-1-rs.wrap
-@@ -0,0 +1,10 @@
-+[wrap-file]
-+directory = thiserror-impl-1.0.65
-+source_url = https://crates.io/api/v1/crates/thiserror-impl/1.0.65/download
-+source_filename = thiserror-impl-1.0.65.tar.gz
-+source_hash = ae71770322cbd277e69d762a16c444af02aa0575ac0d174f0b9562d3b37f8602
-+#method = cargo
-+patch_directory = thiserror-impl-1-rs
-+
-+# bump this version number on every change to meson.build or the patches:
-+# v2
++    return section->mr;
+ }
+ 
+ #ifdef CONFIG_TCG
 -- 
 2.34.1
 
