@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74DFEC44501
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EC63C43458
 	for <qemu-rust@archiver.kernel.org>; Wed,  8 Jul 2026 07:43:39 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1whMw9-0004QM-1C; Wed, 08 Jul 2026 03:43:17 -0400
+	id 1whMwF-0004Zl-2x; Wed, 08 Jul 2026 03:43:23 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1whMvs-00040s-RF; Wed, 08 Jul 2026 03:43:02 -0400
+ id 1whMvj-0003xF-Tr; Wed, 08 Jul 2026 03:42:55 -0400
 Received: from mgamail.intel.com ([198.175.65.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1whMvq-0004ox-KP; Wed, 08 Jul 2026 03:43:00 -0400
+ id 1whMvg-0004UJ-Nx; Wed, 08 Jul 2026 03:42:51 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783496579; x=1815032579;
+ t=1783496569; x=1815032569;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=odjHL0x+MROapiVixt+s6VKPVF1LIdg6RNrAA9VuKTM=;
- b=gx3eoM/LFOFQtnyGx80XuSf3werD9FCQxb5+TLL8D0dlCyBPaJP74kJG
- k4AJBzMnSdJLw2i6NasDteblT5w0Hw2rf2HHkWurBf4HosPj2BJeTXCW2
- UyQCkrjtxRyaiLO625mmVmiXM7duDx/BblvU3TLz5iL7hGYaQAwehlc4D
- CdmYvIvPNccDeHHWOgIGwbdx5zvNeq6+a/2LWhtky3bhLSRWns2BgG1rR
- rSZBYZnG5v7c83hcIUD8y/KHCz4l3eo0vtoTIRh5fFrb5/08cdxVcTo/P
- VM/Wq642/qsC0Wwq6XL3p2klkKyIBG/yoXxbJaYr/K8LmTMNJkSsitQyM Q==;
-X-CSE-ConnectionGUID: G6C/Rkw/TI2CokyQHXhwlQ==
-X-CSE-MsgGUID: yKH5+q73SUyE/Q/DvMz8OA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84343267"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84343267"
+ bh=KUfCRaamEYV5a3lI5DD5JS0zaQQGj0vcpTApyu88ye0=;
+ b=TOvojrTEpcnncWo3Z/E1DIxpJWXb+yEUlaSlx49C6ap0IJT2a6Ep+ybW
+ UYD9mgfOKcXCcwakOrgMlLaQ9Zdaegn8USgaxOqlRJvbOpCE62QH1VpFU
+ RTn/TUqNrl6QSply9HJvC5NkDTLIGS9ruWiYlM/c78VWhIv4bIZIwfuhN
+ v7ZE5a0dGBhaZjip5U+SU1PKeC840pj37VSr5gUbPqKakyPl16E05kiou
+ Kgx+2uIvuIyIxHW9t1mgeFi13J9ZW9uiu/WklPYc6OfOWfPHjZeYkspqz
+ 75E3uvMdeCURJcQu5JpHN6jTP4FBYxJ7BIhTu0uZ1bz3veOgXMde/1zpY g==;
+X-CSE-ConnectionGUID: h3TuAV9HT923HB6+JqbLLA==
+X-CSE-MsgGUID: n0h2PwlVSliIWje7fdk2bw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84343233"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84343233"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 00:42:57 -0700
-X-CSE-ConnectionGUID: 8UbpCixwTdGX59kZCt78/A==
-X-CSE-MsgGUID: kunUydETR2mcJBOEcpot7A==
+ 08 Jul 2026 00:42:46 -0700
+X-CSE-ConnectionGUID: cmd3wgbWS4aOyV0JUExX+w==
+X-CSE-MsgGUID: 1/9q94cKR6m3G5qGwmAkHA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="251555948"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="251555927"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa008.fm.intel.com with ESMTP; 08 Jul 2026 00:42:53 -0700
+ by fmviesa008.fm.intel.com with ESMTP; 08 Jul 2026 00:42:41 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>,
@@ -57,10 +57,9 @@ Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>,
  Dapeng Mi <dapeng1.mi@linux.intel.com>,
  Chuanxiao Dong <chuanxiao.dong@intel.com>, Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC v2 08/26] rust/bindings/util-sys: Include rcu.h in bindings
- wrapper
-Date: Wed,  8 Jul 2026 16:10:34 +0800
-Message-Id: <20260708081052.2276617-9-zhao1.liu@intel.com>
+Subject: [RFC v2 05/26] subprojects: Add vm-memory crate
+Date: Wed,  8 Jul 2026 16:10:31 +0800
+Message-Id: <20260708081052.2276617-6-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260708081052.2276617-1-zhao1.liu@intel.com>
 References: <20260708081052.2276617-1-zhao1.liu@intel.com>
@@ -90,68 +89,110 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-rcu.h is transitively included by several crates'
-wrapper.h files (e.g. hwcore via hw/core/qdev.h, system via
-system/memory.h).
-
-Because several structs (e.g. BusChild/FlatView/AddressSpace) embed
-struct rcu_head, bindgen automatically generates a rcu_head definition
-in each crate that references it.
-
-Explicitly add rcu.h to util-sys/wrapper.h.  With the allowlist-then-
-blocklist logic in generate_bindgen_args.py, this makes util-sys the
-only owner of rcu.h bindings. Then rcu.h is blocked in hwcore-sys and
-system-sys, thus it's necessary to import rcu_head from util_sys in
-hwcore-sys/lib.rs and system-sys/lib.rs.
+Use vm-memory v0.18.0 for QEMU.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
 Changes since v1:
- * New commit.
+ * Upgrade vm-memory to v0.18.0 then we don't need extra patch for
+   vm-memory subproject in QEMU.
 ---
- rust/bindings/hwcore-sys/lib.rs  | 2 +-
- rust/bindings/system-sys/lib.rs  | 2 +-
- rust/bindings/util-sys/wrapper.h | 1 +
- 3 files changed, 3 insertions(+), 2 deletions(-)
+ scripts/archive-source.sh                     |  1 +
+ scripts/make-release                          |  3 ++-
+ subprojects/.gitignore                        |  1 +
+ .../vm-memory-0.18-rs/meson.build             | 27 +++++++++++++++++++
+ subprojects/vm-memory-0.18-rs.wrap            | 10 +++++++
+ 5 files changed, 41 insertions(+), 1 deletion(-)
+ create mode 100644 subprojects/packagefiles/vm-memory-0.18-rs/meson.build
+ create mode 100644 subprojects/vm-memory-0.18-rs.wrap
 
-diff --git a/rust/bindings/hwcore-sys/lib.rs b/rust/bindings/hwcore-sys/lib.rs
-index 8cef4a796193..9414c6639e2a 100644
---- a/rust/bindings/hwcore-sys/lib.rs
-+++ b/rust/bindings/hwcore-sys/lib.rs
-@@ -26,7 +26,7 @@
-     InterfaceClass, Object, ObjectClass, ObjectProperty, ObjectPropertyAccessor,
-     ObjectPropertyRelease,
- };
--use util_sys::{Error, QDict, QList};
-+use util_sys::{rcu_head, Error, QDict, QList};
+diff --git a/scripts/archive-source.sh b/scripts/archive-source.sh
+index 2f3987fc0fea..a876ec2d3480 100755
+--- a/scripts/archive-source.sh
++++ b/scripts/archive-source.sh
+@@ -49,6 +49,7 @@ subprojects=(
+   syn-2-rs
+   thiserror-1-rs
+   thiserror-impl-1-rs
++  vm-memory-0.18-rs
+   unicode-ident-1-rs
+ )
+ sub_deinit=""
+diff --git a/scripts/make-release b/scripts/make-release
+index a5488e226298..c0077aab3643 100755
+--- a/scripts/make-release
++++ b/scripts/make-release
+@@ -44,7 +44,8 @@ SUBPROJECTS="libvfio-user keycodemapdb berkeley-softfloat-3
+   bilge-impl-0.2-rs either-1-rs foreign-0.3-rs itertools-0.11-rs
+   libc-0.2-rs probe-0.5-rs proc-macro2-1-rs
+   proc-macro-error-1-rs proc-macro-error-attr-1-rs quote-1-rs
+-  syn-2-rs thiserror-1-rs thiserror-impl-1-rs unicode-ident-1-rs"
++  syn-2-rs thiserror-1-rs thiserror-impl-1-rs unicode-ident-1-rs
++  vm-memory-0.18-rs"
  
- #[cfg(MESON)]
- include!("bindings.inc.rs");
-diff --git a/rust/bindings/system-sys/lib.rs b/rust/bindings/system-sys/lib.rs
-index 30adf683c355..8feaa76ca165 100644
---- a/rust/bindings/system-sys/lib.rs
-+++ b/rust/bindings/system-sys/lib.rs
-@@ -21,7 +21,7 @@
- use common::Zeroable;
- use hwcore_sys::{qemu_irq, DeviceClass, DeviceState};
- use qom_sys::{Object, ObjectClass};
--use util_sys::{Error, EventNotifier, QEMUBH};
-+use util_sys::{rcu_head, Error, EventNotifier, QEMUBH};
+ src="$1"
+ version="$2"
+diff --git a/subprojects/.gitignore b/subprojects/.gitignore
+index d7cf421bff07..29d8e26960d5 100644
+--- a/subprojects/.gitignore
++++ b/subprojects/.gitignore
+@@ -25,6 +25,7 @@
+ /thiserror-*
+ /thiserror-impl-*
+ /unicode-ident-*
++/vm-memory-*
  
- #[cfg(MESON)]
- include!("bindings.inc.rs");
-diff --git a/rust/bindings/util-sys/wrapper.h b/rust/bindings/util-sys/wrapper.h
-index e9c433e7dc14..5d3cf7792b92 100644
---- a/rust/bindings/util-sys/wrapper.h
-+++ b/rust/bindings/util-sys/wrapper.h
-@@ -27,6 +27,7 @@ typedef struct Visitor Visitor;
- #include "qemu/module.h"
- #include "qemu/option.h"
- #include "qemu/timer.h"
-+#include "qemu/rcu.h"
- #include "qapi/visitor.h"
- #include "qobject/qbool.h"
- #include "qobject/qdict.h"
+ # Workaround for Meson v1.9.0 https://github.com/mesonbuild/meson/issues/14948
+ /.wraplock
+diff --git a/subprojects/packagefiles/vm-memory-0.18-rs/meson.build b/subprojects/packagefiles/vm-memory-0.18-rs/meson.build
+new file mode 100644
+index 000000000000..2e5d9c50f839
+--- /dev/null
++++ b/subprojects/packagefiles/vm-memory-0.18-rs/meson.build
+@@ -0,0 +1,27 @@
++project('vm-memory-0.18-rs', 'rust',
++  meson_version: '>=1.5.0',
++  version : '0.18.0',
++  license : 'Apache-2.0 or BSD-3-Clause',
++  default_options: [])
++
++all_deps = []
++
++subproject('thiserror-1-rs', required: true)
++all_deps += dependency('thiserror-1-rs')
++
++_vm_memory_rs = static_library(
++  'vm_memory',
++  files('src/lib.rs'),
++  gnu_symbol_visibility: 'hidden',
++  override_options : ['rust_std=2021', 'build.rust_std=2021'],
++  rust_abi : 'rust',
++  rust_args: ['--cap-lints', 'allow'],
++  dependencies: all_deps,
++  native: true,
++)
++
++dep = declare_dependency(
++  link_with : _vm_memory_rs,
++)
++
++meson.override_dependency('vm-memory-0.18-rs', dep, native: true)
+diff --git a/subprojects/vm-memory-0.18-rs.wrap b/subprojects/vm-memory-0.18-rs.wrap
+new file mode 100644
+index 000000000000..299b54d8f799
+--- /dev/null
++++ b/subprojects/vm-memory-0.18-rs.wrap
+@@ -0,0 +1,10 @@
++[wrap-file]
++directory = vm-memory-0.18.0
++source_url = https://crates.io/api/v1/crates/vm-memory/0.18.0/download
++source_filename = vm-memory-0.18.0.tar.gz
++source_hash = 9b55e753c7725603745cb32b2287ef7ef3da05c03c7702cda3fa8abe25ae0465
++#method = cargo
++patch_directory = vm-memory-0.18-rs
++
++# bump this version number on every change to meson.build or the patches:
++# v2
 -- 
 2.34.1
 
