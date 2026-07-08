@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EC63C43458
-	for <qemu-rust@archiver.kernel.org>; Wed,  8 Jul 2026 07:43:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13185C43458
+	for <qemu-rust@archiver.kernel.org>; Wed,  8 Jul 2026 07:43:44 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1whMwF-0004Zl-2x; Wed, 08 Jul 2026 03:43:23 -0400
+	id 1whMwE-0004ZG-Kc; Wed, 08 Jul 2026 03:43:22 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1whMvj-0003xF-Tr; Wed, 08 Jul 2026 03:42:55 -0400
+ id 1whMw4-0004EG-Ex; Wed, 08 Jul 2026 03:43:12 -0400
 Received: from mgamail.intel.com ([198.175.65.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1whMvg-0004UJ-Nx; Wed, 08 Jul 2026 03:42:51 -0400
+ id 1whMw2-0004ox-MV; Wed, 08 Jul 2026 03:43:12 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783496569; x=1815032569;
+ t=1783496591; x=1815032591;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KUfCRaamEYV5a3lI5DD5JS0zaQQGj0vcpTApyu88ye0=;
- b=TOvojrTEpcnncWo3Z/E1DIxpJWXb+yEUlaSlx49C6ap0IJT2a6Ep+ybW
- UYD9mgfOKcXCcwakOrgMlLaQ9Zdaegn8USgaxOqlRJvbOpCE62QH1VpFU
- RTn/TUqNrl6QSply9HJvC5NkDTLIGS9ruWiYlM/c78VWhIv4bIZIwfuhN
- v7ZE5a0dGBhaZjip5U+SU1PKeC840pj37VSr5gUbPqKakyPl16E05kiou
- Kgx+2uIvuIyIxHW9t1mgeFi13J9ZW9uiu/WklPYc6OfOWfPHjZeYkspqz
- 75E3uvMdeCURJcQu5JpHN6jTP4FBYxJ7BIhTu0uZ1bz3veOgXMde/1zpY g==;
-X-CSE-ConnectionGUID: h3TuAV9HT923HB6+JqbLLA==
-X-CSE-MsgGUID: n0h2PwlVSliIWje7fdk2bw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84343233"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84343233"
+ bh=VqnZQ7CrTJfaaaMOjcDnDIF8dHHxULpFm1eDfe3uLj0=;
+ b=hnbn2/hvlVjLPpDz888/TVOW+Ui/GTjgcMWTrt6uz+Rb8lFrjxwvwr9c
+ XsZenwrpg9QGeqZ2zKc1BfSAZsJVG624pOs3K3VNopFqe+cRUaOae8MVx
+ IE/yOifTJtbjPA3cqllRJjM/sFGu17PGXmfyg05fCSBVvNfAUKiCC/KeL
+ OH94t8WYI2QvedQlzagYx28eETlNkx7iLk+LAgJRWNljCx02d3FxtGPnG
+ RV4nWwV4OGziijaAmUDRilZ78TTdXome0n7lLQP/2QNDLqqyQJ/kzZf0x
+ 3lAjGjmTrDGtgkYJvFjWEp4Uol+gVXZOeJRQYfO/oD3+dcHFBF6zk0pvc w==;
+X-CSE-ConnectionGUID: 25jVDygBSKGGRK6xH06J2A==
+X-CSE-MsgGUID: WHDB7P+8QyuvolWQrxQdHA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84343314"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84343314"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 00:42:46 -0700
-X-CSE-ConnectionGUID: cmd3wgbWS4aOyV0JUExX+w==
-X-CSE-MsgGUID: 1/9q94cKR6m3G5qGwmAkHA==
+ 08 Jul 2026 00:43:10 -0700
+X-CSE-ConnectionGUID: MOHvCCgVQr2b9OFdD1gm8A==
+X-CSE-MsgGUID: MiiSwpXuReeZtFi26cnlPg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="251555927"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="251555978"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa008.fm.intel.com with ESMTP; 08 Jul 2026 00:42:41 -0700
+ by fmviesa008.fm.intel.com with ESMTP; 08 Jul 2026 00:43:05 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>,
@@ -57,9 +57,10 @@ Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>,
  Dapeng Mi <dapeng1.mi@linux.intel.com>,
  Chuanxiao Dong <chuanxiao.dong@intel.com>, Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC v2 05/26] subprojects: Add vm-memory crate
-Date: Wed,  8 Jul 2026 16:10:31 +0800
-Message-Id: <20260708081052.2276617-6-zhao1.liu@intel.com>
+Subject: [RFC v2 11/26] memory: Rename address_space_lookup_region and expose
+ it to Rust
+Date: Wed,  8 Jul 2026 16:10:37 +0800
+Message-Id: <20260708081052.2276617-12-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260708081052.2276617-1-zhao1.liu@intel.com>
 References: <20260708081052.2276617-1-zhao1.liu@intel.com>
@@ -89,110 +90,82 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Use vm-memory v0.18.0 for QEMU.
+address_space_lookup_region() returns a pointer to a
+MemoryRegionSection instead of a MemoryRegion. Therefore, rename
+it to address_space_lookup_section().
+
+Add its declaration to memory.h so that bindgen can generate
+bindings for it.
+
+This interface will be used to implement GuestMemory::find_region()
+in the vm_memory crate.
+
+In addition, add its documentation in memory.h.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
-Changes since v1:
- * Upgrade vm-memory to v0.18.0 then we don't need extra patch for
-   vm-memory subproject in QEMU.
----
- scripts/archive-source.sh                     |  1 +
- scripts/make-release                          |  3 ++-
- subprojects/.gitignore                        |  1 +
- .../vm-memory-0.18-rs/meson.build             | 27 +++++++++++++++++++
- subprojects/vm-memory-0.18-rs.wrap            | 10 +++++++
- 5 files changed, 41 insertions(+), 1 deletion(-)
- create mode 100644 subprojects/packagefiles/vm-memory-0.18-rs/meson.build
- create mode 100644 subprojects/vm-memory-0.18-rs.wrap
+ include/system/memory.h | 21 +++++++++++++++++++++
+ system/physmem.c        |  8 ++++----
+ 2 files changed, 25 insertions(+), 4 deletions(-)
 
-diff --git a/scripts/archive-source.sh b/scripts/archive-source.sh
-index 2f3987fc0fea..a876ec2d3480 100755
---- a/scripts/archive-source.sh
-+++ b/scripts/archive-source.sh
-@@ -49,6 +49,7 @@ subprojects=(
-   syn-2-rs
-   thiserror-1-rs
-   thiserror-impl-1-rs
-+  vm-memory-0.18-rs
-   unicode-ident-1-rs
- )
- sub_deinit=""
-diff --git a/scripts/make-release b/scripts/make-release
-index a5488e226298..c0077aab3643 100755
---- a/scripts/make-release
-+++ b/scripts/make-release
-@@ -44,7 +44,8 @@ SUBPROJECTS="libvfio-user keycodemapdb berkeley-softfloat-3
-   bilge-impl-0.2-rs either-1-rs foreign-0.3-rs itertools-0.11-rs
-   libc-0.2-rs probe-0.5-rs proc-macro2-1-rs
-   proc-macro-error-1-rs proc-macro-error-attr-1-rs quote-1-rs
--  syn-2-rs thiserror-1-rs thiserror-impl-1-rs unicode-ident-1-rs"
-+  syn-2-rs thiserror-1-rs thiserror-impl-1-rs unicode-ident-1-rs
-+  vm-memory-0.18-rs"
+diff --git a/include/system/memory.h b/include/system/memory.h
+index bf5bfa7164fb..c32e3d01f825 100644
+--- a/include/system/memory.h
++++ b/include/system/memory.h
+@@ -948,6 +948,27 @@ static inline FlatView *address_space_to_flatview(const AddressSpace *as)
+     return qatomic_rcu_read(&as->current_map);
+ }
  
- src="$1"
- version="$2"
-diff --git a/subprojects/.gitignore b/subprojects/.gitignore
-index d7cf421bff07..29d8e26960d5 100644
---- a/subprojects/.gitignore
-+++ b/subprojects/.gitignore
-@@ -25,6 +25,7 @@
- /thiserror-*
- /thiserror-impl-*
- /unicode-ident-*
-+/vm-memory-*
++/**
++ * address_space_lookup_section: Find the MemoryRegionSection within a
++ * given #AddressSpaceDispatch.
++ *
++ * @d: The AddressSpaceDispatch to search within.
++ * @addr: The address to look up.
++ * @resolve_subpage: If 'true', resolve to a subpage section if the
++ * region is a subpage container.
++ *
++ * This function translates an address (@addr) into its corresponding
++ * #MemoryRegionSection within a given address space dispatch (@d).
++ * Must be called within an RCU critical section.
++ *
++ * Returns:
++ * A pointer to the #MemoryRegionSection. If the address is not
++ * mapped, this will be a pointer to the 'unassigned' section.
++ */
++MemoryRegionSection *address_space_lookup_section(AddressSpaceDispatch *d,
++                                                  hwaddr addr,
++                                                  bool resolve_subpage);
++
+ /**
+  * flatview_ref: Atomically increment the reference count of a #FlatView.
+  *
+diff --git a/system/physmem.c b/system/physmem.c
+index c21ea929153e..f807e60aa348 100644
+--- a/system/physmem.c
++++ b/system/physmem.c
+@@ -342,9 +342,9 @@ static MemoryRegionSection *phys_page_find(AddressSpaceDispatch *d, hwaddr addr)
+ }
  
- # Workaround for Meson v1.9.0 https://github.com/mesonbuild/meson/issues/14948
- /.wraplock
-diff --git a/subprojects/packagefiles/vm-memory-0.18-rs/meson.build b/subprojects/packagefiles/vm-memory-0.18-rs/meson.build
-new file mode 100644
-index 000000000000..2e5d9c50f839
---- /dev/null
-+++ b/subprojects/packagefiles/vm-memory-0.18-rs/meson.build
-@@ -0,0 +1,27 @@
-+project('vm-memory-0.18-rs', 'rust',
-+  meson_version: '>=1.5.0',
-+  version : '0.18.0',
-+  license : 'Apache-2.0 or BSD-3-Clause',
-+  default_options: [])
-+
-+all_deps = []
-+
-+subproject('thiserror-1-rs', required: true)
-+all_deps += dependency('thiserror-1-rs')
-+
-+_vm_memory_rs = static_library(
-+  'vm_memory',
-+  files('src/lib.rs'),
-+  gnu_symbol_visibility: 'hidden',
-+  override_options : ['rust_std=2021', 'build.rust_std=2021'],
-+  rust_abi : 'rust',
-+  rust_args: ['--cap-lints', 'allow'],
-+  dependencies: all_deps,
-+  native: true,
-+)
-+
-+dep = declare_dependency(
-+  link_with : _vm_memory_rs,
-+)
-+
-+meson.override_dependency('vm-memory-0.18-rs', dep, native: true)
-diff --git a/subprojects/vm-memory-0.18-rs.wrap b/subprojects/vm-memory-0.18-rs.wrap
-new file mode 100644
-index 000000000000..299b54d8f799
---- /dev/null
-+++ b/subprojects/vm-memory-0.18-rs.wrap
-@@ -0,0 +1,10 @@
-+[wrap-file]
-+directory = vm-memory-0.18.0
-+source_url = https://crates.io/api/v1/crates/vm-memory/0.18.0/download
-+source_filename = vm-memory-0.18.0.tar.gz
-+source_hash = 9b55e753c7725603745cb32b2287ef7ef3da05c03c7702cda3fa8abe25ae0465
-+#method = cargo
-+patch_directory = vm-memory-0.18-rs
-+
-+# bump this version number on every change to meson.build or the patches:
-+# v2
+ /* Called from RCU critical section */
+-static MemoryRegionSection *address_space_lookup_region(AddressSpaceDispatch *d,
+-                                                        hwaddr addr,
+-                                                        bool resolve_subpage)
++MemoryRegionSection *address_space_lookup_section(AddressSpaceDispatch *d,
++                                                  hwaddr addr,
++                                                  bool resolve_subpage)
+ {
+     MemoryRegionSection *section = qatomic_read(&d->mru_section);
+     subpage_t *subpage;
+@@ -370,7 +370,7 @@ address_space_translate_internal(AddressSpaceDispatch *d, hwaddr addr, hwaddr *x
+     MemoryRegion *mr;
+     Int128 diff;
+ 
+-    section = address_space_lookup_region(d, addr, resolve_subpage);
++    section = address_space_lookup_section(d, addr, resolve_subpage);
+     /* Compute offset within MemoryRegionSection */
+     addr -= section->offset_within_address_space;
+ 
 -- 
 2.34.1
 
