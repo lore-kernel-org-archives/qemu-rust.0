@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 430F4C43458
-	for <qemu-rust@archiver.kernel.org>; Wed,  8 Jul 2026 07:45:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78B1EC43458
+	for <qemu-rust@archiver.kernel.org>; Wed,  8 Jul 2026 07:45:56 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1whMxP-0008NG-Ik; Wed, 08 Jul 2026 03:44:35 -0400
+	id 1whMxN-00088X-SS; Wed, 08 Jul 2026 03:44:33 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1whMxD-0007Au-Mi; Wed, 08 Jul 2026 03:44:25 -0400
+ id 1whMxH-0007Ib-4H; Wed, 08 Jul 2026 03:44:28 -0400
 Received: from mgamail.intel.com ([198.175.65.16])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1whMxB-0005DU-07; Wed, 08 Jul 2026 03:44:23 -0400
+ id 1whMxE-0005DU-D4; Wed, 08 Jul 2026 03:44:26 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783496661; x=1815032661;
+ t=1783496665; x=1815032665;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CpnzLqapsE+LHZXah1BgbbxaZjcpTeszmqMzbM3efh4=;
- b=nj9pVGKQOpiZouI6B67YeHd9Jn1jPbenCeBvk4S9hpocAmowqncm78Ds
- /pVEIswVEYL+9HZw+Kd8R8Xg+ONlnTImgzy3PX4DU2Ec3bdut0sDgxVYt
- z/sozsgjTqg94ax3CEhz4eaStvBCSuARY77eWubt8fP2OT+ibndzeUq+U
- /wMiimJibEzEdhf7CttF8/fzhMg8jg3KtYta4m4zb/Dns9hrE2sNvTw0P
- 8INbSB1AEh3NlxY1eBBg1iHgiJ8t9ckrwdFD2CHlo+j+7FnKB47qjmDQ3
- yFrI/KS/8vRKClALcyoq2AEdZ4kODvvZva4tzdIYlnEZtnc68xXCu9c2m A==;
-X-CSE-ConnectionGUID: yZzVif98TlahbEODJmRNvw==
-X-CSE-MsgGUID: I4Eh3B4cSuS1hkENQ9I33Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84343422"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84343422"
+ bh=3mIUIX/GoY0bywEAIUdiPwadX47LE75STcq2xZIplVk=;
+ b=kEpX6iKaPWhcnneLYYDUhb/Nmx3OibT8twDa0pkd91SENweSdVRZwWeC
+ yJKIJL677+QmIkw+dFWwCa6kWqy/1F6cYtv3Qjr+/FxeF/qioKZvyINII
+ rBDSBUuSA5Jr3HVJlwl9d8vAQoOPLbInYdWUKFr8AKLwerxNhejX7s7ni
+ maaWBQU0nifuhLNElwxi5F+/oc24Ge/WcgIKL2wJGJEq3RwUXQzOcaBf7
+ XQjNbvBDf4iFVB42UuaIK/W058N8tV5DvcpjC6wtHC9017kSOMXyANOBg
+ ZBdOAbT3lJjxaPcL61ERtCCckXiQHA6GdAUeKieCu6qmcFMBsGQJhDTrM A==;
+X-CSE-ConnectionGUID: byqy8WhzSqeOS1hek0AgNg==
+X-CSE-MsgGUID: O/I915z1RiqwAPIYCpY6dQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84343457"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84343457"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 00:43:51 -0700
-X-CSE-ConnectionGUID: xohOf9VgThCbQgDTus1vIA==
-X-CSE-MsgGUID: lZtf74GRSrSKOvtiQ+9Sbw==
+ 08 Jul 2026 00:44:04 -0700
+X-CSE-ConnectionGUID: QxBVCm0cQE2Sxm+mr94yag==
+X-CSE-MsgGUID: o9OoWFB2ScmZ8bDya56pYQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="251556081"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="251556101"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa008.fm.intel.com with ESMTP; 08 Jul 2026 00:43:47 -0700
+ by fmviesa008.fm.intel.com with ESMTP; 08 Jul 2026 00:43:59 -0700
 From: Zhao Liu <zhao1.liu@intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>,
@@ -57,10 +57,9 @@ Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
  Junjie Mao <junjie.mao@hotmail.com>,
  Dapeng Mi <dapeng1.mi@linux.intel.com>,
  Chuanxiao Dong <chuanxiao.dong@intel.com>, Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC v2 21/26] rust/system/memory: Add an RAII guard to manage
- FlatView reference counts
-Date: Wed,  8 Jul 2026 16:10:47 +0800
-Message-Id: <20260708081052.2276617-22-zhao1.liu@intel.com>
+Subject: [RFC v2 24/26] rust/hpet: Use safe binding to access address space
+Date: Wed,  8 Jul 2026 16:10:50 +0800
+Message-Id: <20260708081052.2276617-25-zhao1.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260708081052.2276617-1-zhao1.liu@intel.com>
 References: <20260708081052.2276617-1-zhao1.liu@intel.com>
@@ -90,101 +89,77 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Introduce FlatViewRefGuard to automatically manage the reference count
-for FlatView on the Rust side using RAII.
+Currently, HPET uses unsafe address_space_stl_le() to store MSI message.
+
+Therefore, use the safe binding - AddressSpace::store() with Le32, to
+access address space.
+
+Since then, the last unsafe piece of HPET has been filled in.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- rust/system/src/memory.rs | 65 ++++++++++++++++++++++++++++++++++++---
- 1 file changed, 61 insertions(+), 4 deletions(-)
+Changes since v1:
+ * Explicitly specify endianness by Le32 and get rid of native
+   endianness.
+ * Drop expect() method to avoid abort() on error - consistent with the
+   behavior on the C side.
+---
+ rust/hw/timer/hpet/src/device.rs | 29 ++++++-----------------------
+ 1 file changed, 6 insertions(+), 23 deletions(-)
 
-diff --git a/rust/system/src/memory.rs b/rust/system/src/memory.rs
-index 721b054d778f..12f48f71900b 100644
---- a/rust/system/src/memory.rs
-+++ b/rust/system/src/memory.rs
-@@ -11,6 +11,7 @@
-     marker::PhantomData,
-     mem::size_of,
-     ops::Deref,
-+    ptr::NonNull,
-     sync::atomic::Ordering,
- };
+diff --git a/rust/hw/timer/hpet/src/device.rs b/rust/hw/timer/hpet/src/device.rs
+index 7c60cc0f10ab..e3a0fa25b14b 100644
+--- a/rust/hw/timer/hpet/src/device.rs
++++ b/rust/hw/timer/hpet/src/device.rs
+@@ -2,24 +2,14 @@
+ // Author(s): Zhao Liu <zhao1.liu@intel.com>
+ // SPDX-License-Identifier: GPL-2.0-or-later
  
-@@ -24,10 +25,10 @@
- };
+-use std::{
+-    ffi::CStr,
+-    mem::MaybeUninit,
+-    pin::Pin,
+-    ptr::{addr_of_mut, null_mut, NonNull},
+-    slice::from_ref,
+-};
++use std::{ffi::CStr, mem::MaybeUninit, pin::Pin, ptr::NonNull, slice::from_ref};
  
- use crate::bindings::{
--    self, address_space_lookup_section, device_endian, flatview_translate_section,
--    memory_region_init_io, rust_section_load, rust_section_read_continue_step, rust_section_store,
--    rust_section_write_continue_step, section_access_allowed, section_covers_region_addr,
--    section_fuzz_dma_read, MemTxResult,
-+    self, address_space_lookup_section, device_endian, flatview_ref, flatview_translate_section,
-+    flatview_unref, memory_region_init_io, rust_section_load, rust_section_read_continue_step,
-+    rust_section_store, rust_section_write_continue_step, section_access_allowed,
-+    section_covers_region_addr, section_fuzz_dma_read, MemTxResult,
- };
- // FIXME: Convert hwaddr to GuestAddress
- pub use crate::bindings::{hwaddr, MemTxAttrs};
-@@ -1143,3 +1144,59 @@ fn to_region_addr(&self, _addr: GuestAddress) -> Option<(&Self::R, MemoryRegionA
-         unimplemented!()
-     }
- }
-+
-+/// A RAII guard that provides temporary access to a `FlatView`.
-+///
-+/// Upon creation, this guard increments the reference count of the
-+/// underlying `FlatView`.  When the guard goes out of of scope, it
-+/// automatically decrements the count.
-+///
-+/// As long as the guard lives, the access to `FlatView` is valid.
-+#[derive(Debug)]
-+pub struct FlatViewRefGuard(NonNull<FlatView>);
-+
-+impl Drop for FlatViewRefGuard {
-+    fn drop(&mut self) {
-+        // SAFETY: the pointer is convertible.
-+        unsafe {
-+            flatview_unref(self.0.as_ref().as_mut_ptr());
-+        }
-+    }
-+}
-+
-+impl FlatViewRefGuard {
-+    /// Attempt to create a new RAII guard for the given `FlatView`.
-+    ///
-+    /// This may fail if the `FlatView`'s reference count is already zero.
-+    pub fn new(flat: &FlatView) -> Option<Self> {
-+        // SAFETY: the pointer is convertible.
-+        if unsafe { flatview_ref(flat.as_mut_ptr()) } {
-+            Some(FlatViewRefGuard(NonNull::from(flat)))
-+        } else {
-+            None
-+        }
-+    }
-+}
-+
-+impl Deref for FlatViewRefGuard {
-+    type Target = FlatView;
-+
-+    fn deref(&self) -> &Self::Target {
-+        // SAFETY: the pointer and reference are convertible.
-+        unsafe { &*self.0.as_ptr() }
-+    }
-+}
-+
-+impl Clone for FlatViewRefGuard {
-+    /// Clone the guard, which involves incrementing the reference
-+    /// count again.
-+    ///
-+    /// This method will **panic** if the reference count of the underlying
-+    /// `FlatView` cannot be incremented (e.g., if it is zero, meaning the
-+    /// object is being destroyed).  This can happen in concurrent scenarios.
-+    fn clone(&self) -> Self {
-+        FlatViewRefGuard::new(self.deref()).expect(
-+            "Failed to clone FlatViewRefGuard: the FlatView may have been destroyed concurrently.",
-+        )
-+    }
-+}
+ use bql::prelude::*;
+ use common::prelude::*;
+ use hwcore::prelude::*;
+ use migration::{self, prelude::*, ToMigrationStateShared};
+ use qom::prelude::*;
+-use system::{
+-    bindings::{address_space_memory, address_space_stl_le},
+-    prelude::*,
+-    MEMTXATTRS_UNSPECIFIED,
+-};
++use system::{prelude::*, GuestAddress, Le32, ADDRESS_SPACE_MEMORY};
+ use util::prelude::*;
+ 
+ use crate::fw_cfg::HPETFwConfig;
+@@ -327,17 +317,10 @@ fn set_irq(&self, regs: &HPETRegisters, set: bool) {
+ 
+         if set && tn_regs.is_int_enabled() && regs.is_hpet_enabled() {
+             if tn_regs.is_fsb_route_enabled() {
+-                // SAFETY:
+-                // the parameters are valid.
+-                unsafe {
+-                    address_space_stl_le(
+-                        addr_of_mut!(address_space_memory),
+-                        tn_regs.fsb >> 32,  // Timer N FSB int addr
+-                        tn_regs.fsb as u32, // Timer N FSB int value, truncate!
+-                        MEMTXATTRS_UNSPECIFIED,
+-                        null_mut(),
+-                    );
+-                }
++                let _ = ADDRESS_SPACE_MEMORY.store(
++                    GuestAddress(tn_regs.fsb >> 32), // Timer N FSB int addr
++                    Le32::from(tn_regs.fsb as u32),  // Timer N FSB int value, truncate!
++                );
+             } else if tn_regs.is_int_level_triggered() {
+                 self.get_state().irqs[route].raise();
+             } else {
 -- 
 2.34.1
 
