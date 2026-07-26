@@ -4,76 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8579CC44501
-	for <qemu-rust@archiver.kernel.org>; Wed,  8 Jul 2026 07:46:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2056EC53200
+	for <qemu-rust@archiver.kernel.org>; Sun, 26 Jul 2026 14:52:08 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1whMxM-0007yQ-Qv; Wed, 08 Jul 2026 03:44:32 -0400
+	id 1wo0Ct-0005vU-IN; Sun, 26 Jul 2026 10:51:59 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1whMxH-0007KM-Nd; Wed, 08 Jul 2026 03:44:28 -0400
-Received: from mgamail.intel.com ([198.175.65.16])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1whMxE-0004ox-UL; Wed, 08 Jul 2026 03:44:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783496665; x=1815032665;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=A/YjrgPMKQGrz/+7JdydAfbXQvs9uQxNrlFjhW1yjfs=;
- b=n8zqYF9B/u/P+PIkWQj8uYBFXfArEeZxNQq+8y0jUJqWzEUHCEU2jjOp
- a4bO9qzSuUjoK/sXbeXlqAPpUJvfIjBBzW02e2hHCKx/UQ0Na9DUpOz/W
- hyNTyeZruFUk66s+iYYe0NqVW4RUIAwK71GHwYRiUWIB93LTmvvitY/02
- PA2Dg+Otp1iIhT8WH45fWasacsUCMbfrGlhXEhezhwCbFsrPIMNHgiZmY
- T1oE8jWG6C2GYev2vWDN1WhbQ1jTRgn5zs4Y0UErXUM2v/kp0WUbtW6cH
- 2XVvzMY7gW/hoTpeMfGwWq1Uy24BdIcDhul9f9LhyuYVbh7Hz3c2qVJyx w==;
-X-CSE-ConnectionGUID: Ko5VpI8pR9mAwrqUvuvzKg==
-X-CSE-MsgGUID: CXEmCtkdRu23qy5Z7iTrbg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84343439"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84343439"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 00:44:00 -0700
-X-CSE-ConnectionGUID: PaaqZfwoSNCsGDfNqCYt/w==
-X-CSE-MsgGUID: yXTen9K1QxCNHzQmq0bflA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="251556093"
-Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.39])
- by fmviesa008.fm.intel.com with ESMTP; 08 Jul 2026 00:43:55 -0700
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
- Hanna Reitz <hreitz@redhat.com>,
- =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Pierrick Bouvier <pierrick.bouvier@oss.qualcomm.com>,
- Fabiano Rosas <farosas@suse.de>, Laurent Vivier <lvivier@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
- Junjie Mao <junjie.mao@hotmail.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>,
- Chuanxiao Dong <chuanxiao.dong@intel.com>, Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC v2 23/26] rust/memory: Provide AddressSpace bindings
-Date: Wed,  8 Jul 2026 16:10:49 +0800
-Message-Id: <20260708081052.2276617-24-zhao1.liu@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260708081052.2276617-1-zhao1.liu@intel.com>
-References: <20260708081052.2276617-1-zhao1.liu@intel.com>
+ (Exim 4.90_1) (envelope-from <163wangjack@gmail.com>)
+ id 1wo0Co-0005td-Kg
+ for qemu-rust@nongnu.org; Sun, 26 Jul 2026 10:51:55 -0400
+Received: from mail-pl1-x62b.google.com ([2607:f8b0:4864:20::62b])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <163wangjack@gmail.com>)
+ id 1wo0Ch-0005zn-4d
+ for qemu-rust@nongnu.org; Sun, 26 Jul 2026 10:51:52 -0400
+Received: by mail-pl1-x62b.google.com with SMTP id
+ d9443c01a7336-2ca64c3ce5fso22785875ad.3
+ for <qemu-rust@nongnu.org>; Sun, 26 Jul 2026 07:51:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785077504; x=1785682304; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=RGu17vjDGeJ3mfUvccD1KTtBIiIb8HX6pbI7ZxqAZFg=;
+ b=bO8Iwaw2dIJeEEjk1vOK7wuTXv3jNA2cf/yjcx252QPavdufvrP8w8W+TeHmBwqFxK
+ 8aHJtj3lKQdPsyEIDhdmmihT+0UAGY0/EDkqeFBzT9jXK8U+WPUszc2o0nQwFEg3/EUX
+ F2S7Qknr27+wP9CDgODJgjbDIlxxBQYEKeO7ykJdSTLzR0z3a6HJIejRuqPfmk/RnHy1
+ 4hvYOuh1YvIJoTeY3jcgTbxP2JKIuYjTqYfWcsJWOzUSmhExEAQprMT/K0cvzlYI1lS+
+ v5FbNxhPTUaIPuAhKrcy/AV3B9JvJ9s4qJPKhB7Ejzf83iP5twpebwSubFVSUJ2KxEFs
+ oaxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785077504; x=1785682304;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=RGu17vjDGeJ3mfUvccD1KTtBIiIb8HX6pbI7ZxqAZFg=;
+ b=G36L3plypIeWanv+59VmIGoRsZ4o5rIcqKlrBM3aSWme+b1N9FUNaLNJMr5xbwC0eb
+ jhmArk3oTkXEqGUP9tJBTIilCoof7AXx+XPEx660mWJuSKoBlNLZ8OowFBRB9Bt7olEX
+ rkMHnE6X46Ne6mKpzM5NNUfuOenflcULUlEc7CEZO+cB2UbHZHmxuq1cIpCQDhNiqYS5
+ 3XHIJlv1TH5CT5AYIvSdOODmBJB5QtmoNr5ukzVB73BPFTv2LDKwklavqZmauUEChcOI
+ NojalqyH/94BKphIWtfKkPTlxWolrqh34Rm4It99K3Lk7Qe/Xb/y02jvQouSSznmDKqL
+ Ei4Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rqs4+28AOIJCu8AAox4Yev+/Ze1zQ86IvHdv6u1K2AuFaxRGriGVrcg3xitTLyaDW0uIBFyeBU5lio=@nongnu.org
+X-Gm-Message-State: AOJu0YyludSXczvWxulcrSNgLANkBExV3v+vy5iyw0MCf3Sy82nDWRKl
+ oNDVR16kB+GmoHQ6XkOcHnQqhXjVBllnws+tfRpQXDz3zhn6YEQ/L5w5FzRVeA==
+X-Gm-Gg: AR+sD13AS13xm4ULYPmxHsEgjv6ai02YwrxPidb0Vuqhvdf458rfCpqNtngJD99Gy0k
+ 6yaFi50zeiMP5vDFmeUBWTs4aiWmntqSKwevEgR4iKVRJfvQARpsyxQdgr584D8hmwNTGT3lIcD
+ OQtVWsqoEvwFtCFV5rHBx+GR62dyfZ5oVOIMc5kf7DZ775+GvbcdlvHZFrOD6b2Zp+9seR6DXQP
+ 4hnWNVNMGVevEhRDT0V71j0FRp4kc9HkO6Ct0Hl1aFp0Um6LfXAj/6fJ72fEsT1AFo0nI4+4/eV
+ IKnRGEv0XGQXYnQeIIB30Px0j3ABI23de6xPUWh8UJ7EzNAKeQVrN2Q1/BPX19Pwo000HmoKdvD
+ qXnAyBkf689MRim4xqLUYxnAMvHdFi9m7/rNGqj+vyPr8YQjZIr0JXwqSuUOcqWm2+Vm08fslb0
+ X6fSmIPJVlmVRLM4XpXdeBxEjU
+X-Received: by 2002:a17:902:e544:b0:2cc:f43b:fa4a with SMTP id
+ d9443c01a7336-2cfde8253b7mr53274675ad.24.1785077503855; 
+ Sun, 26 Jul 2026 07:51:43 -0700 (PDT)
+Received: from localhost.localdomain ([82.40.42.115])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2cfde81d7f5sm20934195ad.83.2026.07.26.07.51.39
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sun, 26 Jul 2026 07:51:42 -0700 (PDT)
+From: Jack Wang <163wangjack@gmail.com>
+To: qemu-devel@nongnu.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Alistair Francis <alistair@alistair23.me>, Fabiano Rosas <farosas@suse.de>,
+ Laurent Vivier <lvivier@redhat.com>, qemu-arm@nongnu.org,
+ qemu-rust@nongnu.org, caojunze424@gmail.com,
+ Jack Wang <163wangjack@gmail.com>
+Subject: [RFC PATCH v1 1/5] hw/gpio: add stm32f1xx GPIO device model (Rust)
+Date: Sun, 26 Jul 2026 22:51:15 +0800
+Message-ID: <20260726145119.19881-2-163wangjack@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260726145119.19881-1-163wangjack@gmail.com>
+References: <20260726145119.19881-1-163wangjack@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=198.175.65.16; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -47
-X-Spam_score: -4.8
-X-Spam_bar: ----
-X-Spam_report: (-4.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.445,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, SPF_HELO_NONE=0.001,
- SPF_NONE=0.001 autolearn=ham autolearn_force=no
+Received-SPF: pass client-ip=2607:f8b0:4864:20::62b;
+ envelope-from=163wangjack@gmail.com; helo=mail-pl1-x62b.google.com
+X-Spam_score_int: -13
+X-Spam_score: -1.4
+X-Spam_bar: -
+X-Spam_report: (-1.4 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ FROM_STARTS_WITH_NUMS=0.738, RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=no autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -89,273 +106,666 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-QEMU's AddressSpace matches vm_memory::GuestAddressSpace very well,
-so it's straightforward to implement vm_memory::GuestAddressSpace trait
-for &AddressSpace (not AddressSpace because GuestAddressSpace requires
-Clone).
+Add a native-Rust model of the STM32F1xx GPIO port (RM0008). The device
+implements the CRL/CRH mode/config decode and the IDR update algorithm,
+driving its 16 gpio-out lines from ODR according to each pin's push-pull,
+open-drain or input pull configuration.
 
-And since QEMU's memory is almost entirely processed through
-AddressSpace, provide the high-level memory write/read/store/load
-interfaces for Rust side use.
+The pure register logic lives in GpioRegisters with no QOM/MemoryRegion
+coupling so it can be unit-tested natively.
 
-Additionally, provide the safe binding for address_space_memory.
-
-Note, AddressSpace::read, write, load and store methods support
-MEMTXATTRS_UNSPECIFIED by default, but it can support any MemTxAttrs.
-When necessary, it's possible to add *_attrs variants.
-
-Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+Signed-off-by: Jack Wang <163wangjack@gmail.com>
 ---
-Changes since v1:
- * Implement GuestAddressSpace for &AddressSpace since it requires
-   Clone for now.
- * Re-implement RCU protection logic by using RcuCell and lifetime
-   to provide RCU critical section.
- * Fix AddressSapce::memory() and use a loop just like C side did.
- * Explicitly require AddressSpace::save and load specify endianness
-   and no longer rely on native endianness.
----
- rust/system/src/memory.rs | 205 ++++++++++++++++++++++++++++++++++++--
- 1 file changed, 196 insertions(+), 9 deletions(-)
+ MAINTAINERS                  |   7 +
+ hw/gpio/Kconfig              |   5 +
+ hw/gpio/trace-events         |   7 +
+ rust/hw/gpio/Kconfig         |   2 +
+ rust/hw/gpio/src/bindings.rs |  19 ++
+ rust/hw/gpio/src/gpio.rs     | 539 +++++++++++++++++++++++++++++++++++
+ rust/hw/gpio/src/lib.rs      |   3 +
+ 7 files changed, 582 insertions(+)
+ create mode 100644 rust/hw/gpio/Kconfig
+ create mode 100644 rust/hw/gpio/src/bindings.rs
+ create mode 100644 rust/hw/gpio/src/gpio.rs
+ create mode 100644 rust/hw/gpio/src/lib.rs
 
-diff --git a/rust/system/src/memory.rs b/rust/system/src/memory.rs
-index b16e71ddbf4e..83aff2907ad1 100644
---- a/rust/system/src/memory.rs
-+++ b/rust/system/src/memory.rs
-@@ -3,7 +3,7 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 72357df7c4..4870da54ab 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1184,6 +1184,13 @@ L: qemu-arm@nongnu.org
+ S: Maintained
+ F: hw/arm/stm32f100_soc.c
  
- //! Bindings for `MemoryRegion`, `MemoryRegionOps`, `MemTxAttrs`
--//! `MemoryRegionSection` and `FlatView`.
-+//! `MemoryRegionSection`, `FlatView` and `AddressSpace`.
- 
- use std::{
-     ffi::{c_uint, c_void, CStr, CString},
-@@ -11,24 +11,28 @@
-     marker::PhantomData,
-     mem::size_of,
-     ops::Deref,
--    ptr::NonNull,
-+    ptr::{addr_of, NonNull},
-     sync::atomic::Ordering,
- };
- 
- use common::{callbacks::FnCall, uninit::MaybeUninitField, zeroable::Zeroable, Opaque};
- use qom::prelude::*;
-+use util::{
-+    error::Result,
-+    rcu::{RcuCell, RcuGuard},
-+};
- use vm_memory::{
--    bitmap::BS, Address, AtomicAccess, ByteValued, Bytes, GuestMemoryBackend, GuestMemoryError,
--    GuestMemoryRegion, GuestMemoryRegionBytes, GuestMemoryResult, GuestUsize, MemoryRegionAddress,
--    Permissions, ReadVolatile, WriteVolatile,
-+    bitmap::BS, Address, AtomicAccess, ByteValued, Bytes, GuestAddressSpace, GuestMemoryBackend,
-+    GuestMemoryError, GuestMemoryRegion, GuestMemoryRegionBytes, GuestMemoryResult, GuestUsize,
-+    MemoryRegionAddress, Permissions, ReadVolatile, WriteVolatile,
- };
- pub use vm_memory::{Be16, Be32, Be64, GuestAddress, Le16, Le32, Le64};
- 
- use crate::bindings::{
--    self, address_space_lookup_section, device_endian, flatview_ref, flatview_translate_section,
--    flatview_unref, memory_region_init_io, rust_section_load, rust_section_read_continue_step,
--    rust_section_store, rust_section_write_continue_step, section_access_allowed,
--    section_covers_region_addr, section_fuzz_dma_read, MemTxResult,
-+    self, address_space_lookup_section, address_space_memory, device_endian, flatview_ref,
-+    flatview_translate_section, flatview_unref, memory_region_init_io, rust_section_load,
-+    rust_section_read_continue_step, rust_section_store, rust_section_write_continue_step,
-+    section_access_allowed, section_covers_region_addr, section_fuzz_dma_read, MemTxResult,
- };
- // FIXME: Convert hwaddr to GuestAddress
- pub use crate::bindings::{hwaddr, MemTxAttrs};
-@@ -1290,3 +1294,186 @@ fn from_carrier(carrier: Self::Carrier) -> Self {
-     Le64 => u64,
-     Be64 => u64,
- );
++STM32F1xx GPIO (Rust)
++M: Jack Wang <163wangjack@gmail.com>
++L: qemu-arm@nongnu.org
++S: Maintained
++F: rust/hw/gpio/
++F: tests/qtest/stm32f103_gpio-test.c
 +
-+/// A safe wrapper around [`bindings::AddressSpace`].
+ STM32F205
+ M: Alistair Francis <alistair@alistair23.me>
+ M: Peter Maydell <peter.maydell@linaro.org>
+diff --git a/hw/gpio/Kconfig b/hw/gpio/Kconfig
+index a209294c20..3762135114 100644
+--- a/hw/gpio/Kconfig
++++ b/hw/gpio/Kconfig
+@@ -16,6 +16,11 @@ config SIFIVE_GPIO
+ config STM32L4X5_GPIO
+     bool
+ 
++config STM32F1XX_GPIO
++    bool
++    depends on HAVE_RUST
++    select X_STM32F1XX_GPIO_RUST
++
+ config PCA9552
+     bool
+     depends on I2C
+diff --git a/hw/gpio/trace-events b/hw/gpio/trace-events
+index cea896b28f..c77c6e24a3 100644
+--- a/hw/gpio/trace-events
++++ b/hw/gpio/trace-events
+@@ -46,3 +46,10 @@ stm32l4x5_gpio_read(char *gpio, uint64_t addr) "GPIO%s addr: 0x%" PRIx64 " "
+ stm32l4x5_gpio_write(char *gpio, uint64_t addr, uint64_t data) "GPIO%s addr: 0x%" PRIx64 " val: 0x%" PRIx64 ""
+ stm32l4x5_gpio_update_idr(char *gpio, uint32_t old_idr, uint32_t new_idr) "GPIO%s from: 0x%x to: 0x%x"
+ stm32l4x5_gpio_pins(char *gpio, uint16_t disconnected, uint16_t high) "GPIO%s disconnected pins: 0x%x levels: 0x%x"
++
++# stm32f1xx GPIO Rust device
++stm32f1xx_gpio_instance_init(void) "instance init"
++stm32f1xx_gpio_reset(void) "reset"
++stm32f1xx_gpio_read(uint64_t offset, uint64_t value, unsigned size) "offset 0x%" PRIx64 " value 0x%" PRIx64 " size %u"
++stm32f1xx_gpio_write(uint64_t offset, uint64_t value, unsigned size) "offset 0x%" PRIx64 " value 0x%" PRIx64 " size %u"
++stm32f1xx_gpio_irq(unsigned line, int level) "line %u level %d"
+diff --git a/rust/hw/gpio/Kconfig b/rust/hw/gpio/Kconfig
+new file mode 100644
+index 0000000000..1f2bc9e0e4
+--- /dev/null
++++ b/rust/hw/gpio/Kconfig
+@@ -0,0 +1,2 @@
++config X_STM32F1XX_GPIO_RUST
++    bool
+diff --git a/rust/hw/gpio/src/bindings.rs b/rust/hw/gpio/src/bindings.rs
+new file mode 100644
+index 0000000000..b0189065b4
+--- /dev/null
++++ b/rust/hw/gpio/src/bindings.rs
+@@ -0,0 +1,19 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++#![allow(
++    dead_code,
++    improper_ctypes_definitions,
++    improper_ctypes,
++    non_camel_case_types,
++    non_snake_case,
++    non_upper_case_globals,
++    unnecessary_transmutes,
++    unsafe_op_in_unsafe_fn,
++    clippy::pedantic,
++    clippy::restriction,
++    clippy::style,
++    clippy::missing_const_for_fn,
++    clippy::ptr_offset_with_cast,
++    clippy::useless_transmute,
++    clippy::missing_safety_doc,
++    clippy::too_many_arguments
++)]
+diff --git a/rust/hw/gpio/src/gpio.rs b/rust/hw/gpio/src/gpio.rs
+new file mode 100644
+index 0000000000..a8197d003d
+--- /dev/null
++++ b/rust/hw/gpio/src/gpio.rs
+@@ -0,0 +1,539 @@
++// STM32F1xx GPIO port device model (Rust)
++// Copyright 2026, Jack Wang
++// Author(s): Jack Wang <163wangjack@gmail.com>
++// SPDX-License-Identifier: GPL-2.0-or-later
++//
++// Reference: ST RM0008, GPIO and AFIO registers.
++// The register model deliberately follows the C stm32l4x5_gpio.c IDR
++// algorithm, adapted to the F1 CRL/CRH (MODE[1:0]+CNF[1:0]) layout.
++//
++// The register state and all of its logic live in `GpioRegisters`, a plain
++// struct with no QOM/MMIO/IRQ coupling. `Stm32f1xxGpioState` is a thin QOM
++// device shell that owns a `GpioRegisters` plus the GPIO-out lines, forwards
++// MMIO/pin callbacks into it, and propagates the resulting pin-level changes
++// onto the out lines. Keeping the logic free of C dependencies lets the unit
++// tests in tests/tests.rs exercise it natively, without booting a machine.
++
++use std::ffi::CStr;
++
++use bql::prelude::*;
++use common::prelude::*;
++use hwcore::prelude::*;
++use migration::prelude::*;
++use qom::prelude::*;
++use system::prelude::*;
++use util::prelude::*;
++
++pub const GPIO_NUM_PINS: usize = 16;
++
++pub const TYPE_STM32F1XX_GPIO_RUST: &CStr = c"stm32f1xx-gpio-rust";
++qom_isa!(Stm32f1xxGpioState: SysBusDevice, DeviceState, Object);
++
++unsafe impl ObjectType for Stm32f1xxGpioState {
++    type Class = <SysBusDevice as ObjectType>::Class;
++    const TYPE_NAME: &'static CStr = TYPE_STM32F1XX_GPIO_RUST;
++}
++
++// Trace bindings are generated from hw/gpio/trace-events (group "hw_gpio").
++// Each `stm32f1xx_gpio_<name>` event yields a
++// `trace::trace_stm32f1xx_gpio_<name>` function whose argument types match the
++// trace-events declaration verbatim.
++::trace::include_trace!("hw_gpio");
++
++/// Register offsets (RM0008), shared by the device and its tests.
++pub const REG_CRL: u64 = 0x00;
++pub const REG_CRH: u64 = 0x04;
++pub const REG_IDR: u64 = 0x08;
++pub const REG_ODR: u64 = 0x0C;
++pub const REG_BSRR: u64 = 0x10;
++pub const REG_BRR: u64 = 0x14;
++pub const REG_LCKR: u64 = 0x18;
++
++/// RM0008 reset values: CRL/CRH = 0x44444444 (all pins floating input).
++pub const RESET_CRL: u32 = 0x4444_4444;
++pub const RESET_CRH: u32 = 0x4444_4444;
++
++/// Pure register state + behaviour of one GPIO port.
 +///
-+/// [`AddressSpace`] is the address space abstraction in QEMU, which
-+/// provides memory access for the Guest memory it managed.
-+#[repr(transparent)]
-+#[derive(common::Wrapper)]
-+pub struct AddressSpace(Opaque<bindings::AddressSpace>);
++/// This holds no QOM object, no `MemoryRegion` and no `InterruptSource`, so it
++/// can be constructed and driven directly from unit tests. Methods that can
++/// change pin levels return a [`PinUpdate`] describing which output lines
++/// flipped; the QOM shell turns those into `InterruptSource` edges.
++#[repr(C)]
++#[derive(Debug)]
++pub struct GpioRegisters {
++    crl: BqlCell<u32>,
++    crh: BqlCell<u32>,
++    idr: BqlCell<u32>,
++    odr: BqlCell<u32>,
++    lckr: BqlCell<u32>,
 +
-+unsafe impl Send for AddressSpace {}
-+unsafe impl Sync for AddressSpace {}
++    // Bit i set  => pin i is not driven by an external source.
++    // Bit i clear => pin i is driven, and `pins_connected_high` bit i
++    //                gives the level driven.
++    disconnected_pins: BqlCell<u16>,
++    pins_connected_high: BqlCell<u16>,
++}
 +
-+impl GuestAddressSpace for &AddressSpace {
-+    type M = FlatView;
-+    type T = FlatViewRefGuard;
++impl Default for GpioRegisters {
++    fn default() -> Self {
++        Self::new()
++    }
++}
 +
-+    /// Get the memory of the [`AddressSpace`].
-+    ///
-+    /// This function retrieves the [`FlatView`] for the current
-+    /// [`AddressSpace`], similar to `address_space_get_flatview` on the C side.
-+    fn memory(&self) -> Self::T {
-+        let rcu = RcuGuard::new();
-+        // Similar loop as `address_space_get_flatview` did.
-+        loop {
-+            // SAFETY: FlatViewRefGuard ensures the returned reference is protected by the
-+            // guard.
-+            if let Some(guard) = FlatViewRefGuard::new(unsafe { self.get_flatview(&rcu) }) {
-+                return guard;
++/// Which output pins changed level as a result of an operation.
++///
++/// `mask` bit i set means pin i has a determined level in `levels` bit i and
++/// that level differs from before the operation.
++#[derive(Debug, Default, Clone, Copy)]
++pub struct PinUpdate {
++    pub mask: u32,
++    pub levels: u32,
++}
++
++impl GpioRegisters {
++    pub const fn new() -> Self {
++        Self {
++            crl: BqlCell::new(RESET_CRL),
++            crh: BqlCell::new(RESET_CRH),
++            idr: BqlCell::new(0),
++            odr: BqlCell::new(0),
++            lckr: BqlCell::new(0),
++            disconnected_pins: BqlCell::new(0xFFFF),
++            pins_connected_high: BqlCell::new(0),
++        }
++    }
++
++    // ---- register accessors (for tests / vmstate / shell) ----
++
++    pub fn idr(&self) -> u32 {
++        self.idr.get()
++    }
++    pub fn odr(&self) -> u32 {
++        self.odr.get()
++    }
++    pub fn crl(&self) -> u32 {
++        self.crl.get()
++    }
++    pub fn crh(&self) -> u32 {
++        self.crh.get()
++    }
++    pub fn disconnected_pins(&self) -> u16 {
++        self.disconnected_pins.get()
++    }
++
++    // ---- pin configuration helpers (decode CRL/CRH nibbles) ----
++
++    fn extract(value: u32, start: u32, length: u32) -> u32 {
++        assert!(length > 0 && length <= 32 - start);
++        (value >> start) & (!0u32 >> (32 - length))
++    }
++
++    // 4-bit MODE[1:0]+CNF[1:0] field for `pin`.
++    fn get_modecnf(&self, pin: usize) -> u8 {
++        let reg = if pin < 8 {
++            self.crl.get()
++        } else {
++            self.crh.get()
++        };
++        let shift = ((pin % 8) * 4) as u32;
++        Self::extract(reg, shift, 4) as u8
++    }
++
++    // MODE != 0 means output (any speed).
++    fn is_output(&self, pin: usize) -> bool {
++        (self.get_modecnf(pin) & 0x03) != 0
++    }
++
++    fn is_alternate_open_drain(&self, pin: usize) -> bool {
++        let modecnf = self.get_modecnf(pin);
++        ((modecnf & 0x03) != 0) && ((modecnf >> 2) == 0x03)
++    }
++
++    fn is_alternate_push_pull(&self, pin: usize) -> bool {
++        let modecnf = self.get_modecnf(pin);
++        ((modecnf & 0x03) != 0) && ((modecnf >> 2) == 0x02)
++    }
++
++    fn is_general_push_pull(&self, pin: usize) -> bool {
++        let modecnf = self.get_modecnf(pin);
++        ((modecnf & 0x03) != 0) && ((modecnf >> 2) == 0x00)
++    }
++
++    fn is_general_open_drain(&self, pin: usize) -> bool {
++        let modecnf = self.get_modecnf(pin);
++        ((modecnf & 0x03) != 0) && ((modecnf >> 2) == 0x01)
++    }
++
++    // Input with pull-up/pull-down selected: MODE=00, CNF=10 (0b1000).
++    fn is_input_pull_up_down_mode(&self, pin: usize) -> bool {
++        self.get_modecnf(pin) == 0b1000
++    }
++
++    // In pull mode, ODR bit selects pull-up (1) vs pull-down (0).
++    fn is_input_pullup(&self, pin: usize) -> bool {
++        self.is_input_pull_up_down_mode(pin) && ((self.odr.get() & (1 << pin)) != 0)
++    }
++
++    fn is_input_pulldown(&self, pin: usize) -> bool {
++        self.is_input_pull_up_down_mode(pin) && ((self.odr.get() & (1 << pin)) == 0)
++    }
++
++    fn check_and_warn_af(&self, start_pin: usize) {
++        for i in 0..8 {
++            let pin = start_pin + i;
++            if self.is_alternate_push_pull(pin) || self.is_alternate_open_drain(pin) {
++                log_mask_ln!(
++                    Log::Unimp,
++                    "stm32f1xx_gpio: AF mode configured on pin {}. Downgrading to General Output \
++                     to keep simulation running.",
++                    pin
++                );
 +            }
++        }
++    }
++
++    // ---- operations (all return which out pins changed) ----
++
++    /// Restore the RM0008 documented reset state.
++    pub fn reset(&self) -> PinUpdate {
++        self.crl.set(RESET_CRL);
++        self.crh.set(RESET_CRH);
++        self.idr.set(0);
++        self.odr.set(0);
++        self.lckr.set(0);
++        self.disconnected_pins.set(0xFFFF);
++        self.pins_connected_high.set(0);
++        self.update_gpio_idr()
++    }
++
++    /// External source drives pin `line` to `level`.
++    pub fn gpio_set(&self, line: usize, level: u32) -> PinUpdate {
++        // A push-pull output (or an open-drain output driven high) cannot be
++        // driven externally without a short-circuit; refuse it. An open-drain
++        // output driven low is allowed.
++        if self.is_output(line)
++            && !((self.is_alternate_open_drain(line) || self.is_general_open_drain(line))
++                && (level == 0))
++        {
++            log_mask_ln!(
++                Log::GuestError,
++                "stm32f1xx_gpio: Line {} can't be driven externally",
++                line
++            );
++            return PinUpdate::default();
++        }
++
++        self.disconnected_pins
++            .set(self.disconnected_pins.get() & !(1 << line));
++
++        if level != 0 {
++            self.pins_connected_high
++                .set(self.pins_connected_high.get() | (1 << line));
++        } else {
++            self.pins_connected_high
++                .set(self.pins_connected_high.get() & !(1 << line));
++        }
++
++        self.update_gpio_idr()
++    }
++
++    // Return mask of pins that are both configured in output mode and
++    // externally driven (except open-drain pins externally set to 0), which
++    // must be disconnected to avoid a short circuit.
++    fn get_gpio_pinmask_to_disconnect(&self) -> u16 {
++        let mut pins_to_disconnect: u16 = 0;
++        for i in 0..GPIO_NUM_PINS {
++            if (self.disconnected_pins.get() & (1 << i) == 0) && self.is_output(i) {
++                if self.is_general_push_pull(i)
++                    || self.is_alternate_push_pull(i)
++                    || (self.pins_connected_high.get() & (1 << i) != 0)
++                {
++                    pins_to_disconnect |= 1 << i;
++                    log_mask_ln!(
++                        Log::GuestError,
++                        "stm32f1xx_gpio: Line {} can't be driven externally",
++                        i
++                    );
++                }
++            }
++        }
++        pins_to_disconnect
++    }
++
++    fn disconnect_gpio_pins(&self, lines: u16) -> PinUpdate {
++        self.disconnected_pins
++            .set(self.disconnected_pins.get() | lines);
++        self.update_gpio_idr()
++    }
++
++    /// MMIO write. Returns the resulting output-pin changes.
++    pub fn write(&self, offset: u64, data: u32) -> PinUpdate {
++        match offset {
++            REG_CRL => {
++                self.crl.set(data);
++                self.check_and_warn_af(0);
++                // A pin reconfigured to output can no longer be driven.
++                self.disconnect_gpio_pins(self.get_gpio_pinmask_to_disconnect())
++            }
++            REG_CRH => {
++                self.crh.set(data);
++                self.check_and_warn_af(8);
++                self.disconnect_gpio_pins(self.get_gpio_pinmask_to_disconnect())
++            }
++            REG_ODR => {
++                self.odr.set(data & 0xFFFF);
++                self.update_gpio_idr()
++            }
++            REG_BRR => {
++                let bits_to_reset = data & 0xFFFF;
++                self.odr.set(self.odr.get() & !bits_to_reset);
++                self.update_gpio_idr()
++            }
++            REG_BSRR => {
++                let bits_to_set = data & 0xFFFF;
++                let bits_to_reset = (data >> 16) & 0xFFFF;
++
++                // If both BSx and BRx are set, BSx has priority.
++                let mut current_odr = self.odr.get();
++                current_odr &= !bits_to_reset;
++                current_odr |= bits_to_set;
++                self.odr.set(current_odr);
++
++                self.update_gpio_idr()
++            }
++            REG_LCKR => {
++                self.lckr.set(data);
++                log_mask_ln!(
++                    Log::Unimp,
++                    "stm32f1xx_gpio: Locking port bits configuration isn't supported"
++                );
++                PinUpdate::default()
++            }
++            _ => {
++                log_mask_ln!(
++                    Log::GuestError,
++                    "stm32f1xx_gpio_write: Bad offset 0x{:x}",
++                    offset
++                );
++                PinUpdate::default()
++            }
++        }
++    }
++
++    /// MMIO read.
++    pub fn read(&self, offset: u64) -> u32 {
++        match offset {
++            REG_CRL => self.crl.get(),
++            REG_CRH => self.crh.get(),
++            REG_IDR => self.idr.get(),
++            REG_ODR => self.odr.get(),
++            REG_BSRR => 0,
++            REG_BRR => 0,
++            REG_LCKR => self.lckr.get(),
++            _ => {
++                log_mask_ln!(
++                    Log::GuestError,
++                    "stm32f1xx_gpio_read: Bad offset 0x{:x}",
++                    offset
++                );
++                0
++            }
++        }
++    }
++
++    /// Recompute IDR from the pin configuration and external drive state.
++    /// Returns which determined output pins changed level.
++    fn update_gpio_idr(&self) -> PinUpdate {
++        // new_idr_mask bit i => pin i has a determined level in new_idr.
++        let mut new_idr_mask = 0u32;
++        let mut new_idr = self.odr.get();
++        let old_idr = self.idr.get();
++
++        for i in 0..GPIO_NUM_PINS {
++            if self.is_output(i) {
++                if self.is_general_push_pull(i) || self.is_alternate_push_pull(i) {
++                    // push-pull output: pin follows ODR
++                    new_idr_mask |= 1 << i;
++                } else if (self.odr.get() & (1 << i)) == 0 {
++                    // open-drain, ODR 0: pin driven low
++                    new_idr_mask |= 1 << i;
++                } else if (self.disconnected_pins.get() & (1 << i)) == 0
++                    && (self.pins_connected_high.get() & (1 << i)) == 0
++                {
++                    // open-drain, ODR 1, externally pulled low
++                    new_idr &= !(1 << i);
++                    new_idr_mask |= 1 << i;
++                } else if self.is_input_pullup(i) {
++                    new_idr_mask |= 1 << i;
++                } else if self.is_input_pulldown(i) {
++                    new_idr &= !(1 << i);
++                    new_idr_mask |= 1 << i;
++                }
++                // otherwise open-drain ODR 1 floating: keep old value
++            } else if (self.disconnected_pins.get() & (1 << i)) == 0 {
++                // input/analog, externally driven
++                if (self.pins_connected_high.get() & (1 << i)) != 0 {
++                    new_idr_mask |= 1 << i;
++                    new_idr |= 1 << i;
++                } else {
++                    new_idr_mask |= 1 << i;
++                    new_idr &= !(1 << i);
++                }
++            } else {
++                // input/analog, not driven: pull-up/down or floating
++                if self.is_input_pullup(i) {
++                    new_idr |= 1 << i;
++                    new_idr_mask |= 1 << i;
++                } else if self.is_input_pulldown(i) {
++                    new_idr &= !(1 << i);
++                    new_idr_mask |= 1 << i;
++                }
++            }
++        }
++
++        self.idr
++            .set((old_idr & !new_idr_mask) | (new_idr & new_idr_mask));
++
++        // Report which determined pins actually flipped level.
++        let mut changed = 0u32;
++        for i in 0..GPIO_NUM_PINS {
++            if (new_idr_mask & (1 << i)) != 0
++                && ((new_idr & (1 << i)) != 0) != ((old_idr & (1 << i)) != 0)
++            {
++                changed |= 1 << i;
++            }
++        }
++        PinUpdate {
++            mask: changed,
++            levels: new_idr,
 +        }
 +    }
 +}
 +
-+impl Deref for AddressSpace {
-+    type Target = bindings::AddressSpace;
++impl_vmstate_struct!(
++    GpioRegisters,
++    VMStateDescriptionBuilder::<GpioRegisters>::new()
++        .name(c"stm32f1xx-gpio/regs")
++        .version_id(1)
++        .minimum_version_id(1)
++        .fields(vmstate_fields! {
++            vmstate_of!(GpioRegisters, crl),
++            vmstate_of!(GpioRegisters, crh),
++            vmstate_of!(GpioRegisters, idr),
++            vmstate_of!(GpioRegisters, odr),
++            vmstate_of!(GpioRegisters, lckr),
++            vmstate_of!(GpioRegisters, disconnected_pins),
++            vmstate_of!(GpioRegisters, pins_connected_high),
++        })
++        .build()
++);
 +
-+    fn deref(&self) -> &Self::Target {
-+        // SAFETY: Opaque<> wraps a pointer from C side. The validity
-+        // of the pointer is confirmed at the creation of Opaque<>.
-+        unsafe { &*self.0.as_ptr() }
++#[repr(C)]
++#[derive(qom::Object, hwcore::Device)]
++pub struct Stm32f1xxGpioState {
++    parent_obj: ParentField<SysBusDevice>,
++    mmio: MemoryRegion,
++
++    regs: GpioRegisters,
++
++    // One output line per pin, exposed as GPIO-out (to EXTI/board).
++    outlines: [InterruptSource; GPIO_NUM_PINS],
++}
++
++impl Stm32f1xxGpioState {
++    unsafe fn init(mut this: ParentInit<Self>) {
++        static STM32F1XX_GPIO_OPS: MemoryRegionOps<Stm32f1xxGpioState> =
++            MemoryRegionOpsBuilder::<Stm32f1xxGpioState>::new()
++                .read(&Stm32f1xxGpioState::read)
++                .write(&Stm32f1xxGpioState::write)
++                .little_endian()
++                .impl_sizes(4, 4)
++                .build();
++
++        MemoryRegion::init_io(
++            &mut uninit_field_mut!(*this, mmio),
++            &STM32F1XX_GPIO_OPS,
++            "stm32f1xx-gpio-rust",
++            0x400,
++        );
++
++        uninit_field_mut!(*this, regs).write(GpioRegisters::new());
++        uninit_field_mut!(*this, outlines).write(Default::default());
++
++        trace::trace_stm32f1xx_gpio_instance_init();
++    }
++
++    fn post_init(&self) {
++        self.init_mmio(&self.mmio);
++        // Pin-change interrupts on F1 are delivered through EXTI, not a
++        // dedicated NVIC line, so the port only exposes GPIO in/out lines
++        // (no sysbus IRQ).
++        self.init_gpio_in(GPIO_NUM_PINS as u32, Self::gpio_set);
++        self.init_gpio_out(&self.outlines);
++    }
++
++    /// Drive the out lines according to a [`PinUpdate`].
++    fn apply_pin_update(&self, upd: PinUpdate) {
++        for i in 0..GPIO_NUM_PINS {
++            if (upd.mask & (1 << i)) != 0 {
++                let level = (upd.levels & (1 << i)) != 0;
++                self.outlines[i].set(level);
++                trace::trace_stm32f1xx_gpio_irq(i as u32, i32::from(level));
++            }
++        }
++    }
++
++    fn reset_hold(&self, _type: ResetType) {
++        trace::trace_stm32f1xx_gpio_reset();
++        let upd = self.regs.reset();
++        self.apply_pin_update(upd);
++    }
++
++    // GPIO-in callback: external source drives a pin.
++    fn gpio_set(&self, line: u32, level: u32) {
++        let upd = self.regs.gpio_set(line as usize, level);
++        self.apply_pin_update(upd);
++    }
++
++    fn write(&self, offset: hwaddr, data: u64, size: u32) {
++        trace::trace_stm32f1xx_gpio_write(offset, data, size);
++        let upd = self.regs.write(offset, data as u32);
++        self.apply_pin_update(upd);
++    }
++
++    fn read(&self, offset: hwaddr, size: u32) -> u64 {
++        let value = self.regs.read(offset);
++        trace::trace_stm32f1xx_gpio_read(offset, u64::from(value), size);
++        u64::from(value)
 +    }
 +}
 +
-+impl AddressSpace {
-+    /// Helper function to get the [`FlatView`] of the current [`AddressSpace`]
-+    /// without reference count protection.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The caller must ensure that the returned reference is protected by
-+    /// reference count.
-+    unsafe fn get_flatview<'g>(&self, rcu: &'g RcuGuard) -> &'g FlatView {
-+        // SAFETY: `current_map` is an RCU-protected pointer field and any change is
-+        // protected by the RCU mechanism.
-+        let cell = unsafe { RcuCell::from_ptr(std::ptr::addr_of!(self.deref().current_map)) };
-+        // SAFETY: the pointer is valid and not NULL.
-+        unsafe { FlatView::from_raw(std::ptr::from_ref(cell.get(rcu).unwrap()).cast_mut()) }
-+    }
++impl ObjectImpl for Stm32f1xxGpioState {
++    type ParentType = SysBusDevice;
 +
-+    /// The write interface of `AddressSpace`.
-+    ///
-+    /// This function is similar to `address_space_write` on the C side.
-+    ///
-+    /// But it assumes the memory attributes is `MEMTXATTRS_UNSPECIFIED`.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use system::memory::{GuestAddress, ADDRESS_SPACE_MEMORY};
-+    ///
-+    /// let addr = GuestAddress(0x123123000);
-+    /// let buf = [0x1, 0x2, 0x3, 0x4];
-+    /// assert!(ADDRESS_SPACE_MEMORY.write(&buf, addr).is_ok());
-+    /// ```
-+    pub fn write(&self, buf: &[u8], addr: GuestAddress) -> Result<usize> {
-+        Ok(Bytes::write(
-+            &*self.memory(),
-+            buf,
-+            (addr, MEMTXATTRS_UNSPECIFIED),
-+        )?)
-+    }
-+
-+    /// The read interface of `AddressSpace`.
-+    ///
-+    /// This function is similar to `address_space_read_full` on the C side.
-+    ///
-+    /// But it assumes the memory attributes is `MEMTXATTRS_UNSPECIFIED`.
-+    ///
-+    /// Note: this function does not support the fast path like
-+    /// `address_space_read` on the C side.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use system::memory::{GuestAddress, ADDRESS_SPACE_MEMORY};
-+    ///
-+    /// let addr = GuestAddress(0x123123000);
-+    /// let mut buf = [0u8; 4];
-+    /// assert!(ADDRESS_SPACE_MEMORY.read(&mut buf, addr).is_ok());
-+    /// ```
-+    pub fn read(&self, buf: &mut [u8], addr: GuestAddress) -> Result<usize> {
-+        Ok(Bytes::read(
-+            &*self.memory(),
-+            buf,
-+            (addr, MEMTXATTRS_UNSPECIFIED),
-+        )?)
-+    }
-+
-+    /// The store interface of `AddressSpace`.
-+    ///
-+    /// This function is similar to `address_space_st{size}_{endian}` on the C
-+    /// side.
-+    ///
-+    /// The endianness of the access is carried by the value's type, which must
-+    /// implement [`EndianValued`]: pass an explicit-endian type such as
-+    /// `Le32`/`Be32` (or a single-byte `u8`/`i8`).
-+    ///
-+    /// And it assumes the memory attributes is `MEMTXATTRS_UNSPECIFIED`.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use system::memory::{GuestAddress, Le32, ADDRESS_SPACE_MEMORY};
-+    ///
-+    /// let addr = GuestAddress(0x123123000);
-+    /// assert!(ADDRESS_SPACE_MEMORY.store(addr, Le32::from(5)).is_ok());
-+    /// ```
-+    pub fn store<T: EndianValued>(&self, addr: GuestAddress, val: T) -> Result<()> {
-+        // the `Ordering::Relaxed` will be ignored: QEMU's path is not
-+        // Rust-atomic.
-+        Ok(Bytes::store(
-+            &*self.memory(),
-+            val.to_carrier(),
-+            (addr, MEMTXATTRS_UNSPECIFIED),
-+            Ordering::Relaxed,
-+        )?)
-+    }
-+
-+    /// The load interface of `AddressSpace`.
-+    ///
-+    /// This function is similar to `address_space_ld{size}_{endian}` on the C
-+    /// side.
-+    ///
-+    /// The endianness of the access is carried by the requested type, which
-+    /// must implement [`EndianValued`]: ask for an explicit-endian type such
-+    /// as `Le32`/`Be32` (or a single-byte `u8`/`i8`).
-+    ///
-+    /// And it assumes the memory attributes is `MEMTXATTRS_UNSPECIFIED`.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use system::memory::{GuestAddress, Le32, ADDRESS_SPACE_MEMORY};
-+    ///
-+    /// let addr = GuestAddress(0x123123000);
-+    /// assert!(ADDRESS_SPACE_MEMORY.load::<Le32>(addr).is_ok());
-+    /// ```
-+    pub fn load<T: EndianValued>(&self, addr: GuestAddress) -> Result<T> {
-+        // the `Ordering::Relaxed` will be ignored: QEMU's path is not
-+        // Rust-atomic.
-+        let carrier: T::Carrier = Bytes::load(
-+            &*self.memory(),
-+            (addr, MEMTXATTRS_UNSPECIFIED),
-+            Ordering::Relaxed,
-+        )?;
-+        Ok(T::from_carrier(carrier))
-+    }
++    const CLASS_INIT: fn(&mut Self::Class) = Self::Class::class_init::<Self>;
++    const INSTANCE_INIT: Option<unsafe fn(ParentInit<Self>)> = Some(Self::init);
++    const INSTANCE_POST_INIT: Option<fn(&Self)> = Some(Self::post_init);
 +}
 +
-+/// The safe binding around [`bindings::address_space_memory`].
-+///
-+/// `ADDRESS_SPACE_MEMORY` provides the complete address space
-+/// abstraction for the whole Guest memory.
-+pub static ADDRESS_SPACE_MEMORY: &AddressSpace = unsafe {
-+    let ptr: *const bindings::AddressSpace = addr_of!(address_space_memory);
++impl DeviceImpl for Stm32f1xxGpioState {
++    const VMSTATE: Option<VMStateDescription<Self>> = Some(VMSTATE_STM32F1XX_GPIO);
++}
 +
-+    // SAFETY: AddressSpace is #[repr(transparent)].
-+    let wrapper_ptr: *const AddressSpace = ptr.cast();
++impl SysBusDeviceImpl for Stm32f1xxGpioState {}
 +
-+    // SAFETY: `address_space_memory` structure is valid on the C side during
-+    // the whole QEMU life.
-+    &*wrapper_ptr
-+};
++impl ResettablePhasesImpl for Stm32f1xxGpioState {
++    const HOLD: Option<fn(&Self, ResetType)> = Some(Self::reset_hold);
++}
++
++// Migration: register block only; IRQ links are reconstructed on wire-up.
++const VMSTATE_STM32F1XX_GPIO: VMStateDescription<Stm32f1xxGpioState> =
++    VMStateDescriptionBuilder::<Stm32f1xxGpioState>::new()
++        .name(c"stm32f1xx-gpio")
++        .version_id(1)
++        .minimum_version_id(1)
++        .fields(vmstate_fields! {
++            vmstate_of!(Stm32f1xxGpioState, regs),
++        })
++        .build();
+diff --git a/rust/hw/gpio/src/lib.rs b/rust/hw/gpio/src/lib.rs
+new file mode 100644
+index 0000000000..57a1420bb1
+--- /dev/null
++++ b/rust/hw/gpio/src/lib.rs
+@@ -0,0 +1,3 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++pub mod bindings;
++pub mod gpio;
 -- 
-2.34.1
+2.53.0
 
 
