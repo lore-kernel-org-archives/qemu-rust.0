@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 142A7C531C9
-	for <qemu-rust@archiver.kernel.org>; Sun, 26 Jul 2026 14:53:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B07CC531FA
+	for <qemu-rust@archiver.kernel.org>; Sun, 26 Jul 2026 14:53:10 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wo0Cq-0005uE-9w; Sun, 26 Jul 2026 10:51:56 -0400
+	id 1wo0DH-00063D-Fu; Sun, 26 Jul 2026 10:52:23 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <163wangjack@gmail.com>)
- id 1wo0Cf-0005s0-5y
- for qemu-rust@nongnu.org; Sun, 26 Jul 2026 10:51:45 -0400
-Received: from mail-pl1-x62c.google.com ([2607:f8b0:4864:20::62c])
+ id 1wo0D1-0005xc-6S
+ for qemu-rust@nongnu.org; Sun, 26 Jul 2026 10:52:07 -0400
+Received: from mail-pl1-x62b.google.com ([2607:f8b0:4864:20::62b])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.90_1) (envelope-from <163wangjack@gmail.com>)
- id 1wo0Cc-0005zO-1a
- for qemu-rust@nongnu.org; Sun, 26 Jul 2026 10:51:44 -0400
-Received: by mail-pl1-x62c.google.com with SMTP id
- d9443c01a7336-2ceb096e675so22683185ad.0
- for <qemu-rust@nongnu.org>; Sun, 26 Jul 2026 07:51:39 -0700 (PDT)
+ id 1wo0Cy-00062F-Uv
+ for qemu-rust@nongnu.org; Sun, 26 Jul 2026 10:52:06 -0400
+Received: by mail-pl1-x62b.google.com with SMTP id
+ d9443c01a7336-2cc61541f8cso32295775ad.0
+ for <qemu-rust@nongnu.org>; Sun, 26 Jul 2026 07:52:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785077498; x=1785682298; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=gMvRGC+W81P7nB/Cv+wkkm/hmnFBdzMzFGZ00e08Edw=;
- b=FmPWmU1OLVqpxqSXIG0uRwusPzkhle8901WOdYCE3Hmdm0rSsT+SWE1MXqB5AhfYjT
- jA9+6EzXmqHrOLi3ZRYQiGYyJkICzemUm9jZK2bscDU3YG7+a20X2saUFsMEx50V+Af5
- t4jPajp+vpbwqpHajgUoiWYjhAg4X7JrgRcT5ZgcWgMFZ9BIeEURU86gV/nDo2NxandH
- gYWWvCmqIWGdPn6L9vYYrVnopSZ+pEAfO+EnFhHYpWSNs+h7XgRalfjA0d4FadtIFmg4
- SObczchLGdfvb0rXPm8tZj8/iLeliCzgh8OUfjBSB3MFroyyq2rLdFL2JdrZFwsDSnwc
- j+IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785077498; x=1785682298;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1785077524; x=1785682324; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=gMvRGC+W81P7nB/Cv+wkkm/hmnFBdzMzFGZ00e08Edw=;
- b=QKkEzM76x/1vXWymS9l+dyk2GFEbyyCRrMqYalSiEQsFZGs8CDDeO2tVFf9mI4SmT/
- zLPM71TZTmYdXkSV59X1worLIbiJqLRoEpCywCZOgYAehWQ9jh64kVMljEIG7VldTx9E
- QElCuUX9YFI5qiOVVIp6DFr1FEvEz+CzIYeNhyT5lYfg7vQGjqjwd+2qSK8iSjkSNNPC
- RN5bqje8mWCiaNlc7YASt90CCfgUGxYlAjojtQilHOSVuYtZJa1OXJyuFtA40eqhdkYN
- 5xnFJ1Qyo22VgSYIIpgSA96xAehPAw9jVUFK9kj/hzQIE8p+A2ZELbzaaiFcnVXNSHeZ
- E2qQ==
+ bh=ZnuUzF0dJIBznvvjx9kVt4TXwDvHfe0DU2pEHtYFjzE=;
+ b=jTp8PVG01HB7mgsj2TPgmWmjM/01brADE1qkizvUjZDqrbUsas50aRZfZObsYxFlJQ
+ G5oLZLyBaHKHWfYU/QeCxJC7o+3rQQzSHFdAGmt8q1eJ079WhQAEGmqfCFq9tXI7MmBj
+ 2TC8QWOlBT6Q+HbxD9cQgCAcfKvycYqPplzLN9VWmhGzilcBaxrrC1ys2cOjfuord2iV
+ LAiRHNY434pbLJ2vQUyFPjY7tw9VtJeD9+lv8JEyk+5xmaLPZQ0LGECEBdkfANt7/46M
+ EpD3kCN/CMyv7+iSoqTV3n5y07OCtjSkPJHYpm5RkiNXNbFGrab72Q4Cxg/A0TKY82ec
+ MJ4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785077524; x=1785682324;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ZnuUzF0dJIBznvvjx9kVt4TXwDvHfe0DU2pEHtYFjzE=;
+ b=bco8LXJ2rd556aUKnRccNdCQ50grlhVrWxrj489QPJUK1VISOQISpjs07OLkHoz0ku
+ kuqW5sZd2CmEsnCQ3heH+4X1jH7vUvIa7asObUIuZjBnwdae8LXy23/OIZKUpmxeN3k+
+ uAYi/x2qb2DvZiHc8nBn+c789bYKQtaUEnvLH0hNqxKAYWezJcfhT26ksG36cDMrZ1ph
+ LxwnAVhWl1TPHmIRSFofofIvBt4ve3tFCWsk81yHs+UKcTcQxY069USsbqpPwPr/8+NV
+ gCSGyZ1JuLvHMM9BY6KurhSeudTGa1ailbBI4DlGgJuYlvoJczxfePrtxpHSYjTW4n1u
+ Lx8w==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp6GYa4NhD+uFammhRSRkyN5bsLgLOeJT8PV5udXnYUQipV0mzPcxDVzMyl3rJAYOc0rAFdkulO4gc=@nongnu.org
-X-Gm-Message-State: AOJu0Yypd9i3LpwjqJAMyQRc70RUYDhVDDxgYyNU4dJJ8TOmRGM+V1Tm
- +mLZD977J3nz6LbjsdiN83xFw3sdZMlzY8YGt6qgtpwAnTdJ0BCmKssY
-X-Gm-Gg: AR+sD11K1G19SQOciobxAPi3jRBrH9FDVmwFmDuJ9rW8aM6Vwt0IiifMg3HHsI17XtO
- Thi8hxkC/P9tA+v8w5b55yCSC+kxDWhCW9XgmZLfhCAmuYVNorFvJo4xz7U5QD9A9j+ueMKY5t/
- /GbRsOUpptvqgf+q0NmWtG1cKisaAtE3lez+F7ksFfMjXwZeSv/PLh5dsc1FtEthz83QaZdzgao
- na28XCyd7NfYeJ4069SieQSQm10HvS8WLKSNDO3rTTzvu7+d12sofT4ZlK49EmMX7n1eFc+XRuj
- 1pBN1/9AkKcKqj/nh2BebBpuLac09eyKjyZsD6cQeWsBXawS2nzKL+C9Vsyq1urE254qLDZbxxw
- SsmhS9dYEyh5gudso3dWb6aqUTNjDthk9E2oviuhV3Y4cK3Kn3TtY50eLk4XmZmta90gVqzcYvZ
- FX6r/+0x5J2D91nw==
-X-Received: by 2002:a17:903:32d0:b0:2cf:4504:feb5 with SMTP id
- d9443c01a7336-2cfde85f6acmr57490745ad.31.1785077498488; 
- Sun, 26 Jul 2026 07:51:38 -0700 (PDT)
+ AHgh+RoDq23tI/GZ/f9rYCzpo8Fe4cL+MDY4enD2h88ipYcFplwXZ0wQfiL1nbcS7eryRnit4OawLEODQQ8=@nongnu.org
+X-Gm-Message-State: AOJu0Yxkgv7WoyI8rmxYhiBQFE3fC7/NonLT3/7fPEW5/yzZzm87eLZT
+ uQC/mtZZi2nbz7BcgqugcppWEoydG0bUiYGOSJGgnkKJD5SzCi0OPvo8Ipq+Fg==
+X-Gm-Gg: AR+sD10X3LUxcmxpC03kSB9NFXF5iyZBExmXpR+dfWpGrFY4fRHhRc3U2ReZuswRqjF
+ L4FHtnzvA4o6zSjlezmrmXKiybaPRNJwNU17zb3RggxfNqbuhrw5ETo5Xsa3HQWw9UO2roykQQH
+ sPUF269CL0KkvO8fQkn5m2TjtkPuBoqRqMRipLyGGND8DOW4afvMsxwR52V/IA9CltYFY4Q2Dlp
+ MrLBLyRZZNzeWJTJPSya4VNclXXa8SEORt56UFJEcGjtKxeHTeBWc/0LINCzgJX9Ym97H2vps6a
+ givVnlhN2K16bdUt2SRO0bSnlxjffqqLL4Ac63m+87UnJxk3MCJQNJbc5q7Sa4iWPTWbvFYPLnd
+ jdl3Q/42raHaKNRQL0GaMDZuMtOWuW+XSHKJ1lRF+0U1G7WvYhC8OGxPp0se/DIx/cI14+6LZ6D
+ D9Guy4ml0Va1uBmpqBctkMqPTp
+X-Received: by 2002:a17:902:d2c6:b0:2cf:7de1:4a00 with SMTP id
+ d9443c01a7336-2cfd70c0f61mr70085545ad.1.1785077523444; 
+ Sun, 26 Jul 2026 07:52:03 -0700 (PDT)
 Received: from localhost.localdomain ([82.40.42.115])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2cfde81d7f5sm20934195ad.83.2026.07.26.07.51.31
+ d9443c01a7336-2cfde81d7f5sm20934195ad.83.2026.07.26.07.51.54
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sun, 26 Jul 2026 07:51:36 -0700 (PDT)
+ Sun, 26 Jul 2026 07:52:01 -0700 (PDT)
 From: Jack Wang <163wangjack@gmail.com>
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
@@ -73,14 +74,16 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
  Laurent Vivier <lvivier@redhat.com>, qemu-arm@nongnu.org,
  qemu-rust@nongnu.org, caojunze424@gmail.com,
  Jack Wang <163wangjack@gmail.com>
-Subject: [RFC PATCH v1 0/5] hw/gpio: STM32F1xx GPIO controller in Rust
-Date: Sun, 26 Jul 2026 22:51:14 +0800
-Message-ID: <20260726145119.19881-1-163wangjack@gmail.com>
+Subject: [RFC PATCH v1 4/5] tests/qtest: add stm32f103 GPIO test
+Date: Sun, 26 Jul 2026 22:51:18 +0800
+Message-ID: <20260726145119.19881-5-163wangjack@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260726145119.19881-1-163wangjack@gmail.com>
+References: <20260726145119.19881-1-163wangjack@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2607:f8b0:4864:20::62c;
- envelope-from=163wangjack@gmail.com; helo=mail-pl1-x62c.google.com
+Received-SPF: pass client-ip=2607:f8b0:4864:20::62b;
+ envelope-from=163wangjack@gmail.com; helo=mail-pl1-x62b.google.com
 X-Spam_score_int: -13
 X-Spam_score: -1.4
 X-Spam_bar: -
@@ -103,72 +106,373 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Hi all,
+Add a qtest that drives the STM32F103 GPIO ports over the qtest socket,
+covering the RM0008 reset state, BSRR/BRR set/reset semantics and the
+output-line behaviour for push-pull and open-drain configurations.
 
-This RFC adds an STM32F1xx GPIO controller modelled in Rust, following the
-existing rust/hw/char/pl011 device as a template. The register logic (CRL/CRH
-mode+config decode and the IDR update algorithm) is a direct port of the C
-model in hw/gpio/stm32l4x5_gpio.c; the STM32F1xx GPIO block (RM0008) is the
-same IP used by the upstream stm32f100_soc.
-
-This series is currently stacked on an out-of-tree STM32F103 SoC and board
-that are not yet upstream which is https://github.com/shandianchengzi/qemu
-But the commit(the initialize logic and gpio architecture) is both capable 
-for stm32f100.This is the reason that struct name is  stm32f1xx. Patch 3 
-("hw/arm/stm32f103: instantiate and mapGPIO ports") therefore touches files 
-that do not exist in mainline and willnot apply cleanly on its own. 
-I am sending this as an RFC to get feedback onthe Rust device model and 
-its integration now, before the SoC lands, rather than as an apply-ready series
-. Once the SoC is upstream (or if you I
-can retarget the device at the existing stm32f100_soc), I will resend a
-non-RFC series.
-
-checkpatch reports SPDX warnings on Kconfig/trace-events/Cargo.toml/
-meson.build and "MAINTAINERS need updating" on the new files. These are
-false positives: matching rust/hw/char/pl011, these file types carry no SPDX
-header in-tree, and MAINTAINERS already gains an entry covering rust/hw/gpio/
-and the qtest in this series.
-
-Anyway this is my first time to generate rust model build so sorry for some
-mistakes. And any help or tip are welcomed
-
-Jack Wang (5):
-  hw/gpio: add stm32f1xx GPIO device model (Rust)
-  rust: add hw/gpio crate to the workspace
-  hw/arm/stm32f103: instantiate and map GPIO ports
-  tests/qtest: add stm32f103 GPIO test
-  rust/hw/gpio: add native unit tests
-
- MAINTAINERS                       |   7 +
- hw/arm/Kconfig                    |   1 +
- hw/arm/stm32f103_board.c          |   2 +-
- hw/arm/stm32f103_soc.c            |  54 ++-
- hw/gpio/Kconfig                   |   5 +
- hw/gpio/trace-events              |   7 +
- include/hw/arm/stm32f103_soc.h    |   9 +
- rust/Cargo.lock                   |  17 +-
- rust/Cargo.toml                   |  18 +
- rust/hw/Kconfig                   |   1 +
- rust/hw/gpio/Cargo.toml           |  28 ++
- rust/hw/gpio/Kconfig              |   2 +
- rust/hw/gpio/meson.build          |  54 +++
- rust/hw/gpio/src/bindings.rs      |  19 ++
- rust/hw/gpio/src/gpio.rs          | 539 ++++++++++++++++++++++++++++++
- rust/hw/gpio/src/lib.rs           |   3 +
- rust/hw/gpio/tests/tests.rs       | 191 +++++++++++
- rust/hw/meson.build               |   1 +
+Signed-off-by: Jack Wang <163wangjack@gmail.com>
+---
  tests/qtest/meson.build           |   4 +
- tests/qtest/stm32f103_gpio-test.c | 328 ++++++++++++++++++
- 20 files changed, 1281 insertions(+), 9 deletions(-)
- create mode 100644 rust/hw/gpio/Cargo.toml
- create mode 100644 rust/hw/gpio/Kconfig
- create mode 100644 rust/hw/gpio/meson.build
- create mode 100644 rust/hw/gpio/src/bindings.rs
- create mode 100644 rust/hw/gpio/src/gpio.rs
- create mode 100644 rust/hw/gpio/src/lib.rs
- create mode 100644 rust/hw/gpio/tests/tests.rs
+ tests/qtest/stm32f103_gpio-test.c | 328 ++++++++++++++++++++++++++++++
+ 2 files changed, 332 insertions(+)
  create mode 100644 tests/qtest/stm32f103_gpio-test.c
 
+diff --git a/tests/qtest/meson.build b/tests/qtest/meson.build
+index e154abb05d..4f407b68fe 100644
+--- a/tests/qtest/meson.build
++++ b/tests/qtest/meson.build
+@@ -235,6 +235,9 @@ qtests_stm32l4x5 = \
+    'stm32l4x5_gpio-test',
+    'stm32l4x5_usart-test']
+ 
++qtests_stm32f103 = \
++  ['stm32f103_gpio-test']
++
+ qtests_arm = \
+   (config_all_devices.has_key('CONFIG_MPS2') ? ['sse-timer-test'] : []) + \
+   (config_all_devices.has_key('CONFIG_CMSDK_APB_DUALTIMER') ? ['cmsdk-apb-dualtimer-test'] : []) + \
+@@ -250,6 +253,7 @@ qtests_arm = \
+   (config_all_devices.has_key('CONFIG_VEXPRESS') ? ['test-arm-mptimer'] : []) + \
+   (config_all_devices.has_key('CONFIG_MICROBIT') ? ['microbit-test'] : []) + \
+   (config_all_devices.has_key('CONFIG_STM32L4X5_SOC') ? qtests_stm32l4x5 : []) + \
++  (config_all_devices.has_key('CONFIG_STM32F103_SOC') ? qtests_stm32f103 : []) + \
+   (config_all_devices.has_key('CONFIG_FSI_APB2OPB_ASPEED') ? ['aspeed_fsi-test'] : []) + \
+   (config_all_devices.has_key('CONFIG_STM32L4X5_SOC') and
+    config_all_devices.has_key('CONFIG_DM163')? ['dm163-test'] : []) + \
+diff --git a/tests/qtest/stm32f103_gpio-test.c b/tests/qtest/stm32f103_gpio-test.c
+new file mode 100644
+index 0000000000..97ef7dd3e8
+--- /dev/null
++++ b/tests/qtest/stm32f103_gpio-test.c
+@@ -0,0 +1,328 @@
++/*
++ * QTest testcase for STM32F103 GPIO (Rust device "stm32f1xx-gpio-rust")
++ *
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ *
++ * Copyright (c) 2026 QEMU contributors
++ *
++ * The STM32F1 GPIO differs from the L4 family: each pin is configured by a
++ * 4-bit field MODE[1:0]+CNF[1:0] packed into CRL (pins 0-7) and CRH (pins
++ * 8-15), instead of the separate MODER/OTYPER/PUPDR registers of the L4.
++ * See ST RM0008 for the register map and reset values.
++ */
++
++#include "qemu/osdep.h"
++#include "libqtest-single.h"
++
++#define GPIO_BASE_ADDR 0x40010800
++#define GPIO_SIZE      0x400
++#define NUM_GPIOS      7
++#define NUM_GPIO_PINS  16
++
++#define GPIO_A 0x40010800
++#define GPIO_B 0x40010C00
++#define GPIO_C 0x40011000
++#define GPIO_D 0x40011400
++#define GPIO_E 0x40011800
++#define GPIO_F 0x40011C00
++#define GPIO_G 0x40012000
++
++/* Register offsets (RM0008). */
++#define CRL  0x00
++#define CRH  0x04
++#define IDR  0x08
++#define ODR  0x0C
++#define BSRR 0x10
++#define BRR  0x14
++#define LCKR 0x18
++
++/* 4-bit MODE[1:0]+CNF[1:0] pin configurations. */
++#define CFG_INPUT_FLOATING   0x4  /* MODE=00 CNF=01 (reset default) */
++#define CFG_INPUT_PULL       0x8  /* MODE=00 CNF=10, ODR selects up/down */
++#define CFG_OUTPUT_PP        0x1  /* MODE=01 CNF=00, general push-pull */
++#define CFG_OUTPUT_OD        0x5  /* MODE=01 CNF=01, general open-drain */
++
++/* CRL/CRH reset value: every pin floating input. */
++#define CR_RESET 0x44444444
++
++static uint32_t gpio_readl(unsigned int gpio, unsigned int offset)
++{
++    return readl(gpio + offset);
++}
++
++static void gpio_writel(unsigned int gpio, unsigned int offset, uint32_t value)
++{
++    writel(gpio + offset, value);
++}
++
++/* Set the 4-bit config nibble for `pin` in CRL/CRH. */
++static void gpio_set_config(unsigned int gpio, unsigned int pin, uint8_t cfg)
++{
++    unsigned int reg = (pin < 8) ? CRL : CRH;
++    unsigned int shift = (pin % 8) * 4;
++    uint32_t mask = ~(0xFu << shift);
++    uint32_t val = (gpio_readl(gpio, reg) & mask) | ((uint32_t)cfg << shift);
++    gpio_writel(gpio, reg, val);
++}
++
++static void gpio_set_odr_bit(unsigned int gpio, unsigned int pin,
++                             uint32_t value)
++{
++    uint32_t mask = ~(0x1u << pin);
++    gpio_writel(gpio, ODR, (gpio_readl(gpio, ODR) & mask) | (value << pin));
++}
++
++static unsigned int get_gpio_id(uint32_t gpio_addr)
++{
++    return (gpio_addr - GPIO_BASE_ADDR) / GPIO_SIZE;
++}
++
++static const char *gpio_path(uint32_t gpio)
++{
++    static char buf[32];
++    snprintf(buf, sizeof(buf), "/machine/soc/gpio%c", 'a' + get_gpio_id(gpio));
++    return buf;
++}
++
++/* Drive pin `num` of `gpio` to `level` from an external source. */
++static void gpio_set_irq(unsigned int gpio, int num, int level)
++{
++    qtest_set_irq_in(global_qtest, gpio_path(gpio), NULL, num, level);
++}
++
++/*
++ * Intercept this port's own gpio-out lines so get_irq(pin) observes them.
++ *
++ * qtest only supports intercepting one device's out-GPIOs per session (the
++ * interception device is global), so every test that observes gpio-out via
++ * get_irq() must target the SAME port. We use GPIO_A for all of them. Tests
++ * that only read IDR/ODR over MMIO can use any port and skip interception.
++ */
++static void intercept_out(unsigned int gpio)
++{
++    qtest_irq_intercept_out(global_qtest, gpio_path(gpio));
++}
++
++static void reset_gpio(unsigned int gpio)
++{
++    gpio_writel(gpio, CRL, CR_RESET);
++    gpio_writel(gpio, CRH, CR_RESET);
++    gpio_writel(gpio, ODR, 0);
++}
++
++static void test_reset_values(void)
++{
++    /*
++     * Scribble over the config/data registers, issue a system reset, and
++     * check the RM0008 documented reset state is restored: CRL/CRH back to
++     * 0x44444444 (floating input) and IDR/ODR back to 0.
++     */
++    gpio_writel(GPIO_A, CRL, 0xDEADBEEF);
++    gpio_writel(GPIO_A, CRH, 0xDEADBEEF);
++    gpio_writel(GPIO_A, ODR, 0xDEADBEEF);
++
++    gpio_writel(GPIO_C, CRL, 0x12345678);
++    gpio_writel(GPIO_C, ODR, 0x0000FFFF);
++
++    qtest_system_reset(global_qtest);
++
++    g_assert_cmphex(gpio_readl(GPIO_A, CRL), ==, CR_RESET);
++    g_assert_cmphex(gpio_readl(GPIO_A, CRH), ==, CR_RESET);
++    g_assert_cmphex(gpio_readl(GPIO_A, IDR), ==, 0);
++    g_assert_cmphex(gpio_readl(GPIO_A, ODR), ==, 0);
++
++    g_assert_cmphex(gpio_readl(GPIO_C, CRL), ==, CR_RESET);
++    g_assert_cmphex(gpio_readl(GPIO_C, IDR), ==, 0);
++    g_assert_cmphex(gpio_readl(GPIO_C, ODR), ==, 0);
++}
++
++static void test_output_mode(const void *data)
++{
++    /*
++     * Configure a pin as push-pull output and check ODR drives IDR and the
++     * gpio-out line. Also check ODR writes made while the pin is still an
++     * input are latched (not discarded), taking effect once switched.
++     */
++    unsigned int pin = (uintptr_t)data & 0xF;
++    uint32_t gpio = (uintptr_t)data & ~(GPIO_SIZE - 1);
++    bool observe = (gpio == GPIO_A);
++
++    reset_gpio(gpio);
++    if (observe) {
++        intercept_out(gpio);
++    }
++
++    /* Set ODR while floating input: IDR unaffected, no output edge. */
++    gpio_set_odr_bit(gpio, pin, 1);
++    g_assert_cmphex(gpio_readl(gpio, IDR), ==, 0);
++    if (observe) {
++        g_assert_false(get_irq(pin));
++    }
++
++    /* Switch to push-pull output: pin now follows ODR (high). */
++    gpio_set_config(gpio, pin, CFG_OUTPUT_PP);
++    g_assert_cmphex(gpio_readl(gpio, IDR), ==, (1u << pin));
++    if (observe) {
++        g_assert_true(get_irq(pin));
++    }
++
++    /* Clear ODR bit: pin goes low. */
++    gpio_set_odr_bit(gpio, pin, 0);
++    g_assert_cmphex(gpio_readl(gpio, IDR), ==, 0);
++    if (observe) {
++        g_assert_false(get_irq(pin));
++    }
++
++    reset_gpio(gpio);
++}
++
++static void test_input_mode(const void *data)
++{
++    /*
++     * Configure a pin as floating input and check that an external drive
++     * (via the gpio-in line) is reflected in IDR and on the gpio-out line.
++     */
++    unsigned int pin = (uintptr_t)data & 0xF;
++    uint32_t gpio = (uintptr_t)data & ~(GPIO_SIZE - 1);
++    bool observe = (gpio == GPIO_A);
++
++    reset_gpio(gpio);
++    if (observe) {
++        intercept_out(gpio);
++    }
++
++    gpio_set_config(gpio, pin, CFG_INPUT_FLOATING);
++
++    gpio_set_irq(gpio, pin, 1);
++    g_assert_cmphex(gpio_readl(gpio, IDR), ==, (1u << pin));
++    if (observe) {
++        g_assert_true(get_irq(pin));
++    }
++
++    gpio_set_irq(gpio, pin, 0);
++    g_assert_cmphex(gpio_readl(gpio, IDR), ==, 0);
++    if (observe) {
++        g_assert_false(get_irq(pin));
++    }
++
++    reset_gpio(gpio);
++}
++
++static void test_pull_up_down(const void *data)
++{
++    /*
++     * In input pull mode (CNF=10), ODR selects the resistor: ODR=1 pulls the
++     * pin up (IDR=1) and ODR=0 pulls it down (IDR=0), even with no external
++     * driver connected.
++     */
++    unsigned int pin = (uintptr_t)data & 0xF;
++    uint32_t gpio = (uintptr_t)data & ~(GPIO_SIZE - 1);
++
++    reset_gpio(gpio);
++    intercept_out(gpio);
++
++    /* Pull-up. */
++    gpio_set_odr_bit(gpio, pin, 1);
++    gpio_set_config(gpio, pin, CFG_INPUT_PULL);
++    g_assert_cmphex(gpio_readl(gpio, IDR), ==, (1u << pin));
++    g_assert_true(get_irq(pin));
++
++    /* Pull-down. */
++    gpio_set_odr_bit(gpio, pin, 0);
++    g_assert_cmphex(gpio_readl(gpio, IDR), ==, 0);
++    g_assert_false(get_irq(pin));
++
++    reset_gpio(gpio);
++}
++
++static void test_bsrr_brr(const void *data)
++{
++    /*
++     * BSRR: low 16 bits set ODR bits, high 16 bits reset them, with set
++     * taking priority. BRR resets ODR bits.
++     */
++    unsigned int pin = (uintptr_t)data & 0xF;
++    uint32_t gpio = (uintptr_t)data & ~(GPIO_SIZE - 1);
++
++    reset_gpio(gpio);
++
++    gpio_writel(gpio, BSRR, (1u << pin));
++    g_assert_cmphex(gpio_readl(gpio, ODR), ==, (1u << pin));
++
++    gpio_writel(gpio, BSRR, (1u << (pin + 16)));
++    g_assert_cmphex(gpio_readl(gpio, ODR), ==, 0);
++
++    gpio_writel(gpio, BSRR, (1u << pin));
++    g_assert_cmphex(gpio_readl(gpio, ODR), ==, (1u << pin));
++
++    gpio_writel(gpio, BRR, (1u << pin));
++    g_assert_cmphex(gpio_readl(gpio, ODR), ==, 0);
++
++    /* Set has priority over reset in BSRR. */
++    gpio_writel(gpio, BSRR, (1u << pin) | (1u << (pin + 16)));
++    g_assert_cmphex(gpio_readl(gpio, ODR), ==, (1u << pin));
++
++    reset_gpio(gpio);
++}
++
++static void test_push_pull_disconnect(const void *data)
++{
++    /*
++     * A pin driven externally, then reconfigured as push-pull output, must be
++     * disconnected from the external driver: its IDR follows ODR, not the
++     * stale external level.
++     */
++    unsigned int pin = (uintptr_t)data & 0xF;
++    uint32_t gpio = (uintptr_t)data & ~(GPIO_SIZE - 1);
++
++    reset_gpio(gpio);
++
++    /* Drive high externally as input. */
++    gpio_set_config(gpio, pin, CFG_INPUT_FLOATING);
++    gpio_set_irq(gpio, pin, 1);
++    g_assert_cmphex(gpio_readl(gpio, IDR), ==, (1u << pin));
++
++    /* Reconfigure as push-pull output with ODR=0: pin must drop to 0. */
++    gpio_set_odr_bit(gpio, pin, 0);
++    gpio_set_config(gpio, pin, CFG_OUTPUT_PP);
++    g_assert_cmphex(gpio_readl(gpio, IDR), ==, 0);
++
++    /* Further external drives are ignored while output push-pull. */
++    gpio_set_irq(gpio, pin, 1);
++    g_assert_cmphex(gpio_readl(gpio, IDR), ==, 0);
++
++    reset_gpio(gpio);
++}
++
++int main(int argc, char **argv)
++{
++    int ret;
++
++    g_test_init(&argc, &argv, NULL);
++    g_test_set_nonfatal_assertions();
++
++    qtest_add_func("stm32f103/gpio/reset_values", test_reset_values);
++    qtest_add_data_func("stm32f103/gpio/output_mode_a5",
++                        (void *)(uintptr_t)(GPIO_A | 5), test_output_mode);
++    qtest_add_data_func("stm32f103/gpio/output_mode_c13",
++                        (void *)(uintptr_t)(GPIO_C | 13), test_output_mode);
++    qtest_add_data_func("stm32f103/gpio/input_mode_b6",
++                        (void *)(uintptr_t)(GPIO_B | 6), test_input_mode);
++    qtest_add_data_func("stm32f103/gpio/input_mode_d10",
++                        (void *)(uintptr_t)(GPIO_D | 10), test_input_mode);
++    qtest_add_data_func("stm32f103/gpio/pull_up_down_a0",
++                        (void *)(uintptr_t)(GPIO_A | 0), test_pull_up_down);
++    qtest_add_data_func("stm32f103/gpio/bsrr_brr_a1",
++                        (void *)(uintptr_t)(GPIO_A | 1), test_bsrr_brr);
++    qtest_add_data_func("stm32f103/gpio/bsrr_brr_e12",
++                        (void *)(uintptr_t)(GPIO_E | 12), test_bsrr_brr);
++    qtest_add_data_func("stm32f103/gpio/push_pull_disconnect_g7",
++                        (void *)(uintptr_t)(GPIO_G | 7),
++                        test_push_pull_disconnect);
++
++    qtest_start("-machine stm32f103");
++    ret = g_test_run();
++    qtest_end();
++
++    return ret;
++}
 -- 
 2.53.0
 
