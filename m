@@ -4,93 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E214AC531FA
-	for <qemu-rust@archiver.kernel.org>; Sun, 26 Jul 2026 14:53:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B815C53219
+	for <qemu-rust@archiver.kernel.org>; Mon, 27 Jul 2026 07:49:10 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wo0DH-00063A-FW; Sun, 26 Jul 2026 10:52:23 -0400
+	id 1woG59-0006zH-7b; Mon, 27 Jul 2026 03:49:03 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <163wangjack@gmail.com>)
- id 1wo0Cr-0005uz-Vm
- for qemu-rust@nongnu.org; Sun, 26 Jul 2026 10:51:58 -0400
-Received: from mail-pl1-x62d.google.com ([2607:f8b0:4864:20::62d])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.90_1) (envelope-from <163wangjack@gmail.com>)
- id 1wo0Cq-000617-80
- for qemu-rust@nongnu.org; Sun, 26 Jul 2026 10:51:57 -0400
-Received: by mail-pl1-x62d.google.com with SMTP id
- d9443c01a7336-2caea3f742bso24354345ad.0
- for <qemu-rust@nongnu.org>; Sun, 26 Jul 2026 07:51:55 -0700 (PDT)
+ (Exim 4.90_1) (envelope-from <philmd@oss.qualcomm.com>)
+ id 1woG57-0006z0-Cn
+ for qemu-rust@nongnu.org; Mon, 27 Jul 2026 03:49:01 -0400
+Received: from mx0a-0031df01.pphosted.com ([205.220.168.131])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.90_1) (envelope-from <philmd@oss.qualcomm.com>)
+ id 1woG55-0000Kq-Ec
+ for qemu-rust@nongnu.org; Mon, 27 Jul 2026 03:49:01 -0400
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66R7SOsQ2532938
+ for <qemu-rust@nongnu.org>; Mon, 27 Jul 2026 07:48:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ HBPVLbu6yw/BFwf738uPlDbTI4TCnEhtsxFEawoQNjc=; b=U7tOKx6mnR/rmtNX
+ Q2Meqt2TNd5AqHWbNbbI9j0B3KXQDvx6fBJP4SlPhrR/J1TozJqRp2vQuNN7D+8N
+ 1Mnb7jsU2Rz7/SCruZ+m6RvQP26+O9v/GnXUOidKu3jsaUu7JOQh2D/AdHBEBMV5
+ MLsw53/jJnRG8ETG6JkgN/XwP86mNundBv1Fqykv55Xhp/EuuLynvUorpDiZNEvg
+ 9OlYyJDjOozk1HwcRnkbCuFtXHfql3yqTAxp5pLdi2eAp20qo8g0SYYH5b3HxuNq
+ tt7Bn1iawyjqoaJ3AW2OXEQGAxC0OdV3ze5k/7uUa+F+rGwZrkpEWorV3SaBs+DS
+ OnIvRg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fmpajmvfv-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <qemu-rust@nongnu.org>; Mon, 27 Jul 2026 07:48:55 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-5276aa86d00so29783861cf.2
+ for <qemu-rust@nongnu.org>; Mon, 27 Jul 2026 00:48:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785077514; x=1785682314; darn=nongnu.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=IjwguSNnxaa5a5wI2q+FKJUSG7PlKND5S7DmrRXF5ds=;
- b=g2r/mpo+SbAutMyp/LnCUBxAqXIwMkjeaFFUhL+OMUJOAs+HQ1nF54SpP0CP3gagdN
- m2XbzJ3DLd6NAw3QxnGoCA8S2OavFSEqUIbG+x4NjucoUXwBsNgdJbpZ06gQbjS3hsCU
- lwO9sINGntRSAzbXJlMPN87FHzP/y+TEqGprAqHdoJtFDNReegyd+IndDLUSABr2XtwN
- 0EUHlExvsDUh6SVx8uiqzSFYR+fuhDiXXV73G99jloUo/4vco3wkcbxhNetH4m3zogys
- QgxCNUGzW9cI+SzNN32u5IYpt/dwqCz1rHahzcjh3tJ6c7POI7WNr/wZcvcCEfVXHIrH
- pCYg==
+ d=oss.qualcomm.com; s=google; t=1785138535; x=1785743335; darn=nongnu.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from:references
+ :cc:to:content-language:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=HBPVLbu6yw/BFwf738uPlDbTI4TCnEhtsxFEawoQNjc=;
+ b=ecqsStXmp1oTchJtBQnnIuq3rbeZjN60QfW8BybdMtSmfYL+jcvum122LKJUsbN3Tb
+ o2uMGOY15ZYDQIGshok18C5CfZ5HxCuf1iSZ5tvBJAGCHXHSCOCXVFoKF6r11bvQXJGF
+ qT5vlYomr4L9e2u7//E+AqYzZIj0XuUMHEVGmuQBgZLBBWM9YnjLOTF2FeD2SVaZEPr6
+ p67xV1Qr1HVNfLrcb1rqAEiYwRbUGHsMU97pK1Ab7ZUuVOSFwq0U/a/0ICGOEFglpLVD
+ bo8dLNDJD3Y8wqTf4aT88jBCaHzdX37eyRSnJIUeVk/WNmVmn/TOh8fXuG9spEqZfG/L
+ WrxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785077514; x=1785682314;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=IjwguSNnxaa5a5wI2q+FKJUSG7PlKND5S7DmrRXF5ds=;
- b=hAgCNC1qAuy0ah9TvBhcs8+nvx6x+uApVlX/Xf3lq4pkKAOqHh3dMEZGPIHYpN1JN8
- yu0e03KPyKnu4FEB5YPvNMf1wCPEe3lHICID16nrGSzx4KO0NF1ck74GKSXl/mliyOak
- eVqu/ix/Hn4BBo9cuCKPGlqYNBgp3f/JJwNQ0gWBXSdtKTKZ5p956bC62DUVe3jUMEp1
- c3Vq2v3QQ54ZFotTbMu4iCu4Nu29r+LEDZaOXysascU0lWvI3U2GC2VRP26OUYCYkbQe
- 94JM2lSXCMhVsxU+NCrMKsKeMmUQfzQbD6+mzSbW+wKh8uHJJStNzBXYV/Lof9y9/DIo
- 2VpQ==
+ d=1e100.net; s=20251104; t=1785138535; x=1785743335;
+ h=content-transfer-encoding:content-type:in-reply-to:from:references
+ :cc:to:content-language:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=HBPVLbu6yw/BFwf738uPlDbTI4TCnEhtsxFEawoQNjc=;
+ b=OraGLVSSseoY0H15ADazLmn9X751ecHdROtZZptR/xvpLCvsxqktf8qeZZblcSf1Bm
+ a1rHAE0oGhMvzTSbJ2yMHkHL4kPgOXXMFa2M+juw26jRZZNvQl6NzH5LJmhIwwjlcuoS
+ lKoWmA2707cB+edMNZP1Bjc3j4cGwZUVCsYMbC45QtppTFqFGtRRQSZOp7kd4aUy7OaN
+ f6UJ5fG4pvHILz7vALkFJEPKVmPT7J6oj35TIdJCD5X2shmGZa3pUeRq8ZSr/wzDIym0
+ sGLpR45pDAtxFXxEFCusW/aqhUpO9NNIZqujKSmtjs7DomqFyRMZw0IB1WKF1wEQ/hMs
+ n3Ig==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqsuXx+QvIHk4Re5apiDa8acmsZbqRAKPPcw2Hb7HTuPgaWT3Z+FibpXADQv8h5Ut2MbkJ44eFEWNI=@nongnu.org
-X-Gm-Message-State: AOJu0YwV+N5ZRixda41gGxh+vE7wXyoLSHhRo/xzvcvYiaHfM3Ovo9pn
- 7J+mgceOiXbgcKn1NgRbzixtXon49earE8r79dzvmPEhEzAYGrSiv0Cj
-X-Gm-Gg: AR+sD10SO3xtTOCYdDnyFNlGWjm8xRjD4Za1mneYJLC5NavsykYv5+iYrgb5oxLL8xl
- gvRPEe8Jm/AM+Q9igjdJAQankBas5kt39nz+47N0RkFj7OycrqgJNhKfcayxFp/0FUiQC2+EtGC
- MF+kD4jCbYXgxiPBjHXGpbTo1UH0pBjJLOrYs36ttW3Sk3nl3VPd/miP9sV2VSBKoGcF/CnycjX
- oYy+9wqZBSu+/tRzYmB+WZhblKEsikhaO3v5hOfy896tzEohK2JhnIjFoO4JQc/Zgk5Pap4CnDs
- vxtoQC1M7+dl52AqDQOE/37W1fGaO2RI0MI5ZM5x345GUrk0f8FmYxCQq4283oiQokxITIwc8Qw
- yQ+lTsD9H2c+SVU949jrBAIFIjCmLkUKtAwTEOpgGPRLagtHAZm4MZHQp4ktQOITHLIluQmLfvr
- hnQaIrf7xLXNdfjg==
-X-Received: by 2002:a17:903:2c0e:b0:2ca:ef16:8e8 with SMTP id
- d9443c01a7336-2cfde825055mr53974475ad.29.1785077514288; 
- Sun, 26 Jul 2026 07:51:54 -0700 (PDT)
-Received: from localhost.localdomain ([82.40.42.115])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2cfde81d7f5sm20934195ad.83.2026.07.26.07.51.50
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sun, 26 Jul 2026 07:51:53 -0700 (PDT)
-From: Jack Wang <163wangjack@gmail.com>
-To: qemu-devel@nongnu.org
+ AHgh+RpBjt2eWsLXQfbCZyj+2O6zvH13cxtRhp85lfLch8rhdM6AOV7iTJ/LvExlL47ube6hovR+qGkz4J4=@nongnu.org
+X-Gm-Message-State: AOJu0YzLV/HH6XpaHHp/3a/ljHiIF0BPmEmEqrhsx3KyglnUtcATVEmc
+ MjRNzHza/xxrtlQYCbGUSJhuIltbAp9O/pQXWclUl4qnF2ZZ132ZYzuD5imiTKzRdSyVKw+WhtS
+ 27U6dBm0HrgEr+5xhROg0FoB9EbeiNtMQaNVm4j12D9uw1u/lNhQfGDlU
+X-Gm-Gg: AR+sD11ac9IlOJTUslmOkVdXIARCVsWA3fAIsktyKZLcLJ/XtUfXl4S3hKcdgsh/9iO
+ ph5bQk3t3VsMg/RLopDoT2ucoSmTTYIqr8wBxRj4tNT2XAU+vLOtLfq75y452eG23+Duuj3D1r6
+ TUMPmEHwFR5rQWngZQtcBftl39MI2ZZqEFmSojFrMrpuYHNKh4YpIxW3KV09OTH60GFh78AcM/7
+ SE5YQ9tliLGk01QMbM5dgU0UeuCZAgIfLIRWvUAuSbZfRtL5tVQ3HrGDkoB3aIP9FMlRR6eKwdG
+ rAC05Y5v81q9bpod0lrW0E/eAUrhC0oGmmIlwgrsjjSQS91PhzbOobPXWIdJJs+G/YAhSq43a0I
+ 2PK/zhvDRp9BJ/+tF3yEm2njVF3RnWs5xF+5MQXRvrCELfKxh5Bk=
+X-Received: by 2002:a05:622a:2448:b0:51a:8aec:9bbd with SMTP id
+ d75a77b69052e-529a8353f25mr77844001cf.19.1785138534921; 
+ Mon, 27 Jul 2026 00:48:54 -0700 (PDT)
+X-Received: by 2002:a05:622a:2448:b0:51a:8aec:9bbd with SMTP id
+ d75a77b69052e-529a8353f25mr77843841cf.19.1785138534500; 
+ Mon, 27 Jul 2026 00:48:54 -0700 (PDT)
+Received: from [192.168.69.212] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4957f9928fdsm229914945e9.1.2026.07.27.00.48.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Jul 2026 00:48:53 -0700 (PDT)
+Message-ID: <895cc21e-db27-438a-884c-d041eb9abeed@oss.qualcomm.com>
+Date: Mon, 27 Jul 2026 09:48:52 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 3/5] hw/arm/stm32f103: instantiate and map GPIO
+ ports
+Content-Language: en-US
+To: Jack Wang <163wangjack@gmail.com>, qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
  Peter Maydell <peter.maydell@linaro.org>,
- Alistair Francis <alistair@alistair23.me>, Fabiano Rosas <farosas@suse.de>,
- Laurent Vivier <lvivier@redhat.com>, qemu-arm@nongnu.org,
- qemu-rust@nongnu.org, caojunze424@gmail.com,
- Jack Wang <163wangjack@gmail.com>
-Subject: [RFC PATCH v1 3/5] hw/arm/stm32f103: instantiate and map GPIO ports
-Date: Sun, 26 Jul 2026 22:51:17 +0800
-Message-ID: <20260726145119.19881-4-163wangjack@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260726145119.19881-1-163wangjack@gmail.com>
+ Alistair Francis <alistair@alistair23.me>,
+ Fabiano Rosas <farosas@suse.de>, Laurent Vivier <lvivier@redhat.com>,
+ qemu-arm@nongnu.org, qemu-rust@nongnu.org, caojunze424@gmail.com
 References: <20260726145119.19881-1-163wangjack@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=2607:f8b0:4864:20::62d;
- envelope-from=163wangjack@gmail.com; helo=mail-pl1-x62d.google.com
-X-Spam_score_int: -13
-X-Spam_score: -1.4
-X-Spam_bar: -
-X-Spam_report: (-1.4 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
- DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
- FROM_STARTS_WITH_NUMS=0.738, RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+ <20260726145119.19881-4-163wangjack@gmail.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>
+In-Reply-To: <20260726145119.19881-4-163wangjack@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: XGmWWpoakLFA92xNt7ztQxldxiER4YNV
+X-Authority-Analysis: v=2.4 cv=A8Bc+aWG c=1 sm=1 tr=0 ts=6a670d67 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=4s3hRJSeHn4rkQlkrse1kQ==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=M51BFTxLslgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=pGLkceISAAAA:8 a=qXP6Gehid05EP52y37IA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: XGmWWpoakLFA92xNt7ztQxldxiER4YNV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDA3NiBTYWx0ZWRfX9EPbmz8+DFzy
+ SdXFrsLF8rRHYzBezCieTjs2wTMAy77fRQxg8pS4vjSosxNseLkbnOrtiviNqtNSX5Jp36UkjMq
+ XkkacXBM4sReoHcA8Gw249fMl0i/nxSHfqDQfghXDfXdtBIvaGYn7Oj1GzwsZGMl9zQIf2YNqp2
+ uPAZ5kmklD9STQB05hrfr1ptGuRRiOnWlN9BqiMNpBcwhokIQZkvcqHPdGSI/RTVOavQHNVUqJX
+ 26s7gdouJJQdE0yqEUkhPNm5UWGQtc3BGG/Y0vFtceag/vOjPggbHkkxaMvTZun9opl7KRkmZSz
+ ot016bHzGr6lbL4dDHCK25j1NDbZZ9T59QkDZD8Se40J9GgSkEZO2McV4199NsgGYVZriD7tnbE
+ lPKZ0/vqqJXgQha+pUFXroypAZC0QKkhph8yBx8ELrBBhlbCV8He4uIvoSVJ1b7JI9biapp3NhA
+ 79p389JjkI3+CsTySVg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDA3NiBTYWx0ZWRfXybkqjsq353ea
+ 7hdtOnH5CMFLVe5mo7L/Ao43UhD0ftBAZi4iZoti2q6w/hpJ5c10/pVAsZX/35hzpLLbUacjK1K
+ X5jJdbYv6X2JY9783tn2bUsD1vjuX5s=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-27_02,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
+ impostorscore=0 adultscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270076
+Received-SPF: pass client-ip=205.220.168.131;
+ envelope-from=philmd@oss.qualcomm.com; helo=mx0a-0031df01.pphosted.com
+X-Spam_score_int: -27
+X-Spam_score: -2.8
+X-Spam_bar: --
+X-Spam_report: (-2.8 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
+ RCVD_IN_DNSWL_LOW=-0.7, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -106,167 +159,111 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Create the seven GPIO ports GPIOA..GPIOG by name via qdev_new() and map
-them at their APB2 base addresses, removing the corresponding
-unimplemented-device stubs so the real devices back that range.
+On 26/7/26 16:51, Jack Wang wrote:
+> Create the seven GPIO ports GPIOA..GPIOG by name via qdev_new() and map
+> them at their APB2 base addresses, removing the corresponding
+> unimplemented-device stubs so the real devices back that range.
+> 
+> The Rust GPIO type is only present in a Rust-enabled build, so the ports
+> are created behind an object_class_by_name() check; with --disable-rust
+> the type is absent and the range is simply left unbacked.
+> 
+> Signed-off-by: Jack Wang <163wangjack@gmail.com>
+> ---
+>   hw/arm/Kconfig                 |  1 +
+>   hw/arm/stm32f103_board.c       |  2 +-
+>   hw/arm/stm32f103_soc.c         | 54 +++++++++++++++++++++++++++++-----
+>   include/hw/arm/stm32f103_soc.h |  9 ++++++
+>   4 files changed, 58 insertions(+), 8 deletions(-)
 
-The Rust GPIO type is only present in a Rust-enabled build, so the ports
-are created behind an object_class_by_name() check; with --disable-rust
-the type is absent and the range is simply left unbacked.
 
-Signed-off-by: Jack Wang <163wangjack@gmail.com>
----
- hw/arm/Kconfig                 |  1 +
- hw/arm/stm32f103_board.c       |  2 +-
- hw/arm/stm32f103_soc.c         | 54 +++++++++++++++++++++++++++++-----
- include/hw/arm/stm32f103_soc.h |  9 ++++++
- 4 files changed, 58 insertions(+), 8 deletions(-)
+> +/* GPIO addresses: GPIOA, GPIOB, GPIOC, GPIOD, GPIOE, GPIOF, GPIOG */
+> +static const uint32_t gpio_addr[] = {
 
-diff --git a/hw/arm/Kconfig b/hw/arm/Kconfig
-index 66aed6edd7..7aa194c64a 100644
---- a/hw/arm/Kconfig
-+++ b/hw/arm/Kconfig
-@@ -410,6 +410,7 @@ config STM32F103_SOC
-     select STM32F2XX_USART
-     select STM32F2XX_SPI
-     select STM32F1XX_ADC
-+    select STM32F1XX_GPIO if HAVE_RUST
- 
- config B_L475E_IOT01A
-     bool
-diff --git a/hw/arm/stm32f103_board.c b/hw/arm/stm32f103_board.c
-index a740483575..fb5041e484 100644
---- a/hw/arm/stm32f103_board.c
-+++ b/hw/arm/stm32f103_board.c
-@@ -26,7 +26,7 @@
- 
- #include "qemu/osdep.h"
- #include "qapi/error.h"
--#include "hw/boards.h"
-+#include "hw/core/boards.h"
- #include "hw/core/qdev-properties.h"
- #include "hw/core/qdev-clock.h"
- #include "qemu/error-report.h"
-diff --git a/hw/arm/stm32f103_soc.c b/hw/arm/stm32f103_soc.c
-index e76640ec03..75fc99a554 100644
---- a/hw/arm/stm32f103_soc.c
-+++ b/hw/arm/stm32f103_soc.c
-@@ -24,12 +24,16 @@
- 
- #include "qemu/osdep.h"
- #include "qapi/error.h"
-+#include "qom/object.h"
- #include "system/address-spaces.h"
- #include "system/system.h"
- #include "hw/arm/stm32f103_soc.h"
- #include "hw/core/qdev-clock.h"
- #include "hw/misc/unimp.h"
- 
-+/* QOM type name of the Rust GPIO device (rust/hw/gpio/src/gpio.rs) */
-+#define TYPE_STM32F1XX_GPIO_RUST "stm32f1xx-gpio-rust"
-+
- #define RCC_ADDR 0x40021000
- 
- /* USART addresses: USART1, USART2, USART3, UART4, UART5 */
-@@ -47,6 +51,12 @@ static const uint32_t adc_addr[] = {
-     0x40012400, 0x40012800, 0x40013C00
- };
- 
-+/* GPIO addresses: GPIOA, GPIOB, GPIOC, GPIOD, GPIOE, GPIOF, GPIOG */
-+static const uint32_t gpio_addr[] = {
-+    0x40010800, 0x40010C00, 0x40011000, 0x40011400, 0x40011800, 0x40011C00,
-+    0x40012000
-+};
-+
- static const int usart_irq[] = { 37, 38, 39, 52, 53 };
- static const int spi_irq[]   = { 35, 36, 51 };
- #define ADC_IRQ 18
-@@ -199,6 +209,37 @@ static void stm32f103_soc_realize(DeviceState *dev_soc, Error **errp)
-                            qdev_get_gpio_in(DEVICE(&s->adc_irqs), i));
-     }
- 
-+    /*
-+     * GPIO ports GPIOA..GPIOG.
-+     *
-+     * These are implemented by the Rust device "stm32f1xx-gpio-rust", created
-+     * by name with qdev_new() and mapped at its APB2 base address.  On STM32F1
-+     * a GPIO port has no dedicated NVIC line of its own: pin-change interrupts
-+     * are delivered through the EXTI controller (not yet modelled), so no
-+     * sysbus_connect_irq() to the NVIC is done here.
-+     *
-+     * The GPIO port is only provided by the Rust build; when QEMU is built
-+     * with --disable-rust the type is not registered, so skip creating the
-+     * ports and leave the address range unbacked.
-+     */
-+    if (object_class_by_name(TYPE_STM32F1XX_GPIO_RUST)) {
-+        for (i = 0; i < STM32F103_NUM_GPIOS; i++) {
-+            g_autofree char *name = g_strdup_printf("gpio%c", 'a' + i);
-+            s->gpio[i] = qdev_new(TYPE_STM32F1XX_GPIO_RUST);
-+            /*
-+             * Give each port a stable QOM name ("/machine/soc/gpioa"..) so
-+             * tests and the monitor can reach it and its gpio-out lines by
-+             * path.
-+             */
-+            object_property_add_child(OBJECT(s), name, OBJECT(s->gpio[i]));
-+            busdev = SYS_BUS_DEVICE(s->gpio[i]);
-+            if (!sysbus_realize_and_unref(busdev, errp)) {
-+                return;
-+            }
-+            sysbus_mmio_map(busdev, 0, gpio_addr[i]);
-+        }
-+    }
-+
-     /*
-      * Unimplemented peripherals -- STM32F103 devices that do not yet
-      * have QEMU models.
-@@ -231,13 +272,12 @@ static void stm32f103_soc_realize(DeviceState *dev_soc, Error **errp)
-     /* APB2 peripherals */
-     create_unimplemented_device("AFIO",        0x40010000, 0x400);
-     create_unimplemented_device("EXTI",        0x40010400, 0x400);
--    create_unimplemented_device("GPIOA",       0x40010800, 0x400);
--    create_unimplemented_device("GPIOB",       0x40010C00, 0x400);
--    create_unimplemented_device("GPIOC",       0x40011000, 0x400);
--    create_unimplemented_device("GPIOD",       0x40011400, 0x400);
--    create_unimplemented_device("GPIOE",       0x40011800, 0x400);
--    create_unimplemented_device("GPIOF",       0x40011C00, 0x400);
--    create_unimplemented_device("GPIOG",       0x40012000, 0x400);
-+    /*
-+     * GPIOA..GPIOG (0x40010800..0x40012000) are real devices mapped in the
-+     * GPIO loop above when the Rust build is used, so they must NOT be
-+     * registered as unimplemented devices here: overlapping MemoryRegions at
-+     * the same address abort at runtime.
-+     */
-     create_unimplemented_device("timer[1]",    0x40012C00, 0x400);
-     create_unimplemented_device("timer[8]",    0x40013400, 0x400);
-     create_unimplemented_device("timer[9]",    0x40014C00, 0x400);
-diff --git a/include/hw/arm/stm32f103_soc.h b/include/hw/arm/stm32f103_soc.h
-index 260f3695c0..8d78360ce0 100644
---- a/include/hw/arm/stm32f103_soc.h
-+++ b/include/hw/arm/stm32f103_soc.h
-@@ -40,6 +40,7 @@ OBJECT_DECLARE_SIMPLE_TYPE(STM32F103State, STM32F103_SOC)
- #define STM32F103_NUM_USARTS 5
- #define STM32F103_NUM_SPIS 3
- #define STM32F103_NUM_ADCS 3
-+#define STM32F103_NUM_GPIOS 7
- 
- /* High-density STM32F103: 512 KB Flash, 64 KB SRAM */
- #define STM32F103_FLASH_BASE_ADDRESS 0x08000000
-@@ -58,6 +59,14 @@ struct STM32F103State {
-     OrIRQState adc_irqs;
-     STM32F1XXADCState adc[STM32F103_NUM_ADCS];
- 
-+    /*
-+     * GPIOA..GPIOG are implemented by the Rust device "stm32f1xx-gpio-rust".
-+     * That device is created by name via qdev_new() (pointer-based mounting)
-+     * rather than embedded by value, so no C struct definition is required
-+     * here and no struct-size coupling with the Rust side is needed.
-+     */
-+    DeviceState *gpio[STM32F103_NUM_GPIOS];
-+
-     MemoryRegion sram;
-     MemoryRegion flash;
-     MemoryRegion flash_alias;
--- 
-2.53.0
+   static const uint32_t gpio_addr[STM32F103_NUM_GPIOS] = {
+
+> +    0x40010800, 0x40010C00, 0x40011000, 0x40011400, 0x40011800, 0x40011C00,
+> +    0x40012000
+> +};
+> +
+>   static const int usart_irq[] = { 37, 38, 39, 52, 53 };
+>   static const int spi_irq[]   = { 35, 36, 51 };
+>   #define ADC_IRQ 18
+> @@ -199,6 +209,37 @@ static void stm32f103_soc_realize(DeviceState *dev_soc, Error **errp)
+>                              qdev_get_gpio_in(DEVICE(&s->adc_irqs), i));
+>       }
+>   
+> +    /*
+> +     * GPIO ports GPIOA..GPIOG.
+> +     *
+> +     * These are implemented by the Rust device "stm32f1xx-gpio-rust", created
+> +     * by name with qdev_new() and mapped at its APB2 base address.  On STM32F1
+> +     * a GPIO port has no dedicated NVIC line of its own: pin-change interrupts
+> +     * are delivered through the EXTI controller (not yet modelled), so no
+> +     * sysbus_connect_irq() to the NVIC is done here.
+> +     *
+> +     * The GPIO port is only provided by the Rust build; when QEMU is built
+> +     * with --disable-rust the type is not registered, so skip creating the
+> +     * ports and leave the address range unbacked.
+> +     */
+> +    if (object_class_by_name(TYPE_STM32F1XX_GPIO_RUST)) {
+> +        for (i = 0; i < STM32F103_NUM_GPIOS; i++) {
+> +            g_autofree char *name = g_strdup_printf("gpio%c", 'a' + i);
+> +            s->gpio[i] = qdev_new(TYPE_STM32F1XX_GPIO_RUST);
+> +            /*
+> +             * Give each port a stable QOM name ("/machine/soc/gpioa"..) so
+> +             * tests and the monitor can reach it and its gpio-out lines by
+> +             * path.
+> +             */
+> +            object_property_add_child(OBJECT(s), name, OBJECT(s->gpio[i]));
+> +            busdev = SYS_BUS_DEVICE(s->gpio[i]);
+> +            if (!sysbus_realize_and_unref(busdev, errp)) {
+> +                return;
+> +            }
+> +            sysbus_mmio_map(busdev, 0, gpio_addr[i]);
+> +        }
+> +    }
+
+Please keep the UNIMP regions:
+
+       else {
+          create_unimplemented_device("GPIOA",       0x40010800, 0x400);
+          ...
+          create_unimplemented_device("GPIOG",       0x40012000, 0x400);
+       }
+
+> +
+>       /*
+>        * Unimplemented peripherals -- STM32F103 devices that do not yet
+>        * have QEMU models.
+> @@ -231,13 +272,12 @@ static void stm32f103_soc_realize(DeviceState *dev_soc, Error **errp)
+>       /* APB2 peripherals */
+>       create_unimplemented_device("AFIO",        0x40010000, 0x400);
+>       create_unimplemented_device("EXTI",        0x40010400, 0x400);
+> -    create_unimplemented_device("GPIOA",       0x40010800, 0x400);
+> -    create_unimplemented_device("GPIOB",       0x40010C00, 0x400);
+> -    create_unimplemented_device("GPIOC",       0x40011000, 0x400);
+> -    create_unimplemented_device("GPIOD",       0x40011400, 0x400);
+> -    create_unimplemented_device("GPIOE",       0x40011800, 0x400);
+> -    create_unimplemented_device("GPIOF",       0x40011C00, 0x400);
+> -    create_unimplemented_device("GPIOG",       0x40012000, 0x400);
+> +    /*
+> +     * GPIOA..GPIOG (0x40010800..0x40012000) are real devices mapped in the
+> +     * GPIO loop above when the Rust build is used, so they must NOT be
+> +     * registered as unimplemented devices here: overlapping MemoryRegions at
+> +     * the same address abort at runtime.
+> +     */
+>       create_unimplemented_device("timer[1]",    0x40012C00, 0x400);
+>       create_unimplemented_device("timer[8]",    0x40013400, 0x400);
+>       create_unimplemented_device("timer[9]",    0x40014C00, 0x400);
+> diff --git a/include/hw/arm/stm32f103_soc.h b/include/hw/arm/stm32f103_soc.h
+> index 260f3695c0..8d78360ce0 100644
+> --- a/include/hw/arm/stm32f103_soc.h
+> +++ b/include/hw/arm/stm32f103_soc.h
+> @@ -40,6 +40,7 @@ OBJECT_DECLARE_SIMPLE_TYPE(STM32F103State, STM32F103_SOC)
+>   #define STM32F103_NUM_USARTS 5
+>   #define STM32F103_NUM_SPIS 3
+>   #define STM32F103_NUM_ADCS 3
+> +#define STM32F103_NUM_GPIOS 7
 
 
