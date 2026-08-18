@@ -4,91 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C126C5B572
-	for <qemu-rust@archiver.kernel.org>; Mon, 17 Aug 2026 19:46:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A10AC5DF81
+	for <qemu-rust@archiver.kernel.org>; Tue, 18 Aug 2026 19:17:01 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1ww3HM-0003fy-UU; Mon, 17 Aug 2026 15:45:52 -0400
+	id 1wwPIe-0004q8-7f; Tue, 18 Aug 2026 15:16:40 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1ww3HI-0003fS-A5
- for qemu-rust@nongnu.org; Mon, 17 Aug 2026 15:45:51 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <marcandre.lureau@redhat.com>)
- id 1ww3HG-0005KB-2v
- for qemu-rust@nongnu.org; Mon, 17 Aug 2026 15:45:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1786995945;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zDbEfFFdHOi5PvB6UkUVWFVsUi/7fUizp0mMUfdJvJY=;
- b=TwKgDhuV+3paE6GbXqsNcMT571e8tr+c2NALjNOKIBu+vn30ZlExhj/tyAEAghQZ0zaT2B
- uJ0jlItHBz0jPOZsXO5s4wvB4cNXhgd+NgChlIq+ed1ldgiX+TnojhxSiTQwjL65nZ/Ypi
- IY3eZAlaub0dyUohynuvdQVth5QMmZY=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-433-HbLXA5CXMeGsPhRQV-pVgg-1; Mon,
- 17 Aug 2026 15:45:30 -0400
-X-MC-Unique: HbLXA5CXMeGsPhRQV-pVgg-1
-X-Mimecast-MFC-AGG-ID: HbLXA5CXMeGsPhRQV-pVgg_1786995929
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id E31C919560A7; Mon, 17 Aug 2026 19:45:28 +0000 (UTC)
-Received: from localhost (headnet05.pony-001.prod.iad2.dc.redhat.com
- [10.2.32.117])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 0A8823000239; Mon, 17 Aug 2026 19:45:27 +0000 (UTC)
+ (Exim 4.90_1) (envelope-from <marcandre.lureau@gmail.com>)
+ id 1wwPIc-0004p7-Cx
+ for qemu-rust@nongnu.org; Tue, 18 Aug 2026 15:16:38 -0400
+Received: from mail-yw1-x1133.google.com ([2607:f8b0:4864:20::1133])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <marcandre.lureau@gmail.com>)
+ id 1wwPIa-0005V9-Rv
+ for qemu-rust@nongnu.org; Tue, 18 Aug 2026 15:16:38 -0400
+Received: by mail-yw1-x1133.google.com with SMTP id
+ 00721157ae682-836ce6cbe1eso4385867b3.1
+ for <qemu-rust@nongnu.org>; Tue, 18 Aug 2026 12:16:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787080595; cv=none;
+ d=google.com; s=arc-20260327;
+ b=q9ApsPczU0X5nqR+MfL2VfWf4ZIUlXi3pG96MuEVOELlD5JBind/ItxakOFywoWf8C
+ Rqc77NpKspPMknpuwGAsDjHqznTSN6QqbCxlaxC5XGKvZM89cBe9cb8B7mJrqzxOY2it
+ NqoZ+T7KHyWgHuBflAxMtZCCnIJl8EVSUTrpryWP9af7XxMLAglRBXkAjwpois+3hSa4
+ oiZ84r3NR5nMJ9/6YyKVHT0xBO85yIVs8IvLUsVvAUONor0mPnRM17bdhz41P8ayVX+b
+ H+0VuRD24rxmjQ3o4uqrxYn4z206zeocHj9Z12xmkB1D+mP/n6cElRBKOLA5G4bM2Hsm
+ +xHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Gfo1fcQMOG0fs+7GAP6s5UlMBuoaL/60+LuEPass6K0=;
+ fh=5jMlQSfiVswh9O4Y9atz749sijdNNT2qwFFWxMC1nzI=;
+ b=si9A12DvoK5SbPv871UJVRc1K3/yKTC3pOx2snFqokPAwcfIQGuPdcLImUYYV+N4OE
+ 5nAomh8uKOLtSvKUmy97QiLZMY7RxudEmxAcb+7B1Ok2Os2AfEEYGq3efodd9LqIe6wL
+ ymIJ1BcPbcWrKUMRqT1r/nYBZNPCXKnW2g0gK2y1xUwJwgMYBIInbd0mi+rg40uoS6h7
+ tkiqU8wVidT5+IKHagCg9h4ZM/nfP8/JTFTbd9QYiFHiE8EAKJPni5B4oFOYuUzuFIrr
+ prgJ65rnXHQjhOPmEV+O7q+NqmGRng6ZQ0Go8PmWN+NUCIVzl6WXImEG/jffXRd5bMeM
+ nRSQ==; darn=nongnu.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787080595; x=1787685395; darn=nongnu.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Gfo1fcQMOG0fs+7GAP6s5UlMBuoaL/60+LuEPass6K0=;
+ b=rTExtmUnBCj5q5+DZrFKdbNqXYsF05tHyClH18cP6zQJK+GK5w3BuWJuS+bgmuxX/G
+ atCXtS/+SBWWh/ogc9AhLozdZ2HH1NFaahpkYazsgRPIV4rZ8P68gXE1O4LxEhpWiZ/Y
+ IgG6F5AUf+UHV+51JqA0zIYCliV8vmGC/v7aN7ztIC94oe5NnVqbK65gpKgZVgIppTOt
+ Q0al1zDccKzF5L0J4c3N/ddeA0yKkC5JRNryRXnnedjyg6/Ihbj7/SJ3IN0zPq28tbTD
+ qL9DLJ464Ni0EehJV14cm6eh8pzpSXMnhdW0oJbRvQLC0Xesayp4r0F+SdMKcGUF6S/9
+ 4t/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787080595; x=1787685395;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Gfo1fcQMOG0fs+7GAP6s5UlMBuoaL/60+LuEPass6K0=;
+ b=ZO8y7a+Wt2fZsNN6p/vI4ColiUra7zOdkMbbNxLHtDMxs4rVJwxl1Mbhr9bN2vBqJM
+ Qn6VX8r2dNCjtE/7gyqx090RucgRMthIVMaLysFj2Vp1srJNLN3rltm3aK8CLtcsMBFE
+ 3sBUiOTa0GZQqM1dE0GVvxVmrKqwx/ctOJMJFeP9/+WT98CIdPbL5iKnaycU70T4C5m9
+ RCOBv60f5fUjvHVnDoPS7axCRkqqkJkODyX57VTGV48MJOHbjEQKUn7QkRpnyTPPx4GO
+ HgHrKlCaO6Lm/JI1vPFUYkvL1/vOsxKZZ6mvYlvl4M/erhNmStBkq1x/jV3ppzgbxGQ7
+ 0MBA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrNzrZYvB/7DH4hKfV9p8FshjdRKr9OxcR1ryM0pll3c+PMjRGDxOO15ZwP0pCCIXxHZ3vgvNE5fS4=@nongnu.org
+X-Gm-Message-State: AOJu0Yy2omCQy729E545f6IUcSgbjgXvKAi4xkGlg8QRjgE2YPZ62RZC
+ Au9JL+5fb3ta4pvadw2vr0HA01U0baPNsTp/zldLUfb7D4IVj/0sjaGCbFtqG0B5f9HMFVG1rIF
+ opAwDVuXeT+w2UrdAt4ZGd2EZOYe2J3Mvn3i+6+M=
+X-Gm-Gg: AR+sD11dKir2+fDnLNdF6sW78hHRY/4BUtryc/641WbqxpJgpMupUwUJ9bRDDVGhQA6
+ vzWxdrNsziRgYGIOZesRMdntQbWu1S/uaI3M6CNiT6a9KWvgf4ZtpO5TaYQdBHwle75mindsWF4
+ eF5zRj6i5YZYQ1jwrahIZFz4lB/Nw50n6I3eqGOBuVKTNMXepmMWATrHhpvY70mMp2UeOEgFaj8
+ G2ZF7JVf+vXD1okJ/L0UH0Q/ztVMY9dw3ItSNj/OUOILjOLDSVg/V08dXmO0rQup4TR0cCkWOOV
+ 9x5bQJzd90lDpFWuXx9zSNHC0GXDNSDDQWEAINmt1hHXydk2KFVJwQ9DdhK2D1p77eWbGgt9/A+
+ 1
+X-Received: by 2002:a05:690c:30c:b0:81e:695b:585c with SMTP id
+ 00721157ae682-8412cd49515mr54982197b3.4.1787080595258; Tue, 18 Aug 2026
+ 12:16:35 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/9] First batch of Rust changes for QEMU 11.2
-From: marcandre.lureau@redhat.com
+References: <20260817141559.940844-1-pbonzini@redhat.com>
+In-Reply-To: <20260817141559.940844-1-pbonzini@redhat.com>
+From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>
+Date: Tue, 18 Aug 2026 23:16:22 +0400
+X-Gm-Features: AcwNN1XvwW5YMXhVYoMrWB9w-axezlKHZiNO1hb9DW3ncIntMQJGlkIJJDlPhCw
+Message-ID: <CAJ+F1CLWDU+o1jPkPtotn_LfhN=r+yKAMoyYACaM6hz4NjRkxw@mail.gmail.com>
+Subject: Re: [PATCH 0/2] rust: switch from bilge to bitfield-struct
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org
-In-Reply-To: <20260817134538.924615-1-pbonzini@redhat.com>
-References: <20260817134538.924615-1-pbonzini@redhat.com>
-Date: Mon, 17 Aug 2026 23:45:21 +0400
-Message-Id: <178699592135.3562558.2212221233581901915.b4-review@b4>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=507;
- i=marcandre.lureau@redhat.com; h=from:subject:message-id;
- bh=kzyCoe6FolZeCvSZjPWwoDINhdLV7a4K+y7ltOZMr5c=;
- b=owEBbQKS/ZANAwAKAdro4Ql1lpzlAcsmYgBqg2TUpYzGk04CmJ9G/NxS+bJZoQNiGQbrVofKr
- cHygItkqX+JAjMEAAEKAB0WIQSHqb2TP4fGBtJ29i3a6OEJdZac5QUCaoNk1AAKCRDa6OEJdZac
- 5SR/D/9T+sFO+lcY6btQkPNPj0ZHkqOdsFKWl50QOomws7k2pbKx9J1sedmHpDGVSjBGPgHSI7x
- qesV6Ag2MPBeDfnZs9N+7l0aXXGBcGJXL/GqDminZCF44Z7a9JqHz122+mAOB1B32ahYeKsrPBm
- A6UtPCNgJBSEiVHD+BMV0S6MKUoWivjWE/6jE0vXH2poEzpTZUbBYVOzsUhe+VUJA6FPA9Rmnak
- gwLAL1ntT1gKYF+BA//L8vlH+n4OU2uhx1wavjM83Ab6fsKZi/bJ419TmwdNj2wT9YIojMgawVI
- NBKtP8sZ2BXv7JeUZmaKme9O5AFrGvpd0SOVp6Z0+L1dJKaeRyzKx1bpipefZKzVz77nUeH53iq
- +nnXSss0K9yt6PBCvaQH+scBjbUys9kaIR8uyEJ+7OXdFqcJhMJcylEXRera5uDFwEh5tCgI+cp
- fR9txsUDUfTysqKskKvBa1/G+YX2Jolva+dHfvgL9k09fl+8d5A15OqcJqPrOcdEFdZyAocRbDt
- wypknFv3/svAHsOFPIrOk22VXOFQq03wfkHXr9IlKGDbpXP6YwUdmcWhIFD+7utsA310U1HRX7t
- akeT0j2hDUP6bTGSGUjHbmbNO9XGzbZENSocfVTyYWRIO6MFT8ut4OIcQGp94Qw6P54zyRfpHOR
- ocOID93jAK3i9Ng==
-X-Developer-Key: i=marcandre.lureau@redhat.com; a=openpgp;
- fpr=87A9BD933F87C606D276F62DDAE8E10975969CE5
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: vDBGLPd4_glZGI2lN3vzszjbbPCjrol9-Rb07omwlhc_1786995929
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=170.10.129.124;
- envelope-from=marcandre.lureau@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: 9
-X-Spam_score: 0.9
-X-Spam_bar: /
-X-Spam_report: (0.9 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.343,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001, RCVD_IN_SBL_CSS=3.335,
- SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=no autolearn_force=no
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=2607:f8b0:4864:20::1133;
+ envelope-from=marcandre.lureau@gmail.com; helo=mail-yw1-x1133.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -104,19 +119,67 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-On Mon, 17 Aug 2026 15:45:28 +0200, Paolo Bonzini <pbonzini@redhat.com> wrote:
-> First batch of Rust changes for QEMU 11.2
-> 
-> This finally brings in a version of Meson where Cargo subprojects are
-> powerful enough to remove large parts of QEMU's handwritten build rules
-> of scripts/rust/rustc_args.py.  In particular this includes the following
-> Meson features
-> 
-> [...]
+On Mon, Aug 17, 2026 at 6:17=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com>=
+ wrote:
+>
+> The bilge crate is heavily reliant on traits and, because trait functions
+> are never const, it does not work well with const; also important is
+> that bilge's support for the zerocopy crate is tied to an older version
+> and has never been updated.
+>
+> The bitfield-struct crate, instead, is built from the ground up to
+> support const, and has much simpler code with fewer dependencies.
+> Its use is pretty much the same: device code does not change at
+> all, only register declarations do.  So, switch to it before it's
+> too late.
+>
+> Paolo
+>
+> Based-on: <20260817134538.924615-1-pbonzini@redhat.com>
 
-Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+lgtm
+Reviewed-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
 
--- 
-Marc-André Lureau <marcandre.lureau@redhat.com>
+>
+> Paolo Bonzini (2):
+>   rust: pl011: switch from bilge to bitfield-struct
+>   rust: remove bilge crate
+>
+>  Cargo.lock                                    |  71 +-----------
+>  Cargo.toml                                    |   1 +
+>  rust/hw/char/pl011/Cargo.toml                 |   3 +-
+>  rust/hw/char/pl011/src/registers.rs           | 108 +++++++++---------
+>  rust/migration/src/vmstate.rs                 |  45 +-------
+>  scripts/archive-source.sh                     |   7 +-
+>  scripts/make-release                          |   4 +-
+>  subprojects/.gitignore                        |   8 +-
+>  subprojects/arbitrary-int-1-rs.wrap           |   9 --
+>  subprojects/bilge-0.2-rs.wrap                 |   9 --
+>  subprojects/bilge-impl-0.2-rs.wrap            |   9 --
+>  subprojects/bitfield-struct-0.13-rs.wrap      |   6 +
+>  subprojects/either-1-rs.wrap                  |   9 --
+>  subprojects/itertools-0.11-rs.wrap            |   9 --
+>  .../proc-macro-error-1-rs/meson/meson.build   |   3 -
+>  subprojects/proc-macro-error-1-rs.wrap        |  10 --
+>  subprojects/proc-macro-error-attr-1-rs.wrap   |   9 --
+>  17 files changed, 71 insertions(+), 249 deletions(-)
+>  delete mode 100644 subprojects/arbitrary-int-1-rs.wrap
+>  delete mode 100644 subprojects/bilge-0.2-rs.wrap
+>  delete mode 100644 subprojects/bilge-impl-0.2-rs.wrap
+>  create mode 100644 subprojects/bitfield-struct-0.13-rs.wrap
+>  delete mode 100644 subprojects/either-1-rs.wrap
+>  delete mode 100644 subprojects/itertools-0.11-rs.wrap
+>  delete mode 100644 subprojects/packagefiles/proc-macro-error-1-rs/meson/=
+meson.build
+>  delete mode 100644 subprojects/proc-macro-error-1-rs.wrap
+>  delete mode 100644 subprojects/proc-macro-error-attr-1-rs.wrap
+>
+> --
+> 2.55.0
+>
+>
 
+
+--=20
+Marc-Andr=C3=A9 Lureau
 
