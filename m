@@ -4,98 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B1FBC5DF7D
-	for <qemu-rust@archiver.kernel.org>; Fri, 21 Aug 2026 08:40:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17F43C5DF8C
+	for <qemu-rust@archiver.kernel.org>; Fri, 21 Aug 2026 08:40:18 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1wxKn6-0005Mc-JG; Fri, 21 Aug 2026 04:39:56 -0400
+	id 1wxKmt-0004uz-4e; Fri, 21 Aug 2026 04:39:43 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1wxKn5-0005HJ-8U
- for qemu-rust@nongnu.org; Fri, 21 Aug 2026 04:39:55 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+ id 1wxKmr-0004tW-4U
+ for qemu-rust@nongnu.org; Fri, 21 Aug 2026 04:39:41 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.90_1) (envelope-from <pbonzini@redhat.com>)
- id 1wxKn2-0008Mc-T7
- for qemu-rust@nongnu.org; Fri, 21 Aug 2026 04:39:55 -0400
+ id 1wxKmp-0008Il-KX
+ for qemu-rust@nongnu.org; Fri, 21 Aug 2026 04:39:40 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787301592;
+ s=mimecast20190719; t=1787301579;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=yH5UkosYjM5QnJdd077iiA8YnDBeS9StdFSji5GO7W8=;
- b=VR90ZDFoNX7Bg0+CPmIly5aJ4y1a98mnUHNH3Rs/dAu8o6U2rV5s5a1F/UFYTflXDD+rg5
- ZzOfIJVU+P9DHGON2vGK1T1JqOHD+igfTQ7+gndrKDmeod1d1BVTX3MuRnbDjQ9OnhvLkW
- XRiPlPbqnZcKSW+UBBGzkvCSG4e4bnM=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding;
+ bh=BNT4gCVRYyaXj9erYrsb5EQE1LH/A5pl3a3ZixZaCBM=;
+ b=HSCO2tOaExhYoIknCBqv/dO+nipbfkv9iQZaohnCWQ3DpiKzzY+8z9oWBYcVrT7IdBWaWL
+ xdbOZCB+4gCDff43vqL2fdkPGiByJawR1tdayMNIzWYCno+lYYw4vfJPwW69Na2PaIPGBh
+ 5Y3Q5MLaqEZkQtziQkgWp6harKOuLCs=
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-117-VlnNcUzEPAilyREGx_3hmg-1; Fri, 21 Aug 2026 04:39:50 -0400
-X-MC-Unique: VlnNcUzEPAilyREGx_3hmg-1
-X-Mimecast-MFC-AGG-ID: VlnNcUzEPAilyREGx_3hmg_1787301590
-Received: by mail-ej1-f69.google.com with SMTP id
- a640c23a62f3a-c15e82278cbso47329566b.2
- for <qemu-rust@nongnu.org>; Fri, 21 Aug 2026 01:39:50 -0700 (PDT)
+ us-mta-572-v0oenop5OzyC59qVCKTL7A-1; Fri, 21 Aug 2026 04:39:28 -0400
+X-MC-Unique: v0oenop5OzyC59qVCKTL7A-1
+X-Mimecast-MFC-AGG-ID: v0oenop5OzyC59qVCKTL7A_1787301568
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-c15ceb17a28so53873666b.3
+ for <qemu-rust@nongnu.org>; Fri, 21 Aug 2026 01:39:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787301590; x=1787906390;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=yH5UkosYjM5QnJdd077iiA8YnDBeS9StdFSji5GO7W8=;
- b=Zy05eLm2e+fSBqciOX2HAhxwoBh7Wgs9sAxeZomO8BDHCS0hu/J+qBE+jBixIhbTl2
- V/LAet3A2gpRUt4GgHzcX8qaJCZ9jjabp6qG3NMvXkElBrQ7jPhhjFr4XUNWAeU6mb4o
- i1kGjkp8fnFmnMR1UeEIB3dIzWkX0exw/MRCGjMcw1Y0nDJL/DB47AyUCoze+SGPIHY8
- pLcCT0q9AH91zt8eAk94t2v8w8u5ufpUA1v0o8nYFIpomn/yKh0nWbzbtxh46fmXGiXy
- L/IRSXZRVx9WR3SVjr7SA2DHSwsL5dxxkNqE45KkExzw4BWoidNMwuqhASoMnbdc6jCx
- voIg==
-X-Gm-Message-State: AFuF++nfx7wx/0a+pdtLBsofEmzWZ9Z0jt2GMuJfgkI4QEWCrR/GBjiu
- 96/xME1W9b29LArUbn2V+mEjbbNzKiRUxUpSm2OtNEgbbXzce6Bs0VaS2NMPJmVvP/R3qdsSRG9
- fLPFvZlvsbp5sQRHUlDs/XwTWUkEfFyoU1H9fndwWOgoNLHA3eMO+nRX8eJwDjeE=
-X-Gm-Gg: AR+sD12h+KnFDiGFil4klbhJ4UH43WJmI+UlCUTYf6hcA9TOPGnT96DU9dN+YlG3mQh
- vcj717UhFyKf+lpB4iXJKMX9yz8ot0wWL6tfr6LYCRS4pJx9N57k0Z+FW2q5tQuUSvHUjSNlHsG
- kB0AZIv53oYqdlE9ry2m7l9qQmE4jWa7svJmY80b10cO7pjDBviUiwX+QYons4uTt4ih10XcL+S
- kW+DPB2PYCCy5SSl9iAwQvX+0WLRtrpHYRnH46q4BmJOXocOB1c7r7Kb06Q2uT1lHWap5hNJ0MZ
- o/KbA3NCIaUsrhutT3sphHZhJ7OvsdzZDZCOX7rRFACb685vj66oOJ8s3x+qSrWEF72V1AcUY15
- u+6r9mxkbQjTRSFReFNLvpDdn5cOKxaOcgkM4WaND10X36v1XCjBFOK6O0sKEp6/v+I2xdlomHF
- FCZus=
-X-Received: by 2002:a17:906:81d8:b0:c16:12ff:dc93 with SMTP id
- a640c23a62f3a-c246a6ca584mr419160666b.18.1787301589545; 
- Fri, 21 Aug 2026 01:39:49 -0700 (PDT)
-X-Received: by 2002:a17:906:81d8:b0:c16:12ff:dc93 with SMTP id
- a640c23a62f3a-c246a6ca584mr419158366b.18.1787301589039; 
- Fri, 21 Aug 2026 01:39:49 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1787301567; x=1787906367;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=BNT4gCVRYyaXj9erYrsb5EQE1LH/A5pl3a3ZixZaCBM=;
+ b=obEft9OTJlC3vrwJXB67VP0EfkplVf/X7yljEd04JgHVwe8sIaNQ7FPpreBRG+IVXP
+ 2xRBj5XekgumvFH9MBeQmjbA2/U/oy2yAhbrwrwWRRROMp1yCErgxG9BHKIgTeKf2lqa
+ rp9WoQPOuUeQXD6C62K3BNDyK+MG5z5Kb8Na8fwbR6ECfrmHXvvhZnyIztXs7rorvtBQ
+ Gi+ka31d1xue+TxBW1KTox7MEfI8OUlEN01OAFqDArtbXwrNkmfxKzoFFX5afNdsqYLU
+ Re+9DmHqbkX31yVjetM9jr5OR1lKuTIOUbwLZa04wKTfEBNXycFCS2OHbfAqmCV+h5Fe
+ ybaw==
+X-Gm-Message-State: AFuF++kwRDLpr+jtn4VVIPhsBCZ6PprRu/OImZ7gNsGJqmkkMTqOKu2k
+ goL7huuWoI9sHytEp8r/3nawLRwG4XaM4ZIz39H7VYeeEeBZ5vNzGyK6kNR3elxKoiZ+n5EGJxA
+ FFejj/YLS9L7U3Z8is2p4cu+lv2WYfOjMuSaqG5Tkw/yEgdDUDFrtQAMtN7FZGZY=
+X-Gm-Gg: AR+sD12GAn6iQjs1LmD5Tpakzl2Jex46j9rJAW22jOZ7QWHZVxPYrq8X25Him22pb9q
+ /uZ7BKl5O2DN10FfYqEa7NDasa04Qq//R5kSJ48uIqffa6ZuDtUhGsSm1HyIFVEzKCFbea2EDuM
+ /G5iCMy3Wqr7HFKC2fe5TWf2JPYZcdftR2qgMOmyphDdhsWAjBDPnqvEVEV9u9co7hKvdJK+IU5
+ 2WwiP8IehdZRdiHzJiaKZn0z/TPnEJ/4RivWAtxOI7MTMQ8VJ9Ouo3WRNsZvlsVMhFRhi3n3l9m
+ 2YRfkFe7DxVVQEH1zPB3N9GYsjZGfe04WuAp7zCkcSlULlGPYSsC++CiHpRlJEyuZ5xol7EUSDT
+ uIFHAhTg2J1yscvgwMzg8uAvme/5/s/jM+3Pcx2t1LYhhxDXKiwN0jIayAPIxxQ2qwEjVmY75P9
+ jQYJg=
+X-Received: by 2002:a17:907:a4a:b0:c20:3733:a8c5 with SMTP id
+ a640c23a62f3a-c246a36f311mr404132466b.8.1787301567646; 
+ Fri, 21 Aug 2026 01:39:27 -0700 (PDT)
+X-Received: by 2002:a17:907:a4a:b0:c20:3733:a8c5 with SMTP id
+ a640c23a62f3a-c246a36f311mr404129066b.8.1787301567194; 
+ Fri, 21 Aug 2026 01:39:27 -0700 (PDT)
 Received: from [192.168.10.48] ([151.95.34.92])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c24591df465sm344065266b.48.2026.08.21.01.39.47
+ a640c23a62f3a-c2459197cc9sm368635966b.31.2026.08.21.01.39.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Aug 2026 01:39:48 -0700 (PDT)
+ Fri, 21 Aug 2026 01:39:26 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-rust@nongnu.org
-Subject: [PATCH 9/9] rust: update crates
-Date: Fri, 21 Aug 2026 10:39:24 +0200
-Message-ID: <20260821083925.2008135-10-pbonzini@redhat.com>
+Subject: [PATCH 0/9] scripts: introduce script to update cargo .wrap files
+Date: Fri, 21 Aug 2026 10:39:15 +0200
+Message-ID: <20260821083925.2008135-1-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260821083925.2008135-1-pbonzini@redhat.com>
-References: <20260821083925.2008135-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: FdmSZATdXlsmcnIOblXaKmLYLCoygINXZCkb9ROKMZo_1787301590
+X-Mimecast-MFC-PROC-ID: 5wUK19glYQOkgIPv5QBHRh0Km2vmBuroU1Udb5QNV8k_1787301568
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=pbonzini@redhat.com;
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=pbonzini@redhat.com;
  helo=us-smtp-delivery-124.mimecast.com
 X-Spam_score_int: -23
 X-Spam_score: -2.4
 X-Spam_bar: --
 X-Spam_report: (-2.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.346,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H2=0.001, SPF_HELO_PASS=-0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -111,314 +108,47 @@ List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-Until a new version of bitfield-struct is released,
-skip the ones that introduce a new dependency on syn 3.
+Another small piece of the usability puzzle for Rust, this time
+tackling dependency updates.
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- Cargo.lock                                    | 48 +++++++++----------
- Cargo.toml                                    |  2 +-
- subprojects/attrs-0.2-rs.wrap                 |  9 ++--
- subprojects/foreign-0.3-rs.wrap               |  9 ++--
- ...sys-0.21-rs.wrap => glib-sys-0.22-rs.wrap} |  9 ++--
- subprojects/libc-0.2-rs.wrap                  | 10 ++--
- .../libc-0.2-rs/meson/meson.build             | 20 ++------
- subprojects/quote-1-rs.wrap                   | 10 ++--
- subprojects/unicode-ident-1-rs.wrap           | 10 ++--
- 9 files changed, 56 insertions(+), 71 deletions(-)
+Extend the existing scripts/get-wraps-from-cargo-registry.py so
+that it is also able to use the versions in Cargo.lock.  This
+makes it much easier to update .wrap files after running
+"cargo update", though manual work is (intentionally) still
+needed when the semver of a crate changes.
+
+It's possible that this functionality will be moved to Meson either
+wholly or in part.  As usual, introduce the prototype in QEMU so that
+it's clear what is needed.
+
+Paolo
+
+
+Paolo Bonzini (9):
+  scripts: print build.rs diff
+  scripts: rename variable in scripts/get-wraps-from-cargo-registry.py
+  scripts: do not assume the new version of the crate is present
+  scripts: prepare for introduction of CrateSource class
+  scripts: introduce CrateSource abstract class
+  scripts: add functionality to update wrap files from Cargo.lock
+  scripts: add the possibility of a quick update of the pacakge
+  scripts: rename get-wraps-from-cargo-registry.py
+  rust: update crates
+
+ Cargo.lock                                    |  48 ++---
+ Cargo.toml                                    |   2 +-
+ ...argo-registry.py => update-cargo-wraps.py} | 198 +++++++++++++-----
+ subprojects/attrs-0.2-rs.wrap                 |   9 +-
+ subprojects/foreign-0.3-rs.wrap               |   9 +-
+ ...sys-0.21-rs.wrap => glib-sys-0.22-rs.wrap} |   9 +-
+ subprojects/libc-0.2-rs.wrap                  |  10 +-
+ .../libc-0.2-rs/meson/meson.build             |  20 +-
+ subprojects/quote-1-rs.wrap                   |  10 +-
+ subprojects/unicode-ident-1-rs.wrap           |  10 +-
+ 10 files changed, 207 insertions(+), 118 deletions(-)
+ rename scripts/{get-wraps-from-cargo-registry.py => update-cargo-wraps.py} (38%)
  rename subprojects/{glib-sys-0.21-rs.wrap => glib-sys-0.22-rs.wrap} (13%)
 
-diff --git a/Cargo.lock b/Cargo.lock
-index ad664a812d2..acf5516c5c4 100644
---- a/Cargo.lock
-+++ b/Cargo.lock
-@@ -10,9 +10,9 @@ checksum = "e16d2d3311acee920a9eb8d33b8cbc1787ce4a264e85f964c2404b969bdcd487"
- 
- [[package]]
- name = "attrs"
--version = "0.2.9"
-+version = "0.2.10"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "2a207d40f43de65285f3de0509bb6cb16bc46098864fce957122bbacce327e5f"
-+checksum = "60e397c905850173fdc02285fe7f94f1b0c3ff55ff6e103efbe98074d80601c4"
- dependencies = [
-  "proc-macro2",
-  "syn",
-@@ -46,9 +46,9 @@ dependencies = [
- 
- [[package]]
- name = "cfg-expr"
--version = "0.20.3"
-+version = "0.20.8"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "1a2c5f3bf25ec225351aa1c8e230d04d880d3bd89dea133537dafad4ae291e5c"
-+checksum = "fb693542bcafa528e198be0ebd9d3632ca5b7c93dbe7237460e199910835997c"
- dependencies = [
-  "smallvec",
-  "target-lexicon",
-@@ -93,18 +93,18 @@ checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
- 
- [[package]]
- name = "foreign"
--version = "0.3.1"
-+version = "0.3.2"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "17ca1b5be8c9d320daf386f1809c7acc0cb09accbae795c2001953fa50585846"
-+checksum = "bec05eb9c07a3f66653535e5e50eb5eb935eb00d3bb7e06ea26a9d3a1d016182"
- dependencies = [
-  "libc",
- ]
- 
- [[package]]
- name = "glib-sys"
--version = "0.21.2"
-+version = "0.22.8"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "d09d3d0fddf7239521674e57b0465dfbd844632fec54f059f7f56112e3f927e1"
-+checksum = "030967459f9f676851872c6304adea7825c6d462ec9b72554c733cf0c5952233"
- dependencies = [
-  "libc",
-  "system-deps",
-@@ -175,9 +175,9 @@ dependencies = [
- 
- [[package]]
- name = "libc"
--version = "0.2.162"
-+version = "0.2.189"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "18d287de67fe55fd7e1581fe933d965a5a9477b38e949cfa9f8574ef01506398"
-+checksum = "3eaf3ede3fee6db1a4c2ee091bf8a8b4dccdc6d17f656fb07896ee72867612f2"
- 
- [[package]]
- name = "migration"
-@@ -202,9 +202,9 @@ dependencies = [
- 
- [[package]]
- name = "pkg-config"
--version = "0.3.32"
-+version = "0.3.34"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "7edddbd0b52d732b21ad9a5fab5c704c14cd949e5e9a1ec5929a24fded1b904c"
-+checksum = "f6b464fbc74e149a392436b17d523f769e057cb6877f6a5c4618bc6f11800548"
- 
- [[package]]
- name = "pl011"
-@@ -272,9 +272,9 @@ dependencies = [
- 
- [[package]]
- name = "quote"
--version = "1.0.36"
-+version = "1.0.47"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "0fa76aaf39101c457836aec0ce2316dbdc3ab723cdda1c6bd4e6ad4208acaca7"
-+checksum = "1fbf4db142a473a8d80c26bbf18454ed458bf8d26c8219c331daecfdbd079001"
- dependencies = [
-  "proc-macro2",
- ]
-@@ -366,9 +366,9 @@ dependencies = [
- 
- [[package]]
- name = "target-lexicon"
--version = "0.13.2"
-+version = "0.13.5"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "e502f78cdbb8ba4718f566c418c52bc729126ffd16baee5baa718cf25dd5a69a"
-+checksum = "adb6935a6f5c20170eeceb1a3835a49e12e19d792f6dd344ccc76a985ca5a6ca"
- 
- [[package]]
- name = "tests"
-@@ -386,9 +386,9 @@ dependencies = [
- 
- [[package]]
- name = "toml"
--version = "1.1.3+spec-1.1.0"
-+version = "1.1.4+spec-1.1.0"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "53c96ecdfa941c8fc4fcaed14f99ada8ebed502eef533015095a07e3301d4c3c"
-+checksum = "3aace63f4bbcdfc2c965b059de67119c89c4017a70d633be6c104910f67056f5"
- dependencies = [
-  "indexmap",
-  "serde_core",
-@@ -410,9 +410,9 @@ dependencies = [
- 
- [[package]]
- name = "toml_parser"
--version = "1.1.2+spec-1.1.0"
-+version = "1.1.3+spec-1.1.0"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "a2abe9b86193656635d2411dc43050282ca48aa31c2451210f4202550afb7526"
-+checksum = "1d38ac1cf9b95face32296c0a3ede1fdc270627c9d9c02a7274dd6d960dc4d56"
- dependencies = [
-  "winnow",
- ]
-@@ -433,9 +433,9 @@ dependencies = [
- 
- [[package]]
- name = "unicode-ident"
--version = "1.0.12"
-+version = "1.0.24"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b"
-+checksum = "e6e4313cd5fcd3dad5cafa179702e2b244f760991f45397d14d4ebf38247da75"
- 
- [[package]]
- name = "util"
-@@ -458,9 +458,9 @@ dependencies = [
- 
- [[package]]
- name = "version-compare"
--version = "0.2.0"
-+version = "0.2.1"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "852e951cb7832cb45cb1169900d19760cfa39b82bc0ea9c0e5a14ae88411c98b"
-+checksum = "03c2856837ef78f57382f06b2b8563a2f512f7185d732608fd9176cb3b8edf0e"
- 
- [[package]]
- name = "winnow"
-diff --git a/Cargo.toml b/Cargo.toml
-index b35704faabe..693dccb73c2 100644
---- a/Cargo.toml
-+++ b/Cargo.toml
-@@ -19,7 +19,7 @@ authors = ["The QEMU Project Developers <qemu-devel@nongnu.org>"]
- anyhow = "~1.0"
- foreign = "~0.3.1"
- libc = "0.2.162"
--glib-sys = { version = "0.21.2", features = ["v2_66"] }
-+glib-sys = { version = "0.22.8", features = ["v2_66"] }
- 
- [workspace.lints.rust]
- unexpected_cfgs = { level = "deny", check-cfg = ['cfg(MESON)'] }
-diff --git a/subprojects/attrs-0.2-rs.wrap b/subprojects/attrs-0.2-rs.wrap
-index fef89ea9368..fdab9646207 100644
---- a/subprojects/attrs-0.2-rs.wrap
-+++ b/subprojects/attrs-0.2-rs.wrap
-@@ -1,6 +1,7 @@
- [wrap-file]
--directory = attrs-0.2.9
--source_url = https://crates.io/api/v1/crates/attrs/0.2.9/download
--source_filename = attrs-0.2.9.tar.gz
--source_hash = 2a207d40f43de65285f3de0509bb6cb16bc46098864fce957122bbacce327e5f
-+directory = attrs-0.2.10
-+source_url = https://crates.io/api/v1/crates/attrs/0.2.10/download
-+source_filename = attrs-0.2.10.tar.gz
-+source_hash = 60e397c905850173fdc02285fe7f94f1b0c3ff55ff6e103efbe98074d80601c4
- method = cargo
-+
-diff --git a/subprojects/foreign-0.3-rs.wrap b/subprojects/foreign-0.3-rs.wrap
-index 95d450397ee..3d49f5a85f4 100644
---- a/subprojects/foreign-0.3-rs.wrap
-+++ b/subprojects/foreign-0.3-rs.wrap
-@@ -1,6 +1,7 @@
- [wrap-file]
--directory = foreign-0.3.1
--source_url = https://crates.io/api/v1/crates/foreign/0.3.1/download
--source_filename = foreign-0.3.1.tar.gz
--source_hash = 17ca1b5be8c9d320daf386f1809c7acc0cb09accbae795c2001953fa50585846
-+directory = foreign-0.3.2
-+source_url = https://crates.io/api/v1/crates/foreign/0.3.2/download
-+source_filename = foreign-0.3.2.tar.gz
-+source_hash = bec05eb9c07a3f66653535e5e50eb5eb935eb00d3bb7e06ea26a9d3a1d016182
- method = cargo
-+
-diff --git a/subprojects/glib-sys-0.21-rs.wrap b/subprojects/glib-sys-0.22-rs.wrap
-similarity index 13%
-rename from subprojects/glib-sys-0.21-rs.wrap
-rename to subprojects/glib-sys-0.22-rs.wrap
-index ea4d5f66a58..8177da567d3 100644
---- a/subprojects/glib-sys-0.21-rs.wrap
-+++ b/subprojects/glib-sys-0.22-rs.wrap
-@@ -1,6 +1,7 @@
- [wrap-file]
--directory = glib-sys-0.21.2
--source_url = https://crates.io/api/v1/crates/glib-sys/0.21.2/download
--source_filename = glib-sys-0.21.2.tar.gz
--source_hash = d09d3d0fddf7239521674e57b0465dfbd844632fec54f059f7f56112e3f927e1
-+directory = glib-sys-0.22.8
-+source_url = https://crates.io/api/v1/crates/glib-sys/0.22.8/download
-+source_filename = glib-sys-0.22.8.tar.gz
-+source_hash = 030967459f9f676851872c6304adea7825c6d462ec9b72554c733cf0c5952233
- method = cargo
-+
-diff --git a/subprojects/libc-0.2-rs.wrap b/subprojects/libc-0.2-rs.wrap
-index 6e225579795..2bdb7c1750b 100644
---- a/subprojects/libc-0.2-rs.wrap
-+++ b/subprojects/libc-0.2-rs.wrap
-@@ -1,10 +1,8 @@
- [wrap-file]
--directory = libc-0.2.162
--source_url = https://crates.io/api/v1/crates/libc/0.2.162/download
--source_filename = libc-0.2.162.tar.gz
--source_hash = 18d287de67fe55fd7e1581fe933d965a5a9477b38e949cfa9f8574ef01506398
-+directory = libc-0.2.189
-+source_url = https://crates.io/api/v1/crates/libc/0.2.189/download
-+source_filename = libc-0.2.189.tar.gz
-+source_hash = 3eaf3ede3fee6db1a4c2ee091bf8a8b4dccdc6d17f656fb07896ee72867612f2
- method = cargo
- patch_directory = libc-0.2-rs
- 
--# bump this version number on every change to meson.build or the patches:
--# v1
-diff --git a/subprojects/packagefiles/libc-0.2-rs/meson/meson.build b/subprojects/packagefiles/libc-0.2-rs/meson/meson.build
-index db9480ada1c..ba770a697f8 100644
---- a/subprojects/packagefiles/libc-0.2-rs/meson/meson.build
-+++ b/subprojects/packagefiles/libc-0.2-rs/meson/meson.build
-@@ -1,16 +1,4 @@
--extra_args += [
--    '--cfg', 'freebsd11',
--    '--cfg', 'libc_priv_mod_use',
--    '--cfg', 'libc_union',
--    '--cfg', 'libc_const_size_of',
--    '--cfg', 'libc_align',
--    '--cfg', 'libc_int128',
--    '--cfg', 'libc_core_cvoid',
--    '--cfg', 'libc_packedN',
--    '--cfg', 'libc_cfg_target_vendor',
--    '--cfg', 'libc_non_exhaustive',
--    '--cfg', 'libc_long_array',
--    '--cfg', 'libc_ptr_addr_of',
--    '--cfg', 'libc_underscore_const_names',
--    '--cfg', 'libc_const_extern_fn',
--]
-+extra_args += ['--cfg', 'freebsd12']
-+
-+# TODO: linux_time_bits64, file_offset_bits64, gnu_time_bits64 are still unstable for glibc
-+# as of libc 0.2.189
-diff --git a/subprojects/quote-1-rs.wrap b/subprojects/quote-1-rs.wrap
-index 5f38f56499e..c6360ceab43 100644
---- a/subprojects/quote-1-rs.wrap
-+++ b/subprojects/quote-1-rs.wrap
-@@ -1,9 +1,7 @@
- [wrap-file]
--directory = quote-1.0.36
--source_url = https://crates.io/api/v1/crates/quote/1.0.36/download
--source_filename = quote-1.0.36.0.tar.gz
--source_hash = 0fa76aaf39101c457836aec0ce2316dbdc3ab723cdda1c6bd4e6ad4208acaca7
-+directory = quote-1.0.47
-+source_url = https://crates.io/api/v1/crates/quote/1.0.47/download
-+source_filename = quote-1.0.47.tar.gz
-+source_hash = 1fbf4db142a473a8d80c26bbf18454ed458bf8d26c8219c331daecfdbd079001
- method = cargo
- 
--# bump this version number on every change to meson.build or the patches:
--# v2
-diff --git a/subprojects/unicode-ident-1-rs.wrap b/subprojects/unicode-ident-1-rs.wrap
-index 90aae02ba0a..2563f101d40 100644
---- a/subprojects/unicode-ident-1-rs.wrap
-+++ b/subprojects/unicode-ident-1-rs.wrap
-@@ -1,9 +1,7 @@
- [wrap-file]
--directory = unicode-ident-1.0.12
--source_url = https://crates.io/api/v1/crates/unicode-ident/1.0.12/download
--source_filename = unicode-ident-1.0.12.tar.gz
--source_hash = 3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b
-+directory = unicode-ident-1.0.24
-+source_url = https://crates.io/api/v1/crates/unicode-ident/1.0.24/download
-+source_filename = unicode-ident-1.0.24.tar.gz
-+source_hash = e6e4313cd5fcd3dad5cafa179702e2b244f760991f45397d14d4ebf38247da75
- method = cargo
- 
--# bump this version number on every change to meson.build or the patches:
--# v2
 -- 
 2.55.0
 
