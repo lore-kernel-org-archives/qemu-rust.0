@@ -4,77 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F487CA5FE0
-	for <qemu-rust@archiver.kernel.org>; Fri,  2 Oct 2026 10:24:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EAF9CA9EBB
+	for <qemu-rust@archiver.kernel.org>; Mon, 12 Oct 2026 03:54:03 +0000 (UTC)
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1xCaQp-0006Xv-Gq; Fri, 02 Oct 2026 06:23:59 -0400
+	id 1xG76m-000728-F6; Sun, 11 Oct 2026 23:53:52 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1xCaQn-0006Tz-Ft
- for qemu-rust@nongnu.org; Fri, 02 Oct 2026 06:23:57 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <berrange@redhat.com>)
- id 1xCaQl-0003pV-EB
- for qemu-rust@nongnu.org; Fri, 02 Oct 2026 06:23:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1790936634;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:in-reply-to:in-reply-to:  references:references;
- bh=GB2Lk5Uje/lT+zs14oyAOXXr/0vSNRRtjRKcbmLUuUQ=;
- b=TQfJRgrHWaYSG+7A6nUVl193l8KUrF3ZWjVAkLU/RXMHDIWdOArvLWLN+led2Lj6J3doui
- y5zoptRCyoJMWX7GJKKPRKx7nVbwq/Yz7TOrEP5Yb46pL+MNZjWu0JGseA/OB0YhWLWUlr
- 6cwdFgNG374BYrRdpb7sj1GcXqOhh6c=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-330-y0NuN1qyP0W6dQrG6GmSXw-1; Fri,
- 02 Oct 2026 06:23:51 -0400
-X-MC-Unique: y0NuN1qyP0W6dQrG6GmSXw-1
-X-Mimecast-MFC-AGG-ID: y0NuN1qyP0W6dQrG6GmSXw_1790936630
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 11103195BDE8; Fri,  2 Oct 2026 10:23:50 +0000 (UTC)
-Received: from redhat.com (headnet04.pony-001.prod.iad2.dc.redhat.com
- [10.2.32.116])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 4ED10180049F; Fri,  2 Oct 2026 10:23:47 +0000 (UTC)
-Date: Fri, 2 Oct 2026 11:23:45 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>, Tanish Desai <tanishdesai37@gmail.com>
-Subject: Re: [PULL 15/16] tracetool/ftrace: add Rust support
-Message-ID: <ar-GMXSnnVFzV59f@redhat.com>
-References: <20251001153059.194991-1-stefanha@redhat.com>
- <20251001153059.194991-16-stefanha@redhat.com>
+ (Exim 4.90_1) (envelope-from <asdfkwang@gmail.com>)
+ id 1xG4bU-00008G-DE
+ for qemu-rust@nongnu.org; Sun, 11 Oct 2026 21:13:24 -0400
+Received: from mail-pj1-x102f.google.com ([2607:f8b0:4864:20::102f])
+ by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <asdfkwang@gmail.com>)
+ id 1xG4bS-0008Kq-Qa
+ for qemu-rust@nongnu.org; Sun, 11 Oct 2026 21:13:24 -0400
+Received: by mail-pj1-x102f.google.com with SMTP id
+ 98e67ed59e1d1-3a4c47bb6e3so589747a91.1
+ for <qemu-rust@nongnu.org>; Sun, 11 Oct 2026 18:13:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791767601; x=1792372401; darn=nongnu.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=CyBAi07xKL3F76J4hKkaiJ9rZDEK3TAuDFlzJIZ6eW0=;
+ b=sARYvTcqCMJdXHZIduLNY5JRLjmmQL7s61IMr2wag8jDu5Lmgb5rKKu0clqqZjhd2M
+ 6MS3TL6hMowglRHTSx1/BadlHMDB3igvMJIW9jzPm5AwSSQ8Kh9kJiZuRdWaQK9nSyVj
+ mzjYzjh7UxXEBQYbF7Ykw67nR0TZtwDWkJbswXcN+5hv3221rOobnIotsKhYxJemv0XQ
+ OWxBPvgGhfURJ5ad/dUR05Fc6wyladOGGxBXoP6Fvymq1KSnszPk9rYzseQGO4pYJIvC
+ D/rSTVZZbAnLXwfvVTxQpIoWvPKWVZxn9u+gHmijwHh8OZgqrERbmhE6yGs7HYc3zfTs
+ O+qQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791767601; x=1792372401;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=CyBAi07xKL3F76J4hKkaiJ9rZDEK3TAuDFlzJIZ6eW0=;
+ b=MWDDb3a9f0wvL2cRrEmsmahr+GCQxymR4aEDmXoK2Z6MPv0f6Bg7Xvuc1b3s/0o36A
+ E4sI1FCLPE3Pz8eBA8saqWhJr85Jxf5dwVfggSWdj6XC1RwBSFo+PT0nyCEPA5m+u/5/
+ cozfbt/aMvpAY/EQ7zYEJPgSHRTz5bmUhZLHDT2AUBPtY/X1iohhw1/MiPL1jLTF5Jyt
+ DElHs0Uwbg7X+wrc03L7nVoXLSqzICMO+vKACk8KxskM/6isJsFsSM8PNjjnz/ObzsWd
+ 7bYD/VghZ08i+xoQCACxkOO6dj5pBAFH6LUdCiMQ5q1gvB5uPGoFWs0ERXqykJQRCSW8
+ Ih4w==
+X-Gm-Message-State: AFq9FYLQljm4jTHaMhxc8/inxFFw1Ov7ZmLzBx9f7XMU4khC8McqSz+o
+ PpQmKNbTMUJBJxnO4WuTgsXYmTKP/PbTEao1EFHJ0jy18zhu+DKv7NXbEYJETole28iV+Yw5
+X-Gm-Gg: AYBFou1ebBVU1WhSCWswgFbXKpWjA+XCWq7csqxhG9iToZyMqZXW+eE/w1j3KiofukK
+ bmTx7M1ankYpBkTCnbCd6y6qEmHxkH8AvzBTdtOejoQVidY3RyDPpBWWdjj9QgAgque1ZkTDPuq
+ ywL7kk/j9AQlwQG7DDxF5dWSJsmvQWzZFRhhP1HSCn1VINwPWQTg5snyTtN41NVWxOIIT1frKVL
+ k9EVCio5iYrisKSMBgis6q6xH8LpHZvYkQO2UB+zb1NOLwcIiHkCBPZrrPPMcGbG1DFtVLWYUpZ
+ jGATOLCtwktBg9ef22HW8ciTXuwXmjFW/TtqjF9wNY5BVbJ1FftOydjNRuuNoABs/VRdW7NNaGS
+ PUrsW95TCjRB+9+hruASi47mLb4E/3gfxvSupJXuCq+QwiKe+SWeUsp3FNUe4GQmfeR4ciJr05I
+ 6kzgpL+yq8hUkx7dNHKYJ9IB5zT+l5BxEUIBL2GXuGxjeAr4mNzeyytDhSKk5cchZ/aKAwUSVxT
+ KGb2AE5lr8=
+X-Received: by 2002:a17:90b:384c:b0:3a7:aa1c:476b with SMTP id
+ 98e67ed59e1d1-3ab3a747d90mr7878195a91.31.1791767600514; 
+ Sun, 11 Oct 2026 18:13:20 -0700 (PDT)
+Received: from localhost.localdomain ([169.211.140.146])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3abdd5d09aesm3785362a91.7.2026.10.11.18.13.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 11 Oct 2026 18:13:19 -0700 (PDT)
+From: Kwanghoon Son <asdfkwang@gmail.com>
+To: qemu-rust@nongnu.org
+Cc: qemu-devel@nongnu.org
+Subject: [QEMU Rust] Looking for beginner-friendly contribution opportunities
+Date: Sun, 11 Oct 2026 21:12:25 -0400
+Message-ID: <20261012011235.2947-1-asdfkwang@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-In-Reply-To: <20251001153059.194991-16-stefanha@redhat.com>
-User-Agent: Mutt/2.4.2 (2026-08-30)
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-MFC-PROC-ID: QRgi5uh0K7m2EqIxxfJXmAX-f-7eSpwrkJLShXMdL98_1790936630
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=berrange@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Spam_score_int: 9
-X-Spam_score: 0.9
-X-Spam_bar: /
-X-Spam_report: (0.9 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.331,
- DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_NONE=-0.0001, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
- RCVD_IN_SBL_CSS=3.335, SPF_HELO_PASS=-0.001,
- SPF_PASS=-0.001 autolearn=no autolearn_force=no
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=2607:f8b0:4864:20::102f;
+ envelope-from=asdfkwang@gmail.com; helo=mail-pj1-x102f.google.com
+X-Spam_score_int: -20
+X-Spam_score: -2.1
+X-Spam_bar: --
+X-Spam_report: (-2.1 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
+ DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, FREEMAIL_FROM=0.001,
+ RCVD_IN_DNSWL_NONE=-0.0001, SPF_HELO_NONE=0.001,
+ SPF_PASS=-0.001 autolearn=ham autolearn_force=no
 X-Spam_action: no action
+X-Mailman-Approved-At: Sun, 11 Oct 2026 23:53:50 -0400
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,145 +95,22 @@ List-Post: <mailto:qemu-rust@nongnu.org>
 List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 Errors-To: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
 
-AFAICT, this support for ftrace is incomplete.
+I'm interested in contributing to QEMU's Rust development.
 
-Building with:
+I have experience with Linux kernel development, embedded systems,
+and Rust, and I'd like to get more involved in QEMU.
 
-  ./configure --enable-trace-backends=ftrace  --enable-rust --target-list=x86_64-softmmu
+I've read the QEMU Rust development guide [1], and I'm wondering
+if there are any beginner-friendly contribution opportunities or
+a TODO list that I could start with.
 
-results in Rust build failures
+Any suggestions would be greatly appreciated!
 
-error[E0425]: cannot find function `ftrace_write` in module `bindings`
-   --> /home/berrange/src/virt/qemu/build/trace/trace-hw_char.rs:130:27
-    |
-130 | ...   unsafe {bindings::ftrace_write(format_string.as_ptr() as *const c_char, _desc.as_ptr(), _addr as std::ffi::c_int, _value as std::ff...
-    |                         ^^^^^^^^^^^^ not found in `bindings`
+Thanks,
+Kwang
 
-error[E0425]: cannot find function `ftrace_write` in module `bindings`
-   --> /home/berrange/src/virt/qemu/build/trace/trace-hw_char.rs:140:27
-    |
-140 | ...   unsafe {bindings::ftrace_write(format_string.as_ptr() as *const c_char, _desc.as_ptr(), _addr as std::ffi::c_int, _value as std::ff...
-    |                         ^^^^^^^^^^^^ not found in `bindings`
-
-
-and these errors occur on both today's git master HEAD, and all
-the way back to this first patch that claimed to support ftrace
-with Rust.
-
-Did some piece of supporting code go missing in the final
-pull request here ? 
-
-On Wed, Oct 01, 2025 at 11:30:58AM -0400, Stefan Hajnoczi wrote:
-> From: Tanish Desai <tanishdesai37@gmail.com>
-> 
-> Signed-off-by: Tanish Desai <tanishdesai37@gmail.com>
-> Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> Message-ID: <20250929154938.594389-16-pbonzini@redhat.com>
-> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-> ---
->  scripts/tracetool/backend/ftrace.py |  8 +++++-
->  tests/tracetool/ftrace.rs           | 40 +++++++++++++++++++++++++++++
->  tests/tracetool/tracetool-test.py   |  2 +-
->  3 files changed, 48 insertions(+), 2 deletions(-)
->  create mode 100644 tests/tracetool/ftrace.rs
-> 
-> diff --git a/scripts/tracetool/backend/ftrace.py b/scripts/tracetool/backend/ftrace.py
-> index 7ddd5d11a6..e03698a2ed 100644
-> --- a/scripts/tracetool/backend/ftrace.py
-> +++ b/scripts/tracetool/backend/ftrace.py
-> @@ -12,7 +12,7 @@
->  __email__      = "stefanha@redhat.com"
->  
->  
-> -from tracetool import out
-> +from tracetool import out, expand_format_string
->  
->  
->  PUBLIC = True
-> @@ -43,3 +43,9 @@ def generate_h(event, group):
->  def generate_h_backend_dstate(event, group):
->      out('    trace_event_get_state_dynamic_by_id(%(event_id)s) || \\',
->          event_id="TRACE_" + event.name.upper())
-> +
-> +def generate_rs(event, group):
-> +    out('        let format_string = c"%(fmt)s";',
-> +        '        unsafe {bindings::ftrace_write(format_string.as_ptr() as *const c_char, %(args)s);}',
-> +        fmt=expand_format_string(event.fmt),
-> +        args=event.args.rust_call_varargs())
-> diff --git a/tests/tracetool/ftrace.rs b/tests/tracetool/ftrace.rs
-> new file mode 100644
-> index 0000000000..07b9259cf2
-> --- /dev/null
-> +++ b/tests/tracetool/ftrace.rs
-> @@ -0,0 +1,40 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +// This file is @generated by tracetool, do not edit.
-> +
-> +#[allow(unused_imports)]
-> +use std::ffi::c_char;
-> +#[allow(unused_imports)]
-> +use util::bindings;
-> +
-> +#[inline(always)]
-> +fn trace_event_state_is_enabled(dstate: u16) -> bool {
-> +    (unsafe { trace_events_enabled_count }) != 0 && dstate != 0
-> +}
-> +
-> +extern "C" {
-> +    static mut trace_events_enabled_count: u32;
-> +}
-> +extern "C" {
-> +    static mut _TRACE_TEST_BLAH_DSTATE: u16;
-> +    static mut _TRACE_TEST_WIBBLE_DSTATE: u16;
-> +}
-> +
-> +#[inline(always)]
-> +#[allow(dead_code)]
-> +pub fn trace_test_blah(_context: *mut (), _filename: &std::ffi::CStr)
-> +{
-> +    if trace_event_state_is_enabled(unsafe { _TRACE_TEST_BLAH_DSTATE}) {
-> +        let format_string = c"Blah context=%p filename=%s";
-> +        unsafe {bindings::ftrace_write(format_string.as_ptr() as *const c_char, _context /* as *mut () */, _filename.as_ptr());}
-> +    }
-> +}
-> +
-> +#[inline(always)]
-> +#[allow(dead_code)]
-> +pub fn trace_test_wibble(_context: *mut (), _value: std::ffi::c_int)
-> +{
-> +    if trace_event_state_is_enabled(unsafe { _TRACE_TEST_WIBBLE_DSTATE}) {
-> +        let format_string = c"Wibble context=%p value=%d";
-> +        unsafe {bindings::ftrace_write(format_string.as_ptr() as *const c_char, _context /* as *mut () */, _value /* as std::ffi::c_int */);}
-> +    }
-> +}
-> diff --git a/tests/tracetool/tracetool-test.py b/tests/tracetool/tracetool-test.py
-> index f58f3b795e..3341fb18f9 100755
-> --- a/tests/tracetool/tracetool-test.py
-> +++ b/tests/tracetool/tracetool-test.py
-> @@ -14,7 +14,7 @@ def get_formats(backend):
->          "c",
->          "h",
->      ]
-> -    if backend in {"log", "simple"}:
-> +    if backend in {"ftrace", "log", "simple"}:
->          formats += ["rs"]
->      if backend == "dtrace":
->          formats += [
-> -- 
-> 2.51.0
-> 
-> 
-
-With regards,
-Daniel
--- 
-|: https://berrange.com       ~~        https://hachyderm.io/@berrange :|
-|: https://libvirt.org          ~~          https://entangle-photo.org :|
-|: https://pixelfed.art/berrange   ~~    https://fstop138.berrange.com :|
-
+[1] https://www.qemu.org/docs/master/devel/rust.html#writing-rust-code-in-qemu
 
