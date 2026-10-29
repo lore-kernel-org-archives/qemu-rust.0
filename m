@@ -1,149 +1,149 @@
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3796D606A31D
-	for <qemu-rust@archiver.kernel.org>; Wed, 28 Oct 2026 07:04:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716E3606A31A
+	for <qemu-rust@archiver.kernel.org>; Thu, 29 Oct 2026 00:21:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aFfwNPq8;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Tsgyr2qf
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cYGsK+Ed;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HwOoZ7PR
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1xLxhd-0000Wg-R4; Wed, 28 Oct 2026 03:04:05 -0400
+	id 1xMDtV-0004YL-DE; Wed, 28 Oct 2026 20:21:25 -0400
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@oss.qualcomm.com>)
- id 1xLxhU-0000Vu-UI
- for qemu-rust@nongnu.org; Wed, 28 Oct 2026 03:03:58 -0400
-Received: from mx0b-0031df01.pphosted.com ([205.220.180.131])
+ (Exim 4.90_1) (envelope-from <brian.cain@oss.qualcomm.com>)
+ id 1xMDtP-0004Xs-QB
+ for qemu-rust@nongnu.org; Wed, 28 Oct 2026 20:21:19 -0400
+Received: from mx0a-0031df01.pphosted.com ([205.220.168.131])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <philmd@oss.qualcomm.com>)
- id 1xLxhS-0008QN-Po
- for qemu-rust@nongnu.org; Wed, 28 Oct 2026 03:03:56 -0400
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ (Exim 4.90_1) (envelope-from <brian.cain@oss.qualcomm.com>)
+ id 1xMDtL-0001am-UB
+ for qemu-rust@nongnu.org; Wed, 28 Oct 2026 20:21:18 -0400
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69S6FCeb4171095
- for <qemu-rust@nongnu.org>; Wed, 28 Oct 2026 07:03:50 GMT
+ 69SMAR922428612
+ for <qemu-rust@nongnu.org>; Thu, 29 Oct 2026 00:21:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- xRthz2x/+bhwmNJmyf+SsJrR6PwpbO0anL/USUjEnRU=; b=aFfwNPq8skh5KjvW
- Zxl9f+RdNBQJFup5toz/rEeVjGMB1AKxsDifCeBcBGyhn++V2tNzIpes60ow5VtN
- /+kWmHlKWpLQaISIOmRCuC+K54Ydj/REAdz3zDs1YlrErmd5Hbegw6uOPmfHssN/
- sq1gsd0PvtjWBX+SJV4pXsM9pLBWTp0qtjNxqfdYbbX/cfCjCADF72ENg3cJrLgS
- y3q+h/KVg9kJOX1Ka/tvtSP08RxteMR7oG6NEfQ2kVl6s2CtGD7KbNiN/5nPd7a3
- havHhdM42w4LLleZ4AEjLJJaOkeaPzIttqA2kXJ3Rz7IIaAjY8OdMiCk5hdejcOE
- cvHAYA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk6be183q-1
+ nkkYXC5p6lGl4uzjt0PXOrSPF/3webam7xmRKJgWzlo=; b=cYGsK+Ed9HF1m4ZS
+ nWMypZO2c1YboT9j6uxf2yegEgQXZJgu+LyoyuAezWDLfOqdYuJIFTSFZaByWTMZ
+ Mb3seMDVhfu1aAcE16oC6Pm3ctz5bbFcSr5nVOMfrMzdco2nRfMIFjs7PzTA/F3d
+ WhLGF46fMiMkuDm/uR31blArsECPXQmd2ne9fa5TqAI039e0wlisqYotovQn6DFS
+ z9l7yD4K6gLjSirL27adpdv0XzNKatY0zoCk8MD9aIEAd8JpbP4YtFo6a/HQCk0Q
+ AJceL/8e1Cgk7U50vI9zF6LlMYi79NZAkZFcuH5zmlE3HFRxI/kpe4piUeXBzV8P
+ wR2DUw==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkbhwc3uq-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <qemu-rust@nongnu.org>; Wed, 28 Oct 2026 07:03:50 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-93f62934ef6so132215785a.3
- for <qemu-rust@nongnu.org>; Wed, 28 Oct 2026 00:03:50 -0700 (PDT)
+ for <qemu-rust@nongnu.org>; Thu, 29 Oct 2026 00:21:12 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-91c70349f65so34472146d6.3
+ for <qemu-rust@nongnu.org>; Wed, 28 Oct 2026 17:21:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793171030; x=1793775830; darn=nongnu.org;
- h=content-transfer-encoding:content-type:in-reply-to:from:references
- :cc:to:content-language:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=xRthz2x/+bhwmNJmyf+SsJrR6PwpbO0anL/USUjEnRU=;
- b=Tsgyr2qfKWBM0NB5Xlc0TZNM/Sv1HcqiubFYjbJ6p4OuDHc1+oTlQE0ozuSj+x9n1Y
- OKbqTx7RPeexDMgbyLCMCESxLc8N4E3i8V/SbRA0kuUG6ZD3eeqscjWc2qdHvLVAPZS5
- bOgWNXd/vByijJW0zozIb2Ob+XwbWfpu5K47N0KAiMbB29DKC/73KDKGEf8nbWTLnkK5
- 6ojG8x89on+x0MmU2j+hcPLj+zjxFLZ7EIVLBfEQgNmrdBCyfyfG4N8nLPoieSrQxGhH
- dn7xhREHQOekYJ+mT4FDUbccgKyKS4DOiiBqbuZGWlaO3KXJaWrbIXtgrlYSesIKoNkv
- jAwg==
+ d=oss.qualcomm.com; s=google; t=1793233271; x=1793838071; darn=nongnu.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=nkkYXC5p6lGl4uzjt0PXOrSPF/3webam7xmRKJgWzlo=;
+ b=HwOoZ7PRdfR6XxBH0MArG5ad2yY+gkj14NYOIlCI57MvdsaBFZGUYy3nZ/yx4jPj6Y
+ gTxkNFXKkBlJwqNAsDh/2q/GsSxaef1r5noK9H/kjKjnugXyqG7LBUz5F3s9CD/hqhF3
+ 2bqnsi4sYSg8ZEDqK8xVoethwXDefYap52DWi4L3MNlAS5gdtBWp4NZBSKlk6FIgZlDg
+ U6xl1Tk8BHb5kSioeVkbKg2Ms7K4JngHiDUxF5uk04ah8kfu8qVs4yjAhUJai0KF0ywu
+ Ycakg1//d9MXXaPThxpegPR/8EHw5RdgwpuU4QRoNJ+fqb0D4dQX1uJGsZVmg9Jp6oFr
+ zq+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793171030; x=1793775830;
- h=content-transfer-encoding:content-type:in-reply-to:from:references
- :cc:to:content-language:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20260707; t=1793233271; x=1793838071;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=xRthz2x/+bhwmNJmyf+SsJrR6PwpbO0anL/USUjEnRU=;
- b=fVdQxigxJC2gSMYljKV8MJayRjKKcmb6mC6syp6BKNWQOra4/53GzTdYinUuidcldU
- 5EvP5N56H7PP2XtyChdGYRxhXpmd5tEShywrc2vAaaS7zJYBHCZTdEOfsjM8r3MH4X8J
- C8nmdjCRJ/+J/QCFJlPMrpmB9fi8dvoPpJKjOkZlgi2QAzPhRllhpojk/rPAvGFuPBiG
- r2CqSD+IraizW3zB2pIBrxvkHeCB77AorZbKos+aaRQSHj2XQ5MJpPQYWUwBodam8QuP
- BLcDS9ObahtblZx2zfWWRyK5HQnrb19C73j6ys4ttBRTkfHYC93z6QtLaLCXmSdGy73V
- TSJg==
+ bh=nkkYXC5p6lGl4uzjt0PXOrSPF/3webam7xmRKJgWzlo=;
+ b=FzlCv/jigm04r0g9s4DX2ONm7w6M8qrzhT/z5hQmEqskT+Sd1m7J61r9YClsbFD+OL
+ eZCRuRz8NiQ+xZ/gC1DhXR3MeTHisBDF1913nYAJx3Oz6vlEb0xV2SNd6DZor1/2xmkK
+ aKn/MrbmR6dlOhvWKTG+gL4CHbE0MnEdfbCGXr1schuykRDTnVqpv/1EsFWLLFtNA0jO
+ ZpqasEf+n4UbPH7ih96oKznqPkXKf3I8H4M/MLTxTkARGLSuPD/OUyqRi7NMVfsIsyvF
+ Xc9RkCeDIN9yyXqKbR8L829evgsa4jv2v1jOLm/yeNOfPh7LGsh+wued880i0bOCCn0T
+ opqg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz/sfvqZPX2AxTvFvMRlwW25NunRZYCgqdKHAwWbD7LTd44uuRGVPioEslGC/2VsaXHil5IbNDAyqo=@nongnu.org
-X-Gm-Message-State: AFq9FYJTbv2k/JPW49c11VJAa3a8ATN68MDooTs008CHeCMDlkPARhIc
- QvEmB4wK+RZHqCowQdUZ0Qqbo2YHypbKk5YE1Tztxdvojjvkbsnu/iyA2q1Iw/lmkWMcssWHqD9
- Ld0vfLCIwNSz9A6uRbJXVfK9q+UcQ60KKhA9K1ZjOqzP2iYisUpxwd5Tp
-X-Gm-Gg: AYBFou0dYTw69/cm1obmfU83j+6PIdTml+OBAoBwEF7XIwxL8CmmsAGQ2CoXGkMZ6Fy
- 60yx/09IPehyRiiWWDltFGnYFwMGbq+E0uVzCigFgPQfhLfNF+MFCstp3/Re+KA5raBpSl9HLLh
- PQZVVM0hxjHNmkeqtelqgBCoPU9jrlWW0S8IrqQsRpM/XOXs954gLuqfAhP7CoyLXipgB6bLCok
- ioBnoErkwbku3rNYnsB1E3GDo/wK6cusB99LL5e5A22eCs+EcW4AtEygyYdAXUVus36Su0My+wF
- Evg/HfCRsz3SXdXq6Oya/OYFSHAgpwhUJ4x8Cvc8tzlttUI22TK1hnQ0q8k4qYHL7vN35u0Ig2k
- i9UPEqKqxAwdlPRGMjCB1RjOoSdzm9iqa4tI73Dawzq+evlZDc9XT1CKdhJ7Zo93N95qOBFxert
- QIUylC1uGFcnwSLIE1kpqcyqk=
-X-Received: by 2002:a05:620a:2a14:b0:93e:66e6:fa4 with SMTP id
- af79cd13be357-94408cf36f8mr189103985a.16.1793171029730; 
- Wed, 28 Oct 2026 00:03:49 -0700 (PDT)
-X-Received: by 2002:a05:620a:2a14:b0:93e:66e6:fa4 with SMTP id
- af79cd13be357-94408cf36f8mr189102785a.16.1793171029337; 
- Wed, 28 Oct 2026 00:03:49 -0700 (PDT)
-Received: from [192.168.69.229] (82-67-153-177.subs.proxad.net.
- [82.67.153.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a97c9f1403sm25392275e9.9.2026.10.28.00.03.48
+ AKwUvBwW1KponRXcPLkynzfkVWfXbdLt2lCLrrLyB4uPx8pk8WimoY0G89BKn8Bu43TiuwwYxJ9tm0jtqok=@nongnu.org
+X-Gm-Message-State: AFq9FYItE86WUMUlEgbA+LLOcuh9RB50j3rfevG1vbpZU6oIGTfOYvWX
+ ukpA4Pwl6rdfJ8dEvlW7EK2LPwEcKX3QDBTiULNjGUfnpJOHAvb7awUoCeGE9wy83N03+9P5wW/
+ WVUvNZq7FzLhO3T7QDfa5hw1ALNilqCMAo5KvFd0yTGnpj75qCSM1YcCM
+X-Gm-Gg: AYBFou2pCLojwf/nfN+BPkMLJ631+AVh/zS7iO7tabftyZJ1Cf7Hm89a0RGdlRJIxOe
+ ++m8b5+kYQURZld/uMDoWl5eog3AE+Fse04jyDnAOIVmFleW5CmcbLGf0Vhvs+K2XI17JtRPNJy
+ zxVnRC3IMrZkb/BXaAREPxKsOnR7WuNOAzxAuzeH3VbbRKbjyEAvjuP226iaMnmaB2oK1dW9hGE
+ lDIQVjfSoClSsekFq8Pp7jx4RsETEpFDqS2q6ypbSnT3ncWlvkauhX4flD4xvlghrYNXwUs37Z0
+ mgv1pYAzbn4aSMzjQCVzIAvN59Dpm5TV/oyqtB58MI3LQBbMkOiRHAvmlS+oBgfKGG5VxSAxXIZ
+ /6569ZXK0zUYgrIz0vQaX87/1/CV/Jw9gV0RoKRMt0NPYPexHG/BBlPln+r2FfMzJETX2mspmB4
+ av/jNs1kUoV0Z27M7K0i2xb3o5eRHgtRb9Qw==
+X-Received: by 2002:a05:6214:8617:b0:91c:711c:27f3 with SMTP id
+ 6a1803df08f44-91c7cf4a0eemr68083766d6.21.1793233270907; 
+ Wed, 28 Oct 2026 17:21:10 -0700 (PDT)
+X-Received: by 2002:a05:6214:8617:b0:91c:711c:27f3 with SMTP id
+ 6a1803df08f44-91c7cf4a0eemr68083436d6.21.1793233270328; 
+ Wed, 28 Oct 2026 17:21:10 -0700 (PDT)
+Received: from [10.248.104.162] (208.sub-174-237-64.myvzw.com.
+ [174.237.64.208]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-91c7db3dbcfsm32896346d6.38.2026.10.28.17.21.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Oct 2026 00:03:48 -0700 (PDT)
-Message-ID: <54c73c71-6ad7-47a9-98e6-893aa1b9e6f8@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 08:03:47 +0100
+ Wed, 28 Oct 2026 17:21:09 -0700 (PDT)
+Message-ID: <c980adde-e156-42b2-8cd2-3dae45e54feb@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 19:21:06 -0500
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] rust/chardev: fix write errors and add write watches
-Content-Language: en-US
-To: Brian Cain <brian.cain@oss.qualcomm.com>, qemu-devel@nongnu.org
+Subject: Re: [PATCH 0/3] hw/misc: QUP UART device
+To: Pierrick Bouvier <pierrick.bouvier@oss.qualcomm.com>, qemu-devel@nongnu.org
 Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>, qemu-rust@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>,
- Pierrick Bouvier <pierrick.bouvier@oss.qualcomm.com>
+ Paolo Bonzini <pbonzini@redhat.com>
 References: <20261027183823.383806-1-brian.cain@oss.qualcomm.com>
- <20261027183823.383806-3-brian.cain@oss.qualcomm.com>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>
-In-Reply-To: <20261027183823.383806-3-brian.cain@oss.qualcomm.com>
+ <c47cf1a7-15ba-46bb-8579-1b5a2367f2fd@oss.qualcomm.com>
+ <916816a7-a1ff-4c5d-805c-6cacad6c95f2@oss.qualcomm.com>
+ <59fa861d-a909-4b60-b1a2-c6f6eebc51fc@oss.qualcomm.com>
+Content-Language: en-US
+From: Brian Cain <brian.cain@oss.qualcomm.com>
+In-Reply-To: <59fa861d-a909-4b60-b1a2-c6f6eebc51fc@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: LP8kPy3mGQuSgWFetN32upSgobxOA8l7
-X-Authority-Analysis: v=2.4 cv=HeuB3SE8 c=1 sm=1 tr=0 ts=6ae19e56 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=nz36NW0qrpeEijYxj/H2Ew==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=iutzSQcAoqjh_2YZnUMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAyNyBTYWx0ZWRfXxCvOj+RmNG9M
- 7mxeXTY7BAoxSHWSAIT0TRGsPWWmRAKX1s0MgU9bRi8BdsSoSpzTtydM8OH5ymsaIC4S8kk5U98
- m2UmUXm2iUrHKjBPnBVesC2oevGlxxM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAyNyBTYWx0ZWRfX3AV8eysMedwZ
- eXvbXj13Y96fk8oD2e7NlCsiPKMS1Rr04RSsUPwOOTbT88F20t5sPsX1s5f9Qj9Qr645LGTcsjA
- adplf3P6VCJMAfpZXtof0t6CQi25NVT/RX8jqV1+7dJilpaRsosRCMtcHsZapAfoZyrEL/4T2SB
- fWZKNc2txr3Bf0FZzYSm/zpCMLOcznGD23ZgOjlbvE1OCJyI6Ec1yRVYtQoE1ZidPprhRlyvd69
- Gqm+89y+ZFUEG3POE4Q/xfO4gfehK6w0cZ3JB0qlc/5ugXWmi3f7AeMXRdNPclmJEj7RixswwPK
- 1wcsfkuW2SGKPKxyX9ELYQ6kzgJiGPT28N2IRnCPLNmZTAjEk/Y9pOHeYeBI/H+yyGHXlKFeMVl
- 1UXqneaf6WKUo/9AXshjDufg42gMyRt7ImX01gNCe9AZSAEvUT0tjRCAa2sZIZzsbV/dod6Yxh5
- aT/SQQ+t6m9sxHWxNhw==
-X-Proofpoint-GUID: LP8kPy3mGQuSgWFetN32upSgobxOA8l7
+X-Proofpoint-GUID: CVIMpuXf8JQkaV8mPAcKg89HMf7i-vNg
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAwMSBTYWx0ZWRfX50u4zVoW6cla
+ 3S907p/gcLFHoDTgAgVPpsLvwO0sepAldnSCh1OtrYIgHUz0l7tXNF5W3Z3J8bdrncFoFygIcAZ
+ 4dyd7OPSJnbIirdek/rOf2pzKzhhOs0=
+X-Authority-Analysis: v=2.4 cv=V+joQuni c=1 sm=1 tr=0 ts=6ae29178 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=jff3rsGav0cYookgkwt1wQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=DHpt-Luc1n_jbodHyxMA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-ORIG-GUID: CVIMpuXf8JQkaV8mPAcKg89HMf7i-vNg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAwMSBTYWx0ZWRfX95TjAX9aFQaA
+ KKW3fBbw+8bmiYx5cdWrSjMMw8K4fZfnd3xHr/QUMFuEZcZukKyoB/71x2Z6JdfK3FZr4AoiIuz
+ jvOEFB7FAUPo7hVo9Xml6uBNNbrKcbqfSTotkye/xPJGcT2VG9zfyvk5V9ewhJ9Ejv0lsRWfbym
+ Q2jE91uEk4hryEc9rVsbFjNvyHJNKH2UrSr7COerwiLWP2TbvZ1G1pL4TSSduCq6o0DFZE8FFLf
+ 6S1vQrWVyzzv/hxseHSaBPApHPxeJ+s7p84yzl6EF6UftD4EjTxi/EROhZMXqiscdBF+4U38qYb
+ J0AGcw5ER0AE5WlUZqo3Bg/+5MrPkjB3d3bM1uXF4W7DKsRbfJg7D9ZibGZDLMoh1kVwlac7jIW
+ v1jDnGWDwKyMsnaCZ+YhupEVlVj2QHISGyU3beq/D9hKWhTwzd+7a8zHUKmBPbvMRHq69ynPcA1
+ XgC5dcTrRnF4PMb0eTw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_02,2026-10-21_02,2025-10-01_01
+ definitions=2026-10-28_07,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 phishscore=0 impostorscore=0 bulkscore=0
- lowpriorityscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610280027
-Received-SPF: pass client-ip=205.220.180.131;
- envelope-from=philmd@oss.qualcomm.com; helo=mx0b-0031df01.pphosted.com
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 clxscore=1015 bulkscore=0
+ phishscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290001
+Received-SPF: pass client-ip=205.220.168.131;
+ envelope-from=brian.cain@oss.qualcomm.com; helo=mx0a-0031df01.pphosted.com
 X-Spam_score_int: -27
 X-Spam_score: -2.8
 X-Spam_bar: --
 X-Spam_report: (-2.8 / 5.0 requ) BAYES_00=-1.9, DKIM_SIGNED=0.1,
  DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, KHOP_DYNAMIC=0.001,
  RCVD_IN_DNSWL_LOW=-0.7, SPF_HELO_NONE=0.001,
- SPF_PASS=-0.001 autolearn=ham autolearn_force=no
+ SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -155,32 +155,85 @@ List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 27/10/26 19:38, Brian Cain wrote:
-> qemu_chr_fe_write() reports failure as -1 with the cause in errno, not
-> as a negated errno, so errno::into_io_result() turned every failure into
-> EPERM and a frontend could never see EAGAIN.  Build the error from
-> errno instead, in both CharFrontend::write() and the BQL-free variant.
-> 
-> Also add CharFrontend::add_write_watch() and remove_watch(), so that a
-> device whose backend would block can retry once it is writable again.
-> remove_watch() tolerates a source that the backend has already torn
-> down.
 
-Please split as 2 distinct patches. With that:
+On 10/27/2026 3:12 PM, Pierrick Bouvier wrote:
+> On 10/27/2026 12:02 PM, Brian Cain wrote:
+>> On 10/27/2026 1:43 PM, Pierrick Bouvier wrote:
+>>> On 10/27/2026 10:38 AM, Brian Cain wrote:
+>>>> Add the QUP + GENI uart device models.  The QUP is a "Universal
+>>>> Peripheral"
+>>>> present on Qualcomm SoCs, with connections for SPI, UART, I2C, I3C.  For
+>>>> now we're only interested in UART.
+>>>>
+>>>> Will follow up with a v2 including wiring into machines + qtest after
+>>>> https://lore.kernel.org/qemu-devel/20261027143721.4125584-1-
+>>>> brian.cain@oss.qualcomm.com/
+>>>> lands.
+>>>>
+>>>> Brian Cain (3):
+>>>>     hw/misc: add the QUP wrapper device
+>>>>     rust/chardev: fix write errors and add write watches
+>>>>     rust/hw/char: add QUP GENI UART device model
+>>>>
+>>>>    MAINTAINERS                                 |    3 +
+>>>>    docs/system/device-emulation.rst            |    1 +
+>>>>    docs/system/devices/qup.rst                 |   10 +
+>>>>    include/hw/misc/qup-wrapper.h               |   27 +
+>>>>    hw/misc/qup-wrapper.c                       |   90 ++
+>>>>    Cargo.lock                                  |   15 +
+>>>>    Cargo.toml                                  |    1 +
+>>>>    hw/misc/Kconfig                             |    3 +
+>>>>    hw/misc/meson.build                         |    3 +
+>>>>    rust/chardev/src/chardev.rs                 |   82 +-
+>>>>    rust/hw/char/Kconfig                        |    4 +
+>>>>    rust/hw/char/meson.build                    |    1 +
+>>>>    rust/hw/char/qup_geni_uart/Cargo.toml       |   27 +
+>>>>    rust/hw/char/qup_geni_uart/meson.build      |   28 +
+>>>>    rust/hw/char/qup_geni_uart/src/device.rs    | 1293 +++++++++++++++++++
+>>>>    rust/hw/char/qup_geni_uart/src/lib.rs       |    9 +
+>>>>    rust/hw/char/qup_geni_uart/src/registers.rs |  160 +++
+>>>>    17 files changed, 1741 insertions(+), 16 deletions(-)
+>>>>    create mode 100644 docs/system/devices/qup.rst
+>>>>    create mode 100644 include/hw/misc/qup-wrapper.h
+>>>>    create mode 100644 hw/misc/qup-wrapper.c
+>>>>    create mode 100644 rust/hw/char/qup_geni_uart/Cargo.toml
+>>>>    create mode 100644 rust/hw/char/qup_geni_uart/meson.build
+>>>>    create mode 100644 rust/hw/char/qup_geni_uart/src/device.rs
+>>>>    create mode 100644 rust/hw/char/qup_geni_uart/src/lib.rs
+>>>>    create mode 100644 rust/hw/char/qup_geni_uart/src/registers.rs
+>>>>
+>>> Any specific reason to have this implemented in Rust?
+>>>
+>>> Not a bad thing in itself, but it means it's only available with rust
+>>> builds, which can be a problem if a machine defined in C wants to use it
+>>> unconditionally. Rust is not (yet) a mandatory dep for QEMU.
+>> A new device model -> a brand new day -> a new frontier?
+>>
+>> It was an interesting challenge and seemed appropriate given the nice
+>> reference pl011 device.  But I will concede it can be impractical.
+>> Making this device conditionally enabled in the machine that uses it
+>> felt kinda "lame" and made me long for a day when it *was* a mandatory
+>> dependency.
+>>
+>> Seeing as how we have a pl011 device in C, maybe it's better to start
+>> with a C version of the QUP?  If so, that's okay with me.
+>>
+> If it's a mandatory device as part of a machine definition, it would
+> probably be better to stick to C for now.
+> I hope we can get Rust as a main dep at some point. I'm not sure what is
+> the criteria to do this change, out of deciding "let's do this".
 
-Reviewed-by: Philippe Mathieu-Daudé <philmd@oss.qualcomm.com>
+Hmm - so ... can I put in a vote for this, then?  Can "at some point" be 
+now?  What are the criteria?
 
-> Signed-off-by: Brian Cain <brian.cain@oss.qualcomm.com>
-> ---
->   rust/chardev/src/chardev.rs | 82 +++++++++++++++++++++++++++++--------
->   1 file changed, 66 insertions(+), 16 deletions(-)
 
+> Regards,
+> Pierrick
 
