@@ -1,69 +1,104 @@
 Received: from lists1p.gnu.org (lists1p.gnu.org [209.51.188.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C8A6606A31E
-	for <qemu-rust@archiver.kernel.org>; Tue, 24 Nov 2026 10:36:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2470606A31E
+	for <qemu-rust@archiver.kernel.org>; Wed, 25 Nov 2026 20:19:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LPlJaFxq
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gsnjeyJt
 Received: from localhost ([::1] helo=lists1p.gnu.org)
 	by lists1p.gnu.org with esmtp (Exim 4.90_1)
 	(envelope-from <qemu-rust-bounces@nongnu.org>)
-	id 1xVnsk-0001uM-71; Tue, 24 Nov 2026 05:36:14 -0500
+	id 1xWJSm-0001sJ-D3; Wed, 25 Nov 2026 15:19:32 -0500
 Received: from eggs.gnu.org ([2001:470:142:3::10])
  by lists1p.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1xVnsi-0001tS-GE; Tue, 24 Nov 2026 05:36:12 -0500
-Received: from mgamail.intel.com ([198.175.65.19])
+ (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1xWJSl-0001rz-Ei
+ for qemu-rust@nongnu.org; Wed, 25 Nov 2026 15:19:31 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.90_1) (envelope-from <zhao1.liu@intel.com>)
- id 1xVnsg-0003F8-2r; Tue, 24 Nov 2026 05:36:11 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795516570; x=1827052570;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=1nunOaCofKheZ39A20r7xO5iVAxgTA5Vsl/6aqQpx78=;
- b=LPlJaFxqKKeESOfqKCIanH51SeIC53Ss37s1s0KHO348yRSsxqInHGv5
- 4e8DfGNzIsuMVC6A2WZdf8IPeckFX1DXCMh2ebY7sF0CdzDoqAqOrTLqF
- mcHGqfkXUqh9nSORiuhMarj3lJ/xLBr4ep1SMf8LDYcsLtNN6jEKe0D/4
- KTc6RaGVF0RkPZO+9DWY7GGbIUj9R1B30QaLPac6bwAIbx8s1nEW8ilX/
- kAibTG5RT0XRPb0pRNE7MFk21g7/cqdpPtimmHChbhdgNCILF8E5+mbCk
- /8r9VTa+x36D4QuRwOhcRX1SabY9PsJXHciYdKD8DsPalPpk/RI2FD5Nz w==;
-X-CSE-ConnectionGUID: DzVUJ+crSeSd9eacpXxjZg==
-X-CSE-MsgGUID: zw0H50OXT8O80VqO2h+JXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4401954"
-X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
-   d="scan'208";a="4401954"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 02:36:06 -0800
-X-CSE-ConnectionGUID: 1qSAT6IaTNuyy5stn/c8kg==
-X-CSE-MsgGUID: vLoyiNA3QxK913Ry8FOyuA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; d="scan'208";a="11519695"
-Received: from zhaoliu1-desk.sh.intel.com ([10.112.226.173])
- by orviesa007.jf.intel.com with ESMTP; 24 Nov 2026 02:36:05 -0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
+ (Exim 4.90_1) (envelope-from <peterx@redhat.com>) id 1xWJSj-0008Uq-Hg
+ for qemu-rust@nongnu.org; Wed, 25 Nov 2026 15:19:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1795637968;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=izEtoT+OZdkDPh5u31/3qnEoz7/vLRDgp5RQGjBrFcg=;
+ b=gsnjeyJtWkkzSlCzbGcJKJtf0ssp2kNoLezZpEFwp3thbMwIQ9/urnY2jYt4AOZ8SO3RNP
+ RN6ZcA1BR3/t38UIb7MQQuz+JejZQy8QuK4NRQVZMlD/ZBkHUovqgdpZJtdRyIyrjF0gwA
+ 7+Tc/xT8syCw3gRYrdTMqlfb2/Rqou4=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-386-gi3yp-xEPYmaFKgkOv67oA-1; Wed, 25 Nov 2026 20:19:24 +0000
+X-MC-Unique: gi3yp-xEPYmaFKgkOv67oA-1
+X-Mimecast-MFC-AGG-ID: gi3yp-xEPYmaFKgkOv67oA_1795637964
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-9213237a52eso105051446d6.1
+ for <qemu-rust@nongnu.org>; Wed, 25 Nov 2026 12:19:24 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795637964; x=1796242764;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=izEtoT+OZdkDPh5u31/3qnEoz7/vLRDgp5RQGjBrFcg=;
+ b=tjEN/9KrOrA+B7g690aojZiBsNbIqf1Q7unQHerHogXopFHcMG4ZLYkP1w8a35vGOV
+ J69WZUBbCY7Z6h53dq2a9x2U/t2KoK1fad+nGxZRKa+CNPXXQ9V/KMhOp3IgV5mEfzE0
+ HklfUGRltJVrDjIUf3cKXlSQbn+1+GcxiB8/1gtA7ClbZu1J3DtLKf+WJv4RO4ZPdeOW
+ he27X4mopZVfWPSmpuhDOqduU89j6/AE5Df/jm786SseBcu4J7m+s5vQNu6WHTz0Ll6+
+ lbJ5B99MxHHwo1K6ZfGe4gdY2aaCjmQMhRTG6t8VAtHjFI0dPslplDxnEQiEHiYK4cp7
+ liKg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFkAOKrPgdPwCjNl2jqvtLKAuInX6v9vUPipezCdUpVg+tVNZsdPghME3mKB38lqSTK3wrYCgBDGkE=@nongnu.org
+X-Gm-Message-State: APuU4Z9KLj/o1haOBuI72qVoJXhU3WnXiFNYqRhaK9+u23jroe4i9oCG
+ fFXUaG/cgx+a2XAqMyemMo+u0xuSa6nMFci0kOsQYI1YmrKg2+jc0uSgteFvMQdeBtpBYLX67Sl
+ FEGpFbczWeNYvqn2r9M+3KEHdakuCNKT4IlyoR01hJHB1nqlHtb8A9KY=
+X-Gm-Gg: AZFdTZdZNTAyfFB5Wl0KIn2WCWNKTc3WOEs+3YbvnBPQHPhjkUUUaaSlWjYUFO/R9Lh
+ 7TWLEE+DqiBcLK+i7Bjg1USWDqRApUDY7N6Ih5d2Qdto6mW/Pxpi+ZBsxr5brq8zmB2D4iDH3s8
+ 7EudTo/Cylcyq8WRoKXuu+yZkzTqEL/iwhwiydQlG++K+brRD683LtzSOCyqV9WckajhIEDPJwq
+ Aub+xHtZZTmeCz3dt3C+ijje8u9webRgZ9YEzzqGGHDHGGiuMBw7uhk92fAVK7FVmbgATv3aI1o
+ haAUETB5GGTnVfn3NcIlHslQN2LCoj/XqvC/74nBXlN5Z1JbYpYuO9DRNn+ZmAmCiwzxsOHTeRy
+ bwyNTE4UFLMFKS5fqM+uBfm6as3MhRAQpVeNpWcKogU3K
+X-Received: by 2002:ad4:5cc7:0:b0:921:e08:1d9d with SMTP id
+ 6a1803df08f44-92134b93acbmr370597726d6.49.1795637963983; 
+ Wed, 25 Nov 2026 12:19:23 -0800 (PST)
+X-Received: by 2002:ad4:5cc7:0:b0:921:e08:1d9d with SMTP id
+ 6a1803df08f44-92134b93acbmr370597186d6.49.1795637963319; 
+ Wed, 25 Nov 2026 12:19:23 -0800 (PST)
+Received: from localhost ([142.188.212.246]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-92134796329sm168896296d6.2.2026.11.25.12.19.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Nov 2026 12:19:22 -0800 (PST)
+Date: Wed, 25 Nov 2026 15:19:21 -0500
+From: Peter Xu <peterx@redhat.com>
+To: Zhao Liu <zhao1.liu@intel.com>
+Cc: Peter Maydell <peter.maydell@linaro.org>, Fabiano Rosas <farosas@suse.de>,
+ Paolo Bonzini <pbonzini@redhat.com>,
  Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
-Cc: qemu-devel@nongnu.org, qemu-rust@nongnu.org, Zhao Liu <zhao1.liu@intel.com>
-Subject: [PATCH] rust: Fix `make rustfmt` failure
-Date: Tue, 24 Nov 2026 18:35:54 +0800
-Message-Id: <20261124103554.465545-1-zhao1.liu@intel.com>
-X-Mailer: git-send-email 2.34.1
+ qemu-devel@nongnu.org, qemu-rust@nongnu.org
+Subject: Re: [PATCH 0/3] rust/migration: Remove vmstate_validate!() and
+ VMS_MUST_EXIST
+Message-ID: <awdCybZxgVqT0VsE@zhexu-thinkpadt14gen5.rmtcaon.csb>
+References: <20261124095814.437738-1-zhao1.liu@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+In-Reply-To: <20261124095814.437738-1-zhao1.liu@intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: VsvBnKjp2uvTxrj9UufcAtQ4WXfu7c_7uKLgjWotvq4_1795637964
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=198.175.65.19; envelope-from=zhao1.liu@intel.com;
- helo=mgamail.intel.com
-X-Spam_score_int: -43
-X-Spam_score: -4.4
-X-Spam_bar: ----
-X-Spam_report: (-4.4 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=peterx@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
+X-Spam_score_int: -27
+X-Spam_score: -2.8
+X-Spam_bar: --
+X-Spam_report: (-2.8 / 5.0 requ) BAYES_00=-1.9, DKIMWL_WL_HIGH=-0.001,
  DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1,
- RCVD_IN_DNSWL_MED=-2.3, SPF_HELO_NONE=0.001,
- SPF_NONE=0.001 autolearn=ham autolearn_force=no
+ RCVD_IN_DNSWL_LOW=-0.7, RCVD_IN_MSPIKE_H3=0.001, RCVD_IN_MSPIKE_WL=0.001,
+ SPF_HELO_PASS=-0.001, SPF_PASS=-0.001 autolearn=unavailable autolearn_force=no
 X-Spam_action: no action
 X-BeenThere: qemu-rust@nongnu.org
 X-Mailman-Version: 2.1.29
@@ -75,51 +110,37 @@ List-Help: <mailto:qemu-rust-request@nongnu.org?subject=help>
 List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-rust>,
  <mailto:qemu-rust-request@nongnu.org?subject=subscribe>
 Sender: qemu-rust-bounces+qemu-rust=archiver.kernel.org@nongnu.org
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-At present, `make rustfmt` triggers the following error:
+On Tue, Nov 24, 2026 at 05:58:11PM +0800, Zhao Liu wrote:
+> Hi,
+> 
+> This simple series is based on Peter Xu's series [*] and mainly refines
+> patch 5 — removing `vmstate_validate!()` from Rust HPET (while
+> maintaining consistency logic with C HPET as much as possible).
+> 
+> I originally planned to use a single patch, but breaking it up this way
+> makes it easier to review. I suppose these three small patches could
+> also replace Peter's patch 5 :-).
+> 
+> There is also some cleanup work left (e.g., support post_load_errp() in
+> Rust); I will address this in some separate patch later (without
+> blocking the current effort to remove `vmstate_validate!()`).
+> 
+> [*]: https://lore.kernel.org/qemu-devel/20261120124923.1656220-6-peterx@redhat.com/
 
-[0/1] Running external command rustfmt (wrapped by meson to set env)
-Failed to find targets
-This utility formats all bin and lib files of the current crate using rustfmt.
-...
-FAILED: meson-internal__rustfmt
+I'll carry this series too while reposting mine just to make it complete;
+feel free to repost / address comments concurrently from other Rust
+developers, we'll figure out how it lands.
 
-Since commit 6d28fc60891f moved Cargo.toml to the top-level source
-directory, rust/ is neither the workspace root nor a package
-directory. Now "cargo fmt" only formats the package in the current
-directory, so running it from rust/ (i.e. @CURRENT_SOURCE_DIR@) finds no
-targets.
+Thanks again for sending!
 
-So fix this by specifying the project source root (where Cargo.toml is),
-just like CI did in commit 6d28fc60891f.
-
-Fixes: 6d28fc60891f ("rust: switch to cargo subprojects")
-Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
----
- rust/meson.build | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/rust/meson.build b/rust/meson.build
-index c0c4e52c1b0c..08edbd50ad11 100644
---- a/rust/meson.build
-+++ b/rust/meson.build
-@@ -30,7 +30,7 @@ cargo = find_program('cargo', required: false)
- if cargo.found()
-   run_target('rustfmt',
-     command: [config_host['MESON'], 'devenv',
--              '--workdir', '@CURRENT_SOURCE_DIR@',
-+              '--workdir', meson.project_source_root(),
-               cargo, 'fmt'],
-     depends: genrs)
- endif
 -- 
-2.34.1
+Peter Xu
 
 
